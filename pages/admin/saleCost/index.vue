@@ -263,7 +263,7 @@ export default {
       return totalStockValue;
     },
     grandSaleDiscountTotal() {
-      const totalStockValue = this.loaddata.reduce((total, item) => {
+      const totalStockValue = this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
         return total + item.discount;
       }, 0);
       return totalStockValue;

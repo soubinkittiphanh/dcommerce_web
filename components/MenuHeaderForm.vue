@@ -179,13 +179,13 @@ export default {
         },
         async loadMenuLine() {
             console.log(`===> Update form record load`);
-            if (this.recordId && !this.isCreate) {
+            // if (this.recordId && !this.isCreate) {
                 await this.$axios.get(`api/menuLine/find`).then(response => {
                     this.menuLineList = response.data
                 }).catch(error => {
                     console.log("Cannot fetch data " + error);
                 })
-            }
+            // }
 
         },
         refreshData() {

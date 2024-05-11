@@ -389,8 +389,8 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8009' // ***PRODUCTION JNONG*** 
   // const baseURL = 'http://150.95.31.23:8010' // ***PRODUCTION PEEAIR2024*** 
   // const baseURL = 'http://150.95.31.23:8011' // ***PRODUCTION Little boutique2024*** 
-  // const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
-  const baseURL = 'http://150.95.31.23:8101' // ***PRODUCTION Woody*** 
+  const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
+  // const baseURL = 'http://150.95.31.23:8101' // ***PRODUCTION Woody*** 
   // const baseURL = 'http://150.95.31.23:8004' // ***ONLINE UAT*** 
   // return baseURL;
   // let baseURL = `http://150.95.31.23:${process.env.API_PORT}`;
@@ -426,12 +426,12 @@ export const mainCompanyInfo = () => {
     // imageName: '',
     // env: ''
 
-    // name: 'Tonoo',
-    // tel: '02023378899',
-    // whatsapp: '+8562023378899',
-    // imageUrl: '',
-    // imageName: '',
-    // env: ''
+    name: 'Tonoo',
+    tel: '02023378899',
+    whatsapp: '+8562023378899',
+    imageUrl: '',
+    imageName: '',
+    env: ''
 
     // name: 'Little boutique',
     // tel: '020 58715651',
@@ -439,12 +439,12 @@ export const mainCompanyInfo = () => {
     // name: 'Woody3',
     // tel: '020 29809752',
 
-    name: 'DEMO',
-    tel: '020 9999999',
-    whatsapp: '+8562023378899',
-    imageUrl: '',
-    imageName: '',
-    env: ''
+    // name: 'DEMO',
+    // tel: '020 9999999',
+    // whatsapp: '+8562023378899',
+    // imageUrl: '',
+    // imageName: '',
+    // env: ''
   }
   return info;
 }

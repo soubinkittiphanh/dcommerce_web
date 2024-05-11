@@ -98,12 +98,18 @@ export default {
           // required: true,
           // type: 'Bearer'
         },
+        refreshToken: {
+          property: 'refreshToken',
+          data: 'refreshToken',
+          maxAge: 60 * 60 * 24 * 30
+        },
         user: {
           property: 'user',
           // autoFetch: true
         },
         endpoints: {
           login: { url: 'userLogin', method: 'post' },
+          refresh: { url: '/api/auth/refresh', method: 'post' },
           logout: { url: 'logout', method: 'get' },
           user: { url: 'me', method: 'get' },
         }
