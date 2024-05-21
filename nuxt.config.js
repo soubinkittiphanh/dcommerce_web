@@ -129,14 +129,14 @@ export default {
       // dark: true,
       themes: {
         light: {
-          // primary: '#01532B', //DCOMMERCE green
-          // secondary: '#337555', 
-          // lightprimary: '#80a995',
-          // danger: '#D00505',
-          primary: '#EA9AB2', //Woody3 pink
-          secondary: '#E27396', 
-          lightprimary: '#FFDBE5',
+          primary: '#01532B', //DCOMMERCE green
+          secondary: '#337555', 
+          lightprimary: '#80a995',
           danger: '#D00505',
+          // primary: '#EA9AB2', //Woody3 pink
+          // secondary: '#E27396', 
+          // lightprimary: '#FFDBE5',
+          // danger: '#D00505',
         },
         // dark: {
         //   primary: '#01532B',

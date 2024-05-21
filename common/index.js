@@ -364,6 +364,11 @@ font-size: 12px;
 float: right;
 font-size: 12px;
 }
+.price-footer {
+float: right;
+font-size: 14px;
+font-weight: bold;
+}
 .price-total {
 float: right;
 }
@@ -382,14 +387,14 @@ export const hostName = () => {
   // const baseURL = 'http://localhost:8888' // ***LOCAL UAT*** 
   // const baseURL = 'http://192.168.8.112:8888' // ***LOCAL UAT*** 
   // const baseURL = 'http://192.168.1.8:8888' // ***LOCAL UAT*** 
-  // const baseURL = 'http://150.95.31.23:8003' // ***PRODUCTION CHITHANH*** 
+  const baseURL = 'http://150.95.31.23:8003' // ***PRODUCTION CHITHANH*** 
   // const baseURL = 'http://150.95.31.23:8006' // ***PRODUCTION laofriend*** 
   // const baseURL = 'http://150.95.31.23:8012' // ***DEMO*** 
   // const baseURL = 'http://150.95.31.23:8005' // ***PRODUCTION OBEE*** 
   // const baseURL = 'http://150.95.31.23:8009' // ***PRODUCTION JNONG*** 
   // const baseURL = 'http://150.95.31.23:8010' // ***PRODUCTION PEEAIR2024*** 
   // const baseURL = 'http://150.95.31.23:8011' // ***PRODUCTION Little boutique2024*** 
-  const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
+  // const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
   // const baseURL = 'http://150.95.31.23:8101' // ***PRODUCTION Woody*** 
   // const baseURL = 'http://150.95.31.23:8004' // ***ONLINE UAT*** 
   // return baseURL;
@@ -419,19 +424,19 @@ export const mainCompanyInfo = () => {
     // tel: '02091993749',
     // whatsapp: '+8562091993749',
 
-    // name: 'CHITHANH',
-    // tel: '02023378899',
-    // whatsapp: '+8562023378899',
-    // imageUrl: '',
-    // imageName: '',
-    // env: ''
-
-    name: 'Tonoo',
+    name: 'CHITHANH',
     tel: '02023378899',
     whatsapp: '+8562023378899',
     imageUrl: '',
     imageName: '',
     env: ''
+
+    // name: 'Tonoo',
+    // tel: '02023378899',
+    // whatsapp: '+8562023378899',
+    // imageUrl: '',
+    // imageName: '',
+    // env: ''
 
     // name: 'Little boutique',
     // tel: '020 58715651',

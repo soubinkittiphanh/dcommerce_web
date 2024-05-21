@@ -135,7 +135,7 @@
 
     <!-- ************** => Drawer Rigth ************** -->
     <v-navigation-drawer app right clipped width="450" fixed>
-      <div style="height: 100%; position: relative">
+      <div style="position: relative">
         <!-- ************** => Ticket Header menu ************** -->
         <v-row align="center" class="pa-2">
           <v-col cols="2">
@@ -225,77 +225,91 @@
           </v-simple-table>
         </v-card>
         <!-- ************** Order Item list <= ************** -->
-        <!-- ************** => Ticket order footer ************** -->
-        <div
-          style="
-            position: absolute;
-            bottom: 0px;
-            width: 100%;
-            height: min-content;
-          "
-        >
-          <v-divider class="mb-1"></v-divider>
-          <div>
-            <v-text-field
-              :rules="priceRule"
-              v-model.number="discount"
-              label="ສ່ວນຫລຸດ"
-              filled
-              rounded
-              dense
-            ></v-text-field>
-            <v-list-item>
-              <h3>ລວມ:</h3>
-              <v-spacer></v-spacer>
-              <v-chip
-                v-for="item in currencyList"
-                :key="item.id"
-                class="ma-2"
-                color="green"
-                text-color="white"
-              >
-                {{ item.code }}
-                {{ formatNumber((grandTotal - discount) / item.rate) }}
-              </v-chip>
-            </v-list-item>
-          </div>
-          <v-divider class="mb-1"></v-divider>
-          <v-row>
-            <v-col :cols="12">
-              <div class="row">
-                <div
-                  v-for="(item, index) in paymentList"
-                  :key="index"
-                  class="col-12 col-md-3 col-sm-6 col-xs-6 text-center"
-                >
-                  <PaymentCard
-                    :id="item.id"
-                    :title="item.payment_code"
-                    :icon="item.icon"
-                    :path="item.path"
-                  >
-                    <template v-slot:iconSlot>
-                      <img :src="svgIcon" height="20" />
-                    </template>
-                  </PaymentCard>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-          <v-card-actions>
-            <v-btn
-              rounded
-              color="primary"
-              block
-              large
-              @click="postTransaction(false)"
-            >
-              <v-icon size="25" left> mdi-cash-100 </v-icon> PAY
-            </v-btn>
-          </v-card-actions>
-        </div>
-        <!-- **************  Ticket order footer <= ************** -->
       </div>
+      <!-- ************** => Ticket order footer ************** -->
+      <div
+        style="
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          /* height: 20%; */
+          border: 1px solid blue;
+          background-color: white;
+        "
+      >
+        <v-divider class="mb-1"></v-divider>
+        <div>
+
+          <img
+          :src="!showCheckOut ? upSvg : downSvg"
+          height="20"
+          style="text-align: center"
+          @click="showCheckOut = !showCheckOut"
+          />
+          ສ່ວນຫລຸດ
+          <v-text-field
+            style="border: 1px solid green"
+            v-model.number="discount"
+            placeholder="ສ່ວນຫລຸດ"
+            filled
+            rounded
+            dense
+            hide-details="auto"
+          ></v-text-field>
+          <!-- </v-row> -->
+          <v-list-item>
+            <h4>ລວມ:</h4>
+            <v-spacer></v-spacer>
+            <v-chip
+              v-for="item in currencyList"
+              :key="item.id"
+              class="ma-2"
+              color="green"
+              text-color="white"
+            >
+              {{ item.code }}
+              {{ formatNumber((grandTotal - discount) / item.rate) }}
+            </v-chip>
+          </v-list-item>
+        </div>
+        <v-divider class="mb-1"></v-divider>
+        <v-row v-if="showCheckOut">
+          <v-col :cols="12">
+            <div class="row">
+              <div
+                v-for="(item, index) in paymentList"
+                :key="index"
+                class="col-2 col-md-3 col-sm-6 col-xs-6 text-center ma-0"
+              >
+                <!-- Default payment button -->
+                <!--  class="col-12 col-md-3 col-sm-6 col-xs-6 text-center" -->
+                <PaymentCard
+                  :id="item.id"
+                  :title="item.payment_name"
+                  :icon="item.icon"
+                  :path="item.path"
+                >
+                  <template v-slot:iconSlot>
+                    <img :src="svgIcon" height="20" />
+                  </template>
+                </PaymentCard>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-btn
+            rounded
+            color="primary"
+            block
+            large
+            @click="postTransaction(false)"
+          >
+            <v-icon size="25" left> mdi-cash-100 </v-icon> PAY
+          </v-btn>
+        </v-card-actions>
+      </div>
+      <!-- **************  Ticket order footer <= ************** -->
     </v-navigation-drawer>
     <!-- ************** Drawer Rigth <= ************** -->
   </v-app>
@@ -319,6 +333,9 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
+      upSvg: require('~/assets/icons/dcommerce/up.svg'),
+      downSvg: require('~/assets/icons/dcommerce/down.svg'),
+      showCheckOut: true,
       productPricingSelected: null,
       pricingDialogKey: 1,
       pricingDialog: false,
@@ -674,21 +691,21 @@ export default {
         totalHtml += `
                 <div class="ticket">
                     <div class="product-name"></div>
-                <div class="price">${iterator.code} ${this.formatNumber(
+                <div class="price-footer">${iterator.code} ${this.formatNumber(
           (this.grandTotal - this.discount) / iterator.rate
         )}</div>
             </div>
                 `
       }
       //******* Currency hard code for TONOO SHOP ONLY****** */
-      totalHtml = `
-                <div class="ticket">
-                    <div class="product-name"></div>
-                <div class="price">THB ${this.formatNumber(
-                  this.grandTotal - this.discount
-                )}</div>
-            </div>
-                `
+      // totalHtml = `
+      //           <div class="ticket">
+      //               <div class="product-name"></div>
+      //           <div class="price">THB ${this.formatNumber(
+      //             this.grandTotal - this.discount
+      //           )}</div>
+      //       </div>
+      //           `
       //******* Currency hard code for TONOO SHOP ONLY****** */
       const windowContent = `
          ${this.ticketCommon.header}
