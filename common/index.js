@@ -394,7 +394,8 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8009' // ***PRODUCTION JNONG*** 
   // const baseURL = 'http://150.95.31.23:8010' // ***PRODUCTION PEEAIR2024*** 
   // const baseURL = 'http://150.95.31.23:8011' // ***PRODUCTION Little boutique2024*** 
-  const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
+  const baseURL = 'http://150.95.31.23:8014' // ***Demo 1*** 
+  // const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
   // const baseURL = 'http://150.95.31.23:8101' // ***PRODUCTION Woody*** 
   // const baseURL = 'http://150.95.31.23:8004' // ***ONLINE UAT*** 
   // return baseURL;
