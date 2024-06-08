@@ -432,12 +432,12 @@ export const mainCompanyInfo = () => {
     // imageName: '',
     // env: ''
 
-    name: 'Tonoo',
-    tel: '02023378899',
-    whatsapp: '+8562023378899',
-    imageUrl: '',
-    imageName: '',
-    env: ''
+    // name: 'Tonoo',
+    // tel: '02023378899',
+    // whatsapp: '+8562023378899',
+    // imageUrl: '',
+    // imageName: '',
+    // env: ''
 
     // name: 'Little boutique',
     // tel: '020 58715651',
@@ -445,12 +445,12 @@ export const mainCompanyInfo = () => {
     // name: 'Woody3',
     // tel: '020 29809752',
 
-    // name: 'DEMO',
-    // tel: '020 9999999',
-    // whatsapp: '+8562023378899',
-    // imageUrl: '',
-    // imageName: '',
-    // env: ''
+    name: 'DEMO',
+    tel: '020 9999999',
+    whatsapp: '+8562023378899',
+    imageUrl: '',
+    imageName: '',
+    env: ''
   }
   return info;
 }
