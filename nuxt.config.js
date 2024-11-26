@@ -1,5 +1,5 @@
 
-import { hostName,mainCompanyInfo } from './common'
+import { hostName,mainCompanyInfo } from './common/api'
 export default {
   server: {
     host: '0.0.0.0'
