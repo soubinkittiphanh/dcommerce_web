@@ -1,5 +1,5 @@
 
-import { hostName,mainCompanyInfo } from './common'
+import { hostName,mainCompanyInfo } from './common/api'
 export default {
   server: {
     host: '0.0.0.0'
@@ -116,10 +116,10 @@ export default {
       }
     },
     redirect: {
-      login: '/backend',
+      login: '/admin/login',
       logout: false,
-      callback: '/bankend',
-      home: '/backend/home',
+      callback: '/admin/login',
+      home: '/admin/login',
     }
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -129,19 +129,14 @@ export default {
       // dark: true,
       themes: {
         light: {
-          // primary: '#01532B', //DCOMMERCE green
-          // secondary: '#337555', 
-          // lightprimary: '#80a995',
-          // danger: '#D00505',
+          primary: '#01532B', //DCOMMERCE green
+          secondary: '#337555', 
+          lightprimary: '#80a995',
+          danger: '#D00505',
           // primary: '#EA9AB2', //Woody3 pink
           // secondary: '#E27396', 
           // lightprimary: '#FFDBE5',
           // danger: '#D00505',
-
-          primary: '#b48811', //JOHUD
-          secondary: '#ebd197', 
-          lightprimary: '#a2790d',
-          danger: '#bb9b49',
         },
         // dark: {
         //   primary: '#01532B',

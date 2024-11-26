@@ -22,12 +22,12 @@
                     <!-- </v-avatar> -->
                     <!-- <v-btn class="ma-2" color="indigo" :icon="icon"></v-btn> -->
                 </div>
-                <div class="font-weight-meduim primary--text ">
+                <!-- <div> -->
                     <!-- <v-chip class="ma-2" style="background-color: transparent; outline: 1px solid gray;"
                             variant="outlined"> -->
                     {{ title }}
                     <!-- </v-chip> -->
-                </div>
+                <!-- </div> -->
             </v-card-text>
         </v-card>
         </v-hover>

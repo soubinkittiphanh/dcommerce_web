@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-
+// import api from './api'
 export const swalError = (swal, title, message, trandId) => {
   swal({
     icon: 'error',
@@ -364,6 +364,11 @@ font-size: 12px;
 float: right;
 font-size: 12px;
 }
+.price-footer {
+float: right;
+font-size: 14px;
+font-weight: bold;
+}
 .price-total {
 float: right;
 }
@@ -380,7 +385,7 @@ font-family: 'DM Sans';
 export const hostName = () => {
   // Create a new Date object with the same year and month as the input date, but with day set to 1
   // const baseURL = 'http://localhost:8888' // ***LOCAL UAT*** 
-  // const baseURL = 'http://192.168.1.5:8888' // ***LOCAL UAT*** 
+  // const baseURL = 'http://192.168.8.112:8888' // ***LOCAL UAT*** 
   // const baseURL = 'http://192.168.1.8:8888' // ***LOCAL UAT*** 
   // const baseURL = 'http://150.95.31.23:8003' // ***PRODUCTION CHITHANH*** 
   // const baseURL = 'http://150.95.31.23:8006' // ***PRODUCTION laofriend*** 
@@ -389,8 +394,8 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8009' // ***PRODUCTION JNONG*** 
   // const baseURL = 'http://150.95.31.23:8010' // ***PRODUCTION PEEAIR2024*** 
   // const baseURL = 'http://150.95.31.23:8011' // ***PRODUCTION Little boutique2024*** 
+  const baseURL = 'http://150.95.31.23:8015' // ***Demo 1*** 
   // const baseURL = 'http://150.95.31.23:8013' // ***PRODUCTION Tonoo*** 
-  const baseURL = 'http://150.95.31.23:8102' // ***PRODUCTION ZER JOHUD*** 
   // const baseURL = 'http://150.95.31.23:8101' // ***PRODUCTION Woody*** 
   // const baseURL = 'http://150.95.31.23:8004' // ***ONLINE UAT*** 
   // return baseURL;
@@ -518,7 +523,7 @@ export const confirmSwal = (swal, message, callbackFunc) => {
     title: 'ກະລຸນາຢືນຢັນ',
     text: message,
     confirmButtonText: 'ຢືນຢັນ',
-    confirmButtonColor: '#b48811',
+    confirmButtonColor: '#01532B',
     showCancelButton: true,
     cancelButtonText: 'ອອກ',
     cancelButtonColor: '#D00505',
