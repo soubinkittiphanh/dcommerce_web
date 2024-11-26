@@ -6,7 +6,7 @@ export const hostName = () => {
 }
 export const mainCompanyInfo = () => {
   const info = {
-    name: 'THE CONERS',
+    name: 'THE CORNERS',
     tel: '020 9999999',
     whatsapp: '+8562023378899',
     imageUrl: '',
