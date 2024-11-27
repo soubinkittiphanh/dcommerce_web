@@ -19,7 +19,7 @@
                     <td> Laos Friend</td>
                   </tr> -->
                   <tr style="white-space: nowrap">
-                    <td> ຕໍ່ຫນ້າຕະຫຼາດ ດາລາ ຫຼວງພະບາງ</td>
+                    <td> {{this.companyData.address}}</td>
                   </tr>
                   <tr style="white-space: nowrap">
                     <td> Tel: {{this.companyData.tel}}</td>
@@ -168,7 +168,8 @@
 <script>
 import { mapGetters } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
-import { getFormatNum, jsDateToMysqlDate,mainCompanyInfo } from '~/common'
+import { getFormatNum, jsDateToMysqlDate } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',

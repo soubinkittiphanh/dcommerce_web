@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import { hostName, getFormatNum } from '~/common'
+import {  getFormatNum } from '~/common'
+import { hostName } from '~/common/api'
 import XiaomiImage from '~/assets/img/products/product_1.jpg'
 // import SliderV1 from '~/assets/img/slider/SliderV1.jpg'
 export default {

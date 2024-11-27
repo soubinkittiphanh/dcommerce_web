@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import { hostName, getFormatNum,mainCompanyInfo } from '~/common'
+import {  getFormatNum } from '~/common'
+import { hostName,mainCompanyInfo } from '~/common/api'
 export default {
   name: 'MyFooter',
   data() {

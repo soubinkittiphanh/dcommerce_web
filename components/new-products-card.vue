@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { hostName } from '~/common'
+import { hostName } from '~/common/api'
 export default {
   name: 'new-products-card',
   props: {

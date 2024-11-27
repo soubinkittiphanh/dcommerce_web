@@ -188,7 +188,7 @@ import brandImage1 from '~/assets/img/brand/lovelyn.png'
 import brandImage2 from '~/assets/img/brand/pachara.png'
 import brandImage3 from '~/assets/img/brand/poem.png'
 import brandImage4 from '~/assets/img/brand/wdb.png'
-import { hostName } from '../../common/index'
+import { hostName } from '~/common/api'
 export default {
   name: 'IndexPage',
   layout: 'fashion',

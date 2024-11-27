@@ -84,7 +84,8 @@
 <script>
 import { mapGetters } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
-import { getFormatNum, mainCompanyInfo,swalSuccess,swalError2 } from '~/common'
+import { getFormatNum,swalSuccess,swalError2 } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',

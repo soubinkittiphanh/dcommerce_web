@@ -309,7 +309,7 @@ import {
   getFormatNum,
 } from '~/common'
 import ImagePreviewMixin from '../../pages/product/index.vue'
-import { hostName } from '../../common/index'
+import { hostName } from '~/common/api'
 import { mapActions, mapGetters } from 'vuex'
 import JsBarcode from 'jsbarcode'
 export default {
