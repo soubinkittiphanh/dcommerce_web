@@ -234,6 +234,7 @@ export default {
 
   },
   methods: {
+    ...mapActions(['setSelectedTerminal', 'setSelectedLocation', 'initProduct']),
     async importStock() {
       const stockImportList = [{ 'inputter': 1000, 'product_id': 1001, 'stockCardQty': 4, 'totalCost': 320000, 'productId': 1, 'srcLocation': 1 },
       { 'inputter': 1000, 'product_id': 1002, 'stockCardQty': 1, 'totalCost': 230000, 'productId': 2, 'srcLocation': 1 },
@@ -567,6 +568,7 @@ export default {
       await this.$axios
         .get(`product_f/${this.currentSelectedLocation['id']}`)
         .then((res) => {
+          this.initProduct(res.data)
           this.loaddata = res.data.map((el) => {
             console.log(el.co_name)
             return {

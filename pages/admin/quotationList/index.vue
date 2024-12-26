@@ -478,6 +478,7 @@ export default {
       const day = `${date.getDate()}`.padStart(2, '0');
       return `${year}-${month}-${day}`;
     },
+    
   },
 }
 </script>

@@ -850,7 +850,7 @@ export default {
             swalError2(
               this.$swal,
               'Error',
-              `ຈຳນວນສິນຄ້າ: ${product.pro_name} ມີບໍ່ພຽງພໍໃນສາງ`
+              `ຈຳນວນສິນຄ້າ: ${product.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
             )
           } else {
             swalError2(this.$swal, 'Error', er.response.data)
