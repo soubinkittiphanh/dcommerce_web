@@ -34,7 +34,7 @@
             </v-col>
           </v-row>
         </div>
-        <h1 style="text-align: center;">CHITHANH</h1>
+        <h1 style="text-align: center;">PHAIVANH PHARMACY</h1>
         <p class="text-color" style="font-size: 21pt; font-weight: bold; text-align: center">
           ໃບສະເໜີລາຄາ / QUOTATION
         </p>
