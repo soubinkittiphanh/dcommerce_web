@@ -626,6 +626,7 @@ export default {
               categ_desc: el.categ_desc,
             }
           })
+          this.formData.pro_category = this.category[0]['categ_id']
         })
         .catch((er) => {
           console.log('error: ' + er.response.data)
