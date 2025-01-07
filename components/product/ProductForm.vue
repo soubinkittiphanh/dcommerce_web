@@ -340,6 +340,45 @@ export default {
     host() {
       return hostName()
     },
+    barcode2by2cm() {
+      const html = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title></title>
+      <style>
+        @font-face {
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 200;
+          font-display: swap;
+          src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+        }
+        * {
+          font-family: 'DM Sans';
+        }
+      </style>
+    </head>
+    <body>
+      <div style="text-align: center;">
+        <table style="width: 200px; text-align: center;">
+          <tr>
+            <td style="width: 100px; height: 20px; font-size: 9px;">
+              ລາຄາ: ${this.formatNumber(this.formData.pro_price)}
+              <img src="${this.barcodeImage}">
+            </td>
+            <td style="width: 100px; height: 20px; font-size: 9px;">
+              ລາຄາ: ${this.formatNumber(this.formData.pro_price)}
+              <img src="${this.barcodeImage}">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </body>
+  </html>
+  `
+      return html
+    },
     barcode3by2cm() {
       const html = `
       <!DOCTYPE html>
@@ -726,7 +765,7 @@ export default {
 
     printBarcode() {
       const windowContent = this.threeColPaper
-        ? this.barcode3by2cm
+        ? this.barcode2by2cm
         : this.barcodeNormal
       const printWin = window.open(
         '',
