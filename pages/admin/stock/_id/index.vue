@@ -105,6 +105,9 @@
         :search="search"
         :items="loaddata"
       >
+      <template v-slot:[`item.cost`]="{ item }">
+          {{ formatNumber(item.cost) }}
+        </template>
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title
@@ -136,6 +139,7 @@
 </template>
 
 <script>
+import { getFormatNum } from '~/common'
 export default {
   middleware: 'auths',
   validate(data) {
@@ -182,7 +186,8 @@ export default {
       headers: [
         { text: 'id', align: 'center', value: 'card_id' },
         { text: 'ລະຫັດສິນຄ້າ', align: 'center', value: 'pro_id' },
-        { text: 'card sequence', align: 'center', value: 'card_number' },
+        // { text: 'card sequence', align: 'center', value: 'card_number' },
+        { text: 'ຕົ້ນທຶນ', align: 'center', value: 'cost' },
         { text: 'ວັນທີ', align: 'center', value: 'input_date_time' },
         { text: 'Admin', align: 'center', value: 'inputter' },
         { text: 'ສະຖານະ', align: 'center', value: 'status' },
@@ -223,6 +228,9 @@ export default {
   },
 
   methods: {
+    formatNumber(value) {
+      return getFormatNum(value)
+    },
     async fetchData() {
       this.isloading = true
       const prodId = this.$route.params.id
@@ -240,6 +248,7 @@ export default {
               card_id: el.id,
               pro_id: el.product_id,
               card_number: el.card_number,
+              cost: el.cost,
               inputter: el.inputter + ' ' + el.user_name,
               status:
                 el.card_isused === 1

@@ -838,7 +838,8 @@ export default {
           } else {
             this.generatePrintView()
           }
-          this.newOrder()
+          this.newOrder();
+          this.discount = 0;
         })
         .catch((er) => {
           console.error(`error occurs ${er}`)
