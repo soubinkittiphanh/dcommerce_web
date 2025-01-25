@@ -135,6 +135,7 @@ export default {
         // const today = new Date().toLocaleDateString();
         this.bookingDate = today
         this.form.header.bookingDate = today
+        this.form.header.currencyId = this.currencyList[0]['id']
         if (this.isEdit) {
             console.log("Load payment header");
             this.loadPaymentById()
@@ -159,6 +160,7 @@ export default {
                 .get('/api/paymentMethod/find')
                 .then((res) => {
                     this.paymentList = res.data
+                    this.form.header.paymentId = this.paymentList[0]['id']
                 })
                 .catch((er) => {
                     swalError2(this.$swal, "Error", er)

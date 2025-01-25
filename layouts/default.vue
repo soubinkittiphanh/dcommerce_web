@@ -17,7 +17,7 @@
       color="#01532B" app>
       <v-layout column align-center>
         <v-flex class="shadow mt-4 mb-4">
-          <v-img :src="require('~/assets/image/Dcommerce-Logo.png')" />
+          <v-img :src="require('~/assets/image/Dcommerce-Logo.png')" style="max-height: 140px;" />
         </v-flex>
       </v-layout>
       <v-list>

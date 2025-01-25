@@ -239,12 +239,11 @@
       >
         <v-divider class="mb-1"></v-divider>
         <div>
-
           <img
-          :src="!showCheckOut ? upSvg : downSvg"
-          height="20"
-          style="text-align: center"
-          @click="showCheckOut = !showCheckOut"
+            :src="!showCheckOut ? upSvg : downSvg"
+            height="20"
+            style="text-align: center"
+            @click="showCheckOut = !showCheckOut"
           />
           ສ່ວນຫລຸດ
           <v-text-field
@@ -477,7 +476,13 @@ export default {
     currentPayment() {
       return this.currentSelectedPayment
     },
-
+    currentPaymentCode() {
+      const payment = this.paymentList.find(
+        (el) => el.id == this.currentSelectedPayment
+      )
+      if (payment == undefined) return ''
+      return payment['payment_code']
+    },
     grandTotal() {
       const totalPrice = this.cartOfProduct.reduce((total, item) => {
         // return total + item.qty * item.pro_price;
@@ -590,7 +595,7 @@ export default {
       const bookingDateWithTime = today.toISOString
       // let totalHtml = ``
       //*********Payment info tag********/
-      let totalHtml = ''
+      let totalHtml = ``
       // let totalHtml = `<div class="ticket">
       //         <div class="product-name"> ${this.onlineCustomerInfo.payment}</div>
       //     <div class="price"></div>
@@ -707,10 +712,8 @@ export default {
       //       </div>
       //           `
       //******* Currency hard code for TONOO SHOP ONLY****** */
-      const windowContent = `
-         ${this.ticketCommon.header}
-            <body>
-                <div style="text-align: center;">
+      /*
+ <div style="text-align: center;">
                     <img src="${
                       this.logoCompany
                     }" alt="Description of the image" width="200" height="200">
@@ -722,10 +725,42 @@ export default {
                   this.currentTerminal['location']['company']['tel']
                 }</h5>
                 <h5> ຜູ້ຂາຍ: ${this.user.cus_name}  </h5>
-                <hr style="margin-top: 50px;"> </hr>
+*/
+
+      const windowContent = `
+         ${this.ticketCommon.header}
+            <body>
+               <h3>ໃບຮັບເງິນ</h3>
+               <div style="display: flex; align-items: center; justify-content: space-between;">
+  <!-- Left: Logo -->
+  <div style="flex: 0 0 auto;">
+    <img 
+      src="${this.logoCompany}" 
+      alt="Description of the image" 
+      width="100" 
+      height="100">
+  </div>
+
+  <!-- Right: Shop Information -->
+  <div style="flex: 1; text-align: right;">
+   
+    <h5>ວັນທີ: ${today.toLocaleString()}</h5>
+    <h5>ເລກທີ: ${this.lastTransactionSaleHeaderId}</h5>
+    <h5>ເບີໂທຮ້ານ: ${this.currentTerminal['location']['company']['tel']}</h5>
+    <h5>ຜູ້ຂາຍ: ${this.user.cus_name}</h5>
+  </div>
+</div>
+                <hr style="margin-top: 20px;"> </hr>
+                
                 ${txnListHtml}
                 ${this.discount > 0 ? discountHtml : ''}
                 <hr> </hr>
+                <div class="ticket">
+                                        <div class="product-name"> </div>
+                                    <div class="price-total"> <h5>ຊຳລະດ້ວຍ: ${
+                                      this.currentPaymentCode
+                                    }  </h5> </div>
+                                </div>
                 ${totalHtml}
                 <h2 style="text-align: center; margin-top: 50px;"> THANKYOU </h2>
                 
@@ -745,6 +780,7 @@ export default {
         printWin.close()
       }, 1000)
     },
+
     async setQuotation() {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -838,8 +874,8 @@ export default {
           } else {
             this.generatePrintView()
           }
-          this.newOrder();
-          this.discount = 0;
+          this.newOrder()
+          this.discount = 0
         })
         .catch((er) => {
           console.error(`error occurs ${er}`)
