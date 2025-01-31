@@ -321,7 +321,7 @@ import CustomerList from '~/components/customer/CustomerList.vue'
 import Quotation from '~/components/quotation'
 import PricingOption from '~/components/PricingOption.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
-
+import { hostName,mainCompanyInfo } from '~/common/api'
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
 import {
   swalSuccess,
@@ -348,7 +348,6 @@ export default {
       terminalSelected: null,
       search: '',
       svgIcon: require('~/assets/icons/cash.svg'),
-      logoCompany: require('~/assets/image/BWLOGO.jpeg'),
       lastTransactionSaleHeaderId: 0,
       drawer: true,
       isloading: false,
@@ -403,6 +402,14 @@ export default {
     }
   },
   computed: {
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
+      return mainCompanyInfo()
+    },
+
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.ticketLogo}`)
+    },
     ticketCommon() {
       return ticketHtml()
     },
@@ -728,7 +735,7 @@ export default {
       /*
  <div style="text-align: center;">
                     <img src="${
-                      this.logoCompany
+                      this.companyLogo
                     }" alt="Description of the image" width="200" height="200">
                 </div>
                 <h3> ໃບຮັບເງິນ</h3>
@@ -748,7 +755,7 @@ export default {
   <!-- Left: Logo -->
   <div style="flex: 0 0 auto;">
     <img 
-      src="${this.logoCompany}" 
+      src="${this.companyLogo}" 
       alt="Description of the image" 
       width="100" 
       height="100">

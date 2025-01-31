@@ -141,15 +141,19 @@ export default {
     return {
       id: null,
       header: null,
-      companyLogo: require('~/assets/image/company_logo.jpeg'),
+      // companyLogo: require('~/assets/image/company_logo.jpeg'),
 
     }
   },
 
   computed: {
-    companyData(){
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`);
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
+    },
+
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.companyLogo}`)
     },
     ...mapGetters(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct']),
 

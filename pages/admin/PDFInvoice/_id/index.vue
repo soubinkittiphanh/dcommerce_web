@@ -174,7 +174,7 @@ export default {
     return {
       id: null,
       header: null,
-      companyLogo: require('~/assets/image/company_logo.jpeg'),
+      // companyLogo: require('~/assets/image/company_logo.jpeg'),
 
     }
   },
@@ -189,10 +189,14 @@ export default {
       totalDiscount+=this.header.discount
       return totalDiscount
     },
-    companyData(){
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`);
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
-    }
+    },
+
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.companyLogo}`)
+    },
 
   },
   async created() {

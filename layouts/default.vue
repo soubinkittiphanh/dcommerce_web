@@ -17,7 +17,7 @@
       color="#01532B" app>
       <v-layout column align-center>
         <v-flex class="shadow mt-4 mb-4">
-          <v-img :src="require('~/assets/image/Dcommerce-Logo.png')" style="max-height: 140px;" />
+          <v-img :src="require(`~/assets/image/${this.companyData.dcLogo}`)" style="max-height: 1400px;" />
         </v-flex>
       </v-layout>
       <v-list>
@@ -140,6 +140,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { hostName,mainCompanyInfo } from '~/common/api'
 export default {
   // layout:"empty",
   data() {
@@ -462,7 +463,10 @@ export default {
     user() {
       return this.$auth.user || ''
     },
-
+    companyData(){
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`);
+      return mainCompanyInfo()
+    },
     currentTerminal() {
       console.log(`ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`);
       return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal)
