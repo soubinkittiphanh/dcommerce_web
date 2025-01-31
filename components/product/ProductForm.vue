@@ -6,6 +6,15 @@
     <v-dialog v-model="preview" hide-overlay width="400px">
       <dia-image :i-url="previewSrc" @closeDia="preview = false"> </dia-image>
     </v-dialog>
+    <v-dialog v-model="priceListDialog" max-width="1200px">
+      <price-list-form
+        :key="priceListFormKey"
+        @close-dialog="priceListDialog = false"
+        :record-id="pricingRecordId"
+        @refresh="fetchData"
+      >
+      </price-list-form>
+    </v-dialog>
     <v-card>
       <v-card-title>
         <v-chip class="ma-0" color="primary" label text-color="white">
@@ -108,7 +117,7 @@
             </v-row>
             <!-- Row 3 -->
             <v-row>
-              <v-col cols="4" sm="6" md="4">
+              <v-col cols="2">
                 <v-text-field
                   v-model="formData.pro_retail_price"
                   :counter="10"
@@ -117,6 +126,23 @@
                   label="ລາຄາສົ່ງ %"
                   required
                 ></v-text-field>
+              </v-col>
+              <v-col
+                cols="2"
+                style="
+                  display: flex;
+                  align-items: center;
+                  /* justify-content: center; */
+                "
+              >
+                <v-btn
+                  style="border: 1px solid blue"
+                  color="primary"
+                  rounded
+                  @click="triggerPriceListForm(item)"
+                >
+                  ຈັດການລາຄາ
+                </v-btn>
               </v-col>
               <v-col cols="4" sm="6" md="4">
                 <v-file-input
@@ -141,6 +167,7 @@
                 ></v-text-field>
               </v-col>
             </v-row>
+
             <!-- Row 4 -->
             <v-row>
               <v-col cols="4" sm="6" md="4">
@@ -482,6 +509,9 @@ export default {
   },
   data() {
     return {
+      priceListFormKey: 1,
+      pricingRecordId: null,
+      priceListDialog: false,
       threeColPaper: false,
       barcodeValue: '',
       imagesPreviewURL: [],
@@ -571,6 +601,12 @@ export default {
     }
   },
   methods: {
+    fetchData() {},
+    triggerPriceListForm() {
+      this.pricingRecordId = this.headerId
+      this.priceListFormKey += 1
+      this.priceListDialog = true
+    },
     formatNumber(val) {
       return getFormatNum(val)
     },

@@ -249,7 +249,7 @@ export default {
               pro_id: el.product_id,
               card_number: el.card_number,
               cost: el.cost,
-              inputter: el.inputter + ' ' + el.user_name,
+              inputter: el.inputter + ' ' + el.cus_name,
               status:
                 el.card_isused === 1
                   ? 'ໃຊ້ງານແລ້ວ'

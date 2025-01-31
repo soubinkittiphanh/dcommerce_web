@@ -4,6 +4,7 @@ export const state = () => ({
     isAuth: true,
     productDetail: null,
     productSearchKeyboard: '',
+    productPriceList: [],
     cartOfproductSelected: [],
     listOfConfirmStockInOrder: [],
     listOfConfirmPaymentOrder: [],
@@ -37,7 +38,9 @@ export const state = () => ({
 // the function to update state variable should be called by setter [actions]
 export const mutations = {
 
-
+    initProductPriceList(state, productPrices) {
+        state.productPriceList = productPrices;
+    },
     removeFromStockConfirm(state, order) {
         const idx = state.listOfConfirmStockInOrder.indexOf(order)
         state.listOfConfirmStockInOrder.splice(idx, 1)
@@ -66,7 +69,7 @@ export const mutations = {
         }
         console.log(`customer form has been cleared `);
     },
-    setCustomerForm(state,payload) {
+    setCustomerForm(state, payload) {
         console.log(`customer form has been assigned `);
         state.customerForm = payload
     },
@@ -151,19 +154,55 @@ export const mutations = {
         console.log(`Order add ${found} to mutation ${state.listOfConfirmStockInOrder.length}`);
 
     },
-    addProductToCart(state, product) {
-        let found = false;
-        state.cartOfproductSelected.forEach(item => {
-            if (item.id === product.id) {
-                item.qty++;
-                found = true;
-            }
-        });
-        if (!found) {
-            // state.cart.push({ ...product, qty: 1 });
-            state.cartOfproductSelected.push({ ...product, qty: 1 })
-        }
+    // addProductToCart(state, product) {
+    //     // ====== Automate pricing...
+    //     let customerGrade = state.selectedCustomer.grade;
+    //     let customerMatchPrice = state.productPriceList.where(el=>el.id == product.id).priceLists.where(el=>el.grade==customerGrade).amount
+    //     if(customerMatchPrice != null){
+    //         product.localPrice = customerMatchPrice
+    //     }
+    //     let found = false;
+    //     state.cartOfproductSelected.forEach(item => {
+    //         if (item.id === product.id) {
+    //             item.qty++;
+    //             found = true;
+    //         }
+    //     });
+    //     if (!found) {
+    //         // state.cart.push({ ...product, qty: 1 });
+    //         state.cartOfproductSelected.push({ ...product, qty: 1 })
+    //     }
 
+    // },
+    addProductToCart(state, product) {
+        const customerGrade = state.selectedCustomer.grade;
+
+        // Find matching price for customer grade
+        const customerPrice = state.productPriceList
+            .find(p => p.id === product.id)
+            ?.priceLists
+            .find(pl => pl.grade === customerGrade)?.amount;
+
+        // Set local price if found
+        let originalProductLocalPrice = product.localPrice
+        product.localPrice = customerPrice ?? product.localPrice; // Use default price if no match found
+
+        const existingProductIndex = state.cartOfproductSelected.findIndex(
+            item => item.id === product.id
+        );
+        console.warn(`customerGrate ${customerGrade}, customerPrice ${customerPrice}`)
+        console.warn(`Product object ${JSON.stringify(product)}`)
+        console.warn(`ProductPrice object ${JSON.stringify(state.productPriceList
+            .find(p => p.id === product.id))}`)
+        if (existingProductIndex !== -1) {
+            // Increase quantity of existing product
+            state.cartOfproductSelected[existingProductIndex].qty++;
+        } else {
+            // Add new product to cart
+            state.cartOfproductSelected.push({ ...product, qty: 1 });
+        }
+        //  Restore price
+        product.localPrice = originalProductLocalPrice
     },
     updateProductCart(state, productInfo) {
         const productId = productInfo['productId']
@@ -302,13 +341,14 @@ export const getters = {
 }
 // action to set sate
 export const actions = {
+
     clearCustomerFormAction(state) {
 
         state.commit("clearCustomerForm")
     },
-    assignCustomerFormAction(state,payload) {
+    assignCustomerFormAction(state, payload) {
 
-        state.commit("setCustomerForm",payload)
+        state.commit("setCustomerForm", payload)
     },
     // TODO: Implement these above 2 function in fontend mapGetters mapAction ...
     clearPaymentList(state) {
@@ -376,6 +416,9 @@ export const actions = {
     initProduct(state, product) {
         state.commit("SetProductList", product)
     },
+    initProductPrices(state, product) {
+        state.commit("initProductPriceList", product)
+    },
     initPayment(state, payment) {
         state.commit("SetPaymentList", payment)
     },
@@ -401,6 +444,7 @@ export const actions = {
         initTerminal(state, axios);
         initLocation(state, axios);
         initProduct(state, axios);
+        initProductPrices(state, axios);
         initClient(state, axios);
         initCurrency(state, axios);
         initPayment(state, axios);
@@ -442,6 +486,16 @@ const initProduct = async (state, axios) => {
         .get(`product_f/${getters.findAllLocation['id'] || 1}`)
         .then((res) => {
             actions.initProduct(state, res.data)
+        })
+        .catch((er) => {
+            console.log('Data: ' + er)
+        })
+}
+const initProductPrices = async (state, axios) => {
+    await axios
+        .get(`api/product/find`)
+        .then((res) => {
+            actions.initProductPrices(state, res.data)
         })
         .catch((er) => {
             console.log('Data: ' + er)

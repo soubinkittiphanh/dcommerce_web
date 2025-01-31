@@ -145,7 +145,9 @@
           </v-col>
           <v-col cols="4" style="text-align: left">
             <v-chip class="ma-2" color="success" variant="outlined">
-              {{ currenctCustomer == null ? '' : currenctCustomer['company'] }}
+
+              {{ customerDisplayName }}
+
             </v-chip>
           </v-col>
           <v-col cols="2">
@@ -403,6 +405,17 @@ export default {
   computed: {
     ticketCommon() {
       return ticketHtml()
+    },
+    customerDisplayName() {
+      if (this.currenctCustomer === null) {
+        return ''
+      }
+
+      if (this.currenctCustomer.company) {
+        return `${this.currenctCustomer.company} ${this.currenctCustomer.grade}`
+      } else {
+        return `${this.currenctCustomer.name} ${this.currenctCustomer.grade}`
+      }
     },
     user() {
       return this.$auth.user || ''

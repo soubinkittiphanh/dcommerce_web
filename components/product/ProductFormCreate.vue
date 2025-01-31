@@ -10,6 +10,15 @@
     <v-dialog v-model="preview" hide-overlay width="400px">
       <dia-image :i-url="previewSrc" @closeDia="preview = false"> </dia-image>
     </v-dialog>
+    <v-dialog v-model="priceListDialog" max-width="1200px">
+      <price-list-form
+        :key="priceListFormKey"
+        @close-dialog="priceListDialog = false"
+        :record-id="pricingRecordId"
+        @refresh="fetchData"
+      >
+      </price-list-form>
+    </v-dialog>
     <v-card>
       <v-card-title>
         <v-chip class="ma-2" color="primary" label text-color="white">
@@ -142,6 +151,19 @@
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-row v-if="1==0">
+            <v-col cols="6">
+              <v-btn
+                color="primary"
+                rounded
+                @click="
+                  triggerPriceListForm(item)"
+              >
+                <v-icon>mdi mdi-currency-usd</v-icon>
+                <!-- <i class="mdi mdi-currency-usd"></i> -->
+              </v-btn>
+            </v-col>
+          </v-row>
           <!-- Row 4 -->
           <v-row>
             <v-col cols="4">
@@ -170,6 +192,7 @@
               ></v-autocomplete>
             </v-col>
           </v-row>
+          
           <!-- Row 5 -->
           <v-row>
             <v-col cols="6">
@@ -316,6 +339,9 @@ export default {
 
   data() {
     return {
+      priceListFormKey: 1,
+      pricingRecordId: null,
+      priceListDialog: false,
       threeColPaper: false,
       preview: false,
       previewSrc: null,
@@ -510,6 +536,14 @@ export default {
     },
   },
   methods: {
+    fetchData(){
+
+    },
+    triggerPriceListForm() {
+      this.pricingRecordId = this.headerId
+      this.priceListFormKey += 1
+      this.priceListDialog = true
+    },
     validate() {
       this.$refs.form.validate()
     },
@@ -559,8 +593,7 @@ export default {
         ? this.barcode3by2cm
         : this.barcodeNormal
 
-
-        //*********** No story 20240502 ********* */
+      //*********** No story 20240502 ********* */
       // const windowContent = `
       //     <!DOCTYPE html>
       //     <html>
@@ -593,7 +626,7 @@ export default {
       //       </body>
       //       </html>
       //   `
-      
+
       const printWin = window.open(
         '',
         '',

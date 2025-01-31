@@ -32,6 +32,7 @@ export default {
     middleware: 'auths',
     data() {
         return {
+            productPriceList:[],
             barcode: '',
             timer: null,
             tab: null,
@@ -48,6 +49,7 @@ export default {
     },
     async mounted() {
         await this.loadProduct()
+        await this.loadProductWithPriceList()
         await this.loadCategory()
         // await this.loadPayment()
 
@@ -137,6 +139,26 @@ export default {
                 })
             this.isloading = false
         },
+        async loadProductWithPriceList() {
+            this.isloading = true
+            this.productPriceList = []
+            await this.$axios
+                .get(`/api/product/find`)
+                .then((res) => {
+                    this.productPriceList = res.data
+                    // for (const iterator of res.data) {
+                    //     const currency = this.findCurrency(iterator['saleCurrencyId'])
+                    //     iterator['localPrice'] = iterator['pro_price'] * currency['rate']
+                    //     this.productList.push(iterator)
+                    // }
+                    console.info(`PRICE LIST ${JSON.stringify(this.productPriceList)}`)
+                })
+                .catch((er) => {
+                    this.message = er
+                    swalError2(this.$swal, "Error", er)
+                })
+            this.isloading = false
+        },
         async loadCategory() {
             this.isloading = true;
             this.categoryList = []
@@ -152,21 +174,6 @@ export default {
                 })
             this.isloading = false;
         },
-        // async loadPayment() {
-        //     this.isloading = true;
-        //     this.paymentList = []
-        //     await this.$axios
-        //         .get('/api/paymentMethod/find')
-        //         .then((res) => {
-        //             for (const iterator of res.data) {
-        //                 this.paymentList.push(iterator);
-        //             }
-        //         })
-        //         .catch((er) => {
-        //             swalError2(this.$swal, "Error", er)
-        //         })
-        //     this.isloading = false;
-        // },
     }
 }
 </script>
