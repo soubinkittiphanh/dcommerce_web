@@ -111,7 +111,7 @@ export default {
         }
         if (response.data.accessToken) {
           console.log(`LOGIN COMPLETED`);
-          this.initiateData(this.$axios)
+          this.initData()
           // this.$axios.get('api/terminal/find')
           //   .then((res) => {
           //     for (const iterator of res.data) {
@@ -132,6 +132,12 @@ export default {
         console.log(err)
       }
       this.isLoading = false
+    },
+    initData() {
+        // Call the method directly
+        this.initiateData(
+          this.$axios
+        );
     },
 
   },

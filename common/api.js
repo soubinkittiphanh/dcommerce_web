@@ -32,8 +32,8 @@ export const mainCompanyInfo = () => {
     env: ''
   }
   // const info = {
-  //   name: 'ONPHET',
-  //   tel: '020 9999 9999',
+  //   name: 'TTP Auto parts',
+  //   tel: '02059262233',
   //   whatsapp: '+85620 9999 9999',
   //   imageUrl: '',
   //   imageName: '',

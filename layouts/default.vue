@@ -489,12 +489,16 @@ export default {
       console.info(`...loading ${this.findAllTerminal.length}... ${new Date().toLocaleTimeString()}`);
       if (this.findAllTerminal.length == 0) {
         console.error(`Data missing need to reload`)
-        this.initiateData(this.$axios)
+        this.initData()
       }
       if (!this.currentSelectedLocation) {
         this.terminalDialog = true
       }
       // }, 1000);
+    },
+    initData() {
+        // Call the method directly
+        this.initiateData(this.$axios);
     },
     async loadMenu() {
       console.log(`===> Loadin user menu`);

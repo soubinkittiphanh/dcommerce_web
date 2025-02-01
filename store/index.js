@@ -5,6 +5,7 @@ export const state = () => ({
     productDetail: null,
     productSearchKeyboard: '',
     productPriceList: [],
+    productPriceListToCreate: [],
     cartOfproductSelected: [],
     listOfConfirmStockInOrder: [],
     listOfConfirmPaymentOrder: [],
@@ -41,18 +42,30 @@ export const mutations = {
     initProductPriceList(state, productPrices) {
         state.productPriceList = productPrices;
     },
-    removeFromStockConfirm(state, order) {
-        const idx = state.listOfConfirmStockInOrder.indexOf(order)
-        state.listOfConfirmStockInOrder.splice(idx, 1)
+    addProductPriceListToCreate(state, productPrices) {
+        state.productPriceListToCreate.push(productPrices);
     },
-    removeFromPaymentConfirk(state, order) {
-        const idx = state.listOfConfirmPaymentOrder.indexOf(order)
-        state.listOfConfirmPaymentOrder.splice(idx, 1)
+    deleteProductPriceListToCreate(state, index) {
+        // Ensure index is valid before attempting to delete
+        if (index >= 0 && index < state.productPriceListToCreate.length) {
+            state.productPriceListToCreate.splice(index, 1);
+        }
+    },
+    clearProductPriceListToCreate(state) {
+        state.productPriceListToCreate = [];
+    },
+    removeFromStockConfirm(state, order) {
+        state.listOfConfirmStockInOrder = state.listOfConfirmStockInOrder.filter(item => item.trackingNumber !== order.trackingNumber);
+
+    },
+    removeFromPaymentConfirm(state, order) {
+        state.listOfConfirmPaymentOrder = state.listOfConfirmPaymentOrder.filter(item => item.trackingNumber !== order.trackingNumber);
+
     },
     clearConfirmPaymentList(state) {
 
-        state.listOfConfirmPaymentOrder.length = 0
-        console.log(`LIST OF PAYMENT HAS BEEN CLEARED ${state.listOfConfirmPaymentOrder.length}`);
+        state.listOfConfirmPaymentOrder = [];
+        console.log(`LIST OF PAYMENT HAS BEEN CLEARED`);
     },
     clearCustomerForm(state) {
         state.customerForm = {
@@ -91,10 +104,11 @@ export const mutations = {
         state.locationList = location
     },
     SetClientList(state, client) {
-        for (const iterator of client) {
-            iterator['company'] += ' - ' + iterator['name']
-        }
-        state.clientList = client
+
+        state.clientList = client.map(item => ({
+            ...item,
+            company: `${item.company} - ${item.name}`,
+        }));
     },
     SetPaymentList(state, payment) {
         state.paymentList = payment
@@ -125,55 +139,18 @@ export const mutations = {
     },
 
     addPaymentConfirmList(state, order) {
-        let found = false;
-        state.listOfConfirmPaymentOrder.forEach(item => {
-            if (item.trackingNumber === order.trackingNumber) {
-                found = true;
-                //Nothing todo
-            }
-        });
-        if (!found) {
-            // state.cart.push({ ...product, qty: 1 });
-            state.listOfConfirmPaymentOrder.push(order)
+        if (!state.listOfConfirmPaymentOrder.some(item => item.trackingNumber === order.trackingNumber)) {
+            state.listOfConfirmPaymentOrder.push(order);
         }
-        console.log(`Order add ${found} to mutation payment ${state.listOfConfirmPaymentOrder.length}`);
+        console.log(`Order added to mutation payment. Total: ${state.listOfConfirmPaymentOrder.length}`);
     },
     addStockInConfirmList(state, order) {
-        // console.log(`Order add to mutation ${JSON.stringify(order)}`);
-        let found = false;
-        state.listOfConfirmStockInOrder.forEach(item => {
-            if (item.trackingNumber === order.trackingNumber) {
-                found = true;
-                //Nothing todo
-            }
-        });
-        if (!found) {
-            // state.cart.push({ ...product, qty: 1 });
-            state.listOfConfirmStockInOrder.push(order)
+        if (!state.listOfConfirmStockInOrder.some(item => item.trackingNumber === order.trackingNumber)) {
+            state.listOfConfirmStockInOrder.push(order);
         }
-        console.log(`Order add ${found} to mutation ${state.listOfConfirmStockInOrder.length}`);
+        console.log(`Order added to mutation stock. Total: ${state.listOfConfirmStockInOrder.length}`);
 
     },
-    // addProductToCart(state, product) {
-    //     // ====== Automate pricing...
-    //     let customerGrade = state.selectedCustomer.grade;
-    //     let customerMatchPrice = state.productPriceList.where(el=>el.id == product.id).priceLists.where(el=>el.grade==customerGrade).amount
-    //     if(customerMatchPrice != null){
-    //         product.localPrice = customerMatchPrice
-    //     }
-    //     let found = false;
-    //     state.cartOfproductSelected.forEach(item => {
-    //         if (item.id === product.id) {
-    //             item.qty++;
-    //             found = true;
-    //         }
-    //     });
-    //     if (!found) {
-    //         // state.cart.push({ ...product, qty: 1 });
-    //         state.cartOfproductSelected.push({ ...product, qty: 1 })
-    //     }
-
-    // },
     addProductToCart(state, product) {
         const customerGrade = state.selectedCustomer.grade;
 
@@ -222,23 +199,18 @@ export const mutations = {
         state.cartOfproductSelected[productIdxFound]['localPrice'] = newPrice
     },
     removeProductFromCart(state, product) {
-        let found = false;
-        state.cartOfproductSelected.forEach(item => {
-            if (item.id === product.id) {
-                if (!(item.qty == 1)) {
-                    item.qty--;
-                } else {
-                    const index = state.cartOfproductSelected.indexOf(product);
-                    if (index !== -1) {
-                        state.cartOfproductSelected.splice(index, 1);
-                    }
-                }
+        const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id);
+        if (existingProduct) {
+            if (existingProduct.qty > 1) {
+                existingProduct.qty--;
+            } else {
+                state.cartOfproductSelected = state.cartOfproductSelected.filter(item => item.id !== product.id);
             }
-        });
+        }
     },
     clearProductFromCart(state, product) {
-        const index = state.cartOfproductSelected.indexOf(product);
-        state.cartOfproductSelected.splice(index, 1);
+        state.cartOfproductSelected = state.cartOfproductSelected.filter(item => item.id !== product.id);
+
     },
     clearAllProductFromCart(state,) {
         state.cartOfproductSelected = [];
@@ -266,290 +238,221 @@ export const mutations = {
 
 
 }
-// action to get sate
+// Vuex Getters
 export const getters = {
+    findCustomerForm: (state) => state.customerForm,
+    findAllListOfConfirmStockIn: (state) => state.listOfConfirmStockInOrder,
+    findAllListOfConfirmPayment: (state) => state.listOfConfirmPaymentOrder,
+    findAllProduct: (state) => state.productList,
+    findAllProductPriceListToCreate: (state) => state.productPriceListToCreate,
+    findAllTerminal: (state) => state.terminalList,
+    findAllLocation: (state) => state.locationList,
+    findAllCompany: (state) => state.companyList,
+    findAllPayment: (state) => state.paymentList,
+    findAllClient: (state) => state.clientList,
+    findAllCurrency: (state) => state.currencyList,
+    findAllUnit: (state) => state.unitList,
+    isAuth: (state) => state.isAuth,
+    findSelectedProductDetail: (state) => state.productDetail,
+    findSelectedTerminal: (state) => state.selectedTerminal,
+    isAuthenticated: (state) => state.auth.loggedIn,
+    loggedInUser: (state) => state.auth.user,
+    searchKeyword: (state) => state.productSearchKeyboard,
+    cartOfProduct: (state) => state.cartOfproductSelected,
+    currenctSelectedCategoryId: (state) => state.selectedCategoryId,
+    currentSelectedCustomer: (state) => state.selectedCustomer,
+    currentSelectedPayment: (state) => state.selectedPayment,
+    currentSelectedLocation: (state) => state.selectedLocation,
+};
 
-    findCustomerForm(state) {
-        return state.customerForm
-    },
-    findAllListOfConfirmStockIn(state) {
-        return state.listOfConfirmStockInOrder
-    },
-    findAllListOfConfirmPayment(state) {
-        return state.listOfConfirmPaymentOrder
-    },
-    findAllProduct(state) {
-        return state.productList
-    },
-    findAllTerminal(state) {
-        return state.terminalList
-    },
-    findAllLocation(state) {
-        return state.locationList
-    },
-    finaAllCompany(state) {
-        return state.companyList
-    },
-    findAllPayment(state) {
-        return state.paymentList
-    },
-    findAllClient(state) {
-        return state.clientList
-    },
-    findAllCurrency(state) {
-        return state.currencyList
-    },
-    findAllUnit(state) {
-        return state.unitList
-    },
-    isAuth(state) {
-        return state.isAuth
-    },
-    findSelectedProductDetail(state) {
-        return state.productDetail
-    },
-    findSelectedTerminal(state) {
-        return state.selectedTerminal
-    },
-
-    isAuthenticated(state) {
-        return state.auth.loggedIn
-    },
-
-    loggedInUser(state) {
-        return state.auth.user
-    },
-    searchKeyword(state) {
-        return state.productSearchKeyboard
-    },
-    cartOfProduct(state) {
-        return state.cartOfproductSelected
-    },
-    currenctSelectedCategoryId(state) {
-        return state.selectedCategoryId
-    },
-    currentSelectedCustomer(state) {
-        return state.selectedCustomer
-    },
-    currentSelectedPayment(state) {
-        return state.selectedPayment
-    },
-    currentSelectedLocation(state) {
-        return state.selectedLocation
-    }
-
-}
-// action to set sate
 export const actions = {
-
-    clearCustomerFormAction(state) {
-
-        state.commit("clearCustomerForm")
-    },
-    assignCustomerFormAction(state, payload) {
-
-        state.commit("setCustomerForm", payload)
-    },
-    // TODO: Implement these above 2 function in fontend mapGetters mapAction ...
-    clearPaymentList(state) {
-
-        state.commit("clearConfirmPaymentList")
+    clearCustomerFormAction({ commit }) {
+        commit("clearCustomerForm");
     },
 
-    clearStockList(state) {
-        state.commit("clearConfirmStockList")
-    },
-    removeOrderFromStockConfirm(state, order) {
-        state.commit("removeFromStockConfirm", order)
-    }, removeOrderFromPaymentConfirm(state, order) {
-        state.commit("removeFromPaymentConfirk", order)
-    },
-    addOrderToConformPaymentList(state, payload) {
-        state.commit("addPaymentConfirmList", payload)
-    },
-    addOrderToConfirmStockInList(state, payload) {
-        console.log(`Order add to state ${JSON.stringify(payload)}`);
-        state.commit("addStockInConfirmList", payload)
-    },
-    login(state, payload) {
-        state.commit("setUser", payload)
-        state.commit("setLogin")
-    },
-    logout(state) {
-        state.commit("setLogout");
-    },
-    clearCart(state) {
-        state.commit("clearAllProductFromCart");
-    },
-    assignProductDetail(state, payload) {
-        state.commit("setProductDetail", payload)
-    },
-    addProduct(state, product) {
-        state.commit("addProductToCart", product)
-    },
-    updateProduct(state, product) {
-        state.commit("updateProductCart", product)
-    },
-    setSelectedTerminal(state, terminalId) {
-        state.commit("ChooseTerminal", terminalId)
+    assignCustomerFormAction({ commit }, payload) {
+        commit("setCustomerForm", payload);
     },
 
-    setSelectedLocation(state, location) {
-        state.commit("setSelectedLocation", location)
+    clearPaymentList({ commit }) {
+        commit("clearConfirmPaymentList");
     },
 
-    deleteProduct(state, product) {
-        state.commit("removeProductFromCart", product)
+    clearStockList({ commit }) {
+        commit("clearConfirmStockList");
     },
-    updateSelectedCategoryId(state, categoryId) {
-        state.commit("setSelecteCategoryId", categoryId)
+
+    removeOrderFromStockConfirm({ commit }, order) {
+        commit("removeFromStockConfirm", order);
     },
-    deleteProductFromCart(state, product) {
-        state.commit("clearProductFromCart", product)
+
+    removeOrderFromPaymentConfirm({ commit }, order) {
+        commit("removeFromPaymentConfirm", order); // Fixed typo here
     },
-    addCustomer(state, customer) {
-        state.commit("setSelectedCustomer", customer)
+
+    addOrderToConfirmPaymentList({ commit }, payload) {
+        commit("addPaymentConfirmList", payload);
     },
-    addSelectedPayment(state, paymentId) {
-        state.commit("setSelectedPayment", paymentId)
+
+    addOrderToConfirmStockInList({ commit }, payload) {
+        console.log(`Order added to state: ${JSON.stringify(payload)}`);
+        commit("addStockInConfirmList", payload);
     },
-    initProduct(state, product) {
-        state.commit("SetProductList", product)
+
+    login({ commit }, payload) {
+        commit("setUser", payload);
+        commit("setLogin");
     },
-    initProductPrices(state, product) {
-        state.commit("initProductPriceList", product)
+
+    logout({ commit }) {
+        commit("setLogout");
     },
-    initPayment(state, payment) {
-        state.commit("SetPaymentList", payment)
+
+    clearCart({ commit }) {
+        commit("clearAllProductFromCart");
     },
-    initCurrency(state, currency) {
-        state.commit("SetCurrencyList", currency)
+
+    assignProductDetail({ commit }, payload) {
+        commit("setProductDetail", payload);
     },
-    initClient(state, client) {
-        state.commit("SetClientList", client)
+
+    addProduct({ commit }, product) {
+        commit("addProductToCart", product);
     },
-    initUnit(state, unit) {
-        state.commit("SetUnitList", unit)
+
+    updateProduct({ commit }, product) {
+        commit("updateProductCart", product);
     },
-    initTerminal(state, terminal) {
-        state.commit("SetTerminalList", terminal)
+
+    setSelectedTerminal({ commit }, terminalId) {
+        commit("ChooseTerminal", terminalId);
     },
-    initLocation(state, location) {
-        state.commit("SetLocationList", location)
+
+    setSelectedLocation({ commit }, location) {
+        commit("setSelectedLocation", location);
     },
-    initCompany(state, company) {
-        state.commit("setCompanyList", company)
+
+    deleteProduct({ commit }, product) {
+        commit("removeProductFromCart", product);
     },
+
+    updateSelectedCategoryId({ commit }, categoryId) {
+        commit("setSelecteCategoryId", categoryId);
+    },
+
+    deleteProductFromCart({ commit }, product) {
+        commit("clearProductFromCart", product);
+    },
+
+    addCustomer({ commit }, customer) {
+        commit("setSelectedCustomer", customer);
+    },
+
+    addSelectedPayment({ commit }, paymentId) {
+        commit("setSelectedPayment", paymentId);
+    },
+
+    initProduct({ commit }, product) {
+        commit("SetProductList", product);
+    },
+
+    initProductPrices({ commit }, product) {
+        commit("initProductPriceList", product);
+    },
+
+    addProductPricesToCreate({ commit }, product) {
+        commit("addProductPriceListToCreate", product);
+    },
+    deleteProductPricesToCreate({ commit }, product) {
+        commit("deleteProductPriceListToCreate", product);
+    },
+
+    clearProductPricesToCreate({ commit }) {
+        commit("clearProductPriceListToCreate");
+    },
+
+    initPayment({ commit }, payment) {
+        commit("SetPaymentList", payment);
+    },
+
+    initCurrency({ commit }, currency) {
+        commit("SetCurrencyList", currency);
+    },
+
+    initClient({ commit }, client) {
+        commit("SetClientList", client);
+    },
+
+    initUnit({ commit }, unit) {
+        commit("SetUnitList", unit);
+    },
+
+    initTerminal({ commit }, terminal) {
+        commit("SetTerminalList", terminal);
+    },
+
+    initLocation({ commit }, location) {
+        commit("SetLocationList", location);
+    },
+
+    initCompany({ commit }, company) {
+        commit("setCompanyList", company);
+    },
+
     async initiateData(state, axios) {
-        initTerminal(state, axios);
-        initLocation(state, axios);
-        initProduct(state, axios);
-        initProductPrices(state, axios);
-        initClient(state, axios);
-        initCurrency(state, axios);
-        initPayment(state, axios);
-        initUnit(state, axios);
-        initCompanyData(state, axios);
+        try {
+            await Promise.all([
+                initTerminal(state, axios),
+                initLocation(state, axios),
+                initProduct(state, axios, getters), // Pass getters to initProduct
+                initProductPrices(state, axios),
+                initClient(state, axios),
+                initCurrency(state, axios),
+                initPayment(state, axios),
+                initUnit(state, axios),
+                initCompanyData(state, axios)
+            ]);
+        } catch (error) {
+            console.error("Failed to initialize data:", error);
+        }
     }
 
-}
+};
+
 // this.$actions.assignProductDetail', payload)       => this to set sate
 // this.$store.getters.findSelectedProductDetail         => get data from sate
 
 
+// Other initialization functions remain the same, ensuring axios and state are passed correctly.
+const initProduct = async (state, axios, getters) => {
+    try {
+        // Safely access findAllLocation or fallback to a default value
+        const locationId = getters?.findAllLocation?.id || 1; // Default to 1 if undefined
+        const response = await axios.get(`product_f/${locationId}`);
+        actions.initProduct(state, response.data);
+        console.log(`Product initialization completed.`);
+    } catch (error) {
+        console.error(`Product initialization failed: ${error}`);
+    }
+};
 
-//************************* All the function to get data and init to common variable centally **************************/
+// Other initialization functions remain the same, ensuring axios and state are passed correctly.
 
-const initClient = async (state, axios) => {
-    console.log(`Data client initialize ===>`);
-    await axios
-        .get('api/client/find')
-        .then((res) => {
-            actions.initClient(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Client initiate fail ' + er)
-        })
-}
-const initPayment = async (state, axios) => {
-    await axios
-        .get('api/paymentMethod/find')
-        .then((res) => {
-            actions.initPayment(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Payment initiate fail ' + er)
-        })
-}
-const initProduct = async (state, axios) => {
-    await axios
-        .get(`product_f/${getters.findAllLocation['id'] || 1}`)
-        .then((res) => {
-            actions.initProduct(state, res.data)
-        })
-        .catch((er) => {
-            console.log('Data: ' + er)
-        })
-}
-const initProductPrices = async (state, axios) => {
-    await axios
-        .get(`api/product/find`)
-        .then((res) => {
-            actions.initProductPrices(state, res.data)
-        })
-        .catch((er) => {
-            console.log('Data: ' + er)
-        })
-}
-const initCurrency = async (state, axios) => {
-    await axios
-        .get('api/currency/find')
-        .then((res) => {
-            actions.initCurrency(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Currency initiate fail ' + er)
-        })
-}
-const initLocation = async (state, axios) => {
-    await axios
-        .get(`api/location/find`)
-        .then((res) => {
-            actions.initLocation(state, res.data)
-        })
-        .catch((er) => {
-            console.error(' Location initiate data fail ' + er)
-        })
-}
-const initTerminal = async (state, axios) => {
-    await axios
-        .get('api/terminal/find')
-        .then((res) => {
-            actions.initTerminal(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Terminal initiate fail ' + er)
-        })
-}
-const initUnit = async (state, axios) => {
-    await axios
-        .get('api/unit/find')
-        .then((res) => {
-            actions.initUnit(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Unit initiate data fail ' + er)
-        })
-}
-const initCompanyData = async (state, axios) => {
-    await axios
-        .get('api/company/find')
-        .then((res) => {
-            actions.initCompany(state, res.data)
-            console.log(`Init company data done`);
-        })
-        .catch((er) => {
-            console.error('Company initiate data fail ' + er)
-        })
-}
+const fetchData = async (url, action, state, axios, errorMessage) => {
+    try {
+        const response = await axios.get(url);
+        actions[action](state, response.data);
+        console.log(`${action} completed successfully.`);
+    } catch (error) {
+        console.error(`${errorMessage}: ${error}`);
+    }
+};
 
+const initClient = (state, axios) => fetchData('api/client/find', 'initClient', state, axios, 'Client initialization failed');
+const initPayment = (state, axios) => fetchData('api/paymentMethod/find', 'initPayment', state, axios, 'Payment initialization failed');
+const initProductPrices = (state, axios) => fetchData('api/product/find', 'initProductPrices', state, axios, 'Product price initialization failed');
+const initCurrency = (state, axios) => fetchData('api/currency/find', 'initCurrency', state, axios, 'Currency initialization failed');
+const initLocation = (state, axios) => fetchData('api/location/find', 'initLocation', state, axios, 'Location initialization failed');
+const initTerminal = (state, axios) => fetchData('api/terminal/find', 'initTerminal', state, axios, 'Terminal initialization failed');
+const initUnit = (state, axios) => fetchData('api/unit/find', 'initUnit', state, axios, 'Unit initialization failed');
+const initCompanyData = (state, axios) => fetchData('api/company/find', 'initCompany', state, axios, 'Company initialization failed');

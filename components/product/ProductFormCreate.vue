@@ -151,13 +151,12 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <v-row v-if="1==0">
+          <v-row v-if="0 == 0">
             <v-col cols="6">
               <v-btn
                 color="primary"
                 rounded
-                @click="
-                  triggerPriceListForm(item)"
+                @click="triggerPriceListForm(item)"
               >
                 <v-icon>mdi mdi-currency-usd</v-icon>
                 <!-- <i class="mdi mdi-currency-usd"></i> -->
@@ -192,7 +191,7 @@
               ></v-autocomplete>
             </v-col>
           </v-row>
-          
+
           <!-- Row 5 -->
           <v-row>
             <v-col cols="6">
@@ -440,6 +439,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'findAllProductPriceListToCreate',
       'findAllProduct',
       'findAllClient',
       'findAllPayment',
@@ -536,9 +536,7 @@ export default {
     },
   },
   methods: {
-    fetchData(){
-
-    },
+    fetchData() {},
     triggerPriceListForm() {
       this.pricingRecordId = this.headerId
       this.priceListFormKey += 1
@@ -689,28 +687,72 @@ export default {
       if (!this.$refs.form.validate()) {
         return
       }
+
       this.isloading = true
       const formData = new FormData()
       formData.append('FORM', JSON.stringify(this.formData))
+
       this.files.forEach((element) => {
         formData.append('files', element)
       })
-      await this.$axios
-        .post('uploadmulti', formData, {
+
+      try {
+        const response = await this.$axios.post('uploadmulti', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then((res) => {
-          this.isloading = false
-          swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
-          this.$emit('refresh')
-          this.$emit('close-dialog')
-          // this.message = res.data
-        })
-        .catch((er) => {
-          this.isloading = false
-          swalError2(this.$swal, 'Error', er)
-          // this.message = er.response.data
-        })
+
+        const productIdCreated = response.data.split('|')[1]
+        console.log(`Product ID created: ${productIdCreated}`)
+       const commResponse =  await this.commitPriceListRecord(productIdCreated)
+       console.info(`Commit response ${commResponse}`)
+        this.isloading = false
+        swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
+        console.info(
+          `Create product complete: response => ${JSON.stringify(response)}`
+        )
+
+        this.$emit('refresh')
+        this.$emit('close-dialog')
+      } catch (error) {
+        this.isloading = false
+        swalError2(this.$swal, 'Error', error)
+        console.error('Error response:', error.response)
+      }
+    },
+
+    async commitPriceListRecord(productId) {
+
+        this.isloading = true
+        let api = 'api/priceList/create'
+        console.log(`API => ProductId='${productId}'`, api)
+
+        try {
+          // Use Promise.all to handle multiple API calls concurrently
+          const requests = this.findAllProductPriceListToCreate.map((item) => {
+            item.productId = productId
+            return this.$axios.post(api, item)
+          })
+
+          // Wait for all requests to complete
+          const responses = await Promise.all(requests)
+
+          // Log the responses
+          responses.forEach((response) => {
+            console.log(`Load data: ${JSON.stringify(response)}`)
+          })
+          return responses;
+          swalSuccess(this.$swal, 'Succeed', 'Your transaction completed')
+        } catch (error) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ໃນການເພີ່ມ price list'
+          )
+          console.error('Error during price list commit:', error)
+          return null;
+        }
+
+      
     },
     previewImg(url) {
       this.previewSrc = url

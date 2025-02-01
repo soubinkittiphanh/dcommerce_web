@@ -69,8 +69,6 @@
             </v-col>
           </v-row>
           <v-row>
-       
-     
             <v-col cols="12">
               <v-btn
                 color="primary"
@@ -86,8 +84,9 @@
         <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
         <v-divider> </v-divider>
         <v-data-table :headers="headers" :search="search" :items="entries">
-          <template v-slot:[`item.id`]="{ item }">
-            <v-btn color="warning" text @click="deleteItem(item)">
+          <!-- <template v-slot:[`item.id`]="{ item }"> -->
+            <template v-slot:[`item.id`]="{ item, index }">
+            <v-btn color="warning" text @click="deleteItem(item,index)">
               <i class="fa fa-trash"></i>
             </v-btn>
           </template>
@@ -189,11 +188,23 @@ export default {
     this.loadEntry()
   },
   methods: {
+    ...mapActions([
+      'addProductPricesToCreate',
+      'deleteProductPricesToCreate',
+    ]),
     formatNumber(value) {
       return getFormatNum(value)
     },
     async commitRecord() {
       if (this.$refs.form.validate() && !this.isloading) {
+        if (this.recordId == 0) {
+          this.addProductPricesToCreate(this.form)
+          console.log(
+            `Item to create ${this.findAllProductPriceListToCreate.length}`
+          )
+          return
+        }
+
         this.isloading = true
         let api = 'api/priceList/create'
         console.log('API => ', api)
@@ -212,7 +223,11 @@ export default {
         this.isloading = false
       }
     },
-    async deleteItem(item) {
+    async deleteItem(item,idx) {
+      if (this.recordId == 0) {
+        this.deleteProductPricesToCreate(idx)
+        return
+      }
       if (!this.isloading) {
         // Implement form submission logic here
         this.isloading = true
@@ -239,6 +254,10 @@ export default {
     },
     async loadEntry() {
       console.log(`Loading data ....`)
+      if (this.recordId == 0) {
+        this.entries = this.findAllProductPriceListToCreate
+        return
+      }
       try {
         const response = await this.$axios.get(
           `api/priceList/findByProductId/${this.recordId}`
@@ -259,6 +278,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'findAllProductPriceListToCreate',
       'findAllProduct',
       'findAllClient',
       'findAllPayment',

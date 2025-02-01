@@ -145,9 +145,7 @@
           </v-col>
           <v-col cols="4" style="text-align: left">
             <v-chip class="ma-2" color="success" variant="outlined">
-
               {{ customerDisplayName }}
-
             </v-chip>
           </v-col>
           <v-col cols="2">
@@ -247,16 +245,49 @@
             style="text-align: center"
             @click="showCheckOut = !showCheckOut"
           />
-          ສ່ວນຫລຸດ
-          <v-text-field
-            style="border: 1px solid green"
-            v-model.number="discount"
-            placeholder="ສ່ວນຫລຸດ"
-            filled
-            rounded
-            dense
-            hide-details="auto"
-          ></v-text-field>
+          <v-row justify="center" align="center">
+            <v-col cols="4">
+              ສ່ວນຫລຸດ
+              <v-text-field
+                class="text-sm"
+                style="border: 1px solid green"
+                v-model.number="discount"
+                placeholder="ສ່ວນຫລຸດ"
+                filled
+                rounded
+                dense
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="4">
+              ຮັບເງິນ
+              <v-text-field
+                class="text-sm"
+                style="border: 1px solid green"
+                v-model.number="cashReceived"
+                placeholder="ຮັບເງິນ"
+                filled
+                rounded
+                dense
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="4">
+              ທອນ
+              <v-text-field
+                class="text-sm"
+                style="border: 1px solid green"
+                v-model.number="changes"
+                placeholder="ຮັບເງິນ"
+                filled
+                rounded
+                dense
+                hide-details="auto"
+                disabled
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
           <!-- </v-row> -->
           <v-list-item>
             <h4>ລວມ:</h4>
@@ -321,7 +352,9 @@ import CustomerList from '~/components/customer/CustomerList.vue'
 import Quotation from '~/components/quotation'
 import PricingOption from '~/components/PricingOption.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
-import { hostName,mainCompanyInfo } from '~/common/api'
+import { hostName, mainCompanyInfo } from '~/common/api'
+import { defaultTicket, customerTicket } from '~/common/ticket.js';
+
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
 import {
   swalSuccess,
@@ -356,6 +389,7 @@ export default {
       title: 'App name & Logo',
       customerDialog: false,
       discount: 0,
+      cashReceived: 0,
       priceRule: [
         (v) => !!/^\d+$/.test(v) || 'ກະລຸນສາໃສ່ຈຳນວນ ເປັນຕົວເລກ ເທົ່ານັ້ນ',
       ],
@@ -405,6 +439,12 @@ export default {
     companyData() {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
+    },
+
+    changes() {
+      return this.formatNumber(
+        this.cashReceived - (this.grandTotal - this.discount)
+      )
     },
 
     companyLogo() {
@@ -562,12 +602,16 @@ export default {
       )
       if (this.findAllTerminal.length == 0) {
         console.error(`Data missing need to reload`)
-        this.initiateData(this.$axios)
+        this.initData()
       }
       if (!this.currentSelectedLocation) {
         this.terminalDialog = true
       }
       // }, 1000);
+    },
+    initData() {
+        // Call the method directly
+        this.initiateData(this.$axios);
     },
     switchTerminal() {
       this.setSelectedTerminal(this.terminalSelected)
@@ -684,6 +728,25 @@ export default {
         printWin.close()
       }, 1000)
     },
+    printDefaultTicket() {
+        defaultTicket({
+            productCart: this.productCart,
+            findAllProduct: this.findAllProduct,
+            formatNumber: this.formatNumber,
+            discount: this.discount,
+            currencyList: this.currencyList,
+            grandTotal: this.grandTotal,
+            companyLogo: this.companyLogo,
+            lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
+            currentTerminal: this.currentTerminal,
+            user: this.user,
+            ticketCommon: this.ticketCommon,
+            currentPaymentCode: this.currentPaymentCode,
+            cashReceived: this.cashReceived,
+            changes: this.changes
+        });
+    },
+
     generatePrintView() {
       let txnListHtml = ``
       for (const iterator of this.productCart) {
@@ -779,6 +842,21 @@ export default {
                                         <div class="product-name"> </div>
                                     <div class="price-total"> <h5>ຊຳລະດ້ວຍ: ${
                                       this.currentPaymentCode
+                                    }  </h5> </div>
+                                 
+                                </div>
+                <div class="ticket">
+                                
+                                        <div class="product-name"> </div>
+                                    <div class="price-total"> <h5>ຮັບຊຳລະ: ${this.formatNumber(
+                                      this.cashReceived
+                                    )}  </h5> </div>
+                                </div>
+                <div class="ticket">
+                                      
+                                        <div class="product-name"> </div>
+                                    <div class="price-total"> <h5>ເງິນທອນ: ${
+                                      this.changes
                                     }  </h5> </div>
                                 </div>
                 ${totalHtml}
@@ -892,10 +970,12 @@ export default {
             // ******** clear delivery form state ***********
             this.clearCustomerFormAction()
           } else {
-            this.generatePrintView()
+            // this.generatePrintView()
+            this.printDefaultTicket()
           }
           this.newOrder()
           this.discount = 0
+          this.cashReceived = 0
         })
         .catch((er) => {
           console.error(`error occurs ${er}`)
