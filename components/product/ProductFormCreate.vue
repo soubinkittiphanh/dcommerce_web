@@ -118,7 +118,7 @@
           </v-row>
           <!-- Row 3 -->
           <v-row>
-            <v-col cols="4">
+            <v-col cols="2">
               <v-text-field
                 v-model="formData.pro_retail_price"
                 :counter="10"
@@ -127,6 +127,23 @@
                 label="ລາຄາສົ່ງ %"
                 required
               ></v-text-field>
+            </v-col>
+            <v-col
+              cols="2"
+              style="
+                display: flex;
+                align-items: center;
+                /* justify-content: center; */
+              "
+            >
+              <v-btn
+                style="border: 1px solid blue"
+                color="primary"
+                rounded
+                @click="triggerPriceListForm"
+              >
+                ຈັດການລາຄາ
+              </v-btn>
             </v-col>
             <v-col cols="4">
               <v-file-input
@@ -151,18 +168,14 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <v-row v-if="0 == 0">
+          <!-- <v-row v-if="0 == 0">
             <v-col cols="6">
-              <v-btn
-                color="primary"
-                rounded
-                @click="triggerPriceListForm(item)"
-              >
+              <v-btn color="primary" rounded @click="triggerPriceListForm">
                 <v-icon>mdi mdi-currency-usd</v-icon>
-                <!-- <i class="mdi mdi-currency-usd"></i> -->
+
               </v-btn>
             </v-col>
-          </v-row>
+          </v-row> -->
           <!-- Row 4 -->
           <v-row>
             <v-col cols="4">
@@ -440,6 +453,7 @@ export default {
   computed: {
     ...mapGetters([
       'findAllProductPriceListToCreate',
+
       'findAllProduct',
       'findAllClient',
       'findAllPayment',
@@ -536,6 +550,11 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'clearProductPricesToCreate',
+      'addProductPricesToCreate',
+      'deleteProductPricesToCreate',
+    ]),
     fetchData() {},
     triggerPriceListForm() {
       this.pricingRecordId = this.headerId
@@ -703,8 +722,8 @@ export default {
 
         const productIdCreated = response.data.split('|')[1]
         console.log(`Product ID created: ${productIdCreated}`)
-       const commResponse =  await this.commitPriceListRecord(productIdCreated)
-       console.info(`Commit response ${commResponse}`)
+        const commResponse = await this.commitPriceListRecord(productIdCreated)
+        console.info(`Commit response ${commResponse}`)
         this.isloading = false
         swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
         console.info(
@@ -721,38 +740,38 @@ export default {
     },
 
     async commitPriceListRecord(productId) {
+      this.isloading = true
+      let api = 'api/priceList/create'
+      console.log(`API => ProductId='${productId}'`, api)
 
-        this.isloading = true
-        let api = 'api/priceList/create'
-        console.log(`API => ProductId='${productId}'`, api)
+      try {
+        // Use Promise.all to handle multiple API calls concurrently
+        const requests = this.findAllProductPriceListToCreate.map((item) => {
+          // item.productId = productId
+          // Create a new object instead of modifying Vuex state directly
+          const newItem = { ...item, productId }
 
-        try {
-          // Use Promise.all to handle multiple API calls concurrently
-          const requests = this.findAllProductPriceListToCreate.map((item) => {
-            item.productId = productId
-            return this.$axios.post(api, item)
-          })
+          return this.$axios.post(api, newItem)
+        })
 
-          // Wait for all requests to complete
-          const responses = await Promise.all(requests)
+        // Wait for all requests to complete
+        const responses = await Promise.all(requests)
 
-          // Log the responses
-          responses.forEach((response) => {
-            console.log(`Load data: ${JSON.stringify(response)}`)
-          })
-          return responses;
-          swalSuccess(this.$swal, 'Succeed', 'Your transaction completed')
-        } catch (error) {
-          swalError2(
-            this.$swal,
-            'Error',
-            'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ໃນການເພີ່ມ price list'
-          )
-          console.error('Error during price list commit:', error)
-          return null;
-        }
-
-      
+        // Log the responses
+        responses.forEach((response) => {
+          console.log(`Load data: ${JSON.stringify(response)}`)
+        })
+        this.clearProductPricesToCreate()
+        return responses
+      } catch (error) {
+        swalError2(
+          this.$swal,
+          'Error',
+          'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ໃນການເພີ່ມ price list'
+        )
+        console.error('Error during price list commit:', error)
+        return null
+      }
     },
     previewImg(url) {
       this.previewSrc = url

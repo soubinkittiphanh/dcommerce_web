@@ -2,9 +2,9 @@
 
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
-  const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
+  // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
-  // const baseURL = 'http://150.95.31.23:8019' //  *** ONPHET
+  const baseURL = 'http://150.95.31.23:8019' //  *** ONPHET
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
@@ -19,27 +19,30 @@ export const mainCompanyInfo = () => {
   //   address: 'SAPHANTHONG ONLINE',
   //   env: ''
   // }
+  // const info = {
+  //   name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
+  //   tel: '020 55 627 486',
+  //   whatsapp: '+85620 55 627 486',
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: 'SAPHANTHONG ONLINE',
+  //   ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
+  //   companyLogo: 'company_logo_phaivanh.jpeg',
+  //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
+  //   env: ''
+  // }
   const info = {
-    name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
-    tel: '020 55 627 486',
-    whatsapp: '+85620 55 627 486',
+    name: 'TTP Auto parts',
+    tel: '02059262233',
+    whatsapp: '+85620 9999 9999',
     imageUrl: '',
     imageName: '',
-    address: 'SAPHANTHONG ONLINE',
-    ticketLogo: 'BWLOGO_phaivanh.jpeg',
+    address: 'DC ONLINE',
+    ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
     companyLogo: 'company_logo_phaivanh.jpeg',
     dcLogo: 'Dcommerce-Logo-phaivanh.png',
     env: ''
   }
-  // const info = {
-  //   name: 'TTP Auto parts',
-  //   tel: '02059262233',
-  //   whatsapp: '+85620 9999 9999',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: 'DC ONLINE',
-  //   env: ''
-  // }
 
   // const info = {
   //   name: 'THE CORNERS',

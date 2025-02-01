@@ -198,7 +198,8 @@ export default {
     async commitRecord() {
       if (this.$refs.form.validate() && !this.isloading) {
         if (this.recordId == 0) {
-          this.addProductPricesToCreate(this.form)
+          let localForm = { ...this.form };
+          this.addProductPricesToCreate(localForm)
           console.log(
             `Item to create ${this.findAllProductPriceListToCreate.length}`
           )
@@ -253,7 +254,7 @@ export default {
       }
     },
     async loadEntry() {
-      console.log(`Loading data ....`)
+      console.log(`Loading data .... ${this.recordId}`)
       if (this.recordId == 0) {
         this.entries = this.findAllProductPriceListToCreate
         return
@@ -262,6 +263,7 @@ export default {
         const response = await this.$axios.get(
           `api/priceList/findByProductId/${this.recordId}`
         )
+        console.warn(`RESPONSE DATA ${JSON.stringify(response.data)}`)
         this.entries = response.data
       } catch (error) {
         console.log('Cannot fetch data ' + error)

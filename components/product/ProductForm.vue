@@ -139,7 +139,7 @@
                   style="border: 1px solid blue"
                   color="primary"
                   rounded
-                  @click="triggerPriceListForm(item)"
+                  @click="triggerPriceListForm()"
                 >
                   ຈັດການລາຄາ
                 </v-btn>
@@ -603,7 +603,7 @@ export default {
   methods: {
     fetchData() {},
     triggerPriceListForm() {
-      this.pricingRecordId = this.headerId
+      this.pricingRecordId = this.formData.productId
       this.priceListFormKey += 1
       this.priceListDialog = true
     },
