@@ -38,9 +38,9 @@ export const mainCompanyInfo = () => {
     imageUrl: '',
     imageName: '',
     address: 'DC ONLINE',
-    ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
-    companyLogo: 'company_logo_phaivanh.jpeg',
-    dcLogo: 'Dcommerce-Logo-phaivanh.png',
+    ticketLogo: 'BWLOGO_DC.jpeg',
+    companyLogo: 'company_logo_DC.jpeg',
+    dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }
 
