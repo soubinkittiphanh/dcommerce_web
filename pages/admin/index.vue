@@ -301,12 +301,12 @@ export default {
           svgIcon: require('~/assets/icons/pay-card.svg'),
           path: '/admin/ordersFromPosCredit',
         },
-        // {
-        //     title: 'Stock',
-        //     // icon: 'mdi-warehouse',
-        //     svgIcon: require('~/assets/icons/stock.svg'),
-        //     path: '/admin/product/productlist'
-        // },
+        {
+            title: 'Stock',
+            // icon: 'mdi-warehouse',
+            svgIcon: require('~/assets/icons/stock.svg'),
+            path: '/admin/product/productlist'
+        },
         {
           // title: 'ລາຍການ ການຂາຍ',
           title: 'ລາຍງານ ລູກຄ້າຕິດຫນີ້ ', //231001 CR By Bae
