@@ -3,8 +3,8 @@
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
   // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
-  const baseURL = 'http://150.95.31.23:8018' //  *** BMART
-  // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
+  // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
+  const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
@@ -31,18 +31,18 @@ export const mainCompanyInfo = () => {
   //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
   //   env: ''
   // }
-  // const info = {
-  //   name: 'TTP Auto parts',
-  //   tel: '02059262233',
-  //   whatsapp: '+85620 9999 9999',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: 'DC ONLINE',
-  //   ticketLogo: 'BWLOGO_DC.jpeg',
-  //   companyLogo: 'company_logo_DC.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
+  const info = {
+    name: 'TTP Auto parts',
+    tel: '02059262233',
+    whatsapp: '+85620 9999 9999',
+    imageUrl: '',
+    imageName: '',
+    address: 'DC ONLINE',
+    ticketLogo: 'BWLOGO_DC.jpeg',
+    companyLogo: 'company_logo_DC.jpeg',
+    dcLogo: 'Dcommerce-Logo_DC.png',
+    env: ''
+  }
 
   // const info = {
   //   name: 'THE CORNERS',
@@ -56,17 +56,17 @@ export const mainCompanyInfo = () => {
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  const info = {
-    name: 'BMART',
-    tel: '020 2698 3331',
-    whatsapp: '+8562023378899',
-    imageUrl: '',
-    imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'BWLOGO_BMART.jpeg',
-    companyLogo: 'company_logo_BMART.jpeg',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }
+  // const info = {
+  //   name: 'BMART',
+  //   tel: '020 2698 3331',
+  //   whatsapp: '+8562023378899',
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: '3 ແຍກອາໄພ່ LPB',
+  //   ticketLogo: 'BWLOGO_BMART.jpeg',
+  //   companyLogo: 'company_logo_BMART.jpeg',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
+  //   env: ''
+  // }
   return info;
 }

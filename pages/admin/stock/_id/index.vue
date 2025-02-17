@@ -80,6 +80,9 @@
               single-line
               hide-detailsx
             />
+            <!-- <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary" rounded>
+                <span class="mdi mdi-microsoft-excel"></span>Generate excel file
+              </v-btn> -->
             <v-text-field
               v-model="userId"
               append-icon="mdi-magnify"
@@ -293,6 +296,12 @@ export default {
       if (!date) return null
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+    exportToExcel() {
+      const worksheet = this.$xlsx.utils.json_to_sheet(this.activeOrderHeaderList);
+      const workbook = this.$xlsx.utils.book_new();
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+      this.$xlsx.writeFile(workbook, 'data.xlsx');
     },
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date)
