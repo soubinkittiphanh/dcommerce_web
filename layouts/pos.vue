@@ -24,6 +24,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="qtyDialog" max-width="400px">
+      <v-card>
+        <v-card-title>Update Quantity</v-card-title>
+        <v-card-text>
+          <v-text-field
+            v-model.number="newQty"
+            label="Enter new quantity"
+            type="number"
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="qtyDialog = false">Cancel</v-btn>
+          <v-btn color="primary" @click="updateQty">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="customerDialog" max-width="1024">
       <customer-list @close-dialog="customerDialog = false"></customer-list>
     </v-dialog>
@@ -187,24 +203,44 @@
                 <tr v-for="item in productCart" :key="item.id">
                   <td>
                     <v-btn
+                      class="pa-0 ma-0"
                       color="red"
                       icon
                       @click="deleteProductFromCart(item)"
                     >
-                      <v-icon>fa-light fa-trash</v-icon>
+                      <v-icon class="pa-0 ma-0">fa-light fa-trash</v-icon>
                       <!-- <i class="fa-sharp fa-light fa-trash"></i> -->
                     </v-btn>
                   </td>
                   <td class="font-weight-medium">{{ item.pro_name }}</td>
                   <td>
-                    <v-btn icon @click="deleteProduct(item)">
-                      <v-icon>fa-solid fa-minus</v-icon>
+                    <v-btn class="pa-0 ma-0" icon @click="deleteProduct(item)">
+                      <v-icon class="pa-0 ma-0">fa-solid fa-minus</v-icon>
                     </v-btn>
                   </td>
-                  <td class="font-weight-medium">{{ item.qty }}</td>
+                  <td class="font-weight-medium">
+                    <v-btn
+                      class="pa-0 ma-0"
+                      @click="openQtyDialog(item)"
+                      small
+                      >{{ item.qty }}</v-btn
+                    >
+
+                    <!-- 
+                    <v-text-field
+                      class="text-sm"
+                      style="border: 1px solid green"
+                      v-model.number="item.qty"
+                      filled
+                      rounded
+                      dense
+                      hide-details="auto"
+                    ></v-text-field> -->
+                  </td>
+
                   <td>
-                    <v-btn icon @click="addProduct(item)">
-                      <v-icon>fa-solid fa-plus</v-icon>
+                    <v-btn class="pa-0 ma-0" icon @click="addProduct(item)">
+                      <v-icon class="pa-0 ma-0">fa-solid fa-plus</v-icon>
                     </v-btn>
                   </td>
                   <!-- <td class="font-weight-medium">{{ formatNumber(item.pro_price * item.qty) }}</td> -->
@@ -353,7 +389,7 @@ import Quotation from '~/components/quotation'
 import PricingOption from '~/components/PricingOption.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 import { hostName, mainCompanyInfo } from '~/common/api'
-import { defaultTicket, customerTicket } from '~/common/ticket.js';
+import { defaultTicket, customerTicket } from '~/common/ticket.js'
 
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
 import {
@@ -367,6 +403,10 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
+      qtyDialog: false,
+      newQty: 0,
+      selectedProductId: null,
+
       upSvg: require('~/assets/icons/dcommerce/up.svg'),
       downSvg: require('~/assets/icons/dcommerce/down.svg'),
       showCheckOut: true,
@@ -443,7 +483,9 @@ export default {
 
     changes() {
       return this.formatNumber(
-        this.cashReceived - (this.grandTotal - this.discount)
+        this.cashReceived == 0
+          ? 0
+          : this.cashReceived - (this.grandTotal - this.discount)
       )
     },
 
@@ -571,6 +613,7 @@ export default {
     },
   },
   methods: {
+    setQty() {},
     pricingLogig(item) {
       console.log(`PRINCING CLICK....${item.id}`)
       this.productPricingSelected = item.id
@@ -610,8 +653,8 @@ export default {
       // }, 1000);
     },
     initData() {
-        // Call the method directly
-        this.initiateData(this.$axios);
+      // Call the method directly
+      this.initiateData(this.$axios)
     },
     switchTerminal() {
       this.setSelectedTerminal(this.terminalSelected)
@@ -729,22 +772,22 @@ export default {
       }, 1000)
     },
     printDefaultTicket() {
-        defaultTicket({
-            productCart: this.productCart,
-            findAllProduct: this.findAllProduct,
-            formatNumber: this.formatNumber,
-            discount: this.discount,
-            currencyList: this.currencyList,
-            grandTotal: this.grandTotal,
-            companyLogo: this.companyLogo,
-            lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
-            currentTerminal: this.currentTerminal,
-            user: this.user,
-            ticketCommon: this.ticketCommon,
-            currentPaymentCode: this.currentPaymentCode,
-            cashReceived: this.cashReceived,
-            changes: this.changes
-        });
+      defaultTicket({
+        productCart: this.productCart,
+        findAllProduct: this.findAllProduct,
+        formatNumber: this.formatNumber,
+        discount: this.discount,
+        currencyList: this.currencyList,
+        grandTotal: this.grandTotal,
+        companyLogo: this.companyLogo,
+        lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
+        currentTerminal: this.currentTerminal,
+        user: this.user,
+        ticketCommon: this.ticketCommon,
+        currentPaymentCode: this.currentPaymentCode,
+        cashReceived: this.cashReceived,
+        changes: this.changes,
+      })
     },
 
     generatePrintView() {
@@ -923,9 +966,31 @@ export default {
     openCustomerDialog() {
       this.customerDialog = true
     },
+    // ...mapMutations({
+    //   SetSearchKeyword: 'SetSearchKeyword',
+    // }),
     ...mapMutations({
       SetSearchKeyword: 'SetSearchKeyword',
+      UPDATE_QTY: 'UPDATE_QTY',
     }),
+
+    updateQty(productId, newQty) {
+      const qty = parseInt(newQty) || 0 // Ensure it's a valid number
+      this.UPDATE_QTY({ productId, qty })
+    },
+
+    openQtyDialog(item) {
+      this.selectedProductId = item.id
+      this.newQty = item.qty
+      this.qtyDialog = true
+    },
+
+    updateQty() {
+      if (this.selectedProductId !== null) {
+        this.UPDATE_QTY({ productId: this.selectedProductId, qty: this.newQty })
+        this.qtyDialog = false
+      }
+    },
     async postTransactionForOnlineCustomer(payload) {
       console.log(`Posting.......`)
       this.saleHeader.customerForm = payload.customerForm

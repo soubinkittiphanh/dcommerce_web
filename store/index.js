@@ -38,7 +38,12 @@ export const state = () => ({
 
 // the function to update state variable should be called by setter [actions]
 export const mutations = {
-
+    UPDATE_QTY(state, { productId, qty }) {
+        const product = state.cartOfproductSelected.find(p => p.id === productId);
+        if (product) {
+            product.qty = qty;
+        }
+    },
     initProductPriceList(state, productPrices) {
         state.productPriceList = productPrices;
     },
@@ -410,6 +415,15 @@ export const actions = {
                 initCurrency(state, axios),
                 initPayment(state, axios),
                 initUnit(state, axios),
+                initCompanyData(state, axios)
+            ]);
+        } catch (error) {
+            console.error("Failed to initialize data:", error);
+        }
+    },
+    async initiateDataCompany(state, axios) {
+        try {
+            await Promise.all([
                 initCompanyData(state, axios)
             ]);
         } catch (error) {

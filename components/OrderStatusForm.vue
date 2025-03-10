@@ -192,7 +192,7 @@
 <script>
 import { swalSuccess, swalError2, ticketHtml, getFormatNum } from '~/common'
 import { debounce } from 'lodash'
-import { hostName,mainCompanyInfo } from '~/common/api'
+import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
@@ -558,6 +558,7 @@ export default {
   },
   computed: {
     companyData() {
+      
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
     },

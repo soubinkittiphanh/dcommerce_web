@@ -27,6 +27,7 @@
 <script>
 import { getFormatNum, swalError2, swalSuccess } from '~/common'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
     layout: "pos",
     middleware: 'auths',
@@ -52,7 +53,7 @@ export default {
         await this.loadProductWithPriceList()
         await this.loadCategory()
         // await this.loadPayment()
-
+        console.warn(`the company info is ${JSON.stringify(mainCompanyInfoV1(this.$store))}`)
         window.addEventListener('keydown', this.handleKeyDown);
     },
     beforeDestroy() {

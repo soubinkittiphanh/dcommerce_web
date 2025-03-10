@@ -15,16 +15,16 @@
               <table class="table-layout" style="font-size: larger; font-weight: bold; ">
                 <tbody style="text-align: right;">
                   <tr style="white-space: nowrap">
-                    <td> {{this.companyData.name}}</td>
+                    <td> {{companyDataV1.name}}</td>
                   </tr>
                   <!-- <tr style="white-space: nowrap">
                     <td> Laos Friend</td>
                   </tr> -->
                   <tr style="white-space: nowrap">
-                    <td> {{this.companyData.address}}</td>
+                    <td> {{companyDataV1.address}}</td>
                   </tr>
                   <tr style="white-space: nowrap">
-                    <td> Tel: {{this.companyData.tel}}</td>
+                    <td> Tel: {{companyDataV1.tel}}</td>
                   </tr>
                   <!-- <tr style="white-space: nowrap">
                     <td> 020 2337-8899</td>
@@ -167,10 +167,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters,mapActions } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
 import { getFormatNum } from '~/common'
-import { mainCompanyInfo } from '~/common/api'
+import { mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',
@@ -190,7 +190,10 @@ export default {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
     },
-
+    companyDataV1() {
+      let comV1 = mainCompanyInfoV1(this.$store)
+      return comV1
+    },
     companyLogo() {
       return require(`~/assets/image/${this.companyData.companyLogo}`)
     },
@@ -205,7 +208,7 @@ export default {
     }
   },
   async created() {
-
+    await this.initiateDataCompany(this.$axios)
     // this.id = parseInt(this.$route.query.id)
     this.id = this.$route.params.id
     if (this.id) {
@@ -225,6 +228,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
     formatNumber(val) {
       return getFormatNum(val)
     },

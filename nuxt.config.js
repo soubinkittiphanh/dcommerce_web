@@ -1,15 +1,15 @@
 
-import { hostName,mainCompanyInfo } from './common/api'
+import { hostName } from './common/api'
 export default {
   server: {
     host: '0.0.0.0'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: `${mainCompanyInfo()['env']} %s`,
+    titleTemplate: `DCOMMERCE`,
     // title: 'Jack42',
     // title: 'PeeAir4',
-    title: `${mainCompanyInfo()['name']}`,
+    title: ` DC`,
     htmlAttrs: {
       lang: 'en'
     },

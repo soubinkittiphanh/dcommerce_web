@@ -11,19 +11,20 @@
               <table
                 class="table-layout"
                 style="font-size: larger; font-weight: bold"
+                     v-if="findAllCompany.length > 0"
               >
                 <tbody style="text-align: right">
                   <tr style="white-space: nowrap">
-                    <td>{{ this.companyData.name }}</td>
+                    <td>{{ companyDataV1.name }}</td>
                   </tr>
                   <!-- <tr style="white-space: nowrap">
                     <td> Laos Friend</td>
                   </tr> -->
                   <tr style="white-space: nowrap">
-                    <td>{{ this.companyData.address }}</td>
+                    <td>{{ companyDataV1.address }}</td>
                   </tr>
                   <tr style="white-space: nowrap">
-                    <td>Tel: {{ this.companyData.tel }}</td>
+                    <td>Tel: {{ companyDataV1.tel }}</td>
                   </tr>
                   <!-- <tr style="white-space: nowrap">
                     <td> 020 2337-8899</td>
@@ -172,9 +173,18 @@
                 <v-divider></v-divider> -->
                 <h4>BANK NAME: BCEL BANK</h4>
                 <br />
-                <h4>- ACCOUNT NUMBER: 050-12-00-00239021-001</h4>
+                <!-- <h4>- ACCOUNT NUMBER: 050-12-00-00239021-001</h4>
                 <h4>- CURRENCY: LAK</h4>
-                <h4>- ACCOUNT NAME: MS. VANIDA VIPHAVADY</h4>
+                <h4>- ACCOUNT NAME: MS. VANIDA VIPHAVADY</h4> -->
+                
+                <!-- TODO: PLEASE MAINTAIN DATA IN DB -->
+                <H4>
+                  CNY   10111 00436 6687
+                  USD   10111 00436 6708
+                  THB   10111 00436 6717
+                  LAK   10111 00436 6735
+                </H4>
+                <h4>- ACCOUNT NAME: TTP AUTO PART SOLE CO.,LTD</h4>
               </v-card>
             </v-col>
             <v-col cols="2"></v-col>
@@ -191,10 +201,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters,mapActions } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
+
+import { mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
 import { getFormatNum, jsDateToMysqlDate } from '~/common'
-import { mainCompanyInfo } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',
@@ -215,6 +226,10 @@ export default {
   },
 
   computed: {
+    companyDataV1() {
+      let comV1 = mainCompanyInfoV1(this.$store)
+      return comV1
+    },
     companyData() {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
@@ -228,6 +243,7 @@ export default {
       'currentSelectedCustomer',
       'currentSelectedPayment',
       'findAllProduct',
+      'findAllCompany'
     ]),
     grand() {
       let totalDiscount = 0
@@ -250,6 +266,7 @@ export default {
   async created() {
     // this.id = parseInt(this.$route.query.id)
     // this.id = this.$route.params.id
+    await this.initiateDataCompany(this.$axios)
     const payloadString = this.$route.query.payload
     console.log(`=====> PAYLOAD ${payloadString}`)
     const payload = payloadString ? JSON.parse(payloadString) : null
@@ -275,9 +292,11 @@ export default {
   },
 
   methods: {
+    ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
     formatNumber(val) {
       return getFormatNum(val)
     },
+    
   },
 }
 </script>

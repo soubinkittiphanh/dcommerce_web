@@ -1,5 +1,6 @@
 
 
+
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
   // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
@@ -9,7 +10,13 @@ export const hostName = () => {
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
 }
-export const mainCompanyInfo = () => {
+
+export const mainCompanyInfoV1 = (store) => {
+  return store.getters.findAllCompany[0]
+}
+
+export const mainCompanyInfo = (store) => {
+
   // const info = {
   //   name: 'THE DCOMMERCE DEMO',
   //   tel: '02099822489',
@@ -32,17 +39,30 @@ export const mainCompanyInfo = () => {
   //   env: ''
   // }
   const info = {
-    name: 'TTP Auto parts',
-    tel: '02059262233',
-    whatsapp: '+85620 9999 9999',
+    name: '',
+    tel: '',
+    whatsapp: '',
     imageUrl: '',
     imageName: '',
-    address: 'DC ONLINE',
-    ticketLogo: 'BWLOGO_DC.jpeg',
+    address: '',
+    ticketLogo: 'Dcommerce-Logo_DC.png',
     companyLogo: 'company_logo_DC.jpeg',
     dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }
+
+  // const info = {
+  //   name: dbCoInfo.name,//'TTP Auto parts',
+  //   tel: dbCoInfo.tel,
+  //   whatsapp: `+8562${dbCoInfo.tel}`,
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: dbCoInfo.address,
+  //   ticketLogo: 'BWLOGO_DC.jpeg',
+  //   companyLogo: 'company_logo_DC.jpeg',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
+  //   env: ''
+  // }
 
   // const info = {
   //   name: 'THE CORNERS',
@@ -63,7 +83,7 @@ export const mainCompanyInfo = () => {
   //   imageUrl: '',
   //   imageName: '',
   //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'BWLOGO_BMART.jpeg',
+  //   ticketLogo: 'BWLOGO_BMART.png',
   //   companyLogo: 'company_logo_BMART.jpeg',
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''

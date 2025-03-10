@@ -43,7 +43,7 @@
 
 <script>
 import {  getFormatNum } from '~/common'
-import { hostName,mainCompanyInfo } from '~/common/api'
+import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
   name: 'MyFooter',
   data() {
@@ -144,7 +144,7 @@ export default {
     },
     contactUsViaWhatsApp() {
       console.log(`Whatsapp box`);
-      const phoneNumber = mainCompanyInfo().whatsapp; // Replace with your phone number
+      const phoneNumber = mainCompanyInfoV1(this.$store).tel; // Replace with your phone number
       const message = encodeURIComponent('ສະບາຍດີ dcommerce'); // Your default message
       const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
       window.open(whatsappURL, '_blank'); // Open WhatsApp chat in new tab/window

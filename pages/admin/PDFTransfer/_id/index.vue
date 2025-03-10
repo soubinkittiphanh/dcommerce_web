@@ -7,7 +7,7 @@
             <img :src="companyLogo" width="200px" />
           </div>
         </div>
-        <h1 style="text-align: center;">{{this.companyData.name}}</h1>
+        <h1 style="text-align: center;">{{companyDataV1.name}}</h1>
         <p class="text-color" style="font-size: 11pt; font-weight: bold; text-align: center">
           Company addres here ...
         </p>
@@ -128,10 +128,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters,mapActions } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
 import { getFormatNum } from '~/common'
-import { mainCompanyInfo } from '~/common/api'
+import { mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',
@@ -151,7 +151,10 @@ export default {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
     },
-
+    companyDataV1() {
+      let comV1 = mainCompanyInfoV1(this.$store)
+      return comV1
+    },
     companyLogo() {
       return require(`~/assets/image/${this.companyData.companyLogo}`)
     },
@@ -159,7 +162,7 @@ export default {
 
   },
   async created() {
-
+    await this.initiateDataCompany(this.$axios)
     // this.id = parseInt(this.$route.query.id)
     this.id = this.$route.params.id
     if (this.id) {
@@ -179,6 +182,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
     formatNumber(val) {
       return getFormatNum(val)
     },

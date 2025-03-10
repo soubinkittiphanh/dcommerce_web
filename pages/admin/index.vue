@@ -203,6 +203,7 @@ import {
   today,
   getFormatNum,
 } from '~/common'
+import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 import CardOnTop from '~/components/dashboard/CardOnTop.vue'
 import CardGrouping from '~/components/dashboard/CardGrouping.vue'
 import CampaignCard from '~/components/card/campaignCard.vue'

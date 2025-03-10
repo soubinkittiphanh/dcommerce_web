@@ -53,7 +53,7 @@ export const defaultTicket = (params) => {
     const windowContent = `
         ${ticketCommon.header}
         <body>
-            <h3>ໃບຮັບເງິນ</h3>
+            <h3>ໃບຮັບເງິນ / Receipt</h3>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div style="flex: 0 0 auto;">
                     <img src="${companyLogo}" alt="Logo" width="100" height="100">
@@ -151,7 +151,7 @@ export const customerTicket = (params) => {
     const windowContent = `
         ${ticketCommon.header}
         <body>
-            <h3>ໃບຮັບເງິນ</h3>
+            <h3>ໃບຮັບເງິນ / Receipt</h3>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div style="flex: 0 0 auto;">
                     <img src="${companyLogo}" alt="Logo" width="100" height="100">
