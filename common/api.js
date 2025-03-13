@@ -45,8 +45,8 @@ export const mainCompanyInfo = (store) => {
     imageUrl: '',
     imageName: '',
     address: '',
-    ticketLogo: 'Dcommerce-Logo_DC.png',
-    companyLogo: 'company_logo_DC.jpeg',
+    ticketLogo: 'TTP_AUTO.jpeg',
+    companyLogo: 'TTP_AUTO.jpeg',
     dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }
