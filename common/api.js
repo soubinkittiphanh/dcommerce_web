@@ -18,15 +18,15 @@ export const mainCompanyInfoV1 = (store) => {
 export const mainCompanyInfo = (store) => {
 
   const info = {
-    name: 'THE DCOMMERCE DEMO',
-    tel: '02099822489',
-    whatsapp: '+8562099822489',
+    name: '',
+    tel: '',
+    whatsapp: '+',
     imageUrl: '',
     imageName: '',
     address: 'SAPHANTHONG ONLINE',
-    ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
-    companyLogo: 'company_logo_phaivanh.jpeg',
-    dcLogo: 'Dcommerce-Logo-phaivanh.png',
+    ticketLogo: 'BWLOGO_DC.jpeg',
+    companyLogo: 'company_logo_DC.jpeg',
+    dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }
   // const info = {
