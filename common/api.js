@@ -3,10 +3,10 @@
 
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
-  // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
+  const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
   // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
-  const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
+  // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
 }
@@ -17,30 +17,30 @@ export const mainCompanyInfoV1 = (store) => {
 
 export const mainCompanyInfo = (store) => {
 
-  const info = {
-    name: '',
-    tel: '',
-    whatsapp: '+',
-    imageUrl: '',
-    imageName: '',
-    address: 'SAPHANTHONG ONLINE',
-    ticketLogo: 'BWLOGO_DC.jpeg',
-    companyLogo: 'company_logo_DC.jpeg',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }
   // const info = {
-  //   name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
-  //   tel: '020 55 627 486',
-  //   whatsapp: '+85620 55 627 486',
+  //   name: '',
+  //   tel: '',
+  //   whatsapp: '+',
   //   imageUrl: '',
   //   imageName: '',
   //   address: 'SAPHANTHONG ONLINE',
-  //   ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
-  //   companyLogo: 'company_logo_phaivanh.jpeg',
-  //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
+  //   ticketLogo: 'BWLOGO_DC.jpeg',
+  //   companyLogo: 'company_logo_DC.jpeg',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
+  const info = {
+    name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
+    tel: '020 55 627 486',
+    whatsapp: '+85620 55 627 486',
+    imageUrl: '',
+    imageName: '',
+    address: 'SAPHANTHONG ONLINE',
+    ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
+    companyLogo: 'company_logo_phaivanh.jpeg',
+    dcLogo: 'Dcommerce-Logo-phaivanh.png',
+    env: ''
+  }
   // const info = {
   //   name: '',
   //   tel: '',

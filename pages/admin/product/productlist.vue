@@ -324,7 +324,38 @@ export default {
   },
   methods: {
     exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(this.loaddata)
+      const headerMap = {
+        id: 'ID',
+        co_name: 'Company Name',
+        pro_id: 'Product ID',
+        pro_name: 'Product Name',
+        pro_price: 'Product Price',
+        pro_desc: 'Product Description',
+        pro_status: 'Product Status',
+        pro_category: 'Product Category',
+        pro_category_desc: 'Category Description',
+        pro_card_count: 'Card Count',
+        pro_cost_price: 'Cost Price',
+        pro_outlet: 'Outlet ID',
+        pro_outlet_name: 'Outlet Name',
+        minStock: 'Minimum Stock',
+        functionEdit: 'Edit Function',
+        functionStock: 'Stock Function',
+        pricing: 'Pricing',
+        functionStockView: 'Stock View',
+        status: 'Status',
+      }
+
+      // Transform data with readable headers
+      const transformedData = this.loaddata.map((item) => {
+        let newItem = {}
+        Object.keys(item).forEach((key) => {
+          newItem[headerMap[key] || key] = item[key] // Use readable header or fallback to original
+        })
+        return newItem
+      })
+
+      const worksheet = this.$xlsx.utils.json_to_sheet(transformedData)
       const workbook = this.$xlsx.utils.book_new()
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
       this.$xlsx.writeFile(workbook, 'data.xlsx')
