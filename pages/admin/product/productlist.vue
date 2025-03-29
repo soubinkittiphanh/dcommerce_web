@@ -327,30 +327,24 @@ export default {
       const headerMap = {
         id: 'ID',
         co_name: 'Company Name',
-        pro_id: 'Product ID',
+        pro_id: 'Product Code',
         pro_name: 'Product Name',
+        barCode: 'Barcode',
+        pro_cost_price: 'Cost Price',
         pro_price: 'Product Price',
         pro_desc: 'Product Description',
-        pro_status: 'Product Status',
-        pro_category: 'Product Category',
         pro_category_desc: 'Category Description',
-        pro_card_count: 'Card Count',
-        pro_cost_price: 'Cost Price',
-        pro_outlet: 'Outlet ID',
-        pro_outlet_name: 'Outlet Name',
+        pro_card_count: 'Stock',
         minStock: 'Minimum Stock',
-        functionEdit: 'Edit Function',
-        functionStock: 'Stock Function',
-        pricing: 'Pricing',
-        functionStockView: 'Stock View',
-        status: 'Status',
       }
 
-      // Transform data with readable headers
+      // Transform data with only required fields
       const transformedData = this.loaddata.map((item) => {
         let newItem = {}
-        Object.keys(item).forEach((key) => {
-          newItem[headerMap[key] || key] = item[key] // Use readable header or fallback to original
+        Object.keys(headerMap).forEach((key) => {
+          if (item.hasOwnProperty(key)) {
+            newItem[headerMap[key]] = item[key] // Map only required fields
+          }
         })
         return newItem
       })
@@ -2687,6 +2681,7 @@ export default {
               pro_cost_price: el.cost_price,
               pro_outlet: el.outlet,
               pro_outlet_name: el.outlet_name,
+              barCode: el.barCode,
               minStock: el.minStock,
               functionEdit: el.pro_id,
               functionStock: el.pro_id,
