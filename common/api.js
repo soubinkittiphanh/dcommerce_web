@@ -41,31 +41,20 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
   //   env: ''
   // }
-  // const info = {
-  //   name: '',
-  //   tel: '',
-  //   whatsapp: '',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '',
-  //   ticketLogo: 'TTP_AUTO.jpeg',
-  //   companyLogo: 'TTP_AUTO.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-
   const info = {
-    name: dbCoInfo.name,//'TTP Auto parts',
-    tel: dbCoInfo.tel,
-    whatsapp: `+8562${dbCoInfo.tel}`,
+    name: '',
+    tel: '',
+    whatsapp: '',
     imageUrl: '',
     imageName: '',
-    address: dbCoInfo.address,
-    ticketLogo: 'BWLOGO_DC.jpeg',
-    companyLogo: 'company_logo_DC.jpeg',
+    address: '',
+    ticketLogo: 'TTP_AUTO.jpeg',
+    companyLogo: 'TTP_AUTO.jpeg',
     dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }
+
+
 
   // const info = {
   //   name: 'THE CORNERS',
