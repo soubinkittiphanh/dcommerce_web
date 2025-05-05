@@ -275,14 +275,17 @@
               </v-card>
             </div>
             <!-- Image list -->
+            
             <div>
               <v-list three-line>
                 <template v-for="(item, index) in imagesPreviewURL">
+                 
                   <v-list-item :key="index">
                     <v-list-item-avatar
                       @click.prevent="previewImg(item.IMG_URL)"
                     >
                       <v-img :src="item.IMG_URL"></v-img>
+                      {{item.IMG_URL}}
                     </v-list-item-avatar>
                     <v-list-item-content>
                       <v-list-item-title v-html="item.NAME"></v-list-item-title>
@@ -339,6 +342,7 @@ import ImagePreviewMixin from '../../pages/product/index.vue'
 import { hostName } from '~/common/api'
 import { mapActions, mapGetters } from 'vuex'
 import JsBarcode from 'jsbarcode'
+// import { Logger } from 'html2canvas/dist/types/core/logger'
 export default {
   props: {
     isEdit: {
@@ -694,6 +698,7 @@ export default {
       this.isLoading = false
     },
     previewImg(url) {
+      console.warn(`image preview ${url}`)
       this.previewSrc = url
       this.preview = true
     },

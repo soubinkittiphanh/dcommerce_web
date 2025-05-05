@@ -129,6 +129,7 @@ export default {
                 .get(`product_f/${this.currentSelectedLocation['id']}`)
                 .then((res) => {
                     for (const iterator of res.data) {
+                        console.warn(`Currency id ${iterator['saleCurrencyId']}`)
                         const currency = this.findCurrency(iterator['saleCurrencyId'])
                         iterator['localPrice'] = iterator['pro_price'] * currency['rate']
                         this.productList.push(iterator)
@@ -136,7 +137,7 @@ export default {
                 })
                 .catch((er) => {
                     this.message = er
-                    swalError2(this.$swal, "Error", er)
+                    swalError2(this.$swal, "Error 1111", er)
                 })
             this.isloading = false
         },
