@@ -204,6 +204,21 @@
               ></v-autocomplete>
             </v-col>
           </v-row>
+          <!-- Row 5 -->
+          <v-row>
+            <v-col cols="4">
+              <v-text-field
+                v-model="formData.vendorName"
+                label="Vendor name"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="4">
+      
+            </v-col>
+            <v-col cols="4">
+          
+            </v-col>
+          </v-row>
 
           <!-- Row 5 -->
           <v-row>
@@ -250,6 +265,7 @@
                 v-model="formData.pro_desc"
               ></v-textarea>
             </v-col>
+
             <v-col cols="2">
               <v-checkbox
                 v-model.number="formData.isActive"
@@ -430,6 +446,7 @@ export default {
         saleCurrencyId: 1,
         costCurrencyId: 1,
         isActive: true,
+        vendorName:'',
       },
       companyList: [],
     }

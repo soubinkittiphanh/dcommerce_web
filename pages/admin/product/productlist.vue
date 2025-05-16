@@ -277,6 +277,7 @@ export default {
         { text: 'minStock', align: 'center', value: 'minStock' },
         { text: 'Stock', align: 'center', value: 'pro_card_count' },
         { text: 'Status', align: 'center', value: 'status' },
+        { text: 'Vendor', align: 'center', value: 'vendorName' },
         { text: 'cost', align: 'center', value: 'pro_cost_price' },
         {
           text: 'ເພີ່ມສະຕັອກ',
@@ -2680,6 +2681,7 @@ export default {
               pro_card_count: el.card_count,
               pro_cost_price: el.cost_price,
               pro_outlet: el.outlet,
+              vendorName: el.vendorName,
               pro_outlet_name: el.outlet_name,
               barCode: el.barCode,
               minStock: el.minStock,

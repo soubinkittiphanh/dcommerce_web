@@ -196,6 +196,21 @@
                 ></v-autocomplete>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col cols="4" sm="6" md="4">
+                <v-text-field
+                  v-model="formData.vendorName"
+                  label="Vendor name"
+
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4" sm="6" md="4">
+      
+              </v-col>
+              <v-col cols="4" sm="6" md="4">
+   
+              </v-col>
+            </v-row>
             <!-- Row 5 -->
             <v-row>
               <v-col cols="6" sm="6" md="6">
@@ -592,6 +607,7 @@ export default {
         saleCurrencyId: 1,
         costCurrencyId: 1,
         isActive: true,
+        vendorName:'',
       },
       companyList: [],
       isLoading: false,
@@ -767,6 +783,7 @@ export default {
             saleCurrencyId: el.saleCurrencyId,
             pro_image: image,
             isActive: el.isActive,
+            vendorName: el.vendorName,
           }
           if (!this.formData.barCode) {
             // ****** prevent error temporary *****

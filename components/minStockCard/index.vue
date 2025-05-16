@@ -103,6 +103,7 @@ export default {
         { text: 'Stock', align: 'center', value: 'pro_card_count' },
         { text: 'Status', align: 'center', value: 'status' },
         { text: 'cost', align: 'center', value: 'pro_cost_price' },
+        { text: 'Vendor', align: 'center', value: 'vendorName' },
         // {
         //   text: 'ສະຕັອກ',
         //   align: 'center',
@@ -180,6 +181,7 @@ export default {
                 pro_outlet: iterator.outlet,
                 pro_outlet_name: iterator.outlet_name,
                 minStock: iterator.minStock,
+                vendorName: iterator.vendorName,
                 // function: iterator.pro_id,
                 functionEdit: iterator.pro_id,
                 functionStock: iterator.pro_id,
