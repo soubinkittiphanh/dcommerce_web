@@ -43,33 +43,33 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
   //   env: ''
   // }
-  const info = {
-    name: '',
-    tel: '',
-    whatsapp: '',
-    imageUrl: '',
-    imageName: '',
-    address: '',
-    ticketLogo: 'TTP_AUTO.jpeg',
-    companyLogo: 'TTP_AUTO.jpeg',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }
-
-
-
   // const info = {
-  //   name: 'THE CORNERS',
-  //   tel: '020 2698 3331',
-  //   whatsapp: '+8562023378899',
+  //   name: '',
+  //   tel: '',
+  //   whatsapp: '',
   //   imageUrl: '',
   //   imageName: '',
-  //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'BWLOGO_DC.jpeg',
-  //   companyLogo: 'company_logo_DC.jpeg',
+  //   address: '',
+  //   ticketLogo: 'TTP_AUTO.jpeg',
+  //   companyLogo: 'TTP_AUTO.jpeg',
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
+
+
+
+  const info = {
+    name: 'THE CORNERS',
+    tel: '020 2698 3331',
+    whatsapp: '+8562023378899',
+    imageUrl: '',
+    imageName: '',
+    address: '3 ແຍກອາໄພ່ LPB',
+    ticketLogo: 'BWLOGO_DC.jpeg',
+    companyLogo: 'company_logo_DC.jpeg',
+    dcLogo: 'Dcommerce-Logo_DC.png',
+    env: ''
+  }
   // const info = {
   //   name: 'BMART',
   //   tel: '020 2698 3331',
