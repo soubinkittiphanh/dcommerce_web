@@ -2,8 +2,8 @@
 
 
 export const hostName = () => {
-  const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
-  // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
+  // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
+  const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
   // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
   // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
