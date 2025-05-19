@@ -2,19 +2,18 @@
   <div id="body">
     <div size="A4" class="wrapper page">
       <v-container>
-        <div style="display: flex; justify-content: center">
+         <div style="display: flex; justify-content: center">
           <v-row>
-            <v-col cols="6">
-              <img :src="companyLogo" width="200px" />
-            </v-col>
-            <v-col cols="6" align-self="end">
+            <!-- {{ companyData.companyLogo }} -->
+            <v-col cols="8" align-self="start">
               <table
                 class="table-layout"
                 style="font-size: larger; font-weight: bold"
-                     v-if="findAllCompany.length > 0"
+                v-if="findAllCompany.length > 0"
               >
-                <tbody style="text-align: right">
+                <tbody style="text-align: left">
                   <tr style="white-space: nowrap">
+                    <!-- <td> ຮ້ານ ສະຫາຍ {{ companyData.companyLogo }}</td> -->
                     <td>{{ companyDataV1.name }}</td>
                   </tr>
                   <!-- <tr style="white-space: nowrap">
@@ -24,7 +23,7 @@
                     <td>{{ companyDataV1.address }}</td>
                   </tr>
                   <tr style="white-space: nowrap">
-                    <td>Tel: {{ companyDataV1.tel }}</td>
+                    <td>Tel: {{ companyDataV1.tel || '' }}</td>
                   </tr>
                   <!-- <tr style="white-space: nowrap">
                     <td> 020 2337-8899</td>
@@ -32,6 +31,12 @@
                 </tbody>
               </table>
             </v-col>
+            <v-col cols="4">
+              <img :src="companyLogo" width="200px" />
+              <!-- <img :src="`~/assets/image/${companyData.companyLogo}`" width="200px" /> -->
+
+            </v-col>
+            
           </v-row>
         </div>
         <p
@@ -163,29 +168,39 @@
         </v-row>
         <div>
           <v-row no-gutters>
-            <v-col cols="5" style="" align-self="end">
-              <v-card class="mx-auto pa-10" height="134" width="100%" outlined>
-                <h4>BANK TRANSFER:</h4>
-                <!-- <h4>BANK NAME: LAO DEVELOPMENT BANK</h4>
+            <v-col cols="5" style="" align-self="end" v-if="findAllCompany.length > 0">
+              <v-card
+                v-if="1 == 0"
+                class="mx-auto ml-0"
+                height="134"
+                width="100%"
+                outlined
+              >
+                Customer Acceptance (sign below):
+              </v-card>
+              <!-- <v-card class="mx-auto pa-10" height="134" width="100%" outlined> -->
+              <!-- <v-card-text> -->
+              <!-- <h4>BANK TRANSFER</h4> -->
+              <!-- <h4>BANK NAME: LAO DEVELOPMENT BANK</h4>
                 <h4>- ACCOUNT NUMBER: 999-99-99-9999</h4>
                 <h4>- ACCOUNT NAME: CHITHANH MINIMART</h4>
                 <h4>- CURRENCY: LAK</h4>
                 <v-divider></v-divider> -->
-                <h4>BANK NAME: BCEL BANK</h4>
-                <br />
-                <!-- <h4>- ACCOUNT NUMBER: 050-12-00-00239021-001</h4>
+              <h5>Bank name: {{ companyDataV1.bank }}</h5>
+              <h5>Account name: {{ companyDataV1.accountName }}</h5>
+              <!-- <h4>- ACCOUNT NUMBER: 050-12-00-00239021-001</h4>
                 <h4>- CURRENCY: LAK</h4>
                 <h4>- ACCOUNT NAME: MS. VANIDA VIPHAVADY</h4> -->
-                
-                <!-- TODO: PLEASE MAINTAIN DATA IN DB -->
-                <H4>
-                  CNY   10111 00436 6687
-                  USD   10111 00436 6708
-                  THB   10111 00436 6717
-                  LAK   10111 00436 6735
-                </H4>
-                <h4>- ACCOUNT NAME: TTP AUTO PART SOLE CO.,LTD</h4>
-              </v-card>
+
+              <!-- TODO: PLEASE MAINTAIN DATA IN DB -->
+              <ul  >
+                <li v-for="(account, index) in companyDataV1.accounts.split('|')" :key="index">
+                  {{ account }} 
+                </li>
+              </ul>
+
+              <!-- </v-card-text> -->
+              <!-- </v-card> -->
             </v-col>
             <v-col cols="2"></v-col>
             <v-col cols="5">
@@ -201,7 +216,7 @@
 </template>
 
 <script>
-import { mapGetters,mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
 
 import { mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
@@ -226,24 +241,29 @@ export default {
   },
 
   computed: {
-    companyDataV1() {
-      let comV1 = mainCompanyInfoV1(this.$store)
-      return comV1
-    },
     companyData() {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
+
       return mainCompanyInfo()
+    },
+    companyDataV1() {
+      console.log(
+        `**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`
+      )
+      let comV1 = mainCompanyInfoV1(this.$store)
+      console.info(`Company data fetch from api V1 ${comV1}`)
+      return comV1
     },
 
     companyLogo() {
-      return require(`~/assets/image/${this.companyData.dcLogo}`)
+      return require(`~/assets/image/${this.companyData.companyLogo}`)
     },
     ...mapGetters([
       'cartOfProduct',
       'currentSelectedCustomer',
       'currentSelectedPayment',
       'findAllProduct',
-      'findAllCompany'
+      'findAllCompany',
     ]),
     grand() {
       let totalDiscount = 0
@@ -263,9 +283,11 @@ export default {
       return today
     },
   },
+  async mounted() {
+    const respones = await this.initiateDataCompany(this.$axios)
+  },
   async created() {
     // this.id = parseInt(this.$route.query.id)
-    // this.id = this.$route.params.id
     await this.initiateDataCompany(this.$axios)
     const payloadString = this.$route.query.payload
     console.log(`=====> PAYLOAD ${payloadString}`)
@@ -292,11 +314,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
+    ...mapActions([
+      'initiateDataCompany',
+      'setSelectedTerminal',
+      'setSelectedLocation',
+    ]),
     formatNumber(val) {
       return getFormatNum(val)
     },
-    
   },
 }
 </script>

@@ -3,10 +3,10 @@
 
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
-  const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
+  // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
   // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
-  // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
+  const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
@@ -14,6 +14,7 @@ export const hostName = () => {
 }
 
 export const mainCompanyInfoV1 = (store) => {
+  
   return store.getters.findAllCompany[0]
 }
 
@@ -43,33 +44,33 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
   //   env: ''
   // }
-  // const info = {
-  //   name: '',
-  //   tel: '',
-  //   whatsapp: '',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '',
-  //   ticketLogo: 'TTP_AUTO.jpeg',
-  //   companyLogo: 'TTP_AUTO.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-
-
-
   const info = {
-    name: 'THE CORNERS',
-    tel: '020 2698 3331',
-    whatsapp: '+8562023378899',
+    name: '',
+    tel: '',
+    whatsapp: '',
     imageUrl: '',
     imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'BWLOGO_DC.jpeg',
-    companyLogo: 'company_logo_DC.jpeg',
+    address: '',
+    ticketLogo: 'TTP_AUTO.jpeg',
+    companyLogo: 'TTP_AUTO.jpeg',
     dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }
+
+
+
+  // const info = {
+  //   name: 'THE CORNERS',
+  //   tel: '020 2698 3331',
+  //   whatsapp: '+8562023378899',
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: '3 ແຍກອາໄພ່ LPB',
+  //   ticketLogo: 'BWLOGO_DC.jpeg',
+  //   companyLogo: 'company_logo_DC.jpeg',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
+  //   env: ''
+  // }
   // const info = {
   //   name: 'BMART',
   //   tel: '020 2698 3331',

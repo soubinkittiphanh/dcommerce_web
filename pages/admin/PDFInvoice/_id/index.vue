@@ -264,8 +264,9 @@ export default {
       return mainCompanyInfo()
     },
     companyDataV1() {
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
+      console.log(`**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`)
       let comV1 = mainCompanyInfoV1(this.$store)
+      console.info(`Company data fetch from api V1 ${comV1}`);
       return comV1
     },
 
