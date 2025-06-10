@@ -3,8 +3,8 @@
 
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
-  const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
-  // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
+  // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
+  const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
   // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
@@ -32,18 +32,18 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  // const info = {
-  //   name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
-  //   tel: '020 55 627 486',
-  //   whatsapp: '+85620 55 627 486',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: 'SAPHANTHONG ONLINE',
-  //   ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
-  //   companyLogo: 'company_logo_phaivanh.jpeg',
-  //   dcLogo: 'Dcommerce-Logo-phaivanh.png',
-  //   env: ''
-  // }
+  const info = {
+    name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
+    tel: '020 55 627 486',
+    whatsapp: '+85620 55 627 486',
+    imageUrl: '',
+    imageName: '',
+    address: 'SAPHANTHONG ONLINE',
+    ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
+    companyLogo: 'company_logo_phaivanh.jpeg',
+    dcLogo: 'Dcommerce-Logo-phaivanh.png',
+    env: ''
+  }
   // const info = {
   //   name: '',
   //   tel: '',
@@ -59,18 +59,18 @@ export const mainCompanyInfo = (store) => {
 
 
 
-  const info = {
-    name: 'THE CORNERS',
-    tel: '020 2698 3331',
-    whatsapp: '+8562023378899',
-    imageUrl: '',
-    imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'BWLOGO_the_conners.jpeg',
-    companyLogo: 'company_logo_DC.jpeg',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }
+  // const info = {
+  //   name: 'THE CORNERS',
+  //   tel: '020 2698 3331',
+  //   whatsapp: '+8562023378899',
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: '3 ແຍກອາໄພ່ LPB',
+  //   ticketLogo: 'BWLOGO_the_conners.jpeg',
+  //   companyLogo: 'company_logo_DC.jpeg',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
+  //   env: ''
+  // }
   // const info = {
   //   name: 'BMART',
   //   tel: '020 2698 3331',
