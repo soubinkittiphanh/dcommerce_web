@@ -306,11 +306,7 @@
           </template>
           <template v-slot:[`item.print`]="{ item }">
             <!-- TODO: TICKET PRINT -->
-            <v-btn
-              @click="generatePrintViewDeliveryCustomer(item)"
-              text
-              color="primary"
-            >
+            <v-btn @click="printDefaultTicket(item)" text color="primary">
               <span class="mdi mdi-printer"></span>
             </v-btn>
           </template>
@@ -329,6 +325,8 @@ import {
   getFormatNum,
   ticketHtml,
 } from '~/common'
+import { hostName, mainCompanyInfo } from '~/common/api'
+import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
@@ -361,7 +359,7 @@ export default {
       componentCancelFormKey: 1,
       cancelForm: false,
       OrderIdSelected: '',
-
+      lastTransactionSaleHeaderId: 0,
       headers: [
         {
           text: 'ວັນທີ',
@@ -494,6 +492,13 @@ export default {
     },
   },
   computed: {
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
+      return mainCompanyInfo()
+    },
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.ticketLogo}`)
+    },
     ticketCommon() {
       return ticketHtml()
     },
@@ -613,6 +618,9 @@ export default {
       orderDetail.title = 'ຍອດບິນ COD'
       return orderDetail
     },
+    user() {
+      return this.$auth.user || ''
+    },
   },
 
   methods: {
@@ -652,135 +660,25 @@ export default {
         })
       this.isloading = false
     },
-    generatePrintViewDeliveryCustomer(saleHeader) {
-      // Check if saleHeader exists
-      if (!saleHeader) {
-        console.error('saleHeader is undefined or null')
-        return
-      }
-
-      // Check if lines exists and is an array
-      if (!saleHeader.lines || !Array.isArray(saleHeader.lines)) {
-        console.error('saleHeader.lines is undefined, null, or not an array')
-        return
-      }
-
-      console.log(`ITEM SALE HEADER : ${saleHeader.id}`)
-      console.log(`ITEM SALE HEADER : ${this.currentTerminal.id}`)
-      console.log(
-        'Full saleHeader object:',
-        JSON.stringify(saleHeader, null, 2)
-      )
-      console.log('saleHeader.lines:', saleHeader?.lines)
-      let txnListHtml = ``
-      const lines = saleHeader?.lines || []
-
-      for (const iterator of lines) {
-        const product = this.findAllProduct.find(
-          (el) => el.id == iterator.productId
-        )
-        console.log(`=======${JSON.stringify(product)}======`)
-        console.log(`LINE =======${JSON.stringify(iterator)}======`)
-        const quantity = iterator.quantity
-        const total = iterator.quantity * iterator.price
-        txnListHtml += `<div class="ticket">
-                    <div class="product-name">${product.pro_name} </div>
-                    <div class="price"> ${quantity} ${
-          saleHeader.payment.payment_code == 'COD'
-            ? ' X ' + this.formatNumber(total)
-            : ''
-        }</div>
-                </div>`
-      }
-      const discountHtml = `<div class="ticket">
-                    <div class="product-name">ສ່ວນຫລຸດ </div>
-                    <div class="price"> - ${this.formatNumber(
-                      saleHeader.discount
-                    )}</div>
-                </div>`
-      const riderFeeHtml = `<div class="ticket">
-                    <div class="product-name">ຄ່າສົ່ງ </div>
-                    <div class="price">${this.formatNumber(
-                      saleHeader.dynamic_customer.rider_fee
-                    )}</div>
-                </div>`
-      //*********Payment info tag********/
-      let totalHtml = ''
-      for (const iterator of this.currencyList) {
-        if (
-          iterator.code == 'LAK' &&
-          (saleHeader.payment.payment_code == 'COD' ||
-            this.currentShipping(saleHeader.dynamic_customer.shippingId) ==
-              'RIDER')
-        ) {
-          totalHtml += `
-                                    <div class="ticket">
-                                        <div class="product-name"></div>
-                                    <div class="price-total"> <h5>ຍອດລວມ(${
-                                      saleHeader.payment.payment_code
-                                    }): ${this.formatNumber(
-            saleHeader.total + +saleHeader.dynamic_customer.rider_fee
-          )}  </h5> </div>
-                                </div>
-                                    `
-        }
-      }
-
-      const windowContent = `
-         ${this.ticketCommon.header}
-            <body>
-                <h5> ວັນທີ: ${saleHeader.bookingDate}</h5>
-                 <h5> ຮ້ານ: ${
-                   this.currentTerminal['location']['company']['name']
-                 } </h5>
-       <h5> ເບີໂທ: ${this.currentTerminal['location']['company']['tel']} </h5>
-                <hr> </hr>
-                <h5> ຜູ້ຮັບ: ${saleHeader.dynamic_customer.name}</h5>
-                <h5> ໂທ: ${saleHeader.dynamic_customer.tel} </h5>
-                <h5> ຂົນສົ່ງ: ${this.currentShipping(
-                  saleHeader.dynamic_customer.shippingId
-                )} </h5>
-                <h5> ບ່ອນສົ່ງ: ${saleHeader.dynamic_customer.address} - ${
-        saleHeader.dynamic_customer.geography.description
-      }</h5>
-              ${
-                this.currentShipping(saleHeader.dynamic_customer.shippingId) ==
-                'RIDER'
-                  ? ``
-                  : `<h5> ຄ່າຝາກ: ${
-                      saleHeader.dynamic_customer.shipping_fee_by.includes(
-                        'destination'
-                      )
-                        ? 'ປາຍທາງ'
-                        : 'ຕົ້ນທາງ'
-                    }</h5>`
-              }  
-                <hr> </hr>
-                ${txnListHtml}
-                ${saleHeader.dynamic_customer.rider_fee > 0 ? riderFeeHtml : ''}
-                ${
-                  saleHeader.discount > 0 &&
-                  saleHeader.payment.payment_code == 'COD'
-                    ? discountHtml
-                    : ''
-                }
-                <hr> </hr>
-                ${totalHtml}
-            </body>
-            </html>
-        `
-      const printWin = window.open(
-        '',
-        '',
-        'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
-      )
-      printWin.document.open()
-      printWin.document.write(windowContent)
-
-      setTimeout(() => {
-        printWin.print()
-        printWin.close()
-      }, 1000)
+    printDefaultTicket(data) {
+      console.info(`DATA ${JSON.stringify(data)}`)
+      defaultTicketReprint({
+        productCart: data.lines,
+        findAllProduct: this.findAllProduct,
+        formatNumber: this.formatNumber,
+        discount: data.discount,
+        currencyList: this.currencyList,
+        grandTotal: data.total,
+        companyLogo: this.companyLogo,
+        lastTransactionSaleHeaderId: data.id,
+        currentTerminal: this.currentTerminal,
+        user: this.user,
+        ticketCommon: this.ticketCommon,
+        currentPaymentCode: data.payment.payment_code,
+        cashReceived: data.total,
+        changes: 0,
+        bookingDate: data.createdAt,
+      })
     },
     exportToExcel() {
       const worksheet = this.$xlsx.utils.json_to_sheet(
