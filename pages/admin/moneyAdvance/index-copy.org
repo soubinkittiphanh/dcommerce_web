@@ -1,0 +1,2776 @@
+<template>
+  <div class="money-advance-container">
+    <!-- Header Section -->
+    <div class="header-section">
+      <h1 class="page-title">ອອກລາຍຈ່າຍ</h1>
+      <div class="header-actions">
+        <button class="btn btn-primary" @click="openDialog()">
+          <i class="fas fa-plus"></i> ລົງບັນຊີລາຍຈ່າຍ
+        </button>
+      </div>
+    </div>
+
+    <!-- Custom Confirmation Dialog -->
+    <div
+      v-if="confirmDialog.show"
+      class="modal-overlay"
+      @click="closeConfirmDialog"
+    >
+      <div class="modal-dialog confirmation-dialog" @click.stop>
+        <div class="modal-header confirmation-header">
+          <div class="modal-title-section">
+            <i class="fas fa-question-circle modal-icon"></i>
+            <h5 class="modal-title">{{ confirmDialog.title }}</h5>
+          </div>
+        </div>
+
+        <div class="modal-body confirmation-body">
+          <div class="confirmation-content">
+            <div class="confirmation-icon">
+              <i :class="confirmDialog.icon"></i>
+            </div>
+            <div class="confirmation-message">
+              <p>{{ confirmDialog.message }}</p>
+              <div v-if="confirmDialog.details" class="confirmation-details">
+                <strong>{{ confirmDialog.details }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer confirmation-footer">
+          <button
+            @click="closeConfirmDialog"
+            class="btn btn-secondary"
+            :disabled="confirmDialog.processing"
+          >
+            <i class="fas fa-times"></i>
+            Cancel
+          </button>
+          <button
+            @click="executeConfirmAction"
+            :class="['btn', confirmDialog.confirmButtonClass]"
+            :disabled="confirmDialog.processing"
+          >
+            <i
+              v-if="confirmDialog.processing"
+              class="fas fa-spinner fa-spin"
+            ></i>
+            <i v-else :class="confirmDialog.confirmIcon"></i>
+            {{
+              confirmDialog.processing
+                ? 'Processing...'
+                : confirmDialog.confirmText
+            }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="card summary-card">
+        <div class="card-body">
+          <h5 class="card-title">ຈນ ລາຍຈ່າຍ</h5>
+          <p class="card-value">{{ dashboard.counts.total }}</p>
+        </div>
+      </div>
+      <div class="card summary-card">
+        <div class="card-body">
+          <h5 class="card-title">ຄ້າງອະນຸມັດ</h5>
+          <p class="card-value pending">{{ dashboard.counts.pending }}</p>
+        </div>
+      </div>
+      <div class="card summary-card">
+        <div class="card-body">
+          <h5 class="card-title">ອະນຸມັດແລ້ວ</h5>
+          <p class="card-value approved">{{ dashboard.counts.approved }}</p>
+        </div>
+      </div>
+      <div class="card summary-card">
+        <div class="card-body">
+          <h5 class="card-title">ຊຳລະແລ້ວ</h5>
+          <p class="card-value settled">{{ dashboard.counts.settled }}</p>
+        </div>
+      </div>
+      <div class="card summary-card">
+        <div class="card-body">
+          <h5 class="card-title">ລວມຍອດທັງໝົດ</h5>
+          <p class="card-value">
+            {{ formatCurrency(dashboard.amounts.total) }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Status filter dropdown with Lao labels -->
+          <!-- <div class="filter-group"> -->
+          <!-- <label>ສະຖານະ:</label> -->
+          <select v-model="statusFilter" class="form-control">
+            <option value="">ທຸກສະຖານະ</option>
+            <option value="pending">ຄ້າງອະນຸມັດ</option>
+            <option value="approved">ອະນຸມັດແລ້ວ</option>
+            <option value="settled">ຊຳລະແລ້ວ</option>
+          </select>
+          <!-- </div> -->
+        </div>
+        <div class="col-md-3">
+          <select
+            v-model="filters.makerId"
+            @change="fetchData"
+            class="form-control"
+          >
+            <option value="">ຈາກຜູ້ໃຊ້ງານທັງໝົດ</option>
+            <option v-for="user in users" :key="user.id" :value="user.id">
+              {{ user.cus_name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input
+            v-model="searchTerm"
+            @input="debounceSearch"
+            type="text"
+            class="form-control"
+            placeholder="ຄົ້ນຫາ ດ້ວຍຈຸດປະສົງ..."
+          />
+        </div>
+        <div class="col-md-3">
+          <button @click="resetFilters" class="btn btn-secondary">
+            <i class="fas fa-undo"></i> ຄ່າເລີ່ມຕົ້ນ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-container">
+      <div v-if="loading" class="loading-overlay">
+        <div class="spinner"></div>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ຜູ້ລົງບັນຊີ</th>
+            <th>ຈຳນວນເງິນ</th>
+            <th>ຈຸດປະສົງ</th>
+            <th>ສະຖານະ</th>
+            <th>ວັນຄົບຮອບຄວນຊຳລະ</th>
+            <th>ວັນທີລົງຊຳລະ</th>
+            <th>ຟັງຊັ່ນ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="advance in advances" :key="advance.id">
+            <td>{{ advance.id }}</td>
+            <td>{{ advance.maker ? advance.maker.cus_name : 'N/A' }}</td>
+            <td>
+              <span class="amount">
+                {{ formatCurrency(advance.amount) }}
+                <small v-if="advance.currency">{{
+                  advance.currency.code
+                }}</small>
+              </span>
+            </td>
+            <td>{{ advance.purpose || 'N/A' }}</td>
+            <!-- <td>
+              <span
+                :class="['badge', 'badge-' + getStatusClass(advance.status)]"
+              >
+                {{ advance.status.toUpperCase() }}
+              </span>
+            </td> -->
+            <td>
+              <span :class="['status-badge', advance.status]">
+                {{ getStatusInLao(advance.status) }}
+              </span>
+            </td>
+            <td>{{ formatDate(advance.dueDate) }}</td>
+            <td>{{ formatDate(advance.createdAt) }}</td>
+            <td>
+              <div class="action-buttons">
+                <button
+                  @click="viewDetails(advance)"
+                  class="btn btn-sm btn-info"
+                  title="View Details"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button
+                  v-if="advance.status === 'pending'"
+                  @click="openDialog(advance)"
+                  class="btn btn-sm btn-warning"
+                  title="Edit"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  v-if="advance.status === 'pending'"
+                  @click="approveAdvance(advance)"
+                  class="btn btn-sm btn-success"
+                  title="Approve"
+                >
+                  <i class="fas fa-check"></i>
+                </button>
+                <button
+                  v-if="advance.status === 'approved'"
+                  class="btn btn-sm btn-success"
+                  title="Create Settlement 1"
+                >
+                  <i class="fas fa-file-invoice-dollar"></i>
+                </button>
+                <button
+                  v-if="advance.status === 'pending'"
+                  @click="deleteAdvance(advance)"
+                  class="btn btn-sm btn-danger"
+                  title="Delete"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- No Data Message -->
+      <div v-if="!loading && advances.length === 0" class="no-data">
+        <i class="fas fa-inbox"></i>
+        <p>No money advances found</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav v-if="pagination.totalPages > 1" class="pagination-nav">
+      <ul class="pagination">
+        <li
+          class="page-item"
+          :class="{ disabled: pagination.currentPage === 1 }"
+        >
+          <button
+            @click="changePage(pagination.currentPage - 1)"
+            class="page-link"
+          >
+            Previous
+          </button>
+        </li>
+        <li
+          v-for="page in paginationPages"
+          :key="page"
+          class="page-item"
+          :class="{ active: page === pagination.currentPage }"
+        >
+          <button @click="changePage(page)" class="page-link">
+            {{ page }}
+          </button>
+        </li>
+        <li
+          class="page-item"
+          :class="{
+            disabled: pagination.currentPage === pagination.totalPages,
+          }"
+        >
+          <button
+            @click="changePage(pagination.currentPage + 1)"
+            class="page-link"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Enhanced Maintenance Dialog -->
+    <div v-if="showDialog" class="modal-overlay" @click="closeDialog">
+      <div class="modal-dialog enhanced-dialog" @click.stop>
+        <div class="modal-header">
+          <div class="modal-title-section">
+            <i class="fas fa-money-bill-wave modal-icon"></i>
+            <h5 class="modal-title">
+              {{ isEdit ? 'ແກ້ໄຂລາຍຈ່າຍ' : 'ລົງບັນຊີລາຍຈ່າຍ' }}
+            </h5>
+          </div>
+          <button @click="closeDialog" class="close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form @submit.prevent="saveAdvance">
+          <div class="modal-body">
+            <!-- Loading state for form data -->
+            <div v-if="formLoading" class="form-loading">
+              <div class="spinner-small"></div>
+              <p>Loading form data...</p>
+            </div>
+
+            <div v-else class="form-grid">
+              <!-- Amount Field -->
+              <div class="form-group full-width">
+                <label class="form-label required">
+                  <i class="fas fa-dollar-sign"></i>
+                  ຈຳນວນເງິນ
+                </label>
+                <div class="input-group">
+                  <input
+                    v-model="form.amount"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    class="form-control"
+                    placeholder="Enter amount"
+                    required
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      {{ selectedCurrencyCode }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- User Selection -->
+              <div class="form-group">
+                <label class="form-label required">
+                  <i class="fas fa-user"></i>
+                  ຜູ້ໃຊ້
+                </label>
+                <div class="custom-select-wrapper">
+                  <select
+                    v-model="form.makerId"
+                    class="form-control custom-select"
+                    required
+                  >
+                    <option value="">ເລືອກຜູ້ລົງ</option>
+                    <option
+                      v-for="user in users"
+                      :key="user.id"
+                      :value="user.id"
+                    >
+                      {{ user.cus_name }}
+                    </option>
+                  </select>
+                  <div class="select-icon">
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                </div>
+                <div v-if="users.length === 0" class="field-hint error">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  No users available. Please contact administrator.
+                </div>
+              </div>
+
+              <!-- Currency Selection -->
+              <div class="form-group">
+                <label class="form-label required">
+                  <i class="fas fa-coins"></i>
+                  ສະກຸນເງິນ
+                </label>
+                <div class="custom-select-wrapper">
+                  <select
+                    v-model="form.currencyId"
+                    class="form-control custom-select"
+                    required
+                    @change="updateSelectedCurrency"
+                  >
+                    <option value="">ເລືອກສະກຸນເງິນ</option>
+                    <option
+                      v-for="currency in currencies"
+                      :key="currency.id"
+                      :value="currency.id"
+                    >
+                      {{ currency.code }} - {{ currency.name }}
+                    </option>
+                  </select>
+                  <div class="select-icon">
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                </div>
+                <div v-if="currencies.length === 0" class="field-hint error">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  No currencies available. Please contact administrator.
+                </div>
+              </div>
+
+              <!-- Purpose Field -->
+              <div class="form-group full-width">
+                <label class="form-label">
+                  <i class="fas fa-tag"></i>
+                  ຈຸດປະສົງ
+                </label>
+                <input
+                  v-model="form.purpose"
+                  type="text"
+                  class="form-control"
+                  placeholder="ເນື້ອໃນ ການອອກລາຍຈ່າຍ"
+                />
+              </div>
+
+              <!-- Due Date -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-calendar-alt"></i>
+                  ວັນຄົບຮອບຄວນຊຳລະ
+                </label>
+                <input
+                  v-model="form.dueDate"
+                  type="date"
+                  class="form-control"
+                  :min="today"
+                />
+              </div>
+
+              <!-- Notes Field -->
+              <div class="form-group full-width">
+                <label class="form-label">
+                  <i class="fas fa-sticky-note"></i>
+                  ໂນ໊ດ
+                </label>
+                <textarea
+                  v-model="form.note"
+                  class="form-control"
+                  rows="3"
+                  placeholder="ລາຍລະອຽດເພີ່ມເຕີມ..."
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Form Validation Errors -->
+            <div v-if="formErrors.length > 0" class="form-errors">
+              <h6>
+                <i class="fas fa-exclamation-circle"></i>
+                Please fix the following errors:
+              </h6>
+              <ul>
+                <li v-for="error in formErrors" :key="error">{{ error }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="modal-footer enhanced-footer">
+            <button
+              type="button"
+              @click="closeDialog"
+              class="btn btn-secondary"
+              :disabled="saving"
+            >
+              <i class="fas fa-times"></i>
+              ອອກ
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              :disabled="saving || formLoading || !isFormValid"
+            >
+              <i v-if="saving" class="fas fa-spinner fa-spin"></i>
+              <i v-else class="fas" :class="isEdit ? 'fa-save' : 'fa-plus'"></i>
+              {{ saving ? 'Saving...' : isEdit ? 'ບັນທຶກ ການແກ້ໄຂ' : 'ບັນທຶກ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Details View Dialog -->
+    <div
+      v-if="showDetailDialog"
+      class="modal-overlay"
+      @click="closeDetailDialog"
+    >
+      <div class="modal-dialog detail-dialog" @click.stop>
+        <div class="modal-header">
+          <div class="modal-title-section">
+            <i class="fas fa-file-invoice-dollar modal-icon"></i>
+            <h5 class="modal-title">ລາຍລະອຽດການອອກລາຍຈ່າຍ</h5>
+          </div>
+          <div class="header-actions">
+            <button @click="printAdvanceDetails" class="btn-icon" title="Print">
+              <i class="fas fa-print"></i>
+            </button>
+            <button
+              @click="downloadAdvanceDetails"
+              class="btn-icon"
+              title="Download"
+            >
+              <i class="fas fa-download"></i>
+            </button>
+            <button @click="closeDetailDialog" class="close-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-body detail-body">
+          <!-- Loading state -->
+          <div v-if="detailLoading" class="detail-loading">
+            <div class="spinner-small"></div>
+            <p>Loading details...</p>
+          </div>
+
+          <!-- Details content -->
+          <div v-else-if="advanceDetails" class="detail-content">
+            <!-- Status Badge -->
+            <div class="detail-status">
+              <span
+                :class="['status-badge', 'status-' + advanceDetails.status]"
+              >
+                <i
+                  class="fas"
+                  :class="getStatusIcon(advanceDetails.status)"
+                ></i>
+                {{ getStatusInLao(advanceDetails.status) }}
+              </span>
+            </div>
+
+            <!-- Main Information -->
+            <div class="detail-section">
+              <h6 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                ຂໍ້ມູນເບື້ອງຕົ້ນ
+              </h6>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <label>ID</label>
+                  <span class="detail-value">#{{ advanceDetails.id }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>ຈຳນວນເງິນ</label>
+                  <span class="detail-value amount-display">
+                    {{ formatCurrency(advanceDetails.amount) }}
+                    <small>{{ advanceDetails.currency?.code }}</small>
+                  </span>
+                </div>
+                <div class="detail-item full-width">
+                  <label>ຈຸດປະສົງ</label>
+                  <span class="detail-value">{{
+                    advanceDetails.purpose || 'No purpose specified'
+                  }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Information -->
+            <div class="detail-section">
+              <h6 class="section-title">
+                <i class="fas fa-users"></i>
+                ຜູ້ໃຊ້ ທີ່ກ່ຽວຂ້ອງ
+              </h6>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <label>ຜູ້ລົງບັນຊີ</label>
+                  <span class="detail-value user-info">
+                    <i class="fas fa-user"></i>
+                    {{ advanceDetails.maker?.cus_name || 'N/A' }}
+                  </span>
+                </div>
+                <div class="detail-item">
+                  <label>ຜູ້ອະນຸມັດ</label>
+                  <span class="detail-value user-info">
+                    <i class="fas fa-user-check"></i>
+                    {{ advanceDetails.checker?.cus_name || 'Not yet approved' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dates Information -->
+            <div class="detail-section">
+              <h6 class="section-title">
+                <i class="fas fa-calendar"></i>
+                ການເຄື່ອນໄຫວລາຍການ
+              </h6>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-icon created">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                  <div class="timeline-content">
+                    <label>ລົງບັນຊີລາຍຈ່າຍ</label>
+                    <span class="timeline-date">{{
+                      formatDateTime(advanceDetails.createdAt)
+                    }}</span>
+                  </div>
+                </div>
+
+                <div v-if="advanceDetails.approvedAt" class="timeline-item">
+                  <div class="timeline-icon approved">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <div class="timeline-content">
+                    <label>ອະນຸມັດແລ້ວ</label>
+                    <span class="timeline-date">{{
+                      formatDateTime(advanceDetails.approvedAt)
+                    }}</span>
+                  </div>
+                </div>
+
+                <div v-if="advanceDetails.dueDate" class="timeline-item">
+                  <div
+                    class="timeline-icon due"
+                    :class="{ overdue: isOverdue(advanceDetails.dueDate) }"
+                  >
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div class="timeline-content">
+                    <label>ວັນຄົບຮອບຄວນຊຳລະ</label>
+                    <span
+                      class="timeline-date"
+                      :class="{ overdue: isOverdue(advanceDetails.dueDate) }"
+                    >
+                      {{ formatDateTime(advanceDetails.dueDate) }}
+                      <span
+                        v-if="isOverdue(advanceDetails.dueDate)"
+                        class="overdue-badge"
+                      >
+                        <i class="fas fa-exclamation-triangle"></i> Overdue
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+                <div v-if="advanceDetails.settledAt" class="timeline-item">
+                  <div class="timeline-icon settled">
+                    <i class="fas fa-money-bill"></i>
+                  </div>
+                  <div class="timeline-content">
+                    <label>ຮັບຊຳລະ</label>
+                    <span class="timeline-date">{{
+                      formatDateTime(advanceDetails.settledAt)
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div v-if="advanceDetails.note" class="detail-section">
+              <h6 class="section-title">
+                <i class="fas fa-sticky-note"></i>
+                Notes
+              </h6>
+              <div class="notes-content">
+                {{ advanceDetails.note }}
+              </div>
+            </div>
+
+            <!-- Action History (if available) -->
+            <div
+              v-if="advanceDetails.history && advanceDetails.history.length > 0"
+              class="detail-section"
+            >
+              <h6 class="section-title">
+                <i class="fas fa-history"></i>
+                Action History
+              </h6>
+              <div class="history-list">
+                <div
+                  v-for="(history, index) in advanceDetails.history"
+                  :key="index"
+                  class="history-item"
+                >
+                  <div class="history-icon">
+                    <i class="fas" :class="getHistoryIcon(history.action)"></i>
+                  </div>
+                  <div class="history-content">
+                    <span class="history-action">{{ history.action }}</span>
+                    <span class="history-user">by {{ history.user }}</span>
+                    <span class="history-date">{{
+                      formatDateTime(history.createdAt)
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error state -->
+          <div v-else class="detail-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Failed to load advance details</p>
+            <button
+              @click="viewDetails(selectedAdvance)"
+              class="btn btn-primary btn-sm"
+            >
+              <i class="fas fa-redo"></i> Try Again
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-footer detail-footer">
+          <button
+            @click="closeDetailDialog"
+            class="btn btn-secondary close-detail-btn"
+          >
+            <i class="fas fa-times"></i>
+            Close
+          </button>
+
+          <!-- Action buttons based on status -->
+          <div class="detail-actions">
+            <button
+              v-if="advanceDetails && advanceDetails.status === 'pending'"
+              @click="
+                openDialog(advanceDetails)
+                closeDetailDialog()
+              "
+              class="btn btn-warning action-btn"
+              title="Edit"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              v-if="advanceDetails && advanceDetails.status === 'pending'"
+              @click="
+                approveAdvance(advanceDetails)
+                closeDetailDialog()
+              "
+              class="btn btn-success action-btn"
+              title="Approve"
+            >
+              <i class="fas fa-check"></i>
+            </button>
+            <button
+              v-if="advanceDetails && advanceDetails.status === 'approved'"
+              @click="
+                closeDetailDialog()
+              "
+              class="btn btn-success action-btn"
+              title="Create Settlement 2"
+            >
+              <i class="fas fa-file-invoice-dollar"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Voucher Component -->
+    <money-advance-print-voucher
+      v-if="showPrintVoucher && advanceDetails"
+      :advance="advanceDetails"
+      :company-name="'Your Company Name'"
+      :company-address="'123 Business Street\nCity, State 12345'"
+      :company-phone="'+1 (555) 123-4567'"
+      :company-email="'info@yourcompany.com'"
+      @close="closePrintVoucher"
+    />
+
+
+  </div>
+</template>
+
+<script>
+// Import the print voucher component
+// import MoneyAdvancePrintVoucher from './MoneyAdvancePrintVoucher.vue'
+import MoneyAdvancePrintVoucher from '~/components/MA/VourcherMoneyAdvance'
+import { swalSuccess, swalError2, swalConfirm } from '~/common'
+export default {
+  name: 'MoneyAdvanceManagement',
+
+  components: {
+    MoneyAdvancePrintVoucher,
+  },
+
+  data() {
+    return {
+      statusFilter: '',
+      statusLabels: {
+        pending: 'ຄ້າງອະນຸມັດ',
+        approved: 'ອະນຸມັດແລ້ວ',
+        settled: 'ຊຳລະແລ້ວ',
+        rejected: 'ປະຕິເສດ',
+        cancelled: 'ຍົກເລີກ',
+      },
+      confirmDialog: false,
+      advances: [],
+      dashboard: {
+        counts: { total: 0, pending: 0, approved: 0, settled: 0 },
+        amounts: { total: 0, pending: 0 },
+      },
+      users: [],
+      currencies: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        itemsPerPage: 10,
+      },
+      filters: {
+        status: '',
+        makerId: '',
+      },
+      searchTerm: '',
+      loading: false,
+      saving: false,
+      formLoading: false,
+      showDialog: false,
+      showDetailDialog: false,
+      showPrintVoucher: false,
+      isEdit: false,
+      selectedAdvance: null,
+      selectedAdvanceForSettlement: null,
+      advanceDetails: null,
+      detailLoading: false,
+      form: {
+        id: null,
+        amount: '',
+        purpose: '',
+        note: '',
+        makerId: '',
+        currencyId: '',
+        dueDate: '',
+      },
+      formErrors: [],
+      searchTimeout: null,
+    }
+  },
+
+  computed: {
+    user() {
+      return this.$auth.user || ''
+    },
+    paginationPages() {
+      const pages = []
+      const start = Math.max(1, this.pagination.currentPage - 2)
+      const end = Math.min(
+        this.pagination.totalPages,
+        this.pagination.currentPage + 2
+      )
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i)
+      }
+      return pages
+    },
+
+    selectedCurrencyCode() {
+      if (!this.form.currencyId) return 'USD'
+      const currency = this.currencies.find((c) => c.id == this.form.currencyId)
+      return currency ? currency.code : 'USD'
+    },
+
+    today() {
+      return new Date().toISOString().split('T')[0]
+    },
+
+    isFormValid() {
+      return (
+        this.form.amount &&
+        this.form.makerId &&
+        this.form.currencyId &&
+        this.users.length > 0 &&
+        this.currencies.length > 0
+      )
+    },
+  },
+
+  async mounted() {
+    await this.loadInitialData()
+  },
+
+  methods: {
+    getStatusInLao(status) {
+      console.info(`passing status ${status}`)
+      console.info(`passing status in laos ${this.statusLabels[status]}`)
+      return this.statusLabels[status] || status.toUpperCase()
+    },
+    getStatusOptions() {
+      return [
+        { value: '', label: 'ທຸກສະຖານະ' },
+        { value: 'pending', label: 'ຄ້າງອະນຸມັດ' },
+        { value: 'approved', label: 'ອະນຸມັດແລ້ວ' },
+        { value: 'settled', label: 'ຊຳລະແລ້ວ' },
+      ]
+    },
+    async loadInitialData() {
+      await Promise.all([
+        this.fetchData(),
+        this.fetchDashboard(),
+        this.fetchUsers(),
+        this.fetchCurrencies(),
+      ])
+    },
+
+    async fetchData() {
+      this.loading = true
+      try {
+        const params = {
+          page: this.pagination.currentPage,
+          limit: this.pagination.itemsPerPage,
+          ...this.filters,
+        }
+
+        if (this.searchTerm) {
+          params.search = this.searchTerm
+        }
+
+        const { data } = await this.$axios.get('/api/money-advances', {
+          params,
+        })
+
+        this.advances = data.data.advances
+        this.pagination = data.data.pagination
+      } catch (error) {
+        this.showToast('Error fetching money advances', 'error')
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchDashboard() {
+      try {
+        const { data } = await this.$axios.get('/api/money-advances/dashboard')
+        this.dashboard = data.data
+      } catch (error) {
+        console.error('Error fetching dashboard:', error)
+      }
+    },
+
+    async fetchUsers() {
+      try {
+        const { data } = await this.$axios.get('/api/user/find')
+
+        // Handle different response structures
+        if (data && data.data) {
+          this.users = Array.isArray(data.data) ? data.data : []
+        } else if (Array.isArray(data)) {
+          this.users = data
+        } else {
+          this.users = []
+        }
+
+        console.log('Fetched users:', this.users) // Debug log
+      } catch (error) {
+        console.error('Error fetching users:', error)
+        this.users = []
+        this.showToast('Failed to load users', 'error')
+      }
+    },
+
+    async fetchCurrencies() {
+      try {
+        const { data } = await this.$axios.get('/api/currency/find')
+
+        // Handle different response structures
+        if (data && data.data) {
+          this.currencies = Array.isArray(data.data) ? data.data : []
+        } else if (Array.isArray(data)) {
+          this.currencies = data
+        } else {
+          this.currencies = []
+        }
+
+        console.log('Fetched currencies:', this.currencies) // Debug log
+      } catch (error) {
+        console.error('Error fetching currencies:', error)
+        this.currencies = []
+        this.showToast('Failed to load currencies', 'error')
+      }
+    },
+
+    async openDialog(advance = null) {
+      this.isEdit = !!advance
+      this.showDialog = true
+      this.formErrors = []
+
+      // Ensure users and currencies are loaded
+      if (this.users.length === 0 || this.currencies.length === 0) {
+        this.formLoading = true
+        await Promise.all([
+          this.users.length === 0 ? this.fetchUsers() : Promise.resolve(),
+          this.currencies.length === 0
+            ? this.fetchCurrencies()
+            : Promise.resolve(),
+        ])
+        this.formLoading = false
+      }
+
+      if (advance) {
+        this.form = {
+          id: advance.id,
+          amount: advance.amount,
+          purpose: advance.purpose || '',
+          note: advance.note || '',
+          makerId: advance.makerId,
+          currencyId: advance.currencyId,
+          dueDate: advance.dueDate ? advance.dueDate.split('T')[0] : '',
+        }
+      } else {
+        this.resetForm()
+        // Set default currency if available
+        if (this.currencies.length > 0) {
+          const defaultCurrency =
+            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+          this.form.currencyId = defaultCurrency.id
+        }
+      }
+    },
+
+    closeDialog() {
+      this.showDialog = false
+      this.resetForm()
+      this.formErrors = []
+    },
+
+    resetForm() {
+      this.form = {
+        id: null,
+        amount: '',
+        purpose: '',
+        note: '',
+        makerId: '',
+        currencyId: '',
+        dueDate: '',
+      }
+    },
+
+    validateForm() {
+      this.formErrors = []
+
+      if (!this.form.amount || this.form.amount <= 0) {
+        this.formErrors.push('Amount is required and must be greater than 0')
+      }
+
+      if (!this.form.makerId) {
+        this.formErrors.push('User selection is required')
+      }
+
+      if (!this.form.currencyId) {
+        this.formErrors.push('Currency selection is required')
+      }
+
+      if (this.users.length === 0) {
+        this.formErrors.push(
+          'No users available. Please contact administrator.'
+        )
+      }
+
+      if (this.currencies.length === 0) {
+        this.formErrors.push(
+          'No currencies available. Please contact administrator.'
+        )
+      }
+
+      return this.formErrors.length === 0
+    },
+
+    async saveAdvance() {
+      if (!this.validateForm()) {
+        this.showToast('Please fix the form errors', 'error')
+        return
+      }
+
+      this.saving = true
+      try {
+        if (this.isEdit) {
+          await this.$axios.put(
+            `/api/money-advances/${this.form.id}`,
+            this.form
+          )
+          this.showToast('Money advance updated successfully', 'success')
+        } else {
+          await this.$axios.post('/api/money-advances', this.form)
+          this.showToast('Money advance created successfully', 'success')
+        }
+
+        this.closeDialog()
+        await this.fetchData()
+        await this.fetchDashboard()
+      } catch (error) {
+        const message =
+          error.response?.data?.message || 'Error saving money advance'
+        this.showToast(message, 'error')
+        console.error('Save error:', error)
+      } finally {
+        this.saving = false
+      }
+    },
+
+    updateSelectedCurrency() {
+      // This method can be used to update UI when currency changes
+    },
+    // Method 1: Test if confirm() is working at all
+    async approveAdvance(advance) {
+      console.info(
+        `Approve money advance for ${this.formatCurrency(advance.amount)}`
+      )
+
+      try {
+        // Use SweetAlert for confirmation
+        const result = await swalConfirm(
+          this.$swal, // Pass the Swal instance
+          'ຢືນຢັນ ການອະນຸມັດ', // title
+          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(
+            advance.amount
+          )}?`, // text
+          'question', // icon
+          'ບໍ່', // cancelButtonText (No)
+          'ຕົກລົງ' // confirmButtonText (OK)
+        )
+
+        console.log('SweetAlert result:', result)
+
+        // Check if user confirmed (clicked OK)
+        if (result.isConfirmed) {
+          try {
+            console.log('User confirmed, proceeding with approval...')
+            await this.$axios.put(`/api/money-advances/${advance.id}/approve`, {
+              checkerId: this.user.id,
+            })
+            this.showToast('Money advance approved successfully', 'success')
+            await this.fetchData()
+            await this.fetchDashboard()
+          } catch (error) {
+            console.error('Error occurred:', error)
+            this.showToast('Error approving money advance', 'error')
+          }
+        } else {
+          console.log('User cancelled approval')
+        }
+      } catch (error) {
+        console.error('Error showing confirmation dialog:', error)
+        // Fallback to basic confirm if SweetAlert fails
+        const shouldApprove = confirm(
+          `Approve money advance for ${this.formatCurrency(advance.amount)}?`
+        )
+        if (shouldApprove) {
+          // Same approval logic as above
+          try {
+            await this.$axios.put(`/api/money-advances/${advance.id}/approve`, {
+              checkerId: this.user.id,
+            })
+            this.showToast('Money advance approved successfully', 'success')
+            await this.fetchData()
+            await this.fetchDashboard()
+          } catch (error) {
+            console.error('Error occurred:', error)
+            this.showToast('Error approving money advance', 'error')
+          }
+        }
+      }
+    },
+
+    async settleAdvance(advance) {
+      if (confirm('Mark money advance as settled?')) {
+        try {
+          await this.$axios.put(`/api/money-advances/${advance.id}/settle`)
+          this.showToast('Money advance settled successfully', 'success')
+          await this.fetchData()
+          await this.fetchDashboard()
+        } catch (error) {
+          this.showToast('Error settling money advance', 'error')
+        }
+      }
+    },
+
+    async deleteAdvance(advance) {
+      if (
+        confirm(
+          `Delete money advance for ${this.formatCurrency(advance.amount)}?`
+        )
+      ) {
+        try {
+          await this.$axios.delete(`/api/money-advances/${advance.id}`)
+          this.showToast('Money advance deleted successfully', 'success')
+          await this.fetchData()
+          await this.fetchDashboard()
+        } catch (error) {
+          this.showToast('Error deleting money advance', 'error')
+        }
+      }
+    },
+
+    async viewDetails(advance) {
+      this.selectedAdvance = advance
+      this.showDetailDialog = true
+
+      // Fetch full details if needed
+      try {
+        this.detailLoading = true
+        const { data } = await this.$axios.get(
+          `/api/money-advances/${advance.id}`
+        )
+        this.advanceDetails = data.data
+      } catch (error) {
+        console.error('Error fetching advance details:', error)
+        this.showToast('Error loading advance details', 'error')
+      } finally {
+        this.detailLoading = false
+      }
+    },
+
+    closeDetailDialog() {
+      this.showDetailDialog = false
+      this.selectedAdvance = null
+      this.advanceDetails = null
+    },
+
+    closePrintVoucher() {
+      this.showPrintVoucher = false
+    },
+
+
+
+    closeSettlementDialog() {
+      this.showSettlementDialog = false
+      this.selectedAdvanceForSettlement = null
+      // Refresh data when settlement dialog closes
+      this.fetchData()
+      this.fetchDashboard()
+    },
+
+    printAdvanceDetails() {
+      this.showPrintVoucher = true
+    },
+
+    downloadAdvanceDetails() {
+      // Create a simple text file with advance details
+      const details = this.formatAdvanceForDownload()
+      const blob = new Blob([details], { type: 'text/plain' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `money-advance-${this.advanceDetails.id}.txt`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+    },
+
+    formatAdvanceForDownload() {
+      const advance = this.advanceDetails
+      return `
+MONEY ADVANCE DETAILS
+=====================
+
+ID: ${advance.id}
+Maker: ${advance.maker?.cus_name || 'N/A'}
+Amount: ${this.formatCurrency(advance.amount)} ${advance.currency?.code || ''}
+Purpose: ${advance.purpose || 'N/A'}
+Status: ${advance.status.toUpperCase()}
+Due Date: ${this.formatDate(advance.dueDate)}
+Created Date: ${this.formatDate(advance.createdAt)}
+Updated Date: ${this.formatDate(advance.updatedAt)}
+
+Notes: ${advance.note || 'No notes provided'}
+
+${advance.checker ? `Checker: ${advance.checker.cus_name}` : ''}
+${
+  advance.approvedAt
+    ? `Approved At: ${this.formatDate(advance.approvedAt)}`
+    : ''
+}
+${advance.settledAt ? `Settled At: ${this.formatDate(advance.settledAt)}` : ''}
+
+Generated on: ${new Date().toLocaleString()}
+      `.trim()
+    },
+
+    changePage(page) {
+      if (page >= 1 && page <= this.pagination.totalPages) {
+        this.pagination.currentPage = page
+        this.fetchData()
+      }
+    },
+
+    resetFilters() {
+      this.filters = { status: '', makerId: '' }
+      this.searchTerm = ''
+      this.pagination.currentPage = 1
+      this.fetchData()
+    },
+
+    debounceSearch() {
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        this.pagination.currentPage = 1
+        this.fetchData()
+      }, 500)
+    },
+
+    formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount || 0)
+    },
+
+    formatDate(date) {
+      if (!date) return 'N/A'
+      return new Date(date).toLocaleDateString()
+    },
+
+    getStatusClass(status) {
+      const classes = {
+        pending: 'warning',
+        approved: 'success',
+        settled: 'primary',
+      }
+      return classes[status] || 'secondary'
+    },
+
+    getStatusIcon(status) {
+      const icons = {
+        pending: 'fa-clock',
+        approved: 'fa-check-circle',
+        settled: 'fa-money-bill-wave',
+      }
+      return icons[status] || 'fa-question-circle'
+    },
+
+    getHistoryIcon(action) {
+      const icons = {
+        created: 'fa-plus',
+        updated: 'fa-edit',
+        approved: 'fa-check',
+        settled: 'fa-money-bill',
+        deleted: 'fa-trash',
+      }
+      return icons[action] || 'fa-history'
+    },
+
+    formatDateTime(date) {
+      if (!date) return 'N/A'
+      return new Date(date).toLocaleString()
+    },
+
+    isOverdue(dueDate) {
+      if (!dueDate) return false
+      return new Date(dueDate) < new Date()
+    },
+
+    showToast(message, type = 'info') {
+      if (this.$toast) {
+        this.$toast[type](message)
+      } else if (this.$notify) {
+        this.$notify({
+          title: type === 'error' ? 'Error' : 'Success',
+          message: message,
+          type: type === 'error' ? 'error' : 'success',
+        })
+      } else {
+        alert(`${type.toUpperCase()}: ${message}`)
+      }
+    },
+  },
+}
+</script>
+
+<style scoped>
+.money-advance-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.summary-card {
+  border: 1px solid #e3e6f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+.card-value.pending {
+  color: #f39c12;
+}
+.card-value.approved {
+  color: #27ae60;
+}
+.card-value.settled {
+  color: #3498db;
+}
+
+.filters-section {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+.col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 10px;
+}
+
+.table-container {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  padding: 15px;
+}
+
+.table td {
+  padding: 15px;
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.amount {
+  font-weight: 600;
+  color: #27ae60;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-warning {
+  background: #f39c12;
+  color: white;
+}
+.badge-success {
+  background: #27ae60;
+  color: white;
+}
+.badge-primary {
+  background: #3498db;
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn-sm {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sm:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sm.btn-info {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-sm.btn-info:hover {
+  background: #138496;
+}
+
+.btn-sm.btn-warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn-sm.btn-warning:hover {
+  background: #e0a800;
+}
+
+.btn-sm.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.btn-sm.btn-success:hover {
+  background: #218838;
+}
+
+.btn-sm.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-sm.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-sm.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-sm.btn-danger:hover {
+  background: #c82333;
+}
+
+.no-data {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-data i {
+  font-size: 48px;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.pagination-nav {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.page-item {
+  margin: 0 2px;
+}
+
+.page-link {
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #dee2e6;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-link:hover {
+  background: #e9ecef;
+}
+
+.page-item.active .page-link {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  cursor: not-allowed;
+  background: #fff;
+}
+
+/* Enhanced Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.enhanced-dialog {
+  background: white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 95%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #e9ecef;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.modal-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-icon {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.close-btn:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+  padding: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.form-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #666;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+}
+
+.form-label.required::after {
+  content: '*';
+  color: #e74c3c;
+  margin-left: 4px;
+}
+
+.form-label i {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.input-group .form-control {
+  border-radius: 0;
+  border-right: none;
+}
+
+.input-group-append {
+  display: flex;
+}
+
+.input-group-text {
+  background: #f8f9fa;
+  border: 2px solid #e5e7eb;
+  border-left: none;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 40px;
+}
+
+.select-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #6b7280;
+}
+
+.field-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-hint.error {
+  color: #e74c3c;
+}
+
+.form-errors {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.form-errors h6 {
+  margin: 0 0 10px 0;
+  color: #dc2626;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-errors ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.enhanced-footer {
+  padding: 20px 24px;
+  border-top: 1px solid #e9ecef;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.btn-warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-info {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.fa-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .btn-sm {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .enhanced-dialog {
+    width: 98%;
+    margin: 10px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-header {
+    padding: 16px;
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  .enhanced-footer {
+    padding: 16px;
+    flex-direction: column-reverse;
+  }
+
+  .enhanced-footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .col-md-3 {
+    flex: 1;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .header-section {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+}
+
+/* Detail Dialog Styles */
+.detail-dialog {
+  max-width: 850px;
+  width: 95%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.detail-body {
+  padding: 0;
+  max-height: 70vh;
+  background: #f8f9fa;
+}
+
+.detail-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: #666;
+  background: white;
+  margin: 20px;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+}
+
+.detail-content {
+  padding: 24px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-status {
+  text-align: center;
+  margin-bottom: 0;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 2px solid transparent;
+}
+
+.status-badge.status-pending {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  border-color: #d68910;
+}
+
+.status-badge.status-approved {
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: white;
+  border-color: #1e8449;
+}
+
+.status-badge.status-settled {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border-color: #2471a3;
+}
+
+.detail-section {
+  background: white;
+  margin-bottom: 20px;
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.detail-section:hover {
+  border-color: #dee2e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #ecf0f1;
+}
+
+.section-title i {
+  color: #3498db;
+  font-size: 16px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.detail-item:hover {
+  background: #e8f4fd;
+  border-color: #3498db;
+}
+
+.detail-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-item label {
+  font-size: 12px;
+  color: #6c757d;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 16px;
+  color: #2c3e50;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.amount-display {
+  font-size: 28px;
+  font-weight: 800;
+  color: #27ae60;
+  text-align: center;
+  padding: 8px;
+  background: linear-gradient(135deg, #d5f4e6, #fafafa);
+  border-radius: 8px;
+  border: 2px solid #a9dfbf;
+}
+
+.amount-display small {
+  font-size: 16px;
+  color: #6c757d;
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #e8f4fd;
+  border-radius: 6px;
+  border: 1px solid #85c1e9;
+}
+
+.user-info i {
+  color: #3498db;
+  font-size: 14px;
+}
+
+.timeline {
+  position: relative;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 35px;
+  top: 20px;
+  bottom: 20px;
+  width: 3px;
+  background: linear-gradient(to bottom, #3498db, #ecf0f1);
+  border-radius: 2px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  position: relative;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid #ecf0f1;
+  margin-left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  z-index: 1;
+  margin-right: 20px;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: -36px;
+}
+
+.timeline-icon.created {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.timeline-icon.approved {
+  background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.timeline-icon.due {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.timeline-icon.due.overdue {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  animation: pulse 2s infinite;
+}
+
+.timeline-icon.settled {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7), 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(231, 76, 60, 0), 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0), 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.timeline-content {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.timeline-content label {
+  display: block;
+  font-size: 12px;
+  color: #6c757d;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.timeline-date {
+  font-size: 15px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.timeline-date.overdue {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+.overdue-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  margin-left: 8px;
+  border: 1px solid #a93226;
+  font-weight: 600;
+}
+
+.notes-content {
+  background: #fff9e6;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid #f7dc6f;
+  border-left: 6px solid #f1c40f;
+  font-style: italic;
+  color: #2c3e50;
+  line-height: 1.8;
+  font-size: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #ecf0f1;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.history-item:hover {
+  border-color: #3498db;
+  background: #f8fcff;
+}
+
+.history-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  border: 2px solid #85c1e9;
+  flex-shrink: 0;
+}
+
+.history-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-action {
+  font-weight: 700;
+  color: #2c3e50;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+
+.history-user {
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.history-date {
+  font-size: 12px;
+  color: #95a5a6;
+  font-weight: 400;
+}
+
+.detail-error {
+  text-align: center;
+  padding: 60px 20px;
+  color: #e74c3c;
+  background: white;
+  margin: 20px;
+  border-radius: 12px;
+  border: 2px solid #fadbd8;
+}
+
+.detail-error i {
+  font-size: 48px;
+  margin-bottom: 15px;
+  opacity: 0.7;
+}
+
+.detail-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border-top: 2px solid #e9ecef;
+  padding: 16px 24px;
+}
+
+.close-detail-btn {
+  background: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.close-detail-btn:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.detail-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.detail-actions .action-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.detail-actions .action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.detail-actions .action-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.detail-actions .btn-warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.detail-actions .btn-warning:hover {
+  background: #e0a800;
+}
+
+.detail-actions .btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.detail-actions .btn-success:hover {
+  background: #218838;
+}
+
+.detail-actions .btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.detail-actions .btn-primary:hover {
+  background: #0056b3;
+}
+
+/* Tooltip for detail action buttons */
+.detail-actions .action-btn::before {
+  content: attr(title);
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.detail-actions .action-btn:hover::before {
+  opacity: 1;
+}
+
+/* Print Styles */
+@media print {
+  .modal-overlay {
+    position: static !important;
+    background: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .detail-dialog {
+    max-width: none !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  .modal-header,
+  .modal-footer {
+    display: none !important;
+  }
+
+  .detail-body {
+    max-height: none !important;
+    background: white !important;
+  }
+
+  .btn,
+  .header-actions {
+    display: none !important;
+  }
+
+  .detail-section {
+    border: 2px solid #333 !important;
+    margin-bottom: 20px !important;
+    break-inside: avoid;
+  }
+
+  .section-title {
+    border-bottom: 2px solid #333 !important;
+  }
+}
+
+/* Responsive for Detail Dialog */
+@media (max-width: 768px) {
+  .detail-dialog {
+    width: 98%;
+    margin: 10px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .detail-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+  }
+
+  .close-detail-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .detail-actions {
+    gap: 6px;
+  }
+
+  .detail-actions .action-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .detail-actions .action-btn::before {
+    bottom: -28px;
+    font-size: 10px;
+  }
+
+  .timeline {
+    padding: 16px;
+  }
+
+  .timeline::before {
+    left: 25px;
+  }
+
+  .timeline-item {
+    margin-left: 10px;
+    padding: 12px;
+  }
+
+  .timeline-icon {
+    width: 32px;
+    height: 32px;
+    left: -26px;
+    font-size: 12px;
+  }
+
+  .amount-display {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-content {
+    padding: 16px;
+  }
+
+  .detail-section {
+    padding: 16px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .modal-overlay {
+    position: static !important;
+    background: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .detail-dialog {
+    max-width: none !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  .modal-header,
+  .modal-footer {
+    display: none !important;
+  }
+
+  .detail-body {
+    max-height: none !important;
+  }
+
+  .btn,
+  .header-actions {
+    display: none !important;
+  }
+}
+
+/* Responsive for Detail Dialog */
+@media (max-width: 768px) {
+  .detail-dialog {
+    width: 98%;
+    margin: 10px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .detail-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .detail-actions .btn {
+    flex: 1;
+  }
+}
+</style>

@@ -1,4 +1,3 @@
-
 import { hostName } from './common/api'
 export default {
   server: {
@@ -7,8 +6,6 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: `DCOMMERCE`,
-    // title: 'Jack42',
-    // title: 'PeeAir4',
     title: ` DC`,
     htmlAttrs: {
       lang: 'en'
@@ -20,17 +17,13 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      // { rel: 'icon', type: 'image/x-icon', href: '/jack.jpeg' }
-      // { rel: 'icon', type: 'image/x-icon', href: '/chithanh.jpeg' }
       { rel: 'icon', type: 'image/x-icon', href: '/dc.jpeg' }
     ],
     script: [
-      // {
-      //   src: "https://kit.fontawesome.com/ca11dcec40.js",
-      //   rel: "stylesheet"
-      // },
       { src: "https://unpkg.com/jspdf-invoice-template@1.4.3/dist/index.js" },
-      // { src: '/fontawesome.js', defer: true },
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'
+      }
     ],
   },
 
@@ -42,17 +35,13 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  // { src: '~/plugins/chart.js', ssr: false },
   plugins: [
-    
     { src: '~/plugins/jspdf-invoice.js', mode: 'client' },
     { src: '~/plugins/vue-sweetalert2', ssr: false },
     {
       src: '@/plugins/apex-chart.js',
       mode: 'client',
     },
-    // { src: '~/plugins/fontawesome.js', ssr: false },
-    // { src: '~/plugins/gantt-elastic.js', mode: 'client' }, 
     { src: '~/plugins/html2canvas.js', mode: 'client' },
     { src: '@/plugins/echarts.js', ssr: false },
     { src: '~/plugins/xlsx.js', mode: 'client' },
@@ -61,8 +50,6 @@ export default {
     { src: '~/plugins/v-calendar.js', ssr: false },
     { src: '~/plugins/draggable.js', ssr: false },
     { src: '~/plugins/gantt-schedule-timeline-calendar.js', mode: 'client' }
-    // { src: '~/plugins/vuelidate.js', mode: 'client' }
-    // { src: '~/plugins/comma-thousand.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -70,24 +57,29 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    // '@nuxtjs/eslint-module',
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/svg', // Add this for SVG support
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
+  // Add this to your modules array in nuxt.config.js
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    // '@nuxtjs/fontawesome',
+    '@nuxtjs/toast', // Add this line
   ],
+  // Add toast configuration (optional)
+  toast: {
+    position: 'top-right',
+    duration: 3000,
+    theme: 'outline',
+    className: 'custom-toast',
+    iconPack: 'fontawesome' // Since you're using FontAwesome
+  },
 
   axios: {
     baseURL: hostName(),
-
   },
+
   auth: {
     strategies: {
       local: {
@@ -95,8 +87,6 @@ export default {
           property: 'accessToken',
           global: true,
           expires_in: 60,
-          // required: true,
-          // type: 'Bearer'
         },
         refreshToken: {
           property: 'refreshToken',
@@ -105,7 +95,6 @@ export default {
         },
         user: {
           property: 'user',
-          // autoFetch: true
         },
         endpoints: {
           login: { url: 'userLogin', method: 'post' },
@@ -122,38 +111,40 @@ export default {
       home: '/admin/login',
     }
   },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      // dark: true,
       themes: {
         light: {
           primary: '#01532B', //DCOMMERCE green
-          secondary: '#337555', 
+          secondary: '#337555',
           lightprimary: '#80a995',
           danger: '#D00505',
-          // primary: '#EA9AB2', //Woody3 pink
-          // secondary: '#E27396', 
-          // lightprimary: '#FFDBE5',
-          // danger: '#D00505',
         },
-        // dark: {
-        //   primary: '#01532B',
-        //   secondary: '#CCDDD5',
-        //   lightprimary: '#C0FFEC',
-        //   accent: colors.grey.darken3,
-        //   info: colors.teal.lighten1,
-        //   warning: colors.amber.base,
-        //   error: colors.deepOrange.accent4,
-        //   success: colors.green.accent3,
-
-        // }
       }
     }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // Add this to help with SES warnings
+    transpile: ['lucide-vue-next'],
+    extend(config, { isDev, isClient }) {
+      // Suppress SES warnings in development
+      if (isDev && isClient) {
+        config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
+      }
+    }
+  },
+
+  // Add this to suppress console warnings
+  render: {
+    bundleRenderer: {
+      shouldPreload: (file, type) => {
+        return ['script', 'style', 'font'].includes(type)
+      }
+    }
   }
 }

@@ -177,6 +177,56 @@
                   required
                 ></v-text-field>
               </v-col>
+              <!-- ✅ NEW: Tax Rate Selection -->
+              <v-col cols="4" sm="6" md="4">
+                <v-autocomplete
+                  item-text="displayText"
+                  item-value="id"
+                  :items="taxRateOptions"
+                  label="Tax Rate*"
+                  v-model="formData.taxId"
+                  :rules="rules.taxRule"
+                  prepend-inner-icon="mdi-percent"
+                  :loading="loadingTaxRates"
+                  clearable
+                  hint="Select applicable tax rate for this product"
+                  persistent-hint
+                >
+                  <!-- Custom item template to show rate and name -->
+                  <template v-slot:item="{ item }">
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        <v-chip
+                          :color="item.isDefault ? 'primary' : 'default'"
+                          small
+                          :text-color="item.isDefault ? 'white' : 'black'"
+                        >
+                          {{ item.displayRate }}
+                          <v-icon v-if="item.isDefault" right small
+                            >mdi-star</v-icon
+                          >
+                        </v-chip>
+                        {{ item.name }}
+                      </v-list-item-title>
+                      <v-list-item-subtitle v-if="item.description">
+                        {{ item.description }}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+
+                  <!-- Selected item display -->
+                  <template v-slot:selection="{ item }">
+                    <v-chip
+                      :color="item.isDefault ? 'primary' : 'default'"
+                      small
+                      :text-color="item.isDefault ? 'white' : 'black'"
+                    >
+                      {{ item.displayRate }}
+                    </v-chip>
+                    <span class="ml-2">{{ item.name }}</span>
+                  </template>
+                </v-autocomplete>
+              </v-col>
               <v-col cols="4" sm="6" md="4">
                 <v-autocomplete
                   item-text="name"
@@ -196,20 +246,53 @@
                 ></v-autocomplete>
               </v-col>
             </v-row>
+
+            <!-- ✅ NEW: Tax Calculation Preview (Optional) -->
+            <v-row v-if="formData.taxId && formData.pro_price">
+              <v-col cols="12">
+                <v-card outlined color="grey lighten-5" class="pa-3">
+                  <v-card-title class="text-subtitle-1 pa-0 mb-2">
+                    <v-icon left>mdi-calculator</v-icon>
+                    Tax Calculation Preview
+                  </v-card-title>
+                  <v-row>
+                    <v-col cols="3">
+                      <div class="text-body-2">Base Price:</div>
+                      <div class="text-h6">
+                        {{ formatNumber(formData.pro_price) }}
+                      </div>
+                    </v-col>
+                    <v-col cols="3">
+                      <div class="text-body-2">Tax Rate:</div>
+                      <div class="text-h6 primary--text">
+                        {{ selectedTaxRate?.displayRate || '0%' }}
+                      </div>
+                    </v-col>
+                    <v-col cols="3">
+                      <div class="text-body-2">Tax Amount:</div>
+                      <div class="text-h6 warning--text">
+                        {{ formatNumber(calculateTaxAmount()) }}
+                      </div>
+                    </v-col>
+                    <v-col cols="3">
+                      <div class="text-body-2">Total with Tax:</div>
+                      <div class="text-h6 success--text">
+                        {{ formatNumber(calculateTotalWithTax()) }}
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
             <v-row>
               <v-col cols="4" sm="6" md="4">
                 <v-text-field
                   v-model="formData.vendorName"
                   label="Vendor name"
-
                 ></v-text-field>
               </v-col>
-              <v-col cols="4" sm="6" md="4">
-      
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-   
-              </v-col>
+              <v-col cols="4" sm="6" md="4"> </v-col>
+              <v-col cols="4" sm="6" md="4"> </v-col>
             </v-row>
             <!-- Row 5 -->
             <v-row>
@@ -290,17 +373,16 @@
               </v-card>
             </div>
             <!-- Image list -->
-            
+
             <div>
               <v-list three-line>
                 <template v-for="(item, index) in imagesPreviewURL">
-                 
                   <v-list-item :key="index">
                     <v-list-item-avatar
                       @click.prevent="previewImg(item.IMG_URL)"
                     >
                       <v-img :src="item.IMG_URL"></v-img>
-                      {{item.IMG_URL}}
+                      {{ item.IMG_URL }}
                     </v-list-item-avatar>
                     <v-list-item-content>
                       <v-list-item-title v-html="item.NAME"></v-list-item-title>
@@ -373,6 +455,27 @@ export default {
   mixins: [ImagePreviewMixin],
 
   computed: {
+    // ✅ ADD: Tax rate options for dropdown
+    taxRateOptions() {
+      return this.taxRates.map((tax) => ({
+        id: tax.id,
+        name: tax.name,
+        code: tax.code,
+        rate: tax.rate,
+        displayRate: (parseFloat(tax.rate) * 100).toFixed(2) + '%',
+        displayText: `${tax.name} (${(parseFloat(tax.rate) * 100).toFixed(
+          2
+        )}%)`,
+        description: tax.description,
+        isDefault: tax.isDefault,
+        isActive: tax.isActive,
+      }))
+    },
+
+    // ✅ ADD: Get selected tax rate details
+    selectedTaxRate() {
+      return this.taxRates.find((tax) => tax.id === this.formData.taxId)
+    },
     ...mapGetters([
       'findAllProduct',
       'findAllClient',
@@ -511,7 +614,7 @@ export default {
       return html
     },
   },
-  mounted() {
+  async mounted() {
     console.log('FORMDATA ID: ' + this.formData.pro_id)
     this.pro_id = this.headerId
     this.formData.pro_id = this.headerId
@@ -519,6 +622,19 @@ export default {
     this.fetchProId(this.headerId)
     this.fetchCategory()
     this.fetchCompany()
+    // ✅ ADD: Load tax rates
+    await this.fetchTaxRates()
+  },
+  watch: {
+    // ✅ ADD: Watch for tax rate changes
+    'formData.taxId'(newTaxId) {
+      this.onTaxRateChange()
+    },
+
+    // ✅ ADD: Watch for price changes to update tax calculations
+    'formData.pro_price'() {
+      // Tax calculations will automatically update due to computed properties
+    },
   },
   validate(data) {
     // this.formData.pro_id = data.params.id
@@ -539,6 +655,9 @@ export default {
       NAME: '',
       barcodeImage: '',
       rules: {
+        taxRule: [
+          (v) => !!v || 'ກະລຸນາເລືອກອັດຕາພາສີ (Please select tax rate)',
+        ],
         nameRule: [
           (v) => !!v || 'ກະລຸນາ ໃສ່ຊື່ສິນຄ້າ ',
           (v) => (v && v.length <= 150) || 'ຊື່ສິນຄ້າ ຍາວເກີນໄປ ກຳນົດ 150 ຕົວ',
@@ -589,6 +708,11 @@ export default {
       title: 'ຈັດການສິນຄ້າ',
       valid: false,
       category: [],
+      // ✅ ADD: Tax-related data
+      taxRates: [],
+      loadingTaxRates: false,
+
+      // ✅ UPDATE: Add taxId to formData
       formData: {
         productId: null,
         pro_category: 1001,
@@ -607,7 +731,8 @@ export default {
         saleCurrencyId: 1,
         costCurrencyId: 1,
         isActive: true,
-        vendorName:'',
+        vendorName: '',
+        taxId: null, // ✅ NEW: Tax ID field
       },
       companyList: [],
       isLoading: false,
@@ -838,14 +963,148 @@ export default {
         printWin.close()
       }, 1000)
     },
+    // ✅ ADD: Fetch tax rates from API
+    async fetchTaxRates() {
+      this.loadingTaxRates = true
+      try {
+        const response = await this.$axios.get('/api/tax/active')
+        this.taxRates = response.data.data || []
+
+        // Set default tax rate if no tax is selected and we have a default
+        if (!this.formData.taxId) {
+          const defaultTax = this.taxRates.find((tax) => tax.isDefault)
+          if (defaultTax) {
+            this.formData.taxId = defaultTax.id
+          }
+        }
+
+        console.log('Tax rates loaded:', this.taxRates)
+      } catch (error) {
+        console.error('Error loading tax rates:', error)
+        // Show user-friendly error message
+        this.$toast?.error?.('Failed to load tax rates') ||
+          console.error('Failed to load tax rates')
+      } finally {
+        this.loadingTaxRates = false
+      }
+    },
+
+    // ✅ ADD: Calculate tax amount
+    calculateTaxAmount() {
+      if (!this.selectedTaxRate || !this.formData.pro_price) {
+        return 0
+      }
+
+      const basePrice = parseFloat(this.formData.pro_price) || 0
+      const taxRate = parseFloat(this.selectedTaxRate.rate) || 0
+      return basePrice * taxRate
+    },
+
+    // ✅ ADD: Calculate total with tax
+    calculateTotalWithTax() {
+      const basePrice = parseFloat(this.formData.pro_price) || 0
+      const taxAmount = this.calculateTaxAmount()
+      return basePrice + taxAmount
+    },
+
+    // ✅ UPDATE: Modified fetchProId to include tax data
+    async fetchProId(id) {
+      this.isLoading = true
+      console.log('FECT ID:' + id)
+      await this.$axios
+        .post('/product_f_id', { proid: id })
+        .then((res) => {
+          console.log('Product ID ' + res.data)
+          const el = res.data[0]
+          console.log('===> Min stock', el.minStock)
+          const image =
+            res.data[0].img_name == null
+              ? []
+              : res.data.map((el) => {
+                  return {
+                    name: el.img_name,
+                    path: el.img_path,
+                  }
+                })
+
+          this.formData = {
+            productId: el.id,
+            pro_category: el.pro_category,
+            pro_id: el.pro_id,
+            pro_name: el.pro_name,
+            pro_price: el.pro_price,
+            pro_desc: el.pro_desc,
+            pro_status: el.pro_status === 1 || false,
+            pro_retail_price: el.retail_cost_percent,
+            pro_cost_price: el.cost_price,
+            companyId: el.companyId,
+            minStock: el.minStock,
+            barCode: el.barCode,
+            receiveUnitId: el.receiveUnitId,
+            stockUnitId: el.stockUnitId,
+            costCurrencyId: el.costCurrencyId,
+            saleCurrencyId: el.saleCurrencyId,
+            pro_image: image,
+            isActive: el.isActive,
+            vendorName: el.vendorName,
+            taxId: el.taxId || null, // ✅ ADD: Load existing tax ID
+          }
+
+          // Set default tax if none is assigned
+          if (!this.formData.taxId && this.taxRates.length > 0) {
+            const defaultTax = this.taxRates.find((tax) => tax.isDefault)
+            if (defaultTax) {
+              this.formData.taxId = defaultTax.id
+            }
+          }
+
+          if (!this.formData.barCode) {
+            this.formData.barCode = ''
+          }
+          this.generateBarcodeImage(this.formData.barCode)
+        })
+        .catch((er) => {
+          console.log('Error: ' + er)
+          this.message = er
+        })
+      this.isLoading = false
+    },
+
+    // ✅ UPDATE: Modified uploadFilesLocal to include tax data
     async uploadFilesLocal() {
       console.log('===> Upload data')
       if (!this.$refs.formLocal.validate()) {
         return
       }
+
+      // ✅ ADD: Validate tax selection
+      if (!this.formData.taxId) {
+        this.$toast?.error?.('Please select a tax rate') ||
+          console.error('Please select a tax rate')
+        return
+      }
+
       this.isLoading = true
       const formData = new FormData()
-      formData.append('FORM', JSON.stringify(this.formData))
+
+      // ✅ ADD: Include tax information in the form data
+      const formDataWithTax = {
+        ...this.formData,
+        // Add tax calculation details for backend reference
+        selectedTaxRate: this.selectedTaxRate
+          ? {
+              id: this.selectedTaxRate.id,
+              name: this.selectedTaxRate.name,
+              code: this.selectedTaxRate.code,
+              rate: this.selectedTaxRate.rate,
+            }
+          : null,
+        calculatedTaxAmount: this.calculateTaxAmount(),
+        totalWithTax: this.calculateTotalWithTax(),
+      }
+
+      formData.append('FORM', JSON.stringify(formDataWithTax))
+
       if (this.files) {
         this.files.forEach((element) => {
           formData.append('files', element)
@@ -860,13 +1119,23 @@ export default {
           this.$emit('close-dialog')
           this.$emit('refresh')
           swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
-          // this.message = res.data
         })
         .catch((er) => {
-          // this.message = er.response.data
           swalError2(this.$swal, 'Error', er.response.data)
         })
       this.isLoading = false
+    },
+
+    // ✅ ADD: Helper method to refresh tax rates
+    async refreshTaxRates() {
+      await this.fetchTaxRates()
+    },
+
+    // ✅ ADD: Method to handle tax rate changes
+    onTaxRateChange() {
+      // You can add additional logic here when tax rate changes
+      // For example, recalculate prices, validate, etc.
+      console.log('Tax rate changed to:', this.selectedTaxRate)
     },
   },
 }
