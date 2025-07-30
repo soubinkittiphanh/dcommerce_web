@@ -42,7 +42,8 @@ export const mainCompanyInfo = (store) => {
     address: 'SAPHANTHONG ONLINE',
     ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
     companyLogo: 'company_logo_phaivanh.jpeg',
-    dcLogo: 'Dcommerce-Logo-phaivanh.png',
+    dcLogo: 'Dcommerce-Logo-phaivanh.pnga',
+    dcLogo: 'Dcommerce-Logo-old.png',
     env: ''
   }
   // const info = {

@@ -585,7 +585,7 @@ export default {
 
     async loadLineItems(invoiceId) {
       try {
-        const { data } = await this.$axios.get(`/api/invoice-lines/by-header/${invoiceId}`)
+        const { data } = await this.$axios.get(`/api/ar-invoice-lines/by-header/${invoiceId}`)
         this.lineItems = data.data || [this.createEmptyLine()]
         
         this.lineItems.forEach(line => {

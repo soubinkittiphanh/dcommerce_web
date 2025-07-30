@@ -118,20 +118,26 @@
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="totalReceivedAmount" class="required"
-                        >ຍອດເງິນທີ່ຮັບ</label
-                      >
+                      <label for="totalReceivedAmount" class="auto-calculated">
+                        <i class="fas fa-calculator"></i>
+                        ຍອດເງິນທີ່ຮັບ (ຄຳນວນອັດຕະໂນມັດ)
+                      </label>
                       <input
                         id="totalReceivedAmount"
                         v-model="form.totalReceivedAmount"
                         type="number"
                         step="0.01"
                         min="0"
-                        class="form-control"
+                        class="form-control auto-calculated-field"
                         :class="{ 'is-invalid': errors.totalReceivedAmount }"
                         placeholder="0.00"
-                        @blur="validateAllocationTotal"
+                        readonly
+                        disabled
                       />
+                      <small class="form-text text-muted">
+                        <i class="fas fa-info-circle"></i>
+                        ຍອດນີ້ຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກການແບ່ງປັນ
+                      </small>
                       <div
                         v-if="errors.totalReceivedAmount"
                         class="invalid-feedback"
@@ -232,7 +238,7 @@
                           :key="user.id"
                           :value="user.id"
                         >
-                          {{ user.username }} - {{ user.email }}
+                          {{ user.cus_name }} - {{ user.cus_email }}
                         </option>
                       </select>
                     </div>
@@ -272,7 +278,7 @@
                 <div class="amount-summary">
                   <div class="totals-grid">
                     <div class="total-item">
-                      <label>ຍອດທີ່ຮັບ:</label>
+                      <label>ຍອດທີ່ຮັບ (ຄຳນວນອັດຕະໂນມັດ):</label>
                       <span class="amount received">{{
                         formatCurrency(form.totalReceivedAmount)
                       }}</span>
@@ -283,21 +289,19 @@
                         formatCurrency(calculatedAllocatedTotal)
                       }}</span>
                     </div>
-                    <div
-                      class="total-item"
-                      :class="{ 'balance-warning': allocationBalance !== 0 }"
-                    >
-                      <label>ຍອດຄົງເຫຼືອ:</label>
-                      <span
-                        class="amount balance"
-                        :class="{
-                          negative: allocationBalance < 0,
-                          positive: allocationBalance > 0,
-                        }"
-                      >
-                        {{ formatCurrency(allocationBalance) }}
+                    <div class="total-item success-balance">
+                      <label>ສະຖານະ:</label>
+                      <span class="amount balance balanced">
+                        <i class="fas fa-check-circle"></i>
+                        ສົມດຸນ
                       </span>
                     </div>
+                  </div>
+                  <div class="balance-info">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>
+                      ກະລຸນາໄປທີ່ແຖບ "ການແບ່ງປັນຊຳລະ" ເພື່ອໃສ່ຍອດແບ່ງປັນສຳລັບແຕ່ລະລາຍການ
+                    </span>
                   </div>
                 </div>
               </form>
@@ -481,8 +485,18 @@
                     <div class="quick-actions-left">
                       <button
                         type="button"
+                        class="btn btn-outline-primary btn-sm"
+                        @click="allocateFullAmount"
+                        title="ແບ່ງປັນຍອດເຕັມຂອງໃບແຈ້ງໜີ້"
+                      >
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        ຍອດເຕັມ
+                      </button>
+                      <button
+                        type="button"
                         class="btn btn-outline-success btn-sm"
                         @click="allocateEqually"
+                        title="ແບ່ງຍອດໃບແຈ້ງໜີ້ເທົ່າກັນ"
                       >
                         <i class="fas fa-equals"></i>
                         ແບ່ງເທົ່າກັນ
@@ -491,6 +505,7 @@
                         type="button"
                         class="btn btn-outline-info btn-sm"
                         @click="allocateProportionally"
+                        title="ແບ່ງຕາມອັດຕາສ່ວນຂອງແຕ່ລະລາຍການ"
                       >
                         <i class="fas fa-percentage"></i>
                         ແບ່ງຕາມອັດຕາສ່ວນ
@@ -506,7 +521,8 @@
                     </div>
                     <div class="quick-actions-right">
                       <span class="allocation-helper">
-                        ກົດ Tab ເພື່ອຂ້າມໄປລາຍການຕໍ່ໄປ
+                        <i class="fas fa-lightbulb"></i>
+                        ໃຊ້ປຸ່ມດ້ານຊ້າຍເພື່ອແບ່ງປັນອັດຕະໂນມັດ
                       </span>
                     </div>
                   </div>
@@ -521,7 +537,7 @@
                         }}</span>
                       </div>
                       <div class="total-item">
-                        <label>ຍອດທີ່ຮັບ:</label>
+                        <label>ຍອດທີ່ຮັບ (ຄຳນວນອັດຕະໂນມັດ):</label>
                         <span class="amount received">{{
                           formatCurrency(form.totalReceivedAmount)
                         }}</span>
@@ -532,35 +548,18 @@
                           formatCurrency(calculatedAllocatedTotal)
                         }}</span>
                       </div>
-                      <div
-                        class="total-item"
-                        :class="{ 'balance-warning': allocationBalance !== 0 }"
-                      >
-                        <label>ຍອດຄົງເຫຼືອ:</label>
-                        <span
-                          class="amount balance"
-                          :class="{
-                            negative: allocationBalance < 0,
-                            positive: allocationBalance > 0,
-                          }"
-                        >
-                          {{ formatCurrency(allocationBalance) }}
+                      <div class="total-item success-balance">
+                        <label>ສະຖານະ:</label>
+                        <span class="amount balance balanced">
+                          <i class="fas fa-check-circle"></i>
+                          ສົມດຸນ
                         </span>
                       </div>
                     </div>
-                    <div
-                      v-if="Math.abs(allocationBalance) >= 0.01"
-                      class="balance-message"
-                    >
-                      <i class="fas fa-exclamation-triangle"></i>
-                      <span v-if="allocationBalance > 0">
-                        ຍັງມີເງິນ
-                        {{ formatCurrency(allocationBalance) }}
-                        ທີ່ຍັງບໍ່ໄດ້ແບ່ງປັນ
-                      </span>
-                      <span v-else>
-                        ການແບ່ງປັນເກີນກວ່າຍອດທີ່ຮັບ
-                        {{ formatCurrency(Math.abs(allocationBalance)) }}
+                    <div class="balance-info">
+                      <i class="fas fa-info-circle"></i>
+                      <span>
+                        ຍອດທີ່ຮັບຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກລວມຍອດການແບ່ງປັນທັງໝົດ
                       </span>
                     </div>
                   </div>
@@ -825,11 +824,14 @@ export default {
       }, 0)
     },
 
+    // Override allocationBalance to always be 0 since total is auto-calculated
     allocationBalance() {
-      return (
-        (parseFloat(this.form.totalReceivedAmount) || 0) -
-        this.calculatedAllocatedTotal
-      )
+      return 0; // Always 0 since totalReceivedAmount = calculatedAllocatedTotal
+    },
+
+    // Auto-calculated total received amount
+    autoCalculatedTotal() {
+      return this.calculatedAllocatedTotal;
     },
 
     availableInvoiceLines() {
@@ -843,21 +845,18 @@ export default {
         this.form.receivedDate &&
         this.form.invoiceHeaderId &&
         this.form.paymentMethod &&
-        (parseFloat(this.form.totalReceivedAmount) || 0) > 0 &&
         (!this.isEdit || this.form.reason)
 
       const hasValidAllocations =
         this.allocationLines.length > 0 &&
-        this.allocationLines.every(
-          (allocation) =>
-            allocation.invoiceLineId &&
-            (parseFloat(allocation.allocatedAmount) || 0) > 0 &&
-            allocation.allocationDate
-        )
+        this.allocationLines.some(allocation => 
+          allocation.invoiceLineId &&
+          (parseFloat(allocation.allocatedAmount) || 0) > 0 &&
+          allocation.allocationDate
+        ) &&
+        (parseFloat(this.form.totalReceivedAmount) || 0) > 0
 
-      const hasBalancedAllocation = Math.abs(this.allocationBalance) < 0.01
-
-      return hasValidHeader && hasValidAllocations && hasBalancedAllocation
+      return hasValidHeader && hasValidAllocations
     },
 
     searchFilteredInvoices() {
@@ -896,9 +895,44 @@ export default {
         }
       },
     },
+
+    // Auto-update totalReceivedAmount when allocation lines change
+    calculatedAllocatedTotal: {
+      handler(newTotal) {
+        this.form.totalReceivedAmount = newTotal;
+      },
+      immediate: true
+    },
+
+    // Update allocation dates when received date changes
+    'form.receivedDate': {
+      handler(newDate) {
+        if (newDate && this.allocationLines.length > 0) {
+          this.allocationLines.forEach(allocation => {
+            if (!allocation.allocationDate || allocation.allocationDate === '') {
+              allocation.allocationDate = newDate;
+            }
+          });
+        }
+      }
+    }
   },
 
   methods: {
+    // Add a method to manually create allocation lines for testing
+    forceCreateAllocations() {
+      if (!this.selectedInvoice || !this.selectedInvoice.invoiceLines) {
+        this.showToast('Please select an invoice first', 'warning')
+        return
+      }
+
+      this.createAllocationLinesFromInvoice()
+      this.showToast(
+        `Created ${this.allocationLines.length} allocation lines`,
+        'success'
+      )
+    },
+
     async initializeDialog() {
       this.activeTab = 'header'
       this.clearErrors()
@@ -953,7 +987,7 @@ export default {
     async loadAllocationLines(receiptId) {
       try {
         const { data } = await this.$axios.get(
-          `/api/receive-lines/by-header/${receiptId}`
+          `/api/ar-receive-lines/by-header/${receiptId}`
         )
         this.allocationLines = data.data || []
 
@@ -983,10 +1017,17 @@ export default {
     },
 
     async updateSelectedInvoice() {
+      console.log(
+        'updateSelectedInvoice called with invoiceHeaderId:',
+        this.form.invoiceHeaderId
+      )
+
       if (this.form.invoiceHeaderId && this.invoices.length > 0) {
         this.selectedInvoice = this.invoices.find(
-          (inv) => inv.id === this.form.invoiceHeaderId
+          (inv) => inv.id === parseInt(this.form.invoiceHeaderId) // Ensure ID comparison is correct
         )
+
+        console.log('Selected invoice found:', this.selectedInvoice)
 
         // If we found the invoice but it doesn't have invoice lines, load them
         if (
@@ -1001,8 +1042,13 @@ export default {
         if (
           this.selectedInvoice &&
           this.selectedInvoice.invoiceLines &&
-          !this.isEdit
+          this.selectedInvoice.invoiceLines.length > 0 &&
+          !this.isEdit // Only auto-create for new records
         ) {
+          console.log(
+            'Creating allocation lines from invoice lines:',
+            this.selectedInvoice.invoiceLines
+          )
           this.createAllocationLinesFromInvoice()
         }
       } else {
@@ -1011,12 +1057,19 @@ export default {
           this.allocationLines = []
         }
       }
+
+      console.log('Final allocation lines:', this.allocationLines)
     },
 
     async loadSelectedInvoiceLines() {
       if (!this.selectedInvoice) return
 
       try {
+        console.log(
+          'Loading invoice lines for invoice:',
+          this.selectedInvoice.id
+        )
+
         const { data } = await this.$axios.get(
           `/api/ar-invoices/${this.selectedInvoice.id}`,
           {
@@ -1026,34 +1079,67 @@ export default {
           }
         )
 
-        if (data.data && data.data.invoiceLines) {
+        console.log('API response for invoice lines:', data)
+
+        // Handle different possible response structures
+        if (data.success && data.data && data.data.invoiceLines) {
           this.selectedInvoice.invoiceLines = data.data.invoiceLines
+        } else if (data.data && Array.isArray(data.data)) {
+          // In case the response structure is different
+          this.selectedInvoice.invoiceLines = data.data
+        } else if (data.invoiceLines) {
+          this.selectedInvoice.invoiceLines = data.invoiceLines
+        } else {
+          console.warn('No invoice lines found in response:', data)
+          this.selectedInvoice.invoiceLines = []
         }
+
+        console.log('Loaded invoice lines:', this.selectedInvoice.invoiceLines)
       } catch (error) {
         console.error('Error loading invoice lines:', error)
+        this.selectedInvoice.invoiceLines = []
+        this.showToast('ມີປັນຫາໃນການໂຫຼດລາຍການໃບແຈ້ງໜີ້', 'error')
       }
     },
 
     createAllocationLinesFromInvoice() {
-      if (!this.selectedInvoice || !this.selectedInvoice.invoiceLines) {
+      console.log('createAllocationLinesFromInvoice called')
+      console.log('Selected invoice:', this.selectedInvoice)
+      console.log('Invoice lines:', this.selectedInvoice?.invoiceLines)
+
+      if (
+        !this.selectedInvoice ||
+        !this.selectedInvoice.invoiceLines ||
+        this.selectedInvoice.invoiceLines.length === 0
+      ) {
+        console.warn('No invoice lines available to create allocations')
         this.allocationLines = []
         return
       }
 
       this.allocationLines = this.selectedInvoice.invoiceLines.map(
-        (line, index) => ({
-          tempId: this.nextTempId++,
-          lineNumber: index + 1,
-          invoiceLineId: line.id,
-          invoiceLine: line,
-          allocatedAmount: 0,
-          allocationDate: new Date().toISOString().split('T')[0],
-          notes: '',
-        })
+        (line, index) => {
+          const allocation = {
+            tempId: this.nextTempId++,
+            lineNumber: index + 1,
+            invoiceLineId: line.id,
+            invoiceLine: line,
+            allocatedAmount: 0, // Default to 0, user will fill this
+            allocationDate:
+              this.form.receivedDate || new Date().toISOString().split('T')[0],
+            notes: '',
+          }
+
+          console.log('Created allocation:', allocation)
+          return allocation
+        }
       )
+
+      console.log('Final allocation lines created:', this.allocationLines)
     },
 
     async onInvoiceChange() {
+      console.log('onInvoiceChange called')
       await this.updateSelectedInvoice()
       this.clearFieldError('invoiceHeaderId')
     },
@@ -1065,27 +1151,39 @@ export default {
       }
     },
 
-    // Invoice Browser Methods
     async openInvoiceBrowser() {
       this.showInvoiceBrowser = true
       this.invoiceBrowserLoading = true
       this.invoiceSearchQuery = ''
 
       try {
-        // Load all invoices for browsing
+        // Load all invoices for browsing - make sure to include invoice lines
         const { data } = await this.$axios.get('/api/ar-invoices', {
           params: {
             status: ['draft', 'sent'], // Only show unpaid or partially paid invoices
-            include: ['customer', 'invoiceLines'],
+            include: ['customer', 'invoiceLines'], // Make sure to include invoiceLines
           },
         })
 
-        // Defensive approach: ensure we always get an array
-        this.filteredInvoices = Array.isArray(data.data?.invoices)
-          ? data.data.invoices
-          : []
+        console.log('Invoice browser API response:', data)
 
-        console.info(`Invoice fetch ${JSON.stringify(this.filteredInvoices)}`)
+        // Handle different response structures
+        if (data.success && data.data && Array.isArray(data.data)) {
+          this.filteredInvoices = data.data
+        } else if (
+          data.data &&
+          data.data.invoices &&
+          Array.isArray(data.data.invoices)
+        ) {
+          this.filteredInvoices = data.data.invoices
+        } else if (Array.isArray(data)) {
+          this.filteredInvoices = data
+        } else {
+          console.warn('Unexpected response structure:', data)
+          this.filteredInvoices = []
+        }
+
+        console.log('Filtered invoices loaded:', this.filteredInvoices)
       } catch (error) {
         console.error('Error loading invoices:', error)
         this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
@@ -1102,30 +1200,54 @@ export default {
     },
 
     async selectInvoiceFromBrowser(invoice) {
+      console.log('Selecting invoice from browser:', invoice)
+
       this.form.invoiceHeaderId = invoice.id
+
+      // Ensure the selected invoice has its lines loaded
+      if (!invoice.invoiceLines || invoice.invoiceLines.length === 0) {
+        // Add the invoice to our main invoices array if it's not there
+        const existingInvoice = this.invoices.find(
+          (inv) => inv.id === invoice.id
+        )
+        if (!existingInvoice) {
+          this.invoices.push(invoice)
+        }
+      }
+
       await this.onInvoiceChange()
       this.closeInvoiceBrowser()
       this.clearFieldError('invoiceHeaderId')
     },
 
     // Allocation Helper Methods
-    allocateEqually() {
-      if (this.allocationLines.length === 0) return
+    allocateFullAmount() {
+      if (this.allocationLines.length === 0 || !this.selectedInvoice) return
 
-      const totalReceived = parseFloat(this.form.totalReceivedAmount) || 0
-      const amountPerLine = totalReceived / this.allocationLines.length
+      this.allocationLines.forEach((allocation) => {
+        if (allocation.invoiceLine) {
+          const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
+          allocation.allocatedAmount = lineTotal.toFixed(2)
+        }
+      })
+    },
+
+    allocateEqually() {
+      if (this.allocationLines.length === 0 || !this.selectedInvoice) return
+
+      const totalInvoice = parseFloat(this.selectedInvoice.totalAmount) || 0
+      const amountPerLine = totalInvoice / this.allocationLines.length
 
       this.allocationLines.forEach((allocation) => {
         allocation.allocatedAmount = amountPerLine.toFixed(2)
       })
 
-      this.validateAllocationTotal()
+      // Total will be auto-calculated via watcher
     },
 
     allocateProportionally() {
       if (this.allocationLines.length === 0 || !this.selectedInvoice) return
 
-      const totalReceived = parseFloat(this.form.totalReceivedAmount) || 0
       const totalInvoice = parseFloat(this.selectedInvoice.totalAmount) || 0
 
       if (totalInvoice === 0) return
@@ -1133,12 +1255,11 @@ export default {
       this.allocationLines.forEach((allocation) => {
         if (allocation.invoiceLine) {
           const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
-          const proportionalAmount = (lineTotal / totalInvoice) * totalReceived
-          allocation.allocatedAmount = proportionalAmount.toFixed(2)
+          allocation.allocatedAmount = lineTotal.toFixed(2)
         }
       })
 
-      this.validateAllocationTotal()
+      // Total will be auto-calculated via watcher
     },
 
     clearAllAllocations() {
@@ -1177,11 +1298,7 @@ export default {
     },
 
     validateAllocationTotal() {
-      if (Math.abs(this.allocationBalance) >= 0.01) {
-        this.errors.allocationBalance = 'ຍອດການແບ່ງປັນຕ້ອງເທົ່າກັບຍອດທີ່ຮັບ'
-      } else {
-        this.clearFieldError('allocationBalance')
-      }
+      // No need to validate balance since it's always 0
     },
 
     validateForm() {
@@ -1204,13 +1321,6 @@ export default {
         this.errors.receivedDate = 'ກະລຸນາໃສ່ວັນທີຮັບເງິນ'
       }
 
-      if (
-        !this.form.totalReceivedAmount ||
-        parseFloat(this.form.totalReceivedAmount) <= 0
-      ) {
-        this.errors.totalReceivedAmount = 'ຍອດເງິນທີ່ຮັບຕ້ອງຫຼາຍກວ່າ 0'
-      }
-
       if (!this.form.paymentMethod) {
         this.errors.paymentMethod = 'ກະລຸນາເລືອກວິທີຈ່າຍ'
       }
@@ -1229,6 +1339,9 @@ export default {
       if (this.allocationLines.length === 0) {
         this.errors.allocations = 'ກະລຸນາເພີ່ມການແບ່ງປັນຢ່າງໜ້ອຍ 1 ລາຍການ'
       } else {
+        let hasValidAllocation = false
+        let totalAllocated = 0;
+
         for (let i = 0; i < this.allocationLines.length; i++) {
           const allocation = this.allocationLines[i]
 
@@ -1237,12 +1350,14 @@ export default {
               'ກະລຸນາເລືອກລາຍການໃບແຈ້ງໜີ້'
           }
 
-          if (
-            !allocation.allocatedAmount ||
-            parseFloat(allocation.allocatedAmount) <= 0
-          ) {
+          const allocatedAmount = parseFloat(allocation.allocatedAmount) || 0
+
+          if (allocatedAmount <= 0) {
             this.errors[`allocation_${i}_allocatedAmount`] =
               'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
+          } else {
+            hasValidAllocation = true
+            totalAllocated += allocatedAmount;
           }
 
           if (!allocation.allocationDate) {
@@ -1256,11 +1371,16 @@ export default {
               'ຍອດແບ່ງປັນເກີນກວ່າທີ່ເຫຼືອ'
           }
         }
-      }
 
-      // Total allocation balance
-      if (Math.abs(this.allocationBalance) >= 0.01) {
-        this.errors.allocationBalance = 'ຍອດການແບ່ງປັນຕ້ອງເທົ່າກັບຍອດທີ່ຮັບ'
+        // Check if at least one allocation has amount > 0
+        if (!hasValidAllocation) {
+          this.errors.allocations = 'ຢ່າງໜ້ອຍຕ້ອງມີ 1 ລາຍການທີ່ມີຍອດແບ່ງປັນ'
+        }
+
+        // Validate that total allocated amount is greater than 0
+        if (totalAllocated <= 0) {
+          this.errors.totalReceivedAmount = 'ຍອດລວມການແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
+        }
       }
 
       if (this.isEdit && !this.form.reason) {
@@ -1281,7 +1401,18 @@ export default {
     },
 
     handleSubmit() {
+      console.log('handleSubmit called')
+      console.log(
+        'Form data before validation:',
+        JSON.stringify(this.form, null, 2)
+      )
+      console.log(
+        'Allocation lines before validation:',
+        JSON.stringify(this.allocationLines, null, 2)
+      )
+
       if (!this.validateForm()) {
+        console.log('Validation failed. Errors:', this.errors)
         // Switch to appropriate tab if there are errors
         if (
           Object.keys(this.errors).some((key) => key.startsWith('allocation_'))
@@ -1295,15 +1426,29 @@ export default {
 
       this.saving = true
 
+      // Filter out allocations with zero amounts before sending
+      const validAllocationLines = this.allocationLines.filter((allocation) => {
+        const amount = parseFloat(allocation.allocatedAmount) || 0
+        return amount > 0 && allocation.invoiceLineId
+      })
+
       const formData = {
         ...this.form,
         totalReceivedAmount: parseFloat(this.form.totalReceivedAmount) || 0,
-        allocationLines: this.allocationLines.map((allocation, index) => ({
-          ...allocation,
+        allocationLines: validAllocationLines.map((allocation, index) => ({
+          tempId: allocation.tempId,
           lineNumber: index + 1,
+          invoiceLineId: allocation.invoiceLineId,
           allocatedAmount: parseFloat(allocation.allocatedAmount) || 0,
+          allocationDate: allocation.allocationDate,
+          notes: allocation.notes || '',
         })),
       }
+
+      console.log(
+        'Final form data being sent:',
+        JSON.stringify(formData, null, 2)
+      )
 
       this.$emit('save', formData)
     },
@@ -1639,6 +1784,36 @@ export default {
   color: #e74c3c;
 }
 
+/* Auto-calculated field styles */
+.auto-calculated-field {
+  background-color: #f8f9fa !important;
+  border-style: dashed !important;
+  color: #495057 !important;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.auto-calculated-field:disabled {
+  opacity: 0.8;
+}
+
+.form-group label.auto-calculated {
+  color: #28a745;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-text.text-muted {
+  font-size: 12px;
+  color: #6c757d !important;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 /* Invoice Selector */
 .invoice-selector {
   display: flex;
@@ -1687,6 +1862,7 @@ export default {
   padding: 12px;
   border-radius: 6px;
   border: 1px solid #ffeaa7;
+  display: none; /* Hide balance warning since balance should always be 0 */
 }
 
 .total-item .amount {
@@ -1708,6 +1884,38 @@ export default {
 
 .total-item .amount.balance.positive {
   color: #ffc107;
+}
+
+/* New styles for success balance */
+.success-balance {
+  background: #d4edda;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.amount.balanced {
+  color: #155724 !important;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.balance-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 12px;
+  background: #e7f3ff;
+  border: 1px solid #bee5eb;
+  border-radius: 6px;
+  color: #0c5460;
+  font-size: 14px;
+}
+
+.balance-message {
+  display: none; /* Hide balance message since balance should always be 0 */
 }
 
 /* Allocation Section */
@@ -1883,19 +2091,9 @@ export default {
   font-size: 12px;
   color: #666;
   font-style: italic;
-}
-
-.balance-message {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 15px;
-  padding: 12px;
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 6px;
-  color: #856404;
-  font-size: 14px;
+  gap: 5px;
 }
 
 /* Invoice Browser Styles */
@@ -2010,8 +2208,13 @@ export default {
 
 .btn-outline-primary {
   background: white;
-  color: #28a745;
-  border: 2px solid #28a745;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.btn-outline-primary:hover {
+  background: #007bff;
+  color: white;
 }
 
 .btn-outline-success {

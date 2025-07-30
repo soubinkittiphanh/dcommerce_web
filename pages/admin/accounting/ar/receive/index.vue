@@ -33,7 +33,11 @@
 
         <div class="filter-group">
           <label>ວິທີຈ່າຍ:</label>
-          <select v-model="filters.paymentMethod" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.paymentMethod"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
             <option value="cash">ເງິນສົດ</option>
             <option value="check">ເຊັກ</option>
@@ -45,9 +49,17 @@
 
         <div class="filter-group">
           <label>ໃບແຈ້ງໜີ້:</label>
-          <select v-model="filters.invoiceHeaderId" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.invoiceHeaderId"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
-            <option v-for="invoice in invoices" :key="invoice.id" :value="invoice.id">
+            <option
+              v-for="invoice in invoices"
+              :key="invoice.id"
+              :value="invoice.id"
+            >
               {{ invoice.invoiceNumber }}
             </option>
           </select>
@@ -107,7 +119,9 @@
         <div class="card-content">
           <h3>{{ summaryStats.cash.count }}</h3>
           <p>ເງິນສົດ ({{ summaryStats.cash.percentage }}%)</p>
-          <small class="amount-info">{{ formatCurrency(summaryStats.cash.amount) }}</small>
+          <small class="amount-info">{{
+            formatCurrency(summaryStats.cash.amount)
+          }}</small>
         </div>
       </div>
 
@@ -119,7 +133,9 @@
         <div class="card-content">
           <h3>{{ summaryStats.bankTransfer.count }}</h3>
           <p>ໂອນເງິນທະນາຄານ ({{ summaryStats.bankTransfer.percentage }}%)</p>
-          <small class="amount-info">{{ formatCurrency(summaryStats.bankTransfer.amount) }}</small>
+          <small class="amount-info">{{
+            formatCurrency(summaryStats.bankTransfer.amount)
+          }}</small>
         </div>
       </div>
 
@@ -131,7 +147,9 @@
         <div class="card-content">
           <h3>{{ summaryStats.check.count }}</h3>
           <p>ເຊັກ ({{ summaryStats.check.percentage }}%)</p>
-          <small class="amount-info">{{ formatCurrency(summaryStats.check.amount) }}</small>
+          <small class="amount-info">{{
+            formatCurrency(summaryStats.check.amount)
+          }}</small>
         </div>
       </div>
 
@@ -155,7 +173,9 @@
         <div class="card-content">
           <h3>{{ formatCurrency(summaryStats.totalAmount) }}</h3>
           <p>ຍອດຮັບຊຳລະລວມ</p>
-          <small class="amount-info">ສະເລ່ຍ: {{ formatCurrency(summaryStats.averageAmount) }}</small>
+          <small class="amount-info"
+            >ສະເລ່ຍ: {{ formatCurrency(summaryStats.averageAmount) }}</small
+          >
         </div>
       </div>
     </div>
@@ -227,9 +247,18 @@
                 <div class="invoice-info">
                   <div class="invoice-number">
                     <i class="fas fa-file-invoice"></i>
-                    {{ receipt.invoiceHeader ? receipt.invoiceHeader.invoiceNumber : 'N/A' }}
+                    {{
+                      receipt.invoiceHeader
+                        ? receipt.invoiceHeader.invoiceNumber
+                        : 'N/A'
+                    }}
                   </div>
-                  <div v-if="receipt.invoiceHeader && receipt.invoiceHeader.customer" class="customer-name">
+                  <div
+                    v-if="
+                      receipt.invoiceHeader && receipt.invoiceHeader.customer
+                    "
+                    class="customer-name"
+                  >
                     {{ receipt.invoiceHeader.customer.name }}
                   </div>
                 </div>
@@ -239,7 +268,12 @@
                   <div class="received-amount">
                     {{ formatCurrency(receipt.totalReceivedAmount) }}
                   </div>
-                  <div v-if="receipt.receiveLines && receipt.receiveLines.length > 0" class="allocation-info">
+                  <div
+                    v-if="
+                      receipt.receiveLines && receipt.receiveLines.length > 0
+                    "
+                    class="allocation-info"
+                  >
                     <small>{{ receipt.receiveLines.length }} ການແບ່ງປັນ</small>
                   </div>
                 </div>
@@ -256,8 +290,16 @@
               </td>
               <td>
                 <div class="inputter-info">
-                  {{ receipt.inputter ? receipt.inputter.username : (receipt.maker ? receipt.maker.username : 'N/A') }}
-                  <small v-if="receipt.createdAt">{{ formatDate(receipt.createdAt) }}</small>
+                  {{
+                    receipt.inputter
+                      ? receipt.inputter.username
+                      : receipt.maker
+                      ? receipt.maker.username
+                      : 'N/A'
+                  }}
+                  <small v-if="receipt.createdAt">{{
+                    formatDate(receipt.createdAt)
+                  }}</small>
                 </div>
               </td>
               <td class="actions-cell">
@@ -343,6 +385,7 @@
         :visible="showEditDialog"
         :receipt="selectedReceipt"
         :invoices="invoices"
+        :users="users"
         @close="closeEditDialog"
         @save="onReceiptSave"
       />
@@ -389,6 +432,7 @@ export default {
       receipts: [],
       filteredReceipts: [],
       invoices: [],
+      users: [],
 
       // Loading states
       loading: false,
@@ -440,9 +484,7 @@ export default {
     },
 
     totalPages() {
-      return Math.ceil(
-        this.filteredReceipts.length / this.pagination.perPage
-      )
+      return Math.ceil(this.filteredReceipts.length / this.pagination.perPage)
     },
 
     paginationInfo() {
@@ -493,9 +535,29 @@ export default {
   mounted() {
     this.fetchReceipts()
     this.fetchInvoices()
+    this.fetchUsers()
   },
 
   methods: {
+    async fetchUsers() {
+      try {
+        const { data } = await this.$axios.get('/api/user/find')
+
+        if (data && data.data) {
+          this.users = Array.isArray(data) ? data : []
+        } else if (Array.isArray(data)) {
+          this.users = data
+        } else {
+          this.users = []
+        }
+
+        console.log('Fetched users:', this.users.length)
+      } catch (error) {
+        console.error('Error fetching users:', error)
+        this.users = []
+        this.showToast('Failed to load users', 'error')
+      }
+    },
     // Data Loading Methods
     async fetchReceipts() {
       this.loading = true
@@ -506,7 +568,9 @@ export default {
           ...this.filters,
         }
 
-        const { data } = await this.$axios.get('/api/ar-receive-headers', { params })
+        const { data } = await this.$axios.get('/api/ar-receive-headers', {
+          params,
+        })
 
         if (data && data.success) {
           this.receipts = data.data.receiveHeaders || []
@@ -561,8 +625,10 @@ export default {
       if (confirm(`ທ່ານຕ້ອງການລຶບໃບຮັບເງິນ ${receipt.receiptNumber} ແມ່ນບໍ?`)) {
         try {
           this.loading = true
-          const { data } = await this.$axios.delete(`/api/ar-receive-headers/${receipt.id}`)
-          
+          const { data } = await this.$axios.delete(
+            `/api/ar-receive-headers/${receipt.id}`
+          )
+
           if (data && data.success) {
             this.showToast('ລຶບໃບຮັບເງິນສຳເລັດແລ້ວ', 'success')
             await this.fetchReceipts()
@@ -571,7 +637,8 @@ export default {
           }
         } catch (error) {
           console.error('Error deleting receipt:', error)
-          const errorMessage = error.response?.data?.message || error.message || 'ລຶບບໍ່ສຳເລັດ'
+          const errorMessage =
+            error.response?.data?.message || error.message || 'ລຶບບໍ່ສຳເລັດ'
           this.showToast(errorMessage, 'error')
         } finally {
           this.loading = false
@@ -591,6 +658,8 @@ export default {
 
     // Save Handler
     async onReceiptSave(receiptData) {
+      console.info(`DATA  MAIN ${JSON.stringify(receiptData)}`)
+
       try {
         this.loading = true
 
@@ -601,7 +670,10 @@ export default {
             receiptData
           )
         } else {
-          response = await this.$axios.post('/api/ar-receive-headers', receiptData)
+          response = await this.$axios.post(
+            '/api/ar-receive-headers',
+            receiptData
+          )
         }
 
         if (response.data && response.data.success) {
@@ -631,7 +703,8 @@ export default {
         filtered = filtered.filter(
           (receipt) =>
             receipt.receiptNumber.toLowerCase().includes(search) ||
-            (receipt.referenceNumber && receipt.referenceNumber.toLowerCase().includes(search)) ||
+            (receipt.referenceNumber &&
+              receipt.referenceNumber.toLowerCase().includes(search)) ||
             (receipt.notes && receipt.notes.toLowerCase().includes(search))
         )
       }
@@ -654,9 +727,13 @@ export default {
       if (this.filters.bookingDateFrom || this.filters.bookingDateTo) {
         filtered = filtered.filter((receipt) => {
           const bookingDate = new Date(receipt.bookingDate)
-          const dateFrom = this.filters.bookingDateFrom ? new Date(this.filters.bookingDateFrom) : null
-          const dateTo = this.filters.bookingDateTo ? new Date(this.filters.bookingDateTo) : null
-          
+          const dateFrom = this.filters.bookingDateFrom
+            ? new Date(this.filters.bookingDateFrom)
+            : null
+          const dateTo = this.filters.bookingDateTo
+            ? new Date(this.filters.bookingDateTo)
+            : null
+
           if (dateFrom && bookingDate < dateFrom) return false
           if (dateTo && bookingDate > dateTo) return false
           return true
@@ -715,44 +792,77 @@ export default {
 
     calculateSummaryStats() {
       const total = this.filteredReceipts.length
-      const cash = this.filteredReceipts.filter(r => r.paymentMethod === 'cash').length
-      const bankTransfer = this.filteredReceipts.filter(r => r.paymentMethod === 'bank_transfer').length
-      const check = this.filteredReceipts.filter(r => r.paymentMethod === 'check').length
-      const creditCard = this.filteredReceipts.filter(r => r.paymentMethod === 'credit_card').length
-      const other = this.filteredReceipts.filter(r => r.paymentMethod === 'other').length
-      
-      const totalAmount = this.filteredReceipts.reduce((sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0), 0)
-      const cashAmount = this.filteredReceipts.filter(r => r.paymentMethod === 'cash').reduce((sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0), 0)
-      const bankTransferAmount = this.filteredReceipts.filter(r => r.paymentMethod === 'bank_transfer').reduce((sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0), 0)
-      const checkAmount = this.filteredReceipts.filter(r => r.paymentMethod === 'check').reduce((sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0), 0)
-      const creditCardAmount = this.filteredReceipts.filter(r => r.paymentMethod === 'credit_card').reduce((sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0), 0)
+      const cash = this.filteredReceipts.filter(
+        (r) => r.paymentMethod === 'cash'
+      ).length
+      const bankTransfer = this.filteredReceipts.filter(
+        (r) => r.paymentMethod === 'bank_transfer'
+      ).length
+      const check = this.filteredReceipts.filter(
+        (r) => r.paymentMethod === 'check'
+      ).length
+      const creditCard = this.filteredReceipts.filter(
+        (r) => r.paymentMethod === 'credit_card'
+      ).length
+      const other = this.filteredReceipts.filter(
+        (r) => r.paymentMethod === 'other'
+      ).length
+
+      const totalAmount = this.filteredReceipts.reduce(
+        (sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0),
+        0
+      )
+      const cashAmount = this.filteredReceipts
+        .filter((r) => r.paymentMethod === 'cash')
+        .reduce(
+          (sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0),
+          0
+        )
+      const bankTransferAmount = this.filteredReceipts
+        .filter((r) => r.paymentMethod === 'bank_transfer')
+        .reduce(
+          (sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0),
+          0
+        )
+      const checkAmount = this.filteredReceipts
+        .filter((r) => r.paymentMethod === 'check')
+        .reduce(
+          (sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0),
+          0
+        )
+      const creditCardAmount = this.filteredReceipts
+        .filter((r) => r.paymentMethod === 'credit_card')
+        .reduce(
+          (sum, receipt) => sum + parseFloat(receipt.totalReceivedAmount || 0),
+          0
+        )
 
       this.summaryStats = {
         total: { count: total },
-        cash: { 
-          count: cash, 
+        cash: {
+          count: cash,
           percentage: total > 0 ? Math.round((cash / total) * 100) : 0,
-          amount: cashAmount
+          amount: cashAmount,
         },
-        bankTransfer: { 
-          count: bankTransfer, 
+        bankTransfer: {
+          count: bankTransfer,
           percentage: total > 0 ? Math.round((bankTransfer / total) * 100) : 0,
-          amount: bankTransferAmount
+          amount: bankTransferAmount,
         },
-        check: { 
-          count: check, 
+        check: {
+          count: check,
           percentage: total > 0 ? Math.round((check / total) * 100) : 0,
-          amount: checkAmount
+          amount: checkAmount,
         },
-        creditCard: { 
-          count: creditCard, 
+        creditCard: {
+          count: creditCard,
           percentage: total > 0 ? Math.round((creditCard / total) * 100) : 0,
-          amount: creditCardAmount
+          amount: creditCardAmount,
         },
-        other: { 
-          count: other, 
+        other: {
+          count: other,
           percentage: total > 0 ? Math.round((other / total) * 100) : 0,
-          amount: 0
+          amount: 0,
         },
         totalAmount,
         averageAmount: total > 0 ? totalAmount / total : 0,
