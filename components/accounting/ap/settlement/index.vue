@@ -16,16 +16,6 @@
 
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label>ເລກທີການຊຳລະ</label>
-                <input
-                  v-model="form.settlementNumber"
-                  type="text"
-                  class="form-control"
-                  :disabled="isEditMode"
-                  placeholder="ຈະຖືກສ້າງອັດຕະໂນມັດ"
-                />
-              </div>
-              <div class="form-group col-md-6">
                 <label>ວັນທີຊຳລະ <span class="required">*</span></label>
                 <input
                   v-model="form.settlementDate"
@@ -38,32 +28,24 @@
                   {{ errors.settlementDate }}
                 </div>
               </div>
+              <div class="form-group col-md-6">
+                <label>ສະຖານະ</label>
+                <select
+                  v-model="form.status"
+                  class="form-control"
+                  :disabled="!canModifyStatus"
+                >
+                  <option value="draft">ຮ່າງ</option>
+                  <option value="pending">ລໍຖ້າການອະນຸມັດ</option>
+                  <option value="approved">ອະນຸມັດແລ້ວ</option>
+                  <option value="completed">ສຳເລັດແລ້ວ</option>
+                  <option value="cancelled">ຍົກເລີກ</option>
+                </select>
+              </div>
             </div>
 
             <div class="form-row">
-              <div class="form-group col-md-4">
-                <label>ສະກຸນເງິນຊຳລະ <span class="required">*</span></label>
-                <select
-                  v-model="form.paymentCurrencyId"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.paymentCurrencyId }"
-                  @change="onPaymentCurrencyChange"
-                  required
-                >
-                  <option value="">ເລືອກສະກຸນເງິນ</option>
-                  <option
-                    v-for="currency in currencies"
-                    :key="currency.id"
-                    :value="currency.id"
-                  >
-                    {{ currency.code }} - {{ currency.name }}
-                  </option>
-                </select>
-                <div v-if="errors.paymentCurrencyId" class="invalid-feedback">
-                  {{ errors.paymentCurrencyId }}
-                </div>
-              </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                 <label>ຈຳນວນເງິນຊຳລະ <span class="required">*</span></label>
                 <input
                   v-model.number="form.paymentAmount"
@@ -79,58 +61,26 @@
                   {{ errors.paymentAmount }}
                 </div>
               </div>
-              <div class="form-group col-md-4">
-                <label>ອັດຕາແລກປ່ຽນ</label>
-                <input
-                  v-model.number="form.exchangeRate"
-                  type="number"
-                  step="0.000001"
-                  min="0"
-                  class="form-control"
-                  :disabled="isSameCurrency"
-                  @input="calculateBaseAmount"
-                />
-                <small class="form-text text-muted">
-                  {{
-                    isSameCurrency
-                      ? 'ສະກຸນເງິນດຽວກັນ'
-                      : '1 ' +
-                        getPaymentCurrencyCode() +
-                        ' = X ' +
-                        getBaseCurrencyCode()
-                  }}
-                </small>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label>ສະກຸນເງິນພື້ນຖານ</label>
-                <select
-                  v-model="form.baseCurrencyId"
-                  class="form-control"
-                  @change="onBaseCurrencyChange"
-                >
-                  <option
-                    v-for="currency in currencies"
-                    :key="currency.id"
-                    :value="currency.id"
-                  >
-                    {{ currency.code }} - {{ currency.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group col-md-4">
-                <label>ຈຳນວນເງິນພື້ນຖານ</label>
+              <div class="form-group col-md-6">
+                <label>ຈຳນວນເງິນພື້ນຖານ <span class="required">*</span></label>
                 <input
                   v-model.number="form.baseAmount"
                   type="number"
                   step="0.01"
+                  min="0"
                   class="form-control"
-                  :disabled="true"
+                  :class="{ 'is-invalid': errors.baseAmount }"
+                  @input="calculateUnallocatedAmount"
+                  required
                 />
+                <div v-if="errors.baseAmount" class="invalid-feedback">
+                  {{ errors.baseAmount }}
+                </div>
               </div>
-              <div class="form-group col-md-4">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
                 <label>ວິທີການຊຳລະ <span class="required">*</span></label>
                 <select
                   v-model="form.paymentMethodId"
@@ -151,9 +101,6 @@
                   {{ errors.paymentMethodId }}
                 </div>
               </div>
-            </div>
-
-            <div class="form-row">
               <div class="form-group col-md-6">
                 <label>ບັນຊີທະນາຄານ</label>
                 <select v-model="form.bankAccountId" class="form-control">
@@ -167,13 +114,26 @@
                   </option>
                 </select>
               </div>
+            </div>
+
+            <div class="form-row">
               <div class="form-group col-md-6">
                 <label>ອ້າງອີງ</label>
                 <input
                   v-model="form.reference"
                   type="text"
                   class="form-control"
+                  maxlength="100"
                   placeholder="ຫມາຍເລກອ້າງອີງ"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label>ຜູ້ສ້າງ</label>
+                <input
+                  v-model="makerName"
+                  type="text"
+                  class="form-control"
+                  :disabled="true"
                 />
               </div>
             </div>
@@ -184,7 +144,7 @@
                 <textarea
                   v-model="form.description"
                   class="form-control"
-                  rows="2"
+                  rows="3"
                   placeholder="ຄຳອະທິບາຍການຊຳລະ"
                 ></textarea>
               </div>
@@ -193,7 +153,7 @@
                 <textarea
                   v-model="form.note"
                   class="form-control"
-                  rows="2"
+                  rows="3"
                   placeholder="ໝາຍເຫດເພີ່ມເຕີມ"
                 ></textarea>
               </div>
@@ -208,6 +168,7 @@
                 type="button"
                 @click="showInvoiceSelector = true"
                 class="btn btn-sm btn-primary"
+                :disabled="!canModifyAllocations"
               >
                 <i class="fas fa-plus"></i> ເພີ່ມໃບແຈ້ງໜີ້
               </button>
@@ -230,7 +191,6 @@
                     <th>ຜູ້ຂາຍ</th>
                     <th>ຍອດຄ້າງຈ່າຍ</th>
                     <th>ຈຳນວນຈັດສັນ</th>
-                    <th>ອັດຕາແລກປ່ຽນ</th>
                     <th>ຟັງຊັ່ນ</th>
                   </tr>
                 </thead>
@@ -250,16 +210,7 @@
                         min="0"
                         :max="invoice.outstandingAmount"
                         class="form-control form-control-sm"
-                        @input="calculateTotals"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        v-model.number="invoice.exchangeRate"
-                        type="number"
-                        step="0.000001"
-                        min="0"
-                        class="form-control form-control-sm"
+                        :disabled="!canModifyAllocations"
                         @input="calculateTotals"
                       />
                     </td>
@@ -268,6 +219,7 @@
                         type="button"
                         @click="removeInvoice(index)"
                         class="btn btn-sm btn-danger"
+                        :disabled="!canModifyAllocations"
                       >
                         <i class="fas fa-trash"></i>
                       </button>
@@ -291,6 +243,32 @@
             </div>
           </div>
 
+          <!-- Approval Section (for authorized users) -->
+          <div v-if="showApprovalSection" class="form-section">
+            <h5 class="section-title">ການອະນຸມັດ</h5>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>ຜູ້ອະນຸມັດ</label>
+                <input
+                  v-model="checkerName"
+                  type="text"
+                  class="form-control"
+                  :disabled="true"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label>ໝາຍເຫດການອະນຸມັດ</label>
+                <textarea
+                  v-model="form.approvalNote"
+                  class="form-control"
+                  rows="2"
+                  placeholder="ໝາຍເຫດການອະນຸມັດ"
+                  :disabled="!canApprove"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
           <!-- Form Actions -->
           <div class="form-actions">
             <button
@@ -300,10 +278,31 @@
             >
               <i class="fas fa-times"></i> ຍົກເລີກ
             </button>
+            
+            <button
+              v-if="canApprove && form.status === 'pending'"
+              type="button"
+              @click="approveSettlement"
+              class="btn btn-success"
+              :disabled="isSubmitting"
+            >
+              <i class="fas fa-check"></i> ອະນຸມັດ
+            </button>
+            
+            <button
+              v-if="canComplete && ['pending', 'approved'].includes(form.status)"
+              type="button"
+              @click="completeSettlement"
+              class="btn btn-info"
+              :disabled="isSubmitting"
+            >
+              <i class="fas fa-check-circle"></i> ສຳເລັດ
+            </button>
+            
             <button
               type="submit"
               class="btn btn-primary"
-              :disabled="isSubmitting"
+              :disabled="isSubmitting || !canModify"
             >
               <i class="fas fa-save"></i>
               <span v-if="isSubmitting">ກຳລັງບັນທຶກ...</span>
@@ -444,23 +443,21 @@ export default {
     return {
       form: {
         id: null,
-        settlementNumber: '',
         settlementDate: new Date().toISOString().split('T')[0],
         paymentAmount: 0,
         baseAmount: 0,
-        exchangeRate: 1.0,
-        paymentCurrencyId: '',
-        baseCurrencyId: '',
         paymentMethodId: '',
         bankAccountId: '',
         reference: '',
         description: '',
         note: '',
         status: 'draft',
+        makerId: null,
+        checkerId: null,
+        approvalNote: '',
       },
       selectedInvoices: [],
       tempSelectedInvoices: [],
-      currencies: [],
       paymentMethods: [],
       bankAccounts: [],
       errors: {},
@@ -477,8 +474,29 @@ export default {
       return !!(this.settlement && this.settlement.id)
     },
 
-    isSameCurrency() {
-      return this.form.paymentCurrencyId === this.form.baseCurrencyId
+    canModify() {
+      return ['draft', 'pending'].includes(this.form.status)
+    },
+
+    canModifyStatus() {
+      // Only allow status changes if user has appropriate permissions
+      return this.user.canManageSettlements || this.form.makerId === this.user.id
+    },
+
+    canModifyAllocations() {
+      return this.canModify
+    },
+
+    canApprove() {
+      return this.user.canApproveSettlements && this.form.status === 'pending'
+    },
+
+    canComplete() {
+      return this.user.canCompleteSettlements && ['pending', 'approved'].includes(this.form.status)
+    },
+
+    showApprovalSection() {
+      return this.isEditMode && ['pending', 'approved', 'completed'].includes(this.form.status)
     },
 
     totalAllocated() {
@@ -504,13 +522,26 @@ export default {
 
       return vendors
     },
+
+    makerName() {
+      if (this.isEditMode && this.settlement?.maker) {
+        return this.settlement.maker.fullName || this.settlement.maker.username
+      }
+      return this.user.fullName || this.user.username
+    },
+
+    checkerName() {
+      if (this.isEditMode && this.settlement?.checker) {
+        return this.settlement.checker.fullName || this.settlement.checker.username
+      }
+      return ''
+    },
   },
 
   watch: {
-    visible(newVal, oldVal) {
-      console.log('Dialog visibility changed:', oldVal, '->', newVal)
-      if (!newVal) {
-        console.trace('Dialog closed')
+    visible(newVal) {
+      if (newVal) {
+        this.initializeDialog()
       }
     },
 
@@ -521,10 +552,6 @@ export default {
         }
       },
       immediate: true,
-    },
-
-    'form.paymentCurrencyId'() {
-      this.setDefaultBaseCurrency()
     },
   },
 
@@ -548,29 +575,11 @@ export default {
     async loadReferenceData() {
       try {
         await Promise.all([
-          this.loadCurrencies(),
           this.loadPaymentMethods(),
           this.loadBankAccounts(),
         ])
       } catch (error) {
         console.error('Error loading reference data:', error)
-      }
-    },
-
-    async loadCurrencies() {
-      try {
-        const { data } = await this.$axios.get('/api/currency/find')
-        this.currencies = data || []
-
-        // Set default base currency (usually LAK)
-        if (this.currencies.length > 0 && !this.form.baseCurrencyId) {
-          const defaultCurrency =
-            this.currencies.find((c) => c.code === 'LAK') || this.currencies[0]
-          this.form.baseCurrencyId = defaultCurrency.id
-        }
-      } catch (error) {
-        console.error('Error loading currencies:', error)
-        this.currencies = []
       }
     },
 
@@ -597,20 +606,18 @@ export default {
     loadSettlementData(settlement) {
       this.form = {
         id: settlement.id,
-        settlementNumber: settlement.settlementNumber || '',
-        settlementDate:
-          settlement.settlementDate || new Date().toISOString().split('T')[0],
+        settlementDate: settlement.settlementDate || new Date().toISOString().split('T')[0],
         paymentAmount: parseFloat(settlement.paymentAmount || 0),
         baseAmount: parseFloat(settlement.baseAmount || 0),
-        exchangeRate: parseFloat(settlement.exchangeRate || 1),
-        paymentCurrencyId: settlement.paymentCurrencyId || '',
-        baseCurrencyId: settlement.baseCurrencyId || '',
         paymentMethodId: settlement.paymentMethodId || '',
         bankAccountId: settlement.bankAccountId || '',
         reference: settlement.reference || '',
         description: settlement.description || '',
         note: settlement.note || '',
         status: settlement.status || 'draft',
+        makerId: settlement.makerId || this.user.id,
+        checkerId: settlement.checkerId || null,
+        approvalNote: settlement.approvalNote || '',
       }
 
       // Load existing invoice allocations
@@ -620,11 +627,8 @@ export default {
             id: allocation.invoice.id,
             invoiceNumber: allocation.invoice.invoiceNumber,
             vendor: allocation.invoice.vendor,
-            outstandingAmount: parseFloat(
-              allocation.invoice.outstandingAmount || 0
-            ),
-            settledAmount: parseFloat(allocation.settledAmount || 0),
-            exchangeRate: parseFloat(allocation.exchangeRate || 1),
+            outstandingAmount: parseFloat(allocation.invoice.outstandingAmount || 0),
+            settledAmount: parseFloat(allocation.amount || 0), // Using 'amount' from InvoiceSettlementLine model
           })
         )
       }
@@ -633,47 +637,34 @@ export default {
     resetForm() {
       this.form = {
         id: null,
-        settlementNumber: '',
         settlementDate: new Date().toISOString().split('T')[0],
         paymentAmount: 0,
         baseAmount: 0,
-        exchangeRate: 1.0,
-        paymentCurrencyId: '',
-        baseCurrencyId: this.currencies.find((c) => c.code === 'LAK')?.id || '',
         paymentMethodId: '',
         bankAccountId: '',
         reference: '',
         description: '',
         note: '',
         status: 'draft',
+        makerId: this.user.id,
+        checkerId: null,
+        approvalNote: '',
       }
       this.selectedInvoices = []
       this.errors = {}
     },
 
-    setDefaultBaseCurrency() {
-      if (!this.form.baseCurrencyId && this.currencies.length > 0) {
-        const defaultCurrency =
-          this.currencies.find((c) => c.code === 'LAK') || this.currencies[0]
-        this.form.baseCurrencyId = defaultCurrency.id
-      }
-    },
-
-    onPaymentCurrencyChange() {
-      this.calculateBaseAmount()
-    },
-
-    onBaseCurrencyChange() {
-      this.calculateBaseAmount()
-    },
-
     calculateBaseAmount() {
-      if (this.isSameCurrency) {
-        this.form.exchangeRate = 1.0
+      // If payment amount changes, update base amount
+      // This is a simplified calculation - you may want to add currency conversion logic
+      if (this.form.paymentAmount) {
         this.form.baseAmount = this.form.paymentAmount
-      } else if (this.form.paymentAmount && this.form.exchangeRate) {
-        this.form.baseAmount = this.form.paymentAmount / this.form.exchangeRate
       }
+    },
+
+    calculateUnallocatedAmount() {
+      // Trigger reactive updates
+      this.$forceUpdate()
     },
 
     calculateTotals() {
@@ -713,7 +704,6 @@ export default {
           this.tempSelectedInvoices.push({
             ...invoice,
             settledAmount: parseFloat(invoice.outstandingAmount || 0),
-            exchangeRate: this.form.exchangeRate || 1,
           })
         }
       } else {
@@ -729,9 +719,6 @@ export default {
 
     confirmInvoiceSelection() {
       try {
-        console.log('confirmInvoiceSelection called')
-        console.log('tempSelectedInvoices:', this.tempSelectedInvoices)
-
         // Add new selections to existing ones (avoid duplicates)
         this.tempSelectedInvoices.forEach((tempInvoice) => {
           if (!this.selectedInvoices.find((inv) => inv.id === tempInvoice.id)) {
@@ -739,12 +726,8 @@ export default {
           }
         })
 
-        console.log('selectedInvoices after:', this.selectedInvoices)
-
         this.closeInvoiceSelector()
         this.calculateTotals()
-
-        console.log('confirmInvoiceSelection completed')
       } catch (error) {
         console.error('Error in confirmInvoiceSelection:', error)
       }
@@ -765,23 +748,27 @@ export default {
 
     // Form Validation
     validateForm() {
-      console.log('Starting validation...')
       this.errors = {}
 
       if (!this.form.settlementDate) {
         this.errors.settlementDate = 'ກະລຸນາເລືອກວັນທີຊຳລະ'
       }
 
-      if (!this.form.paymentCurrencyId) {
-        this.errors.paymentCurrencyId = 'ກະລຸນາເລືອກສະກຸນເງິນຊຳລະ'
-      }
-
       if (!this.form.paymentAmount || this.form.paymentAmount <= 0) {
         this.errors.paymentAmount = 'ກະລຸນາໃສ່ຈຳນວນເງິນຊຳລະທີ່ຖືກຕ້ອງ'
       }
 
+      if (!this.form.baseAmount || this.form.baseAmount <= 0) {
+        this.errors.baseAmount = 'ກະລຸນາໃສ່ຈຳນວນເງິນພື້ນຖານທີ່ຖືກຕ້ອງ'
+      }
+
       if (!this.form.paymentMethodId) {
         this.errors.paymentMethodId = 'ກະລຸນາເລືອກວິທີການຊຳລະ'
+      }
+
+      // Validate reference length
+      if (this.form.reference && this.form.reference.length > 100) {
+        this.errors.reference = 'ຫມາຍເລກອ້າງອີງຍາວເກີນ 100 ຕົວອັກສອນ'
       }
 
       // Validate allocations don't exceed payment amount
@@ -789,42 +776,69 @@ export default {
         this.errors.allocation = 'ຈຳນວນຈັດສັນເກີນຈຳນວນເງິນຊຳລະ'
       }
 
-      const isValid = Object.keys(this.errors).length === 0
-      console.log('Validation result:', isValid)
-      console.log('Errors:', this.errors)
-
-      return isValid
+      return Object.keys(this.errors).length === 0
     },
 
     // Form Submission
     async submitForm() {
-      console.log('submitForm called')
-      console.log('Form data:', this.form)
-      console.log('Selected invoices:', this.selectedInvoices)
-
       if (!this.validateForm()) {
-        console.log('Validation failed:', this.errors)
         return
       }
 
-      console.log('Validation passed')
       this.isSubmitting = true
 
       try {
         const formData = {
           ...this.form,
-          makerId: this.user.id,
+          makerId: this.form.makerId || this.user.id,
           invoiceAllocations: this.selectedInvoices.map((invoice) => ({
             invoiceId: invoice.id,
-            settledAmount: parseFloat(invoice.settledAmount || 0),
-            exchangeRate: parseFloat(invoice.exchangeRate || 1),
+            amount: parseFloat(invoice.settledAmount || 0), // Using 'amount' field from model
           })),
         }
 
-        console.log('Emitting save event with data:', formData)
         this.$emit('save', formData)
       } catch (error) {
         console.error('Error submitting form:', error)
+      } finally {
+        this.isSubmitting = false
+      }
+    },
+
+    // Settlement Actions
+    async approveSettlement() {
+      if (!this.canApprove) return
+
+      this.isSubmitting = true
+      try {
+        const approvalData = {
+          id: this.form.id,
+          status: 'approved',
+          checkerId: this.user.id,
+          approvalNote: this.form.approvalNote,
+        }
+
+        this.$emit('approve', approvalData)
+      } catch (error) {
+        console.error('Error approving settlement:', error)
+      } finally {
+        this.isSubmitting = false
+      }
+    },
+
+    async completeSettlement() {
+      if (!this.canComplete) return
+
+      this.isSubmitting = true
+      try {
+        const completionData = {
+          id: this.form.id,
+          status: 'completed',
+        }
+
+        this.$emit('complete', completionData)
+      } catch (error) {
+        console.error('Error completing settlement:', error)
       } finally {
         this.isSubmitting = false
       }
@@ -836,25 +850,10 @@ export default {
     },
 
     handleOverlayClick() {
-      // Only close if clicking on the overlay itself, not the dialog content
       this.closeDialog()
     },
 
     // Utility Methods
-    getPaymentCurrencyCode() {
-      const currency = this.currencies.find(
-        (c) => c.id === this.form.paymentCurrencyId
-      )
-      return currency ? currency.code : ''
-    },
-
-    getBaseCurrencyCode() {
-      const currency = this.currencies.find(
-        (c) => c.id === this.form.baseCurrencyId
-      )
-      return currency ? currency.code : ''
-    },
-
     formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -1022,12 +1021,6 @@ export default {
   color: #e74c3c;
 }
 
-.form-text {
-  font-size: 12px;
-  color: #6c757d;
-  margin-top: 5px;
-}
-
 .no-invoices {
   text-align: center;
   padding: 40px 20px;
@@ -1127,6 +1120,16 @@ export default {
 
 .btn-secondary {
   background: #6c757d;
+  color: white;
+}
+
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.btn-info {
+  background: #17a2b8;
   color: white;
 }
 

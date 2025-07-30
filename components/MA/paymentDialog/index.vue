@@ -46,6 +46,28 @@
               </div>
             </div>
 
+            <!-- Exchange Rate Field -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-exchange-alt"></i>
+                ອັດຕາແລກປ່ຽນ
+              </label>
+              <input
+                v-model="localForm.exchangeRate"
+                type="number"
+                step="0.000001"
+                min="0"
+                class="form-control"
+                placeholder="ອັດຕາແລກປ່ຽນ (ທາງເລືອກ)"
+              />
+              <div class="field-hint">
+                <span class="exchange-rate-info">
+                  <i class="fas fa-info-circle"></i>
+                  ອັດຕາແລກປ່ຽນປະຈຳວັນ
+                </span>
+              </div>
+            </div>
+
             <!-- Booking Date -->
             <div class="form-group">
               <label class="form-label required">
@@ -72,6 +94,7 @@
                   v-model="localForm.makerId"
                   class="form-control custom-select"
                   required
+                  disabled
                 >
                   <option value="">ເລືອກຜູ້ລົງ</option>
                   <option v-for="user in users" :key="user.id" :value="user.id">
@@ -118,16 +141,16 @@
                   <div class="ministry-detail-item">
                     <i class="fas fa-building"></i>
                     <span class="ministry-name">{{
-                      selectedMinistry.name
+                      selectedMinistry.ministryName
                     }}</span>
                   </div>
                   <div
-                    v-if="selectedMinistry.code"
+                    v-if="selectedMinistry.ministryCode"
                     class="ministry-detail-item"
                   >
                     <i class="fas fa-tag"></i>
                     <span class="ministry-code">{{
-                      selectedMinistry.code
+                      selectedMinistry.ministryCode
                     }}</span>
                   </div>
                   <div
@@ -140,12 +163,12 @@
                     }}</span>
                   </div>
                   <div
-                    v-if="selectedMinistry.contact"
+                    v-if="selectedMinistry.email"
                     class="ministry-detail-item"
                   >
                     <i class="fas fa-phone"></i>
                     <span class="ministry-contact">{{
-                      selectedMinistry.contact
+                      selectedMinistry.email
                     }}</span>
                   </div>
                 </div>
@@ -363,6 +386,7 @@ export default {
         bankAccountId: '',
         ministryId: '',
         bookingDate: '',
+        exchangeRate: '',
       }),
     },
     users: {
@@ -390,6 +414,9 @@ export default {
       default: false,
     },
   },
+  mounted() {
+    this.initForm()
+  },
 
   data() {
     return {
@@ -404,12 +431,16 @@ export default {
         bankAccountId: '',
         ministryId: '',
         bookingDate: '',
+        exchangeRate: '',
       },
       formErrors: [],
     }
   },
 
   computed: {
+    user() {
+      return this.$auth.user || ''
+    },
     selectedCurrencyCode() {
       if (!this.localForm.currencyId) return 'USD'
       const currency = this.currencies.find(
@@ -459,15 +490,70 @@ export default {
     },
 
     isFormValid() {
-      return (
-        this.localForm.amount &&
-        parseFloat(this.localForm.amount) > 0 &&
-        this.localForm.makerId &&
-        this.localForm.currencyId &&
-        this.localForm.bookingDate &&
-        this.users.length > 0 &&
-        this.currencies.length > 0
-      )
+      // Debug each validation condition
+      const validations = {
+        'amount exists': !!this.localForm.amount,
+        'amount > 0':
+          this.localForm.amount && parseFloat(this.localForm.amount) > 0,
+        'makerId exists': !!this.localForm.makerId,
+        'currencyId exists': !!this.localForm.currencyId,
+        'bookingDate exists': !!this.localForm.bookingDate,
+        'users available': this.users.length > 0,
+        'currencies available': this.currencies.length > 0,
+        // ✅ NEW: Exchange rate validation (optional but must be valid if provided)
+        'exchange rate valid':
+          !this.localForm.exchangeRate ||
+          (this.localForm.exchangeRate &&
+            !isNaN(parseFloat(this.localForm.exchangeRate)) &&
+            parseFloat(this.localForm.exchangeRate) > 0),
+      }
+
+      // Log current form values for debugging
+      console.group('🔍 Form Validation Debug')
+      console.log('📋 Form Data:', {
+        amount: this.localForm.amount,
+        makerId: this.localForm.makerId,
+        currencyId: this.localForm.currencyId,
+        bookingDate: this.localForm.bookingDate,
+        exchangeRate: this.localForm.exchangeRate, // ✅ NEW: Include exchange rate in debug
+        usersCount: this.users.length,
+        currenciesCount: this.currencies.length,
+      })
+
+      // Check each validation and log failures
+      const failedValidations = []
+      const passedValidations = []
+
+      Object.entries(validations).forEach(([key, isValid]) => {
+        if (isValid) {
+          passedValidations.push(key)
+        } else {
+          failedValidations.push(key)
+        }
+      })
+
+      console.log('✅ Passed validations:', passedValidations)
+
+      if (failedValidations.length > 0) {
+        console.log('❌ Failed validations:', failedValidations)
+
+        // ✅ NEW: Additional debug info for exchange rate
+        if (failedValidations.includes('exchange rate valid')) {
+          console.log('💱 Exchange Rate Debug:', {
+            value: this.localForm.exchangeRate,
+            type: typeof this.localForm.exchangeRate,
+            parsed: parseFloat(this.localForm.exchangeRate),
+            isNaN: isNaN(parseFloat(this.localForm.exchangeRate)),
+            isPositive: parseFloat(this.localForm.exchangeRate) > 0,
+          })
+        }
+      }
+
+      const isFormValid = Object.values(validations).every(Boolean)
+      console.log(`📊 Overall form valid: ${isFormValid}`)
+      console.groupEnd()
+
+      return isFormValid
     },
   },
 
@@ -480,8 +566,14 @@ export default {
 
     formData: {
       handler(newVal) {
+        console.info(`Form data is changing...`)
         if (newVal) {
           this.localForm = { ...newVal }
+
+          // ✅ Set booking date to today if it's empty and not in edit mode
+          if (!this.isEdit && !this.localForm.bookingDate) {
+            this.localForm.bookingDate = this.today
+          }
         }
       },
       deep: true,
@@ -492,19 +584,24 @@ export default {
   methods: {
     initForm() {
       this.formErrors = []
-
+      console.info(`initiate form data called...`)
       if (this.isEdit && this.formData) {
+        console.info(`formData is available...`)
         this.localForm = { ...this.formData }
       } else {
         this.resetForm()
-        // Set default booking date to today
-        this.localForm.bookingDate = this.today
+
         // Set default currency if available
         if (this.currencies.length > 0) {
           const defaultCurrency =
-            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+            this.currencies.find((c) => c.code === 'LAK') || this.currencies[0]
           this.localForm.currencyId = defaultCurrency.id
         }
+      }
+      if (!this.isEdit) {
+        // Set default booking date to today for create mode
+        this.localForm.makerId = this.user.id
+        this.localForm.bookingDate = this.today
       }
     },
 
@@ -519,7 +616,8 @@ export default {
         dueDate: '',
         bankAccountId: '',
         ministryId: '',
-        bookingDate: '',
+        bookingDate: this.today,
+        exchangeRate: '',
       }
     },
 
@@ -550,6 +648,13 @@ export default {
         this.formErrors.push('Note must not exceed 500 characters')
       }
 
+      if (
+        this.localForm.exchangeRate &&
+        parseFloat(this.localForm.exchangeRate) <= 0
+      ) {
+        this.formErrors.push('Exchange rate must be greater than 0 if provided')
+      }
+
       if (this.users.length === 0) {
         this.formErrors.push(
           'No users available. Please contact administrator.'
@@ -567,6 +672,19 @@ export default {
 
     updateSelectedCurrency() {
       // Reset bank account if currency changes and current bank account doesn't match
+      console.info(
+        `select currency: ${
+          this.selectedCurrency.code
+        } currency list ${JSON.stringify(this.currencies)}`
+      )
+      // reflect exchange rate in form (( update only it is in create mode))
+      // if (!this.isEdit) {
+        this.localForm.exchangeRate =
+          this.currencies.find(
+            (currency) => currency.code === this.selectedCurrency.code
+          ).rate || 1
+      // }
+
       if (this.selectedBankAccount && this.selectedCurrency) {
         const bankCurrency = this.selectedBankAccount.currency
         const selectedCurrency = this.selectedCurrency.code
@@ -604,6 +722,7 @@ export default {
       if (!formData.dueDate) delete formData.dueDate
       if (!formData.purpose) delete formData.purpose
       if (!formData.note) delete formData.note
+      if (!formData.exchangeRate) delete formData.exchangeRate
 
       this.$emit('save', formData)
     },
@@ -849,6 +968,18 @@ export default {
 
 .field-hint.warning {
   color: #f39c12;
+}
+
+.exchange-rate-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #8e44ad;
+  font-size: 11px;
+}
+
+.exchange-rate-info i {
+  color: #9b59b6;
 }
 
 .text-counter {

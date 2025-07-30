@@ -92,13 +92,41 @@
 
     <!-- Summary Cards -->
     <div class="summary-cards">
-      <div class="summary-card">
+      <!-- Total LAK Equivalent Card -->
+      <div class="summary-card total-lak">
         <div class="card-icon total">
           <i class="fas fa-calculator"></i>
         </div>
         <div class="card-content">
-          <h3>{{ formatCurrency(summaryStats.total.amount) }}</h3>
-          <p>ລວມຍອດທັງໝົດ ({{ summaryStats.total.count }})</p>
+          <h3>{{ formatCurrency(summaryStats.totalLAK.amount, 'LAK') }}</h3>
+          <p>ລວມຍອດທັງໝົດ (LAK) - {{ summaryStats.totalLAK.count }} ລາຍການ</p>
+        </div>
+      </div>
+
+      <!-- Currency-specific Cards -->
+      <div
+        v-for="currencyStat in summaryStats.currencies"
+        :key="currencyStat.currencyId"
+        class="summary-card currency-card"
+      >
+        <div class="card-icon currency">
+          <i class="fas fa-coins"></i>
+        </div>
+        <div class="card-content">
+          <h3>
+            {{
+              formatCurrencyAmount(
+                currencyStat.originalAmount,
+                currencyStat.currencyCode
+              )
+            }}
+          </h3>
+          <p class="currency-name">
+            {{ currencyStat.currencyName }} ({{ currencyStat.count }} ລາຍການ)
+          </p>
+          <p class="lak-equivalent">
+            ≈ {{ formatCurrency(currencyStat.lakEquivalent, 'LAK') }}
+          </p>
         </div>
       </div>
     </div>
@@ -150,6 +178,7 @@
                 ຈຳນວນເງິນ
                 <i :class="getSortIcon('amount')"></i>
               </th>
+              <th>ສະກຸນເງິນ</th>
               <th>Ministry</th>
               <th>Chart Account</th>
               <th>ຟັງຊັ່ນ</th>
@@ -157,7 +186,7 @@
           </thead>
           <tbody>
             <tr v-for="settlement in paginatedSettlements" :key="settlement.id">
-              <td>{{ settlement.id }}</td>
+              <td>{{ settlement.id }} {{ settlement.moneyAdvanceId }}</td>
               <td>{{ formatDate(settlement.settlementDate) }}</td>
               <td>
                 <span :class="['method-badge', settlement.method]">
@@ -166,7 +195,13 @@
               </td>
               <td>{{ settlement.requester }}</td>
               <td class="amount-cell">
-                {{ formatCurrency(settlement.amount) }}
+                {{ formatSettlementAmount(settlement) }}
+              </td>
+              <td>
+                <span v-if="getSettlementCurrency(settlement)" class="currency-tag">
+                  {{ getSettlementCurrency(settlement).code }}
+                </span>
+                <span v-else class="no-data">-</span>
               </td>
               <td>
                 <span v-if="settlement.ministry" class="ministry-tag">
@@ -183,18 +218,18 @@
               <td class="actions-cell">
                 <button
                   class="btn btn-sm btn-outline-primary"
-                  @click="viewDetails(settlement)"
+                  @click="viewSettlement(settlement)"
                   title="View Details"
                 >
                   <i class="fas fa-eye"></i>
                 </button>
-                <!-- <button
+                <button
                   class="btn btn-sm btn-outline-info"
                   @click="editSettlement(settlement)"
                   title="Edit"
                 >
                   <i class="fas fa-edit"></i>
-                </button> -->
+                </button>
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   @click="printSettlement(settlement)"
@@ -250,22 +285,30 @@
       </div>
     </div>
 
-    <!-- Settlement Dialog -->
-    <SettlementDialog
-      :show="showDialog"
-      :settlement="selectedSettlement"
-      :bank-accounts="accountList"
-      :ministries="ministries"
-      :chart-accounts="chartAccounts"
-      :currencies="currencies"
-      :users="users"
-      :form-loading="formLoading"
-      @close="closeDialog"
-      @save="onSettlementSave"
-      @validation-error="handleValidationError"
-      @ministries-loaded="handleMinistriesLoaded"
-      @chart-accounts-loaded="handleChartAccountsLoaded"
-    />
+    <!-- Settlement Dialog (for Create/Edit) -->
+    <client-only>
+      <SettlementDialog
+        :visible="showEditDialog"
+        :settlement="selectedSettlement"
+        :chart-accounts="chartAccounts"
+        :ministries="ministries"
+        :currencies="currencies"
+        :bankAccounts="accountList"
+        :users="users"
+        :outstanding-invoices="outstandingInvoices"
+        @close="closeEditDialog"
+        @save="onSettlementSave"
+      />
+    </client-only>
+
+    <!-- Settlement View Dialog -->
+    <client-only>
+      <SettlementViewDialog
+        :visible="showViewDialog"
+        :settlement="selectedSettlement"
+        @close="closeViewDialog"
+      />
+    </client-only>
 
     <!-- Loading Overlay -->
     <div v-if="loading" class="loading-overlay">
@@ -279,27 +322,35 @@
 
 <script>
 import SettlementDialog from '~/components/MA/settlementDialog'
+import SettlementViewDialog from '~/components/MA/settlementViewDialog'
 
 export default {
   name: 'SettlementSummary',
-
   components: {
     SettlementDialog,
+    SettlementViewDialog,
   },
 
   data() {
     return {
+      // Dialog visibility states
+      showEditDialog: false, // For SettlementDialog
+      showViewDialog: false, // For SettlementViewDialog
+      selectedSettlement: null,
+
+      // Data arrays
+      outstandingInvoices: [],
       users: [],
       currencies: [],
       ministries: [],
       chartAccounts: [],
       accountList: [],
-      loading: false,
-      formLoading: false,
-      showDialog: false,
-      selectedSettlement: null,
       settlements: [],
       filteredSettlements: [],
+
+      // Loading states
+      loading: false,
+      formLoading: false,
 
       // Filters
       filters: {
@@ -326,12 +377,16 @@ export default {
 
       // Summary statistics
       summaryStats: {
-        total: { amount: 0, count: 0 },
+        totalLAK: { amount: 0, count: 0 },
+        currencies: [], // Array of { currencyId, currencyCode, currencyName, originalAmount, lakEquivalent, count }
       },
     }
   },
 
   computed: {
+    user() {
+      return this.$auth.user || ''
+    },
     paginatedSettlements() {
       const start = (this.pagination.currentPage - 1) * this.pagination.perPage
       const end = start + this.pagination.perPage
@@ -394,12 +449,114 @@ export default {
   },
 
   methods: {
+    // Dialog Control Methods
+    async openCreateDialog() {
+      console.log('Opening create dialog...')
+      this.selectedSettlement = null
+      this.loading = true
+
+      try {
+        // Load outstanding invoices for the settlement dialog
+        await this.loadOutstandingInvoices()
+
+        // Show the dialog
+        this.showEditDialog = true
+        console.log('showEditDialog set to:', this.showEditDialog)
+      } catch (error) {
+        console.error('Error opening create dialog:', error)
+        this.showToast('Failed to load form data', 'error')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async editSettlement(settlement) {
+      console.log(
+        `Opening edit dialog for settlement: ${JSON.stringify(settlement)}`,
+        settlement.id
+      )
+      this.selectedSettlement = settlement
+      this.loading = true
+
+      try {
+        await this.loadOutstandingInvoices()
+        this.showEditDialog = true
+      } catch (error) {
+        console.error('Error opening edit dialog:', error)
+        this.showToast('Failed to load settlement data', 'error')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    viewSettlement(settlement) {
+      console.log('Opening view dialog for settlement:', settlement.id)
+      this.selectedSettlement = settlement
+      this.showViewDialog = true
+    },
+
+    closeEditDialog() {
+      console.log('Closing edit dialog')
+      this.showEditDialog = false
+      this.selectedSettlement = null
+    },
+
+    closeViewDialog() {
+      console.log('Closing view dialog')
+      this.showViewDialog = false
+      this.selectedSettlement = null
+    },
+
+    // Data Loading Methods
+    async loadOutstandingInvoices() {
+      try {
+        // For now, provide dummy data since the API might not be available
+        this.outstandingInvoices = [
+          {
+            id: 1,
+            invoiceNumber: 'INV-001',
+            vendor: { id: 1, name: 'Test Vendor 1' },
+            dueDate: '2025-08-01',
+            outstandingAmount: 1000,
+          },
+          {
+            id: 2,
+            invoiceNumber: 'INV-002',
+            vendor: { id: 2, name: 'Test Vendor 2' },
+            dueDate: '2025-08-15',
+            outstandingAmount: 2500,
+          },
+        ]
+
+        // Uncomment this when your API is ready:
+        // const { data } = await this.$axios.get('/api/invoices/outstanding')
+        // this.outstandingInvoices = data || []
+      } catch (error) {
+        console.error('Error loading outstanding invoices:', error)
+        this.outstandingInvoices = []
+        this.showToast('Failed to load outstanding invoices', 'error')
+      }
+    },
+
+    async initializeData() {
+      await Promise.all([
+        this.fetchCurrencies(),
+        this.fetchMinistry(),
+        this.fetchChartAccounts(),
+        this.fetchUsers(),
+        this.fetchBankAccounts(),
+        this.fetchSettlements(),
+      ])
+      this.applyFilters()
+      this.calculateSummaryStats()
+    },
+
     async fetchUsers() {
       try {
         const { data } = await this.$axios.get('/api/user/find')
 
         if (data && data.data) {
-          this.users = Array.isArray(data.data) ? data.data : []
+          this.users = Array.isArray(data) ? data : []
         } else if (Array.isArray(data)) {
           this.users = data
         } else {
@@ -419,7 +576,7 @@ export default {
         const { data } = await this.$axios.get('/api/currency/find')
 
         if (data && data.data) {
-          this.currencies = Array.isArray(data.data) ? data.data : []
+          this.currencies = Array.isArray(data) ? data : []
         } else if (Array.isArray(data)) {
           this.currencies = data
         } else {
@@ -439,7 +596,7 @@ export default {
         const { data } = await this.$axios.get('/api/bank_account/find')
 
         if (data && data.data) {
-          this.accountList = Array.isArray(data.data) ? data.data : []
+          this.accountList = Array.isArray(data) ? data : []
         } else if (Array.isArray(data)) {
           this.accountList = data
         } else {
@@ -459,19 +616,6 @@ export default {
           'Bank accounts not available - feature will work without them'
         )
       }
-    },
-
-    async initializeData() {
-      await Promise.all([
-        this.fetchCurrencies(),
-        this.fetchMinistry(),
-        this.fetchChartAccounts(),
-        this.fetchUsers(),
-        this.fetchBankAccounts(),
-        this.fetchSettlements(),
-      ])
-      this.applyFilters()
-      this.calculateSummaryStats()
     },
 
     async fetchMinistry() {
@@ -544,6 +688,8 @@ export default {
               chartAccountId: settlement.chartAccountId,
               ministry: settlement.ministry,
               chartAccount: settlement.chartAccount,
+              moneyAdvanceId: settlement.moneyAdvanceId,
+              exchangeRate: settlement.exchangeRate,
               notes: settlement.notes,
             })
           )
@@ -560,6 +706,43 @@ export default {
       }
     },
 
+    // Settlement Save Handler
+    async onSettlementSave(settlementData) {
+      try {
+        this.loading = true
+        console.log('Saving settlement:', settlementData)
+
+        let response
+        if (this.selectedSettlement && this.selectedSettlement.id) {
+          settlementData.updateUserId = this.user.id
+          response = await this.$axios.put(
+            `/api/settlements/${this.selectedSettlement.id}`,
+            settlementData
+          )
+        } else {
+          response = await this.$axios.post('/api/settlements', settlementData)
+        }
+
+        if (response.data && response.data.success) {
+          this.showToast('ການບັນທຶກສຳເລັດແລ້ວ', 'success')
+          this.closeEditDialog()
+
+          await this.fetchSettlements()
+          this.applyFilters()
+        } else {
+          throw new Error(response.data?.message || 'Save failed')
+        }
+      } catch (error) {
+        console.error('Error saving settlement:', error)
+        const errorMessage =
+          error.response?.data?.message || error.message || 'ການບັນທຶກບໍ່ສຳເລັດ'
+        this.showToast(errorMessage, 'error')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // Filter and Search Methods
     applyFilters() {
       let filtered = [...this.settlements]
 
@@ -649,17 +832,56 @@ export default {
     },
 
     calculateSummaryStats() {
-      const stats = {
-        total: { amount: 0, count: 0 },
-      }
+      // Initialize stats
+      const currencyStats = new Map()
+      let totalLAKAmount = 0
+      let totalCount = 0
 
+      // Process each settlement
       this.filteredSettlements.forEach((settlement) => {
         const amount = parseFloat(settlement.amount) || 0
-        stats.total.amount += amount
-        stats.total.count++
+        const exchangeRate = parseFloat(settlement.exchangeRate) || 1
+        const currencyId = settlement.currencyId
+
+        // Calculate LAK equivalent
+        const lakEquivalent = amount * exchangeRate
+        totalLAKAmount += lakEquivalent
+        totalCount++
+
+        // Find currency details
+        const currency = this.currencies.find((c) => c.id === currencyId)
+        const currencyCode = currency?.code || 'LAK'
+        const currencyName = currency?.name || 'Lao Kip'
+
+        // Group by currency
+        if (!currencyStats.has(currencyId)) {
+          currencyStats.set(currencyId, {
+            currencyId,
+            currencyCode,
+            currencyName,
+            originalAmount: 0,
+            lakEquivalent: 0,
+            count: 0,
+          })
+        }
+
+        const stat = currencyStats.get(currencyId)
+        stat.originalAmount += amount
+        stat.lakEquivalent += lakEquivalent
+        stat.count++
       })
 
-      this.summaryStats = stats
+      // Update summary stats
+      this.summaryStats = {
+        totalLAK: {
+          amount: totalLAKAmount,
+          count: totalCount,
+        },
+        currencies: Array.from(currencyStats.values()).sort((a, b) => {
+          // Sort by LAK equivalent amount (descending)
+          return b.lakEquivalent - a.lakEquivalent
+        }),
+      }
     },
 
     // Pagination methods
@@ -683,144 +905,7 @@ export default {
       this.pagination.currentPage = page
     },
 
-    // Dialog methods
-    async openCreateDialog() {
-      this.selectedSettlement = null
-      this.formLoading = true
-      this.showDialog = true
-
-      try {
-        await Promise.all([
-          this.ensureUsersLoaded(),
-          this.ensureCurrenciesLoaded(),
-          this.ensureBankAccountsLoaded(),
-          this.ensureMinistriesLoaded(),
-          this.ensureChartAccountsLoaded(),
-        ])
-      } catch (error) {
-        console.error('Error loading form data:', error)
-        this.showToast('Failed to load form data', 'error')
-      } finally {
-        this.formLoading = false
-      }
-    },
-
-    async editSettlement(settlement) {
-      this.selectedSettlement = settlement
-      this.formLoading = true
-      this.showDialog = true
-
-      try {
-        // Load full settlement details if needed
-        const response = await this.$axios.get(
-          `/api/settlements/${settlement.id}`
-        )
-        if (response.data && response.data.success) {
-          this.selectedSettlement = response.data.data
-        }
-
-        await Promise.all([
-          this.ensureUsersLoaded(),
-          this.ensureCurrenciesLoaded(),
-          this.ensureBankAccountsLoaded(),
-          this.ensureMinistriesLoaded(),
-          this.ensureChartAccountsLoaded(),
-        ])
-      } catch (error) {
-        console.error('Error loading settlement details:', error)
-        this.showToast('Failed to load settlement details', 'error')
-      } finally {
-        this.formLoading = false
-      }
-    },
-
-    async onSettlementSave(settlementData) {
-      try {
-        this.formLoading = true
-
-        let response
-        if (this.selectedSettlement && this.selectedSettlement.id) {
-          response = await this.$axios.put(
-            `/api/settlements/${this.selectedSettlement.id}`,
-            settlementData
-          )
-        } else {
-          response = await this.$axios.post('/api/settlements', settlementData)
-        }
-
-        if (response.data && response.data.success) {
-          this.showToast('ການບັນທຶກສຳເລັດແລ້ວ', 'success')
-          this.closeDialog()
-
-          await this.fetchSettlements()
-          this.applyFilters()
-        } else {
-          throw new Error(response.data?.message || 'Save failed')
-        }
-      } catch (error) {
-        console.error('Error saving settlement:', error)
-        const errorMessage =
-          error.response?.data?.message || error.message || 'ການບັນທຶກບໍ່ສຳເລັດ'
-        this.showToast(errorMessage, 'error')
-      } finally {
-        this.formLoading = false
-      }
-    },
-
-    handleValidationError(message) {
-      this.showToast(message, 'error')
-    },
-
-    handleMinistriesLoaded(ministries) {
-      this.ministries = ministries
-    },
-
-    handleChartAccountsLoaded(chartAccounts) {
-      this.chartAccounts = chartAccounts
-    },
-
-    closeDialog() {
-      this.showDialog = false
-      this.selectedSettlement = null
-      this.formLoading = false
-    },
-
-    // Helper methods
-    async ensureUsersLoaded() {
-      if (this.users.length === 0) {
-        await this.fetchUsers()
-      }
-    },
-
-    async ensureCurrenciesLoaded() {
-      if (this.currencies.length === 0) {
-        await this.fetchCurrencies()
-      }
-    },
-
-    async ensureBankAccountsLoaded() {
-      if (this.accountList.length === 0) {
-        await this.fetchBankAccounts()
-      }
-    },
-
-    async ensureMinistriesLoaded() {
-      if (this.ministries.length === 0) {
-        await this.fetchMinistry()
-      }
-    },
-
-    async ensureChartAccountsLoaded() {
-      if (this.chartAccounts.length === 0) {
-        await this.fetchChartAccounts()
-      }
-    },
-
-    // Action methods
-    viewDetails(settlement) {
-      this.$router.push(`/settlements/${settlement.id}`)
-    },
-
+    // Other Methods
     printSettlement(settlement) {
       window.open(`/api/settlements/${settlement.id}/print`, '_blank')
     },
@@ -830,11 +915,39 @@ export default {
       this.downloadCSV(csvData, 'settlement-summary.csv')
     },
 
-    // Utility methods
-    formatCurrency(amount) {
+    // Enhanced currency formatting
+    formatCurrency(amount, currencyCode = 'LAK') {
+      try {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: currencyCode,
+          minimumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
+          maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
+        }).format(amount || 0)
+      } catch (error) {
+        // Fallback formatting if currency code is not supported
+        return `${this.formatNumber(amount)} ${currencyCode}`
+      }
+    },
+
+    formatCurrencyAmount(amount, currencyCode) {
+      return this.formatCurrency(amount, currencyCode)
+    },
+
+    formatSettlementAmount(settlement) {
+      const currency = this.getSettlementCurrency(settlement)
+      const currencyCode = currency?.code || 'LAK'
+      return this.formatCurrency(settlement.amount, currencyCode)
+    },
+
+    getSettlementCurrency(settlement) {
+      return this.currencies.find(c => c.id === settlement.currencyId)
+    },
+
+    formatNumber(amount) {
       return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'LAK',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
       }).format(amount || 0)
     },
 
@@ -862,22 +975,25 @@ export default {
         'Method',
         'Requester',
         'Amount',
+        'Currency',
         'Ministry',
         'Chart Account',
       ]
       const csvContent = [
         headers.join(','),
-        ...data.map((row) =>
-          [
+        ...data.map((row) => {
+          const currency = this.getSettlementCurrency(row)
+          return [
             row.id,
             row.settlementDate,
             row.method,
             row.requester,
             row.amount,
+            currency?.code || '',
             row.ministry?.ministryCode || '',
             row.chartAccount?.accountCode || '',
           ].join(',')
-        ),
+        }),
       ].join('\n')
 
       return csvContent
@@ -897,6 +1013,13 @@ export default {
       console.log(`${type}: ${message}`)
       if (this.$toast) {
         this.$toast[type](message)
+      } else {
+        // Fallback for when toast is not available
+        if (type === 'error') {
+          alert(`Error: ${message}`)
+        } else if (type === 'success') {
+          console.log(`✅ ${message}`)
+        }
       }
     },
   },
@@ -977,26 +1100,56 @@ export default {
   align-self: flex-end;
 }
 
-/* Summary Cards */
+/* Enhanced Summary Card Styles */
 .summary-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin-bottom: 20px;
 }
 
 .summary-card {
   background: white;
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 24px;
   display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  align-items: flex-start;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
 }
 
 .summary-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Total LAK Card - Special styling */
+.summary-card.total-lak {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.summary-card.total-lak .card-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.summary-card.total-lak .card-content h3 {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.summary-card.total-lak .card-content p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Currency-specific cards */
+.summary-card.currency-card {
+  background: white;
+  border-left: 4px solid #28a745;
 }
 
 .card-icon {
@@ -1007,24 +1160,69 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  margin-right: 16px;
+  margin-right: 20px;
+  flex-shrink: 0;
 }
 
 .card-icon.total {
-  background: #e2e3e5;
-  color: #383d41;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.card-icon.currency {
+  background: #e8f5e8;
+  color: #28a745;
+}
+
+.card-content {
+  flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
 }
 
 .card-content h3 {
-  margin: 0 0 4px 0;
+  margin: 0 0 8px 0;
   font-size: 24px;
   font-weight: 700;
+  word-break: break-word;
 }
 
 .card-content p {
   margin: 0;
-  color: #666;
   font-size: 14px;
+}
+
+.currency-name {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 4px !important;
+}
+
+.lak-equivalent {
+  color: #6c757d;
+  font-size: 13px !important;
+  font-style: italic;
+}
+
+/* Animation for new cards */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-card {
+  animation: slideInUp 0.5s ease-out;
+}
+
+/* Ensure currency codes are clearly visible */
+.currency-code {
+  font-weight: 600;
+  color: #007bff;
 }
 
 /* Table Styles */
@@ -1149,6 +1347,16 @@ export default {
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
+}
+
+.currency-tag {
+  background-color: #e8f5e8;
+  color: #28a745;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .no-data {
@@ -1332,6 +1540,22 @@ export default {
 
   .summary-cards {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .summary-card {
+    padding: 20px;
+  }
+  
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin-right: 16px;
+  }
+  
+  .card-content h3 {
+    font-size: 20px;
   }
 
   .table-header {
@@ -1353,6 +1577,17 @@ export default {
   .actions-cell {
     flex-direction: column;
     gap: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .card-icon {
+    margin: 0 auto 16px auto;
   }
 }
 </style>

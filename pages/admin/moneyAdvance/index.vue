@@ -175,13 +175,13 @@
             <td>
               <div class="action-buttons">
                 <!-- 🆕 NEW: Audit Trail Button -->
-                <button
+                <!-- <button
                   @click="viewAuditTrail(advance)"
                   class="btn btn-sm btn-audit"
                   title="ເບິ່ງປະຫວັດການປ່ຽນແປງ"
                 >
                   <i class="fas fa-history"></i>
-                </button>
+                </button> -->
 
                 <button
                   @click="viewDetails(advance)"
@@ -190,8 +190,9 @@
                 >
                   <i class="fas fa-eye"></i>
                 </button>
+                    <!-- v-if="advance.status === 'pending'" -->
                 <button
-                  v-if="advance.status === 'pending'"
+              
                   @click="openDialog(advance)"
                   class="btn btn-sm btn-warning"
                   title="Edit"
@@ -206,10 +207,12 @@
                 >
                   <i class="fas fa-check"></i>
                 </button>
+                <!-- 🆕 UPDATED: Create Settlement Button -->
                 <button
                   v-if="advance.status === 'approved'"
+                  @click="createSettlement(advance)"
                   class="btn btn-sm btn-success"
-                  title="Create Settlement 1"
+                  title="Create Settlement"
                 >
                   <i class="fas fa-file-invoice-dollar"></i>
                 </button>
@@ -275,6 +278,7 @@
 
     <!-- Money Advance Dialog Component -->
     <money-advance-dialog
+      :key="radnomKeyMaintenanceDialog"
       :show="showDialog"
       :is-edit="isEdit"
       :form-data="form"
@@ -351,6 +355,20 @@
       :voucher-data="advanceDetails"
       @close="closePrintVoucher"
     />
+
+    <!-- 🆕 NEW: Settlement Dialog Component -->
+    <SettlementDialog
+      :visible="showSettlementDialog"
+      :settlement="settlementData"
+      :outstanding-invoices="[]"
+      :currencies="currencies"
+      :bank-accounts="bankAccounts"
+      :ministries="ministries"
+      :chart-accounts="chartAccounts"
+      :users="users"
+      @close="closeSettlementDialog"
+      @save="saveSettlement"
+    />
   </div>
 </template>
 
@@ -363,6 +381,8 @@ import VoucherPrintComponent from '~/components/MA/paymentVoucher'
 import AuditTrailDialog from '~/components/MA/paymentAuditDialog'
 import VersionComparisonDialog from '~/components/MA/paymentCompareDialog'
 import AuditReportsDialog from '~/components/MA/paymentAuditReportDialog'
+// 🆕 NEW: Import Settlement Dialog
+import SettlementDialog from '~/components/MA/SettlementDialog'
 import { swalSuccess, swalError2, swalConfirm } from '~/common'
 
 export default {
@@ -376,6 +396,8 @@ export default {
     AuditTrailDialog,
     VersionComparisonDialog,
     AuditReportsDialog,
+    // 🆕 NEW: Register Settlement Dialog
+    SettlementDialog,
   },
 
   data() {
@@ -397,6 +419,7 @@ export default {
       currencies: [],
       ministries: [],
       bankAccounts: [],
+      chartAccounts: [], // 🆕 NEW: Chart accounts for settlement
       pagination: {
         currentPage: 1,
         totalPages: 1,
@@ -413,8 +436,13 @@ export default {
       saving: false,
       formLoading: false,
       showDialog: false,
+      radnomKeyMaintenanceDialog: 1,
       showDetailDialog: false,
       showPrintVoucher: false,
+      // 🆕 NEW: Settlement dialog states
+      showSettlementDialog: false,
+      settlementData: null,
+      selectedAdvanceForSettlement: null,
       // 🆕 NEW: Audit dialog states
       showAuditDialog: false,
       showComparisonDialog: false,
@@ -426,7 +454,6 @@ export default {
 
       isEdit: false,
       selectedAdvance: null,
-      selectedAdvanceForSettlement: null,
       advanceDetails: null,
       detailLoading: false,
       form: {
@@ -504,6 +531,7 @@ export default {
         this.fetchCurrencies(),
         this.fetchMinistry(),
         this.fetchBankAccounts(),
+        this.fetchChartAccounts(), // 🆕 NEW: Load chart accounts
       ])
     },
 
@@ -624,6 +652,24 @@ export default {
       }
     },
 
+    // 🆕 NEW: Fetch chart accounts for settlement
+    async fetchChartAccounts() {
+      try {
+        const { data } = await this.$axios.get('/api/accountChart/find')
+        if (data && data.data) {
+          this.chartAccounts = Array.isArray(data.data) ? data.data : []
+        } else if (Array.isArray(data)) {
+          this.chartAccounts = data
+        } else {
+          this.chartAccounts = []
+        }
+      } catch (error) {
+        console.error('Error fetching chart accounts:', error)
+        this.chartAccounts = []
+        // Chart accounts are optional, so don't show error to user
+      }
+    },
+
     // 🆕 NEW: Audit Trail Methods
     viewAuditTrail(advance) {
       this.selectedRecordForAudit = advance
@@ -710,6 +756,99 @@ export default {
       this.showAuditReportsDialog = false
     },
 
+    // 🆕 NEW: Settlement Methods
+    async createSettlement(advance) {
+      try {
+        this.selectedAdvanceForSettlement = advance
+
+        const settlementDate = new Date().toISOString().split('T')[0] // Today's date
+
+        // Prepare settlement data with money advance information
+        this.settlementData = {
+          id: null, // New settlement
+          amount: advance.amount,
+          currencyId: advance.currencyId,
+          userId: advance.makerId, // Use the advance maker as default user
+          ministryId: advance.ministryId || '',
+          bankAccountId: advance.bankAccountId || '',
+          chartAccountId: '', // Leave empty for user to choose
+          method: '', // Leave empty for user to choose
+          settlementDate: settlementDate,
+          // 🆕 FIX: Add bookingDate field using settlementDate
+          bookingDate: settlementDate,
+          notes: `Settlement for Money Advance #${advance.id} - ${
+            advance.purpose || 'No purpose specified'
+          }`,
+          moneyAdvanceId: advance.id,
+          // 🆕 FIX: Ensure the settlement shows as linked to the money advance
+          linkToAdvance: 'true', // This will ensure the radio button shows "ເຊື່ອມຕໍ່ກັບລາຍຈ່າຍລ່ວງໜ້າ"
+        }
+
+        console.log('🔗 Creating settlement with money advance link:', {
+          advanceId: advance.id,
+          linkToAdvance: this.settlementData.linkToAdvance,
+          moneyAdvanceId: this.settlementData.moneyAdvanceId,
+          settlementDate: this.settlementData.settlementDate,
+          bookingDate: this.settlementData.bookingDate,
+        })
+
+        // Open the settlement dialog
+        this.showSettlementDialog = true
+      } catch (error) {
+        console.error('Error preparing settlement:', error)
+        this.showToast('Error preparing settlement', 'error')
+      }
+    },
+
+    closeSettlementDialog() {
+      this.showSettlementDialog = false
+      this.settlementData = null
+      this.selectedAdvanceForSettlement = null
+    },
+
+    async saveSettlement(settlementData) {
+      try {
+        // Add audit context
+        const auditContext = {
+          reason: `Settlement created for Money Advance #${this.selectedAdvanceForSettlement?.id}`,
+          userId: this.user?.id,
+        }
+
+        // 🆕 FIX: Ensure bookingDate is included (use settlementDate if not provided)
+        const completeSettlementData = {
+          ...settlementData,
+          bookingDate:
+            settlementData.bookingDate || settlementData.settlementDate,
+          ...auditContext,
+        }
+
+        console.log('📤 Sending settlement to API:', completeSettlementData)
+
+        const response = await this.$axios.post(
+          '/api/settlements',
+          completeSettlementData
+        )
+
+        if (response.data && response.data.success) {
+          this.showToast('Settlement created successfully', 'success')
+          this.closeSettlementDialog()
+
+          // Refresh the money advances list to update status
+          await this.fetchData()
+          await this.fetchDashboard()
+        } else {
+          throw new Error(
+            response.data?.message || 'Failed to create settlement'
+          )
+        }
+      } catch (error) {
+        console.error('Error saving settlement:', error)
+        const message =
+          error.response?.data?.message || 'Error creating settlement'
+        this.showToast(message, 'error')
+      }
+    },
+
     // Enhanced save method with audit context
     async saveAdvance(formData) {
       this.saving = true
@@ -723,6 +862,7 @@ export default {
         }
 
         if (this.isEdit) {
+          formData.updateUserId = this.user.id
           await this.$axios.put(`/api/money-advances/${formData.id}`, {
             ...formData,
             ...auditContext,
@@ -783,7 +923,9 @@ export default {
     async openDialog(advance = null) {
       this.isEdit = !!advance
       this.showDialog = true
-
+      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
+        Math.random() * 1000
+      )}`
       if (
         this.users.length === 0 ||
         this.currencies.length === 0 ||
@@ -817,6 +959,7 @@ export default {
           bankAccountId: advance.bankAccountId || '',
           ministryId: advance.ministryId || '',
           bookingDate: advance.bookingDate || '',
+          exchangeRate: advance.exchangeRate || '',
           reason: '', // Reset reason for each edit
         }
       } else {
@@ -835,17 +978,20 @@ export default {
     },
 
     resetForm() {
+      const today = new Date().toISOString().split('T')[0] // Get today's date
+
       this.form = {
         id: null,
         amount: '',
         purpose: '',
         note: '',
-        makerId: '',
+        makerId: this.user.id,
         currencyId: '',
         dueDate: '',
         bankAccountId: '',
+        exchangeRate: 1,
         ministryId: '',
-        bookingDate: '',
+        bookingDate: today, // ✅ Set to today's date
         reason: '',
       }
     },
@@ -973,7 +1119,7 @@ export default {
 
     handleCreateSettlement(advance) {
       this.closeDetailDialog()
-      console.log('Create settlement for:', advance)
+      this.createSettlement(advance) // 🆕 UPDATED: Call the new createSettlement method
     },
 
     formatAdvanceForDownload() {

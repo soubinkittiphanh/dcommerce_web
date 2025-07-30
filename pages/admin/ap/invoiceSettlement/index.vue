@@ -105,7 +105,7 @@
             @input="debounceSearch"
             type="text"
             class="form-control"
-            placeholder="ຄົ້ນຫາເລກທີການຊຳລະ..."
+            placeholder="ຄົ້ນຫາເລກອ້າງອີງ..."
           />
         </div>
         <div class="col-md-2">
@@ -133,22 +133,21 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>ເລກທີການຊຳລະ</th>
+            <th>ID</th>
             <th>ວັນທີຊຳລະ</th>
             <th>ຈຳນວນເງິນຊຳລະ</th>
             <th>ຈຳນວນເງິນພື້ນຖານ</th>
-            <th>ອັດຕາແລກປ່ຽນ</th>
             <th>ສະຖານະ</th>
             <th>ອ້າງອີງ</th>
-            <th>ຜູ້ລົງບັນຊີ</th>
+            <th>ຄຳອະທິບາຍ</th>
             <th>ຟັງຊັ່ນ</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="settlement in settlements" :key="settlement.id">
             <td>
-              <div class="settlement-number">
-                {{ settlement.settlementNumber }}
+              <div class="settlement-id">
+                #{{ settlement.id }}
               </div>
             </td>
             <td>{{ formatDate(settlement.settlementDate) }}</td>
@@ -163,18 +162,12 @@
               </span>
             </td>
             <td>
-              <span class="exchange-rate">
-                {{ formatExchangeRate(settlement.exchangeRate) }}
-              </span>
-            </td>
-            <td>
               <span :class="['status-badge', settlement.status || 'unknown']">
                 {{ getStatusInLao(settlement.status) }}
               </span>
             </td>
-
             <td>{{ settlement.reference || 'N/A' }}</td>
-            <td>{{ settlement.maker ? settlement.maker.cus_name : 'N/A' }}</td>
+            <td>{{ settlement.description || 'N/A' }}</td>
             <td>
               <div class="action-buttons">
                 <!-- View Details -->
@@ -397,8 +390,8 @@
           </div>
           <div v-else-if="settlementDetails" class="detail-content">
             <div class="detail-row">
-              <label>ເລກທີການຊຳລະ:</label>
-              <span>{{ settlementDetails.settlementNumber }}</span>
+              <label>ID ການຊຳລະ:</label>
+              <span>#{{ settlementDetails.id }}</span>
             </div>
             <div class="detail-row">
               <label>ວັນທີຊຳລະ:</label>
@@ -411,12 +404,6 @@
             <div class="detail-row">
               <label>ຈຳນວນເງິນພື້ນຖານ:</label>
               <span>{{ formatCurrency(settlementDetails.baseAmount) }}</span>
-            </div>
-            <div class="detail-row">
-              <label>ອັດຕາແລກປ່ຽນ:</label>
-              <span>{{
-                formatExchangeRate(settlementDetails.exchangeRate)
-              }}</span>
             </div>
             <div class="detail-row">
               <label>ສະຖານະ:</label>
@@ -451,7 +438,6 @@
                   <tr>
                     <th>ເລກທີໃບແຈ້ງໜີ້</th>
                     <th>ຈຳນວນທີ່ຈັດສັນ</th>
-                    <th>ອັດຕາແລກປ່ຽນ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -459,9 +445,8 @@
                     v-for="allocation in settlementDetails.invoiceSettlements"
                     :key="allocation.id"
                   >
-                    <td>{{ allocation.invoice?.invoiceNumber || 'N/A' }}</td>
-                    <td>{{ formatCurrency(allocation.settledAmount) }}</td>
-                    <td>{{ formatExchangeRate(allocation.exchangeRate) }}</td>
+                    <td>{{ getInvoiceNumber(allocation) }}</td>
+                    <td>{{ formatCurrency(allocation.amount) }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -573,6 +558,13 @@ export default {
       if (!status) return 'N/A'
       return this.statusLabels[status] || status.toUpperCase()
     },
+
+    // Helper method to get invoice number from settlement line
+    getInvoiceNumber(allocation) {
+      // Based on the relationship: settlementLine -> invoiceLineItem -> invoice
+      return allocation.invoiceLineItem?.invoice?.invoiceNumber || 'N/A'
+    },
+
     async loadInitialData() {
       await Promise.all([
         this.fetchData(),
@@ -667,7 +659,7 @@ export default {
         }
 
         const { data } = await this.$axios.get(
-          '/api/ap-invoices/invoices/outstanding',
+          '/api/ap-invoices-settlement/invoices/outstanding',
           { params }
         )
         this.outstandingInvoices = data.data || []
@@ -763,18 +755,29 @@ export default {
           userId: this.user?.id,
         }
 
+        let response
         if (formData.id) {
-          await this.$axios.put(`/api/ap-invoices-settlement/${formData.id}`, {
+          response = await this.$axios.put(`/api/ap-invoices-settlement/${formData.id}`, {
             ...formData,
             ...auditContext,
           })
           this.showToast('ອັບເດດການຊຳລະສຳເລັດ', 'success')
         } else {
-          await this.$axios.post('/api/ap-invoices-settlement', {
+          response = await this.$axios.post('/api/ap-invoices-settlement', {
             ...formData,
             ...auditContext,
           })
-          this.showToast('ສ້າງການຊຳລະສຳເລັດ', 'success')
+          
+          // Show success with ID since no settlementNumber
+          const createdSettlement = response.data?.data
+          if (createdSettlement?.id) {
+            this.showToast(
+              `ສ້າງການຊຳລະສຳເລັດ: #${createdSettlement.id}`,
+              'success'
+            )
+          } else {
+            this.showToast('ສ້າງການຊຳລະສຳເລັດ', 'success')
+          }
         }
 
         this.closeDialog()
@@ -793,17 +796,14 @@ export default {
         const result = await swalConfirm(
           this.$swal,
           'ຢືນຢັນການອະນຸມັດ',
-          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດການຊຳລະ ${settlement.settlementNumber} ແມ່ນບໍ່?`,
+          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
           'question',
           'ບໍ່',
           'ຕົກລົງ'
         )
 
         if (result.isConfirmed) {
-          await this.$axios.post(`/api/ap-invoices-settlement/${settlement.id}/approve`, {
-            checkerId: this.user.id,
-            reason: 'Approved by manager',
-          })
+          await this.$axios.post(`/api/ap-invoices-settlement/${settlement.id}/approve`)
           this.showToast('ອະນຸມັດການຊຳລະສຳເລັດ', 'success')
           await this.fetchData()
           await this.fetchDashboard()
@@ -819,7 +819,7 @@ export default {
         const result = await swalConfirm(
           this.$swal,
           'ຢືນຢັນການສຳເລັດ',
-          `ທ່ານແນ່ໃຈທີ່ຈະສຳເລັດການຊຳລະ ${settlement.settlementNumber} ແມ່ນບໍ່?`,
+          `ທ່ານແນ່ໃຈທີ່ຈະສຳເລັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
           'question',
           'ບໍ່',
           'ຕົກລົງ'
@@ -842,7 +842,7 @@ export default {
         const result = await swalConfirm(
           this.$swal,
           'ຢືນຢັນການຍົກເລີກ',
-          `ທ່ານແນ່ໃຈທີ່ຈະຍົກເລີກການຊຳລະ ${settlement.settlementNumber} ແມ່ນບໍ່?`,
+          `ທ່ານແນ່ໃຈທີ່ຈະຍົກເລີກການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
           'warning',
           'ບໍ່',
           'ຍົກເລີກ'
@@ -905,13 +905,6 @@ export default {
       return new Date(date).toLocaleDateString('en-GB')
     },
 
-    formatExchangeRate(rate) {
-      return parseFloat(rate || 1).toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 6,
-      })
-    },
-
     showToast(message, type = 'info') {
       if (this.$toast) {
         this.$toast[type](message)
@@ -930,7 +923,14 @@ export default {
 </script>
 
 <style scoped>
-/* Copy all styles from your AP Invoice component but adapted for settlements */
+/* Same styles as before, just updating specific CSS */
+.settlement-id {
+  font-weight: 600;
+  color: #333;
+  font-family: monospace;
+}
+
+/* All other styles remain the same... */
 .ap-settlement-container {
   padding: 20px;
   max-width: 1400px;
@@ -1147,22 +1147,9 @@ export default {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.settlement-number {
-  font-weight: 600;
-  color: #333;
-}
-
 .amount {
   font-weight: 600;
   color: #333;
-}
-
-.exchange-rate {
-  font-family: monospace;
-  background: #f8f9fa;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 12px;
 }
 
 .status-badge {

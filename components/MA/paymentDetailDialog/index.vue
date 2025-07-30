@@ -54,6 +54,14 @@
                   <small>{{ details.currency?.code }}</small>
                 </span>
               </div>
+              <!-- Exchange Rate Field -->
+              <div v-if="details.exchangeRate" class="detail-item">
+                <label>ອັດຕາແລກປ່ຽນ</label>
+                <span class="detail-value exchange-rate-display">
+                  <i class="fas fa-exchange-alt"></i>
+                  {{ formatExchangeRate(details.exchangeRate) }}
+                </span>
+              </div>
               <div class="detail-item full-width">
                 <label>ຈຸດປະສົງ</label>
                 <span class="detail-value">{{
@@ -336,6 +344,14 @@ export default {
         style: 'currency',
         currency: 'USD',
       }).format(amount || 0)
+    },
+
+    formatExchangeRate(rate) {
+      if (!rate) return 'N/A'
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 6
+      }).format(rate)
     },
 
     formatDateTime(date) {
@@ -660,6 +676,26 @@ export default {
   color: #6c757d;
   margin-left: 8px;
   font-weight: 500;
+}
+
+.exchange-rate-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #8e44ad;
+  text-align: center;
+  padding: 12px;
+  background: linear-gradient(135deg, #f4ecf7, #fafafa);
+  border-radius: 8px;
+  border: 2px solid #d7bde2;
+  justify-content: center;
+}
+
+.exchange-rate-display i {
+  color: #9b59b6;
+  font-size: 16px;
 }
 
 .user-info {
@@ -1103,6 +1139,10 @@ export default {
     font-size: 24px;
   }
 
+  .exchange-rate-display {
+    font-size: 16px;
+  }
+
   .modal-header {
     padding: 16px;
   }
@@ -1135,6 +1175,10 @@ export default {
 
   .amount-display {
     font-size: 20px;
+  }
+
+  .exchange-rate-display {
+    font-size: 14px;
   }
 
   .timeline-content {
