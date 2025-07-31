@@ -128,16 +128,23 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  // nuxt.config.js
+  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     // Add this to help with SES warnings
     transpile: ['lucide-vue-next'],
+    terser: {
+      parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
+    },
     extend(config, { isDev, isClient }) {
       // Suppress SES warnings in development
       if (isDev && isClient) {
         config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
       }
     }
-  },
+  }
+
+
 
   // Add this to suppress console warnings
   render: {
