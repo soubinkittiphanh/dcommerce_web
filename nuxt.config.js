@@ -142,7 +142,7 @@ export default {
         config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
       }
     }
-  }
+  },
 
 
 
