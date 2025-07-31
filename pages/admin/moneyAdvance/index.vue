@@ -382,7 +382,7 @@ import AuditTrailDialog from '~/components/MA/paymentAuditDialog'
 import VersionComparisonDialog from '~/components/MA/paymentCompareDialog'
 import AuditReportsDialog from '~/components/MA/paymentAuditReportDialog'
 // 🆕 NEW: Import Settlement Dialog
-import SettlementDialog from '~/components/MA/SettlementDialog'
+import SettlementDialog from '~/components/MA/settlementDialog'
 import { swalSuccess, swalError2, swalConfirm } from '~/common'
 
 export default {
