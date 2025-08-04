@@ -198,7 +198,10 @@
                 {{ formatSettlementAmount(settlement) }}
               </td>
               <td>
-                <span v-if="getSettlementCurrency(settlement)" class="currency-tag">
+                <span
+                  v-if="getSettlementCurrency(settlement)"
+                  class="currency-tag"
+                >
                   {{ getSettlementCurrency(settlement).code }}
                 </span>
                 <span v-else class="no-data">-</span>
@@ -300,7 +303,13 @@
         @save="onSettlementSave"
       />
     </client-only>
-
+    <!-- Voucher Print Component -->
+    <VoucherPrintComponent
+      v-if="showPrintVoucher && settlementDetail"
+      :key="settlementDetail.id"
+      :voucher-data="settlementDetail"
+      @close="closePrintVoucher"
+    />
     <!-- Settlement View Dialog -->
     <client-only>
       <SettlementViewDialog
@@ -323,16 +332,18 @@
 <script>
 import SettlementDialog from '~/components/MA/settlementDialog'
 import SettlementViewDialog from '~/components/MA/settlementViewDialog'
-
+import VoucherPrintComponent from '~/components/MA/settlementVoucher'
 export default {
   name: 'SettlementSummary',
   components: {
     SettlementDialog,
     SettlementViewDialog,
+    VoucherPrintComponent,
   },
 
   data() {
     return {
+      showPrintVoucher: false,
       // Dialog visibility states
       showEditDialog: false, // For SettlementDialog
       showViewDialog: false, // For SettlementViewDialog
@@ -351,7 +362,7 @@ export default {
       // Loading states
       loading: false,
       formLoading: false,
-
+      settlementDetail: null,
       // Filters
       filters: {
         startDate: '',
@@ -449,6 +460,20 @@ export default {
   },
 
   methods: {
+    closePrintVoucher() {
+      this.showPrintVoucher = false
+      setTimeout(() => {
+        this.settlementDetail = null
+      }, 100)
+    },
+    printSettlement(settlement) {
+      console.info(`SETTLEMENT DETAIL ${JSON.stringify(settlement)}`)
+      this.showPrintVoucher = false
+      this.$nextTick(() => {
+        this.settlementDetail = settlement
+        this.showPrintVoucher = true
+      })
+    },
     // Dialog Control Methods
     async openCreateDialog() {
       console.log('Opening create dialog...')
@@ -905,11 +930,6 @@ export default {
       this.pagination.currentPage = page
     },
 
-    // Other Methods
-    printSettlement(settlement) {
-      window.open(`/api/settlements/${settlement.id}/print`, '_blank')
-    },
-
     exportData() {
       const csvData = this.convertToCSV(this.filteredSettlements)
       this.downloadCSV(csvData, 'settlement-summary.csv')
@@ -941,7 +961,7 @@ export default {
     },
 
     getSettlementCurrency(settlement) {
-      return this.currencies.find(c => c.id === settlement.currencyId)
+      return this.currencies.find((c) => c.id === settlement.currencyId)
     },
 
     formatNumber(amount) {
@@ -1542,18 +1562,18 @@ export default {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .summary-card {
     padding: 20px;
   }
-  
+
   .card-icon {
     width: 50px;
     height: 50px;
     font-size: 20px;
     margin-right: 16px;
   }
-  
+
   .card-content h3 {
     font-size: 20px;
   }
@@ -1585,7 +1605,7 @@ export default {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .card-icon {
     margin: 0 auto 16px auto;
   }

@@ -5,7 +5,7 @@
       <div class="title-section">
         <h1 class="page-title">
           <i class="fas fa-building"></i>
-          ລາຍງານສະຫຼຸບຕາມກະຊວງ
+          ລາຍງານສະຫຼຸບຕາມກົມ
         </h1>
         <p class="page-subtitle">Ministry Summary Report</p>
       </div>
@@ -170,7 +170,7 @@
     <v-card class="chart-card mb-4" elevation="2">
       <v-card-title>
         <i class="fas fa-chart-bar"></i>
-        ກາຟສະຫຼຸບຕາມກະຊວງ (Ministry Summary Chart)
+        ກາຟສະຫຼຸບຕາມກົມ (Ministry Summary Chart)
       </v-card-title>
       <v-card-text>
         <div class="chart-container">
@@ -183,7 +183,7 @@
     <v-card class="table-card" elevation="2">
       <v-card-title class="table-title">
         <i class="fas fa-table"></i>
-        ລາຍລະອຽດລາຍງານຕາມກະຊວງ (Ministry Summary Details)
+        ລາຍລະອຽດລາຍງານຕາມກົມ (Ministry Summary Details)
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -433,8 +433,7 @@
 </template>
 
 <script>
-import Chart from 'chart.js'
-
+import Chart from 'chart.js/auto'
 export default {
   name: 'MinistrySummaryReport',
 

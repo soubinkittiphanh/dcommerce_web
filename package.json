@@ -15,7 +15,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.2",
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@nuxt/icon": "^1.14.0",
@@ -26,7 +26,8 @@
     "@nuxtjs/toast": "^3.3.1",
     "@tillpos/xml-escpos-helper": "^0.2.7",
     "apexcharts": "^3.40.0",
-    "chart.js": "^2.9.4",
+    "bootstrap": "^5.3.7",
+    "chart.js": "^4.5.0",
     "child_process": "^1.0.2",
     "core-js": "^3.20.0",
     "echarts": "^5.4.3",

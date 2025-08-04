@@ -21,9 +21,7 @@ export default {
     ],
     script: [
       { src: "https://unpkg.com/jspdf-invoice-template@1.4.3/dist/index.js" },
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'
-      }
+      // REMOVED Chart.js CDN - now using npm version
     ],
   },
 
@@ -50,6 +48,7 @@ export default {
     { src: '~/plugins/v-calendar.js', ssr: false },
     { src: '~/plugins/draggable.js', ssr: false },
     { src: '~/plugins/gantt-schedule-timeline-calendar.js', mode: 'client' }
+    // Removed Chart.js plugin - now using direct imports
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -131,8 +130,8 @@ export default {
   // nuxt.config.js
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // Add this to help with SES warnings
-    transpile: ['lucide-vue-next'],
+    // Add Chart.js transpilation
+    transpile: ['lucide-vue-next', 'chart.js'],
     terser: {
       parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
     },
@@ -141,10 +140,15 @@ export default {
       if (isDev && isClient) {
         config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
       }
+      
+      // For Chart.js compatibility with Nuxt 2/Webpack 4
+      if (isClient) {
+        config.node = {
+          fs: 'empty'
+        }
+      }
     }
   },
-
-
 
   // Add this to suppress console warnings
   render: {

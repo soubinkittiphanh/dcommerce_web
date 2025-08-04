@@ -15,109 +15,176 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
-        
+
         <div class="modal-body">
           <!-- Voucher Preview -->
-          <div ref="voucherContent" id="voucher-print" class="voucher-container">
+          <div
+            ref="voucherContent"
+            id="voucher-print"
+            class="voucher-container"
+          >
             <!-- Header -->
             <div class="voucher-header">
               <div class="company-info">
-                <div class="company-name">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ</div>
+                <div class="company-name">
+                  ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ
+                </div>
+                <div class="company-name">
+                  ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ
+                </div>
                 <!-- <div class="department">ກົມການເງິນ ແລະ ສິນເຊື່ອ</div> -->
                 <!-- <div class="sub-department">ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ</div> -->
-                <div class="amount-line">
-                  .........(000)..........
-                </div>
+                <div class="amount-line">.........(000)..........</div>
               </div>
-              
+
               <div class="voucher-number">
                 <div class="number-box">
                   <span class="number-label">No</span>
-                  <span class="number-value">{{ formatVoucherNumber(voucherData.id) }}</span>
+                  <span class="number-value">{{
+                    formatVoucherNumber(voucherData.id)
+                  }}</span>
                 </div>
               </div>
             </div>
 
             <!-- Title -->
-            <div class="voucher-title">
-              ໃບຈ່າຍເງິນສົດອອກຄັງ
-            </div>
+            <div class="voucher-title">ໃບຈ່າຍເງິນສົດອອກຄັງ</div>
 
             <!-- Voucher Details -->
             <div class="voucher-details">
               <div class="detail-row">
                 <span class="label">ອີງໃສ່ໃບ ຖອນ/ສະເຫນີ</span>
-                <span class="dotted-line">{{ voucherData.maker?.cus_name || 'N/A' }}</span>
+                <span class="dotted-line"></span>
               </div>
-              
+
               <div class="detail-row">
                 <span class="label">ເລກທີ</span>
-                <span class="value">{{ voucherData.maker?.cus_id || 'N/A' }}</span>
+                <span class="value">{{
+                  voucherData.id || 'N/A'
+                }}</span>
                 <span class="label">ລົງວັນທີ</span>
-                <span class="value">{{ formatDate(voucherData.createdAt).day }}</span>
+                <span class="value">{{
+                  formatDate(voucherData.createdAt).day
+                }}</span>
                 <span class="label">ເດືອນ</span>
-                <span class="value">{{ formatDate(voucherData.createdAt).month }}</span>
+                <span class="value">{{
+                  formatDate(voucherData.createdAt).month
+                }}</span>
                 <span class="label">ປີ</span>
-                <span class="value">{{ formatDate(voucherData.createdAt).year }}</span>
+                <span class="value">{{
+                  formatDate(voucherData.createdAt).year
+                }}</span>
               </div>
-
               <div class="detail-row">
-                <span class="label">ຈຳນວນເງິນ ກີບລາວ / ເອກະສານສຳຄັນ</span>
+                <span class="label"
+                  >ຄັງເງິນສົດ, ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</span
+                >
+                <span class="dotted-line"></span>
+              </div>
+              <div class="detail-row">
+                <span class="label">ໄດ້ຈ່າຍເງິນ </span>
+                <label><input type="checkbox" /> </label>
+                <span class="label"> ສົດ </span>
+                <label><input type="checkbox" /> </label>
+                <span class="label"> ແຊັກເລກທີ່ </span>
+                <span class="dotted-line"></span>
+
                 <div class="currency-options">
-                  <label><input type="checkbox" :checked="voucherData.currency?.code === 'LAK'"> LAK</label>
-                  <label><input type="checkbox" :checked="voucherData.currency?.code === 'THB'"> THB</label>
-                  <label><input type="checkbox" :checked="voucherData.currency?.code === 'USD'"> USD</label>
+                  <label
+                    ><input
+                      type="checkbox"
+                      :checked="voucherData.currency?.code === 'LAK'"
+                    />
+                    LAK</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      :checked="voucherData.currency?.code === 'THB'"
+                    />
+                    THB</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      :checked="voucherData.currency?.code === 'USD'"
+                    />
+                    USD</label
+                  >
                 </div>
               </div>
-
               <div class="detail-row">
-                <span class="label">ຕົວເລກ</span>
-                <span class="amount-number">{{ formatAmount(voucherData.amount) }}</span>
+                <span class="label">ໃຫ້ທ່ານ</span>
+                <span class="dotted-line"></span>
+                <span class="label">ເລກບັດປະຈຳຕົວ</span>
+                <span class="dotted-line"></span>
               </div>
-
               <div class="detail-row">
-                <span class="label">ຈຸດປະສົງຂັ້ນພຽນ ກັນເງິນຄັງ</span>
-                <span class="dotted-line">{{ voucherData.purpose || 'N/A' }}</span>
+                <span class="label">ສັງກັດຢູ່ພາກສ່ວນ ກົມ/ກອງ</span>
+                <span class="dotted-line"></span>
+              </div>
+              <div class="detail-row">
+                <span class="label">ເນື້ອໃນລາຍຈ່າຍ</span>
+                <span class="dotted-line"></span>
+              </div>
+              <div class="detail-row">
+                <span class="label"></span>
+                <span class="dotted-line"></span>
+              </div>
+              <div class="detail-row">
+                <span class="label"></span>
+                <span class="dotted-line"></span>
+              </div>
+              <div class="detail-row">
+                <span class="label">ຈຳນວນ</span>
+                <span class="amount-display">{{
+                  formatAmount(voucherData.amount)
+                }}</span>
+                <span class="label">{{
+                  voucherData.currency?.name || 'N/A'
+                }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="label">ຈຳນວນເງິນເປັນຕົວຫນັງສື</span>
+                <span class="amount-words">{{
+                  convertToWords(voucherData.amount, voucherData.currency?.code)
+                }}</span>
               </div>
 
               <div class="detail-row description">
-                <span class="label">ເພື່ອໃນລາຍງານ</span>
+                <span class="label">ເນື້ອໃນລາຍການ</span>
                 <div class="description-content">
                   {{ voucherData.note || 'ບໍ່ມີຫມາຍເຫດ' }}
                 </div>
-              </div>
-
-              <div class="detail-row">
-                <span class="label">ຈຳນວນ</span>
-                <span class="amount-display">{{ formatAmount(voucherData.amount) }}</span>
-                <span class="label">{{ voucherData.currency?.name || 'N/A' }}</span>
-              </div>
-
-              <div class="detail-row">
-                <span class="label">ຈຳນວນເງິນດ້ວຍໂຕໜັງສື</span>
-                <span class="amount-words">{{ convertToWords(voucherData.amount, voucherData.currency?.code) }}</span>
               </div>
             </div>
 
             <!-- Signature Section -->
             <div class="signature-section">
               <div class="signature-box">
-                <div class="signature-title">ຜູ້ຮັບເງິນຂຶ້ນເຊັນ ຊື່ເຕັມ</div>
+                <div class="signature-title">ຫົວໜ້າພະແນກ ຄັງເງິນສົດ</div>
                 <div class="signature-line"></div>
-                <div class="signature-name">{{ voucherData.maker?.cus_name || '' }}</div>
+                <div class="signature-name">
+
+                </div>
               </div>
               <div class="signature-box">
-                <div class="signature-title">ຜູ້ສົ່ງເງິນ</div>
+                <div class="signature-title">ຜູ້ຮັບເງິນ</div>
                 <div class="signature-line"></div>
               </div>
               <div class="signature-box">
                 <div class="signature-title">ຜູ້ຈ່າຍເງິນ</div>
                 <div class="signature-line"></div>
+                <div class="signature-name">
+                  {{ voucherData.checker?.cus_name || '' }}
+                </div>
               </div>
               <div class="signature-box">
-                <div class="signature-title">ນາຍຄົນຈັງ</div>
+                <div class="signature-title">ນາຍບັນຊີ</div>
                 <div class="signature-line"></div>
-                <div class="signature-name">{{ voucherData.checker?.cus_name || '' }}</div>
+                <div class="signature-name">
+
+                </div>
               </div>
             </div>
           </div>
@@ -144,76 +211,89 @@
           <div class="company-info">
             <div class="company-name">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
             <div class="department">ກົມການເງິນ ແລະ ສິນເຊື່ອ</div>
-            <div class="sub-department">ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ</div>
-            <div class="amount-line">
-              .........(000)..........
+            <div class="sub-department">
+              ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ
             </div>
+            <div class="amount-line">.........(000)..........</div>
           </div>
-          
+
           <div class="voucher-number">
             <div class="number-box">
               <span class="number-label">No</span>
-              <span class="number-value">{{ formatVoucherNumber(voucherData.id) }}</span>
+              <span class="number-value">{{
+                formatVoucherNumber(voucherData.id)
+              }}</span>
             </div>
           </div>
         </div>
 
-        <div class="voucher-title">
-          ໃບຈ່າຍເງິນສົດອອກຄັງ
-        </div>
+        <div class="voucher-title">ໃບຈ່າຍເງິນສົດອອກຄັງ</div>
 
         <div class="voucher-details">
           <div class="detail-row">
             <span class="label">ຈ່າຍໃຫ້ຫຼືຮັບເອົາ</span>
-            <span class="dotted-line">{{ voucherData.maker?.cus_name || 'N/A' }}</span>
+            <span class="dotted-line">{{
+              voucherData.maker?.cus_name || 'N/A'
+            }}</span>
           </div>
-          
+
           <div class="detail-row">
             <span class="label">ເລກທີ</span>
             <span class="value">{{ voucherData.maker?.cus_id || 'N/A' }}</span>
             <span class="label">ວັນທີນີ້</span>
-            <span class="value">{{ formatDate(voucherData.createdAt).day }}</span>
+            <span class="value">{{
+              formatDate(voucherData.createdAt).day
+            }}</span>
             <span class="label">ເດືອນ</span>
-            <span class="value">{{ formatDate(voucherData.createdAt).month }}</span>
+            <span class="value">{{
+              formatDate(voucherData.createdAt).month
+            }}</span>
             <span class="label">ປີ</span>
-            <span class="value">{{ formatDate(voucherData.createdAt).year }}</span>
+            <span class="value">{{
+              formatDate(voucherData.createdAt).year
+            }}</span>
           </div>
 
           <div class="detail-row">
             <span class="label">ຈຳນວນເງິນ ກີບລາວ / ເອກະສານສຳຄັນ</span>
             <div class="currency-options">
-              <label><input type="checkbox" :checked="voucherData.currency?.code === 'LAK'"> LAK</label>
-              <label><input type="checkbox" :checked="voucherData.currency?.code === 'THB'"> THB</label>
-              <label><input type="checkbox" :checked="voucherData.currency?.code === 'USD'"> USD</label>
-            </div>
-          </div>
-
-          <div class="detail-row">
-            <span class="label">ຕົວເລກ</span>
-            <span class="amount-number">{{ formatAmount(voucherData.amount) }}</span>
-          </div>
-
-          <div class="detail-row">
-            <span class="label">ຈຸດປະສົງຂັ້ນພຽນ ກັນເງິນຄັງ</span>
-            <span class="dotted-line">{{ voucherData.purpose || 'N/A' }}</span>
-          </div>
-
-          <div class="detail-row description">
-            <span class="label">ເພື່ອໃນລາຍງານ</span>
-            <div class="description-content">
-              {{ voucherData.note || 'ບໍ່ມີຫມາຍເຫດ' }}
+              <label
+                ><input
+                  type="checkbox"
+                  :checked="voucherData.currency?.code === 'LAK'"
+                />
+                LAK</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  :checked="voucherData.currency?.code === 'THB'"
+                />
+                THB</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  :checked="voucherData.currency?.code === 'USD'"
+                />
+                USD</label
+              >
             </div>
           </div>
 
           <div class="detail-row">
             <span class="label">ຈຳນວນ</span>
-            <span class="amount-display">{{ formatAmount(voucherData.amount) }}</span>
+            <span class="amount-display">{{
+              formatAmount(voucherData.amount)
+            }}</span>
             <span class="label">{{ voucherData.currency?.name || 'N/A' }}</span>
           </div>
 
-          <div class="detail-row">
-            <span class="label">ຈຳນວນເງິນດ້ວຍໂຕໜັງສື</span>
-            <span class="amount-words">{{ convertToWords(voucherData.amount, voucherData.currency?.code) }}</span>
+          <div class="detail-row description">
+            <span class="label">ເນື້ອໃນລາຍການ</span>
+            <div class="description-content">
+              {{ voucherData.note || 'ບໍ່ມີຫມາຍເຫດ' }}
+            </div>
           </div>
         </div>
 
@@ -221,7 +301,9 @@
           <div class="signature-box">
             <div class="signature-title">ຜູ້ຮັບເງິນຂຶ້ນເຊັນ ຊື່ເຕັມ</div>
             <div class="signature-line"></div>
-            <div class="signature-name">{{ voucherData.maker?.cus_name || '' }}</div>
+            <div class="signature-name">
+              {{ voucherData.maker?.cus_name || '' }}
+            </div>
           </div>
           <div class="signature-box">
             <div class="signature-title">ຜູ້ສົ່ງເງິນ</div>
@@ -234,7 +316,9 @@
           <div class="signature-box">
             <div class="signature-title">ນາຍຄົນຈັງ</div>
             <div class="signature-line"></div>
-            <div class="signature-name">{{ voucherData.checker?.cus_name || '' }}</div>
+            <div class="signature-name">
+              {{ voucherData.checker?.cus_name || '' }}
+            </div>
           </div>
         </div>
       </div>
@@ -251,51 +335,51 @@ export default {
       default: () => ({
         id: 5,
         amount: 4000000,
-        purpose: "test",
-        note: "",
-        status: "pending",
+        purpose: 'test',
+        note: '',
+        status: 'pending',
         approvedAt: null,
-        dueDate: "2025-07-24T00:00:00.000Z",
-        createdAt: "2025-07-09T15:12:51.000Z",
-        updateTimestamp: "2025-07-09T15:12:51.000Z",
+        dueDate: '2025-07-24T00:00:00.000Z',
+        createdAt: '2025-07-09T15:12:51.000Z',
+        updateTimestamp: '2025-07-09T15:12:51.000Z',
         makerId: 2,
         checkerId: null,
         currencyId: 5,
         maker: {
           id: 2,
           cus_id: 1001,
-          cus_pass: "1111",
-          cus_name: "USER01",
-          cus_tel: "TELEPHONE",
-          cus_email: "EMAIL",
+          cus_pass: '1111',
+          cus_name: 'USER01',
+          cus_tel: 'TELEPHONE',
+          cus_email: 'EMAIL',
           cus_active: true,
           village: null,
           district: null,
           province: null,
           remark: null,
           isActive: true,
-          createdAt: "2025-01-24T19:54:20.000Z",
-          updateTimestamp: "2025-01-24T19:54:20.000Z",
-          groupId: 1
+          createdAt: '2025-01-24T19:54:20.000Z',
+          updateTimestamp: '2025-01-24T19:54:20.000Z',
+          groupId: 1,
         },
         checker: null,
         currency: {
           id: 5,
-          code: "USD",
-          name: "US Dollar",
+          code: 'USD',
+          name: 'US Dollar',
           rate: 1,
           isActive: true,
           isLocalCCY: false,
-          createdAt: "2023-09-17T06:52:15.000Z",
-          updateTimestamp: "2025-03-03T01:11:36.000Z"
+          createdAt: '2023-09-17T06:52:15.000Z',
+          updateTimestamp: '2025-03-03T01:11:36.000Z',
         },
-        settlementLine: []
-      })
-    }
+        settlementLine: [],
+      }),
+    },
   },
   data() {
     return {
-      showPrintDialog: false
+      showPrintDialog: false,
     }
   },
 
@@ -308,56 +392,65 @@ export default {
         }
       },
       deep: true,
-      immediate: true // This ensures the watcher runs immediately when component is created
-    }
+      immediate: true, // This ensures the watcher runs immediately when component is created
+    },
   },
   methods: {
     openPrintDialog() {
       this.showPrintDialog = true
     },
-    
+
     closePrintDialog() {
       this.showPrintDialog = false
       // Emit close event to parent
       this.$emit('close')
     },
-    
+
     formatVoucherNumber(id) {
       return String(id).padStart(6, '0')
     },
-    
+
     formatDate(dateString) {
       if (!dateString) return { day: '', month: '', year: '' }
-      
+
       const date = new Date(dateString)
       return {
         day: date.getDate(),
         month: date.getMonth() + 1,
-        year: date.getFullYear()
+        year: date.getFullYear(),
       }
     },
-    
+
     formatAmount(amount) {
       if (!amount) return '0'
       return new Intl.NumberFormat('en-US').format(amount)
     },
-    
+
     convertToWords(amount, currencyCode) {
       if (!amount) return ''
-      
+
       // This is a simplified number to words conversion
       // You might want to implement a more comprehensive function
       const numbers = [
-        '', 'ໜຶ່ງ', 'ສອງ', 'ສາມ', 'ສີ່', 'ຫ້າ', 'ຫົກ', 'ເຈັດ', 'ແປດ', 'ເກົ້າ'
+        '',
+        'ໜຶ່ງ',
+        'ສອງ',
+        'ສາມ',
+        'ສີ່',
+        'ຫ້າ',
+        'ຫົກ',
+        'ເຈັດ',
+        'ແປດ',
+        'ເກົ້າ',
       ]
-      
-      const units = ['', 'ສິບ', 'ຮ້ອຍ', 'ພັນ', 'ຫມື່ນ', 'ແສນ', 'ລ້ານ']
-      
+
+      const units = ['', 'ສິບ', 'ຮ້ອຍ', 'ພັນ', 'ສິບພັນ', 'ແສນ', 'ລ້ານ']
+
       // Simple conversion for demonstration
       // In production, you'd want a more robust implementation
       const amountStr = amount.toString()
       const length = amountStr.length
-      
+
       if (length <= 6) {
         // Simple case for amounts up to 999,999
         let result = ''
@@ -368,33 +461,33 @@ export default {
             result += numbers[digit] + units[position]
           }
         }
-        
+
         // Add currency suffix
         switch (currencyCode) {
           case 'LAK':
-            result += 'ກີບ'
+            result += ' ກີບ'
             break
           case 'USD':
-            result += 'ໂດລາ'
+            result += ' ໂດລາ'
             break
           case 'THB':
-            result += 'ບາດ'
+            result += ' ບາດ'
             break
           default:
             result += currencyCode || ''
         }
-        
+
         return result
       }
-      
+
       // For larger amounts, return formatted number with currency
       return this.formatAmount(amount) + ' ' + (currencyCode || '')
     },
-    
+
     printVoucher() {
       const printContent = this.$refs.voucherContent.innerHTML
       const printWindow = window.open('', '_blank', 'width=800,height=600')
-      
+
       printWindow.document.write(`
         <html>
           <head>
@@ -567,14 +660,14 @@ export default {
           </body>
         </html>
       `)
-      
+
       printWindow.document.close()
       printWindow.print()
       printWindow.close()
-      
+
       this.showPrintDialog = false
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -870,19 +963,19 @@ export default {
   body * {
     visibility: hidden;
   }
-  
+
   .print-only,
   .print-only * {
     visibility: visible;
   }
-  
+
   .print-only {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
   }
-  
+
   .voucher-container.print-version {
     border: 2px solid #000 !important;
     margin: 0 !important;
@@ -891,35 +984,35 @@ export default {
     max-width: none !important;
     width: 100% !important;
   }
-  
+
   .voucher-title {
     font-size: 16px !important;
   }
-  
+
   .company-name {
     font-size: 14px !important;
   }
-  
+
   .amount-display {
     font-size: 14px !important;
   }
-  
+
   .signature-title {
     font-size: 10px !important;
   }
-  
+
   .department {
     font-size: 12px !important;
   }
-  
+
   .sub-department {
     font-size: 10px !important;
   }
-  
+
   .amount-line {
     font-size: 10px !important;
   }
-  
+
   .signature-name {
     font-size: 9px !important;
   }

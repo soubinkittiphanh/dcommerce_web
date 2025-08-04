@@ -158,7 +158,10 @@
                     <i class="fas fa-dollar-sign"></i>
                     <span class="advance-label">ຈຳນວນ:</span>
                     <span class="advance-value amount">{{
-                      formatCurrency(selectedAdvance.amount)
+                      formatCurrency(
+                        selectedAdvance.amount,
+                        selectedAdvance.currency.code
+                      )
                     }}</span>
                   </div>
                   <div
@@ -500,7 +503,12 @@
                         {{ invoice.vendor?.name }}
                       </div>
                       <div class="invoice-amount">
-                        {{ formatCurrency(invoice.outstandingAmount) }}
+                        {{
+                          formatCurrency(
+                            invoice.outstandingAmount,
+                            invoice.currency.code
+                          )
+                        }}
                       </div>
                       <div class="invoice-due">
                         ຄົບກຳຫນົດ: {{ formatDate(invoice.dueDate) }}
@@ -702,7 +710,9 @@
                   </div>
                   <div class="advance-item-body">
                     <div class="advance-amount">
-                      {{ formatCurrency(advance.amount) }}
+                      {{
+                        formatCurrency(advance.amount, advance.currency.code)
+                      }}
                     </div>
                     <div class="advance-date">
                       {{ formatDate(advance.bookingDate) }}
@@ -723,7 +733,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            @click="closeAdvanceBrowser"
+            @click.stop="closeAdvanceBrowser"
             class="btn btn-secondary"
           >
             <i class="fas fa-times"></i>
@@ -1401,7 +1411,9 @@ export default {
     },
 
     updateSelectedAdvance() {
+      console.info(`ອິນວອຍຖືກເລືອກ ${JSON.stringify(this.selectedAdvance)}`)
       if (this.selectedAdvance) {
+        console.info(`Logging sync currency...`)
         this.syncCurrencyFromAdvance()
         this.syncAmountFromAdvance()
       }
@@ -1415,8 +1427,11 @@ export default {
 
       const advanceCurrency = this.getAdvanceCurrency()
       if (advanceCurrency) {
+        const selectedCurrency =
+          this.currencies.find((c) => c.id == advanceCurrency.id) ||
+          this.currencies[0]
         this.formData.currencyId = advanceCurrency.id
-
+        // this.formData.exchangeRate = selectedCurrency.rate
         // ✅ FIX 5: Better logic for syncing exchange rate
         if (
           this.selectedAdvance.exchangeRate &&
@@ -1728,11 +1743,33 @@ export default {
     },
 
     // Utility methods
-    formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
+    formatCurrency(amount, currency = 'LAK', locale = 'en-US', options = {}) {
+      // Validate inputs
+      if (
+        typeof amount !== 'number' &&
+        amount !== null &&
+        amount !== undefined
+      ) {
+        console.warn('formatCurrency: amount should be a number')
+        amount = 0
+      }
+
+      // Default formatting options
+      const defaultOptions = {
         style: 'currency',
-        currency: 'LAK',
-      }).format(amount || 0)
+        currency: currency.toUpperCase(),
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+        ...options,
+      }
+
+      try {
+        return new Intl.NumberFormat(locale, defaultOptions).format(amount || 0)
+      } catch (error) {
+        console.error('Currency formatting error:', error)
+        // Fallback to simple formatting
+        return `${currency.toUpperCase()} ${(amount || 0).toLocaleString()}`
+      }
     },
 
     formatDate(date) {
@@ -1745,9 +1782,10 @@ export default {
     },
 
     formatAdvanceOption(advance) {
-      return `#${advance.id} - ${this.formatCurrency(advance.amount)} - ${
-        advance.purpose || 'No purpose'
-      }`
+      return `#${advance.id} - ${this.formatCurrency(
+        advance.amount,
+        advance.currency.code
+      )} - ${advance.purpose || 'No purpose'}`
     },
 
     formatStatus(status) {
@@ -2584,7 +2622,11 @@ export default {
 }
 
 .field-hint.info {
-  color: #3b82f6;
+    color: #1e40af; /* Darker blue for better readability */
+    background-color: #dbeafe; /* Light blue background */
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 4px solid #3b82f6;
 }
 
 .text-counter {

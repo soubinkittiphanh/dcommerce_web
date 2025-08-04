@@ -776,8 +776,8 @@ export default {
           settlementDate: settlementDate,
           // 🆕 FIX: Add bookingDate field using settlementDate
           bookingDate: settlementDate,
-          notes: `Settlement for Money Advance #${advance.id} - ${
-            advance.purpose || 'No purpose specified'
+          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${
+            advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'
           }`,
           moneyAdvanceId: advance.id,
           // 🆕 FIX: Ensure the settlement shows as linked to the money advance
