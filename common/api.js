@@ -43,7 +43,7 @@ export const mainCompanyInfo = (store) => {
     ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
     companyLogo: 'company_logo_phaivanh.jpeg',
     dcLogo: 'Dcommerce-Logo-phaivanh.pnga',
-    dcLogo: 'Dcommerce-Logo-old.png',
+    dcLogo: 'PWT.png',
     env: ''
   }
   // const info = {

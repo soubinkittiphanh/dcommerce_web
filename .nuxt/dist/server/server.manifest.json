@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "254.js": "254.js",
+    "255.js": "255.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice.js": "components/accounting-ap-invoice.js",
     "components/accounting-ap-payment.js": "components/accounting-ap-payment.js",
@@ -204,6 +204,7 @@
     "pages/admin/report/MA/settlement/chartAccount/index.js": "pages/admin/report/MA/settlement/chartAccount/index.js",
     "pages/admin/report/MA/settlement/index.js": "pages/admin/report/MA/settlement/index.js",
     "pages/admin/report/MA/settlement/ministry/index.js": "pages/admin/report/MA/settlement/ministry/index.js",
+    "pages/admin/report/MA/targetAmount/index.js": "pages/admin/report/MA/targetAmount/index.js",
     "pages/admin/report/index.js": "pages/admin/report/index.js",
     "pages/admin/report_card/index.js": "pages/admin/report_card/index.js",
     "pages/admin/reservation/index.js": "pages/admin/reservation/index.js",
@@ -258,7 +259,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "254.js": "254.js.map",
+    "255.js": "255.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice.js": "components/accounting-ap-invoice.js.map",
     "components/accounting-ap-payment.js": "components/accounting-ap-payment.js.map",
@@ -461,6 +462,7 @@
     "pages/admin/report/MA/settlement/chartAccount/index.js": "pages/admin/report/MA/settlement/chartAccount/index.js.map",
     "pages/admin/report/MA/settlement/index.js": "pages/admin/report/MA/settlement/index.js.map",
     "pages/admin/report/MA/settlement/ministry/index.js": "pages/admin/report/MA/settlement/ministry/index.js.map",
+    "pages/admin/report/MA/targetAmount/index.js": "pages/admin/report/MA/targetAmount/index.js.map",
     "pages/admin/report/index.js": "pages/admin/report/index.js.map",
     "pages/admin/report_card/index.js": "pages/admin/report_card/index.js.map",
     "pages/admin/reservation/index.js": "pages/admin/reservation/index.js.map",

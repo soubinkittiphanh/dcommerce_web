@@ -28,10 +28,13 @@
         <div class="pa-16">
           <v-row>
             <v-col cols="12">
+              <!-- <p class="text-center"
+                style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
+                DCOMMERCE </p> -->
               <p class="text-center"
                 style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
-                DCOMMERCE </p>
-              <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2>
+                ລະບົບລາຍຮັບ ແລະ ລາຍຈ່າຍ </p>
+              <!-- <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2> -->
             </v-col>
           </v-row>
           <v-card-text>
@@ -94,7 +97,8 @@ export default {
       this.setSelectedLocation(location)
       //********** refresh component so the data will be update fresh **********//
       this.terminalDialog = false
-      this.$router.push('/admin') // Main screen for minimart business
+      // this.$router.push('/admin') // Main screen for minimart business
+      this.$router.push('/admin/moneyAdvance') // Main screen for minimart business
       // this.$router.push('/admin/orders') // Main screen for shipping bussiness
     },
     async userLogin() {

@@ -847,6 +847,13 @@
     "_name": "_2c804e9c"
   },
   {
+    "name": "admin-report-MA-targetAmount",
+    "path": "/admin/report/MA/targetAmount",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/targetAmount/index.vue",
+    "chunkName": "pages/admin/report/MA/targetAmount/index",
+    "_name": "_499294bc"
+  },
+  {
     "name": "admin-web_product-mixins-ImagePreviewMixin",
     "path": "/admin/web_product/mixins/ImagePreviewMixin",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_product/mixins/ImagePreviewMixin.vue",
