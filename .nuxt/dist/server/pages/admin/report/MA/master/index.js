@@ -44,7 +44,7 @@ var VSimpleTable = __webpack_require__(160);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(377);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/master/index.vue?vue&type=template&id=617876c1&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/master/index.vue?vue&type=template&id=2948fc5e&scoped=true&
 
 
 
@@ -59,12 +59,12 @@ var VSpacer = __webpack_require__(377);
 
 
 
-var mastervue_type_template_id_617876c1_scoped_true_render = function render() {
+var mastervue_type_template_id_2948fc5e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "payment-settlement-analysis"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-617876c1><div class=\"title-section\" data-v-617876c1><h1 class=\"page-title\" data-v-617876c1><i class=\"fas fa-analytics\" data-v-617876c1></i>\n        ການວິເຄາະການຊຳລະ ແລະລາຍຮັບ\n      </h1> <p class=\"page-subtitle\" data-v-617876c1>Payment &amp; Settlement Analysis</p></div></div> "), _c(VCard["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-2948fc5e><div class=\"title-section\" data-v-2948fc5e><h1 class=\"page-title\" data-v-2948fc5e><i class=\"fas fa-analytics\" data-v-2948fc5e></i>\n        ການວິເຄາະການຊຳລະ ແລະລາຍຮັບ\n      </h1> <p class=\"page-subtitle\" data-v-2948fc5e>Payment &amp; Settlement Analysis</p></div></div> "), _c(VCard["a" /* default */], {
     staticClass: "filter-card mb-4",
     attrs: {
       "elevation": "2"
@@ -177,7 +177,7 @@ var mastervue_type_template_id_617876c1_scoped_true_render = function render() {
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2"
-  }, [_vm._v("Loading reports...")])], 1)], 1) : _vm._e(), _vm._ssrNode(" <div class=\"section-header mb-3\" data-v-617876c1><h2 class=\"section-title\" data-v-617876c1><i class=\"fas fa-balance-scale\" data-v-617876c1></i>\n      ຍອດຍົກມາ (BALANCE FORWARD)\n    </h2></div> "), _c(VRow["a" /* default */], {
+  }, [_vm._v("Loading reports...")])], 1)], 1) : _vm._e(), _vm._ssrNode(" <div class=\"section-header mb-3\" data-v-2948fc5e><h2 class=\"section-title\" data-v-2948fc5e><i class=\"fas fa-balance-scale\" data-v-2948fc5e></i>\n      ຍອດຍົກມາ (BALANCE FORWARD)\n    </h2></div> "), _c(VRow["a" /* default */], {
     staticClass: "summary-cards mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -379,7 +379,7 @@ var mastervue_type_template_id_617876c1_scoped_true_render = function render() {
       },
       proxy: true
     }])
-  })], 1)], 1)], 1)], 1), _vm._ssrNode(" <div class=\"section-header mb-3\" data-v-617876c1><h2 class=\"section-title\" data-v-617876c1><i class=\"fas fa-credit-card\" data-v-617876c1></i>\n      ລາຍຈ່າຍ (PAYMENTS)\n    </h2></div> "), _c(VRow["a" /* default */], {
+  })], 1)], 1)], 1)], 1), _vm._ssrNode(" <div class=\"section-header mb-3\" data-v-2948fc5e><h2 class=\"section-title\" data-v-2948fc5e><i class=\"fas fa-credit-card\" data-v-2948fc5e></i>\n      ລາຍຈ່າຍ (PAYMENTS)\n    </h2></div> "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -667,7 +667,7 @@ var mastervue_type_template_id_617876c1_scoped_true_render = function render() {
       },
       proxy: true
     }])
-  })], 1)], 1)], 1)], 1), _vm._ssrNode(" <div class=\"section-header mb-3 mt-6\" data-v-617876c1><h2 class=\"section-title\" data-v-617876c1><i class=\"fas fa-receipt\" data-v-617876c1></i>\n      ລາຍຮັບ (SETTLEMENTS)\n    </h2></div> "), _c(VRow["a" /* default */], {
+  })], 1)], 1)], 1)], 1), _vm._ssrNode(" <div class=\"section-header mb-3 mt-6\" data-v-2948fc5e><h2 class=\"section-title\" data-v-2948fc5e><i class=\"fas fa-receipt\" data-v-2948fc5e></i>\n      ລາຍຮັບ (SETTLEMENTS)\n    </h2></div> "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -1097,7 +1097,7 @@ var mastervue_type_template_id_617876c1_scoped_true_render = function render() {
       },
       proxy: true
     }])
-  })], 1)], 1)], 1)], 1), _vm._ssrNode(" <div class=\"section-header mb-3 mt-6\" data-v-617876c1><h2 class=\"section-title\" data-v-617876c1><i class=\"fas fa-calculator\" data-v-617876c1></i>\n      ຍອດຄົງເຫຼືອ (OUTSTANDING BALANCE)\n    </h2></div> "), _c(VRow["a" /* default */], {
+  })], 1)], 1)], 1)], 1), _vm._ssrNode(" <div class=\"section-header mb-3 mt-6\" data-v-2948fc5e><h2 class=\"section-title\" data-v-2948fc5e><i class=\"fas fa-calculator\" data-v-2948fc5e></i>\n      ຍອດຄົງເຫຼືອ (OUTSTANDING BALANCE)\n    </h2></div> "), _c(VRow["a" /* default */], {
     staticClass: "summary-cards mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -1459,7 +1459,7 @@ var mastervue_type_template_id_617876c1_scoped_true_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/master/index.vue?vue&type=template&id=617876c1&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/report/MA/master/index.vue?vue&type=template&id=2948fc5e&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/master/index.vue?vue&type=script&lang=js&
 var mastervue_type_script_lang_js_ = __webpack_require__(636);
@@ -1484,11 +1484,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_mastervue_type_script_lang_js_,
-  mastervue_type_template_id_617876c1_scoped_true_render,
+  mastervue_type_template_id_2948fc5e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "617876c1",
+  "2948fc5e",
   "e712e034"
   
 )
@@ -2887,7 +2887,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("43169140", content, true, context)
+  add("c0edd022", content, true, context)
 };
 
 /***/ }),
@@ -2897,9 +2897,9 @@ module.exports.__inject__ = function (context) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_617876c1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(740);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_617876c1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_617876c1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_617876c1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_617876c1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2948fc5e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(740);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2948fc5e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2948fc5e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2948fc5e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2948fc5e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -2911,7 +2911,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".payment-settlement-analysis[data-v-617876c1]{padding:0}.report-header[data-v-617876c1]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:20px}.title-section h1[data-v-617876c1]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-617876c1]{font-size:14px;margin:5px 0 0;opacity:.9}.filter-card[data-v-617876c1]{background:#fff}.filter-title[data-v-617876c1]{background:#f8f9fa;color:#495057;font-weight:600}.filter-info[data-v-617876c1]{display:flex;flex-direction:column;height:100%;justify-content:center}.filter-actions[data-v-617876c1]{align-items:center;display:flex;gap:12px}.section-header[data-v-617876c1]{border-bottom:3px solid #e0e0e0;padding-bottom:8px}.section-title[data-v-617876c1]{color:#495057;font-size:24px;font-weight:600;margin:0}.section-title i[data-v-617876c1]{color:#667eea;margin-right:12px}.summary-cards .summary-card[data-v-617876c1]{height:100%}.summary-content[data-v-617876c1]{gap:16px}.summary-content[data-v-617876c1],.summary-icon[data-v-617876c1]{align-items:center;display:flex}.summary-icon[data-v-617876c1]{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;color:#fff;font-size:24px;height:60px;justify-content:center;width:60px}.summary-details h3[data-v-617876c1]{color:#495057;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-617876c1]{color:#6c757d;font-size:14px;margin:4px 0}.summary-amount[data-v-617876c1]{color:#01532b;font-size:24px;font-weight:700;margin:8px 0 4px}.custom-green-header[data-v-617876c1]{background-color:#01532b!important;color:#fff!important}.custom-green-text[data-v-617876c1]{color:#01532b!important}.custom-green-bg-light[data-v-617876c1]{background-color:rgba(1,83,43,.1)!important}.custom-green-bg-lighter[data-v-617876c1]{background-color:rgba(1,83,43,.05)!important}.success--text[data-v-617876c1],.v-card-title.success--text[data-v-617876c1],.v-icon.success[data-v-617876c1],.v-progress-circular.success[data-v-617876c1]{color:#01532b!important}.success.lighten-3[data-v-617876c1]{background-color:#01532b!important}.success.lighten-4[data-v-617876c1]{background-color:rgba(1,83,43,.1)!important}@media (max-width:768px){.report-header[data-v-617876c1]{flex-direction:column;gap:16px;text-align:center}.filter-actions[data-v-617876c1]{flex-direction:column;width:100%}.filter-actions .v-btn[data-v-617876c1]{width:100%}.section-title[data-v-617876c1]{font-size:20px}.summary-content[data-v-617876c1]{flex-direction:column;text-align:center}.summary-amount[data-v-617876c1]{font-size:20px}.outstanding-total-card .summary-icon[data-v-617876c1]{background:linear-gradient(135deg,#ff6b6b,#ee5a24)}.outstanding-ministry-card .summary-icon[data-v-617876c1]{background:linear-gradient(135deg,#4834d4,#686de0)}.outstanding-account-card .summary-icon[data-v-617876c1]{background:linear-gradient(135deg,#00d2d3,#54a0ff)}.outstanding-total-card .summary-amount[data-v-617876c1]{color:#ee5a24}.outstanding-ministry-card .summary-amount[data-v-617876c1]{color:#4834d4}.outstanding-account-card .summary-amount[data-v-617876c1]{color:#00d2d3}.v-simple-table tbody tr.green.lighten-5[data-v-617876c1]{background-color:rgba(76,175,80,.1)!important}.v-simple-table tbody tr.red.lighten-5[data-v-617876c1]{background-color:rgba(244,67,54,.1)!important}.outstanding-positive[data-v-617876c1]{color:#4caf50!important;font-weight:700}.outstanding-negative[data-v-617876c1]{color:#f44336!important;font-weight:700}@media (max-width:768px){.outstanding-account-card .summary-amount[data-v-617876c1],.outstanding-ministry-card .summary-amount[data-v-617876c1],.outstanding-total-card .summary-amount[data-v-617876c1]{font-size:18px}}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".payment-settlement-analysis[data-v-2948fc5e]{padding:0}.report-header[data-v-2948fc5e]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:20px}.title-section h1[data-v-2948fc5e]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-2948fc5e]{font-size:14px;margin:5px 0 0;opacity:.9}.filter-card[data-v-2948fc5e]{background:#fff}.filter-title[data-v-2948fc5e]{background:#f8f9fa;color:#495057;font-weight:600}.filter-info[data-v-2948fc5e]{display:flex;flex-direction:column;height:100%;justify-content:center}.filter-actions[data-v-2948fc5e]{align-items:center;display:flex;gap:12px}.section-header[data-v-2948fc5e]{border-bottom:3px solid #e0e0e0;padding-bottom:8px}.section-title[data-v-2948fc5e]{color:#495057;font-size:24px;font-weight:600;margin:0}.section-title i[data-v-2948fc5e]{color:#01532b;margin-right:12px}.summary-cards .summary-card[data-v-2948fc5e]{height:100%}.summary-content[data-v-2948fc5e]{gap:16px}.summary-content[data-v-2948fc5e],.summary-icon[data-v-2948fc5e]{align-items:center;display:flex}.summary-icon[data-v-2948fc5e]{background:#01532b;border-radius:12px;color:#fff;font-size:24px;height:60px;justify-content:center;width:60px}.summary-details h3[data-v-2948fc5e]{color:#495057;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-2948fc5e]{color:#6c757d;font-size:14px;margin:4px 0}.summary-amount[data-v-2948fc5e]{color:#01532b;font-size:24px;font-weight:700;margin:8px 0 4px}.custom-green-header[data-v-2948fc5e]{background-color:#01532b!important;color:#fff!important}.custom-green-text[data-v-2948fc5e]{color:#01532b!important}.custom-green-bg-light[data-v-2948fc5e]{background-color:rgba(1,83,43,.1)!important}.custom-green-bg-lighter[data-v-2948fc5e]{background-color:rgba(1,83,43,.05)!important}.success--text[data-v-2948fc5e],.v-card-title.success--text[data-v-2948fc5e],.v-icon.success[data-v-2948fc5e],.v-progress-circular.success[data-v-2948fc5e]{color:#01532b!important}.success.lighten-3[data-v-2948fc5e]{background-color:#01532b!important}.success.lighten-4[data-v-2948fc5e]{background-color:rgba(1,83,43,.1)!important}@media (max-width:768px){.report-header[data-v-2948fc5e]{flex-direction:column;gap:16px;text-align:center}.filter-actions[data-v-2948fc5e]{flex-direction:column;width:100%}.filter-actions .v-btn[data-v-2948fc5e]{width:100%}.section-title[data-v-2948fc5e]{font-size:20px}.summary-content[data-v-2948fc5e]{flex-direction:column;text-align:center}.summary-amount[data-v-2948fc5e]{font-size:20px}.outstanding-total-card .summary-icon[data-v-2948fc5e]{background:linear-gradient(135deg,#ff6b6b,#ee5a24)}.outstanding-ministry-card .summary-icon[data-v-2948fc5e]{background:linear-gradient(135deg,#4834d4,#686de0)}.outstanding-account-card .summary-icon[data-v-2948fc5e]{background:linear-gradient(135deg,#00d2d3,#54a0ff)}.outstanding-total-card .summary-amount[data-v-2948fc5e]{color:#ee5a24}.outstanding-ministry-card .summary-amount[data-v-2948fc5e]{color:#4834d4}.outstanding-account-card .summary-amount[data-v-2948fc5e]{color:#00d2d3}.v-simple-table tbody tr.green.lighten-5[data-v-2948fc5e]{background-color:rgba(76,175,80,.1)!important}.v-simple-table tbody tr.red.lighten-5[data-v-2948fc5e]{background-color:rgba(244,67,54,.1)!important}.outstanding-positive[data-v-2948fc5e]{color:#4caf50!important;font-weight:700}.outstanding-negative[data-v-2948fc5e]{color:#f44336!important;font-weight:700}@media (max-width:768px){.outstanding-account-card .summary-amount[data-v-2948fc5e],.outstanding-ministry-card .summary-amount[data-v-2948fc5e],.outstanding-total-card .summary-amount[data-v-2948fc5e]{font-size:18px}}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

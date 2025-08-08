@@ -2749,7 +2749,7 @@ export default {
   align-items: center;
   margin-bottom: 24px;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532b;/*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
   color: white;
   border-radius: 8px;
 }
@@ -2803,7 +2803,7 @@ export default {
 
 .section-title i {
   margin-right: 12px;
-  color: #667eea;
+  color: #01532b;
 }
 
 .summary-cards .summary-card {
@@ -2817,7 +2817,7 @@ export default {
 }
 
 .summary-icon {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532b; /*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
   color: white;
   width: 60px;
   height: 60px;

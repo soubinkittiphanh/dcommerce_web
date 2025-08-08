@@ -10,25 +10,30 @@
         <p class="page-subtitle">Ministry Summary Report</p>
       </div>
       <div class="action-buttons">
-        <v-btn color="success" @click="exportToExcel" :loading="exporting">
+        <v-btn
+          class="custom-btn export-btn"
+          @click="exportToExcel"
+          :loading="exporting"
+        >
           <i class="fas fa-file-excel"></i>
           Export Excel
         </v-btn>
-        <v-btn color="primary" @click="printReport">
+        <v-btn class="custom-btn print-btn" @click="printReport">
           <i class="fas fa-print"></i>
           Print
         </v-btn>
       </div>
     </div>
-
     <!-- Filters Card -->
     <v-card class="filter-card mb-4" elevation="2">
-      <v-card-title class="filter-title">
-        <i class="fas fa-filter"></i>
+      <v-card-title class="filter-title d-flex align-center">
+        <v-icon class="mr-2">mdi-filter</v-icon>
         ຕົວກອງ (Filters)
       </v-card-title>
-      <v-card-text>
-        <v-row>
+
+      <v-card-text class="pt-4 pb-4 px-4">
+        <v-row dense>
+          <!-- Report Month -->
           <v-col cols="12" md="4">
             <v-menu
               v-model="monthMenu"
@@ -45,16 +50,20 @@
                   readonly
                   v-bind="attrs"
                   v-on="on"
+                  outlined
+                  dense
                 ></v-text-field>
               </template>
               <v-date-picker
                 v-model="filters.reportMonth"
                 type="month"
                 @input="monthMenu = false"
+                color="#01532B"
               ></v-date-picker>
             </v-menu>
           </v-col>
 
+          <!-- Ministry Select -->
           <v-col cols="12" md="4">
             <v-select
               v-model="filters.ministryId"
@@ -64,20 +73,34 @@
               label="ກະຊວງ (Ministry)"
               prepend-icon="mdi-office-building"
               clearable
+              outlined
+              dense
             ></v-select>
           </v-col>
 
-          <v-col cols="12" md="4">
-            <div class="filter-actions">
-              <v-btn color="primary" @click="applyFilters" :loading="loading">
-                <i class="fas fa-search"></i>
-                ຄົ້ນຫາ
-              </v-btn>
-              <v-btn color="secondary" @click="resetFilters">
-                <i class="fas fa-undo"></i>
-                ຣີເຊັດ
-              </v-btn>
-            </div>
+          <!-- Action Buttons -->
+          <v-col cols="12" md="4" class="d-flex align-center">
+            <v-btn
+              class="custom-primary-btn mr-2"
+              @click="applyFilters"
+              :loading="loading"
+              color="primary"
+              depressed
+              small
+            >
+              <v-icon left small>mdi-magnify</v-icon>
+              ຄົ້ນຫາ
+            </v-btn>
+            <v-btn
+              class="custom-secondary-btn"
+              @click="resetFilters"
+              color="grey lighten-1"
+              depressed
+              small
+            >
+              <v-icon left small>mdi-restore</v-icon>
+              ຣີເຊັດ
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
@@ -86,7 +109,7 @@
     <!-- Summary Cards -->
     <v-row class="summary-cards mb-4">
       <v-col cols="12" md="3">
-        <v-card class="summary-card brought-forward-card" elevation="3">
+        <v-card class="summary-card brought-forward-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
@@ -106,7 +129,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card advance-card" elevation="3">
+        <v-card class="summary-card advance-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
@@ -126,7 +149,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card settlement-card" elevation="3">
+        <v-card class="summary-card settlement-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
@@ -146,7 +169,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card balance-card" elevation="3">
+        <v-card class="summary-card balance-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
@@ -168,7 +191,7 @@
 
     <!-- Ministry Chart -->
     <v-card class="chart-card mb-4" elevation="2">
-      <v-card-title>
+      <v-card-title class="chart-title">
         <i class="fas fa-chart-bar"></i>
         ກາຟສະຫຼຸບຕາມກົມ (Ministry Summary Chart)
       </v-card-title>
@@ -192,6 +215,8 @@
           single-line
           hide-details
           class="search-field"
+          outlined
+          dense
         ></v-text-field>
       </v-card-title>
 
@@ -293,9 +318,8 @@
         <template v-slot:item.actions="{ item }">
           <v-btn
             small
-            color="primary"
+            class="custom-action-btn"
             @click="viewMinistryDetails(item)"
-            class="mr-2"
           >
             <i class="fas fa-eye"></i>
             ລາຍລະອຽດ
@@ -307,13 +331,13 @@
     <!-- Ministry Details Dialog -->
     <v-dialog v-model="detailsDialog" max-width="1000px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="dialog-header">
           <i class="fas fa-building"></i>
           ລາຍລະອຽດ - {{ selectedMinistry?.ministryName }} ({{
             selectedMinistry?.currencyCode
           }})
           <v-spacer></v-spacer>
-          <v-btn icon @click="detailsDialog = false">
+          <v-btn icon @click="detailsDialog = false" class="close-btn">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -321,8 +345,10 @@
           <!-- Ministry Summary -->
           <v-row class="mb-4">
             <v-col cols="12">
-              <h3>ສະຫຼຸບ - {{ selectedMinistry.currencyCode }} (Summary)</h3>
-              <v-divider class="mb-3"></v-divider>
+              <h3 class="section-title">
+                ສະຫຼຸບ - {{ selectedMinistry.currencyCode }} (Summary)
+              </h3>
+              <v-divider class="custom-divider mb-3"></v-divider>
             </v-col>
             <v-col cols="6" md="3">
               <div class="detail-stat">
@@ -381,8 +407,8 @@
           <!-- Detailed Transactions -->
           <v-row>
             <v-col cols="12">
-              <h3>ລາຍການລະອຽດ (Detailed Transactions)</h3>
-              <v-divider class="mb-3"></v-divider>
+              <h3 class="section-title">ລາຍການລະອຽດ (Detailed Transactions)</h3>
+              <v-divider class="custom-divider mb-3"></v-divider>
               <v-data-table
                 :headers="detailHeaders"
                 :items="ministryDetails"
@@ -495,8 +521,6 @@ export default {
         { text: 'LCY', value: 'lcyAmount' },
         { text: 'ຈຸດປະສົງ', value: 'purpose' },
         { text: 'ຜູ້ດຳເນີນການ', value: 'user' },
-        { text: 'ຈຸດປະສົງ', value: 'purpose' },
-        { text: 'ຜູ້ດຳເນີນການ', value: 'user' },
       ],
     }
   },
@@ -581,22 +605,22 @@ export default {
             {
               label: 'ຍອດຍົກມາ',
               data: [],
-              backgroundColor: 'rgba(54, 162, 235, 0.6)',
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor: '#01532B',
+              borderColor: '#01532B',
               borderWidth: 1,
             },
             {
               label: 'ລາຍຈ່າຍເດືອນນີ້',
               data: [],
-              backgroundColor: 'rgba(255, 99, 132, 0.6)',
-              borderColor: 'rgba(255, 99, 132, 1)',
+              backgroundColor: '#228B22',
+              borderColor: '#228B22',
               borderWidth: 1,
             },
             {
               label: 'ຊຳລະເດືອນນີ້',
               data: [],
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
-              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: '#32CD32',
+              borderColor: '#32CD32',
               borderWidth: 1,
             },
           ],
@@ -604,20 +628,27 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                  callback: function (value) {
-                    return new Intl.NumberFormat('en-US').format(value)
-                  },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                usePointStyle: true,
+                padding: 15,
+                font: {
+                  size: 11,
                 },
               },
-            ],
+            },
           },
-          legend: {
-            position: 'bottom',
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function (value) {
+                  return new Intl.NumberFormat('en-US').format(value)
+                },
+              },
+            },
           },
         },
       })
@@ -727,25 +758,25 @@ export default {
 
     getCurrencyColor(currencyCode) {
       const colors = {
-        USD: 'green',
-        LAK: 'blue',
-        THB: 'orange',
-        EUR: 'purple',
-        CNY: 'red',
+        USD: '#01532B',
+        LAK: '#01532B',
+        THB: '#228B22',
+        EUR: '#006400',
+        CNY: '#666',
       }
-      return colors[currencyCode] || 'grey'
+      return colors[currencyCode] || '#01532B'
     },
 
     getTypeColor(type) {
       switch (type) {
         case 'advance':
-          return 'blue'
+          return '#01532B'
         case 'settlement':
-          return 'green'
+          return '#228B22'
         case 'brought_forward':
-          return 'orange'
+          return '#006400'
         default:
-          return 'grey'
+          return '#01532B'
       }
     },
 
@@ -766,17 +797,19 @@ export default {
 </script>
 
 <style scoped>
+/* Custom Color Theme Variables */
 .ministry-summary-report {
   padding: 0;
 }
 
+/* Header Section */
 .report-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 24px;
+  background: #01532b;
   color: white;
   border-radius: 8px;
 }
@@ -788,27 +821,37 @@ export default {
 }
 
 .title-section p {
-  margin: 5px 0 0 0;
+  margin: 8px 0 0 0;
   opacity: 0.9;
   font-size: 14px;
 }
 
 .action-buttons {
   display: flex;
-  gap: 12px;
+  gap: 16px;
 }
 
-.action-buttons .v-btn {
-  color: white !important;
+.custom-btn {
+  color: #01532b !important;
+  border: 1px solid white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
 }
 
+.custom-btn:hover {
+  background-color: white !important;
+  color: #01532b !important;
+}
+
+/* Filter Card */
 .filter-card {
   background: white;
+  border-radius: 8px;
 }
 
 .filter-title {
-  background: #f8f9fa;
-  color: #495057;
+  background: #01532b;
+  color: white;
   font-weight: 600;
 }
 
@@ -819,6 +862,29 @@ export default {
   margin-top: 20px;
 }
 
+.custom-primary-btn {
+  background-color: #01532b !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-primary-btn:hover {
+  background-color: #014025 !important;
+}
+
+.custom-secondary-btn {
+  background-color: #6c757d !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-secondary-btn:hover {
+  background-color: #5a6268 !important;
+}
+
+/* Summary Cards */
 .summary-cards {
   margin-bottom: 24px;
 }
@@ -827,17 +893,24 @@ export default {
   height: 140px;
   position: relative;
   overflow: hidden;
+  border-radius: 8px;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
 }
 
 .summary-content {
   display: flex;
   align-items: center;
   height: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .summary-icon {
   font-size: 48px;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-right: 16px;
 }
 
@@ -845,63 +918,75 @@ export default {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: white;
 }
 
 .summary-details p {
   margin: 4px 0;
   font-size: 12px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .summary-details h2 {
   margin: 8px 0 0 0;
   font-size: 24px;
   font-weight: 700;
+  color: white;
 }
 
 .summary-lcy {
   font-size: 11px;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-top: 4px !important;
 }
 
 .brought-forward-card {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #333;
+  background: #01532b;
+  color: white;
 }
 
 .advance-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532b;
   color: white;
 }
 
 .settlement-card {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: #01532b;
   color: white;
 }
 
 .balance-card {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  color: #333;
+  background: #01532b;
+  color: white;
 }
 
+/* Chart Section */
 .chart-card {
   margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.chart-title {
+  background: #01532b;
+  color: white;
+  font-weight: 600;
 }
 
 .chart-container {
   height: 400px;
   position: relative;
+  padding: 20px;
 }
 
+/* Table Section */
 .table-card {
   margin-bottom: 24px;
+  border-radius: 8px;
 }
 
 .table-title {
-  background: #f8f9fa;
-  color: #495057;
+  background: #01532b;
+  color: white;
   font-weight: 600;
 }
 
@@ -909,10 +994,30 @@ export default {
   max-width: 300px;
 }
 
+.search-field >>> input {
+  color: white !important;
+}
+
+.search-field >>> .v-icon {
+  color: white !important;
+}
+
 .report-table {
   background: white;
 }
 
+.report-table >>> thead th {
+  background-color: #01532b !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+}
+
+.report-table >>> tbody tr:hover {
+  background-color: rgba(1, 83, 43, 0.1) !important;
+}
+
+/* Table Cell Styling */
 .ministry-cell {
   display: flex;
   flex-direction: column;
@@ -921,12 +1026,19 @@ export default {
 .ministry-name {
   font-weight: 600;
   font-size: 14px;
+  color: #01532b;
 }
 
 .ministry-code {
   font-size: 11px;
   color: #666;
-  font-family: monospace;
+  font-family: 'Courier New', monospace;
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  display: inline-block;
+  width: fit-content;
 }
 
 .amount-breakdown {
@@ -935,148 +1047,202 @@ export default {
   align-items: center;
 }
 
-.amount-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .amount-cell {
-  font-family: monospace;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.currency-code {
-  font-size: 10px;
-  background: #e9ecef;
-  padding: 2px 6px;
-  border-radius: 12px;
-  color: #495057;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .exchange-rate {
-  font-size: 10px;
+  font-size: 11px;
   color: #666;
-  margin-top: 2px;
+  margin-top: 4px;
+  font-style: italic;
 }
 
 .lcy-amount {
-  color: #6f42c1;
+  color: var(--custom-primary) !important;
 }
 
 .advance-amount {
-  color: #667eea;
+  color: #ff8c00 !important;
 }
 
 .settlement-amount {
-  color: #28a745;
+  color: var(--custom-success) !important;
 }
 
 .balance-amount {
-  font-weight: 700;
+  font-weight: 800 !important;
+  font-size: 16px !important;
 }
 
 .positive-balance {
-  color: #28a745;
+  color: var(--custom-success) !important;
 }
 
 .negative-balance {
-  color: #dc3545;
+  color: var(--custom-error) !important;
 }
 
 .zero-balance {
-  color: #6c757d;
+  color: #6c757d !important;
+}
+
+.custom-action-btn {
+  background-color: var(--custom-primary) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+.custom-action-btn:hover {
+  background-color: var(--custom-success) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(1, 83, 43, 0.3) !important;
+}
+
+/* Dialog Styling */
+.dialog-header {
+  background: linear-gradient(90deg, #01532b, #228b22) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.close-btn {
+  color: white !important;
+}
+
+.section-title {
+  color: var(--custom-primary);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.custom-divider {
+  border-color: var(--custom-primary) !important;
+  opacity: 0.3 !important;
 }
 
 .detail-stat {
   text-align: center;
-  padding: 12px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  border-left: 4px solid var(--custom-primary);
+  transition: all 0.3s ease;
+}
+
+.detail-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
 }
 
 .detail-stat strong {
   display: block;
-  margin-bottom: 8px;
-  color: #495057;
-  font-size: 14px;
+  margin-bottom: 12px;
+  color: var(--custom-primary);
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .detail-stat p {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  font-family: monospace;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
 }
 
 .detail-stat small {
   display: block;
-  margin-top: 4px;
-  font-size: 11px;
+  margin-top: 8px;
+  font-size: 12px;
   color: #666;
   font-style: italic;
 }
 
 .balance-text {
-  font-weight: 700;
+  font-weight: 800 !important;
 }
 
-.detail-table {
-  margin-top: 16px;
+.detail-table >>> thead th {
+  background-color: var(--custom-primary) !important;
+  color: white !important;
+  font-weight: 600 !important;
 }
 
-.date-cell {
-  font-family: monospace;
-  font-size: 13px;
+/* Currency and Reference Cell Styling */
+.currency-code {
+  font-size: 10px;
+  background: rgba(1, 83, 43, 0.1);
+  padding: 2px 6px;
+  border-radius: 10px;
+  color: #01532b;
+  font-weight: 600;
+  margin-left: 6px;
 }
 
 .reference-cell {
-  font-family: monospace;
+  font-family: 'Courier New', monospace;
   font-size: 12px;
-  color: #666;
-  background: #f8f9fa;
-  padding: 2px 6px;
+  color: white;
+  background: #01532b;
+  padding: 3px 8px;
   border-radius: 4px;
+  font-weight: 500;
 }
 
-/* Print styles */
-@media print {
-  .action-buttons,
-  .filter-card,
-  .v-btn {
-    display: none !important;
-  }
-
-  .summary-cards {
-    page-break-inside: avoid;
-  }
-
-  .chart-card {
-    page-break-inside: avoid;
-  }
+.date-cell {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: #01532b;
 }
 
-/* Responsive adjustments */
+/* Loading States */
+.v-data-table >>> .v-data-table__progress {
+  background: rgba(1, 83, 43, 0.1);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .report-header {
     flex-direction: column;
     text-align: center;
     gap: 16px;
+    padding: 16px;
+  }
+
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .summary-content {
     flex-direction: column;
     text-align: center;
+    padding: 12px;
   }
 
   .summary-icon {
     margin-right: 0;
     margin-bottom: 8px;
+    font-size: 40px;
+  }
+
+  .summary-details h2 {
+    font-size: 20px;
   }
 
   .chart-container {
     height: 300px;
+    padding: 10px;
   }
 
   .filter-actions {
@@ -1093,31 +1259,38 @@ export default {
   }
 
   .detail-stat {
-    padding: 8px;
+    padding: 10px;
   }
 
   .detail-stat p {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
-/* Loading states */
-.v-data-table >>> .v-data-table__progress {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+/* Print Styles */
+@media print {
+  .action-buttons,
+  .filter-card,
+  .v-btn {
+    display: none !important;
+  }
+
+  .summary-cards {
+    page-break-inside: avoid;
+  }
+
+  .chart-card {
+    page-break-inside: avoid;
+  }
+
+  .report-header {
+    background: #01532b !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+  }
 }
 
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-/* Custom scrollbar for dialogs */
+/* Custom Scrollbar */
 .v-dialog .v-card-text {
   max-height: 70vh;
   overflow-y: auto;
@@ -1133,11 +1306,11 @@ export default {
 }
 
 .v-dialog .v-card-text::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #01532b;
   border-radius: 3px;
 }
 
 .v-dialog .v-card-text::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #014025;
 }
 </style>
