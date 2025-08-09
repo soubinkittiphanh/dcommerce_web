@@ -1,7 +1,7 @@
 exports.ids = [201,197];
 exports.modules = {
 
-/***/ 1122:
+/***/ 1118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30,7 +30,7 @@ var VCol = __webpack_require__(379);
 var VContainer = __webpack_require__(375);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(387);
+var VDataTable = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(337);
@@ -38,44 +38,23 @@ var VDialog = __webpack_require__(337);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(119);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
-var VExpansionPanel = __webpack_require__(384);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelContent.js
-var VExpansionPanelContent = __webpack_require__(386);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelHeader.js
-var VExpansionPanelHeader = __webpack_require__(385);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
-var VExpansionPanels = __webpack_require__(383);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(380);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
-var VList = __webpack_require__(113);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
 var VListItem = __webpack_require__(67);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAction.js
-var VListItemAction = __webpack_require__(114);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAvatar.js
-var VListItemAvatar = __webpack_require__(116);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var components_VList = __webpack_require__(9);
+var VList = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
 var VListItemIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(104);
+var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(378);
@@ -93,14 +72,12 @@ var VSpacer = __webpack_require__(377);
 var VTextField = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(416);
+var VTextarea = __webpack_require__(412);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
-var VTooltip = __webpack_require__(714);
+var VTooltip = __webpack_require__(709);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=178d0b7e&scoped=true&
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=2116f6e9&scoped=true&
 
 
 
@@ -129,12 +106,7 @@ var VTooltip = __webpack_require__(714);
 
 
 
-
-
-
-
-
-var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render() {
+var settlementvue_type_template_id_2116f6e9_scoped_true_render = function render() {
   var _vm$currentSettlement;
   var _vm = this,
     _c = _vm._self._c;
@@ -151,8 +123,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "md": "8"
     }
   }, [_c('h1', {
-    staticClass: "text-h4 font-weight-bold primary--text"
-  }, [_vm._v("\n        Settlements Dashboard\n      ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h4 font-weight-bold banking-primary--text"
+  }, [_vm._v("\n        ກະດານ ລາຍຮັບ\n      ")]), _vm._v(" "), _c('p', {
     staticClass: "text-subtitle-1 grey--text"
   }, [_vm._v("\n        Manage and monitor all settlement transactions\n      ")])]), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "text-right",
@@ -161,21 +133,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "md": "4"
     }
   }, [_c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
     attrs: {
-      "color": "primary",
-      "large": ""
-    },
-    on: {
-      "click": _vm.openCreateDialog
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-plus")]), _vm._v("\n        New Settlement\n      ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "secondary",
+      "color": "#01532B",
       "large": "",
       "outlined": "",
       "loading": _vm.loading
@@ -196,9 +155,9 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "text-center",
+    staticClass: "text-center summary-card",
     attrs: {
-      "color": "primary",
+      "color": "#01532B",
       "dark": "",
       "elevation": "3"
     }
@@ -220,9 +179,9 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "text-center",
+    staticClass: "text-center summary-card",
     attrs: {
-      "color": "success",
+      "color": "#059669",
       "dark": "",
       "elevation": "3"
     }
@@ -244,9 +203,9 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "text-center",
+    staticClass: "text-center summary-card",
     attrs: {
-      "color": "info",
+      "color": "#0D7C66",
       "dark": "",
       "elevation": "3"
     }
@@ -268,9 +227,9 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "text-center",
+    staticClass: "text-center summary-card",
     attrs: {
-      "color": "warning",
+      "color": "#F59E0B",
       "dark": "",
       "elevation": "3"
     }
@@ -286,185 +245,29 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
   }, [_vm._v(_vm._s(_vm.stats.pending || 0))]), _vm._v(" "), _c('div', {
     staticClass: "text-subtitle-1"
   }, [_vm._v("Pending")])], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-6"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "4"
-    }
-  }, [_c(VCard["a" /* default */], {
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-chart-donut")]), _vm._v("\n          Settlement Methods\n        ")], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticStyle: {
-      "height": "300px"
-    }
-  }, [_c('canvas', {
-    ref: "methodChart",
-    attrs: {
-      "width": "100%",
-      "height": "100%"
-    }
-  })])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "4"
-    }
-  }, [_c(VCard["a" /* default */], {
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-chart-line")]), _vm._v("\n          Monthly Trends\n        ")], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticStyle: {
-      "height": "300px"
-    }
-  }, [_c('canvas', {
-    ref: "trendChart",
-    attrs: {
-      "width": "100%",
-      "height": "100%"
-    }
-  })])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "4"
-    }
-  }, [_c(VCard["a" /* default */], {
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-office-building")]), _vm._v("\n          Ministry & Currency Summary\n          "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "small": "",
-      "loading": _vm.loadingMinistrySummary
-    },
-    on: {
-      "click": _vm.fetchMinistrySummary
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticStyle: {
-      "height": "300px",
-      "overflow-y": "auto"
-    }
-  }, [_vm.loadingMinistrySummary ? _c('div', {
-    staticClass: "text-center pa-4"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "indeterminate": "",
-      "color": "primary"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-caption"
-  }, [_vm._v("Loading summary...")])], 1) : _vm.ministrySummary.length === 0 ? _c('div', {
-    staticClass: "text-center pa-4"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
-    }
-  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-subtitle-2 grey--text"
-  }, [_vm._v("\n              No ministry data available\n            ")])], 1) : _c(VExpansionPanels["a" /* default */], {
-    attrs: {
-      "accordion": "",
-      "flat": ""
-    }
-  }, _vm._l(_vm.ministrySummary, function (ministry) {
-    return _c(VExpansionPanel["a" /* default */], {
-      key: ministry.ministryId
-    }, [_c(VExpansionPanelHeader["a" /* default */], [_c('div', {
-      staticClass: "d-flex justify-space-between align-center"
-    }, [_c('div', [_c('div', {
-      staticClass: "font-weight-medium text-subtitle-2"
-    }, [_vm._v("\n                      " + _vm._s(ministry.ministryName || `Ministry #${ministry.ministryId}`) + "\n                    ")]), _vm._v(" "), _c('div', {
-      staticClass: "text-caption grey--text"
-    }, [_vm._v("\n                      " + _vm._s(ministry.settlementCount) + " settlements\n                    ")])]), _vm._v(" "), _c('div', {
-      staticClass: "text-right"
-    }, [_c('div', {
-      staticClass: "font-weight-bold success--text"
-    }, [_vm._v("\n                      ₭" + _vm._s(_vm.formatAmount(ministry.totalLakEquivalent)) + "\n                    ")]), _vm._v(" "), _c('div', {
-      staticClass: "text-caption grey--text"
-    }, [_vm._v("\n                      " + _vm._s(ministry.currencies.length) + " currencies\n                    ")])])])]), _vm._v(" "), _c(VExpansionPanelContent["a" /* default */], [_c(VList["a" /* default */], {
-      attrs: {
-        "dense": ""
-      }
-    }, _vm._l(ministry.currencies, function (currency) {
-      return _c(VListItem["a" /* default */], {
-        key: `${ministry.ministryId}-${currency.currencyId}`,
-        staticClass: "px-0"
-      }, [_c(VListItemAvatar["a" /* default */], {
-        attrs: {
-          "size": "24"
-        }
-      }, [_c(VChip["a" /* default */], {
-        attrs: {
-          "x-small": "",
-          "color": _vm.getCurrencyColor(currency.currencyCode),
-          "dark": ""
-        }
-      }, [_vm._v("\n                        " + _vm._s(currency.currencyCode || 'LAK') + "\n                      ")])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
-        staticClass: "text-body-2"
-      }, [_vm._v("\n                        " + _vm._s(currency.currencyCode || 'LAK') + " -\n                        " + _vm._s(currency.count) + " settlements\n                      ")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], {
-        staticClass: "text-caption"
-      }, [_vm._v("\n                        Rate: " + _vm._s(currency.avgExchangeRate) + "\n                      ")])], 1), _vm._v(" "), _c(VListItemAction["a" /* default */], [_c('div', {
-        staticClass: "text-right"
-      }, [_c('div', {
-        staticClass: "font-weight-medium text-body-2"
-      }, [_vm._v("\n                          " + _vm._s(currency.currencySymbol) + _vm._s(_vm.formatAmount(currency.totalAmount)) + "\n                        ")]), _vm._v(" "), _c('div', {
-        staticClass: "text-caption success--text"
-      }, [_vm._v("\n                          ₭" + _vm._s(_vm.formatAmount(currency.lakEquivalent)) + "\n                        ")])])])], 1);
-    }), 1)], 1)], 1);
-  }), 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl",
+    staticClass: "rounded-xl report-card",
     attrs: {
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text py-2 px-4 d-flex align-center"
+    staticClass: "banking-primary--text py-2 px-4 d-flex align-center report-header"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "#01532B"
     }
   }, [_vm._v("mdi-office-building")]), _vm._v(" "), _c('span', {
     staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ຕາມກົມ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("\n            ລາຍງານ ຕາມກົມ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "success",
+      "color": "#059669",
       "small": "",
       "outlined": "",
       "disabled": !_vm.ministrySummaryReport.length
@@ -481,7 +284,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "icon": "",
       "small": "",
-      "loading": _vm.loadingMinistryReport
+      "loading": _vm.loadingMinistryReport,
+      "color": "#01532B"
     },
     on: {
       "click": _vm.fetchMinistryReport
@@ -490,14 +294,16 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "small": ""
     }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "banking-divider"
+  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-0"
   }, [_vm.loadingMinistryReport ? _c('div', {
     staticClass: "text-center py-6"
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "primary"
+      "color": "#01532B"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-caption"
@@ -511,6 +317,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
   }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-subtitle-2 grey--text"
   }, [_vm._v("\n              No ministry data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
+    staticClass: "banking-table",
     attrs: {
       "dense": ""
     },
@@ -519,7 +326,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       fn: function () {
         var _vm$ministryTotals2;
         return [_c('thead', [_c('tr', {
-          staticClass: "primary lighten-3"
+          staticClass: "banking-table-header"
         }, [_c('th', {
           staticClass: "white--text text-caption font-weight-bold"
         }, [_vm._v("#")]), _vm._v(" "), _c('th', {
@@ -539,8 +346,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
           return _c('tr', {
             key: item.ministryId,
             class: {
-              'grey lighten-5': index % 2 === 0,
-              'orange lighten-4': item.ministryId === 'NO_MINISTRY'
+              'banking-row-even': index % 2 === 0,
+              'banking-row-special': item.ministryId === 'NO_MINISTRY'
             }
           }, [_c('td', {
             staticClass: "text-caption text-center"
@@ -563,10 +370,10 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
               staticClass: "text-body-2 text-right"
             }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts = item.amounts) === null || _item$amounts === void 0 ? void 0 : _item$amounts[currency]) || 0)) + "\n                  ")]);
           }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold success--text"
+            staticClass: "text-right font-weight-bold banking-success--text"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
         }), _vm._v(" "), _c('tr', {
-          staticClass: "primary lighten-4"
+          staticClass: "banking-table-footer"
         }, [_c('td', {
           staticClass: "font-weight-bold text-caption",
           attrs: {
@@ -581,7 +388,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
             staticClass: "text-right font-weight-bold text-body-2"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals = _vm.ministryTotals) === null || _vm$ministryTotals === void 0 ? void 0 : (_vm$ministryTotals$cu = _vm$ministryTotals.currencyTotals) === null || _vm$ministryTotals$cu === void 0 ? void 0 : _vm$ministryTotals$cu[currency]) || 0)) + "\n                  ")]);
         }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 primary--text"
+          staticClass: "text-right font-weight-bold text-body-2 banking-primary--text"
         }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals2 = _vm.ministryTotals) === null || _vm$ministryTotals2 === void 0 ? void 0 : _vm$ministryTotals2.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
       },
       proxy: true
@@ -593,23 +400,23 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "cols": "12"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl",
+    staticClass: "rounded-xl report-card",
     attrs: {
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text py-2 px-4 d-flex align-center"
+    staticClass: "banking-primary--text py-2 px-4 d-flex align-center report-header"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "#01532B"
     }
   }, [_vm._v("mdi-bank")]), _vm._v(" "), _c('span', {
     staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານຕາມບັນຊີ ທະນາຄານ\n           \n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("\n            ລາຍງານ ຕາມບັນຊີທະນາຄານ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "success",
+      "color": "#059669",
       "small": "",
       "outlined": "",
       "disabled": !_vm.bankAccountSummaryReport.length
@@ -626,7 +433,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "icon": "",
       "small": "",
-      "loading": _vm.loadingBankAccountReport
+      "loading": _vm.loadingBankAccountReport,
+      "color": "#01532B"
     },
     on: {
       "click": _vm.fetchBankAccountReport
@@ -635,14 +443,16 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "small": ""
     }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "banking-divider"
+  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-0"
   }, [_vm.loadingBankAccountReport ? _c('div', {
     staticClass: "text-center py-6"
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "primary"
+      "color": "#01532B"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-caption"
@@ -656,6 +466,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
   }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-subtitle-2 grey--text"
   }, [_vm._v("\n              No bank account data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
+    staticClass: "banking-table",
     attrs: {
       "dense": ""
     },
@@ -664,7 +475,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       fn: function () {
         var _vm$bankAccountTotals3;
         return [_c('thead', [_c('tr', {
-          staticClass: "primary lighten-3"
+          staticClass: "banking-table-header"
         }, [_c('th', {
           staticClass: "white--text text-caption font-weight-bold"
         }, [_vm._v("#")]), _vm._v(" "), _c('th', {
@@ -688,8 +499,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
           return _c('tr', {
             key: item.bankAccountId,
             class: {
-              'grey lighten-5': index % 2 === 0,
-              'orange lighten-4': item.bankAccountId === 'NO_BANK_ACCOUNT'
+              'banking-row-even': index % 2 === 0,
+              'banking-row-special': item.bankAccountId === 'NO_BANK_ACCOUNT'
             }
           }, [_c('td', {
             staticClass: "text-caption text-center"
@@ -713,8 +524,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
           }, [_c(VChip["a" /* default */], {
             attrs: {
               "x-small": "",
-              "color": item.accountType === 'Cash' ? 'orange' : 'blue',
-              "text-color": item.accountType === 'Cash' ? 'white' : 'white'
+              "color": item.accountType === 'Cash' ? '#F59E0B' : '#01532B',
+              "text-color": "white"
             }
           }, [_vm._v("\n                      " + _vm._s(item.accountType) + "\n                    ")])], 1), _vm._v(" "), _c('td', {
             staticClass: "text-body-2 text-right"
@@ -725,10 +536,10 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
               staticClass: "text-body-2 text-right"
             }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts2 = item.amounts) === null || _item$amounts2 === void 0 ? void 0 : _item$amounts2[currency]) || 0)) + "\n                  ")]);
           }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold success--text"
+            staticClass: "text-right font-weight-bold banking-success--text"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
         }), _vm._v(" "), _c('tr', {
-          staticClass: "primary lighten-4"
+          staticClass: "banking-table-footer"
         }, [_c('td', {
           staticClass: "font-weight-bold text-caption",
           attrs: {
@@ -743,7 +554,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
             staticClass: "text-right font-weight-bold text-body-2"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals = _vm.bankAccountTotals) === null || _vm$bankAccountTotals === void 0 ? void 0 : (_vm$bankAccountTotals2 = _vm$bankAccountTotals.currencyTotals) === null || _vm$bankAccountTotals2 === void 0 ? void 0 : _vm$bankAccountTotals2[currency]) || 0)) + "\n                  ")]);
         }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 primary--text"
+          staticClass: "text-right font-weight-bold text-body-2 banking-primary--text"
         }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals3 = _vm.bankAccountTotals) === null || _vm$bankAccountTotals3 === void 0 ? void 0 : _vm$bankAccountTotals3.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
       },
       proxy: true
@@ -755,23 +566,23 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "cols": "12"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl",
+    staticClass: "rounded-xl report-card",
     attrs: {
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text py-2 px-4 d-flex align-center"
+    staticClass: "banking-primary--text py-2 px-4 d-flex align-center report-header"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "#01532B"
     }
   }, [_vm._v("mdi-account-multiple")]), _vm._v(" "), _c('span', {
     staticClass: "text-subtitle-1 font-weight-medium"
   }, [_vm._v("\n            ລາຍງານ ຕາມຫົວບັນຊີ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "success",
+      "color": "#059669",
       "small": "",
       "outlined": "",
       "disabled": !_vm.chartAccountSummaryReport.length
@@ -788,7 +599,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "icon": "",
       "small": "",
-      "loading": _vm.loadingChartAccountReport
+      "loading": _vm.loadingChartAccountReport,
+      "color": "#01532B"
     },
     on: {
       "click": _vm.fetchChartAccountReport
@@ -797,14 +609,16 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "small": ""
     }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "banking-divider"
+  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-0"
   }, [_vm.loadingChartAccountReport ? _c('div', {
     staticClass: "text-center py-6"
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "primary"
+      "color": "#01532B"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-caption"
@@ -818,6 +632,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
   }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-subtitle-2 grey--text"
   }, [_vm._v("\n              No chart account data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
+    staticClass: "banking-table",
     attrs: {
       "dense": ""
     },
@@ -826,7 +641,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       fn: function () {
         var _vm$chartAccountTotal3;
         return [_c('thead', [_c('tr', {
-          staticClass: "primary lighten-3"
+          staticClass: "banking-table-header"
         }, [_c('th', {
           staticClass: "white--text text-caption font-weight-bold"
         }, [_vm._v("#")]), _vm._v(" "), _c('th', {
@@ -846,8 +661,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
           return _c('tr', {
             key: item.chartAccountId,
             class: {
-              'grey lighten-5': index % 2 === 0,
-              'orange lighten-4': item.chartAccountId === 'NO_CHART_ACCOUNT'
+              'banking-row-even': index % 2 === 0,
+              'banking-row-special': item.chartAccountId === 'NO_CHART_ACCOUNT'
             }
           }, [_c('td', {
             staticClass: "text-caption text-center"
@@ -870,10 +685,10 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
               staticClass: "text-body-2 text-right"
             }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts3 = item.amounts) === null || _item$amounts3 === void 0 ? void 0 : _item$amounts3[currency]) || 0)) + "\n                  ")]);
           }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold success--text"
+            staticClass: "text-right font-weight-bold banking-success--text"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
         }), _vm._v(" "), _c('tr', {
-          staticClass: "primary lighten-4"
+          staticClass: "banking-table-footer"
         }, [_c('td', {
           staticClass: "font-weight-bold text-caption",
           attrs: {
@@ -888,156 +703,32 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
             staticClass: "text-right font-weight-bold text-body-2"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$chartAccountTotal = _vm.chartAccountTotals) === null || _vm$chartAccountTotal === void 0 ? void 0 : (_vm$chartAccountTotal2 = _vm$chartAccountTotal.currencyTotals) === null || _vm$chartAccountTotal2 === void 0 ? void 0 : _vm$chartAccountTotal2[currency]) || 0)) + "\n                  ")]);
         }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 primary--text"
+          staticClass: "text-right font-weight-bold text-body-2 banking-primary--text"
         }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$chartAccountTotal3 = _vm.chartAccountTotals) === null || _vm$chartAccountTotal3 === void 0 ? void 0 : _vm$chartAccountTotal3.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
       },
       proxy: true
     }])
   })], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCard["a" /* default */], {
-    staticClass: "mb-4",
+    staticClass: "data-table-card",
     attrs: {
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text"
+    staticClass: "banking-primary--text data-table-header"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "#01532B"
     }
-  }, [_vm._v("mdi-filter")]), _vm._v("\n      Filters & Search\n    ")], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_vm._v("mdi-table")]), _vm._v("\n      ລາຍຮັບ\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.methodOptions,
-      "label": "Payment Method",
-      "prepend-icon": "mdi-credit-card",
-      "clearable": "",
-      "outlined": "",
-      "dense": ""
-    },
-    on: {
-      "change": _vm.applyFilters
-    },
-    model: {
-      value: _vm.filters.method,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "method", $$v);
-      },
-      expression: "filters.method"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "date",
-      "label": "Date From",
-      "prepend-icon": "mdi-calendar",
-      "outlined": "",
-      "dense": ""
-    },
-    on: {
-      "change": _vm.applyFilters
-    },
-    model: {
-      value: _vm.filters.dateFrom,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "dateFrom", $$v);
-      },
-      expression: "filters.dateFrom"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "date",
-      "label": "Date To",
-      "prepend-icon": "mdi-calendar",
-      "outlined": "",
-      "dense": ""
-    },
-    on: {
-      "change": _vm.applyFilters
-    },
-    model: {
-      value: _vm.filters.dateTo,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "dateTo", $$v);
-      },
-      expression: "filters.dateTo"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "Search settlements...",
-      "prepend-icon": "mdi-magnify",
-      "outlined": "",
-      "dense": "",
-      "clearable": ""
-    },
-    on: {
-      "input": _vm.debounceSearch
-    },
-    model: {
-      value: _vm.searchQuery,
-      callback: function ($$v) {
-        _vm.searchQuery = $$v;
-      },
-      expression: "searchQuery"
-    }
-  })], 1)], 1), _vm._v(" "), _vm.hasActiveFilters ? _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "small": "",
-      "outlined": "",
-      "color": "grey"
-    },
-    on: {
-      "click": _vm.clearFilters
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-filter-remove")]), _vm._v("\n            Clear All Filters\n          ")], 1)], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c(VCard["a" /* default */], {
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-table")]), _vm._v("\n      Settlements List\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
-    attrs: {
-      "color": "primary",
+      "color": "#01532B",
       "outlined": ""
     }
-  }, [_vm._v("\n        " + _vm._s(_vm.pagination.totalItems) + " Total Records\n      ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VDataTable["a" /* default */], {
-    staticClass: "elevation-0",
+  }, [_vm._v("\n        " + _vm._s(_vm.pagination.totalItems) + " Total Records\n      ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "banking-divider"
+  }), _vm._v(" "), _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-0 banking-data-table",
     attrs: {
       "headers": _vm.tableHeaders,
       "items": _vm.settlements,
@@ -1063,7 +754,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
         props
       }) {
         return [_c('thead', {
-          staticClass: "primary lighten-2"
+          staticClass: "banking-table-header"
         }, [_c('tr', _vm._l(props.headers, function (header) {
           return _c('th', {
             key: header.text,
@@ -1089,14 +780,16 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
         item
       }) {
         return [_c(VChip["a" /* default */], {
+          staticClass: "date-chip",
           attrs: {
             "small": "",
-            "color": "grey lighten-3"
+            "color": "#F3F4F6"
           }
         }, [_c(VIcon["a" /* default */], {
           attrs: {
             "left": "",
-            "small": ""
+            "small": "",
+            "color": "#01532B"
           }
         }, [_vm._v("mdi-calendar")]), _vm._v("\n          " + _vm._s(_vm.formatDate(item.bookingDate)) + "\n        ")], 1)];
       }
@@ -1107,7 +800,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       }) {
         var _item$currency;
         return [_c('div', [_c('span', {
-          staticClass: "font-weight-bold text-h6 success--text"
+          staticClass: "font-weight-bold text-h6 banking-success--text"
         }, [_vm._v("\n            " + _vm._s(_vm.getCurrencySymbol((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code)) + _vm._s(_vm.formatAmount(item.amount)) + "\n          ")]), _vm._v(" "), item.currency && item.currency.code !== 'LAK' ? _c('div', {
           staticClass: "text-caption grey--text"
         }, [_vm._v("\n            " + _vm._s(item.currency.code) + " @ " + _vm._s(item.exchangeRate || 1) + "\n          ")]) : _vm._e()])];
@@ -1141,7 +834,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
           staticClass: "mr-2",
           attrs: {
             "size": "24",
-            "color": "primary"
+            "color": "#01532B"
           }
         }, [_c('span', {
           staticClass: "white--text text-caption"
@@ -1162,7 +855,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
           staticClass: "mb-1",
           attrs: {
             "x-small": "",
-            "color": "info"
+            "color": "#01532B",
+            "dark": ""
           }
         }, [_vm._v("\n            #" + _vm._s(item.moneyAdvance.id) + "\n          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c(VChip["a" /* default */], {
           attrs: {
@@ -1228,7 +922,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
                 attrs: {
                   "icon": "",
                   "x-small": "",
-                  "color": "primary"
+                  "color": "#01532B"
                 },
                 on: {
                   "click": function ($event) {
@@ -1242,65 +936,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
               }, [_vm._v("mdi-eye")])], 1)];
             }
           }], null, true)
-        }, [_vm._v(" "), _c('span', [_vm._v("View Details")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
-          attrs: {
-            "bottom": ""
-          },
-          scopedSlots: _vm._u([{
-            key: "activator",
-            fn: function ({
-              on,
-              attrs
-            }) {
-              return [_c(VBtn["a" /* default */], _vm._g(_vm._b({
-                staticClass: "ml-1",
-                attrs: {
-                  "icon": "",
-                  "x-small": "",
-                  "color": "secondary"
-                },
-                on: {
-                  "click": function ($event) {
-                    return _vm.editSettlement(item);
-                  }
-                }
-              }, 'v-btn', attrs, false), on), [_c(VIcon["a" /* default */], {
-                attrs: {
-                  "small": ""
-                }
-              }, [_vm._v("mdi-pencil")])], 1)];
-            }
-          }], null, true)
-        }, [_vm._v(" "), _c('span', [_vm._v("Edit Settlement")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
-          attrs: {
-            "bottom": ""
-          },
-          scopedSlots: _vm._u([{
-            key: "activator",
-            fn: function ({
-              on,
-              attrs
-            }) {
-              return [_c(VBtn["a" /* default */], _vm._g(_vm._b({
-                staticClass: "ml-1",
-                attrs: {
-                  "icon": "",
-                  "x-small": "",
-                  "color": "error"
-                },
-                on: {
-                  "click": function ($event) {
-                    return _vm.confirmDelete(item);
-                  }
-                }
-              }, 'v-btn', attrs, false), on), [_c(VIcon["a" /* default */], {
-                attrs: {
-                  "small": ""
-                }
-              }, [_vm._v("mdi-delete")])], 1)];
-            }
-          }], null, true)
-        }, [_vm._v(" "), _c('span', [_vm._v("Delete Settlement")])])], 1)];
+        }, [_vm._v(" "), _c('span', [_vm._v("View Details")])])], 1)];
       }
     }])
   })], 1), _vm._v(" "), _c(VDialog["a" /* default */], {
@@ -1317,7 +953,7 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       expression: "dialog"
     }
   }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary white--text"
+    staticClass: "dialog-header white--text"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
@@ -1357,7 +993,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "prepend-icon": "mdi-calendar",
       "rules": [_vm.rules.required],
       "outlined": "",
-      "required": ""
+      "required": "",
+      "color": "#01532B"
     },
     model: {
       value: _vm.settlementForm.bookingDate,
@@ -1379,7 +1016,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "prepend-icon": "mdi-currency-usd",
       "rules": [_vm.rules.required, _vm.rules.positiveNumber],
       "outlined": "",
-      "required": ""
+      "required": "",
+      "color": "#01532B"
     },
     model: {
       value: _vm.settlementForm.amount,
@@ -1400,7 +1038,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "prepend-icon": "mdi-credit-card",
       "rules": [_vm.rules.required],
       "outlined": "",
-      "required": ""
+      "required": "",
+      "color": "#01532B"
     },
     model: {
       value: _vm.settlementForm.method,
@@ -1421,7 +1060,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "label": "Exchange Rate",
       "prepend-icon": "mdi-swap-horizontal",
       "placeholder": "1.0000",
-      "outlined": ""
+      "outlined": "",
+      "color": "#01532B"
     },
     model: {
       value: _vm.settlementForm.exchangeRate,
@@ -1440,7 +1080,8 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
       "prepend-icon": "mdi-note-text",
       "rows": "3",
       "outlined": "",
-      "no-resize": ""
+      "no-resize": "",
+      "color": "#01532B"
     },
     model: {
       value: _vm.settlementForm.notes,
@@ -1456,11 +1097,11 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     }
   }, [_c(VListItem["a" /* default */], [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "primary"
+      "color": "#01532B"
     }
-  }, [_vm._v("mdi-calendar")])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+  }, [_vm._v("mdi-calendar")])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
-  }, [_vm._v("Booking Date")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], {
+  }, [_vm._v("Booking Date")]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], {
     staticClass: "text-h6"
   }, [_vm._v(_vm._s(_vm.formatDate(_vm.currentSettlement.bookingDate)))])], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
@@ -1469,12 +1110,12 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     }
   }, [_c(VListItem["a" /* default */], [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "success"
+      "color": "#059669"
     }
-  }, [_vm._v("mdi-currency-usd")])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+  }, [_vm._v("mdi-currency-usd")])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
-  }, [_vm._v("Amount")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], {
-    staticClass: "text-h5 font-weight-bold success--text"
+  }, [_vm._v("Amount")]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], {
+    staticClass: "text-h5 font-weight-bold banking-success--text"
   }, [_vm._v("\n                    " + _vm._s(_vm.getCurrencySymbol((_vm$currentSettlement = _vm.currentSettlement.currency) === null || _vm$currentSettlement === void 0 ? void 0 : _vm$currentSettlement.code)) + _vm._s(_vm.formatAmount(_vm.currentSettlement.amount)) + "\n                  ")])], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
@@ -1484,9 +1125,9 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "color": _vm.getMethodColor(_vm.currentSettlement.method)
     }
-  }, [_vm._v(_vm._s(_vm.getMethodIcon(_vm.currentSettlement.method)))])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+  }, [_vm._v(_vm._s(_vm.getMethodIcon(_vm.currentSettlement.method)))])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
-  }, [_vm._v("Payment Method")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], [_c(VChip["a" /* default */], {
+  }, [_vm._v("Payment Method")]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], [_c(VChip["a" /* default */], {
     attrs: {
       "color": _vm.getMethodColor(_vm.currentSettlement.method),
       "small": "",
@@ -1499,11 +1140,11 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     }
   }, [_c(VListItem["a" /* default */], [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "info"
+      "color": "#01532B"
     }
-  }, [_vm._v("mdi-swap-horizontal")])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+  }, [_vm._v("mdi-swap-horizontal")])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
-  }, [_vm._v("Exchange Rate")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], {
+  }, [_vm._v("Exchange Rate")]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], {
     staticClass: "text-h6"
   }, [_vm._v(_vm._s(_vm.currentSettlement.exchangeRate || '1.0000'))])], 1)], 1)], 1), _vm._v(" "), _vm.currentSettlement.notes ? _c(VCol["a" /* default */], {
     attrs: {
@@ -1513,9 +1154,9 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
     attrs: {
       "color": "grey"
     }
-  }, [_vm._v("mdi-note-text")])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+  }, [_vm._v("mdi-note-text")])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
-  }, [_vm._v("Notes")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], [_vm._v(_vm._s(_vm.currentSettlement.notes))])], 1)], 1)], 1) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+  }, [_vm._v("Notes")]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], [_vm._v(_vm._s(_vm.currentSettlement.notes))])], 1)], 1)], 1) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
     staticClass: "pa-4"
   }, [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
@@ -1527,9 +1168,10 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
   }, [_vm._v("\n          " + _vm._s(_vm.dialogMode === 'view' ? 'Close' : 'Cancel') + "\n        ")]), _vm._v(" "), _vm.dialogMode !== 'view' ? _c(VBtn["a" /* default */], {
     staticClass: "ml-2",
     attrs: {
-      "color": "primary",
+      "color": "#01532B",
       "loading": _vm.saving,
-      "disabled": !_vm.formValid
+      "disabled": !_vm.formValid,
+      "dark": ""
     },
     on: {
       "click": _vm.saveSettlement
@@ -1542,46 +1184,46 @@ var settlementvue_type_template_id_178d0b7e_scoped_true_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=178d0b7e&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=2116f6e9&scoped=true&
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
-var esnext_map_delete_all_js_ = __webpack_require__(90);
+var esnext_map_delete_all_js_ = __webpack_require__(92);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.every.js"
-var esnext_map_every_js_ = __webpack_require__(91);
+var esnext_map_every_js_ = __webpack_require__(93);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.filter.js"
-var esnext_map_filter_js_ = __webpack_require__(92);
+var esnext_map_filter_js_ = __webpack_require__(94);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.find.js"
-var esnext_map_find_js_ = __webpack_require__(93);
+var esnext_map_find_js_ = __webpack_require__(95);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.find-key.js"
-var esnext_map_find_key_js_ = __webpack_require__(94);
+var esnext_map_find_key_js_ = __webpack_require__(96);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.includes.js"
-var esnext_map_includes_js_ = __webpack_require__(95);
+var esnext_map_includes_js_ = __webpack_require__(97);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.key-of.js"
-var esnext_map_key_of_js_ = __webpack_require__(96);
+var esnext_map_key_of_js_ = __webpack_require__(98);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.map-keys.js"
-var esnext_map_map_keys_js_ = __webpack_require__(97);
+var esnext_map_map_keys_js_ = __webpack_require__(99);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.map-values.js"
-var esnext_map_map_values_js_ = __webpack_require__(98);
+var esnext_map_map_values_js_ = __webpack_require__(100);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.merge.js"
-var esnext_map_merge_js_ = __webpack_require__(99);
+var esnext_map_merge_js_ = __webpack_require__(101);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.reduce.js"
-var esnext_map_reduce_js_ = __webpack_require__(100);
+var esnext_map_reduce_js_ = __webpack_require__(102);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.some.js"
-var esnext_map_some_js_ = __webpack_require__(101);
+var esnext_map_some_js_ = __webpack_require__(103);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.update.js"
-var esnext_map_update_js_ = __webpack_require__(102);
+var esnext_map_update_js_ = __webpack_require__(104);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(339);
@@ -1632,7 +1274,7 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(353);
 var esnext_set_union_js_ = __webpack_require__(354);
 
 // EXTERNAL MODULE: ./pages/admin/report/MA/mixin/excel.js
-var excel = __webpack_require__(743);
+var excel = __webpack_require__(739);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=script&lang=js&
 
@@ -1670,28 +1312,40 @@ var excel = __webpack_require__(743);
   mixins: [excel["default"]],
   data() {
     return {
-      // Bank Account Report Data
+      // Loading states
+      loading: false,
+      saving: false,
+      loadingMinistryReport: false,
       loadingBankAccountReport: false,
+      loadingChartAccountReport: false,
+      // Dialog state
+      dialog: false,
+      formValid: false,
+      dialogMode: 'create',
+      // create, edit, view
+      currentSettlement: {},
+      // Data
+      settlements: [],
+      stats: {
+        totalCount: 0,
+        totalAmount: 0,
+        thisMonth: 0,
+        pending: 0
+      },
+      // Reports
+      ministrySummaryReport: [],
+      ministryTotals: {},
       bankAccountSummaryReport: [],
       bankAccountTotals: {
         totalLakEquivalent: 0,
         currencyTotals: {}
       },
-      dateRange: {
-        start: null,
-        end: null
+      chartAccountSummaryReport: [],
+      chartAccountTotals: {
+        totalLakEquivalent: 0,
+        currencyTotals: {}
       },
-      ministryTotals: {},
-      loadingMinistryReport: false,
-      settlements: [],
-      loading: false,
-      saving: false,
-      dialog: false,
-      formValid: false,
-      // Dialog state
-      dialogMode: 'create',
-      // create, edit, view
-      currentSettlement: {},
+      currencyList: [],
       // Form data
       settlementForm: {
         bookingDate: '',
@@ -1757,50 +1411,7 @@ var excel = __webpack_require__(743);
         sortable: false,
         width: '120px'
       }],
-      // Filters
-      filters: {
-        method: '',
-        dateFrom: '',
-        dateTo: ''
-      },
-      searchQuery: '',
-      searchTimeout: null,
-      currencyList: [],
-      // Statistics
-      stats: {
-        totalCount: 0,
-        totalAmount: 0,
-        thisMonth: 0,
-        pending: 0
-      },
-      // Ministry Summary
-      ministrySummary: [],
-      loadingMinistrySummary: false,
-      // Ministry Summary Report
-      ministrySummaryReport: [],
-      // Chart Account Report
-      // Chart Account Report Data (UPDATED)
-      loadingChartAccountReport: false,
-      chartAccountSummaryReport: [],
-      // Changed from chartAccountReport
-      chartAccountTotals: {
-        totalLakEquivalent: 0,
-        currencyTotals: {}
-      },
       // Options
-      methodOptions: [{
-        text: 'All Methods',
-        value: ''
-      }, {
-        text: 'Cash Payment',
-        value: 'cash'
-      }, {
-        text: 'Bank Transfer',
-        value: 'bank_transfer'
-      }, {
-        text: 'Salary Deduction',
-        value: 'deduction'
-      }],
       methodSelectOptions: [{
         text: 'Cash Payment',
         value: 'cash'
@@ -1810,10 +1421,7 @@ var excel = __webpack_require__(743);
       }, {
         text: 'Salary Deduction',
         value: 'deduction'
-      }],
-      // Charts
-      methodChart: null,
-      trendChart: null
+      }]
     };
   },
   computed: {
@@ -1824,9 +1432,6 @@ var excel = __webpack_require__(743);
         view: 'Settlement Details'
       };
       return titles[this.dialogMode] || 'Settlement';
-    },
-    hasActiveFilters() {
-      return this.filters.method || this.filters.dateFrom || this.filters.dateTo || this.searchQuery;
     }
   },
   async mounted() {
@@ -1834,10 +1439,7 @@ var excel = __webpack_require__(743);
   },
   methods: {
     async loadInitialData() {
-      await Promise.all([this.fetchSettlements(), this.fetchStats(), this.fetchMinistrySummary(), this.fetchChartAccountReport(), this.fetchMinistryReport(), this.fetchBankAccountReport()]);
-      this.$nextTick(() => {
-        this.initializeCharts();
-      });
+      await Promise.all([this.fetchSettlements(), this.fetchStats(), this.fetchChartAccountReport(), this.fetchMinistryReport(), this.fetchBankAccountReport()]);
     },
     async refreshData() {
       await this.loadInitialData();
@@ -1851,12 +1453,8 @@ var excel = __webpack_require__(743);
           page: this.tableOptions.page || 1,
           limit: this.tableOptions.itemsPerPage || 10,
           sortBy: ((_this$tableOptions$so = this.tableOptions.sortBy) === null || _this$tableOptions$so === void 0 ? void 0 : _this$tableOptions$so[0]) || 'id',
-          sortOrder: (_this$tableOptions$so2 = this.tableOptions.sortDesc) !== null && _this$tableOptions$so2 !== void 0 && _this$tableOptions$so2[0] ? 'desc' : 'asc',
-          ...this.filters
+          sortOrder: (_this$tableOptions$so2 = this.tableOptions.sortDesc) !== null && _this$tableOptions$so2 !== void 0 && _this$tableOptions$so2[0] ? 'desc' : 'asc'
         };
-        if (this.searchQuery) {
-          params.search = this.searchQuery;
-        }
         const response = await this.$axios.get('/api/settlements', {
           params
         });
@@ -1877,143 +1475,41 @@ var excel = __webpack_require__(743);
         console.error('Error fetching stats:', error);
       }
     },
-    async fetchMinistrySummary() {
-      this.loadingMinistrySummary = true;
-      try {
-        var _response$data$data;
-        // Fetch all settlements with currency and ministry data
-        const response = await this.$axios.get('/api/settlements', {
-          params: {
-            limit: 1000,
-            // Get all settlements for comprehensive analysis
-            page: 1
-          }
-        });
-        const settlements = ((_response$data$data = response.data.data) === null || _response$data$data === void 0 ? void 0 : _response$data$data.settlements) || [];
-
-        // Group settlements by ministry and currency
-        const ministryMap = new Map();
-        settlements.forEach(settlement => {
-          // Skip settlements without ministry
-          if (!settlement.ministry) return;
-          const ministryId = settlement.ministry.id;
-          const ministryName = settlement.ministry.ministryNameEn || settlement.ministry.ministryName || `Ministry ${ministryId}`;
-
-          // Initialize ministry if not exists
-          if (!ministryMap.has(ministryId)) {
-            ministryMap.set(ministryId, {
-              ministryId,
-              ministryName,
-              ministryCode: settlement.ministry.ministryCode || '',
-              settlementCount: 0,
-              totalAmount: 0,
-              totalLakEquivalent: 0,
-              currencies: new Map()
-            });
-          }
-          const ministry = ministryMap.get(ministryId);
-
-          // Get currency info
-          const currency = settlement.currency || {};
-          const currencyId = currency.id || null;
-          const currencyCode = currency.code || 'LAK';
-          const currencySymbol = this.getCurrencySymbol(currencyCode);
-          const exchangeRate = parseFloat(settlement.exchangeRate) || 1;
-          const amount = parseFloat(settlement.amount) || 0;
-          const lakEquivalent = amount * exchangeRate;
-
-          // Initialize currency if not exists for this ministry
-          if (!ministry.currencies.has(currencyId)) {
-            ministry.currencies.set(currencyId, {
-              currencyId,
-              currencyCode,
-              currencySymbol,
-              currencyName: currency.name || currencyCode,
-              count: 0,
-              totalAmount: 0,
-              totalExchangeRateSum: 0,
-              lakEquivalent: 0
-            });
-          }
-          const currencyData = ministry.currencies.get(currencyId);
-
-          // Update currency totals
-          currencyData.count += 1;
-          currencyData.totalAmount += amount;
-          currencyData.totalExchangeRateSum += exchangeRate;
-          currencyData.lakEquivalent += lakEquivalent;
-
-          // Update ministry totals
-          ministry.settlementCount += 1;
-          ministry.totalAmount += amount;
-          ministry.totalLakEquivalent += lakEquivalent;
-        });
-
-        // Convert to array format and calculate averages
-        this.ministrySummary = Array.from(ministryMap.values()).map(ministry => {
-          const currencies = Array.from(ministry.currencies.values()).map(currency => ({
-            ...currency,
-            avgExchangeRate: currency.count > 0 ? (currency.totalExchangeRateSum / currency.count).toFixed(4) : '1.0000'
-          }));
-          return {
-            ...ministry,
-            currencies: currencies.sort((a, b) => b.totalAmount - a.totalAmount) // Sort by amount desc
-          };
-        }).sort((a, b) => b.totalLakEquivalent - a.totalLakEquivalent); // Sort ministries by LAK equivalent desc
-      } catch (error) {
-        console.error('Error fetching ministry summary:', error);
-        this.ministrySummary = [];
-      } finally {
-        this.loadingMinistrySummary = false;
-      }
-    },
     async fetchChartAccountReport() {
       try {
         this.loadingChartAccountReport = true;
-
-        // Fetch all pages of data (same pattern as ministry/bank account reports)
         let allSettlements = [];
         let currentPage = 1;
         let totalPages = 1;
         do {
-          var _response$data$data2, _response$data$data3;
+          var _response$data$data, _response$data$data2;
           const response = await this.$axios.get('/api/settlements', {
             params: {
-              branchId: this.selectedBranchId,
-              fromDate: this.dateRange.start,
-              toDate: this.dateRange.end,
               isPosted: true,
               include: ['chartAccount', 'currency'],
               page: currentPage,
               limit: 50
             }
           });
-          const pageData = ((_response$data$data2 = response.data.data) === null || _response$data$data2 === void 0 ? void 0 : _response$data$data2.settlements) || [];
+          const pageData = ((_response$data$data = response.data.data) === null || _response$data$data === void 0 ? void 0 : _response$data$data.settlements) || [];
           allSettlements = allSettlements.concat(pageData);
-
-          // Update pagination info
-          const pagination = (_response$data$data3 = response.data.data) === null || _response$data$data3 === void 0 ? void 0 : _response$data$data3.pagination;
+          const pagination = (_response$data$data2 = response.data.data) === null || _response$data$data2 === void 0 ? void 0 : _response$data$data2.pagination;
           if (pagination) {
             totalPages = pagination.totalPages;
-            console.log(`Fetched page ${currentPage} of ${totalPages}, got ${pageData.length} settlements`);
           }
           currentPage++;
         } while (currentPage <= totalPages);
-        console.log(`Total settlements fetched for chart account report: ${allSettlements.length}`);
         const chartAccountMap = new Map();
         const currencySet = new Set();
         allSettlements.forEach(settlement => {
           var _settlement$currency;
           const chartAccount = settlement.chartAccount;
-
-          // Handle both chart account assignments and null chart account
           let chartAccountId, accountNumber, accountName;
           if (chartAccount) {
             chartAccountId = chartAccount.id;
             accountNumber = chartAccount.accountNumber;
             accountName = chartAccount.accountName || chartAccount.accountLLName;
           } else {
-            // Handle settlements with no chart account
             chartAccountId = 'NO_CHART_ACCOUNT';
             accountNumber = 'N/A';
             accountName = 'No Chart Account Assigned';
@@ -2039,23 +1535,13 @@ var excel = __webpack_require__(743);
           chartAccountRow.amounts[currencyCode] = (chartAccountRow.amounts[currencyCode] || 0) + amount;
         });
         this.currencyList = Array.from(currencySet).sort();
-
-        // Sort chart accounts: real accounts first (by account number), then "No Chart Account" at the bottom
         this.chartAccountSummaryReport = Array.from(chartAccountMap.values()).sort((a, b) => {
           if (a.chartAccountId === 'NO_CHART_ACCOUNT') return 1;
           if (b.chartAccountId === 'NO_CHART_ACCOUNT') return -1;
-
-          // Sort by account number if available, otherwise by account name
           if (a.accountNumber && b.accountNumber) {
             return String(a.accountNumber).localeCompare(String(b.accountNumber));
           }
           return a.accountName.localeCompare(b.accountName);
-        });
-
-        // Log chart account breakdown for debugging
-        console.log('Chart account breakdown:');
-        this.chartAccountSummaryReport.forEach(chartAccount => {
-          console.log(`- ${chartAccount.accountNumber}: ${chartAccount.accountName} (${chartAccount.settlementCount} settlements)`);
         });
         this.chartAccountTotals = {
           totalLakEquivalent: this.chartAccountSummaryReport.reduce((sum, c) => sum + c.totalLakEquivalent, 0),
@@ -2064,7 +1550,6 @@ var excel = __webpack_require__(743);
         this.currencyList.forEach(currency => {
           this.chartAccountTotals.currencyTotals[currency] = this.chartAccountSummaryReport.reduce((sum, c) => sum + (c.amounts[currency] || 0), 0);
         });
-        console.log(`Final chart account report: ${this.chartAccountSummaryReport.length} chart accounts found`);
       } catch (err) {
         console.error('Error fetching chart account report:', err);
         this.$toast.error('Failed to fetch chart account report.');
@@ -2075,53 +1560,38 @@ var excel = __webpack_require__(743);
     async fetchMinistryReport() {
       try {
         this.loadingMinistryReport = true;
-
-        // Fetch all pages of data
         let allSettlements = [];
         let currentPage = 1;
         let totalPages = 1;
         do {
-          var _response$data$data4, _response$data$data5;
+          var _response$data$data3, _response$data$data4;
           const response = await this.$axios.get('/api/settlements', {
             params: {
-              branchId: this.selectedBranchId,
-              fromDate: this.dateRange.start,
-              toDate: this.dateRange.end,
               isPosted: true,
               include: ['ministry', 'currency'],
               page: currentPage,
-              // Add page parameter
-              limit: 50 // Increase items per page to reduce API calls
+              limit: 50
             }
           });
-
-          const pageData = ((_response$data$data4 = response.data.data) === null || _response$data$data4 === void 0 ? void 0 : _response$data$data4.settlements) || [];
+          const pageData = ((_response$data$data3 = response.data.data) === null || _response$data$data3 === void 0 ? void 0 : _response$data$data3.settlements) || [];
           allSettlements = allSettlements.concat(pageData);
-
-          // Update pagination info
-          const pagination = (_response$data$data5 = response.data.data) === null || _response$data$data5 === void 0 ? void 0 : _response$data$data5.pagination;
+          const pagination = (_response$data$data4 = response.data.data) === null || _response$data$data4 === void 0 ? void 0 : _response$data$data4.pagination;
           if (pagination) {
             totalPages = pagination.totalPages;
-            console.log(`Fetched page ${currentPage} of ${totalPages}, got ${pageData.length} settlements`);
           }
           currentPage++;
         } while (currentPage <= totalPages);
-        console.log(`Total settlements fetched: ${allSettlements.length}`);
-        console.log('All settlements:', allSettlements);
         const ministryMap = new Map();
         const currencySet = new Set();
         allSettlements.forEach(settlement => {
           var _settlement$currency2;
           const ministry = settlement.ministry;
-
-          // Handle both ministry assignments and null ministry
           let ministryId, ministryName, ministryCode;
           if (ministry) {
             ministryId = ministry.id;
             ministryName = ministry.ministryName;
             ministryCode = ministry.ministryCode;
           } else {
-            // Handle settlements with no ministry
             ministryId = 'NO_MINISTRY';
             ministryName = 'No Ministry Assigned';
             ministryCode = 'N/A';
@@ -2147,18 +1617,10 @@ var excel = __webpack_require__(743);
           ministryRow.amounts[currencyCode] = (ministryRow.amounts[currencyCode] || 0) + amount;
         });
         this.currencyList = Array.from(currencySet).sort();
-
-        // Sort ministries: real ministries first (alphabetically), then "No Ministry" at the bottom
         this.ministrySummaryReport = Array.from(ministryMap.values()).sort((a, b) => {
           if (a.ministryId === 'NO_MINISTRY') return 1;
           if (b.ministryId === 'NO_MINISTRY') return -1;
           return a.ministryName.localeCompare(b.ministryName);
-        });
-
-        // Log ministry breakdown for debugging
-        console.log('Ministry breakdown:');
-        this.ministrySummaryReport.forEach(ministry => {
-          console.log(`- ${ministry.ministryCode}: ${ministry.ministryName} (${ministry.settlementCount} settlements)`);
         });
         this.ministryTotals = {
           totalLakEquivalent: this.ministrySummaryReport.reduce((sum, m) => sum + m.totalLakEquivalent, 0),
@@ -2167,7 +1629,6 @@ var excel = __webpack_require__(743);
         this.currencyList.forEach(currency => {
           this.ministryTotals.currencyTotals[currency] = this.ministrySummaryReport.reduce((sum, m) => sum + (m.amounts[currency] || 0), 0);
         });
-        console.log(`Final report: ${this.ministrySummaryReport.length} ministries found`);
       } catch (err) {
         console.error('Error fetching ministry report:', err);
         this.$toast.error('Failed to fetch ministry report.');
@@ -2178,72 +1639,32 @@ var excel = __webpack_require__(743);
     async fetchBankAccountReport() {
       try {
         this.loadingBankAccountReport = true;
-
-        // Fetch all pages of data
         let allSettlements = [];
         let currentPage = 1;
         let totalPages = 1;
         do {
-          var _response$data$data6, _response$data$data7;
+          var _response$data$data5, _response$data$data6;
           const response = await this.$axios.get('/api/settlements', {
             params: {
-              branchId: this.selectedBranchId,
-              fromDate: this.dateRange.start,
-              toDate: this.dateRange.end,
               isPosted: true,
               include: ['bankAccount', 'currency'],
-              // Try this first
               page: currentPage,
               limit: 50
             }
           });
-          const pageData = ((_response$data$data6 = response.data.data) === null || _response$data$data6 === void 0 ? void 0 : _response$data$data6.settlements) || [];
+          const pageData = ((_response$data$data5 = response.data.data) === null || _response$data$data5 === void 0 ? void 0 : _response$data$data5.settlements) || [];
           allSettlements = allSettlements.concat(pageData);
-
-          // Update pagination info
-          const pagination = (_response$data$data7 = response.data.data) === null || _response$data$data7 === void 0 ? void 0 : _response$data$data7.pagination;
+          const pagination = (_response$data$data6 = response.data.data) === null || _response$data$data6 === void 0 ? void 0 : _response$data$data6.pagination;
           if (pagination) {
             totalPages = pagination.totalPages;
-            console.log(`Fetched page ${currentPage} of ${totalPages}, got ${pageData.length} settlements`);
           }
           currentPage++;
         } while (currentPage <= totalPages);
-        console.log(`Total settlements fetched for bank account report: ${allSettlements.length}`);
-
-        // DEBUG: Check what bank account data we have
-        console.log('=== BANK ACCOUNT DEBUG ===');
-        allSettlements.forEach((settlement, index) => {
-          if (settlement.bankAccountId || settlement.bankAccount) {
-            console.log(`Settlement ${settlement.id}:`, {
-              bankAccountId: settlement.bankAccountId,
-              bankAccount: settlement.bankAccount,
-              method: settlement.method,
-              amount: settlement.amount
-            });
-          }
-        });
-
-        // Count settlements by method for debugging
-        const methodCounts = {};
-        allSettlements.forEach(settlement => {
-          const method = settlement.method || 'unknown';
-          methodCounts[method] = (methodCounts[method] || 0) + 1;
-        });
-        console.log('Settlement methods:', methodCounts);
         const bankAccountMap = new Map();
         const currencySet = new Set();
         allSettlements.forEach(settlement => {
           var _settlement$currency3;
           const bankAccount = settlement.bankAccount;
-
-          // DEBUG: Log each settlement processing
-          console.log(`Processing settlement ${settlement.id}:`, {
-            hasBankAccount: !!bankAccount,
-            bankAccountId: settlement.bankAccountId,
-            method: settlement.method
-          });
-
-          // Handle both bank account assignments and null bank account
           let bankAccountId, accountNumber, accountName, bankName, accountType;
           if (bankAccount) {
             bankAccountId = bankAccount.id;
@@ -2251,15 +1672,12 @@ var excel = __webpack_require__(743);
             accountName = bankAccount.accountName;
             bankName = bankAccount.bankName;
             accountType = bankAccount.accountType;
-            console.log(`Found bank account: ${accountNumber} - ${accountName}`);
           } else {
-            // Handle settlements with no bank account (cash transactions)
             bankAccountId = 'NO_BANK_ACCOUNT';
             accountNumber = 'N/A';
             accountName = 'Cash Transaction';
             bankName = 'No Bank';
             accountType = 'Cash';
-            console.log(`Cash transaction: ${settlement.method}`);
           }
           const currencyCode = ((_settlement$currency3 = settlement.currency) === null || _settlement$currency3 === void 0 ? void 0 : _settlement$currency3.code) || 'LAK';
           const exchangeRate = parseFloat(settlement.exchangeRate) || 1;
@@ -2277,32 +1695,19 @@ var excel = __webpack_require__(743);
               totalLakEquivalent: 0,
               amounts: {}
             });
-            console.log(`Created new bank account group: ${bankAccountId} - ${accountName}`);
           }
           const bankAccountRow = bankAccountMap.get(bankAccountId);
           bankAccountRow.settlementCount += 1;
           bankAccountRow.totalLakEquivalent += lakEquivalent;
           bankAccountRow.amounts[currencyCode] = (bankAccountRow.amounts[currencyCode] || 0) + amount;
         });
-        console.log(`Bank account groups created: ${bankAccountMap.size}`);
-        console.log('Bank account map:', Array.from(bankAccountMap.entries()));
         this.currencyList = Array.from(currencySet).sort();
-
-        // Sort bank accounts: real bank accounts first (by bank name, then account name), then "Cash" at the bottom
         this.bankAccountSummaryReport = Array.from(bankAccountMap.values()).sort((a, b) => {
           if (a.bankAccountId === 'NO_BANK_ACCOUNT') return 1;
           if (b.bankAccountId === 'NO_BANK_ACCOUNT') return -1;
-
-          // Sort by bank name first, then by account name
           const bankComparison = a.bankName.localeCompare(b.bankName);
           if (bankComparison !== 0) return bankComparison;
           return a.accountName.localeCompare(b.accountName);
-        });
-
-        // Log bank account breakdown for debugging
-        console.log('Final bank account breakdown:');
-        this.bankAccountSummaryReport.forEach(bankAccount => {
-          console.log(`- ${bankAccount.accountNumber}: ${bankAccount.accountName} at ${bankAccount.bankName} (${bankAccount.settlementCount} settlements)`);
         });
         this.bankAccountTotals = {
           totalLakEquivalent: this.bankAccountSummaryReport.reduce((sum, b) => sum + b.totalLakEquivalent, 0),
@@ -2311,8 +1716,6 @@ var excel = __webpack_require__(743);
         this.currencyList.forEach(currency => {
           this.bankAccountTotals.currencyTotals[currency] = this.bankAccountSummaryReport.reduce((sum, b) => sum + (b.amounts[currency] || 0), 0);
         });
-        console.log(`Final bank account report: ${this.bankAccountSummaryReport.length} bank accounts found`);
-        console.log('Final report data:', this.bankAccountSummaryReport);
       } catch (err) {
         console.error('Error fetching bank account report:', err);
         this.$toast.error('Failed to fetch bank account report.');
@@ -2337,54 +1740,6 @@ var excel = __webpack_require__(743);
     getSortIcon(column) {
       if (this.tableOptions.sortBy[0] !== column) return 'mdi-sort';
       return this.tableOptions.sortDesc[0] ? 'mdi-sort-descending' : 'mdi-sort-ascending';
-    },
-    // Filters
-    applyFilters() {
-      this.tableOptions.page = 1;
-      this.fetchSettlements();
-    },
-    clearFilters() {
-      this.filters = {
-        method: '',
-        dateFrom: '',
-        dateTo: ''
-      };
-      this.searchQuery = '';
-      this.applyFilters();
-    },
-    debounceSearch() {
-      clearTimeout(this.searchTimeout);
-      this.searchTimeout = setTimeout(() => {
-        this.applyFilters();
-      }, 500);
-    },
-    // Dialog operations
-    openCreateDialog() {
-      var _this$$auth$user;
-      this.dialogMode = 'create';
-      this.settlementForm = {
-        bookingDate: new Date().toISOString().split('T')[0],
-        amount: '',
-        method: '',
-        exchangeRate: 1,
-        notes: '',
-        userId: ((_this$$auth$user = this.$auth.user) === null || _this$$auth$user === void 0 ? void 0 : _this$$auth$user.id) || null
-      };
-      this.dialog = true;
-    },
-    editSettlement(settlement) {
-      this.dialogMode = 'edit';
-      this.currentSettlement = settlement;
-      this.settlementForm = {
-        id: settlement.id,
-        bookingDate: settlement.bookingDate,
-        amount: settlement.amount,
-        method: settlement.method,
-        exchangeRate: settlement.exchangeRate || 1,
-        notes: settlement.notes || '',
-        userId: settlement.userId
-      };
-      this.dialog = true;
     },
     viewSettlement(settlement) {
       this.dialogMode = 'view';
@@ -2420,163 +1775,6 @@ var excel = __webpack_require__(743);
         this.saving = false;
       }
     },
-    async confirmDelete(settlement) {
-      const confirmed = await this.$swal({
-        title: 'Delete Settlement?',
-        text: `Are you sure you want to delete settlement #${settlement.id}? This action cannot be undone.`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
-      });
-      if (confirmed.isConfirmed) {
-        await this.deleteSettlement(settlement);
-      }
-    },
-    async deleteSettlement(settlement) {
-      try {
-        await this.$axios.delete(`/api/settlements/${settlement.id}`);
-        this.$toast.success('Settlement deleted successfully');
-        await this.loadInitialData();
-      } catch (error) {
-        console.error('Error deleting settlement:', error);
-        this.$toast.error('Failed to delete settlement');
-      }
-    },
-    // Chart initialization
-    initializeCharts() {
-      this.initMethodChart();
-      this.initTrendChart();
-    },
-    initMethodChart() {
-      if (!this.$refs.methodChart || !window.Chart) return;
-      const ctx = this.$refs.methodChart.getContext('2d');
-      if (this.methodChart) {
-        this.methodChart.destroy();
-      }
-
-      // Calculate method distribution from actual settlements data
-      const methodCounts = {
-        cash: 0,
-        bank_transfer: 0,
-        deduction: 0
-      };
-      this.settlements.forEach(settlement => {
-        if (methodCounts.hasOwnProperty(settlement.method)) {
-          methodCounts[settlement.method]++;
-        }
-      });
-      const data = [methodCounts.cash, methodCounts.bank_transfer, methodCounts.deduction];
-      const hasData = data.some(value => value > 0);
-      this.methodChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Cash Payment', 'Bank Transfer', 'Salary Deduction'],
-          datasets: [{
-            data: hasData ? data : [1, 1, 1],
-            // Show equal parts if no data
-            backgroundColor: ['#4CAF50', '#2196F3', '#FF9800'],
-            borderWidth: 2,
-            borderColor: '#fff'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom'
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  if (!hasData) return 'No data available';
-                  return context.label + ': ' + context.parsed + ' settlements';
-                }
-              }
-            }
-          }
-        }
-      });
-    },
-    initTrendChart() {
-      if (!this.$refs.trendChart || !window.Chart) return;
-      const ctx = this.$refs.trendChart.getContext('2d');
-      if (this.trendChart) {
-        this.trendChart.destroy();
-      }
-
-      // Calculate monthly trends from actual settlements data
-      const monthlyData = {};
-      const currentYear = new Date().getFullYear();
-
-      // Initialize months
-      for (let i = 0; i < 12; i++) {
-        const month = new Date(currentYear, i, 1).toLocaleDateString('en-US', {
-          month: 'short'
-        });
-        monthlyData[month] = 0;
-      }
-
-      // Group settlements by month
-      this.settlements.forEach(settlement => {
-        const date = new Date(settlement.bookingDate);
-        if (date.getFullYear() === currentYear) {
-          const month = date.toLocaleDateString('en-US', {
-            month: 'short'
-          });
-          const lakEquivalent = (parseFloat(settlement.amount) || 0) * (parseFloat(settlement.exchangeRate) || 1);
-          monthlyData[month] += lakEquivalent;
-        }
-      });
-      const labels = Object.keys(monthlyData);
-      const data = Object.values(monthlyData);
-      const hasData = data.some(value => value > 0);
-      this.trendChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Settlement Amount (LAK Equivalent)',
-            data: hasData ? data : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            borderColor: '#01532B',
-            // Your primary color
-            backgroundColor: 'rgba(1, 83, 43, 0.1)',
-            tension: 0.4,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  if (!hasData) return 'No data available';
-                  return 'LAK ' + context.parsed.y.toLocaleString();
-                }
-              }
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value) {
-                  return '₭' + value.toLocaleString();
-                }
-              }
-            }
-          }
-        }
-      });
-    },
     // Utility methods
     formatDate(date) {
       if (!date) return 'N/A';
@@ -2603,9 +1801,9 @@ var excel = __webpack_require__(743);
     },
     getMethodColor(method) {
       const colors = {
-        cash: 'success',
-        bank_transfer: 'primary',
-        deduction: 'warning'
+        cash: '#01532B',
+        bank_transfer: '#059669',
+        deduction: '#F59E0B'
       };
       return colors[method] || 'grey';
     },
@@ -2619,10 +1817,10 @@ var excel = __webpack_require__(743);
     },
     getStatusColor(status) {
       const colors = {
-        approved: 'success',
-        settled: 'primary',
-        pending: 'warning',
-        rejected: 'error'
+        approved: '#059669',
+        settled: '#01532B',
+        pending: '#F59E0B',
+        rejected: '#DC2626'
       };
       return colors[status] || 'grey';
     },
@@ -2639,26 +1837,12 @@ var excel = __webpack_require__(743);
       if (!name) return '?';
       return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
     },
-    getCurrencyColor(currencyCode) {
-      const colors = {
-        USD: 'success',
-        LAK: 'primary',
-        THB: 'warning',
-        BTH: 'warning',
-        // Same as THB
-        EUR: 'info',
-        CNY: 'error',
-        VND: 'secondary'
-      };
-      return colors[currencyCode] || 'grey';
-    },
     getCurrencySymbol(currencyCode) {
       const symbols = {
         USD: '$',
         LAK: '₭',
         THB: '฿',
         BTH: '฿',
-        // Same as THB (Thai Baht)
         EUR: '€',
         CNY: '¥',
         VND: '₫'
@@ -2678,7 +1862,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(976)
+  var style0 = __webpack_require__(972)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2687,11 +1871,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_settlementvue_type_script_lang_js_,
-  settlementvue_type_template_id_178d0b7e_scoped_true_render,
+  settlementvue_type_template_id_2116f6e9_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "178d0b7e",
+  "2116f6e9",
   "f0f67526"
   
 )
@@ -2700,13 +1884,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 392:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(393);
+var content = __webpack_require__(388);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2714,7 +1898,7 @@ __webpack_require__(5).default("c54b7bb4", content, true)
 
 /***/ }),
 
-/***/ 393:
+/***/ 388:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2729,11 +1913,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 416:
+/***/ 412:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(392);
+/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(387);
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
@@ -2830,13 +2014,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 536:
+/***/ 529:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(537);
+var content = __webpack_require__(530);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2844,7 +2028,7 @@ __webpack_require__(5).default("53887fd2", content, true)
 
 /***/ }),
 
-/***/ 537:
+/***/ 530:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2859,17 +2043,17 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 714:
+/***/ 709:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(536);
+/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(529);
 /* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_activatable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var _mixins_delayable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(50);
 /* harmony import */ var _mixins_dependent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
-/* harmony import */ var _mixins_menuable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(107);
+/* harmony import */ var _mixins_menuable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(106);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
 /* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(2);
@@ -3064,12 +2248,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 743:
+/***/ 739:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(361);
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(357);
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3291,44 +2475,44 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 744:
+/***/ 740:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(977);
+var content = __webpack_require__(973);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("50bdc3b0", content, true, context)
+  add("003e32c6", content, true, context)
 };
 
 /***/ }),
 
-/***/ 976:
+/***/ 972:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_178d0b7e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(744);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_178d0b7e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_178d0b7e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_178d0b7e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_178d0b7e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(740);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 977:
+/***/ 973:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-card[data-v-178d0b7e]{transition:all .3s ease}.v-card[data-v-178d0b7e]:hover{transform:translateY(-2px)}.sortable[data-v-178d0b7e]{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none}.sortable[data-v-178d0b7e]:hover{background-color:hsla(0,0%,100%,.1)!important}.primary.lighten-2 th[data-v-178d0b7e]{background-color:var(--v-primary-lighten2)!important}.chart-account-table[data-v-178d0b7e]{font-family:\"Roboto\",sans-serif}.chart-account-table thead th[data-v-178d0b7e]{background-color:var(--v-primary-base)!important;border-right:1px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-size:.875rem!important;font-weight:700!important;padding:12px 8px!important}.chart-account-table tbody td[data-v-178d0b7e]{border-bottom:1px solid #e0e0e0!important;border-right:1px solid #f5f5f5!important;font-size:.8rem!important;padding:8px!important}.chart-account-table tbody tr[data-v-178d0b7e]:hover{background-color:#f8f9fa!important}.chart-account-table .primary.lighten-4 td[data-v-178d0b7e]{background-color:var(--v-primary-lighten4)!important;border-top:2px solid var(--v-primary-base)!important;font-weight:700!important}@media (max-width:768px){.chart-account-table[data-v-178d0b7e]{font-size:.75rem}.chart-account-table tbody td[data-v-178d0b7e],.chart-account-table thead th[data-v-178d0b7e]{font-size:.7rem!important;padding:6px 4px!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".banking-primary--text[data-v-2116f6e9]{color:#01532b!important}.banking-success--text[data-v-2116f6e9]{color:#059669!important}.summary-card[data-v-2116f6e9]{border-left:4px solid transparent;transition:all .3s ease}.summary-card[data-v-2116f6e9]:hover{box-shadow:0 8px 25px rgba(1,83,43,.15);transform:translateY(-4px)}.report-card[data-v-2116f6e9]{border-left:4px solid #01532b}.report-header[data-v-2116f6e9]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-table[data-v-2116f6e9]{font-family:\"Roboto\",sans-serif}.banking-table-header[data-v-2116f6e9]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important}.banking-table-header th[data-v-2116f6e9]{background:transparent!important;border-right:1px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-size:.875rem!important;font-weight:700!important;padding:12px 8px!important}.banking-table tbody td[data-v-2116f6e9]{border-bottom:1px solid #e0e0e0!important;border-right:1px solid #f5f5f5!important;font-size:.8rem!important;padding:8px!important}.banking-table tbody tr[data-v-2116f6e9]:hover{background-color:rgba(1,83,43,.05)!important}.banking-row-even[data-v-2116f6e9]{background-color:#f8f9fa!important}.banking-row-special[data-v-2116f6e9]{background-color:#fef3c7!important}.banking-table-footer[data-v-2116f6e9]{background:linear-gradient(90deg,rgba(1,83,43,.1),rgba(1,83,43,.15))!important;border-top:2px solid #01532b!important}.banking-table-footer td[data-v-2116f6e9]{background:transparent!important;border-top:2px solid #01532b!important;font-weight:700!important}.data-table-card[data-v-2116f6e9]{border-left:4px solid #01532b}.data-table-header[data-v-2116f6e9]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-data-table[data-v-2116f6e9]{background:#fff}.date-chip[data-v-2116f6e9]{font-family:\"Roboto Mono\",monospace;font-size:.75rem}.banking-divider[data-v-2116f6e9]{border-color:#01532b!important;border-width:2px!important}.dialog-header[data-v-2116f6e9]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important;color:#fff!important;font-weight:600}.sortable[data-v-2116f6e9]{cursor:pointer;transition:background-color .2s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.sortable[data-v-2116f6e9]:hover{background-color:hsla(0,0%,100%,.1)!important}.v-text-field[data-v-2116f6e9] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-text-field[data-v-2116f6e9] .v-label{color:#01532b!important}.v-select[data-v-2116f6e9] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-select[data-v-2116f6e9] .v-label{color:#01532b!important}.v-textarea[data-v-2116f6e9] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-textarea[data-v-2116f6e9] .v-label{color:#01532b!important}@media (max-width:768px){.banking-table[data-v-2116f6e9]{font-size:.75rem}.banking-table tbody td[data-v-2116f6e9],.banking-table-header th[data-v-2116f6e9]{font-size:.7rem!important;padding:6px 4px!important}.report-card[data-v-2116f6e9],.summary-card[data-v-2116f6e9]{margin-bottom:16px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

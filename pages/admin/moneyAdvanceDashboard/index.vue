@@ -394,6 +394,7 @@
 <script>
 export default {
   name: 'SettlementReport',
+    middleware: 'auths',
   data() {
     return {
       loading: false,

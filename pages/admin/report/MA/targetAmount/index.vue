@@ -7,7 +7,7 @@
           <v-card-title class="py-2 px-4 d-flex align-center custom-primary-bg white--text">
             <v-icon color="white" class="mr-2">mdi-chart-line</v-icon>
             <span class="text-h5 font-weight-medium">
-              Revenue Target Dashboard
+              ກະດານ ແຜນລາຍຮັບ
             </span>
           </v-card-title>
           
@@ -27,19 +27,7 @@
                 ></v-select>
               </v-col>
               
-              <v-col cols="12" md="2">
-                <v-select
-                  v-model="selectedBranchId"
-                  :items="branches"
-                  item-text="name"
-                  item-value="id"
-                  label="Branch"
-                  outlined
-                  dense
-                  clearable
-                  @change="loadDashboardData"
-                ></v-select>
-              </v-col>
+  
               
               <v-col cols="12" md="3">
                 <v-text-field
@@ -91,9 +79,9 @@
                 <v-icon color="white">mdi-bullseye</v-icon>
               </v-avatar>
               <div>
-                <div class="text-caption grey--text">Total Target</div>
+                <div class="text-caption grey--text">ຍອດຕາມແຜນ</div>
                 <div class="text-h6 font-weight-bold">{{ formatAmount(summaryTotals.totalTarget) }}</div>
-                <div class="text-caption">{{ dashboardData.length }} targets</div>
+                <div class="text-caption">{{ dashboardData.length }} ເປົ້າໝາຍ</div>
               </div>
             </div>
           </v-card-text>
@@ -108,7 +96,7 @@
                 <v-icon color="white">mdi-check-circle</v-icon>
               </v-avatar>
               <div>
-                <div class="text-caption grey--text">Total Achieved</div>
+                <div class="text-caption grey--text">ບັນລຸແລ້ວ </div>
                 <div class="text-h6 font-weight-bold custom-primary-text">{{ formatAmount(summaryTotals.totalAchieved) }}</div>
                 <div class="text-caption">{{ achievementPercentage }}% of target</div>
               </div>
@@ -125,9 +113,9 @@
                 <v-icon color="white">mdi-alert-circle</v-icon>
               </v-avatar>
               <div>
-                <div class="text-caption grey--text">Outstanding</div>
+                <div class="text-caption grey--text">ຍອດຄ້າງ</div>
                 <div class="text-h6 font-weight-bold warning--text">{{ formatAmount(summaryTotals.totalOutstanding) }}</div>
-                <div class="text-caption">{{ outstandingPercentage }}% remaining</div>
+                <div class="text-caption">{{ outstandingPercentage }}% ຍັງເຫລືອ</div>
               </div>
             </div>
           </v-card-text>
@@ -142,7 +130,7 @@
                 <v-icon color="white">mdi-chart-line</v-icon>
               </v-avatar>
               <div>
-                <div class="text-caption grey--text">Performance</div>
+                <div class="text-caption grey--text">ປະສິດທິພາບ</div>
                 <div class="text-h6 font-weight-bold" :class="performanceStatus.color === 'custom-primary-bg' ? 'custom-primary-text' : performanceStatus.color + '--text'">{{ performanceStatus.text }}</div>
                 <div class="text-caption">{{ activeTargetsCount }} active targets</div>
               </div>
@@ -158,7 +146,7 @@
         <v-card elevation="2" class="rounded-xl">
           <v-card-title class="py-2 px-4 custom-primary-bg white--text">
             <v-icon color="white" class="mr-2">mdi-progress-check</v-icon>
-            <span class="text-subtitle-1 font-weight-medium">Overall Progress</span>
+            <span class="text-subtitle-1 font-weight-medium">ພາບລວມ ຄວາມຄືບຫນ້າ</span>
           </v-card-title>
           
           <v-divider></v-divider>
@@ -188,7 +176,7 @@
           <v-card-title class="py-2 px-4 d-flex align-center custom-primary-bg white--text">
             <v-icon color="white" class="mr-2">mdi-table</v-icon>
             <span class="text-subtitle-1 font-weight-medium">
-              Revenue Targets by Ministry & Chart Account
+              ເປົ້າໝາຍລາຍຮັບຕາມກະຊວງ ແລະ ຜັງບັນຊີ
             </span>
             <v-spacer></v-spacer>
             <v-btn
@@ -239,16 +227,16 @@
                 <thead>
                   <tr class="custom-table-header">
                     <th class="white--text text-caption font-weight-bold">#</th>
-                    <th class="white--text text-caption font-weight-bold">Target Name</th>
-                    <th class="white--text text-caption font-weight-bold">Ministry</th>
-                    <th class="white--text text-caption font-weight-bold">Chart Account</th>
+                    <th class="white--text text-caption font-weight-bold">ແຜນລາຍຮັບ</th>
+                    <th class="white--text text-caption font-weight-bold">ກົມ</th>
+                    <th class="white--text text-caption font-weight-bold">ລະຫັດລາຍຮັບ</th>
                     <!-- Dynamic Target Currency Columns -->
                     <th
                       v-for="currency in currencyList"
                       :key="'target-' + currency"
                       class="white--text text-caption font-weight-bold text-right"
                     >
-                      Target {{ currency }}
+                      ແຜນ {{ currency }}
                     </th>
                     <!-- Dynamic Achieved Currency Columns -->
                     <th
@@ -256,13 +244,13 @@
                       :key="'achieved-' + currency"
                       class="white--text text-caption font-weight-bold text-right"
                     >
-                      Achieved {{ currency }}
+                      ບັນລຸ {{ currency }}
                     </th>
-                    <th class="white--text text-caption font-weight-bold text-right">Target (LAK)</th>
-                    <th class="white--text text-caption font-weight-bold text-right">Achieved (LAK)</th>
-                    <th class="white--text text-caption font-weight-bold text-right">Outstanding (LAK)</th>
-                    <th class="white--text text-caption font-weight-bold text-center">Progress</th>
-                    <th class="white--text text-caption font-weight-bold text-center">Status</th>
+                    <th class="white--text text-caption font-weight-bold text-right">ແຜນ (LAK)</th>
+                    <th class="white--text text-caption font-weight-bold text-right">ບັນລຸ (LAK)</th>
+                    <th class="white--text text-caption font-weight-bold text-right">ຍັງເຫລືອ (LAK)</th>
+                    <th class="white--text text-caption font-weight-bold text-center">ຄວາມຄືບຫນ້າ</th>
+                    <th class="white--text text-caption font-weight-bold text-center">ສະຖານະ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -280,7 +268,7 @@
                       <div class="text-caption grey--text">{{ item.year }}</div>
                     </td>
                     <td class="text-body-2">
-                      <div class="font-weight-medium">{{ item.ministryCode || 'N/A' }} {{ JSON.stringify(item) }}</div>
+                      <div class="font-weight-medium">{{ item.ministryCode || 'N/A' }} </div>
                       <div class="text-caption grey--text">{{ item.ministryName || 'No Ministry' }}</div>
                     </td>
                     <td class="text-body-2">
@@ -404,7 +392,6 @@ export default {
       
       // Filter states
       selectedYear: new Date().getFullYear(),
-      selectedBranchId: '',
       dateRange: {
         start: new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0], // Jan 1st
         end: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0]  // Dec 31st
@@ -414,7 +401,6 @@ export default {
       revenueTargets: [],
       settlements: [],
       dashboardData: [],
-      branches: [],
       currencyList: [],
       
       // Computed totals

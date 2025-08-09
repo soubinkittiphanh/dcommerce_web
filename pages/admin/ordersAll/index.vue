@@ -128,6 +128,7 @@ export default {
     OrderForm,
     OrderStatusForm
   },
+    middleware: 'auths',
   data() {
     return {
       timer: null,

@@ -340,7 +340,7 @@ export default {
     SettlementViewDialog,
     VoucherPrintComponent,
   },
-
+  middleware: 'auths',
   data() {
     return {
       showPrintVoucher: false,

@@ -10,11 +10,15 @@
         <p class="page-subtitle">Money Advance Report</p>
       </div>
       <div class="action-buttons">
-        <v-btn color="success" @click="exportToExcel" :loading="exporting">
+        <v-btn
+          class="custom-btn export-btn"
+          @click="exportToExcel"
+          :loading="exporting"
+        >
           <i class="fas fa-file-excel"></i>
           Export Excel
         </v-btn>
-        <v-btn color="primary" @click="printReport">
+        <v-btn class="custom-btn print-btn" @click="printReport">
           <i class="fas fa-print"></i>
           Print
         </v-btn>
@@ -23,212 +27,246 @@
 
     <!-- Filters Card -->
     <v-card class="filter-card mb-4" elevation="2">
-      <v-card-title class="filter-title">
-        <i class="fas fa-filter"></i>
+      <v-card-title class="filter-title d-flex align-center">
+        <v-icon class="mr-2">mdi-filter</v-icon>
         ຕົວກອງ (Filters)
       </v-card-title>
-      <v-card-text>
+
+      <v-card-text class="pa-4">
+        <!-- First Row -->
         <v-row>
-          <v-col cols="12" md="3">
-            <v-menu
-              v-model="fromDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="filters.fromDate"
-                  label="ຈາກວັນທີ (From Date)"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="filters.fromDate"
-                @input="fromDateMenu = false"
-              ></v-date-picker>
-            </v-menu>
+          <!-- From Date -->
+          <v-col cols="12" md="4">
+            <v-text-field
+              v-model="filters.fromDate"
+              type="date"
+              label="ຈາກວັນທີ (From Date)"
+              outlined
+              dense
+              @change="applyFilters"
+            ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="3">
-            <v-menu
-              v-model="toDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="filters.toDate"
-                  label="ຫາວັນທີ (To Date)"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="filters.toDate"
-                @input="toDateMenu = false"
-              ></v-date-picker>
-            </v-menu>
+          <!-- To Date -->
+          <v-col cols="12" md="4">
+            <v-text-field
+              v-model="filters.toDate"
+              type="date"
+              label="ຫາວັນທີ (To Date)"
+              outlined
+              dense
+              @change="applyFilters"
+            ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <!-- Ministry -->
+          <v-col cols="12" md="4">
             <v-select
               v-model="filters.ministryId"
               :items="ministries"
               item-text="ministryName"
               item-value="id"
-              label="ກະຊວງ (Ministry)"
-              prepend-icon="mdi-office-building"
+              label="Ministry"
               clearable
+              outlined
+              dense
+              @change="applyFilters"
             ></v-select>
           </v-col>
+        </v-row>
 
-          <v-col cols="12" md="3">
+        <!-- Second Row -->
+        <v-row>
+          <!-- Currency -->
+          <v-col cols="12" md="4">
             <v-select
               v-model="filters.currencyId"
               :items="currencies"
               item-text="name"
               item-value="id"
-              label="ສະກຸນເງິນ (Currency)"
-              prepend-icon="mdi-currency-usd"
+              label="Currency"
               clearable
+              outlined
+              dense
+              @change="applyFilters"
             ></v-select>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <!-- Status -->
+          <v-col cols="12" md="4">
             <v-select
               v-model="filters.status"
               :items="statusOptions"
               item-text="text"
               item-value="value"
-              label="ສະຖານະ (Status)"
-              prepend-icon="mdi-flag"
+              label="Status"
               clearable
+              outlined
+              dense
+              @change="applyFilters"
             ></v-select>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <!-- Maker -->
+          <v-col cols="12" md="4">
             <v-select
               v-model="filters.makerId"
               :items="users"
               item-text="cus_name"
               item-value="id"
-              label="ຜູ້ລົງບັນທຶກ (Maker)"
-              prepend-icon="mdi-account"
+              label="Maker"
               clearable
+              outlined
+              dense
+              @change="applyFilters"
             ></v-select>
           </v-col>
+        </v-row>
 
-          <v-col cols="12" md="6">
-            <div class="filter-actions">
-              <v-btn color="primary" @click="applyFilters" :loading="loading">
-                <i class="fas fa-search"></i>
-                ຄົ້ນຫາ
-              </v-btn>
-              <v-btn color="secondary" @click="resetFilters">
-                <i class="fas fa-undo"></i>
-                ຣີເຊັດ
-              </v-btn>
-            </div>
+        <!-- Buttons Row -->
+        <v-row class="mt-2">
+          <v-col cols="12" md="3">
+            <v-btn
+              class="custom-primary-bg white--text"
+              block
+              outlined
+              @click="applyFilters"
+              :loading="loading"
+            >
+              <v-icon left color="white">mdi-refresh</v-icon>
+              Refresh
+            </v-btn>
+          </v-col>
+
+          <v-col cols="12" md="3">
+            <v-btn
+              class="custom-secondary-btn"
+              block
+              outlined
+              @click="resetFilters"
+              color="grey lighten-1"
+            >
+              <v-icon left>mdi-restore</v-icon>
+              Reset
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
 
     <!-- Enhanced Summary Cards -->
-
     <v-row class="mb-4" dense>
       <!-- Total Advances -->
       <v-col cols="12" md="3">
-        <v-card color="blue lighten-5" class="pa-4" elevation="2">
-          <v-row align="center">
-            <v-col cols="3">
-              <v-icon large color="blue darken-2">mdi-cash</v-icon>
-            </v-col>
-            <v-col cols="9">
-              <div class="text-subtitle-1 font-weight-bold">ລວມລາຍຈ່າຍ</div>
-              <div class="caption mb-1">Total Advances</div>
-              <div class="text-h6 font-weight-bold">
-                {{ formatCurrency(summaryData.totalAdvances) }}
-              </div>
-              <div v-if="summaryData.totalAdvancesLcy" class="caption">
-                LCY: {{ formatCurrency(summaryData.totalAdvancesLcy) }}
-              </div>
-            </v-col>
-          </v-row>
+        <v-card class="summary-card advance-card" elevation="4">
+          <v-card-text class="pa-4">
+            <v-row align="center">
+              <v-col cols="3">
+                <div class="summary-icon">
+                  <i class="fas fa-cash-register"></i>
+                </div>
+              </v-col>
+              <v-col cols="9">
+                <div class="summary-details">
+                  <div class="summary-title">ລວມລາຍຈ່າຍ</div>
+                  <div class="summary-subtitle">Total Advances</div>
+                  <div class="summary-amount">
+                    {{ formatCurrency(summaryData.totalAdvances) }}
+                  </div>
+                  <div v-if="summaryData.totalAdvancesLcy" class="summary-lcy">
+                    LCY: {{ formatCurrency(summaryData.totalAdvancesLcy) }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-col>
 
       <!-- Total Settlements -->
       <v-col cols="12" md="3">
-        <v-card color="green lighten-5" class="pa-4" elevation="2">
-          <v-row align="center">
-            <v-col cols="3">
-              <v-icon large color="green darken-2">mdi-cash-refund</v-icon>
-            </v-col>
-            <v-col cols="9">
-              <div class="text-subtitle-1 font-weight-bold">ລວມການຊຳລະ</div>
-              <div class="caption mb-1">Total Settlements</div>
-              <div class="text-h6 font-weight-bold">
-                {{ formatCurrency(summaryData.totalSettlements) }}
-              </div>
-              <div v-if="summaryData.totalSettlementsLcy" class="caption">
-                LCY: {{ formatCurrency(summaryData.totalSettlementsLcy) }}
-              </div>
-            </v-col>
-          </v-row>
+        <v-card class="summary-card settlement-card" elevation="4">
+          <v-card-text class="pa-4">
+            <v-row align="center">
+              <v-col cols="3">
+                <div class="summary-icon">
+                  <i class="fas fa-hand-holding-usd"></i>
+                </div>
+              </v-col>
+              <v-col cols="9">
+                <div class="summary-details">
+                  <div class="summary-title">ລວມການຊຳລະ</div>
+                  <div class="summary-subtitle">Total Settlements</div>
+                  <div class="summary-amount">
+                    {{ formatCurrency(summaryData.totalSettlements) }}
+                  </div>
+                  <div
+                    v-if="summaryData.totalSettlementsLcy"
+                    class="summary-lcy"
+                  >
+                    LCY: {{ formatCurrency(summaryData.totalSettlementsLcy) }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-col>
 
       <!-- Outstanding Balance -->
       <v-col cols="12" md="3">
-        <v-card color="red lighten-5" class="pa-4" elevation="2">
-          <v-row align="center">
-            <v-col cols="3">
-              <v-icon large color="red darken-2">mdi-alert-circle</v-icon>
-            </v-col>
-            <v-col cols="9">
-              <div class="text-subtitle-1 font-weight-bold">ຍອດຄ້າງຊຳລະ</div>
-              <div class="caption mb-1">Outstanding Balance</div>
-              <div class="text-h6 font-weight-bold">
-                {{ formatCurrency(summaryData.outstandingBalance) }}
-              </div>
-              <div v-if="summaryData.outstandingBalanceLcy" class="caption">
-                LCY: {{ formatCurrency(summaryData.outstandingBalanceLcy) }}
-              </div>
-            </v-col>
-          </v-row>
+        <v-card class="summary-card outstanding-card" elevation="4">
+          <v-card-text class="pa-4">
+            <v-row align="center">
+              <v-col cols="3">
+                <div class="summary-icon">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </div>
+              </v-col>
+              <v-col cols="9">
+                <div class="summary-details">
+                  <div class="summary-title">ຍອດຄ້າງຊຳລະ</div>
+                  <div class="summary-subtitle">Outstanding Balance</div>
+                  <div class="summary-amount">
+                    {{ formatCurrency(summaryData.outstandingBalance) }}
+                  </div>
+                  <div
+                    v-if="summaryData.outstandingBalanceLcy"
+                    class="summary-lcy"
+                  >
+                    LCY: {{ formatCurrency(summaryData.outstandingBalanceLcy) }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-col>
 
       <!-- Brought Forward -->
       <v-col cols="12" md="3">
-        <v-card color="orange lighten-5" class="pa-4" elevation="2">
-          <v-row align="center">
-            <v-col cols="3">
-              <v-icon large color="orange darken-2"
-                >mdi-arrow-right-bold</v-icon
-              >
-            </v-col>
-            <v-col cols="9">
-              <div class="text-subtitle-1 font-weight-bold">ຍອດຍົກມາ</div>
-              <div class="caption mb-1">Brought Forward</div>
-              <div class="text-h6 font-weight-bold">
-                {{ formatCurrency(summaryData.broughtForward) }}
-              </div>
-              <div v-if="summaryData.broughtForwardLcy" class="caption">
-                LCY: {{ formatCurrency(summaryData.broughtForwardLcy) }}
-              </div>
-            </v-col>
-          </v-row>
+        <v-card class="summary-card brought-forward-card" elevation="4">
+          <v-card-text class="pa-4">
+            <v-row align="center">
+              <v-col cols="3">
+                <div class="summary-icon">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </v-col>
+              <v-col cols="9">
+                <div class="summary-details">
+                  <div class="summary-title">ຍອດຍົກມາ</div>
+                  <div class="summary-subtitle">Brought Forward</div>
+                  <div class="summary-amount">
+                    {{ formatCurrency(summaryData.broughtForward) }}
+                  </div>
+                  <div v-if="summaryData.broughtForwardLcy" class="summary-lcy">
+                    LCY: {{ formatCurrency(summaryData.broughtForwardLcy) }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -304,7 +342,7 @@
         summaryData.currencyBreakdown.length > 0
       "
     >
-      <v-card-title>
+      <v-card-title class="currency-title">
         <i class="fas fa-coins"></i>
         ສະຫຼູບຕາມສະກຸນເງິນ (Currency Breakdown)
       </v-card-title>
@@ -316,7 +354,7 @@
             cols="12"
             md="4"
           >
-            <v-card outlined>
+            <v-card outlined class="currency-card">
               <v-card-text>
                 <div class="currency-summary">
                   <h4>
@@ -349,36 +387,24 @@
       </v-card-text>
     </v-card>
 
-    <!-- Ministry Breakdown Chart -->
-    <!-- <v-card class="chart-card mb-4" elevation="2">
-      <v-card-title>
-        <i class="fas fa-chart-pie"></i>
-        ລາຍງານຕາມກົມ (Ministry Breakdown)
-      </v-card-title>
-      <v-card-text>
-        <div class="chart-container">
-          <canvas ref="ministryChart" width="400" height="200"></canvas>
-        </div>
-      </v-card-text>
-    </v-card> -->
     <!-- Chart Ministry Report -->
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card elevation="2" class="rounded-xl">
-          <v-card-title class="primary--text py-2 px-4 d-flex align-center">
-            <v-icon color="primary" class="mr-2">mdi-office-building</v-icon>
+          <v-card-title
+            class="ministry-table-title py-2 px-4 d-flex align-center"
+          >
+            <v-icon class="mr-2" color="white">mdi-office-building</v-icon>
             <span class="text-subtitle-1 font-weight-medium">
               ລາຍງານ ຕາມກົມ
             </span>
             <v-spacer></v-spacer>
-            <v-spacer></v-spacer>
 
             <!-- Export Button -->
             <v-btn
-              color="success"
+              class="custom-export-btn mr-2"
               small
               outlined
-              class="mr-2"
               @click="exportMinistryReportToExcel"
               :disabled="!ministrySummaryReport.length"
               :loading="exporting"
@@ -391,6 +417,7 @@
               small
               @click="refreshMinistryReport"
               :loading="loadingMinistryReport"
+              class="white--text"
             >
               <v-icon small>mdi-refresh</v-icon>
             </v-btn>
@@ -400,7 +427,7 @@
 
           <v-card-text class="pa-0">
             <div v-if="loadingMinistryReport" class="text-center py-6">
-              <v-progress-circular indeterminate color="primary" />
+              <v-progress-circular indeterminate color="#01532B" />
               <div class="mt-2 text-caption">Loading ministry report...</div>
             </div>
 
@@ -419,7 +446,7 @@
             <v-simple-table v-else dense>
               <template v-slot:default>
                 <thead>
-                  <tr class="primary lighten-3">
+                  <tr class="ministry-table-header">
                     <th class="white--text text-caption font-weight-bold">#</th>
                     <th class="white--text text-caption font-weight-bold">
                       Ministry Code
@@ -490,7 +517,7 @@
                   </tr>
 
                   <!-- Totals -->
-                  <tr class="primary lighten-4">
+                  <tr class="ministry-table-footer">
                     <td colspan="3" class="font-weight-bold text-caption">
                       ລວມ
                     </td>
@@ -514,7 +541,7 @@
                       }}
                     </td>
                     <td
-                      class="text-right font-weight-bold text-body-2 primary--text"
+                      class="text-right font-weight-bold text-body-2 white--text"
                     >
                       {{
                         formatAmount(ministryTotals?.totalLakEquivalent || 0)
@@ -533,20 +560,18 @@
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card elevation="2" class="rounded-xl">
-          <v-card-title class="secondary--text py-2 px-4 d-flex align-center">
-            <v-icon color="secondary" class="mr-2">mdi-bank</v-icon>
+          <v-card-title class="bank-table-title py-2 px-4 d-flex align-center">
+            <v-icon class="mr-2" color="white">mdi-bank</v-icon>
             <span class="text-subtitle-1 font-weight-medium">
               ລາຍງານ ບັນຊີທະນາຄານ
             </span>
             <v-spacer></v-spacer>
-            <v-spacer></v-spacer>
 
             <!-- Export Button -->
             <v-btn
-              color="success"
+              class="custom-export-btn mr-2"
               small
               outlined
-              class="mr-2"
               @click="exportBankAccountReportToExcel"
               :disabled="!bankAccountSummaryReport.length"
               :loading="exporting"
@@ -559,6 +584,7 @@
               small
               @click="refreshBankAccountReport"
               :loading="loadingBankAccountReport"
+              class="white--text"
             >
               <v-icon small>mdi-refresh</v-icon>
             </v-btn>
@@ -568,7 +594,7 @@
 
           <v-card-text class="pa-0">
             <div v-if="loadingBankAccountReport" class="text-center py-6">
-              <v-progress-circular indeterminate color="secondary" />
+              <v-progress-circular indeterminate color="#01532B" />
               <div class="mt-2 text-caption">
                 Loading bank account report...
               </div>
@@ -589,7 +615,7 @@
             <v-simple-table v-else dense>
               <template v-slot:default>
                 <thead>
-                  <tr class="secondary lighten-3">
+                  <tr class="bank-table-header">
                     <th class="white--text text-caption font-weight-bold">#</th>
                     <th class="white--text text-caption font-weight-bold">
                       Account Number
@@ -675,7 +701,7 @@
                   </tr>
 
                   <!-- Totals -->
-                  <tr class="secondary lighten-4">
+                  <tr class="bank-table-footer">
                     <td colspan="5" class="font-weight-bold text-caption">
                       ລວມ
                     </td>
@@ -699,7 +725,7 @@
                       }}
                     </td>
                     <td
-                      class="text-right font-weight-bold text-body-2 secondary--text"
+                      class="text-right font-weight-bold text-body-2 white--text"
                     >
                       {{
                         formatAmount(bankAccountTotals?.totalLakEquivalent || 0)
@@ -714,19 +740,6 @@
       </v-col>
     </v-row>
 
-    <!-- Monthly Trend Chart -->
-    <!-- <v-card class="chart-card mb-4" elevation="2">
-      <v-card-title>
-        <i class="fas fa-chart-line"></i>
-        ແນວໂນ້ມລາຍເດືອນ (Monthly Trend)
-      </v-card-title>
-      <v-card-text>
-        <div class="chart-container">
-          <canvas ref="trendChart" width="400" height="200"></canvas>
-        </div>
-      </v-card-text>
-    </v-card> -->
-
     <!-- Enhanced Detailed Report Table -->
     <v-card class="table-card" elevation="2">
       <v-card-title class="table-title">
@@ -740,6 +753,8 @@
           single-line
           hide-details
           class="search-field"
+          outlined
+          dense
         ></v-text-field>
       </v-card-title>
 
@@ -841,12 +856,12 @@
         </template>
 
         <template v-slot:item.actions="{ item }">
-          <v-btn small color="primary" @click="viewDetails(item)" class="mr-2">
+          <v-btn small color="#01532B" @click="viewDetails(item)" class="mr-2">
             <i class="fas fa-eye"></i>
           </v-btn>
           <v-btn
             small
-            color="success"
+            color="#228B22"
             @click="viewSettlements(item)"
             v-if="item.settlementCount > 0"
           >
@@ -860,11 +875,11 @@
     <!-- Enhanced Details Dialog -->
     <v-dialog v-model="detailsDialog" max-width="900px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="dialog-header">
           <i class="fas fa-info-circle"></i>
           ລາຍລະອຽດລາຍຈ່າຍ (Advance Details)
           <v-spacer></v-spacer>
-          <v-btn icon @click="detailsDialog = false">
+          <v-btn icon @click="detailsDialog = false" class="close-btn">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -945,11 +960,11 @@
     <!-- Settlements Dialog -->
     <v-dialog v-model="settlementsDialog" max-width="900px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="dialog-header">
           <i class="fas fa-receipt"></i>
           ປະຫວັດການຊຳລະ (Settlement History)
           <v-spacer></v-spacer>
-          <v-btn icon @click="settlementsDialog = false">
+          <v-btn icon @click="settlementsDialog = false" class="close-btn">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -1725,14 +1740,14 @@ export default {
             {
               data: [],
               backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56',
-                '#4BC0C0',
-                '#9966FF',
-                '#FF9F40',
-                '#FF6384',
-                '#C9CBCF',
+                '#01532B',
+                '#228B22',
+                '#32CD32',
+                '#006400',
+                '#9ACD32',
+                '#00FA9A',
+                '#66CDAA',
+                '#20B2AA',
               ],
             },
           ],
@@ -1765,15 +1780,15 @@ export default {
             {
               label: 'ລາຍຈ່າຍລ່ວງໜ້າ',
               data: [],
-              borderColor: '#36A2EB',
-              backgroundColor: 'rgba(54, 162, 235, 0.1)',
+              borderColor: '#01532B',
+              backgroundColor: 'rgba(1, 83, 43, 0.1)',
               tension: 0.1,
             },
             {
               label: 'ການຊຳລະ',
               data: [],
-              borderColor: '#4BC0C0',
-              backgroundColor: 'rgba(75, 192, 192, 0.1)',
+              borderColor: '#228B22',
+              backgroundColor: 'rgba(34, 139, 34, 0.1)',
               tension: 0.1,
             },
           ],
@@ -1958,18 +1973,18 @@ export default {
 
     getProgressColor(percentage) {
       const percent = parseFloat(percentage || 0)
-      if (percent >= 100) return 'green'
-      if (percent >= 50) return 'orange'
-      return 'red'
+      if (percent >= 100) return '#01532B'
+      if (percent >= 50) return '#228B22'
+      return '#32CD32'
     },
 
     getStatusColor(status) {
       const colors = {
-        pending: 'orange',
-        approved: 'blue',
-        settled: 'green',
+        pending: '#32CD32',
+        approved: '#228B22',
+        settled: '#01532B',
       }
-      return colors[status] || 'grey'
+      return colors[status] || '#666'
     },
 
     getStatusText(status) {
@@ -1983,11 +1998,11 @@ export default {
 
     getMethodColor(method) {
       const colors = {
-        cash: 'green',
-        bank_transfer: 'blue',
-        deduction: 'orange',
+        cash: '#01532B',
+        bank_transfer: '#228B22',
+        deduction: '#32CD32',
       }
-      return colors[method] || 'grey'
+      return colors[method] || '#01532B'
     },
 
     getMethodText(method) {
@@ -2003,18 +2018,18 @@ export default {
 </script>
 
 <style scoped>
-/* All your existing styles remain the same */
 .money-advance-report {
   padding: 0;
 }
 
+/* Header Section */
 .report-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 24px;
+  background: #01532b;
   color: white;
   border-radius: 8px;
 }
@@ -2026,133 +2041,190 @@ export default {
 }
 
 .title-section p {
-  margin: 5px 0 0 0;
+  margin: 8px 0 0 0;
   opacity: 0.9;
   font-size: 14px;
 }
 
 .action-buttons {
   display: flex;
-  gap: 12px;
+  gap: 16px;
 }
 
-.action-buttons .v-btn {
-  color: white !important;
+.custom-btn {
+  color: #01532b !important;
+  border: 1px solid white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
 }
 
+.custom-btn:hover {
+  background-color: white !important;
+  color: #01532b !important;
+}
+
+/* Filter Card */
 .filter-card {
   background: white;
+  border-radius: 8px;
 }
 
 .filter-title {
-  background: #f8f9fa;
-  color: #495057;
+  background: #01532b;
+  color: white;
   font-weight: 600;
 }
 
-.filter-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-top: 20px;
+.custom-primary-btn {
+  background-color: #01532b !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
 }
 
-.summary-cards {
-  margin-bottom: 24px;
+.custom-primary-btn:hover {
+  background-color: #014025 !important;
 }
 
+.custom-secondary-btn {
+  background-color: #6c757d !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-secondary-btn:hover {
+  background-color: #5a6268 !important;
+}
+
+/* Summary Cards */
 .summary-card {
-  height: 160px;
+  height: 140px;
   position: relative;
   overflow: hidden;
+  border-radius: 8px;
 }
 
-.summary-content {
-  display: flex;
-  align-items: center;
-  height: 100%;
+.summary-card:hover {
+  transform: translateY(-2px);
 }
 
 .summary-icon {
   font-size: 48px;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-right: 16px;
+  color: white;
 }
-
-.summary-details h3 {
+/* Custom Color Theme #01532B */
+.custom-primary-bg {
+  background-color: #01532B !important;
+}
+.summary-details .summary-title {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
   color: white;
 }
 
-.summary-details p {
+.summary-details .summary-subtitle {
   margin: 4px 0;
   font-size: 12px;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.summary-details h2 {
+.summary-details .summary-amount {
   margin: 8px 0 0 0;
   font-size: 24px;
   font-weight: 700;
+  color: white;
 }
 
 .summary-lcy {
   font-size: 11px;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-top: 4px !important;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .advance-card {
-  background: linear-gradient(135deg, #01532b 0%, #01532b 100%);
+  background: #01532b;
   color: white;
 }
 
 .settlement-card {
-  background: linear-gradient(135deg, #01532b 0%, #01532b 100%);
+  background: #01532b;
   color: white;
 }
 
 .outstanding-card {
-  background: linear-gradient(135deg, #01532b 0%, #01532b 100%);
+  background: #01532b;
   color: white;
 }
 
 .brought-forward-card {
-  background: linear-gradient(135deg, #01532b 0%, #01532b 100%);
+  background: #01532b;
   color: white;
 }
 
+/* Additional Summary Cards */
 .additional-summary {
   margin-bottom: 24px;
 }
 
 .stats-card {
   height: 100px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .stats-number {
   font-size: 24px;
   font-weight: 700;
   margin: 0;
+  color: #01532b;
 }
 
 .stats-label {
   font-size: 11px;
   margin: 4px 0 0 0;
   line-height: 1.2;
+  color: #666;
 }
 
+/* Currency Breakdown */
 .currency-breakdown-card {
   margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.currency-title {
+  background: #01532b;
+  color: white;
+  font-weight: 600;
+}
+
+.currency-card {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.currency-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
+  border-color: #01532b;
 }
 
 .currency-summary h4 {
   margin: 0 0 12px 0;
-  color: #495057;
-  border-bottom: 1px solid #e0e0e0;
+  color: #01532b;
+  border-bottom: 1px solid #01532b;
   padding-bottom: 8px;
+  font-weight: 600;
 }
 
 .currency-details p {
@@ -2160,22 +2232,61 @@ export default {
   font-size: 13px;
 }
 
-.chart-card {
-  margin-bottom: 24px;
+.currency-details strong {
+  color: #01532b;
 }
 
-.chart-container {
-  height: 300px;
-  position: relative;
+/* Ministry Report Table */
+.ministry-table-title {
+  background: #01532b;
+  color: white;
+  font-weight: 600;
 }
 
+.ministry-table-header {
+  background: #01532b !important;
+}
+
+.ministry-table-footer {
+  background: rgba(1, 83, 43, 0.8) !important;
+  color: white;
+}
+
+.custom-export-btn {
+  color: white !important;
+  border-color: white !important;
+}
+
+.custom-export-btn:hover {
+  background-color: white !important;
+  color: #01532b !important;
+}
+
+/* Bank Account Report Table */
+.bank-table-title {
+  background: #01532b;
+  color: white;
+  font-weight: 600;
+}
+
+.bank-table-header {
+  background: #01532b !important;
+}
+
+.bank-table-footer {
+  background: rgba(1, 83, 43, 0.8) !important;
+  color: white;
+}
+
+/* Main Table Section */
 .table-card {
   margin-bottom: 24px;
+  border-radius: 8px;
 }
 
 .table-title {
-  background: #f8f9fa;
-  color: #495057;
+  background: #01532b;
+  color: white;
   font-weight: 600;
 }
 
@@ -2183,13 +2294,34 @@ export default {
   max-width: 300px;
 }
 
+.search-field >>> input {
+  color: white !important;
+}
+
+.search-field >>> .v-icon {
+  color: white !important;
+}
+
 .report-table {
   background: white;
 }
 
+.report-table >>> thead th {
+  background-color: #01532b !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+}
+
+.report-table >>> tbody tr:hover {
+  background-color: rgba(1, 83, 43, 0.1) !important;
+}
+
+/* Table Cell Styling */
 .date-cell {
   font-family: monospace;
   font-size: 13px;
+  color: #01532b;
 }
 
 .amount-cell {
@@ -2207,11 +2339,11 @@ export default {
 }
 
 .advance-amount {
-  color: #667eea;
+  color: #01532b;
 }
 
 .settlement-amount {
-  color: #28a745;
+  color: #228b22;
 }
 
 .outstanding-amount {
@@ -2219,7 +2351,7 @@ export default {
 }
 
 .lcy-amount {
-  color: #6f42c1;
+  color: #32cd32;
 }
 
 .settlement-progress {
@@ -2241,12 +2373,30 @@ export default {
 .ministry-name {
   font-weight: 600;
   font-size: 13px;
+  color: #01532b;
 }
 
 .ministry-code {
   font-size: 11px;
   color: #666;
   font-family: monospace;
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Dialog Styling */
+.dialog-header {
+  background: #01532b !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.close-btn {
+  color: white !important;
 }
 
 .detail-item {
@@ -2255,13 +2405,20 @@ export default {
 }
 
 .detail-item strong {
-  color: #495057;
+  color: #01532b;
 }
 
 .settlement-table {
   margin-top: 16px;
 }
 
+.settlement-table >>> thead th {
+  background-color: #01532b !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+/* Print styles */
 @media print {
   .action-buttons,
   .filter-card,
@@ -2278,37 +2435,40 @@ export default {
   .chart-card {
     page-break-inside: avoid;
   }
+
+  .report-header {
+    background: #01532b !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+  }
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .report-header {
     flex-direction: column;
     text-align: center;
     gap: 16px;
+    padding: 16px;
   }
 
-  .summary-content {
-    flex-direction: column;
-    text-align: center;
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .summary-icon {
     margin-right: 0;
     margin-bottom: 8px;
-    color: white;
+    font-size: 40px;
   }
 
-  .chart-container {
-    height: 250px;
-  }
-
-  .filter-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .filter-actions .v-btn {
-    width: 100%;
+  .summary-details .summary-amount {
+    font-size: 20px;
   }
 
   .stats-card {
@@ -2322,5 +2482,29 @@ export default {
   .stats-label {
     font-size: 10px;
   }
+}
+
+/* Custom Scrollbar */
+.v-dialog .v-card-text {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.v-dialog .v-card-text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.v-dialog .v-card-text::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.v-dialog .v-card-text::-webkit-scrollbar-thumb {
+  background: #01532b;
+  border-radius: 3px;
+}
+
+.v-dialog .v-card-text::-webkit-scrollbar-thumb:hover {
+  background: #014025;
 }
 </style>

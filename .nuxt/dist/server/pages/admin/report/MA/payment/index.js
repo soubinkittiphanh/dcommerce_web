@@ -1,7 +1,7 @@
 exports.ids = [198,255];
 exports.modules = {
 
-/***/ 1154:
+/***/ 1150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24,10 +24,7 @@ var VChip = __webpack_require__(124);
 var VCol = __webpack_require__(379);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(387);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(426);
+var VDataTable = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(337);
@@ -38,11 +35,8 @@ var VDivider = __webpack_require__(119);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
-var VMenu = __webpack_require__(125);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(104);
+var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 var VProgressLinear = __webpack_require__(121);
@@ -62,7 +56,7 @@ var VSpacer = __webpack_require__(377);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/payment/index.vue?vue&type=template&id=2ad3a22c&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/payment/index.vue?vue&type=template&id=567e9f41&scoped=true&
 
 
 
@@ -81,17 +75,15 @@ var VTextField = __webpack_require__(37);
 
 
 
-
-
-var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() {
+var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() {
   var _vm$selectedItem$mini, _vm$selectedItem$make;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "money-advance-report"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-2ad3a22c>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-2ad3a22c><h1 class=\"page-title\" data-v-2ad3a22c><i class=\"fas fa-chart-line\" data-v-2ad3a22c></i>\n        ລາຍງານ ລາຍຈ່າຍລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-2ad3a22c>Money Advance Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-2ad3a22c>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-567e9f41>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-567e9f41><h1 class=\"page-title\" data-v-567e9f41><i class=\"fas fa-chart-line\" data-v-567e9f41></i>\n        ລາຍງານ ລາຍຈ່າຍລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-567e9f41>Money Advance Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-567e9f41>", "</div>", [_c(VBtn["a" /* default */], {
+    staticClass: "custom-btn export-btn",
     attrs: {
-      "color": "success",
       "loading": _vm.exporting
     },
     on: {
@@ -100,9 +92,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
   }, [_c('i', {
     staticClass: "fas fa-file-excel"
   }), _vm._v("\n        Export Excel\n      ")]), _vm._ssrNode(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary"
-    },
+    staticClass: "custom-btn print-btn",
     on: {
       "click": _vm.printReport
     }
@@ -114,55 +104,25 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "filter-title"
-  }, [_c('i', {
-    staticClass: "fas fa-filter"
-  }), _vm._v("\n      ຕົວກອງ (Filters)\n    ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    staticClass: "filter-title d-flex align-center"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2"
+  }, [_vm._v("mdi-filter")]), _vm._v("\n      ຕົວກອງ (Filters)\n    ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "4"
     }
-  }, [_c(VMenu["a" /* default */], {
+  }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "close-on-content-click": false,
-      "transition": "scale-transition",
-      "offset-y": "",
-      "min-width": "auto"
+      "type": "date",
+      "label": "ຈາກວັນທີ (From Date)",
+      "outlined": "",
+      "dense": ""
     },
-    scopedSlots: _vm._u([{
-      key: "activator",
-      fn: function ({
-        on,
-        attrs
-      }) {
-        return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
-          attrs: {
-            "label": "ຈາກວັນທີ (From Date)",
-            "prepend-icon": "mdi-calendar",
-            "readonly": ""
-          },
-          model: {
-            value: _vm.filters.fromDate,
-            callback: function ($$v) {
-              _vm.$set(_vm.filters, "fromDate", $$v);
-            },
-            expression: "filters.fromDate"
-          }
-        }, 'v-text-field', attrs, false), on))];
-      }
-    }]),
-    model: {
-      value: _vm.fromDateMenu,
-      callback: function ($$v) {
-        _vm.fromDateMenu = $$v;
-      },
-      expression: "fromDateMenu"
-    }
-  }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
     on: {
-      "input": function ($event) {
-        _vm.fromDateMenu = false;
-      }
+      "change": _vm.applyFilters
     },
     model: {
       value: _vm.filters.fromDate,
@@ -171,52 +131,20 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       },
       expression: "filters.fromDate"
     }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "4"
     }
-  }, [_c(VMenu["a" /* default */], {
+  }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "close-on-content-click": false,
-      "transition": "scale-transition",
-      "offset-y": "",
-      "min-width": "auto"
+      "type": "date",
+      "label": "ຫາວັນທີ (To Date)",
+      "outlined": "",
+      "dense": ""
     },
-    scopedSlots: _vm._u([{
-      key: "activator",
-      fn: function ({
-        on,
-        attrs
-      }) {
-        return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
-          attrs: {
-            "label": "ຫາວັນທີ (To Date)",
-            "prepend-icon": "mdi-calendar",
-            "readonly": ""
-          },
-          model: {
-            value: _vm.filters.toDate,
-            callback: function ($$v) {
-              _vm.$set(_vm.filters, "toDate", $$v);
-            },
-            expression: "filters.toDate"
-          }
-        }, 'v-text-field', attrs, false), on))];
-      }
-    }]),
-    model: {
-      value: _vm.toDateMenu,
-      callback: function ($$v) {
-        _vm.toDateMenu = $$v;
-      },
-      expression: "toDateMenu"
-    }
-  }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
     on: {
-      "input": function ($event) {
-        _vm.toDateMenu = false;
-      }
+      "change": _vm.applyFilters
     },
     model: {
       value: _vm.filters.toDate,
@@ -225,19 +153,23 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       },
       expression: "filters.toDate"
     }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "4"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.ministries,
       "item-text": "ministryName",
       "item-value": "id",
-      "label": "ກະຊວງ (Ministry)",
-      "prepend-icon": "mdi-office-building",
-      "clearable": ""
+      "label": "Ministry",
+      "clearable": "",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.applyFilters
     },
     model: {
       value: _vm.filters.ministryId,
@@ -246,19 +178,23 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       },
       expression: "filters.ministryId"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "4"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.currencies,
       "item-text": "name",
       "item-value": "id",
-      "label": "ສະກຸນເງິນ (Currency)",
-      "prepend-icon": "mdi-currency-usd",
-      "clearable": ""
+      "label": "Currency",
+      "clearable": "",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.applyFilters
     },
     model: {
       value: _vm.filters.currencyId,
@@ -270,16 +206,20 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "4"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.statusOptions,
       "item-text": "text",
       "item-value": "value",
-      "label": "ສະຖານະ (Status)",
-      "prepend-icon": "mdi-flag",
-      "clearable": ""
+      "label": "Status",
+      "clearable": "",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.applyFilters
     },
     model: {
       value: _vm.filters.status,
@@ -291,16 +231,20 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "4"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.users,
       "item-text": "cus_name",
       "item-value": "id",
-      "label": "ຜູ້ລົງບັນທຶກ (Maker)",
-      "prepend-icon": "mdi-account",
-      "clearable": ""
+      "label": "Maker",
+      "clearable": "",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.applyFilters
     },
     model: {
       value: _vm.filters.makerId,
@@ -309,33 +253,48 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       },
       expression: "filters.makerId"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2"
+  }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "6"
+      "md": "3"
     }
-  }, [_c('div', {
-    staticClass: "filter-actions"
   }, [_c(VBtn["a" /* default */], {
+    staticClass: "custom-primary-bg white--text",
     attrs: {
-      "color": "primary",
+      "block": "",
+      "outlined": "",
       "loading": _vm.loading
     },
     on: {
       "click": _vm.applyFilters
     }
-  }, [_c('i', {
-    staticClass: "fas fa-search"
-  }), _vm._v("\n              ຄົ້ນຫາ\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "secondary"
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-refresh")]), _vm._v("\n            Refresh\n          ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "custom-secondary-btn",
+    attrs: {
+      "block": "",
+      "outlined": "",
+      "color": "grey lighten-1"
     },
     on: {
       "click": _vm.resetFilters
     }
-  }, [_c('i', {
-    staticClass: "fas fa-undo"
-  }), _vm._v("\n              ຣີເຊັດ\n            ")])], 1)])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-restore")]), _vm._v("\n            Reset\n          ")], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4",
     attrs: {
       "dense": ""
@@ -346,11 +305,12 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
+    staticClass: "summary-card advance-card",
     attrs: {
-      "color": "blue lighten-5",
-      "elevation": "2"
+      "elevation": "4"
     }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
   }, [_c(VRow["a" /* default */], {
     attrs: {
       "align": "center"
@@ -359,34 +319,36 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
     attrs: {
       "cols": "3"
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "large": "",
-      "color": "blue darken-2"
-    }
-  }, [_vm._v("mdi-cash")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-cash-register"
+  })])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "9"
     }
   }, [_c('div', {
-    staticClass: "text-subtitle-1 font-weight-bold"
+    staticClass: "summary-details"
+  }, [_c('div', {
+    staticClass: "summary-title"
   }, [_vm._v("ລວມລາຍຈ່າຍ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption mb-1"
+    staticClass: "summary-subtitle"
   }, [_vm._v("Total Advances")]), _vm._v(" "), _c('div', {
-    staticClass: "text-h6 font-weight-bold"
-  }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalAdvances)) + "\n            ")]), _vm._v(" "), _vm.summaryData.totalAdvancesLcy ? _c('div', {
-    staticClass: "caption"
-  }, [_vm._v("\n              LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalAdvancesLcy)) + "\n            ")]) : _vm._e()])], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "summary-amount"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalAdvances)) + "\n                ")]), _vm._v(" "), _vm.summaryData.totalAdvancesLcy ? _c('div', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("\n                  LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalAdvancesLcy)) + "\n                ")]) : _vm._e()])])], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
+    staticClass: "summary-card settlement-card",
     attrs: {
-      "color": "green lighten-5",
-      "elevation": "2"
+      "elevation": "4"
     }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
   }, [_c(VRow["a" /* default */], {
     attrs: {
       "align": "center"
@@ -395,34 +357,36 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
     attrs: {
       "cols": "3"
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "large": "",
-      "color": "green darken-2"
-    }
-  }, [_vm._v("mdi-cash-refund")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-hand-holding-usd"
+  })])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "9"
     }
   }, [_c('div', {
-    staticClass: "text-subtitle-1 font-weight-bold"
+    staticClass: "summary-details"
+  }, [_c('div', {
+    staticClass: "summary-title"
   }, [_vm._v("ລວມການຊຳລະ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption mb-1"
+    staticClass: "summary-subtitle"
   }, [_vm._v("Total Settlements")]), _vm._v(" "), _c('div', {
-    staticClass: "text-h6 font-weight-bold"
-  }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalSettlements)) + "\n            ")]), _vm._v(" "), _vm.summaryData.totalSettlementsLcy ? _c('div', {
-    staticClass: "caption"
-  }, [_vm._v("\n              LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalSettlementsLcy)) + "\n            ")]) : _vm._e()])], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "summary-amount"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalSettlements)) + "\n                ")]), _vm._v(" "), _vm.summaryData.totalSettlementsLcy ? _c('div', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("\n                  LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.totalSettlementsLcy)) + "\n                ")]) : _vm._e()])])], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
+    staticClass: "summary-card outstanding-card",
     attrs: {
-      "color": "red lighten-5",
-      "elevation": "2"
+      "elevation": "4"
     }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
   }, [_c(VRow["a" /* default */], {
     attrs: {
       "align": "center"
@@ -431,34 +395,36 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
     attrs: {
       "cols": "3"
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "large": "",
-      "color": "red darken-2"
-    }
-  }, [_vm._v("mdi-alert-circle")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle"
+  })])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "9"
     }
   }, [_c('div', {
-    staticClass: "text-subtitle-1 font-weight-bold"
+    staticClass: "summary-details"
+  }, [_c('div', {
+    staticClass: "summary-title"
   }, [_vm._v("ຍອດຄ້າງຊຳລະ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption mb-1"
+    staticClass: "summary-subtitle"
   }, [_vm._v("Outstanding Balance")]), _vm._v(" "), _c('div', {
-    staticClass: "text-h6 font-weight-bold"
-  }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(_vm.summaryData.outstandingBalance)) + "\n            ")]), _vm._v(" "), _vm.summaryData.outstandingBalanceLcy ? _c('div', {
-    staticClass: "caption"
-  }, [_vm._v("\n              LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.outstandingBalanceLcy)) + "\n            ")]) : _vm._e()])], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "summary-amount"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(_vm.summaryData.outstandingBalance)) + "\n                ")]), _vm._v(" "), _vm.summaryData.outstandingBalanceLcy ? _c('div', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("\n                  LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.outstandingBalanceLcy)) + "\n                ")]) : _vm._e()])])], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
+    staticClass: "summary-card brought-forward-card",
     attrs: {
-      "color": "orange lighten-5",
-      "elevation": "2"
+      "elevation": "4"
     }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
   }, [_c(VRow["a" /* default */], {
     attrs: {
       "align": "center"
@@ -467,24 +433,25 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
     attrs: {
       "cols": "3"
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "large": "",
-      "color": "orange darken-2"
-    }
-  }, [_vm._v("mdi-arrow-right-bold")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-arrow-right"
+  })])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "9"
     }
   }, [_c('div', {
-    staticClass: "text-subtitle-1 font-weight-bold"
+    staticClass: "summary-details"
+  }, [_c('div', {
+    staticClass: "summary-title"
   }, [_vm._v("ຍອດຍົກມາ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption mb-1"
+    staticClass: "summary-subtitle"
   }, [_vm._v("Brought Forward")]), _vm._v(" "), _c('div', {
-    staticClass: "text-h6 font-weight-bold"
-  }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForward)) + "\n            ")]), _vm._v(" "), _vm.summaryData.broughtForwardLcy ? _c('div', {
-    staticClass: "caption"
-  }, [_vm._v("\n              LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForwardLcy)) + "\n            ")]) : _vm._e()])], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm.summaryData.totalRecords ? _c(VRow["a" /* default */], {
+    staticClass: "summary-amount"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForward)) + "\n                ")]), _vm._v(" "), _vm.summaryData.broughtForwardLcy ? _c('div', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("\n                  LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForwardLcy)) + "\n                ")]) : _vm._e()])])], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm.summaryData.totalRecords ? _c(VRow["a" /* default */], {
     staticClass: "additional-summary mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -587,7 +554,9 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
     attrs: {
       "elevation": "2"
     }
-  }, [_c(components_VCard["d" /* VCardTitle */], [_c('i', {
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "currency-title"
+  }, [_c('i', {
     staticClass: "fas fa-coins"
   }), _vm._v("\n      ສະຫຼູບຕາມສະກຸນເງິນ (Currency Breakdown)\n    ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], _vm._l(_vm.summaryData.currencyBreakdown, function (currency) {
     return _c(VCol["a" /* default */], {
@@ -597,6 +566,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
         "md": "4"
       }
     }, [_c(VCard["a" /* default */], {
+      staticClass: "currency-card",
       attrs: {
         "outlined": ""
       }
@@ -617,18 +587,17 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary--text py-2 px-4 d-flex align-center"
+    staticClass: "ministry-table-title py-2 px-4 d-flex align-center"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "white"
     }
   }, [_vm._v("mdi-office-building")]), _vm._v(" "), _c('span', {
     staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ຕາມກົມ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
+  }, [_vm._v("\n            ລາຍງານ ຕາມກົມ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "custom-export-btn mr-2",
     attrs: {
-      "color": "success",
       "small": "",
       "outlined": "",
       "disabled": !_vm.ministrySummaryReport.length,
@@ -643,6 +612,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "left": ""
     }
   }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "white--text",
     attrs: {
       "icon": "",
       "small": "",
@@ -662,7 +632,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "primary"
+      "color": "#01532B"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-caption"
@@ -684,7 +654,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       fn: function () {
         var _vm$ministryTotals2;
         return [_c('thead', [_c('tr', {
-          staticClass: "primary lighten-3"
+          staticClass: "ministry-table-header"
         }, [_c('th', {
           staticClass: "white--text text-caption font-weight-bold"
         }, [_vm._v("#")]), _vm._v(" "), _c('th', {
@@ -731,7 +701,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
             staticClass: "text-right font-weight-bold success--text"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
         }), _vm._v(" "), _c('tr', {
-          staticClass: "primary lighten-4"
+          staticClass: "ministry-table-footer"
         }, [_c('td', {
           staticClass: "font-weight-bold text-caption",
           attrs: {
@@ -746,7 +716,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
             staticClass: "text-right font-weight-bold text-body-2"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals = _vm.ministryTotals) === null || _vm$ministryTotals === void 0 ? void 0 : (_vm$ministryTotals$cu = _vm$ministryTotals.currencyTotals) === null || _vm$ministryTotals$cu === void 0 ? void 0 : _vm$ministryTotals$cu[currency]) || 0)) + "\n                  ")]);
         }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 primary--text"
+          staticClass: "text-right font-weight-bold text-body-2 white--text"
         }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals2 = _vm.ministryTotals) === null || _vm$ministryTotals2 === void 0 ? void 0 : _vm$ministryTotals2.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
       },
       proxy: true
@@ -763,18 +733,17 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "secondary--text py-2 px-4 d-flex align-center"
+    staticClass: "bank-table-title py-2 px-4 d-flex align-center"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "secondary"
+      "color": "white"
     }
   }, [_vm._v("mdi-bank")]), _vm._v(" "), _c('span', {
     staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ບັນຊີທະນາຄານ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
+  }, [_vm._v("\n            ລາຍງານ ບັນຊີທະນາຄານ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "custom-export-btn mr-2",
     attrs: {
-      "color": "success",
       "small": "",
       "outlined": "",
       "disabled": !_vm.bankAccountSummaryReport.length,
@@ -789,6 +758,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "left": ""
     }
   }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "white--text",
     attrs: {
       "icon": "",
       "small": "",
@@ -808,7 +778,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "secondary"
+      "color": "#01532B"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-caption"
@@ -830,7 +800,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       fn: function () {
         var _vm$bankAccountTotals3;
         return [_c('thead', [_c('tr', {
-          staticClass: "secondary lighten-3"
+          staticClass: "bank-table-header"
         }, [_c('th', {
           staticClass: "white--text text-caption font-weight-bold"
         }, [_vm._v("#")]), _vm._v(" "), _c('th', {
@@ -890,7 +860,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
             staticClass: "text-right font-weight-bold success--text"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
         }), _vm._v(" "), _c('tr', {
-          staticClass: "secondary lighten-4"
+          staticClass: "bank-table-footer"
         }, [_c('td', {
           staticClass: "font-weight-bold text-caption",
           attrs: {
@@ -905,7 +875,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
             staticClass: "text-right font-weight-bold text-body-2"
           }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals = _vm.bankAccountTotals) === null || _vm$bankAccountTotals === void 0 ? void 0 : (_vm$bankAccountTotals2 = _vm$bankAccountTotals.currencyTotals) === null || _vm$bankAccountTotals2 === void 0 ? void 0 : _vm$bankAccountTotals2[currency]) || 0)) + "\n                  ")]);
         }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 secondary--text"
+          staticClass: "text-right font-weight-bold text-body-2 white--text"
         }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals3 = _vm.bankAccountTotals) === null || _vm$bankAccountTotals3 === void 0 ? void 0 : _vm$bankAccountTotals3.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
       },
       proxy: true
@@ -925,7 +895,9 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       "append-icon": "mdi-magnify",
       "label": "ຄົ້ນຫາ...",
       "single-line": "",
-      "hide-details": ""
+      "hide-details": "",
+      "outlined": "",
+      "dense": ""
     },
     model: {
       value: _vm.search,
@@ -1082,7 +1054,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
           staticClass: "mr-2",
           attrs: {
             "small": "",
-            "color": "primary"
+            "color": "#01532B"
           },
           on: {
             "click": function ($event) {
@@ -1094,7 +1066,7 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
         })]), _vm._v(" "), item.settlementCount > 0 ? _c(VBtn["a" /* default */], {
           attrs: {
             "small": "",
-            "color": "success"
+            "color": "#228B22"
           },
           on: {
             "click": function ($event) {
@@ -1117,9 +1089,12 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       },
       expression: "detailsDialog"
     }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c('i', {
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "dialog-header"
+  }, [_c('i', {
     staticClass: "fas fa-info-circle"
   }), _vm._v("\n        ລາຍລະອຽດລາຍຈ່າຍ (Advance Details)\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "close-btn",
     attrs: {
       "icon": ""
     },
@@ -1189,9 +1164,12 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
       },
       expression: "settlementsDialog"
     }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c('i', {
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "dialog-header"
+  }, [_c('i', {
     staticClass: "fas fa-receipt"
   }), _vm._v("\n        ປະຫວັດການຊຳລະ (Settlement History)\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "close-btn",
     attrs: {
       "icon": ""
     },
@@ -1243,10 +1221,10 @@ var paymentvue_type_template_id_2ad3a22c_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/payment/index.vue?vue&type=template&id=2ad3a22c&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/report/MA/payment/index.vue?vue&type=template&id=567e9f41&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/payment/index.vue?vue&type=script&lang=js&
-var paymentvue_type_script_lang_js_ = __webpack_require__(638);
+var paymentvue_type_script_lang_js_ = __webpack_require__(631);
 
 // CONCATENATED MODULE: ./pages/admin/report/MA/payment/index.vue?vue&type=script&lang=js&
  /* harmony default export */ var MA_paymentvue_type_script_lang_js_ = (paymentvue_type_script_lang_js_["a" /* default */]); 
@@ -1259,7 +1237,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(974)
+  var style0 = __webpack_require__(970)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1268,11 +1246,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_paymentvue_type_script_lang_js_,
-  paymentvue_type_template_id_2ad3a22c_scoped_true_render,
+  paymentvue_type_template_id_567e9f41_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "2ad3a22c",
+  "567e9f41",
   "64bc55d8"
   
 )
@@ -1281,2153 +1259,1034 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 389:
+/***/ 631:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* WEBPACK VAR INJECTION */(function(URL, URLSearchParams) {/* harmony import */ var core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(92);
+/* harmony import */ var core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(93);
+/* harmony import */ var core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(94);
+/* harmony import */ var core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95);
+/* harmony import */ var core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(96);
+/* harmony import */ var core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(97);
+/* harmony import */ var core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(98);
+/* harmony import */ var core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(99);
+/* harmony import */ var core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(100);
+/* harmony import */ var core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(101);
+/* harmony import */ var core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(102);
+/* harmony import */ var core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(103);
+/* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(104);
+/* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(339);
+/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(340);
+/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(341);
+/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(342);
+/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(343);
+/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(344);
+/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(345);
+/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(346);
+/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(347);
+/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(348);
+/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(349);
+/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(350);
+/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(351);
+/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(352);
+/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(353);
+/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(354);
+/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(737);
+/* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(chart_js_auto__WEBPACK_IMPORTED_MODULE_29__);
 
-/* harmony default export */ __webpack_exports__["a"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
-  name: 'localable',
-  props: {
-    locale: String
-  },
-  computed: {
-    currentLocale() {
-      return this.locale || this.$vuetify.lang.current;
-    }
-  }
-}));
 
-/***/ }),
 
-/***/ 391:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return weekNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isLeapYear; });
-function createUTCDate(year, month = 0, day = 1) {
-  let date;
-  if (year < 100 && year >= 0) {
-    date = new Date(Date.UTC(year, month, day));
-    if (isFinite(date.getUTCFullYear())) {
-      date.setUTCFullYear(year);
-    }
-  } else {
-    date = new Date(Date.UTC(year, month, day));
-  }
-  return date;
-}
-function firstWeekOffset(year, firstDayOfWeek, firstDayOfYear) {
-  const firstWeekDayInFirstWeek = 7 + firstDayOfWeek - firstDayOfYear;
-  const firstWeekDayOfYear = (7 + createUTCDate(year, 0, firstWeekDayInFirstWeek).getUTCDay() - firstDayOfWeek) % 7;
-  return -firstWeekDayOfYear + firstWeekDayInFirstWeek - 1;
-}
-function dayOfYear(year, month, day, firstDayOfWeek) {
-  let dayOfYear = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334][month];
-  if (month > 1 && isLeapYear(year)) {
-    dayOfYear++;
-  }
-  return dayOfYear + day;
-}
-function weeksInYear(year, firstDayOfWeek, firstDayOfYear) {
-  const weekOffset = firstWeekOffset(year, firstDayOfWeek, firstDayOfYear);
-  const weekOffsetNext = firstWeekOffset(year + 1, firstDayOfWeek, firstDayOfYear);
-  const daysInYear = isLeapYear(year) ? 366 : 365;
-  return (daysInYear - weekOffset + weekOffsetNext) / 7;
-}
-function weekNumber(year, month, day, firstDayOfWeek, localeFirstDayOfYear) {
-  const weekOffset = firstWeekOffset(year, firstDayOfWeek, localeFirstDayOfYear);
-  const week = Math.ceil((dayOfYear(year, month, day, firstDayOfWeek) - weekOffset) / 7);
-  if (week < 1) {
-    return week + weeksInYear(year - 1, firstDayOfWeek, localeFirstDayOfYear);
-  } else if (week > weeksInYear(year, firstDayOfWeek, localeFirstDayOfYear)) {
-    return week - weeksInYear(year, firstDayOfWeek, localeFirstDayOfYear);
-  } else {
-    return week;
-  }
-}
-function isLeapYear(year) {
-  return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-}
 
-/***/ }),
 
-/***/ 396:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
-/* unused harmony export PARSE_REGEX */
-/* unused harmony export PARSE_TIME */
-/* unused harmony export DAYS_IN_MONTH */
-/* unused harmony export DAYS_IN_MONTH_LEAP */
-/* unused harmony export DAYS_IN_MONTH_MIN */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DAYS_IN_MONTH_MAX; });
-/* unused harmony export MONTH_MAX */
-/* unused harmony export MONTH_MIN */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DAY_MIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DAYS_IN_WEEK; });
-/* unused harmony export MINUTES_IN_HOUR */
-/* unused harmony export MINUTE_MAX */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MINUTES_IN_DAY; });
-/* unused harmony export HOURS_IN_DAY */
-/* unused harmony export HOUR_MAX */
-/* unused harmony export FIRST_HOUR */
-/* unused harmony export OFFSET_YEAR */
-/* unused harmony export OFFSET_MONTH */
-/* unused harmony export OFFSET_HOUR */
-/* unused harmony export OFFSET_TIME */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getStartOfWeek; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getEndOfWeek; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getStartOfMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getEndOfMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return validateTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return parseTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return validateTimestamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return parseTimestamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return parseDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getDayIdentifier; });
-/* unused harmony export getTimeIdentifier */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getTimestampIdentifier; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return updateRelative; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return isTimedless; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return updateHasTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return updateMinutes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return updateWeekday; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return updateFormatted; });
-/* unused harmony export getWeekday */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return daysInMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return copyTimestamp; });
-/* unused harmony export padNumber */
-/* unused harmony export getDate */
-/* unused harmony export getTime */
-/* unused harmony export nextMinutes */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return nextDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return prevDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return relativeDays; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return diffMinutes; });
-/* unused harmony export findWeekday */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getWeekdaySkips; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return timestampToDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(391);
 
-const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
-const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
-const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_IN_MONTH_MIN = 28;
-const DAYS_IN_MONTH_MAX = 31;
-const MONTH_MAX = 12;
-const MONTH_MIN = 1;
-const DAY_MIN = 1;
-const DAYS_IN_WEEK = 7;
-const MINUTES_IN_HOUR = 60;
-const MINUTE_MAX = 59;
-const MINUTES_IN_DAY = 24 * 60;
-const HOURS_IN_DAY = 24;
-const HOUR_MAX = 23;
-const FIRST_HOUR = 0;
-const OFFSET_YEAR = 10000;
-const OFFSET_MONTH = 100;
-const OFFSET_HOUR = 100;
-const OFFSET_TIME = 10000;
-function getStartOfWeek(timestamp, weekdays, today) {
-  const start = copyTimestamp(timestamp);
-  findWeekday(start, weekdays[0], prevDay);
-  updateFormatted(start);
-  if (today) {
-    updateRelative(start, today, start.hasTime);
-  }
-  return start;
-}
-function getEndOfWeek(timestamp, weekdays, today) {
-  const end = copyTimestamp(timestamp);
-  findWeekday(end, weekdays[weekdays.length - 1]);
-  updateFormatted(end);
-  if (today) {
-    updateRelative(end, today, end.hasTime);
-  }
-  return end;
-}
-function getStartOfMonth(timestamp) {
-  const start = copyTimestamp(timestamp);
-  start.day = DAY_MIN;
-  updateWeekday(start);
-  updateFormatted(start);
-  return start;
-}
-function getEndOfMonth(timestamp) {
-  const end = copyTimestamp(timestamp);
-  end.day = daysInMonth(end.year, end.month);
-  updateWeekday(end);
-  updateFormatted(end);
-  return end;
-}
-function validateTime(input) {
-  return typeof input === 'number' && isFinite(input) || !!PARSE_TIME.exec(input) || typeof input === 'object' && isFinite(input.hour) && isFinite(input.minute);
-}
-function parseTime(input) {
-  if (typeof input === 'number') {
-    // when a number is given, it's minutes since 12:00am
-    return input;
-  } else if (typeof input === 'string') {
-    // when a string is given, it's a hh:mm:ss format where seconds are optional
-    const parts = PARSE_TIME.exec(input);
-    if (!parts) {
-      return false;
-    }
-    return parseInt(parts[1]) * 60 + parseInt(parts[3] || 0);
-  } else if (typeof input === 'object') {
-    // when an object is given, it must have hour and minute
-    if (typeof input.hour !== 'number' || typeof input.minute !== 'number') {
-      return false;
-    }
-    return input.hour * 60 + input.minute;
-  } else {
-    // unsupported type
-    return false;
-  }
-}
-function validateTimestamp(input) {
-  return typeof input === 'number' && isFinite(input) || typeof input === 'string' && !!PARSE_REGEX.exec(input) || input instanceof Date;
-}
-function parseTimestamp(input, required = false, now) {
-  if (typeof input === 'number' && isFinite(input)) {
-    input = new Date(input);
-  }
-  if (input instanceof Date) {
-    const date = parseDate(input);
-    if (now) {
-      updateRelative(date, now, date.hasTime);
-    }
-    return date;
-  }
-  if (typeof input !== 'string') {
-    if (required) {
-      throw new Error(`${input} is not a valid timestamp. It must be a Date, number of milliseconds since Epoch, or a string in the format of YYYY-MM-DD or YYYY-MM-DD hh:mm. Zero-padding is optional and seconds are ignored.`);
-    }
-    return null;
-  } // YYYY-MM-DD hh:mm:ss
 
-  const parts = PARSE_REGEX.exec(input);
-  if (!parts) {
-    if (required) {
-      throw new Error(`${input} is not a valid timestamp. It must be a Date, number of milliseconds since Epoch, or a string in the format of YYYY-MM-DD or YYYY-MM-DD hh:mm. Zero-padding is optional and seconds are ignored.`);
-    }
-    return null;
-  }
-  const timestamp = {
-    date: input,
-    time: '',
-    year: parseInt(parts[1]),
-    month: parseInt(parts[2]),
-    day: parseInt(parts[4]) || 1,
-    hour: parseInt(parts[6]) || 0,
-    minute: parseInt(parts[8]) || 0,
-    weekday: 0,
-    hasDay: !!parts[4],
-    hasTime: !!(parts[6] && parts[8]),
-    past: false,
-    present: false,
-    future: false
-  };
-  updateWeekday(timestamp);
-  updateFormatted(timestamp);
-  if (now) {
-    updateRelative(timestamp, now, timestamp.hasTime);
-  }
-  return timestamp;
-}
-function parseDate(date) {
-  return updateFormatted({
-    date: '',
-    time: '',
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-    weekday: date.getDay(),
-    hour: date.getHours(),
-    minute: date.getMinutes(),
-    hasDay: true,
-    hasTime: true,
-    past: false,
-    present: true,
-    future: false
-  });
-}
-function getDayIdentifier(timestamp) {
-  return timestamp.year * OFFSET_YEAR + timestamp.month * OFFSET_MONTH + timestamp.day;
-}
-function getTimeIdentifier(timestamp) {
-  return timestamp.hour * OFFSET_HOUR + timestamp.minute;
-}
-function getTimestampIdentifier(timestamp) {
-  return getDayIdentifier(timestamp) * OFFSET_TIME + getTimeIdentifier(timestamp);
-}
-function updateRelative(timestamp, now, time = false) {
-  let a = getDayIdentifier(now);
-  let b = getDayIdentifier(timestamp);
-  let present = a === b;
-  if (timestamp.hasTime && time && present) {
-    a = getTimeIdentifier(now);
-    b = getTimeIdentifier(timestamp);
-    present = a === b;
-  }
-  timestamp.past = b < a;
-  timestamp.present = present;
-  timestamp.future = b > a;
-  return timestamp;
-}
-function isTimedless(input) {
-  return input instanceof Date || typeof input === 'number' && isFinite(input);
-}
-function updateHasTime(timestamp, hasTime, now) {
-  if (timestamp.hasTime !== hasTime) {
-    timestamp.hasTime = hasTime;
-    if (!hasTime) {
-      timestamp.hour = HOUR_MAX;
-      timestamp.minute = MINUTE_MAX;
-      timestamp.time = getTime(timestamp);
-    }
-    if (now) {
-      updateRelative(timestamp, now, timestamp.hasTime);
-    }
-  }
-  return timestamp;
-}
-function updateMinutes(timestamp, minutes, now) {
-  timestamp.hasTime = true;
-  timestamp.hour = Math.floor(minutes / MINUTES_IN_HOUR);
-  timestamp.minute = minutes % MINUTES_IN_HOUR;
-  timestamp.time = getTime(timestamp);
-  if (now) {
-    updateRelative(timestamp, now, true);
-  }
-  return timestamp;
-}
-function updateWeekday(timestamp) {
-  timestamp.weekday = getWeekday(timestamp);
-  return timestamp;
-}
-function updateFormatted(timestamp) {
-  timestamp.time = getTime(timestamp);
-  timestamp.date = getDate(timestamp);
-  return timestamp;
-}
-function getWeekday(timestamp) {
-  if (timestamp.hasDay) {
-    const _ = Math.floor;
-    const k = timestamp.day;
-    const m = (timestamp.month + 9) % MONTH_MAX + 1;
-    const C = _(timestamp.year / 100);
-    const Y = timestamp.year % 100 - (timestamp.month <= 2 ? 1 : 0);
-    return ((k + _(2.6 * m - 0.2) - 2 * C + Y + _(Y / 4) + _(C / 4)) % 7 + 7) % 7;
-  }
-  return timestamp.weekday;
-}
-function daysInMonth(year, month) {
-  return Object(_util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__[/* isLeapYear */ "a"])(year) ? DAYS_IN_MONTH_LEAP[month] : DAYS_IN_MONTH[month];
-}
-function copyTimestamp(timestamp) {
-  const {
-    date,
-    time,
-    year,
-    month,
-    day,
-    weekday,
-    hour,
-    minute,
-    hasDay,
-    hasTime,
-    past,
-    present,
-    future
-  } = timestamp;
-  return {
-    date,
-    time,
-    year,
-    month,
-    day,
-    weekday,
-    hour,
-    minute,
-    hasDay,
-    hasTime,
-    past,
-    present,
-    future
-  };
-}
-function padNumber(x, length) {
-  let padded = String(x);
-  while (padded.length < length) {
-    padded = '0' + padded;
-  }
-  return padded;
-}
-function getDate(timestamp) {
-  let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`;
-  if (timestamp.hasDay) str += `-${padNumber(timestamp.day, 2)}`;
-  return str;
-}
-function getTime(timestamp) {
-  if (!timestamp.hasTime) {
-    return '';
-  }
-  return `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
-}
-function nextMinutes(timestamp, minutes) {
-  timestamp.minute += minutes;
-  while (timestamp.minute > MINUTES_IN_HOUR) {
-    timestamp.minute -= MINUTES_IN_HOUR;
-    timestamp.hour++;
-    if (timestamp.hour >= HOURS_IN_DAY) {
-      nextDay(timestamp);
-      timestamp.hour = FIRST_HOUR;
-    }
-  }
-  return timestamp;
-}
-function nextDay(timestamp) {
-  timestamp.day++;
-  timestamp.weekday = (timestamp.weekday + 1) % DAYS_IN_WEEK;
-  if (timestamp.day > DAYS_IN_MONTH_MIN && timestamp.day > daysInMonth(timestamp.year, timestamp.month)) {
-    timestamp.day = DAY_MIN;
-    timestamp.month++;
-    if (timestamp.month > MONTH_MAX) {
-      timestamp.month = MONTH_MIN;
-      timestamp.year++;
-    }
-  }
-  return timestamp;
-}
-function prevDay(timestamp) {
-  timestamp.day--;
-  timestamp.weekday = (timestamp.weekday + 6) % DAYS_IN_WEEK;
-  if (timestamp.day < DAY_MIN) {
-    timestamp.month--;
-    if (timestamp.month < MONTH_MIN) {
-      timestamp.year--;
-      timestamp.month = MONTH_MAX;
-    }
-    timestamp.day = daysInMonth(timestamp.year, timestamp.month);
-  }
-  return timestamp;
-}
-function relativeDays(timestamp, mover = nextDay, days = 1) {
-  while (--days >= 0) mover(timestamp);
-  return timestamp;
-}
-function diffMinutes(min, max) {
-  const Y = (max.year - min.year) * 525600;
-  const M = (max.month - min.month) * 43800;
-  const D = (max.day - min.day) * 1440;
-  const h = (max.hour - min.hour) * 60;
-  const m = max.minute - min.minute;
-  return Y + M + D + h + m;
-}
-function findWeekday(timestamp, weekday, mover = nextDay, maxDays = 6) {
-  while (timestamp.weekday !== weekday && --maxDays >= 0) mover(timestamp);
-  return timestamp;
-}
-function getWeekdaySkips(weekdays) {
-  const skips = [1, 1, 1, 1, 1, 1, 1];
-  const filled = [0, 0, 0, 0, 0, 0, 0];
-  for (let i = 0; i < weekdays.length; i++) {
-    filled[weekdays[i]] = 1;
-  }
-  for (let k = 0; k < DAYS_IN_WEEK; k++) {
-    let skip = 1;
-    for (let j = 1; j < DAYS_IN_WEEK; j++) {
-      const next = (k + j) % DAYS_IN_WEEK;
-      if (filled[next]) {
-        break;
-      }
-      skip++;
-    }
-    skips[k] = filled[k] * skip;
-  }
-  return skips;
-}
-function timestampToDate(timestamp) {
-  const time = `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
-  const date = timestamp.date;
-  return new Date(`${date}T${time}:00+00:00`);
-}
-function createDayList(start, end, now, weekdaySkips, max = 42, min = 0) {
-  const stop = getDayIdentifier(end);
-  const days = [];
-  let current = copyTimestamp(start);
-  let currentIdentifier = 0;
-  let stopped = currentIdentifier === stop;
-  if (stop < getDayIdentifier(start)) {
-    throw new Error('End date is earlier than start date.');
-  }
-  while ((!stopped || days.length < min) && days.length < max) {
-    currentIdentifier = getDayIdentifier(current);
-    stopped = stopped || currentIdentifier === stop;
-    if (weekdaySkips[current.weekday] === 0) {
-      current = nextDay(current);
-      continue;
-    }
-    const day = copyTimestamp(current);
-    updateFormatted(day);
-    updateRelative(day, now);
-    days.push(day);
-    current = relativeDays(current, nextDay, weekdaySkips[current.weekday]);
-  }
-  if (!days.length) throw new Error('No dates found using specified start date, end date, and weekdays.');
-  return days;
-}
-function createIntervalList(timestamp, first, minutes, count, now) {
-  const intervals = [];
-  for (let i = 0; i < count; i++) {
-    const mins = first + i * minutes;
-    const int = copyTimestamp(timestamp);
-    intervals.push(updateMinutes(int, mins, now));
-  }
-  return intervals;
-}
-function createNativeLocaleFormatter(locale, getOptions) {
-  const emptyFormatter = (_t, _s) => '';
-  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
-    return emptyFormatter;
-  }
-  return (timestamp, short) => {
-    try {
-      const intlFormatter = new Intl.DateTimeFormat(locale || undefined, getOptions(timestamp, short));
-      return intlFormatter.format(timestampToDate(timestamp));
-    } catch (e) {
-      return '';
-    }
-  };
-}
 
-/***/ }),
 
-/***/ 400:
-/***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
 
-// load the styles
-var content = __webpack_require__(401);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("265ccd52", content, true)
 
-/***/ }),
 
-/***/ 401:
-/***/ (function(module, exports, __webpack_require__) {
 
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-picker__title{background:#e0e0e0}.theme--dark.v-picker__title{background:#616161}.theme--light.v-picker__body{background:#fff}.theme--dark.v-picker__body{background:#424242}.v-picker{border-radius:4px;contain:layout style;display:inline-flex;flex-direction:column;font-size:1rem;position:relative;vertical-align:top}.v-picker--full-width{display:flex;width:100%}.v-picker--full-width>.v-picker__body{margin:initial}.v-picker__title{border-top-left-radius:4px;border-top-right-radius:4px;color:#fff;padding:16px}.v-picker__title__btn{transition:.3s cubic-bezier(.25,.8,.5,1)}.v-picker__title__btn:not(.v-picker__title__btn--active){cursor:pointer;opacity:.6}.v-picker__title__btn:not(.v-picker__title__btn--active):hover:not(:focus){opacity:1}.v-picker__title__btn--readonly{pointer-events:none}.v-picker__title__btn--active{opacity:1}.v-picker__body{align-items:center;display:flex;flex:1 0 auto;flex-direction:column;height:auto;margin:0 auto;overflow:hidden;position:relative;z-index:0}.v-picker__body>div{width:100%}.v-picker__body>div.fade-transition-leave-active{position:absolute}.v-picker--landscape .v-picker__title{border-bottom-right-radius:0;border-top-right-radius:0;height:100%;position:absolute;top:0;width:170px;z-index:1}.v-application--is-ltr .v-picker--landscape .v-picker__title{left:0}.v-application--is-rtl .v-picker--landscape .v-picker__title{right:0}.v-application--is-ltr .v-picker--landscape .v-picker__actions:not(.v-picker__actions--no-title),.v-application--is-ltr .v-picker--landscape .v-picker__body:not(.v-picker__body--no-title){margin-left:170px;margin-right:0}.v-application--is-rtl .v-picker--landscape .v-picker__actions:not(.v-picker__actions--no-title),.v-application--is-rtl .v-picker--landscape .v-picker__body:not(.v-picker__body--no-title){margin-left:0;margin-right:170px}.v-picker--flat{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
 
 
-/***/ }),
 
-/***/ 402:
-/***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
 
-// load the styles
-var content = __webpack_require__(403);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("ec842454", content, true)
 
-/***/ }),
 
-/***/ 403:
-/***/ (function(module, exports, __webpack_require__) {
 
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-date-picker-title{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:space-between;line-height:1}.v-application--is-ltr .v-date-picker-title .v-picker__title__btn{text-align:left}.v-application--is-rtl .v-date-picker-title .v-picker__title__btn{text-align:right}.v-date-picker-title__year{align-items:center;display:inline-flex;font-size:14px;font-weight:500;margin-bottom:8px}.v-date-picker-title__date{font-size:34px;font-weight:500;margin-bottom:-8px;overflow:hidden;padding-bottom:8px;position:relative;text-align:left}.v-date-picker-title__date>div{position:relative}.v-date-picker-title--disabled{pointer-events:none}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
 
 
-/***/ }),
 
-/***/ 404:
-/***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
 
-// load the styles
-var content = __webpack_require__(405);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("075924a4", content, true)
+// Import Chart.js with auto registration (includes all components)
 
-/***/ }),
-
-/***/ 405:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus){color:rgba(0,0,0,.87)}.theme--light.v-date-picker-header .v-date-picker-header__value--disabled button{color:rgba(0,0,0,.38)}.theme--dark.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus){color:#fff}.theme--dark.v-date-picker-header .v-date-picker-header__value--disabled button{color:hsla(0,0%,100%,.5)}.v-date-picker-header{align-items:center;display:flex;justify-content:space-between;padding:4px 16px;position:relative}.v-date-picker-header .v-btn{margin:0;z-index:auto}.v-date-picker-header .v-icon{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-date-picker-header__value{flex:1;overflow:hidden;position:relative;text-align:center}.v-date-picker-header__value div{transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-date-picker-header__value button{cursor:pointer;font-weight:700;outline:none;padding:.5rem;transition:.3s cubic-bezier(.25,.8,.5,1)}.v-date-picker-header--disabled{pointer-events:none}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 406:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(407);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("0f7d136a", content, true)
-
-/***/ }),
-
-/***/ 407:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-date-picker-table .v-date-picker-table--date__week,.theme--light.v-date-picker-table th{color:rgba(0,0,0,.38)}.theme--dark.v-date-picker-table .v-date-picker-table--date__week,.theme--dark.v-date-picker-table th{color:hsla(0,0%,100%,.5)}.v-date-picker-table{height:242px;padding:0 12px;position:relative}.v-date-picker-table table{table-layout:fixed;top:0;transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-date-picker-table td,.v-date-picker-table th{position:relative;text-align:center}.v-date-picker-table th{font-size:12px}.v-date-picker-table--date .v-btn{height:32px;width:32px}.v-date-picker-table .v-btn{font-size:12px;margin:0;z-index:auto}.v-date-picker-table .v-btn.v-btn--active{color:#fff}.v-date-picker-table--month td{height:56px;text-align:center;vertical-align:middle;width:33.333333%}.v-date-picker-table--month td .v-btn{margin:0 auto;max-width:140px;min-width:40px;width:100%}.v-date-picker-table--date th{font-weight:600;padding:8px 0}.v-date-picker-table--date td{width:45px}.v-date-picker-table__events{height:8px;left:0;position:absolute;text-align:center;white-space:pre;width:100%}.v-date-picker-table__events>div{border-radius:50%;display:inline-block;height:8px;margin:0 1px;width:8px}.v-date-picker-table--date .v-date-picker-table__events{bottom:6px}.v-date-picker-table--month .v-date-picker-table__events{bottom:8px}.v-date-picker-table__current .v-date-picker-table__events{margin-bottom:-1px}.v-date-picker-table--disabled{pointer-events:none}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 408:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(409);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("4dc2915a", content, true)
-
-/***/ }),
-
-/***/ 409:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-date-picker-years{font-size:16px;font-weight:400;height:290px;list-style-type:none;overflow:auto;text-align:center}.v-date-picker-years.v-date-picker-years{padding:0}.v-date-picker-years li{cursor:pointer;padding:8px 0;transition:none}.v-date-picker-years li.active{font-size:26px;font-weight:500;padding:10px 0}.v-date-picker-years li:hover{background:rgba(0,0,0,.12)}.v-picker--landscape .v-date-picker-years{height:290px;padding:0}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 426:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
-var VDatePickerTitle = __webpack_require__(402);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/index.js
-var VIcon = __webpack_require__(13);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
-var colorable = __webpack_require__(8);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
-var mixins = __webpack_require__(2);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
-var helpers = __webpack_require__(0);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/mixins/picker-button/index.js
-// Mixins
- // Utilities
-
-
-
-/* @vue/component */
-
-/* harmony default export */ var picker_button = (Object(mixins["a" /* default */])(colorable["a" /* default */]).extend({
-  methods: {
-    genPickerButton(prop, value, content, readonly = false, staticClass = '') {
-      const active = this[prop] === value;
-      const click = event => {
-        event.stopPropagation();
-        this.$emit(`update:${Object(helpers["x" /* kebabCase */])(prop)}`, value);
-      };
-      return this.$createElement('div', {
-        staticClass: `v-picker__title__btn ${staticClass}`.trim(),
-        class: {
-          'v-picker__title__btn--active': active,
-          'v-picker__title__btn--readonly': readonly
-        },
-        on: active || readonly ? undefined : {
-          click
-        }
-      }, Array.isArray(content) ? content : [content]);
-    }
-  }
-}));
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerTitle.js
- // Components
-
- // Mixins
-
- // Utils
-
-
-/* harmony default export */ var VDatePicker_VDatePickerTitle = (Object(mixins["a" /* default */])(picker_button
-/* @vue/component */).extend({
-  name: 'v-date-picker-title',
-  props: {
-    date: {
-      type: String,
-      default: ''
-    },
-    disabled: Boolean,
-    readonly: Boolean,
-    selectingYear: Boolean,
-    value: {
-      type: String
-    },
-    year: {
-      type: [Number, String],
-      default: ''
-    },
-    yearIcon: {
-      type: String
-    }
-  },
-  data: () => ({
-    isReversing: false
-  }),
-  computed: {
-    computedTransition() {
-      return this.isReversing ? 'picker-reverse-transition' : 'picker-transition';
-    }
-  },
-  watch: {
-    value(val, prev) {
-      this.isReversing = val < prev;
-    }
-  },
-  methods: {
-    genYearIcon() {
-      return this.$createElement(VIcon["a" /* default */], {
-        props: {
-          dark: true
-        }
-      }, this.yearIcon);
-    },
-    getYearBtn() {
-      return this.genPickerButton('selectingYear', true, [String(this.year), this.yearIcon ? this.genYearIcon() : null], false, 'v-date-picker-title__year');
-    },
-    genTitleText() {
-      return this.$createElement('transition', {
-        props: {
-          name: this.computedTransition
-        }
-      }, [this.$createElement('div', {
-        domProps: {
-          innerHTML: this.date || '&nbsp;'
-        },
-        key: this.value
-      })]);
-    },
-    genTitleDate() {
-      return this.genPickerButton('selectingYear', false, [this.genTitleText()], false, 'v-date-picker-title__date');
-    }
-  },
-  render(h) {
-    return h('div', {
-      staticClass: 'v-date-picker-title',
-      class: {
-        'v-date-picker-title--disabled': this.disabled
-      }
-    }, [this.getYearBtn(), this.genTitleDate()]);
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerHeader.sass
-var VDatePickerHeader = __webpack_require__(404);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
-var VBtn = __webpack_require__(20);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(389);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
-var themeable = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/pad.js
-const padStart = (string, targetLength, padString) => {
-  targetLength = targetLength >> 0;
-  string = String(string);
-  padString = String(padString);
-  if (string.length > targetLength) {
-    return String(string);
-  }
-  targetLength = targetLength - string.length;
-  if (targetLength > padString.length) {
-    padString += padString.repeat(targetLength / padString.length);
-  }
-  return padString.slice(0, targetLength) + String(string);
-};
-/* harmony default export */ var pad = ((n, length = 2) => padStart(n, length, '0'));
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/createNativeLocaleFormatter.js
-
-function createNativeLocaleFormatter(locale, options, substrOptions = {
-  start: 0,
-  length: 0
-}) {
-  const makeIsoString = dateString => {
-    const [year, month, date] = dateString.trim().split(' ')[0].split('-');
-    return [pad(year, 4), pad(month || 1), pad(date || 1)].join('-');
-  };
-  try {
-    const intlFormatter = new Intl.DateTimeFormat(locale || undefined, options);
-    return dateString => intlFormatter.format(new Date(`${makeIsoString(dateString)}T00:00:00+00:00`));
-  } catch (e) {
-    return substrOptions.start || substrOptions.length ? dateString => makeIsoString(dateString).substr(substrOptions.start || 0, substrOptions.length) : undefined;
-  }
-}
-/* harmony default export */ var util_createNativeLocaleFormatter = (createNativeLocaleFormatter);
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/monthChange.js
-
-/**
- * @param {String} value YYYY-MM format
- * @param {Number} sign -1 or +1
- */
-
-/* harmony default export */ var monthChange = ((value, sign) => {
-  const [year, month] = value.split('-').map(Number);
-  if (month + sign === 0) {
-    return `${year - 1}-12`;
-  } else if (month + sign === 13) {
-    return `${year + 1}-01`;
-  } else {
-    return `${year}-${pad(month + sign)}`;
-  }
-});
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerHeader.js
- // Components
-
-
- // Mixins
-
-
-
- // Utils
-
-
-
-/* harmony default export */ var VDatePicker_VDatePickerHeader = (Object(mixins["a" /* default */])(colorable["a" /* default */], localable["a" /* default */], themeable["a" /* default */]
-/* @vue/component */).extend({
-  name: 'v-date-picker-header',
-  props: {
-    disabled: Boolean,
-    format: Function,
-    min: String,
-    max: String,
-    nextAriaLabel: String,
-    nextIcon: {
-      type: String,
-      default: '$next'
-    },
-    prevAriaLabel: String,
-    prevIcon: {
-      type: String,
-      default: '$prev'
-    },
-    readonly: Boolean,
-    value: {
-      type: [Number, String],
-      required: true
-    }
-  },
+/* harmony default export */ __webpack_exports__["a"] = ({
+  name: 'MoneyAdvanceReport',
   data() {
     return {
-      isReversing: false
+      // NEW: Bank Account Report Data
+      bankAccountSummaryReport: [],
+      bankAccountTotals: {
+        currencyTotals: {},
+        totalLakEquivalent: 0
+      },
+      bankAccountCurrencyList: [],
+      loadingBankAccountReport: false,
+      // Ministry Report Data
+      ministrySummaryReport: [],
+      ministryTotals: {
+        currencyTotals: {},
+        totalLakEquivalent: 0
+      },
+      currencyList: [],
+      loadingMinistryReport: false,
+      // Main Report Data
+      loading: false,
+      exporting: false,
+      loadingSettlements: false,
+      search: '',
+      fromDateMenu: false,
+      toDateMenu: false,
+      detailsDialog: false,
+      settlementsDialog: false,
+      selectedItem: null,
+      settlements: [],
+      // Filter data
+      filters: {
+        fromDate: null,
+        toDate: null,
+        ministryId: null,
+        currencyId: null,
+        status: null,
+        makerId: null
+      },
+      // Options data
+      ministries: [],
+      currencies: [],
+      users: [],
+      statusOptions: [{
+        text: 'ລໍຖ້າອະນຸມັດ (Pending)',
+        value: 'pending'
+      }, {
+        text: 'ອະນຸມັດແລ້ວ (Approved)',
+        value: 'approved'
+      }, {
+        text: 'ຊຳລະແລ້ວ (Settled)',
+        value: 'settled'
+      }],
+      // Report data
+      reportData: [],
+      summaryData: {
+        totalAdvances: 0,
+        totalSettlements: 0,
+        outstandingBalance: 0,
+        broughtForward: 0,
+        totalAdvancesLcy: 0,
+        totalSettlementsLcy: 0,
+        outstandingBalanceLcy: 0,
+        broughtForwardLcy: 0,
+        totalRecords: 0,
+        fullySettledCount: 0,
+        partiallySettledCount: 0,
+        unsettledCount: 0,
+        overdueCount: 0,
+        averageSettlementPercentage: 0,
+        currencyBreakdown: []
+      },
+      // Chart instances
+      ministryChart: null,
+      trendChart: null,
+      // Enhanced Table headers
+      tableHeaders: [{
+        text: 'ວັນທີ',
+        value: 'bookingDate',
+        width: '100px'
+      }, {
+        text: 'ຈຳນວນເງິນ',
+        value: 'amount',
+        width: '120px'
+      }, {
+        text: 'ສະກຸນເງິນ',
+        value: 'currencyCode',
+        width: '80px'
+      }, {
+        text: 'ອັດຕາແລກປ່ຽນ',
+        value: 'exchangeRate',
+        width: '100px'
+      }, {
+        text: 'ເທົ່າກັບກີບ',
+        value: 'lcyEquivalent',
+        width: '120px'
+      }, {
+        text: 'ການຊຳລະ',
+        value: 'settlementAmount',
+        width: '120px'
+      }, {
+        text: 'ຍອດຄ້າງ',
+        value: 'outstandingAmount',
+        width: '120px'
+      }, {
+        text: '% ຊຳລະ',
+        value: 'settlementPercentage',
+        width: '100px'
+      }, {
+        text: 'ກະຊວງ',
+        value: 'ministry',
+        width: '150px'
+      }, {
+        text: 'ຈຸດປະສົງ',
+        value: 'purpose',
+        width: '200px'
+      }, {
+        text: 'ສະຖານະ',
+        value: 'status',
+        width: '100px'
+      }, {
+        text: 'ເກີນກຳນົດ',
+        value: 'daysOverdue',
+        width: '80px'
+      }, {
+        text: 'ຜູ້ລົງ',
+        value: 'maker.cus_name',
+        width: '120px'
+      }, {
+        text: 'ຈັດການ',
+        value: 'actions',
+        sortable: false,
+        width: '100px'
+      }],
+      settlementHeaders: [{
+        text: 'ວັນທີ',
+        value: 'bookingDate'
+      }, {
+        text: 'ຈຳນວນ',
+        value: 'amount'
+      }, {
+        text: 'ວິທີການ',
+        value: 'method'
+      }, {
+        text: 'ໝາຍເຫດ',
+        value: 'notes'
+      }, {
+        text: 'ຜູ້ດຳເນີນການ',
+        value: 'user.cus_name'
+      }]
     };
   },
-  computed: {
-    formatter() {
-      if (this.format) {
-        return this.format;
-      } else if (String(this.value).split('-')[1]) {
-        return util_createNativeLocaleFormatter(this.currentLocale, {
-          month: 'long',
-          year: 'numeric',
-          timeZone: 'UTC'
-        }, {
-          length: 7
-        });
-      } else {
-        return util_createNativeLocaleFormatter(this.currentLocale, {
-          year: 'numeric',
-          timeZone: 'UTC'
-        }, {
-          length: 4
-        });
-      }
-    }
-  },
-  watch: {
-    value(newVal, oldVal) {
-      this.isReversing = newVal < oldVal;
-    }
-  },
-  methods: {
-    genBtn(change) {
-      const ariaLabelId = change > 0 ? this.nextAriaLabel : this.prevAriaLabel;
-      const ariaLabel = ariaLabelId ? this.$vuetify.lang.t(ariaLabelId) : undefined;
-      const disabled = this.disabled || change < 0 && this.min && this.calculateChange(change) < this.min || change > 0 && this.max && this.calculateChange(change) > this.max;
-      return this.$createElement(VBtn["a" /* default */], {
-        attrs: {
-          'aria-label': ariaLabel
-        },
-        props: {
-          dark: this.dark,
-          disabled,
-          icon: true,
-          light: this.light
-        },
-        on: {
-          click: e => {
-            e.stopPropagation();
-            this.$emit('input', this.calculateChange(change));
-          }
-        }
-      }, [this.$createElement(VIcon["a" /* default */], change < 0 === !this.$vuetify.rtl ? this.prevIcon : this.nextIcon)]);
-    },
-    calculateChange(sign) {
-      const [year, month] = String(this.value).split('-').map(Number);
-      if (month == null) {
-        return `${year + sign}`;
-      } else {
-        return monthChange(String(this.value), sign);
-      }
-    },
-    genHeader() {
-      const color = !this.disabled && (this.color || 'accent');
-      const header = this.$createElement('div', this.setTextColor(color, {
-        key: String(this.value)
-      }), [this.$createElement('button', {
-        attrs: {
-          type: 'button'
-        },
-        on: {
-          click: () => this.$emit('toggle')
-        }
-      }, [this.$slots.default || this.formatter(String(this.value))])]);
-      const transition = this.$createElement('transition', {
-        props: {
-          name: this.isReversing === !this.$vuetify.rtl ? 'tab-reverse-transition' : 'tab-transition'
-        }
-      }, [header]);
-      return this.$createElement('div', {
-        staticClass: 'v-date-picker-header__value',
-        class: {
-          'v-date-picker-header__value--disabled': this.disabled
-        }
-      }, [transition]);
-    }
-  },
-  render() {
-    return this.$createElement('div', {
-      staticClass: 'v-date-picker-header',
-      class: {
-        'v-date-picker-header--disabled': this.disabled,
-        ...this.themeClasses
-      }
-    }, [this.genBtn(-1), this.genHeader(), this.genBtn(+1)]);
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTable.sass
-var VDatePickerTable = __webpack_require__(406);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
-var touch = __webpack_require__(135);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/eventHelpers.js
-function createItemTypeNativeListeners(instance, itemTypeSuffix, value) {
-  return Object.keys(instance.$listeners).reduce((on, eventName) => {
-    if (eventName.endsWith(itemTypeSuffix)) {
-      on[eventName.slice(0, -itemTypeSuffix.length)] = event => instance.$emit(eventName, value, event);
-    }
-    return on;
-  }, {});
-}
-function createItemTypeListeners(instance, itemTypeSuffix) {
-  return Object.keys(instance.$listeners).reduce((on, eventName) => {
-    if (eventName.endsWith(itemTypeSuffix)) {
-      on[eventName] = instance.$listeners[eventName];
-    }
-    return on;
-  }, {});
-}
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/sanitizeDateString.js
-// Adds leading zero to month/day if necessary, returns 'YYYY' if type = 'year',
-// 'YYYY-MM' if 'month' and 'YYYY-MM-DD' if 'date'
-
-/* harmony default export */ var sanitizeDateString = ((dateString, type) => {
-  const [year, month = 1, date = 1] = dateString.split('-');
-  return `${year}-${pad(month)}-${pad(date)}`.substr(0, {
-    date: 10,
-    month: 7,
-    year: 4
-  }[type]);
-});
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/isDateAllowed.js
-function isDateAllowed(date, min, max, allowedFn) {
-  return (!allowedFn || allowedFn(date)) && (!min || date >= min.substr(0, 10)) && (!max || date <= max);
-}
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mergeData.js
-var mergeData = __webpack_require__(14);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/mixins/date-picker-table.js
- // Directives
-
- // Mixins
-
-
-
- // Utils
-
-
-
-
-
-
-/* harmony default export */ var date_picker_table = (Object(mixins["a" /* default */])(colorable["a" /* default */], localable["a" /* default */], themeable["a" /* default */]
-/* @vue/component */).extend({
-  directives: {
-    Touch: touch["a" /* default */]
-  },
-  props: {
-    allowedDates: Function,
-    current: String,
-    disabled: Boolean,
-    format: Function,
-    events: {
-      type: [Array, Function, Object],
-      default: () => null
-    },
-    eventColor: {
-      type: [Array, Function, Object, String],
-      default: () => 'warning'
-    },
-    min: String,
-    max: String,
-    range: Boolean,
-    readonly: Boolean,
-    scrollable: Boolean,
-    tableDate: {
-      type: String,
-      required: true
-    },
-    value: [String, Array]
-  },
-  data: () => ({
-    isReversing: false,
-    wheelThrottle: null
-  }),
-  computed: {
-    computedTransition() {
-      return this.isReversing === !this.$vuetify.rtl ? 'tab-reverse-transition' : 'tab-transition';
-    },
-    displayedMonth() {
-      return Number(this.tableDate.split('-')[1]) - 1;
-    },
-    displayedYear() {
-      return Number(this.tableDate.split('-')[0]);
-    }
-  },
-  watch: {
-    tableDate(newVal, oldVal) {
-      this.isReversing = newVal < oldVal;
-    }
+  async created() {
+    await this.loadInitialData();
+    this.setDefaultDates();
+    await this.applyFilters();
   },
   mounted() {
-    this.wheelThrottle = Object(helpers["G" /* throttle */])(this.wheel, 250);
-  },
-  methods: {
-    genButtonClasses(isAllowed, isFloating, isSelected, isCurrent, isFirst, isLast) {
-      return {
-        'v-size--default': !isFloating,
-        'v-date-picker-table__current': isCurrent,
-        'v-btn--active': isSelected,
-        'v-btn--flat': !isAllowed || this.disabled,
-        'v-btn--text': isSelected === isCurrent,
-        'v-btn--rounded': isFloating,
-        'v-btn--disabled': !isAllowed || this.disabled,
-        'v-btn--outlined': isCurrent && !isSelected,
-        'v-date-picker--first-in-range': isFirst,
-        'v-date-picker--last-in-range': isLast,
-        ...this.themeClasses
-      };
-    },
-    genButtonEvents(value, isAllowed, mouseEventType) {
-      if (this.disabled) return undefined;
-      return Object(mergeData["c" /* mergeListeners */])({
-        click: () => {
-          if (isAllowed && !this.readonly) this.$emit('input', value);
-        }
-      }, createItemTypeNativeListeners(this, `:${mouseEventType}`, value));
-    },
-    genButton(value, isFloating, mouseEventType, formatter, isOtherMonth = false) {
-      const isAllowed = isDateAllowed(value, this.min, this.max, this.allowedDates);
-      const isSelected = this.isSelected(value) && isAllowed;
-      const isCurrent = value === this.current;
-      const setColor = isSelected ? this.setBackgroundColor : this.setTextColor;
-      const color = (isSelected || isCurrent) && (this.color || 'accent');
-      let isFirst = false;
-      let isLast = false;
-      if (this.range && !!this.value && Array.isArray(this.value)) {
-        isFirst = value === this.value[0];
-        isLast = value === this.value[this.value.length - 1];
-      }
-      return this.$createElement('button', setColor(color, {
-        staticClass: 'v-btn',
-        class: this.genButtonClasses(isAllowed && !isOtherMonth, isFloating, isSelected, isCurrent, isFirst, isLast),
-        attrs: {
-          type: 'button'
-        },
-        domProps: {
-          disabled: this.disabled || !isAllowed || isOtherMonth
-        },
-        on: this.genButtonEvents(value, isAllowed, mouseEventType)
-      }), [this.$createElement('div', {
-        staticClass: 'v-btn__content'
-      }, [formatter(value)]), this.genEvents(value)]);
-    },
-    getEventColors(date) {
-      const arrayize = v => Array.isArray(v) ? v : [v];
-      let eventData;
-      let eventColors = [];
-      if (Array.isArray(this.events)) {
-        eventData = this.events.includes(date);
-      } else if (this.events instanceof Function) {
-        eventData = this.events(date) || false;
-      } else if (this.events) {
-        eventData = this.events[date] || false;
-      } else {
-        eventData = false;
-      }
-      if (!eventData) {
-        return [];
-      } else if (eventData !== true) {
-        eventColors = arrayize(eventData);
-      } else if (typeof this.eventColor === 'string') {
-        eventColors = [this.eventColor];
-      } else if (typeof this.eventColor === 'function') {
-        eventColors = arrayize(this.eventColor(date));
-      } else if (Array.isArray(this.eventColor)) {
-        eventColors = this.eventColor;
-      } else {
-        eventColors = arrayize(this.eventColor[date]);
-      }
-      return eventColors.filter(v => v);
-    },
-    genEvents(date) {
-      const eventColors = this.getEventColors(date);
-      return eventColors.length ? this.$createElement('div', {
-        staticClass: 'v-date-picker-table__events'
-      }, eventColors.map(color => this.$createElement('div', this.setBackgroundColor(color)))) : null;
-    },
-    isValidScroll(value, calculateTableDate) {
-      const tableDate = calculateTableDate(value); // tableDate is 'YYYY-MM' for DateTable and 'YYYY' for MonthTable
-
-      const sanitizeType = tableDate.split('-').length === 1 ? 'year' : 'month';
-      return value < 0 && (this.min ? tableDate >= sanitizeDateString(this.min, sanitizeType) : true) || value > 0 && (this.max ? tableDate <= sanitizeDateString(this.max, sanitizeType) : true);
-    },
-    wheel(e, calculateTableDate) {
-      this.$emit('update:table-date', calculateTableDate(e.deltaY));
-    },
-    touch(value, calculateTableDate) {
-      this.$emit('update:table-date', calculateTableDate(value));
-    },
-    genTable(staticClass, children, calculateTableDate) {
-      const transition = this.$createElement('transition', {
-        props: {
-          name: this.computedTransition
-        }
-      }, [this.$createElement('table', {
-        key: this.tableDate
-      }, children)]);
-      const touchDirective = {
-        name: 'touch',
-        value: {
-          left: e => e.offsetX < -15 && this.isValidScroll(1, calculateTableDate) && this.touch(1, calculateTableDate),
-          right: e => e.offsetX > 15 && this.isValidScroll(-1, calculateTableDate) && this.touch(-1, calculateTableDate)
-        }
-      };
-      return this.$createElement('div', {
-        staticClass,
-        class: {
-          'v-date-picker-table--disabled': this.disabled,
-          ...this.themeClasses
-        },
-        on: !this.disabled && this.scrollable ? {
-          wheel: e => {
-            e.preventDefault();
-            if (this.isValidScroll(e.deltaY, calculateTableDate)) {
-              this.wheelThrottle(e, calculateTableDate);
-            }
-          }
-        } : undefined,
-        directives: [touchDirective]
-      }, [transition]);
-    },
-    isSelected(value) {
-      if (Array.isArray(this.value)) {
-        if (this.range && this.value.length === 2) {
-          const [from, to] = [...this.value].sort();
-          return from <= value && value <= to;
-        } else {
-          return this.value.indexOf(value) !== -1;
-        }
-      }
-      return value === this.value;
-    }
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(391);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerDateTable.js
-// Mixins
- // Utils
-
-
-
-
-
-/* harmony default export */ var VDatePickerDateTable = (Object(mixins["a" /* default */])(date_picker_table
-/* @vue/component */).extend({
-  name: 'v-date-picker-date-table',
-  props: {
-    firstDayOfWeek: {
-      type: [String, Number],
-      default: 0
-    },
-    localeFirstDayOfYear: {
-      type: [String, Number],
-      default: 0
-    },
-    showAdjacentMonths: Boolean,
-    showWeek: Boolean,
-    weekdayFormat: Function
-  },
-  computed: {
-    formatter() {
-      return this.format || util_createNativeLocaleFormatter(this.currentLocale, {
-        day: 'numeric',
-        timeZone: 'UTC'
-      }, {
-        start: 8,
-        length: 2
-      });
-    },
-    weekdayFormatter() {
-      return this.weekdayFormat || util_createNativeLocaleFormatter(this.currentLocale, {
-        weekday: 'narrow',
-        timeZone: 'UTC'
-      });
-    },
-    weekDays() {
-      const first = parseInt(this.firstDayOfWeek, 10);
-      return this.weekdayFormatter ? Object(helpers["i" /* createRange */])(7).map(i => this.weekdayFormatter(`2017-01-${first + i + 15}`)) // 2017-01-15 is Sunday
-      : Object(helpers["i" /* createRange */])(7).map(i => ['S', 'M', 'T', 'W', 'T', 'F', 'S'][(i + first) % 7]);
-    }
-  },
-  methods: {
-    calculateTableDate(delta) {
-      return monthChange(this.tableDate, Math.sign(delta || 1));
-    },
-    genTHead() {
-      const days = this.weekDays.map(day => this.$createElement('th', day));
-      if (this.showWeek) {
-        days.unshift(this.$createElement('th'));
-      }
-      return this.$createElement('thead', this.genTR(days));
-    },
-    // Returns number of the days from the firstDayOfWeek to the first day of the current month
-    weekDaysBeforeFirstDayOfTheMonth() {
-      const firstDayOfTheMonth = new Date(`${this.displayedYear}-${pad(this.displayedMonth + 1)}-01T00:00:00+00:00`);
-      const weekDay = firstDayOfTheMonth.getUTCDay();
-      return (weekDay - parseInt(this.firstDayOfWeek) + 7) % 7;
-    },
-    getWeekNumber(dayInMonth) {
-      return Object(dateTimeUtils["b" /* weekNumber */])(this.displayedYear, this.displayedMonth, dayInMonth, parseInt(this.firstDayOfWeek), parseInt(this.localeFirstDayOfYear));
-    },
-    genWeekNumber(weekNumber) {
-      return this.$createElement('td', [this.$createElement('small', {
-        staticClass: 'v-date-picker-table--date__week'
-      }, String(weekNumber).padStart(2, '0'))]);
-    },
-    // eslint-disable-next-line max-statements
-    genTBody() {
-      const children = [];
-      const daysInMonth = new Date(this.displayedYear, this.displayedMonth + 1, 0).getDate();
-      let rows = [];
-      let day = this.weekDaysBeforeFirstDayOfTheMonth();
-      if (this.showWeek) {
-        rows.push(this.genWeekNumber(this.getWeekNumber(1)));
-      }
-      const prevMonthYear = this.displayedMonth ? this.displayedYear : this.displayedYear - 1;
-      const prevMonth = (this.displayedMonth + 11) % 12;
-      const firstDayFromPreviousMonth = new Date(this.displayedYear, this.displayedMonth, 0).getDate();
-      const cellsInRow = this.showWeek ? 8 : 7;
-      while (day--) {
-        const date = `${prevMonthYear}-${pad(prevMonth + 1)}-${pad(firstDayFromPreviousMonth - day)}`;
-        rows.push(this.$createElement('td', this.showAdjacentMonths ? [this.genButton(date, true, 'date', this.formatter, true)] : []));
-      }
-      for (day = 1; day <= daysInMonth; day++) {
-        const date = `${this.displayedYear}-${pad(this.displayedMonth + 1)}-${pad(day)}`;
-        rows.push(this.$createElement('td', [this.genButton(date, true, 'date', this.formatter)]));
-        if (rows.length % cellsInRow === 0) {
-          children.push(this.genTR(rows));
-          rows = [];
-          if (this.showWeek && (day < daysInMonth || this.showAdjacentMonths)) {
-            rows.push(this.genWeekNumber(this.getWeekNumber(day + 7)));
-          }
-        }
-      }
-      const nextMonthYear = this.displayedMonth === 11 ? this.displayedYear + 1 : this.displayedYear;
-      const nextMonth = (this.displayedMonth + 1) % 12;
-      let nextMonthDay = 1;
-      while (rows.length < cellsInRow) {
-        const date = `${nextMonthYear}-${pad(nextMonth + 1)}-${pad(nextMonthDay++)}`;
-        rows.push(this.$createElement('td', this.showAdjacentMonths ? [this.genButton(date, true, 'date', this.formatter, true)] : []));
-      }
-      if (rows.length) {
-        children.push(this.genTR(rows));
-      }
-      return this.$createElement('tbody', children);
-    },
-    genTR(children) {
-      return [this.$createElement('tr', children)];
-    }
-  },
-  render() {
-    return this.genTable('v-date-picker-table v-date-picker-table--date', [this.genTHead(), this.genTBody()], this.calculateTableDate);
-  }
-}));
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerMonthTable.js
-// Mixins
- // Utils
-
-
-
-/* harmony default export */ var VDatePickerMonthTable = (Object(mixins["a" /* default */])(date_picker_table
-/* @vue/component */).extend({
-  name: 'v-date-picker-month-table',
-  computed: {
-    formatter() {
-      return this.format || util_createNativeLocaleFormatter(this.currentLocale, {
-        month: 'short',
-        timeZone: 'UTC'
-      }, {
-        start: 5,
-        length: 2
-      });
-    }
-  },
-  methods: {
-    calculateTableDate(delta) {
-      return `${parseInt(this.tableDate, 10) + Math.sign(delta || 1)}`;
-    },
-    genTBody() {
-      const children = [];
-      const cols = Array(3).fill(null);
-      const rows = 12 / cols.length;
-      for (let row = 0; row < rows; row++) {
-        const tds = cols.map((_, col) => {
-          const month = row * cols.length + col;
-          const date = `${this.displayedYear}-${pad(month + 1)}`;
-          return this.$createElement('td', {
-            key: month
-          }, [this.genButton(date, false, 'month', this.formatter)]);
-        });
-        children.push(this.$createElement('tr', {
-          key: row
-        }, tds));
-      }
-      return this.$createElement('tbody', children);
-    }
-  },
-  render() {
-    return this.genTable('v-date-picker-table v-date-picker-table--month', [this.genTBody()], this.calculateTableDate);
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerYears.sass
-var VDatePickerYears = __webpack_require__(408);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
- // Mixins
-
-
- // Utils
-
-
-
-
-/* harmony default export */ var VDatePicker_VDatePickerYears = (Object(mixins["a" /* default */])(colorable["a" /* default */], localable["a" /* default */]
-/* @vue/component */).extend({
-  name: 'v-date-picker-years',
-  props: {
-    format: Function,
-    min: [Number, String],
-    max: [Number, String],
-    readonly: Boolean,
-    value: [Number, String]
-  },
-  data() {
-    return {
-      defaultColor: 'primary'
-    };
-  },
-  computed: {
-    formatter() {
-      return this.format || util_createNativeLocaleFormatter(this.currentLocale, {
-        year: 'numeric',
-        timeZone: 'UTC'
-      }, {
-        length: 4
-      });
-    }
-  },
-  mounted() {
-    setTimeout(() => {
-      const activeItem = this.$el.getElementsByClassName('active')[0];
-      if (activeItem) {
-        this.$el.scrollTop = activeItem.offsetTop - this.$el.offsetHeight / 2 + activeItem.offsetHeight / 2;
-      } else if (this.min && !this.max) {
-        this.$el.scrollTop = this.$el.scrollHeight;
-      } else if (!this.min && this.max) {
-        this.$el.scrollTop = 0;
-      } else {
-        this.$el.scrollTop = this.$el.scrollHeight / 2 - this.$el.offsetHeight / 2;
-      }
+    this.$nextTick(() => {
+      this.initializeCharts();
     });
   },
-  methods: {
-    genYearItem(year) {
-      const formatted = this.formatter(`${year}`);
-      const active = parseInt(this.value, 10) === year;
-      const color = active && (this.color || 'primary');
-      return this.$createElement('li', this.setTextColor(color, {
-        key: year,
-        class: {
-          active
-        },
-        on: Object(mergeData["c" /* mergeListeners */])({
-          click: () => this.$emit('input', year)
-        }, createItemTypeNativeListeners(this, ':year', year))
-      }), formatted);
-    },
-    genYearItems() {
-      const children = [];
-      const selectedYear = this.value ? parseInt(this.value, 10) : new Date().getFullYear();
-      const maxYear = this.max ? parseInt(this.max, 10) : selectedYear + 100;
-      const minYear = Math.min(maxYear, this.min ? parseInt(this.min, 10) : selectedYear - 100);
-      for (let year = maxYear; year >= minYear; year--) {
-        children.push(this.genYearItem(year));
-      }
-      return children;
+  beforeDestroy() {
+    // Clean up chart instances
+    if (this.ministryChart) {
+      this.ministryChart.destroy();
     }
-  },
-  render() {
-    return this.$createElement('ul', {
-      staticClass: 'v-date-picker-years',
-      ref: 'years'
-    }, this.genYearItems());
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VPicker/VPicker.sass
-var VPicker = __webpack_require__(400);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(165);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
-var elevatable = __webpack_require__(75);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VPicker/VPicker.js
-
- // Mixins
-
-
-
- // Helpers
-
-
-
-/* @vue/component */
-
-/* harmony default export */ var VPicker_VPicker = (Object(mixins["a" /* default */])(colorable["a" /* default */], elevatable["a" /* default */], themeable["a" /* default */]).extend({
-  name: 'v-picker',
-  props: {
-    flat: Boolean,
-    fullWidth: Boolean,
-    landscape: Boolean,
-    noTitle: Boolean,
-    transition: {
-      type: String,
-      default: 'fade-transition'
-    },
-    width: {
-      type: [Number, String],
-      default: 290
-    }
-  },
-  computed: {
-    computedTitleColor() {
-      const defaultTitleColor = this.isDark ? false : this.color || 'primary';
-      return this.color || defaultTitleColor;
+    if (this.trendChart) {
+      this.trendChart.destroy();
     }
   },
   methods: {
-    genTitle() {
-      return this.$createElement('div', this.setBackgroundColor(this.computedTitleColor, {
-        staticClass: 'v-picker__title',
-        class: {
-          'v-picker__title--landscape': this.landscape
-        }
-      }), this.$slots.title);
-    },
-    genBodyTransition() {
-      return this.$createElement('transition', {
-        props: {
-          name: this.transition
-        }
-      }, this.$slots.default);
-    },
-    genBody() {
-      return this.$createElement('div', {
-        staticClass: 'v-picker__body',
-        class: {
-          'v-picker__body--no-title': this.noTitle,
-          ...this.themeClasses
-        },
-        style: this.fullWidth ? undefined : {
-          width: Object(helpers["h" /* convertToUnit */])(this.width)
-        }
-      }, [this.genBodyTransition()]);
-    },
-    genActions() {
-      return this.$createElement('div', {
-        staticClass: 'v-picker__actions v-card__actions',
-        class: {
-          'v-picker__actions--no-title': this.noTitle
-        }
-      }, this.$slots.actions);
-    }
-  },
-  render(h) {
-    return h('div', {
-      staticClass: 'v-picker v-card',
-      class: {
-        'v-picker--flat': this.flat,
-        'v-picker--landscape': this.landscape,
-        'v-picker--full-width': this.fullWidth,
-        ...this.themeClasses,
-        ...this.elevationClasses
+    // ========================================
+    // BANK ACCOUNT REPORT METHODS
+    // ========================================
+
+    /**
+     * Transform API response data into bank account report format
+     * @param {Object} responseData - The API response containing settlement data
+     * @returns {Object} Processed bank account report data
+     */
+    processBankAccountReportData(responseData) {
+      if (!responseData || !responseData.data || !Array.isArray(responseData.data)) {
+        return {
+          bankAccountSummaryReport: [],
+          bankAccountTotals: {
+            currencyTotals: {},
+            totalLakEquivalent: 0
+          },
+          bankAccountCurrencyList: []
+        };
       }
-    }, [this.$slots.title ? this.genTitle() : null, this.genBody(), this.$slots.actions ? this.genActions() : null]);
-  }
-}));
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VPicker/index.js
+      const data = responseData.data;
+      const bankAccountMap = new Map();
+      const currencySet = new Set();
+      const currencyTotals = {};
 
+      // Process each settlement record
+      data.forEach(record => {
+        const bankAccount = record.bankAccount;
+        const currency = record.currency;
+        const settlementAmount = record.settlementAmount || 0;
+        const lakEquivalent = record.settlementLcyEquivalent || 0;
+        const settlementCount = record.settlementCount || 0;
 
-/* harmony default export */ var components_VPicker = (VPicker_VPicker);
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/mixins/picker/index.js
-// Components
- // Mixins
+        // Handle bank account information
+        const bankAccountId = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.id) || 'NO_BANK_ACCOUNT';
+        const accountNumber = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.accountNumber) || 'N/A';
+        const accountName = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.accountName) || 'No Bank Account';
+        const bankName = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.bankName) || 'No Bank Specified';
+        const accountType = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.accountType) || 'N/A';
 
+        // Track currencies
+        const currencyCode = (currency === null || currency === void 0 ? void 0 : currency.code) || 'UNKNOWN';
+        currencySet.add(currencyCode);
 
-
- // Utils
-
-
-/* harmony default export */ var picker = (Object(mixins["a" /* default */])(colorable["a" /* default */], elevatable["a" /* default */], themeable["a" /* default */]
-/* @vue/component */).extend({
-  name: 'picker',
-  props: {
-    flat: Boolean,
-    fullWidth: Boolean,
-    headerColor: String,
-    landscape: Boolean,
-    noTitle: Boolean,
-    width: {
-      type: [Number, String],
-      default: 290
-    }
-  },
-  methods: {
-    genPickerTitle() {
-      return null;
-    },
-    genPickerBody() {
-      return null;
-    },
-    genPickerActionsSlot() {
-      return this.$scopedSlots.default ? this.$scopedSlots.default({
-        save: this.save,
-        cancel: this.cancel
-      }) : this.$slots.default;
-    },
-    genPicker(staticClass) {
-      const children = [];
-      if (!this.noTitle) {
-        const title = this.genPickerTitle();
-        title && children.push(title);
-      }
-      const body = this.genPickerBody();
-      body && children.push(body);
-      children.push(this.$createElement('template', {
-        slot: 'actions'
-      }, [this.genPickerActionsSlot()]));
-      return this.$createElement(components_VPicker, {
-        staticClass,
-        props: {
-          color: this.headerColor || this.color,
-          dark: this.dark,
-          elevation: this.elevation,
-          flat: this.flat,
-          fullWidth: this.fullWidth,
-          landscape: this.landscape,
-          light: this.light,
-          width: this.width,
-          noTitle: this.noTitle
+        // Initialize bank account entry if not exists
+        if (!bankAccountMap.has(bankAccountId)) {
+          bankAccountMap.set(bankAccountId, {
+            bankAccountId,
+            accountNumber,
+            accountName,
+            bankName,
+            accountType,
+            settlementCount: 0,
+            amounts: {},
+            totalLakEquivalent: 0
+          });
         }
-      }, children);
-    }
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var timestamp = __webpack_require__(396);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
-var console = __webpack_require__(3);
+        // Get bank account entry
+        const bankAccountEntry = bankAccountMap.get(bankAccountId);
 
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js
-// Components
+        // Aggregate data
+        bankAccountEntry.settlementCount += settlementCount;
+        bankAccountEntry.totalLakEquivalent += lakEquivalent;
 
-
-
-
- // Mixins
-
-
- // Utils
-
-
-
-
-
-
-
-/* harmony default export */ var VDatePicker = __webpack_exports__["a"] = (Object(mixins["a" /* default */])(localable["a" /* default */], picker).extend({
-  name: 'v-date-picker',
-  props: {
-    activePicker: String,
-    allowedDates: Function,
-    // Function formatting the day in date picker table
-    dayFormat: Function,
-    disabled: Boolean,
-    events: {
-      type: [Array, Function, Object],
-      default: () => null
-    },
-    eventColor: {
-      type: [Array, Function, Object, String],
-      default: () => 'warning'
-    },
-    firstDayOfWeek: {
-      type: [String, Number],
-      default: 0
-    },
-    // Function formatting the tableDate in the day/month table header
-    headerDateFormat: Function,
-    localeFirstDayOfYear: {
-      type: [String, Number],
-      default: 0
-    },
-    max: String,
-    min: String,
-    // Function formatting month in the months table
-    monthFormat: Function,
-    multiple: Boolean,
-    nextIcon: {
-      type: String,
-      default: '$next'
-    },
-    nextMonthAriaLabel: {
-      type: String,
-      default: '$vuetify.datePicker.nextMonthAriaLabel'
-    },
-    nextYearAriaLabel: {
-      type: String,
-      default: '$vuetify.datePicker.nextYearAriaLabel'
-    },
-    pickerDate: String,
-    prevIcon: {
-      type: String,
-      default: '$prev'
-    },
-    prevMonthAriaLabel: {
-      type: String,
-      default: '$vuetify.datePicker.prevMonthAriaLabel'
-    },
-    prevYearAriaLabel: {
-      type: String,
-      default: '$vuetify.datePicker.prevYearAriaLabel'
-    },
-    range: Boolean,
-    reactive: Boolean,
-    readonly: Boolean,
-    scrollable: Boolean,
-    showCurrent: {
-      type: [Boolean, String],
-      default: true
-    },
-    selectedItemsText: {
-      type: String,
-      default: '$vuetify.datePicker.itemsSelected'
-    },
-    showAdjacentMonths: Boolean,
-    showWeek: Boolean,
-    // Function formatting currently selected date in the picker title
-    titleDateFormat: Function,
-    type: {
-      type: String,
-      default: 'date',
-      validator: type => ['date', 'month'].includes(type) // TODO: year
-    },
-
-    value: [Array, String],
-    weekdayFormat: Function,
-    // Function formatting the year in table header and pickup title
-    yearFormat: Function,
-    yearIcon: String
-  },
-  data() {
-    const now = new Date();
-    return {
-      internalActivePicker: this.type.toUpperCase(),
-      inputDay: null,
-      inputMonth: null,
-      inputYear: null,
-      isReversing: false,
-      now,
-      // tableDate is a string in 'YYYY' / 'YYYY-M' format (leading zero for month is not required)
-      tableDate: (() => {
-        if (this.pickerDate) {
-          return this.pickerDate;
+        // Aggregate by currency
+        if (!bankAccountEntry.amounts[currencyCode]) {
+          bankAccountEntry.amounts[currencyCode] = 0;
         }
-        const multipleValue = Object(helpers["I" /* wrapInArray */])(this.value);
-        const date = multipleValue[multipleValue.length - 1] || (typeof this.showCurrent === 'string' ? this.showCurrent : `${now.getFullYear()}-${now.getMonth() + 1}`);
-        return sanitizeDateString(date, this.type === 'date' ? 'month' : 'year');
-      })()
-    };
-  },
-  computed: {
-    multipleValue() {
-      return Object(helpers["I" /* wrapInArray */])(this.value);
-    },
-    isMultiple() {
-      return this.multiple || this.range;
-    },
-    lastValue() {
-      return this.isMultiple ? this.multipleValue[this.multipleValue.length - 1] : this.value;
-    },
-    selectedMonths() {
-      if (!this.value || this.type === 'month') {
-        return this.value;
-      } else if (this.isMultiple) {
-        return this.multipleValue.map(val => val.substr(0, 7));
-      } else {
-        return this.value.substr(0, 7);
-      }
-    },
-    current() {
-      if (this.showCurrent === true) {
-        return sanitizeDateString(`${this.now.getFullYear()}-${this.now.getMonth() + 1}-${this.now.getDate()}`, this.type);
-      }
-      return this.showCurrent || null;
-    },
-    inputDate() {
-      return this.type === 'date' ? `${this.inputYear}-${pad(this.inputMonth + 1)}-${pad(this.inputDay)}` : `${this.inputYear}-${pad(this.inputMonth + 1)}`;
-    },
-    tableMonth() {
-      return Number((this.pickerDate || this.tableDate).split('-')[1]) - 1;
-    },
-    tableYear() {
-      return Number((this.pickerDate || this.tableDate).split('-')[0]);
-    },
-    minMonth() {
-      return this.min ? sanitizeDateString(this.min, 'month') : null;
-    },
-    maxMonth() {
-      return this.max ? sanitizeDateString(this.max, 'month') : null;
-    },
-    minYear() {
-      return this.min ? sanitizeDateString(this.min, 'year') : null;
-    },
-    maxYear() {
-      return this.max ? sanitizeDateString(this.max, 'year') : null;
-    },
-    formatters() {
-      return {
-        year: this.yearFormat || util_createNativeLocaleFormatter(this.currentLocale, {
-          year: 'numeric',
-          timeZone: 'UTC'
-        }, {
-          length: 4
-        }),
-        titleDate: this.titleDateFormat || (this.isMultiple ? this.defaultTitleMultipleDateFormatter : this.defaultTitleDateFormatter)
-      };
-    },
-    defaultTitleMultipleDateFormatter() {
-      return dates => {
-        if (!dates.length) {
-          return '-';
+        bankAccountEntry.amounts[currencyCode] += settlementAmount;
+
+        // Track currency totals
+        if (!currencyTotals[currencyCode]) {
+          currencyTotals[currencyCode] = 0;
         }
-        if (dates.length === 1) {
-          return this.defaultTitleDateFormatter(dates[0]);
-        }
-        return this.$vuetify.lang.t(this.selectedItemsText, dates.length);
-      };
-    },
-    defaultTitleDateFormatter() {
-      const titleFormats = {
-        year: {
-          year: 'numeric',
-          timeZone: 'UTC'
-        },
-        month: {
-          month: 'long',
-          timeZone: 'UTC'
-        },
-        date: {
-          weekday: 'short',
-          month: 'short',
-          day: 'numeric',
-          timeZone: 'UTC'
-        }
-      };
-      const titleDateFormatter = util_createNativeLocaleFormatter(this.currentLocale, titleFormats[this.type], {
-        start: 0,
-        length: {
-          date: 10,
-          month: 7,
-          year: 4
-        }[this.type]
+        currencyTotals[currencyCode] += settlementAmount;
       });
-      const landscapeFormatter = date => titleDateFormatter(date).replace(/([^\d\s])([\d])/g, (match, nonDigit, digit) => `${nonDigit} ${digit}`).replace(', ', ',<br>');
-      return this.landscape ? landscapeFormatter : titleDateFormatter;
-    }
-  },
-  watch: {
-    internalActivePicker: {
-      immediate: true,
-      handler(val) {
-        this.$emit('update:active-picker', val);
+
+      // Convert map to array and sort
+      const bankAccountSummaryReport = Array.from(bankAccountMap.values()).sort((a, b) => {
+        // Put "NO_BANK_ACCOUNT" at the end
+        if (a.bankAccountId === 'NO_BANK_ACCOUNT') return 1;
+        if (b.bankAccountId === 'NO_BANK_ACCOUNT') return -1;
+        // Sort by bank name, then account number
+        const bankComparison = a.bankName.localeCompare(b.bankName);
+        if (bankComparison !== 0) return bankComparison;
+        return a.accountNumber.localeCompare(b.accountNumber);
+      });
+
+      // Calculate total LAK equivalent
+      const totalLakEquivalent = bankAccountSummaryReport.reduce((sum, bankAccount) => sum + bankAccount.totalLakEquivalent, 0);
+      return {
+        bankAccountSummaryReport,
+        bankAccountTotals: {
+          currencyTotals,
+          totalLakEquivalent
+        },
+        bankAccountCurrencyList: Array.from(currencySet).sort()
+      };
+    },
+    /**
+     * Refresh bank account report with current data
+     */
+    async refreshBankAccountReport() {
+      this.loadingBankAccountReport = true;
+      try {
+        // Process current reportData for bank account report
+        const processedData = this.processBankAccountReportData({
+          data: this.reportData
+        });
+
+        // Update component data
+        this.bankAccountSummaryReport = processedData.bankAccountSummaryReport;
+        this.bankAccountTotals = processedData.bankAccountTotals;
+        this.bankAccountCurrencyList = processedData.bankAccountCurrencyList;
+        this.$toast.success('Bank account report refreshed successfully');
+      } catch (error) {
+        console.error('Error refreshing bank account report:', error);
+        this.$toast.error('Failed to refresh bank account report');
+      } finally {
+        this.loadingBankAccountReport = false;
       }
     },
-    activePicker(val) {
-      this.internalActivePicker = val;
-    },
-    tableDate(val, prev) {
-      // Make a ISO 8601 strings from val and prev for comparision, otherwise it will incorrectly
-      // compare for example '2000-9' and '2000-10'
-      const sanitizeType = this.type === 'month' ? 'year' : 'month';
-      this.isReversing = sanitizeDateString(val, sanitizeType) < sanitizeDateString(prev, sanitizeType);
-      this.$emit('update:picker-date', val);
-    },
-    pickerDate(val) {
-      if (val) {
-        this.tableDate = val;
-      } else if (this.lastValue && this.type === 'date') {
-        this.tableDate = sanitizeDateString(this.lastValue, 'month');
-      } else if (this.lastValue && this.type === 'month') {
-        this.tableDate = sanitizeDateString(this.lastValue, 'year');
-      }
-    },
-    value(newValue, oldValue) {
-      this.checkMultipleProp();
-      this.setInputDate();
-      if (!this.isMultiple && this.value && !this.pickerDate || this.isMultiple && this.multipleValue.length && (!oldValue || !oldValue.length) && !this.pickerDate) {
-        this.tableDate = sanitizeDateString(this.inputDate, this.type === 'month' ? 'year' : 'month');
-      }
-    },
-    type(type) {
-      this.internalActivePicker = type.toUpperCase();
-      if (this.value && this.value.length) {
-        const output = this.multipleValue.map(val => sanitizeDateString(val, type)).filter(this.isDateAllowed);
-        this.$emit('input', this.isMultiple ? output : output[0]);
-      }
-    }
-  },
-  created() {
-    this.checkMultipleProp();
-    if (this.pickerDate !== this.tableDate) {
-      this.$emit('update:picker-date', this.tableDate);
-    }
-    this.setInputDate();
-  },
-  methods: {
-    emitInput(newInput) {
-      if (this.range) {
-        if (this.multipleValue.length !== 1) {
-          this.$emit('input', [newInput]);
-        } else {
-          const output = [this.multipleValue[0], newInput];
-          this.$emit('input', output);
-          this.$emit('change', output);
-        }
+    /**
+     * Export bank account report to Excel
+     */
+    async exportBankAccountReportToExcel() {
+      if (!this.bankAccountSummaryReport.length) {
+        this.$toast.warning('No bank account data to export');
         return;
       }
-      const output = this.multiple ? this.multipleValue.indexOf(newInput) === -1 ? this.multipleValue.concat([newInput]) : this.multipleValue.filter(x => x !== newInput) : newInput;
-      this.$emit('input', output);
-      this.multiple || this.$emit('change', newInput);
-    },
-    checkMultipleProp() {
-      if (this.value == null) return;
-      const valueType = this.value.constructor.name;
-      const expected = this.isMultiple ? 'Array' : 'String';
-      if (valueType !== expected) {
-        Object(console["c" /* consoleWarn */])(`Value must be ${this.isMultiple ? 'an' : 'a'} ${expected}, got ${valueType}`, this);
+      this.exporting = true;
+      try {
+        var _this$bankAccountTota3;
+        // Prepare data for export
+        const exportData = this.bankAccountSummaryReport.map((item, index) => {
+          const row = {
+            '#': index + 1,
+            'Account Number': item.accountNumber,
+            'Account Name': item.accountName,
+            'Bank Name': item.bankName,
+            'Account Type': item.accountType,
+            Count: item.settlementCount
+          };
+
+          // Add currency columns
+          this.bankAccountCurrencyList.forEach(currency => {
+            var _item$amounts;
+            row[currency] = this.formatAmount(((_item$amounts = item.amounts) === null || _item$amounts === void 0 ? void 0 : _item$amounts[currency]) || 0);
+          });
+          row['Total (LAK)'] = this.formatAmount(item.totalLakEquivalent || 0);
+          return row;
+        });
+
+        // Add totals row
+        const totalsRow = {
+          '#': '',
+          'Account Number': '',
+          'Account Name': '',
+          'Bank Name': 'ລວມ (Total)',
+          'Account Type': '',
+          Count: this.bankAccountSummaryReport.reduce((sum, b) => sum + b.settlementCount, 0)
+        };
+        this.bankAccountCurrencyList.forEach(currency => {
+          var _this$bankAccountTota, _this$bankAccountTota2;
+          totalsRow[currency] = this.formatAmount(((_this$bankAccountTota = this.bankAccountTotals) === null || _this$bankAccountTota === void 0 ? void 0 : (_this$bankAccountTota2 = _this$bankAccountTota.currencyTotals) === null || _this$bankAccountTota2 === void 0 ? void 0 : _this$bankAccountTota2[currency]) || 0);
+        });
+        totalsRow['Total (LAK)'] = this.formatAmount(((_this$bankAccountTota3 = this.bankAccountTotals) === null || _this$bankAccountTota3 === void 0 ? void 0 : _this$bankAccountTota3.totalLakEquivalent) || 0);
+        exportData.push(totalsRow);
+
+        // Export to CSV (you can replace with Excel library)
+        await this.exportToExcelBankAccount(exportData, 'Bank_Account_Report');
+        this.$toast.success('Bank account report exported successfully');
+      } catch (error) {
+        console.error('Error exporting bank account report:', error);
+        this.$toast.error('Failed to export bank account report');
+      } finally {
+        this.exporting = false;
       }
     },
-    isDateAllowed(value) {
-      return isDateAllowed(value, this.min, this.max, this.allowedDates);
+    /**
+     * Helper method for Bank Account Excel export
+     */
+    async exportToExcelBankAccount(data, filename) {
+      if (data.length === 0) return;
+      const headers = Object.keys(data[0]);
+      const csvContent = [headers.join(','), ...data.map(row => headers.map(header => `"${row[header] || ''}"`).join(','))].join('\n');
+      const blob = new Blob([csvContent], {
+        type: 'text/csv;charset=utf-8;'
+      });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `${filename}-${new Date().toISOString().substr(0, 10)}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     },
-    yearClick(value) {
-      this.inputYear = value;
-      if (this.type === 'month') {
-        this.tableDate = `${value}`;
-      } else {
-        this.tableDate = `${value}-${pad((this.tableMonth || 0) + 1)}`;
+    // ========================================
+    // MINISTRY REPORT METHODS
+    // ========================================
+
+    /**
+     * Transform API response data into ministry report format
+     * @param {Object} responseData - The API response containing settlement data
+     * @returns {Object} Processed ministry report data
+     */
+    processMinistryReportData(responseData) {
+      if (!responseData || !responseData.data || !Array.isArray(responseData.data)) {
+        return {
+          ministrySummaryReport: [],
+          ministryTotals: {
+            currencyTotals: {},
+            totalLakEquivalent: 0
+          },
+          currencyList: []
+        };
       }
-      this.internalActivePicker = 'MONTH';
-      if (this.reactive && !this.readonly && !this.isMultiple && this.isDateAllowed(this.inputDate)) {
-        this.$emit('input', this.inputDate);
-      }
-    },
-    monthClick(value) {
-      const [year, month] = value.split('-');
-      this.inputYear = parseInt(year, 10);
-      this.inputMonth = parseInt(month, 10) - 1;
-      if (this.type === 'date') {
-        if (this.inputDay) {
-          this.inputDay = Math.min(this.inputDay, Object(timestamp["i" /* daysInMonth */])(this.inputYear, this.inputMonth + 1));
+      const data = responseData.data;
+      const ministryMap = new Map();
+      const currencySet = new Set();
+      const currencyTotals = {};
+
+      // Process each settlement record
+      data.forEach(record => {
+        const ministry = record.ministry;
+        const currency = record.currency;
+        const settlementAmount = record.settlementAmount || 0;
+        const lakEquivalent = record.settlementLcyEquivalent || 0;
+        const settlementCount = record.settlementCount || 0;
+
+        // Handle ministry information
+        const ministryId = (ministry === null || ministry === void 0 ? void 0 : ministry.id) || 'NO_MINISTRY';
+        const ministryCode = (ministry === null || ministry === void 0 ? void 0 : ministry.ministryCode) || 'N/A';
+        const ministryName = (ministry === null || ministry === void 0 ? void 0 : ministry.ministryName) || 'No Ministry Assigned';
+
+        // Track currencies
+        const currencyCode = (currency === null || currency === void 0 ? void 0 : currency.code) || 'UNKNOWN';
+        currencySet.add(currencyCode);
+
+        // Initialize ministry entry if not exists
+        if (!ministryMap.has(ministryId)) {
+          ministryMap.set(ministryId, {
+            ministryId,
+            ministryCode,
+            ministryName,
+            settlementCount: 0,
+            amounts: {},
+            totalLakEquivalent: 0
+          });
         }
-        this.tableDate = value;
-        this.internalActivePicker = 'DATE';
-        if (this.reactive && !this.readonly && !this.isMultiple && this.isDateAllowed(this.inputDate)) {
-          this.$emit('input', this.inputDate);
+
+        // Get ministry entry
+        const ministryEntry = ministryMap.get(ministryId);
+
+        // Aggregate data
+        ministryEntry.settlementCount += settlementCount;
+        ministryEntry.totalLakEquivalent += lakEquivalent;
+
+        // Aggregate by currency
+        if (!ministryEntry.amounts[currencyCode]) {
+          ministryEntry.amounts[currencyCode] = 0;
         }
-      } else {
-        this.emitInput(this.inputDate);
-      }
-    },
-    dateClick(value) {
-      const [year, month, day] = value.split('-');
-      this.inputYear = parseInt(year, 10);
-      this.inputMonth = parseInt(month, 10) - 1;
-      this.inputDay = parseInt(day, 10);
-      this.emitInput(this.inputDate);
-    },
-    genPickerTitle() {
-      return this.$createElement(VDatePicker_VDatePickerTitle, {
-        props: {
-          date: this.value ? this.formatters.titleDate(this.isMultiple ? this.multipleValue : this.value) : '',
-          disabled: this.disabled,
-          readonly: this.readonly,
-          selectingYear: this.internalActivePicker === 'YEAR',
-          year: this.formatters.year(this.multipleValue.length ? `${this.inputYear}` : this.tableDate),
-          yearIcon: this.yearIcon,
-          value: this.multipleValue[0]
+        ministryEntry.amounts[currencyCode] += settlementAmount;
+
+        // Track currency totals
+        if (!currencyTotals[currencyCode]) {
+          currencyTotals[currencyCode] = 0;
+        }
+        currencyTotals[currencyCode] += settlementAmount;
+      });
+
+      // Convert map to array and sort
+      const ministrySummaryReport = Array.from(ministryMap.values()).sort((a, b) => {
+        // Put "NO_MINISTRY" at the end
+        if (a.ministryId === 'NO_MINISTRY') return 1;
+        if (b.ministryId === 'NO_MINISTRY') return -1;
+        // Sort by ministry code
+        return a.ministryCode.localeCompare(b.ministryCode);
+      });
+
+      // Calculate total LAK equivalent
+      const totalLakEquivalent = ministrySummaryReport.reduce((sum, ministry) => sum + ministry.totalLakEquivalent, 0);
+      return {
+        ministrySummaryReport,
+        ministryTotals: {
+          currencyTotals,
+          totalLakEquivalent
         },
-        slot: 'title',
-        on: {
-          'update:selecting-year': value => this.internalActivePicker = value ? 'YEAR' : this.type.toUpperCase()
+        currencyList: Array.from(currencySet).sort()
+      };
+    },
+    /**
+     * Refresh ministry report with current data
+     */
+    async refreshMinistryReport() {
+      this.loadingMinistryReport = true;
+      try {
+        // Process current reportData for ministry report
+        const processedData = this.processMinistryReportData({
+          data: this.reportData
+        });
+
+        // Update component data
+        this.ministrySummaryReport = processedData.ministrySummaryReport;
+        this.ministryTotals = processedData.ministryTotals;
+        this.currencyList = processedData.currencyList;
+        this.$toast.success('Ministry report refreshed successfully');
+      } catch (error) {
+        console.error('Error refreshing ministry report:', error);
+        this.$toast.error('Failed to refresh ministry report');
+      } finally {
+        this.loadingMinistryReport = false;
+      }
+    },
+    /**
+     * Export ministry report to Excel
+     */
+    async exportMinistryReportToExcel() {
+      if (!this.ministrySummaryReport.length) {
+        this.$toast.warning('No data to export');
+        return;
+      }
+      this.exporting = true;
+      try {
+        var _this$ministryTotals2;
+        // Prepare data for export
+        const exportData = this.ministrySummaryReport.map((item, index) => {
+          const row = {
+            '#': index + 1,
+            'Ministry Code': item.ministryCode,
+            'Ministry Name': item.ministryName,
+            Count: item.settlementCount
+          };
+
+          // Add currency columns
+          this.currencyList.forEach(currency => {
+            var _item$amounts2;
+            row[currency] = this.formatAmount(((_item$amounts2 = item.amounts) === null || _item$amounts2 === void 0 ? void 0 : _item$amounts2[currency]) || 0);
+          });
+          row['Total (LAK)'] = this.formatAmount(item.totalLakEquivalent || 0);
+          return row;
+        });
+
+        // Add totals row
+        const totalsRow = {
+          '#': '',
+          'Ministry Code': '',
+          'Ministry Name': 'ລວມ (Total)',
+          Count: this.ministrySummaryReport.reduce((sum, m) => sum + m.settlementCount, 0)
+        };
+        this.currencyList.forEach(currency => {
+          var _this$ministryTotals, _this$ministryTotals$;
+          totalsRow[currency] = this.formatAmount(((_this$ministryTotals = this.ministryTotals) === null || _this$ministryTotals === void 0 ? void 0 : (_this$ministryTotals$ = _this$ministryTotals.currencyTotals) === null || _this$ministryTotals$ === void 0 ? void 0 : _this$ministryTotals$[currency]) || 0);
+        });
+        totalsRow['Total (LAK)'] = this.formatAmount(((_this$ministryTotals2 = this.ministryTotals) === null || _this$ministryTotals2 === void 0 ? void 0 : _this$ministryTotals2.totalLakEquivalent) || 0);
+        exportData.push(totalsRow);
+
+        // Export to CSV (you can replace with Excel library)
+        await this.exportToExcelMinistry(exportData, 'Ministry_Report');
+        this.$toast.success('Ministry report exported successfully');
+      } catch (error) {
+        console.error('Error exporting ministry report:', error);
+        this.$toast.error('Failed to export ministry report');
+      } finally {
+        this.exporting = false;
+      }
+    },
+    /**
+     * Helper method for Excel export - CSV implementation
+     * Replace with your preferred Excel library (xlsx, exceljs, etc.)
+     */
+    async exportToExcelMinistry(data, filename) {
+      if (data.length === 0) return;
+      const headers = Object.keys(data[0]);
+      const csvContent = [headers.join(','), ...data.map(row => headers.map(header => `"${row[header] || ''}"`).join(','))].join('\n');
+      const blob = new Blob([csvContent], {
+        type: 'text/csv;charset=utf-8;'
+      });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `${filename}-${new Date().toISOString().substr(0, 10)}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    },
+    // ========================================
+    // MAIN REPORT METHODS
+    // ========================================
+
+    async loadInitialData() {
+      try {
+        // Load ministries, currencies, and users in parallel
+        const [ministriesRes, currenciesRes, usersRes] = await Promise.all([this.$axios.get('/api/ministries'), this.$axios.get('/api/currency/find'), this.$axios.get('/api/user/find')]);
+        this.ministries = ministriesRes.data.data || ministriesRes.data;
+        this.currencies = currenciesRes.data.data || currenciesRes.data;
+        this.users = usersRes.data.data || usersRes.data;
+      } catch (error) {
+        console.error('Error loading initial data:', error);
+        this.$toast.error('Error loading initial data');
+      }
+    },
+    setDefaultDates() {
+      const now = new Date();
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+      this.filters.fromDate = firstDay.toISOString().substr(0, 10);
+      this.filters.toDate = now.toISOString().substr(0, 10);
+    },
+    // ========================================
+    // UPDATED MAIN REPORT METHODS
+    // ========================================
+
+    async applyFilters() {
+      this.loading = true;
+      try {
+        // Build query params
+        const params = new URLSearchParams();
+        Object.keys(this.filters).forEach(key => {
+          if (this.filters[key]) {
+            params.append(key, this.filters[key]);
+          }
+        });
+        const response = await this.$axios.get(`/api/money-advances/report?${params}`);
+
+        // Handle different response structures
+        if (response.data.success) {
+          this.reportData = response.data.data || [];
+          this.summaryData = response.data.summary || {};
+        } else {
+          this.reportData = response.data.data || response.data || [];
+          this.summaryData = response.data.summary || this.calculateSummary();
+        }
+
+        // Process ministry report data with the same dataset
+        const processedMinistryData = this.processMinistryReportData({
+          data: this.reportData
+        });
+        this.ministrySummaryReport = processedMinistryData.ministrySummaryReport;
+        this.ministryTotals = processedMinistryData.ministryTotals;
+        this.currencyList = processedMinistryData.currencyList;
+
+        // Process bank account report data with the same dataset
+        const processedBankAccountData = this.processBankAccountReportData({
+          data: this.reportData
+        });
+        this.bankAccountSummaryReport = processedBankAccountData.bankAccountSummaryReport;
+        this.bankAccountTotals = processedBankAccountData.bankAccountTotals;
+        this.bankAccountCurrencyList = processedBankAccountData.bankAccountCurrencyList;
+
+        // Update charts after data is loaded
+        this.$nextTick(() => {
+          this.updateCharts();
+        });
+      } catch (error) {
+        console.error('Error loading report data:', error);
+        this.$toast.error('Error loading report data');
+      } finally {
+        this.loading = false;
+      }
+    },
+    resetFilters() {
+      this.filters = {
+        fromDate: null,
+        toDate: null,
+        ministryId: null,
+        currencyId: null,
+        status: null,
+        makerId: null
+      };
+      this.setDefaultDates();
+      this.applyFilters(); // This will also update ministry report
+    },
+
+    calculateSummary() {
+      // Fallback summary calculation if not provided by API
+      const summary = {
+        totalAdvances: 0,
+        totalSettlements: 0,
+        outstandingBalance: 0,
+        totalRecords: this.reportData.length,
+        fullySettledCount: 0,
+        partiallySettledCount: 0,
+        unsettledCount: 0,
+        overdueCount: 0
+      };
+      this.reportData.forEach(item => {
+        summary.totalAdvances += parseFloat(item.amount || 0);
+        summary.totalSettlements += parseFloat(item.settlementAmount || 0);
+        summary.outstandingBalance += parseFloat(item.outstandingAmount || 0);
+        if (item.isFullySettled) summary.fullySettledCount++;else if (item.settlementAmount > 0) summary.partiallySettledCount++;else summary.unsettledCount++;
+        if (item.daysOverdue > 0) summary.overdueCount++;
+      });
+      return summary;
+    },
+    // ========================================
+    // CHART METHODS
+    // ========================================
+
+    initializeCharts() {
+      if (this.$refs.ministryChart && this.$refs.trendChart) {
+        this.createMinistryChart();
+        this.createTrendChart();
+      }
+    },
+    createMinistryChart() {
+      const ctx = this.$refs.ministryChart.getContext('2d');
+
+      // Destroy existing chart if it exists
+      if (this.ministryChart) {
+        this.ministryChart.destroy();
+      }
+      this.ministryChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default.a(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [],
+          datasets: [{
+            data: [],
+            backgroundColor: ['#01532B', '#228B22', '#32CD32', '#006400', '#9ACD32', '#00FA9A', '#66CDAA', '#20B2AA']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
         }
       });
     },
-    genTableHeader() {
-      return this.$createElement(VDatePicker_VDatePickerHeader, {
-        props: {
-          nextIcon: this.nextIcon,
-          color: this.color,
-          dark: this.dark,
-          disabled: this.disabled,
-          format: this.headerDateFormat,
-          light: this.light,
-          locale: this.locale,
-          min: this.internalActivePicker === 'DATE' ? this.minMonth : this.minYear,
-          max: this.internalActivePicker === 'DATE' ? this.maxMonth : this.maxYear,
-          nextAriaLabel: this.internalActivePicker === 'DATE' ? this.nextMonthAriaLabel : this.nextYearAriaLabel,
-          prevAriaLabel: this.internalActivePicker === 'DATE' ? this.prevMonthAriaLabel : this.prevYearAriaLabel,
-          prevIcon: this.prevIcon,
-          readonly: this.readonly,
-          value: this.internalActivePicker === 'DATE' ? `${pad(this.tableYear, 4)}-${pad(this.tableMonth + 1)}` : `${pad(this.tableYear, 4)}`
-        },
-        on: {
-          toggle: () => this.internalActivePicker = this.internalActivePicker === 'DATE' ? 'MONTH' : 'YEAR',
-          input: value => this.tableDate = value
-        }
-      });
-    },
-    genDateTable() {
-      return this.$createElement(VDatePickerDateTable, {
-        props: {
-          allowedDates: this.allowedDates,
-          color: this.color,
-          current: this.current,
-          dark: this.dark,
-          disabled: this.disabled,
-          events: this.events,
-          eventColor: this.eventColor,
-          firstDayOfWeek: this.firstDayOfWeek,
-          format: this.dayFormat,
-          light: this.light,
-          locale: this.locale,
-          localeFirstDayOfYear: this.localeFirstDayOfYear,
-          min: this.min,
-          max: this.max,
-          range: this.range,
-          readonly: this.readonly,
-          scrollable: this.scrollable,
-          showAdjacentMonths: this.showAdjacentMonths,
-          showWeek: this.showWeek,
-          tableDate: `${pad(this.tableYear, 4)}-${pad(this.tableMonth + 1)}`,
-          value: this.value,
-          weekdayFormat: this.weekdayFormat
-        },
-        ref: 'table',
-        on: {
-          input: this.dateClick,
-          'update:table-date': value => this.tableDate = value,
-          ...createItemTypeListeners(this, ':date')
-        }
-      });
-    },
-    genMonthTable() {
-      return this.$createElement(VDatePickerMonthTable, {
-        props: {
-          allowedDates: this.type === 'month' ? this.allowedDates : null,
-          color: this.color,
-          current: this.current ? sanitizeDateString(this.current, 'month') : null,
-          dark: this.dark,
-          disabled: this.disabled,
-          events: this.type === 'month' ? this.events : null,
-          eventColor: this.type === 'month' ? this.eventColor : null,
-          format: this.monthFormat,
-          light: this.light,
-          locale: this.locale,
-          min: this.minMonth,
-          max: this.maxMonth,
-          range: this.range,
-          readonly: this.readonly && this.type === 'month',
-          scrollable: this.scrollable,
-          value: this.selectedMonths,
-          tableDate: `${pad(this.tableYear, 4)}`
-        },
-        ref: 'table',
-        on: {
-          input: this.monthClick,
-          'update:table-date': value => this.tableDate = value,
-          ...createItemTypeListeners(this, ':month')
-        }
-      });
-    },
-    genYears() {
-      return this.$createElement(VDatePicker_VDatePickerYears, {
-        props: {
-          color: this.color,
-          format: this.yearFormat,
-          locale: this.locale,
-          min: this.minYear,
-          max: this.maxYear,
-          value: this.tableYear
-        },
-        on: {
-          input: this.yearClick,
-          ...createItemTypeListeners(this, ':year')
-        }
-      });
-    },
-    genPickerBody() {
-      const children = this.internalActivePicker === 'YEAR' ? [this.genYears()] : [this.genTableHeader(), this.internalActivePicker === 'DATE' ? this.genDateTable() : this.genMonthTable()];
-      return this.$createElement('div', {
-        key: this.internalActivePicker
-      }, children);
-    },
-    setInputDate() {
-      if (this.lastValue) {
-        const array = this.lastValue.split('-');
-        this.inputYear = parseInt(array[0], 10);
-        this.inputMonth = parseInt(array[1], 10) - 1;
-        if (this.type === 'date') {
-          this.inputDay = parseInt(array[2], 10);
-        }
-      } else {
-        this.inputYear = this.inputYear || this.now.getFullYear();
-        this.inputMonth = this.inputMonth == null ? this.inputMonth : this.now.getMonth();
-        this.inputDay = this.inputDay || this.now.getDate();
+    createTrendChart() {
+      const ctx = this.$refs.trendChart.getContext('2d');
+
+      // Destroy existing chart if it exists
+      if (this.trendChart) {
+        this.trendChart.destroy();
       }
+      this.trendChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default.a(ctx, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [{
+            label: 'ລາຍຈ່າຍລ່ວງໜ້າ',
+            data: [],
+            borderColor: '#01532B',
+            backgroundColor: 'rgba(1, 83, 43, 0.1)',
+            tension: 0.1
+          }, {
+            label: 'ການຊຳລະ',
+            data: [],
+            borderColor: '#228B22',
+            backgroundColor: 'rgba(34, 139, 34, 0.1)',
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    },
+    updateCharts() {
+      if (this.ministryChart && this.trendChart) {
+        // Update ministry chart
+        const ministryData = this.groupByMinistry();
+        this.ministryChart.data.labels = ministryData.labels;
+        this.ministryChart.data.datasets[0].data = ministryData.data;
+        this.ministryChart.update();
+
+        // Update trend chart
+        const trendData = this.groupByMonth();
+        this.trendChart.data.labels = trendData.labels;
+        this.trendChart.data.datasets[0].data = trendData.advances;
+        this.trendChart.data.datasets[1].data = trendData.settlements;
+        this.trendChart.update();
+      }
+    },
+    groupByMinistry() {
+      const grouped = {};
+      this.reportData.forEach(item => {
+        var _item$ministry;
+        const ministry = ((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryName) || 'ບໍ່ລະບຸກະຊວງ';
+        if (!grouped[ministry]) {
+          grouped[ministry] = 0;
+        }
+        grouped[ministry] += parseFloat(item.lcyEquivalent || item.amount || 0);
+      });
+      return {
+        labels: Object.keys(grouped),
+        data: Object.values(grouped)
+      };
+    },
+    groupByMonth() {
+      const grouped = {};
+      this.reportData.forEach(item => {
+        const month = new Date(item.bookingDate).toISOString().substr(0, 7);
+        if (!grouped[month]) {
+          grouped[month] = {
+            advances: 0,
+            settlements: 0
+          };
+        }
+        grouped[month].advances += parseFloat(item.lcyEquivalent || item.amount || 0);
+        grouped[month].settlements += parseFloat(item.settlementLcyEquivalent || item.settlementAmount || 0);
+      });
+      const sortedMonths = Object.keys(grouped).sort();
+      return {
+        labels: sortedMonths,
+        advances: sortedMonths.map(month => grouped[month].advances),
+        settlements: sortedMonths.map(month => grouped[month].settlements)
+      };
+    },
+    // ========================================
+    // DIALOG METHODS
+    // ========================================
+
+    async viewDetails(item) {
+      this.selectedItem = item;
+      this.detailsDialog = true;
+    },
+    async viewSettlements(item) {
+      this.loadingSettlements = true;
+      this.settlementsDialog = true;
+      try {
+        const response = await this.$axios.get(`/api/money-advances/${item.id}/settlements`);
+        this.settlements = response.data.data || response.data || [];
+      } catch (error) {
+        console.error('Error loading settlements:', error);
+        this.$toast.error('Error loading settlements');
+        this.settlements = [];
+      } finally {
+        this.loadingSettlements = false;
+      }
+    },
+    // ========================================
+    // EXPORT METHODS
+    // ========================================
+
+    async exportToExcel() {
+      this.exporting = true;
+      try {
+        const params = new URLSearchParams();
+        Object.keys(this.filters).forEach(key => {
+          if (this.filters[key]) {
+            params.append(key, this.filters[key]);
+          }
+        });
+        const response = await this.$axios.get(`/api/money-advances/report/export?${params}`, {
+          responseType: 'blob'
+        });
+
+        // Create download link
+        const blob = new Blob([response.data]);
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `money-advance-report-${new Date().toISOString().substr(0, 10)}.xlsx`;
+        link.click();
+
+        // Clean up
+        window.URL.revokeObjectURL(link.href);
+        this.$toast.success('Report exported successfully');
+      } catch (error) {
+        console.error('Error exporting report:', error);
+        this.$toast.error('Error exporting report');
+      } finally {
+        this.exporting = false;
+      }
+    },
+    printReport() {
+      window.print();
+    },
+    // ========================================
+    // FORMATTING METHODS
+    // ========================================
+
+    formatAmount(amount) {
+      if (!amount || amount === 0) return '0';
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(amount);
+    },
+    formatCurrency(amount) {
+      if (!amount && amount !== 0) return '0.00';
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+    },
+    formatExchangeRate(rate) {
+      if (!rate && rate !== 0) return '1.0000';
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 4
+      }).format(rate);
+    },
+    formatDate(date) {
+      if (!date) return '';
+      return new Date(date).toLocaleDateString('lo-LA');
+    },
+    // ========================================
+    // UTILITY METHODS
+    // ========================================
+
+    getProgressColor(percentage) {
+      const percent = parseFloat(percentage || 0);
+      if (percent >= 100) return '#01532B';
+      if (percent >= 50) return '#228B22';
+      return '#32CD32';
+    },
+    getStatusColor(status) {
+      const colors = {
+        pending: '#32CD32',
+        approved: '#228B22',
+        settled: '#01532B'
+      };
+      return colors[status] || '#666';
+    },
+    getStatusText(status) {
+      const texts = {
+        pending: 'ລໍຖ້າ',
+        approved: 'ອະນຸມັດ',
+        settled: 'ຊຳລະແລ້ວ'
+      };
+      return texts[status] || status;
+    },
+    getMethodColor(method) {
+      const colors = {
+        cash: '#01532B',
+        bank_transfer: '#228B22',
+        deduction: '#32CD32'
+      };
+      return colors[method] || '#01532B';
+    },
+    getMethodText(method) {
+      const texts = {
+        cash: 'ເງິນສົດ',
+        bank_transfer: 'ໂອນເງິນ',
+        deduction: 'ຫັກລົບ'
+      };
+      return texts[method] || method;
     }
-  },
-  render() {
-    return this.genPicker('v-picker--date');
   }
-}));
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(336)["URL"], __webpack_require__(336)["URLSearchParams"]))
 
 /***/ }),
 
-/***/ 459:
+/***/ 632:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3439,8 +2298,6 @@ var console = __webpack_require__(3);
  */
 
 
-__webpack_require__(90);
-__webpack_require__(91);
 __webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
@@ -3452,6 +2309,8 @@ __webpack_require__(99);
 __webpack_require__(100);
 __webpack_require__(101);
 __webpack_require__(102);
+__webpack_require__(103);
+__webpack_require__(104);
 __webpack_require__(339);
 __webpack_require__(340);
 __webpack_require__(341);
@@ -3468,9 +2327,9 @@ __webpack_require__(351);
 __webpack_require__(352);
 __webpack_require__(353);
 __webpack_require__(354);
+__webpack_require__(361);
+var helpers_dataset = __webpack_require__(633);
 __webpack_require__(358);
-var helpers_dataset = __webpack_require__(460);
-__webpack_require__(355);
 class Animator {
   constructor() {
     this._request = null;
@@ -15595,7 +14454,7 @@ exports.scales = scales;
 
 /***/ }),
 
-/***/ 460:
+/***/ 633:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15623,8 +14482,6 @@ __webpack_require__(351);
 __webpack_require__(352);
 __webpack_require__(353);
 __webpack_require__(354);
-__webpack_require__(90);
-__webpack_require__(91);
 __webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
@@ -15636,7 +14493,9 @@ __webpack_require__(99);
 __webpack_require__(100);
 __webpack_require__(101);
 __webpack_require__(102);
-var color$1 = __webpack_require__(355);
+__webpack_require__(103);
+__webpack_require__(104);
+var color$1 = __webpack_require__(358);
 
 /**
  * @namespace Chart.helpers
@@ -18658,10 +17517,10 @@ exports.valueOrDefault = valueOrDefault;
 
 /***/ }),
 
-/***/ 489:
+/***/ 737:
 /***/ (function(module, exports, __webpack_require__) {
 
-const chartjs = __webpack_require__(459);
+const chartjs = __webpack_require__(632);
 const {
   Chart,
   registerables
@@ -18671,1071 +17530,44 @@ module.exports = Object.assign(Chart, chartjs);
 
 /***/ }),
 
-/***/ 638:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(URL, URLSearchParams) {/* harmony import */ var core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(90);
-/* harmony import */ var core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91);
-/* harmony import */ var core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(92);
-/* harmony import */ var core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(93);
-/* harmony import */ var core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(94);
-/* harmony import */ var core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(95);
-/* harmony import */ var core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(96);
-/* harmony import */ var core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(97);
-/* harmony import */ var core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(98);
-/* harmony import */ var core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(99);
-/* harmony import */ var core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(100);
-/* harmony import */ var core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(101);
-/* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(102);
-/* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(339);
-/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(340);
-/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(341);
-/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(342);
-/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(343);
-/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(344);
-/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(345);
-/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(346);
-/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(347);
-/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(348);
-/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(349);
-/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(350);
-/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(351);
-/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(352);
-/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(353);
-/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(354);
-/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(489);
-/* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(chart_js_auto__WEBPACK_IMPORTED_MODULE_29__);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Import Chart.js with auto registration (includes all components)
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  name: 'MoneyAdvanceReport',
-  data() {
-    return {
-      // NEW: Bank Account Report Data
-      bankAccountSummaryReport: [],
-      bankAccountTotals: {
-        currencyTotals: {},
-        totalLakEquivalent: 0
-      },
-      bankAccountCurrencyList: [],
-      loadingBankAccountReport: false,
-      // Ministry Report Data
-      ministrySummaryReport: [],
-      ministryTotals: {
-        currencyTotals: {},
-        totalLakEquivalent: 0
-      },
-      currencyList: [],
-      loadingMinistryReport: false,
-      // Main Report Data
-      loading: false,
-      exporting: false,
-      loadingSettlements: false,
-      search: '',
-      fromDateMenu: false,
-      toDateMenu: false,
-      detailsDialog: false,
-      settlementsDialog: false,
-      selectedItem: null,
-      settlements: [],
-      // Filter data
-      filters: {
-        fromDate: null,
-        toDate: null,
-        ministryId: null,
-        currencyId: null,
-        status: null,
-        makerId: null
-      },
-      // Options data
-      ministries: [],
-      currencies: [],
-      users: [],
-      statusOptions: [{
-        text: 'ລໍຖ້າອະນຸມັດ (Pending)',
-        value: 'pending'
-      }, {
-        text: 'ອະນຸມັດແລ້ວ (Approved)',
-        value: 'approved'
-      }, {
-        text: 'ຊຳລະແລ້ວ (Settled)',
-        value: 'settled'
-      }],
-      // Report data
-      reportData: [],
-      summaryData: {
-        totalAdvances: 0,
-        totalSettlements: 0,
-        outstandingBalance: 0,
-        broughtForward: 0,
-        totalAdvancesLcy: 0,
-        totalSettlementsLcy: 0,
-        outstandingBalanceLcy: 0,
-        broughtForwardLcy: 0,
-        totalRecords: 0,
-        fullySettledCount: 0,
-        partiallySettledCount: 0,
-        unsettledCount: 0,
-        overdueCount: 0,
-        averageSettlementPercentage: 0,
-        currencyBreakdown: []
-      },
-      // Chart instances
-      ministryChart: null,
-      trendChart: null,
-      // Enhanced Table headers
-      tableHeaders: [{
-        text: 'ວັນທີ',
-        value: 'bookingDate',
-        width: '100px'
-      }, {
-        text: 'ຈຳນວນເງິນ',
-        value: 'amount',
-        width: '120px'
-      }, {
-        text: 'ສະກຸນເງິນ',
-        value: 'currencyCode',
-        width: '80px'
-      }, {
-        text: 'ອັດຕາແລກປ່ຽນ',
-        value: 'exchangeRate',
-        width: '100px'
-      }, {
-        text: 'ເທົ່າກັບກີບ',
-        value: 'lcyEquivalent',
-        width: '120px'
-      }, {
-        text: 'ການຊຳລະ',
-        value: 'settlementAmount',
-        width: '120px'
-      }, {
-        text: 'ຍອດຄ້າງ',
-        value: 'outstandingAmount',
-        width: '120px'
-      }, {
-        text: '% ຊຳລະ',
-        value: 'settlementPercentage',
-        width: '100px'
-      }, {
-        text: 'ກະຊວງ',
-        value: 'ministry',
-        width: '150px'
-      }, {
-        text: 'ຈຸດປະສົງ',
-        value: 'purpose',
-        width: '200px'
-      }, {
-        text: 'ສະຖານະ',
-        value: 'status',
-        width: '100px'
-      }, {
-        text: 'ເກີນກຳນົດ',
-        value: 'daysOverdue',
-        width: '80px'
-      }, {
-        text: 'ຜູ້ລົງ',
-        value: 'maker.cus_name',
-        width: '120px'
-      }, {
-        text: 'ຈັດການ',
-        value: 'actions',
-        sortable: false,
-        width: '100px'
-      }],
-      settlementHeaders: [{
-        text: 'ວັນທີ',
-        value: 'bookingDate'
-      }, {
-        text: 'ຈຳນວນ',
-        value: 'amount'
-      }, {
-        text: 'ວິທີການ',
-        value: 'method'
-      }, {
-        text: 'ໝາຍເຫດ',
-        value: 'notes'
-      }, {
-        text: 'ຜູ້ດຳເນີນການ',
-        value: 'user.cus_name'
-      }]
-    };
-  },
-  async created() {
-    await this.loadInitialData();
-    this.setDefaultDates();
-    await this.applyFilters();
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.initializeCharts();
-    });
-  },
-  beforeDestroy() {
-    // Clean up chart instances
-    if (this.ministryChart) {
-      this.ministryChart.destroy();
-    }
-    if (this.trendChart) {
-      this.trendChart.destroy();
-    }
-  },
-  methods: {
-    // ========================================
-    // BANK ACCOUNT REPORT METHODS
-    // ========================================
-
-    /**
-     * Transform API response data into bank account report format
-     * @param {Object} responseData - The API response containing settlement data
-     * @returns {Object} Processed bank account report data
-     */
-    processBankAccountReportData(responseData) {
-      if (!responseData || !responseData.data || !Array.isArray(responseData.data)) {
-        return {
-          bankAccountSummaryReport: [],
-          bankAccountTotals: {
-            currencyTotals: {},
-            totalLakEquivalent: 0
-          },
-          bankAccountCurrencyList: []
-        };
-      }
-      const data = responseData.data;
-      const bankAccountMap = new Map();
-      const currencySet = new Set();
-      const currencyTotals = {};
-
-      // Process each settlement record
-      data.forEach(record => {
-        const bankAccount = record.bankAccount;
-        const currency = record.currency;
-        const settlementAmount = record.settlementAmount || 0;
-        const lakEquivalent = record.settlementLcyEquivalent || 0;
-        const settlementCount = record.settlementCount || 0;
-
-        // Handle bank account information
-        const bankAccountId = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.id) || 'NO_BANK_ACCOUNT';
-        const accountNumber = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.accountNumber) || 'N/A';
-        const accountName = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.accountName) || 'No Bank Account';
-        const bankName = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.bankName) || 'No Bank Specified';
-        const accountType = (bankAccount === null || bankAccount === void 0 ? void 0 : bankAccount.accountType) || 'N/A';
-
-        // Track currencies
-        const currencyCode = (currency === null || currency === void 0 ? void 0 : currency.code) || 'UNKNOWN';
-        currencySet.add(currencyCode);
-
-        // Initialize bank account entry if not exists
-        if (!bankAccountMap.has(bankAccountId)) {
-          bankAccountMap.set(bankAccountId, {
-            bankAccountId,
-            accountNumber,
-            accountName,
-            bankName,
-            accountType,
-            settlementCount: 0,
-            amounts: {},
-            totalLakEquivalent: 0
-          });
-        }
-
-        // Get bank account entry
-        const bankAccountEntry = bankAccountMap.get(bankAccountId);
-
-        // Aggregate data
-        bankAccountEntry.settlementCount += settlementCount;
-        bankAccountEntry.totalLakEquivalent += lakEquivalent;
-
-        // Aggregate by currency
-        if (!bankAccountEntry.amounts[currencyCode]) {
-          bankAccountEntry.amounts[currencyCode] = 0;
-        }
-        bankAccountEntry.amounts[currencyCode] += settlementAmount;
-
-        // Track currency totals
-        if (!currencyTotals[currencyCode]) {
-          currencyTotals[currencyCode] = 0;
-        }
-        currencyTotals[currencyCode] += settlementAmount;
-      });
-
-      // Convert map to array and sort
-      const bankAccountSummaryReport = Array.from(bankAccountMap.values()).sort((a, b) => {
-        // Put "NO_BANK_ACCOUNT" at the end
-        if (a.bankAccountId === 'NO_BANK_ACCOUNT') return 1;
-        if (b.bankAccountId === 'NO_BANK_ACCOUNT') return -1;
-        // Sort by bank name, then account number
-        const bankComparison = a.bankName.localeCompare(b.bankName);
-        if (bankComparison !== 0) return bankComparison;
-        return a.accountNumber.localeCompare(b.accountNumber);
-      });
-
-      // Calculate total LAK equivalent
-      const totalLakEquivalent = bankAccountSummaryReport.reduce((sum, bankAccount) => sum + bankAccount.totalLakEquivalent, 0);
-      return {
-        bankAccountSummaryReport,
-        bankAccountTotals: {
-          currencyTotals,
-          totalLakEquivalent
-        },
-        bankAccountCurrencyList: Array.from(currencySet).sort()
-      };
-    },
-    /**
-     * Refresh bank account report with current data
-     */
-    async refreshBankAccountReport() {
-      this.loadingBankAccountReport = true;
-      try {
-        // Process current reportData for bank account report
-        const processedData = this.processBankAccountReportData({
-          data: this.reportData
-        });
-
-        // Update component data
-        this.bankAccountSummaryReport = processedData.bankAccountSummaryReport;
-        this.bankAccountTotals = processedData.bankAccountTotals;
-        this.bankAccountCurrencyList = processedData.bankAccountCurrencyList;
-        this.$toast.success('Bank account report refreshed successfully');
-      } catch (error) {
-        console.error('Error refreshing bank account report:', error);
-        this.$toast.error('Failed to refresh bank account report');
-      } finally {
-        this.loadingBankAccountReport = false;
-      }
-    },
-    /**
-     * Export bank account report to Excel
-     */
-    async exportBankAccountReportToExcel() {
-      if (!this.bankAccountSummaryReport.length) {
-        this.$toast.warning('No bank account data to export');
-        return;
-      }
-      this.exporting = true;
-      try {
-        var _this$bankAccountTota3;
-        // Prepare data for export
-        const exportData = this.bankAccountSummaryReport.map((item, index) => {
-          const row = {
-            '#': index + 1,
-            'Account Number': item.accountNumber,
-            'Account Name': item.accountName,
-            'Bank Name': item.bankName,
-            'Account Type': item.accountType,
-            Count: item.settlementCount
-          };
-
-          // Add currency columns
-          this.bankAccountCurrencyList.forEach(currency => {
-            var _item$amounts;
-            row[currency] = this.formatAmount(((_item$amounts = item.amounts) === null || _item$amounts === void 0 ? void 0 : _item$amounts[currency]) || 0);
-          });
-          row['Total (LAK)'] = this.formatAmount(item.totalLakEquivalent || 0);
-          return row;
-        });
-
-        // Add totals row
-        const totalsRow = {
-          '#': '',
-          'Account Number': '',
-          'Account Name': '',
-          'Bank Name': 'ລວມ (Total)',
-          'Account Type': '',
-          Count: this.bankAccountSummaryReport.reduce((sum, b) => sum + b.settlementCount, 0)
-        };
-        this.bankAccountCurrencyList.forEach(currency => {
-          var _this$bankAccountTota, _this$bankAccountTota2;
-          totalsRow[currency] = this.formatAmount(((_this$bankAccountTota = this.bankAccountTotals) === null || _this$bankAccountTota === void 0 ? void 0 : (_this$bankAccountTota2 = _this$bankAccountTota.currencyTotals) === null || _this$bankAccountTota2 === void 0 ? void 0 : _this$bankAccountTota2[currency]) || 0);
-        });
-        totalsRow['Total (LAK)'] = this.formatAmount(((_this$bankAccountTota3 = this.bankAccountTotals) === null || _this$bankAccountTota3 === void 0 ? void 0 : _this$bankAccountTota3.totalLakEquivalent) || 0);
-        exportData.push(totalsRow);
-
-        // Export to CSV (you can replace with Excel library)
-        await this.exportToExcelBankAccount(exportData, 'Bank_Account_Report');
-        this.$toast.success('Bank account report exported successfully');
-      } catch (error) {
-        console.error('Error exporting bank account report:', error);
-        this.$toast.error('Failed to export bank account report');
-      } finally {
-        this.exporting = false;
-      }
-    },
-    /**
-     * Helper method for Bank Account Excel export
-     */
-    async exportToExcelBankAccount(data, filename) {
-      if (data.length === 0) return;
-      const headers = Object.keys(data[0]);
-      const csvContent = [headers.join(','), ...data.map(row => headers.map(header => `"${row[header] || ''}"`).join(','))].join('\n');
-      const blob = new Blob([csvContent], {
-        type: 'text/csv;charset=utf-8;'
-      });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', `${filename}-${new Date().toISOString().substr(0, 10)}.csv`);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    },
-    // ========================================
-    // MINISTRY REPORT METHODS
-    // ========================================
-
-    /**
-     * Transform API response data into ministry report format
-     * @param {Object} responseData - The API response containing settlement data
-     * @returns {Object} Processed ministry report data
-     */
-    processMinistryReportData(responseData) {
-      if (!responseData || !responseData.data || !Array.isArray(responseData.data)) {
-        return {
-          ministrySummaryReport: [],
-          ministryTotals: {
-            currencyTotals: {},
-            totalLakEquivalent: 0
-          },
-          currencyList: []
-        };
-      }
-      const data = responseData.data;
-      const ministryMap = new Map();
-      const currencySet = new Set();
-      const currencyTotals = {};
-
-      // Process each settlement record
-      data.forEach(record => {
-        const ministry = record.ministry;
-        const currency = record.currency;
-        const settlementAmount = record.settlementAmount || 0;
-        const lakEquivalent = record.settlementLcyEquivalent || 0;
-        const settlementCount = record.settlementCount || 0;
-
-        // Handle ministry information
-        const ministryId = (ministry === null || ministry === void 0 ? void 0 : ministry.id) || 'NO_MINISTRY';
-        const ministryCode = (ministry === null || ministry === void 0 ? void 0 : ministry.ministryCode) || 'N/A';
-        const ministryName = (ministry === null || ministry === void 0 ? void 0 : ministry.ministryName) || 'No Ministry Assigned';
-
-        // Track currencies
-        const currencyCode = (currency === null || currency === void 0 ? void 0 : currency.code) || 'UNKNOWN';
-        currencySet.add(currencyCode);
-
-        // Initialize ministry entry if not exists
-        if (!ministryMap.has(ministryId)) {
-          ministryMap.set(ministryId, {
-            ministryId,
-            ministryCode,
-            ministryName,
-            settlementCount: 0,
-            amounts: {},
-            totalLakEquivalent: 0
-          });
-        }
-
-        // Get ministry entry
-        const ministryEntry = ministryMap.get(ministryId);
-
-        // Aggregate data
-        ministryEntry.settlementCount += settlementCount;
-        ministryEntry.totalLakEquivalent += lakEquivalent;
-
-        // Aggregate by currency
-        if (!ministryEntry.amounts[currencyCode]) {
-          ministryEntry.amounts[currencyCode] = 0;
-        }
-        ministryEntry.amounts[currencyCode] += settlementAmount;
-
-        // Track currency totals
-        if (!currencyTotals[currencyCode]) {
-          currencyTotals[currencyCode] = 0;
-        }
-        currencyTotals[currencyCode] += settlementAmount;
-      });
-
-      // Convert map to array and sort
-      const ministrySummaryReport = Array.from(ministryMap.values()).sort((a, b) => {
-        // Put "NO_MINISTRY" at the end
-        if (a.ministryId === 'NO_MINISTRY') return 1;
-        if (b.ministryId === 'NO_MINISTRY') return -1;
-        // Sort by ministry code
-        return a.ministryCode.localeCompare(b.ministryCode);
-      });
-
-      // Calculate total LAK equivalent
-      const totalLakEquivalent = ministrySummaryReport.reduce((sum, ministry) => sum + ministry.totalLakEquivalent, 0);
-      return {
-        ministrySummaryReport,
-        ministryTotals: {
-          currencyTotals,
-          totalLakEquivalent
-        },
-        currencyList: Array.from(currencySet).sort()
-      };
-    },
-    /**
-     * Refresh ministry report with current data
-     */
-    async refreshMinistryReport() {
-      this.loadingMinistryReport = true;
-      try {
-        // Process current reportData for ministry report
-        const processedData = this.processMinistryReportData({
-          data: this.reportData
-        });
-
-        // Update component data
-        this.ministrySummaryReport = processedData.ministrySummaryReport;
-        this.ministryTotals = processedData.ministryTotals;
-        this.currencyList = processedData.currencyList;
-        this.$toast.success('Ministry report refreshed successfully');
-      } catch (error) {
-        console.error('Error refreshing ministry report:', error);
-        this.$toast.error('Failed to refresh ministry report');
-      } finally {
-        this.loadingMinistryReport = false;
-      }
-    },
-    /**
-     * Export ministry report to Excel
-     */
-    async exportMinistryReportToExcel() {
-      if (!this.ministrySummaryReport.length) {
-        this.$toast.warning('No data to export');
-        return;
-      }
-      this.exporting = true;
-      try {
-        var _this$ministryTotals2;
-        // Prepare data for export
-        const exportData = this.ministrySummaryReport.map((item, index) => {
-          const row = {
-            '#': index + 1,
-            'Ministry Code': item.ministryCode,
-            'Ministry Name': item.ministryName,
-            Count: item.settlementCount
-          };
-
-          // Add currency columns
-          this.currencyList.forEach(currency => {
-            var _item$amounts2;
-            row[currency] = this.formatAmount(((_item$amounts2 = item.amounts) === null || _item$amounts2 === void 0 ? void 0 : _item$amounts2[currency]) || 0);
-          });
-          row['Total (LAK)'] = this.formatAmount(item.totalLakEquivalent || 0);
-          return row;
-        });
-
-        // Add totals row
-        const totalsRow = {
-          '#': '',
-          'Ministry Code': '',
-          'Ministry Name': 'ລວມ (Total)',
-          Count: this.ministrySummaryReport.reduce((sum, m) => sum + m.settlementCount, 0)
-        };
-        this.currencyList.forEach(currency => {
-          var _this$ministryTotals, _this$ministryTotals$;
-          totalsRow[currency] = this.formatAmount(((_this$ministryTotals = this.ministryTotals) === null || _this$ministryTotals === void 0 ? void 0 : (_this$ministryTotals$ = _this$ministryTotals.currencyTotals) === null || _this$ministryTotals$ === void 0 ? void 0 : _this$ministryTotals$[currency]) || 0);
-        });
-        totalsRow['Total (LAK)'] = this.formatAmount(((_this$ministryTotals2 = this.ministryTotals) === null || _this$ministryTotals2 === void 0 ? void 0 : _this$ministryTotals2.totalLakEquivalent) || 0);
-        exportData.push(totalsRow);
-
-        // Export to CSV (you can replace with Excel library)
-        await this.exportToExcelMinistry(exportData, 'Ministry_Report');
-        this.$toast.success('Ministry report exported successfully');
-      } catch (error) {
-        console.error('Error exporting ministry report:', error);
-        this.$toast.error('Failed to export ministry report');
-      } finally {
-        this.exporting = false;
-      }
-    },
-    /**
-     * Helper method for Excel export - CSV implementation
-     * Replace with your preferred Excel library (xlsx, exceljs, etc.)
-     */
-    async exportToExcelMinistry(data, filename) {
-      if (data.length === 0) return;
-      const headers = Object.keys(data[0]);
-      const csvContent = [headers.join(','), ...data.map(row => headers.map(header => `"${row[header] || ''}"`).join(','))].join('\n');
-      const blob = new Blob([csvContent], {
-        type: 'text/csv;charset=utf-8;'
-      });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', `${filename}-${new Date().toISOString().substr(0, 10)}.csv`);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    },
-    // ========================================
-    // MAIN REPORT METHODS
-    // ========================================
-
-    async loadInitialData() {
-      try {
-        // Load ministries, currencies, and users in parallel
-        const [ministriesRes, currenciesRes, usersRes] = await Promise.all([this.$axios.get('/api/ministries'), this.$axios.get('/api/currency/find'), this.$axios.get('/api/user/find')]);
-        this.ministries = ministriesRes.data.data || ministriesRes.data;
-        this.currencies = currenciesRes.data.data || currenciesRes.data;
-        this.users = usersRes.data.data || usersRes.data;
-      } catch (error) {
-        console.error('Error loading initial data:', error);
-        this.$toast.error('Error loading initial data');
-      }
-    },
-    setDefaultDates() {
-      const now = new Date();
-      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-      this.filters.fromDate = firstDay.toISOString().substr(0, 10);
-      this.filters.toDate = now.toISOString().substr(0, 10);
-    },
-    // ========================================
-    // UPDATED MAIN REPORT METHODS
-    // ========================================
-
-    async applyFilters() {
-      this.loading = true;
-      try {
-        // Build query params
-        const params = new URLSearchParams();
-        Object.keys(this.filters).forEach(key => {
-          if (this.filters[key]) {
-            params.append(key, this.filters[key]);
-          }
-        });
-        const response = await this.$axios.get(`/api/money-advances/report?${params}`);
-
-        // Handle different response structures
-        if (response.data.success) {
-          this.reportData = response.data.data || [];
-          this.summaryData = response.data.summary || {};
-        } else {
-          this.reportData = response.data.data || response.data || [];
-          this.summaryData = response.data.summary || this.calculateSummary();
-        }
-
-        // Process ministry report data with the same dataset
-        const processedMinistryData = this.processMinistryReportData({
-          data: this.reportData
-        });
-        this.ministrySummaryReport = processedMinistryData.ministrySummaryReport;
-        this.ministryTotals = processedMinistryData.ministryTotals;
-        this.currencyList = processedMinistryData.currencyList;
-
-        // Process bank account report data with the same dataset
-        const processedBankAccountData = this.processBankAccountReportData({
-          data: this.reportData
-        });
-        this.bankAccountSummaryReport = processedBankAccountData.bankAccountSummaryReport;
-        this.bankAccountTotals = processedBankAccountData.bankAccountTotals;
-        this.bankAccountCurrencyList = processedBankAccountData.bankAccountCurrencyList;
-
-        // Update charts after data is loaded
-        this.$nextTick(() => {
-          this.updateCharts();
-        });
-      } catch (error) {
-        console.error('Error loading report data:', error);
-        this.$toast.error('Error loading report data');
-      } finally {
-        this.loading = false;
-      }
-    },
-    resetFilters() {
-      this.filters = {
-        fromDate: null,
-        toDate: null,
-        ministryId: null,
-        currencyId: null,
-        status: null,
-        makerId: null
-      };
-      this.setDefaultDates();
-      this.applyFilters(); // This will also update ministry report
-    },
-
-    calculateSummary() {
-      // Fallback summary calculation if not provided by API
-      const summary = {
-        totalAdvances: 0,
-        totalSettlements: 0,
-        outstandingBalance: 0,
-        totalRecords: this.reportData.length,
-        fullySettledCount: 0,
-        partiallySettledCount: 0,
-        unsettledCount: 0,
-        overdueCount: 0
-      };
-      this.reportData.forEach(item => {
-        summary.totalAdvances += parseFloat(item.amount || 0);
-        summary.totalSettlements += parseFloat(item.settlementAmount || 0);
-        summary.outstandingBalance += parseFloat(item.outstandingAmount || 0);
-        if (item.isFullySettled) summary.fullySettledCount++;else if (item.settlementAmount > 0) summary.partiallySettledCount++;else summary.unsettledCount++;
-        if (item.daysOverdue > 0) summary.overdueCount++;
-      });
-      return summary;
-    },
-    // ========================================
-    // CHART METHODS
-    // ========================================
-
-    initializeCharts() {
-      if (this.$refs.ministryChart && this.$refs.trendChart) {
-        this.createMinistryChart();
-        this.createTrendChart();
-      }
-    },
-    createMinistryChart() {
-      const ctx = this.$refs.ministryChart.getContext('2d');
-
-      // Destroy existing chart if it exists
-      if (this.ministryChart) {
-        this.ministryChart.destroy();
-      }
-      this.ministryChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default.a(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: [],
-          datasets: [{
-            data: [],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF']
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }
-      });
-    },
-    createTrendChart() {
-      const ctx = this.$refs.trendChart.getContext('2d');
-
-      // Destroy existing chart if it exists
-      if (this.trendChart) {
-        this.trendChart.destroy();
-      }
-      this.trendChart = new chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default.a(ctx, {
-        type: 'line',
-        data: {
-          labels: [],
-          datasets: [{
-            label: 'ລາຍຈ່າຍລ່ວງໜ້າ',
-            data: [],
-            borderColor: '#36A2EB',
-            backgroundColor: 'rgba(54, 162, 235, 0.1)',
-            tension: 0.1
-          }, {
-            label: 'ການຊຳລະ',
-            data: [],
-            borderColor: '#4BC0C0',
-            backgroundColor: 'rgba(75, 192, 192, 0.1)',
-            tension: 0.1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-    },
-    updateCharts() {
-      if (this.ministryChart && this.trendChart) {
-        // Update ministry chart
-        const ministryData = this.groupByMinistry();
-        this.ministryChart.data.labels = ministryData.labels;
-        this.ministryChart.data.datasets[0].data = ministryData.data;
-        this.ministryChart.update();
-
-        // Update trend chart
-        const trendData = this.groupByMonth();
-        this.trendChart.data.labels = trendData.labels;
-        this.trendChart.data.datasets[0].data = trendData.advances;
-        this.trendChart.data.datasets[1].data = trendData.settlements;
-        this.trendChart.update();
-      }
-    },
-    groupByMinistry() {
-      const grouped = {};
-      this.reportData.forEach(item => {
-        var _item$ministry;
-        const ministry = ((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryName) || 'ບໍ່ລະບຸກະຊວງ';
-        if (!grouped[ministry]) {
-          grouped[ministry] = 0;
-        }
-        grouped[ministry] += parseFloat(item.lcyEquivalent || item.amount || 0);
-      });
-      return {
-        labels: Object.keys(grouped),
-        data: Object.values(grouped)
-      };
-    },
-    groupByMonth() {
-      const grouped = {};
-      this.reportData.forEach(item => {
-        const month = new Date(item.bookingDate).toISOString().substr(0, 7);
-        if (!grouped[month]) {
-          grouped[month] = {
-            advances: 0,
-            settlements: 0
-          };
-        }
-        grouped[month].advances += parseFloat(item.lcyEquivalent || item.amount || 0);
-        grouped[month].settlements += parseFloat(item.settlementLcyEquivalent || item.settlementAmount || 0);
-      });
-      const sortedMonths = Object.keys(grouped).sort();
-      return {
-        labels: sortedMonths,
-        advances: sortedMonths.map(month => grouped[month].advances),
-        settlements: sortedMonths.map(month => grouped[month].settlements)
-      };
-    },
-    // ========================================
-    // DIALOG METHODS
-    // ========================================
-
-    async viewDetails(item) {
-      this.selectedItem = item;
-      this.detailsDialog = true;
-    },
-    async viewSettlements(item) {
-      this.loadingSettlements = true;
-      this.settlementsDialog = true;
-      try {
-        const response = await this.$axios.get(`/api/money-advances/${item.id}/settlements`);
-        this.settlements = response.data.data || response.data || [];
-      } catch (error) {
-        console.error('Error loading settlements:', error);
-        this.$toast.error('Error loading settlements');
-        this.settlements = [];
-      } finally {
-        this.loadingSettlements = false;
-      }
-    },
-    // ========================================
-    // EXPORT METHODS
-    // ========================================
-
-    async exportToExcel() {
-      this.exporting = true;
-      try {
-        const params = new URLSearchParams();
-        Object.keys(this.filters).forEach(key => {
-          if (this.filters[key]) {
-            params.append(key, this.filters[key]);
-          }
-        });
-        const response = await this.$axios.get(`/api/money-advances/report/export?${params}`, {
-          responseType: 'blob'
-        });
-
-        // Create download link
-        const blob = new Blob([response.data]);
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = `money-advance-report-${new Date().toISOString().substr(0, 10)}.xlsx`;
-        link.click();
-
-        // Clean up
-        window.URL.revokeObjectURL(link.href);
-        this.$toast.success('Report exported successfully');
-      } catch (error) {
-        console.error('Error exporting report:', error);
-        this.$toast.error('Error exporting report');
-      } finally {
-        this.exporting = false;
-      }
-    },
-    printReport() {
-      window.print();
-    },
-    // ========================================
-    // FORMATTING METHODS
-    // ========================================
-
-    formatAmount(amount) {
-      if (!amount || amount === 0) return '0';
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-      }).format(amount);
-    },
-    formatCurrency(amount) {
-      if (!amount && amount !== 0) return '0.00';
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }).format(amount);
-    },
-    formatExchangeRate(rate) {
-      if (!rate && rate !== 0) return '1.0000';
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 4,
-        maximumFractionDigits: 4
-      }).format(rate);
-    },
-    formatDate(date) {
-      if (!date) return '';
-      return new Date(date).toLocaleDateString('lo-LA');
-    },
-    // ========================================
-    // UTILITY METHODS
-    // ========================================
-
-    getProgressColor(percentage) {
-      const percent = parseFloat(percentage || 0);
-      if (percent >= 100) return 'green';
-      if (percent >= 50) return 'orange';
-      return 'red';
-    },
-    getStatusColor(status) {
-      const colors = {
-        pending: 'orange',
-        approved: 'blue',
-        settled: 'green'
-      };
-      return colors[status] || 'grey';
-    },
-    getStatusText(status) {
-      const texts = {
-        pending: 'ລໍຖ້າ',
-        approved: 'ອະນຸມັດ',
-        settled: 'ຊຳລະແລ້ວ'
-      };
-      return texts[status] || status;
-    },
-    getMethodColor(method) {
-      const colors = {
-        cash: 'green',
-        bank_transfer: 'blue',
-        deduction: 'orange'
-      };
-      return colors[method] || 'grey';
-    },
-    getMethodText(method) {
-      const texts = {
-        cash: 'ເງິນສົດ',
-        bank_transfer: 'ໂອນເງິນ',
-        deduction: 'ຫັກລົບ'
-      };
-      return texts[method] || method;
-    }
-  }
-});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(336)["URL"], __webpack_require__(336)["URLSearchParams"]))
-
-/***/ }),
-
-/***/ 742:
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(975);
+var content = __webpack_require__(971);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("7b7c18b2", content, true, context)
+  add("459b256e", content, true, context)
 };
 
 /***/ }),
 
-/***/ 974:
+/***/ 970:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ad3a22c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(742);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ad3a22c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ad3a22c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ad3a22c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ad3a22c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(738);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 975:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-report[data-v-2ad3a22c]{padding:0}.report-header[data-v-2ad3a22c]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:20px}.title-section h1[data-v-2ad3a22c]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-2ad3a22c]{font-size:14px;margin:5px 0 0;opacity:.9}.action-buttons[data-v-2ad3a22c]{display:flex;gap:12px}.action-buttons .v-btn[data-v-2ad3a22c]{color:#fff!important}.filter-card[data-v-2ad3a22c]{background:#fff}.filter-title[data-v-2ad3a22c]{background:#f8f9fa;color:#495057;font-weight:600}.filter-actions[data-v-2ad3a22c]{align-items:center;display:flex;gap:12px;margin-top:20px}.summary-cards[data-v-2ad3a22c]{margin-bottom:24px}.summary-card[data-v-2ad3a22c]{height:160px;overflow:hidden;position:relative}.summary-content[data-v-2ad3a22c]{align-items:center;display:flex;height:100%}.summary-icon[data-v-2ad3a22c]{font-size:48px;margin-right:16px;opacity:.8}.summary-details h3[data-v-2ad3a22c]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-2ad3a22c]{color:#fff;font-size:12px;margin:4px 0}.summary-details h2[data-v-2ad3a22c]{font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-2ad3a22c]{font-size:11px;margin-top:4px!important;opacity:.8}.advance-card[data-v-2ad3a22c],.brought-forward-card[data-v-2ad3a22c],.outstanding-card[data-v-2ad3a22c],.settlement-card[data-v-2ad3a22c]{background:linear-gradient(135deg,#01532b,#01532b);color:#fff}.additional-summary[data-v-2ad3a22c]{margin-bottom:24px}.stats-card[data-v-2ad3a22c]{height:100px}.stats-number[data-v-2ad3a22c]{font-size:24px;font-weight:700;margin:0}.stats-label[data-v-2ad3a22c]{font-size:11px;line-height:1.2;margin:4px 0 0}.currency-breakdown-card[data-v-2ad3a22c]{margin-bottom:24px}.currency-summary h4[data-v-2ad3a22c]{border-bottom:1px solid #e0e0e0;color:#495057;margin:0 0 12px;padding-bottom:8px}.currency-details p[data-v-2ad3a22c]{font-size:13px;margin:4px 0}.chart-card[data-v-2ad3a22c]{margin-bottom:24px}.chart-container[data-v-2ad3a22c]{height:300px;position:relative}.table-card[data-v-2ad3a22c]{margin-bottom:24px}.table-title[data-v-2ad3a22c]{background:#f8f9fa;color:#495057;font-weight:600}.search-field[data-v-2ad3a22c]{max-width:300px}.report-table[data-v-2ad3a22c]{background:#fff}.date-cell[data-v-2ad3a22c]{font-family:monospace;font-size:13px}.amount-cell[data-v-2ad3a22c]{font-weight:600;text-align:right}.amount-cell[data-v-2ad3a22c],.exchange-rate-cell[data-v-2ad3a22c]{display:block;font-family:monospace}.exchange-rate-cell[data-v-2ad3a22c]{font-size:12px;text-align:center}.advance-amount[data-v-2ad3a22c]{color:#667eea}.settlement-amount[data-v-2ad3a22c]{color:#28a745}.outstanding-amount[data-v-2ad3a22c]{color:#dc3545}.lcy-amount[data-v-2ad3a22c]{color:#6f42c1}.settlement-progress[data-v-2ad3a22c]{width:100%}.progress-text[data-v-2ad3a22c]{color:#fff;font-size:11px;font-weight:600;text-shadow:1px 1px 1px rgba(0,0,0,.5)}.ministry-cell[data-v-2ad3a22c]{display:flex;flex-direction:column}.ministry-name[data-v-2ad3a22c]{font-size:13px;font-weight:600}.ministry-code[data-v-2ad3a22c]{color:#666;font-family:monospace;font-size:11px}.detail-item[data-v-2ad3a22c]{font-size:14px;margin-bottom:12px}.detail-item strong[data-v-2ad3a22c]{color:#495057}.settlement-table[data-v-2ad3a22c]{margin-top:16px}@media print{.action-buttons[data-v-2ad3a22c],.filter-card[data-v-2ad3a22c],.v-btn[data-v-2ad3a22c]{display:none!important}.additional-summary[data-v-2ad3a22c],.chart-card[data-v-2ad3a22c],.currency-breakdown-card[data-v-2ad3a22c],.summary-cards[data-v-2ad3a22c]{page-break-inside:avoid}}@media (max-width:768px){.report-header[data-v-2ad3a22c]{gap:16px}.report-header[data-v-2ad3a22c],.summary-content[data-v-2ad3a22c]{flex-direction:column;text-align:center}.summary-icon[data-v-2ad3a22c]{color:#fff;margin-bottom:8px;margin-right:0}.chart-container[data-v-2ad3a22c]{height:250px}.filter-actions[data-v-2ad3a22c]{flex-direction:column;width:100%}.filter-actions .v-btn[data-v-2ad3a22c]{width:100%}.stats-card[data-v-2ad3a22c]{height:80px}.stats-number[data-v-2ad3a22c]{font-size:18px}.stats-label[data-v-2ad3a22c]{font-size:10px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-report[data-v-567e9f41]{padding:0}.report-header[data-v-567e9f41]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-567e9f41]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-567e9f41]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-567e9f41]{display:flex;gap:16px}.custom-btn[data-v-567e9f41]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-567e9f41]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-567e9f41]{background:#fff;border-radius:8px}.filter-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.custom-primary-btn[data-v-567e9f41]{background-color:#01532b!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-primary-btn[data-v-567e9f41]:hover{background-color:#014025!important}.custom-secondary-btn[data-v-567e9f41]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-567e9f41]:hover{background-color:#5a6268!important}.summary-card[data-v-567e9f41]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-567e9f41]:hover{transform:translateY(-2px)}.summary-icon[data-v-567e9f41]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.custom-primary-bg[data-v-567e9f41]{background-color:#01532b!important}.summary-details .summary-title[data-v-567e9f41]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details .summary-subtitle[data-v-567e9f41]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details .summary-amount[data-v-567e9f41]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-567e9f41]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.advance-card[data-v-567e9f41],.brought-forward-card[data-v-567e9f41],.outstanding-card[data-v-567e9f41],.settlement-card[data-v-567e9f41]{background:#01532b;color:#fff}.additional-summary[data-v-567e9f41]{margin-bottom:24px}.stats-card[data-v-567e9f41]{border-radius:8px;height:100px;transition:all .3s ease}.stats-card[data-v-567e9f41]:hover{box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-2px)}.stats-number[data-v-567e9f41]{color:#01532b;font-size:24px;font-weight:700;margin:0}.stats-label[data-v-567e9f41]{color:#666;font-size:11px;line-height:1.2;margin:4px 0 0}.currency-breakdown-card[data-v-567e9f41]{border-radius:8px;margin-bottom:24px}.currency-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.currency-card[data-v-567e9f41]{border-radius:8px;transition:all .3s ease}.currency-card[data-v-567e9f41]:hover{border-color:#01532b;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-summary h4[data-v-567e9f41]{border-bottom:1px solid #01532b;color:#01532b;font-weight:600;margin:0 0 12px;padding-bottom:8px}.currency-details p[data-v-567e9f41]{font-size:13px;margin:4px 0}.currency-details strong[data-v-567e9f41]{color:#01532b}.ministry-table-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.ministry-table-header[data-v-567e9f41]{background:#01532b!important}.ministry-table-footer[data-v-567e9f41]{background:rgba(1,83,43,.8)!important;color:#fff}.custom-export-btn[data-v-567e9f41]{border-color:#fff!important;color:#fff!important}.custom-export-btn[data-v-567e9f41]:hover{background-color:#fff!important;color:#01532b!important}.bank-table-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.bank-table-header[data-v-567e9f41]{background:#01532b!important}.bank-table-footer[data-v-567e9f41]{background:rgba(1,83,43,.8)!important;color:#fff}.table-card[data-v-567e9f41]{border-radius:8px;margin-bottom:24px}.table-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-567e9f41]{max-width:300px}.search-field[data-v-567e9f41] .v-icon,.search-field[data-v-567e9f41] input{color:#fff!important}.report-table[data-v-567e9f41]{background:#fff}.report-table[data-v-567e9f41] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-567e9f41] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-567e9f41]{color:#01532b;font-family:monospace;font-size:13px}.amount-cell[data-v-567e9f41]{font-weight:600;text-align:right}.amount-cell[data-v-567e9f41],.exchange-rate-cell[data-v-567e9f41]{display:block;font-family:monospace}.exchange-rate-cell[data-v-567e9f41]{font-size:12px;text-align:center}.advance-amount[data-v-567e9f41]{color:#01532b}.settlement-amount[data-v-567e9f41]{color:#228b22}.outstanding-amount[data-v-567e9f41]{color:#dc3545}.lcy-amount[data-v-567e9f41]{color:#32cd32}.settlement-progress[data-v-567e9f41]{width:100%}.progress-text[data-v-567e9f41]{color:#fff;font-size:11px;font-weight:600;text-shadow:1px 1px 1px rgba(0,0,0,.5)}.ministry-cell[data-v-567e9f41]{display:flex;flex-direction:column}.ministry-name[data-v-567e9f41]{color:#01532b;font-size:13px;font-weight:600}.ministry-code[data-v-567e9f41]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.dialog-header[data-v-567e9f41]{background:#01532b!important;font-weight:600!important}.close-btn[data-v-567e9f41],.dialog-header[data-v-567e9f41]{color:#fff!important}.detail-item[data-v-567e9f41]{font-size:14px;margin-bottom:12px}.detail-item strong[data-v-567e9f41]{color:#01532b}.settlement-table[data-v-567e9f41]{margin-top:16px}.settlement-table[data-v-567e9f41] thead th{background-color:#01532b!important;color:#fff!important;font-weight:600!important}@media print{.action-buttons[data-v-567e9f41],.filter-card[data-v-567e9f41],.v-btn[data-v-567e9f41]{display:none!important}.additional-summary[data-v-567e9f41],.chart-card[data-v-567e9f41],.currency-breakdown-card[data-v-567e9f41],.summary-cards[data-v-567e9f41]{page-break-inside:avoid}.report-header[data-v-567e9f41]{background:#01532b!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-567e9f41]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-567e9f41]{font-size:24px}.action-buttons[data-v-567e9f41]{flex-wrap:wrap;justify-content:center}.summary-icon[data-v-567e9f41]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details .summary-amount[data-v-567e9f41]{font-size:20px}.stats-card[data-v-567e9f41]{height:80px}.stats-number[data-v-567e9f41]{font-size:18px}.stats-label[data-v-567e9f41]{font-size:10px}}.v-dialog .v-card-text[data-v-567e9f41]{max-height:70vh;overflow-y:auto}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar{width:6px}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar-thumb{background:#01532b;border-radius:3px}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar-thumb:hover{background:#014025}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

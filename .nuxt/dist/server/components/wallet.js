@@ -1,7 +1,7 @@
 exports.ids = [112,40];
 exports.modules = {
 
-/***/ 410:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -93,7 +93,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 777:
+/***/ 773:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -442,7 +442,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var Wallet = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(410).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(396).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ })

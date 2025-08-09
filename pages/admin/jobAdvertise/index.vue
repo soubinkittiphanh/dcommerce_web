@@ -426,7 +426,7 @@ export default {
     JobViewDialog,
     StatusUpdateDialog,
   },
-
+  middleware: 'auths',
   data() {
     return {
       // Dialog visibility states

@@ -438,7 +438,7 @@ export default {
     ApplicantViewDialog,
     StatusUpdateDialog,
   },
-
+  middleware: 'auths',
   data() {
     return {
       // Dialog visibility states

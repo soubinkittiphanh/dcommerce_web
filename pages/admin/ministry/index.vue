@@ -339,7 +339,7 @@
                   >
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button
+                  <!-- <button
                     class="btn-icon btn-icon-warning"
                     @click="toggleStatus(ministry)"
                     :disabled="loading"
@@ -354,7 +354,7 @@
                     title="ລຶບ"
                   >
                     <i class="fas fa-trash"></i>
-                  </button>
+                  </button> -->
                 </div>
               </td>
             </tr>
@@ -433,7 +433,7 @@ export default {
     MinistryDialog,
     MinistryViewDialog
   },
-
+  middleware: 'auths',
   data() {
     return {
       loading: false,

@@ -1,13 +1,13 @@
 <template>
-  <div class="ministry-summary-report">
+  <div class="payment-report">
     <!-- Header -->
     <div class="report-header">
       <div class="title-section">
         <h1 class="page-title">
-          <i class="fas fa-building"></i>
-          ລາຍງານສະຫຼຸບຕາມກົມ
+          <i class="fas fa-money-bill-wave"></i>
+          ລາຍງານການຈ່າຍເງິນລ່ວງໜ້າ
         </h1>
-        <p class="page-subtitle">Ministry Summary Report</p>
+        <p class="page-subtitle">Money Advance Payment Report</p>
       </div>
       <div class="action-buttons">
         <v-btn
@@ -24,43 +24,43 @@
         </v-btn>
       </div>
     </div>
-    <!-- Filters Card -->
+
+    <!-- Simplified Filter Card -->
     <v-card class="filter-card mb-4" elevation="2">
       <v-card-title class="filter-title d-flex align-center">
         <v-icon class="mr-2">mdi-filter</v-icon>
         ຕົວກອງ (Filters)
       </v-card-title>
 
-      <v-card-text class="pt-4 pb-4 px-4">
-        <v-row dense>
-          <!-- Report Month -->
+      <v-card-text class="pa-4">
+        <v-row>
+          <!-- From Date -->
           <v-col cols="12" md="4">
-            <v-menu
-              v-model="monthMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="filters.reportMonth"
-                  label="ເດືອນລາຍງານ (Report Month)"
-                  prepend-icon="mdi-calendar-month"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  outlined
-                  dense
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="filters.reportMonth"
-                type="month"
-                @input="monthMenu = false"
-                color="#01532B"
-              ></v-date-picker>
-            </v-menu>
+            <v-text-field
+              v-model="filters.fromDate"
+              type="date"
+              label="ຈາກວັນທີ (From Date)"
+              outlined
+              dense
+              :rules="[rules.required, rules.dateRange]"
+              :max="filters.toDate || maxDate"
+              @change="applyFilters"
+            ></v-text-field>
+          </v-col>
+
+          <!-- To Date -->
+          <v-col cols="12" md="4">
+            <v-text-field
+              v-model="filters.toDate"
+              type="date"
+              label="ເຖິງວັນທີ (To Date)"
+              outlined
+              dense
+              :rules="[rules.required, rules.dateRange]"
+              :min="filters.fromDate"
+              :max="maxDate"
+              @change="applyFilters"
+            ></v-text-field>
           </v-col>
 
           <!-- Ministry Select -->
@@ -70,37 +70,57 @@
               :items="ministries"
               item-text="ministryName"
               item-value="id"
-              label="ກະຊວງ (Ministry)"
-              prepend-icon="mdi-office-building"
+              label="Ministry"
               clearable
               outlined
               dense
+              @change="applyFilters"
             ></v-select>
           </v-col>
+        </v-row>
 
-          <!-- Action Buttons -->
-          <v-col cols="12" md="4" class="d-flex align-center">
+        <!-- Buttons Row -->
+        <v-row class="mt-2">
+          <v-col cols="12" md="3">
             <v-btn
-              class="custom-primary-btn mr-2"
+              class="custom-primary-bg white--text"
+              block
+              outlined
               @click="applyFilters"
               :loading="loading"
-              color="primary"
-              depressed
-              small
+              :disabled="!isDateRangeValid"
             >
-              <v-icon left small>mdi-magnify</v-icon>
-              ຄົ້ນຫາ
+              <v-icon left color="white">mdi-refresh</v-icon>
+              Refresh
             </v-btn>
+          </v-col>
+          
+          <v-col cols="12" md="3">
             <v-btn
               class="custom-secondary-btn"
+              block
+              outlined
               @click="resetFilters"
               color="grey lighten-1"
-              depressed
-              small
             >
-              <v-icon left small>mdi-restore</v-icon>
-              ຣີເຊັດ
+              <v-icon left>mdi-restore</v-icon>
+              Reset
             </v-btn>
+          </v-col>
+        </v-row>
+
+        <!-- Date Range Display -->
+        <v-row v-if="filters.fromDate && filters.toDate" class="mt-2">
+          <v-col cols="12">
+            <v-alert type="info" dense outlined class="date-range-alert">
+              <div class="d-flex align-center">
+                <v-icon class="mr-2">mdi-calendar-range</v-icon>
+                <span>
+                  ໄລຍະເວລາທີ່ເລືອກ: {{ formattedFromDate }} ເຖິງ
+                  {{ formattedToDate }} ({{ daysBetween }} ວັນ)
+                </span>
+              </div>
+            </v-alert>
           </v-col>
         </v-row>
       </v-card-text>
@@ -109,26 +129,6 @@
     <!-- Summary Cards -->
     <v-row class="summary-cards mb-4">
       <v-col cols="12" md="3">
-        <v-card class="summary-card brought-forward-card" elevation="4">
-          <v-card-text>
-            <div class="summary-content">
-              <div class="summary-icon">
-                <i class="fas fa-arrow-right"></i>
-              </div>
-              <div class="summary-details">
-                <h3 class="summary-title">ຍອດຍົກມາ</h3>
-                <p class="summary-subtitle">Total Brought Forward</p>
-                <h2 class="summary-amount">
-                  {{ formatCurrency(summaryData.totalBroughtForwardLcy) }}
-                </h2>
-                <p class="summary-lcy">LCY Amount</p>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="3">
         <v-card class="summary-card advance-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
@@ -136,12 +136,12 @@
                 <i class="fas fa-money-bill-wave"></i>
               </div>
               <div class="summary-details">
-                <h3 class="summary-title">ລາຍຈ່າຍເດືອນນີ້</h3>
-                <p class="summary-subtitle">Current Month Advances</p>
+                <h3 class="summary-title">ລວມລາຍຈ່າຍ</h3>
+                <p class="summary-subtitle">Total Advances</p>
                 <h2 class="summary-amount">
-                  {{ formatCurrency(summaryData.totalCurrentMonthLcy) }}
+                  {{ formatCurrency(summaryData.totalAdvancesLcy) }}
                 </h2>
-                <p class="summary-lcy">LCY Amount</p>
+                <p class="summary-lcy">LAK</p>
               </div>
             </div>
           </v-card-text>
@@ -156,12 +156,12 @@
                 <i class="fas fa-hand-holding-usd"></i>
               </div>
               <div class="summary-details">
-                <h3 class="summary-title">ຊຳລະເດືອນນີ້</h3>
-                <p class="summary-subtitle">Current Month Settlements</p>
+                <h3 class="summary-title">ລວມຊຳລະ</h3>
+                <p class="summary-subtitle">Total Settlements</p>
                 <h2 class="summary-amount">
-                  {{ formatCurrency(summaryData.totalSettlementLcy) }}
+                  {{ formatCurrency(summaryData.totalSettlementsLcy) }}
                 </h2>
-                <p class="summary-lcy">LCY Amount</p>
+                <p class="summary-lcy">LAK</p>
               </div>
             </div>
           </v-card-text>
@@ -169,19 +169,39 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card balance-card" elevation="4">
+        <v-card class="summary-card outstanding-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
-                <i class="fas fa-balance-scale"></i>
+                <i class="fas fa-clock"></i>
               </div>
               <div class="summary-details">
-                <h3 class="summary-title">ຍອດສະຫຼຸບ</h3>
-                <p class="summary-subtitle">Total Balance</p>
+                <h3 class="summary-title">ຄ້າງຊຳລະ</h3>
+                <p class="summary-subtitle">Outstanding</p>
                 <h2 class="summary-amount">
-                  {{ formatCurrency(summaryData.totalBalanceLcy) }}
+                  {{ formatCurrency(summaryData.outstandingBalanceLcy) }}
                 </h2>
-                <p class="summary-lcy">LCY Amount</p>
+                <p class="summary-lcy">LAK</p>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="3">
+        <v-card class="summary-card records-card" elevation="4">
+          <v-card-text>
+            <div class="summary-content">
+              <div class="summary-icon">
+                <i class="fas fa-file-invoice"></i>
+              </div>
+              <div class="summary-details">
+                <h3 class="summary-title">ລວມລາຍການ</h3>
+                <p class="summary-subtitle">Total Records</p>
+                <h2 class="summary-amount">
+                  {{ summaryData.totalRecords || 0 }}
+                </h2>
+                <p class="summary-lcy">Records</p>
               </div>
             </div>
           </v-card-text>
@@ -189,29 +209,16 @@
       </v-col>
     </v-row>
 
-    <!-- Ministry Chart -->
-    <v-card class="chart-card mb-4" elevation="2">
-      <v-card-title class="chart-title">
-        <i class="fas fa-chart-bar"></i>
-        ກາຟສະຫຼຸບຕາມກົມ (Ministry Summary Chart)
-      </v-card-title>
-      <v-card-text>
-        <div class="chart-container">
-          <canvas ref="ministryChart" width="400" height="200"></canvas>
-        </div>
-      </v-card-text>
-    </v-card>
-
-    <!-- Detailed Report Table -->
+    <!-- Payment Report Table -->
     <v-card class="table-card" elevation="2">
       <v-card-title class="table-title">
         <i class="fas fa-table"></i>
-        ລາຍລະອຽດລາຍງານຕາມກົມ (Ministry Summary Details)
+        ລາຍລະອຽດການຈ່າຍເງິນ (Payment Details)
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="ຄົ້ນຫາກະຊວງ..."
+          label="ຄົ້ນຫາ..."
           single-line
           hide-details
           class="search-field"
@@ -232,14 +239,20 @@
           itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
         }"
       >
-        <!-- Ministry and Currency Column -->
+        <!-- Booking Date -->
+        <template v-slot:item.bookingDate="{ item }">
+          <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
+        </template>
+
+        <!-- Ministry -->
         <template v-slot:item.ministry="{ item }">
           <div class="ministry-cell">
-            <span class="ministry-name">{{ item.ministryName }}</span>
-            <span class="ministry-code">{{ item.ministryCode }}</span>
+            <span class="ministry-name">{{ item.ministry.ministryName }}</span>
+            <span class="ministry-code">{{ item.ministry.ministryCode }}</span>
           </div>
         </template>
 
+        <!-- Currency -->
         <template v-slot:item.currencyCode="{ item }">
           <v-chip
             small
@@ -250,67 +263,53 @@
           </v-chip>
         </template>
 
-        <!-- Brought Forward Section -->
-        <template v-slot:item.broughtForwardAmount="{ item }">
+        <!-- Amount -->
+        <template v-slot:item.amount="{ item }">
           <div class="amount-breakdown">
-            <span class="amount-cell">{{
-              formatCurrency(item.broughtForwardAmount)
-            }}</span>
+            <span class="amount-cell">{{ formatCurrency(item.amount) }}</span>
             <div class="exchange-rate">
-              Rate: {{ formatExchangeRate(item.broughtForwardExchangeRate) }}
+              Rate: {{ formatExchangeRate(item.exchangeRate) }}
             </div>
           </div>
         </template>
 
-        <template v-slot:item.broughtForwardLcy="{ item }">
+        <!-- LCY Equivalent -->
+        <template v-slot:item.lcyEquivalent="{ item }">
           <span class="amount-cell lcy-amount">
-            {{ formatCurrency(item.broughtForwardLcy) }}
+            {{ formatCurrency(item.lcyEquivalent) }}
           </span>
         </template>
 
-        <!-- Current Month Advances Section -->
-        <template v-slot:item.currentMonthAmount="{ item }">
-          <div class="amount-breakdown">
-            <span class="amount-cell">{{
-              formatCurrency(item.currentMonthAmount)
-            }}</span>
-            <div class="exchange-rate">
-              Rate: {{ formatExchangeRate(item.currentMonthExchangeRate) }}
-            </div>
-          </div>
-        </template>
-
-        <template v-slot:item.currentMonthLcy="{ item }">
-          <span class="amount-cell advance-amount">
-            {{ formatCurrency(item.currentMonthLcy) }}
-          </span>
-        </template>
-
-        <!-- Settlements Section -->
-        <template v-slot:item.settlementAmount="{ item }">
-          <div class="amount-breakdown">
-            <span class="amount-cell">{{
-              formatCurrency(item.settlementAmount)
-            }}</span>
-            <div class="exchange-rate">
-              Rate: {{ formatExchangeRate(item.settlementExchangeRate) }}
-            </div>
-          </div>
-        </template>
-
-        <template v-slot:item.settlementLcy="{ item }">
-          <span class="amount-cell settlement-amount">
-            {{ formatCurrency(item.settlementLcy) }}
-          </span>
-        </template>
-
-        <!-- Balance Section -->
-        <template v-slot:item.balanceLcy="{ item }">
-          <span
-            class="amount-cell balance-amount"
-            :class="getBalanceClass(item.balanceLcy)"
+        <!-- Settlement Status -->
+        <template v-slot:item.status="{ item }">
+          <v-chip
+            small
+            :color="getStatusColor(item.status)"
+            text-color="white"
           >
-            {{ formatCurrency(item.balanceLcy) }}
+            {{ getStatusText(item.status) }}
+          </v-chip>
+        </template>
+
+        <!-- Settlement Percentage -->
+        <template v-slot:item.settlementPercentage="{ item }">
+          <v-progress-linear
+            :value="parseFloat(item.settlementPercentage)"
+            :color="getProgressColor(item.settlementPercentage)"
+            height="20"
+            rounded
+          >
+            <span class="progress-text">{{ item.settlementPercentage }}%</span>
+          </v-progress-linear>
+        </template>
+
+        <!-- Outstanding Amount -->
+        <template v-slot:item.outstandingLcyEquivalent="{ item }">
+          <span
+            class="amount-cell"
+            :class="item.outstandingLcyEquivalent > 0 ? 'outstanding-amount' : 'settled-amount'"
+          >
+            {{ formatCurrency(item.outstandingLcyEquivalent) }}
           </span>
         </template>
 
@@ -319,7 +318,7 @@
           <v-btn
             small
             class="custom-action-btn"
-            @click="viewMinistryDetails(item)"
+            @click="viewPaymentDetails(item)"
           >
             <i class="fas fa-eye"></i>
             ລາຍລະອຽດ
@@ -328,125 +327,76 @@
       </v-data-table>
     </v-card>
 
-    <!-- Ministry Details Dialog -->
+    <!-- Payment Details Dialog -->
     <v-dialog v-model="detailsDialog" max-width="1000px">
       <v-card>
         <v-card-title class="dialog-header">
-          <i class="fas fa-building"></i>
-          ລາຍລະອຽດ - {{ selectedMinistry?.ministryName }} ({{
-            selectedMinistry?.currencyCode
-          }})
+          <i class="fas fa-money-bill-wave"></i>
+          ລາຍລະອຽດການຈ່າຍເງິນ #{{ selectedPayment?.id }}
           <v-spacer></v-spacer>
           <v-btn icon @click="detailsDialog = false" class="close-btn">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <v-card-text v-if="selectedMinistry">
-          <!-- Ministry Summary -->
+        <v-card-text v-if="selectedPayment">
+          <!-- Payment Summary -->
           <v-row class="mb-4">
             <v-col cols="12">
-              <h3 class="section-title">
-                ສະຫຼຸບ - {{ selectedMinistry.currencyCode }} (Summary)
-              </h3>
+              <h3 class="section-title">ຂໍ້ມູນການຈ່າຍເງິນ (Payment Information)</h3>
               <v-divider class="custom-divider mb-3"></v-divider>
             </v-col>
             <v-col cols="6" md="3">
               <div class="detail-stat">
-                <strong>ຍອດຍົກມາ:</strong>
-                <p>
-                  {{ formatCurrency(selectedMinistry.broughtForwardAmount) }}
-                  {{ selectedMinistry.currencyCode }}
-                </p>
-                <small
-                  >LCY:
-                  {{
-                    formatCurrency(selectedMinistry.broughtForwardLcy)
-                  }}</small
-                >
+                <strong>ວັນທີຈ່າຍ:</strong>
+                <p>{{ formatDate(selectedPayment.bookingDate) }}</p>
               </div>
             </v-col>
             <v-col cols="6" md="3">
               <div class="detail-stat">
-                <strong>ລາຍຈ່າຍເດືອນນີ້:</strong>
+                <strong>ຈຳນວນເງິນ:</strong>
                 <p>
-                  {{ formatCurrency(selectedMinistry.currentMonthAmount) }}
-                  {{ selectedMinistry.currencyCode }}
+                  {{ formatCurrency(selectedPayment.amount) }}
+                  {{ selectedPayment.currencyCode }}
                 </p>
-                <small
-                  >LCY:
-                  {{ formatCurrency(selectedMinistry.currentMonthLcy) }}</small
-                >
+                <small>LCY: {{ formatCurrency(selectedPayment.lcyEquivalent) }}</small>
               </div>
             </v-col>
             <v-col cols="6" md="3">
               <div class="detail-stat">
-                <strong>ຊຳລະເດືອນນີ້:</strong>
-                <p>
-                  {{ formatCurrency(selectedMinistry.settlementAmount) }}
-                  {{ selectedMinistry.currencyCode }}
-                </p>
-                <small
-                  >LCY:
-                  {{ formatCurrency(selectedMinistry.settlementLcy) }}</small
-                >
+                <strong>ສະຖານະ:</strong>
+                <p>{{ getStatusText(selectedPayment.status) }}</p>
               </div>
             </v-col>
             <v-col cols="6" md="3">
               <div class="detail-stat">
-                <strong>ຍອດສະຫຼຸບ:</strong>
-                <p
-                  class="balance-text"
-                  :class="getBalanceClass(selectedMinistry.balanceLcy)"
-                >
-                  {{ formatCurrency(selectedMinistry.balanceLcy) }} LAK
+                <strong>ຄ້າງຊຳລະ:</strong>
+                <p class="outstanding-text">
+                  {{ formatCurrency(selectedPayment.outstandingLcyEquivalent) }} LAK
                 </p>
               </div>
             </v-col>
           </v-row>
 
-          <!-- Detailed Transactions -->
-          <v-row>
+          <!-- Settlement Details -->
+          <v-row v-if="selectedPayment.settlementLine && selectedPayment.settlementLine.length > 0">
             <v-col cols="12">
-              <h3 class="section-title">ລາຍການລະອຽດ (Detailed Transactions)</h3>
+              <h3 class="section-title">ລາຍການຊຳລະ (Settlement Details)</h3>
               <v-divider class="custom-divider mb-3"></v-divider>
               <v-data-table
-                :headers="detailHeaders"
-                :items="ministryDetails"
-                :loading="loadingDetails"
+                :headers="settlementHeaders"
+                :items="selectedPayment.settlementLine"
                 hide-default-footer
                 class="detail-table"
               >
                 <template v-slot:item.bookingDate="{ item }">
-                  <span class="date-cell">{{
-                    formatDate(item.bookingDate)
-                  }}</span>
-                </template>
-                <template v-slot:item.referenceNumber="{ item }">
-                  <span class="reference-cell">{{ item.referenceNumber }}</span>
+                  <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
                 </template>
                 <template v-slot:item.amount="{ item }">
-                  <div class="amount-breakdown">
-                    <span class="amount-cell">{{
-                      formatCurrency(item.amount)
-                    }}</span>
-                    <span class="currency-code">{{ item.currencyCode }}</span>
-                    <div class="exchange-rate">
-                      Rate: {{ formatExchangeRate(item.exchangeRate) }}
-                    </div>
-                  </div>
+                  <span class="amount-cell">{{ formatCurrency(item.amount) }}</span>
                 </template>
-                <template v-slot:item.lcyAmount="{ item }">
-                  <span class="amount-cell lcy-amount">{{
-                    formatCurrency(item.lcyAmount)
-                  }}</span>
-                </template>
-                <template v-slot:item.type="{ item }">
-                  <v-chip
-                    :color="getTypeColor(item.type)"
-                    text-color="white"
-                    small
-                  >
-                    {{ getTypeText(item.type) }}
+                <template v-slot:item.method="{ item }">
+                  <v-chip small color="#01532B" text-color="white">
+                    {{ item.method }}
                   </v-chip>
                 </template>
               </v-data-table>
@@ -459,25 +409,34 @@
 </template>
 
 <script>
-import Chart from 'chart.js/auto'
 export default {
-  name: 'MinistrySummaryReport',
+  name: 'PaymentReport',
 
   data() {
     return {
       loading: false,
       exporting: false,
-      loadingDetails: false,
       search: '',
-      monthMenu: false,
       detailsDialog: false,
-      selectedMinistry: null,
-      ministryDetails: [],
+      selectedPayment: null,
 
       // Filter data
       filters: {
-        reportMonth: null,
+        fromDate: null,
+        toDate: null,
         ministryId: null,
+      },
+
+      // Validation rules
+      rules: {
+        required: (value) => !!value || 'ກະລຸນາເລືອກວັນທີ',
+        dateRange: () => {
+          if (!this.filters.fromDate || !this.filters.toDate) return true
+          return (
+            new Date(this.filters.fromDate) <= new Date(this.filters.toDate) ||
+            'ວັນທີເລີ່ມຕົ້ນຕ້ອງນ້ອຍກວ່າວັນທີສິ້ນສຸດ'
+          )
+        },
       },
 
       // Options data
@@ -486,61 +445,72 @@ export default {
       // Report data
       reportData: [],
       summaryData: {
-        totalBroughtForwardLcy: 0,
-        totalCurrentMonthLcy: 0,
-        totalSettlementLcy: 0,
-        totalBalanceLcy: 0,
+        totalAdvances: 0,
+        totalSettlements: 0,
+        outstandingBalance: 0,
+        totalAdvancesLcy: 0,
+        totalSettlementsLcy: 0,
+        outstandingBalanceLcy: 0,
+        totalRecords: 0,
       },
 
-      // Chart instance
-      ministryChart: null,
-
-      // Enhanced Table headers with currency grouping
+      // Table headers for simplified payment view
       tableHeaders: [
+        { text: 'ວັນທີ', value: 'bookingDate', width: '100px' },
         { text: 'ກະຊວງ', value: 'ministry', width: '200px' },
         { text: 'ສະກຸນເງິນ', value: 'currencyCode', width: '80px' },
-        { text: 'ຍອດຍົກມາ', value: 'broughtForwardAmount', width: '130px' },
-        { text: 'LCY', value: 'broughtForwardLcy', width: '100px' },
-        {
-          text: 'ລາຍຈ່າຍເດືອນນີ້',
-          value: 'currentMonthAmount',
-          width: '130px',
-        },
-        { text: 'LCY', value: 'currentMonthLcy', width: '100px' },
-        { text: 'ຊຳລະເດືອນນີ້', value: 'settlementAmount', width: '130px' },
-        { text: 'LCY', value: 'settlementLcy', width: '100px' },
-        { text: 'ຍອດສະຫຼຸບ LCY', value: 'balanceLcy', width: '120px' },
-        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '120px' },
+        { text: 'ຈຳນວນເງິນ', value: 'amount', width: '130px' },
+        { text: 'LCY', value: 'lcyEquivalent', width: '120px' },
+        { text: 'ສະຖານະ', value: 'status', width: '100px' },
+        { text: 'ຊຳລະແລ້ວ %', value: 'settlementPercentage', width: '120px' },
+        { text: 'ຄ້າງຊຳລະ', value: 'outstandingLcyEquivalent', width: '120px' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' },
       ],
 
-      detailHeaders: [
-        { text: 'ວັນທີ', value: 'bookingDate' },
-        { text: 'ເລກອ້າງອີງ', value: 'referenceNumber' },
-        { text: 'ປະເພດ', value: 'type' },
-        { text: 'ຈຳນວນເງິນ', value: 'amount' },
-        { text: 'LCY', value: 'lcyAmount' },
-        { text: 'ຈຸດປະສົງ', value: 'purpose' },
-        { text: 'ຜູ້ດຳເນີນການ', value: 'user' },
+      settlementHeaders: [
+        { text: 'ວັນທີຊຳລະ', value: 'bookingDate' },
+        { text: 'ຈຳນວນ', value: 'amount' },
+        { text: 'ວິທີການ', value: 'method' },
+        { text: 'ໝາຍເຫດ', value: 'notes' },
       ],
     }
+  },
+
+  computed: {
+    formattedFromDate() {
+      return this.filters.fromDate
+        ? this.formatDisplayDate(this.filters.fromDate)
+        : ''
+    },
+
+    formattedToDate() {
+      return this.filters.toDate
+        ? this.formatDisplayDate(this.filters.toDate)
+        : ''
+    },
+
+    maxDate() {
+      return new Date().toISOString().substr(0, 10)
+    },
+
+    isDateRangeValid() {
+      if (!this.filters.fromDate || !this.filters.toDate) return false
+      return new Date(this.filters.fromDate) <= new Date(this.filters.toDate)
+    },
+
+    daysBetween() {
+      if (!this.filters.fromDate || !this.filters.toDate) return 0
+      const from = new Date(this.filters.fromDate)
+      const to = new Date(this.filters.toDate)
+      const timeDiff = to.getTime() - from.getTime()
+      return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1
+    },
   },
 
   async created() {
     await this.loadInitialData()
-    this.setDefaultMonth()
+    this.setDefaultDateRange()
     this.applyFilters()
-  },
-
-  mounted() {
-    this.$nextTick(() => {
-      this.initializeChart()
-    })
-  },
-
-  beforeDestroy() {
-    if (this.ministryChart) {
-      this.ministryChart.destroy()
-    }
   },
 
   methods: {
@@ -554,33 +524,68 @@ export default {
       }
     },
 
-    setDefaultMonth() {
+    setDefaultDateRange() {
       const now = new Date()
-      this.filters.reportMonth = `${now.getFullYear()}-${String(
-        now.getMonth() + 1
-      ).padStart(2, '0')}`
+      const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+      const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+
+      this.filters.fromDate = firstDayOfMonth.toISOString().substr(0, 10)
+      this.filters.toDate = lastDayOfMonth.toISOString().substr(0, 10)
     },
 
     async applyFilters() {
+      if (!this.filters.fromDate || !this.filters.toDate) {
+        this.$toast.warning('ກະລຸນາເລືອກໄລຍະເວລາ')
+        return
+      }
+
+      if (!this.isDateRangeValid) {
+        this.$toast.warning('ໄລຍະເວລາບໍ່ຖືກຕ້ອງ')
+        return
+      }
+
       this.loading = true
+
       try {
         const params = new URLSearchParams()
-        Object.keys(this.filters).forEach((key) => {
-          if (this.filters[key]) {
-            params.append(key, this.filters[key])
-          }
-        })
+        params.append('fromDate', this.filters.fromDate)
+        params.append('toDate', this.filters.toDate)
+        
+        if (this.filters.ministryId) {
+          params.append('ministryId', this.filters.ministryId)
+        }
 
+        console.log('Fetching data with params:', params.toString())
+
+        // Updated API endpoint to match your actual endpoint
         const response = await this.$axios.get(
-          `/api/money-advances/ministry-summary?${params}`
+          `/api/money-advances/report?${params}`
         )
-        this.reportData = response.data.data
-        this.summaryData = response.data.summary
 
-        this.updateChart()
+        console.log('API Response:', response.data)
+
+        if (response.data && response.data.success && response.data.data) {
+          this.reportData = response.data.data
+          this.summaryData = response.data.summary || this.getDefaultSummary()
+          
+          console.log('Data loaded successfully:', this.reportData.length, 'records')
+        } else {
+          throw new Error('Invalid response format')
+        }
       } catch (error) {
         console.error('Error loading report data:', error)
-        this.$toast.error('Error loading report data')
+        this.reportData = []
+        this.summaryData = this.getDefaultSummary()
+        
+        if (error.response) {
+          const status = error.response.status
+          const message = error.response.data?.message || 'Server error'
+          this.$toast.error(`Error ${status}: ${message}`)
+        } else if (error.request) {
+          this.$toast.error('Network error. Please check your connection.')
+        } else {
+          this.$toast.error('Error loading report data')
+        }
       } finally {
         this.loading = false
       }
@@ -588,110 +593,29 @@ export default {
 
     resetFilters() {
       this.filters = {
-        reportMonth: null,
+        fromDate: null,
+        toDate: null,
         ministryId: null,
       }
-      this.setDefaultMonth()
+      this.setDefaultDateRange()
       this.applyFilters()
     },
 
-    initializeChart() {
-      const ctx = this.$refs.ministryChart.getContext('2d')
-      this.ministryChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: [],
-          datasets: [
-            {
-              label: 'ຍອດຍົກມາ',
-              data: [],
-              backgroundColor: '#01532B',
-              borderColor: '#01532B',
-              borderWidth: 1,
-            },
-            {
-              label: 'ລາຍຈ່າຍເດືອນນີ້',
-              data: [],
-              backgroundColor: '#228B22',
-              borderColor: '#228B22',
-              borderWidth: 1,
-            },
-            {
-              label: 'ຊຳລະເດືອນນີ້',
-              data: [],
-              backgroundColor: '#32CD32',
-              borderColor: '#32CD32',
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                usePointStyle: true,
-                padding: 15,
-                font: {
-                  size: 11,
-                },
-              },
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value) {
-                  return new Intl.NumberFormat('en-US').format(value)
-                },
-              },
-            },
-          },
-        },
-      })
-    },
-
-    updateChart() {
-      if (!this.ministryChart) return
-
-      const labels = this.reportData.map((item) => item.ministryName)
-      const broughtForward = this.reportData.map(
-        (item) => item.broughtForwardLcy
-      )
-      const currentMonth = this.reportData.map((item) => item.currentMonthLcy)
-      const settlements = this.reportData.map((item) => item.settlementLcy)
-
-      this.ministryChart.data.labels = labels
-      this.ministryChart.data.datasets[0].data = broughtForward
-      this.ministryChart.data.datasets[1].data = currentMonth
-      this.ministryChart.data.datasets[2].data = settlements
-      this.ministryChart.update()
-    },
-
-    async viewMinistryDetails(item) {
-      this.selectedMinistry = item
-      this.loadingDetails = true
-      this.detailsDialog = true
-
-      try {
-        const params = new URLSearchParams()
-        params.append('ministryId', item.ministryId)
-        params.append('currencyId', item.currencyId)
-        params.append('reportMonth', this.filters.reportMonth)
-
-        const response = await this.$axios.get(
-          `/api/money-advances/ministry-details?${params}`
-        )
-        this.ministryDetails = response.data.data
-      } catch (error) {
-        console.error('Error loading ministry details:', error)
-        this.$toast.error('Error loading ministry details')
-      } finally {
-        this.loadingDetails = false
+    getDefaultSummary() {
+      return {
+        totalAdvances: 0,
+        totalSettlements: 0,
+        outstandingBalance: 0,
+        totalAdvancesLcy: 0,
+        totalSettlementsLcy: 0,
+        outstandingBalanceLcy: 0,
+        totalRecords: 0,
       }
+    },
+
+    viewPaymentDetails(item) {
+      this.selectedPayment = item
+      this.detailsDialog = true
     },
 
     async exportToExcel() {
@@ -705,16 +629,14 @@ export default {
         })
 
         const response = await this.$axios.get(
-          `/api/money-advances/ministry-summary/export?${params}`,
-          {
-            responseType: 'blob',
-          }
+          `/api/money-advances/report/export?${params}`,
+          { responseType: 'blob' }
         )
 
         const blob = new Blob([response.data])
         const link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = `ministry-summary-report-${this.filters.reportMonth}.xlsx`
+        link.download = `payment-report-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx`
         link.click()
       } catch (error) {
         console.error('Error exporting report:', error)
@@ -746,14 +668,16 @@ export default {
 
     formatDate(date) {
       if (!date) return ''
-      return new Date(date).toLocaleDateString('lo-LA')
+      return new Date(date).toLocaleDateString('en-GB')
     },
 
-    getBalanceClass(balance) {
-      const amount = parseFloat(balance)
-      if (amount > 0) return 'positive-balance'
-      if (amount < 0) return 'negative-balance'
-      return 'zero-balance'
+    formatDisplayDate(dateString) {
+      if (!dateString) return ''
+      const date = new Date(dateString)
+      const day = String(date.getDate()).padStart(2, '0')
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const year = date.getFullYear()
+      return `${day}/${month}/${year}`
     },
 
     getCurrencyColor(currencyCode) {
@@ -767,42 +691,52 @@ export default {
       return colors[currencyCode] || '#01532B'
     },
 
-    getTypeColor(type) {
-      switch (type) {
-        case 'advance':
-          return '#01532B'
-        case 'settlement':
-          return '#228B22'
-        case 'brought_forward':
-          return '#006400'
+    getStatusColor(status) {
+      switch (status) {
+        case 'settled':
+          return '#28a745'
+        case 'pending':
+          return '#ffc107'
+        case 'approved':
+          return '#17a2b8'
+        case 'rejected':
+          return '#dc3545'
         default:
-          return '#01532B'
+          return '#6c757d'
       }
     },
 
-    getTypeText(type) {
-      switch (type) {
-        case 'advance':
-          return 'ລາຍຈ່າຍ'
-        case 'settlement':
-          return 'ຊຳລະ'
-        case 'brought_forward':
-          return 'ຍົກມາ'
+    getStatusText(status) {
+      switch (status) {
+        case 'settled':
+          return 'ຊຳລະແລ້ວ'
+        case 'pending':
+          return 'ລໍຖ້າ'
+        case 'approved':
+          return 'ອະນຸມັດ'
+        case 'rejected':
+          return 'ປະຕິເສດ'
         default:
-          return type
+          return status
       }
+    },
+
+    getProgressColor(percentage) {
+      const percent = parseFloat(percentage)
+      if (percent === 100) return '#28a745'
+      if (percent >= 50) return '#ffc107'
+      return '#dc3545'
     },
   },
 }
 </script>
 
 <style scoped>
-/* Custom Color Theme Variables */
-.ministry-summary-report {
+/* All the existing styles from your original component */
+.payment-report {
   padding: 0;
 }
 
-/* Header Section */
 .report-header {
   display: flex;
   justify-content: space-between;
@@ -843,7 +777,6 @@ export default {
   color: #01532b !important;
 }
 
-/* Filter Card */
 .filter-card {
   background: white;
   border-radius: 8px;
@@ -855,22 +788,8 @@ export default {
   font-weight: 600;
 }
 
-.filter-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.custom-primary-btn {
+.custom-primary-bg {
   background-color: #01532b !important;
-  color: white !important;
-  font-weight: 500 !important;
-  text-transform: none !important;
-}
-
-.custom-primary-btn:hover {
-  background-color: #014025 !important;
 }
 
 .custom-secondary-btn {
@@ -880,11 +799,12 @@ export default {
   text-transform: none !important;
 }
 
-.custom-secondary-btn:hover {
-  background-color: #5a6268 !important;
+.date-range-alert {
+  background-color: rgba(1, 83, 43, 0.1) !important;
+  border-color: #01532b !important;
+  color: #01532b !important;
 }
 
-/* Summary Cards */
 .summary-cards {
   margin-bottom: 24px;
 }
@@ -894,10 +814,6 @@ export default {
   position: relative;
   overflow: hidden;
   border-radius: 8px;
-}
-
-.summary-card:hover {
-  transform: translateY(-2px);
 }
 
 .summary-content {
@@ -912,6 +828,7 @@ export default {
   font-size: 48px;
   opacity: 0.9;
   margin-right: 16px;
+  color: white;
 }
 
 .summary-details h3 {
@@ -934,51 +851,14 @@ export default {
   color: white;
 }
 
-.summary-lcy {
-  font-size: 11px;
-  opacity: 0.9;
-  margin-top: 4px !important;
-}
-
-.brought-forward-card {
+.advance-card,
+.settlement-card,
+.outstanding-card,
+.records-card {
   background: #01532b;
   color: white;
 }
 
-.advance-card {
-  background: #01532b;
-  color: white;
-}
-
-.settlement-card {
-  background: #01532b;
-  color: white;
-}
-
-.balance-card {
-  background: #01532b;
-  color: white;
-}
-
-/* Chart Section */
-.chart-card {
-  margin-bottom: 24px;
-  border-radius: 8px;
-}
-
-.chart-title {
-  background: #01532b;
-  color: white;
-  font-weight: 600;
-}
-
-.chart-container {
-  height: 400px;
-  position: relative;
-  padding: 20px;
-}
-
-/* Table Section */
 .table-card {
   margin-bottom: 24px;
   border-radius: 8px;
@@ -994,18 +874,6 @@ export default {
   max-width: 300px;
 }
 
-.search-field >>> input {
-  color: white !important;
-}
-
-.search-field >>> .v-icon {
-  color: white !important;
-}
-
-.report-table {
-  background: white;
-}
-
 .report-table >>> thead th {
   background-color: #01532b !important;
   color: white !important;
@@ -1017,7 +885,6 @@ export default {
   background-color: rgba(1, 83, 43, 0.1) !important;
 }
 
-/* Table Cell Styling */
 .ministry-cell {
   display: flex;
   flex-direction: column;
@@ -1061,36 +928,26 @@ export default {
 }
 
 .lcy-amount {
-  color: var(--custom-primary) !important;
+  color: #01532b !important;
 }
 
-.advance-amount {
-  color: #ff8c00 !important;
+.outstanding-amount {
+  color: #dc3545 !important;
 }
 
-.settlement-amount {
-  color: var(--custom-success) !important;
+.settled-amount {
+  color: #28a745 !important;
 }
 
-.balance-amount {
-  font-weight: 800 !important;
-  font-size: 16px !important;
-}
-
-.positive-balance {
-  color: var(--custom-success) !important;
-}
-
-.negative-balance {
-  color: var(--custom-error) !important;
-}
-
-.zero-balance {
-  color: #6c757d !important;
+.progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .custom-action-btn {
-  background-color: var(--custom-primary) !important;
+  background-color: #01532b !important;
   color: white !important;
   font-weight: 600 !important;
   text-transform: none !important;
@@ -1098,15 +955,8 @@ export default {
   border-radius: 8px !important;
 }
 
-.custom-action-btn:hover {
-  background-color: var(--custom-success) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(1, 83, 43, 0.3) !important;
-}
-
-/* Dialog Styling */
 .dialog-header {
-  background: linear-gradient(90deg, #01532b, #228b22) !important;
+  background: #01532b !important;
   color: white !important;
   font-weight: 600 !important;
 }
@@ -1116,13 +966,13 @@ export default {
 }
 
 .section-title {
-  color: var(--custom-primary);
+  color: #01532b;
   font-weight: 700;
   font-size: 18px;
 }
 
 .custom-divider {
-  border-color: var(--custom-primary) !important;
+  border-color: #01532b !important;
   opacity: 0.3 !important;
 }
 
@@ -1131,19 +981,14 @@ export default {
   padding: 16px;
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-radius: 12px;
-  border-left: 4px solid var(--custom-primary);
+  border-left: 4px solid #01532b;
   transition: all 0.3s ease;
-}
-
-.detail-stat:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
 }
 
 .detail-stat strong {
   display: block;
   margin-bottom: 12px;
-  color: var(--custom-primary);
+  color: #01532b;
   font-size: 15px;
   font-weight: 700;
 }
@@ -1163,37 +1008,6 @@ export default {
   font-style: italic;
 }
 
-.balance-text {
-  font-weight: 800 !important;
-}
-
-.detail-table >>> thead th {
-  background-color: var(--custom-primary) !important;
-  color: white !important;
-  font-weight: 600 !important;
-}
-
-/* Currency and Reference Cell Styling */
-.currency-code {
-  font-size: 10px;
-  background: rgba(1, 83, 43, 0.1);
-  padding: 2px 6px;
-  border-radius: 10px;
-  color: #01532b;
-  font-weight: 600;
-  margin-left: 6px;
-}
-
-.reference-cell {
-  font-family: 'Courier New', monospace;
-  font-size: 12px;
-  color: white;
-  background: #01532b;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
 .date-cell {
   font-family: 'Courier New', monospace;
   font-size: 13px;
@@ -1201,12 +1015,6 @@ export default {
   color: #01532b;
 }
 
-/* Loading States */
-.v-data-table >>> .v-data-table__progress {
-  background: rgba(1, 83, 43, 0.1);
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .report-header {
     flex-direction: column;
@@ -1230,87 +1038,8 @@ export default {
     padding: 12px;
   }
 
-  .summary-icon {
-    margin-right: 0;
-    margin-bottom: 8px;
-    font-size: 40px;
-  }
-
   .summary-details h2 {
     font-size: 20px;
   }
-
-  .chart-container {
-    height: 300px;
-    padding: 10px;
-  }
-
-  .filter-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .filter-actions .v-btn {
-    width: 100%;
-  }
-
-  .amount-breakdown {
-    font-size: 12px;
-  }
-
-  .detail-stat {
-    padding: 10px;
-  }
-
-  .detail-stat p {
-    font-size: 16px;
-  }
-}
-
-/* Print Styles */
-@media print {
-  .action-buttons,
-  .filter-card,
-  .v-btn {
-    display: none !important;
-  }
-
-  .summary-cards {
-    page-break-inside: avoid;
-  }
-
-  .chart-card {
-    page-break-inside: avoid;
-  }
-
-  .report-header {
-    background: #01532b !important;
-    color: white !important;
-    -webkit-print-color-adjust: exact;
-  }
-}
-
-/* Custom Scrollbar */
-.v-dialog .v-card-text {
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-.v-dialog .v-card-text::-webkit-scrollbar {
-  width: 6px;
-}
-
-.v-dialog .v-card-text::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.v-dialog .v-card-text::-webkit-scrollbar-thumb {
-  background: #01532b;
-  border-radius: 3px;
-}
-
-.v-dialog .v-card-text::-webkit-scrollbar-thumb:hover {
-  background: #014025;
 }
 </style>

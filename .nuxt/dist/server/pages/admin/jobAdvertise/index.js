@@ -1,20 +1,20 @@
 exports.ids = [156,47,48,49];
 exports.modules = {
 
-/***/ 1046:
+/***/ 1042:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/jobAdvertise/index.vue?vue&type=template&id=190e976a&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/jobAdvertise/index.vue?vue&type=template&id=5c6d2dea&scoped=true&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "job-advertise-summary-container"
-  }, [_vm._ssrNode("<div class=\"page-header\" data-v-190e976a><div class=\"header-content\" data-v-190e976a><h1 class=\"page-title\" data-v-190e976a>ລະບົບຈັດການການປະກາດຫາງານ</h1> <div class=\"header-actions\" data-v-190e976a><button class=\"btn btn-primary\" data-v-190e976a><i class=\"fas fa-plus\" data-v-190e976a></i>\n          ເພີ່ມການປະກາດໃໝ່\n        </button> <button class=\"btn btn-secondary\" data-v-190e976a><i class=\"fas fa-download\" data-v-190e976a></i>\n          Export\n        </button></div></div></div> "), _vm._ssrNode("<div class=\"filter-section\" data-v-190e976a>", "</div>", [_vm._ssrNode("<div class=\"filter-row\" data-v-190e976a>", "</div>", [_vm._ssrNode("<div class=\"filter-group\" data-v-190e976a><label data-v-190e976a>ຄົ້ນຫາ:</label> <input type=\"text\" placeholder=\"ຊື່ວຽກ, ປະເທດ...\"" + _vm._ssrAttr("value", _vm.filters.search) + " class=\"form-control\" data-v-190e976a></div> "), _vm._ssrNode("<div class=\"filter-group\" data-v-190e976a>", "</div>", [_vm._ssrNode("<label data-v-190e976a>ປະເທດ:</label> "), _c('select', {
+  }, [_vm._ssrNode("<div class=\"page-header\" data-v-5c6d2dea><div class=\"header-content\" data-v-5c6d2dea><h1 class=\"page-title\" data-v-5c6d2dea>ລະບົບຈັດການການປະກາດຫາງານ</h1> <div class=\"header-actions\" data-v-5c6d2dea><button class=\"btn btn-primary\" data-v-5c6d2dea><i class=\"fas fa-plus\" data-v-5c6d2dea></i>\n          ເພີ່ມການປະກາດໃໝ່\n        </button> <button class=\"btn btn-secondary\" data-v-5c6d2dea><i class=\"fas fa-download\" data-v-5c6d2dea></i>\n          Export\n        </button></div></div></div> "), _vm._ssrNode("<div class=\"filter-section\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<div class=\"filter-row\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<div class=\"filter-group\" data-v-5c6d2dea><label data-v-5c6d2dea>ຄົ້ນຫາ:</label> <input type=\"text\" placeholder=\"ຊື່ວຽກ, ປະເທດ...\"" + _vm._ssrAttr("value", _vm.filters.search) + " class=\"form-control\" data-v-5c6d2dea></div> "), _vm._ssrNode("<div class=\"filter-group\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<label data-v-5c6d2dea>ປະເທດ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -53,7 +53,7 @@ var render = function render() {
     attrs: {
       "value": "Taiwan"
     }
-  }, [_vm._v("ໄຕ້ຫວັນ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-190e976a>", "</div>", [_vm._ssrNode("<label data-v-190e976a>ສະຖານະ:</label> "), _c('select', {
+  }, [_vm._v("ໄຕ້ຫວັນ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<label data-v-5c6d2dea>ສະຖານະ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -88,7 +88,7 @@ var render = function render() {
     attrs: {
       "value": "closed"
     }
-  }, [_vm._v("ປິດແລ້ວ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-190e976a>", "</div>", [_vm._ssrNode("<label data-v-190e976a>ຕ້ອງການໜັງສືເດີນທາງ:</label> "), _c('select', {
+  }, [_vm._v("ປິດແລ້ວ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<label data-v-5c6d2dea>ຕ້ອງການໜັງສືເດີນທາງ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -119,7 +119,7 @@ var render = function render() {
     attrs: {
       "value": "false"
     }
-  }, [_vm._v("ບໍ່ຕ້ອງການ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-190e976a>", "</div>", [_vm._ssrNode("<label data-v-190e976a>ລະດັບພາສາ:</label> "), _c('select', {
+  }, [_vm._v("ບໍ່ຕ້ອງການ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<label data-v-5c6d2dea>ລະດັບພາສາ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -158,7 +158,7 @@ var render = function render() {
     attrs: {
       "value": "advanced"
     }
-  }, [_vm._v("ສູງ")])])], 2), _vm._ssrNode(" <div class=\"filter-actions\" data-v-190e976a><button class=\"btn btn-outline-primary\" data-v-190e976a><i class=\"fas fa-search\" data-v-190e976a></i>\n          ຄົ້ນຫາ\n        </button> <button class=\"btn btn-outline-secondary\" data-v-190e976a><i class=\"fas fa-undo\" data-v-190e976a></i>\n          Reset\n        </button></div>")], 2)]), _vm._ssrNode(" <div class=\"summary-cards\" data-v-190e976a><div class=\"summary-card total-jobs\" data-v-190e976a><div class=\"card-icon total\" data-v-190e976a><i class=\"fas fa-briefcase\" data-v-190e976a></i></div> <div class=\"card-content\" data-v-190e976a><h3 data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.total.count)) + "</h3> <p data-v-190e976a>ລວມການປະກາດທັງໝົດ</p></div></div> <div class=\"summary-card status-active\" data-v-190e976a><div class=\"card-icon active\" data-v-190e976a><i class=\"fas fa-play-circle\" data-v-190e976a></i></div> <div class=\"card-content\" data-v-190e976a><h3 data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.active.count)) + "</h3> <p data-v-190e976a>" + _vm._ssrEscape("ເປີດຮັບສະໝັກ (" + _vm._s(_vm.summaryStats.active.percentage) + "%)") + "</p></div></div> <div class=\"summary-card status-inactive\" data-v-190e976a><div class=\"card-icon inactive\" data-v-190e976a><i class=\"fas fa-pause-circle\" data-v-190e976a></i></div> <div class=\"card-content\" data-v-190e976a><h3 data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.inactive.count)) + "</h3> <p data-v-190e976a>" + _vm._ssrEscape("ປິດຊົ່ວຄາວ (" + _vm._s(_vm.summaryStats.inactive.percentage) + "%)") + "</p></div></div> <div class=\"summary-card status-closed\" data-v-190e976a><div class=\"card-icon closed\" data-v-190e976a><i class=\"fas fa-stop-circle\" data-v-190e976a></i></div> <div class=\"card-content\" data-v-190e976a><h3 data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.closed.count)) + "</h3> <p data-v-190e976a>" + _vm._ssrEscape("ປິດແລ້ວ (" + _vm._s(_vm.summaryStats.closed.percentage) + "%)") + "</p></div></div> <div class=\"summary-card country-stats\" data-v-190e976a><div class=\"card-icon country\" data-v-190e976a><i class=\"fas fa-globe-asia\" data-v-190e976a></i></div> <div class=\"card-content\" data-v-190e976a><h3 data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.countries.count)) + "</h3> <p data-v-190e976a>ປະເທດປາຍທາງ</p> <small class=\"country-info\" data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.countries.top)) + "</small></div></div> <div class=\"summary-card benefits-stats\" data-v-190e976a><div class=\"card-icon benefits\" data-v-190e976a><i class=\"fas fa-gift\" data-v-190e976a></i></div> <div class=\"card-content\" data-v-190e976a><h3 data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withBenefits.count)) + "</h3> <p data-v-190e976a>ມີສະຫວັດດີການ</p> <small class=\"benefits-rate\" data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withBenefits.percentage) + "% ຂອງທັງໝົດ") + "</small></div></div></div> "), _vm._ssrNode("<div class=\"table-section\" data-v-190e976a>", "</div>", [_vm._ssrNode("<div class=\"table-header\" data-v-190e976a>", "</div>", [_vm._ssrNode("<div class=\"table-title\" data-v-190e976a><h3 data-v-190e976a>ລາຍການການປະກາດຫາງານ</h3> <span class=\"record-count\" data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.filteredJobAdvertises.length) + " ລາຍການ") + "</span></div> "), _vm._ssrNode("<div class=\"table-actions\" data-v-190e976a>", "</div>", [_vm._ssrNode("<div class=\"per-page-selector\" data-v-190e976a>", "</div>", [_vm._ssrNode("<label data-v-190e976a>Show:</label> "), _c('select', {
+  }, [_vm._v("ສູງ")])])], 2), _vm._ssrNode(" <div class=\"filter-actions\" data-v-5c6d2dea><button class=\"btn btn-outline-primary\" data-v-5c6d2dea><i class=\"fas fa-search\" data-v-5c6d2dea></i>\n          ຄົ້ນຫາ\n        </button> <button class=\"btn btn-outline-secondary\" data-v-5c6d2dea><i class=\"fas fa-undo\" data-v-5c6d2dea></i>\n          Reset\n        </button></div>")], 2)]), _vm._ssrNode(" <div class=\"summary-cards\" data-v-5c6d2dea><div class=\"summary-card total-jobs\" data-v-5c6d2dea><div class=\"card-icon total\" data-v-5c6d2dea><i class=\"fas fa-briefcase\" data-v-5c6d2dea></i></div> <div class=\"card-content\" data-v-5c6d2dea><h3 data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.total.count)) + "</h3> <p data-v-5c6d2dea>ລວມການປະກາດທັງໝົດ</p></div></div> <div class=\"summary-card status-active\" data-v-5c6d2dea><div class=\"card-icon active\" data-v-5c6d2dea><i class=\"fas fa-play-circle\" data-v-5c6d2dea></i></div> <div class=\"card-content\" data-v-5c6d2dea><h3 data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.active.count)) + "</h3> <p data-v-5c6d2dea>" + _vm._ssrEscape("ເປີດຮັບສະໝັກ (" + _vm._s(_vm.summaryStats.active.percentage) + "%)") + "</p></div></div> <div class=\"summary-card status-inactive\" data-v-5c6d2dea><div class=\"card-icon inactive\" data-v-5c6d2dea><i class=\"fas fa-pause-circle\" data-v-5c6d2dea></i></div> <div class=\"card-content\" data-v-5c6d2dea><h3 data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.inactive.count)) + "</h3> <p data-v-5c6d2dea>" + _vm._ssrEscape("ປິດຊົ່ວຄາວ (" + _vm._s(_vm.summaryStats.inactive.percentage) + "%)") + "</p></div></div> <div class=\"summary-card status-closed\" data-v-5c6d2dea><div class=\"card-icon closed\" data-v-5c6d2dea><i class=\"fas fa-stop-circle\" data-v-5c6d2dea></i></div> <div class=\"card-content\" data-v-5c6d2dea><h3 data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.closed.count)) + "</h3> <p data-v-5c6d2dea>" + _vm._ssrEscape("ປິດແລ້ວ (" + _vm._s(_vm.summaryStats.closed.percentage) + "%)") + "</p></div></div> <div class=\"summary-card country-stats\" data-v-5c6d2dea><div class=\"card-icon country\" data-v-5c6d2dea><i class=\"fas fa-globe-asia\" data-v-5c6d2dea></i></div> <div class=\"card-content\" data-v-5c6d2dea><h3 data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.countries.count)) + "</h3> <p data-v-5c6d2dea>ປະເທດປາຍທາງ</p> <small class=\"country-info\" data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.countries.top)) + "</small></div></div> <div class=\"summary-card benefits-stats\" data-v-5c6d2dea><div class=\"card-icon benefits\" data-v-5c6d2dea><i class=\"fas fa-gift\" data-v-5c6d2dea></i></div> <div class=\"card-content\" data-v-5c6d2dea><h3 data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withBenefits.count)) + "</h3> <p data-v-5c6d2dea>ມີສະຫວັດດີການ</p> <small class=\"benefits-rate\" data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withBenefits.percentage) + "% ຂອງທັງໝົດ") + "</small></div></div></div> "), _vm._ssrNode("<div class=\"table-section\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<div class=\"table-header\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<div class=\"table-title\" data-v-5c6d2dea><h3 data-v-5c6d2dea>ລາຍການການປະກາດຫາງານ</h3> <span class=\"record-count\" data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.filteredJobAdvertises.length) + " ລາຍການ") + "</span></div> "), _vm._ssrNode("<div class=\"table-actions\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<div class=\"per-page-selector\" data-v-5c6d2dea>", "</div>", [_vm._ssrNode("<label data-v-5c6d2dea>Show:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -192,11 +192,11 @@ var render = function render() {
     attrs: {
       "value": "100"
     }
-  }, [_vm._v("100")])]), _vm._ssrNode(" <span data-v-190e976a>per page</span>")], 2)])], 2), _vm._ssrNode(" <div class=\"table-container\" data-v-190e976a><table class=\"data-table\" data-v-190e976a><thead data-v-190e976a><tr data-v-190e976a><th class=\"sortable\" data-v-190e976a>\n              ID\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('id')) + " data-v-190e976a></i></th> <th class=\"sortable\" data-v-190e976a>\n              ຊື່ວຽກ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('title')) + " data-v-190e976a></i></th> <th class=\"sortable\" data-v-190e976a>\n              ປະເທດ/ເມືອງ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('country')) + " data-v-190e976a></i></th> <th data-v-190e976a>ເງື່ອນໄຂວຽກ</th> <th data-v-190e976a>ຄຸນສົມບັດຕ້ອງການ</th> <th class=\"sortable\" data-v-190e976a>\n              ສະຖານະ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('status')) + " data-v-190e976a></i></th> <th data-v-190e976a>ຜູ້ສະໝັກ</th> <th class=\"sortable\" data-v-190e976a>\n              ວັນທີສ້າງ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('createdAt')) + " data-v-190e976a></i></th> <th data-v-190e976a>ຟັງຊັ່ນ</th></tr></thead> <tbody data-v-190e976a>" + _vm._ssrList(_vm.paginatedJobAdvertises, function (job) {
-    return "<tr data-v-190e976a><td data-v-190e976a>" + _vm._ssrEscape(_vm._s(job.id)) + "</td> <td data-v-190e976a><div class=\"job-title\" data-v-190e976a><strong data-v-190e976a>" + _vm._ssrEscape(_vm._s(job.title)) + "</strong> <div class=\"job-description\" data-v-190e976a>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.truncateText(job.jobDescription, 50)) + "\n                ") + "</div></div></td> <td data-v-190e976a><div class=\"location-info\" data-v-190e976a><div class=\"country\" data-v-190e976a><i class=\"fas fa-map-marker-alt\" data-v-190e976a></i>" + _vm._ssrEscape("\n                  " + _vm._s(job.country) + "\n                ") + "</div> " + (job.province ? "<div class=\"province\" data-v-190e976a>" + _vm._ssrEscape("\n                  " + _vm._s(job.province) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-190e976a><div class=\"work-conditions\" data-v-190e976a><div class=\"work-hours\" data-v-190e976a><i class=\"fas fa-clock\" data-v-190e976a></i>" + _vm._ssrEscape("\n                  " + _vm._s(job.workingHours || '8 ຊົ່ວໂມງ/ວັນ') + "\n                ") + "</div> <div class=\"rest-days\" data-v-190e976a><i class=\"fas fa-calendar-day\" data-v-190e976a></i>" + _vm._ssrEscape("\n                  " + _vm._s(job.restDays || '1 ວັນ/ອາທິດ') + "\n                ") + "</div></div></td> <td data-v-190e976a><div class=\"requirements\" data-v-190e976a>" + (job.requiresPassport ? "<span title=\"ຕ້ອງມີໜັງສືເດີນທາງ\" class=\"requirement-item passport\" data-v-190e976a><i class=\"fas fa-passport\" data-v-190e976a></i></span>" : "<!---->") + " " + (job.requiresGoodEyesight ? "<span title=\"ຕ້ອງມີສາຍຕາດີ\" class=\"requirement-item eyesight\" data-v-190e976a><i class=\"fas fa-eye\" data-v-190e976a></i></span>" : "<!---->") + " " + (job.requiresLanguage && job.requiresLanguage !== 'none' ? "<span" + _vm._ssrAttr("title", `ຕ້ອງການພາສາ: ${_vm.formatLanguageLevel(job.requiresLanguage)}`) + " class=\"requirement-item language\" data-v-190e976a><i class=\"fas fa-language\" data-v-190e976a></i></span>" : "<!---->") + " " + (!job.allowsTattoos ? "<span title=\"ບໍ່ອະນຸຍາດລາຍສັກ\" class=\"requirement-item no-tattoo\" data-v-190e976a><i class=\"fas fa-ban\" data-v-190e976a></i></span>" : "<!---->") + "</div></td> <td data-v-190e976a><span" + _vm._ssrClass(null, ['status-badge', job.status]) + " data-v-190e976a>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatStatus(job.status)) + "\n              ") + "</span></td> <td class=\"applicants-cell\" data-v-190e976a><div class=\"applicant-count\" data-v-190e976a><i class=\"fas fa-users\" data-v-190e976a></i>" + _vm._ssrEscape("\n                " + _vm._s(job.applicants ? job.applicants.length : 0) + "\n                ") + (job.maxApplicants ? "<span class=\"max-count\" data-v-190e976a>" + _vm._ssrEscape("\n                  / " + _vm._s(job.maxApplicants) + "\n                ") + "</span>" : "<!---->") + "</div></td> <td data-v-190e976a>" + _vm._ssrEscape(_vm._s(_vm.formatDate(job.createdAt))) + "</td> <td class=\"actions-cell\" data-v-190e976a><button title=\"ເບິ່ງລາຍລະອຽດ\" class=\"btn btn-sm btn-outline-primary\" data-v-190e976a><i class=\"fas fa-eye\" data-v-190e976a></i></button> <button title=\"ແກ້ໄຂ\" class=\"btn btn-sm btn-outline-info\" data-v-190e976a><i class=\"fas fa-edit\" data-v-190e976a></i></button> " + (job.status === 'active' ? "<button title=\"ຢຸດຊົ່ວຄາວ\" class=\"btn btn-sm btn-outline-warning\" data-v-190e976a><i class=\"fas fa-pause\" data-v-190e976a></i></button>" : "<!---->") + " " + (job.status === 'inactive' ? "<button title=\"ເປີດອີກຄັ້ງ\" class=\"btn btn-sm btn-outline-success\" data-v-190e976a><i class=\"fas fa-play\" data-v-190e976a></i></button>" : "<!---->") + " <button title=\"ປິດ\" class=\"btn btn-sm btn-outline-danger\" data-v-190e976a><i class=\"fas fa-stop\" data-v-190e976a></i></button></td></tr>";
-  }) + "</tbody></table></div> <div class=\"pagination-container\" data-v-190e976a><div class=\"pagination-info\" data-v-190e976a>" + _vm._ssrEscape("\n        Showing " + _vm._s(_vm.paginationInfo.start) + " to " + _vm._s(_vm.paginationInfo.end) + " of\n        " + _vm._s(_vm.paginationInfo.total) + " entries\n      ") + "</div> <div class=\"pagination-controls\" data-v-190e976a><button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === 1) + " class=\"btn btn-sm btn-outline-secondary\" data-v-190e976a>\n          Previous\n        </button> " + _vm._ssrList(_vm.visiblePages, function (page) {
-    return "<span data-v-190e976a>" + (page !== '...' ? "<button" + _vm._ssrClass("btn btn-sm", page === _vm.pagination.currentPage ? 'btn-primary' : 'btn-outline-secondary') + " data-v-190e976a>" + _vm._ssrEscape("\n            " + _vm._s(page) + "\n          ") + "</button>" : "<span class=\"pagination-ellipsis\" data-v-190e976a>...</span>") + "</span>";
-  }) + " <button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === _vm.totalPages) + " class=\"btn btn-sm btn-outline-secondary\" data-v-190e976a>\n          Next\n        </button></div></div>")], 2), _vm._ssrNode(" "), _c('client-only', [_c('JobAdvertiseDialog', {
+  }, [_vm._v("100")])]), _vm._ssrNode(" <span data-v-5c6d2dea>per page</span>")], 2)])], 2), _vm._ssrNode(" <div class=\"table-container\" data-v-5c6d2dea><table class=\"data-table\" data-v-5c6d2dea><thead data-v-5c6d2dea><tr data-v-5c6d2dea><th class=\"sortable\" data-v-5c6d2dea>\n              ID\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('id')) + " data-v-5c6d2dea></i></th> <th class=\"sortable\" data-v-5c6d2dea>\n              ຊື່ວຽກ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('title')) + " data-v-5c6d2dea></i></th> <th class=\"sortable\" data-v-5c6d2dea>\n              ປະເທດ/ເມືອງ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('country')) + " data-v-5c6d2dea></i></th> <th data-v-5c6d2dea>ເງື່ອນໄຂວຽກ</th> <th data-v-5c6d2dea>ຄຸນສົມບັດຕ້ອງການ</th> <th class=\"sortable\" data-v-5c6d2dea>\n              ສະຖານະ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('status')) + " data-v-5c6d2dea></i></th> <th data-v-5c6d2dea>ຜູ້ສະໝັກ</th> <th class=\"sortable\" data-v-5c6d2dea>\n              ວັນທີສ້າງ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('createdAt')) + " data-v-5c6d2dea></i></th> <th data-v-5c6d2dea>ຟັງຊັ່ນ</th></tr></thead> <tbody data-v-5c6d2dea>" + _vm._ssrList(_vm.paginatedJobAdvertises, function (job) {
+    return "<tr data-v-5c6d2dea><td data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(job.id)) + "</td> <td data-v-5c6d2dea><div class=\"job-title\" data-v-5c6d2dea><strong data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(job.title)) + "</strong> <div class=\"job-description\" data-v-5c6d2dea>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.truncateText(job.jobDescription, 50)) + "\n                ") + "</div></div></td> <td data-v-5c6d2dea><div class=\"location-info\" data-v-5c6d2dea><div class=\"country\" data-v-5c6d2dea><i class=\"fas fa-map-marker-alt\" data-v-5c6d2dea></i>" + _vm._ssrEscape("\n                  " + _vm._s(job.country) + "\n                ") + "</div> " + (job.province ? "<div class=\"province\" data-v-5c6d2dea>" + _vm._ssrEscape("\n                  " + _vm._s(job.province) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-5c6d2dea><div class=\"work-conditions\" data-v-5c6d2dea><div class=\"work-hours\" data-v-5c6d2dea><i class=\"fas fa-clock\" data-v-5c6d2dea></i>" + _vm._ssrEscape("\n                  " + _vm._s(job.workingHours || '8 ຊົ່ວໂມງ/ວັນ') + "\n                ") + "</div> <div class=\"rest-days\" data-v-5c6d2dea><i class=\"fas fa-calendar-day\" data-v-5c6d2dea></i>" + _vm._ssrEscape("\n                  " + _vm._s(job.restDays || '1 ວັນ/ອາທິດ') + "\n                ") + "</div></div></td> <td data-v-5c6d2dea><div class=\"requirements\" data-v-5c6d2dea>" + (job.requiresPassport ? "<span title=\"ຕ້ອງມີໜັງສືເດີນທາງ\" class=\"requirement-item passport\" data-v-5c6d2dea><i class=\"fas fa-passport\" data-v-5c6d2dea></i></span>" : "<!---->") + " " + (job.requiresGoodEyesight ? "<span title=\"ຕ້ອງມີສາຍຕາດີ\" class=\"requirement-item eyesight\" data-v-5c6d2dea><i class=\"fas fa-eye\" data-v-5c6d2dea></i></span>" : "<!---->") + " " + (job.requiresLanguage && job.requiresLanguage !== 'none' ? "<span" + _vm._ssrAttr("title", `ຕ້ອງການພາສາ: ${_vm.formatLanguageLevel(job.requiresLanguage)}`) + " class=\"requirement-item language\" data-v-5c6d2dea><i class=\"fas fa-language\" data-v-5c6d2dea></i></span>" : "<!---->") + " " + (!job.allowsTattoos ? "<span title=\"ບໍ່ອະນຸຍາດລາຍສັກ\" class=\"requirement-item no-tattoo\" data-v-5c6d2dea><i class=\"fas fa-ban\" data-v-5c6d2dea></i></span>" : "<!---->") + "</div></td> <td data-v-5c6d2dea><span" + _vm._ssrClass(null, ['status-badge', job.status]) + " data-v-5c6d2dea>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatStatus(job.status)) + "\n              ") + "</span></td> <td class=\"applicants-cell\" data-v-5c6d2dea><div class=\"applicant-count\" data-v-5c6d2dea><i class=\"fas fa-users\" data-v-5c6d2dea></i>" + _vm._ssrEscape("\n                " + _vm._s(job.applicants ? job.applicants.length : 0) + "\n                ") + (job.maxApplicants ? "<span class=\"max-count\" data-v-5c6d2dea>" + _vm._ssrEscape("\n                  / " + _vm._s(job.maxApplicants) + "\n                ") + "</span>" : "<!---->") + "</div></td> <td data-v-5c6d2dea>" + _vm._ssrEscape(_vm._s(_vm.formatDate(job.createdAt))) + "</td> <td class=\"actions-cell\" data-v-5c6d2dea><button title=\"ເບິ່ງລາຍລະອຽດ\" class=\"btn btn-sm btn-outline-primary\" data-v-5c6d2dea><i class=\"fas fa-eye\" data-v-5c6d2dea></i></button> <button title=\"ແກ້ໄຂ\" class=\"btn btn-sm btn-outline-info\" data-v-5c6d2dea><i class=\"fas fa-edit\" data-v-5c6d2dea></i></button> " + (job.status === 'active' ? "<button title=\"ຢຸດຊົ່ວຄາວ\" class=\"btn btn-sm btn-outline-warning\" data-v-5c6d2dea><i class=\"fas fa-pause\" data-v-5c6d2dea></i></button>" : "<!---->") + " " + (job.status === 'inactive' ? "<button title=\"ເປີດອີກຄັ້ງ\" class=\"btn btn-sm btn-outline-success\" data-v-5c6d2dea><i class=\"fas fa-play\" data-v-5c6d2dea></i></button>" : "<!---->") + " <button title=\"ປິດ\" class=\"btn btn-sm btn-outline-danger\" data-v-5c6d2dea><i class=\"fas fa-stop\" data-v-5c6d2dea></i></button></td></tr>";
+  }) + "</tbody></table></div> <div class=\"pagination-container\" data-v-5c6d2dea><div class=\"pagination-info\" data-v-5c6d2dea>" + _vm._ssrEscape("\n        Showing " + _vm._s(_vm.paginationInfo.start) + " to " + _vm._s(_vm.paginationInfo.end) + " of\n        " + _vm._s(_vm.paginationInfo.total) + " entries\n      ") + "</div> <div class=\"pagination-controls\" data-v-5c6d2dea><button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === 1) + " class=\"btn btn-sm btn-outline-secondary\" data-v-5c6d2dea>\n          Previous\n        </button> " + _vm._ssrList(_vm.visiblePages, function (page) {
+    return "<span data-v-5c6d2dea>" + (page !== '...' ? "<button" + _vm._ssrClass("btn btn-sm", page === _vm.pagination.currentPage ? 'btn-primary' : 'btn-outline-secondary') + " data-v-5c6d2dea>" + _vm._ssrEscape("\n            " + _vm._s(page) + "\n          ") + "</button>" : "<span class=\"pagination-ellipsis\" data-v-5c6d2dea>...</span>") + "</span>";
+  }) + " <button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === _vm.totalPages) + " class=\"btn btn-sm btn-outline-secondary\" data-v-5c6d2dea>\n          Next\n        </button></div></div>")], 2), _vm._ssrNode(" "), _c('client-only', [_c('JobAdvertiseDialog', {
     attrs: {
       "visible": _vm.showEditDialog,
       "jobAdvertise": _vm.selectedJob
@@ -223,11 +223,11 @@ var render = function render() {
       "close": _vm.closeStatusDialog,
       "confirm": _vm.onStatusUpdate
     }
-  })], 1), _vm._ssrNode(" " + (_vm.loading ? "<div class=\"loading-overlay\" data-v-190e976a><div class=\"loading-spinner\" data-v-190e976a><i class=\"fas fa-spinner fa-spin\" data-v-190e976a></i> <p data-v-190e976a>Loading...</p></div></div>" : "<!---->"))], 2);
+  })], 1), _vm._ssrNode(" " + (_vm.loading ? "<div class=\"loading-overlay\" data-v-5c6d2dea><div class=\"loading-spinner\" data-v-5c6d2dea><i class=\"fas fa-spinner fa-spin\" data-v-5c6d2dea></i> <p data-v-5c6d2dea>Loading...</p></div></div>" : "<!---->"))], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/jobAdvertise/index.vue?vue&type=template&id=190e976a&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/jobAdvertise/index.vue?vue&type=template&id=5c6d2dea&scoped=true&
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(339);
@@ -278,13 +278,13 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(353);
 var esnext_set_union_js_ = __webpack_require__(354);
 
 // EXTERNAL MODULE: ./components/jobAdvertise/maintain/index.vue + 4 modules
-var maintain = __webpack_require__(779);
+var maintain = __webpack_require__(775);
 
 // EXTERNAL MODULE: ./components/jobAdvertise/view/index.vue + 4 modules
-var view = __webpack_require__(780);
+var view = __webpack_require__(776);
 
 // EXTERNAL MODULE: ./components/jobAdvertise/statusUpdate/index.vue + 4 modules
-var statusUpdate = __webpack_require__(781);
+var statusUpdate = __webpack_require__(777);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/jobAdvertise/index.vue?vue&type=script&lang=js&
 
@@ -313,6 +313,7 @@ var statusUpdate = __webpack_require__(781);
     JobViewDialog: view["default"],
     StatusUpdateDialog: statusUpdate["default"]
   },
+  middleware: 'auths',
   data() {
     return {
       // Dialog visibility states
@@ -753,7 +754,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(845)
+  var style0 = __webpack_require__(841)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -766,7 +767,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "190e976a",
+  "5c6d2dea",
   "1b0fc72e"
   
 )
@@ -775,13 +776,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 518:
+/***/ 511:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(589);
+var content = __webpack_require__(582);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -793,13 +794,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 519:
+/***/ 512:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(591);
+var content = __webpack_require__(584);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -811,13 +812,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 520:
+/***/ 513:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(593);
+var content = __webpack_require__(586);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -829,19 +830,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 588:
+/***/ 581:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_89608314_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(518);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_89608314_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(511);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_89608314_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_89608314_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_89608314_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_89608314_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 589:
+/***/ 582:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -856,19 +857,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 590:
+/***/ 583:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e698b21c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(519);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e698b21c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(512);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e698b21c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e698b21c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e698b21c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e698b21c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 591:
+/***/ 584:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -883,19 +884,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 592:
+/***/ 585:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_34b685fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(520);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_34b685fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(513);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_34b685fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_34b685fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_34b685fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_34b685fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 593:
+/***/ 586:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -910,25 +911,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 681:
+/***/ 676:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(846);
+var content = __webpack_require__(842);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("a7d82136", content, true, context)
+  add("531a346e", content, true, context)
 };
 
 /***/ }),
 
-/***/ 779:
+/***/ 775:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1350,7 +1351,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(588)
+  var style0 = __webpack_require__(581)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1372,7 +1373,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 780:
+/***/ 776:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1531,7 +1532,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(590)
+  var style0 = __webpack_require__(583)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1553,7 +1554,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 781:
+/***/ 777:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1806,7 +1807,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(592)
+  var style0 = __webpack_require__(585)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1828,26 +1829,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 845:
+/***/ 841:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_190e976a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(681);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_190e976a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_190e976a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_190e976a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_190e976a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c6d2dea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(676);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c6d2dea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c6d2dea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c6d2dea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c6d2dea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 846:
+/***/ 842:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".job-advertise-summary-container[data-v-190e976a]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-190e976a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-190e976a]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-190e976a]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-190e976a]{display:flex;gap:12px}.filter-section[data-v-190e976a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-190e976a]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-190e976a]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-190e976a]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-190e976a]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-190e976a]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:20px}.summary-card[data-v-190e976a]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-190e976a]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-jobs[data-v-190e976a]{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff}.summary-card.total-jobs .card-icon[data-v-190e976a]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.status-active[data-v-190e976a]{border-left:4px solid #10b981}.summary-card.status-inactive[data-v-190e976a]{border-left:4px solid #f59e0b}.summary-card.status-closed[data-v-190e976a]{border-left:4px solid #ef4444}.summary-card.country-stats[data-v-190e976a]{border-left:4px solid #3b82f6}.summary-card.benefits-stats[data-v-190e976a]{border-left:4px solid #8b5cf6}.card-icon[data-v-190e976a]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-190e976a]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.active[data-v-190e976a]{background:#d1fae5;color:#10b981}.card-icon.inactive[data-v-190e976a]{background:#fef3c7;color:#f59e0b}.card-icon.closed[data-v-190e976a]{background:#fee2e2;color:#ef4444}.card-icon.country[data-v-190e976a]{background:#dbeafe;color:#3b82f6}.card-icon.benefits[data-v-190e976a]{background:#ede9fe;color:#8b5cf6}.card-content[data-v-190e976a]{flex:1;min-width:0}.card-content h3[data-v-190e976a]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-190e976a]{font-size:14px;margin:0}.benefits-rate[data-v-190e976a],.country-info[data-v-190e976a]{display:block;font-size:12px;margin-top:4px;opacity:.8}.table-section[data-v-190e976a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-190e976a]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-190e976a]{color:#333;margin:0}.record-count[data-v-190e976a]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-190e976a]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-190e976a]{overflow-x:auto}.data-table[data-v-190e976a]{border-collapse:collapse;width:100%}.data-table td[data-v-190e976a],.data-table th[data-v-190e976a]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-190e976a]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-190e976a]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-190e976a]:hover{background-color:#e9ecef}.data-table th i[data-v-190e976a]{margin-left:8px;opacity:.5}.job-title strong[data-v-190e976a]{color:#333;display:block;font-size:14px;margin-bottom:4px}.job-description[data-v-190e976a]{color:#666;font-size:12px}.location-info .country[data-v-190e976a]{align-items:center;color:#495057;display:flex;font-weight:600;gap:4px;margin-bottom:2px}.location-info .province[data-v-190e976a]{margin-left:16px}.location-info .province[data-v-190e976a],.work-conditions[data-v-190e976a]{color:#666;font-size:12px}.work-conditions .rest-days[data-v-190e976a],.work-conditions .work-hours[data-v-190e976a]{align-items:center;display:flex;gap:4px;margin-bottom:2px}.work-conditions i[data-v-190e976a]{color:#999;width:12px}.requirements[data-v-190e976a]{display:flex;flex-wrap:wrap;gap:6px}.requirement-item[data-v-190e976a]{align-items:center;border-radius:50%;display:inline-flex;font-size:10px;height:20px;justify-content:center;width:20px}.requirement-item.passport[data-v-190e976a]{background-color:#dbeafe;color:#3b82f6}.requirement-item.eyesight[data-v-190e976a]{background-color:#fef3c7;color:#d97706}.requirement-item.language[data-v-190e976a]{background-color:#dcfce7;color:#16a34a}.requirement-item.no-tattoo[data-v-190e976a]{background-color:#fee2e2;color:#dc2626}.status-badge[data-v-190e976a]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 12px;text-transform:uppercase}.status-badge.active[data-v-190e976a]{background-color:#d1fae5;color:#065f46}.status-badge.inactive[data-v-190e976a]{background-color:#fef3c7;color:#d97706}.status-badge.closed[data-v-190e976a]{background-color:#fee2e2;color:#dc2626}.applicants-cell[data-v-190e976a]{color:#495057;font-weight:600}.applicant-count[data-v-190e976a]{align-items:center;display:flex;gap:4px}.max-count[data-v-190e976a]{color:#666;font-weight:400}.actions-cell[data-v-190e976a]{display:flex;flex-wrap:wrap;gap:4px}.pagination-container[data-v-190e976a]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-190e976a]{color:#666;font-size:14px}.pagination-controls[data-v-190e976a]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-190e976a]{color:#666;padding:6px 12px}.btn[data-v-190e976a]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-190e976a]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-190e976a]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-190e976a]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-190e976a]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-190e976a]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-190e976a]{background-color:transparent;border-color:#007bff;color:#007bff}.btn-outline-primary[data-v-190e976a]:hover{background-color:#007bff;color:#fff}.btn-outline-secondary[data-v-190e976a]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-190e976a]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-190e976a]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-190e976a]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-190e976a]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-190e976a]:hover{background-color:#28a745;color:#fff}.btn-outline-warning[data-v-190e976a]{background-color:transparent;border-color:#ffc107;color:#ffc107}.btn-outline-warning[data-v-190e976a]:hover{background-color:#ffc107;color:#212529}.btn-outline-danger[data-v-190e976a]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-190e976a]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-190e976a]{font-size:12px;padding:4px 8px}.form-control[data-v-190e976a]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-190e976a]:focus{border-color:#007bff;box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:none}.loading-overlay[data-v-190e976a]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-190e976a]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-190e976a]{color:#007bff;font-size:32px;margin-bottom:16px}@media (max-width:768px){.job-advertise-summary-container[data-v-190e976a]{padding:10px}.header-content[data-v-190e976a]{align-items:flex-start}.filter-row[data-v-190e976a],.header-content[data-v-190e976a]{flex-direction:column;gap:16px}.filter-group[data-v-190e976a]{min-width:auto;width:100%}.filter-actions[data-v-190e976a]{flex-direction:row;width:100%}.summary-cards[data-v-190e976a]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-190e976a]{padding:20px}.card-icon[data-v-190e976a]{height:50px;margin-right:16px;width:50px}.card-content h3[data-v-190e976a],.card-icon[data-v-190e976a]{font-size:20px}.pagination-container[data-v-190e976a],.table-header[data-v-190e976a]{align-items:flex-start;flex-direction:column;gap:16px}.pagination-controls[data-v-190e976a]{flex-wrap:wrap}.actions-cell[data-v-190e976a],.requirements[data-v-190e976a]{flex-direction:column;gap:4px}}@media (max-width:576px){.summary-card[data-v-190e976a]{flex-direction:column;text-align:center}.card-icon[data-v-190e976a]{margin:0 auto 16px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".job-advertise-summary-container[data-v-5c6d2dea]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-5c6d2dea]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-5c6d2dea]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-5c6d2dea]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-5c6d2dea]{display:flex;gap:12px}.filter-section[data-v-5c6d2dea]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-5c6d2dea]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-5c6d2dea]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-5c6d2dea]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-5c6d2dea]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-5c6d2dea]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:20px}.summary-card[data-v-5c6d2dea]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-5c6d2dea]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-jobs[data-v-5c6d2dea]{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff}.summary-card.total-jobs .card-icon[data-v-5c6d2dea]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.status-active[data-v-5c6d2dea]{border-left:4px solid #10b981}.summary-card.status-inactive[data-v-5c6d2dea]{border-left:4px solid #f59e0b}.summary-card.status-closed[data-v-5c6d2dea]{border-left:4px solid #ef4444}.summary-card.country-stats[data-v-5c6d2dea]{border-left:4px solid #3b82f6}.summary-card.benefits-stats[data-v-5c6d2dea]{border-left:4px solid #8b5cf6}.card-icon[data-v-5c6d2dea]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-5c6d2dea]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.active[data-v-5c6d2dea]{background:#d1fae5;color:#10b981}.card-icon.inactive[data-v-5c6d2dea]{background:#fef3c7;color:#f59e0b}.card-icon.closed[data-v-5c6d2dea]{background:#fee2e2;color:#ef4444}.card-icon.country[data-v-5c6d2dea]{background:#dbeafe;color:#3b82f6}.card-icon.benefits[data-v-5c6d2dea]{background:#ede9fe;color:#8b5cf6}.card-content[data-v-5c6d2dea]{flex:1;min-width:0}.card-content h3[data-v-5c6d2dea]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-5c6d2dea]{font-size:14px;margin:0}.benefits-rate[data-v-5c6d2dea],.country-info[data-v-5c6d2dea]{display:block;font-size:12px;margin-top:4px;opacity:.8}.table-section[data-v-5c6d2dea]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-5c6d2dea]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-5c6d2dea]{color:#333;margin:0}.record-count[data-v-5c6d2dea]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-5c6d2dea]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-5c6d2dea]{overflow-x:auto}.data-table[data-v-5c6d2dea]{border-collapse:collapse;width:100%}.data-table td[data-v-5c6d2dea],.data-table th[data-v-5c6d2dea]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-5c6d2dea]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-5c6d2dea]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-5c6d2dea]:hover{background-color:#e9ecef}.data-table th i[data-v-5c6d2dea]{margin-left:8px;opacity:.5}.job-title strong[data-v-5c6d2dea]{color:#333;display:block;font-size:14px;margin-bottom:4px}.job-description[data-v-5c6d2dea]{color:#666;font-size:12px}.location-info .country[data-v-5c6d2dea]{align-items:center;color:#495057;display:flex;font-weight:600;gap:4px;margin-bottom:2px}.location-info .province[data-v-5c6d2dea]{margin-left:16px}.location-info .province[data-v-5c6d2dea],.work-conditions[data-v-5c6d2dea]{color:#666;font-size:12px}.work-conditions .rest-days[data-v-5c6d2dea],.work-conditions .work-hours[data-v-5c6d2dea]{align-items:center;display:flex;gap:4px;margin-bottom:2px}.work-conditions i[data-v-5c6d2dea]{color:#999;width:12px}.requirements[data-v-5c6d2dea]{display:flex;flex-wrap:wrap;gap:6px}.requirement-item[data-v-5c6d2dea]{align-items:center;border-radius:50%;display:inline-flex;font-size:10px;height:20px;justify-content:center;width:20px}.requirement-item.passport[data-v-5c6d2dea]{background-color:#dbeafe;color:#3b82f6}.requirement-item.eyesight[data-v-5c6d2dea]{background-color:#fef3c7;color:#d97706}.requirement-item.language[data-v-5c6d2dea]{background-color:#dcfce7;color:#16a34a}.requirement-item.no-tattoo[data-v-5c6d2dea]{background-color:#fee2e2;color:#dc2626}.status-badge[data-v-5c6d2dea]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 12px;text-transform:uppercase}.status-badge.active[data-v-5c6d2dea]{background-color:#d1fae5;color:#065f46}.status-badge.inactive[data-v-5c6d2dea]{background-color:#fef3c7;color:#d97706}.status-badge.closed[data-v-5c6d2dea]{background-color:#fee2e2;color:#dc2626}.applicants-cell[data-v-5c6d2dea]{color:#495057;font-weight:600}.applicant-count[data-v-5c6d2dea]{align-items:center;display:flex;gap:4px}.max-count[data-v-5c6d2dea]{color:#666;font-weight:400}.actions-cell[data-v-5c6d2dea]{display:flex;flex-wrap:wrap;gap:4px}.pagination-container[data-v-5c6d2dea]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-5c6d2dea]{color:#666;font-size:14px}.pagination-controls[data-v-5c6d2dea]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-5c6d2dea]{color:#666;padding:6px 12px}.btn[data-v-5c6d2dea]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-5c6d2dea]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-5c6d2dea]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-5c6d2dea]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-5c6d2dea]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-5c6d2dea]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-5c6d2dea]{background-color:transparent;border-color:#007bff;color:#007bff}.btn-outline-primary[data-v-5c6d2dea]:hover{background-color:#007bff;color:#fff}.btn-outline-secondary[data-v-5c6d2dea]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-5c6d2dea]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-5c6d2dea]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-5c6d2dea]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-5c6d2dea]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-5c6d2dea]:hover{background-color:#28a745;color:#fff}.btn-outline-warning[data-v-5c6d2dea]{background-color:transparent;border-color:#ffc107;color:#ffc107}.btn-outline-warning[data-v-5c6d2dea]:hover{background-color:#ffc107;color:#212529}.btn-outline-danger[data-v-5c6d2dea]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-5c6d2dea]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-5c6d2dea]{font-size:12px;padding:4px 8px}.form-control[data-v-5c6d2dea]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-5c6d2dea]:focus{border-color:#007bff;box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:none}.loading-overlay[data-v-5c6d2dea]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-5c6d2dea]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-5c6d2dea]{color:#007bff;font-size:32px;margin-bottom:16px}@media (max-width:768px){.job-advertise-summary-container[data-v-5c6d2dea]{padding:10px}.header-content[data-v-5c6d2dea]{align-items:flex-start}.filter-row[data-v-5c6d2dea],.header-content[data-v-5c6d2dea]{flex-direction:column;gap:16px}.filter-group[data-v-5c6d2dea]{min-width:auto;width:100%}.filter-actions[data-v-5c6d2dea]{flex-direction:row;width:100%}.summary-cards[data-v-5c6d2dea]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-5c6d2dea]{padding:20px}.card-icon[data-v-5c6d2dea]{height:50px;margin-right:16px;width:50px}.card-content h3[data-v-5c6d2dea],.card-icon[data-v-5c6d2dea]{font-size:20px}.pagination-container[data-v-5c6d2dea],.table-header[data-v-5c6d2dea]{align-items:flex-start;flex-direction:column;gap:16px}.pagination-controls[data-v-5c6d2dea]{flex-wrap:wrap}.actions-cell[data-v-5c6d2dea],.requirements[data-v-5c6d2dea]{flex-direction:column;gap:4px}}@media (max-width:576px){.summary-card[data-v-5c6d2dea]{flex-direction:column;text-align:center}.card-icon[data-v-5c6d2dea]{margin:0 auto 16px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

@@ -399,7 +399,7 @@ export default {
     // 🆕 NEW: Register Settlement Dialog
     SettlementDialog,
   },
-
+  middleware: 'auths',
   data() {
     return {
       statusFilter: '',

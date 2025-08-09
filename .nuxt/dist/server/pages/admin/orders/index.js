@@ -1,7 +1,7 @@
 exports.ids = [170,78,80,116];
 exports.modules = {
 
-/***/ 1059:
+/***/ 1055:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24,7 +24,7 @@ var VChip = __webpack_require__(124);
 var VCol = __webpack_require__(379);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(387);
+var VDataTable = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
 var VDatePicker = __webpack_require__(426);
@@ -53,7 +53,7 @@ var VSpacer = __webpack_require__(377);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/orders/index.vue?vue&type=template&id=6b66a696&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/orders/index.vue?vue&type=template&id=9d6d785a&
 
 
 
@@ -71,7 +71,7 @@ var VTextField = __webpack_require__(37);
 
 
 
-var ordersvue_type_template_id_6b66a696_render = function render() {
+var ordersvue_type_template_id_9d6d785a_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -476,13 +476,13 @@ var ordersvue_type_template_id_6b66a696_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/orders/index.vue?vue&type=template&id=6b66a696&
+// CONCATENATED MODULE: ./pages/admin/orders/index.vue?vue&type=template&id=9d6d785a&
 
 // EXTERNAL MODULE: ./components/OrderForm.vue + 4 modules
-var OrderForm = __webpack_require__(462);
+var OrderForm = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./components/OrderStatusForm.vue + 4 modules
-var OrderStatusForm = __webpack_require__(463);
+var OrderStatusForm = __webpack_require__(457);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(12);
@@ -500,6 +500,7 @@ var common = __webpack_require__(11);
     OrderForm: OrderForm["default"],
     OrderStatusForm: OrderStatusForm["default"]
   },
+  middleware: 'auths',
   data() {
     return {
       localLanguage: '',
@@ -818,7 +819,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersvue_type_script_lang_js_,
-  ordersvue_type_template_id_6b66a696_render,
+  ordersvue_type_template_id_9d6d785a_render,
   staticRenderFns,
   false,
   null,
@@ -830,12 +831,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var orders = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {OrderForm: __webpack_require__(462).default,OrderStatusForm: __webpack_require__(463).default,YoutubePlayer: __webpack_require__(411).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {OrderForm: __webpack_require__(456).default,OrderStatusForm: __webpack_require__(457).default,YoutubePlayer: __webpack_require__(397).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
 
-/***/ 389:
+/***/ 385:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -853,6 +854,35 @@ installComponents(component, {OrderForm: __webpack_require__(462).default,OrderS
     }
   }
 }));
+
+/***/ }),
+
+/***/ 389:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(390);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("7b5d4dc6", content, true)
+
+/***/ }),
+
+/***/ 390:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-input--checkbox.v-input--indeterminate.v-input--is-disabled{opacity:.6}.v-input--checkbox.v-input--dense{margin-top:4px}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
 
 /***/ }),
 
@@ -909,36 +939,7 @@ function isLeapYear(year) {
 
 /***/ }),
 
-/***/ 394:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(395);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("7b5d4dc6", content, true)
-
-/***/ }),
-
-/***/ 395:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-input--checkbox.v-input--indeterminate.v-input--is-disabled{opacity:.6}.v-input--checkbox.v-input--dense{margin-top:4px}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 396:
+/***/ 392:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1395,6 +1396,102 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
+/***/ 397:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(120);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(377);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e&
+
+
+
+
+
+
+var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c('youtube', {
+    attrs: {
+      "video-id": _vm.youtubeLink
+    }
+  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "warning",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e&
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(11);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js&
+
+/* harmony default export */ var YoutubePlayervue_type_script_lang_js_ = ({
+  props: {
+    youtubeLink: {
+      type: String,
+      require: true
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js_ = (YoutubePlayervue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_YoutubePlayervue_type_script_lang_js_,
+  YoutubePlayervue_type_template_id_ba62a84e_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "9fefcabe"
+  
+)
+
+/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ 400:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1540,107 +1637,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 411:
+/***/ 414:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(120);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(377);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e&
-
-
-
-
-
-
-var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('youtube', {
-    attrs: {
-      "video-id": _vm.youtubeLink
-    }
-  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "warning",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e&
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(11);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js&
-
-/* harmony default export */ var YoutubePlayervue_type_script_lang_js_ = ({
-  props: {
-    youtubeLink: {
-      type: String,
-      require: true
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js_ = (YoutubePlayervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_YoutubePlayervue_type_script_lang_js_,
-  YoutubePlayervue_type_template_id_ba62a84e_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "9fefcabe"
-  
-)
-
-/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 418:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(394);
+/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(389);
 /* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(164);
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__);
@@ -1883,7 +1884,7 @@ var VDatePickerHeader = __webpack_require__(404);
 var VBtn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(389);
+var localable = __webpack_require__(385);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
 var themeable = __webpack_require__(7);
@@ -2736,7 +2737,7 @@ var elevatable = __webpack_require__(75);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var timestamp = __webpack_require__(396);
+var timestamp = __webpack_require__(392);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
 var console = __webpack_require__(3);
@@ -3218,7 +3219,7 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 462:
+/***/ 456:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3238,7 +3239,7 @@ var VCard = __webpack_require__(120);
 var components_VCard = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(418);
+var VCheckbox = __webpack_require__(414);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(124);
@@ -3675,7 +3676,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(11);
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(357);
+var external_lodash_ = __webpack_require__(356);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(12);
@@ -4014,7 +4015,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 463:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4372,7 +4373,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(11);
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(357);
+var external_lodash_ = __webpack_require__(356);
 
 // EXTERNAL MODULE: ./common/api.js
 var common_api = __webpack_require__(32);

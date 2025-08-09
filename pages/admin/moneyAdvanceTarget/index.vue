@@ -362,7 +362,7 @@ export default {
   components: {
     RevenueTargetDialog,
   },
-
+  middleware: 'auths',
   data() {
     return {
       currencies: [],

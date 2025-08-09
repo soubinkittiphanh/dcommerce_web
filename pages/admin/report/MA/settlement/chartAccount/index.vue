@@ -4,17 +4,21 @@
     <div class="report-header">
       <div class="title-section">
         <h1 class="page-title">
-          <i class="fas fa-chart-line"></i>
-          ລາຍງານຊຳລະຕາມບັນຊີຜັງບັນຊີ
+          <i class="fas fa-chart-pie"></i>
+          ລາຍງານຊຳລະຕາມບັນຊີຄ່າໃຊ້ຈ່າຍ
         </h1>
         <p class="page-subtitle">Chart Account Settlement Report</p>
       </div>
       <div class="action-buttons">
-        <v-btn color="success" @click="exportToExcel" :loading="exporting">
+        <v-btn
+          class="custom-btn export-btn"
+          @click="exportToExcel"
+          :loading="exporting"
+        >
           <i class="fas fa-file-excel"></i>
           Export Excel
         </v-btn>
-        <v-btn color="primary" @click="printReport">
+        <v-btn class="custom-btn print-btn" @click="printReport">
           <i class="fas fa-print"></i>
           Print
         </v-btn>
@@ -23,113 +27,109 @@
 
     <!-- Enhanced Filters Card -->
     <v-card class="filter-card mb-4" elevation="2">
-      <v-card-title class="filter-title">
-        <i class="fas fa-filter"></i>
-        ຕົວກອງ (Filters & Controls)
+      <v-card-title class="filter-title d-flex align-center">
+        <v-icon class="mr-2">mdi-filter</v-icon>
+        ຕົວກອງ (Filters)
       </v-card-title>
-      <v-card-text>
+
+      <v-card-text class="pa-4">
         <v-row>
-          <v-col cols="12" md="2">
-            <v-menu
-              v-model="startDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="filters.startDate"
-                  label="ວັນທີເລີ່ມຕົ້ນ (Start Date)"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="filters.startDate"
-                @input="startDateMenu = false"
-              ></v-date-picker>
-            </v-menu>
+          <!-- Start Date -->
+          <v-col cols="12" md="3">
+            <v-text-field
+              v-model="filters.startDate"
+              type="date"
+              label="ວັນທີເລີ່ມຕົ້ນ (From Date)"
+              outlined
+              dense
+              @change="loadDashboardData"
+            ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="2">
-            <v-menu
-              v-model="endDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="filters.endDate"
-                  label="ວັນທີສິ້ນສຸດ (End Date)"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="filters.endDate"
-                @input="endDateMenu = false"
-              ></v-date-picker>
-            </v-menu>
+          <!-- End Date -->
+          <v-col cols="12" md="3">
+            <v-text-field
+              v-model="filters.endDate"
+              type="date"
+              label="ວັນທີສິ້ນສຸດ (To Date)"
+              outlined
+              dense
+              @change="loadDashboardData"
+            ></v-text-field>
           </v-col>
 
-          <v-col cols="12" md="2">
+          <!-- Chart Account -->
+          <v-col cols="12" md="4">
             <v-select
-              v-model="filters.limit"
-              :items="limitOptions"
-              item-text="text"
-              item-value="value"
-              label="ຈຳນວນບັນຊີ (Top Accounts)"
-              prepend-icon="mdi-format-list-numbered"
-            ></v-select>
-          </v-col>
-
-          <v-col cols="12" md="2">
-            <v-select
-              v-model="filters.currencyId"
-              :items="currencyOptions"
-              item-text="text"
-              item-value="value"
-              label="ສະກຸນເງິນ (Currency)"
-              prepend-icon="mdi-currency-usd"
+              v-model="filters.chartAccountId"
+              :items="chartAccounts"
+              item-text="name"
+              item-value="id"
+              label="ບັນຊີຄ່າໃຊ້ຈ່າຍ (Chart Account)"
               clearable
-            ></v-select>
+              outlined
+              dense
+              @change="loadDashboardData"
+            >
+              <template v-slot:selection="{ item }">
+                <div class="chart-account-selection">
+                  <span class="account-name">{{ item.accountName }}</span>
+                  <small
+                    >{{ item.accountNumber }} - {{ item.accountType }}</small
+                  >
+                </div>
+              </template>
+              <template v-slot:item="{ item }">
+                <div class="chart-account-item">
+                  <div class="account-name">{{ item.accountName }}</div>
+                  <div class="account-details">
+                    Code: {{ item.accountNumber }} | Type:
+                    {{ item.accountType }}
+                  </div>
+                </div>
+              </template>
+            </v-select>
           </v-col>
 
+          <!-- Settlement Method -->
           <v-col cols="12" md="2">
             <v-select
-              v-model="viewMode"
-              :items="viewModeOptions"
-              item-text="text"
-              item-value="value"
-              label="ຮູບແບບການສະແດງ (View Mode)"
-              prepend-icon="mdi-view-dashboard"
+              v-model="filters.method"
+              :items="settlementMethods"
+              label="ວິທີການຊຳລະ (Method)"
+              clearable
+              outlined
+              dense
+              @change="loadDashboardData"
             ></v-select>
-          </v-col>
-
-          <v-col cols="12" md="2">
-            <v-btn
-              color="primary"
-              @click="loadChartAccountData"
-              :loading="loading"
-              block
-            >
-              <i class="fas fa-search"></i>
-              ຄົ້ນຫາ
-            </v-btn>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12" md="2">
-            <v-btn color="secondary" @click="resetFilters" block>
-              <i class="fas fa-undo"></i>
-              ຣີເຊັດ
+
+        <!-- Buttons Row -->
+        <v-row class="mt-2">
+          <v-col cols="12" md="3">
+            <v-btn
+              class="custom-primary-bg white--text"
+              block
+              outlined
+              @click="loadDashboardData"
+              :loading="loading"
+            >
+              <v-icon left color="white">mdi-refresh</v-icon>
+              Refresh
+            </v-btn>
+          </v-col>
+
+          <v-col cols="12" md="3">
+            <v-btn
+              class="custom-secondary-btn"
+              block
+              outlined
+              @click="resetFilters"
+              color="grey lighten-1"
+            >
+              <v-icon left>mdi-restore</v-icon>
+              Reset
             </v-btn>
           </v-col>
         </v-row>
@@ -139,17 +139,17 @@
     <!-- Enhanced Summary Cards -->
     <v-row class="summary-cards mb-4" v-if="!loading">
       <v-col cols="12" md="3">
-        <v-card class="summary-card accounts-card" elevation="3">
+        <v-card class="summary-card total-accounts-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
-                <i class="fas fa-chart-line"></i>
+                <i class="fas fa-chart-pie"></i>
               </div>
               <div class="summary-details">
-                <h3 class="summary-title">ບັນຊີຜັງບັນຊີທີ່ໃຊ້ງານ</h3>
-                <p class="summary-subtitle">Active Chart Accounts</p>
-                <h2 class="summary-amount">{{ topChartAccounts.length }}</h2>
-                <p class="summary-lcy">Chart Accounts</p>
+                <h3 class="summary-title">ທັງໝົດບັນຊີ</h3>
+                <p class="summary-subtitle">Total Chart Accounts</p>
+                <h2 class="summary-amount">{{ chartAccountStats.length }}</h2>
+                <p class="summary-lcy">Active Chart Accounts</p>
               </div>
             </div>
           </v-card-text>
@@ -157,19 +157,17 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card amount-card" elevation="3">
+        <v-card class="summary-card settlement-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
-                <i class="fas fa-dollar-sign"></i>
+                <i class="fas fa-money-bill-wave"></i>
               </div>
               <div class="summary-details">
-                <h3 class="summary-title">ລວມຈຳນວນເງິນ</h3>
-                <p class="summary-subtitle">Total Settlement Amount</p>
-                <h2 class="summary-amount">
-                  ${{ formatCurrency(totalAmount) }}
-                </h2>
-                <p class="summary-lcy">USD Amount</p>
+                <h3 class="summary-title">ຈຳນວນການຊຳລະ</h3>
+                <p class="summary-subtitle">Total Settlements</p>
+                <h2 class="summary-amount">{{ totalSettlementsCount }}</h2>
+                <p class="summary-lcy">Settlement Count</p>
               </div>
             </div>
           </v-card-text>
@@ -177,7 +175,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card settlement-card" elevation="3">
+        <v-card class="summary-card amount-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
@@ -195,7 +193,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <v-card class="summary-card lak-card" elevation="3">
+        <v-card class="summary-card lak-card" elevation="4">
           <v-card-text>
             <div class="summary-content">
               <div class="summary-icon">
@@ -222,7 +220,7 @@
     >
       <v-col cols="12">
         <v-card elevation="2">
-          <v-card-title>
+          <v-card-title class="currency-title">
             <i class="fas fa-coins"></i>
             ການແຈກຢາຍຕາມສະກຸນເງິນ (Currency Breakdown)
           </v-card-title>
@@ -283,7 +281,7 @@
     <div v-if="loading" class="text-center py-8">
       <v-progress-circular
         indeterminate
-        color="primary"
+        color="#01532B"
         size="64"
       ></v-progress-circular>
       <p class="mt-4 text-gray-600">
@@ -291,247 +289,240 @@
       </p>
     </div>
 
-    <!-- Chart View -->
-    <v-card
-      class="chart-card mb-4"
-      elevation="2"
-      v-if="viewMode === 'chart' && !loading && topChartAccounts.length > 0"
-    >
-      <v-card-title>
-        <i class="fas fa-chart-bar"></i>
-        ກາຟສະຫຼຸບຕາມບັນຊີຜັງບັນຊີ (Chart Account Settlement Distribution)
-      </v-card-title>
-      <v-card-text>
-        <div class="chart-container">
-          <canvas ref="chartAccountChart" width="400" height="200"></canvas>
-        </div>
-      </v-card-text>
-    </v-card>
-
-    <!-- Table View -->
-    <v-card
-      class="table-card mb-4"
-      elevation="2"
-      v-if="viewMode === 'table' && !loading"
-    >
-      <v-card-title class="table-title">
-        <i class="fas fa-table"></i>
-        ຕາຕະລາງບັນຊີຜັງບັນຊີ (Chart Accounts Table View)
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="ຄົ້ນຫາບັນຊີ..."
-          single-line
-          hide-details
-          class="search-field"
-        ></v-text-field>
-      </v-card-title>
-
-      <v-data-table
-        :headers="tableHeaders"
-        :items="filteredChartAccounts"
-        :search="search"
-        :loading="loading"
-        class="chart-account-table"
-        :items-per-page="15"
-        :footer-props="{
-          itemsPerPageOptions: [10, 15, 25, 50],
-          itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
-        }"
-      >
-        <template v-slot:item.rank="{ item, index }">
-          <v-chip :color="getChartColor(index)" text-color="white" small>
-            {{ index + 1 }}
-          </v-chip>
-        </template>
-
-        <template v-slot:item.accountCode="{ item }">
-          <div class="account-code-cell">
-            <span class="account-code">{{
-              item.chartAccount.accountCode
-            }}</span>
-          </div>
-        </template>
-
-        <template v-slot:item.accountName="{ item }">
-          <div class="account-name-cell">
-            <span class="account-name">{{
-              item.chartAccount.accountName
-            }}</span>
-          </div>
-        </template>
-
-        <template v-slot:item.totalAmount="{ item }">
-          <span class="amount-cell total-amount">
-            ${{ formatCurrency(item.totalAmount) }}
-          </span>
-        </template>
-
-        <template v-slot:item.settlementCount="{ item }">
-          <v-chip color="blue" text-color="white" small>
-            {{ item.settlementCount }}
-          </v-chip>
-        </template>
-
-        <template v-slot:item.averageAmount="{ item }">
-          <span class="amount-cell average-amount">
-            ${{ formatCurrency(item.totalAmount / item.settlementCount) }}
-          </span>
-        </template>
-
-        <template v-slot:item.actions="{ item }">
-          <v-btn
-            small
-            color="primary"
-            @click="selectChartAccount(item.chartAccountId, item.chartAccount)"
+    <!-- Chart Account Report -->
+    <v-row class="mb-4">
+      <v-col cols="12">
+        <v-card elevation="2" class="rounded-xl report-card">
+          <v-card-title
+            class="accounting-primary--text py-2 px-4 d-flex align-center report-header"
           >
-            <i class="fas fa-eye"></i>
-            ລາຍລະອຽດ
-          </v-btn>
-        </template>
-      </v-data-table>
-    </v-card>
+            <v-icon color="#01532B" class="mr-2">mdi-chart-pie</v-icon>
+            <span class="text-subtitle-1 font-weight-medium">
+              ລາຍງານ ຕາມບັນຊີຄ່າໃຊ້ຈ່າຍ
+            </span>
+            <v-spacer></v-spacer>
 
-    <!-- Enhanced Card View (Default) -->
-    <v-card
-      class="cards-container"
-      elevation="2"
-      v-if="viewMode === 'cards' && !loading"
-    >
-      <v-card-title class="cards-title">
-        <i class="fas fa-th-large"></i>
-        ບັນຊີຜັງບັນຊີທີ່ນິຍົມໃຊ້ (Popular Chart Accounts)
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="ຄົ້ນຫາບັນຊີ..."
-          single-line
-          hide-details
-          class="search-field"
-        ></v-text-field>
-      </v-card-title>
+            <!-- Search Field -->
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="ຄົ້ນຫາບັນຊີ..."
+              single-line
+              hide-details
+              class="search-field mr-4"
+              outlined
+              dense
+              style="max-width: 250px"
+            ></v-text-field>
 
-      <v-card-text v-if="topChartAccounts.length > 0">
-        <v-row>
-          <v-col
-            v-for="(account, index) in filteredChartAccounts"
-            :key="account.chartAccountId"
-            cols="12"
-            md="6"
-            lg="4"
-          >
-            <v-card
-              class="chart-account-card"
-              elevation="2"
-              @click="
-                selectChartAccount(account.chartAccountId, account.chartAccount)
-              "
-              :class="{
-                selected: selectedChartAccount?.id == account.chartAccountId,
-              }"
+            <!-- Export Button -->
+            <v-btn
+              color="#059669"
+              small
+              outlined
+              class="mr-2"
+              @click="exportToExcel"
+              :disabled="!filteredChartAccounts.length"
+              :loading="exporting"
             >
-              <v-card-text>
-                <div class="account-header">
-                  <div class="account-info">
-                    <div class="rank-badge">
-                      <v-chip
-                        :color="getChartColor(index)"
-                        text-color="white"
-                        small
-                      >
-                        #{{ index + 1 }}
-                      </v-chip>
-                    </div>
-                    <h3 class="account-code">
-                      {{ account.chartAccount.accountCode }}
-                    </h3>
-                    <p class="account-name">
-                      {{ account.chartAccount.accountName }}
-                    </p>
-                  </div>
-                  <div class="account-icon">
-                    <i class="fas fa-chart-line"></i>
-                  </div>
-                </div>
+              <v-icon small left>mdi-file-excel</v-icon>
+              Export Excel
+            </v-btn>
+            <v-btn
+              icon
+              small
+              @click="loadDashboardData"
+              :loading="loading"
+              color="#01532B"
+            >
+              <v-icon small>mdi-refresh</v-icon>
+            </v-btn>
+          </v-card-title>
 
-                <v-divider class="my-3"></v-divider>
+          <v-divider class="accounting-divider"></v-divider>
 
-                <div class="account-stats">
-                  <div class="stat-item">
-                    <span class="stat-label">ລວມຈຳນວນເງິນ:</span>
-                    <span class="stat-value amount-value">
-                      ${{ formatCurrency(account.totalAmount) }}
-                    </span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-label">ຈຳນວນການຊຳລະ:</span>
-                    <span class="stat-value count-value">
-                      {{ account.settlementCount }}
-                    </span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-label">ຄ່າສະເລ່ຍ:</span>
-                    <span class="stat-value average-value">
-                      ${{
-                        formatCurrency(
-                          account.totalAmount / account.settlementCount
-                        )
-                      }}
-                    </span>
-                  </div>
-                </div>
+          <v-card-text class="pa-0">
+            <div v-if="loading" class="text-center py-6">
+              <v-progress-circular indeterminate color="#01532B" />
+              <div class="mt-2 text-caption">
+                Loading chart account report...
+              </div>
+            </div>
 
-                <div class="progress-section mt-3">
-                  <div class="progress-label">Settlement Volume</div>
-                  <v-progress-linear
-                    :value="(account.totalAmount / maxAmount) * 100"
-                    :color="getChartColor(index)"
-                    height="8"
-                    rounded
-                  ></v-progress-linear>
-                </div>
+            <div v-else-if="!chartAccountStats.length" class="text-center py-6">
+              <v-icon size="48" color="grey lighten-2"
+                >mdi-information-outline</v-icon
+              >
+              <div class="mt-2 text-subtitle-2 grey--text">
+                No chart account data available
+              </div>
+            </div>
 
-                <div class="card-actions mt-3">
-                  <v-btn
-                    small
-                    :color="getChartColor(index)"
-                    block
-                    text-color="white"
+            <v-simple-table v-else dense class="accounting-table">
+              <template v-slot:default>
+                <thead>
+                  <tr class="accounting-table-header">
+                    <th class="white--text text-caption font-weight-bold">#</th>
+                    <th class="white--text text-caption font-weight-bold">
+                      Account Code
+                    </th>
+                    <th class="white--text text-caption font-weight-bold">
+                      Account Name
+                    </th>
+                    <th class="white--text text-caption font-weight-bold">
+                      Account Type
+                    </th>
+                    <th class="white--text text-caption font-weight-bold">
+                      Category
+                    </th>
+                    <th
+                      class="white--text text-caption font-weight-bold text-right"
+                    >
+                      Count
+                    </th>
+                    <th
+                      v-for="currency in currencyList"
+                      :key="'head-' + currency.code"
+                      class="white--text text-caption font-weight-bold text-right"
+                    >
+                      {{ currency.code }}
+                    </th>
+                    <th
+                      class="white--text text-caption font-weight-bold text-right"
+                    >
+                      Total (LAK)
+                    </th>
+                    <th
+                      class="white--text text-caption font-weight-bold text-center"
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr
+                    v-for="(item, index) in filteredChartAccounts"
+                    :key="item.chartAccountId"
+                    :class="{
+                      'accounting-row-even': index % 2 === 0,
+                      'accounting-row-special':
+                        item.chartAccountId === 'NO_CHART_ACCOUNT',
+                    }"
                   >
-                    <i class="fas fa-eye"></i>
-                    ເບິ່ງລາຍລະອຽດ
-                  </v-btn>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-card-text>
+                    <td class="text-caption text-center">{{ index + 1 }}</td>
+                    <td
+                      class="text-body-2 font-weight-medium"
+                      :class="{
+                        'grey--text':
+                          item.chartAccountId === 'NO_CHART_ACCOUNT',
+                      }"
+                    >
+                      {{ item.chartAccount?.accountNumber || 'N/A' }}
+                    </td>
+                    <td
+                      class="text-body-2"
+                      :class="{
+                        'grey--text font-italic':
+                          item.chartAccountId === 'NO_CHART_ACCOUNT',
+                      }"
+                    >
+                      {{ item.chartAccount?.accountName || 'Unknown Account' }}
+                    </td>
+                    <td class="text-body-2">
+                      <v-chip
+                        x-small
+                        :color="
+                          getAccountTypeColor(item.chartAccount?.accountType)
+                        "
+                        text-color="white"
+                      >
+                        {{ item.chartAccount?.accountType || 'N/A' }}
+                      </v-chip>
+                    </td>
+                    <td
+                      class="text-body-2"
+                      :class="{
+                        'grey--text font-italic':
+                          item.chartAccountId === 'NO_CHART_ACCOUNT',
+                      }"
+                    >
+                      {{ item.chartAccount?.category || 'N/A' }}
+                    </td>
+                    <td class="text-body-2 text-right">
+                      <v-chip x-small color="#228B22" text-color="white">
+                        {{ item.count }}
+                      </v-chip>
+                    </td>
+                    <td
+                      v-for="currency in currencyList"
+                      :key="'amt-' + currency.code"
+                      class="text-body-2 text-right"
+                    >
+                      {{ formatCurrency(item.amounts?.[currency.code] || 0) }}
+                    </td>
+                    <td
+                      class="text-right font-weight-bold accounting-success--text"
+                    >
+                      {{ formatCurrency(item.totalLak || 0, 'LAK') }}
+                    </td>
+                    <td class="text-center">
+                      <v-btn
+                        x-small
+                        color="#01532B"
+                        @click="selectChartAccount(item.chartAccountId)"
+                        class="white--text"
+                      >
+                        <v-icon x-small>mdi-eye</v-icon>
+                        ເບິ່ງ
+                      </v-btn>
+                    </td>
+                  </tr>
 
-      <!-- No Data State -->
-      <v-card-text v-else>
-        <div class="no-data-state">
-          <div class="no-data-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3 class="no-data-title">ບໍ່ມີຂໍ້ມູນບັນຊີຜັງບັນຊີ</h3>
-          <p class="no-data-subtitle">
-            No chart account settlement data found for the selected period.
-          </p>
-        </div>
-      </v-card-text>
-    </v-card>
+                  <!-- Totals -->
+                  <tr class="accounting-table-footer">
+                    <td colspan="5" class="font-weight-bold text-caption">
+                      ລວມ (Total)
+                    </td>
+                    <td class="text-right font-weight-bold text-body-2">
+                      <v-chip x-small color="#01532B" text-color="white">
+                        {{ totalSettlementsCount }}
+                      </v-chip>
+                    </td>
+                    <td
+                      v-for="currency in currencyList"
+                      :key="'sum-' + currency.code"
+                      class="text-right font-weight-bold text-body-2"
+                    >
+                      {{ formatCurrency(getCurrencyTotal(currency.code)) }}
+                    </td>
+                    <td
+                      class="text-right font-weight-bold text-body-2 accounting-primary--text"
+                    >
+                      {{ formatCurrency(totalLakAmount, 'LAK') }}
+                    </td>
+                    <td class="text-center">
+                      <v-chip x-small color="grey"
+                        >{{ filteredChartAccounts.length }} accounts</v-chip
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
 
-    <!-- Enhanced Chart Account Details Dialog -->
-    <v-dialog v-model="settlementDialog" max-width="1400px" scrollable>
+    <!-- Enhanced Settlement Details Dialog -->
+    <v-dialog v-model="settlementDialog" max-width="1200px" scrollable>
       <v-card v-if="selectedChartAccount">
         <v-card-title class="dialog-header">
-          <i class="fas fa-chart-line"></i>
-          ລາຍລະອຽດການຊຳລະ - {{ selectedChartAccount.accountCode }}
+          <i class="fas fa-chart-pie"></i>
+          ລາຍລະອຽດການຊຳລະ - {{ selectedChartAccount.name }}
           <v-spacer></v-spacer>
-          <v-btn icon @click="closeDialog">
+          <v-btn icon @click="closeDialog" class="close-btn">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -541,24 +532,11 @@
           <v-row class="summary-section mb-4">
             <v-col cols="12">
               <h3 class="section-title">
-                ສະຫຼຸບບັນຊີຜັງບັນຊີ (Chart Account Summary)
+                ສະຫຼຸບບັນຊີຄ່າໃຊ້ຈ່າຍ (Chart Account Summary)
               </h3>
-              <v-divider class="mb-3"></v-divider>
+              <v-divider class="custom-divider mb-3"></v-divider>
             </v-col>
-            <v-col cols="6" md="2">
-              <div class="detail-stat">
-                <div class="stat-icon">
-                  <i class="fas fa-code"></i>
-                </div>
-                <div class="stat-info">
-                  <strong>ລະຫັດບັນຊີ:</strong>
-                  <p class="stat-number">
-                    {{ selectedChartAccount.accountCode }}
-                  </p>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="6" md="2">
+            <v-col cols="6" md="3">
               <div class="detail-stat">
                 <div class="stat-icon">
                   <i class="fas fa-list-ol"></i>
@@ -571,7 +549,7 @@
                 </div>
               </div>
             </v-col>
-            <v-col cols="6" md="2">
+            <v-col cols="6" md="3">
               <div class="detail-stat">
                 <div class="stat-icon">
                   <i class="fas fa-dollar-sign"></i>
@@ -584,7 +562,7 @@
                 </div>
               </div>
             </v-col>
-            <v-col cols="6" md="2">
+            <v-col cols="6" md="3">
               <div class="detail-stat">
                 <div class="stat-icon">
                   <i class="fas fa-calculator"></i>
@@ -602,25 +580,16 @@
                 </div>
               </div>
             </v-col>
-            <v-col cols="6" md="2">
+            <v-col cols="6" md="3">
               <div class="detail-stat">
                 <div class="stat-icon">
-                  <i class="fas fa-credit-card"></i>
+                  <i class="fas fa-chart-pie"></i>
                 </div>
                 <div class="stat-info">
-                  <strong>ວິທີການນິຍົມ:</strong>
-                  <p class="stat-number">{{ getMostUsedMethod() }}</p>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="6" md="2">
-              <div class="detail-stat">
-                <div class="stat-icon">
-                  <i class="fas fa-percentage"></i>
-                </div>
-                <div class="stat-info">
-                  <strong>ມີເງິນກ່ອນ:</strong>
-                  <p class="stat-number">{{ getAdvancePercentage() }}%</p>
+                  <strong>ລະຫັດບັນຊີ:</strong>
+                  <p class="stat-number">
+                    {{ selectedChartAccount.code }}
+                  </p>
                 </div>
               </div>
             </v-col>
@@ -633,9 +602,9 @@
           >
             <v-col cols="12">
               <h3 class="section-title">
-                ການແຈກຢາຍຕາມວິທີການຊຳລະ (Settlement Method Distribution)
+                ການແຈກຢາຍຕາມວິທີການ (Method Distribution)
               </h3>
-              <v-divider class="mb-3"></v-divider>
+              <v-divider class="custom-divider mb-3"></v-divider>
             </v-col>
             <v-col
               v-for="method in methodDistribution"
@@ -658,48 +627,7 @@
                   <div class="method-amount">
                     ${{ formatCurrency(method.total) }}
                   </div>
-                  <div class="method-percentage">
-                    {{
-                      Math.round(
-                        (method.count / settlementSummary.settlementCount) * 100
-                      )
-                    }}% ຂອງທັງໝົດ
-                  </div>
                 </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Method Filter Buttons -->
-          <v-row class="method-filters mb-4">
-            <v-col cols="12">
-              <h3 class="section-title">ກອງຕາມວິທີການ (Filter by Method)</h3>
-              <v-divider class="mb-3"></v-divider>
-              <div class="filter-buttons">
-                <v-btn
-                  :outlined="selectedMethodFilter !== ''"
-                  :color="selectedMethodFilter === '' ? 'primary' : 'grey'"
-                  @click="filterByMethod('')"
-                  class="mr-2 mb-2"
-                  small
-                >
-                  ທັງໝົດ (All Methods)
-                </v-btn>
-                <v-btn
-                  v-for="method in availableMethods"
-                  :key="method"
-                  :outlined="selectedMethodFilter !== method"
-                  :color="
-                    selectedMethodFilter === method
-                      ? getMethodColor(method)
-                      : 'grey'
-                  "
-                  @click="filterByMethod(method)"
-                  class="mr-2 mb-2"
-                  small
-                >
-                  {{ formatMethod(method) }}
-                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -710,11 +638,11 @@
               <h3 class="section-title">
                 ລາຍການການຊຳລະ (Settlement Transactions)
               </h3>
-              <v-divider class="mb-3"></v-divider>
+              <v-divider class="custom-divider mb-3"></v-divider>
 
               <v-data-table
                 :headers="settlementHeaders"
-                :items="filteredSettlements"
+                :items="selectedSettlements"
                 :loading="loadingDetails"
                 class="settlement-table"
                 :items-per-page="10"
@@ -785,17 +713,9 @@
                   </div>
                 </template>
 
-                <template v-slot:item.ministry="{ item }">
-                  <div v-if="item.ministry" class="ministry-info">
-                    <span class="ministry-name">{{ item.ministry.name }}</span>
-                    <div class="ministry-code">{{ item.ministry.code }}</div>
-                  </div>
-                  <span v-else class="no-ministry">N/A</span>
-                </template>
-
                 <template v-slot:item.moneyAdvance="{ item }">
                   <div v-if="item.moneyAdvance" class="advance-info">
-                    <v-chip color="blue" text-color="white" small>
+                    <v-chip color="#01532B" text-color="white" small>
                       #{{ item.moneyAdvance.id }}
                     </v-chip>
                     <div class="advance-status">
@@ -806,34 +726,10 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                  <div class="action-buttons">
-                    <v-btn
-                      small
-                      color="primary"
-                      @click="viewSettlement(item.id)"
-                      class="mr-1"
-                    >
-                      <i class="fas fa-eye"></i>
-                      ເບິ່ງ
-                    </v-btn>
-                    <v-btn
-                      v-if="item.notes"
-                      small
-                      color="green"
-                      @click="showNotes(item.notes)"
-                    >
-                      <i class="fas fa-sticky-note"></i>
-                      ໝາຍເຫດ
-                    </v-btn>
-                  </div>
-                </template>
-
-                <template v-slot:no-data>
-                  <div class="no-filtered-data">
-                    <i class="fas fa-search"></i>
-                    <p>ບໍ່ມີການຊຳລະທີ່ກົງກັບການກອງທີ່ເລືອກ</p>
-                    <p>No settlements found for the selected filter.</p>
-                  </div>
+                  <v-btn small color="#01532B" @click="viewSettlement(item.id)">
+                    <i class="fas fa-eye"></i>
+                    ເບິ່ງ
+                  </v-btn>
                 </template>
               </v-data-table>
             </v-col>
@@ -841,29 +737,11 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-    <!-- Notes Modal -->
-    <v-dialog v-model="showNotesModal" max-width="600px">
-      <v-card>
-        <v-card-title class="notes-header">
-          <i class="fas fa-sticky-note"></i>
-          ໝາຍເຫດການຊຳລະ (Settlement Notes)
-          <v-spacer></v-spacer>
-          <v-btn icon @click="showNotesModal = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-card-text class="notes-content">
-          <p>{{ selectedNotes }}</p>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
 <script>
-import Chart from 'chart.js'
-
+import * as XLSX from 'xlsx'
 export default {
   name: 'ChartAccountSettlementReport',
   head() {
@@ -873,499 +751,252 @@ export default {
   },
   data() {
     return {
+      // Options data
+      chartAccounts: [],
       loading: false,
       exporting: false,
       loadingDetails: false,
       search: '',
-      startDateMenu: false,
-      endDateMenu: false,
       settlementDialog: false,
-      topChartAccounts: [],
+      chartAccountStats: [],
       selectedChartAccount: null,
       selectedSettlements: [],
       settlementSummary: {
         totalAmount: 0,
         settlementCount: 0,
+        averageAmount: 0,
       },
       methodDistribution: [],
-      currencyBreakdown: [],
-      currencies: [],
-      pagination: {
-        currentPage: 1,
-        totalPages: 1,
-        totalItems: 0,
-        itemsPerPage: 10,
-      },
       filters: {
         startDate: null,
         endDate: null,
-        limit: '10',
-        currencyId: null,
+        method: '',
+        chartAccountId: null,
       },
-      viewMode: 'cards',
-      selectedMethodFilter: '',
-      showNotesModal: false,
-      selectedNotes: '',
-      chartAccountChart: null,
-
-      limitOptions: [
-        { text: 'ອັນດັບ 5 (Top 5)', value: '5' },
-        { text: 'ອັນດັບ 10 (Top 10)', value: '10' },
-        { text: 'ອັນດັບ 15 (Top 15)', value: '15' },
-        { text: 'ອັນດັບ 20 (Top 20)', value: '20' },
+      settlementMethods: [
+        { text: 'ທັງໝົດ (All Methods)', value: '' },
+        { text: 'ເງິນສົດ (Cash)', value: 'cash' },
+        { text: 'ໂອນເງິນຜ່ານທະນາຄານ (Bank Transfer)', value: 'bank_transfer' },
+        { text: 'ຫັກລົບ (Deduction)', value: 'deduction' },
       ],
-
-      viewModeOptions: [
-        { text: 'ບັດ (Card View)', value: 'cards' },
-        { text: 'ຕາຕະລາງ (Table View)', value: 'table' },
-        { text: 'ກາຟ (Chart View)', value: 'chart' },
+      currencyOptions: [
+        { text: 'ທັງໝົດສະກຸນເງິນ (All Currencies)', value: null },
+        { text: 'ລາວກີບ (LAK)', value: 1 },
+        { text: 'ໂດລາອາເມລິກັນ (USD)', value: 2 },
+        { text: 'ບາດໄທ (THB)', value: 3 },
+        { text: 'ຢວນຈີນ (CNY)', value: 4 },
+        { text: 'ເອີໂຣ (EUR)', value: 5 },
       ],
-
-      tableHeaders: [
-        { text: 'ອັນດັບ', value: 'rank', width: '80px' },
-        { text: 'ລະຫັດບັນຊີ', value: 'accountCode', width: '120px' },
-        { text: 'ຊື່ບັນຊີ', value: 'accountName', width: '200px' },
-        { text: 'ລວມຈຳນວນເງິນ', value: 'totalAmount', width: '150px' },
-        { text: 'ຈຳນວນການຊຳລະ', value: 'settlementCount', width: '120px' },
-        { text: 'ຄ່າສະເລ່ຍ', value: 'averageAmount', width: '120px' },
-        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '120px' },
-      ],
-
+      currencyBreakdown: [],
+      currencyList: [],
       settlementHeaders: [
-        { text: 'ວັນທີລົງບັນທຶກ', value: 'bookingDate', width: '120px' },
+        { text: 'ວັນທີ', value: 'bookingDate', width: '120px' },
         { text: 'ສະກຸນເງິນ', value: 'currency', width: '80px' },
         { text: 'ຈຳນວນເງິນຕົ້ນ', value: 'amount', width: '130px' },
         { text: 'ອັດຕາແລກປ່ຽນ', value: 'exchangeRate', width: '100px' },
         { text: 'ເທົ່າກັບລາວກີບ', value: 'lakAmount', width: '130px' },
-        { text: 'ວິທີການ', value: 'method', width: '100px' },
-        { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '130px' },
-        { text: 'ກະຊວງ', value: 'ministry', width: '120px' },
-        { text: 'ເງິນກ່ອນ', value: 'moneyAdvance', width: '100px' },
-        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '120px' },
+        { text: 'ວິທີການ', value: 'method', width: '120px' },
+        { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '150px' },
+        { text: 'ເງິນກ່ອນ', value: 'moneyAdvance', width: '120px' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' },
       ],
     }
   },
   computed: {
+    uniqueCurrencies() {
+      const currencies = new Set()
+      this.chartAccountStats.forEach((account) => {
+        Object.keys(account.amounts || {}).forEach((currency) => {
+          currencies.add(currency)
+        })
+      })
+      return currencies.size
+    },
+
+    totalLakAmount() {
+      return this.chartAccountStats.reduce(
+        (sum, account) => sum + (account.totalLak || 0),
+        0
+      )
+    },
+
     filteredChartAccounts() {
-      if (!this.search) return this.topChartAccounts
-      return this.topChartAccounts.filter(
+      if (!this.search) return this.chartAccountStats
+      return this.chartAccountStats.filter(
         (account) =>
-          account.chartAccount?.accountCode
+          account.chartAccount?.name
             ?.toLowerCase()
             .includes(this.search.toLowerCase()) ||
-          account.chartAccount?.accountName
+          account.chartAccount?.code
+            ?.toLowerCase()
+            .includes(this.search.toLowerCase()) ||
+          account.chartAccount?.type
             ?.toLowerCase()
             .includes(this.search.toLowerCase())
       )
     },
-    maxAmount() {
-      return Math.max(...this.topChartAccounts.map((a) => a.totalAmount), 0)
+
+    totalSettlementsCount() {
+      return this.chartAccountStats.reduce(
+        (sum, account) => sum + parseInt(account.count || 0),
+        0
+      )
     },
+
     totalAmount() {
-      return this.topChartAccounts.reduce(
-        (sum, account) => sum + parseFloat(account.totalAmount),
+      return this.chartAccountStats.reduce(
+        (sum, account) => sum + parseFloat(account.totalLak || 0),
         0
       )
     },
-    totalSettlements() {
-      return this.topChartAccounts.reduce(
-        (sum, account) => sum + parseInt(account.settlementCount),
-        0
-      )
-    },
+
     averageAmount() {
-      return this.totalSettlements > 0
-        ? this.totalAmount / this.totalSettlements
+      return this.totalSettlementsCount > 0
+        ? this.totalAmount / this.totalSettlementsCount
         : 0
     },
-    availableMethods() {
-      const methods = new Set()
-      this.selectedSettlements.forEach((settlement) => {
-        methods.add(settlement.method)
-      })
-      return Array.from(methods)
-    },
-    filteredSettlements() {
-      if (!this.selectedMethodFilter) return this.selectedSettlements
-      return this.selectedSettlements.filter(
-        (settlement) => settlement.method === this.selectedMethodFilter
-      )
-    },
-    currencyOptions() {
-      const options = [
-        { text: 'ທັງໝົດສະກຸນເງິນ (All Currencies)', value: null },
-      ]
-      this.currencies.forEach((currency) => {
-        if (currency.isActive) {
-          options.push({
-            text: `${currency.name} (${currency.code})`,
-            value: currency.id,
-          })
-        }
-      })
-      return options
-    },
-    uniqueCurrencies() {
-      return this.currencyBreakdown.length || 0
-    },
-    totalLakAmount() {
-      return this.currencyBreakdown.reduce(
-        (sum, currency) => sum + (currency.lakEquivalent || 0),
+
+    maxAmount() {
+      return Math.max(
+        ...this.chartAccountStats.map((account) =>
+          parseFloat(account.totalLak || 0)
+        ),
         0
       )
     },
   },
-  async mounted() {
-    await this.loadCurrencies()
+  mounted() {
     this.setDefaultDates()
-    this.loadChartAccountData()
-    this.$nextTick(() => {
-      this.initializeChart()
-    })
-  },
-  beforeDestroy() {
-    if (this.chartAccountChart) {
-      this.chartAccountChart.destroy()
-    }
+    this.loadDashboardData()
+    this.loadInitialData()
   },
   methods: {
-    async loadCurrencies() {
+    async loadInitialData() {
+      try {
+        const response = await this.$axios.get('/api/accountChart/find')
+        this.chartAccounts = response.data.data || response.data
+      } catch (error) {
+        console.error('Error loading chart accounts:', error)
+        this.$toast.error('Error loading initial data')
+      }
+
       try {
         const response = await this.$axios.get('/api/currency/find')
-        if (response.data.success) {
-          this.currencies = response.data.data || []
-        }
+        const currencies = response.data.data || response.data
+        // Ensure currencyList has the right structure for the template
+        this.currencyList = currencies.map((currency) => ({
+          code: currency.code,
+          name: currency.name,
+          id: currency.id,
+        }))
       } catch (error) {
         console.error('Error loading currencies:', error)
-        // Set default currencies if API fails
-        this.currencies = [
-          {
-            id: 1,
-            code: 'LAK',
-            name: 'Lao Kip',
-            isActive: true,
-            isLocalCCY: true,
-            rate: 1,
-          },
-          {
-            id: 2,
-            code: 'USD',
-            name: 'US Dollar',
-            isActive: true,
-            isLocalCCY: false,
-            rate: 21000,
-          },
-          {
-            id: 3,
-            code: 'THB',
-            name: 'Thai Baht',
-            isActive: true,
-            isLocalCCY: false,
-            rate: 650,
-          },
-        ]
+        this.$toast.error('Error loading initial data')
       }
     },
 
-    setDefaultDates() {
-      const now = new Date()
-      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
-      this.filters.startDate = firstDay.toISOString().substr(0, 10)
-      this.filters.endDate = now.toISOString().substr(0, 10)
+    // Group settlements by chart account
+    groupSettlementsByChartAccount(settlements) {
+      const grouped = {}
+
+      settlements.forEach((settlement) => {
+        const chartAccountId = settlement.chartAccountId || 'NO_CHART_ACCOUNT'
+
+        if (!grouped[chartAccountId]) {
+          grouped[chartAccountId] = {
+            chartAccountId: chartAccountId,
+            chartAccount: settlement.chartAccount || {
+              code: 'N/A',
+              name: 'Unknown Account',
+              type: 'N/A',
+              category: 'N/A',
+            },
+            count: 0,
+            amounts: {},
+            totalLak: 0,
+          }
+        }
+
+        const account = grouped[chartAccountId]
+        account.count += 1
+
+        // Get currency code
+        const currencyCode = settlement.currency?.code || 'LAK'
+
+        // Initialize currency amount if not exists
+        if (!account.amounts[currencyCode]) {
+          account.amounts[currencyCode] = 0
+        }
+
+        // Add amount to currency
+        account.amounts[currencyCode] += parseFloat(settlement.amount || 0)
+
+        // Calculate LAK equivalent
+        const exchangeRate = settlement.exchangeRate || 1
+        const lakAmount = parseFloat(settlement.amount || 0) * exchangeRate
+        account.totalLak += lakAmount
+      })
+
+      // Convert grouped object to array
+      return Object.values(grouped)
     },
 
-    async loadChartAccountData() {
+    async loadDashboardData() {
       this.loading = true
       try {
         const params = new URLSearchParams()
         if (this.filters.startDate)
-          params.append('startDate', this.filters.startDate)
-        if (this.filters.endDate) params.append('endDate', this.filters.endDate)
-        if (this.filters.limit) params.append('limit', this.filters.limit)
-        if (this.filters.currencyId)
-          params.append('currencyId', this.filters.currencyId)
+          params.append('fromDate', this.filters.startDate)
+        if (this.filters.endDate) params.append('toDate', this.filters.endDate)
+        if (this.filters.method) params.append('method', this.filters.method)
+        if (this.filters.chartAccountId)
+          params.append('chartAccountId', this.filters.chartAccountId)
 
-        const response = await this.$axios.get(
-          `/api/settlements/analytics/top-chart-accounts?${params}`
-        )
+        const response = await this.$axios.get(`/api/settlements?${params}`)
         if (response.data.success) {
-          this.topChartAccounts = response.data.data.topChartAccounts || []
+          console.info(`DATA FROM API: ${JSON.stringify(response.data.data)}`)
+
+          // Transform individual settlements into grouped chart account stats
+          const settlements = response.data.data.settlements || []
+          this.chartAccountStats =
+            this.groupSettlementsByChartAccount(settlements)
 
           // Calculate currency breakdown
           await this.calculateCurrencyBreakdown()
-
-          this.updateChart()
         }
       } catch (error) {
-        console.error('Error loading chart account data:', error)
+        console.error('Error loading dashboard data:', error)
         this.$toast.error('Failed to load chart account reports')
       } finally {
         this.loading = false
       }
     },
 
-    async calculateCurrencyBreakdown() {
-      try {
-        const params = new URLSearchParams()
-        if (this.filters.startDate)
-          params.append('startDate', this.filters.startDate)
-        if (this.filters.endDate) params.append('endDate', this.filters.endDate)
-        if (this.filters.limit) params.append('limit', this.filters.limit)
-        if (this.filters.currencyId)
-          params.append('currencyId', this.filters.currencyId)
-
-        const response = await this.$axios.get(
-          `/api/settlements/currency-breakdown?${params}`
-        )
-        if (response.data.success) {
-          this.currencyBreakdown = response.data.data.currencies || []
-        }
-      } catch (error) {
-        console.error('Error calculating currency breakdown:', error)
-        // Fallback: create empty breakdown if API fails
-        this.currencyBreakdown = []
-      }
-    },
-
-    async selectChartAccount(chartAccountId, chartAccount) {
-      this.loadingDetails = true
-      this.settlementDialog = true
-      try {
-        const response = await this.$axios.get(
-          `/api/settlements/by-chart-account/${chartAccountId}`
-        )
-        if (response.data.success) {
-          this.selectedSettlements = response.data.data.settlements
-          this.settlementSummary = response.data.data.summary
-          this.pagination = response.data.data.pagination || this.pagination
-          this.selectedChartAccount = chartAccount
-          this.selectedMethodFilter = ''
-
-          // Calculate method distribution
-          this.calculateMethodDistribution()
-        }
-      } catch (error) {
-        console.error('Error loading chart account settlements:', error)
-        this.$toast.error('Failed to load settlement details')
-      } finally {
-        this.loadingDetails = false
-      }
-    },
-
-    calculateMethodDistribution() {
-      const methods = {}
-      this.selectedSettlements.forEach((settlement) => {
-        if (!methods[settlement.method]) {
-          methods[settlement.method] = { count: 0, total: 0 }
-        }
-        methods[settlement.method].count++
-        methods[settlement.method].total += parseFloat(settlement.amount)
-      })
-
-      this.methodDistribution = Object.keys(methods).map((method) => ({
-        method,
-        count: methods[method].count,
-        total: methods[method].total,
-      }))
-    },
-
-    filterByMethod(method) {
-      this.selectedMethodFilter = method
-    },
-
-    getMostUsedMethod() {
-      if (this.selectedSettlements.length === 0) return 'N/A'
-
-      const methodCounts = {}
-      this.selectedSettlements.forEach((settlement) => {
-        methodCounts[settlement.method] =
-          (methodCounts[settlement.method] || 0) + 1
-      })
-
-      const mostUsed = Object.keys(methodCounts).reduce((a, b) =>
-        methodCounts[a] > methodCounts[b] ? a : b
-      )
-
-      return this.formatMethod(mostUsed)
-    },
-
-    getAdvancePercentage() {
-      if (this.selectedSettlements.length === 0) return 0
-
-      const withAdvance = this.selectedSettlements.filter(
-        (s) => s.moneyAdvanceId
-      ).length
-      return Math.round((withAdvance / this.selectedSettlements.length) * 100)
-    },
-
-    resetFilters() {
-      this.filters = {
-        startDate: null,
-        endDate: null,
-        limit: '10',
-        currencyId: null,
-      }
-      this.viewMode = 'cards'
-      this.setDefaultDates()
-      this.loadChartAccountData()
-    },
-
-    initializeChart() {
-      if (this.$refs.chartAccountChart) {
-        const ctx = this.$refs.chartAccountChart.getContext('2d')
-        this.chartAccountChart = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: [],
-            datasets: [
-              {
-                data: [],
-                backgroundColor: [],
-                borderWidth: 2,
-                borderColor: '#fff',
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-              position: 'bottom',
-            },
-            tooltips: {
-              callbacks: {
-                label: function (tooltipItem, data) {
-                  const dataset = data.datasets[tooltipItem.datasetIndex]
-                  const total = dataset.data.reduce((a, b) => a + b, 0)
-                  const currentValue = dataset.data[tooltipItem.index]
-                  const percentage = Math.round((currentValue / total) * 100)
-                  return (
-                    data.labels[tooltipItem.index] +
-                    ': $' +
-                    new Intl.NumberFormat('en-US').format(currentValue) +
-                    ' (' +
-                    percentage +
-                    '%)'
-                  )
-                },
-              },
-            },
-          },
-        })
-      }
-    },
-
-    updateChart() {
-      if (!this.chartAccountChart || this.topChartAccounts.length === 0) return
-
-      const labels = this.topChartAccounts
-        .map((account) => account.chartAccount.accountCode)
-        .slice(0, 8) // Limit to top 8 for readability
-
-      const amounts = this.topChartAccounts
-        .map((account) => parseFloat(account.totalAmount))
-        .slice(0, 8)
-
-      const colors = labels.map((_, index) => this.getChartColor(index))
-
-      this.chartAccountChart.data.labels = labels
-      this.chartAccountChart.data.datasets[0].data = amounts
-      this.chartAccountChart.data.datasets[0].backgroundColor = colors
-      this.chartAccountChart.update()
-    },
-
-    closeDialog() {
-      this.settlementDialog = false
-      this.selectedChartAccount = null
-      this.selectedSettlements = []
-      this.methodDistribution = []
-    },
-
-    async exportToExcel() {
-      this.exporting = true
-      try {
-        const params = new URLSearchParams()
-        Object.keys(this.filters).forEach((key) => {
-          if (this.filters[key]) {
-            params.append(key, this.filters[key])
-          }
-        })
-
-        const response = await this.$axios.get(
-          `/api/settlements/analytics/top-chart-accounts/export?${params}`,
-          {
-            responseType: 'blob',
-          }
-        )
-
-        const blob = new Blob([response.data])
-        const link = document.createElement('a')
-        link.href = window.URL.createObjectURL(blob)
-        link.download = `chart-account-settlement-report-${this.filters.startDate}-${this.filters.endDate}.xlsx`
-        link.click()
-      } catch (error) {
-        console.error('Error exporting report:', error)
-        this.$toast.error('Error exporting report')
-      } finally {
-        this.exporting = false
-      }
-    },
-
-    printReport() {
-      window.print()
-    },
-
-    viewSettlement(settlementId) {
-      this.$router.push(`/settlements/${settlementId}`)
-    },
-
-    showNotes(notes) {
-      this.selectedNotes = notes
-      this.showNotesModal = true
-    },
-
-    getChartColor(index) {
-      const colors = [
-        '#3B82F6',
-        '#10B981',
-        '#F59E0B',
-        '#EF4444',
-        '#8B5CF6',
-        '#06B6D4',
-        '#84CC16',
-        '#F97316',
-        '#EC4899',
-        '#6B7280',
-        '#1F2937',
-        '#059669',
-        '#DC2626',
-        '#7C3AED',
-        '#0891B2',
-      ]
-      return colors[index % colors.length]
-    },
-
-    getMethodColor(method) {
-      const colors = {
-        cash: 'green',
-        bank_transfer: 'blue',
-        deduction: 'orange',
-      }
-      return colors[method] || 'grey'
-    },
-
     getCurrencyColor(currencyCode) {
       const colors = {
-        LAK: 'orange',
-        USD: 'green',
-        THB: 'blue',
-        CNY: 'red',
-        EUR: 'purple',
-        JPY: 'pink',
-        GBP: 'indigo',
-        KRW: 'teal',
+        LAK: '#01532B',
+        USD: '#228B22',
+        THB: '#32CD32',
+        CNY: '#006400',
+        EUR: '#9ACD32',
+        JPY: '#00FA9A',
+        GBP: '#66CDAA',
+        KRW: '#20B2AA',
       }
-      return colors[currencyCode] || 'grey'
+      return colors[currencyCode] || '#01532B'
+    },
+
+    getAccountTypeColor(accountType) {
+      const colors = {
+        Asset: '#01532B',
+        Liability: '#DC3545',
+        Equity: '#6610F2',
+        Revenue: '#198754',
+        Expense: '#FD7E14',
+        Income: '#20C997',
+        Cost: '#E83E8C',
+      }
+      return colors[accountType] || '#01532B'
     },
 
     getCurrencyFlag(currencyCode) {
@@ -1412,6 +1043,363 @@ export default {
       }
     },
 
+    setDefaultDates() {
+      const now = new Date()
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
+      this.filters.startDate = firstDay.toISOString().substr(0, 10)
+      this.filters.endDate = now.toISOString().substr(0, 10)
+    },
+
+    async calculateCurrencyBreakdown() {
+      try {
+        const params = new URLSearchParams()
+        if (this.filters.startDate)
+          params.append('startDate', this.filters.startDate)
+        if (this.filters.endDate) params.append('endDate', this.filters.endDate)
+        if (this.filters.method) params.append('method', this.filters.method)
+        if (this.filters.chartAccountId)
+          params.append('chartAccountId', this.filters.chartAccountId)
+
+        const response = await this.$axios.get(
+          `/api/settlements/currency-breakdown?${params}`
+        )
+        if (response.data.success) {
+          this.currencyBreakdown = response.data.data.currencies || []
+        }
+      } catch (error) {
+        console.error('Error calculating currency breakdown:', error)
+        // Fallback: create empty breakdown if API fails
+        this.currencyBreakdown = []
+      }
+    },
+
+    async selectChartAccount(chartAccountId) {
+      this.loadingDetails = true
+      this.settlementDialog = true
+      try {
+        const response = await this.$axios.get(
+          `/api/settlements/by-chart-account/${chartAccountId}`
+        )
+        if (response.data.success) {
+          this.selectedSettlements = response.data.data.settlements
+          this.settlementSummary = response.data.data.summary
+
+          // Find the selected chart account details
+          const stat = this.chartAccountStats.find(
+            (s) => s.chartAccountId == chartAccountId
+          )
+          this.selectedChartAccount = stat ? stat.chartAccount : null
+
+          // Calculate method distribution
+          this.calculateMethodDistribution()
+        }
+      } catch (error) {
+        console.error('Error loading chart account settlements:', error)
+        this.$toast.error('Failed to load settlement details')
+      } finally {
+        this.loadingDetails = false
+      }
+    },
+
+    calculateMethodDistribution() {
+      const methods = {}
+      this.selectedSettlements.forEach((settlement) => {
+        if (!methods[settlement.method]) {
+          methods[settlement.method] = { count: 0, total: 0 }
+        }
+        methods[settlement.method].count++
+        methods[settlement.method].total += parseFloat(settlement.amount)
+      })
+
+      this.methodDistribution = Object.keys(methods).map((method) => ({
+        method,
+        count: methods[method].count,
+        total: methods[method].total,
+      }))
+    },
+
+    resetFilters() {
+      this.filters = {
+        startDate: null,
+        endDate: null,
+        method: '',
+        chartAccountId: null,
+      }
+      this.setDefaultDates()
+      this.loadDashboardData()
+    },
+
+    closeDialog() {
+      this.settlementDialog = false
+      this.selectedChartAccount = null
+      this.selectedSettlements = []
+      this.methodDistribution = []
+    },
+
+    async exportToExcel() {
+      this.exporting = true
+      try {
+        // Import XLSX library (alternative dynamic import method)
+        const XLSX = await import('xlsx')
+
+        // Create workbook
+        const workbook = XLSX.utils.book_new()
+
+        // Prepare summary data
+        const summaryData = [
+          ['Chart Account Settlement Report'],
+          [
+            `Report Period: ${this.filters.startDate || 'All'} to ${
+              this.filters.endDate || 'All'
+            }`,
+          ],
+          [`Generated on: ${new Date().toLocaleDateString()}`],
+          [''], // Empty row
+          ['Summary Statistics'],
+          [`Total Chart Accounts: ${this.chartAccountStats.length}`],
+          [`Total Settlements: ${this.totalSettlementsCount}`],
+          [
+            `Total Amount (LAK): ${this.formatCurrency(
+              this.totalLakAmount,
+              'LAK'
+            )}`,
+          ],
+          [`Unique Currencies: ${this.uniqueCurrencies}`],
+          [''], // Empty row
+          ['Account Details'], // Header for main data
+        ]
+
+        // Create header row for account details
+        const headerRow = [
+          '#',
+          'Account Code',
+          'Account Name',
+          'Account Type',
+          'Category',
+          'Settlement Count',
+        ]
+
+        // Add currency columns dynamically
+        this.currencyList.forEach((currency) => {
+          headerRow.push(`${currency.code} Amount`)
+        })
+        headerRow.push('Total (LAK)')
+
+        summaryData.push(headerRow)
+
+        // Add chart account data
+        this.filteredChartAccounts.forEach((account, index) => {
+          const row = [
+            index + 1,
+            account.chartAccount?.accountNumber || 'N/A',
+            account.chartAccount?.accountName || 'Unknown Account',
+            account.chartAccount?.accountType || 'N/A',
+            account.chartAccount?.category || 'N/A',
+            account.count,
+          ]
+
+          // Add currency amounts
+          this.currencyList.forEach((currency) => {
+            row.push(account.amounts?.[currency.code] || 0)
+          })
+          row.push(account.totalLak || 0)
+
+          summaryData.push(row)
+        })
+
+        // Add totals row
+        const totalsRow = ['', '', '', '', 'TOTAL', this.totalSettlementsCount]
+        this.currencyList.forEach((currency) => {
+          totalsRow.push(this.getCurrencyTotal(currency.code))
+        })
+        totalsRow.push(this.totalLakAmount)
+        summaryData.push(totalsRow)
+
+        // Create summary worksheet
+        const summaryWorksheet = XLSX.utils.aoa_to_sheet(summaryData)
+
+        // Set column widths
+        const colWidths = [
+          { wch: 5 }, // #
+          { wch: 15 }, // Account Code
+          { wch: 25 }, // Account Name
+          { wch: 15 }, // Account Type
+          { wch: 20 }, // Category
+          { wch: 15 }, // Count
+        ]
+
+        // Add currency column widths
+        this.currencyList.forEach(() => {
+          colWidths.push({ wch: 15 })
+        })
+        colWidths.push({ wch: 18 }) // Total LAK
+
+        summaryWorksheet['!cols'] = colWidths
+
+        // Style the headers and important rows
+        const range = XLSX.utils.decode_range(summaryWorksheet['!ref'])
+        for (let R = range.s.r; R <= range.e.r; ++R) {
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cellAddress = XLSX.utils.encode_cell({ r: R, c: C })
+            if (!summaryWorksheet[cellAddress]) continue
+
+            // Style title row
+            if (R === 0) {
+              summaryWorksheet[cellAddress].s = {
+                font: { bold: true, sz: 16 },
+                alignment: { horizontal: 'center' },
+              }
+            }
+
+            // Style header row (Account Details header)
+            if (R === 11) {
+              summaryWorksheet[cellAddress].s = {
+                font: { bold: true, color: { rgb: 'FFFFFF' } },
+                fill: { fgColor: { rgb: '01532B' } },
+                alignment: { horizontal: 'center' },
+              }
+            }
+
+            // Style totals row (last row)
+            if (R === range.e.r) {
+              summaryWorksheet[cellAddress].s = {
+                font: { bold: true },
+                fill: { fgColor: { rgb: 'E9ECEF' } },
+              }
+            }
+          }
+        }
+
+        // Add summary sheet to workbook
+        XLSX.utils.book_append_sheet(
+          workbook,
+          summaryWorksheet,
+          'Chart Account Summary'
+        )
+
+        // Create account type breakdown sheet
+        if (this.chartAccountStats.length > 0) {
+          const typeBreakdown = {}
+          this.chartAccountStats.forEach((account) => {
+            const accountType = account.chartAccount?.accountType || 'Unknown'
+            if (!typeBreakdown[accountType]) {
+              typeBreakdown[accountType] = {
+                count: 0,
+                totalAmount: 0,
+                settlements: 0,
+              }
+            }
+            typeBreakdown[accountType].count += 1
+            typeBreakdown[accountType].totalAmount += account.totalLak || 0
+            typeBreakdown[accountType].settlements += account.count || 0
+          })
+
+          const typeData = [
+            ['Account Type Analysis'],
+            [''],
+            [
+              'Account Type',
+              'Number of Accounts',
+              'Total Settlements',
+              'Total Amount (LAK)',
+              'Average per Account',
+            ],
+          ]
+
+          Object.keys(typeBreakdown).forEach((type) => {
+            const data = typeBreakdown[type]
+            typeData.push([
+              type,
+              data.count,
+              data.settlements,
+              data.totalAmount,
+              data.count > 0 ? data.totalAmount / data.count : 0,
+            ])
+          })
+
+          const typeWorksheet = XLSX.utils.aoa_to_sheet(typeData)
+          typeWorksheet['!cols'] = [
+            { wch: 15 }, // Account Type
+            { wch: 18 }, // Number of Accounts
+            { wch: 18 }, // Total Settlements
+            { wch: 20 }, // Total Amount
+            { wch: 18 }, // Average per Account
+          ]
+
+          XLSX.utils.book_append_sheet(
+            workbook,
+            typeWorksheet,
+            'Account Type Analysis'
+          )
+        }
+
+        // Create currency breakdown sheet if data exists
+        if (this.currencyBreakdown.length > 0) {
+          const currencyData = [
+            ['Currency Breakdown Report'],
+            [''],
+            [
+              'Currency',
+              'Total Amount (Original)',
+              'LAK Equivalent',
+              'Settlement Count',
+              'Percentage',
+            ],
+          ]
+
+          this.currencyBreakdown.forEach((currency) => {
+            currencyData.push([
+              currency.currencyCode || 'LAK',
+              currency.totalAmount || 0,
+              currency.lakEquivalent || 0,
+              currency.count || 0,
+              `${Math.round(
+                (currency.lakEquivalent / this.totalLakAmount) * 100
+              )}%`,
+            ])
+          })
+
+          const currencyWorksheet = XLSX.utils.aoa_to_sheet(currencyData)
+          currencyWorksheet['!cols'] = [
+            { wch: 12 }, // Currency
+            { wch: 20 }, // Total Amount
+            { wch: 18 }, // LAK Equivalent
+            { wch: 15 }, // Count
+            { wch: 12 }, // Percentage
+          ]
+
+          XLSX.utils.book_append_sheet(
+            workbook,
+            currencyWorksheet,
+            'Currency Breakdown'
+          )
+        }
+
+        // Generate filename
+        const filename = `chart-account-settlement-report-${
+          this.filters.startDate || 'all'
+        }-${this.filters.endDate || 'all'}.xlsx`
+
+        // Generate Excel file and download
+        XLSX.writeFile(workbook, filename)
+
+        this.$toast.success('Chart Account Report exported successfully!')
+      } catch (error) {
+        console.error('Error exporting report:', error)
+        this.$toast.error('Error exporting report: ' + error.message)
+      } finally {
+        this.exporting = false
+      }
+    },
+
+    printReport() {
+      window.print()
+    },
+
+    viewSettlement(settlementId) {
+      this.$router.push(`/settlements/${settlementId}`)
+    },
+
     formatExchangeRate(rate) {
       if (!rate) return '1.0000'
       return new Intl.NumberFormat('en-US', {
@@ -1437,22 +1425,40 @@ export default {
       }
       return methods[method] || method
     },
+
+    getCurrencyTotal(currencyCode) {
+      return this.chartAccountStats.reduce(
+        (sum, account) => sum + (account.amounts?.[currencyCode] || 0),
+        0
+      )
+    },
+
+    getMethodColor(method) {
+      const colors = {
+        cash: '#01532B',
+        bank_transfer: '#228B22',
+        deduction: '#32CD32',
+      }
+      return colors[method] || '#01532B'
+    },
   },
 }
 </script>
 
 <style scoped>
+/* Same base styles with chart account specific modifications */
 .chart-account-settlement-report {
   padding: 0;
 }
 
+/* Header Section */
 .report-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  padding: 20px;
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  padding: 24px;
+  background: #01532b;
   color: white;
   border-radius: 8px;
 }
@@ -1464,26 +1470,72 @@ export default {
 }
 
 .title-section p {
-  margin: 5px 0 0 0;
+  margin: 8px 0 0 0;
   opacity: 0.9;
   font-size: 14px;
 }
 
 .action-buttons {
   display: flex;
-  gap: 12px;
+  gap: 16px;
 }
 
+.custom-btn {
+  color: #01532b !important;
+  border: 1px solid white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-btn:hover {
+  background-color: white !important;
+  color: #01532b !important;
+}
+
+/* Filter Card */
 .filter-card {
   background: white;
+  border-radius: 8px;
 }
 
 .filter-title {
-  background: #f8f9fa;
-  color: #495057;
+  background: #01532b;
+  color: white;
   font-weight: 600;
 }
 
+.custom-primary-bg {
+  background-color: #01532b !important;
+}
+
+.custom-secondary-btn {
+  background-color: #6c757d !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-secondary-btn:hover {
+  background-color: #5a6268 !important;
+}
+
+/* Chart Account Selection */
+.chart-account-selection .account-name {
+  font-weight: 600;
+  color: #01532b;
+}
+
+.chart-account-item .account-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.chart-account-item .account-details {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Summary Cards */
 .summary-cards {
   margin-bottom: 24px;
 }
@@ -1492,67 +1544,72 @@ export default {
   height: 140px;
   position: relative;
   overflow: hidden;
+  border-radius: 8px;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
 }
 
 .summary-content {
   display: flex;
   align-items: center;
   height: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .summary-icon {
   font-size: 48px;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-right: 16px;
+  color: white;
 }
 
 .summary-details h3 {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: white;
 }
 
 .summary-details p {
   margin: 4px 0;
   font-size: 12px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .summary-details h2 {
   margin: 8px 0 0 0;
   font-size: 24px;
   font-weight: 700;
+  color: white;
 }
 
 .summary-lcy {
   font-size: 11px;
-  opacity: 0.8;
+  opacity: 0.9;
   margin-top: 4px !important;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.accounts-card {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #333;
-}
-
-.amount-card {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: white;
-}
-
-.settlement-card {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: white;
-}
-
+.total-accounts-card,
+.settlement-card,
+.amount-card,
 .lak-card {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  background: #01532b;
   color: white;
 }
 
+/* Currency Breakdown */
 .currency-breakdown {
   margin-bottom: 24px;
+}
+
+.currency-title {
+  background: #01532b;
+  color: white;
+  font-weight: 600;
 }
 
 .currency-card {
@@ -1562,6 +1619,13 @@ export default {
   text-align: center;
   height: 100%;
   border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.currency-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
+  border-color: #01532b;
 }
 
 .currency-header {
@@ -1582,14 +1646,14 @@ export default {
 .original-amount {
   font-size: 18px;
   font-weight: 700;
-  color: #333;
+  color: #01532b;
   margin-bottom: 4px;
   font-family: monospace;
 }
 
 .lak-equivalent {
   font-size: 14px;
-  color: #f59e0b;
+  color: #228b22;
   font-weight: 600;
   margin-bottom: 8px;
   font-family: monospace;
@@ -1604,6 +1668,207 @@ export default {
 .percentage {
   font-size: 11px;
   color: #999;
+}
+
+/* Accounting Table Styles */
+.accounting-table {
+  background: white;
+}
+
+.accounting-table-header {
+  background-color: #01532b !important;
+}
+
+.accounting-table-header th {
+  background-color: #01532b !important;
+  color: white !important;
+  padding: 12px 8px !important;
+  border-bottom: none !important;
+}
+
+.accounting-row-even {
+  background-color: #f8f9fa;
+}
+
+.accounting-row-special {
+  background-color: #fff3cd;
+  font-style: italic;
+}
+
+.accounting-table-footer {
+  background-color: #e9ecef !important;
+  font-weight: bold;
+}
+
+.accounting-table-footer td {
+  background-color: #e9ecef !important;
+  border-top: 2px solid #01532b !important;
+  padding: 12px 8px !important;
+}
+
+.accounting-divider {
+  border-color: #01532b !important;
+  opacity: 0.3 !important;
+}
+
+.accounting-primary--text {
+  color: #01532b !important;
+}
+
+.accounting-success--text {
+  color: #28a745 !important;
+}
+
+.report-card {
+  border-radius: 12px;
+}
+
+.report-header {
+  background: #01532b;
+  color: white;
+  font-weight: 600;
+}
+
+/* Search field in header */
+.search-field >>> input {
+  color: white !important;
+}
+
+.search-field >>> .v-icon {
+  color: white !important;
+}
+
+.search-field >>> .v-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.search-field >>> .v-input__control {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Dialog Styling */
+.dialog-header {
+  background: #01532b !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.close-btn {
+  color: white !important;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #01532b;
+}
+
+.custom-divider {
+  border-color: #01532b !important;
+  opacity: 0.3 !important;
+}
+
+.detail-stat {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  height: 100%;
+  border-left: 4px solid #01532b;
+  transition: all 0.3s ease;
+}
+
+.detail-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
+}
+
+.stat-icon {
+  font-size: 24px;
+  color: #01532b;
+  margin-right: 12px;
+}
+
+.stat-info strong {
+  display: block;
+  font-size: 12px;
+  color: #01532b;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.stat-number {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: monospace;
+  color: #333;
+}
+
+.method-card {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  border-left: 4px solid #01532b;
+  transition: all 0.3s ease;
+}
+
+.method-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
+}
+
+.method-header {
+  margin-bottom: 12px;
+}
+
+.method-count {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.method-amount {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: monospace;
+  color: #01532b;
+}
+
+.settlement-table {
+  background: white;
+}
+
+.settlement-table >>> thead th {
+  background-color: #01532b !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+}
+
+.settlement-table >>> tbody tr:hover {
+  background-color: rgba(1, 83, 43, 0.1) !important;
+}
+
+.date-cell {
+  font-family: monospace;
+  font-size: 13px;
+  color: #01532b;
+}
+
+.amount-breakdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount-cell {
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .exchange-rate-cell {
@@ -1622,301 +1887,12 @@ export default {
 .lak-amount {
   font-family: monospace;
   font-weight: 600;
-  color: #f59e0b;
+  color: #228b22;
   font-size: 13px;
-}
-
-.chart-card {
-  margin-bottom: 24px;
-}
-
-.chart-container {
-  height: 400px;
-  position: relative;
-}
-
-.table-card,
-.cards-container {
-  margin-bottom: 24px;
-}
-
-.table-title,
-.cards-title {
-  background: #f8f9fa;
-  color: #495057;
-  font-weight: 600;
-}
-
-.search-field {
-  max-width: 300px;
-}
-
-.chart-account-card {
-  height: 100%;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.chart-account-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-}
-
-.chart-account-card.selected {
-  border: 2px solid #8b5cf6;
-}
-
-.account-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.account-info .rank-badge {
-  margin-bottom: 8px;
-}
-
-.account-info h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-.account-code {
-  font-family: monospace;
-  font-size: 16px;
-  font-weight: 700;
-  color: #1976d2;
-}
-
-.account-name {
-  font-size: 12px;
-  color: #666;
-  margin: 4px 0;
-  line-height: 1.3;
-}
-
-.account-icon {
-  font-size: 24px;
-  color: #8b5cf6;
-  opacity: 0.7;
-}
-
-.stat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: #666;
-}
-
-.stat-value {
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.amount-value {
-  color: #4caf50;
-}
-
-.count-value {
-  color: #2196f3;
-}
-
-.average-value {
-  color: #ff9800;
-}
-
-.progress-section {
-  margin-top: 12px;
-}
-
-.progress-label {
-  font-size: 11px;
-  color: #666;
-  margin-bottom: 4px;
-}
-
-.no-data-state {
-  text-align: center;
-  padding: 48px 24px;
-}
-
-.no-data-icon {
-  font-size: 64px;
-  color: #ccc;
-  margin-bottom: 16px;
-}
-
-.no-data-title {
-  margin: 0 0 8px 0;
-  color: #666;
-  font-size: 18px;
-}
-
-.no-data-subtitle {
-  margin: 0;
-  color: #999;
-  font-size: 14px;
-}
-
-.chart-account-table {
-  background: white;
-}
-
-.account-code-cell .account-code {
-  font-family: monospace;
-  font-weight: 700;
-  color: #1976d2;
-  font-size: 14px;
-}
-
-.account-name-cell .account-name {
-  font-size: 13px;
-  color: #333;
-}
-
-.amount-cell {
-  font-family: monospace;
-  font-weight: 600;
-}
-
-.total-amount {
-  color: #4caf50;
-  font-size: 14px;
-}
-
-.average-amount {
-  color: #ff9800;
-}
-
-.dialog-header {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-  color: white;
-}
-
-.section-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-}
-
-.detail-stat {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  height: 100%;
-}
-
-.stat-icon {
-  font-size: 24px;
-  color: #8b5cf6;
-  margin-right: 12px;
-}
-
-.stat-info strong {
-  display: block;
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 4px;
-}
-
-.stat-number {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: monospace;
-}
-
-.method-card {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  height: 100%;
-}
-
-.method-header {
-  margin-bottom: 12px;
-}
-
-.method-count {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 4px;
-}
-
-.method-amount {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: monospace;
-  margin-bottom: 4px;
-}
-
-.method-percentage {
-  font-size: 12px;
-  color: #999;
-}
-
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.settlement-table {
-  background: white;
-}
-
-.date-cell {
-  font-family: monospace;
-  font-size: 13px;
-}
-
-.amount-breakdown {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.amount-cell {
-  font-family: monospace;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.exchange-rate {
-  font-size: 10px;
-  color: #666;
-  margin-top: 2px;
 }
 
 .user-info .user-name {
   font-weight: 500;
-}
-
-.ministry-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.ministry-name {
-  font-weight: 500;
-  font-size: 13px;
-}
-
-.ministry-code {
-  font-size: 10px;
-  color: #666;
-  margin-top: 2px;
 }
 
 .advance-info .advance-status {
@@ -1925,38 +1901,46 @@ export default {
   margin-top: 2px;
 }
 
-.no-advance,
-.no-ministry {
+.no-advance {
   color: #999;
   font-style: italic;
 }
 
-.action-buttons {
-  display: flex;
-  gap: 4px;
-}
-
-.no-filtered-data {
+/* Loading and spacing */
+.text-center {
   text-align: center;
+}
+
+.py-8 {
+  padding: 64px 0;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mt-3 {
+  margin-top: 12px;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.mb-4 {
+  margin-bottom: 24px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.my-3 {
+  margin: 12px 0;
+}
+
+.pa-4 {
   padding: 24px;
-  color: #666;
-}
-
-.no-filtered-data i {
-  font-size: 32px;
-  margin-bottom: 8px;
-  color: #ccc;
-}
-
-.notes-header {
-  background: linear-gradient(135deg, #4caf50 0%, #2196f3 100%);
-  color: white;
-}
-
-.notes-content {
-  padding: 24px;
-  white-space: pre-wrap;
-  line-height: 1.6;
 }
 
 /* Print styles */
@@ -1971,8 +1955,10 @@ export default {
     page-break-inside: avoid;
   }
 
-  .chart-card {
-    page-break-inside: avoid;
+  .report-header {
+    background: #01532b !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
   }
 }
 
@@ -1982,29 +1968,32 @@ export default {
     flex-direction: column;
     text-align: center;
     gap: 16px;
+    padding: 16px;
+  }
+
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .summary-content {
     flex-direction: column;
     text-align: center;
+    padding: 12px;
   }
 
   .summary-icon {
     margin-right: 0;
     margin-bottom: 8px;
+    font-size: 40px;
   }
 
-  .chart-container {
-    height: 300px;
-  }
-
-  .account-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .account-icon {
-    margin-top: 8px;
+  .summary-details h2 {
+    font-size: 20px;
   }
 
   .detail-stat {
@@ -2015,10 +2004,6 @@ export default {
   .stat-icon {
     margin-right: 0;
     margin-bottom: 8px;
-  }
-
-  .filter-buttons {
-    justify-content: center;
   }
 }
 </style>

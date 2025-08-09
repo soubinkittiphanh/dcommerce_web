@@ -708,7 +708,7 @@ export default {
       }
       this.sortData()
     },
-
+  middleware: 'auths',
     sortData() {
       this.filteredBenefits.sort((a, b) => {
         let aVal = a[this.sort.field]
