@@ -231,6 +231,7 @@
                         id="inputterId"
                         v-model="form.inputterId"
                         class="form-control"
+                        disabled
                       >
                         <option value="">ເລືອກຜູ້ບັນທຶກ</option>
                         <option
@@ -300,7 +301,8 @@
                   <div class="balance-info">
                     <i class="fas fa-lightbulb"></i>
                     <span>
-                      ກະລຸນາໄປທີ່ແຖບ "ການແບ່ງປັນຊຳລະ" ເພື່ອໃສ່ຍອດແບ່ງປັນສຳລັບແຕ່ລະລາຍການ
+                      ກະລຸນາໄປທີ່ແຖບ "ການແບ່ງປັນຊຳລະ"
+                      ເພື່ອໃສ່ຍອດແບ່ງປັນສຳລັບແຕ່ລະລາຍການ
                     </span>
                   </div>
                 </div>
@@ -817,7 +819,9 @@ export default {
     isEdit() {
       return !!(this.receipt && this.receipt.id)
     },
-
+    user() {
+      return this.$auth.user || ''
+    },
     calculatedAllocatedTotal() {
       return this.allocationLines.reduce((sum, allocation) => {
         return sum + (parseFloat(allocation.allocatedAmount) || 0)
@@ -826,12 +830,12 @@ export default {
 
     // Override allocationBalance to always be 0 since total is auto-calculated
     allocationBalance() {
-      return 0; // Always 0 since totalReceivedAmount = calculatedAllocatedTotal
+      return 0 // Always 0 since totalReceivedAmount = calculatedAllocatedTotal
     },
 
     // Auto-calculated total received amount
     autoCalculatedTotal() {
-      return this.calculatedAllocatedTotal;
+      return this.calculatedAllocatedTotal
     },
 
     availableInvoiceLines() {
@@ -849,10 +853,11 @@ export default {
 
       const hasValidAllocations =
         this.allocationLines.length > 0 &&
-        this.allocationLines.some(allocation => 
-          allocation.invoiceLineId &&
-          (parseFloat(allocation.allocatedAmount) || 0) > 0 &&
-          allocation.allocationDate
+        this.allocationLines.some(
+          (allocation) =>
+            allocation.invoiceLineId &&
+            (parseFloat(allocation.allocatedAmount) || 0) > 0 &&
+            allocation.allocationDate
         ) &&
         (parseFloat(this.form.totalReceivedAmount) || 0) > 0
 
@@ -899,23 +904,26 @@ export default {
     // Auto-update totalReceivedAmount when allocation lines change
     calculatedAllocatedTotal: {
       handler(newTotal) {
-        this.form.totalReceivedAmount = newTotal;
+        this.form.totalReceivedAmount = newTotal
       },
-      immediate: true
+      immediate: true,
     },
 
     // Update allocation dates when received date changes
     'form.receivedDate': {
       handler(newDate) {
         if (newDate && this.allocationLines.length > 0) {
-          this.allocationLines.forEach(allocation => {
-            if (!allocation.allocationDate || allocation.allocationDate === '') {
-              allocation.allocationDate = newDate;
+          this.allocationLines.forEach((allocation) => {
+            if (
+              !allocation.allocationDate ||
+              allocation.allocationDate === ''
+            ) {
+              allocation.allocationDate = newDate
             }
-          });
+          })
         }
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -1340,7 +1348,7 @@ export default {
         this.errors.allocations = 'ກະລຸນາເພີ່ມການແບ່ງປັນຢ່າງໜ້ອຍ 1 ລາຍການ'
       } else {
         let hasValidAllocation = false
-        let totalAllocated = 0;
+        let totalAllocated = 0
 
         for (let i = 0; i < this.allocationLines.length; i++) {
           const allocation = this.allocationLines[i]
@@ -1357,7 +1365,7 @@ export default {
               'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
           } else {
             hasValidAllocation = true
-            totalAllocated += allocatedAmount;
+            totalAllocated += allocatedAmount
           }
 
           if (!allocation.allocationDate) {
@@ -1431,6 +1439,13 @@ export default {
         const amount = parseFloat(allocation.allocatedAmount) || 0
         return amount > 0 && allocation.invoiceLineId
       })
+      if (this.isEdit) {
+        // Assign updater
+        this.form.updateUserId = this.user.id
+      } else {
+        // Assign inputter
+        this.form.inputterId = this.user.id
+      }
 
       const formData = {
         ...this.form,
@@ -1474,7 +1489,7 @@ export default {
         paymentMethod: 'cash',
         referenceNumber: '',
         notes: '',
-        inputterId: '',
+        inputterId: this.user.id,
         reason: '',
       }
     },

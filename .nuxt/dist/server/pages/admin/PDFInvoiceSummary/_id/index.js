@@ -1,7 +1,34 @@
-exports.ids = [118];
+exports.ids = [124];
 exports.modules = {
 
-/***/ 1121:
+/***/ 1009:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(770);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1010:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-1aea700a]{font-family:\"Noto Sans Lao\"}#body[data-v-1aea700a]{font-size:12px}.title-space[data-v-1aea700a]{margin:4px 0}.heading-14[data-v-1aea700a]{font-size:16px}.text-color[data-v-1aea700a]{color:#246ab2}.page-break[data-v-1aea700a]{page-break-after:auto;page-break-inside:avoid}@media print{.page[data-v-1aea700a],body[data-v-1aea700a]{margin:0}table[data-v-1aea700a]{page-break-inside:auto}td[data-v-1aea700a],tr[data-v-1aea700a]{page-break-after:auto;page-break-inside:avoid}thead[data-v-1aea700a]{display:table-header-group}tfoot[data-v-1aea700a]{display:table-footer-group}#page-break[data-v-1aea700a]{clear:both;page-break-after:always}@page{margin:1cm 0 .2cm 0}}.page-footer[data-v-1aea700a],.page-footer-space[data-v-1aea700a]{height:100px}.page-footer[data-v-1aea700a]{bottom:0;position:fixed;width:21cm}.table td[data-v-1aea700a],th[data-v-1aea700a]{border:1px solid #000;padding:8px;text-align:left}.table th[data-v-1aea700a]{font-size:11pt;text-align:center}.table td[data-v-1aea700a]{font-size:12pt}*[data-v-1aea700a]{font-family:Phetsarath OT}#body[data-v-1aea700a]{background:#ccc}.page[data-v-1aea700a]{background:#fff;display:block;margin:0 auto .5cm}.page[size=A4][data-v-1aea700a]{width:21cm}.page[size=A4][layout=landscape][data-v-1aea700a]{height:21cm;width:29.7cm}.page[size=A3][data-v-1aea700a]{height:42cm;width:29.7cm}.page[size=A3][layout=landscape][data-v-1aea700a]{height:29.7cm;width:42cm}.page[size=A5][data-v-1aea700a]{height:21cm;width:14.8cm}.page[size=A5][layout=landscape][data-v-1aea700a]{height:14.8cm;width:21cm}.d-flex>p[data-v-1aea700a]{margin-bottom:0}.table-layout[data-v-1aea700a]{table-layout:fixed;width:100%}.table-layout>tbody>tr>td[data-v-1aea700a]:first-child{width:130px}.table-layout>tbody>tr>td[data-v-1aea700a]:nth-child(5){width:80px}.table-layout>tbody>tr>td[data-v-1aea700a]:nth-child(6){width:150px}td[data-v-1aea700a]{word-wrap:break-word;padding-left:2px;padding-right:2px;vertical-align:top}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1148:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12,16 +39,16 @@ __webpack_require__.r(__webpack_exports__);
 var VCard = __webpack_require__(120);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(379);
+var VCol = __webpack_require__(380);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(375);
+var VContainer = __webpack_require__(376);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(119);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(378);
+var VRow = __webpack_require__(379);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/PDFInvoiceSummary/_id/index.vue?vue&type=template&id=1aea700a&scoped=true&
 
@@ -379,7 +406,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(984)
+  var style0 = __webpack_require__(1009)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -401,13 +428,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 746:
+/***/ 770:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(985);
+var content = __webpack_require__(1010);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -416,33 +443,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("1f1a899c", content, true, context)
 };
-
-/***/ }),
-
-/***/ 984:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(746);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1aea700a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 985:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-1aea700a]{font-family:\"Noto Sans Lao\"}#body[data-v-1aea700a]{font-size:12px}.title-space[data-v-1aea700a]{margin:4px 0}.heading-14[data-v-1aea700a]{font-size:16px}.text-color[data-v-1aea700a]{color:#246ab2}.page-break[data-v-1aea700a]{page-break-after:auto;page-break-inside:avoid}@media print{.page[data-v-1aea700a],body[data-v-1aea700a]{margin:0}table[data-v-1aea700a]{page-break-inside:auto}td[data-v-1aea700a],tr[data-v-1aea700a]{page-break-after:auto;page-break-inside:avoid}thead[data-v-1aea700a]{display:table-header-group}tfoot[data-v-1aea700a]{display:table-footer-group}#page-break[data-v-1aea700a]{clear:both;page-break-after:always}@page{margin:1cm 0 .2cm 0}}.page-footer[data-v-1aea700a],.page-footer-space[data-v-1aea700a]{height:100px}.page-footer[data-v-1aea700a]{bottom:0;position:fixed;width:21cm}.table td[data-v-1aea700a],th[data-v-1aea700a]{border:1px solid #000;padding:8px;text-align:left}.table th[data-v-1aea700a]{font-size:11pt;text-align:center}.table td[data-v-1aea700a]{font-size:12pt}*[data-v-1aea700a]{font-family:Phetsarath OT}#body[data-v-1aea700a]{background:#ccc}.page[data-v-1aea700a]{background:#fff;display:block;margin:0 auto .5cm}.page[size=A4][data-v-1aea700a]{width:21cm}.page[size=A4][layout=landscape][data-v-1aea700a]{height:21cm;width:29.7cm}.page[size=A3][data-v-1aea700a]{height:42cm;width:29.7cm}.page[size=A3][layout=landscape][data-v-1aea700a]{height:29.7cm;width:42cm}.page[size=A5][data-v-1aea700a]{height:21cm;width:14.8cm}.page[size=A5][layout=landscape][data-v-1aea700a]{height:14.8cm;width:21cm}.d-flex>p[data-v-1aea700a]{margin-bottom:0}.table-layout[data-v-1aea700a]{table-layout:fixed;width:100%}.table-layout>tbody>tr>td[data-v-1aea700a]:first-child{width:130px}.table-layout>tbody>tr>td[data-v-1aea700a]:nth-child(5){width:80px}.table-layout>tbody>tr>td[data-v-1aea700a]:nth-child(6){width:150px}td[data-v-1aea700a]{word-wrap:break-word;padding-left:2px;padding-right:2px;vertical-align:top}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
 
 /***/ })
 

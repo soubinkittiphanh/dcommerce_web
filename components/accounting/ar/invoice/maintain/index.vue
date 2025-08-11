@@ -6,6 +6,17 @@
           <i class="fas fa-file-invoice"></i>
           {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່' }}
         </h4>
+        <!-- Audit History Button (only show in edit mode) -->
+        <button
+          v-if="isEdit"
+          @click="openAuditDialog"
+          class="audit-btn"
+          type="button"
+          :title="'ເບິ່ງປະຫວັດການດຳເນີນງານ'"
+        >
+          <i class="fas fa-history"></i>
+          <span class="audit-text">ປະຫວັດ</span>
+        </button>
         <button type="button" class="close-button" @click="handleClose">
           <i class="fas fa-times"></i>
         </button>
@@ -22,7 +33,7 @@
         <div v-else class="invoice-form">
           <!-- Tab Navigation -->
           <div class="tab-navigation">
-            <button 
+            <button
               type="button"
               :class="['tab-btn', { active: activeTab === 'header' }]"
               @click="activeTab = 'header'"
@@ -30,14 +41,16 @@
               <i class="fas fa-file-alt"></i>
               ຂໍ້ມູນໃບແຈ້ງໜີ້
             </button>
-            <button 
+            <button
               type="button"
               :class="['tab-btn', { active: activeTab === 'lines' }]"
               @click="activeTab = 'lines'"
             >
               <i class="fas fa-list"></i>
               ລາຍການສິນຄ້າ
-              <span v-if="lineItems.length > 0" class="line-count">{{ lineItems.length }}</span>
+              <span v-if="lineItems.length > 0" class="line-count">{{
+                lineItems.length
+              }}</span>
             </button>
           </div>
 
@@ -52,7 +65,9 @@
                 </h5>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="invoiceNumber" class="required">ເລກທີໃບແຈ້ງໜີ້</label>
+                    <label for="invoiceNumber" class="required"
+                      >ເລກທີໃບແຈ້ງໜີ້</label
+                    >
                     <input
                       id="invoiceNumber"
                       v-model="form.invoiceNumber"
@@ -67,21 +82,29 @@
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="customerId" class="required">ລູກຄ້າ</label>
+                    <label for="clientId" class="required">ລູກຄ້າ</label>
                     <select
-                      id="customerId"
-                      v-model="form.customerId"
+                      id="clientId"
+                      v-model="form.clientId"
                       class="form-control"
-                      :class="{ 'is-invalid': errors.customerId }"
+                      :class="{ 'is-invalid': errors.clientId }"
                       @change="onCustomerChange"
                     >
-                      <option value="">ເລືອກລູກຄ້າ {{ customers.length }}</option>
-                      <option v-for="customer in customers" :key="customer.id" :value="customer.id">
-                        {{ customer.name }} ({{ customer.code || customer.email }})
+                      <option value="">
+                        ເລືອກລູກຄ້າ {{ customers.length }}
+                      </option>
+                      <option
+                        v-for="customer in customers"
+                        :key="customer.id"
+                        :value="customer.id"
+                      >
+                        {{ customer.name }} ({{
+                          customer.code || customer.email
+                        }})
                       </option>
                     </select>
-                    <div v-if="errors.customerId" class="invalid-feedback">
-                      {{ errors.customerId }}
+                    <div v-if="errors.clientId" class="invalid-feedback">
+                      {{ errors.clientId }}
                     </div>
                   </div>
                 </div>
@@ -96,7 +119,11 @@
                       @change="onCurrencyChange"
                     >
                       <option value="">ເລືອກສະກຸນເງິນ</option>
-                      <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
+                      <option
+                        v-for="currency in currencies"
+                        :key="currency.id"
+                        :value="currency.id"
+                      >
                         {{ currency.name }} ({{ currency.code }})
                       </option>
                     </select>
@@ -124,7 +151,9 @@
                 </h5>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="invoiceDate" class="required">ວັນທີໃບແຈ້ງໜີ້</label>
+                    <label for="invoiceDate" class="required"
+                      >ວັນທີໃບແຈ້ງໜີ້</label
+                    >
                     <input
                       id="invoiceDate"
                       v-model="form.invoiceDate"
@@ -209,19 +238,27 @@
                 <div class="totals-grid">
                   <div class="total-item">
                     <label>ລວມຍ່ອຍ:</label>
-                    <span class="amount">{{ formatCurrency(calculatedSubtotal) }}</span>
+                    <span class="amount">{{
+                      formatCurrency(calculatedSubtotal)
+                    }}</span>
                   </div>
                   <div class="total-item">
                     <label>ພາສີລວມ:</label>
-                    <span class="amount">{{ formatCurrency(calculatedTax) }}</span>
+                    <span class="amount">{{
+                      formatCurrency(calculatedTax)
+                    }}</span>
                   </div>
                   <div class="total-item">
                     <label>ຍອດສຸດທິ:</label>
-                    <span class="amount">{{ formatCurrency(calculatedNet) }}</span>
+                    <span class="amount">{{
+                      formatCurrency(calculatedNet)
+                    }}</span>
                   </div>
                   <div class="total-item grand-total">
                     <label>ລວມທັງໝົດ:</label>
-                    <span class="amount">{{ formatCurrency(calculatedTotal) }}</span>
+                    <span class="amount">{{
+                      formatCurrency(calculatedTotal)
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -238,11 +275,17 @@
                   ລາຍການສິນຄ້າ / ການບໍລິການ
                 </h5>
                 <div class="add-line-actions">
-                  <button type="button" class="btn btn-primary btn-add-line" @click="addNewLine">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-add-line"
+                    @click="addNewLine"
+                  >
                     <i class="fas fa-plus-circle"></i>
                     ເພີ່ມລາຍການສິນຄ້າ
                   </button>
-                  <span class="line-count-info">{{ lineItems.length }} ລາຍການ</span>
+                  <span class="line-count-info"
+                    >{{ lineItems.length }} ລາຍການ</span
+                  >
                 </div>
               </div>
 
@@ -252,7 +295,11 @@
                   <i class="fas fa-shopping-cart"></i>
                   <h4>ຍັງບໍ່ມີລາຍການສິນຄ້າ</h4>
                   <p>ກະລຸນາເພີ່ມສິນຄ້າຫຼືການບໍລິການເພື່ອສ້າງໃບແຈ້ງໜີ້</p>
-                  <button type="button" class="btn btn-lg btn-primary" @click="addNewLine">
+                  <button
+                    type="button"
+                    class="btn btn-lg btn-primary"
+                    @click="addNewLine"
+                  >
                     <i class="fas fa-plus-circle"></i>
                     ເພີ່ມລາຍການທຳອິດ
                   </button>
@@ -265,25 +312,31 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th style="width: 40px;">#</th>
-                        <th style="width: 200px;">ລາຍລະອຽດ *</th>
-                        <th style="width: 80px;">ຈຳນວນ *</th>
-                        <th style="width: 100px;">ລາຄາຕໍ່ຫົວ *</th>
-                        <th style="width: 80px;">ພາສີ %</th>
-                        <th style="width: 100px;">ຍອດພາສີ</th>
-                        <th style="width: 120px;">ລວມຕໍ່ແຖວ</th>
-                        <th style="width: 60px;">ລຶບ</th>
+                        <th style="width: 40px">#</th>
+                        <th style="width: 200px">ລາຍລະອຽດ *</th>
+                        <th style="width: 80px">ຈຳນວນ *</th>
+                        <th style="width: 100px">ລາຄາຕໍ່ຫົວ *</th>
+                        <th style="width: 80px">ພາສີ %</th>
+                        <th style="width: 100px">ຍອດພາສີ</th>
+                        <th style="width: 120px">ລວມຕໍ່ແຖວ</th>
+                        <th style="width: 60px">ລຶບ</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(line, index) in lineItems" :key="line.tempId || line.id" class="line-row">
+                      <tr
+                        v-for="(line, index) in lineItems"
+                        :key="line.tempId || line.id"
+                        class="line-row"
+                      >
                         <td class="line-number">{{ index + 1 }}</td>
                         <td>
                           <input
                             v-model="line.description"
                             type="text"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_description`] }"
+                            :class="{
+                              'is-invalid': errors[`line_${index}_description`],
+                            }"
                             placeholder="ລາຍລະອຽດສິນຄ້າ/ການບໍລິການ..."
                             @blur="calculateLineTotal(line)"
                           />
@@ -295,7 +348,9 @@
                             step="0.01"
                             min="0"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_quantity`] }"
+                            :class="{
+                              'is-invalid': errors[`line_${index}_quantity`],
+                            }"
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
@@ -306,7 +361,9 @@
                             step="0.01"
                             min="0"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_unitPrice`] }"
+                            :class="{
+                              'is-invalid': errors[`line_${index}_unitPrice`],
+                            }"
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
@@ -328,8 +385,8 @@
                           {{ formatCurrency(line.lineTotal || 0) }}
                         </td>
                         <td>
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             class="btn btn-sm btn-danger"
                             @click="removeLine(index)"
                             title="ລຶບລາຍການ"
@@ -344,15 +401,27 @@
 
                 <!-- Add More Lines Section -->
                 <div class="add-more-lines">
-                  <button type="button" class="btn btn-outline-primary btn-add-more" @click="addNewLine">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-add-more"
+                    @click="addNewLine"
+                  >
                     <i class="fas fa-plus"></i>
                     ເພີ່ມລາຍການໃໝ່
                   </button>
                   <div class="quick-add-buttons">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="addMultipleLines(3)">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                      @click="addMultipleLines(3)"
+                    >
                       ເພີ່ມ 3 ລາຍການ
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="addMultipleLines(5)">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                      @click="addMultipleLines(5)"
+                    >
                       ເພີ່ມ 5 ລາຍການ
                     </button>
                   </div>
@@ -363,19 +432,27 @@
                   <div class="totals-grid">
                     <div class="total-item">
                       <label>ລວມຍ່ອຍ:</label>
-                      <span class="amount">{{ formatCurrency(calculatedSubtotal) }}</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedSubtotal)
+                      }}</span>
                     </div>
                     <div class="total-item">
                       <label>ພາສີລວມ:</label>
-                      <span class="amount">{{ formatCurrency(calculatedTax) }}</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedTax)
+                      }}</span>
                     </div>
                     <div class="total-item">
                       <label>ຍອດສຸດທິ:</label>
-                      <span class="amount">{{ formatCurrency(calculatedNet) }}</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedNet)
+                      }}</span>
                     </div>
                     <div class="total-item grand-total">
                       <label>ລວມທັງໝົດ:</label>
-                      <span class="amount">{{ formatCurrency(calculatedTotal) }}</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedTotal)
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -404,17 +481,29 @@
           >
             <i v-if="saving" class="fas fa-spinner fa-spin"></i>
             <i v-else class="fas fa-save"></i>
-            {{ saving ? 'ກຳລັງບັນທຶກ...' : (isEdit ? 'ອັບເດດ' : 'ບັນທຶກ') }}
+            {{ saving ? 'ກຳລັງບັນທຶກ...' : isEdit ? 'ອັບເດດ' : 'ບັນທຶກ' }}
           </button>
         </div>
       </div>
     </div>
+    <!-- Settlement Audit Dialog -->
+    <settlement-audit-dialog
+      :visible="showAuditDialog"
+      :settlement-id="form.id"
+      :settlement-info="settlementInfoForAudit"
+      @close="closeAuditDialog"
+    />
   </div>
 </template>
 
 <script>
+import SettlementAuditDialog from '~/components/accounting/ar/invoice/audit'
+
 export default {
   name: 'InvoiceHeaderMaintain',
+  components: {
+    SettlementAuditDialog,
+  },
   props: {
     visible: {
       type: Boolean,
@@ -436,6 +525,7 @@ export default {
 
   data() {
     return {
+      showAuditDialog: false, // Add audit dialog visibility state
       activeTab: 'header',
       formLoading: false,
       saving: false,
@@ -449,12 +539,12 @@ export default {
         invoiceNumber: '',
         invoiceDate: '',
         dueDate: '',
-        customerId: '',
+        clientId: '',
         currencyId: '',
-        exchangeRate: 1.0000,
-        totalAmount: 0.00,
-        taxAmount: 0.00,
-        netAmount: 0.00,
+        exchangeRate: 1.0,
+        totalAmount: 0.0,
+        taxAmount: 0.0,
+        netAmount: 0.0,
         status: 'draft',
         description: '',
         reason: '',
@@ -469,13 +559,17 @@ export default {
 
     calculatedSubtotal() {
       return this.lineItems.reduce((sum, line) => {
-        const subtotal = (parseFloat(line.quantity) || 0) * (parseFloat(line.unitPrice) || 0)
+        const subtotal =
+          (parseFloat(line.quantity) || 0) * (parseFloat(line.unitPrice) || 0)
         return sum + subtotal
       }, 0)
     },
 
     calculatedTax() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.taxAmount) || 0), 0)
+      return this.lineItems.reduce(
+        (sum, line) => sum + (parseFloat(line.taxAmount) || 0),
+        0
+      )
     },
 
     calculatedNet() {
@@ -483,24 +577,30 @@ export default {
     },
 
     calculatedTotal() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.lineTotal) || 0), 0)
+      return this.lineItems.reduce(
+        (sum, line) => sum + (parseFloat(line.lineTotal) || 0),
+        0
+      )
     },
 
     isFormValid() {
-      const hasValidHeader = this.form.invoiceNumber &&
-                           this.form.invoiceDate &&
-                           this.form.customerId &&
-                           (!this.isEdit || this.form.reason)
+      const hasValidHeader =
+        this.form.invoiceNumber &&
+        this.form.invoiceDate &&
+        this.form.clientId &&
+        (!this.isEdit || this.form.reason)
 
-      const hasValidLines = this.lineItems.length > 0 && 
-                           this.lineItems.every(line => 
-                             line.description && 
-                             (parseFloat(line.quantity) || 0) > 0 && 
-                             (parseFloat(line.unitPrice) || 0) >= 0
-                           )
+      const hasValidLines =
+        this.lineItems.length > 0 &&
+        this.lineItems.every(
+          (line) =>
+            line.description &&
+            (parseFloat(line.quantity) || 0) > 0 &&
+            (parseFloat(line.unitPrice) || 0) >= 0
+        )
 
       return hasValidHeader && hasValidLines
-    }
+    },
   },
 
   watch: {
@@ -512,7 +612,7 @@ export default {
           this.resetDialog()
         }
       },
-      immediate: true
+      immediate: true,
     },
 
     invoice: {
@@ -520,11 +620,23 @@ export default {
         if (this.visible) {
           this.initializeDialog()
         }
-      }
-    }
+      },
+    },
   },
 
   methods: {
+    openAuditDialog() {
+      if (!this.isEditMode) {
+        this.$toast?.warning(
+          'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ້ບັນທຶກການຊຳລະ'
+        )
+        return
+      }
+      this.showAuditDialog = true
+    },
+    closeAuditDialog() {
+      this.showAuditDialog = false
+    },
     async initializeDialog() {
       this.activeTab = 'header'
       this.clearErrors()
@@ -533,37 +645,42 @@ export default {
         this.form = {
           id: this.invoice.id,
           invoiceNumber: this.invoice.invoiceNumber,
-          invoiceDate: this.invoice.invoiceDate ? this.invoice.invoiceDate.split('T')[0] : '',
-          dueDate: this.invoice.dueDate ? this.invoice.dueDate.split('T')[0] : '',
-          customerId: this.invoice.customerId,
+          invoiceDate: this.invoice.invoiceDate
+            ? this.invoice.invoiceDate.split('T')[0]
+            : '',
+          dueDate: this.invoice.dueDate
+            ? this.invoice.dueDate.split('T')[0]
+            : '',
+          clientId: this.invoice.clientId,
           currencyId: this.invoice.currencyId,
-          exchangeRate: this.invoice.exchangeRate || 1.0000,
-          totalAmount: this.invoice.totalAmount || 0.00,
-          taxAmount: this.invoice.taxAmount || 0.00,
-          netAmount: this.invoice.netAmount || 0.00,
+          exchangeRate: this.invoice.exchangeRate || 1.0,
+          totalAmount: this.invoice.totalAmount || 0.0,
+          taxAmount: this.invoice.taxAmount || 0.0,
+          netAmount: this.invoice.netAmount || 0.0,
           status: this.invoice.status || 'draft',
           description: this.invoice.description || '',
           reason: '',
         }
-        
+
         await this.loadLineItems(this.invoice.id)
       } else {
         this.resetForm()
-        
+
         // Set default date to today
         this.form.invoiceDate = new Date().toISOString().split('T')[0]
         // Set default due date to 30 days from today
         const dueDate = new Date()
         dueDate.setDate(dueDate.getDate() + 30)
         this.form.dueDate = dueDate.toISOString().split('T')[0]
-        
+
         // Initialize with default currency
         if (this.currencies.length > 0) {
-          const defaultCurrency = this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+          const defaultCurrency =
+            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
           this.form.currencyId = defaultCurrency.id
           this.selectedCurrency = defaultCurrency
         }
-        
+
         // Initialize with one empty line item
         this.lineItems = [this.createEmptyLine()]
       }
@@ -585,10 +702,12 @@ export default {
 
     async loadLineItems(invoiceId) {
       try {
-        const { data } = await this.$axios.get(`/api/ar-invoice-lines/by-header/${invoiceId}`)
+        const { data } = await this.$axios.get(
+          `/api/ar-invoice-lines/by-header/${invoiceId}`
+        )
         this.lineItems = data.data || [this.createEmptyLine()]
-        
-        this.lineItems.forEach(line => {
+
+        this.lineItems.forEach((line) => {
           if (!line.tempId) {
             line.tempId = this.nextTempId++
           }
@@ -647,8 +766,10 @@ export default {
     },
 
     updateSelectedCustomer() {
-      if (this.form.customerId && this.customers.length > 0) {
-        this.selectedCustomer = this.customers.find(c => c.id === this.form.customerId)
+      if (this.form.clientId && this.customers.length > 0) {
+        this.selectedCustomer = this.customers.find(
+          (c) => c.id === this.form.clientId
+        )
       } else {
         this.selectedCustomer = null
       }
@@ -656,7 +777,9 @@ export default {
 
     updateSelectedCurrency() {
       if (this.form.currencyId && this.currencies.length > 0) {
-        this.selectedCurrency = this.currencies.find(c => c.id === this.form.currencyId)
+        this.selectedCurrency = this.currencies.find(
+          (c) => c.id === this.form.currencyId
+        )
       } else {
         this.selectedCurrency = null
       }
@@ -665,7 +788,7 @@ export default {
     onCustomerChange() {
       this.updateSelectedCustomer()
       this.calculateDueDate()
-      this.clearFieldError('customerId')
+      this.clearFieldError('clientId')
     },
 
     onCurrencyChange() {
@@ -677,7 +800,9 @@ export default {
       if (this.form.invoiceDate && this.selectedCustomer?.paymentTerms) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(invoiceDate)
-        dueDate.setDate(dueDate.getDate() + parseInt(this.selectedCustomer.paymentTerms))
+        dueDate.setDate(
+          dueDate.getDate() + parseInt(this.selectedCustomer.paymentTerms)
+        )
         this.form.dueDate = dueDate.toISOString().split('T')[0]
       }
     },
@@ -690,8 +815,8 @@ export default {
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
       }
 
-      if (!this.form.customerId) {
-        this.errors.customerId = 'ກະລຸນາເລືອກລູກຄ້າ'
+      if (!this.form.clientId) {
+        this.errors.clientId = 'ກະລຸນາເລືອກລູກຄ້າ'
       }
 
       if (!this.form.invoiceDate) {
@@ -702,7 +827,7 @@ export default {
       if (this.form.invoiceDate && this.form.dueDate) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(this.form.dueDate)
-        
+
         if (dueDate <= invoiceDate) {
           this.errors.dueDate = 'ວັນທີຄົບກຳນົດຕ້ອງຫຼັງຈາກວັນທີໃບແຈ້ງໜີ້'
         }
@@ -746,7 +871,7 @@ export default {
     handleSubmit() {
       if (!this.validateForm()) {
         // Switch to appropriate tab if there are errors
-        if (Object.keys(this.errors).some(key => key.startsWith('line_'))) {
+        if (Object.keys(this.errors).some((key) => key.startsWith('line_'))) {
           this.activeTab = 'lines'
         } else {
           this.activeTab = 'header'
@@ -761,14 +886,14 @@ export default {
         totalAmount: this.calculatedTotal,
         taxAmount: this.calculatedTax,
         netAmount: this.calculatedNet,
-        exchangeRate: parseFloat(this.form.exchangeRate) || 1.0000,
+        exchangeRate: parseFloat(this.form.exchangeRate) || 1.0,
         lineItems: this.lineItems.map((line, index) => ({
           ...line,
           lineNumber: index + 1,
           quantity: parseFloat(line.quantity) || 0,
           unitPrice: parseFloat(line.unitPrice) || 0,
-          taxRate: parseFloat(line.taxRate) || 0
-        }))
+          taxRate: parseFloat(line.taxRate) || 0,
+        })),
       }
 
       this.$emit('save', formData)
@@ -790,12 +915,12 @@ export default {
         invoiceNumber: '',
         invoiceDate: '',
         dueDate: '',
-        customerId: '',
+        clientId: '',
         currencyId: '',
-        exchangeRate: 1.0000,
-        totalAmount: 0.00,
-        taxAmount: 0.00,
-        netAmount: 0.00,
+        exchangeRate: 1.0,
+        totalAmount: 0.0,
+        taxAmount: 0.0,
+        netAmount: 0.0,
         status: 'draft',
         description: '',
         reason: '',
@@ -912,8 +1037,12 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .invoice-form {
@@ -1012,9 +1141,9 @@ export default {
   padding: 10px;
 }
 
-.col-md-6 { 
-  flex: 0 0 50%; 
-  max-width: 50%; 
+.col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
 }
 
 .form-group label {
@@ -1134,11 +1263,28 @@ export default {
   transition: all 0.2s ease;
 }
 
-.btn-primary { background: #007bff; color: white; }
-.btn-secondary { background: #6c757d; color: white; }
-.btn-outline-primary { background: white; color: #667eea; border: 2px solid #667eea; }
-.btn-outline-secondary { background: white; color: #6c757d; border: 1px solid #6c757d; }
-.btn-danger { background: #dc3545; color: white; }
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+.btn-outline-primary {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+.btn-outline-secondary {
+  background: white;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
 
 .btn:hover:not(:disabled) {
   opacity: 0.9;
@@ -1241,7 +1387,8 @@ export default {
   color: #666;
 }
 
-.line-total, .tax-amount {
+.line-total,
+.tax-amount {
   font-weight: 600;
   text-align: right;
   color: #333;

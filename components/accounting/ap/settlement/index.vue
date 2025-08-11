@@ -3,9 +3,23 @@
     <div class="settlement-dialog" @click.stop>
       <div class="dialog-header">
         <h4>{{ isEditMode ? 'ແກ້ໄຂການຊຳລະ' : 'ສ້າງການຊຳລະໃໝ່' }}</h4>
-        <button @click="closeDialog" class="close-btn">
-          <i class="fas fa-times"></i>
-        </button>
+        <div class="header-actions">
+          <!-- Audit History Button (only show in edit mode) -->
+          <button
+            v-if="isEditMode"
+            @click="openAuditDialog"
+            class="audit-btn"
+            type="button"
+            :title="'ເບິ່ງປະຫວັດການດຳເນີນງານ'"
+          >
+            <i class="fas fa-history"></i>
+            <span class="audit-text">ປະຫວັດ</span>
+          </button>
+
+          <button @click="closeDialog" class="close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
 
       <div class="dialog-body">
@@ -278,7 +292,7 @@
             >
               <i class="fas fa-times"></i> ຍົກເລີກ
             </button>
-            
+
             <button
               v-if="canApprove && form.status === 'pending'"
               type="button"
@@ -288,9 +302,11 @@
             >
               <i class="fas fa-check"></i> ອະນຸມັດ
             </button>
-            
+
             <button
-              v-if="canComplete && ['pending', 'approved'].includes(form.status)"
+              v-if="
+                canComplete && ['pending', 'approved'].includes(form.status)
+              "
               type="button"
               @click="completeSettlement"
               class="btn btn-info"
@@ -298,7 +314,7 @@
             >
               <i class="fas fa-check-circle"></i> ສຳເລັດ
             </button>
-            
+
             <button
               type="submit"
               class="btn btn-primary"
@@ -413,12 +429,26 @@
         </div>
       </div>
     </div>
+
+    <!-- Settlement Audit Dialog -->
+    <settlement-audit-dialog
+      :visible="showAuditDialog"
+      :settlement-id="form.id"
+      :settlement-info="settlementInfoForAudit"
+      @close="closeAuditDialog"
+    />
   </div>
 </template>
 
 <script>
+import SettlementAuditDialog from '~/components/accounting/ap/settlement/audit'
+
 export default {
   name: 'SettlementDialog',
+
+  components: {
+    SettlementAuditDialog,
+  },
 
   props: {
     visible: {
@@ -432,10 +462,6 @@ export default {
     outstandingInvoices: {
       type: Array,
       default: () => [],
-    },
-    user: {
-      type: Object,
-      required: true,
     },
   },
 
@@ -463,6 +489,7 @@ export default {
       errors: {},
       isSubmitting: false,
       showInvoiceSelector: false,
+      showAuditDialog: false, // Add audit dialog visibility state
       invoiceSearchTerm: '',
       selectedVendorFilter: '',
       filteredInvoices: [],
@@ -470,6 +497,9 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$auth.user || ''
+    },
     isEditMode() {
       return !!(this.settlement && this.settlement.id)
     },
@@ -480,7 +510,9 @@ export default {
 
     canModifyStatus() {
       // Only allow status changes if user has appropriate permissions
-      return this.user.canManageSettlements || this.form.makerId === this.user.id
+      return (
+        this.user.canManageSettlements || this.form.makerId === this.user.id
+      )
     },
 
     canModifyAllocations() {
@@ -492,11 +524,17 @@ export default {
     },
 
     canComplete() {
-      return this.user.canCompleteSettlements && ['pending', 'approved'].includes(this.form.status)
+      return (
+        this.user.canCompleteSettlements &&
+        ['pending', 'approved'].includes(this.form.status)
+      )
     },
 
     showApprovalSection() {
-      return this.isEditMode && ['pending', 'approved', 'completed'].includes(this.form.status)
+      return (
+        this.isEditMode &&
+        ['pending', 'approved', 'completed'].includes(this.form.status)
+      )
     },
 
     totalAllocated() {
@@ -525,16 +563,35 @@ export default {
 
     makerName() {
       if (this.isEditMode && this.settlement?.maker) {
-        return this.settlement.maker.fullName || this.settlement.maker.username
+        console.info(`user ${JSON.stringify(this.settlement.maker)}`)
+        return this.settlement.maker.cus_name || this.settlement.maker.username
       }
-      return this.user.fullName || this.user.username
+      return this.user.cus_name || this.user.username
     },
 
     checkerName() {
       if (this.isEditMode && this.settlement?.checker) {
-        return this.settlement.checker.fullName || this.settlement.checker.username
+        return (
+          this.settlement.checker.fullName || this.settlement.checker.username
+        )
       }
       return ''
+    },
+
+    // Settlement info formatted for audit dialog
+    settlementInfoForAudit() {
+      if (!this.isEditMode) return null
+
+      return {
+        settlementId: this.form.id,
+        paymentAmount: this.form.paymentAmount,
+        baseAmount: this.form.baseAmount,
+        settlementDate: this.form.settlementDate,
+        status: this.form.status,
+        reference: this.form.reference,
+        description: this.form.description,
+        note: this.form.note,
+      }
     },
   },
 
@@ -574,10 +631,7 @@ export default {
 
     async loadReferenceData() {
       try {
-        await Promise.all([
-          this.loadPaymentMethods(),
-          this.loadBankAccounts(),
-        ])
+        await Promise.all([this.loadPaymentMethods(), this.loadBankAccounts()])
       } catch (error) {
         console.error('Error loading reference data:', error)
       }
@@ -606,7 +660,8 @@ export default {
     loadSettlementData(settlement) {
       this.form = {
         id: settlement.id,
-        settlementDate: settlement.settlementDate || new Date().toISOString().split('T')[0],
+        settlementDate:
+          settlement.settlementDate || new Date().toISOString().split('T')[0],
         paymentAmount: parseFloat(settlement.paymentAmount || 0),
         baseAmount: parseFloat(settlement.baseAmount || 0),
         paymentMethodId: settlement.paymentMethodId || '',
@@ -627,7 +682,9 @@ export default {
             id: allocation.invoice.id,
             invoiceNumber: allocation.invoice.invoiceNumber,
             vendor: allocation.invoice.vendor,
-            outstandingAmount: parseFloat(allocation.invoice.outstandingAmount || 0),
+            outstandingAmount: parseFloat(
+              allocation.invoice.outstandingAmount || 0
+            ),
             settledAmount: parseFloat(allocation.amount || 0), // Using 'amount' from InvoiceSettlementLine model
           })
         )
@@ -670,6 +727,21 @@ export default {
     calculateTotals() {
       // This will trigger the computed properties to recalculate
       this.$forceUpdate()
+    },
+
+    // Audit Dialog Methods
+    openAuditDialog() {
+      if (!this.isEditMode) {
+        this.$toast?.warning(
+          'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ້ບັນທຶກການຊຳລະ'
+        )
+        return
+      }
+      this.showAuditDialog = true
+    },
+
+    closeAuditDialog() {
+      this.showAuditDialog = false
     },
 
     // Invoice Selection Methods
@@ -909,6 +981,41 @@ export default {
   margin: 0;
   color: #333;
   font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.audit-btn {
+  background: #17a2b8;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.audit-btn:hover {
+  background: #138496;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.audit-btn:active {
+  transform: translateY(0);
+}
+
+.audit-text {
+  font-size: 13px;
 }
 
 .close-btn {
@@ -1259,6 +1366,20 @@ export default {
     max-height: 95vh;
   }
 
+  .header-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .audit-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .audit-text {
+    display: none;
+  }
+
   .form-row {
     flex-direction: column;
   }
@@ -1300,6 +1421,28 @@ export default {
     flex: 1;
     max-width: 100%;
     margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dialog-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    padding-right: 60px;
+  }
+
+  .header-actions {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .audit-btn {
+    padding: 6px 8px;
   }
 }
 </style>

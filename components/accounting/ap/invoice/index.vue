@@ -22,7 +22,7 @@
         <div v-else class="invoice-form">
           <!-- Tab Navigation -->
           <div class="tab-navigation">
-            <button 
+            <button
               type="button"
               :class="['tab-btn', { active: activeTab === 'header' }]"
               @click="activeTab = 'header'"
@@ -30,14 +30,16 @@
               <i class="fas fa-file-alt"></i>
               ຂໍ້ມູນໃບແຈ້ງໜີ້
             </button>
-            <button 
+            <button
               type="button"
               :class="['tab-btn', { active: activeTab === 'lines' }]"
               @click="activeTab = 'lines'"
             >
               <i class="fas fa-list"></i>
               ລາຍການສິນຄ້າ
-              <span v-if="lineItems.length > 0" class="line-count">{{ lineItems.length }}</span>
+              <span v-if="lineItems.length > 0" class="line-count">{{
+                lineItems.length
+              }}</span>
             </button>
           </div>
 
@@ -52,7 +54,9 @@
                 </h5>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="invoiceNumber" class="required">ເລກທີໃບແຈ້ງໜີ້</label>
+                    <label for="invoiceNumber" class="required"
+                      >ເລກທີໃບແຈ້ງໜີ້</label
+                    >
                     <input
                       id="invoiceNumber"
                       v-model="form.invoiceNumber"
@@ -67,7 +71,9 @@
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="vendorInvoiceNumber" class="required">ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label>
+                    <label for="vendorInvoiceNumber" class="required"
+                      >ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label
+                    >
                     <input
                       id="vendorInvoiceNumber"
                       v-model="form.vendorInvoiceNumber"
@@ -76,7 +82,10 @@
                       :class="{ 'is-invalid': errors.vendorInvoiceNumber }"
                       placeholder="ເລກທີໃບແຈ້ງໜີ້ຂອງຜູ້ຂາຍ"
                     />
-                    <div v-if="errors.vendorInvoiceNumber" class="invalid-feedback">
+                    <div
+                      v-if="errors.vendorInvoiceNumber"
+                      class="invalid-feedback"
+                    >
                       {{ errors.vendorInvoiceNumber }}
                     </div>
                   </div>
@@ -93,7 +102,11 @@
                       @change="onVendorChange"
                     >
                       <option value="">ເລືອກຜູ້ຂາຍ</option>
-                      <option v-for="vendor in vendors" :key="vendor.id" :value="vendor.id">
+                      <option
+                        v-for="vendor in vendors"
+                        :key="vendor.id"
+                        :value="vendor.id"
+                      >
                         {{ vendor.name }} ({{ vendor.vendorCode }})
                       </option>
                     </select>
@@ -111,12 +124,65 @@
                       @change="onCurrencyChange"
                     >
                       <option value="">ເລືອກສະກຸນເງິນ</option>
-                      <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
+                      <option
+                        v-for="currency in currencies"
+                        :key="currency.id"
+                        :value="currency.id"
+                      >
                         {{ currency.name }} ({{ currency.code }})
                       </option>
                     </select>
                     <div v-if="errors.currencyId" class="invalid-feedback">
                       {{ errors.currencyId }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Exchange Rate Row -->
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="exchangeRate" class="required">
+                      ອັດຕາແລກປ່ຽນ
+                      <span v-if="selectedCurrency" class="currency-info">
+                        ({{ selectedCurrency.code }} ຕໍ່ LAK)
+                      </span>
+                    </label>
+                    <div class="exchange-rate-input-group">
+                      <input
+                        id="exchangeRate"
+                        v-model="form.exchangeRate"
+                        type="number"
+                        step="0.0001"
+                        min="0"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors.exchangeRate }"
+                        placeholder="1.0000"
+                        @blur="calculateExchangeAmounts"
+                      />
+                      <div class="exchange-rate-addon">
+                        <i class="fas fa-exchange-alt"></i>
+                      </div>
+                    </div>
+                    <div v-if="errors.exchangeRate" class="invalid-feedback">
+                      {{ errors.exchangeRate }}
+                    </div>
+                    <small class="form-text text-muted">
+                      ໃຊ້ 1.0000 ສຳລັບ LAK ຫຼື ປ້ອນອັດຕາແລກປ່ຽນປັດຈຸບັນ
+                    </small>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <!-- Exchange Rate Display -->
+                    <div v-if="selectedCurrency && form.exchangeRate" class="exchange-display">
+                      <label class="exchange-label">ຍອດເງິນໃນສະກຸນທ້ອງຖິ່ນ</label>
+                      <div class="exchange-amount">
+                        <span class="foreign-amount">
+                          {{ formatCurrency(calculatedTotal, selectedCurrency?.code || 'USD') }}
+                        </span>
+                        <i class="fas fa-arrow-right exchange-arrow"></i>
+                        <span class="local-amount">
+                          {{ formatCurrency(calculatedTotal * parseFloat(form.exchangeRate || 1), 'LAK') }}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -130,7 +196,9 @@
                 </h5>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="invoiceDate" class="required">ວັນທີໃບແຈ້ງໜີ້</label>
+                    <label for="invoiceDate" class="required"
+                      >ວັນທີໃບແຈ້ງໜີ້</label
+                    >
                     <input
                       id="invoiceDate"
                       v-model="form.invoiceDate"
@@ -209,19 +277,218 @@
                 <div class="totals-grid">
                   <div class="total-item">
                     <label>ລວມຍ່ອຍ:</label>
-                    <span class="amount">{{ formatCurrency(calculatedSubtotal) }}</span>
+                    <span class="amount">{{
+                      formatCurrency(calculatedSubtotal, selectedCurrency?.code)
+                    }}</span>
                   </div>
                   <div class="total-item">
                     <label>ສ່ວນຫຼຸດ:</label>
-                    <span class="amount discount">-{{ formatCurrency(calculatedDiscount) }}</span>
+                    <span class="amount discount"
+                      >-{{ formatCurrency(calculatedDiscount, selectedCurrency?.code) }}</span
+                    >
                   </div>
                   <div class="total-item">
                     <label>ພາສີ:</label>
-                    <span class="amount">+{{ formatCurrency(calculatedTax) }}</span>
+                    <span class="amount"
+                      >+{{ formatCurrency(calculatedTax, selectedCurrency?.code) }}</span
+                    >
                   </div>
                   <div class="total-item grand-total">
                     <label>ລວມທັງໝົດ:</label>
-                    <span class="amount">{{ formatCurrency(calculatedTotal) }}</span>
+                    <span class="amount">{{
+                      formatCurrency(calculatedTotal, selectedCurrency?.code)
+                    }}</span>
+                  </div>
+                  <!-- Local Currency Display -->
+                  <div v-if="selectedCurrency && selectedCurrency.code !== 'LAK' && form.exchangeRate" class="total-item local-currency">
+                    <label>ລວມເປັນ LAK:</label>
+                    <span class="amount local">{{
+                      formatCurrency(calculatedTotal * parseFloat(form.exchangeRate || 1), 'LAK')
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Audit Trail Section -->
+              <div v-if="isEdit" class="form-section audit-trail-section">
+                <div class="audit-section-header">
+                  <h5 class="section-title">
+                    <i class="fas fa-history"></i>
+                    ປະຫວັດການດຳເນີນງານ
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-view-audit"
+                    @click="openAuditDialog"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                    ເບິ່ງປະຫວັດລະອຽດ
+                  </button>
+                </div>
+                <div class="audit-trail-container">
+                  <!-- Maker Information -->
+                  <div class="audit-card maker-card">
+                    <div class="audit-header">
+                      <div class="audit-icon maker-icon">
+                        <i class="fas fa-user-edit"></i>
+                      </div>
+                      <div class="audit-title">
+                        <h6>ຜູ້ສ້າງເອກະສານ (Maker)</h6>
+                        <span class="audit-status status-created"
+                          >ສ້າງແລ້ວ</span
+                        >
+                      </div>
+                    </div>
+                    <div class="audit-details">
+                      <div class="audit-row">
+                        <span class="audit-label">ຊື່ຜູ້ສ້າງ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.makerName
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ຕຳແໜ່ງ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.makerPosition
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ອີເມວ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.makerEmail || '-'
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ວັນທີສ້າງ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.createdDate
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ເວລາສ້າງ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.createdTime
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Checker Information -->
+                  <div class="audit-card checker-card">
+                    <div class="audit-header">
+                      <div class="audit-icon checker-icon">
+                        <i class="fas fa-user-check"></i>
+                      </div>
+                      <div class="audit-title">
+                        <h6>ຜູ້ກວດສອບ (Checker)</h6>
+                        <span
+                          :class="[
+                            'audit-status',
+                            auditTrail.isChecked
+                              ? 'status-approved'
+                              : 'status-pending',
+                          ]"
+                        >
+                          {{
+                            auditTrail.isChecked
+                              ? 'ອະນຸມັດແລ້ວ'
+                              : 'ລໍຖ້າການອະນຸມັດ'
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="audit-details">
+                      <div class="audit-row">
+                        <span class="audit-label">ຊື່ຜູ້ກວດ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.checkerName || '-'
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ຕຳແໜ່ງ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.checkerPosition || '-'
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ອີເມວ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.checkerEmail || '-'
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ວັນທີກວດ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.checkedDate || '-'
+                        }}</span>
+                      </div>
+                      <div class="audit-row">
+                        <span class="audit-label">ເວລາກວດ:</span>
+                        <span class="audit-value">{{
+                          auditTrail.checkedTime || '-'
+                        }}</span>
+                      </div>
+                      <div v-if="auditTrail.checkerComment" class="audit-row">
+                        <span class="audit-label">ຄຳເຫັນ:</span>
+                        <span class="audit-value comment">{{
+                          auditTrail.checkerComment
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Approval Status Summary -->
+                  <div class="approval-status-summary">
+                    <div class="status-info-header">
+                      <h6>ສະຖານະເອກະສານ</h6>
+                      <span :class="['status-badge', `status-${auditTrail.status}`]">
+                        {{ getStatusText(auditTrail.status) }}
+                      </span>
+                    </div>
+                    <div class="status-workflow">
+                      <div
+                        :class="[
+                          'workflow-step',
+                          'step-created',
+                          { active: true },
+                        ]"
+                      >
+                        <div class="step-icon">
+                          <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <span class="step-label">ສ້າງເອກະສານ</span>
+                      </div>
+                      <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                      </div>
+                      <div
+                        :class="[
+                          'workflow-step',
+                          'step-pending',
+                          { active: auditTrail.isChecked },
+                        ]"
+                      >
+                        <div class="step-icon">
+                          <i class="fas fa-clock"></i>
+                        </div>
+                        <span class="step-label">ລໍຖ້າການອະນຸມັດ</span>
+                      </div>
+                      <div class="workflow-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                      </div>
+                      <div
+                        :class="[
+                          'workflow-step',
+                          'step-approved',
+                          { active: auditTrail.isApproved },
+                        ]"
+                      >
+                        <div class="step-icon">
+                          <i class="fas fa-check-circle"></i>
+                        </div>
+                        <span class="step-label">ອະນຸມັດແລ້ວ</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -238,11 +505,17 @@
                   ລາຍການສິນຄ້າ / ການບໍລິການ
                 </h5>
                 <div class="add-line-actions">
-                  <button type="button" class="btn btn-primary btn-add-line" @click="addNewLine">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-add-line"
+                    @click="addNewLine"
+                  >
                     <i class="fas fa-plus-circle"></i>
                     ເພີ່ມລາຍການສິນຄ້າ
                   </button>
-                  <span class="line-count-info">{{ lineItems.length }} ລາຍການ</span>
+                  <span class="line-count-info"
+                    >{{ lineItems.length }} ລາຍການ</span
+                  >
                 </div>
               </div>
 
@@ -251,8 +524,15 @@
                 <div class="empty-content">
                   <i class="fas fa-shopping-cart"></i>
                   <h4>ຍັງບໍ່ມີລາຍການສິນຄ້າ</h4>
-                  <p>ກະລຸນາເພີ່ມສິນຄ້າຫຼືການບໍລິການພ້ອມກັບບັນຊີ GL ເພື່ອສ້າງໃບແຈ້ງໜີ້</p>
-                  <button type="button" class="btn btn-lg btn-primary" @click="addNewLine">
+                  <p>
+                    ກະລຸນາເພີ່ມສິນຄ້າຫຼືການບໍລິການພ້ອມກັບບັນຊີ GL
+                    ເພື່ອສ້າງໃບແຈ້ງໜີ້
+                  </p>
+                  <button
+                    type="button"
+                    class="btn btn-lg btn-primary"
+                    @click="addNewLine"
+                  >
                     <i class="fas fa-plus-circle"></i>
                     ເພີ່ມລາຍການທຳອິດ
                   </button>
@@ -265,27 +545,33 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th style="width: 40px;">#</th>
-                        <th style="width: 180px;">ລາຍລະອຽດ *</th>
-                        <th style="width: 70px;">ຈຳນວນ *</th>
-                        <th style="width: 80px;">ລາຄາຕໍ່ຫົວ *</th>
-                        <th style="width: 120px;">DR Account *</th>
-                        <th style="width: 120px;">CR Account *</th>
-                        <th style="width: 60px;">ສ່ວນຫຼຸດ%</th>
-                        <th style="width: 60px;">ພາສີ%</th>
-                        <th style="width: 100px;">ລວມ</th>
-                        <th style="width: 60px;">ລຶບ</th>
+                        <th style="width: 40px">#</th>
+                        <th style="width: 180px">ລາຍລະອຽດ *</th>
+                        <th style="width: 70px">ຈຳນວນ *</th>
+                        <th style="width: 80px">ລາຄາຕໍ່ຫົວ *</th>
+                        <th style="width: 120px">DR Account *</th>
+                        <th style="width: 120px">CR Account *</th>
+                        <th style="width: 60px">ສ່ວນຫຼຸດ%</th>
+                        <th style="width: 60px">ພາສີ%</th>
+                        <th style="width: 100px">ລວມ</th>
+                        <th style="width: 60px">ລຶບ</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(line, index) in lineItems" :key="line.tempId || line.id" class="line-row">
+                      <tr
+                        v-for="(line, index) in lineItems"
+                        :key="line.tempId || line.id"
+                        class="line-row"
+                      >
                         <td class="line-number">{{ index + 1 }}</td>
                         <td>
                           <input
                             v-model="line.description"
                             type="text"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_description`] }"
+                            :class="{
+                              'is-invalid': errors[`line_${index}_description`],
+                            }"
                             placeholder="ລາຍລະອຽດສິນຄ້າ/ການບໍລິການ..."
                             @blur="calculateLineTotal(line)"
                           />
@@ -297,7 +583,9 @@
                             step="0.001"
                             min="0"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_quantity`] }"
+                            :class="{
+                              'is-invalid': errors[`line_${index}_quantity`],
+                            }"
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
@@ -308,7 +596,9 @@
                             step="0.01"
                             min="0"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_unitPrice`] }"
+                            :class="{
+                              'is-invalid': errors[`line_${index}_unitPrice`],
+                            }"
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
@@ -316,11 +606,19 @@
                           <select
                             v-model="line.DRglAccountId"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_DRglAccountId`] }"
+                            :class="{
+                              'is-invalid':
+                                errors[`line_${index}_DRglAccountId`],
+                            }"
                           >
                             <option value="">ເລືອກ DR Account</option>
-                            <option v-for="account in glAccounts" :key="account.id" :value="account.id">
-                              {{ account.accountNumber }} - {{ account.accountName }}
+                            <option
+                              v-for="account in glAccounts"
+                              :key="account.id"
+                              :value="account.id"
+                            >
+                              {{ account.accountNumber }} -
+                              {{ account.accountName }}
                             </option>
                           </select>
                         </td>
@@ -328,11 +626,19 @@
                           <select
                             v-model="line.CRglAccountId"
                             class="form-control form-control-sm"
-                            :class="{ 'is-invalid': errors[`line_${index}_CRglAccountId`] }"
+                            :class="{
+                              'is-invalid':
+                                errors[`line_${index}_CRglAccountId`],
+                            }"
                           >
                             <option value="">ເລືອກ CR Account</option>
-                            <option v-for="account in glAccounts" :key="account.id" :value="account.id">
-                              {{ account.accountNumber }} - {{ account.accountName }}
+                            <option
+                              v-for="account in glAccounts"
+                              :key="account.id"
+                              :value="account.id"
+                            >
+                              {{ account.accountNumber }} -
+                              {{ account.accountName }}
                             </option>
                           </select>
                         </td>
@@ -359,11 +665,11 @@
                           />
                         </td>
                         <td class="line-total">
-                          {{ formatCurrency(line.lineTotal || 0) }}
+                          {{ formatCurrency(line.lineTotal || 0, selectedCurrency?.code) }}
                         </td>
                         <td>
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             class="btn btn-sm btn-danger"
                             @click="removeLine(index)"
                             title="ລຶບລາຍການ"
@@ -378,15 +684,27 @@
 
                 <!-- Add More Lines Section -->
                 <div class="add-more-lines">
-                  <button type="button" class="btn btn-outline-primary btn-add-more" @click="addNewLine">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-add-more"
+                    @click="addNewLine"
+                  >
                     <i class="fas fa-plus"></i>
                     ເພີ່ມລາຍການໃໝ່
                   </button>
                   <div class="quick-add-buttons">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="addMultipleLines(3)">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                      @click="addMultipleLines(3)"
+                    >
                       ເພີ່ມ 3 ລາຍການ
                     </button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="addMultipleLines(5)">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                      @click="addMultipleLines(5)"
+                    >
                       ເພີ່ມ 5 ລາຍການ
                     </button>
                   </div>
@@ -397,19 +715,34 @@
                   <div class="totals-grid">
                     <div class="total-item">
                       <label>ລວມຍ່ອຍ:</label>
-                      <span class="amount">{{ formatCurrency(calculatedSubtotal) }}</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedSubtotal, selectedCurrency?.code)
+                      }}</span>
                     </div>
                     <div class="total-item">
                       <label>ສ່ວນຫຼຸດ:</label>
-                      <span class="amount discount">-{{ formatCurrency(calculatedDiscount) }}</span>
+                      <span class="amount discount"
+                        >-{{ formatCurrency(calculatedDiscount, selectedCurrency?.code) }}</span
+                      >
                     </div>
                     <div class="total-item">
                       <label>ພາສີ:</label>
-                      <span class="amount">+{{ formatCurrency(calculatedTax) }}</span>
+                      <span class="amount"
+                        >+{{ formatCurrency(calculatedTax, selectedCurrency?.code) }}</span
+                      >
                     </div>
                     <div class="total-item grand-total">
                       <label>ລວມທັງໝົດ:</label>
-                      <span class="amount">{{ formatCurrency(calculatedTotal) }}</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedTotal, selectedCurrency?.code)
+                      }}</span>
+                    </div>
+                    <!-- Local Currency Display in Line Items Tab -->
+                    <div v-if="selectedCurrency && selectedCurrency.code !== 'LAK' && form.exchangeRate" class="total-item local-currency">
+                      <label>ລວມເປັນ LAK:</label>
+                      <span class="amount local">{{
+                        formatCurrency(calculatedTotal * parseFloat(form.exchangeRate || 1), 'LAK')
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -438,43 +771,57 @@
           >
             <i v-if="saving" class="fas fa-spinner fa-spin"></i>
             <i v-else class="fas fa-save"></i>
-            {{ saving ? 'ກຳລັງບັນທຶກ...' : (isEdit ? 'ອັບເດດ' : 'ບັນທຶກ') }}
+            {{ saving ? 'ກຳລັງບັນທຶກ...' : isEdit ? 'ອັບເດດ' : 'ບັນທຶກ' }}
           </button>
         </div>
       </div>
     </div>
+
+    <!-- Audit Log Dialog -->
+    <audit-log-dialog
+      :visible="auditDialogVisible"
+      :invoice-id="form.id"
+      :invoice-info="getInvoiceInfo()"
+      @close="closeAuditDialog"
+    />
   </div>
 </template>
 
 <script>
+import AuditLogDialog from '~/components/accounting/ap/invoice/audit'
+
 export default {
   name: 'APInvoiceDialog',
+
+  components: {
+    AuditLogDialog
+  },
 
   props: {
     visible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     invoice: {
       type: Object,
-      default: null
+      default: null,
     },
     vendors: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     currencies: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     glAccounts: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     user: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
 
   emits: ['close', 'save'],
@@ -489,6 +836,7 @@ export default {
       nextTempId: 1,
       selectedVendor: null,
       selectedCurrency: null,
+      auditDialogVisible: false,
       form: {
         id: null,
         invoiceNumber: '',
@@ -498,12 +846,12 @@ export default {
         dueDate: '',
         description: '',
         totalAmount: '',
-        exchangeRate: 1.00,
+        exchangeRate: 1.0,
         currencyId: '',
         makerId: '',
         note: '',
         reason: '',
-      }
+      },
     }
   },
 
@@ -512,45 +860,118 @@ export default {
       return !!this.invoice
     },
 
+    auditTrail() {
+      if (!this.invoice) {
+        return {
+          // Default values for new invoice
+          makerName: this.user?.cus_name || this.user?.name || 'ຜູ້ໃຊ້ປະຈຸບັນ',
+          makerPosition: 'ພະນັກງານບັນຊີ',
+          makerEmail: this.user?.cus_email || this.user?.email || '',
+          createdDate: new Date().toISOString().split('T')[0],
+          createdTime: new Date().toLocaleTimeString('en-GB'),
+          isChecked: false,
+          isApproved: false,
+          checkerName: null,
+          checkerPosition: null,
+          checkerEmail: null,
+          checkedDate: null,
+          checkedTime: null,
+          checkerComment: null,
+        }
+      }
+
+      // Extract maker information from invoice
+      const maker = this.invoice.maker || {}
+      const checker = this.invoice.checker || null
+      
+      // Parse dates
+      const createdAt = new Date(this.invoice.createdAt)
+      const approvedAt = this.invoice.approvedAt ? new Date(this.invoice.approvedAt) : null
+      
+      return {
+        // Maker Information
+        makerName: maker.cus_name || 'ບໍ່ມີຂໍ້ມູນ',
+        makerPosition: maker.position || 'ພະນັກງານບັນຊີ',
+        makerEmail: maker.cus_email || '',
+        makerId: maker.cus_id || maker.id,
+        createdDate: createdAt.toISOString().split('T')[0],
+        createdTime: createdAt.toLocaleTimeString('en-GB'),
+        createdDateTime: this.invoice.createdAt,
+
+        // Checker Information
+        checkerName: checker?.cus_name || null,
+        checkerPosition: checker?.position || 'ຫົວໜ້າຝ່າຍບັນຊີ',
+        checkerEmail: checker?.cus_email || null,
+        checkerId: checker?.cus_id || checker?.id || null,
+        checkedDate: approvedAt ? approvedAt.toISOString().split('T')[0] : null,
+        checkedTime: approvedAt ? approvedAt.toLocaleTimeString('en-GB') : null,
+        checkedDateTime: this.invoice.approvedAt,
+
+        // Status and Comments
+        isChecked: !!this.invoice.checkerId && !!this.invoice.approvedAt,
+        isApproved: this.invoice.status === 'approved',
+        checkerComment: this.invoice.checkerComment || null,
+
+        // Invoice status
+        status: this.invoice.status || 'draft',
+        version: this.invoice.version || 1,
+      }
+    },
+
     calculatedSubtotal() {
       return this.lineItems.reduce((sum, line) => {
-        const subtotal = (parseFloat(line.quantity) || 0) * (parseFloat(line.unitPrice) || 0)
+        const subtotal =
+          (parseFloat(line.quantity) || 0) * (parseFloat(line.unitPrice) || 0)
         return sum + subtotal
       }, 0)
     },
 
     calculatedDiscount() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.discountAmount) || 0), 0)
+      return this.lineItems.reduce(
+        (sum, line) => sum + (parseFloat(line.discountAmount) || 0),
+        0
+      )
     },
 
     calculatedTax() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.taxAmount) || 0), 0)
+      return this.lineItems.reduce(
+        (sum, line) => sum + (parseFloat(line.taxAmount) || 0),
+        0
+      )
     },
 
     calculatedTotal() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.lineTotal) || 0), 0)
+      return this.lineItems.reduce(
+        (sum, line) => sum + (parseFloat(line.lineTotal) || 0),
+        0
+      )
     },
 
     isFormValid() {
-      const hasValidHeader = this.form.invoiceNumber &&
-                           this.form.vendorInvoiceNumber &&
-                           this.form.vendorId &&
-                           this.form.invoiceDate &&
-                           this.form.dueDate &&
-                           this.form.currencyId &&
-                           (!this.isEdit || this.form.reason)
+      const hasValidHeader =
+        this.form.invoiceNumber &&
+        this.form.vendorInvoiceNumber &&
+        this.form.vendorId &&
+        this.form.invoiceDate &&
+        this.form.dueDate &&
+        this.form.currencyId &&
+        this.form.exchangeRate &&
+        parseFloat(this.form.exchangeRate) > 0 &&
+        (!this.isEdit || this.form.reason)
 
-      const hasValidLines = this.lineItems.length > 0 && 
-                           this.lineItems.every(line => 
-                             line.description && 
-                             (parseFloat(line.quantity) || 0) > 0 && 
-                             (parseFloat(line.unitPrice) || 0) >= 0 &&
-                             line.DRglAccountId &&
-                             line.CRglAccountId
-                           )
+      const hasValidLines =
+        this.lineItems.length > 0 &&
+        this.lineItems.every(
+          (line) =>
+            line.description &&
+            (parseFloat(line.quantity) || 0) > 0 &&
+            (parseFloat(line.unitPrice) || 0) >= 0 &&
+            line.DRglAccountId &&
+            line.CRglAccountId
+        )
 
       return hasValidHeader && hasValidLines
-    }
+    },
   },
 
   watch: {
@@ -562,7 +983,7 @@ export default {
           this.resetDialog()
         }
       },
-      immediate: true
+      immediate: true,
     },
 
     invoice: {
@@ -570,8 +991,8 @@ export default {
         if (this.visible) {
           this.initializeDialog()
         }
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -585,28 +1006,38 @@ export default {
           invoiceNumber: this.invoice.invoiceNumber,
           vendorInvoiceNumber: this.invoice.vendorInvoiceNumber,
           vendorId: this.invoice.vendorId,
-          invoiceDate: this.invoice.invoiceDate ? this.invoice.invoiceDate.split('T')[0] : '',
-          dueDate: this.invoice.dueDate ? this.invoice.dueDate.split('T')[0] : '',
+          invoiceDate: this.invoice.invoiceDate
+            ? this.invoice.invoiceDate.split('T')[0]
+            : '',
+          dueDate: this.invoice.dueDate
+            ? this.invoice.dueDate.split('T')[0]
+            : '',
           description: this.invoice.description || '',
           totalAmount: this.invoice.totalAmount,
-          exchangeRate: this.invoice.exchangeRate || 1.00,
+          exchangeRate: this.invoice.exchangeRate || 1.0,
           currencyId: this.invoice.currencyId,
           makerId: this.invoice.makerId,
           note: this.invoice.note || '',
           reason: '',
         }
-        
+
         await this.loadLineItems(this.invoice.id)
       } else {
         this.resetForm()
-        
+
         // Initialize with default currency
         if (this.currencies.length > 0) {
-          const defaultCurrency = this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+          const defaultCurrency =
+            this.currencies.find((c) => c.code === 'LAK') || 
+            this.currencies.find((c) => c.code === 'USD') || 
+            this.currencies[0]
           this.form.currencyId = defaultCurrency.id
           this.selectedCurrency = defaultCurrency
+          
+          // Set default exchange rate based on currency
+          this.form.exchangeRate = defaultCurrency.code === 'LAK' ? 1.0 : 1.0
         }
-        
+
         // Initialize with one empty line item
         this.lineItems = [this.createEmptyLine()]
       }
@@ -624,21 +1055,48 @@ export default {
       this.activeTab = 'header'
       this.formLoading = false
       this.saving = false
+      this.auditDialogVisible = false
     },
 
     async loadLineItems(invoiceId) {
       try {
-        const { data } = await this.$axios.get(`/api/ap-invoices-line/invoice/${invoiceId}`)
+        const { data } = await this.$axios.get(
+          `/api/ap-invoices-lines/invoice/${invoiceId}`
+        )
         this.lineItems = data.data || [this.createEmptyLine()]
-        
-        this.lineItems.forEach(line => {
+
+        this.lineItems.forEach((line) => {
           if (!line.tempId) {
             line.tempId = this.nextTempId++
           }
+          // Recalculate line totals to ensure consistency
+          this.calculateLineTotal(line)
         })
       } catch (error) {
         console.error('Error loading line items:', error)
         this.lineItems = [this.createEmptyLine()]
+      }
+    },
+
+    // Audit Dialog Methods
+    openAuditDialog() {
+      if (this.form.id) {
+        this.auditDialogVisible = true
+      }
+    },
+
+    closeAuditDialog() {
+      this.auditDialogVisible = false
+    },
+
+    getInvoiceInfo() {
+      if (!this.invoice) return null
+      
+      return {
+        invoiceNumber: this.form.invoiceNumber,
+        vendorInvoiceNumber: this.form.vendorInvoiceNumber,
+        totalAmount: this.calculatedTotal,
+        status: this.invoice.status
       }
     },
 
@@ -656,7 +1114,7 @@ export default {
         taxRate: 0,
         taxAmount: 0,
         lineTotal: 0,
-        note: ''
+        note: '',
       }
     },
 
@@ -698,11 +1156,22 @@ export default {
       line.taxAmount = taxAmount
 
       line.lineTotal = afterDiscount + taxAmount
+      
+      // Trigger exchange rate calculation when line totals change
+      this.calculateExchangeAmounts()
+    },
+
+    calculateExchangeAmounts() {
+      // This method can be used to recalculate amounts when exchange rate changes
+      // It's called when the exchange rate field is updated
+      this.clearFieldError('exchangeRate')
     },
 
     updateSelectedVendor() {
       if (this.form.vendorId && this.vendors.length > 0) {
-        this.selectedVendor = this.vendors.find(v => v.id === this.form.vendorId)
+        this.selectedVendor = this.vendors.find(
+          (v) => v.id === this.form.vendorId
+        )
       } else {
         this.selectedVendor = null
       }
@@ -710,7 +1179,14 @@ export default {
 
     updateSelectedCurrency() {
       if (this.form.currencyId && this.currencies.length > 0) {
-        this.selectedCurrency = this.currencies.find(c => c.id === this.form.currencyId)
+        this.selectedCurrency = this.currencies.find(
+          (c) => c.id === this.form.currencyId
+        )
+        
+        // Auto-set exchange rate for LAK
+        if (this.selectedCurrency && this.selectedCurrency.code === 'LAK') {
+          this.form.exchangeRate = 1.0
+        }
       } else {
         this.selectedCurrency = null
       }
@@ -731,7 +1207,9 @@ export default {
       if (this.form.invoiceDate && this.selectedVendor?.paymentTerms) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(invoiceDate)
-        dueDate.setDate(dueDate.getDate() + parseInt(this.selectedVendor.paymentTerms))
+        dueDate.setDate(
+          dueDate.getDate() + parseInt(this.selectedVendor.paymentTerms)
+        )
         this.form.dueDate = dueDate.toISOString().split('T')[0]
       }
     },
@@ -756,6 +1234,13 @@ export default {
         this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
       }
 
+      // Exchange rate validation
+      if (!this.form.exchangeRate) {
+        this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ'
+      } else if (parseFloat(this.form.exchangeRate) <= 0) {
+        this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0'
+      }
+
       if (!this.form.invoiceDate) {
         this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້'
       }
@@ -768,7 +1253,7 @@ export default {
       if (this.form.invoiceDate && this.form.dueDate) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(this.form.dueDate)
-        
+
         if (dueDate <= invoiceDate) {
           this.errors.dueDate = 'ວັນທີຄົບກຳນົດຕ້ອງຫຼັງຈາກວັນທີໃບແຈ້ງໜີ້'
         }
@@ -818,7 +1303,7 @@ export default {
     handleSubmit() {
       if (!this.validateForm()) {
         // Switch to appropriate tab if there are errors
-        if (Object.keys(this.errors).some(key => key.startsWith('line_'))) {
+        if (Object.keys(this.errors).some((key) => key.startsWith('line_'))) {
           this.activeTab = 'lines'
         } else {
           this.activeTab = 'header'
@@ -832,15 +1317,15 @@ export default {
         ...this.form,
         makerId: this.form.makerId || this.user?.id,
         totalAmount: this.calculatedTotal,
-        exchangeRate: parseFloat(this.form.exchangeRate) || 1.00,
+        exchangeRate: parseFloat(this.form.exchangeRate) || 1.0,
         lineItems: this.lineItems.map((line, index) => ({
           ...line,
           lineNumber: index + 1,
           quantity: parseFloat(line.quantity) || 0,
           unitPrice: parseFloat(line.unitPrice) || 0,
           discountRate: parseFloat(line.discountRate) || 0,
-          taxRate: parseFloat(line.taxRate) || 0
-        }))
+          taxRate: parseFloat(line.taxRate) || 0,
+        })),
       }
 
       this.$emit('save', formData)
@@ -866,7 +1351,7 @@ export default {
         dueDate: '',
         description: '',
         totalAmount: '',
-        exchangeRate: 1.00,
+        exchangeRate: 1.0,
         currencyId: '',
         makerId: '',
         note: '',
@@ -874,18 +1359,72 @@ export default {
       }
     },
 
-    formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
+    formatCurrency(amount, currencyCode = 'USD') {
+      const currency = currencyCode || 'USD'
+      const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
-      }).format(amount || 0)
-    }
-  }
+        currency: currency === 'LAK' ? 'USD' : currency, // Fallback since LAK might not be supported
+        minimumFractionDigits: currency === 'LAK' ? 0 : 2,
+        maximumFractionDigits: currency === 'LAK' ? 0 : 2,
+      })
+      
+      if (currency === 'LAK') {
+        return `₭${new Intl.NumberFormat('en-US').format(amount || 0)}`
+      }
+      
+      return formatter.format(amount || 0)
+    },
+
+    getStatusText(status) {
+      const statusMap = {
+        'draft': 'ຮ່າງ',
+        'pending': 'ລໍຖ້າການອະນຸມັດ',
+        'approved': 'ອະນຸມັດແລ້ວ',
+        'rejected': 'ປະຕິເສດ',
+        'paid': 'ຈ່າຍແລ້ວ',
+        'cancelled': 'ຍົກເລີກ'
+      }
+      return statusMap[status] || status
+    },
+  },
 }
 </script>
 
 <style scoped>
-/* All dialog-specific styles */
+/* All existing styles remain the same, plus these additions: */
+
+.audit-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-view-audit {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-view-audit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+}
+
+.btn-outline-primary {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.btn-outline-primary:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* All other existing styles from the original component remain unchanged */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -973,8 +1512,12 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .invoice-form {
@@ -1073,9 +1616,9 @@ export default {
   padding: 10px;
 }
 
-.col-md-6 { 
-  flex: 0 0 50%; 
-  max-width: 50%; 
+.col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
 }
 
 .form-group label {
@@ -1124,6 +1667,85 @@ export default {
   color: #e74c3c;
 }
 
+.form-text {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+/* Exchange Rate Specific Styles */
+.exchange-rate-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.exchange-rate-addon {
+  position: absolute;
+  right: 10px;
+  color: #667eea;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.currency-info {
+  font-size: 12px;
+  color: #666;
+  font-weight: normal;
+}
+
+.exchange-display {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 20px;
+}
+
+.exchange-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.exchange-amount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.foreign-amount {
+  color: #667eea;
+}
+
+.exchange-arrow {
+  color: #28a745;
+  font-size: 12px;
+}
+
+.local-amount {
+  color: #28a745;
+}
+
+.local-currency {
+  background: #e8f5e8;
+  border: 1px solid #28a745;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.local-currency .amount.local {
+  color: #28a745;
+  font-weight: 700;
+}
+
 /* Amount Summary */
 .amount-summary {
   background: #f8f9fa;
@@ -1169,6 +1791,258 @@ export default {
   color: #e67e22;
 }
 
+/* Audit Trail Styles */
+.audit-trail-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #e9ecef;
+}
+
+.audit-trail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.audit-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #007bff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.maker-card {
+  border-left-color: #28a745;
+}
+
+.checker-card {
+  border-left-color: #17a2b8;
+}
+
+.audit-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.audit-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+
+.maker-icon {
+  background: #28a745;
+}
+
+.checker-icon {
+  background: #17a2b8;
+}
+
+.audit-title h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #495057;
+}
+
+.audit-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-created {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-approved {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.audit-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.audit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.audit-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.audit-value {
+  color: #495057;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.audit-value.comment {
+  font-style: italic;
+  color: #6c757d;
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.approval-status-summary {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.status-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.status-info-header h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #495057;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.status-draft {
+  background: #e9ecef;
+  color: #6c757d;
+}
+
+.status-badge.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.status-approved {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-badge.status-rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge.status-paid {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.status-cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-workflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.workflow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.workflow-step.active {
+  opacity: 1;
+}
+
+.step-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ecef;
+  color: #6c757d;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.workflow-step.active .step-icon {
+  background: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.step-created.active .step-icon {
+  background: #28a745;
+}
+
+.step-approved.active .step-icon {
+  background: #17a2b8;
+}
+
+.step-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6c757d;
+  text-align: center;
+}
+
+.workflow-step.active .step-label {
+  color: #495057;
+  font-weight: 600;
+}
+
+.workflow-arrow {
+  color: #dee2e6;
+  font-size: 16px;
+}
+
+.workflow-step.active + .workflow-arrow {
+  color: #007bff;
+}
+
 /* Line Items Section */
 .line-items-section {
   padding: 25px;
@@ -1199,11 +2073,20 @@ export default {
   transition: all 0.2s ease;
 }
 
-.btn-primary { background: #007bff; color: white; }
-.btn-secondary { background: #6c757d; color: white; }
-.btn-outline-primary { background: white; color: #667eea; border: 2px solid #667eea; }
-.btn-outline-secondary { background: white; color: #6c757d; border: 1px solid #6c757d; }
-.btn-danger { background: #dc3545; color: white; }
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
 
 .btn:hover:not(:disabled) {
   opacity: 0.9;
@@ -1411,6 +2294,42 @@ export default {
   .col-md-6 {
     flex: 1;
     max-width: 100%;
+  }
+
+  .audit-section-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .audit-details {
+    grid-template-columns: 1fr;
+  }
+
+  .status-workflow {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .workflow-arrow {
+    transform: rotate(90deg);
+  }
+
+  .audit-trail-container {
+    gap: 12px;
+  }
+
+  .audit-card {
+    padding: 12px;
+  }
+
+  .exchange-amount {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .exchange-arrow {
+    transform: rotate(90deg);
   }
 }
 
