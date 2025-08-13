@@ -1,17 +1,17 @@
 <template>
-  <div v-if="visible" class="settlement-audit-dialog-overlay" @click="handleOverlayClick">
-    <div class="settlement-audit-dialog" @click.stop>
+  <div v-if="visible" class="invoice-audit-dialog-overlay" @click="handleOverlayClick">
+    <div class="invoice-audit-dialog" @click.stop>
       <!-- Dialog Header -->
-      <div class="settlement-audit-dialog-header">
+      <div class="invoice-audit-dialog-header">
         <div class="header-info">
           <h3>
             <i class="fas fa-history"></i>
-            ປະຫວັດການດຳເນີນງານການຊຳລະ
+            ປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້
           </h3>
-          <p v-if="settlementInfo" class="settlement-subtitle">
-            ການຊຳລະ: {{ settlementInfo.settlementId }} - 
-            {{ formatCurrency(settlementInfo.paymentAmount) }} - 
-            {{ formatDate(settlementInfo.settlementDate) }}
+          <p v-if="invoiceInfo" class="invoice-subtitle">
+            ໃບແຈ້ງໜີ້: {{ invoiceInfo.invoiceNumber }} - 
+            {{ formatCurrency(invoiceInfo.totalAmount) }} - 
+            {{ formatDate(invoiceInfo.invoiceDate) }}
           </p>
         </div>
         <button type="button" class="close-btn" @click="handleClose">
@@ -20,17 +20,17 @@
       </div>
 
       <!-- Dialog Body -->
-      <div class="settlement-audit-dialog-body">
-        <settlement-audit-viewer
-          ref="settlementAuditViewer"
-          :settlement-id="settlementId"
+      <div class="invoice-audit-dialog-body">
+        <invoice-audit-viewer
+          ref="invoiceAuditViewer"
+          :invoice-id="invoiceId"
           :auto-load="visible"
           @logs-loaded="onLogsLoaded"
         />
       </div>
 
       <!-- Dialog Footer -->
-      <div class="settlement-audit-dialog-footer">
+      <div class="invoice-audit-dialog-footer">
         <button
           type="button"
           class="btn btn-secondary"
@@ -85,13 +85,13 @@
 </template>
 
 <script>
-import SettlementAuditViewer from '~/components/accounting/ap/settlement/audit/view'
+import InvoiceAuditViewer from '~/components/accounting/ar/invoice/audit/view'
 
 export default {
-  name: 'SettlementAuditDialog',
+  name: 'InvoiceAuditDialog',
 
   components: {
-    SettlementAuditViewer,
+    InvoiceAuditViewer,
   },
 
   props: {
@@ -99,11 +99,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    settlementId: {
+    invoiceId: {
       type: [Number, String],
       default: null,
     },
-    settlementInfo: {
+    invoiceInfo: {
       type: Object,
       default: null,
     },
@@ -157,7 +157,7 @@ export default {
 
       try {
         this.isExporting = true
-        this.$toast?.info('ກຳລັງສົ່ງອອກປະຫວັດການດຳເນີນງານການຊຳລະ...')
+        this.$toast?.info('ກຳລັງສົ່ງອອກປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້...')
 
         // Option 1: Try to use jsPDF if available
         try {
@@ -171,10 +171,10 @@ export default {
           this.exportWithPrintJS()
         }
 
-        this.$toast?.success('ສົ່ງອອກປະຫວັດການດຳເນີນງານການຊຳລະສຳເລັດ!')
+        this.$toast?.success('ສົ່ງອອກປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້ສຳເລັດ!')
       } catch (error) {
-        console.error('Error exporting settlement audit log:', error)
-        this.$toast?.error('ບໍ່ສາມາດສົ່ງອອກປະຫວັດການດຳເນີນງານການຊຳລະໄດ້')
+        console.error('Error exporting invoice audit log:', error)
+        this.$toast?.error('ບໍ່ສາມາດສົ່ງອອກປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້ໄດ້')
       } finally {
         this.isExporting = false
       }
@@ -190,26 +190,26 @@ export default {
       // Add title
       doc.setFontSize(16)
       doc.setFont('helvetica', 'bold')
-      doc.text('ປະຫວັດການດຳເນີນງານການຊຳລະ', 20, 20)
+      doc.text('ປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້', 20, 20)
 
-      // Add settlement info
-      if (this.settlementInfo) {
+      // Add invoice info
+      if (this.invoiceInfo) {
         doc.setFontSize(12)
         doc.setFont('helvetica', 'normal')
-        doc.text(`ເລກທີການຊຳລະ: ${this.settlementInfo.settlementId}`, 20, 35)
+        doc.text(`ເລກທີໃບແຈ້ງໜີ້: ${this.invoiceInfo.invoiceNumber}`, 20, 35)
         doc.text(
-          `ຈຳນວນເງິນ: ${this.formatCurrency(this.settlementInfo.paymentAmount)}`,
+          `ຈຳນວນເງິນ: ${this.formatCurrency(this.invoiceInfo.totalAmount)}`,
           20,
           45
         )
         doc.text(
-          `ວັນທີຊຳລະ: ${this.formatDate(this.settlementInfo.settlementDate)}`,
+          `ວັນທີໃບແຈ້ງໜີ້: ${this.formatDate(this.invoiceInfo.invoiceDate)}`,
           20,
           55
         )
-        if (this.settlementInfo.status) {
+        if (this.invoiceInfo.status) {
           doc.text(
-            `ສະຖານະ: ${this.getStatusText(this.settlementInfo.status)}`,
+            `ສະຖານະ: ${this.getStatusText(this.invoiceInfo.status)}`,
             20,
             65
           )
@@ -252,17 +252,17 @@ export default {
           doc.text(`ເຫດຜົນ: ${log.reason}`, 25, yPosition)
         }
 
-        // Settlement data summary
+        // Invoice data summary
         if (log.recordData) {
           yPosition += 8
           doc.text(
-            `ຈຳນວນເງິນຊຳລະ: ${this.formatCurrency(log.recordData.paymentAmount)}`,
+            `ຈຳນວນເງິນລວມ: ${this.formatCurrency(log.recordData.totalAmount)}`,
             25,
             yPosition
           )
           yPosition += 8
           doc.text(
-            `ວັນທີຊຳລະ: ${this.formatDate(log.recordData.settlementDate)}`,
+            `ວັນທີໃບແຈ້ງໜີ້: ${this.formatDate(log.recordData.invoiceDate)}`,
             25,
             yPosition
           )
@@ -272,9 +272,9 @@ export default {
             25,
             yPosition
           )
-          if (log.recordData.reference) {
+          if (log.recordData.description) {
             yPosition += 8
-            doc.text(`ອ້າງອີງ: ${log.recordData.reference}`, 25, yPosition)
+            doc.text(`ລາຍລະອຽດ: ${log.recordData.description}`, 25, yPosition)
           }
         }
 
@@ -282,8 +282,8 @@ export default {
       })
 
       // Create filename
-      const filename = `settlement-audit-log-${
-        this.settlementInfo?.settlementId || this.settlementId
+      const filename = `invoice-audit-log-${
+        this.invoiceInfo?.invoiceNumber || this.invoiceId
       }-${new Date().toISOString().split('T')[0]}.pdf`
 
       // Download PDF
@@ -329,20 +329,18 @@ export default {
             log.recordData
               ? `
             <div style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 3px;">
-              <p style="margin: 3px 0;"><strong>ຈຳນວນເງິນຊຳລະ:</strong> ${this.formatCurrency(
-                log.recordData.paymentAmount
+              <p style="margin: 3px 0;"><strong>ເລກທີໃບແຈ້ງໜີ້:</strong> ${
+                log.recordData.invoiceNumber || ''
+              }</p>
+              <p style="margin: 3px 0;"><strong>ຈຳນວນເງິນລວມ:</strong> ${this.formatCurrency(
+                log.recordData.totalAmount
               )}</p>
-              <p style="margin: 3px 0;"><strong>ວັນທີຊຳລະ:</strong> ${this.formatDate(
-                log.recordData.settlementDate
+              <p style="margin: 3px 0;"><strong>ວັນທີໃບແຈ້ງໜີ້:</strong> ${this.formatDate(
+                log.recordData.invoiceDate
               )}</p>
               <p style="margin: 3px 0;"><strong>ສະຖານະ:</strong> ${this.getStatusText(
                 log.recordData.status
               )}</p>
-              ${
-                log.recordData.reference
-                  ? `<p style="margin: 3px 0;"><strong>ອ້າງອີງ:</strong> ${log.recordData.reference}</p>`
-                  : ''
-              }
               ${
                 log.recordData.description
                   ? `<p style="margin: 3px 0;"><strong>ລາຍລະອຽດ:</strong> ${log.recordData.description}</p>`
@@ -361,12 +359,12 @@ export default {
         <!DOCTYPE html>
         <html>
         <head>
-          <title>ປະຫວັດການດຳເນີນງານການຊຳລະ</title>
+          <title>ປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້</title>
           <meta charset="UTF-8">
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             h1 { color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
-            .settlement-info { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+            .invoice-info { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
             .timestamp { text-align: right; color: #666; font-size: 12px; margin-bottom: 20px; }
             @media print {
               body { margin: 0; }
@@ -375,25 +373,25 @@ export default {
           </style>
         </head>
         <body>
-          <h1>ປະຫວັດການດຳເນີນງານການຊຳລະ</h1>
+          <h1>ປະຫວັດການດຳເນີນງານໃບແຈ້ງໜີ້</h1>
           
           ${
-            this.settlementInfo
+            this.invoiceInfo
               ? `
-            <div class="settlement-info">
-              <p><strong>ເລກທີການຊຳລະ:</strong> ${
-                this.settlementInfo.settlementId
+            <div class="invoice-info">
+              <p><strong>ເລກທີໃບແຈ້ງໜີ້:</strong> ${
+                this.invoiceInfo.invoiceNumber
               }</p>
               <p><strong>ຈຳນວນເງິນ:</strong> ${this.formatCurrency(
-                this.settlementInfo.paymentAmount
+                this.invoiceInfo.totalAmount
               )}</p>
-              <p><strong>ວັນທີຊຳລະ:</strong> ${this.formatDate(
-                this.settlementInfo.settlementDate
+              <p><strong>ວັນທີໃບແຈ້ງໜີ້:</strong> ${this.formatDate(
+                this.invoiceInfo.invoiceDate
               )}</p>
               ${
-                this.settlementInfo.status
+                this.invoiceInfo.status
                   ? `<p><strong>ສະຖານະ:</strong> ${this.getStatusText(
-                      this.settlementInfo.status
+                      this.invoiceInfo.status
                     )}</p>`
                   : ''
               }
@@ -419,7 +417,7 @@ export default {
 
       try {
         const exportData = {
-          settlementInfo: this.settlementInfo,
+          invoiceInfo: this.invoiceInfo,
           exportDate: new Date().toISOString(),
           auditLogs: this.auditLogs.map((log) => ({
             id: log.id,
@@ -428,18 +426,19 @@ export default {
             email: this.getUserEmail(log),
             timestamp: log.auditDate,
             reason: log.reason,
-            settlementData: {
-              settlementId: log.settlementId,
-              paymentAmount: log.recordData?.paymentAmount,
-              baseAmount: log.recordData?.baseAmount,
-              settlementDate: log.recordData?.settlementDate,
+            invoiceData: {
+              invoiceId: log.invoiceId,
+              invoiceNumber: log.recordData?.invoiceNumber,
+              totalAmount: log.recordData?.totalAmount,
+              taxAmount: log.recordData?.taxAmount,
+              netAmount: log.recordData?.netAmount,
+              invoiceDate: log.recordData?.invoiceDate,
+              dueDate: log.recordData?.dueDate,
               status: this.getStatusText(log.recordData?.status),
-              reference: log.recordData?.reference,
               description: log.recordData?.description,
-              note: log.recordData?.note,
-              paymentMethod: log.recordData?.paymentMethod?.name,
-              bankAccount: log.recordData?.bankAccount?.accountName,
-              invoiceSettlements: log.recordData?.invoiceSettlements?.length || 0
+              clientId: log.recordData?.clientId,
+              currencyId: log.recordData?.currencyId,
+              exchangeRate: log.recordData?.exchangeRate,
             },
           })),
         }
@@ -450,8 +449,8 @@ export default {
 
         const link = document.createElement('a')
         link.href = url
-        link.download = `settlement-audit-log-${
-          this.settlementInfo?.settlementId || this.settlementId
+        link.download = `invoice-audit-log-${
+          this.invoiceInfo?.invoiceNumber || this.invoiceId
         }-${new Date().toISOString().split('T')[0]}.json`
         document.body.appendChild(link)
         link.click()
@@ -476,17 +475,17 @@ export default {
           'ອີເມວ',
           'ເວລາ',
           'ເຫດຜົນ',
-          'ເລກທີການຊຳລະ',
-          'ຈຳນວນເງິນຊຳລະ',
-          'ຈຳນວນເງິນພື້ນຖານ',
-          'ວັນທີຊຳລະ',
+          'ເລກທີໃບແຈ້ງໜີ້',
+          'ຈຳນວນເງິນລວມ',
+          'ຈຳນວນເງິນພາສີ',
+          'ຈຳນວນເງິນສຸດທິ',
+          'ວັນທີໃບແຈ້ງໜີ້',
+          'ວັນທີຄົບກຳນົດ',
           'ສະຖານະ',
-          'ອ້າງອີງ',
           'ລາຍລະອຽດ',
-          'ໝາຍເຫດ',
-          'ວິທີການຊຳລະ',
-          'ບັນຊີທະນາຄານ',
-          'ຈຳນວນໃບແຈ້ງໜີ້'
+          'ລູກຄ້າ ID',
+          'ສະກຸນເງິນ ID',
+          'ອັດຕາແລກປ່ຽນ'
         ]
 
         const csvData = this.auditLogs.map((log, index) => [
@@ -496,17 +495,17 @@ export default {
           this.getUserEmail(log),
           this.formatDateTime(log.auditDate),
           log.reason || '',
-          log.settlementId || '',
-          log.recordData?.paymentAmount || '',
-          log.recordData?.baseAmount || '',
-          this.formatDate(log.recordData?.settlementDate) || '',
+          log.recordData?.invoiceNumber || '',
+          log.recordData?.totalAmount || '',
+          log.recordData?.taxAmount || '',
+          log.recordData?.netAmount || '',
+          this.formatDate(log.recordData?.invoiceDate) || '',
+          this.formatDate(log.recordData?.dueDate) || '',
           this.getStatusText(log.recordData?.status) || '',
-          log.recordData?.reference || '',
           log.recordData?.description || '',
-          log.recordData?.note || '',
-          log.recordData?.paymentMethod?.name || '',
-          log.recordData?.bankAccount?.accountName || '',
-          log.recordData?.invoiceSettlements?.length || 0
+          log.recordData?.clientId || '',
+          log.recordData?.currencyId || '',
+          log.recordData?.exchangeRate || ''
         ])
 
         const csvContent = [headers, ...csvData]
@@ -526,8 +525,8 @@ export default {
 
         const link = document.createElement('a')
         link.href = url
-        link.download = `settlement-audit-log-${
-          this.settlementInfo?.settlementId || this.settlementId
+        link.download = `invoice-audit-log-${
+          this.invoiceInfo?.invoiceNumber || this.invoiceId
         }-${new Date().toISOString().split('T')[0]}.csv`
         document.body.appendChild(link)
         link.click()
@@ -550,13 +549,13 @@ export default {
     // Helper methods for PDF generation
     getActionText(action) {
       const actionMap = {
-        CREATE: 'ສ້າງການຊຳລະ',
-        UPDATE: 'ອັບເດດການຊຳລະ',
-        DELETE: 'ລຶບການຊຳລະ',
-        APPROVE: 'ອະນຸມັດການຊຳລະ',
-        REJECT: 'ປະຕິເສດການຊຳລະ',
-        SUBMIT: 'ສົ່ງການຊຳລະ',
-        CANCEL: 'ຍົກເລີກການຊຳລະ',
+        CREATE: 'ສ້າງໃບແຈ້ງໜີ້',
+        UPDATE: 'ອັບເດດໃບແຈ້ງໜີ້',
+        DELETE: 'ລຶບໃບແຈ້ງໜີ້',
+        APPROVE: 'ອະນຸມັດໃບແຈ້ງໜີ້',
+        REJECT: 'ປະຕິເສດໃບແຈ້ງໜີ້',
+        SUBMIT: 'ສົ່ງໃບແຈ້ງໜີ້',
+        CANCEL: 'ຍົກເລີກໃບແຈ້ງໜີ້',
       }
       return actionMap[action] || action
     },
@@ -564,13 +563,13 @@ export default {
     getStatusText(status) {
       const statusMap = {
         draft: 'ຮ່າງ',
+        sent: 'ສົ່ງແລ້ວ',
+        paid: 'ຈ່າຍແລ້ວ',
+        overdue: 'ເກີນກຳນົດ',
+        cancelled: 'ຍົກເລີກ',
         pending: 'ລໍຖ້າການອະນຸມັດ',
         approved: 'ອະນຸມັດແລ້ວ',
-        rejected: 'ປະຕິເສດ',
-        paid: 'ຈ່າຍແລ້ວ',
-        cancelled: 'ຍົກເລີກ',
-        active: 'ໃຊ້ງານ',
-        inactive: 'ບໍ່ໃຊ້ງານ'
+        rejected: 'ປະຕິເສດ'
       }
       return statusMap[status] || status
     },
@@ -614,7 +613,8 @@ export default {
 </script>
 
 <style scoped>
-.settlement-audit-dialog-overlay {
+/* Same styling as settlement audit dialog but with invoice-specific colors */
+.invoice-audit-dialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -624,24 +624,24 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1060; /* Higher than main dialog */
+  z-index: 1060;
   padding: 20px;
 }
 
-.settlement-audit-dialog {
+.invoice-audit-dialog {
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 1400px;
   max-height: 95vh;
-  overflow: hidden; /* Keep this to prevent dialog from growing beyond viewport */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-.settlement-audit-dialog-header {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+.invoice-audit-dialog-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 20px;
   display: flex;
@@ -659,7 +659,7 @@ export default {
   gap: 10px;
 }
 
-.settlement-subtitle {
+.invoice-subtitle {
   margin: 5px 0 0 0;
   font-size: 14px;
   opacity: 0.9;
@@ -685,35 +685,34 @@ export default {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.settlement-audit-dialog-body {
+.invoice-audit-dialog-body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   background: #f8f9fa;
   min-height: 0;
-  padding: 0; /* Let the inner component handle padding */
+  padding: 0;
 }
 
-/* For better scrollbar styling (WebKit browsers) */
-.settlement-audit-dialog-body::-webkit-scrollbar {
+.invoice-audit-dialog-body::-webkit-scrollbar {
   width: 8px;
 }
 
-.settlement-audit-dialog-body::-webkit-scrollbar-track {
+.invoice-audit-dialog-body::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-.settlement-audit-dialog-body::-webkit-scrollbar-thumb {
+.invoice-audit-dialog-body::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 4px;
 }
 
-.settlement-audit-dialog-body::-webkit-scrollbar-thumb:hover {
+.invoice-audit-dialog-body::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
 }
 
-.settlement-audit-dialog-footer {
+.invoice-audit-dialog-footer {
   padding: 20px;
   background: white;
   border-top: 1px solid #e9ecef;
@@ -775,16 +774,6 @@ export default {
   background: #f8f9fa;
 }
 
-.dropdown-item:first-child {
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-}
-
-.dropdown-item:last-child {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
 .btn {
   padding: 10px 20px;
   border: none;
@@ -800,23 +789,23 @@ export default {
 }
 
 .btn-primary {
-  background: #28a745;
+  background: #667eea;
   color: white;
 }
 
 .btn-primary:hover {
-  background: #218838;
+  background: #5a67d8;
   transform: translateY(-1px);
 }
 
 .btn-outline-primary {
   background: white;
-  color: #28a745;
-  border: 1px solid #28a745;
+  color: #667eea;
+  border: 1px solid #667eea;
 }
 
 .btn-outline-primary:hover {
-  background: #28a745;
+  background: #667eea;
   color: white;
   transform: translateY(-1px);
 }
@@ -839,14 +828,14 @@ export default {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .settlement-audit-dialog {
+  .invoice-audit-dialog {
     max-width: 100%;
     height: 100%;
     max-height: 100vh;
     border-radius: 0;
   }
 
-  .settlement-audit-dialog-header {
+  .invoice-audit-dialog-header {
     padding: 15px;
   }
 
@@ -854,7 +843,7 @@ export default {
     font-size: 18px;
   }
 
-  .settlement-audit-dialog-footer {
+  .invoice-audit-dialog-footer {
     padding: 15px;
     flex-direction: column;
   }
@@ -878,7 +867,7 @@ export default {
     border-radius: 6px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    border-left: 1px solid #28a745;
+    border-left: 1px solid #667eea;
   }
 
   .dropdown-menu {
@@ -887,33 +876,6 @@ export default {
     border: none;
     margin-bottom: 0;
     width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .settlement-audit-dialog-overlay {
-    padding: 0;
-  }
-
-  .settlement-audit-dialog-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    position: relative;
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-  }
-
-  .header-info h3 {
-    font-size: 16px;
-  }
-
-  .settlement-subtitle {
-    font-size: 12px;
   }
 }
 </style>

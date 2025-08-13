@@ -1,7 +1,7 @@
 exports.ids = [147,33,91,99,100];
 exports.modules = {
 
-/***/ 1057:
+/***/ 1058:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -357,10 +357,10 @@ var staticRenderFns = [];
 var PoForm = __webpack_require__(486);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
-var PurchasingFormCRUD = __webpack_require__(475);
+var PurchasingFormCRUD = __webpack_require__(474);
 
 // EXTERNAL MODULE: ./components/ReceivingFormCRUD.vue + 4 modules
-var ReceivingFormCRUD = __webpack_require__(474);
+var ReceivingFormCRUD = __webpack_require__(473);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(363);
@@ -588,7 +588,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var card = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {PurchasingFormCRUD: __webpack_require__(475).default,ReceivingFormCRUD: __webpack_require__(474).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {PurchasingFormCRUD: __webpack_require__(474).default,ReceivingFormCRUD: __webpack_require__(473).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
@@ -3198,7 +3198,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 469:
+/***/ 465:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3328,7 +3328,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 474:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4588,7 +4588,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default,
 
 /***/ }),
 
-/***/ 475:
+/***/ 474:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5834,7 +5834,7 @@ var VRow = __webpack_require__(379);
 var VSpacer = __webpack_require__(378);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(469);
+var VSwitch = __webpack_require__(465);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);

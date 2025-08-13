@@ -1,44 +1,44 @@
 exports.ids = [63];
 exports.modules = {
 
-/***/ 533:
+/***/ 480:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(620);
+var content = __webpack_require__(541);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("fb73d6dc", content, true, context)
+  add("e6f61f1e", content, true, context)
 };
 
 /***/ }),
 
-/***/ 619:
+/***/ 540:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_33ecff44_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(533);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_33ecff44_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_33ecff44_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_33ecff44_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_33ecff44_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ce4da22_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(480);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ce4da22_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ce4da22_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ce4da22_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2ce4da22_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 620:
+/***/ 541:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-33ecff44]{align-items:center;background:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1000}.modal-content[data-v-33ecff44]{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-33ecff44]{align-items:center;border-bottom:1px solid #eee;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-33ecff44]{color:#333;margin:0}.close-btn[data-v-33ecff44]{background:none;border:none;color:#666;cursor:pointer;font-size:18px}.close-btn[data-v-33ecff44]:hover{color:#333}.modal-body[data-v-33ecff44]{padding:20px}.modal-footer[data-v-33ecff44]{border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;padding:20px}.btn[data-v-33ecff44]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:14px;gap:8px;padding:10px 20px;transition:all .2s}.btn-primary[data-v-33ecff44]{background:#007bff;color:#fff}.btn-primary[data-v-33ecff44]:hover{background:#0056b3}.btn-secondary[data-v-33ecff44]{background:#6c757d;color:#fff}.btn-secondary[data-v-33ecff44]:hover{background:#545b62}.voucher-container[data-v-33ecff44]{background:#fff;border:2px solid #333;font-family:\"Phetsarath OT\",\"Noto Sans Lao\",Arial,sans-serif;font-size:14px;line-height:1.4;margin:0 auto;max-width:700px;padding:20px;width:100%}.voucher-header[data-v-33ecff44]{align-items:flex-start;border-bottom:1px solid #ccc;display:flex;justify-content:space-between;margin-bottom:20px;padding-bottom:10px}.company-info[data-v-33ecff44]{flex:1;text-align:center}.company-name[data-v-33ecff44]{font-size:16px;font-weight:700;margin-bottom:5px}.department[data-v-33ecff44]{font-size:14px;margin-bottom:3px}.sub-department[data-v-33ecff44]{font-size:12px;margin-bottom:10px}.amount-line[data-v-33ecff44]{font-size:12px;letter-spacing:2px}.voucher-number[data-v-33ecff44]{flex:0 0 auto;margin-left:20px}.number-box[data-v-33ecff44]{background:#f9f9f9;border:2px solid #333;padding:8px 12px;text-align:center}.number-label[data-v-33ecff44]{font-weight:700;margin-right:10px}.number-value[data-v-33ecff44]{color:#d32f2f;font-weight:700}.voucher-title[data-v-33ecff44]{font-size:18px;font-weight:700;margin:20px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-details[data-v-33ecff44]{margin-bottom:30px}.detail-row[data-v-33ecff44]{align-items:center;display:flex;margin-bottom:12px;min-height:24px}.detail-row.description[data-v-33ecff44]{align-items:flex-start;flex-direction:column}.label[data-v-33ecff44]{font-weight:500;margin-right:10px;white-space:nowrap}.value[data-v-33ecff44]{border-bottom:1px solid #333;margin-right:20px;min-width:40px;padding:2px 5px;text-align:center}.dotted-line[data-v-33ecff44]{border-bottom:1px dotted #333;flex:1;margin:0 10px;min-height:20px;padding:2px 5px}.currency-options[data-v-33ecff44]{display:flex;gap:20px;margin-left:10px}.currency-options label[data-v-33ecff44]{align-items:center;display:flex;font-weight:400;gap:5px}.amount-number[data-v-33ecff44]{border-bottom:1px solid #333;flex:1;font-weight:700;margin:0 10px;padding:2px 10px;text-align:right}.amount-display[data-v-33ecff44]{color:#d32f2f;font-size:16px;font-weight:700;margin:0 10px}.description-content[data-v-33ecff44]{background:#fafafa;border:1px solid #333;margin-top:5px;min-height:60px;padding:10px;width:100%}.amount-words[data-v-33ecff44]{border-bottom:1px solid #333;flex:1;font-style:italic;margin-left:10px;padding:2px 10px}.signature-section[data-v-33ecff44]{display:flex;gap:10px;justify-content:space-between;margin-top:40px}.signature-box[data-v-33ecff44]{flex:1;text-align:center}.signature-title[data-v-33ecff44]{font-size:12px;font-weight:500;margin-bottom:30px}.signature-line[data-v-33ecff44]{border-bottom:1px solid #333;height:1px;margin-top:20px}.signature-name[data-v-33ecff44]{color:#666;font-size:10px;font-weight:400;margin-top:5px}@media print{body *[data-v-33ecff44]{visibility:hidden}.print-only[data-v-33ecff44],.print-only *[data-v-33ecff44]{visibility:visible}.print-only[data-v-33ecff44]{left:0;position:absolute;top:0;width:100%}.voucher-container.print-version[data-v-33ecff44]{border:2px solid #000!important;font-size:12px!important;margin:0!important;max-width:none!important;padding:15px!important;width:100%!important}.voucher-title[data-v-33ecff44]{font-size:16px!important}.amount-display[data-v-33ecff44],.company-name[data-v-33ecff44]{font-size:14px!important}.signature-title[data-v-33ecff44]{font-size:10px!important}.department[data-v-33ecff44]{font-size:12px!important}.amount-line[data-v-33ecff44],.sub-department[data-v-33ecff44]{font-size:10px!important}.signature-name[data-v-33ecff44]{font-size:9px!important}}.print-only[data-v-33ecff44]{left:-9999px;position:absolute;top:-9999px}@media print{.print-only[data-v-33ecff44]{left:auto;position:static;top:auto}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".ministry-titles[data-v-2ce4da22]{flex:1;text-align:left}.ministry-titles .voucher-title[data-v-2ce4da22]{font-size:14px!important;font-weight:400;margin-bottom:5px;text-align:left;-webkit-text-decoration:none;text-decoration:none}.ministry-voucher-section[data-v-2ce4da22]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:20px;padding:10px 0}.modal-overlay[data-v-2ce4da22]{align-items:center;background:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1000}.modal-content[data-v-2ce4da22]{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-2ce4da22]{align-items:center;border-bottom:1px solid #eee;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-2ce4da22]{color:#333;margin:0}.close-btn[data-v-2ce4da22]{background:none;border:none;color:#666;cursor:pointer;font-size:18px}.close-btn[data-v-2ce4da22]:hover{color:#333}.modal-body[data-v-2ce4da22]{padding:20px}.modal-footer[data-v-2ce4da22]{border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;padding:20px}.btn[data-v-2ce4da22]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:14px;gap:8px;padding:10px 20px;transition:all .2s}.btn-primary[data-v-2ce4da22]{background:#007bff;color:#fff}.btn-primary[data-v-2ce4da22]:hover{background:#0056b3}.btn-secondary[data-v-2ce4da22]{background:#6c757d;color:#fff}.btn-secondary[data-v-2ce4da22]:hover{background:#545b62}.voucher-container[data-v-2ce4da22]{background:#fff;border:2px solid #333;font-family:\"Phetsarath OT\",\"Noto Sans Lao\",Arial,sans-serif;font-size:14px;line-height:1.4;margin:0 auto;max-width:700px;padding:20px;width:100%}.voucher-header[data-v-2ce4da22]{align-items:flex-start;border-bottom:1px solid #ccc;display:flex;justify-content:space-between;margin-bottom:20px;padding-bottom:10px}.company-info[data-v-2ce4da22]{flex:1;text-align:center}.company-name[data-v-2ce4da22]{font-size:16px;font-weight:700;margin-bottom:5px}.department[data-v-2ce4da22]{font-size:14px;margin-bottom:3px}.sub-department[data-v-2ce4da22]{font-size:12px;margin-bottom:10px}.amount-line[data-v-2ce4da22]{font-size:12px;letter-spacing:2px}.voucher-number[data-v-2ce4da22]{flex:0 0 auto;margin-left:20px}.number-box[data-v-2ce4da22]{background:#f9f9f9;border:2px solid #333;padding:8px 12px;text-align:center}.number-label[data-v-2ce4da22]{font-weight:700;margin-right:10px}.number-value[data-v-2ce4da22]{color:#d32f2f;font-weight:700}.voucher-title[data-v-2ce4da22]{font-size:18px;font-weight:700;margin:20px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-details[data-v-2ce4da22]{margin-bottom:30px}.detail-row[data-v-2ce4da22]{align-items:center;display:flex;margin-bottom:12px;min-height:24px}.detail-row.description[data-v-2ce4da22]{align-items:flex-start;flex-direction:column}.label[data-v-2ce4da22]{font-weight:500;margin-right:10px;white-space:nowrap}.value[data-v-2ce4da22]{border-bottom:1px solid #333;margin-right:20px;min-width:40px;padding:2px 5px;text-align:center}.dotted-line[data-v-2ce4da22]{border-bottom:1px dotted #333;flex:1;margin:0 10px;min-height:20px;padding:2px 5px}.currency-options[data-v-2ce4da22]{display:flex;gap:20px;margin-left:10px}.currency-options label[data-v-2ce4da22]{align-items:center;display:flex;font-weight:400;gap:5px}.amount-display[data-v-2ce4da22]{color:#d32f2f;font-size:16px;font-weight:700;margin:0 10px}.description-content[data-v-2ce4da22]{background:#fafafa;border:1px solid #333;margin-top:5px;min-height:60px;padding:10px;width:100%}.amount-words[data-v-2ce4da22]{border-bottom:1px solid #333;flex:1;font-style:italic;margin-left:10px;padding:2px 10px}.signature-section[data-v-2ce4da22]{display:flex;gap:10px;justify-content:space-between;margin-top:40px}.signature-box[data-v-2ce4da22]{flex:1;text-align:center}.signature-title[data-v-2ce4da22]{font-size:12px;font-weight:500;margin-bottom:30px}.signature-line[data-v-2ce4da22]{border-bottom:1px solid #333;height:1px;margin-top:20px}.signature-name[data-v-2ce4da22]{color:#666;font-size:10px;font-weight:400;margin-top:5px}@media print{body *[data-v-2ce4da22]{visibility:hidden}.print-only[data-v-2ce4da22],.print-only *[data-v-2ce4da22]{visibility:visible}.print-only[data-v-2ce4da22]{left:0;position:absolute;top:0;width:100%}.voucher-container.print-version[data-v-2ce4da22]{border:2px solid #000!important;font-size:12px!important;margin:0!important;max-width:none!important;padding:15px!important;width:100%!important}.ministry-voucher-section[data-v-2ce4da22]{align-items:flex-start!important;display:flex!important;justify-content:space-between!important}.amount-display[data-v-2ce4da22],.company-name[data-v-2ce4da22],.voucher-title[data-v-2ce4da22]{font-size:14px!important}.signature-title[data-v-2ce4da22]{font-size:10px!important}.department[data-v-2ce4da22]{font-size:12px!important}.amount-line[data-v-2ce4da22],.sub-department[data-v-2ce4da22]{font-size:10px!important}.signature-name[data-v-2ce4da22]{font-size:9px!important}}.print-only[data-v-2ce4da22]{left:-9999px;position:absolute;top:-9999px}@media print{.print-only[data-v-2ce4da22]{left:auto;position:static;top:auto}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -46,25 +46,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 805:
+/***/ 571:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentVoucher/index.vue?vue&type=template&id=33ecff44&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentVoucher/index.vue?vue&type=template&id=2ce4da22&scoped=true&
 var render = function render() {
-  var _vm$voucherData$curre, _vm$voucherData$curre2, _vm$voucherData$curre3, _vm$voucherData$curre4, _vm$voucherData$curre5, _vm$voucherData$check, _vm$voucherData$maker, _vm$voucherData$maker2, _vm$voucherData$curre6, _vm$voucherData$curre7, _vm$voucherData$curre8, _vm$voucherData$curre9, _vm$voucherData$maker3, _vm$voucherData$check2;
+  var _vm$voucherData$curre, _vm$voucherData$curre2, _vm$voucherData$curre3, _vm$voucherData$maker, _vm$voucherData$minis, _vm$voucherData$curre4, _vm$voucherData$curre5, _vm$voucherData$maker2, _vm$voucherData$check, _vm$voucherData$maker3, _vm$voucherData$minis2, _vm$voucherData$curre6, _vm$voucherData$curre7, _vm$voucherData$curre8, _vm$voucherData$curre9, _vm$voucherData$curre10, _vm$voucherData$maker4, _vm$voucherData$check2;
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_vm._ssrNode((_vm.showPrintDialog ? "<div class=\"modal-overlay\" data-v-33ecff44><div class=\"modal-content\" data-v-33ecff44><div class=\"modal-header\" data-v-33ecff44><h3 data-v-33ecff44>ພິມໃບຈ່າຍສົດອອກຄັງ</h3> <button class=\"close-btn\" data-v-33ecff44><i class=\"fas fa-times\" data-v-33ecff44></i></button></div> <div class=\"modal-body\" data-v-33ecff44><div id=\"voucher-print\" class=\"voucher-container\" data-v-33ecff44><div class=\"voucher-header\" data-v-33ecff44><div class=\"company-info\" data-v-33ecff44><div class=\"company-name\" data-v-33ecff44>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-33ecff44>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div> <div class=\"amount-line\" data-v-33ecff44>.........(000)..........</div></div> <div class=\"voucher-number\" data-v-33ecff44><div class=\"number-box\" data-v-33ecff44><span class=\"number-label\" data-v-33ecff44>No</span> <span class=\"number-value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div></div></div> <div class=\"voucher-title\" data-v-33ecff44>ໃບຈ່າຍເງິນສົດອອກຄັງ</div> <div class=\"voucher-details\" data-v-33ecff44><div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ອີງໃສ່ໃບ ຖອນ/ສະເຫນີ</span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ເລກທີ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.voucherData.id || 'N/A')) + "</span> <span class=\"label\" data-v-33ecff44>ລົງວັນທີ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).day)) + "</span> <span class=\"label\" data-v-33ecff44>ເດືອນ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).month)) + "</span> <span class=\"label\" data-v-33ecff44>ປີ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).year)) + "</span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ຄັງເງິນສົດ, ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ໄດ້ຈ່າຍເງິນ </span> <label data-v-33ecff44><input type=\"checkbox\" data-v-33ecff44></label> <span class=\"label\" data-v-33ecff44> ສົດ </span> <label data-v-33ecff44><input type=\"checkbox\" data-v-33ecff44></label> <span class=\"label\" data-v-33ecff44> ແຊັກເລກທີ່ </span> <span class=\"dotted-line\" data-v-33ecff44></span> <div class=\"currency-options\" data-v-33ecff44><label data-v-33ecff44><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre = _vm.voucherData.currency) === null || _vm$voucherData$curre === void 0 ? void 0 : _vm$voucherData$curre.code) === 'LAK') + " data-v-33ecff44>\n                  LAK</label> <label data-v-33ecff44><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre2 = _vm.voucherData.currency) === null || _vm$voucherData$curre2 === void 0 ? void 0 : _vm$voucherData$curre2.code) === 'THB') + " data-v-33ecff44>\n                  THB</label> <label data-v-33ecff44><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre3 = _vm.voucherData.currency) === null || _vm$voucherData$curre3 === void 0 ? void 0 : _vm$voucherData$curre3.code) === 'USD') + " data-v-33ecff44>\n                  USD</label></div></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ໃຫ້ທ່ານ</span> <span class=\"dotted-line\" data-v-33ecff44></span> <span class=\"label\" data-v-33ecff44>ເລກບັດປະຈຳຕົວ</span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ສັງກັດຢູ່ພາກສ່ວນ ກົມ/ກອງ</span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ເນື້ອໃນລາຍຈ່າຍ</span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44></span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44></span> <span class=\"dotted-line\" data-v-33ecff44></span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ຈຳນວນ</span> <span class=\"amount-display\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount))) + "</span> <span class=\"label\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$curre4 = _vm.voucherData.currency) === null || _vm$voucherData$curre4 === void 0 ? void 0 : _vm$voucherData$curre4.name) || 'N/A')) + "</span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ຈຳນວນເງິນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre5 = _vm.voucherData.currency) === null || _vm$voucherData$curre5 === void 0 ? void 0 : _vm$voucherData$curre5.code))) + "</span></div> <div class=\"detail-row description\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ເນື້ອໃນລາຍການ</span> <div class=\"description-content\" data-v-33ecff44>" + _vm._ssrEscape("\n                " + _vm._s(_vm.voucherData.note || 'ບໍ່ມີຫມາຍເຫດ') + "\n              ") + "</div></div></div> <div class=\"signature-section\" data-v-33ecff44><div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ຫົວໜ້າພະແນກ ຄັງເງິນສົດ</div> <div class=\"signature-line\" data-v-33ecff44></div> <div class=\"signature-name\" data-v-33ecff44></div></div> <div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ຜູ້ຮັບເງິນ</div> <div class=\"signature-line\" data-v-33ecff44></div></div> <div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-line\" data-v-33ecff44></div> <div class=\"signature-name\" data-v-33ecff44>" + _vm._ssrEscape("\n                " + _vm._s(((_vm$voucherData$check = _vm.voucherData.checker) === null || _vm$voucherData$check === void 0 ? void 0 : _vm$voucherData$check.cus_name) || '') + "\n              ") + "</div></div> <div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ນາຍບັນຊີ</div> <div class=\"signature-line\" data-v-33ecff44></div> <div class=\"signature-name\" data-v-33ecff44></div></div></div></div></div> <div class=\"modal-footer\" data-v-33ecff44><button class=\"btn btn-secondary\" data-v-33ecff44><i class=\"fas fa-times\" data-v-33ecff44></i>\n          ຍົກເລີກ\n        </button> <button class=\"btn btn-primary\" data-v-33ecff44><i class=\"fas fa-print\" data-v-33ecff44></i>\n          ພິມ\n        </button></div></div></div>" : "<!---->") + " <div class=\"print-only\"" + _vm._ssrStyle(null, null, {
+  return _c('div', [_vm._ssrNode((_vm.showPrintDialog ? "<div class=\"modal-overlay\" data-v-2ce4da22><div class=\"modal-content\" data-v-2ce4da22><div class=\"modal-header\" data-v-2ce4da22><h3 data-v-2ce4da22>ພິມໃບຈ່າຍສົດອອກຄັງ</h3> <button class=\"close-btn\" data-v-2ce4da22><i class=\"fas fa-times\" data-v-2ce4da22></i></button></div> <div class=\"modal-body\" data-v-2ce4da22><div id=\"voucher-print\" class=\"voucher-container\" data-v-2ce4da22><div class=\"voucher-header\" data-v-2ce4da22><div class=\"company-info\" data-v-2ce4da22><div class=\"company-name\" data-v-2ce4da22>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-2ce4da22>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div> <div class=\"amount-line\" data-v-2ce4da22>.........(000)..........</div></div></div> <div class=\"ministry-voucher-section\" data-v-2ce4da22><div class=\"ministry-titles\" data-v-2ce4da22><div class=\"voucher-title\" data-v-2ce4da22>ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div> <div class=\"voucher-title\" data-v-2ce4da22>ກົມແຜນການ ແລະ ການເງິນ</div> <div class=\"voucher-title\" data-v-2ce4da22>ພະແນກຄຸ້ມຄອງລາຍຮັບ</div></div> <div class=\"voucher-number\" data-v-2ce4da22><div class=\"number-box\" data-v-2ce4da22><span class=\"number-label\" data-v-2ce4da22>No</span> <span class=\"number-value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" style=\"font-size: 14px !important\" data-v-2ce4da22>ວັນທີ\n                </span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDateLao(_vm.voucherData.bookingDate))) + "</span></div></div></div> <div class=\"voucher-title\" data-v-2ce4da22>ໃບຈ່າຍເງິນສົດອອກຄັງ</div> <div class=\"voucher-details\" data-v-2ce4da22><div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ອີງໃສ່ໃບ ຖອນ/ສະເຫນີ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRef || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ເລກທີ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRefNo || _vm.formatVoucherNumber(_vm.voucherData.id) || 'N/A')) + "</span> <span class=\"label\" data-v-2ce4da22>ລົງວັນທີ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).day)) + "</span> <span class=\"label\" data-v-2ce4da22>ເດືອນ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).month)) + "</span> <span class=\"label\" data-v-2ce4da22>ປີ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).year)) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ຄັງເງິນສົດ, ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ.</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ໄດ້ຈ່າຍເງິນ </span> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cash') + " data-v-2ce4da22></label> <span class=\"label\" data-v-2ce4da22> ສົດ </span> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cheque') + " data-v-2ce4da22></label> <span class=\"label\" data-v-2ce4da22> ແຊັກເລກທີ່ </span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.chequeNo || '')) + "</span> <div class=\"currency-options\" data-v-2ce4da22><label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre = _vm.voucherData.currency) === null || _vm$voucherData$curre === void 0 ? void 0 : _vm$voucherData$curre.code) === 'LAK') + " data-v-2ce4da22>\n                  LAK</label> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre2 = _vm.voucherData.currency) === null || _vm$voucherData$curre2 === void 0 ? void 0 : _vm$voucherData$curre2.code) === 'THB') + " data-v-2ce4da22>\n                  THB</label> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre3 = _vm.voucherData.currency) === null || _vm$voucherData$curre3 === void 0 ? void 0 : _vm$voucherData$curre3.code) === 'USD') + " data-v-2ce4da22>\n                  USD</label></div></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ໃຫ້ທ່ານ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker = _vm.voucherData.maker) === null || _vm$voucherData$maker === void 0 ? void 0 : _vm$voucherData$maker.cus_name) || '')) + "</span> <span class=\"label\" data-v-2ce4da22>ເລກບັດປະຈຳຕົວ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveIDNO || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ສັງກັດຢູ່ພາກສ່ວນ ກົມ/ກອງ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$minis = _vm.voucherData.ministry) === null || _vm$voucherData$minis === void 0 ? void 0 : _vm$voucherData$minis.ministryName) || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ເນື້ອໃນລາຍຈ່າຍ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.purpose || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22></span> <span class=\"dotted-line\" data-v-2ce4da22></span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22></span> <span class=\"dotted-line\" data-v-2ce4da22></span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ຈຳນວນ</span> <span class=\"amount-display\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount))) + "</span> <span class=\"label\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$curre4 = _vm.voucherData.currency) === null || _vm$voucherData$curre4 === void 0 ? void 0 : _vm$voucherData$curre4.name) || 'N/A')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ຈຳນວນເງິນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre5 = _vm.voucherData.currency) === null || _vm$voucherData$curre5 === void 0 ? void 0 : _vm$voucherData$curre5.code))) + "</span></div></div> <div class=\"signature-section\" data-v-2ce4da22><div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ຫົວໜ້າພະແນກ ຄັງເງິນສົດ</div> <div class=\"signature-line\" data-v-2ce4da22></div> <div class=\"signature-name\" data-v-2ce4da22></div></div> <div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ຜູ້ຮັບເງິນ</div> <div class=\"signature-line\" data-v-2ce4da22></div> <div class=\"signature-name\" data-v-2ce4da22>" + _vm._ssrEscape("\n                " + _vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker2 = _vm.voucherData.maker) === null || _vm$voucherData$maker2 === void 0 ? void 0 : _vm$voucherData$maker2.cus_name) || '') + "\n              ") + "</div></div> <div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-line\" data-v-2ce4da22></div> <div class=\"signature-name\" data-v-2ce4da22>" + _vm._ssrEscape("\n                " + _vm._s(((_vm$voucherData$check = _vm.voucherData.checker) === null || _vm$voucherData$check === void 0 ? void 0 : _vm$voucherData$check.cus_name) || '') + "\n              ") + "</div></div></div></div></div> <div class=\"modal-footer\" data-v-2ce4da22><button class=\"btn btn-secondary\" data-v-2ce4da22><i class=\"fas fa-times\" data-v-2ce4da22></i>\n          ຍົກເລີກ\n        </button> <button class=\"btn btn-primary\" data-v-2ce4da22><i class=\"fas fa-print\" data-v-2ce4da22></i>\n          ພິມ\n        </button></div></div></div>" : "<!---->") + " <div class=\"print-only\"" + _vm._ssrStyle(null, null, {
     display: false ? undefined : 'none'
-  }) + " data-v-33ecff44><div class=\"voucher-container print-version\" data-v-33ecff44><div class=\"voucher-header\" data-v-33ecff44><div class=\"company-info\" data-v-33ecff44><div class=\"company-name\" data-v-33ecff44>ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div> <div class=\"department\" data-v-33ecff44>ກົມການເງິນ ແລະ ສິນເຊື່ອ</div> <div class=\"sub-department\" data-v-33ecff44>\n            ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ\n          </div> <div class=\"amount-line\" data-v-33ecff44>.........(000)..........</div></div> <div class=\"voucher-number\" data-v-33ecff44><div class=\"number-box\" data-v-33ecff44><span class=\"number-label\" data-v-33ecff44>No</span> <span class=\"number-value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div></div></div> <div class=\"voucher-title\" data-v-33ecff44>ໃບຈ່າຍເງິນສົດອອກຄັງ</div> <div class=\"voucher-details\" data-v-33ecff44><div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ຈ່າຍໃຫ້ຫຼືຮັບເອົາ</span> <span class=\"dotted-line\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$maker = _vm.voucherData.maker) === null || _vm$voucherData$maker === void 0 ? void 0 : _vm$voucherData$maker.cus_name) || 'N/A')) + "</span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ເລກທີ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$maker2 = _vm.voucherData.maker) === null || _vm$voucherData$maker2 === void 0 ? void 0 : _vm$voucherData$maker2.cus_id) || 'N/A')) + "</span> <span class=\"label\" data-v-33ecff44>ວັນທີນີ້</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).day)) + "</span> <span class=\"label\" data-v-33ecff44>ເດືອນ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).month)) + "</span> <span class=\"label\" data-v-33ecff44>ປີ</span> <span class=\"value\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).year)) + "</span></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ຈຳນວນເງິນ ກີບລາວ / ເອກະສານສຳຄັນ</span> <div class=\"currency-options\" data-v-33ecff44><label data-v-33ecff44><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre6 = _vm.voucherData.currency) === null || _vm$voucherData$curre6 === void 0 ? void 0 : _vm$voucherData$curre6.code) === 'LAK') + " data-v-33ecff44>\n              LAK</label> <label data-v-33ecff44><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre7 = _vm.voucherData.currency) === null || _vm$voucherData$curre7 === void 0 ? void 0 : _vm$voucherData$curre7.code) === 'THB') + " data-v-33ecff44>\n              THB</label> <label data-v-33ecff44><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre8 = _vm.voucherData.currency) === null || _vm$voucherData$curre8 === void 0 ? void 0 : _vm$voucherData$curre8.code) === 'USD') + " data-v-33ecff44>\n              USD</label></div></div> <div class=\"detail-row\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ຈຳນວນ</span> <span class=\"amount-display\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount))) + "</span> <span class=\"label\" data-v-33ecff44>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$curre9 = _vm.voucherData.currency) === null || _vm$voucherData$curre9 === void 0 ? void 0 : _vm$voucherData$curre9.name) || 'N/A')) + "</span></div> <div class=\"detail-row description\" data-v-33ecff44><span class=\"label\" data-v-33ecff44>ເນື້ອໃນລາຍການ</span> <div class=\"description-content\" data-v-33ecff44>" + _vm._ssrEscape("\n            " + _vm._s(_vm.voucherData.note || 'ບໍ່ມີຫມາຍເຫດ') + "\n          ") + "</div></div></div> <div class=\"signature-section\" data-v-33ecff44><div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ຜູ້ຮັບເງິນຂຶ້ນເຊັນ ຊື່ເຕັມ</div> <div class=\"signature-line\" data-v-33ecff44></div> <div class=\"signature-name\" data-v-33ecff44>" + _vm._ssrEscape("\n            " + _vm._s(((_vm$voucherData$maker3 = _vm.voucherData.maker) === null || _vm$voucherData$maker3 === void 0 ? void 0 : _vm$voucherData$maker3.cus_name) || '') + "\n          ") + "</div></div> <div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ຜູ້ສົ່ງເງິນ</div> <div class=\"signature-line\" data-v-33ecff44></div></div> <div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-line\" data-v-33ecff44></div></div> <div class=\"signature-box\" data-v-33ecff44><div class=\"signature-title\" data-v-33ecff44>ນາຍຄົນຈັງ</div> <div class=\"signature-line\" data-v-33ecff44></div> <div class=\"signature-name\" data-v-33ecff44>" + _vm._ssrEscape("\n            " + _vm._s(((_vm$voucherData$check2 = _vm.voucherData.checker) === null || _vm$voucherData$check2 === void 0 ? void 0 : _vm$voucherData$check2.cus_name) || '') + "\n          ") + "</div></div></div></div></div>")]);
+  }) + " data-v-2ce4da22><div class=\"voucher-container print-version\" data-v-2ce4da22><div class=\"voucher-header\" data-v-2ce4da22><div class=\"company-info\" data-v-2ce4da22><div class=\"company-name\" data-v-2ce4da22>ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div> <div class=\"department\" data-v-2ce4da22>ກົມການເງິນ ແລະ ສິນເຊື່ອ</div> <div class=\"sub-department\" data-v-2ce4da22>\n            ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ\n          </div> <div class=\"amount-line\" data-v-2ce4da22>.........(000)..........</div></div> <div class=\"voucher-number\" data-v-2ce4da22><div class=\"number-box\" data-v-2ce4da22><span class=\"number-label\" data-v-2ce4da22>No</span> <span class=\"number-value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div></div></div> <div class=\"voucher-title\" data-v-2ce4da22>ໃບຈ່າຍເງິນສົດອອກຄັງ</div> <div class=\"voucher-details\" data-v-2ce4da22><div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ອີງໃສ່ໃບ ຖອນ/ສະເຫນີ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRef || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ເລກທີ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRefNo || _vm.voucherData.id || 'N/A')) + "</span> <span class=\"label\" data-v-2ce4da22>ວັນທີນີ້</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).day)) + "</span> <span class=\"label\" data-v-2ce4da22>ເດືອນ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).month)) + "</span> <span class=\"label\" data-v-2ce4da22>ປີ</span> <span class=\"value\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).year)) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ໄດ້ຈ່າຍເງິນ </span> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cash') + " data-v-2ce4da22></label> <span class=\"label\" data-v-2ce4da22> ສົດ </span> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cheque') + " data-v-2ce4da22></label> <span class=\"label\" data-v-2ce4da22> ແຊັກເລກທີ່ </span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.chequeNo || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ໃຫ້ທ່ານ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker3 = _vm.voucherData.maker) === null || _vm$voucherData$maker3 === void 0 ? void 0 : _vm$voucherData$maker3.cus_name) || '')) + "</span> <span class=\"label\" data-v-2ce4da22>ເລກບັດປະຈຳຕົວ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveIDNO || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ສັງກັດຢູ່ພາກສ່ວນ ກົມ/ກອງ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$minis2 = _vm.voucherData.ministry) === null || _vm$voucherData$minis2 === void 0 ? void 0 : _vm$voucherData$minis2.ministryName) || '')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ຈຳນວນເງິນ ກີບລາວ / ເອກະສານສຳຄັນ</span> <div class=\"currency-options\" data-v-2ce4da22><label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre6 = _vm.voucherData.currency) === null || _vm$voucherData$curre6 === void 0 ? void 0 : _vm$voucherData$curre6.code) === 'LAK') + " data-v-2ce4da22>\n              LAK</label> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre7 = _vm.voucherData.currency) === null || _vm$voucherData$curre7 === void 0 ? void 0 : _vm$voucherData$curre7.code) === 'THB') + " data-v-2ce4da22>\n              THB</label> <label data-v-2ce4da22><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre8 = _vm.voucherData.currency) === null || _vm$voucherData$curre8 === void 0 ? void 0 : _vm$voucherData$curre8.code) === 'USD') + " data-v-2ce4da22>\n              USD</label></div></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ຈຳນວນ</span> <span class=\"amount-display\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount))) + "</span> <span class=\"label\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$curre9 = _vm.voucherData.currency) === null || _vm$voucherData$curre9 === void 0 ? void 0 : _vm$voucherData$curre9.name) || 'N/A')) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ຈຳນວນເງິນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre10 = _vm.voucherData.currency) === null || _vm$voucherData$curre10 === void 0 ? void 0 : _vm$voucherData$curre10.code))) + "</span></div> <div class=\"detail-row\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ເນື້ອໃນລາຍຈ່າຍ</span> <span class=\"dotted-line\" data-v-2ce4da22>" + _vm._ssrEscape(_vm._s(_vm.voucherData.purpose || '')) + "</span></div> <div class=\"detail-row description\" data-v-2ce4da22><span class=\"label\" data-v-2ce4da22>ເນື້ອໃນລາຍການ</span> <div class=\"description-content\" data-v-2ce4da22>" + _vm._ssrEscape("\n            " + _vm._s(_vm.voucherData.note || 'ບໍ່ມີຫມາຍເຫດ') + "\n          ") + "</div></div></div> <div class=\"signature-section\" data-v-2ce4da22><div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ຜູ້ຮັບເງິນຂຶ້ນເຊັນ ຊື່ເຕັມ</div> <div class=\"signature-line\" data-v-2ce4da22></div> <div class=\"signature-name\" data-v-2ce4da22>" + _vm._ssrEscape("\n            " + _vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker4 = _vm.voucherData.maker) === null || _vm$voucherData$maker4 === void 0 ? void 0 : _vm$voucherData$maker4.cus_name) || '') + "\n          ") + "</div></div> <div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ຜູ້ສົ່ງເງິນ</div> <div class=\"signature-line\" data-v-2ce4da22></div></div> <div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-line\" data-v-2ce4da22></div></div> <div class=\"signature-box\" data-v-2ce4da22><div class=\"signature-title\" data-v-2ce4da22>ນາຍຄົນຈັງ</div> <div class=\"signature-line\" data-v-2ce4da22></div> <div class=\"signature-name\" data-v-2ce4da22>" + _vm._ssrEscape("\n            " + _vm._s(((_vm$voucherData$check2 = _vm.voucherData.checker) === null || _vm$voucherData$check2 === void 0 ? void 0 : _vm$voucherData$check2.cus_name) || '') + "\n          ") + "</div></div></div></div></div>")]);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/MA/paymentVoucher/index.vue?vue&type=template&id=33ecff44&scoped=true&
+// CONCATENATED MODULE: ./components/MA/paymentVoucher/index.vue?vue&type=template&id=2ce4da22&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentVoucher/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var paymentVouchervue_type_script_lang_js_ = ({
@@ -78,6 +78,8 @@ var staticRenderFns = [];
         purpose: 'test',
         note: '',
         status: 'pending',
+        method: 'cash',
+        // ✅ NEW: Default method
         approvedAt: null,
         dueDate: '2025-07-24T00:00:00.000Z',
         createdAt: '2025-07-09T15:12:51.000Z',
@@ -85,6 +87,11 @@ var staticRenderFns = [];
         makerId: 2,
         checkerId: null,
         currencyId: 5,
+        externalRef: '',
+        externalRefNo: '',
+        chequeNo: '',
+        receiveName: '',
+        receiveIDNO: '',
         maker: {
           id: 2,
           cus_id: 1001,
@@ -113,6 +120,7 @@ var staticRenderFns = [];
           createdAt: '2023-09-17T06:52:15.000Z',
           updateTimestamp: '2025-03-03T01:11:36.000Z'
         },
+        ministry: null,
         settlementLine: []
       })
     }
@@ -123,7 +131,6 @@ var staticRenderFns = [];
     };
   },
   watch: {
-    // Watch for changes to voucherData prop and reopen dialog if needed
     voucherData: {
       handler(newValue) {
         if (newValue && newValue.id) {
@@ -131,17 +138,23 @@ var staticRenderFns = [];
         }
       },
       deep: true,
-      immediate: true // This ensures the watcher runs immediately when component is created
+      immediate: true
     }
   },
-
   methods: {
+    formatDateLao(dateString) {
+      if (!dateString) return 'N/A';
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    },
     openPrintDialog() {
       this.showPrintDialog = true;
     },
     closePrintDialog() {
       this.showPrintDialog = false;
-      // Emit close event to parent
       this.$emit('close');
     },
     formatVoucherNumber(id) {
@@ -166,47 +179,180 @@ var staticRenderFns = [];
     },
     convertToWords(amount, currencyCode) {
       if (!amount) return '';
-
-      // This is a simplified number to words conversion
-      // You might want to implement a more comprehensive function
       const numbers = ['', 'ໜຶ່ງ', 'ສອງ', 'ສາມ', 'ສີ່', 'ຫ້າ', 'ຫົກ', 'ເຈັດ', 'ແປດ', 'ເກົ້າ'];
-      const units = ['', 'ສິບ', 'ຮ້ອຍ', 'ພັນ', 'ສິບພັນ', 'ແສນ', 'ລ້ານ'];
 
-      // Simple conversion for demonstration
-      // In production, you'd want a more robust implementation
+      // Convert number to string and process
       const amountStr = amount.toString();
       const length = amountStr.length;
-      if (length <= 6) {
-        // Simple case for amounts up to 999,999
-        let result = '';
-        for (let i = 0; i < length; i++) {
-          const digit = parseInt(amountStr[i]);
-          const position = length - i - 1;
-          if (digit > 0) {
-            result += numbers[digit] + units[position];
+      if (length > 10) {
+        // For very large numbers (over 10 billion), just return formatted number
+        return this.formatAmount(amount) + ' ' + (currencyCode || '');
+      }
+      let result = '';
+
+      // Helper function to convert a 3-digit group
+      const convertThreeDigits = num => {
+        let text = '';
+        const hundreds = Math.floor(num / 100);
+        const remainder = num % 100;
+        const tens = Math.floor(remainder / 10);
+        const ones = remainder % 10;
+
+        // Hundreds place
+        if (hundreds > 0) {
+          text += numbers[hundreds] + 'ຮ້ອຍ';
+        }
+
+        // Tens and ones place
+        if (remainder === 20) {
+          // Special case: 20 = ຊາວ
+          text += 'ຊາວ';
+        } else if (tens >= 2) {
+          // 30, 40, 50, etc.
+          text += numbers[tens] + 'ສິບ';
+          if (ones > 0) {
+            text += numbers[ones];
+          }
+        } else if (tens === 1) {
+          // 10-19
+          text += 'ສິບ';
+          if (ones > 0) {
+            text += numbers[ones];
+          }
+        } else if (ones > 0) {
+          // 1-9
+          text += numbers[ones];
+        }
+        return text;
+      };
+
+      // Convert based on number size
+      if (length <= 3) {
+        // 1 - 999
+        result = convertThreeDigits(amount);
+      } else if (length <= 6) {
+        // 1,000 - 999,999
+        const thousands = Math.floor(amount / 1000);
+        const remainder = amount % 1000;
+        if (thousands === 10) {
+          // Special case: 10,000 = ສິບພັນ
+          result = 'ສິບພັນ';
+        } else if (thousands === 20) {
+          // Special case: 20,000 = ຊາວພັນ
+          result = 'ຊາວພັນ';
+        } else {
+          result = convertThreeDigits(thousands) + 'ພັນ';
+        }
+        if (remainder > 0) {
+          result += convertThreeDigits(remainder);
+        }
+      } else if (length <= 9) {
+        // 1,000,000 - 999,999,999 (millions)
+        const millions = Math.floor(amount / 1000000);
+        const remainder = amount % 1000000;
+
+        // Handle millions part
+        if (millions === 10) {
+          result = 'ສິບລ້ານ';
+        } else if (millions === 20) {
+          result = 'ຊາວລ້ານ';
+        } else {
+          result = convertThreeDigits(millions) + 'ລ້ານ';
+        }
+
+        // Handle remainder (thousands and hundreds)
+        if (remainder > 0) {
+          if (remainder >= 1000) {
+            const thousands = Math.floor(remainder / 1000);
+            const finalRemainder = remainder % 1000;
+            if (thousands === 10) {
+              result += 'ສິບພັນ';
+            } else if (thousands === 20) {
+              result += 'ຊາວພັນ';
+            } else {
+              result += convertThreeDigits(thousands) + 'ພັນ';
+            }
+            if (finalRemainder > 0) {
+              result += convertThreeDigits(finalRemainder);
+            }
+          } else {
+            result += convertThreeDigits(remainder);
           }
         }
+      } else if (length <= 10) {
+        // 1,000,000,000 - 9,999,999,999 (billions)
+        const billions = Math.floor(amount / 1000000000);
+        const remainder = amount % 1000000000;
 
-        // Add currency suffix
-        switch (currencyCode) {
-          case 'LAK':
-            result += ' ກີບ';
-            break;
-          case 'USD':
-            result += ' ໂດລາ';
-            break;
-          case 'THB':
-            result += ' ບາດ';
-            break;
-          default:
-            result += currencyCode || '';
+        // Handle billions part
+        result = numbers[billions] + 'ພັນລ້ານ';
+
+        // Handle remainder (millions, thousands, hundreds)
+        if (remainder > 0) {
+          if (remainder >= 1000000) {
+            const millions = Math.floor(remainder / 1000000);
+            const millionRemainder = remainder % 1000000;
+            if (millions === 10) {
+              result += 'ສິບລ້ານ';
+            } else if (millions === 20) {
+              result += 'ຊາວລ້ານ';
+            } else {
+              result += convertThreeDigits(millions) + 'ລ້ານ';
+            }
+            if (millionRemainder > 0) {
+              if (millionRemainder >= 1000) {
+                const thousands = Math.floor(millionRemainder / 1000);
+                const finalRemainder = millionRemainder % 1000;
+                if (thousands === 10) {
+                  result += 'ສິບພັນ';
+                } else if (thousands === 20) {
+                  result += 'ຊາວພັນ';
+                } else {
+                  result += convertThreeDigits(thousands) + 'ພັນ';
+                }
+                if (finalRemainder > 0) {
+                  result += convertThreeDigits(finalRemainder);
+                }
+              } else {
+                result += convertThreeDigits(millionRemainder);
+              }
+            }
+          } else if (remainder >= 1000) {
+            const thousands = Math.floor(remainder / 1000);
+            const finalRemainder = remainder % 1000;
+            if (thousands === 10) {
+              result += 'ສິບພັນ';
+            } else if (thousands === 20) {
+              result += 'ຊາວພັນ';
+            } else {
+              result += convertThreeDigits(thousands) + 'ພັນ';
+            }
+            if (finalRemainder > 0) {
+              result += convertThreeDigits(finalRemainder);
+            }
+          } else {
+            result += convertThreeDigits(remainder);
+          }
         }
-        return result;
       }
 
-      // For larger amounts, return formatted number with currency
-      return this.formatAmount(amount) + ' ' + (currencyCode || '');
+      // Add currency
+      switch (currencyCode) {
+        case 'LAK':
+          result += ' ກີບ';
+          break;
+        case 'USD':
+          result += ' ໂດລາ';
+          break;
+        case 'THB':
+          result += ' ບາດ';
+          break;
+        default:
+          result += currencyCode ? ' ' + currencyCode : '';
+      }
+      return result;
     },
+    // ✅ FIXED: Single printVoucher method without auto-close
     printVoucher() {
       const printContent = this.$refs.voucherContent.innerHTML;
       const printWindow = window.open('', '_blank', 'width=800,height=600');
@@ -219,12 +365,15 @@ var staticRenderFns = [];
                 font-family: 'Phetsarath OT', 'Noto Sans Lao', Arial, sans-serif; 
                 margin: 0; 
                 padding: 20px; 
+                line-height: 1.4;
               }
               .voucher-container { 
                 border: 2px solid #000; 
                 padding: 15px; 
                 font-size: 12px; 
                 line-height: 1.4; 
+                max-width: 210mm;
+                margin: 0 auto;
               }
               .voucher-header { 
                 display: flex; 
@@ -233,6 +382,25 @@ var staticRenderFns = [];
                 margin-bottom: 20px; 
                 padding-bottom: 10px; 
                 border-bottom: 1px solid #ccc; 
+              }
+              .ministry-voucher-section {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 20px;
+                padding: 10px 0;
+              }
+              .ministry-titles {
+                flex: 1;
+                text-align: left;
+              }
+              .ministry-titles .voucher-title {
+                font-size: 12px;
+                margin-bottom: 4px;
+                text-align: left;
+                text-decoration: none;
+                font-weight: normal;
+                color: #333;
               }
               .company-info { 
                 flex: 1; 
@@ -258,12 +426,14 @@ var staticRenderFns = [];
               .voucher-number { 
                 flex: 0 0 auto; 
                 margin-left: 20px; 
+                text-align: right;
               }
               .number-box { 
                 border: 2px solid #000; 
                 padding: 8px 12px; 
                 text-align: center; 
                 background: #f9f9f9; 
+                margin-bottom: 8px;
               }
               .number-label { 
                 font-weight: bold; 
@@ -271,6 +441,7 @@ var staticRenderFns = [];
               }
               .number-value { 
                 font-weight: bold; 
+                color: #d32f2f;
               }
               .voucher-title { 
                 text-align: center; 
@@ -303,6 +474,7 @@ var staticRenderFns = [];
                 min-width: 40px; 
                 text-align: center; 
                 padding: 2px 5px; 
+                font-weight: 600;
               }
               .dotted-line { 
                 flex: 1; 
@@ -322,18 +494,11 @@ var staticRenderFns = [];
                 gap: 5px; 
                 font-weight: normal; 
               }
-              .amount-number { 
-                flex: 1; 
-                border-bottom: 1px solid #000; 
-                margin: 0 10px; 
-                padding: 2px 10px; 
-                text-align: right; 
-                font-weight: bold; 
-              }
               .amount-display { 
                 font-weight: bold; 
                 font-size: 14px; 
                 margin: 0 10px; 
+                color: #d32f2f;
               }
               .description-content { 
                 width: 100%; 
@@ -375,6 +540,31 @@ var staticRenderFns = [];
                 margin-top: 5px; 
                 font-weight: normal; 
               }
+              @media print {
+                .ministry-voucher-section {
+                  display: flex !important;
+                  justify-content: space-between !important;
+                  align-items: flex-start !important;
+                  margin-bottom: 20px !important;
+                  padding: 10px 0 !important;
+                }
+                .ministry-titles {
+                  flex: 1 !important;
+                  text-align: left !important;
+                }
+                .ministry-titles .voucher-title {
+                  font-size: 11px !important;
+                  margin-bottom: 3px !important;
+                  text-align: left !important;
+                  text-decoration: none !important;
+                  font-weight: normal !important;
+                }
+                .voucher-number {
+                  flex: 0 0 auto !important;
+                  margin-left: 20px !important;
+                  text-align: right !important;
+                }
+              }
             </style>
           </head>
           <body>
@@ -385,7 +575,9 @@ var staticRenderFns = [];
       printWindow.document.close();
       printWindow.print();
       printWindow.close();
-      this.showPrintDialog = false;
+
+      // ✅ REMOVED: Don't auto-close the dialog after printing
+      // this.showPrintDialog = false
     }
   }
 });
@@ -400,7 +592,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(619)
+  var style0 = __webpack_require__(540)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -413,7 +605,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "33ecff44",
+  "2ce4da22",
   "36e13303"
   
 )

@@ -715,6 +715,10 @@ export default {
               chartAccount: settlement.chartAccount,
               moneyAdvanceId: settlement.moneyAdvanceId,
               exchangeRate: settlement.exchangeRate,
+              externalRef: settlement.externalRef,
+              externalRefNo: settlement.externalRefNo,
+              chequeNo: settlement.chequeNo,
+              fromPersonName: settlement.fromPersonName,
               notes: settlement.notes,
             })
           )
@@ -750,7 +754,7 @@ export default {
 
         if (response.data && response.data.success) {
           this.showToast('ການບັນທຶກສຳເລັດແລ້ວ', 'success')
-          this.closeEditDialog()
+          // this.closeEditDialog()
 
           await this.fetchSettlements()
           this.applyFilters()

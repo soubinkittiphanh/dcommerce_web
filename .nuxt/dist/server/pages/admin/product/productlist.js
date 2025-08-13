@@ -1,7 +1,7 @@
 exports.ids = [195,36,45,46,93,96,97,122,194,259];
 exports.modules = {
 
-/***/ 1141:
+/***/ 1142:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2780,7 +2780,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var productlist = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(398).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(397).default,CardForm: __webpack_require__(499).default,ProductForm: __webpack_require__(436).default,ProductFormCreate: __webpack_require__(435).default,PriceListForm: __webpack_require__(417).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(398).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(397).default,CardForm: __webpack_require__(506).default,ProductForm: __webpack_require__(436).default,ProductFormCreate: __webpack_require__(435).default,PriceListForm: __webpack_require__(417).default})
 
 
 /***/ }),
@@ -4679,7 +4679,7 @@ var VDialog = __webpack_require__(337);
 var VDivider = __webpack_require__(119);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
-var VFileInput = __webpack_require__(450);
+var VFileInput = __webpack_require__(449);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(381);
@@ -5782,7 +5782,7 @@ var VDialog = __webpack_require__(337);
 var VDivider = __webpack_require__(119);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
-var VFileInput = __webpack_require__(450);
+var VFileInput = __webpack_require__(449);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(381);
@@ -6679,7 +6679,7 @@ var VIcon = __webpack_require__(60);
 var VImg = __webpack_require__(83);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRating/VRating.js
-var VRating = __webpack_require__(456);
+var VRating = __webpack_require__(455);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(379);
@@ -6969,7 +6969,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 450:
+/***/ 449:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7228,7 +7228,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 456:
+/***/ 455:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7447,7 +7447,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 499:
+/***/ 506:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

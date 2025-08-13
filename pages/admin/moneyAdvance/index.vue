@@ -190,9 +190,8 @@
                 >
                   <i class="fas fa-eye"></i>
                 </button>
-                    <!-- v-if="advance.status === 'pending'" -->
+                <!-- v-if="advance.status === 'pending'" -->
                 <button
-              
                   @click="openDialog(advance)"
                   class="btn btn-sm btn-warning"
                   title="Edit"
@@ -289,6 +288,9 @@
       :form-loading="formLoading"
       :saving="saving"
       @close="closeDialog"
+      @print="
+        printAdvanceDetails(advances.find((advance) => advance.id == form.id))
+      "
       @save="saveAdvance"
       @currency-changed="updateSelectedCurrency"
       @bank-account-changed="updateSelectedBankAccount"
@@ -469,6 +471,12 @@ export default {
         bookingDate: '',
         // 🆕 NEW: Add reason field for audit trail
         reason: '',
+        // New fields from backend
+        externalRef: '',
+        externalRefNo: '',
+        chequeNo: '',
+        receiveName: '',
+        receiveIDNO: '',
       },
       searchTimeout: null,
     }
@@ -869,14 +877,14 @@ export default {
           })
           this.showToast('Money advance updated successfully', 'success')
         } else {
-          await this.$axios.post('/api/money-advances', {
+          const response = await this.$axios.post('/api/money-advances', {
             ...formData,
             ...auditContext,
           })
           this.showToast('Money advance created successfully', 'success')
         }
 
-        this.closeDialog()
+        // this.closeDialog()
         await this.fetchData()
         await this.fetchDashboard()
       } catch (error) {
@@ -926,6 +934,7 @@ export default {
       this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
         Math.random() * 1000
       )}`
+
       if (
         this.users.length === 0 ||
         this.currencies.length === 0 ||
@@ -951,6 +960,7 @@ export default {
         this.form = {
           id: advance.id,
           amount: advance.amount,
+          method: advance.method,
           purpose: advance.purpose || '',
           note: advance.note || '',
           makerId: advance.makerId,
@@ -961,9 +971,26 @@ export default {
           bookingDate: advance.bookingDate || '',
           exchangeRate: advance.exchangeRate || '',
           reason: '', // Reset reason for each edit
+
+          // New fields from backend
+          externalRef: advance.externalRef || '',
+          externalRefNo: advance.externalRefNo || '',
+          chequeNo: advance.chequeNo || '',
+          receiveName: advance.receiveName || '',
+          receiveIDNO: advance.receiveIDNO || '',
         }
       } else {
         this.resetForm()
+
+        // Ensure new fields are empty in create mode
+        Object.assign(this.form, {
+          externalRef: '',
+          externalRefNo: '',
+          chequeNo: '',
+          receiveName: '',
+          receiveIDNO: '',
+        })
+
         if (this.currencies.length > 0) {
           const defaultCurrency =
             this.currencies.find((c) => c.code === 'USD') || this.currencies[0]

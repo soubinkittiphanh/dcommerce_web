@@ -15,7 +15,7 @@
           :title="'ເບິ່ງປະຫວັດການດຳເນີນງານ'"
         >
           <i class="fas fa-history"></i>
-          <span class="audit-text">ປະຫວັດ</span>
+          <span class="audit-text">ປະຫວັດ AAA</span>
         </button>
         <button type="button" class="close-button" @click="handleClose">
           <i class="fas fa-times"></i>
@@ -486,23 +486,23 @@
         </div>
       </div>
     </div>
-    <!-- Settlement Audit Dialog -->
-    <settlement-audit-dialog
+    <!-- AR INVOICE Audit Dialog -->
+    <invoice-audit-dialog
       :visible="showAuditDialog"
-      :settlement-id="form.id"
-      :settlement-info="settlementInfoForAudit"
+      :invoice-id="form.id"
+      :invoice-info="invoiceInfoForAudit"
       @close="closeAuditDialog"
     />
   </div>
 </template>
 
 <script>
-import SettlementAuditDialog from '~/components/accounting/ar/invoice/audit'
+import InvoiceAuditDialog from '~/components/accounting/ar/invoice/audit'
 
 export default {
   name: 'InvoiceHeaderMaintain',
   components: {
-    SettlementAuditDialog,
+    InvoiceAuditDialog, // Change from SettlementAuditDialog,
   },
   props: {
     visible: {
@@ -556,7 +556,22 @@ export default {
     isEdit() {
       return !!(this.invoice && this.invoice.id)
     },
+    user() {
+      return this.$auth.user || ''
+    },
+    invoiceInfoForAudit() {
+      if (!this.form.id) return null
 
+      return {
+        invoiceNumber: this.form.invoiceNumber,
+        totalAmount: this.calculatedTotal,
+        invoiceDate: this.form.invoiceDate,
+        status: this.form.status,
+        clientId: this.form.clientId,
+        currencyId: this.form.currencyId,
+        description: this.form.description,
+      }
+    },
     calculatedSubtotal() {
       return this.lineItems.reduce((sum, line) => {
         const subtotal =
@@ -626,14 +641,16 @@ export default {
 
   methods: {
     openAuditDialog() {
-      if (!this.isEditMode) {
-        this.$toast?.warning(
-          'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ້ບັນທຶກການຊຳລະ'
-        )
-        return
-      }
+      console.warn(`Opening dialog`)
+      // if (!this.isEdit) {
+      //   this.$toast?.warning(
+      //     'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ้ບັນທຶກໃບແຈ້ງໜີ້'
+      //   )
+      //   return
+      // }
       this.showAuditDialog = true
     },
+
     closeAuditDialog() {
       this.showAuditDialog = false
     },
@@ -886,6 +903,7 @@ export default {
         totalAmount: this.calculatedTotal,
         taxAmount: this.calculatedTax,
         netAmount: this.calculatedNet,
+        updateUserId: this.user.id,
         exchangeRate: parseFloat(this.form.exchangeRate) || 1.0,
         lineItems: this.lineItems.map((line, index) => ({
           ...line,

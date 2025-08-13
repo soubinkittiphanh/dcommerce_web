@@ -760,6 +760,7 @@
     </div>
   </div>
 </template>
+<!-- Key changes made to fix the invoice line population issue -->
 
 <script>
 export default {
@@ -820,7 +821,7 @@ export default {
       return !!(this.receipt && this.receipt.id)
     },
     user() {
-      return this.$auth.user || ''
+      return this.$auth.user || {}
     },
     calculatedAllocatedTotal() {
       return this.allocationLines.reduce((sum, allocation) => {
@@ -828,12 +829,10 @@ export default {
       }, 0)
     },
 
-    // Override allocationBalance to always be 0 since total is auto-calculated
     allocationBalance() {
       return 0 // Always 0 since totalReceivedAmount = calculatedAllocatedTotal
     },
 
-    // Auto-calculated total received amount
     autoCalculatedTotal() {
       return this.calculatedAllocatedTotal
     },
@@ -873,8 +872,8 @@ export default {
       return this.filteredInvoices.filter(
         (invoice) =>
           invoice.invoiceNumber.toLowerCase().includes(query) ||
-          (invoice.customer &&
-            invoice.customer.name.toLowerCase().includes(query)) ||
+          (invoice.client &&
+            invoice.client.name.toLowerCase().includes(query)) ||
           (invoice.description &&
             invoice.description.toLowerCase().includes(query))
       )
@@ -927,20 +926,260 @@ export default {
   },
 
   methods: {
-    // Add a method to manually create allocation lines for testing
-    forceCreateAllocations() {
-      if (!this.selectedInvoice || !this.selectedInvoice.invoiceLines) {
-        this.showToast('Please select an invoice first', 'warning')
+    // 🔧 FIXED: Enhanced updateSelectedInvoice method with better debugging
+    async updateSelectedInvoice() {
+      console.log('🔍 updateSelectedInvoice called')
+      console.log('📝 Current form.invoiceHeaderId:', this.form.invoiceHeaderId)
+      console.log('📋 Available invoices:', this.invoices.length)
+      
+      // Clear previous selection
+      this.selectedInvoice = null
+
+      if (!this.form.invoiceHeaderId) {
+        console.log('❌ No invoice selected')
+        if (!this.isEdit) {
+          this.allocationLines = []
+        }
         return
       }
 
-      this.createAllocationLinesFromInvoice()
-      this.showToast(
-        `Created ${this.allocationLines.length} allocation lines`,
-        'success'
+      // 🔧 FIXED: Better ID comparison handling both string and number
+      const invoiceId = parseInt(this.form.invoiceHeaderId)
+      console.log('🔍 Looking for invoice ID:', invoiceId)
+
+      // Find the selected invoice
+      this.selectedInvoice = this.invoices.find(
+        (inv) => {
+          console.log('🔍 Comparing:', inv.id, 'with', invoiceId)
+          return inv.id === invoiceId
+        }
       )
+
+      if (!this.selectedInvoice) {
+        console.log('❌ Invoice not found in main invoices array, trying to load from API...')
+        await this.loadInvoiceById(invoiceId)
+      }
+
+      if (!this.selectedInvoice) {
+        console.log('❌ Could not find or load selected invoice')
+        this.showToast('ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ເລືອກ', 'error')
+        return
+      }
+
+      console.log('✅ Selected invoice found:', this.selectedInvoice.invoiceNumber)
+      console.log('📄 Invoice lines:', this.selectedInvoice.invoiceLines?.length || 0)
+
+      // 🔧 FIXED: Check if invoice lines exist and load if needed
+      if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
+        console.log('🔄 Loading invoice lines...')
+        await this.loadSelectedInvoiceLines()
+      }
+
+      // 🔧 FIXED: Create allocation lines for new records only
+      if (this.selectedInvoice.invoiceLines && this.selectedInvoice.invoiceLines.length > 0) {
+        console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
+        
+        // Only auto-create allocation lines for new records
+        if (!this.isEdit) {
+          this.createAllocationLinesFromInvoice()
+        } else {
+          console.log('ℹ️ Edit mode - not auto-creating allocation lines')
+        }
+      } else {
+        console.log('❌ No invoice lines available')
+        this.showToast('ໃບແຈ້ງໜີ້ນີ້ບໍ່ມີລາຍການສິນຄ້າ', 'warning')
+      }
+
+      console.log('📊 Final allocation lines count:', this.allocationLines.length)
     },
 
+    // 🔧 NEW: Method to load invoice by ID if not found in main array
+    async loadInvoiceById(invoiceId) {
+      try {
+        console.log('🔄 Loading invoice by ID:', invoiceId)
+        
+        const { data } = await this.$axios.get(`/api/ar-invoices/${invoiceId}`, {
+          params: {
+            include: ['client', 'currency', 'invoiceLines']
+          }
+        })
+
+        console.log('📥 API response for single invoice:', data)
+
+        if (data.success && data.data) {
+          this.selectedInvoice = data.data
+          console.log('✅ Invoice loaded successfully:', this.selectedInvoice.invoiceNumber)
+        } else if (data.invoiceNumber) {
+          // Handle case where response structure is different
+          this.selectedInvoice = data
+          console.log('✅ Invoice loaded (alt structure):', this.selectedInvoice.invoiceNumber)
+        }
+      } catch (error) {
+        console.error('❌ Error loading invoice by ID:', error)
+        this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
+      }
+    },
+
+    // 🔧 ENHANCED: Better invoice lines loading with debugging
+    async loadSelectedInvoiceLines() {
+      if (!this.selectedInvoice) {
+        console.log('❌ No selected invoice to load lines for')
+        return
+      }
+
+      try {
+        console.log('🔄 Loading invoice lines for:', this.selectedInvoice.invoiceNumber)
+
+        const { data } = await this.$axios.get(
+          `/api/ar-invoice-lines/by-header/${this.selectedInvoice.id}`
+        )
+
+        console.log('📥 Invoice lines API response:', data)
+
+        // Handle different possible response structures
+        if (data.success && data.data && Array.isArray(data.data)) {
+          this.selectedInvoice.invoiceLines = data.data
+          console.log('✅ Invoice lines loaded:', data.data.length)
+        } else if (Array.isArray(data)) {
+          this.selectedInvoice.invoiceLines = data
+          console.log('✅ Invoice lines loaded (alt structure):', data.length)
+        } else {
+          console.warn('❓ Unexpected response structure:', data)
+          this.selectedInvoice.invoiceLines = []
+        }
+
+      } catch (error) {
+        console.error('❌ Error loading invoice lines:', error)
+        this.selectedInvoice.invoiceLines = []
+        this.showToast('ມີປັນຫາໃນການໂຫຼດລາຍການໃບແຈ້ງໜີ້', 'error')
+      }
+    },
+
+    // 🔧 ENHANCED: Better allocation lines creation with debugging
+    createAllocationLinesFromInvoice() {
+      console.log('🔧 createAllocationLinesFromInvoice called')
+      
+      if (!this.selectedInvoice) {
+        console.log('❌ No selected invoice')
+        return
+      }
+
+      if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
+        console.log('❌ No invoice lines available')
+        this.allocationLines = []
+        return
+      }
+
+      console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
+
+      this.allocationLines = this.selectedInvoice.invoiceLines.map((line, index) => {
+        const allocation = {
+          tempId: this.nextTempId++,
+          lineNumber: index + 1,
+          invoiceLineId: line.id,
+          invoiceLine: line, // Store the full line object for display
+          allocatedAmount: 0, // Default to 0, user will fill this
+          allocationDate: this.form.receivedDate || new Date().toISOString().split('T')[0],
+          notes: '',
+        }
+
+        console.log(`📝 Created allocation ${index + 1}:`, {
+          lineNumber: allocation.lineNumber,
+          invoiceLineId: allocation.invoiceLineId,
+          description: line.description,
+          lineTotal: line.lineTotal
+        })
+
+        return allocation
+      })
+
+      console.log('🎉 Successfully created', this.allocationLines.length, 'allocation lines')
+      
+      // Force reactivity update
+      this.$forceUpdate()
+    },
+
+    // 🔧 ENHANCED: Better invoice change handler
+    async onInvoiceChange() {
+      console.log('🔄 onInvoiceChange triggered')
+      await this.updateSelectedInvoice()
+      this.clearFieldError('invoiceHeaderId')
+      
+      // Switch to allocations tab if lines were created
+      if (this.allocationLines.length > 0) {
+        console.log('🔄 Switching to allocations tab')
+        this.$nextTick(() => {
+          this.activeTab = 'allocations'
+        })
+      }
+    },
+
+    // 🔧 ENHANCED: Better invoice browser with full data loading
+    async openInvoiceBrowser() {
+      console.log('🔄 Opening invoice browser')
+      this.showInvoiceBrowser = true
+      this.invoiceBrowserLoading = true
+      this.invoiceSearchQuery = ''
+
+      try {
+        const { data } = await this.$axios.get('/api/ar-invoices', {
+          params: {
+            status: ['draft', 'sent'], 
+            include: ['client', 'currency', 'invoiceLines'], // Include all needed data
+            limit: 100 // Increase limit to see more invoices
+          },
+        })
+
+        console.log('📥 Invoice browser API response:', data)
+
+        // 🔧 FIXED: Handle the nested structure in your data
+        if (data.success && data.data && data.data.invoices && Array.isArray(data.data.invoices)) {
+          this.filteredInvoices = data.data.invoices
+          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices for browser')
+        } else if (data.success && data.data && Array.isArray(data.data)) {
+          this.filteredInvoices = data.data
+          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices (alt structure)')
+        } else if (Array.isArray(data)) {
+          this.filteredInvoices = data
+          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices (direct array)')
+        } else {
+          console.warn('❓ Unexpected response structure:', data)
+          this.filteredInvoices = []
+        }
+
+      } catch (error) {
+        console.error('❌ Error loading invoices for browser:', error)
+        this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
+        this.filteredInvoices = []
+      } finally {
+        this.invoiceBrowserLoading = false
+      }
+    },
+
+    // 🔧 ENHANCED: Better invoice selection from browser
+    async selectInvoiceFromBrowser(invoice) {
+      console.log('🎯 Selecting invoice from browser:', invoice.invoiceNumber)
+
+      // Set the form value
+      this.form.invoiceHeaderId = invoice.id
+
+      // Add the invoice to main invoices array if not present
+      const existingIndex = this.invoices.findIndex(inv => inv.id === invoice.id)
+      if (existingIndex === -1) {
+        console.log('➕ Adding invoice to main array')
+        this.invoices.push(invoice)
+      } else {
+        console.log('🔄 Updating existing invoice in main array')
+        this.invoices[existingIndex] = invoice
+      }
+
+      // Close browser and trigger change
+      this.closeInvoiceBrowser()
+      await this.onInvoiceChange()
+      this.clearFieldError('invoiceHeaderId')
+    },
+
+    // Rest of your existing methods remain the same...
     async initializeDialog() {
       this.activeTab = 'header'
       this.clearErrors()
@@ -976,6 +1215,11 @@ export default {
 
         // Initialize with empty allocation lines
         this.allocationLines = []
+        
+        // Set default user
+        if (this.user && this.user.id) {
+          this.form.inputterId = this.user.id
+        }
       }
     },
 
@@ -1013,219 +1257,10 @@ export default {
       }
     },
 
-    createEmptyAllocation() {
-      return {
-        tempId: this.nextTempId++,
-        lineNumber: this.allocationLines.length + 1,
-        invoiceLineId: '',
-        allocatedAmount: 0,
-        allocationDate: new Date().toISOString().split('T')[0],
-        notes: '',
-      }
-    },
-
-    async updateSelectedInvoice() {
-      console.log(
-        'updateSelectedInvoice called with invoiceHeaderId:',
-        this.form.invoiceHeaderId
-      )
-
-      if (this.form.invoiceHeaderId && this.invoices.length > 0) {
-        this.selectedInvoice = this.invoices.find(
-          (inv) => inv.id === parseInt(this.form.invoiceHeaderId) // Ensure ID comparison is correct
-        )
-
-        console.log('Selected invoice found:', this.selectedInvoice)
-
-        // If we found the invoice but it doesn't have invoice lines, load them
-        if (
-          this.selectedInvoice &&
-          (!this.selectedInvoice.invoiceLines ||
-            this.selectedInvoice.invoiceLines.length === 0)
-        ) {
-          await this.loadSelectedInvoiceLines()
-        }
-
-        // Update allocation lines based on invoice lines
-        if (
-          this.selectedInvoice &&
-          this.selectedInvoice.invoiceLines &&
-          this.selectedInvoice.invoiceLines.length > 0 &&
-          !this.isEdit // Only auto-create for new records
-        ) {
-          console.log(
-            'Creating allocation lines from invoice lines:',
-            this.selectedInvoice.invoiceLines
-          )
-          this.createAllocationLinesFromInvoice()
-        }
-      } else {
-        this.selectedInvoice = null
-        if (!this.isEdit) {
-          this.allocationLines = []
-        }
-      }
-
-      console.log('Final allocation lines:', this.allocationLines)
-    },
-
-    async loadSelectedInvoiceLines() {
-      if (!this.selectedInvoice) return
-
-      try {
-        console.log(
-          'Loading invoice lines for invoice:',
-          this.selectedInvoice.id
-        )
-
-        const { data } = await this.$axios.get(
-          `/api/ar-invoices/${this.selectedInvoice.id}`,
-          {
-            params: {
-              include: ['invoiceLines'],
-            },
-          }
-        )
-
-        console.log('API response for invoice lines:', data)
-
-        // Handle different possible response structures
-        if (data.success && data.data && data.data.invoiceLines) {
-          this.selectedInvoice.invoiceLines = data.data.invoiceLines
-        } else if (data.data && Array.isArray(data.data)) {
-          // In case the response structure is different
-          this.selectedInvoice.invoiceLines = data.data
-        } else if (data.invoiceLines) {
-          this.selectedInvoice.invoiceLines = data.invoiceLines
-        } else {
-          console.warn('No invoice lines found in response:', data)
-          this.selectedInvoice.invoiceLines = []
-        }
-
-        console.log('Loaded invoice lines:', this.selectedInvoice.invoiceLines)
-      } catch (error) {
-        console.error('Error loading invoice lines:', error)
-        this.selectedInvoice.invoiceLines = []
-        this.showToast('ມີປັນຫາໃນການໂຫຼດລາຍການໃບແຈ້ງໜີ້', 'error')
-      }
-    },
-
-    createAllocationLinesFromInvoice() {
-      console.log('createAllocationLinesFromInvoice called')
-      console.log('Selected invoice:', this.selectedInvoice)
-      console.log('Invoice lines:', this.selectedInvoice?.invoiceLines)
-
-      if (
-        !this.selectedInvoice ||
-        !this.selectedInvoice.invoiceLines ||
-        this.selectedInvoice.invoiceLines.length === 0
-      ) {
-        console.warn('No invoice lines available to create allocations')
-        this.allocationLines = []
-        return
-      }
-
-      this.allocationLines = this.selectedInvoice.invoiceLines.map(
-        (line, index) => {
-          const allocation = {
-            tempId: this.nextTempId++,
-            lineNumber: index + 1,
-            invoiceLineId: line.id,
-            invoiceLine: line,
-            allocatedAmount: 0, // Default to 0, user will fill this
-            allocationDate:
-              this.form.receivedDate || new Date().toISOString().split('T')[0],
-            notes: '',
-          }
-
-          console.log('Created allocation:', allocation)
-          return allocation
-        }
-      )
-
-      console.log('Final allocation lines created:', this.allocationLines)
-    },
-
-    async onInvoiceChange() {
-      console.log('onInvoiceChange called')
-      await this.updateSelectedInvoice()
-      this.clearFieldError('invoiceHeaderId')
-    },
-
-    onInvoiceLineChange(allocation) {
-      // Set default allocation date if not set
-      if (!allocation.allocationDate) {
-        allocation.allocationDate = new Date().toISOString().split('T')[0]
-      }
-    },
-
-    async openInvoiceBrowser() {
-      this.showInvoiceBrowser = true
-      this.invoiceBrowserLoading = true
-      this.invoiceSearchQuery = ''
-
-      try {
-        // Load all invoices for browsing - make sure to include invoice lines
-        const { data } = await this.$axios.get('/api/ar-invoices', {
-          params: {
-            status: ['draft', 'sent'], // Only show unpaid or partially paid invoices
-            include: ['customer', 'invoiceLines'], // Make sure to include invoiceLines
-          },
-        })
-
-        console.log('Invoice browser API response:', data)
-
-        // Handle different response structures
-        if (data.success && data.data && Array.isArray(data.data)) {
-          this.filteredInvoices = data.data
-        } else if (
-          data.data &&
-          data.data.invoices &&
-          Array.isArray(data.data.invoices)
-        ) {
-          this.filteredInvoices = data.data.invoices
-        } else if (Array.isArray(data)) {
-          this.filteredInvoices = data
-        } else {
-          console.warn('Unexpected response structure:', data)
-          this.filteredInvoices = []
-        }
-
-        console.log('Filtered invoices loaded:', this.filteredInvoices)
-      } catch (error) {
-        console.error('Error loading invoices:', error)
-        this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
-        this.filteredInvoices = []
-      } finally {
-        this.invoiceBrowserLoading = false
-      }
-    },
-
     closeInvoiceBrowser() {
       this.showInvoiceBrowser = false
       this.filteredInvoices = []
       this.invoiceSearchQuery = ''
-    },
-
-    async selectInvoiceFromBrowser(invoice) {
-      console.log('Selecting invoice from browser:', invoice)
-
-      this.form.invoiceHeaderId = invoice.id
-
-      // Ensure the selected invoice has its lines loaded
-      if (!invoice.invoiceLines || invoice.invoiceLines.length === 0) {
-        // Add the invoice to our main invoices array if it's not there
-        const existingInvoice = this.invoices.find(
-          (inv) => inv.id === invoice.id
-        )
-        if (!existingInvoice) {
-          this.invoices.push(invoice)
-        }
-      }
-
-      await this.onInvoiceChange()
-      this.closeInvoiceBrowser()
-      this.clearFieldError('invoiceHeaderId')
     },
 
     // Allocation Helper Methods
@@ -1249,16 +1284,10 @@ export default {
       this.allocationLines.forEach((allocation) => {
         allocation.allocatedAmount = amountPerLine.toFixed(2)
       })
-
-      // Total will be auto-calculated via watcher
     },
 
     allocateProportionally() {
       if (this.allocationLines.length === 0 || !this.selectedInvoice) return
-
-      const totalInvoice = parseFloat(this.selectedInvoice.totalAmount) || 0
-
-      if (totalInvoice === 0) return
 
       this.allocationLines.forEach((allocation) => {
         if (allocation.invoiceLine) {
@@ -1266,15 +1295,12 @@ export default {
           allocation.allocatedAmount = lineTotal.toFixed(2)
         }
       })
-
-      // Total will be auto-calculated via watcher
     },
 
     clearAllAllocations() {
       this.allocationLines.forEach((allocation) => {
         allocation.allocatedAmount = 0
       })
-      this.validateAllocationTotal()
     },
 
     getRemainingAmount(allocation) {
@@ -1303,10 +1329,6 @@ export default {
       } else {
         this.clearFieldError(`allocation_${index}_allocatedAmount`)
       }
-    },
-
-    validateAllocationTotal() {
-      // No need to validate balance since it's always 0
     },
 
     validateForm() {
@@ -1373,19 +1395,16 @@ export default {
               'ກະລຸນາໃສ່ວັນທີແບ່ງປັນ'
           }
 
-          // Check over-allocation
           if (this.isOverAllocated(allocation)) {
             this.errors[`allocation_${i}_allocatedAmount`] =
               'ຍອດແບ່ງປັນເກີນກວ່າທີ່ເຫຼືອ'
           }
         }
 
-        // Check if at least one allocation has amount > 0
         if (!hasValidAllocation) {
           this.errors.allocations = 'ຢ່າງໜ້ອຍຕ້ອງມີ 1 ລາຍການທີ່ມີຍອດແບ່ງປັນ'
         }
 
-        // Validate that total allocated amount is greater than 0
         if (totalAllocated <= 0) {
           this.errors.totalReceivedAmount = 'ຍອດລວມການແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
         }
@@ -1409,19 +1428,7 @@ export default {
     },
 
     handleSubmit() {
-      console.log('handleSubmit called')
-      console.log(
-        'Form data before validation:',
-        JSON.stringify(this.form, null, 2)
-      )
-      console.log(
-        'Allocation lines before validation:',
-        JSON.stringify(this.allocationLines, null, 2)
-      )
-
       if (!this.validateForm()) {
-        console.log('Validation failed. Errors:', this.errors)
-        // Switch to appropriate tab if there are errors
         if (
           Object.keys(this.errors).some((key) => key.startsWith('allocation_'))
         ) {
@@ -1434,16 +1441,14 @@ export default {
 
       this.saving = true
 
-      // Filter out allocations with zero amounts before sending
       const validAllocationLines = this.allocationLines.filter((allocation) => {
         const amount = parseFloat(allocation.allocatedAmount) || 0
         return amount > 0 && allocation.invoiceLineId
       })
+      
       if (this.isEdit) {
-        // Assign updater
         this.form.updateUserId = this.user.id
       } else {
-        // Assign inputter
         this.form.inputterId = this.user.id
       }
 
@@ -1459,11 +1464,6 @@ export default {
           notes: allocation.notes || '',
         })),
       }
-
-      console.log(
-        'Final form data being sent:',
-        JSON.stringify(formData, null, 2)
-      )
 
       this.$emit('save', formData)
     },
@@ -1489,7 +1489,7 @@ export default {
         paymentMethod: 'cash',
         referenceNumber: '',
         notes: '',
-        inputterId: this.user.id,
+        inputterId: this.user?.id || '',
         reason: '',
       }
     },
@@ -1532,13 +1532,31 @@ export default {
     showToast(message, type = 'info') {
       console.log(`${type}: ${message}`)
       if (this.$toast) {
-        this.$toast[type](message)
+        if (typeof this.$toast[type] === 'function') {
+          this.$toast[type](message)
+        } else {
+          console.log(message)
+        }
       } else {
         if (type === 'error') {
           alert(`Error: ${message}`)
         }
       }
     },
+
+    // 🔧 NEW: Debug method to manually test allocation creation
+    debugCreateAllocations() {
+      console.log('🔧 DEBUG: Manually creating allocations')
+      console.log('Selected invoice:', this.selectedInvoice)
+      console.log('Invoice lines:', this.selectedInvoice?.invoiceLines)
+      
+      if (this.selectedInvoice && this.selectedInvoice.invoiceLines) {
+        this.createAllocationLinesFromInvoice()
+        this.showToast(`Debug: Created ${this.allocationLines.length} allocations`, 'info')
+      } else {
+        this.showToast('Debug: No invoice or invoice lines found', 'error')
+      }
+    }
   },
 }
 </script>

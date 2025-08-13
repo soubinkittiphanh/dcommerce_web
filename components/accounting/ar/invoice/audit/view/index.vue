@@ -1,5 +1,5 @@
 <template>
-  <div class="settlement-audit-viewer">
+  <div class="invoice-audit-viewer">
     <!-- Simple Filters -->
     <div class="filters" v-if="showFilters">
       <div class="filter-group">
@@ -28,10 +28,9 @@
         <select v-model="filters.status" class="filter-input">
           <option value="">All Status</option>
           <option value="draft">Draft</option>
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
+          <option value="sent">Sent</option>
           <option value="paid">Paid</option>
+          <option value="overdue">Overdue</option>
           <option value="cancelled">Cancelled</option>
         </select>
         <button @click="loadAuditLogs" class="btn-search">
@@ -46,7 +45,7 @@
     <!-- Loading -->
     <div v-if="loading" class="loading">
       <i class="fas fa-spinner fa-spin"></i>
-      Loading settlement history...
+      Loading invoice history...
     </div>
 
     <!-- Timeline -->
@@ -83,20 +82,21 @@
               <i class="fas fa-user"></i>
               <span>{{ getUserName(log) }}</span>
             </div>
-            <div class="settlement-info">
-              <span class="settlement-amount">{{ formatCurrency(log.recordData?.paymentAmount) }}</span>
-              <span class="settlement-date">{{ formatDate(log.recordData?.settlementDate) }}</span>
+            <div class="invoice-info">
+              <span class="invoice-number">{{ log.recordData?.invoiceNumber || 'N/A' }}</span>
+              <span class="invoice-amount">{{ formatCurrency(log.recordData?.totalAmount) }}</span>
+              <span class="invoice-date">{{ formatDate(log.recordData?.invoiceDate) }}</span>
             </div>
           </div>
 
-          <!-- Settlement Status -->
+          <!-- Invoice Status -->
           <div class="content-status">
             <span class="status-badge" :class="`status-${log.recordData?.status}`">
               <i class="fas fa-circle"></i>
               {{ getStatusText(log.recordData?.status) }}
             </span>
-            <span v-if="log.recordData?.invoiceSettlements?.length" class="settlements-count">
-              {{ log.recordData.invoiceSettlements.length }} invoice{{ log.recordData.invoiceSettlements.length > 1 ? 's' : '' }}
+            <span v-if="log.recordData?.lineItems?.length" class="line-items-count">
+              {{ log.recordData.lineItems.length }} line item{{ log.recordData.lineItems.length > 1 ? 's' : '' }}
             </span>
           </div>
 
@@ -106,12 +106,9 @@
             {{ log.reason }}
           </div>
 
-          <!-- Reference & Description Preview -->
-          <div v-if="log.recordData?.reference || log.recordData?.description" class="content-preview">
-            <span v-if="log.recordData.reference" class="reference">
-              Ref: {{ log.recordData.reference }}
-            </span>
-            <span v-if="log.recordData.description" class="description">
+          <!-- Description Preview -->
+          <div v-if="log.recordData?.description" class="content-preview">
+            <span class="description">
               {{ truncateText(log.recordData.description, 50) }}
             </span>
           </div>
@@ -126,20 +123,32 @@
         <div v-if="expandedId === log.id" class="expanded-details">
           <div class="details-grid">
             <div class="detail-item">
-              <label>Settlement ID:</label>
-              <span>{{ log.settlementId || '-' }}</span>
+              <label>Invoice ID:</label>
+              <span>{{ log.invoiceId || '-' }}</span>
             </div>
             <div class="detail-item">
-              <label>Settlement Date:</label>
-              <span>{{ formatDate(log.recordData?.settlementDate) }}</span>
+              <label>Invoice Number:</label>
+              <span>{{ log.recordData?.invoiceNumber || '-' }}</span>
             </div>
             <div class="detail-item">
-              <label>Payment Amount:</label>
-              <span class="amount">{{ formatCurrency(log.recordData?.paymentAmount) }}</span>
+              <label>Invoice Date:</label>
+              <span>{{ formatDate(log.recordData?.invoiceDate) }}</span>
             </div>
             <div class="detail-item">
-              <label>Base Amount:</label>
-              <span class="amount">{{ formatCurrency(log.recordData?.baseAmount) }}</span>
+              <label>Due Date:</label>
+              <span>{{ formatDate(log.recordData?.dueDate) }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Total Amount:</label>
+              <span class="amount">{{ formatCurrency(log.recordData?.totalAmount) }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Tax Amount:</label>
+              <span class="amount">{{ formatCurrency(log.recordData?.taxAmount) }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Net Amount:</label>
+              <span class="amount">{{ formatCurrency(log.recordData?.netAmount) }}</span>
             </div>
             <div class="detail-item">
               <label>Status:</label>
@@ -148,16 +157,16 @@
               </span>
             </div>
             <div class="detail-item">
-              <label>Reference:</label>
-              <span>{{ log.recordData?.reference || '-' }}</span>
+              <label>Client ID:</label>
+              <span>{{ log.recordData?.clientId || '-' }}</span>
             </div>
             <div class="detail-item">
-              <label>Payment Method:</label>
-              <span>{{ log.recordData?.paymentMethod?.name || '-' }}</span>
+              <label>Currency ID:</label>
+              <span>{{ log.recordData?.currencyId || '-' }}</span>
             </div>
             <div class="detail-item">
-              <label>Bank Account:</label>
-              <span>{{ log.recordData?.bankAccount?.accountName || '-' }}</span>
+              <label>Exchange Rate:</label>
+              <span>{{ log.recordData?.exchangeRate || '-' }}</span>
             </div>
             <div class="detail-item">
               <label>Created:</label>
@@ -175,36 +184,31 @@
             <p>{{ log.recordData.description }}</p>
           </div>
 
-          <!-- Note -->
-          <div v-if="log.recordData?.note" class="note-section">
-            <h4>Note</h4>
-            <p>{{ log.recordData.note }}</p>
-          </div>
-
-          <!-- Invoice Settlements -->
-          <div v-if="log.recordData?.invoiceSettlements?.length" class="settlements-section">
+          <!-- Line Items -->
+          <div v-if="log.recordData?.lineItems?.length" class="line-items-section">
             <h4>
-              Invoice Settlements ({{ log.recordData.invoiceSettlements.length }})
+              Line Items ({{ log.recordData.lineItems.length }})
               <span class="total-amount">
-                Total: {{ formatCurrency(getTotalSettlementAmount(log.recordData.invoiceSettlements)) }}
+                Total: {{ formatCurrency(getTotalLineItemsAmount(log.recordData.lineItems)) }}
               </span>
             </h4>
-            <div class="settlements-list">
+            <div class="line-items-list">
               <div 
-                v-for="settlement in log.recordData.invoiceSettlements" 
-                :key="settlement.id" 
-                class="settlement-item"
+                v-for="lineItem in log.recordData.lineItems" 
+                :key="lineItem.id || lineItem.tempId" 
+                class="line-item"
               >
-                <div class="settlement-header">
-                  <span class="settlement-id">Settlement #{{ settlement.id }}</span>
-                  <span class="settlement-amount">{{ formatCurrency(settlement.amount) }}</span>
+                <div class="line-item-header">
+                  <span class="line-number">Line #{{ lineItem.lineNumber }}</span>
+                  <span class="line-total">{{ formatCurrency(lineItem.lineTotal) }}</span>
                 </div>
-                <div class="settlement-details">
-                  <span class="line-item">Line Item #{{ settlement.invoiceLineItemId }}</span>
-                  <span class="settlement-status" :class="`status-${settlement.status}`">
-                    {{ getStatusText(settlement.status) }}
-                  </span>
-                  <span class="settlement-date">{{ formatDateTime(settlement.createdAt) }}</span>
+                <div class="line-item-details">
+                  <div class="line-description">{{ lineItem.description || 'No description' }}</div>
+                  <div class="line-quantities">
+                    <span class="quantity">Qty: {{ lineItem.quantity }}</span>
+                    <span class="unit-price">Unit Price: {{ formatCurrency(lineItem.unitPrice) }}</span>
+                    <span class="tax-rate">Tax: {{ lineItem.taxRate }}%</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,8 +235,8 @@
     <!-- Empty State -->
     <div v-else class="empty-state">
       <i class="fas fa-history"></i>
-      <h3>No settlement audit records found</h3>
-      <p>No changes have been recorded for this settlement yet</p>
+      <h3>No invoice audit records found</h3>
+      <p>No changes have been recorded for this invoice yet</p>
     </div>
 
     <!-- Simple Pagination -->
@@ -262,10 +266,10 @@
 
 <script>
 export default {
-  name: 'SettlementAuditViewer',
+  name: 'InvoiceAuditViewer',
   
   props: {
-    settlementId: {
+    invoiceId: {
       type: [Number, String],
       default: null
     },
@@ -310,7 +314,7 @@ export default {
   },
   
   watch: {
-    settlementId() {
+    invoiceId() {
       if (this.autoLoad) {
         this.loadAuditLogs();
       }
@@ -322,14 +326,8 @@ export default {
       this.loading = true;
       
       try {
-        // API call for settlement audit logs
-        const response = await this.$axios.get(`/api/ap-invoices-settlement/audit/${this.settlementId}`, {
-          params: {
-            page,
-            limit: this.pagination.limit,
-            ...this.filters
-          }
-        });
+        // API call for invoice audit logs
+        const response = await this.$axios.get(`/api/ar-invoices/audit/${this.invoiceId}`);
         
         if (response.data.success) {
           this.auditLogs = this.processAuditLogs(response.data.data);
@@ -343,8 +341,8 @@ export default {
           this.$emit('logs-loaded', this.auditLogs);
         }
       } catch (error) {
-        console.error('Error loading settlement audit logs:', error);
-        this.$toast?.error('Failed to load settlement audit logs');
+        console.error('Error loading invoice audit logs:', error);
+        this.$toast?.error('Failed to load invoice audit logs');
       } finally {
         this.loading = false;
       }
@@ -386,14 +384,14 @@ export default {
     showAmountChange(log, index) {
       if (log.action !== 'UPDATE' || index === this.auditLogs.length - 1) return false;
       const prevLog = this.auditLogs[index + 1];
-      if (!prevLog || !prevLog.recordData?.paymentAmount || !log.recordData?.paymentAmount) return false;
-      return prevLog.recordData.paymentAmount !== log.recordData.paymentAmount;
+      if (!prevLog || !prevLog.recordData?.totalAmount || !log.recordData?.totalAmount) return false;
+      return prevLog.recordData.totalAmount !== log.recordData.totalAmount;
     },
     
     getAmountChange(log, index) {
       const prevLog = this.auditLogs[index + 1];
-      const current = log.recordData?.paymentAmount || 0;
-      const previous = prevLog?.recordData?.paymentAmount || 0;
+      const current = log.recordData?.totalAmount || 0;
+      const previous = prevLog?.recordData?.totalAmount || 0;
       const diff = current - previous;
       
       if (diff > 0) return `+${this.formatCurrency(diff)}`;
@@ -401,8 +399,8 @@ export default {
       return '';
     },
     
-    getTotalSettlementAmount(settlements) {
-      return settlements.reduce((total, settlement) => total + (settlement.amount || 0), 0);
+    getTotalLineItemsAmount(lineItems) {
+      return lineItems.reduce((total, item) => total + (item.lineTotal || 0), 0);
     },
     
     truncateText(text, length) {
@@ -439,13 +437,13 @@ export default {
     getStatusText(status) {
       const statuses = {
         'draft': 'Draft',
+        'sent': 'Sent',
+        'paid': 'Paid',
+        'overdue': 'Overdue',
+        'cancelled': 'Cancelled',
         'pending': 'Pending Approval',
         'approved': 'Approved',
-        'rejected': 'Rejected',
-        'paid': 'Paid',
-        'cancelled': 'Cancelled',
-        'active': 'Active',
-        'inactive': 'Inactive'
+        'rejected': 'Rejected'
       };
       return statuses[status] || status;
     },
@@ -510,8 +508,8 @@ export default {
 </script>
 
 <style scoped>
-/* Base styles - similar to invoice audit viewer */
-.settlement-audit-viewer {
+/* Base styles - similar to settlement audit viewer but with invoice-specific styling */
+.invoice-audit-viewer {
   height: 100%;
   background: #fafafa;
   display: flex;
@@ -542,7 +540,7 @@ export default {
 
 .filter-input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #667eea;
 }
 
 .btn-search, .btn-clear {
@@ -554,7 +552,7 @@ export default {
 }
 
 .btn-search {
-  background: #007bff;
+  background: #667eea;
   color: white;
 }
 
@@ -616,7 +614,7 @@ export default {
 }
 
 .dot-create { background: #28a745; }
-.dot-update { background: #007bff; }
+.dot-update { background: #667eea; }
 .dot-delete { background: #dc3545; }
 .dot-approve { background: #28a745; }
 .dot-reject { background: #dc3545; }
@@ -667,7 +665,7 @@ export default {
 }
 
 .badge-create { background: #d4edda; color: #155724; }
-.badge-update { background: #cce7ff; color: #004085; }
+.badge-update { background: #e6efff; color: #004085; }
 .badge-delete { background: #f8d7da; color: #721c24; }
 .badge-approve { background: #d4edda; color: #155724; }
 .badge-reject { background: #f8d7da; color: #721c24; }
@@ -711,20 +709,26 @@ export default {
   font-size: 12px;
 }
 
-.settlement-info {
+.invoice-info {
   display: flex;
   align-items: center;
   gap: 12px;
   font-size: 14px;
 }
 
-.settlement-amount {
+.invoice-number {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 15px;
+}
+
+.invoice-amount {
   font-weight: 600;
   color: #28a745;
   font-size: 15px;
 }
 
-.settlement-date {
+.invoice-date {
   color: #666;
   font-size: 13px;
 }
@@ -752,13 +756,15 @@ export default {
 }
 
 .status-draft { background: #e9ecef; color: #495057; }
+.status-sent { background: #d1ecf1; color: #0c5460; }
+.status-paid { background: #d4edda; color: #155724; }
+.status-overdue { background: #f8d7da; color: #721c24; }
+.status-cancelled { background: #e2e3e5; color: #383d41; }
 .status-pending { background: #fff3cd; color: #856404; }
 .status-approved { background: #d4edda; color: #155724; }
 .status-rejected { background: #f8d7da; color: #721c24; }
-.status-paid { background: #cce7ff; color: #004085; }
-.status-active { background: #d1ecf1; color: #0c5460; }
 
-.settlements-count {
+.line-items-count {
   font-size: 12px;
   color: #666;
   background: #f8f9fa;
@@ -772,11 +778,6 @@ export default {
   gap: 12px;
   margin-bottom: 8px;
   font-size: 13px;
-}
-
-.reference {
-  color: #007bff;
-  font-weight: 500;
 }
 
 .description {
@@ -857,11 +858,11 @@ export default {
 }
 
 /* Sections */
-.description-section, .note-section {
+.description-section {
   margin-bottom: 16px;
 }
 
-.description-section h4, .note-section h4 {
+.description-section h4 {
   font-size: 14px;
   margin: 0 0 8px 0;
   color: #333;
@@ -869,15 +870,15 @@ export default {
   padding-bottom: 4px;
 }
 
-.description-section p, .note-section p {
+.description-section p {
   margin: 0;
   font-size: 13px;
   color: #666;
   line-height: 1.4;
 }
 
-/* Settlements Section */
-.settlements-section h4 {
+/* Line Items Section */
+.line-items-section h4 {
   font-size: 14px;
   margin: 0 0 12px 0;
   color: #333;
@@ -894,57 +895,61 @@ export default {
   font-weight: 600;
 }
 
-.settlements-list {
+.line-items-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.settlement-item {
+.line-item {
   background: #f8f9fa;
   padding: 12px;
   border-radius: 6px;
   border: 1px solid #e9ecef;
 }
 
-.settlement-header {
+.line-item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
 }
 
-.settlement-id {
+.line-number {
   font-size: 13px;
   font-weight: 600;
   color: #333;
 }
 
-.settlement-amount {
+.line-total {
   font-size: 14px;
   font-weight: 600;
   color: #28a745;
 }
 
-.settlement-details {
+.line-item-details {
   display: flex;
-  gap: 12px;
-  align-items: center;
-  font-size: 12px;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.line-item {
-  color: #666;
-}
-
-.settlement-status {
-  padding: 2px 6px;
-  border-radius: 3px;
+.line-description {
+  font-size: 13px;
+  color: #333;
   font-weight: 500;
 }
 
-.settlement-date {
-  color: #999;
+.line-quantities {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #666;
+}
+
+.quantity, .unit-price, .tax-rate {
+  padding: 2px 6px;
+  background: #e9ecef;
+  border-radius: 3px;
 }
 
 /* Approval Section */
@@ -1034,7 +1039,7 @@ export default {
 
 .page-btn:hover:not(:disabled) {
   background: #f8f9fa;
-  border-color: #007bff;
+  border-color: #667eea;
 }
 
 .page-btn:disabled {
@@ -1086,25 +1091,25 @@ export default {
     flex-wrap: wrap;
   }
   
-  .settlements-section h4 {
+  .line-items-section h4 {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
   
-  .settlement-header {
+  .line-item-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
   
-  .settlement-details {
+  .line-quantities {
     flex-wrap: wrap;
   }
 }
 
 @media (max-width: 480px) {
-  .settlement-info {
+  .invoice-info {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
