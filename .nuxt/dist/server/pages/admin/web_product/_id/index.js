@@ -1,7 +1,7 @@
-exports.ids = [236,38,44,45,46,93,96,97,121,122,194,237,259];
+exports.ids = [237,38,44,45,46,93,96,97,121,122,195,238,260];
 exports.modules = {
 
-/***/ 1154:
+/***/ 1158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -406,7 +406,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/web_product/_id/index.vue?vue&type=template&id=c520b150&
 
 // EXTERNAL MODULE: ./pages/admin/web_product/index.vue + 4 modules
-var web_product = __webpack_require__(788);
+var web_product = __webpack_require__(790);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/_id/index.vue?vue&type=script&lang=js&
 // import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
@@ -565,7 +565,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(397).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(419).default,DiaConfirm: __webpack_require__(507).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(397).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(419).default,DiaConfirm: __webpack_require__(511).default})
 
 
 /***/ }),
@@ -4464,7 +4464,7 @@ var VIcon = __webpack_require__(60);
 var VImg = __webpack_require__(83);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRating/VRating.js
-var VRating = __webpack_require__(455);
+var VRating = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(379);
@@ -5013,7 +5013,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 455:
+/***/ 456:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5232,7 +5232,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 475:
+/***/ 479:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5504,7 +5504,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 507:
+/***/ 511:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5605,7 +5605,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 581:
+/***/ 584:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5924,7 +5924,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 788:
+/***/ 790:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6282,7 +6282,7 @@ var myUtil = __webpack_require__(137);
 var external_vuex_ = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./components/WebProductCategoryForm.vue + 4 modules
-var WebProductCategoryForm = __webpack_require__(581);
+var WebProductCategoryForm = __webpack_require__(584);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/index.vue?vue&type=script&lang=js&
 
@@ -8521,7 +8521,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var web_product = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(398).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(397).default,CategoryForm: __webpack_require__(475).default,ProductFormCreate: __webpack_require__(435).default,PriceListForm: __webpack_require__(417).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(398).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(397).default,CategoryForm: __webpack_require__(479).default,ProductFormCreate: __webpack_require__(435).default,PriceListForm: __webpack_require__(417).default})
 
 
 /***/ })

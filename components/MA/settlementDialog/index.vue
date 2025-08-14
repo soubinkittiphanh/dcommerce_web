@@ -684,6 +684,10 @@ export default {
     VoucherPrintComponent,
   },
   props: {
+    paymentMethod: {
+      type: String,
+      default: 'cash',
+    },
     visible: {
       type: Boolean,
       default: false,
@@ -1050,7 +1054,7 @@ export default {
       } else {
         this.formData = {
           settlementDate: this.today,
-          method: '',
+          method: this.paymentMethod,
           amount: null,
           currencyId: '',
           exchangeRate: 1,

@@ -367,7 +367,7 @@ export default {
       filters: {
         startDate: '',
         endDate: '',
-        method: '',
+        method: 'cash',
         accountNo: '',
         ministryId: '',
         chartAccountId: '',

@@ -1,7 +1,7 @@
-exports.ids = [170,36,45,46,93,96,97,194,259];
+exports.ids = [170,36,45,46,93,96,97,195,260];
 exports.modules = {
 
-/***/ 1078:
+/***/ 1081:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -637,7 +637,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var minstock = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(397).default,CardForm: __webpack_require__(506).default,ProductForm: __webpack_require__(436).default,ProductFormCreate: __webpack_require__(435).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(397).default,CardForm: __webpack_require__(509).default,ProductForm: __webpack_require__(436).default,ProductFormCreate: __webpack_require__(435).default})
 
 
 /***/ }),
@@ -4440,7 +4440,7 @@ var VIcon = __webpack_require__(60);
 var VImg = __webpack_require__(83);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRating/VRating.js
-var VRating = __webpack_require__(455);
+var VRating = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(379);
@@ -4989,7 +4989,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 455:
+/***/ 456:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5208,7 +5208,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 506:
+/***/ 509:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

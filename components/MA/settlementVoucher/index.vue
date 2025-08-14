@@ -34,6 +34,12 @@
             <div class="ministry-voucher-section">
               <!-- Left section -->
               <div class="ministry-titles">
+                   <!-- Logo section -->
+                <img
+                  :src="require('~/assets/image/PWT.png')"
+                  alt="Ministry Logo"
+                  class="voucher-logo"
+                />
                 <div class="voucher-title">ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div>
                 <div class="voucher-title">ກົມແຜນການ ແລະ ການເງິນ</div>
                 <div class="voucher-title">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
@@ -780,6 +786,13 @@ export default {
                 padding: 20px; 
                 line-height: 1.4;
               }
+                .voucher-logo {
+                  max-width: 80px;
+                  max-height: 80px;
+                  width: auto;
+                  height: auto;
+                  object-fit: contain;
+                }
               .voucher-container { 
                 border: 2px solid #000; 
                 padding: 15px; 
@@ -1031,6 +1044,13 @@ export default {
 
 <style scoped>
 /* Modal Styles */
+.voucher-logo {
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
 .modal-overlay {
   position: fixed;
   top: 0;

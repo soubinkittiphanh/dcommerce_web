@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "261.js": "261.js",
+    "262.js": "262.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -175,6 +175,7 @@
     "pages/admin/moneyAdvance/index.js": "pages/admin/moneyAdvance/index.js",
     "pages/admin/moneyAdvanceDashboard/index.js": "pages/admin/moneyAdvanceDashboard/index.js",
     "pages/admin/moneyAdvanceSettlement/index.js": "pages/admin/moneyAdvanceSettlement/index.js",
+    "pages/admin/moneyAdvanceSettlementByBank/index.js": "pages/admin/moneyAdvanceSettlementByBank/index.js",
     "pages/admin/moneyAdvanceTarget/index.js": "pages/admin/moneyAdvanceTarget/index.js",
     "pages/admin/orderTracking/index.js": "pages/admin/orderTracking/index.js",
     "pages/admin/orders/index.js": "pages/admin/orders/index.js",
@@ -265,7 +266,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "261.js": "261.js.map",
+    "262.js": "262.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -439,6 +440,7 @@
     "pages/admin/moneyAdvance/index.js": "pages/admin/moneyAdvance/index.js.map",
     "pages/admin/moneyAdvanceDashboard/index.js": "pages/admin/moneyAdvanceDashboard/index.js.map",
     "pages/admin/moneyAdvanceSettlement/index.js": "pages/admin/moneyAdvanceSettlement/index.js.map",
+    "pages/admin/moneyAdvanceSettlementByBank/index.js": "pages/admin/moneyAdvanceSettlementByBank/index.js.map",
     "pages/admin/moneyAdvanceTarget/index.js": "pages/admin/moneyAdvanceTarget/index.js.map",
     "pages/admin/orderTracking/index.js": "pages/admin/orderTracking/index.js.map",
     "pages/admin/orders/index.js": "pages/admin/orders/index.js.map",

@@ -31,8 +31,13 @@
             </div>
             <!-- ✅ FIXED: Left-Right Layout Section -->
             <div class="ministry-voucher-section">
-              <!-- Left section -->
               <div class="ministry-titles">
+                <!-- Logo section -->
+                <img
+                  :src="require('~/assets/image/PWT.png')"
+                  alt="Ministry Logo"
+                  class="voucher-logo"
+                />
                 <div class="voucher-title">ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div>
                 <div class="voucher-title">ກົມແຜນການ ແລະ ການເງິນ</div>
                 <div class="voucher-title">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
@@ -98,11 +103,17 @@
               <div class="detail-row">
                 <span class="label">ໄດ້ຈ່າຍເງິນ </span>
                 <label
-                  ><input type="checkbox" :checked="voucherData.method === 'cash'" />
+                  ><input
+                    type="checkbox"
+                    :checked="voucherData.method === 'cash'"
+                  />
                 </label>
                 <span class="label"> ສົດ </span>
                 <label
-                  ><input type="checkbox" :checked="voucherData.method === 'cheque'" />
+                  ><input
+                    type="checkbox"
+                    :checked="voucherData.method === 'cheque'"
+                  />
                 </label>
                 <span class="label"> ແຊັກເລກທີ່ </span>
                 <span class="dotted-line">{{
@@ -280,11 +291,17 @@
           <div class="detail-row">
             <span class="label">ໄດ້ຈ່າຍເງິນ </span>
             <label
-              ><input type="checkbox" :checked="voucherData.method === 'cash'" />
+              ><input
+                type="checkbox"
+                :checked="voucherData.method === 'cash'"
+              />
             </label>
             <span class="label"> ສົດ </span>
             <label
-              ><input type="checkbox" :checked="voucherData.method === 'cheque'" />
+              ><input
+                type="checkbox"
+                :checked="voucherData.method === 'cheque'"
+              />
             </label>
             <span class="label"> ແຊັກເລກທີ່ </span>
             <span class="dotted-line">{{ voucherData.chequeNo || '' }}</span>
@@ -475,7 +492,7 @@ export default {
       const year = date.getFullYear()
       return `${day}/${month}/${year}`
     },
-    
+
     openPrintDialog() {
       this.showPrintDialog = true
     },
@@ -723,6 +740,14 @@ export default {
                 padding: 20px; 
                 line-height: 1.4;
               }
+
+              .voucher-logo {
+                max-width: 80px;
+                max-height: 80px;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+              }
               .voucher-container { 
                 border: 2px solid #000; 
                 padding: 15px; 
@@ -942,6 +967,14 @@ export default {
 
 <style scoped>
 /* Modal Styles */
+
+.voucher-logo {
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
 .ministry-titles {
   flex: 1;
   text-align: left;

@@ -49,6 +49,7 @@ const _5fc23412 = () => interopDefault(import('../pages/admin/minstock/index.vue
 const _50e72015 = () => interopDefault(import('../pages/admin/moneyAdvance/index.vue' /* webpackChunkName: "pages/admin/moneyAdvance/index" */))
 const _c9889e56 = () => interopDefault(import('../pages/admin/moneyAdvanceDashboard/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceDashboard/index" */))
 const _526664c4 = () => interopDefault(import('../pages/admin/moneyAdvanceSettlement/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceSettlement/index" */))
+const _18a842f1 = () => interopDefault(import('../pages/admin/moneyAdvanceSettlementByBank/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceSettlementByBank/index" */))
 const _77349df4 = () => interopDefault(import('../pages/admin/moneyAdvanceTarget/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceTarget/index" */))
 const _613d8598 = () => interopDefault(import('../pages/admin/orders/index.vue' /* webpackChunkName: "pages/admin/orders/index" */))
 const _63922fbf = () => interopDefault(import('../pages/admin/ordersAll/index.vue' /* webpackChunkName: "pages/admin/ordersAll/index" */))
@@ -334,6 +335,10 @@ export const routerOptions = {
     path: "/admin/moneyAdvanceSettlement",
     component: _526664c4,
     name: "admin-moneyAdvanceSettlement"
+  }, {
+    path: "/admin/moneyAdvanceSettlementByBank",
+    component: _18a842f1,
+    name: "admin-moneyAdvanceSettlementByBank"
   }, {
     path: "/admin/moneyAdvanceTarget",
     component: _77349df4,

@@ -1,7 +1,7 @@
 exports.ids = [147,33,91,99,100];
 exports.modules = {
 
-/***/ 1058:
+/***/ 1061:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -354,13 +354,13 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/card/index.vue?vue&type=template&id=d9e3e908&
 
 // EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
-var PoForm = __webpack_require__(486);
+var PoForm = __webpack_require__(490);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
-var PurchasingFormCRUD = __webpack_require__(474);
+var PurchasingFormCRUD = __webpack_require__(475);
 
 // EXTERNAL MODULE: ./components/ReceivingFormCRUD.vue + 4 modules
-var ReceivingFormCRUD = __webpack_require__(473);
+var ReceivingFormCRUD = __webpack_require__(474);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(363);
@@ -588,7 +588,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var card = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {PurchasingFormCRUD: __webpack_require__(474).default,ReceivingFormCRUD: __webpack_require__(473).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {PurchasingFormCRUD: __webpack_require__(475).default,ReceivingFormCRUD: __webpack_require__(474).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
@@ -3198,7 +3198,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 465:
+/***/ 466:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3210,7 +3210,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(135);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(25);
-/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(91);
+/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(104);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
 // Styles
 
@@ -3328,7 +3328,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 473:
+/***/ 474:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4588,7 +4588,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default,
 
 /***/ }),
 
-/***/ 474:
+/***/ 475:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5790,7 +5790,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default,
 
 /***/ }),
 
-/***/ 486:
+/***/ 490:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5834,7 +5834,7 @@ var VRow = __webpack_require__(379);
 var VSpacer = __webpack_require__(378);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(465);
+var VSwitch = __webpack_require__(466);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
