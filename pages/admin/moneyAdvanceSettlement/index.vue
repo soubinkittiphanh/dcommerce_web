@@ -708,6 +708,7 @@ export default {
               amount: settlement.amount,
               userId: settlement.userId,
               currencyId: settlement.currencyId,
+              currency: settlement.currency,
               bankAccountId: settlement.bankAccountId,
               ministryId: settlement.ministryId,
               chartAccountId: settlement.chartAccountId,

@@ -3,11 +3,11 @@
     <!-- Header Section -->
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">ລະບົບຈັດການໃບແຈ້ງໜີ້</h1>
+        <h1 class="page-title">ລະບົບຈັດການໃບທວງໜີ້</h1>
         <div class="header-actions">
           <button class="btn btn-primary" @click="openCreateDialog">
             <i class="fas fa-plus"></i>
-            ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່
+            ໃບທວງໜີ້ໃໝ່
           </button>
           <button class="btn btn-secondary" @click="exportData">
             <i class="fas fa-download"></i>
@@ -287,14 +287,14 @@
                 >
                   <i class="fas fa-paper-plane"></i>
                 </button>
-                <button
+                <!-- <button
                   v-if="invoice.status !== 'paid' && invoice.status !== 'cancelled'"
                   class="btn btn-sm btn-outline-danger"
                   @click="updateStatus(invoice, 'cancelled')"
                   title="ຍົກເລີກ"
                 >
                   <i class="fas fa-times"></i>
-                </button>
+                </button> -->
               </td>
             </tr>
           </tbody>

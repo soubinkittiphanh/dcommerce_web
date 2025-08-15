@@ -21,6 +21,14 @@
             <div class="voucher-header">
               <div class="company-info">
                 <div class="company-name">
+                  <!-- Logo GOV -->
+                  <img
+                    :src="require('~/assets/image/MPWT/gov sign.png')"
+                    alt="Ministry Logo"
+                    class="voucher-logo"
+                  />
+                </div>
+                <div class="company-name">
                   ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ
                 </div>
                 <div class="company-name">

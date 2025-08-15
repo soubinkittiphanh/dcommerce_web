@@ -210,7 +210,7 @@
                 </button>
 
                 <!-- Cancel (only for draft/pending/approved) -->
-                <button
+                <!-- <button
                   v-if="
                     ['draft', 'pending', 'approved'].includes(settlement.status)
                   "
@@ -219,7 +219,7 @@
                   title="ຍົກເລີກ"
                 >
                   <i class="fas fa-times"></i>
-                </button>
+                </button> -->
               </div>
             </td>
           </tr>

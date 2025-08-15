@@ -21,6 +21,14 @@
             <div class="voucher-header">
               <div class="company-info">
                 <div class="company-name">
+                  <!-- Logo GOV -->
+                  <img
+                    :src="require('~/assets/image/MPWT/gov sign.png')"
+                    alt="Ministry Logo"
+                    class="voucher-logo"
+                  />
+                </div>
+                <div class="company-name">
                   ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ
                 </div>
                 <div class="company-name">
@@ -34,7 +42,7 @@
             <div class="ministry-voucher-section">
               <!-- Left section -->
               <div class="ministry-titles">
-                   <!-- Logo section -->
+                <!-- Logo section -->
                 <img
                   :src="require('~/assets/image/PWT.png')"
                   alt="Ministry Logo"
@@ -70,12 +78,16 @@
             <div class="voucher-details">
               <div class="detail-row">
                 <span class="label">ອີງຕາມ</span>
-                <span class="dotted-line">{{ voucherData.externalRef || '' }}</span>
+                <span class="dotted-line">{{
+                  voucherData.externalRef || ''
+                }}</span>
               </div>
 
               <div class="detail-row">
                 <span class="label">ສະບັບ ເລກທີ</span>
-                <span class="dotted-line">{{ voucherData.externalRefNo || '' }}</span>
+                <span class="dotted-line">{{
+                  voucherData.externalRefNo || ''
+                }}</span>
               </div>
 
               <!-- ✅ UPDATED: Payment method checkboxes -->

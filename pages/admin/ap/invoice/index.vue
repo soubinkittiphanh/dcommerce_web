@@ -228,14 +228,14 @@
                 </button>
 
                 <!-- Cancel (only for draft/pending) -->
-                <button
+                <!-- <button
                   v-if="['draft', 'pending'].includes(invoice.status)"
                   @click="cancelInvoice(invoice)"
                   class="btn btn-sm btn-dark"
                   title="ຍົກເລີກ"
                 >
                   <i class="fas fa-times"></i>
-                </button>
+                </button> -->
               </div>
             </td>
           </tr>

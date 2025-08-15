@@ -48,107 +48,27 @@
             <!-- Receipt Header Tab -->
             <div v-show="activeTab === 'header'" class="tab-content">
               <form @submit.prevent="handleSubmit">
-                <!-- Basic Information Section -->
-                <div class="form-section">
-                  <h5 class="section-title">
-                    <i class="fas fa-info-circle"></i>
-                    ຂໍ້ມູນພື້ນຖານ
-                  </h5>
+                <!-- Compact Form Layout -->
+                <div class="form-container">
+                  <!-- Row 1: Basic Info -->
                   <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="receiptNumber" class="required"
-                        >ເລກທີໃບຮັບ</label
-                      >
+                    <div class="form-group">
+                      <label for="receiptNumber" class="required">ເລກທີໃບຮັບ</label>
                       <input
                         id="receiptNumber"
                         v-model="form.receiptNumber"
                         type="text"
                         class="form-control"
                         :class="{ 'is-invalid': errors.receiptNumber }"
-                        placeholder="ເຊັ່ນ: RCP-2025-001"
+                        placeholder="RCP-2025-001"
                         :readonly="isEdit"
                       />
                       <div v-if="errors.receiptNumber" class="invalid-feedback">
                         {{ errors.receiptNumber }}
                       </div>
                     </div>
-                    <div class="form-group col-md-6">
-                      <label for="invoiceHeaderId" class="required"
-                        >ໃບແຈ້ງໜີ້</label
-                      >
-                      <div class="invoice-selector">
-                        <select
-                          id="invoiceHeaderId"
-                          v-model="form.invoiceHeaderId"
-                          class="form-control"
-                          :class="{ 'is-invalid': errors.invoiceHeaderId }"
-                          @change="onInvoiceChange"
-                        >
-                          <option value="">ເລືອກໃບແຈ້ງໜີ້</option>
-                          <option
-                            v-for="invoice in invoices"
-                            :key="invoice.id"
-                            :value="invoice.id"
-                          >
-                            {{ invoice.invoiceNumber }} -
-                            {{
-                              invoice.customer ? invoice.customer.name : 'N/A'
-                            }}
-                            ({{ formatCurrency(invoice.totalAmount) }})
-                          </option>
-                        </select>
-                        <button
-                          type="button"
-                          class="btn btn-outline-primary btn-browse-invoice"
-                          @click="openInvoiceBrowser"
-                          title="ເລືອກໃບແຈ້ງໜີ້"
-                        >
-                          <i class="fas fa-search"></i>
-                          ຄົ້ນຫາ
-                        </button>
-                      </div>
-                      <div
-                        v-if="errors.invoiceHeaderId"
-                        class="invalid-feedback"
-                      >
-                        {{ errors.invoiceHeaderId }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="totalReceivedAmount" class="auto-calculated">
-                        <i class="fas fa-calculator"></i>
-                        ຍອດເງິນທີ່ຮັບ (ຄຳນວນອັດຕະໂນມັດ)
-                      </label>
-                      <input
-                        id="totalReceivedAmount"
-                        v-model="form.totalReceivedAmount"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        class="form-control auto-calculated-field"
-                        :class="{ 'is-invalid': errors.totalReceivedAmount }"
-                        placeholder="0.00"
-                        readonly
-                        disabled
-                      />
-                      <small class="form-text text-muted">
-                        <i class="fas fa-info-circle"></i>
-                        ຍອດນີ້ຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກການແບ່ງປັນ
-                      </small>
-                      <div
-                        v-if="errors.totalReceivedAmount"
-                        class="invalid-feedback"
-                      >
-                        {{ errors.totalReceivedAmount }}
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="paymentMethod" class="required"
-                        >ວິທີຈ່າຍ</label
-                      >
+                    <div class="form-group">
+                      <label for="paymentMethod" class="required">ວິທີຈ່າຍ</label>
                       <select
                         id="paymentMethod"
                         v-model="form.paymentMethod"
@@ -165,20 +85,61 @@
                         {{ errors.paymentMethod }}
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label for="referenceNumber">ເລກອ້າງອີງ</label>
+                      <input
+                        id="referenceNumber"
+                        v-model="form.referenceNumber"
+                        type="text"
+                        class="form-control"
+                        placeholder="ເລກອ້າງອີງ..."
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <!-- Date Section -->
-                <div class="form-section">
-                  <h5 class="section-title">
-                    <i class="fas fa-calendar-alt"></i>
-                    ວັນທີ
-                  </h5>
+                  <!-- Row 2: Invoice Selection -->
                   <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="bookingDate" class="required"
-                        >ວັນທີບັນທຶກ</label
-                      >
+                    <div class="form-group full-width">
+                      <label for="invoiceHeaderId" class="required">ໃບແຈ້ງໜີ້</label>
+                      <div class="invoice-selector">
+                        <select
+                          id="invoiceHeaderId"
+                          v-model="form.invoiceHeaderId"
+                          class="form-control"
+                          :class="{ 'is-invalid': errors.invoiceHeaderId }"
+                          @change="onInvoiceChange"
+                        >
+                          <option value="">ເລືອກໃບແຈ້ງໜີ້</option>
+                          <option
+                            v-for="invoice in invoices"
+                            :key="invoice.id"
+                            :value="invoice.id"
+                          >
+                            {{ invoice.invoiceNumber }} - {{
+                              invoice.customer ? invoice.customer.name : 'N/A'
+                            }} ({{ formatCurrency(invoice.totalAmount) }})
+                          </option>
+                        </select>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary btn-compact"
+                          @click="openInvoiceBrowser"
+                          title="ເລືອກໃບແຈ້ງໜີ້"
+                        >
+                          <i class="fas fa-search"></i>
+                          ຄົ້ນຫາ
+                        </button>
+                      </div>
+                      <div v-if="errors.invoiceHeaderId" class="invalid-feedback">
+                        {{ errors.invoiceHeaderId }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Row 3: Dates and Amount -->
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="bookingDate" class="required">ວັນທີບັນທຶກ</label>
                       <input
                         id="bookingDate"
                         v-model="form.bookingDate"
@@ -190,10 +151,8 @@
                         {{ errors.bookingDate }}
                       </div>
                     </div>
-                    <div class="form-group col-md-6">
-                      <label for="receivedDate" class="required"
-                        >ວັນທີຮັບເງິນ</label
-                      >
+                    <div class="form-group">
+                      <label for="receivedDate" class="required">ວັນທີຮັບເງິນ</label>
                       <input
                         id="receivedDate"
                         v-model="form.receivedDate"
@@ -205,27 +164,27 @@
                         {{ errors.receivedDate }}
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Additional Information Section -->
-                <div class="form-section">
-                  <h5 class="section-title">
-                    <i class="fas fa-clipboard-list"></i>
-                    ຂໍ້ມູນເພີ່ມເຕີມ
-                  </h5>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="referenceNumber">ເລກອ້າງອີງ</label>
+                    <div class="form-group">
+                      <label for="totalReceivedAmount" class="auto-calculated">
+                        <i class="fas fa-calculator"></i>
+                        ຍອດເງິນທີ່ຮັບ
+                      </label>
                       <input
-                        id="referenceNumber"
-                        v-model="form.referenceNumber"
-                        type="text"
-                        class="form-control"
-                        placeholder="ເລກອ້າງອີງ (ຖ້າມີ)..."
+                        id="totalReceivedAmount"
+                        v-model="form.totalReceivedAmount"
+                        type="number"
+                        step="0.01"
+                        class="form-control auto-calculated-field"
+                        :class="{ 'is-invalid': errors.totalReceivedAmount }"
+                        readonly
+                        disabled
                       />
+                      <small class="form-text text-muted">
+                        <i class="fas fa-info-circle"></i>
+                        ຄຳນວນອັດຕະໂນມັດ
+                      </small>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                       <label for="inputterId">ຜູ້ບັນທຶກ</label>
                       <select
                         id="inputterId"
@@ -245,65 +204,61 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
-                    <label for="notes">ໝາຍເຫດ</label>
-                    <textarea
-                      id="notes"
-                      v-model="form.notes"
-                      class="form-control"
-                      rows="3"
-                      placeholder="ໝາຍເຫດກ່ຽວກັບການຮັບຊຳລະ..."
-                    ></textarea>
+                  <!-- Row 4: Notes and Reason -->
+                  <div class="form-row">
+                    <div class="form-group full-width">
+                      <label for="notes">ໝາຍເຫດ</label>
+                      <textarea
+                        id="notes"
+                        v-model="form.notes"
+                        class="form-control textarea-compact"
+                        rows="2"
+                        placeholder="ໝາຍເຫດກ່ຽວກັບການຮັບຊຳລະ..."
+                      ></textarea>
+                    </div>
                   </div>
 
                   <!-- Reason field for audit trail (only show when editing) -->
-                  <div v-if="isEdit" class="form-group">
-                    <label for="reason" class="required"
-                      >ເຫດຜົນຂອງການແກ້ໄຂ</label
-                    >
-                    <input
-                      id="reason"
-                      v-model="form.reason"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.reason }"
-                      placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
-                    />
-                    <div v-if="errors.reason" class="invalid-feedback">
-                      {{ errors.reason }}
+                  <div v-if="isEdit" class="form-row">
+                    <div class="form-group full-width">
+                      <label for="reason" class="required">ເຫດຜົນຂອງການແກ້ໄຂ</label>
+                      <input
+                        id="reason"
+                        v-model="form.reason"
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors.reason }"
+                        placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
+                      />
+                      <div v-if="errors.reason" class="invalid-feedback">
+                        {{ errors.reason }}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Total Amount Display -->
-                <div class="amount-summary">
-                  <div class="totals-grid">
-                    <div class="total-item">
-                      <label>ຍອດທີ່ຮັບ (ຄຳນວນອັດຕະໂນມັດ):</label>
-                      <span class="amount received">{{
-                        formatCurrency(form.totalReceivedAmount)
-                      }}</span>
+                  <!-- Compact Total Amount Display -->
+                  <div class="amount-summary">
+                    <div class="totals-compact">
+                      <div class="total-item">
+                        <span>ຍອດທີ່ຮັບ:</span>
+                        <span class="amount received">{{ formatCurrency(form.totalReceivedAmount) }}</span>
+                      </div>
+                      <div class="total-item">
+                        <span>ລວມການແບ່ງປັນ:</span>
+                        <span class="amount allocated">{{ formatCurrency(calculatedAllocatedTotal) }}</span>
+                      </div>
+                      <div class="total-item success-balance">
+                        <span>ສະຖານະ:</span>
+                        <span class="amount balance balanced">
+                          <i class="fas fa-check-circle"></i>
+                          ສົມດຸນ
+                        </span>
+                      </div>
                     </div>
-                    <div class="total-item">
-                      <label>ລວມການແບ່ງປັນ:</label>
-                      <span class="amount allocated">{{
-                        formatCurrency(calculatedAllocatedTotal)
-                      }}</span>
+                    <div class="balance-info">
+                      <i class="fas fa-lightbulb"></i>
+                      <span>ກະລຸນາໄປທີ່ແຖບ "ການແບ່ງປັນຊຳລະ" ເພື່ອໃສ່ຍອດແບ່ງປັນ</span>
                     </div>
-                    <div class="total-item success-balance">
-                      <label>ສະຖານະ:</label>
-                      <span class="amount balance balanced">
-                        <i class="fas fa-check-circle"></i>
-                        ສົມດຸນ
-                      </span>
-                    </div>
-                  </div>
-                  <div class="balance-info">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>
-                      ກະລຸນາໄປທີ່ແຖບ "ການແບ່ງປັນຊຳລະ"
-                      ເພື່ອໃສ່ຍອດແບ່ງປັນສຳລັບແຕ່ລະລາຍການ
-                    </span>
                   </div>
                 </div>
               </form>
@@ -312,25 +267,14 @@
             <!-- Payment Allocation Tab -->
             <div v-show="activeTab === 'allocations'" class="tab-content">
               <div class="allocation-section">
-                <!-- Allocation Header -->
+                <!-- Compact Allocation Header -->
                 <div class="allocation-header">
-                  <h5 class="section-title">
-                    <i class="fas fa-list"></i>
-                    ການແບ່ງປັນການຮັບຊຳລະ
-                  </h5>
                   <div class="allocation-info">
                     <span v-if="selectedInvoice" class="invoice-info">
                       <strong>{{ selectedInvoice.invoiceNumber }}</strong> -
-                      {{
-                        selectedInvoice.customer
-                          ? selectedInvoice.customer.name
-                          : 'N/A'
-                      }}
+                      {{ selectedInvoice.customer ? selectedInvoice.customer.name : 'N/A' }}
                     </span>
-                    <span
-                      v-if="allocationLines.length > 0"
-                      class="allocation-count-info"
-                    >
+                    <span v-if="allocationLines.length > 0" class="allocation-count-info">
                       {{ allocationLines.length }} ລາຍການ
                     </span>
                   </div>
@@ -341,184 +285,58 @@
                   <div class="empty-content">
                     <i class="fas fa-file-invoice"></i>
                     <h4>ກະລຸນາເລືອກໃບແຈ້ງໜີ້ກ່ອນ</h4>
-                    <p>
-                      ເພື່ອເຮັດການແບ່ງປັນການຮັບຊຳລະ
-                      ກະລຸນາເລືອກໃບແຈ້ງໜີ້ໃນແຖບຂໍ້ມູນການຮັບຊຳລະກ່ອນ
-                    </p>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      @click="activeTab = 'header'"
-                    >
+                    <p>ເພື່ອເຮັດການແບ່ງປັນການຮັບຊຳລະ ກະລຸນາເລືອກໃບແຈ້ງໜີ້ໃນແຖບຂໍ້ມູນການຮັບຊຳລະກ່ອນ</p>
+                    <button type="button" class="btn btn-primary" @click="activeTab = 'header'">
                       <i class="fas fa-arrow-left"></i>
                       ກັບໄປເລືອກໃບແຈ້ງໜີ້
                     </button>
                   </div>
                 </div>
 
-                <!-- Invoice Lines Display (Fixed - Cannot Add/Remove) -->
-                <div
-                  v-else-if="allocationLines.length > 0"
-                  class="allocation-table-container"
-                >
+                <!-- Invoice Lines Display -->
+                <div v-else-if="allocationLines.length > 0" class="allocation-table-container">
                   <div class="allocation-notice">
                     <i class="fas fa-info-circle"></i>
-                    <span
-                      >ລາຍການດ້ານລຸ່ມແມ່ນມາຈາກໃບແຈ້ງໜີ້ທີ່ເລືອກ -
-                      ກະລຸນາໃສ່ຍອດແບ່ງປັນສຳລັບແຕ່ລະລາຍການ</span
-                    >
+                    <span>ລາຍການດ້ານລຸ່ມແມ່ນມາຈາກໃບແຈ້ງໜີ້ທີ່ເລືອກ - ກະລຸນາໃສ່ຍອດແບ່ງປັນ</span>
                   </div>
 
-                  <div class="allocation-table">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th style="width: 40px">#</th>
-                          <th style="width: 250px">ລາຍການໃບແຈ້ງໜີ້</th>
-                          <th style="width: 100px">ຍອດໃບແຈ້ງໜີ້</th>
-                          <th style="width: 120px">ຍອດແບ່ງປັນ *</th>
-                          <th style="width: 100px">ວັນທີແບ່ງປັນ *</th>
-                          <th style="width: 120px">ຍອດຄົງເຫຼືອ</th>
-                          <th style="width: 150px">ໝາຍເຫດ</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          v-for="(allocation, index) in allocationLines"
-                          :key="allocation.invoiceLineId"
-                          class="allocation-row"
-                        >
-                          <td class="line-number">
-                            {{ allocation.lineNumber }}
-                          </td>
-                          <td>
-                            <div class="invoice-line-display">
-                              <div class="line-description">
-                                <strong>{{
-                                  allocation.invoiceLine.description
-                                }}</strong>
-                              </div>
-                              <div class="line-details">
-                                ຈຳນວນ:
-                                {{
-                                  formatNumber(allocation.invoiceLine.quantity)
-                                }}
-                                ×
-                                {{
-                                  formatCurrency(
-                                    allocation.invoiceLine.unitPrice
-                                  )
-                                }}
-                                <span v-if="allocation.invoiceLine.taxRate > 0">
-                                  + ພາສີ {{ allocation.invoiceLine.taxRate }}%
-                                </span>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="invoice-line-total">
-                            {{
-                              formatCurrency(allocation.invoiceLine.lineTotal)
-                            }}
-                          </td>
-                          <td>
-                            <input
-                              v-model="allocation.allocatedAmount"
-                              type="number"
-                              step="0.01"
-                              min="0"
-                              :max="allocation.invoiceLine.lineTotal"
-                              class="form-control form-control-sm"
-                              :class="{
-                                'is-invalid':
-                                  errors[`allocation_${index}_allocatedAmount`],
-                              }"
-                              @blur="validateAllocation(allocation, index)"
-                              placeholder="0.00"
-                            />
-                            <div
-                              v-if="
-                                errors[`allocation_${index}_allocatedAmount`]
-                              "
-                              class="invalid-feedback"
-                            >
-                              {{
-                                errors[`allocation_${index}_allocatedAmount`]
-                              }}
-                            </div>
-                          </td>
-                          <td>
-                            <input
-                              v-model="allocation.allocationDate"
-                              type="date"
-                              class="form-control form-control-sm"
-                              :class="{
-                                'is-invalid':
-                                  errors[`allocation_${index}_allocationDate`],
-                              }"
-                            />
-                          </td>
-                          <td class="remaining-amount">
-                            <span
-                              :class="{
-                                'over-allocated': isOverAllocated(allocation),
-                                'fully-allocated': isFullyAllocated(allocation),
-                              }"
-                            >
-                              {{
-                                formatCurrency(getRemainingAmount(allocation))
-                              }}
-                            </span>
-                          </td>
-                          <td>
-                            <input
-                              v-model="allocation.notes"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="ໝາຍເຫດ..."
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <!-- Quick Allocation Actions -->
+                  <!-- Quick Allocation Actions at Top -->
                   <div class="quick-allocation-actions">
                     <div class="quick-actions-left">
                       <button
                         type="button"
-                        class="btn btn-outline-primary btn-sm"
+                        class="btn btn-outline-primary btn-compact"
                         @click="allocateFullAmount"
-                        title="ແບ່ງປັນຍອດເຕັມຂອງໃບແຈ້ງໜີ້"
+                        title="ແບ່ງປັນຍອດເຕັມ"
                       >
                         <i class="fas fa-file-invoice-dollar"></i>
                         ຍອດເຕັມ
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-success btn-sm"
+                        class="btn btn-outline-success btn-compact"
                         @click="allocateEqually"
-                        title="ແບ່ງຍອດໃບແຈ້ງໜີ້ເທົ່າກັນ"
+                        title="ແບ່ງເທົ່າກັນ"
                       >
                         <i class="fas fa-equals"></i>
                         ແບ່ງເທົ່າກັນ
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-info btn-sm"
+                        class="btn btn-outline-info btn-compact"
                         @click="allocateProportionally"
-                        title="ແບ່ງຕາມອັດຕາສ່ວນຂອງແຕ່ລະລາຍການ"
+                        title="ແບ່ງຕາມອັດຕາສ່ວນ"
                       >
                         <i class="fas fa-percentage"></i>
-                        ແບ່ງຕາມອັດຕາສ່ວນ
+                        ຕາມອັດຕາສ່ວນ
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-warning btn-sm"
+                        class="btn btn-outline-warning btn-compact"
                         @click="clearAllAllocations"
                       >
                         <i class="fas fa-eraser"></i>
-                        ລົບລ້າງທັງໝົດ
+                        ລົບລ້າງ
                       </button>
                     </div>
                     <div class="quick-actions-right">
@@ -529,29 +347,110 @@
                     </div>
                   </div>
 
-                  <!-- Allocation Summary -->
+                  <div class="allocation-table">
+                    <table class="table table-compact">
+                      <thead>
+                        <tr>
+                          <th style="width: 30px">#</th>
+                          <th style="width: 250px">ລາຍການໃບແຈ້ງໜີ້</th>
+                          <th style="width: 80px">ຍອດໃບແຈ້ງ</th>
+                          <th style="width: 90px">ຍອດແບ່ງປັນ *</th>
+                          <th style="width: 90px">ວັນທີແບ່ງປັນ *</th>
+                          <th style="width: 80px">ຍອດຄົງເຫຼືອ</th>
+                          <th style="width: 120px">ໝາຍເຫດ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(allocation, index) in allocationLines"
+                          :key="allocation.invoiceLineId"
+                          class="allocation-row"
+                        >
+                          <td class="line-number">{{ allocation.lineNumber }}</td>
+                          <td>
+                            <div class="invoice-line-display">
+                              <div class="line-description">
+                                <strong>{{ allocation.invoiceLine.description }}</strong>
+                              </div>
+                              <div class="line-details">
+                                ຈຳນວນ: {{ formatNumber(allocation.invoiceLine.quantity) }} ×
+                                {{ formatCurrency(allocation.invoiceLine.unitPrice) }}
+                                <span v-if="allocation.invoiceLine.taxRate > 0">
+                                  + ພາສີ {{ allocation.invoiceLine.taxRate }}%
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="invoice-line-total">
+                            {{ formatCurrency(allocation.invoiceLine.lineTotal) }}
+                          </td>
+                          <td>
+                            <input
+                              v-model="allocation.allocatedAmount"
+                              type="number"
+                              step="0.01"
+                              min="0"
+                              :max="allocation.invoiceLine.lineTotal"
+                              class="form-control form-control-xs"
+                              :class="{ 'is-invalid': errors[`allocation_${index}_allocatedAmount`] }"
+                              @blur="validateAllocation(allocation, index)"
+                              placeholder="0.00"
+                            />
+                            <div
+                              v-if="errors[`allocation_${index}_allocatedAmount`]"
+                              class="invalid-feedback"
+                            >
+                              {{ errors[`allocation_${index}_allocatedAmount`] }}
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              v-model="allocation.allocationDate"
+                              type="date"
+                              class="form-control form-control-xs"
+                              :class="{ 'is-invalid': errors[`allocation_${index}_allocationDate`] }"
+                            />
+                          </td>
+                          <td class="remaining-amount">
+                            <span
+                              :class="{
+                                'over-allocated': isOverAllocated(allocation),
+                                'fully-allocated': isFullyAllocated(allocation),
+                              }"
+                            >
+                              {{ formatCurrency(getRemainingAmount(allocation)) }}
+                            </span>
+                          </td>
+                          <td>
+                            <input
+                              v-model="allocation.notes"
+                              type="text"
+                              class="form-control form-control-xs"
+                              placeholder="ໝາຍເຫດ..."
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Compact Allocation Summary -->
                   <div class="allocation-summary">
-                    <div class="totals-grid">
+                    <div class="totals-compact">
                       <div class="total-item">
-                        <label>ຍອດໃບແຈ້ງໜີ້:</label>
-                        <span class="amount">{{
-                          formatCurrency(selectedInvoice.totalAmount)
-                        }}</span>
+                        <span>ຍອດໃບແຈ້ງໜີ້:</span>
+                        <span class="amount">{{ formatCurrency(selectedInvoice.totalAmount) }}</span>
                       </div>
                       <div class="total-item">
-                        <label>ຍອດທີ່ຮັບ (ຄຳນວນອັດຕະໂນມັດ):</label>
-                        <span class="amount received">{{
-                          formatCurrency(form.totalReceivedAmount)
-                        }}</span>
+                        <span>ຍອດທີ່ຮັບ:</span>
+                        <span class="amount received">{{ formatCurrency(form.totalReceivedAmount) }}</span>
                       </div>
                       <div class="total-item">
-                        <label>ລວມການແບ່ງປັນ:</label>
-                        <span class="amount allocated">{{
-                          formatCurrency(calculatedAllocatedTotal)
-                        }}</span>
+                        <span>ລວມການແບ່ງປັນ:</span>
+                        <span class="amount allocated">{{ formatCurrency(calculatedAllocatedTotal) }}</span>
                       </div>
                       <div class="total-item success-balance">
-                        <label>ສະຖານະ:</label>
+                        <span>ສະຖານະ:</span>
                         <span class="amount balance balanced">
                           <i class="fas fa-check-circle"></i>
                           ສົມດຸນ
@@ -560,9 +459,7 @@
                     </div>
                     <div class="balance-info">
                       <i class="fas fa-info-circle"></i>
-                      <span>
-                        ຍອດທີ່ຮັບຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກລວມຍອດການແບ່ງປັນທັງໝົດ
-                      </span>
+                      <span>ຍອດທີ່ຮັບຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກລວມຍອດການແບ່ງປັນທັງໝົດ</span>
                     </div>
                   </div>
                 </div>
@@ -584,7 +481,7 @@
           <div class="footer-actions">
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-secondary btn-compact"
               @click="handleClose"
               :disabled="saving"
             >
@@ -593,7 +490,7 @@
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary btn-compact"
               @click="handleSubmit"
               :disabled="saving || !isFormValid"
             >
@@ -607,28 +504,20 @@
     </div>
 
     <!-- Invoice Browser Modal -->
-    <div
-      v-if="showInvoiceBrowser"
-      class="modal-overlay"
-      @click="closeInvoiceBrowser"
-    >
+    <div v-if="showInvoiceBrowser" class="modal-overlay" @click="closeInvoiceBrowser">
       <div class="invoice-browser-dialog" @click.stop>
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fas fa-search"></i>
             ເລືອກໃບແຈ້ງໜີ້
           </h4>
-          <button
-            type="button"
-            class="close-button"
-            @click="closeInvoiceBrowser"
-          >
+          <button type="button" class="close-button" @click="closeInvoiceBrowser">
             <i class="fas fa-times"></i>
           </button>
         </div>
 
         <div class="modal-body">
-          <!-- Search Bar -->
+          <!-- Compact Search Bar -->
           <div class="search-section">
             <div class="search-input-group">
               <i class="fas fa-search search-icon"></i>
@@ -647,22 +536,19 @@
             <p>ກຳລັງໂຫຼດໃບແຈ້ງໜີ້...</p>
           </div>
 
-          <!-- Invoice List -->
-          <div
-            v-else-if="searchFilteredInvoices.length > 0"
-            class="invoice-list"
-          >
+          <!-- Compact Invoice List -->
+          <div v-else-if="searchFilteredInvoices.length > 0" class="invoice-list">
             <div class="invoice-table-container">
-              <table class="table">
+              <table class="table table-compact">
                 <thead>
                   <tr>
                     <th style="width: 120px">ເລກໃບແຈ້ງໜີ້</th>
-                    <th style="width: 200px">ລູກຄ້າ</th>
-                    <th style="width: 100px">ວັນທີ</th>
-                    <th style="width: 100px">ຄົບກຳໜົດ</th>
-                    <th style="width: 100px">ຍອດເງິນ</th>
-                    <th style="width: 80px">ສະຖານະ</th>
-                    <th style="width: 80px">ເລືອກ</th>
+                    <th style="width: 180px">ລູກຄ້າ</th>
+                    <th style="width: 80px">ວັນທີ</th>
+                    <th style="width: 80px">ຄົບກຳໜົດ</th>
+                    <th style="width: 90px">ຍອດເງິນ</th>
+                    <th style="width: 70px">ສະຖານະ</th>
+                    <th style="width: 70px">ເລືອກ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -671,48 +557,34 @@
                     :key="invoice.id"
                     class="invoice-row"
                   >
-                    <td>
-                      <strong>{{ invoice.invoiceNumber }}</strong>
-                    </td>
+                    <td><strong>{{ invoice.invoiceNumber }}</strong></td>
                     <td>
                       <div class="customer-info">
                         <div class="customer-name">
                           {{ invoice.customer ? invoice.customer.name : 'N/A' }}
                         </div>
-                        <div
-                          v-if="invoice.customer && invoice.customer.email"
-                          class="customer-email"
-                        >
+                        <div v-if="invoice.customer && invoice.customer.email" class="customer-email">
                           {{ invoice.customer.email }}
                         </div>
                       </div>
                     </td>
                     <td>{{ formatDate(invoice.invoiceDate) }}</td>
                     <td>{{ formatDate(invoice.dueDate) }}</td>
-                    <td class="amount-cell">
-                      {{ formatCurrency(invoice.totalAmount) }}
-                    </td>
+                    <td class="amount-cell">{{ formatCurrency(invoice.totalAmount) }}</td>
                     <td>
-                      <span
-                        class="status-badge"
-                        :class="`status-${invoice.status}`"
-                      >
+                      <span class="status-badge" :class="`status-${invoice.status}`">
                         {{ getStatusLabel(invoice.status) }}
                       </span>
                     </td>
                     <td>
                       <button
                         type="button"
-                        class="btn btn-primary btn-sm"
+                        class="btn btn-primary btn-xs"
                         @click="selectInvoiceFromBrowser(invoice)"
                         :disabled="invoice.id === form.invoiceHeaderId"
                       >
                         <i class="fas fa-check"></i>
-                        {{
-                          invoice.id === form.invoiceHeaderId
-                            ? 'ເລືອກແລ້ວ'
-                            : 'ເລືອກ'
-                        }}
+                        {{ invoice.id === form.invoiceHeaderId ? 'ເລືອກແລ້ວ' : 'ເລືອກ' }}
                       </button>
                     </td>
                   </tr>
@@ -725,14 +597,11 @@
           <div v-else class="no-results-state">
             <div class="empty-content">
               <i class="fas fa-file-invoice"></i>
-              <h4>
-                {{ invoiceSearchQuery ? 'ບໍ່ພົບໃບແຈ້ງໜີ້' : 'ບໍ່ມີໃບແຈ້ງໜີ້' }}
-              </h4>
+              <h4>{{ invoiceSearchQuery ? 'ບໍ່ພົບໃບແຈ້ງໜີ້' : 'ບໍ່ມີໃບແຈ້ງໜີ້' }}</h4>
               <p>
-                {{
-                  invoiceSearchQuery
-                    ? `ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ຕົງກັບ "${invoiceSearchQuery}"`
-                    : 'ບໍ່ມີໃບແຈ້ງໜີ້ທີ່ສາມາດເລືອກໄດ້'
+                {{ invoiceSearchQuery
+                  ? `ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ຕົງກັບ "${invoiceSearchQuery}"`
+                  : 'ບໍ່ມີໃບແຈ້ງໜີ້ທີ່ສາມາດເລືອກໄດ້'
                 }}
               </p>
             </div>
@@ -746,11 +615,7 @@
             </span>
           </div>
           <div class="footer-actions">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="closeInvoiceBrowser"
-            >
+            <button type="button" class="btn btn-secondary btn-compact" @click="closeInvoiceBrowser">
               <i class="fas fa-times"></i>
               ປິດ
             </button>
@@ -760,7 +625,6 @@
     </div>
   </div>
 </template>
-<!-- Key changes made to fix the invoice line population issue -->
 
 <script>
 export default {
@@ -926,7 +790,7 @@ export default {
   },
 
   methods: {
-    // 🔧 FIXED: Enhanced updateSelectedInvoice method with better debugging
+    // Enhanced updateSelectedInvoice method with better debugging
     async updateSelectedInvoice() {
       console.log('🔍 updateSelectedInvoice called')
       console.log('📝 Current form.invoiceHeaderId:', this.form.invoiceHeaderId)
@@ -943,7 +807,7 @@ export default {
         return
       }
 
-      // 🔧 FIXED: Better ID comparison handling both string and number
+      // Better ID comparison handling both string and number
       const invoiceId = parseInt(this.form.invoiceHeaderId)
       console.log('🔍 Looking for invoice ID:', invoiceId)
 
@@ -969,13 +833,13 @@ export default {
       console.log('✅ Selected invoice found:', this.selectedInvoice.invoiceNumber)
       console.log('📄 Invoice lines:', this.selectedInvoice.invoiceLines?.length || 0)
 
-      // 🔧 FIXED: Check if invoice lines exist and load if needed
+      // Check if invoice lines exist and load if needed
       if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
         console.log('🔄 Loading invoice lines...')
         await this.loadSelectedInvoiceLines()
       }
 
-      // 🔧 FIXED: Create allocation lines for new records only
+      // Create allocation lines for new records only
       if (this.selectedInvoice.invoiceLines && this.selectedInvoice.invoiceLines.length > 0) {
         console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
         
@@ -993,7 +857,7 @@ export default {
       console.log('📊 Final allocation lines count:', this.allocationLines.length)
     },
 
-    // 🔧 NEW: Method to load invoice by ID if not found in main array
+    // Method to load invoice by ID if not found in main array
     async loadInvoiceById(invoiceId) {
       try {
         console.log('🔄 Loading invoice by ID:', invoiceId)
@@ -1020,7 +884,7 @@ export default {
       }
     },
 
-    // 🔧 ENHANCED: Better invoice lines loading with debugging
+    // Better invoice lines loading with debugging
     async loadSelectedInvoiceLines() {
       if (!this.selectedInvoice) {
         console.log('❌ No selected invoice to load lines for')
@@ -1055,7 +919,7 @@ export default {
       }
     },
 
-    // 🔧 ENHANCED: Better allocation lines creation with debugging
+    // Better allocation lines creation with debugging
     createAllocationLinesFromInvoice() {
       console.log('🔧 createAllocationLinesFromInvoice called')
       
@@ -1099,7 +963,7 @@ export default {
       this.$forceUpdate()
     },
 
-    // 🔧 ENHANCED: Better invoice change handler
+    // Better invoice change handler
     async onInvoiceChange() {
       console.log('🔄 onInvoiceChange triggered')
       await this.updateSelectedInvoice()
@@ -1114,7 +978,7 @@ export default {
       }
     },
 
-    // 🔧 ENHANCED: Better invoice browser with full data loading
+    // Better invoice browser with full data loading
     async openInvoiceBrowser() {
       console.log('🔄 Opening invoice browser')
       this.showInvoiceBrowser = true
@@ -1132,7 +996,7 @@ export default {
 
         console.log('📥 Invoice browser API response:', data)
 
-        // 🔧 FIXED: Handle the nested structure in your data
+        // Handle the nested structure in your data
         if (data.success && data.data && data.data.invoices && Array.isArray(data.data.invoices)) {
           this.filteredInvoices = data.data.invoices
           console.log('✅ Loaded', this.filteredInvoices.length, 'invoices for browser')
@@ -1156,7 +1020,7 @@ export default {
       }
     },
 
-    // 🔧 ENHANCED: Better invoice selection from browser
+    // Better invoice selection from browser
     async selectInvoiceFromBrowser(invoice) {
       console.log('🎯 Selecting invoice from browser:', invoice.invoiceNumber)
 
@@ -1543,26 +1407,12 @@ export default {
         }
       }
     },
-
-    // 🔧 NEW: Debug method to manually test allocation creation
-    debugCreateAllocations() {
-      console.log('🔧 DEBUG: Manually creating allocations')
-      console.log('Selected invoice:', this.selectedInvoice)
-      console.log('Invoice lines:', this.selectedInvoice?.invoiceLines)
-      
-      if (this.selectedInvoice && this.selectedInvoice.invoiceLines) {
-        this.createAllocationLinesFromInvoice()
-        this.showToast(`Debug: Created ${this.allocationLines.length} allocations`, 'info')
-      } else {
-        this.showToast('Debug: No invoice or invoice lines found', 'error')
-      }
-    }
   },
 }
 </script>
 
 <style scoped>
-/* Main Modal Styles */
+/* Maximized dialog with compact components */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1574,16 +1424,17 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1050;
-  padding: 20px;
+  padding: 10px;
 }
 
 .enhanced-dialog {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 1200px;
-  max-height: 90vh;
+  max-width: 98vw;
+  height: 95vh;
+  max-height: 95vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1591,10 +1442,11 @@ export default {
 
 .invoice-browser-dialog {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 1000px;
+  max-width: 90vw;
+  height: 80vh;
   max-height: 80vh;
   overflow: hidden;
   display: flex;
@@ -1602,31 +1454,32 @@ export default {
 }
 
 .modal-header {
-  padding: 20px;
+  padding: 10px 15px;
   border-bottom: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
   color: white;
+  min-height: 50px;
 }
 
 .modal-title {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .close-button {
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
-  padding: 5px;
+  padding: 4px;
   border-radius: 4px;
   transition: background 0.2s;
 }
@@ -1647,27 +1500,23 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 30px;
   color: #666;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #28a745;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #28a745;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .receipt-form {
@@ -1677,24 +1526,25 @@ export default {
   overflow: hidden;
 }
 
-/* Tab Navigation */
+/* Compact Tab Navigation */
 .tab-navigation {
   display: flex;
   border-bottom: 1px solid #e9ecef;
   background: #f8f9fa;
+  min-height: 45px;
 }
 
 .tab-btn {
   flex: 1;
-  padding: 15px 20px;
+  padding: 8px 15px;
   border: none;
   background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 500;
   color: #666;
   transition: all 0.2s;
@@ -1709,16 +1559,16 @@ export default {
 .tab-btn.active {
   background: white;
   color: #28a745;
-  border-bottom: 3px solid #28a745;
+  border-bottom: 2px solid #28a745;
 }
 
 .line-count {
   background: #28a745;
   color: white;
-  border-radius: 12px;
-  padding: 2px 8px;
-  font-size: 12px;
-  min-width: 20px;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 11px;
+  min-width: 18px;
   text-align: center;
 }
 
@@ -1729,54 +1579,32 @@ export default {
   padding: 0;
 }
 
-/* Form Sections */
-.form-section {
-  padding: 25px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.form-section:last-child {
-  border-bottom: none;
-}
-
-.section-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
-}
-
-.section-title i {
-  color: #28a745;
+/* Compact Form Layout */
+.form-container {
+  padding: 15px;
 }
 
 .form-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .form-group {
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 0;
 }
 
-.col-md-6 {
-  flex: 0 0 50%;
-  max-width: 50%;
+.form-group.full-width {
+  grid-column: 1 / -1;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   font-weight: 500;
   color: #333;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .form-group label.required::after {
@@ -1786,34 +1614,40 @@ export default {
 
 .form-control {
   width: 100%;
-  padding: 10px 12px;
+  padding: 6px 8px;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 4px;
+  font-size: 13px;
   transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.2;
 }
 
 .form-control:focus {
   outline: none;
   border-color: #28a745;
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
 }
 
 .form-control.is-invalid {
   border-color: #e74c3c;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
 }
 
-.form-control-sm {
-  padding: 6px 8px;
-  font-size: 13px;
+.form-control-xs {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.textarea-compact {
+  resize: vertical;
+  min-height: 50px;
 }
 
 .invalid-feedback {
   display: block;
   width: 100%;
-  margin-top: 5px;
-  font-size: 12px;
+  margin-top: 3px;
+  font-size: 11px;
   color: #e74c3c;
 }
 
@@ -1835,67 +1669,57 @@ export default {
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .form-text.text-muted {
-  font-size: 12px;
+  font-size: 11px;
   color: #6c757d !important;
-  margin-top: 5px;
+  margin-top: 3px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 /* Invoice Selector */
 .invoice-selector {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .invoice-selector select {
   flex: 1;
 }
 
-.btn-browse-invoice {
-  white-space: nowrap;
-  padding: 10px 16px;
-}
-
-/* Amount Summary */
+/* Compact Amount Summary */
 .amount-summary,
 .allocation-summary {
   background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid #28a745;
-  margin: 20px 25px;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid #28a745;
+  margin-top: 15px;
 }
 
-.totals-grid {
+.totals-compact {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
 }
 
 .total-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
+  padding: 4px 0;
+  font-size: 12px;
 }
 
-.total-item:last-child {
-  border-bottom: none;
-}
-
-.total-item.balance-warning {
-  background: #fff3cd;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #ffeaa7;
-  display: none; /* Hide balance warning since balance should always be 0 */
+.total-item.success-balance {
+  background: #d4edda;
+  border-radius: 4px;
+  padding: 6px 8px;
+  grid-column: 1 / -1;
 }
 
 .total-item .amount {
@@ -1911,74 +1735,53 @@ export default {
   color: #007bff;
 }
 
-.total-item .amount.balance.negative {
-  color: #dc3545;
-}
-
-.total-item .amount.balance.positive {
-  color: #ffc107;
-}
-
-/* New styles for success balance */
-.success-balance {
-  background: #d4edda;
-  border-radius: 6px;
-  padding: 8px 12px;
-}
-
 .amount.balanced {
   color: #155724 !important;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .balance-info {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 15px;
-  padding: 12px;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px;
   background: #e7f3ff;
   border: 1px solid #bee5eb;
-  border-radius: 6px;
+  border-radius: 4px;
   color: #0c5460;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.balance-message {
-  display: none; /* Hide balance message since balance should always be 0 */
-}
-
-/* Allocation Section */
+/* Compact Allocation Section */
 .allocation-section {
-  padding: 25px;
+  padding: 15px;
 }
 
 .allocation-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .allocation-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .invoice-info {
   color: #666;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .allocation-count-info {
   background: #e9ecef;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
   color: #666;
   font-weight: 500;
 }
@@ -1987,46 +1790,74 @@ export default {
 .no-lines-state,
 .no-results-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px 15px;
   background: #f8f9fa;
-  border-radius: 8px;
-  border: 2px dashed #dee2e6;
+  border-radius: 6px;
+  border: 1px dashed #dee2e6;
 }
 
 .empty-content i {
-  font-size: 64px;
+  font-size: 36px;
   color: #dee2e6;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .empty-content h4 {
   color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .empty-content p {
   color: #999;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .allocation-notice {
   background: #e7f3ff;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  border-left: 4px solid #007bff;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border-left: 3px solid #007bff;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 8px;
+  font-size: 12px;
   color: #495057;
 }
 
-.allocation-table-container {
+/* Quick Allocation Actions */
+.quick-allocation-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 15px;
+}
+
+.quick-actions-left {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.allocation-helper {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.allocation-table-container,
+.invoice-table-container {
   border: 1px solid #e9ecef;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .allocation-table .table,
@@ -2036,22 +1867,26 @@ export default {
   width: 100%;
 }
 
+.table-compact {
+  font-size: 12px;
+}
+
 .allocation-table .table th,
 .invoice-table-container .table th {
   background: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
   font-weight: 600;
-  padding: 12px 8px;
-  font-size: 13px;
+  padding: 6px 4px;
+  font-size: 11px;
   text-align: center;
 }
 
 .allocation-table .table td,
 .invoice-table-container .table td {
-  padding: 8px;
+  padding: 4px;
   vertical-align: middle;
   border-top: 1px solid #dee2e6;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .line-number {
@@ -2061,17 +1896,18 @@ export default {
 }
 
 .invoice-line-display {
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .line-description {
   font-weight: 500;
   color: #333;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+  font-size: 12px;
 }
 
 .line-details {
-  font-size: 12px;
+  font-size: 10px;
   color: #666;
 }
 
@@ -2079,12 +1915,14 @@ export default {
   text-align: right;
   font-weight: 600;
   color: #28a745;
+  font-size: 11px;
 }
 
 .remaining-amount {
   font-weight: 600;
   text-align: right;
   color: #28a745;
+  font-size: 11px;
 }
 
 .over-allocated {
@@ -2105,33 +1943,9 @@ export default {
   background-color: rgba(40, 167, 69, 0.05);
 }
 
-/* Quick Allocation Actions */
-.quick-allocation-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 0;
-  border-top: 1px solid #e9ecef;
-  margin-top: 10px;
-}
-
-.quick-actions-left {
-  display: flex;
-  gap: 10px;
-}
-
-.allocation-helper {
-  font-size: 12px;
-  color: #666;
-  font-style: italic;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-/* Invoice Browser Styles */
+/* Compact Search Section */
 .search-section {
-  padding: 20px;
+  padding: 15px;
   border-bottom: 1px solid #e9ecef;
   background: #f8f9fa;
 }
@@ -2143,36 +1957,37 @@ export default {
 
 .search-icon {
   position: absolute;
-  left: 12px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: #666;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .search-input {
-  padding-left: 40px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding-left: 35px;
+  font-size: 14px;
+  border-radius: 6px;
 }
 
 .invoice-list {
   flex: 1;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 400px;
 }
 
 .customer-info {
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .customer-name {
   font-weight: 500;
   color: #333;
+  font-size: 12px;
 }
 
 .customer-email {
-  font-size: 12px;
+  font-size: 10px;
   color: #666;
 }
 
@@ -2180,98 +1995,53 @@ export default {
   text-align: right;
   font-weight: 600;
   color: #28a745;
+  font-size: 11px;
 }
 
 .status-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 9px;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.status-draft {
-  background: #ffeaa7;
-  color: #fdcb6e;
-}
-
-.status-sent {
-  background: #74b9ff;
-  color: #0984e3;
-}
-
-.status-paid {
-  background: #00b894;
-  color: #00a085;
-}
-
-.status-overdue {
-  background: #ff7675;
-  color: #d63031;
-}
-
-.status-cancelled {
-  background: #636e72;
-  color: #2d3436;
-}
+.status-draft { background: #ffeaa7; color: #fdcb6e; }
+.status-sent { background: #74b9ff; color: #0984e3; }
+.status-paid { background: #00b894; color: #00a085; }
+.status-overdue { background: #ff7675; color: #d63031; }
+.status-cancelled { background: #636e72; color: #2d3436; }
 
 /* Button Styles */
 .btn {
-  padding: 8px 16px;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   transition: all 0.2s ease;
-  text-decoration: none;
+  line-height: 1.2;
 }
 
-.btn-primary {
-  background: #28a745;
-  color: white;
+.btn-compact {
+  padding: 5px 10px;
+  font-size: 12px;
 }
 
-.btn-secondary {
-  background: #6c757d;
-  color: white;
+.btn-xs {
+  padding: 3px 8px;
+  font-size: 10px;
 }
 
-.btn-outline-primary {
-  background: white;
-  color: #007bff;
-  border: 2px solid #007bff;
-}
-
-.btn-outline-primary:hover {
-  background: #007bff;
-  color: white;
-}
-
-.btn-outline-success {
-  background: white;
-  color: #28a745;
-  border: 2px solid #28a745;
-}
-
-.btn-outline-info {
-  background: white;
-  color: #17a2b8;
-  border: 2px solid #17a2b8;
-}
-
-.btn-outline-warning {
-  background: white;
-  color: #ffc107;
-  border: 2px solid #ffc107;
-}
-
-.btn-danger {
-  background: #dc3545;
-  color: white;
-}
+.btn-primary { background: #28a745; color: white; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-outline-primary { background: white; color: #007bff; border: 1px solid #007bff; }
+.btn-outline-success { background: white; color: #28a745; border: 1px solid #28a745; }
+.btn-outline-info { background: white; color: #17a2b8; border: 1px solid #17a2b8; }
+.btn-outline-warning { background: white; color: #ffc107; border: 1px solid #ffc107; }
 
 .btn:hover:not(:disabled) {
   opacity: 0.9;
@@ -2284,21 +2054,11 @@ export default {
   transform: none;
 }
 
-.btn-sm {
-  padding: 6px 12px;
-  font-size: 12px;
-}
-
-.btn-lg {
-  padding: 12px 30px;
-  font-size: 16px;
-}
-
-/* Modal Footer */
 .modal-footer {
-  padding: 20px;
+  padding: 10px 15px;
   border-top: 1px solid #e9ecef;
   background: #f8f9fa;
+  min-height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2311,37 +2071,45 @@ export default {
 
 .result-count {
   color: #666;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .footer-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .enhanced-dialog,
   .invoice-browser-dialog {
-    max-width: 100%;
-    height: 100%;
+    width: 100%;
+    height: 100vh;
     max-height: 100vh;
     border-radius: 0;
   }
 
-  .totals-grid {
+  .modal-overlay {
+    padding: 0;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .totals-compact {
     grid-template-columns: 1fr;
   }
 
   .allocation-header {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 
   .allocation-info {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .allocation-table-container,
@@ -2351,7 +2119,7 @@ export default {
 
   .allocation-table .table,
   .invoice-table-container .table {
-    min-width: 900px;
+    min-width: 600px;
   }
 
   .footer-actions {
@@ -2363,30 +2131,14 @@ export default {
     justify-content: center;
   }
 
-  .tab-btn {
-    flex-direction: column;
-    gap: 4px;
-    font-size: 12px;
-    padding: 12px 8px;
-  }
-
-  .form-row {
-    flex-direction: column;
-  }
-
-  .col-md-6 {
-    flex: 1;
-    max-width: 100%;
-  }
-
   .invoice-selector {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .quick-allocation-actions {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 
   .search-input-group {
@@ -2396,42 +2148,39 @@ export default {
 
 @media (max-width: 480px) {
   .modal-header {
-    padding: 15px;
+    padding: 8px 10px;
   }
 
   .modal-title {
-    font-size: 16px;
-  }
-
-  .form-section {
-    padding: 20px 15px;
-  }
-
-  .section-title {
     font-size: 14px;
   }
 
-  .modal-footer {
-    padding: 15px;
+  .form-container {
+    padding: 10px;
   }
 
   .allocation-section {
-    padding: 20px 15px;
+    padding: 10px;
   }
 
-  .no-invoice-state,
-  .no-lines-state,
-  .no-results-state {
-    padding: 40px 15px;
+  .modal-footer {
+    padding: 8px 10px;
   }
 
-  .empty-content i {
-    font-size: 48px;
+  .tab-btn {
+    font-size: 11px;
+    padding: 6px 8px;
   }
 
-  .amount-summary,
-  .allocation-summary {
-    margin: 20px 15px;
+  .quick-actions-left {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .quick-actions-left .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

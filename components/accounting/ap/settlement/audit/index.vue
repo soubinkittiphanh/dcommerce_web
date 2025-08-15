@@ -641,7 +641,7 @@ export default {
 }
 
 .settlement-audit-dialog-header {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
   padding: 20px;
   display: flex;

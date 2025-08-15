@@ -427,7 +427,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
 }
 

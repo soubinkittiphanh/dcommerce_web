@@ -15,7 +15,7 @@
           :title="'ເບິ່ງປະຫວັດການດຳເນີນງານ'"
         >
           <i class="fas fa-history"></i>
-          <span class="audit-text">ປະຫວັດ AAA</span>
+          <span class="audit-text">ປະຫວັດ</span>
         </button>
         <button type="button" class="close-button" @click="handleClose">
           <i class="fas fa-times"></i>
@@ -57,14 +57,11 @@
           <!-- Invoice Header Tab -->
           <div v-show="activeTab === 'header'" class="tab-content">
             <form @submit.prevent="handleSubmit">
-              <!-- Basic Information Section -->
-              <div class="form-section">
-                <h5 class="section-title">
-                  <i class="fas fa-info-circle"></i>
-                  ຂໍ້ມູນພື້ນຖານ
-                </h5>
+              <!-- Compact Form Layout -->
+              <div class="form-container">
+                <!-- Row 1: Basic Info -->
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group">
                     <label for="invoiceNumber" class="required"
                       >ເລກທີໃບແຈ້ງໜີ້</label
                     >
@@ -74,14 +71,14 @@
                       type="text"
                       class="form-control"
                       :class="{ 'is-invalid': errors.invoiceNumber }"
-                      placeholder="ເຊັ່ນ: INV-2025-001"
+                      placeholder="INV-2025-001"
                       :readonly="isEdit"
                     />
                     <div v-if="errors.invoiceNumber" class="invalid-feedback">
                       {{ errors.invoiceNumber }}
                     </div>
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group">
                     <label for="clientId" class="required">ລູກຄ້າ</label>
                     <select
                       id="clientId"
@@ -90,9 +87,7 @@
                       :class="{ 'is-invalid': errors.clientId }"
                       @change="onCustomerChange"
                     >
-                      <option value="">
-                        ເລືອກລູກຄ້າ {{ customers.length }}
-                      </option>
+                      <option value="">ເລືອກລູກຄ້າ</option>
                       <option
                         v-for="customer in customers"
                         :key="customer.id"
@@ -107,10 +102,54 @@
                       {{ errors.clientId }}
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label for="status">ສະຖານະ</label>
+                    <select
+                      id="status"
+                      v-model="form.status"
+                      class="form-control"
+                    >
+                      <option value="draft">ແບບຮ່າງ</option>
+                      <option value="sent">ສົ່ງແລ້ວ</option>
+                      <option value="paid">ຈ່າຍແລ້ວ</option>
+                      <option value="overdue">ເກີນກຳນົດ</option>
+                      <option value="cancelled">ຍົກເລີກ</option>
+                    </select>
+                  </div>
                 </div>
 
+                <!-- Row 2: Dates -->
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group">
+                    <label for="invoiceDate" class="required"
+                      >ວັນທີໃບແຈ້ງໜີ້</label
+                    >
+                    <input
+                      id="invoiceDate"
+                      v-model="form.invoiceDate"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.invoiceDate }"
+                      @change="calculateDueDate"
+                    />
+                    <div v-if="errors.invoiceDate" class="invalid-feedback">
+                      {{ errors.invoiceDate }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="dueDate">ວັນທີຄົບກຳນົດ</label>
+                    <input
+                      id="dueDate"
+                      v-model="form.dueDate"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.dueDate }"
+                    />
+                    <div v-if="errors.dueDate" class="invalid-feedback">
+                      {{ errors.dueDate }}
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="currencyId">ສະກຸນເງິນ</label>
                     <select
                       id="currencyId"
@@ -128,7 +167,7 @@
                       </option>
                     </select>
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group">
                     <label for="exchangeRate">ອັດຕາແລກປ່ຽນ</label>
                     <input
                       id="exchangeRate"
@@ -141,124 +180,68 @@
                     />
                   </div>
                 </div>
-              </div>
 
-              <!-- Date Section -->
-              <div class="form-section">
-                <h5 class="section-title">
-                  <i class="fas fa-calendar-alt"></i>
-                  ວັນທີ
-                </h5>
+                <!-- Row 3: Description and Reason -->
                 <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="invoiceDate" class="required"
-                      >ວັນທີໃບແຈ້ງໜີ້</label
-                    >
-                    <input
-                      id="invoiceDate"
-                      v-model="form.invoiceDate"
-                      type="date"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.invoiceDate }"
-                      @change="calculateDueDate"
-                    />
-                    <div v-if="errors.invoiceDate" class="invalid-feedback">
-                      {{ errors.invoiceDate }}
-                    </div>
+                  <div class="form-group full-width">
+                    <label for="description">ລາຍລະອຽດ</label>
+                    <textarea
+                      id="description"
+                      v-model="form.description"
+                      class="form-control textarea-compact"
+                      rows="2"
+                      placeholder="ລາຍລະອຽດກ່ຽວກັບໃບແຈ້ງໜີ້..."
+                    ></textarea>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="dueDate">ວັນທີຄົບກຳນົດ</label>
-                    <input
-                      id="dueDate"
-                      v-model="form.dueDate"
-                      type="date"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.dueDate }"
-                    />
-                    <div v-if="errors.dueDate" class="invalid-feedback">
-                      {{ errors.dueDate }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Status Section -->
-              <div class="form-section">
-                <h5 class="section-title">
-                  <i class="fas fa-info"></i>
-                  ສະຖານະ ແລະ ລາຍລະອຽດ
-                </h5>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="status">ສະຖານະ</label>
-                    <select
-                      id="status"
-                      v-model="form.status"
-                      class="form-control"
-                    >
-                      <option value="draft">ແບບຮ່າງ</option>
-                      <option value="sent">ສົ່ງແລ້ວ</option>
-                      <option value="paid">ຈ່າຍແລ້ວ</option>
-                      <option value="overdue">ເກີນກຳນົດ</option>
-                      <option value="cancelled">ຍົກເລີກ</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="description">ລາຍລະອຽດ</label>
-                  <textarea
-                    id="description"
-                    v-model="form.description"
-                    class="form-control"
-                    rows="3"
-                    placeholder="ລາຍລະອຽດກ່ຽວກັບໃບແຈ້ງໜີ້..."
-                  ></textarea>
                 </div>
 
                 <!-- Reason field for audit trail (only show when editing) -->
-                <div v-if="isEdit" class="form-group">
-                  <label for="reason" class="required">ເຫດຜົນຂອງການແກ້ໄຂ</label>
-                  <input
-                    id="reason"
-                    v-model="form.reason"
-                    type="text"
-                    class="form-control"
-                    :class="{ 'is-invalid': errors.reason }"
-                    placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
-                  />
-                  <div v-if="errors.reason" class="invalid-feedback">
-                    {{ errors.reason }}
+                <div v-if="isEdit" class="form-row">
+                  <div class="form-group full-width">
+                    <label for="reason" class="required"
+                      >ເຫດຜົນຂອງການແກ້ໄຂ</label
+                    >
+                    <input
+                      id="reason"
+                      v-model="form.reason"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.reason }"
+                      placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
+                    />
+                    <div v-if="errors.reason" class="invalid-feedback">
+                      {{ errors.reason }}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Total Amount Display (calculated from line items) -->
-              <div class="amount-summary">
-                <div class="totals-grid">
-                  <div class="total-item">
-                    <label>ລວມຍ່ອຍ:</label>
-                    <span class="amount">{{
-                      formatCurrency(calculatedSubtotal)
-                    }}</span>
-                  </div>
-                  <div class="total-item">
-                    <label>ພາສີລວມ:</label>
-                    <span class="amount">{{
-                      formatCurrency(calculatedTax)
-                    }}</span>
-                  </div>
-                  <div class="total-item">
-                    <label>ຍອດສຸດທິ:</label>
-                    <span class="amount">{{
-                      formatCurrency(calculatedNet)
-                    }}</span>
-                  </div>
-                  <div class="total-item grand-total">
-                    <label>ລວມທັງໝົດ:</label>
-                    <span class="amount">{{
-                      formatCurrency(calculatedTotal)
-                    }}</span>
+                <!-- Compact Total Amount Display -->
+                <div class="amount-summary">
+                  <div class="totals-compact">
+                    <div class="total-item">
+                      <span>ລວມຍ່ອຍ:</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedSubtotal)
+                      }}</span>
+                    </div>
+                    <div class="total-item">
+                      <span>ພາສີລວມ:</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedTax)
+                      }}</span>
+                    </div>
+                    <div class="total-item">
+                      <span>ຍອດສຸດທິ:</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedNet)
+                      }}</span>
+                    </div>
+                    <div class="total-item grand-total">
+                      <span>ລວມທັງໝົດ:</span>
+                      <span class="amount">{{
+                        formatCurrency(calculatedTotal)
+                      }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -268,20 +251,23 @@
           <!-- Line Items Tab -->
           <div v-show="activeTab === 'lines'" class="tab-content">
             <div class="line-items-section">
-              <!-- Add Line Section at Top -->
+              <!-- Compact Add Line Header -->
               <div class="add-line-header">
-                <h5 class="section-title">
-                  <i class="fas fa-list"></i>
-                  ລາຍການສິນຄ້າ / ການບໍລິການ
-                </h5>
                 <div class="add-line-actions">
                   <button
                     type="button"
-                    class="btn btn-primary btn-add-line"
+                    class="btn btn-primary btn-compact"
                     @click="addNewLine"
                   >
-                    <i class="fas fa-plus-circle"></i>
-                    ເພີ່ມລາຍການສິນຄ້າ
+                    <i class="fas fa-plus"></i>
+                    ເພີ່ມລາຍການ
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-compact"
+                    @click="addMultipleLines(5)"
+                  >
+                    ເພີ່ມ 5 ລາຍການ
                   </button>
                   <span class="line-count-info"
                     >{{ lineItems.length }} ລາຍການ</span
@@ -294,32 +280,31 @@
                 <div class="empty-content">
                   <i class="fas fa-shopping-cart"></i>
                   <h4>ຍັງບໍ່ມີລາຍການສິນຄ້າ</h4>
-                  <p>ກະລຸນາເພີ່ມສິນຄ້າຫຼືການບໍລິການເພື່ອສ້າງໃບແຈ້ງໜີ້</p>
                   <button
                     type="button"
-                    class="btn btn-lg btn-primary"
+                    class="btn btn-primary"
                     @click="addNewLine"
                   >
-                    <i class="fas fa-plus-circle"></i>
+                    <i class="fas fa-plus"></i>
                     ເພີ່ມລາຍການທຳອິດ
                   </button>
                 </div>
               </div>
 
-              <!-- Line Items Table -->
+              <!-- Compact Line Items Table -->
               <div v-else class="line-items-table-container">
                 <div class="line-items-table">
-                  <table class="table">
+                  <table class="table table-compact">
                     <thead>
                       <tr>
-                        <th style="width: 40px">#</th>
-                        <th style="width: 200px">ລາຍລະອຽດ *</th>
-                        <th style="width: 80px">ຈຳນວນ *</th>
-                        <th style="width: 100px">ລາຄາຕໍ່ຫົວ *</th>
-                        <th style="width: 80px">ພາສີ %</th>
-                        <th style="width: 100px">ຍອດພາສີ</th>
-                        <th style="width: 120px">ລວມຕໍ່ແຖວ</th>
-                        <th style="width: 60px">ລຶບ</th>
+                        <th style="width: 30px">#</th>
+                        <th style="width: 250px">ລາຍລະອຽດ *</th>
+                        <th style="width: 70px">ຈຳນວນ *</th>
+                        <th style="width: 80px">ລາຄາຕໍ່ຫົວ *</th>
+                        <th style="width: 60px">ພາສີ %</th>
+                        <th style="width: 80px">ຍອດພາສີ</th>
+                        <th style="width: 90px">ລວມຕໍ່ແຖວ</th>
+                        <th style="width: 40px">ລຶບ</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -333,11 +318,11 @@
                           <input
                             v-model="line.description"
                             type="text"
-                            class="form-control form-control-sm"
+                            class="form-control form-control-xs"
                             :class="{
                               'is-invalid': errors[`line_${index}_description`],
                             }"
-                            placeholder="ລາຍລະອຽດສິນຄ້າ/ການບໍລິການ..."
+                            placeholder="ລາຍລະອຽດສິນຄ້າ..."
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
@@ -347,7 +332,7 @@
                             type="number"
                             step="0.01"
                             min="0"
-                            class="form-control form-control-sm"
+                            class="form-control form-control-xs"
                             :class="{
                               'is-invalid': errors[`line_${index}_quantity`],
                             }"
@@ -360,7 +345,7 @@
                             type="number"
                             step="0.01"
                             min="0"
-                            class="form-control form-control-sm"
+                            class="form-control form-control-xs"
                             :class="{
                               'is-invalid': errors[`line_${index}_unitPrice`],
                             }"
@@ -374,7 +359,7 @@
                             step="0.01"
                             min="0"
                             max="100"
-                            class="form-control form-control-sm"
+                            class="form-control form-control-xs"
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
@@ -387,7 +372,7 @@
                         <td>
                           <button
                             type="button"
-                            class="btn btn-sm btn-danger"
+                            class="btn btn-xs btn-danger"
                             @click="removeLine(index)"
                             title="ລຶບລາຍການ"
                           >
@@ -399,57 +384,29 @@
                   </table>
                 </div>
 
-                <!-- Add More Lines Section -->
-                <div class="add-more-lines">
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary btn-add-more"
-                    @click="addNewLine"
-                  >
-                    <i class="fas fa-plus"></i>
-                    ເພີ່ມລາຍການໃໝ່
-                  </button>
-                  <div class="quick-add-buttons">
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-outline-secondary"
-                      @click="addMultipleLines(3)"
-                    >
-                      ເພີ່ມ 3 ລາຍການ
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-outline-secondary"
-                      @click="addMultipleLines(5)"
-                    >
-                      ເພີ່ມ 5 ລາຍການ
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Totals Summary -->
+                <!-- Compact Totals Summary -->
                 <div class="line-totals-summary">
-                  <div class="totals-grid">
+                  <div class="totals-compact">
                     <div class="total-item">
-                      <label>ລວມຍ່ອຍ:</label>
+                      <span>ລວມຍ່ອຍ:</span>
                       <span class="amount">{{
                         formatCurrency(calculatedSubtotal)
                       }}</span>
                     </div>
                     <div class="total-item">
-                      <label>ພາສີລວມ:</label>
+                      <span>ພາສີລວມ:</span>
                       <span class="amount">{{
                         formatCurrency(calculatedTax)
                       }}</span>
                     </div>
                     <div class="total-item">
-                      <label>ຍອດສຸດທິ:</label>
+                      <span>ຍອດສຸດທິ:</span>
                       <span class="amount">{{
                         formatCurrency(calculatedNet)
                       }}</span>
                     </div>
                     <div class="total-item grand-total">
-                      <label>ລວມທັງໝົດ:</label>
+                      <span>ລວມທັງໝົດ:</span>
                       <span class="amount">{{
                         formatCurrency(calculatedTotal)
                       }}</span>
@@ -466,7 +423,7 @@
         <div class="footer-actions">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary btn-compact"
             @click="handleClose"
             :disabled="saving"
           >
@@ -475,7 +432,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary btn-compact"
             @click="handleSubmit"
             :disabled="saving || !isFormValid"
           >
@@ -502,7 +459,7 @@ import InvoiceAuditDialog from '~/components/accounting/ar/invoice/audit'
 export default {
   name: 'InvoiceHeaderMaintain',
   components: {
-    InvoiceAuditDialog, // Change from SettlementAuditDialog,
+    InvoiceAuditDialog,
   },
   props: {
     visible: {
@@ -525,7 +482,7 @@ export default {
 
   data() {
     return {
-      showAuditDialog: false, // Add audit dialog visibility state
+      showAuditDialog: false,
       activeTab: 'header',
       formLoading: false,
       saving: false,
@@ -642,12 +599,6 @@ export default {
   methods: {
     openAuditDialog() {
       console.warn(`Opening dialog`)
-      // if (!this.isEdit) {
-      //   this.$toast?.warning(
-      //     'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ้ບັນທຶກໃບແຈ້ງໜີ້'
-      //   )
-      //   return
-      // }
       this.showAuditDialog = true
     },
 
@@ -797,6 +748,11 @@ export default {
         this.selectedCurrency = this.currencies.find(
           (c) => c.id === this.form.currencyId
         )
+        // Update the exchange rate based on
+        console.info(`Currency structure ${JSON.stringify(this.currencies)}`)
+        this.form.exchangeRate = this.currencies.find(
+          (c) => c.id === this.form.currencyId
+        ).rate
       } else {
         this.selectedCurrency = null
       }
@@ -967,7 +923,7 @@ export default {
 </script>
 
 <style scoped>
-/* All dialog-specific styles */
+/* Maximized dialog with compact components */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -979,47 +935,70 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1050;
-  padding: 20px;
+  padding: 10px;
 }
 
 .enhanced-dialog {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 1200px;
-  max-height: 90vh;
+  max-width: 98vw;
+  height: 95vh;
+  max-height: 95vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .modal-header {
-  padding: 20px;
+  padding: 10px 15px;
   border-bottom: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
+  min-height: 50px;
 }
 
 .modal-title {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+}
+
+.audit-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.audit-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.audit-text {
+  font-size: 11px;
 }
 
 .close-button {
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
-  padding: 5px;
+  padding: 4px;
   border-radius: 4px;
   transition: background 0.2s;
 }
@@ -1040,18 +1019,18 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 30px;
   color: #666;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 @keyframes spin {
@@ -1070,24 +1049,25 @@ export default {
   overflow: hidden;
 }
 
-/* Tab Navigation */
+/* Compact Tab Navigation */
 .tab-navigation {
   display: flex;
   border-bottom: 1px solid #e9ecef;
   background: #f8f9fa;
+  min-height: 45px;
 }
 
 .tab-btn {
   flex: 1;
-  padding: 15px 20px;
+  padding: 8px 15px;
   border: none;
   background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 500;
   color: #666;
   transition: all 0.2s;
@@ -1102,16 +1082,16 @@ export default {
 .tab-btn.active {
   background: white;
   color: #667eea;
-  border-bottom: 3px solid #667eea;
+  border-bottom: 2px solid #667eea;
 }
 
 .line-count {
   background: #667eea;
   color: white;
-  border-radius: 12px;
-  padding: 2px 8px;
-  font-size: 12px;
-  min-width: 20px;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 11px;
+  min-width: 18px;
   text-align: center;
 }
 
@@ -1122,54 +1102,32 @@ export default {
   padding: 0;
 }
 
-/* Form Sections */
-.form-section {
-  padding: 25px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.form-section:last-child {
-  border-bottom: none;
-}
-
-.section-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
-}
-
-.section-title i {
-  color: #667eea;
+/* Compact Form Layout */
+.form-container {
+  padding: 15px;
 }
 
 .form-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .form-group {
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 0;
 }
 
-.col-md-6 {
-  flex: 0 0 50%;
-  max-width: 50%;
+.form-group.full-width {
+  grid-column: 1 / -1;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   font-weight: 500;
   color: #333;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .form-group label.required::after {
@@ -1179,70 +1137,72 @@ export default {
 
 .form-control {
   width: 100%;
-  padding: 10px 12px;
+  padding: 6px 8px;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 4px;
+  font-size: 13px;
   transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.2;
 }
 
 .form-control:focus {
   outline: none;
   border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
 }
 
 .form-control.is-invalid {
   border-color: #e74c3c;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
 }
 
-.form-control-sm {
-  padding: 6px 8px;
-  font-size: 13px;
+.form-control-xs {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.textarea-compact {
+  resize: vertical;
+  min-height: 50px;
 }
 
 .invalid-feedback {
   display: block;
   width: 100%;
-  margin-top: 5px;
-  font-size: 12px;
+  margin-top: 3px;
+  font-size: 11px;
   color: #e74c3c;
 }
 
-/* Amount Summary */
+/* Compact Amount Summary */
 .amount-summary {
   background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
-  margin: 20px 25px;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
+  margin-top: 15px;
 }
 
-.totals-grid {
+.totals-compact {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
 }
 
 .total-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.total-item:last-child {
-  border-bottom: none;
+  padding: 4px 0;
+  font-size: 12px;
 }
 
 .total-item.grand-total {
   font-weight: 600;
-  font-size: 16px;
-  border-top: 2px solid #667eea;
-  padding-top: 12px;
-  margin-top: 8px;
+  font-size: 13px;
+  border-top: 1px solid #667eea;
+  padding-top: 6px;
+  margin-top: 4px;
   grid-column: 1 / -1;
 }
 
@@ -1251,57 +1211,70 @@ export default {
   color: #333;
 }
 
-/* Line Items Section */
+/* Compact Line Items Section */
 .line-items-section {
-  padding: 25px;
+  padding: 15px;
 }
 
 .add-line-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .add-line-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .btn {
-  padding: 8px 16px;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   transition: all 0.2s ease;
+  line-height: 1.2;
+}
+
+.btn-compact {
+  padding: 5px 10px;
+  font-size: 12px;
 }
 
 .btn-primary {
   background: #007bff;
   color: white;
 }
+
 .btn-secondary {
   background: #6c757d;
   color: white;
 }
-.btn-outline-primary {
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-}
+
 .btn-outline-secondary {
   background: white;
   color: #6c757d;
   border: 1px solid #6c757d;
 }
+
 .btn-danger {
   background: #dc3545;
   color: white;
+}
+
+.btn-xs {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
 }
 
 .btn:hover:not(:disabled) {
@@ -1315,66 +1288,40 @@ export default {
   transform: none;
 }
 
-.btn-add-line {
-  font-size: 16px;
-  padding: 12px 24px;
-  font-weight: 600;
-}
-
-.btn-lg {
-  padding: 12px 30px;
-  font-size: 16px;
-}
-
-.btn-sm {
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-}
-
 .line-count-info {
   background: #e9ecef;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
   color: #666;
   font-weight: 500;
 }
 
 .empty-line-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 30px 15px;
   background: #f8f9fa;
-  border-radius: 8px;
-  border: 2px dashed #dee2e6;
+  border-radius: 6px;
+  border: 1px dashed #dee2e6;
 }
 
 .empty-content i {
-  font-size: 64px;
+  font-size: 36px;
   color: #dee2e6;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .empty-content h4 {
   color: #666;
-  margin-bottom: 10px;
-}
-
-.empty-content p {
-  color: #999;
-  margin-bottom: 30px;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .line-items-table-container {
   border: 1px solid #e9ecef;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .line-items-table .table {
@@ -1383,20 +1330,24 @@ export default {
   width: 100%;
 }
 
+.table-compact {
+  font-size: 12px;
+}
+
 .line-items-table .table th {
   background: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
   font-weight: 600;
-  padding: 12px 8px;
-  font-size: 13px;
+  padding: 6px 4px;
+  font-size: 11px;
   text-align: center;
 }
 
 .line-items-table .table td {
-  padding: 8px;
+  padding: 4px;
   vertical-align: middle;
   border-top: 1px solid #dee2e6;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .line-number {
@@ -1410,6 +1361,7 @@ export default {
   font-weight: 600;
   text-align: right;
   color: #333;
+  font-size: 11px;
 }
 
 .line-row {
@@ -1420,66 +1372,51 @@ export default {
   background-color: rgba(102, 126, 234, 0.05);
 }
 
-.add-more-lines {
-  text-align: center;
-  padding: 20px 0;
-  border-top: 1px solid #e9ecef;
-}
-
-.btn-add-more {
-  margin-right: 15px;
-}
-
-.quick-add-buttons {
-  display: inline-flex;
-  gap: 10px;
-  margin-left: 15px;
-}
-
 .line-totals-summary {
   background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
-  margin-top: 20px;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
 }
 
 .modal-footer {
-  padding: 20px;
+  padding: 10px 15px;
   border-top: 1px solid #e9ecef;
   background: #f8f9fa;
+  min-height: 50px;
 }
 
 .footer-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .enhanced-dialog {
-    max-width: 100%;
-    height: 100%;
+    width: 100%;
+    height: 100vh;
     max-height: 100vh;
     border-radius: 0;
+    padding: 0;
   }
 
-  .totals-grid {
+  .modal-overlay {
+    padding: 0;
+  }
+
+  .form-row {
     grid-template-columns: 1fr;
   }
 
-  .add-line-header {
+  .totals-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .add-line-actions {
     flex-direction: column;
-    gap: 15px;
-  }
-
-  .line-items-table-container {
-    overflow-x: auto;
-  }
-
-  .line-items-table .table {
-    min-width: 800px;
+    align-items: stretch;
   }
 
   .footer-actions {
@@ -1491,60 +1428,39 @@ export default {
     justify-content: center;
   }
 
-  .tab-btn {
-    flex-direction: column;
-    gap: 4px;
-    font-size: 12px;
-    padding: 12px 8px;
+  .line-items-table-container {
+    overflow-x: auto;
   }
 
-  .quick-add-buttons {
-    flex-direction: column;
-    margin-left: 0;
-    margin-top: 10px;
-  }
-
-  .form-row {
-    flex-direction: column;
-  }
-
-  .col-md-6 {
-    flex: 1;
-    max-width: 100%;
+  .line-items-table .table {
+    min-width: 600px;
   }
 }
 
 @media (max-width: 480px) {
   .modal-header {
-    padding: 15px;
+    padding: 8px 10px;
   }
 
   .modal-title {
-    font-size: 16px;
-  }
-
-  .form-section {
-    padding: 20px 15px;
-  }
-
-  .section-title {
     font-size: 14px;
   }
 
-  .modal-footer {
-    padding: 15px;
+  .form-container {
+    padding: 10px;
   }
 
   .line-items-section {
-    padding: 20px 15px;
+    padding: 10px;
   }
 
-  .empty-line-state {
-    padding: 40px 15px;
+  .modal-footer {
+    padding: 8px 10px;
   }
 
-  .empty-content i {
-    font-size: 48px;
+  .tab-btn {
+    font-size: 11px;
+    padding: 6px 8px;
   }
 }
 </style>

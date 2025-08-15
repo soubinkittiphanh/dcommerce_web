@@ -324,13 +324,13 @@
                 >
                   <i class="fas fa-print"></i>
                 </button>
-                <button
+                <!-- <button
                   class="btn btn-sm btn-outline-danger"
                   @click="deleteReceipt(receipt)"
                   title="ລຶບ"
                 >
                   <i class="fas fa-trash"></i>
-                </button>
+                </button> -->
               </td>
             </tr>
           </tbody>

@@ -461,6 +461,7 @@ export default {
       form: {
         id: null,
         amount: '',
+        method: 'cash',
         purpose: '',
         note: '',
         makerId: '',

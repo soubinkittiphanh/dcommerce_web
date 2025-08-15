@@ -431,6 +431,8 @@
                           :value="advance.id"
                         >
                           #{{ advance.id }} -
+                          #{{ advance.receiveName }} -
+                          #{{ advance.ministry?.ministryName || '' }} -
                           {{
                             formatCurrency(
                               advance.amount,

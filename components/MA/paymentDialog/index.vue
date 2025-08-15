@@ -82,6 +82,10 @@
                     <i class="fas fa-chevron-down"></i>
                   </div>
                 </div>
+                <!-- 🔧 DEBUG: Show current method value -->
+                <small class="debug-info" style="font-size: 10px; color: #666; margin-top: 2px; display: block;">
+                  Current method: "{{ localForm.method || 'empty' }}"
+                </small>
               </div>
 
               <div class="form-group">
@@ -174,13 +178,13 @@
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-external-link-alt"></i>
-                  ການອ້າງອີງພາຍນອກ
+                  ອີງໃສ່ໃບສະເໜີ / ຖອນ
                 </label>
                 <input
                   v-model="localForm.externalRef"
                   type="text"
                   class="form-control"
-                  placeholder="ການອ້າງອີງພາຍນອກ"
+                  placeholder="ອີງໃສ່ໃບສະເໜີ / ຖອນ"
                   maxlength="100"
                 />
               </div>
@@ -188,13 +192,13 @@
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-hashtag"></i>
-                  ເລກອ້າງອີງພາຍນອກ
+                  ເລກທີ່ໃບສັ່ງຈ່າຍ
                 </label>
                 <input
                   v-model="localForm.externalRefNo"
                   type="text"
                   class="form-control"
-                  placeholder="ເລກອ້າງອີງພາຍນອກ"
+                  placeholder="ເລກທີ່ໃບສັ່ງຈ່າຍ"
                   maxlength="50"
                 />
               </div>
@@ -464,7 +468,7 @@ export default {
         ministryId: '',
         bookingDate: '',
         exchangeRate: '',
-        method: 'cash', // ✅ NEW: Default method
+        method: 'cash', // ✅ Default method
         externalRef: '',
         externalRefNo: '',
         chequeNo: '',
@@ -497,9 +501,6 @@ export default {
       default: false,
     },
   },
-  mounted() {
-    this.initForm()
-  },
 
   data() {
     return {
@@ -517,7 +518,7 @@ export default {
         ministryId: '',
         bookingDate: '',
         exchangeRate: '',
-        method: 'cash', // ✅ NEW: Default method
+        method: 'cash', // ✅ Default method
         externalRef: '',
         externalRefNo: '',
         chequeNo: '',
@@ -586,7 +587,7 @@ export default {
         'makerId exists': !!this.localForm.makerId,
         'currencyId exists': !!this.localForm.currencyId,
         'bookingDate exists': !!this.localForm.bookingDate,
-        'method exists': !!this.localForm.method, // ✅ NEW: Method validation
+        'method exists': !!this.localForm.method, // ✅ Method validation
         'users available': this.users.length > 0,
         'currencies available': this.currencies.length > 0,
         'exchange rate valid':
@@ -608,7 +609,7 @@ export default {
         'receiveIDNO valid':
           !this.localForm.receiveIDNO ||
           this.localForm.receiveIDNO.length <= 20,
-        // ✅ NEW: Conditional validations based on method
+        // ✅ Conditional validations based on method
         'cheque number required':
           this.localForm.method !== 'cheque' ||
           (this.localForm.method === 'cheque' && !!this.localForm.chequeNo),
@@ -629,11 +630,22 @@ export default {
       }
     },
 
+    // 🔧 FIXED: Enhanced formData watcher to preserve defaults
     formData: {
       handler(newVal) {
-        console.info(`Form data is changing...`)
-        if (newVal) {
-          this.localForm = { ...newVal }
+        console.info(`Form data is changing...`, newVal)
+        if (newVal && typeof newVal === 'object') {
+          // 🔧 FIX: Merge with defaults instead of overwriting completely
+          this.localForm = {
+            ...this.getDefaultForm(), // Start with defaults
+            ...newVal // Override with provided data
+          }
+
+          // Ensure method defaults to 'cash' if not provided or empty
+          if (!this.localForm.method || this.localForm.method === '') {
+            this.localForm.method = 'cash'
+            console.info('🔧 Setting method to default: cash')
+          }
 
           if (!this.isEdit && !this.localForm.bookingDate) {
             this.localForm.bookingDate = this.today
@@ -644,15 +656,44 @@ export default {
       immediate: true,
     },
 
-    // ✅ NEW: Watch method changes to clear conditional fields
+    // ✅ Watch method changes to clear conditional fields
     'localForm.method'(newMethod, oldMethod) {
+      console.info(`Method changed from "${oldMethod}" to "${newMethod}"`)
       if (oldMethod && newMethod !== oldMethod) {
         this.handleMethodChange()
       }
     },
   },
 
+  mounted() {
+    console.info('🔧 Component mounted, initializing form...')
+    this.initForm()
+  },
+
   methods: {
+    // 🔧 NEW: Helper method to get default form structure
+    getDefaultForm() {
+      return {
+        id: null,
+        amount: '',
+        purpose: '',
+        note: '',
+        makerId: '',
+        currencyId: '',
+        dueDate: '',
+        bankAccountId: '',
+        ministryId: '',
+        bookingDate: this.today,
+        exchangeRate: '',
+        method: 'cash', // ✅ Always default to cash
+        externalRef: '',
+        externalRefNo: '',
+        chequeNo: '',
+        receiveName: '',
+        receiveIDNO: '',
+      }
+    },
+
     formatDisplayDate(dateString) {
       if (!dateString) return ''
 
@@ -717,49 +758,55 @@ export default {
         this.advanceDetails = null
       }, 100)
     },
+
+    // 🔧 FIXED: Enhanced initForm method
     initForm() {
       this.formErrors = []
-      console.info(
-        `initiate form data called...${JSON.stringify(this.formData)}`
-      )
-      if (this.isEdit && this.formData) {
-        console.info(`formData is available...`)
-        this.localForm = { ...this.formData }
+      console.info('🔧 initForm called with formData:', this.formData)
+      
+      if (this.isEdit && this.formData && this.formData.id) {
+        console.info('🔧 Edit mode - copying formData with defaults preserved')
+        // In edit mode, merge formData with defaults
+        this.localForm = {
+          ...this.getDefaultForm(),
+          ...this.formData
+        }
+        
+        // Ensure method is set even in edit mode
+        if (!this.localForm.method || this.localForm.method === '') {
+          this.localForm.method = 'cash'
+          console.info('🔧 Edit mode: Setting method to default cash')
+        }
       } else {
-        this.resetForm()
+        console.info('🔧 New mode - using defaults')
+        // In new mode, start with defaults
+        this.localForm = this.getDefaultForm()
 
+        // Set default currency
         if (this.currencies.length > 0) {
           const defaultCurrency =
             this.currencies.find((c) => c.code === 'LAK') || this.currencies[0]
           this.localForm.currencyId = defaultCurrency.id
         }
+
+        // Set current user
+        if (this.user && this.user.id) {
+          this.localForm.makerId = this.user.id
+        }
       }
-      if (!this.isEdit) {
-        this.localForm.makerId = this.user.id
-        this.localForm.bookingDate = this.today
+
+      // Always ensure method is set
+      if (!this.localForm.method) {
+        this.localForm.method = 'cash'
+        console.info('🔧 Final fallback: Setting method to cash')
       }
+
+      console.info('🔧 Final localForm:', this.localForm)
     },
 
     resetForm() {
-      this.localForm = {
-        id: null,
-        amount: '',
-        purpose: '',
-        note: '',
-        makerId: '',
-        currencyId: '',
-        dueDate: '',
-        bankAccountId: '',
-        ministryId: '',
-        bookingDate: this.today,
-        exchangeRate: '',
-        method: 'cash', // ✅ NEW: Default method
-        externalRef: '',
-        externalRefNo: '',
-        chequeNo: '',
-        receiveName: '',
-        receiveIDNO: '',
-      }
+      console.info('🔧 resetForm called')
+      this.localForm = this.getDefaultForm()
     },
 
     validateForm() {
@@ -781,12 +828,12 @@ export default {
         this.formErrors.push('Booking date is required')
       }
 
-      // ✅ NEW: Method validation
+      // ✅ Method validation
       if (!this.localForm.method) {
         this.formErrors.push('Payment method is required')
       }
 
-      // ✅ NEW: Conditional validations based on method
+      // ✅ Conditional validations based on method
       if (this.localForm.method === 'cheque' && !this.localForm.chequeNo) {
         this.formErrors.push(
           'Cheque number is required when payment method is cheque'
@@ -917,9 +964,10 @@ export default {
       this.$emit('ministry-changed', this.localForm.ministryId)
     },
 
-    // ✅ NEW: Handle payment method changes
+    // ✅ Handle payment method changes
     handleMethodChange() {
       const method = this.localForm.method
+      console.info(`🔧 handleMethodChange: ${method}`)
 
       // Clear conditional fields when method changes
       if (method !== 'cheque') {
@@ -1210,6 +1258,16 @@ textarea.form-control {
   pointer-events: none;
   color: #6b7280;
   font-size: 12px;
+}
+
+/* 🔧 DEBUG: Add debug info styling */
+.debug-info {
+  font-style: italic;
+  color: #666 !important;
+  background: #f9f9f9;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-family: monospace;
 }
 
 /* Ministry Info Styles */
