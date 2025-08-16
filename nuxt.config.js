@@ -29,7 +29,8 @@ export default {
   css: [
     '@/assets/css/mycss.css',
     '@/assets/css/style.css',
-    '@fortawesome/fontawesome-free/css/all.css'
+    '@fortawesome/fontawesome-free/css/all.css',
+    'vue2-datepicker/index.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -47,7 +48,8 @@ export default {
     { src: '~/plugins/barcode.js', ssr: false },
     { src: '~/plugins/v-calendar.js', ssr: false },
     { src: '~/plugins/draggable.js', ssr: false },
-    { src: '~/plugins/gantt-schedule-timeline-calendar.js', mode: 'client' }
+    { src: '~/plugins/gantt-schedule-timeline-calendar.js', mode: 'client' },
+    { src: '~/plugins/vue2-datepicker.js', mode: 'client' }
     // Removed Chart.js plugin - now using direct imports
   ],
 
@@ -140,7 +142,7 @@ export default {
       if (isDev && isClient) {
         config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
       }
-      
+
       // For Chart.js compatibility with Nuxt 2/Webpack 4
       if (isClient) {
         config.node = {

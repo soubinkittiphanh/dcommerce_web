@@ -15,7 +15,11 @@
               ເລກທີ:
               {{ formData.id ? formatVoucherNumber(formData.id) : '000000' }}
             </span>
-            <button @click="closeDialog" class="close-btn">
+            <button
+              @click="closeDialog"
+              class="close-btn"
+              :disabled="isFormDisabled"
+            >
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -24,32 +28,61 @@
         <form @submit.prevent="saveSettlement">
           <div class="modal-body">
             <!-- Loading state for form data -->
-            <div v-if="loading" class="form-loading">
+            <div v-if="loading || isSubmitting" class="form-loading">
               <div class="spinner-small"></div>
-              <p>Loading form data...</p>
+              <p>
+                {{
+                  isSubmitting ? 'ກຳລັງບັນທຶກຂໍ້ມູນ...' : 'ກຳລັງໂຫຼດຂໍ້ມູນ...'
+                }}
+              </p>
             </div>
 
             <div v-else class="form-grid compact">
-              <!-- Row 1: Settlement Date (ວັນທີຊຳລະ - as shown in footer) -->
+              <!-- Row 1: Settlement Date -->
               <div class="form-group">
                 <label class="form-label required">
                   <i class="fas fa-calendar"></i>
                   ວັນທີລົງຊຳລະ
                 </label>
-                <input
-                  v-model="formData.settlementDate"
-                  type="date"
-                  class="form-control compact"
-                  :class="{ 'is-invalid': errors.settlementDate }"
-                  :max="today"
-                  required
-                />
-                <div v-if="errors.settlementDate" class="invalid-feedback">
-                  {{ errors.settlementDate }}
-                </div>
+
+                <v-menu
+                  ref="bookingDateMenu"
+                  v-model="bookingDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                  :disabled="isFormDisabled"
+                >
+                  <template #activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formattedBookingDate"
+                      outlined
+                      dense
+                      clearable
+                      hide-details
+                      prepend-inner-icon="mdi-calendar"
+                      :error="!!errors.bookingDate"
+                      :error-messages="errors.bookingDate"
+                      :disabled="isFormDisabled"
+                      :class="{ 'compact-date-field': true }"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click:clear="clearBookingDate"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="pickerBookingDate"
+                    no-title
+                    :max="today"
+                    @input="setBookingDate"
+                    :disabled="isFormDisabled"
+                  />
+                </v-menu>
               </div>
 
-              <!-- Row 2: Payment Method (ວິທີການຊຳລະ - early in voucher) -->
+              <!-- Row 2: Payment Method -->
               <div class="form-group">
                 <label class="form-label required">
                   <i class="fas fa-credit-card"></i>
@@ -60,6 +93,7 @@
                     v-model="formData.method"
                     class="form-control custom-select compact"
                     :class="{ 'is-invalid': errors.method }"
+                    :disabled="isFormDisabled"
                     required
                     @change="handleMethodChange"
                   >
@@ -80,7 +114,7 @@
                 </div>
               </div>
 
-              <!-- Row 3: External Reference (ອີງຕາມ - appears early in voucher) -->
+              <!-- Row 3: External Reference -->
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-hashtag"></i>
@@ -91,6 +125,7 @@
                   type="text"
                   class="form-control compact"
                   :class="{ 'is-invalid': errors.externalRef }"
+                  :disabled="isFormDisabled"
                   placeholder="ອີງຕາມ ການຕົກລົງ ເຫັນດີ..."
                   maxlength="50"
                 />
@@ -99,7 +134,7 @@
                 </div>
               </div>
 
-              <!-- Row 4: External Reference Number (appears in header) -->
+              <!-- Row 4: External Reference Number -->
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-hashtag"></i>
@@ -110,6 +145,7 @@
                   type="text"
                   class="form-control compact"
                   :class="{ 'is-invalid': errors.externalRefNo }"
+                  :disabled="isFormDisabled"
                   placeholder="REF-001, TXN-123..."
                   maxlength="50"
                 />
@@ -118,7 +154,7 @@
                 </div>
               </div>
 
-              <!-- Row 5: Cheque Number (conditional - ເລກເຊັກ) -->
+              <!-- Row 5: Cheque Number -->
               <div class="form-group" v-if="formData.method === 'cheque'">
                 <label class="form-label required">
                   <i class="fas fa-money-check"></i>
@@ -129,6 +165,7 @@
                   type="text"
                   class="form-control compact"
                   :class="{ 'is-invalid': errors.chequeNo }"
+                  :disabled="isFormDisabled"
                   placeholder="ໃສ່ເລກເຊັກ..."
                   maxlength="20"
                   :required="formData.method === 'cheque'"
@@ -138,7 +175,7 @@
                 </div>
               </div>
 
-              <!-- Row 6: Currency (ສະກຸນເງິນ - appears before amount in voucher) -->
+              <!-- Row 6: Currency -->
               <div class="form-group">
                 <label class="form-label required">
                   <i class="fas fa-coins"></i>
@@ -149,9 +186,9 @@
                     v-model="formData.currencyId"
                     class="form-control custom-select compact"
                     :class="{ 'is-invalid': errors.currencyId }"
+                    :disabled="isFormDisabled || isLinkedToAdvance"
                     required
                     @change="updateSelectedCurrency"
-                    :disabled="isLinkedToAdvance"
                   >
                     <option value="">ເລືອກສະກຸນເງິນ</option>
                     <option
@@ -172,7 +209,7 @@
                 </div>
               </div>
 
-              <!-- Row 7: Amount (ຈຳນວນເງິນ) -->
+              <!-- Row 7: Amount -->
               <div class="form-group">
                 <label class="form-label required">
                   <i class="fas fa-dollar-sign"></i>
@@ -186,6 +223,7 @@
                     min="0"
                     class="form-control compact"
                     :class="{ 'is-invalid': errors.amount }"
+                    :disabled="isFormDisabled"
                     placeholder="0.00"
                     required
                   />
@@ -200,7 +238,7 @@
                 </div>
               </div>
 
-              <!-- Row 8: From Person Name (ຈາກທ່ານ - appears after amount) -->
+              <!-- Row 8: From Person Name -->
               <div
                 class="form-group"
                 v-if="
@@ -223,6 +261,7 @@
                   type="text"
                   class="form-control compact"
                   :class="{ 'is-invalid': errors.fromPersonName }"
+                  :disabled="isFormDisabled"
                   placeholder="ຊື່ຜູ້ຈ່າຍເງິນ..."
                   maxlength="100"
                   :required="
@@ -234,7 +273,7 @@
                 </div>
               </div>
 
-              <!-- Row 9: Ministry (ສັງກັດຢູ່ - appears after from person) -->
+              <!-- Row 9: Ministry -->
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-building"></i>
@@ -245,6 +284,7 @@
                     v-model="formData.ministryId"
                     class="form-control custom-select compact"
                     :class="{ 'is-invalid': errors.ministryId }"
+                    :disabled="isFormDisabled"
                     @change="updateSelectedMinistry"
                   >
                     <option value="">ເລືອກກະຊວງ (ທາງເລືອກ)</option>
@@ -262,7 +302,7 @@
                 </div>
               </div>
 
-              <!-- Row 10: Bank Account (conditional - ບັນຊີທະນາຄານ) -->
+              <!-- Row 10: Bank Account -->
               <div
                 v-if="formData.method === 'bank_transfer'"
                 class="form-group full-width"
@@ -276,6 +316,7 @@
                     v-model="formData.bankAccountId"
                     class="form-control custom-select compact"
                     :class="{ 'is-invalid': errors.bankAccountId }"
+                    :disabled="isFormDisabled"
                     :required="formData.method === 'bank_transfer'"
                     @change="updateSelectedBankAccount"
                   >
@@ -297,7 +338,7 @@
                 </div>
               </div>
 
-              <!-- Row 11: Exchange Rate (ອັດຕາແລກປ່ຽນ - when not base currency) -->
+              <!-- Row 11: Exchange Rate -->
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-exchange-alt"></i>
@@ -311,6 +352,7 @@
                     min="0"
                     class="form-control compact"
                     :class="{ 'is-invalid': errors.exchangeRate }"
+                    :disabled="isFormDisabled"
                     placeholder="1.0000"
                     @input="calculateEquivalentAmount"
                   />
@@ -325,7 +367,7 @@
                 </div>
               </div>
 
-              <!-- Row 12: Chart Account (ບັນຊີລວມ - appears in footer) -->
+              <!-- Row 12: Chart Account -->
               <div class="form-group">
                 <label class="form-label">
                   <i class="fas fa-chart-line"></i>
@@ -336,6 +378,7 @@
                     v-model="formData.chartAccountId"
                     class="form-control custom-select compact"
                     :class="{ 'is-invalid': errors.chartAccountId }"
+                    :disabled="isFormDisabled"
                   >
                     <option value="">ເລືອກບັນຊີລວມ (ທາງເລືອກ)</option>
                     <option
@@ -353,7 +396,7 @@
                 </div>
               </div>
 
-              <!-- Row 13: User/Proceeder (ຜູ້ລົງບັນຊີ - ຜູ້ຮັບຄັງເງິນສົດ) -->
+              <!-- Row 13: User/Proceeder -->
               <div class="form-group">
                 <label class="form-label required">
                   <i class="fas fa-user"></i>
@@ -364,8 +407,8 @@
                     v-model="formData.userId"
                     class="form-control custom-select compact"
                     :class="{ 'is-invalid': errors.userId }"
+                    :disabled="true"
                     required
-                    disabled
                   >
                     <option value="">ເລືອກຜູ້ລົງບັນຊີ</option>
                     <option
@@ -385,7 +428,7 @@
                 </div>
               </div>
 
-              <!-- Row 14: Money Advance Link (ອ້າງອິງລາຍຈ່າຍລ່ວງໜ້າ) -->
+              <!-- Row 14: Money Advance Link -->
               <div class="form-group full-width compact-advance">
                 <div class="advance-toggle">
                   <label class="form-label">
@@ -398,6 +441,7 @@
                         type="radio"
                         v-model="formData.linkToAdvance"
                         value="false"
+                        :disabled="isFormDisabled"
                         @change="clearAdvanceSelection"
                       />
                       <span class="radio-label">ບໍ່ເຊື່ອມຕໍ່</span>
@@ -407,6 +451,7 @@
                         type="radio"
                         v-model="formData.linkToAdvance"
                         value="true"
+                        :disabled="isFormDisabled"
                       />
                       <span class="radio-label">ເຊື່ອມຕໍ່</span>
                     </label>
@@ -422,6 +467,7 @@
                       <select
                         v-model="formData.moneyAdvanceId"
                         class="form-control custom-select compact"
+                        :disabled="isFormDisabled"
                         @change="updateSelectedAdvance"
                       >
                         <option value="">ເລືອກລາຍຈ່າຍລ່ວງໜ້າ</option>
@@ -430,9 +476,10 @@
                           :key="advance.id"
                           :value="advance.id"
                         >
-                          #{{ advance.id }} -
-                          #{{ advance.receiveName }} -
-                          #{{ advance.ministry?.ministryName || '' }} -
+                          #{{ advance.id }} - #{{ advance.receiveName }} - #{{
+                            advance.ministry?.ministryName || ''
+                          }}
+                          -
                           {{
                             formatCurrency(
                               advance.amount,
@@ -449,7 +496,7 @@
                       type="button"
                       class="btn btn-outline-primary btn-sm compact"
                       @click.stop="browseMoneyAdvances"
-                      :disabled="loadingAdvances"
+                      :disabled="isFormDisabled || loadingAdvances"
                     >
                       <i
                         v-if="loadingAdvances"
@@ -480,7 +527,7 @@
                 </div>
               </div>
 
-              <!-- Row 15: Notes/Content (ເນື້ອໃນລາຍຮັບ - appears at end of voucher) -->
+              <!-- Row 15: Notes/Content -->
               <div class="form-group full-width">
                 <label class="form-label">
                   <i class="fas fa-sticky-note"></i>
@@ -489,6 +536,7 @@
                 <textarea
                   v-model="formData.notes"
                   class="form-control compact"
+                  :disabled="isFormDisabled"
                   rows="3"
                   placeholder="ເນື້ອໃນລາຍຮັບ / ລາຍລະອຽດເພີ່ມເຕີມ..."
                   maxlength="500"
@@ -518,7 +566,7 @@
               type="button"
               @click="closeDialog"
               class="btn btn-secondary compact"
-              :disabled="loading"
+              :disabled="isFormDisabled"
             >
               <i class="fas fa-times"></i>
               ຍົກເລີກ
@@ -526,24 +574,31 @@
             <button
               type="submit"
               class="btn btn-primary compact"
-              :disabled="loading || !isFormValid"
+              :disabled="isFormDisabled || !isFormValid"
             >
-              <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+              <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
               <i
                 v-else
                 class="fas"
                 :class="isEditMode ? 'fa-save' : 'fa-plus'"
               ></i>
               {{
-                loading ? 'ກຳລັງບັນທຶກ...' : isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ'
+                isSubmitting
+                  ? 'ກຳລັງບັນທຶກ...'
+                  : isEditMode
+                  ? 'ອັບເດດ'
+                  : 'ບັນທຶກ'
               }}
             </button>
             <button
+              type="button"
               class="btn btn-sm btn-outline-secondary"
               @click.prevent="printSettlement"
-              title="Print"
+              title="Save & Print"
+              :disabled="isFormDisabled || !isFormValid"
             >
               <i class="fas fa-print"></i>
+              Save & Print
             </button>
           </div>
         </form>
@@ -666,8 +721,8 @@
         </div>
       </div>
     </div>
+
     <!-- Voucher Print Component - MOVED OUTSIDE main modal -->
-    <!-- Voucher Print Component -->
     <VoucherPrintComponent
       v-if="showPrintVoucher && settlementDetail"
       :key="settlementDetail.id"
@@ -724,11 +779,18 @@ export default {
     },
   },
 
+  emits: ['close', 'save', 'created', 'updated'],
+
   data() {
     return {
+      bookingDateMenu: false,
+      pickerBookingDate: null, // for v-date-picker (YYYY-MM-DD format)
+      formattedBookingDate: null, // for display (DD/MM/YYYY format)
       showPrintVoucher: false,
       settlementDetail: null,
       loading: false,
+      isSubmitting: false, // New flag for submission state
+      justCreated: false, // NEW: Flag to prevent form reset after creation
       loadingAdvances: false,
       showAdvanceBrowser: false,
       selectedAdvanceForBrowser: null,
@@ -739,7 +801,7 @@ export default {
         status: '',
       },
       formData: {
-        settlementDate: '',
+        bookingDate: '',
         method: '',
         amount: null,
         currencyId: '',
@@ -752,7 +814,6 @@ export default {
         selectedInvoices: [],
         linkToAdvance: 'false',
         moneyAdvanceId: '',
-        // NEW FIELDS ADDED
         externalRef: '',
         externalRefNo: '',
         chequeNo: '',
@@ -765,7 +826,10 @@ export default {
 
   computed: {
     isEditMode() {
-      return this.settlement && this.settlement.id
+      return (
+        (this.settlement && this.settlement.id) ||
+        (this.formData.id && this.justCreated)
+      )
     },
 
     isLinkedToAdvance() {
@@ -804,7 +868,8 @@ export default {
       const currency = this.currencies.find(
         (c) => c.id == this.formData.currencyId
       )
-      if (!this._isInitializing) this.formData.exchangeRate = currency.rate || 1
+      if (!this._isInitializing)
+        this.formData.exchangeRate = currency?.rate || 1
 
       return currency ? currency.code || currency.currencyCode : 'LAK'
     },
@@ -870,7 +935,7 @@ export default {
         ),
         hasCurrency: !!this.formData.currencyId,
         hasUser: !!this.formData.userId,
-        hasSettlementDate: !!this.formData.settlementDate,
+        hasSettlementDate: !!this.formData.bookingDate,
         hasMethod: !!this.formData.method,
         hasUsers: this.users.length > 0,
         hasCurrencies: this.currencies.length > 0,
@@ -879,7 +944,6 @@ export default {
           !!this.formData.bankAccountId,
         exchangeRateValid:
           !this.formData.exchangeRate || this.formData.exchangeRate > 0,
-        // NEW VALIDATIONS
         chequeNoValid:
           this.formData.method !== 'cheque' || !!this.formData.chequeNo,
         fromPersonNameValid:
@@ -890,17 +954,23 @@ export default {
 
       return Object.values(validations).every((v) => v === true)
     },
+
+    isFormDisabled() {
+      return this.loading || this.isSubmitting
+    },
   },
 
   watch: {
     visible(newVal) {
       if (newVal) {
+        this.justCreated = false // Reset flag when dialog opens
         this.initializeForm()
         this.loadMoneyAdvances()
       } else {
         this.resetForm()
       }
     },
+
     'formData.currencyId'(newVal, oldVal) {
       if (newVal !== oldVal) {
         if (!this._isInitializing || !this.isEditMode) {
@@ -908,16 +978,24 @@ export default {
         }
       }
     },
+
     settlement: {
       handler(newVal, oldVal) {
-        if (this.visible && newVal !== oldVal) {
+        if (
+          this.visible &&
+          newVal !== oldVal &&
+          !this.isSubmitting &&
+          !this.justCreated
+        ) {
           this.$nextTick(() => {
             this.initializeForm()
           })
         }
       },
       deep: true,
+      immediate: false,
     },
+
     'formData.moneyAdvanceId'(newVal, oldVal) {
       if (newVal && newVal !== oldVal) {
         this.$nextTick(() => {
@@ -926,11 +1004,13 @@ export default {
         })
       }
     },
+
     'formData.linkToAdvance'(newVal, oldVal) {
       if (newVal === 'false' && oldVal === 'true') {
         this.clearAdvanceSelection()
       }
     },
+
     availableAdvances: {
       handler(newAdvances) {
         if (
@@ -948,14 +1028,88 @@ export default {
     },
   },
 
+  mounted() {
+    // Debug carousel references
+    console.log('Refs available:', Object.keys(this.$refs))
+    this.checkForCarouselCode()
+  },
+
   beforeDestroy() {
     document.body.style.overflow = 'auto'
+    this.isSubmitting = false
+    this.loading = false
+    this.cleanupEventListeners()
   },
 
   methods: {
+    // Date formatting method
+    formatDateForDisplay(date) {
+      if (!date) return null
+      const d = new Date(date)
+      const day = String(d.getDate()).padStart(2, '0')
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+      const year = d.getFullYear()
+      return `${day}/${month}/${year}`
+    },
+
+    // Set booking date from picker
+    setBookingDate(val) {
+      this.pickerBookingDate = val
+      this.formData.bookingDate = val // Keep YYYY-MM-DD format for backend
+      this.formattedBookingDate = this.formatDateForDisplay(val)
+      this.bookingDateMenu = false
+
+      // Clear any existing error
+      this.clearFieldError('bookingDate')
+    },
+
+    // Clear booking date
+    clearBookingDate() {
+      this.pickerBookingDate = null
+      this.formData.bookingDate = ''
+      this.formattedBookingDate = null
+      this.clearFieldError('bookingDate')
+    },
+    // Debug methods for carousel issue
+    checkForCarouselCode() {
+      const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(this))
+      const carouselMethods = methods.filter(
+        (method) =>
+          method.toLowerCase().includes('carousel') ||
+          method.toLowerCase().includes('next') ||
+          method.toLowerCase().includes('prev')
+      )
+
+      if (carouselMethods.length > 0) {
+        console.warn(
+          'Found potential carousel-related methods:',
+          carouselMethods
+        )
+      }
+    },
+
+    cleanupEventListeners() {
+      try {
+        document.removeEventListener('keydown', this.handleKeydown)
+        window.removeEventListener('resize', this.handleResize)
+      } catch (error) {
+        console.warn('Error cleaning up event listeners:', error)
+      }
+    },
+
+    // Override potential carousel methods
+    nextSlide() {
+      console.warn('nextSlide called but no carousel exists')
+    },
+
+    prevSlide() {
+      console.warn('prevSlide called but no carousel exists')
+    },
+
     formatVoucherNumber(id) {
       return String(id).padStart(6, '0')
     },
+
     showToast(message, type = 'info') {
       if (this.$toast) {
         this.$toast[type](message)
@@ -969,128 +1123,204 @@ export default {
         alert(`${type.toUpperCase()}: ${message}`)
       }
     },
+
     async fetchSettlementByid() {
       if (!this.formData.id)
         return this.showToast('ກະລຸນາບັນທຶກຂໍ້ມູນກ່ອນ', 'error')
-      this.loading = true
 
+      this.loading = true
       try {
         const { data } = await this.$axios.get(
           `/api/settlements/${this.formData.id}`
         )
         this.settlementDetail = data.data
+        console.info(
+          `Settlement detail ${JSON.stringify(this.settlementDetail)}`
+        )
       } catch (error) {
-        this.showToast('Error fetching money advances', 'error')
+        this.showToast('Error fetching settlement details', 'error')
         console.error(error)
       } finally {
         this.loading = false
       }
     },
+
     closePrintVoucher() {
       this.showPrintVoucher = false
       setTimeout(() => {
         this.settlementDetail = null
       }, 100)
     },
+
     async printSettlement() {
+      await this.saveSettlement()
       await this.fetchSettlementByid()
       this.showPrintVoucher = true
     },
+
     initializeForm() {
-      if (
-        this.settlement &&
-        (this.settlement.id || this.settlement.moneyAdvanceId)
-      ) {
-        const hasMoneyAdvance =
-          this.settlement.moneyAdvanceId &&
-          this.settlement.moneyAdvanceId !== null &&
-          this.settlement.moneyAdvanceId !== '' &&
-          this.settlement.moneyAdvanceId !== '0' &&
-          this.settlement.moneyAdvanceId !== 0
+      console.info(`INITIALY DATA BEING CALLED ..... `)
+      if (this.isSubmitting) {
+        return
+      }
 
-        this.formData = {
-          id: this.settlement.id,
-          settlementDate: this.settlement.settlementDate
-            ? this.settlement.settlementDate.split('T')[0]
-            : '',
-          method: this.settlement.method || '',
-          amount: this.settlement.amount || null,
-          currencyId: this.settlement.currencyId || '',
-          exchangeRate:
-            this.settlement.exchangeRate !== undefined &&
-            this.settlement.exchangeRate !== null
-              ? this.settlement.exchangeRate
-              : 1,
-          bankAccountId: this.settlement.bankAccountId || '',
-          ministryId: this.settlement.ministryId || '',
-          chartAccountId: this.settlement.chartAccountId || '',
-          userId: this.settlement.userId || '',
-          notes: this.settlement.notes || '',
-          selectedInvoices: [],
-          linkToAdvance:
-            hasMoneyAdvance || this.settlement.linkToAdvance === 'true'
-              ? 'true'
-              : 'false',
-          moneyAdvanceId: hasMoneyAdvance
-            ? this.settlement.moneyAdvanceId.toString()
-            : '',
-          // INITIALIZE NEW FIELDS
-          externalRef: this.settlement.externalRef || '',
-          externalRefNo: this.settlement.externalRefNo || '',
-          chequeNo: this.settlement.chequeNo || '',
-          fromPersonName: this.settlement.fromPersonName || '',
-        }
+      // Don't reinitialize if we just created a record
+      if (this.justCreated && this.formData.id) {
+        console.log('Skipping form initialization - record was just created')
+        return
+      }
 
-        this._isInitializing = true
+      this._isInitializing = true
 
-        if (this.formData.linkToAdvance === 'true') {
-          this.$nextTick(() => {
-            this.waitForAdvancesAndSync()
-            this._isInitializing = false
-          })
+      try {
+        if (
+          this.settlement &&
+          (this.settlement.id || this.settlement.moneyAdvanceId)
+        ) {
+          const hasMoneyAdvance =
+            this.settlement.moneyAdvanceId &&
+            this.settlement.moneyAdvanceId !== null &&
+            this.settlement.moneyAdvanceId !== '' &&
+            this.settlement.moneyAdvanceId !== '0' &&
+            this.settlement.moneyAdvanceId !== 0
+
+          this.formData = {
+            id: this.settlement.id,
+            bookingDate: this.settlement.bookingDate
+              ? this.settlement.bookingDate.split('T')[0]
+              : '',
+            method: this.settlement.method || '',
+            amount: this.settlement.amount || null,
+            currencyId: this.settlement.currencyId || '',
+            exchangeRate:
+              this.settlement.exchangeRate !== undefined &&
+              this.settlement.exchangeRate !== null
+                ? this.settlement.exchangeRate
+                : 1,
+            bankAccountId: this.settlement.bankAccountId || '',
+            ministryId: this.settlement.ministryId || '',
+            chartAccountId: this.settlement.chartAccountId || '',
+            userId: this.settlement.userId || '',
+            notes: this.settlement.notes || '',
+            selectedInvoices: [],
+            linkToAdvance:
+              hasMoneyAdvance || this.settlement.linkToAdvance === 'true'
+                ? 'true'
+                : 'false',
+            moneyAdvanceId: hasMoneyAdvance
+              ? this.settlement.moneyAdvanceId.toString()
+              : '',
+            externalRef: this.settlement.externalRef || '',
+            externalRefNo: this.settlement.externalRefNo || '',
+            chequeNo: this.settlement.chequeNo || '',
+            fromPersonName: this.settlement.fromPersonName || '',
+          }
+
+          // Set date picker values for existing settlement
+          if (this.formData.bookingDate) {
+            this.pickerBookingDate = this.formData.bookingDate
+            this.formattedBookingDate = this.formatDateForDisplay(
+              this.formData.bookingDate
+            )
+          }
+
+          if (this.formData.linkToAdvance === 'true') {
+            this.$nextTick(() => {
+              this.waitForAdvancesAndSync()
+            })
+          }
         } else {
-          this.$nextTick(() => {
-            this._isInitializing = false
-          })
-        }
-      } else {
-        this.formData = {
-          settlementDate: this.today,
-          method: this.paymentMethod,
-          amount: null,
-          currencyId: '',
-          exchangeRate: 1,
-          bankAccountId: '',
-          ministryId: '',
-          chartAccountId: '',
-          userId: this.user.id,
-          notes: '',
-          selectedInvoices: [],
-          linkToAdvance: 'false',
-          moneyAdvanceId: '',
-          // INITIALIZE NEW FIELDS FOR CREATE MODE
-          externalRef: '',
-          externalRefNo: '',
-          chequeNo: '',
-          fromPersonName: '',
+          // New settlement
+          const todayDate = this.today
+
+          this.formData = {
+            bookingDate: todayDate,
+            method: this.paymentMethod,
+            amount: null,
+            currencyId: '',
+            exchangeRate: 1,
+            bankAccountId: '',
+            ministryId: '',
+            chartAccountId: '',
+            userId: this.user?.id || '',
+            notes: '',
+            selectedInvoices: [],
+            linkToAdvance: 'false',
+            moneyAdvanceId: '',
+            externalRef: '',
+            externalRefNo: '',
+            chequeNo: '',
+            fromPersonName: '',
+          }
+
+          // Set date picker values for new settlement
+          this.pickerBookingDate = todayDate
+          this.formattedBookingDate = this.formatDateForDisplay(todayDate)
+
+          if (this.currencies.length > 0) {
+            const defaultCurrency =
+              this.currencies.find(
+                (c) => (c.code || c.currencyCode) === 'LAK'
+              ) || this.currencies[0]
+            this.formData.currencyId = defaultCurrency.id
+          }
         }
 
-        this._isInitializing = true
-
-        if (this.currencies.length > 0) {
-          const defaultCurrency =
-            this.currencies.find((c) => (c.code || c.currencyCode) === 'LAK') ||
-            this.currencies[0]
-          this.formData.currencyId = defaultCurrency.id
-        }
-
+        this.errors = {}
+        this.formErrors = []
+      } catch (error) {
+        console.error('Error initializing form:', error)
+        this.showToast('Error initializing form', 'error')
+      } finally {
         this.$nextTick(() => {
           this._isInitializing = false
         })
       }
+      console.info(
+        `SETTLEMENT AFTER INITIALIZATION: ${JSON.stringify(this.formData)}`
+      )
+    },
+
+    // Update your resetForm method to clear date picker values
+    resetForm() {
+      if (this.isSubmitting) {
+        return
+      }
+
+      this.formData = {
+        bookingDate: '',
+        method: '',
+        amount: null,
+        currencyId: '',
+        exchangeRate: 1,
+        bankAccountId: '',
+        ministryId: '',
+        chartAccountId: '',
+        userId: this.user?.id || '',
+        notes: '',
+        selectedInvoices: [],
+        linkToAdvance: 'false',
+        moneyAdvanceId: '',
+        externalRef: '',
+        externalRefNo: '',
+        chequeNo: '',
+        fromPersonName: '',
+      }
+
+      // Clear date picker values
+      this.pickerBookingDate = null
+      this.formattedBookingDate = null
+      this.bookingDateMenu = false
 
       this.errors = {}
       this.formErrors = []
+      this.loading = false
+      this.isSubmitting = false
+      this.justCreated = false
+
+      if (this.showAdvanceBrowser) {
+        this.closeAdvanceBrowser()
+      }
     },
 
     waitForAdvancesAndSync() {
@@ -1110,38 +1340,6 @@ export default {
         }
       }
       checkAndSync()
-    },
-
-    resetForm() {
-      this.formData = {
-        settlementDate: '',
-        method: '',
-        amount: null,
-        currencyId: '',
-        exchangeRate: 1,
-        bankAccountId: '',
-        ministryId: '',
-        chartAccountId: '',
-        userId: this.user.id,
-        notes: '',
-        selectedInvoices: [],
-        linkToAdvance: 'false',
-        moneyAdvanceId: '',
-        // RESET NEW FIELDS
-        externalRef: '',
-        externalRefNo: '',
-        chequeNo: '',
-        fromPersonName: '',
-      }
-      this.errors = {}
-      this.formErrors = []
-      this.loading = false
-
-      if (this.showAdvanceBrowser) {
-        this.showAdvanceBrowser = false
-        this.selectedAdvanceForBrowser = null
-        document.body.style.overflow = 'auto'
-      }
     },
 
     handleCurrencyChange() {
@@ -1228,7 +1426,6 @@ export default {
       if (this.formData.method !== 'deduction') {
         this.formData.selectedInvoices = []
       }
-      // Clear method-specific fields
       if (this.formData.method !== 'cheque') {
         this.formData.chequeNo = ''
       }
@@ -1419,86 +1616,102 @@ export default {
       this.errors = {}
       this.formErrors = []
 
-      // Required fields validation
-      if (!this.formData.settlementDate) {
-        this.errors.settlementDate = 'ກະລຸນາເລືອກວັນທີ'
-        this.formErrors.push('ວັນທີລົງຊຳລະ ແມ່ນຈຳເປັນ')
-      }
-
-      if (!this.formData.method) {
-        this.errors.method = 'ກະລຸນາເລືອກວິທີການຊຳລະ'
-        this.formErrors.push('ວິທີການຊຳລະ ແມ່ນຈຳເປັນ')
-      }
-
-      if (!this.formData.amount || this.formData.amount <= 0) {
-        this.errors.amount = 'ກະລຸນາໃສ່ຈຳນວນເງິນທີ່ຖືກຕ້ອງ'
-        this.formErrors.push('ຈຳນວນເງິນ ແມ່ນຈຳເປັນ ແລະ ຕ້ອງຫຼາຍກວ່າ 0')
-      }
-
-      if (!this.formData.currencyId) {
-        this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
-        this.formErrors.push('ສະກຸນເງິນ ແມ່ນຈຳເປັນ')
-      }
-
-      if (this.formData.exchangeRate && this.formData.exchangeRate <= 0) {
-        this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0'
-        this.formErrors.push('ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0')
-      }
-
-      if (!this.formData.userId) {
-        this.errors.userId = 'ກະລຸນາເລືອກຜູ້ລົງບັນຊີ'
-        this.formErrors.push('ຜູ້ລົງບັນຊີ ແມ່ນຈຳເປັນ')
-      }
-
-      // Conditional validation
-      if (
-        this.formData.method === 'bank_transfer' &&
-        !this.formData.bankAccountId
-      ) {
-        this.errors.bankAccountId = 'ກະລຸນາເລືອກບັນຊີທະນາຄານ'
-        this.formErrors.push('ບັນຊີທະນາຄານ ແມ່ນຈຳເປັນສຳລັບການໂອນທະນາຄານ')
-      }
-
-      // NEW: Cheque number validation
-      if (this.formData.method === 'cheque' && !this.formData.chequeNo) {
-        this.errors.chequeNo = 'ກະລຸນາໃສ່ເລກເຊັກ'
-        this.formErrors.push('ເລກເຊັກ ແມ່ນຈຳເປັນສຳລັບການຊຳລະດ້ວຍເຊັກ')
-      }
-
-      // NEW: From person name validation
-      if (
-        (this.formData.method === 'cash' ||
-          this.formData.method === 'cheque') &&
-        !this.formData.fromPersonName
-      ) {
-        this.errors.fromPersonName = 'ກະລຸນາໃສ່ຊື່ຜູ້ຈ່າຍ'
-        this.formErrors.push(
-          'ຊື່ຜູ້ຈ່າຍ ແມ່ນຈຳເປັນສຳລັບການຊຳລະດ້ວຍເງິນສົດ ແລະ ເຊັກ'
-        )
-      }
-
-      // Special validation for linked advances
-      if (this.isLinkedToAdvance && this.selectedAdvance) {
-        const advanceCurrency = this.getAdvanceCurrency()
-        if (advanceCurrency && this.formData.currencyId != advanceCurrency.id) {
-          this.errors.currencyId = 'ສະກຸນເງິນຕ້ອງກົງກັບລາຍຈ່າຍລ່ວງໜ້າ'
-          this.formErrors.push('ສະກຸນເງິນຕ້ອງກົງກັບລາຍຈ່າຍລ່ວງໜ້າທີ່ເລືອກ')
+      try {
+        // Required fields validation
+        if (!this.formData.bookingDate) {
+          this.errors.bookingDate = 'ກະລຸນາເລືອກວັນທີ'
+          this.formErrors.push('ວັນທີລົງຊຳລະ ແມ່ນຈຳເປັນ')
         }
-      }
 
-      if (this.formData.notes && this.formData.notes.length > 500) {
-        this.formErrors.push('ໝາຍເຫດຕ້ອງບໍ່ເກີນ 500 ຕົວອັກສອນ')
-      }
+        if (!this.formData.method) {
+          this.errors.method = 'ກະລຸນາເລືອກວິທີການຊຳລະ'
+          this.formErrors.push('ວິທີການຊຳລະ ແມ່ນຈຳເປັນ')
+        }
 
-      if (this.users.length === 0) {
-        this.formErrors.push('ບໍ່ມີຜູ້ໃຊ້ງານ. ກະລຸນາຕິດຕໍ່ຜູ້ຄຸ້ມຄອງລະບົບ.')
-      }
+        if (!this.formData.amount || this.formData.amount <= 0) {
+          this.errors.amount = 'ກະລຸນາໃສ່ຈຳນວນເງິນທີ່ຖືກຕ້ອງ'
+          this.formErrors.push('ຈຳນວນເງິນ ແມ່ນຈຳເປັນ ແລະ ຕ້ອງຫຼາຍກວ່າ 0')
+        }
 
-      if (this.currencies.length === 0) {
-        this.formErrors.push('ບໍ່ມີສະກຸນເງິນ. ກະລຸນາຕິດຕໍ່ຜູ້ຄຸ້ມຄອງລະບົບ.')
-      }
+        if (!this.formData.currencyId) {
+          this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
+          this.formErrors.push('ສະກຸນເງິນ ແມ່ນຈຳເປັນ')
+        }
 
-      return this.formErrors.length === 0
+        if (this.formData.exchangeRate && this.formData.exchangeRate <= 0) {
+          this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0'
+          this.formErrors.push('ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0')
+        }
+
+        if (!this.formData.userId) {
+          this.errors.userId = 'ກະລຸນາເລືອກຜູ້ລົງບັນຊີ'
+          this.formErrors.push('ຜູ້ລົງບັນຊີ ແມ່ນຈຳເປັນ')
+        }
+
+        // Conditional validation
+        if (
+          this.formData.method === 'bank_transfer' &&
+          !this.formData.bankAccountId
+        ) {
+          this.errors.bankAccountId = 'ກະລຸນາເລືອກບັນຊີທະນາຄານ'
+          this.formErrors.push('ບັນຊີທະນາຄານ ແມ່ນຈຳເປັນສຳລັບການໂອນທະນາຄານ')
+        }
+
+        if (this.formData.method === 'cheque' && !this.formData.chequeNo) {
+          this.errors.chequeNo = 'ກະລຸນາໃສ່ເລກເຊັກ'
+          this.formErrors.push('ເລກເຊັກ ແມ່ນຈຳເປັນສຳລັບການຊຳລະດ້ວຍເຊັກ')
+        }
+
+        if (
+          (this.formData.method === 'cash' ||
+            this.formData.method === 'cheque') &&
+          !this.formData.fromPersonName
+        ) {
+          this.errors.fromPersonName = 'ກະລຸນາໃສ່ຊື່ຜູ້ຈ່າຍ'
+          this.formErrors.push(
+            'ຊື່ຜູ້ຈ່າຍ ແມ່ນຈຳເປັນສຳລັບການຊຳລະດ້ວຍເງິນສົດ ແລະ ເຊັກ'
+          )
+        }
+
+        // Special validation for linked advances
+        if (this.isLinkedToAdvance && this.selectedAdvance) {
+          const advanceCurrency = this.getAdvanceCurrency()
+          if (
+            advanceCurrency &&
+            this.formData.currencyId != advanceCurrency.id
+          ) {
+            this.errors.currencyId = 'ສະກຸນເງິນຕ້ອງກົງກັບລາຍຈ່າຍລ່ວງໜ້າ'
+            this.formErrors.push('ສະກຸນເງິນຕ້ອງກົງກັບລາຍຈ່າຍລ່ວງໜ້າທີ່ເລືອກ')
+          }
+
+          // Check if advance amount matches
+          if (
+            this.selectedAdvance.amount &&
+            Math.abs(this.formData.amount - this.selectedAdvance.amount) > 0.01
+          ) {
+            this.errors.amount = 'ຈຳນວນເງິນຕ້ອງກົງກັບລາຍຈ່າຍລ່ວງໜ້າ'
+            this.formErrors.push('ຈຳນວນເງິນຕ້ອງກົງກັບລາຍຈ່າຍລ່ວງໜ້າທີ່ເລືອກ')
+          }
+        }
+
+        if (this.formData.notes && this.formData.notes.length > 500) {
+          this.formErrors.push('ໝາຍເຫດຕ້ອງບໍ່ເກີນ 500 ຕົວອັກສອນ')
+        }
+
+        if (this.users.length === 0) {
+          this.formErrors.push('ບໍ່ມີຜູ້ໃຊ້ງານ. ກະລຸນາຕິດຕໍ່ຜູ້ຄຸ້ມຄອງລະບົບ.')
+        }
+
+        if (this.currencies.length === 0) {
+          this.formErrors.push('ບໍ່ມີສະກຸນເງິນ. ກະລຸນາຕິດຕໍ່ຜູ້ຄຸ້ມຄອງລະບົບ.')
+        }
+
+        return this.formErrors.length === 0
+      } catch (error) {
+        console.error('Validation error:', error)
+        this.formErrors.push('ເກີດຂໍ້ຜິດພາດໃນການກວດສອບຟອມ')
+        return false
+      }
     },
 
     clearFieldError(fieldName) {
@@ -1507,11 +1720,14 @@ export default {
       }
     },
 
+    // FIXED saveSettlement method
     async saveSettlement() {
-      if (!this.validateForm()) {
+      if (!this.validateForm() || this.isSubmitting) {
         return
       }
 
+      // Prevent double submission
+      this.isSubmitting = true
       this.loading = true
 
       try {
@@ -1521,7 +1737,7 @@ export default {
             this.formData.method === 'deduction'
               ? this.formData.selectedInvoices
               : [],
-          bookingDate: this.formData.settlementDate,
+          bookingDate: this.formData.bookingDate,
         }
 
         // Remove empty values and unused fields
@@ -1539,33 +1755,122 @@ export default {
 
         console.log('📤 Submitting settlement data:', submitData)
 
-        if (!this.formData.id) {
-          const response = await this.$axios.post(
-            '/api/settlements',
+        let response
+        let isNewRecord = !this.formData.id
+
+        if (isNewRecord) {
+          // Creating new settlement
+          console.info(
+            `SETTLEMENT BEFORE SAVE ${JSON.stringify(this.formData)}`
+          )
+          response = await this.$axios.post('/api/settlements', submitData)
+          console.info(`RESPONSE DATA ${JSON.stringify(response.data)}`)
+
+          if (response.data && response.data.data) {
+            // Update form data with the new ID
+            this.formData.id = response.data.data.id
+            this.formData.bookingDate = response.data.data.bookingDate
+
+            // Emit created event to parent component
+            this.$emit('created', response.data.data)
+
+            this.showToast('Money settlement created successfully', 'success')
+          }
+          console.info(`SETTLEMENT AFTER SAVE ${JSON.stringify(this.formData)}`)
+        } else {
+          // Updating existing settlement
+          response = await this.$axios.put(
+            `/api/settlements/${this.formData.id}`,
             submitData
           )
-          console.info(`REPONSE DATA ${JSON.stringify(response.data)}`)
-          this.formData.id = response.data.data.id
-          this.showToast('Money settlement created successfully', 'success')
-          return
+          console.info(`UPDATE RESPONSE DATA ${JSON.stringify(response.data)}`)
+
+          if (response.data && response.data.data) {
+            // Emit updated event to parent with updated data
+            this.$emit('updated', response.data.data)
+            this.showToast('Money settlement updated successfully', 'success')
+          }
         }
 
-        // Emit save event to parent
-        this.$emit('save', submitData)
+        // Clear any validation errors on successful save
+        this.errors = {}
+        this.formErrors = []
       } catch (error) {
         console.error('Form submission error:', error)
-        this.formErrors.push('ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ. ກະລຸນາລອງໃໝ່.')
+
+        // Clear previous form errors
+        this.formErrors = []
+
+        // Handle different types of errors
+        if (error.response) {
+          // Server responded with error status
+          const status = error.response.status
+          const errorData = error.response.data
+
+          if (status === 422 && errorData.errors) {
+            // Validation errors from server
+            Object.keys(errorData.errors).forEach((field) => {
+              this.errors[field] = errorData.errors[field][0]
+              this.formErrors.push(`${field}: ${errorData.errors[field][0]}`)
+            })
+          } else if (status === 409) {
+            // Conflict error
+            this.formErrors.push(
+              'ມີການຂັດແຍ້ງກັບຂໍ້ມູນທີ່ມີຢູ່ແລ້ວ. ກະລຸນາລອງໃໝ່.'
+            )
+          } else if (status === 404) {
+            // Not found error
+            this.formErrors.push('ບໍ່ພົບຂໍ້ມູນທີ່ຕ້ອງການ. ກະລຸນາລອງໃໝ່.')
+          } else {
+            // Other server errors
+            this.formErrors.push(
+              errorData.message || 'ເກີດຂໍ້ຜິດພາດຈາກເຊີເວີ. ກະລຸນາລອງໃໝ່.'
+            )
+          }
+        } else if (error.request) {
+          // Network error
+          this.formErrors.push(
+            'ບໍ່ສາມາດເຊື່ອມຕໍ່ເຊີເວີໄດ້. ກະລຸນາກວດສອບການເຊື່ອມຕໍ່ອິນເຕີເນັດ.'
+          )
+        } else {
+          // Other errors
+          this.formErrors.push('ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ. ກະລຸນາລອງໃໝ່.')
+        }
+
+        // Show error toast
+        this.showToast(this.formErrors[0] || 'ເກີດຂໍ້ຜິດພາດ', 'error')
       } finally {
         this.loading = false
+        this.isSubmitting = false
       }
     },
 
     closeDialog() {
+      if (this.isSubmitting) {
+        // Confirm if user wants to cancel during submission
+        if (
+          confirm(
+            'Are you sure you want to cancel? The form is currently being submitted.'
+          )
+        ) {
+          this.isSubmitting = false
+          this.loading = false
+          this.justCreated = false // Reset flag when closing
+        } else {
+          return
+        }
+      } else {
+        this.justCreated = false // Reset flag when closing
+      }
+
       this.$emit('close')
     },
 
-    handleOverlayClick() {
-      this.closeDialog()
+    handleOverlayClick(event) {
+      // Only close if clicking directly on overlay, not on child elements
+      if (event.target === event.currentTarget && !this.isSubmitting) {
+        this.closeDialog()
+      }
     },
 
     // Utility methods
@@ -1623,8 +1928,121 @@ export default {
 </script>
 
 <style scoped>
-/* All the existing CSS styles remain the same */
-/* Compact Modal Styles */
+/* Updated compact date field styles to match form controls exactly */
+.compact-date-field {
+  font-size: 13px !important;
+}
+
+.compact-date-field .v-input__control {
+  min-height: 40px !important;
+  max-height: 40px !important;
+}
+
+.compact-date-field .v-input__slot {
+  padding: 0 12px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  align-items: center !important;
+}
+
+.compact-date-field .v-text-field__details {
+  display: none !important; /* Hide details section completely */
+}
+
+.compact-date-field .v-input__icon--prepend-inner {
+  margin-top: 0 !important;
+  margin-right: 8px !important;
+  align-self: center !important;
+}
+
+.compact-date-field .v-input__icon--append {
+  margin-top: 0 !important;
+  margin-left: 8px !important;
+  align-self: center !important;
+}
+
+.compact-date-field .v-text-field__slot {
+  align-items: center !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+}
+
+.compact-date-field input {
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  height: 38px !important;
+}
+
+/* Override Vuetify outline to match your form style exactly */
+.compact-date-field .v-text-field--outlined .v-input__control .v-input__slot {
+  border: 2px solid #e5e7eb !important;
+  border-radius: 6px !important;
+  background: #fafafa !important;
+}
+
+.compact-date-field.v-text-field--outlined .v-input__control .v-input__slot {
+  border: 2px solid #e5e7eb !important;
+  border-radius: 6px !important;
+  background: #fafafa !important;
+}
+
+.compact-date-field
+  .v-text-field--outlined.v-input--is-focused
+  .v-input__control
+  .v-input__slot {
+  border-color: #667eea !important;
+  background: white !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
+}
+
+.compact-date-field.v-input--is-focused .v-input__slot {
+  border-color: #667eea !important;
+  background: white !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
+}
+
+.compact-date-field
+  .v-text-field--outlined.v-input--is-disabled
+  .v-input__control
+  .v-input__slot {
+  background-color: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+}
+
+.compact-date-field.v-input--is-disabled .v-input__slot {
+  background-color: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+}
+
+.compact-date-field.error--text
+  .v-text-field--outlined
+  .v-input__control
+  .v-input__slot {
+  border-color: #e74c3c !important;
+}
+
+/* Remove the fieldset border that Vuetify adds */
+.compact-date-field .v-text-field--outlined fieldset {
+  border: none !important;
+}
+
+.compact-date-field .v-text-field--outlined .v-text-field__details {
+  display: none !important;
+}
+
+/* Date picker menu styling */
+.v-menu__content {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.v-date-picker {
+  box-shadow: none !important;
+}
+
 .modal-header-right {
   display: flex;
   align-items: center;
@@ -1637,6 +2055,7 @@ export default {
   color: white;
   opacity: 0.9;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1710,6 +2129,11 @@ export default {
 .close-btn:hover {
   opacity: 1;
   background: rgba(255, 255, 255, 0.1);
+}
+
+.close-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .modal-body {
@@ -2212,6 +2636,22 @@ export default {
   font-size: 11px;
 }
 
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #666;
+}
+
+.empty-state i {
+  font-size: 48px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
 /* Responsive Design for Compact Layout */
 @media (max-width: 1200px) {
   .form-grid.compact {
@@ -2250,6 +2690,10 @@ export default {
   .modal-footer.compact .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .compact-date-field .v-input__slot {
+    padding: 0 8px !important;
   }
 }
 

@@ -45,6 +45,7 @@
     "vue-echarts": "^6.6.1",
     "vue-sweetalert2": "^3.0.8",
     "vue-youtube": "^1.4.0",
+    "vue2-datepicker": "^3.11.1",
     "vuedraggable": "^2.24.3",
     "vuelidate": "^0.7.7",
     "vuetify": "^2.6.1",

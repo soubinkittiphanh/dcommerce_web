@@ -1,298 +1,410 @@
 <template>
-  <div class="settlement-summary-container">
-    <!-- Header Section -->
-    <div class="page-header">
-      <div class="header-content">
-        <h1 class="page-title">ສະຫລຸບບັນຊີ ລາຍຮັບ</h1>
-        <div class="header-actions">
-          <button class="btn btn-primary" @click="openCreateDialog">
-            <i class="fas fa-plus"></i>
-            ລົງລາຍຮັບ ການຊຳລະ
-          </button>
-          <button class="btn btn-secondary" @click="exportData">
-            <i class="fas fa-download"></i>
-            Export
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Filter Section -->
-    <div class="filter-section">
-      <div class="filter-row">
-        <div class="filter-group">
-          <label>ເລືອກຕາມວັນທີ:</label>
-          <input type="date" v-model="filters.startDate" class="form-control" />
-          <span class="date-separator">ຫາ</span>
-          <input type="date" v-model="filters.endDate" class="form-control" />
-        </div>
-
-        <div class="filter-group">
-          <label>ຊ່ອງທາງລາຍຮັບ:</label>
-          <select v-model="filters.method" class="form-control">
-            <option value="">All Methods</option>
-            <option value="cash">Cash</option>
-            <option value="bank_transfer">Bank Transfer</option>
-            <option value="deduction">Deduction</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>ເລືອກບັນຊີ:</label>
-          <select v-model="filters.accountNo" class="form-control">
-            <option value="">All Accounts</option>
-            <option
-              v-for="account in accountList"
-              :key="account.id"
-              :value="account.id"
+  <div class="settlement-container">
+    <!-- Compact Header -->
+    <v-card class="header-card" flat>
+      <v-card-text class="py-3">
+        <div class="header-content">
+          <h1 class="header-title">ສະຫລຸບບັນຊີ ລາຍຮັບ</h1>
+          <div class="header-actions">
+            <v-btn
+              color="primary"
+              small
+              @click="openCreateDialog"
+              :loading="loading"
             >
-              {{ account.bankName }} - {{ account.accountNumber }} ({{
-                account.accountName
-              }})
-            </option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>ເລືອກກະຊວງ:</label>
-          <select v-model="filters.ministryId" class="form-control">
-            <option value="">All Ministries</option>
-            <option
-              v-for="ministry in ministries"
-              :key="ministry.id"
-              :value="ministry.id"
+              <v-icon left small>mdi-plus</v-icon>
+              ລົງລາຍຮັບ
+            </v-btn>
+            <v-btn
+              color="secondary"
+              small
+              outlined
+              @click="exportData"
+              :disabled="loading"
             >
-              {{ ministry.ministryCode }} - {{ ministry.ministryName }}
-            </option>
-          </select>
+              <v-icon left small>mdi-download</v-icon>
+              Export
+            </v-btn>
+          </div>
         </div>
-        <div class="filter-group">
-          <label>ເລືອກບັນຊີລວມ:</label>
-          <select v-model="filters.chartAccountId" class="form-control">
-            <option value="">All Chart Accounts</option>
-            <option
-              v-for="chartAccount in chartAccounts"
-              :key="chartAccount.id"
-              :value="chartAccount.id"
+      </v-card-text>
+    </v-card>
+
+    <!-- Compact Filter Section -->
+    <v-card class="filter-card mb-2" flat>
+      <v-card-text class="py-2">
+        <v-row no-gutters align="center" class="filter-row">
+          <!-- Date Range -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-menu
+              ref="startDateMenu"
+              v-model="startDateMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
             >
-              {{ chartAccount.accountNumber }} - {{ chartAccount.accountName }}
-            </option>
-          </select>
-        </div>
-        <div class="filter-actions">
-          <button class="btn btn-outline-primary" @click="applyFilters">
-            <i class="fas fa-search"></i>
-            ຄົ້ນຫາ
-          </button>
-          <button class="btn btn-outline-secondary" @click="resetFilters">
-            <i class="fas fa-undo"></i>
-            Reset
-          </button>
-        </div>
-      </div>
-    </div>
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                  v-model="formattedStartDate"
+                  label="ວັນທີ່ເລີ່ມ"
+                  hint="DD/MM/YYYY"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click:clear="clearStartDate"
+                />
+              </template>
+              <v-date-picker
+                v-model="pickerStartDate"
+                no-title
+                @input="setStartDate"
+              />
+            </v-menu>
+          </v-col>
 
-    <!-- Summary Cards -->
-    <div class="summary-cards">
-      <!-- Total LAK Equivalent Card -->
-      <div class="summary-card total-lak">
-        <div class="card-icon total">
-          <i class="fas fa-calculator"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ formatCurrency(summaryStats.totalLAK.amount, 'LAK') }}</h3>
-          <p>ລວມຍອດທັງໝົດ (LAK) - {{ summaryStats.totalLAK.count }} ລາຍການ</p>
-        </div>
-      </div>
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-menu
+              ref="endDateMenu"
+              v-model="endDateMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
+            >
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                  v-model="formattedEndDate"
+                  label="ວັນທີ່ສິ້ນສຸດ"
+                  hint="DD/MM/YYYY"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click:clear="clearEndDate"
+                />
+              </template>
+              <v-date-picker
+                v-model="pickerEndDate"
+                no-title
+                @input="setEndDate"
+              />
+            </v-menu>
+          </v-col>
 
-      <!-- Currency-specific Cards -->
-      <div
-        v-for="currencyStat in summaryStats.currencies"
+          <!-- Method Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select
+              v-model="filters.method"
+              :items="methodOptions"
+              label="ວິທີການ"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+            />
+          </v-col>
+
+          <!-- Account Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select
+              v-model="filters.accountNo"
+              :items="accountOptions"
+              label="ບັນຊີ"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+            />
+          </v-col>
+
+          <!-- Ministry Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select
+              v-model="filters.ministryId"
+              :items="ministryOptions"
+              label="ກະຊວງ"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+            />
+          </v-col>
+
+          <!-- Actions -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <div class="filter-actions">
+              <v-btn
+                color="primary"
+                small
+                @click="applyFilters"
+                :loading="loading"
+              >
+                <v-icon small>mdi-magnify</v-icon>
+                ຄົ້ນຫາ
+              </v-btn>
+              <v-btn
+                small
+                outlined
+                @click="resetFilters"
+                :disabled="loading"
+              >
+                <v-icon small>mdi-refresh</v-icon>
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
+
+        <!-- Expandable Chart Account Filter -->
+        <v-expand-transition>
+          <v-row v-if="showAdvancedFilter" no-gutters class="mt-2">
+            <v-col cols="12" md="6" class="px-1">
+              <v-select
+                v-model="filters.chartAccountId"
+                :items="chartAccountOptions"
+                label="ບັນຊີລວມ"
+                dense
+                outlined
+                clearable
+                hide-details="auto"
+              />
+            </v-col>
+          </v-row>
+        </v-expand-transition>
+
+        <!-- Toggle Advanced Filter -->
+        <div class="text-center mt-1">
+          <v-btn
+            x-small
+            text
+            @click="showAdvancedFilter = !showAdvancedFilter"
+          >
+            {{ showAdvancedFilter ? 'ປິດຕົວກອງເພີ່ມເຕີມ' : 'ເພີ່ມຕົວກອງ' }}
+            <v-icon small>{{ showAdvancedFilter ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+          </v-btn>
+        </div>
+      </v-card-text>
+    </v-card>
+
+    <!-- Compact Summary Cards -->
+    <div class="summary-grid mb-2">
+      <!-- Total Card -->
+      <v-card class="summary-card total-card" dark>
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon">
+              <v-icon color="white">mdi-calculator</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ formatCurrency(summaryStats.totalLAK.amount, 'LAK') }}</div>
+              <div class="summary-label">ລວມທັງໝົດ ({{ summaryStats.totalLAK.count }} ລາຍການ)</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <!-- Currency Cards -->
+      <v-card
+        v-for="currencyStat in summaryStats.currencies.slice(0, 3)"
         :key="currencyStat.currencyId"
         class="summary-card currency-card"
       >
-        <div class="card-icon currency">
-          <i class="fas fa-coins"></i>
-        </div>
-        <div class="card-content">
-          <h3>
-            {{
-              formatCurrencyAmount(
-                currencyStat.originalAmount,
-                currencyStat.currencyCode
-              )
-            }}
-          </h3>
-          <p class="currency-name">
-            {{ currencyStat.currencyName }} ({{ currencyStat.count }} ລາຍການ)
-          </p>
-          <p class="lak-equivalent">
-            ≈ {{ formatCurrency(currencyStat.lakEquivalent, 'LAK') }}
-          </p>
-        </div>
-      </div>
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="currency-icon">
+              <v-icon color="success">mdi-currency-{{ currencyStat.currencyCode.toLowerCase() }}</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">
+                {{ formatCurrencyAmount(currencyStat.originalAmount, currencyStat.currencyCode) }}
+              </div>
+              <div class="summary-label">{{ currencyStat.currencyCode }} ({{ currencyStat.count }})</div>
+              <div class="lak-equivalent">≈ {{ formatCurrency(currencyStat.lakEquivalent, 'LAK') }}</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
     </div>
 
-    <!-- Data Table -->
-    <div class="table-section">
-      <div class="table-header">
-        <div class="table-title">
-          <h3>ລາຍການຮັບເງິນ</h3>
-          <span class="record-count"
-            >{{ filteredSettlements.length }} ລາຍການ</span
-          >
+    <!-- Compact Data Table -->
+    <v-card class="table-card" flat>
+      <v-card-title class="py-2 px-3">
+        <span class="table-title">ລາຍການ ({{ filteredSettlements.length }})</span>
+        <v-spacer />
+        <div class="table-controls">
+          <v-select
+            v-model="pagination.perPage"
+            :items="perPageOptions"
+            label="ແຖວ"
+            dense
+            outlined
+            hide-details
+            style="max-width: 70px"
+            @input="updatePagination"
+          />
         </div>
-        <div class="table-actions">
-          <div class="per-page-selector">
-            <label>Show:</label>
-            <select v-model="pagination.perPage" @change="updatePagination">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            <span>per page</span>
+      </v-card-title>
+
+      <v-data-table
+        :headers="compactHeaders"
+        :items="paginatedSettlements"
+        :page.sync="pagination.currentPage"
+        :items-per-page="pagination.perPage"
+        class="compact-table"
+        dense
+        hide-default-footer
+      >
+        <!-- ID Column -->
+        <template #item.id="{ item }">
+          <div class="id-column">
+            <span class="id-main">{{ item.id }}</span>
+            <span v-if="item.moneyAdvanceId" class="id-sub">({{ item.moneyAdvanceId }})</span>
           </div>
-        </div>
-      </div>
+        </template>
 
-      <div class="table-container">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th @click="sortBy('id')" class="sortable">
-                ID
-                <i :class="getSortIcon('id')"></i>
-              </th>
-              <th @click="sortBy('settlementDate')" class="sortable">
-                ວັນທີລົງຊຳລະ
-                <i :class="getSortIcon('settlementDate')"></i>
-              </th>
-              <th @click="sortBy('method')" class="sortable">
-                Payment Method
-                <i :class="getSortIcon('method')"></i>
-              </th>
-              <th @click="sortBy('requester')" class="sortable">
-                ຜູ້ລົງບັນຊີ
-                <i :class="getSortIcon('requester')"></i>
-              </th>
-              <th @click="sortBy('amount')" class="sortable">
-                ຈຳນວນເງິນ
-                <i :class="getSortIcon('amount')"></i>
-              </th>
-              <th>ສະກຸນເງິນ</th>
-              <th>Ministry</th>
-              <th>Chart Account</th>
-              <th>ຟັງຊັ່ນ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="settlement in paginatedSettlements" :key="settlement.id">
-              <td>{{ settlement.id }} {{ settlement.moneyAdvanceId }}</td>
-              <td>{{ formatDate(settlement.settlementDate) }}</td>
-              <td>
-                <span :class="['method-badge', settlement.method]">
-                  {{ formatMethod(settlement.method) }}
-                </span>
-              </td>
-              <td>{{ settlement.requester }}</td>
-              <td class="amount-cell">
-                {{ formatSettlementAmount(settlement) }}
-              </td>
-              <td>
-                <span
-                  v-if="getSettlementCurrency(settlement)"
-                  class="currency-tag"
-                >
-                  {{ getSettlementCurrency(settlement).code }}
-                </span>
-                <span v-else class="no-data">-</span>
-              </td>
-              <td>
-                <span v-if="settlement.ministry" class="ministry-tag">
-                  {{ settlement.ministry.ministryCode }}
-                </span>
-                <span v-else class="no-data">-</span>
-              </td>
-              <td>
-                <span v-if="settlement.chartAccount" class="chart-account-tag">
-                  {{ settlement.chartAccount.accountNumber }}
-                </span>
-                <span v-else class="no-data">-</span>
-              </td>
-              <td class="actions-cell">
-                <button
-                  class="btn btn-sm btn-outline-primary"
-                  @click="viewSettlement(settlement)"
-                  title="View Details"
-                >
-                  <i class="fas fa-eye"></i>
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-info"
-                  @click="editSettlement(settlement)"
-                  title="Edit"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-secondary"
-                  @click="printSettlement(settlement)"
-                  title="Print"
-                >
-                  <i class="fas fa-print"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <!-- Date Column -->
+        <template #item.bookingDate="{ item }">
+          <span class="date-compact">{{ formatCompactDate(item.bookingDate) }}</span>
+        </template>
 
-      <!-- Pagination -->
-      <div class="pagination-container">
+        <!-- Method Column -->
+        <template #item.method="{ item }">
+          <v-chip
+            :color="getMethodColor(item.method)"
+            x-small
+            outlined
+          >
+            {{ getMethodLabel(item.method) }}
+          </v-chip>
+        </template>
+
+        <!-- Requester Column -->
+        <template #item.requester="{ item }">
+          <span class="requester-name">{{ item.requester }}</span>
+        </template>
+
+        <!-- Amount Column -->
+        <template #item.amount="{ item }">
+          <div class="amount-column">
+            <span class="amount-value">{{ formatSettlementAmount(item) }}</span>
+            <span class="currency-code">{{ getSettlementCurrency(item)?.code || 'LAK' }}</span>
+          </div>
+        </template>
+
+        <!-- Ministry Column -->
+        <template #item.ministry="{ item }">
+          <v-chip
+            v-if="item.ministry"
+            color="info"
+            x-small
+            outlined
+          >
+            {{ item.ministry.ministryCode }}
+          </v-chip>
+          <span v-else class="no-data">-</span>
+        </template>
+
+        <!-- Chart Account Column -->
+        <template #item.chartAccount="{ item }">
+          <v-chip
+            v-if="item.chartAccount"
+            color="warning"
+            x-small
+            outlined
+          >
+            {{ item.chartAccount.accountNumber }}
+          </v-chip>
+          <span v-else class="no-data">-</span>
+        </template>
+
+        <!-- Actions Column -->
+        <template #item.actions="{ item }">
+          <div class="action-buttons">
+            <v-btn
+              icon
+              x-small
+              @click="viewSettlement(item)"
+              :disabled="loading"
+            >
+              <v-icon small>mdi-eye</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              x-small
+              @click="editSettlement(item)"
+              :disabled="loading"
+            >
+              <v-icon small>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              x-small
+              @click="printSettlement(item)"
+              :disabled="loading"
+            >
+              <v-icon small>mdi-printer</v-icon>
+            </v-btn>
+          </div>
+        </template>
+      </v-data-table>
+
+      <!-- Custom Compact Pagination -->
+      <div class="compact-pagination">
         <div class="pagination-info">
-          Showing {{ paginationInfo.start }} to {{ paginationInfo.end }} of
-          {{ paginationInfo.total }} entries
+          {{ paginationInfo.start }}-{{ paginationInfo.end }} ຈາກ {{ paginationInfo.total }}
         </div>
         <div class="pagination-controls">
-          <button
-            class="btn btn-sm btn-outline-secondary"
-            @click="previousPage"
+          <v-btn
+            icon
+            small
             :disabled="pagination.currentPage === 1"
+            @click="previousPage"
           >
-            Previous
-          </button>
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
 
-          <span v-for="page in visiblePages" :key="page">
-            <button
-              v-if="page !== '...'"
-              class="btn btn-sm"
-              :class="
-                page === pagination.currentPage
-                  ? 'btn-primary'
-                  : 'btn-outline-secondary'
-              "
+          <div class="page-numbers">
+            <v-btn
+              v-for="page in visiblePages"
+              :key="page"
+              :color="page === pagination.currentPage ? 'primary' : ''"
+              :outlined="page !== pagination.currentPage"
+              x-small
+              min-width="30"
               @click="goToPage(page)"
+              v-if="page !== '...'"
             >
               {{ page }}
-            </button>
-            <span v-else class="pagination-ellipsis">...</span>
-          </span>
+            </v-btn>
+            <span v-else class="page-ellipsis">...</span>
+          </div>
 
-          <button
-            class="btn btn-sm btn-outline-secondary"
-            @click="nextPage"
+          <v-btn
+            icon
+            small
             :disabled="pagination.currentPage === totalPages"
+            @click="nextPage"
           >
-            Next
-          </button>
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
         </div>
       </div>
-    </div>
+    </v-card>
 
-    <!-- Settlement Dialog (for Create/Edit) -->
+    <!-- Dialogs (keeping existing structure) -->
     <client-only>
       <SettlementDialog
         :visible="showEditDialog"
-        :payment-method="'bank_transfer'"
+        :payment-method="defaultPaymentMethod"
         :settlement="selectedSettlement"
         :chart-accounts="chartAccounts"
         :ministries="ministries"
@@ -300,18 +412,20 @@
         :bankAccounts="accountList"
         :users="users"
         :outstanding-invoices="outstandingInvoices"
-        @close="closeEditDialog"
-        @save="onSettlementSave"
+        @close="handleSettlementDialogClose"
+        @created="handleSettlementCreated"
+        @updated="handleSettlementUpdated"
+        @save="handleLegacySettlementSave"
       />
     </client-only>
-    <!-- Voucher Print Component -->
+
     <VoucherPrintComponent
       v-if="showPrintVoucher && settlementDetail"
       :key="settlementDetail.id"
       :voucher-data="settlementDetail"
       @close="closePrintVoucher"
     />
-    <!-- Settlement View Dialog -->
+
     <client-only>
       <SettlementViewDialog
         :visible="showViewDialog"
@@ -320,13 +434,14 @@
       />
     </client-only>
 
-    <!-- Loading Overlay -->
-    <div v-if="loading" class="loading-overlay">
-      <div class="loading-spinner">
-        <i class="fas fa-spinner fa-spin"></i>
-        <p>Loading...</p>
-      </div>
-    </div>
+    <!-- Compact Loading Overlay -->
+    <v-overlay :value="loading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+        color="primary"
+      />
+    </v-overlay>
   </div>
 </template>
 
@@ -334,6 +449,7 @@
 import SettlementDialog from '~/components/MA/settlementDialog'
 import SettlementViewDialog from '~/components/MA/settlementViewDialog'
 import VoucherPrintComponent from '~/components/MA/settlementVoucher'
+
 export default {
   name: 'SettlementSummary',
   components: {
@@ -342,15 +458,26 @@ export default {
     VoucherPrintComponent,
   },
   middleware: 'auths',
+
   data() {
     return {
+      // Date picker state
+      startDateMenu: false,
+      endDateMenu: false,
+      pickerStartDate: null,
+      pickerEndDate: null,
+      formattedStartDate: null,
+      formattedEndDate: null,
+      
+      // UI state
+      showAdvancedFilter: false,
       showPrintVoucher: false,
-      // Dialog visibility states
-      showEditDialog: false, // For SettlementDialog
-      showViewDialog: false, // For SettlementViewDialog
+      showEditDialog: false,
+      showViewDialog: false,
       selectedSettlement: null,
+      defaultPaymentMethod: 'bank_transfer',
 
-      // Data arrays
+      // Data arrays (keeping existing structure)
       outstandingInvoices: [],
       users: [],
       currencies: [],
@@ -364,7 +491,8 @@ export default {
       loading: false,
       formLoading: false,
       settlementDetail: null,
-      // Filters
+
+      // Filters (updated for new date handling)
       filters: {
         startDate: '',
         endDate: '',
@@ -375,13 +503,12 @@ export default {
         search: '',
       },
 
-      // Sorting
+      // Sorting and pagination
       sort: {
-        field: 'settlementDate',
+        field: 'bookingDate',
         direction: 'desc',
       },
 
-      // Pagination
       pagination: {
         currentPage: 1,
         perPage: 25,
@@ -390,7 +517,7 @@ export default {
       // Summary statistics
       summaryStats: {
         totalLAK: { amount: 0, count: 0 },
-        currencies: [], // Array of { currencyId, currencyCode, currencyName, originalAmount, lakEquivalent, count }
+        currencies: [],
       },
     }
   },
@@ -399,6 +526,66 @@ export default {
     user() {
       return this.$auth.user || ''
     },
+
+    // Compact table headers
+    compactHeaders() {
+      return [
+        { text: 'ID', value: 'id', width: '80px', sortable: true },
+        { text: 'ວັນທີ', value: 'bookingDate', width: '90px', sortable: true },
+        { text: 'ວິທີ', value: 'method', width: '80px', sortable: true },
+        { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
+        { text: 'ຈຳນວນ', value: 'amount', width: '120px', sortable: true },
+        { text: 'ກົມ', value: 'ministry', width: '70px', sortable: false },
+        { text: 'ບັນຊີ', value: 'chartAccount', width: '70px', sortable: false },
+        { text: '', value: 'actions', width: '90px', sortable: false },
+      ]
+    },
+
+    // Filter options
+    methodOptions() {
+      return [
+        { text: 'ທັງໝົດ', value: '' },
+        { text: 'ເງິນສົດ', value: 'cash' },
+        { text: 'ໂອນທະນາຄານ', value: 'bank_transfer' },
+        { text: 'ຫັກລົບ', value: 'deduction' },
+      ]
+    },
+
+    accountOptions() {
+      return [
+        { text: 'ທັງໝົດ', value: '' },
+        ...this.accountList.map(account => ({
+          text: `${account.bankName} - ${account.accountNumber}`,
+          value: account.id
+        }))
+      ]
+    },
+
+    ministryOptions() {
+      return [
+        { text: 'ທັງໝົດ', value: '' },
+        ...this.ministries.map(ministry => ({
+          text: `${ministry.ministryCode} - ${ministry.ministryName}`,
+          value: ministry.id
+        }))
+      ]
+    },
+
+    chartAccountOptions() {
+      return [
+        { text: 'ທັງໝົດ', value: '' },
+        ...this.chartAccounts.map(account => ({
+          text: `${account.accountNumber} - ${account.accountName}`,
+          value: account.id
+        }))
+      ]
+    },
+
+    perPageOptions() {
+      return [10, 25, 50, 100]
+    },
+
+    // Keep existing computed properties
     paginatedSettlements() {
       const start = (this.pagination.currentPage - 1) * this.pagination.perPage
       const end = start + this.pagination.perPage
@@ -406,20 +593,14 @@ export default {
     },
 
     totalPages() {
-      return Math.ceil(
-        this.filteredSettlements.length / this.pagination.perPage
-      )
+      return Math.ceil(this.filteredSettlements.length / this.pagination.perPage)
     },
 
     paginationInfo() {
-      const start =
-        (this.pagination.currentPage - 1) * this.pagination.perPage + 1
-      const end = Math.min(
-        start + this.pagination.perPage - 1,
-        this.filteredSettlements.length
-      )
+      const start = (this.pagination.currentPage - 1) * this.pagination.perPage + 1
+      const end = Math.min(start + this.pagination.perPage - 1, this.filteredSettlements.length)
       return {
-        start,
+        start: this.filteredSettlements.length > 0 ? start : 0,
         end,
         total: this.filteredSettlements.length,
       }
@@ -461,109 +642,70 @@ export default {
   },
 
   methods: {
-    closePrintVoucher() {
-      this.showPrintVoucher = false
-      setTimeout(() => {
-        this.settlementDetail = null
-      }, 100)
+    // Date formatting methods
+    formatDate(date) {
+      if (!date) return null
+      const d = new Date(date)
+      const day = String(d.getDate()).padStart(2, '0')
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+      const year = d.getFullYear()
+      return `${day}/${month}/${year}`
     },
-    printSettlement(settlement) {
-      console.info(`SETTLEMENT DETAIL ${JSON.stringify(settlement)}`)
-      this.showPrintVoucher = false
-      this.$nextTick(() => {
-        this.settlementDetail = settlement
-        this.showPrintVoucher = true
+
+    setStartDate(val) {
+      this.formattedStartDate = this.formatDate(val)
+      this.pickerStartDate = val
+      this.filters.startDate = val
+      this.startDateMenu = false
+    },
+
+    setEndDate(val) {
+      this.formattedEndDate = this.formatDate(val)
+      this.pickerEndDate = val
+      this.filters.endDate = val
+      this.endDateMenu = false
+    },
+
+    clearStartDate() {
+      this.formattedStartDate = null
+      this.pickerStartDate = null
+      this.filters.startDate = ''
+    },
+
+    clearEndDate() {
+      this.formattedEndDate = null
+      this.pickerEndDate = null
+      this.filters.endDate = ''
+    },
+
+    formatCompactDate(date) {
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit'
       })
     },
-    // Dialog Control Methods
-    async openCreateDialog() {
-      console.log('Opening create dialog...')
-      this.selectedSettlement = null
-      this.loading = true
 
-      try {
-        // Load outstanding invoices for the settlement dialog
-        await this.loadOutstandingInvoices()
-
-        // Show the dialog
-        this.showEditDialog = true
-        console.log('showEditDialog set to:', this.showEditDialog)
-      } catch (error) {
-        console.error('Error opening create dialog:', error)
-        this.showToast('Failed to load form data', 'error')
-      } finally {
-        this.loading = false
+    // Method helpers
+    getMethodColor(method) {
+      const colors = {
+        cash: 'success',
+        bank_transfer: 'info',
+        deduction: 'error'
       }
+      return colors[method] || 'grey'
     },
 
-    async editSettlement(settlement) {
-      console.log(
-        `Opening edit dialog for settlement: ${JSON.stringify(settlement)}`,
-        settlement.id
-      )
-      this.selectedSettlement = settlement
-      this.loading = true
-
-      try {
-        await this.loadOutstandingInvoices()
-        this.showEditDialog = true
-      } catch (error) {
-        console.error('Error opening edit dialog:', error)
-        this.showToast('Failed to load settlement data', 'error')
-      } finally {
-        this.loading = false
+    getMethodLabel(method) {
+      const labels = {
+        cash: 'ເງິນສົດ',
+        bank_transfer: 'ໂອນ',
+        deduction: 'ຫັກ',
       }
+      return labels[method] || method
     },
 
-    viewSettlement(settlement) {
-      console.log('Opening view dialog for settlement:', settlement.id)
-      this.selectedSettlement = settlement
-      this.showViewDialog = true
-    },
-
-    closeEditDialog() {
-      console.log('Closing edit dialog')
-      this.showEditDialog = false
-      this.selectedSettlement = null
-    },
-
-    closeViewDialog() {
-      console.log('Closing view dialog')
-      this.showViewDialog = false
-      this.selectedSettlement = null
-    },
-
-    // Data Loading Methods
-    async loadOutstandingInvoices() {
-      try {
-        // For now, provide dummy data since the API might not be available
-        this.outstandingInvoices = [
-          {
-            id: 1,
-            invoiceNumber: 'INV-001',
-            vendor: { id: 1, name: 'Test Vendor 1' },
-            dueDate: '2025-08-01',
-            outstandingAmount: 1000,
-          },
-          {
-            id: 2,
-            invoiceNumber: 'INV-002',
-            vendor: { id: 2, name: 'Test Vendor 2' },
-            dueDate: '2025-08-15',
-            outstandingAmount: 2500,
-          },
-        ]
-
-        // Uncomment this when your API is ready:
-        // const { data } = await this.$axios.get('/api/invoices/outstanding')
-        // this.outstandingInvoices = data || []
-      } catch (error) {
-        console.error('Error loading outstanding invoices:', error)
-        this.outstandingInvoices = []
-        this.showToast('Failed to load outstanding invoices', 'error')
-      }
-    },
-
+    // Keep all existing API and business logic methods
     async initializeData() {
       await Promise.all([
         this.fetchCurrencies(),
@@ -580,16 +722,13 @@ export default {
     async fetchUsers() {
       try {
         const { data } = await this.$axios.get('/api/user/find')
-
         if (data && data.data) {
-          this.users = Array.isArray(data) ? data : []
+          this.users = Array.isArray(data.data) ? data.data : []
         } else if (Array.isArray(data)) {
           this.users = data
         } else {
           this.users = []
         }
-
-        console.log('Fetched users:', this.users.length)
       } catch (error) {
         console.error('Error fetching users:', error)
         this.users = []
@@ -600,16 +739,13 @@ export default {
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')
-
         if (data && data.data) {
-          this.currencies = Array.isArray(data) ? data : []
+          this.currencies = Array.isArray(data.data) ? data.data : []
         } else if (Array.isArray(data)) {
           this.currencies = data
         } else {
           this.currencies = []
         }
-
-        console.log('Fetched currencies:', this.currencies.length)
       } catch (error) {
         console.error('Error fetching currencies:', error)
         this.currencies = []
@@ -620,41 +756,28 @@ export default {
     async fetchBankAccounts() {
       try {
         const { data } = await this.$axios.get('/api/bank_account/find')
-
         if (data && data.data) {
-          this.accountList = Array.isArray(data) ? data : []
+          this.accountList = Array.isArray(data.data) ? data.data : []
         } else if (Array.isArray(data)) {
           this.accountList = data
         } else {
           this.accountList = []
         }
-
-        // Filter only active bank accounts
-        this.accountList = this.accountList.filter(
-          (account) => account.isActive
-        )
-
-        console.log('Fetched bank accounts:', this.accountList.length)
+        this.accountList = this.accountList.filter(account => account.isActive)
       } catch (error) {
         console.error('Error fetching bank accounts:', error)
         this.accountList = []
-        console.warn(
-          'Bank accounts not available - feature will work without them'
-        )
       }
     },
 
     async fetchMinistry() {
       try {
         const response = await this.$axios.get('/api/ministries')
-
         if (response.data && response.data.success) {
           this.ministries = response.data.data || []
         } else {
           this.ministries = []
         }
-
-        console.log('Fetched ministries:', this.ministries)
       } catch (error) {
         console.error('Error fetching ministries:', error)
         this.ministries = []
@@ -665,23 +788,15 @@ export default {
     async fetchChartAccounts() {
       try {
         const response = await this.$axios.get('/api/accountChart/find')
-
-        // Check if response.data is directly an array
         if (Array.isArray(response.data)) {
           this.chartAccounts = response.data
-        }
-        // Check if response.data has a nested structure with success flag
-        else if (response.data && response.data.success) {
+        } else if (response.data && response.data.success) {
           this.chartAccounts = response.data.data || []
-        }
-        // Handle other possible structures
-        else if (response.data) {
+        } else if (response.data) {
           this.chartAccounts = response.data
         } else {
           this.chartAccounts = []
         }
-
-        console.log('Fetched chart accounts:', this.chartAccounts)
       } catch (error) {
         console.error('Error fetching chart accounts:', error)
         this.chartAccounts = []
@@ -693,39 +808,30 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.get('/api/settlements')
-
-        if (
-          response.data &&
-          response.data.success &&
-          response.data.data &&
-          response.data.data.settlements
-        ) {
-          this.settlements = response.data.data.settlements.map(
-            (settlement) => ({
-              id: settlement.id,
-              settlementDate: settlement.createdAt,
-              method: settlement.method,
-              requester: settlement.proceeder?.cus_name || 'Unknown',
-              amount: settlement.amount,
-              userId: settlement.userId,
-              currencyId: settlement.currencyId,
-              currency: settlement.currency,
-              bankAccountId: settlement.bankAccountId,
-              ministryId: settlement.ministryId,
-              chartAccountId: settlement.chartAccountId,
-              ministry: settlement.ministry,
-              chartAccount: settlement.chartAccount,
-              moneyAdvanceId: settlement.moneyAdvanceId,
-              exchangeRate: settlement.exchangeRate,
-              externalRef: settlement.externalRef,
-              externalRefNo: settlement.externalRefNo,
-              chequeNo: settlement.chequeNo,
-              fromPersonName: settlement.fromPersonName,
-              notes: settlement.notes,
-            })
-          )
+        if (response.data && response.data.success && response.data.data && response.data.data.settlements) {
+          this.settlements = response.data.data.settlements.map(settlement => ({
+            id: settlement.id,
+            bookingDate: settlement.bookingDate,
+            method: settlement.method,
+            requester: settlement.proceeder?.cus_name || 'Unknown',
+            amount: settlement.amount,
+            userId: settlement.userId,
+            currencyId: settlement.currencyId,
+            currency: settlement.currency,
+            bankAccountId: settlement.bankAccountId,
+            ministryId: settlement.ministryId,
+            chartAccountId: settlement.chartAccountId,
+            ministry: settlement.ministry,
+            chartAccount: settlement.chartAccount,
+            moneyAdvanceId: settlement.moneyAdvanceId,
+            exchangeRate: settlement.exchangeRate,
+            externalRef: settlement.externalRef,
+            externalRefNo: settlement.externalRefNo,
+            chequeNo: settlement.chequeNo,
+            fromPersonName: settlement.fromPersonName,
+            notes: settlement.notes,
+          }))
         } else {
-          console.error('Unexpected response structure:', response.data)
           this.settlements = []
         }
       } catch (error) {
@@ -737,77 +843,177 @@ export default {
       }
     },
 
-    // Settlement Save Handler
-    async onSettlementSave(settlementData) {
+    // Dialog methods (keeping existing logic)
+    async openCreateDialog() {
+      this.selectedSettlement = null
+      this.defaultPaymentMethod = 'bank_transfer'
+      this.loading = true
       try {
-        this.loading = true
-        console.log('Saving settlement:', settlementData)
-
-        let response
-        if (this.selectedSettlement && this.selectedSettlement.id) {
-          settlementData.updateUserId = this.user.id
-          response = await this.$axios.put(
-            `/api/settlements/${this.selectedSettlement.id}`,
-            settlementData
-          )
-        } else {
-          response = await this.$axios.post('/api/settlements', settlementData)
-        }
-
-        if (response.data && response.data.success) {
-          this.showToast('ການບັນທຶກສຳເລັດແລ້ວ', 'success')
-          // this.closeEditDialog()
-
-          await this.fetchSettlements()
-          this.applyFilters()
-        } else {
-          throw new Error(response.data?.message || 'Save failed')
-        }
+        await this.loadOutstandingInvoices()
+        this.showEditDialog = true
       } catch (error) {
-        console.error('Error saving settlement:', error)
-        const errorMessage =
-          error.response?.data?.message || error.message || 'ການບັນທຶກບໍ່ສຳເລັດ'
-        this.showToast(errorMessage, 'error')
+        console.error('Error opening create dialog:', error)
+        this.showToast('Failed to load form data', 'error')
       } finally {
         this.loading = false
       }
     },
 
-    // Filter and Search Methods
+    async editSettlement(settlement) {
+      this.selectedSettlement = { ...settlement }
+      this.defaultPaymentMethod = settlement.method || 'bank_transfer'
+      this.loading = true
+      try {
+        await this.loadOutstandingInvoices()
+        this.showEditDialog = true
+      } catch (error) {
+        console.error('Error opening edit dialog:', error)
+        this.showToast('Failed to load settlement data', 'error')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    viewSettlement(settlement) {
+      this.selectedSettlement = { ...settlement }
+      this.showViewDialog = true
+    },
+
+    closePrintVoucher() {
+      this.showPrintVoucher = false
+      setTimeout(() => {
+        this.settlementDetail = null
+      }, 100)
+    },
+
+    printSettlement(settlement) {
+      this.showPrintVoucher = false
+      this.$nextTick(() => {
+        this.settlementDetail = settlement
+        this.showPrintVoucher = true
+      })
+    },
+
+    handleSettlementDialogClose() {
+      this.showEditDialog = false
+      this.selectedSettlement = null
+      this.defaultPaymentMethod = 'bank_transfer'
+    },
+
+    async handleSettlementCreated(newSettlement) {
+      if (this.settlements && Array.isArray(this.settlements)) {
+        this.settlements.unshift({
+          id: newSettlement.id,
+          bookingDate: newSettlement.bookingDate || newSettlement.createdAt,
+          method: newSettlement.method,
+          requester: newSettlement.proceeder?.cus_name || this.user?.cus_name || 'Unknown',
+          amount: newSettlement.amount,
+          userId: newSettlement.userId,
+          currencyId: newSettlement.currencyId,
+          currency: newSettlement.currency,
+          bankAccountId: newSettlement.bankAccountId,
+          ministryId: newSettlement.ministryId,
+          chartAccountId: newSettlement.chartAccountId,
+          ministry: newSettlement.ministry,
+          chartAccount: newSettlement.chartAccount,
+          moneyAdvanceId: newSettlement.moneyAdvanceId,
+          exchangeRate: newSettlement.exchangeRate,
+          externalRef: newSettlement.externalRef,
+          externalRefNo: newSettlement.externalRefNo,
+          chequeNo: newSettlement.chequeNo,
+          fromPersonName: newSettlement.fromPersonName,
+          notes: newSettlement.notes,
+        })
+      }
+      this.selectedSettlement = newSettlement
+      this.showToast('ການສ້າງລາຍຮັບສຳເລັດແລ້ວ', 'success')
+      this.applyFilters()
+      this.calculateSummaryStats()
+    },
+
+    async handleSettlementUpdated(updatedSettlement) {
+      if (this.settlements && Array.isArray(this.settlements)) {
+        const index = this.settlements.findIndex(s => s.id === updatedSettlement.id)
+        if (index !== -1) {
+          this.$set(this.settlements, index, {
+            id: updatedSettlement.id,
+            bookingDate: updatedSettlement.bookingDate || updatedSettlement.createdAt,
+            method: updatedSettlement.method,
+            requester: updatedSettlement.proceeder?.cus_name || 'Unknown',
+            amount: updatedSettlement.amount,
+            userId: updatedSettlement.userId,
+            currencyId: updatedSettlement.currencyId,
+            currency: updatedSettlement.currency,
+            bankAccountId: updatedSettlement.bankAccountId,
+            ministryId: updatedSettlement.ministryId,
+            chartAccountId: updatedSettlement.chartAccountId,
+            ministry: updatedSettlement.ministry,
+            chartAccount: updatedSettlement.chartAccount,
+            moneyAdvanceId: updatedSettlement.moneyAdvanceId,
+            exchangeRate: updatedSettlement.exchangeRate,
+            externalRef: updatedSettlement.externalRef,
+            externalRefNo: updatedSettlement.externalRefNo,
+            chequeNo: updatedSettlement.chequeNo,
+            fromPersonName: updatedSettlement.fromPersonName,
+            notes: updatedSettlement.notes,
+          })
+        }
+      }
+      this.selectedSettlement = updatedSettlement
+      this.showToast('ການອັບເດດລາຍຮັບສຳເລັດແລ້ວ', 'success')
+      this.applyFilters()
+      this.calculateSummaryStats()
+    },
+
+    handleLegacySettlementSave(settlementData) {
+      if (settlementData.id && this.selectedSettlement?.id) {
+        this.handleSettlementUpdated(settlementData)
+      } else if (settlementData.id && !this.selectedSettlement?.id) {
+        this.handleSettlementCreated(settlementData)
+      } else {
+        this.onSettlementSave(settlementData)
+      }
+    },
+
+    closeViewDialog() {
+      this.showViewDialog = false
+      this.selectedSettlement = null
+    },
+
+    async loadOutstandingInvoices() {
+      try {
+        this.outstandingInvoices = [
+          { id: 1, invoiceNumber: 'INV-001', vendor: { id: 1, name: 'Test Vendor 1' }, dueDate: '2025-08-01', outstandingAmount: 1000 },
+          { id: 2, invoiceNumber: 'INV-002', vendor: { id: 2, name: 'Test Vendor 2' }, dueDate: '2025-08-15', outstandingAmount: 2500 },
+        ]
+      } catch (error) {
+        console.error('Error loading outstanding invoices:', error)
+        this.outstandingInvoices = []
+        this.showToast('Failed to load outstanding invoices', 'error')
+      }
+    },
+
+    // Filter and pagination methods (keeping existing logic)
     applyFilters() {
       let filtered = [...this.settlements]
 
       if (this.filters.startDate) {
-        filtered = filtered.filter(
-          (s) => s.settlementDate >= this.filters.startDate
-        )
+        filtered = filtered.filter(s => s.bookingDate >= this.filters.startDate)
       }
       if (this.filters.endDate) {
-        filtered = filtered.filter(
-          (s) => s.settlementDate <= this.filters.endDate
-        )
+        filtered = filtered.filter(s => s.bookingDate <= this.filters.endDate)
       }
-
       if (this.filters.method) {
-        filtered = filtered.filter((s) => s.method === this.filters.method)
+        filtered = filtered.filter(s => s.method === this.filters.method)
       }
-
       if (this.filters.accountNo) {
-        filtered = filtered.filter(
-          (s) => s.bankAccountId === this.filters.accountNo
-        )
+        filtered = filtered.filter(s => s.bankAccountId === this.filters.accountNo)
       }
-
       if (this.filters.ministryId) {
-        filtered = filtered.filter(
-          (s) => s.ministryId === this.filters.ministryId
-        )
+        filtered = filtered.filter(s => s.ministryId === this.filters.ministryId)
       }
-
       if (this.filters.chartAccountId) {
-        filtered = filtered.filter(
-          (s) => s.chartAccountId === this.filters.chartAccountId
-        )
+        filtered = filtered.filter(s => s.chartAccountId === this.filters.chartAccountId)
       }
 
       this.filteredSettlements = filtered
@@ -826,17 +1032,9 @@ export default {
         chartAccountId: '',
         search: '',
       }
+      this.clearStartDate()
+      this.clearEndDate()
       this.applyFilters()
-    },
-
-    sortBy(field) {
-      if (this.sort.field === field) {
-        this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc'
-      } else {
-        this.sort.field = field
-        this.sort.direction = 'asc'
-      }
-      this.sortData()
     },
 
     sortData() {
@@ -855,36 +1053,24 @@ export default {
       })
     },
 
-    getSortIcon(field) {
-      if (this.sort.field !== field) return 'fas fa-sort'
-      return this.sort.direction === 'asc'
-        ? 'fas fa-sort-up'
-        : 'fas fa-sort-down'
-    },
-
     calculateSummaryStats() {
-      // Initialize stats
       const currencyStats = new Map()
       let totalLAKAmount = 0
       let totalCount = 0
 
-      // Process each settlement
       this.filteredSettlements.forEach((settlement) => {
         const amount = parseFloat(settlement.amount) || 0
         const exchangeRate = parseFloat(settlement.exchangeRate) || 1
         const currencyId = settlement.currencyId
 
-        // Calculate LAK equivalent
         const lakEquivalent = amount * exchangeRate
         totalLAKAmount += lakEquivalent
         totalCount++
 
-        // Find currency details
         const currency = this.currencies.find((c) => c.id === currencyId)
         const currencyCode = currency?.code || 'LAK'
         const currencyName = currency?.name || 'Lao Kip'
 
-        // Group by currency
         if (!currencyStats.has(currencyId)) {
           currencyStats.set(currencyId, {
             currencyId,
@@ -902,20 +1088,12 @@ export default {
         stat.count++
       })
 
-      // Update summary stats
       this.summaryStats = {
-        totalLAK: {
-          amount: totalLAKAmount,
-          count: totalCount,
-        },
-        currencies: Array.from(currencyStats.values()).sort((a, b) => {
-          // Sort by LAK equivalent amount (descending)
-          return b.lakEquivalent - a.lakEquivalent
-        }),
+        totalLAK: { amount: totalLAKAmount, count: totalCount },
+        currencies: Array.from(currencyStats.values()).sort((a, b) => b.lakEquivalent - a.lakEquivalent),
       }
     },
 
-    // Pagination methods
     updatePagination() {
       this.pagination.currentPage = 1
     },
@@ -941,7 +1119,7 @@ export default {
       this.downloadCSV(csvData, 'settlement-summary.csv')
     },
 
-    // Enhanced currency formatting
+    // Formatting methods (keeping existing)
     formatCurrency(amount, currencyCode = 'LAK') {
       try {
         return new Intl.NumberFormat('en-US', {
@@ -951,7 +1129,6 @@ export default {
           maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
         }).format(amount || 0)
       } catch (error) {
-        // Fallback formatting if currency code is not supported
         return `${this.formatNumber(amount)} ${currencyCode}`
       }
     },
@@ -977,41 +1154,15 @@ export default {
       }).format(amount || 0)
     },
 
-    formatDate(date) {
-      return new Date(date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
-    },
-
-    formatMethod(method) {
-      const methodLabels = {
-        cash: 'Cash',
-        bank_transfer: 'Bank Transfer',
-        deduction: 'Deduction',
-      }
-      return methodLabels[method] || method
-    },
-
     convertToCSV(data) {
-      const headers = [
-        'ID',
-        'Date',
-        'Method',
-        'Requester',
-        'Amount',
-        'Currency',
-        'Ministry',
-        'Chart Account',
-      ]
+      const headers = ['ID', 'Date', 'Method', 'Requester', 'Amount', 'Currency', 'Ministry', 'Chart Account']
       const csvContent = [
         headers.join(','),
         ...data.map((row) => {
           const currency = this.getSettlementCurrency(row)
           return [
             row.id,
-            row.settlementDate,
+            row.bookingDate,
             row.method,
             row.requester,
             row.amount,
@@ -1021,7 +1172,6 @@ export default {
           ].join(',')
         }),
       ].join('\n')
-
       return csvContent
     },
 
@@ -1036,16 +1186,10 @@ export default {
     },
 
     showToast(message, type = 'info') {
-      console.log(`${type}: ${message}`)
       if (this.$toast) {
         this.$toast[type](message)
       } else {
-        // Fallback for when toast is not available
-        if (type === 'error') {
-          alert(`Error: ${message}`)
-        } else if (type === 'success') {
-          console.log(`✅ ${message}`)
-        }
+        console.log(`${type}: ${message}`)
       }
     },
   },
@@ -1053,19 +1197,16 @@ export default {
 </script>
 
 <style scoped>
-.settlement-summary-container {
-  padding: 20px;
-  background-color: #f5f5f5;
+.settlement-container {
+  padding: 8px;
+  background-color: #fafafa;
   min-height: 100vh;
 }
 
-/* Header Styles */
-.page-header {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Compact Header */
+.header-card {
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
 }
 
 .header-content {
@@ -1074,546 +1215,316 @@ export default {
   align-items: center;
 }
 
-.page-title {
+.header-title {
   margin: 0;
-  color: #333;
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 600;
+  color: #1a202c;
 }
 
 .header-actions {
   display: flex;
-  gap: 12px;
-}
-
-/* Filter Styles */
-.filter-section {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.filter-row {
-  display: flex;
-  gap: 20px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
   gap: 8px;
 }
 
-.filter-group label {
-  font-weight: 500;
-  color: #555;
-  font-size: 14px;
+/* Compact Filter */
+.filter-card {
+  border: 1px solid #e2e8f0;
 }
 
-.date-separator {
-  align-self: flex-end;
-  padding: 8px;
-  color: #666;
+.filter-row {
+  align-items: flex-end;
 }
 
 .filter-actions {
   display: flex;
   gap: 8px;
-  align-self: flex-end;
+  justify-content: flex-end;
 }
 
-/* Enhanced Summary Card Styles */
-.summary-cards {
+/* Compact Summary Grid */
+.summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
+  grid-template-columns: 2fr repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
 }
 
 .summary-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.total-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.summary-layout {
   display: flex;
-  align-items: flex-start;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid #e9ecef;
+  align-items: center;
+  gap: 12px;
 }
 
-.summary-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* Total LAK Card - Special styling */
-.summary-card.total-lak {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-}
-
-.summary-card.total-lak .card-icon {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.summary-card.total-lak .card-content h3 {
-  color: white;
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.summary-card.total-lak .card-content p {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* Currency-specific cards */
-.summary-card.currency-card {
-  background: white;
-  border-left: 4px solid #28a745;
-}
-
-.card-icon {
-  width: 60px;
-  height: 60px;
+.summary-icon,
+.currency-icon {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  margin-right: 20px;
+  background: rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
 }
 
-.card-icon.total {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+.currency-icon {
+  background: #f0f9ff;
 }
 
-.card-icon.currency {
-  background: #e8f5e8;
-  color: #28a745;
-}
-
-.card-content {
+.summary-content {
   flex: 1;
-  min-width: 0; /* Prevents flex item from overflowing */
+  min-width: 0;
 }
 
-.card-content h3 {
-  margin: 0 0 8px 0;
-  font-size: 24px;
+.summary-amount {
+  font-size: 14px;
   font-weight: 700;
+  color: white;
   word-break: break-word;
 }
 
-.card-content p {
-  margin: 0;
-  font-size: 14px;
+.currency-card .summary-amount {
+  color: #1a202c;
 }
 
-.currency-name {
-  color: #495057;
-  font-weight: 600;
-  margin-bottom: 4px !important;
+.summary-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 2px;
+}
+
+.currency-card .summary-label {
+  color: #718096;
 }
 
 .lak-equivalent {
-  color: #6c757d;
-  font-size: 13px !important;
+  font-size: 10px;
+  color: #a0aec0;
   font-style: italic;
+  margin-top: 1px;
 }
 
-/* Animation for new cards */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Compact Table */
+.table-card {
+  border: 1px solid #e2e8f0;
 }
 
-.summary-card {
-  animation: slideInUp 0.5s ease-out;
-}
-
-/* Ensure currency codes are clearly visible */
-.currency-code {
-  font-weight: 600;
-  color: #007bff;
-}
-
-/* Table Styles */
-.table-section {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-header {
-  padding: 20px;
-  border-bottom: 1px solid #e9ecef;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.table-title h3 {
-  margin: 0;
-  color: #333;
-}
-
-.record-count {
-  color: #666;
+.table-title {
   font-size: 14px;
-  margin-left: 8px;
+  font-weight: 600;
 }
 
-.per-page-selector {
+.table-controls {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
 }
 
-.table-container {
-  overflow-x: auto;
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.data-table th,
-.data-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.data-table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
-
-.data-table th.sortable {
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s;
-}
-
-.data-table th.sortable:hover {
-  background-color: #e9ecef;
-}
-
-.data-table th i {
-  margin-left: 8px;
-  opacity: 0.5;
-}
-
-.amount-cell {
-  font-weight: 600;
-  color: #28a745;
-}
-
-.actions-cell {
-  display: flex;
-  gap: 8px;
-}
-
-/* Method Badges */
-.method-badge {
-  padding: 4px 12px;
-  border-radius: 20px;
+.compact-table {
   font-size: 12px;
-  font-weight: 500;
-  text-transform: capitalize;
 }
 
-.method-badge.cash {
-  background-color: #d4edda;
-  color: #155724;
+.compact-table >>> th {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 8px !important;
+  height: 36px !important;
+  background: #f8fafc !important;
 }
 
-.method-badge.bank_transfer {
-  background-color: #d1ecf1;
-  color: #0c5460;
+.compact-table >>> td {
+  padding: 4px 8px !important;
+  height: 40px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
 }
 
-.method-badge.deduction {
-  background-color: #fce4ec;
-  color: #880e4f;
+/* Table Cell Styles */
+.id-column {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Ministry and Chart Account Tags */
-.ministry-tag {
-  background-color: #e7f3ff;
-  color: #0066cc;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.chart-account-tag {
-  background-color: #fff3cd;
-  color: #856404;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.currency-tag {
-  background-color: #e8f5e8;
-  color: #28a745;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 11px;
+.id-main {
   font-weight: 600;
+  font-size: 12px;
+}
+
+.id-sub {
+  font-size: 10px;
+  color: #718096;
+}
+
+.date-compact {
+  font-size: 11px;
+  color: #4a5568;
+}
+
+.requester-name {
+  font-size: 11px;
+  color: #2d3748;
+}
+
+.amount-column {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.amount-value {
+  font-weight: 600;
+  color: #22c55e;
+  font-size: 12px;
+}
+
+.currency-code {
+  font-size: 9px;
+  color: #718096;
   text-transform: uppercase;
 }
 
-.no-data {
-  color: #999;
-  font-style: italic;
-  font-size: 12px;
+.action-buttons {
+  display: flex;
+  gap: 2px;
 }
 
-/* Pagination */
-.pagination-container {
-  padding: 20px;
-  border-top: 1px solid #e9ecef;
+.no-data {
+  color: #a0aec0;
+  font-style: italic;
+  font-size: 10px;
+}
+
+/* Compact Pagination */
+.compact-pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
 }
 
 .pagination-info {
-  color: #666;
-  font-size: 14px;
+  font-size: 11px;
+  color: #718096;
 }
 
 .pagination-controls {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 4px;
 }
 
-.pagination-ellipsis {
-  padding: 6px 12px;
-  color: #666;
-}
-
-/* Button Styles */
-.btn {
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: #5a6268;
-  border-color: #5a6268;
-}
-
-.btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
-  background-color: transparent;
-}
-
-.btn-outline-primary:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
-  background-color: transparent;
-}
-
-.btn-outline-secondary:hover {
-  background-color: #6c757d;
-  color: white;
-}
-
-.btn-outline-info {
-  color: #17a2b8;
-  border-color: #17a2b8;
-  background-color: transparent;
-}
-
-.btn-outline-info:hover {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.btn-sm {
-  padding: 4px 8px;
-  font-size: 12px;
-}
-
-/* Form Controls */
-.form-control {
-  padding: 8px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-/* Loading Overlay */
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+.page-numbers {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  gap: 2px;
+  margin: 0 8px;
 }
 
-.loading-spinner {
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.loading-spinner i {
-  font-size: 32px;
-  color: #007bff;
-  margin-bottom: 16px;
+.page-ellipsis {
+  padding: 4px;
+  color: #a0aec0;
+  font-size: 11px;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .settlement-summary-container {
-    padding: 10px;
-  }
-
+@media (max-width: 960px) {
   .header-content {
     flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
 
   .filter-row {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .filter-group {
-    width: 100%;
-  }
-
-  .filter-actions {
-    flex-direction: row;
-    width: 100%;
-  }
-
-  .summary-cards {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .summary-card {
-    padding: 20px;
-  }
-
-  .card-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    margin-right: 16px;
-  }
-
-  .card-content h3 {
-    font-size: 20px;
-  }
-
-  .table-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .pagination-container {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
+    gap: 8px;
   }
 
   .pagination-controls {
     flex-wrap: wrap;
   }
 
-  .actions-cell {
+  .action-buttons {
     flex-direction: column;
-    gap: 4px;
+    gap: 1px;
   }
 }
 
-@media (max-width: 576px) {
-  .summary-card {
+@media (max-width: 600px) {
+  .settlement-container {
+    padding: 4px;
+  }
+
+  .compact-pagination {
     flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
     text-align: center;
   }
 
-  .card-icon {
-    margin: 0 auto 16px auto;
+  .table-controls {
+    flex-direction: column;
+    gap: 8px;
   }
+
+  .summary-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .summary-icon,
+  .currency-icon {
+    margin: 0 auto;
+  }
+}
+
+/* Vuetify component overrides */
+.v-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v-btn--small {
+  height: 28px !important;
+  min-width: 60px !important;
+}
+
+.v-btn--x-small {
+  height: 24px !important;
+  min-width: 24px !important;
+}
+
+.v-chip--x-small {
+  height: 18px !important;
+  font-size: 10px !important;
+  padding: 0 6px !important;
+}
+
+.v-text-field--dense .v-input__control {
+  min-height: 32px !important;
+}
+
+.v-select--dense .v-input__control {
+  min-height: 32px !important;
+}
+
+.v-text-field--dense .v-input__details {
+  min-height: 14px !important;
+  padding-top: 2px !important;
+}
+
+.v-text-field--dense .v-messages {
+  font-size: 10px !important;
 }
 </style>

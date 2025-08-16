@@ -28,6 +28,7 @@ import nuxt_plugin_barcode_92607d26 from 'nuxt_plugin_barcode_92607d26' // Sourc
 import nuxt_plugin_vcalendar_4dbed36c from 'nuxt_plugin_vcalendar_4dbed36c' // Source: ../plugins/v-calendar.js (mode: 'client')
 import nuxt_plugin_draggable_6d354fc0 from 'nuxt_plugin_draggable_6d354fc0' // Source: ../plugins/draggable.js (mode: 'client')
 import nuxt_plugin_ganttscheduletimelinecalendar_b57ec618 from 'nuxt_plugin_ganttscheduletimelinecalendar_b57ec618' // Source: ../plugins/gantt-schedule-timeline-calendar.js (mode: 'client')
+import nuxt_plugin_vue2datepicker_4e082fe0 from 'nuxt_plugin_vue2datepicker_4e082fe0' // Source: ../plugins/vue2-datepicker.js (mode: 'client')
 import nuxt_plugin_auth_1d0132a4 from 'nuxt_plugin_auth_1d0132a4' // Source: ./auth.js (mode: 'all')
 
 // Component: <ClientOnly>
@@ -284,6 +285,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (process.client && typeof nuxt_plugin_ganttscheduletimelinecalendar_b57ec618 === 'function') {
     await nuxt_plugin_ganttscheduletimelinecalendar_b57ec618(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_vue2datepicker_4e082fe0 === 'function') {
+    await nuxt_plugin_vue2datepicker_4e082fe0(app.context, inject)
   }
 
   if (typeof nuxt_plugin_auth_1d0132a4 === 'function') {

@@ -1,283 +1,463 @@
 <template>
   <div class="money-advance-container">
-    <!-- Header Section -->
-    <div class="header-section">
-      <h1 class="page-title">ອອກລາຍຈ່າຍ</h1>
-      <div class="header-actions">
-        <button class="btn btn-outline" @click="openAuditReports">
-          <i class="fas fa-chart-line"></i> ລາຍງານປະຫວັດ
-        </button>
-        <button class="btn btn-primary" @click="openDialog()">
-          <i class="fas fa-plus"></i> ລົງບັນຊີລາຍຈ່າຍ
-        </button>
-      </div>
-    </div>
-
-    <!-- Summary Cards -->
-    <div class="summary-cards">
-      <div class="card summary-card">
-        <div class="card-body">
-          <h5 class="card-title">ຈນ ລາຍຈ່າຍ</h5>
-          <p class="card-value">{{ dashboard.counts.total }}</p>
-        </div>
-      </div>
-      <div class="card summary-card">
-        <div class="card-body">
-          <h5 class="card-title">ຄ້າງອະນຸມັດ</h5>
-          <p class="card-value pending">{{ dashboard.counts.pending }}</p>
-        </div>
-      </div>
-      <div class="card summary-card">
-        <div class="card-body">
-          <h5 class="card-title">ອະນຸມັດແລ້ວ</h5>
-          <p class="card-value approved">{{ dashboard.counts.approved }}</p>
-        </div>
-      </div>
-      <div class="card summary-card">
-        <div class="card-body">
-          <h5 class="card-title">ຊຳລະແລ້ວ</h5>
-          <p class="card-value settled">{{ dashboard.counts.settled }}</p>
-        </div>
-      </div>
-      <div class="card summary-card">
-        <div class="card-body">
-          <h5 class="card-title">ລວມຍອດທັງໝົດ</h5>
-          <p class="card-value">
-            {{ formatCurrency(dashboard.amounts.total) }}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Enhanced Filters -->
-    <div class="filters-section">
-      <div class="row">
-        <div class="col-md-2">
-          <select
-            v-model="statusFilter"
-            @change="onFilterChange"
-            class="form-control"
-          >
-            <option value="">ທຸກສະຖານະ</option>
-            <option value="pending">ຄ້າງອະນຸມັດ</option>
-            <option value="approved">ອະນຸມັດແລ້ວ</option>
-            <option value="settled">ຊຳລະແລ້ວ</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <select
-            v-model="filters.makerId"
-            @change="fetchData"
-            class="form-control"
-          >
-            <option value="">ຈາກຜູ້ໃຊ້ງານທັງໝົດ</option>
-            <option v-for="user in users" :key="user.id" :value="user.id">
-              {{ user.cus_name }}
-            </option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <select
-            v-model="filters.ministryId"
-            @change="fetchData"
-            class="form-control"
-          >
-            <option value="">ຈາກກະຊວງທັງໝົດ</option>
-            <option
-              v-for="ministry in ministries"
-              :key="ministry.id"
-              :value="ministry.id"
+    <!-- Compact Header -->
+    <v-card class="header-card" flat>
+      <v-card-text class="py-3">
+        <div class="header-content">
+          <h1 class="header-title">ອອກລາຍຈ່າຍ</h1>
+          <div class="header-actions">
+            <v-btn
+              color="secondary"
+              small
+              outlined
+              @click="openAuditReports"
             >
-              {{ ministry.name }}
-            </option>
-          </select>
+              <v-icon left small>mdi-chart-line</v-icon>
+              ລາຍງານ
+            </v-btn>
+            <v-btn
+              color="primary"
+              small
+              @click="openDialog()"
+            >
+              <v-icon left small>mdi-plus</v-icon>
+              ລົງລາຍຈ່າຍ
+            </v-btn>
+          </div>
         </div>
-        <div class="col-md-2">
-          <input
-            v-model="searchTerm"
-            @input="debounceSearch"
-            type="text"
-            class="form-control"
-            placeholder="ຄົ້ນຫາ ດ້ວຍຈຸດປະສົງ..."
+      </v-card-text>
+    </v-card>
+
+    <!-- Compact Summary Cards -->
+    <div class="summary-grid mb-2">
+      <v-card class="summary-card">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon total">
+              <v-icon color="white">mdi-cash-multiple</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ dashboard.counts.total }}</div>
+              <div class="summary-label">ຈນ ລາຍຈ່າຍ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="summary-card pending">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon">
+              <v-icon color="warning">mdi-clock-outline</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ dashboard.counts.pending }}</div>
+              <div class="summary-label">ຄ້າງອະນຸມັດ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="summary-card approved">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon">
+              <v-icon color="success">mdi-check-circle</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ dashboard.counts.approved }}</div>
+              <div class="summary-label">ອະນຸມັດແລ້ວ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="summary-card settled">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon">
+              <v-icon color="info">mdi-cash-check</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ dashboard.counts.settled }}</div>
+              <div class="summary-label">ຊຳລະແລ້ວ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="summary-card total-amount">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon total">
+              <v-icon color="white">mdi-calculator</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ formatCurrency(dashboard.amounts.total) }}</div>
+              <div class="summary-label">ລວມຍອດທັງໝົດ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
+
+    <!-- Compact Filter Section -->
+    <v-card class="filter-card mb-2" flat>
+      <v-card-text class="py-2">
+        <v-row no-gutters align="center" class="filter-row">
+          <!-- Date Range Filters -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-menu
+              ref="fromDateMenu"
+              v-model="fromDateMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
+            >
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                  v-model="formattedFromDate"
+                  label="ວັນທີ່ເລີ່ມຕົ້ນ"
+                  hint="DD/MM/YYYY"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click:clear="clearFromDate"
+                />
+              </template>
+              <v-date-picker
+                v-model="pickerFromDate"
+                no-title
+                @input="setFromDate"
+              />
+            </v-menu>
+          </v-col>
+
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-menu
+              ref="toDateMenu"
+              v-model="toDateMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
+            >
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                  v-model="formattedToDate"
+                  label="ວັນທີ່ສິ້ນສຸດ"
+                  hint="DD/MM/YYYY"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click:clear="clearToDate"
+                />
+              </template>
+              <v-date-picker
+                v-model="pickerToDate"
+                no-title
+                @input="setToDate"
+              />
+            </v-menu>
+          </v-col>
+
+          <!-- Status Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select
+              v-model="statusFilter"
+              :items="statusOptions"
+              label="ສະຖານະ"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+              @change="onFilterChange"
+            />
+          </v-col>
+
+          <!-- User Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select
+              v-model="filters.makerId"
+              :items="userOptions"
+              label="ຜູ້ໃຊ້"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+              @change="fetchData"
+            />
+          </v-col>
+
+          <!-- Ministry Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select
+              v-model="filters.ministryId"
+              :items="ministryOptions"
+              label="ກະຊວງ"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+              @change="fetchData"
+            />
+          </v-col>
+
+          <!-- Search and Actions -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <div class="filter-actions">
+              <v-text-field
+                v-model="searchTerm"
+                label="ຄົ້ນຫາ"
+                dense
+                outlined
+                clearable
+                hide-details="auto"
+                prepend-inner-icon="mdi-magnify"
+                @input="debounceSearch"
+                style="margin-bottom: 4px;"
+              />
+              <div class="action-buttons">
+                <v-btn
+                  color="primary"
+                  x-small
+                  @click="applyFilters"
+                  :loading="loading"
+                >
+                  <v-icon small>mdi-filter</v-icon>
+                </v-btn>
+                <v-btn
+                  x-small
+                  outlined
+                  @click="resetFilters"
+                  :disabled="loading"
+                >
+                  <v-icon small>mdi-refresh</v-icon>
+                </v-btn>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <!-- Compact Data Table -->
+    <v-card class="table-card" flat>
+      <v-card-title class="py-2 px-3">
+        <span class="table-title">ລາຍການ ({{ advances.length }})</span>
+        <v-spacer />
+        <div class="table-controls">
+          <v-select
+            v-model="pagination.itemsPerPage"
+            :items="perPageOptions"
+            label="ແຖວ"
+            dense
+            outlined
+            hide-details
+            style="max-width: 70px"
+            @input="changePage(1)"
           />
         </div>
-        <div class="col-md-2">
-          <button @click="resetFilters" class="btn btn-secondary btn-block">
-            <i class="fas fa-undo"></i> ຄ່າເລີ່ມຕົ້ນ
-          </button>
+      </v-card-title>
+
+      <v-data-table
+        :headers="compactHeaders"
+        :items="advances"
+        :page.sync="pagination.currentPage"
+        :items-per-page="pagination.itemsPerPage"
+        :server-items-length="pagination.totalItems"
+        class="compact-table"
+        dense
+        hide-default-footer
+        :loading="loading"
+        loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+      >
+        <!-- ID Column -->
+        <template #item.id="{ item }">
+          <span class="id-text">{{ item.id }}</span>
+        </template>
+
+        <!-- Maker Column -->
+        <template #item.maker="{ item }">
+          <span class="maker-name">{{ item.maker ? item.maker.cus_name : 'N/A' }}</span>
+        </template>
+
+        <!-- Ministry Column -->
+        <template #item.ministry="{ item }">
+          <div v-if="item.ministry" class="ministry-compact">
+            <v-chip color="info" x-small outlined>
+              {{ item.ministry.ministryCode || item.ministry.name }}
+            </v-chip>
+          </div>
+          <span v-else class="no-data">-</span>
+        </template>
+
+        <!-- Amount Column -->
+        <template #item.amount="{ item }">
+          <div class="amount-column">
+            <span class="amount-value">{{ formatCurrency(item.amount) }}</span>
+            <span v-if="item.currency" class="currency-code">{{ item.currency.code }}</span>
+          </div>
+        </template>
+
+        <!-- Purpose Column -->
+        <template #item.purpose="{ item }">
+          <span class="purpose-text" :title="item.purpose">
+            {{ truncateText(item.purpose, 20) }}
+          </span>
+        </template>
+
+        <!-- Bank Account Column -->
+        <template #item.bankAccount="{ item }">
+          <div v-if="item.bankAccount" class="bank-compact">
+            <div class="bank-name">{{ item.bankAccount.bankName }}</div>
+            <div class="account-number">{{ item.bankAccount.accountNumber }}</div>
+          </div>
+          <span v-else class="no-data">-</span>
+        </template>
+
+        <!-- Status Column -->
+        <template #item.status="{ item }">
+          <v-chip
+            :color="getStatusColor(item.status)"
+            x-small
+            outlined
+          >
+            {{ getStatusInLao(item.status) }}
+          </v-chip>
+        </template>
+
+        <!-- Due Date Column -->
+        <template #item.dueDate="{ item }">
+          <span 
+            class="date-compact"
+            :class="{ 'overdue': isOverdue(item.dueDate) }"
+          >
+            {{ formatCompactDate(item.dueDate) }}
+          </span>
+        </template>
+
+        <!-- Booking Date Column -->
+        <template #item.bookingDate="{ item }">
+          <span class="date-compact">{{ formatCompactDate(item.bookingDate) }}</span>
+        </template>
+
+        <!-- Actions Column -->
+        <template #item.actions="{ item }">
+          <div class="action-buttons-table">
+            <v-btn
+              icon
+              x-small
+              @click="viewDetails(item)"
+              title="ເບິ່ງລາຍລະອຽດ"
+            >
+              <v-icon small>mdi-eye</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              x-small
+              @click="openDialog(item)"
+              title="ແກ້ໄຂ"
+            >
+              <v-icon small>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="item.status === 'pending'"
+              icon
+              x-small
+              color="success"
+              @click="approveAdvance(item)"
+              title="ອະນຸມັດ"
+            >
+              <v-icon small>mdi-check</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="item.status === 'approved'"
+              icon
+              x-small
+              color="success"
+              @click="createSettlement(item)"
+              title="ສ້າງການຊຳລະ"
+            >
+              <v-icon small>mdi-cash-register</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              x-small
+              color="error"
+              @click="printAdvanceDetails(item)"
+              title="ພິມ"
+            >
+              <v-icon small>mdi-printer</v-icon>
+            </v-btn>
+          </div>
+        </template>
+      </v-data-table>
+
+      <!-- Custom Compact Pagination -->
+      <div class="compact-pagination">
+        <div class="pagination-info">
+          {{ paginationInfo.start }}-{{ paginationInfo.end }} ຈາກ {{ pagination.totalItems }}
+        </div>
+        <div class="pagination-controls">
+          <v-btn
+            icon
+            small
+            :disabled="pagination.currentPage === 1"
+            @click="changePage(pagination.currentPage - 1)"
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+
+          <div class="page-numbers">
+            <v-btn
+              v-for="page in paginationPages"
+              :key="page"
+              :color="page === pagination.currentPage ? 'primary' : ''"
+              :outlined="page !== pagination.currentPage"
+              x-small
+              min-width="30"
+              @click="changePage(page)"
+            >
+              {{ page }}
+            </v-btn>
+          </div>
+
+          <v-btn
+            icon
+            small
+            :disabled="pagination.currentPage === pagination.totalPages"
+            @click="changePage(pagination.currentPage + 1)"
+          >
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
         </div>
       </div>
-    </div>
+    </v-card>
 
-    <!-- Data Table -->
-    <div class="table-container">
-      <div v-if="loading" class="loading-overlay">
-        <div class="spinner"></div>
-      </div>
+    <!-- No Data Message -->
+    <v-card v-if="!loading && advances.length === 0" class="no-data-card" flat>
+      <v-card-text class="text-center py-8">
+        <v-icon size="64" color="grey lighten-2">mdi-inbox</v-icon>
+        <div class="mt-3 text-h6 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
+        <div class="grey--text">ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ</div>
+      </v-card-text>
+    </v-card>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>ຜູ້ລົງບັນຊີ</th>
-            <th>ກະຊວງ</th>
-            <th>ຈຳນວນເງິນ</th>
-            <th>ຈຸດປະສົງ</th>
-            <th>ບັນຊີທະນາຄານ</th>
-            <th>ສະຖານະ</th>
-            <th>ວັນຄົບຮອບຄວນຊຳລະ</th>
-            <th>ວັນທີລົງຊຳລະ</th>
-            <th>ຟັງຊັ່ນ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="advance in advances" :key="advance.id">
-            <td>{{ advance.id }}</td>
-            <td>{{ advance.maker ? advance.maker.cus_name : 'N/A' }}</td>
-            <td>
-              <div v-if="advance.ministry" class="ministry-info">
-                <div class="ministry-name">{{ advance.ministry.name }}</div>
-                <div v-if="advance.ministry.ministryCode" class="ministry-code">
-                  {{
-                    advance.ministry.ministryCode +
-                    ' ' +
-                    advance.ministry.ministryName
-                  }}
-                </div>
-              </div>
-              <span v-else class="no-ministry">ບໍ່ໄດ້ລະບຸກະຊວງ</span>
-            </td>
-            <td>
-              <span class="amount">
-                {{ formatCurrency(advance.amount) }}
-                <small v-if="advance.currency">{{
-                  advance.currency.code
-                }}</small>
-              </span>
-            </td>
-            <td>{{ advance.purpose || 'N/A' }}</td>
-            <td>
-              <div v-if="advance.bankAccount" class="bank-account-info">
-                <div class="bank-name">{{ advance.bankAccount.bankName }}</div>
-                <div class="account-number">
-                  {{ advance.bankAccount.accountNumber }}
-                </div>
-              </div>
-              <span v-else class="no-bank-account">No Bank Account</span>
-            </td>
-            <td>
-              <span :class="['status-badge', advance.status]">
-                {{ getStatusInLao(advance.status) }}
-              </span>
-            </td>
-            <td>{{ formatDate(advance.dueDate) }}</td>
-            <td>{{ formatDate(advance.bookingDate) }}</td>
-            <td>
-              <div class="action-buttons">
-                <!-- 🆕 NEW: Audit Trail Button -->
-                <!-- <button
-                  @click="viewAuditTrail(advance)"
-                  class="btn btn-sm btn-audit"
-                  title="ເບິ່ງປະຫວັດການປ່ຽນແປງ"
-                >
-                  <i class="fas fa-history"></i>
-                </button> -->
-
-                <button
-                  @click="viewDetails(advance)"
-                  class="btn btn-sm btn-info"
-                  title="View Details"
-                >
-                  <i class="fas fa-eye"></i>
-                </button>
-                <!-- v-if="advance.status === 'pending'" -->
-                <button
-                  @click="openDialog(advance)"
-                  class="btn btn-sm btn-warning"
-                  title="Edit"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button
-                  v-if="advance.status === 'pending'"
-                  @click="approveAdvance(advance)"
-                  class="btn btn-sm btn-success"
-                  title="Approve"
-                >
-                  <i class="fas fa-check"></i>
-                </button>
-                <!-- 🆕 UPDATED: Create Settlement Button -->
-                <button
-                  v-if="advance.status === 'approved'"
-                  @click="createSettlement(advance)"
-                  class="btn btn-sm btn-success"
-                  title="Create Settlement"
-                >
-                  <i class="fas fa-file-invoice-dollar"></i>
-                </button>
-                <button
-                  @click="printAdvanceDetails(advance)"
-                  class="btn btn-sm btn-danger"
-                  title="Print"
-                >
-                  <i class="fas fa-print"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- No Data Message -->
-      <div v-if="!loading && advances.length === 0" class="no-data">
-        <i class="fas fa-inbox"></i>
-        <p>No money advances found</p>
-      </div>
-    </div>
-
-    <!-- Pagination -->
-    <nav v-if="pagination.totalPages > 1" class="pagination-nav">
-      <ul class="pagination">
-        <li
-          class="page-item"
-          :class="{ disabled: pagination.currentPage === 1 }"
-        >
-          <button
-            @click="changePage(pagination.currentPage - 1)"
-            class="page-link"
-          >
-            Previous
-          </button>
-        </li>
-        <li
-          v-for="page in paginationPages"
-          :key="page"
-          class="page-item"
-          :class="{ active: page === pagination.currentPage }"
-        >
-          <button @click="changePage(page)" class="page-link">
-            {{ page }}
-          </button>
-        </li>
-        <li
-          class="page-item"
-          :class="{
-            disabled: pagination.currentPage === pagination.totalPages,
-          }"
-        >
-          <button
-            @click="changePage(pagination.currentPage + 1)"
-            class="page-link"
-          >
-            Next
-          </button>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- Money Advance Dialog Component -->
+    <!-- Dialog Components (keeping existing structure) -->
     <money-advance-dialog
-      :key="radnomKeyMaintenanceDialog"
+      :key="randomKeyMaintenanceDialog"
       :show="showDialog"
       :is-edit="isEdit"
       :form-data="form"
@@ -288,9 +468,7 @@
       :form-loading="formLoading"
       :saving="saving"
       @close="closeDialog"
-      @print="
-        printAdvanceDetails(advances.find((advance) => advance.id == form.id))
-      "
+      @print="printAdvanceDetails(advances.find((advance) => advance.id == form.id))"
       @save="saveAdvance"
       @currency-changed="updateSelectedCurrency"
       @bank-account-changed="updateSelectedBankAccount"
@@ -298,7 +476,6 @@
       @validation-error="showToast"
     />
 
-    <!-- Detail Dialog Component -->
     <money-advance-detail-dialog
       :show="showDetailDialog"
       :details="advanceDetails"
@@ -313,7 +490,6 @@
       @create-settlement="handleCreateSettlement"
     />
 
-    <!-- 🆕 NEW: Audit Trail Dialog - Fixed version with conditional rendering -->
     <audit-trail-dialog
       v-if="selectedRecordForAudit && selectedRecordForAudit.id"
       :show="showAuditDialog"
@@ -328,7 +504,6 @@
       @error="(msg) => showToast(msg, 'error')"
     />
 
-    <!-- 🆕 NEW: Version Comparison Dialog - Fixed version with conditional rendering -->
     <version-comparison-dialog
       v-if="selectedRecordForComparison && selectedRecordForComparison.id"
       :show="showComparisonDialog"
@@ -342,7 +517,6 @@
       @error="(msg) => showToast(msg, 'error')"
     />
 
-    <!-- 🆕 NEW: Audit Reports Dialog -->
     <audit-reports-dialog
       :show="showAuditReportsDialog"
       @close="closeAuditReportsDialog"
@@ -350,7 +524,6 @@
       @error="(msg) => showToast(msg, 'error')"
     />
 
-    <!-- Voucher Print Component -->
     <VoucherPrintComponent
       v-if="showPrintVoucher && advanceDetails"
       :key="advanceDetails.id"
@@ -358,7 +531,6 @@
       @close="closePrintVoucher"
     />
 
-    <!-- 🆕 NEW: Settlement Dialog Component -->
     <SettlementDialog
       :visible="showSettlementDialog"
       :settlement="settlementData"
@@ -371,19 +543,26 @@
       @close="closeSettlementDialog"
       @save="saveSettlement"
     />
+
+    <!-- Loading Overlay -->
+    <v-overlay :value="loading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+        color="primary"
+      />
+    </v-overlay>
   </div>
 </template>
 
 <script>
-// Import the components
+// Import all the existing components
 import MoneyAdvanceDialog from '~/components/MA/paymentDialog'
 import MoneyAdvanceDetailDialog from '~/components/MA/paymentDetailDialog'
 import VoucherPrintComponent from '~/components/MA/paymentVoucher'
-// 🆕 NEW: Import audit components
 import AuditTrailDialog from '~/components/MA/paymentAuditDialog'
 import VersionComparisonDialog from '~/components/MA/paymentCompareDialog'
 import AuditReportsDialog from '~/components/MA/paymentAuditReportDialog'
-// 🆕 NEW: Import Settlement Dialog
 import SettlementDialog from '~/components/MA/settlementDialog'
 import { swalSuccess, swalError2, swalConfirm } from '~/common'
 
@@ -394,17 +573,29 @@ export default {
     MoneyAdvanceDialog,
     MoneyAdvanceDetailDialog,
     VoucherPrintComponent,
-    // 🆕 NEW: Register audit components
     AuditTrailDialog,
     VersionComparisonDialog,
     AuditReportsDialog,
-    // 🆕 NEW: Register Settlement Dialog
     SettlementDialog,
   },
   middleware: 'auths',
+  
   data() {
     return {
+      // Date picker state
+      fromDateMenu: false,
+      toDateMenu: false,
+      pickerFromDate: null,
+      pickerToDate: null,
+      formattedFromDate: null,
+      formattedToDate: null,
+
+      // Filter and search state
       statusFilter: '',
+      searchTerm: '',
+      searchTimeout: null,
+
+      // Status configuration
       statusLabels: {
         pending: 'ຄ້າງອະນຸມັດ',
         approved: 'ອະນຸມັດແລ້ວ',
@@ -412,52 +603,66 @@ export default {
         rejected: 'ປະຕິເສດ',
         cancelled: 'ຍົກເລີກ',
       },
+
+      // Data arrays
       advances: [],
-      dashboard: {
-        counts: { total: 0, pending: 0, approved: 0, settled: 0 },
-        amounts: { total: 0, pending: 0 },
-      },
       users: [],
       currencies: [],
       ministries: [],
       bankAccounts: [],
-      chartAccounts: [], // 🆕 NEW: Chart accounts for settlement
+      chartAccounts: [],
+
+      // Dashboard data
+      dashboard: {
+        counts: { total: 0, pending: 0, approved: 0, settled: 0 },
+        amounts: { total: 0, pending: 0 },
+      },
+
+      // Pagination
       pagination: {
         currentPage: 1,
         totalPages: 1,
         totalItems: 0,
-        itemsPerPage: 10,
+        itemsPerPage: 25,
       },
+
+      // Filters
       filters: {
         status: '',
         makerId: '',
         ministryId: '',
+        fromDate: '',
+        toDate: '',
       },
-      searchTerm: '',
+
+      // Loading states
       loading: false,
       saving: false,
       formLoading: false,
+      detailLoading: false,
+
+      // Dialog states
       showDialog: false,
-      radnomKeyMaintenanceDialog: 1,
+      randomKeyMaintenanceDialog: 1,
       showDetailDialog: false,
       showPrintVoucher: false,
-      // 🆕 NEW: Settlement dialog states
       showSettlementDialog: false,
-      settlementData: null,
-      selectedAdvanceForSettlement: null,
-      // 🆕 NEW: Audit dialog states
       showAuditDialog: false,
       showComparisonDialog: false,
       showAuditReportsDialog: false,
+
+      // Selected data
+      selectedAdvance: null,
+      advanceDetails: null,
+      settlementData: null,
+      selectedAdvanceForSettlement: null,
       selectedRecordForAudit: null,
       selectedRecordForComparison: null,
       comparisonData: null,
-      canRestoreRecord: false,
 
+      // Form state
       isEdit: false,
-      selectedAdvance: null,
-      advanceDetails: null,
-      detailLoading: false,
+      canRestoreRecord: false,
       form: {
         id: null,
         amount: '',
@@ -470,16 +675,13 @@ export default {
         bankAccountId: '',
         ministryId: '',
         bookingDate: '',
-        // 🆕 NEW: Add reason field for audit trail
         reason: '',
-        // New fields from backend
         externalRef: '',
         externalRefNo: '',
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
       },
-      searchTimeout: null,
     }
   },
 
@@ -488,50 +690,160 @@ export default {
       return this.$auth.user || ''
     },
 
+    // Compact table headers
+    compactHeaders() {
+      return [
+        { text: 'ID', value: 'id', width: '60px', sortable: true },
+        { text: 'ຜູ້ລົງ', value: 'maker', width: '100px', sortable: true },
+        { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
+        { text: 'ຈຳນວນ', value: 'amount', width: '100px', sortable: true },
+        { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
+        { text: 'ບັນຊີ', value: 'bankAccount', width: '120px', sortable: false },
+        { text: 'ສະຖານະ', value: 'status', width: '80px', sortable: true },
+        { text: 'ຄົບກຳໜົດ', value: 'dueDate', width: '80px', sortable: true },
+        { text: 'ວັນທີ', value: 'bookingDate', width: '80px', sortable: true },
+        { text: '', value: 'actions', width: '120px', sortable: false },
+      ]
+    },
+
+    // Filter options
+    statusOptions() {
+      return [
+        { text: 'ທຸກສະຖານະ', value: '' },
+        { text: 'ຄ້າງອະນຸມັດ', value: 'pending' },
+        { text: 'ອະນຸມັດແລ້ວ', value: 'approved' },
+        { text: 'ຊຳລະແລ້ວ', value: 'settled' },
+      ]
+    },
+
+    userOptions() {
+      return [
+        { text: 'ທຸກຜູ້ໃຊ້', value: '' },
+        ...this.users.map(user => ({
+          text: user.cus_name,
+          value: user.id
+        }))
+      ]
+    },
+
+    ministryOptions() {
+      return [
+        { text: 'ທຸກກະຊວງ', value: '' },
+        ...this.ministries.map(ministry => ({
+          text: ministry.name,
+          value: ministry.id
+        }))
+      ]
+    },
+
+    perPageOptions() {
+      return [10, 25, 50, 100]
+    },
+
     paginationPages() {
       const pages = []
       const start = Math.max(1, this.pagination.currentPage - 2)
-      const end = Math.min(
-        this.pagination.totalPages,
-        this.pagination.currentPage + 2
-      )
+      const end = Math.min(this.pagination.totalPages, this.pagination.currentPage + 2)
 
       for (let i = start; i <= end; i++) {
         pages.push(i)
       }
       return pages
     },
+
+    paginationInfo() {
+      const start = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1
+      const end = Math.min(start + this.pagination.itemsPerPage - 1, this.pagination.totalItems)
+      return {
+        start: this.pagination.totalItems > 0 ? start : 0,
+        end,
+        total: this.pagination.totalItems,
+      }
+    },
   },
 
   async mounted() {
     await this.loadInitialData()
-    // Check user permissions for restore functionality
     this.canRestoreRecord = this.checkRestorePermissions()
   },
 
   methods: {
-    // 🆕 NEW: Check if user can restore records
-    checkRestorePermissions() {
-      // Add your permission logic here
-      return (
-        this.user?.role === 'admin' ||
-        this.user?.permissions?.includes('restore_records')
-      )
+    // Date formatting and handling methods
+    formatDate(date) {
+      if (!date) return null
+      const d = new Date(date)
+      const day = String(d.getDate()).padStart(2, '0')
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+      const year = d.getFullYear()
+      return `${day}/${month}/${year}`
+    },
+
+    setFromDate(val) {
+      this.formattedFromDate = this.formatDate(val)
+      this.pickerFromDate = val
+      this.filters.fromDate = val
+      this.fromDateMenu = false
+    },
+
+    setToDate(val) {
+      this.formattedToDate = this.formatDate(val)
+      this.pickerToDate = val
+      this.filters.toDate = val
+      this.toDateMenu = false
+    },
+
+    clearFromDate() {
+      this.formattedFromDate = null
+      this.pickerFromDate = null
+      this.filters.fromDate = ''
+    },
+
+    clearToDate() {
+      this.formattedToDate = null
+      this.pickerToDate = null
+      this.filters.toDate = ''
+    },
+
+    formatCompactDate(date) {
+      if (!date) return '-'
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit'
+      })
+    },
+
+    // Utility methods
+    truncateText(text, length = 20) {
+      if (!text) return 'N/A'
+      return text.length > length ? text.substring(0, length) + '...' : text
+    },
+
+    getStatusColor(status) {
+      const colors = {
+        pending: 'warning',
+        approved: 'success',
+        settled: 'info',
+        rejected: 'error',
+        cancelled: 'grey'
+      }
+      return colors[status] || 'grey'
     },
 
     getStatusInLao(status) {
       return this.statusLabels[status] || status.toUpperCase()
     },
 
-    getStatusOptions() {
-      return [
-        { value: '', label: 'ທຸກສະຖານະ' },
-        { value: 'pending', label: 'ຄ້າງອະນຸມັດ' },
-        { value: 'approved', label: 'ອະນຸມັດແລ້ວ' },
-        { value: 'settled', label: 'ຊຳລະແລ້ວ' },
-      ]
+    isOverdue(dueDate) {
+      if (!dueDate) return false
+      return new Date(dueDate) < new Date()
     },
 
+    checkRestorePermissions() {
+      return this.user?.role === 'admin' || this.user?.permissions?.includes('restore_records')
+    },
+
+    // Data loading methods (keeping existing logic)
     async loadInitialData() {
       await Promise.all([
         this.fetchData(),
@@ -540,11 +852,10 @@ export default {
         this.fetchCurrencies(),
         this.fetchMinistry(),
         this.fetchBankAccounts(),
-        this.fetchChartAccounts(), // 🆕 NEW: Load chart accounts
+        this.fetchChartAccounts(),
       ])
     },
 
-    // [Keep all your existing methods for data fetching, CRUD operations, etc.]
     async fetchData() {
       this.loading = true
       try {
@@ -562,9 +873,7 @@ export default {
           params.search = this.searchTerm
         }
 
-        const { data } = await this.$axios.get('/api/money-advances', {
-          params,
-        })
+        const { data } = await this.$axios.get('/api/money-advances', { params })
 
         this.advances = data.data.advances
         this.pagination = data.data.pagination
@@ -579,14 +888,12 @@ export default {
     async fetchDashboard() {
       try {
         const params = {}
-
         if (this.filters.makerId) params.makerId = this.filters.makerId
         if (this.filters.ministryId) params.ministryId = this.filters.ministryId
+        if (this.filters.fromDate) params.fromDate = this.filters.fromDate
+        if (this.filters.toDate) params.toDate = this.filters.toDate
 
-        const { data } = await this.$axios.get(
-          '/api/money-advances/dashboard',
-          { params }
-        )
+        const { data } = await this.$axios.get('/api/money-advances/dashboard', { params })
         this.dashboard = data.data
       } catch (error) {
         console.error('Error fetching dashboard:', error)
@@ -652,16 +959,13 @@ export default {
         } else {
           this.bankAccounts = []
         }
-        this.bankAccounts = this.bankAccounts.filter(
-          (account) => account.isActive
-        )
+        this.bankAccounts = this.bankAccounts.filter(account => account.isActive)
       } catch (error) {
         console.error('Error fetching bank accounts:', error)
         this.bankAccounts = []
       }
     },
 
-    // 🆕 NEW: Fetch chart accounts for settlement
     async fetchChartAccounts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
@@ -675,284 +979,55 @@ export default {
       } catch (error) {
         console.error('Error fetching chart accounts:', error)
         this.chartAccounts = []
-        // Chart accounts are optional, so don't show error to user
       }
     },
 
-    // 🆕 NEW: Audit Trail Methods
-    viewAuditTrail(advance) {
-      this.selectedRecordForAudit = advance
-      this.showAuditDialog = true
-      console.warn(`DATA ${JSON.stringify(this.selectedRecordForAudit)} `)
-      console.info(`DATA ${JSON.stringify(this.showAuditDialog)} `)
+    // Filter and search methods
+    onFilterChange() {
+      this.filters.status = this.statusFilter
+      this.pagination.currentPage = 1
+      this.fetchData()
+      this.fetchDashboard()
     },
 
-    closeAuditDialog() {
-      this.showAuditDialog = false
-      // Add a small delay to ensure dialog closes before clearing data
-      setTimeout(() => {
-        this.selectedRecordForAudit = null
-      }, 300)
+    applyFilters() {
+      this.pagination.currentPage = 1
+      this.fetchData()
+      this.fetchDashboard()
     },
 
-    handleVersionComparison(comparisonData) {
-      this.selectedRecordForComparison = this.selectedRecordForAudit
-      this.comparisonData = comparisonData
-      this.showAuditDialog = false
-      this.showComparisonDialog = true
+    resetFilters() {
+      this.filters = { status: '', makerId: '', ministryId: '', fromDate: '', toDate: '' }
+      this.searchTerm = ''
+      this.statusFilter = ''
+      this.clearFromDate()
+      this.clearToDate()
+      this.pagination.currentPage = 1
+      this.fetchData()
+      this.fetchDashboard()
     },
 
-    closeComparisonDialog() {
-      this.showComparisonDialog = false
-      // Add a small delay to ensure dialog closes before clearing data
-      setTimeout(() => {
-        this.selectedRecordForComparison = null
-        this.comparisonData = null
-      }, 300)
+    debounceSearch() {
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        this.pagination.currentPage = 1
+        this.fetchData()
+      }, 500)
     },
 
-    async handleVersionRestore(versionData) {
-      try {
-        const result = await swalConfirm(
-          this.$swal,
-          'ຢືນຢັນການກັບຄືນ',
-          `ທ່ານແນ່ໃຈທີ່ຈະກັບຄືນໄປຫາເວີຊັ່ນນີ້ບໍ່?`,
-          'question',
-          'ຍົກເລີກ',
-          'ກັບຄືນ'
-        )
-
-        if (result.isConfirmed) {
-          const recordId =
-            this.selectedRecordForAudit?.id ||
-            this.selectedRecordForComparison?.id
-
-          // Call restore API endpoint here
-          const { data } = await this.$axios.post(
-            `/api/money-advances/${recordId}/restore`,
-            {
-              targetVersion: versionData.version,
-              reason: 'Restored via audit trail',
-            }
-          )
-
-          if (data.success) {
-            this.showToast('ກັບຄືນເວີຊັ່ນສຳເລັດ', 'success')
-            this.closeAuditDialog()
-            this.closeComparisonDialog()
-            await this.fetchData() // Refresh the main list
-          } else {
-            throw new Error(data.message || 'Restore failed')
-          }
-        }
-      } catch (error) {
-        console.error('Error restoring version:', error)
-        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການກັບຄືນ', 'error')
-      }
-    },
-
-    handleViewFullChanges(auditEntry) {
-      // You can implement a detailed changes view here
-      console.log('View full changes for:', auditEntry)
-      this.showToast('ຟັງຊັ່ນນີ້ຈະຖືກພັດທະນາໃນອະນາຄົດ', 'info')
-    },
-
-    openAuditReports() {
-      this.showAuditReportsDialog = true
-    },
-
-    closeAuditReportsDialog() {
-      this.showAuditReportsDialog = false
-    },
-
-    // 🆕 NEW: Settlement Methods
-    async createSettlement(advance) {
-      try {
-        this.selectedAdvanceForSettlement = advance
-
-        const settlementDate = new Date().toISOString().split('T')[0] // Today's date
-
-        // Prepare settlement data with money advance information
-        this.settlementData = {
-          id: null, // New settlement
-          amount: advance.amount,
-          currencyId: advance.currencyId,
-          userId: advance.makerId, // Use the advance maker as default user
-          ministryId: advance.ministryId || '',
-          bankAccountId: advance.bankAccountId || '',
-          chartAccountId: '', // Leave empty for user to choose
-          method: '', // Leave empty for user to choose
-          settlementDate: settlementDate,
-          // 🆕 FIX: Add bookingDate field using settlementDate
-          bookingDate: settlementDate,
-          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${
-            advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'
-          }`,
-          moneyAdvanceId: advance.id,
-          // 🆕 FIX: Ensure the settlement shows as linked to the money advance
-          linkToAdvance: 'true', // This will ensure the radio button shows "ເຊື່ອມຕໍ່ກັບລາຍຈ່າຍລ່ວງໜ້າ"
-        }
-
-        console.log('🔗 Creating settlement with money advance link:', {
-          advanceId: advance.id,
-          linkToAdvance: this.settlementData.linkToAdvance,
-          moneyAdvanceId: this.settlementData.moneyAdvanceId,
-          settlementDate: this.settlementData.settlementDate,
-          bookingDate: this.settlementData.bookingDate,
-        })
-
-        // Open the settlement dialog
-        this.showSettlementDialog = true
-      } catch (error) {
-        console.error('Error preparing settlement:', error)
-        this.showToast('Error preparing settlement', 'error')
-      }
-    },
-
-    closeSettlementDialog() {
-      this.showSettlementDialog = false
-      this.settlementData = null
-      this.selectedAdvanceForSettlement = null
-    },
-
-    async saveSettlement(settlementData) {
-      try {
-        // Add audit context
-        const auditContext = {
-          reason: `Settlement created for Money Advance #${this.selectedAdvanceForSettlement?.id}`,
-          userId: this.user?.id,
-        }
-
-        // 🆕 FIX: Ensure bookingDate is included (use settlementDate if not provided)
-        const completeSettlementData = {
-          ...settlementData,
-          bookingDate:
-            settlementData.bookingDate || settlementData.settlementDate,
-          ...auditContext,
-        }
-
-        console.log('📤 Sending settlement to API:', completeSettlementData)
-
-        const response = await this.$axios.post(
-          '/api/settlements',
-          completeSettlementData
-        )
-
-        if (response.data && response.data.success) {
-          this.showToast('Settlement created successfully', 'success')
-          this.closeSettlementDialog()
-
-          // Refresh the money advances list to update status
-          await this.fetchData()
-          await this.fetchDashboard()
-        } else {
-          throw new Error(
-            response.data?.message || 'Failed to create settlement'
-          )
-        }
-      } catch (error) {
-        console.error('Error saving settlement:', error)
-        const message =
-          error.response?.data?.message || 'Error creating settlement'
-        this.showToast(message, 'error')
-      }
-    },
-
-    // Enhanced save method with audit context
-    async saveAdvance(formData) {
-      this.saving = true
-      try {
-        // 🆕 NEW: Add audit context
-        const auditContext = {
-          reason:
-            formData.reason ||
-            (this.isEdit ? 'Updated record' : 'Created new record'),
-          userId: this.user?.id,
-        }
-
-        if (this.isEdit) {
-          formData.updateUserId = this.user.id
-          await this.$axios.put(`/api/money-advances/${formData.id}`, {
-            ...formData,
-            ...auditContext,
-          })
-          this.showToast('Money advance updated successfully', 'success')
-        } else {
-          const response = await this.$axios.post('/api/money-advances', {
-            ...formData,
-            ...auditContext,
-          })
-          this.showToast('Money advance created successfully', 'success')
-        }
-
-        // this.closeDialog()
-        await this.fetchData()
-        await this.fetchDashboard()
-      } catch (error) {
-        const message =
-          error.response?.data?.message || 'Error saving money advance'
-        this.showToast(message, 'error')
-        console.error('Save error:', error)
-      } finally {
-        this.saving = false
-      }
-    },
-
-    // Enhanced approve method with audit context
-    async approveAdvance(advance) {
-      try {
-        const result = await swalConfirm(
-          this.$swal,
-          'ຢືນຢັນ ການອະນຸມັດ',
-          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(
-            advance.amount
-          )}?`,
-          'question',
-          'ບໍ່',
-          'ຕົກລົງ'
-        )
-
-        if (result.isConfirmed) {
-          // 🆕 NEW: Add audit context
-          await this.$axios.put(`/api/money-advances/${advance.id}/approve`, {
-            checkerId: this.user.id,
-            reason: 'Approved by manager',
-          })
-          this.showToast('Money advance approved successfully', 'success')
-          await this.fetchData()
-          await this.fetchDashboard()
-        }
-      } catch (error) {
-        console.error('Error approving:', error)
-        this.showToast('Error approving money advance', 'error')
-      }
-    },
-
-    // [Keep all your other existing methods...]
+    // Keep all existing dialog and CRUD methods
     async openDialog(advance = null) {
       this.isEdit = !!advance
       this.showDialog = true
-      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
-        Math.random() * 1000
-      )}`
+      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(Math.random() * 1000)}`
 
-      if (
-        this.users.length === 0 ||
-        this.currencies.length === 0 ||
-        this.ministries.length === 0
-      ) {
+      if (this.users.length === 0 || this.currencies.length === 0 || this.ministries.length === 0) {
         this.formLoading = true
         await Promise.all([
           this.users.length === 0 ? this.fetchUsers() : Promise.resolve(),
-          this.currencies.length === 0
-            ? this.fetchCurrencies()
-            : Promise.resolve(),
-          this.ministries.length === 0
-            ? this.fetchMinistry()
-            : Promise.resolve(),
-          this.bankAccounts.length === 0
-            ? this.fetchBankAccounts()
-            : Promise.resolve(),
+          this.currencies.length === 0 ? this.fetchCurrencies() : Promise.resolve(),
+          this.ministries.length === 0 ? this.fetchMinistry() : Promise.resolve(),
+          this.bankAccounts.length === 0 ? this.fetchBankAccounts() : Promise.resolve(),
         ])
         this.formLoading = false
       }
@@ -971,9 +1046,7 @@ export default {
           ministryId: advance.ministryId || '',
           bookingDate: advance.bookingDate || '',
           exchangeRate: advance.exchangeRate || '',
-          reason: '', // Reset reason for each edit
-
-          // New fields from backend
+          reason: '',
           externalRef: advance.externalRef || '',
           externalRefNo: advance.externalRefNo || '',
           chequeNo: advance.chequeNo || '',
@@ -982,19 +1055,8 @@ export default {
         }
       } else {
         this.resetForm()
-
-        // Ensure new fields are empty in create mode
-        Object.assign(this.form, {
-          externalRef: '',
-          externalRefNo: '',
-          chequeNo: '',
-          receiveName: '',
-          receiveIDNO: '',
-        })
-
         if (this.currencies.length > 0) {
-          const defaultCurrency =
-            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+          const defaultCurrency = this.currencies.find(c => c.code === 'USD') || this.currencies[0]
           this.form.currencyId = defaultCurrency.id
         }
       }
@@ -1006,8 +1068,7 @@ export default {
     },
 
     resetForm() {
-      const today = new Date().toISOString().split('T')[0] // Get today's date
-
+      const today = new Date().toISOString().split('T')[0]
       this.form = {
         id: null,
         amount: '',
@@ -1019,73 +1080,114 @@ export default {
         bankAccountId: '',
         exchangeRate: 1,
         ministryId: '',
-        bookingDate: today, // ✅ Set to today's date
+        bookingDate: today,
         reason: '',
+        method: 'cash',
+        externalRef: '',
+        externalRefNo: '',
+        chequeNo: '',
+        receiveName: '',
+        receiveIDNO: '',
       }
+      this.isEdit = false
     },
 
-    updateSelectedCurrency(currencyId) {
-      console.log('Currency changed to:', currencyId)
-    },
-
-    updateSelectedBankAccount(bankAccountId) {
-      console.log('Bank account changed to:', bankAccountId)
-    },
-
-    updateSelectedMinistry(ministryId) {
-      console.log('Ministry changed to:', ministryId)
-    },
-
-    onFilterChange() {
-      this.filters.status = this.statusFilter
-      this.pagination.currentPage = 1
-      this.fetchData()
-      this.fetchDashboard()
-    },
-
-    async settleAdvance(advance) {
-      if (confirm('Mark money advance as settled?')) {
-        try {
-          await this.$axios.put(`/api/money-advances/${advance.id}/settle`, {
-            reason: 'Marked as settled',
-          })
-          this.showToast('Money advance settled successfully', 'success')
-          await this.fetchData()
-          await this.fetchDashboard()
-        } catch (error) {
-          this.showToast('Error settling money advance', 'error')
+    async saveAdvance(formData) {
+      this.saving = true
+      try {
+        const auditContext = {
+          reason: formData.reason || (this.isEdit ? 'Updated record' : 'Created new record'),
+          userId: this.user?.id,
         }
+
+        if (this.isEdit && formData.id) {
+          formData.updateUserId = this.user.id
+          await this.$axios.put(`/api/money-advances/${formData.id}`, {
+            ...formData,
+            ...auditContext,
+          })
+          this.showToast('Money advance updated successfully', 'success')
+        } else {
+          const response = await this.$axios.post('/api/money-advances', {
+            ...formData,
+            ...auditContext,
+          })
+
+          const newRecord = response.data.data
+          this.form = {
+            id: newRecord.id,
+            amount: newRecord.amount,
+            method: newRecord.method || 'cash',
+            purpose: newRecord.purpose || '',
+            note: newRecord.note || '',
+            makerId: newRecord.makerId,
+            currencyId: newRecord.currencyId,
+            dueDate: newRecord.dueDate ? newRecord.dueDate.split('T')[0] : '',
+            bankAccountId: newRecord.bankAccountId || '',
+            ministryId: newRecord.ministryId || '',
+            bookingDate: newRecord.bookingDate || '',
+            exchangeRate: newRecord.exchangeRate || '',
+            reason: '',
+            externalRef: newRecord.externalRef || '',
+            externalRefNo: newRecord.externalRefNo || '',
+            chequeNo: newRecord.chequeNo || '',
+            receiveName: newRecord.receiveName || '',
+            receiveIDNO: newRecord.receiveIDNO || '',
+          }
+
+          this.isEdit = true
+          this.$nextTick(() => {
+            this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+          })
+
+          this.showToast('Money advance created successfully', 'success')
+        }
+
+        await this.fetchData()
+        await this.fetchDashboard()
+      } catch (error) {
+        const message = error.response?.data?.message || 'Error saving money advance'
+        this.showToast(message, 'error')
+        console.error('Save error:', error)
+      } finally {
+        this.saving = false
       }
     },
 
-    async deleteAdvance(advance) {
-      if (
-        confirm(
-          `Delete money advance for ${this.formatCurrency(advance.amount)}?`
+    async approveAdvance(advance) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນ ການອະນຸມັດ',
+          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(advance.amount)}?`,
+          'question',
+          'ບໍ່',
+          'ຕົກລົງ'
         )
-      ) {
-        try {
-          await this.$axios.delete(`/api/money-advances/${advance.id}`, {
-            data: { reason: 'Deleted by user' },
+
+        if (result.isConfirmed) {
+          await this.$axios.put(`/api/money-advances/${advance.id}/approve`, {
+            checkerId: this.user.id,
+            reason: 'Approved by manager',
           })
-          this.showToast('Money advance deleted successfully', 'success')
+          this.showToast('Money advance approved successfully', 'success')
           await this.fetchData()
           await this.fetchDashboard()
-        } catch (error) {
-          this.showToast('Error deleting money advance', 'error')
         }
+      } catch (error) {
+        console.error('Error approving:', error)
+        this.showToast('Error approving money advance', 'error')
       }
     },
 
+    // Keep all other existing methods (viewDetails, createSettlement, etc.)
     async viewDetails(advance) {
       this.selectedAdvance = advance
       this.showDetailDialog = true
 
       try {
         this.detailLoading = true
-        const { data } = await this.$axios.get(
-          `/api/money-advances/${advance.id}`
-        )
+        const { data } = await this.$axios.get(`/api/money-advances/${advance.id}`)
         this.advanceDetails = data.data
       } catch (error) {
         console.error('Error fetching advance details:', error)
@@ -1101,11 +1203,68 @@ export default {
       this.advanceDetails = null
     },
 
-    closePrintVoucher() {
-      this.showPrintVoucher = false
-      setTimeout(() => {
-        this.advanceDetails = null
-      }, 100)
+    async createSettlement(advance) {
+      try {
+        this.selectedAdvanceForSettlement = advance
+        const settlementDate = new Date().toISOString().split('T')[0]
+
+        this.settlementData = {
+          id: null,
+          amount: advance.amount,
+          currencyId: advance.currencyId,
+          userId: advance.makerId,
+          ministryId: advance.ministryId || '',
+          bankAccountId: advance.bankAccountId || '',
+          chartAccountId: '',
+          method: '',
+          settlementDate: settlementDate,
+          bookingDate: settlementDate,
+          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'}`,
+          moneyAdvanceId: advance.id,
+          linkToAdvance: 'true',
+        }
+
+        this.showSettlementDialog = true
+      } catch (error) {
+        console.error('Error preparing settlement:', error)
+        this.showToast('Error preparing settlement', 'error')
+      }
+    },
+
+    closeSettlementDialog() {
+      this.showSettlementDialog = false
+      this.settlementData = null
+      this.selectedAdvanceForSettlement = null
+    },
+
+    async saveSettlement(settlementData) {
+      try {
+        const auditContext = {
+          reason: `Settlement created for Money Advance #${this.selectedAdvanceForSettlement?.id}`,
+          userId: this.user?.id,
+        }
+
+        const completeSettlementData = {
+          ...settlementData,
+          bookingDate: settlementData.bookingDate || settlementData.settlementDate,
+          ...auditContext,
+        }
+
+        const response = await this.$axios.post('/api/settlements', completeSettlementData)
+
+        if (response.data && response.data.success) {
+          this.showToast('Settlement created successfully', 'success')
+          this.closeSettlementDialog()
+          await this.fetchData()
+          await this.fetchDashboard()
+        } else {
+          throw new Error(response.data?.message || 'Failed to create settlement')
+        }
+      } catch (error) {
+        console.error('Error saving settlement:', error)
+        const message = error.response?.data?.message || 'Error creating settlement'
+        this.showToast(message, 'error')
+      }
     },
 
     printAdvanceDetails(payment) {
@@ -1116,6 +1275,89 @@ export default {
       })
     },
 
+    closePrintVoucher() {
+      this.showPrintVoucher = false
+      setTimeout(() => {
+        this.advanceDetails = null
+      }, 100)
+    },
+
+    // Audit methods (keeping existing)
+    viewAuditTrail(advance) {
+      this.selectedRecordForAudit = advance
+      this.showAuditDialog = true
+    },
+
+    closeAuditDialog() {
+      this.showAuditDialog = false
+      setTimeout(() => {
+        this.selectedRecordForAudit = null
+      }, 300)
+    },
+
+    handleVersionComparison(comparisonData) {
+      this.selectedRecordForComparison = this.selectedRecordForAudit
+      this.comparisonData = comparisonData
+      this.showAuditDialog = false
+      this.showComparisonDialog = true
+    },
+
+    closeComparisonDialog() {
+      this.showComparisonDialog = false
+      setTimeout(() => {
+        this.selectedRecordForComparison = null
+        this.comparisonData = null
+      }, 300)
+    },
+
+    async handleVersionRestore(versionData) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການກັບຄືນ',
+          `ທ່ານແນ່ໃຈທີ່ຈະກັບຄືນໄປຫາເວີຊັ່ນນີ້ບໍ່?`,
+          'question',
+          'ຍົກເລີກ',
+          'ກັບຄືນ'
+        )
+
+        if (result.isConfirmed) {
+          const recordId = this.selectedRecordForAudit?.id || this.selectedRecordForComparison?.id
+
+          const { data } = await this.$axios.post(`/api/money-advances/${recordId}/restore`, {
+            targetVersion: versionData.version,
+            reason: 'Restored via audit trail',
+          })
+
+          if (data.success) {
+            this.showToast('ກັບຄືນເວີຊັ່ນສຳເລັດ', 'success')
+            this.closeAuditDialog()
+            this.closeComparisonDialog()
+            await this.fetchData()
+          } else {
+            throw new Error(data.message || 'Restore failed')
+          }
+        }
+      } catch (error) {
+        console.error('Error restoring version:', error)
+        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການກັບຄືນ', 'error')
+      }
+    },
+
+    handleViewFullChanges(auditEntry) {
+      console.log('View full changes for:', auditEntry)
+      this.showToast('ຟັງຊັ່ນນີ້ຈະຖືກພັດທະນາໃນອະນາຄົດ', 'info')
+    },
+
+    openAuditReports() {
+      this.showAuditReportsDialog = true
+    },
+
+    closeAuditReportsDialog() {
+      this.showAuditReportsDialog = false
+    },
+
+    // Detail dialog handlers
     downloadAdvanceDetails() {
       const details = this.formatAdvanceForDownload()
       const blob = new Blob([details], { type: 'text/plain' })
@@ -1147,7 +1389,7 @@ export default {
 
     handleCreateSettlement(advance) {
       this.closeDetailDialog()
-      this.createSettlement(advance) // 🆕 UPDATED: Call the new createSettlement method
+      this.createSettlement(advance)
     },
 
     formatAdvanceForDownload() {
@@ -1166,26 +1408,19 @@ Due Date: ${this.formatDate(advance.dueDate)}
 Created Date: ${this.formatDate(advance.createdAt)}
 Updated Date: ${this.formatDate(advance.updatedAt)}
 
-${
-  advance.bankAccount
-    ? `Bank Account: ${advance.bankAccount.bankName} - ${advance.bankAccount.accountNumber}`
-    : 'No Bank Account'
-}
+${advance.bankAccount ? `Bank Account: ${advance.bankAccount.bankName} - ${advance.bankAccount.accountNumber}` : 'No Bank Account'}
 
 Notes: ${advance.note || 'No notes provided'}
 
 ${advance.checker ? `Checker: ${advance.checker.cus_name}` : ''}
-${
-  advance.approvedAt
-    ? `Approved At: ${this.formatDate(advance.approvedAt)}`
-    : ''
-}
+${advance.approvedAt ? `Approved At: ${this.formatDate(advance.approvedAt)}` : ''}
 ${advance.settledAt ? `Settled At: ${this.formatDate(advance.settledAt)}` : ''}
 
 Generated on: ${new Date().toLocaleString()}
       `.trim()
     },
 
+    // Pagination
     changePage(page) {
       if (page >= 1 && page <= this.pagination.totalPages) {
         this.pagination.currentPage = page
@@ -1193,72 +1428,25 @@ Generated on: ${new Date().toLocaleString()}
       }
     },
 
-    resetFilters() {
-      this.filters = { status: '', makerId: '', ministryId: '' }
-      this.searchTerm = ''
-      this.statusFilter = ''
-      this.pagination.currentPage = 1
-      this.fetchData()
-      this.fetchDashboard()
+    // Update methods for form dialog
+    updateSelectedCurrency(currencyId) {
+      console.log('Currency changed to:', currencyId)
     },
 
-    debounceSearch() {
-      clearTimeout(this.searchTimeout)
-      this.searchTimeout = setTimeout(() => {
-        this.pagination.currentPage = 1
-        this.fetchData()
-      }, 500)
+    updateSelectedBankAccount(bankAccountId) {
+      console.log('Bank account changed to:', bankAccountId)
     },
 
+    updateSelectedMinistry(ministryId) {
+      console.log('Ministry changed to:', ministryId)
+    },
+
+    // Utility methods
     formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
       }).format(amount || 0)
-    },
-
-    formatDate(date) {
-      if (!date) return 'N/A'
-      return new Date(date).toLocaleDateString()
-    },
-
-    getStatusClass(status) {
-      const classes = {
-        pending: 'warning',
-        approved: 'success',
-        settled: 'primary',
-      }
-      return classes[status] || 'secondary'
-    },
-
-    getStatusIcon(status) {
-      const icons = {
-        pending: 'fa-clock',
-        approved: 'fa-check-circle',
-        settled: 'fa-money-bill-wave',
-      }
-      return icons[status] || 'fa-question-circle'
-    },
-
-    getHistoryIcon(action) {
-      const icons = {
-        created: 'fa-plus',
-        updated: 'fa-edit',
-        approved: 'fa-check',
-        settled: 'fa-money-bill',
-        deleted: 'fa-trash',
-      }
-      return icons[action] || 'fa-history'
-    },
-
-    formatDateTime(date) {
-      if (!date) return 'N/A'
-      return new Date(date).toLocaleString()
-    },
-
-    isOverdue(dueDate) {
-      if (!dueDate) return false
-      return new Date(dueDate) < new Date()
     },
 
     showToast(message, type = 'info') {
@@ -1271,7 +1459,7 @@ Generated on: ${new Date().toLocaleString()}
           type: type === 'error' ? 'error' : 'success',
         })
       } else {
-        alert(`${type.toUpperCase()}: ${message}`)
+        console.log(`${type.toUpperCase()}: ${message}`)
       }
     },
   },
@@ -1279,470 +1467,368 @@ Generated on: ${new Date().toLocaleString()}
 </script>
 
 <style scoped>
-/* Keep all your existing styles and add these new ones */
-
-.btn-outline {
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-}
-
-.btn-outline:hover {
-  background: #667eea;
-  color: white;
-}
-
-/* 🆕 NEW: Audit button styling */
-.btn-audit {
-  background: #9b59b6;
-  color: white;
-}
-
-.btn-audit:hover {
-  background: #8e44ad;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3);
-}
-
-/* Existing styles continue here... */
 .money-advance-container {
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 8px;
+  background-color: #fafafa;
+  min-height: 100vh;
 }
 
-.header-section {
+/* Compact Header */
+.header-card {
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
 }
 
 .header-actions {
   display: flex;
-  gap: 12px;
-  align-items: center;
+  gap: 8px;
 }
 
-.page-title {
-  font-size: 28px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
-.summary-cards {
+/* Compact Summary Grid */
+.summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
 }
 
 .summary-card {
-  border: 1px solid #e3e6f0;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s;
 }
 
-.card-body {
-  padding: 20px;
-  text-align: center;
+.summary-card:hover {
+  transform: translateY(-2px);
 }
 
-.card-title {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.card-value {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
-  color: #333;
-}
-
-.card-value.pending {
-  color: #f39c12;
-}
-.card-value.approved {
-  color: #27ae60;
-}
-.card-value.settled {
-  color: #3498db;
-}
-
-.filters-section {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
-}
-
-.col-md-2 {
-  flex: 0 0 16.666%;
-  max-width: 16.666%;
-  padding: 10px;
-}
-
-.col-md-3 {
-  flex: 0 0 25%;
-  max-width: 25%;
-  padding: 10px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.btn {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-primary {
-  background: #007bff;
+.summary-card.total-amount {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white;
 }
 
-.btn-secondary {
-  background: #6c757d;
-  color: white;
+.summary-card.pending {
+  border-left: 4px solid #f59e0b;
 }
 
-.btn-block {
-  width: 100%;
-  justify-content: center;
+.summary-card.approved {
+  border-left: 4px solid #10b981;
 }
 
-.btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+.summary-card.settled {
+  border-left: 4px solid #3b82f6;
 }
 
-.table-container {
-  position: relative;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+.summary-layout {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 10;
+  gap: 12px;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+.summary-icon {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.table {
-  width: 100%;
-  margin: 0;
-  border-collapse: collapse;
-}
-
-.table th {
-  background: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
-  font-weight: 600;
-  padding: 15px 10px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.table td {
-  padding: 15px 10px;
-  vertical-align: middle;
-  border-top: 1px solid #dee2e6;
-  font-size: 13px;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.amount {
-  font-weight: 600;
-  color: #27ae60;
-}
-
-.ministry-info {
-  font-size: 12px;
-}
-
-.ministry-name {
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 2px;
-}
-
-.ministry-code {
-  color: #666;
-  font-family: monospace;
-  background: #e3f2fd;
-  padding: 1px 4px;
-  border-radius: 3px;
-  font-size: 10px;
-}
-
-.no-ministry {
-  color: #999;
-  font-style: italic;
-  font-size: 11px;
-}
-
-.bank-account-info {
-  font-size: 12px;
-}
-
-.bank-name {
-  font-weight: 600;
-  color: #333;
-}
-
-.account-number {
-  color: #666;
-  font-family: monospace;
-}
-
-.no-bank-account {
-  color: #999;
-  font-style: italic;
-  font-size: 12px;
-}
-
-.status-badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  border: 1px solid transparent;
+  justify-content: center;
+  background: #f3f4f6;
+  flex-shrink: 0;
 }
 
-.status-badge.pending {
-  background: #fff3cd;
-  color: #856404;
-  border-color: #ffeaa7;
+.summary-icon.total {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.status-badge.approved {
-  background: #d4edda;
-  color: #155724;
-  border-color: #c3e6cb;
+.summary-content {
+  flex: 1;
+  min-width: 0;
 }
 
-.status-badge.settled {
-  background: #cce5ff;
-  color: #004085;
-  border-color: #b3d7ff;
+.summary-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a202c;
+  word-break: break-word;
+}
+
+.total-amount .summary-amount {
+  color: white;
+}
+
+.summary-label {
+  font-size: 11px;
+  color: #718096;
+  margin-top: 2px;
+}
+
+.total-amount .summary-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Compact Filter */
+.filter-card {
+  border: 1px solid #e2e8f0;
+}
+
+.filter-row {
+  align-items: flex-end;
+}
+
+.filter-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .action-buttons {
   display: flex;
   gap: 4px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
-.btn-sm {
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border-radius: 50%;
+/* Compact Table */
+.table-card {
+  border: 1px solid #e2e8f0;
+}
+
+.table-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.table-controls {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+}
+
+.compact-table {
+  font-size: 12px;
+}
+
+.compact-table >>> th {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 8px !important;
+  height: 36px !important;
+  background: #f8fafc !important;
+}
+
+.compact-table >>> td {
+  padding: 4px 8px !important;
+  height: 40px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* Table Cell Styles */
+.id-text {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.maker-name {
   font-size: 11px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #2d3748;
 }
 
-.btn-sm:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.ministry-compact {
+  display: flex;
+  justify-content: center;
 }
 
-.btn-sm.btn-info {
-  background: #17a2b8;
-  color: white;
+.amount-column {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-.btn-sm.btn-warning {
-  background: #ffc107;
-  color: #212529;
+.amount-value {
+  font-weight: 600;
+  color: #22c55e;
+  font-size: 12px;
 }
 
-.btn-sm.btn-success {
-  background: #28a745;
-  color: white;
+.currency-code {
+  font-size: 9px;
+  color: #718096;
+  text-transform: uppercase;
 }
 
-.btn-sm.btn-danger {
-  background: #dc3545;
-  color: white;
+.purpose-text {
+  font-size: 11px;
+  color: #4a5568;
+}
+
+.bank-compact {
+  font-size: 10px;
+}
+
+.bank-name {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.account-number {
+  color: #718096;
+  font-family: monospace;
+}
+
+.date-compact {
+  font-size: 10px;
+  color: #4a5568;
+}
+
+.date-compact.overdue {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+.action-buttons-table {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
 }
 
 .no-data {
-  text-align: center;
-  padding: 60px 20px;
-  color: #666;
+  color: #a0aec0;
+  font-style: italic;
+  font-size: 10px;
 }
 
-.no-data i {
-  font-size: 48px;
-  margin-bottom: 15px;
-  opacity: 0.5;
+/* No Data Card */
+.no-data-card {
+  border: 1px solid #e2e8f0;
+  margin-top: 16px;
 }
 
-.pagination-nav {
-  margin-top: 20px;
+/* Compact Pagination */
+.compact-pagination {
   display: flex;
-  justify-content: center;
-}
-
-.pagination {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.page-item {
-  margin: 0 2px;
-}
-
-.page-link {
+  justify-content: space-between;
+  align-items: center;
   padding: 8px 12px;
-  background: white;
-  border: 1px solid #dee2e6;
-  color: #007bff;
-  text-decoration: none;
-  cursor: pointer;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
 }
 
-.page-link:hover {
-  background: #e9ecef;
+.pagination-info {
+  font-size: 11px;
+  color: #718096;
 }
 
-.page-item.active .page-link {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.page-item.disabled .page-link {
-  color: #6c757d;
-  cursor: not-allowed;
-  background: #fff;
+.page-numbers {
+  display: flex;
+  gap: 2px;
+  margin: 0 8px;
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .table th,
-  .table td {
-    padding: 10px 6px;
-    font-size: 12px;
+@media (max-width: 960px) {
+  .header-content {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
   }
 
-  .btn-sm {
-    width: 24px;
-    height: 24px;
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .summary-cards {
+  .summary-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .table-container {
-    overflow-x: auto;
+  .filter-row {
+    gap: 8px;
   }
 
-  .table {
-    min-width: 800px;
-  }
-
-  .action-buttons {
-    flex-direction: row;
-    gap: 3px;
-  }
-
-  .row {
+  .action-buttons-table {
     flex-direction: column;
-  }
-
-  .col-md-2,
-  .col-md-3 {
-    flex: 1;
-    max-width: 100%;
-    margin-bottom: 10px;
+    gap: 1px;
   }
 }
 
-@media (max-width: 480px) {
-  .summary-cards {
+@media (max-width: 600px) {
+  .money-advance-container {
+    padding: 4px;
+  }
+
+  .summary-grid {
     grid-template-columns: 1fr;
   }
 
-  .header-section {
+  .compact-pagination {
     flex-direction: column;
-    gap: 15px;
+    gap: 8px;
+    align-items: stretch;
     text-align: center;
   }
 
-  .action-buttons {
-    justify-content: center;
+  .table-controls {
+    flex-direction: column;
+    gap: 8px;
   }
+
+  .summary-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .summary-icon {
+    margin: 0 auto;
+  }
+}
+
+/* Vuetify component overrides */
+.v-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v-btn--small {
+  height: 28px !important;
+  min-width: 60px !important;
+}
+
+.v-btn--x-small {
+  height: 24px !important;
+  min-width: 24px !important;
+}
+
+.v-chip--x-small {
+  height: 18px !important;
+  font-size: 10px !important;
+  padding: 0 6px !important;
+}
+
+.v-text-field--dense .v-input__control {
+  min-height: 32px !important;
+}
+
+.v-select--dense .v-input__control {
+  min-height: 32px !important;
+}
+
+.v-text-field--dense .v-input__details {
+  min-height: 14px !important;
+  padding-top: 2px !important;
+}
+
+.v-text-field--dense .v-messages {
+  font-size: 10px !important;
 }
 </style>

@@ -1,7 +1,34 @@
-exports.ids = [129,14,15];
+exports.ids = [140,14,15];
 exports.modules = {
 
-/***/ 1150:
+/***/ 1007:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(768);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1008:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".receive-header-summary-container[data-v-461f6740]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-461f6740]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-461f6740]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-461f6740]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-461f6740]{display:flex;gap:12px}.filter-section[data-v-461f6740]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-461f6740]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-461f6740]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-461f6740]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-461f6740]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-461f6740]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:20px}.summary-card[data-v-461f6740]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-461f6740]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-receipts[data-v-461f6740]{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff}.summary-card.total-receipts .card-icon[data-v-461f6740]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.payment-cash[data-v-461f6740]{border-left:4px solid #28a745}.summary-card.payment-transfer[data-v-461f6740]{border-left:4px solid #007bff}.summary-card.payment-check[data-v-461f6740]{border-left:4px solid #ffc107}.summary-card.payment-card[data-v-461f6740]{border-left:4px solid #dc3545}.summary-card.amount-stats[data-v-461f6740]{border-left:4px solid #6f42c1}.card-icon[data-v-461f6740]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-461f6740]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.cash[data-v-461f6740]{background:#d4edda;color:#28a745}.card-icon.transfer[data-v-461f6740]{background:#cce5ff;color:#007bff}.card-icon.check[data-v-461f6740]{background:#fff3cd;color:#ffc107}.card-icon.card[data-v-461f6740]{background:#f8d7da;color:#dc3545}.card-icon.amount[data-v-461f6740]{background:#e2d9ff;color:#6f42c1}.card-content[data-v-461f6740]{flex:1;min-width:0}.card-content h3[data-v-461f6740]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-461f6740]{font-size:14px;margin:0}.amount-info[data-v-461f6740]{display:block;font-size:12px;margin-top:4px;opacity:.8}.table-section[data-v-461f6740]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-461f6740]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-461f6740]{color:#333;margin:0}.record-count[data-v-461f6740]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-461f6740]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-461f6740]{overflow-x:auto}.data-table[data-v-461f6740]{border-collapse:collapse;width:100%}.data-table td[data-v-461f6740],.data-table th[data-v-461f6740]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-461f6740]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-461f6740]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-461f6740]:hover{background-color:#e9ecef}.data-table th i[data-v-461f6740]{margin-left:8px;opacity:.5}.receipt-number strong[data-v-461f6740]{color:#333;display:block;font-size:14px;margin-bottom:4px}.receipt-notes[data-v-461f6740]{color:#666;font-size:12px}.invoice-info .invoice-number[data-v-461f6740]{align-items:center;color:#495057;display:flex;font-weight:600;gap:4px;margin-bottom:2px}.invoice-info .customer-name[data-v-461f6740]{color:#666;font-size:12px;margin-left:16px}.amount-details .received-amount[data-v-461f6740]{color:#495057;font-weight:600;margin-bottom:2px}.allocation-info[data-v-461f6740]{color:#666;font-size:11px}.payment-method-badge[data-v-461f6740]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 12px;text-transform:uppercase}.payment-method-badge.cash[data-v-461f6740]{background-color:#d4edda;color:#155724}.payment-method-badge.bank_transfer[data-v-461f6740]{background-color:#cce5ff;color:#004085}.payment-method-badge.check[data-v-461f6740]{background-color:#fff3cd;color:#856404}.payment-method-badge.credit_card[data-v-461f6740]{background-color:#f8d7da;color:#721c24}.payment-method-badge.other[data-v-461f6740]{background-color:#e2e3e5;color:#383d41}.reference-number[data-v-461f6740]{color:#495057;font-family:monospace;font-size:13px}.inputter-info[data-v-461f6740]{color:#495057;font-size:14px}.inputter-info small[data-v-461f6740]{color:#666;display:block;font-size:12px;margin-top:2px}.actions-cell[data-v-461f6740]{display:flex;flex-wrap:wrap;gap:4px}.btn[data-v-461f6740]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-461f6740]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-461f6740]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-461f6740]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-461f6740]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-461f6740]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-461f6740]{background-color:transparent;border-color:#007bff;color:#007bff}.btn-outline-primary[data-v-461f6740]:hover{background-color:#007bff;color:#fff}.btn-outline-secondary[data-v-461f6740]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-461f6740]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-461f6740]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-461f6740]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-461f6740]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-461f6740]:hover{background-color:#28a745;color:#fff}.btn-outline-danger[data-v-461f6740]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-461f6740]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-461f6740]{font-size:12px;padding:4px 8px}.form-control[data-v-461f6740]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-461f6740]:focus{border-color:#007bff;box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:none}.pagination-container[data-v-461f6740]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-461f6740]{color:#666;font-size:14px}.pagination-controls[data-v-461f6740]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-461f6740]{color:#666;padding:6px 12px}.loading-overlay[data-v-461f6740]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-461f6740]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-461f6740]{color:#007bff;font-size:32px;margin-bottom:16px}@media (max-width:768px){.receive-header-summary-container[data-v-461f6740]{padding:10px}.header-content[data-v-461f6740]{align-items:flex-start}.filter-row[data-v-461f6740],.header-content[data-v-461f6740]{flex-direction:column;gap:16px}.filter-group[data-v-461f6740]{min-width:auto;width:100%}.filter-actions[data-v-461f6740]{flex-direction:row;width:100%}.summary-cards[data-v-461f6740]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-461f6740]{padding:20px}.card-icon[data-v-461f6740]{height:50px;margin-right:16px;width:50px}.card-content h3[data-v-461f6740],.card-icon[data-v-461f6740]{font-size:20px}.pagination-container[data-v-461f6740],.table-header[data-v-461f6740]{align-items:flex-start;flex-direction:column;gap:16px}.pagination-controls[data-v-461f6740]{flex-wrap:wrap}.actions-cell[data-v-461f6740]{flex-direction:column;gap:4px}}@media (max-width:576px){.summary-card[data-v-461f6740]{flex-direction:column;text-align:center}.card-icon[data-v-461f6740]{margin:0 auto 16px}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1185:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -151,10 +178,10 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/accounting/ar/receive/index.vue?vue&type=template&id=461f6740&scoped=true&
 
 // EXTERNAL MODULE: ./components/accounting/ar/receive/maintain/index.vue + 4 modules
-var maintain = __webpack_require__(828);
+var maintain = __webpack_require__(841);
 
 // EXTERNAL MODULE: ./components/accounting/ar/receive/view/index.vue + 4 modules
-var view = __webpack_require__(829);
+var view = __webpack_require__(842);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/accounting/ar/receive/index.vue?vue&type=script&lang=js&
 
@@ -633,7 +660,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(994)
+  var style0 = __webpack_require__(1007)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -655,25 +682,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 570:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(657);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("74727b96", content, true, context)
-};
-
-/***/ }),
-
-/***/ 571:
+/***/ 572:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -686,24 +695,42 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
+  add("74727b96", content, true, context)
+};
+
+/***/ }),
+
+/***/ 573:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(661);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
   add("66df850a", content, true, context)
 };
 
 /***/ }),
 
-/***/ 656:
+/***/ 658:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3423b82d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(570);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3423b82d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(572);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3423b82d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3423b82d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3423b82d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3423b82d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 657:
+/***/ 659:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -718,19 +745,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 658:
+/***/ 660:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3e6a6f1c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(571);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3e6a6f1c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(573);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3e6a6f1c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3e6a6f1c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3e6a6f1c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3e6a6f1c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 659:
+/***/ 661:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -745,13 +772,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 766:
+/***/ 768:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(995);
+var content = __webpack_require__(1008);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -763,7 +790,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 828:
+/***/ 841:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1594,7 +1621,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(656)
+  var style0 = __webpack_require__(658)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1616,7 +1643,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 829:
+/***/ 842:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1766,7 +1793,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(658)
+  var style0 = __webpack_require__(660)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1785,33 +1812,6 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var view = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 994:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(766);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_461f6740_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 995:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".receive-header-summary-container[data-v-461f6740]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-461f6740]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-461f6740]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-461f6740]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-461f6740]{display:flex;gap:12px}.filter-section[data-v-461f6740]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-461f6740]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-461f6740]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-461f6740]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-461f6740]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-461f6740]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:20px}.summary-card[data-v-461f6740]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-461f6740]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-receipts[data-v-461f6740]{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff}.summary-card.total-receipts .card-icon[data-v-461f6740]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.payment-cash[data-v-461f6740]{border-left:4px solid #28a745}.summary-card.payment-transfer[data-v-461f6740]{border-left:4px solid #007bff}.summary-card.payment-check[data-v-461f6740]{border-left:4px solid #ffc107}.summary-card.payment-card[data-v-461f6740]{border-left:4px solid #dc3545}.summary-card.amount-stats[data-v-461f6740]{border-left:4px solid #6f42c1}.card-icon[data-v-461f6740]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-461f6740]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.cash[data-v-461f6740]{background:#d4edda;color:#28a745}.card-icon.transfer[data-v-461f6740]{background:#cce5ff;color:#007bff}.card-icon.check[data-v-461f6740]{background:#fff3cd;color:#ffc107}.card-icon.card[data-v-461f6740]{background:#f8d7da;color:#dc3545}.card-icon.amount[data-v-461f6740]{background:#e2d9ff;color:#6f42c1}.card-content[data-v-461f6740]{flex:1;min-width:0}.card-content h3[data-v-461f6740]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-461f6740]{font-size:14px;margin:0}.amount-info[data-v-461f6740]{display:block;font-size:12px;margin-top:4px;opacity:.8}.table-section[data-v-461f6740]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-461f6740]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-461f6740]{color:#333;margin:0}.record-count[data-v-461f6740]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-461f6740]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-461f6740]{overflow-x:auto}.data-table[data-v-461f6740]{border-collapse:collapse;width:100%}.data-table td[data-v-461f6740],.data-table th[data-v-461f6740]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-461f6740]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-461f6740]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-461f6740]:hover{background-color:#e9ecef}.data-table th i[data-v-461f6740]{margin-left:8px;opacity:.5}.receipt-number strong[data-v-461f6740]{color:#333;display:block;font-size:14px;margin-bottom:4px}.receipt-notes[data-v-461f6740]{color:#666;font-size:12px}.invoice-info .invoice-number[data-v-461f6740]{align-items:center;color:#495057;display:flex;font-weight:600;gap:4px;margin-bottom:2px}.invoice-info .customer-name[data-v-461f6740]{color:#666;font-size:12px;margin-left:16px}.amount-details .received-amount[data-v-461f6740]{color:#495057;font-weight:600;margin-bottom:2px}.allocation-info[data-v-461f6740]{color:#666;font-size:11px}.payment-method-badge[data-v-461f6740]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 12px;text-transform:uppercase}.payment-method-badge.cash[data-v-461f6740]{background-color:#d4edda;color:#155724}.payment-method-badge.bank_transfer[data-v-461f6740]{background-color:#cce5ff;color:#004085}.payment-method-badge.check[data-v-461f6740]{background-color:#fff3cd;color:#856404}.payment-method-badge.credit_card[data-v-461f6740]{background-color:#f8d7da;color:#721c24}.payment-method-badge.other[data-v-461f6740]{background-color:#e2e3e5;color:#383d41}.reference-number[data-v-461f6740]{color:#495057;font-family:monospace;font-size:13px}.inputter-info[data-v-461f6740]{color:#495057;font-size:14px}.inputter-info small[data-v-461f6740]{color:#666;display:block;font-size:12px;margin-top:2px}.actions-cell[data-v-461f6740]{display:flex;flex-wrap:wrap;gap:4px}.btn[data-v-461f6740]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-461f6740]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-461f6740]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-461f6740]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-461f6740]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-461f6740]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-461f6740]{background-color:transparent;border-color:#007bff;color:#007bff}.btn-outline-primary[data-v-461f6740]:hover{background-color:#007bff;color:#fff}.btn-outline-secondary[data-v-461f6740]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-461f6740]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-461f6740]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-461f6740]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-461f6740]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-461f6740]:hover{background-color:#28a745;color:#fff}.btn-outline-danger[data-v-461f6740]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-461f6740]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-461f6740]{font-size:12px;padding:4px 8px}.form-control[data-v-461f6740]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-461f6740]:focus{border-color:#007bff;box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:none}.pagination-container[data-v-461f6740]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-461f6740]{color:#666;font-size:14px}.pagination-controls[data-v-461f6740]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-461f6740]{color:#666;padding:6px 12px}.loading-overlay[data-v-461f6740]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-461f6740]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-461f6740]{color:#007bff;font-size:32px;margin-bottom:16px}@media (max-width:768px){.receive-header-summary-container[data-v-461f6740]{padding:10px}.header-content[data-v-461f6740]{align-items:flex-start}.filter-row[data-v-461f6740],.header-content[data-v-461f6740]{flex-direction:column;gap:16px}.filter-group[data-v-461f6740]{min-width:auto;width:100%}.filter-actions[data-v-461f6740]{flex-direction:row;width:100%}.summary-cards[data-v-461f6740]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-461f6740]{padding:20px}.card-icon[data-v-461f6740]{height:50px;margin-right:16px;width:50px}.card-content h3[data-v-461f6740],.card-icon[data-v-461f6740]{font-size:20px}.pagination-container[data-v-461f6740],.table-header[data-v-461f6740]{align-items:flex-start;flex-direction:column;gap:16px}.pagination-controls[data-v-461f6740]{flex-wrap:wrap}.actions-cell[data-v-461f6740]{flex-direction:column;gap:4px}}@media (max-width:576px){.summary-card[data-v-461f6740]{flex-direction:column;text-align:center}.card-icon[data-v-461f6740]{margin:0 auto 16px}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
 
 /***/ })
 

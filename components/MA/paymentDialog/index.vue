@@ -37,25 +37,40 @@
                   <i class="fas fa-calendar"></i>
                   ວັນທີ
                 </label>
-                <input
-                  v-model="localForm.bookingDate"
-                  type="date"
-                  class="form-control"
-                  :max="today"
-                  required
-                  title="ເລືອກວັນທີ (Select Date)"
-                />
-                <small
-                  class="text-muted"
-                  style="
-                    font-size: 10px;
-                    color: #6b7280;
-                    margin-top: 2px;
-                    display: block;
-                  "
+
+                <v-menu
+                  ref="bookingDateMenu"
+                  v-model="bookingDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                  :disabled="formLoading || saving"
                 >
-                  ຮູບແບບຈະສະແດງຕາມການຕັ້ງຄ່າຂອງ Browser
-                </small>
+                  <template #activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formattedBookingDate"
+                      outlined
+                      dense
+                      clearable
+                      hide-details
+                      prepend-inner-icon="mdi-calendar"
+                      :disabled="formLoading || saving"
+                      :class="{ 'compact-date-field': true }"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click:clear="clearBookingDate"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="pickerBookingDate"
+                    no-title
+                    :max="today"
+                    @input="setBookingDate"
+                    :disabled="formLoading || saving"
+                  />
+                </v-menu>
               </div>
 
               <div class="form-group">
@@ -82,10 +97,6 @@
                     <i class="fas fa-chevron-down"></i>
                   </div>
                 </div>
-                <!-- 🔧 DEBUG: Show current method value -->
-                <small class="debug-info" style="font-size: 10px; color: #666; margin-top: 2px; display: block;">
-                  Current method: "{{ localForm.method || 'empty' }}"
-                </small>
               </div>
 
               <div class="form-group">
@@ -255,12 +266,40 @@
                   <i class="fas fa-calendar-alt"></i>
                   ວັນຄົບຮອບຄວນຊຳລະ
                 </label>
-                <input
-                  v-model="localForm.dueDate"
-                  type="date"
-                  class="form-control"
-                  :min="today"
-                />
+
+                <v-menu
+                  ref="dueDateMenu"
+                  v-model="dueDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                  :disabled="formLoading || saving"
+                >
+                  <template #activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formattedDueDate"
+                      outlined
+                      dense
+                      clearable
+                      hide-details
+                      prepend-inner-icon="mdi-calendar-clock"
+                      :disabled="formLoading || saving"
+                      :class="{ 'compact-date-field': true }"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click:clear="clearDueDate"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="pickerDueDate"
+                    no-title
+                    :min="today"
+                    @input="setDueDate"
+                    :disabled="formLoading || saving"
+                  />
+                </v-menu>
               </div>
 
               <!-- Fifth Row: Ministry and Bank Account -->
@@ -419,9 +458,10 @@
             <button
               @click.prevent="printAdvanceDetails"
               class="btn btn-sm btn-danger"
-              title="Print"
+              title="Save & Print"
             >
               <i class="fas fa-print"></i>
+              Save & Print
             </button>
           </div>
         </form>
@@ -504,6 +544,14 @@ export default {
 
   data() {
     return {
+      // Date picker specific properties
+      bookingDateMenu: false,
+      dueDateMenu: false,
+      pickerBookingDate: null, // for v-date-picker (YYYY-MM-DD format)
+      pickerDueDate: null, // for v-date-picker (YYYY-MM-DD format)
+      formattedBookingDate: null, // for display (DD/MM/YYYY format)
+      formattedDueDate: null, // for display (DD/MM/YYYY format)
+
       advanceDetails: null,
       showPrintVoucher: false,
       localForm: {
@@ -630,25 +678,35 @@ export default {
       }
     },
 
-    // 🔧 FIXED: Enhanced formData watcher to preserve defaults
     formData: {
       handler(newVal) {
         console.info(`Form data is changing...`, newVal)
         if (newVal && typeof newVal === 'object') {
-          // 🔧 FIX: Merge with defaults instead of overwriting completely
-          this.localForm = {
-            ...this.getDefaultForm(), // Start with defaults
-            ...newVal // Override with provided data
-          }
+          // Only update if we don't have a local form with ID, or if the new data has a different ID
+          if (
+            !this.localForm.id ||
+            (newVal.id && newVal.id !== this.localForm.id)
+          ) {
+            this.localForm = {
+              ...this.getDefaultForm(),
+              ...newVal,
+            }
 
-          // Ensure method defaults to 'cash' if not provided or empty
-          if (!this.localForm.method || this.localForm.method === '') {
-            this.localForm.method = 'cash'
-            console.info('🔧 Setting method to default: cash')
-          }
+            // Ensure method defaults to 'cash' if not provided or empty
+            if (!this.localForm.method || this.localForm.method === '') {
+              this.localForm.method = 'cash'
+              console.info('🔧 Setting method to default: cash')
+            }
 
-          if (!this.isEdit && !this.localForm.bookingDate) {
-            this.localForm.bookingDate = this.today
+            if (!this.isEdit && !this.localForm.bookingDate) {
+              this.localForm.bookingDate = this.today
+            }
+
+            console.info('🔧 Updated localForm:', this.localForm)
+          } else {
+            console.info(
+              '🔧 Skipping update - local form already has this data'
+            )
           }
         }
       },
@@ -672,6 +730,56 @@ export default {
 
   methods: {
     // 🔧 NEW: Helper method to get default form structure
+
+    formatDateForDisplay(date) {
+      if (!date) return null
+      const d = new Date(date)
+      const day = String(d.getDate()).padStart(2, '0')
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+      const year = d.getFullYear()
+      return `${day}/${month}/${year}`
+    },
+
+    // Set booking date from picker
+    setBookingDate(val) {
+      this.pickerBookingDate = val
+      // Ensure localForm gets the properly formatted date
+      this.localForm.bookingDate = this.formatDateForAPI(val)
+      this.formattedBookingDate = this.formatDateForDisplay(val)
+      this.bookingDateMenu = false
+
+      console.info(
+        `Set booking date: picker=${val}, localForm=${this.localForm.bookingDate}, formatted=${this.formattedBookingDate}`
+      )
+    },
+
+    // Set due date from picker
+
+    setDueDate(val) {
+      this.pickerDueDate = val
+      // Ensure localForm gets the properly formatted date
+      this.localForm.dueDate = this.formatDateForAPI(val)
+      this.formattedDueDate = this.formatDateForDisplay(val)
+      this.dueDateMenu = false
+
+      console.info(
+        `Set due date: picker=${val}, localForm=${this.localForm.dueDate}, formatted=${this.formattedDueDate}`
+      )
+    },
+
+    // Clear booking date
+    clearBookingDate() {
+      this.pickerBookingDate = null
+      this.localForm.bookingDate = ''
+      this.formattedBookingDate = null
+    },
+
+    // Clear due date
+    clearDueDate() {
+      this.pickerDueDate = null
+      this.localForm.dueDate = ''
+      this.formattedDueDate = null
+    },
     getDefaultForm() {
       return {
         id: null,
@@ -685,7 +793,7 @@ export default {
         ministryId: '',
         bookingDate: this.today,
         exchangeRate: '',
-        method: 'cash', // ✅ Always default to cash
+        method: 'cash',
         externalRef: '',
         externalRefNo: '',
         chequeNo: '',
@@ -749,6 +857,7 @@ export default {
       }
     },
     async printAdvanceDetails() {
+      await this.saveAdvance()
       await this.fetchAdvanceByid()
       this.showPrintVoucher = true
     },
@@ -759,28 +868,54 @@ export default {
       }, 100)
     },
 
-    // 🔧 FIXED: Enhanced initForm method
+    // 🔧 FIXED: Simplified initForm method
     initForm() {
       this.formErrors = []
       console.info('🔧 initForm called with formData:', this.formData)
-      
+
       if (this.isEdit && this.formData && this.formData.id) {
         console.info('🔧 Edit mode - copying formData with defaults preserved')
-        // In edit mode, merge formData with defaults
         this.localForm = {
           ...this.getDefaultForm(),
-          ...this.formData
+          ...this.formData,
         }
-        
-        // Ensure method is set even in edit mode
+
         if (!this.localForm.method || this.localForm.method === '') {
           this.localForm.method = 'cash'
           console.info('🔧 Edit mode: Setting method to default cash')
         }
+
+        // 🔧 FIX: Properly format dates when loading existing data
+        if (this.localForm.bookingDate) {
+          const formattedBookingDate = this.formatDateForAPI(
+            this.localForm.bookingDate
+          )
+          this.localForm.bookingDate = formattedBookingDate
+          this.pickerBookingDate = formattedBookingDate
+          this.formattedBookingDate =
+            this.formatDateForDisplay(formattedBookingDate)
+        }
+
+        if (this.localForm.dueDate) {
+          const formattedDueDate = this.formatDateForAPI(this.localForm.dueDate)
+          this.localForm.dueDate = formattedDueDate
+          this.pickerDueDate = formattedDueDate
+          this.formattedDueDate = this.formatDateForDisplay(formattedDueDate)
+        }
       } else {
         console.info('🔧 New mode - using defaults')
-        // In new mode, start with defaults
         this.localForm = this.getDefaultForm()
+
+        // Set date picker values for new advance
+        const todayDate = this.today // This should already be in YYYY-MM-DD format
+        this.localForm.bookingDate = todayDate
+        this.pickerBookingDate = todayDate
+        this.formattedBookingDate = this.formatDateForDisplay(todayDate)
+
+        // Due date is optional, so leave it empty
+        this.localForm.dueDate = ''
+        this.pickerDueDate = null
+        this.formattedDueDate = null
 
         // Set default currency
         if (this.currencies.length > 0) {
@@ -793,6 +928,37 @@ export default {
         if (this.user && this.user.id) {
           this.localForm.makerId = this.user.id
         }
+
+        // If we have formData with content but no edit flag, copy it
+        if (
+          this.formData &&
+          Object.keys(this.formData).some(
+            (key) => this.formData[key] && key !== 'id'
+          )
+        ) {
+          console.info('🔧 Copying non-empty formData to localForm')
+          Object.assign(this.localForm, this.formData)
+
+          // 🔧 FIX: Format copied dates properly
+          if (this.localForm.bookingDate) {
+            const formattedBookingDate = this.formatDateForAPI(
+              this.localForm.bookingDate
+            )
+            this.localForm.bookingDate = formattedBookingDate
+            this.pickerBookingDate = formattedBookingDate
+            this.formattedBookingDate =
+              this.formatDateForDisplay(formattedBookingDate)
+          }
+
+          if (this.localForm.dueDate) {
+            const formattedDueDate = this.formatDateForAPI(
+              this.localForm.dueDate
+            )
+            this.localForm.dueDate = formattedDueDate
+            this.pickerDueDate = formattedDueDate
+            this.formattedDueDate = this.formatDateForDisplay(formattedDueDate)
+          }
+        }
       }
 
       // Always ensure method is set
@@ -801,12 +967,22 @@ export default {
         console.info('🔧 Final fallback: Setting method to cash')
       }
 
-      console.info('🔧 Final localForm:', this.localForm)
+      console.info('🔧 Final localForm with formatted dates:', this.localForm)
     },
-
     resetForm() {
       console.info('🔧 resetForm called')
       this.localForm = this.getDefaultForm()
+
+      // Reset date picker values
+      const todayDate = this.today
+      this.pickerBookingDate = todayDate
+      this.formattedBookingDate = this.formatDateForDisplay(todayDate)
+      this.pickerDueDate = null
+      this.formattedDueDate = null
+
+      // Close any open menus
+      this.bookingDateMenu = false
+      this.dueDateMenu = false
     },
 
     validateForm() {
@@ -997,14 +1173,30 @@ export default {
         alert(`${type.toUpperCase()}: ${message}`)
       }
     },
+
+    // 🔧 FIXED: Simple solution - just emit to parent
     async saveAdvance() {
       if (!this.validateForm()) {
         this.$emit('validation-error', 'Please fix the form errors')
         return
       }
-      console.info(`FORM DATA ${JSON.stringify(this.localForm)}`)
-      // return
+
+      console.info(
+        `FORM DATA BEFORE CLEANING: ${JSON.stringify(this.localForm)}`
+      )
+
       const formData = { ...this.localForm }
+
+      // 🔧 FIX: Format dates properly for API
+      if (formData.bookingDate) {
+        formData.bookingDate = this.formatDateForAPI(formData.bookingDate)
+      }
+
+      if (formData.dueDate) {
+        formData.dueDate = this.formatDateForAPI(formData.dueDate)
+      }
+
+      // Clean up empty fields
       if (!formData.ministryId) delete formData.ministryId
       if (!formData.bankAccountId) delete formData.bankAccountId
       if (!formData.dueDate) delete formData.dueDate
@@ -1016,18 +1208,39 @@ export default {
       if (!formData.chequeNo) delete formData.chequeNo
       if (!formData.receiveName) delete formData.receiveName
       if (!formData.receiveIDNO) delete formData.receiveIDNO
-      console.info(`FORM DATA ${JSON.stringify(formData)}`)
-      if (!this.localForm.id) {
-        const response = await this.$axios.post('/api/money-advances', {
-          ...formData,
-        })
 
-        console.info(`REPONSE DATA ${JSON.stringify(response.data)}`)
-        this.localForm.id = response.data.data.id
-        this.showToast('Money advance created successfully', 'success')
-        return
-      }
+      console.info(
+        `CLEANED FORM DATA WITH FORMATTED DATES: ${JSON.stringify(formData)}`
+      )
+
+      // Always emit save - let parent handle create vs update logic
       this.$emit('save', formData)
+    },
+    formatDateForAPI(dateValue) {
+      if (!dateValue) return null
+
+      // If it's already in YYYY-MM-DD format, return as is
+      if (
+        typeof dateValue === 'string' &&
+        /^\d{4}-\d{2}-\d{2}$/.test(dateValue)
+      ) {
+        return dateValue
+      }
+
+      // If it's a Date object or ISO string, extract just the date part
+      try {
+        const date = new Date(dateValue)
+        if (isNaN(date.getTime())) return null
+
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+
+        return `${year}-${month}-${day}`
+      } catch (error) {
+        console.error('Error formatting date for API:', error)
+        return null
+      }
     },
   },
 }
@@ -1035,6 +1248,117 @@ export default {
 
 <style scoped>
 /* Enhanced Modal Styles */
+
+/* Updated compact date field styles to match form controls */
+.compact-date-field {
+  font-size: 12px !important;
+}
+
+.compact-date-field .v-input__control {
+  min-height: 32px !important;
+  max-height: 32px !important;
+}
+
+.compact-date-field .v-input__slot {
+  padding: 0 8px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  align-items: center !important;
+}
+
+.compact-date-field .v-text-field__details {
+  display: none !important; /* Hide details section completely */
+}
+
+.compact-date-field .v-input__icon--prepend-inner {
+  margin-top: 0 !important;
+  margin-right: 6px !important;
+  align-self: center !important;
+}
+
+.compact-date-field .v-input__icon--append {
+  margin-top: 0 !important;
+  margin-left: 6px !important;
+  align-self: center !important;
+}
+
+.compact-date-field .v-text-field__slot {
+  align-items: center !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+}
+
+.compact-date-field input {
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+  height: 30px !important;
+}
+
+/* Override Vuetify outline to match your form style */
+.compact-date-field .v-text-field--outlined .v-input__control .v-input__slot {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  background: #fafafa !important;
+}
+
+.compact-date-field.v-text-field--outlined .v-input__control .v-input__slot {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  background: #fafafa !important;
+}
+
+.compact-date-field
+  .v-text-field--outlined.v-input--is-focused
+  .v-input__control
+  .v-input__slot {
+  border-color: #667eea !important;
+  background: white !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
+}
+
+.compact-date-field.v-input--is-focused .v-input__slot {
+  border-color: #667eea !important;
+  background: white !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
+}
+
+.compact-date-field
+  .v-text-field--outlined.v-input--is-disabled
+  .v-input__control
+  .v-input__slot {
+  background-color: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  opacity: 0.6 !important;
+}
+
+.compact-date-field.v-input--is-disabled .v-input__slot {
+  background-color: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  opacity: 0.6 !important;
+}
+
+/* Remove the fieldset border that Vuetify adds */
+.compact-date-field .v-text-field--outlined fieldset {
+  border: none !important;
+}
+
+.compact-date-field .v-text-field--outlined .v-text-field__details {
+  display: none !important;
+}
+
+/* Date picker menu styling */
+.v-menu__content {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.v-date-picker {
+  box-shadow: none !important;
+}
+
 .modal-header-right {
   display: flex;
   align-items: center;
@@ -1260,16 +1584,6 @@ textarea.form-control {
   font-size: 12px;
 }
 
-/* 🔧 DEBUG: Add debug info styling */
-.debug-info {
-  font-style: italic;
-  color: #666 !important;
-  background: #f9f9f9;
-  padding: 2px 4px;
-  border-radius: 2px;
-  font-family: monospace;
-}
-
 /* Ministry Info Styles */
 .ministry-info {
   margin-top: 6px;
@@ -1458,6 +1772,10 @@ textarea.form-control {
   .enhanced-footer .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .compact-date-field .v-input__slot {
+    padding: 0 6px !important;
   }
 }
 </style>

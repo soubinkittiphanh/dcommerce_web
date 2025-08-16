@@ -11,6 +11,8 @@ import '../assets/css/style.css'
 
 import '../node_modules/@fortawesome/fontawesome-free/css/all.css'
 
+import '../node_modules/vue2-datepicker/index.css'
+
 import _d43c67dc from '../layouts/comingSoon.vue'
 import _6f6c098b from '../layouts/default.vue'
 import _59c15dfc from '../layouts/fashion.vue'

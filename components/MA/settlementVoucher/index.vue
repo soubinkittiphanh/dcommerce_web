@@ -63,7 +63,7 @@
                 <div class="detail-row">
                   <span class="label">ວັນທີ </span>
                   <span class="dotted-line">{{
-                    formatDateLao(voucherData.settlementDate)
+                    formatDateLao(voucherData.bookingDate)
                   }}</span>
                 </div>
               </div>
