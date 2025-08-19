@@ -6,20 +6,11 @@
         <div class="header-content">
           <h1 class="header-title">ອອກລາຍຈ່າຍ</h1>
           <div class="header-actions">
-            <v-btn
-              color="secondary"
-              small
-              outlined
-              @click="openAuditReports"
-            >
+            <v-btn color="secondary" small outlined @click="openAuditReports">
               <v-icon left small>mdi-chart-line</v-icon>
               ລາຍງານ
             </v-btn>
-            <v-btn
-              color="primary"
-              small
-              @click="openDialog()"
-            >
+            <v-btn color="primary" small @click="openDialog()">
               <v-icon left small>mdi-plus</v-icon>
               ລົງລາຍຈ່າຍ
             </v-btn>
@@ -93,7 +84,9 @@
               <v-icon color="white">mdi-calculator</v-icon>
             </div>
             <div class="summary-content">
-              <div class="summary-amount">{{ formatCurrency(dashboard.amounts.total) }}</div>
+              <div class="summary-amount">
+                {{ formatCurrency(dashboard.amounts.total) }}
+              </div>
               <div class="summary-label">ລວມຍອດທັງໝົດ</div>
             </div>
           </div>
@@ -226,7 +219,7 @@
                 hide-details="auto"
                 prepend-inner-icon="mdi-magnify"
                 @input="debounceSearch"
-                style="margin-bottom: 4px;"
+                style="margin-bottom: 4px"
               />
               <div class="action-buttons">
                 <v-btn
@@ -290,7 +283,9 @@
 
         <!-- Maker Column -->
         <template #item.maker="{ item }">
-          <span class="maker-name">{{ item.maker ? item.maker.cus_name : 'N/A' }}</span>
+          <span class="maker-name">{{
+            item.maker ? item.maker.cus_name : 'N/A'
+          }}</span>
         </template>
 
         <!-- Ministry Column -->
@@ -306,8 +301,10 @@
         <!-- Amount Column -->
         <template #item.amount="{ item }">
           <div class="amount-column">
-            <span class="amount-value">{{ formatCurrency(item.amount) }}</span>
-            <span v-if="item.currency" class="currency-code">{{ item.currency.code }}</span>
+            <span class="amount-value">{{ formatCurrency(item.amount,item.currency.code) }}</span>
+            <span v-if="item.currency" class="currency-code">{{
+              item.currency.code
+            }}</span>
           </div>
         </template>
 
@@ -322,27 +319,25 @@
         <template #item.bankAccount="{ item }">
           <div v-if="item.bankAccount" class="bank-compact">
             <div class="bank-name">{{ item.bankAccount.bankName }}</div>
-            <div class="account-number">{{ item.bankAccount.accountNumber }}</div>
+            <div class="account-number">
+              {{ item.bankAccount.accountNumber }}
+            </div>
           </div>
           <span v-else class="no-data">-</span>
         </template>
 
         <!-- Status Column -->
         <template #item.status="{ item }">
-          <v-chip
-            :color="getStatusColor(item.status)"
-            x-small
-            outlined
-          >
+          <v-chip :color="getStatusColor(item.status)" x-small outlined>
             {{ getStatusInLao(item.status) }}
           </v-chip>
         </template>
 
         <!-- Due Date Column -->
         <template #item.dueDate="{ item }">
-          <span 
+          <span
             class="date-compact"
-            :class="{ 'overdue': isOverdue(item.dueDate) }"
+            :class="{ overdue: isOverdue(item.dueDate) }"
           >
             {{ formatCompactDate(item.dueDate) }}
           </span>
@@ -350,7 +345,9 @@
 
         <!-- Booking Date Column -->
         <template #item.bookingDate="{ item }">
-          <span class="date-compact">{{ formatCompactDate(item.bookingDate) }}</span>
+          <span class="date-compact">{{
+            formatCompactDate(item.bookingDate)
+          }}</span>
         </template>
 
         <!-- Actions Column -->
@@ -364,12 +361,7 @@
             >
               <v-icon small>mdi-eye</v-icon>
             </v-btn>
-            <v-btn
-              icon
-              x-small
-              @click="openDialog(item)"
-              title="ແກ້ໄຂ"
-            >
+            <v-btn icon x-small @click="openDialog(item)" title="ແກ້ໄຂ">
               <v-icon small>mdi-pencil</v-icon>
             </v-btn>
             <v-btn
@@ -408,7 +400,8 @@
       <!-- Custom Compact Pagination -->
       <div class="compact-pagination">
         <div class="pagination-info">
-          {{ paginationInfo.start }}-{{ paginationInfo.end }} ຈາກ {{ pagination.totalItems }}
+          {{ paginationInfo.start }}-{{ paginationInfo.end }} ຈາກ
+          {{ pagination.totalItems }}
         </div>
         <div class="pagination-controls">
           <v-btn
@@ -451,7 +444,9 @@
       <v-card-text class="text-center py-8">
         <v-icon size="64" color="grey lighten-2">mdi-inbox</v-icon>
         <div class="mt-3 text-h6 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
-        <div class="grey--text">ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ</div>
+        <div class="grey--text">
+          ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ
+        </div>
       </v-card-text>
     </v-card>
 
@@ -468,7 +463,9 @@
       :form-loading="formLoading"
       :saving="saving"
       @close="closeDialog"
-      @print="printAdvanceDetails(advances.find((advance) => advance.id == form.id))"
+      @print="
+        printAdvanceDetails(advances.find((advance) => advance.id == form.id))
+      "
       @save="saveAdvance"
       @currency-changed="updateSelectedCurrency"
       @bank-account-changed="updateSelectedBankAccount"
@@ -546,11 +543,7 @@
 
     <!-- Loading Overlay -->
     <v-overlay :value="loading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-        color="primary"
-      />
+      <v-progress-circular indeterminate size="64" color="primary" />
     </v-overlay>
   </div>
 </template>
@@ -579,7 +572,7 @@ export default {
     SettlementDialog,
   },
   middleware: 'auths',
-  
+
   data() {
     return {
       // Date picker state
@@ -698,7 +691,12 @@ export default {
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
         { text: 'ຈຳນວນ', value: 'amount', width: '100px', sortable: true },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
-        { text: 'ບັນຊີ', value: 'bankAccount', width: '120px', sortable: false },
+        {
+          text: 'ບັນຊີ',
+          value: 'bankAccount',
+          width: '120px',
+          sortable: false,
+        },
         { text: 'ສະຖານະ', value: 'status', width: '80px', sortable: true },
         { text: 'ຄົບກຳໜົດ', value: 'dueDate', width: '80px', sortable: true },
         { text: 'ວັນທີ', value: 'bookingDate', width: '80px', sortable: true },
@@ -719,20 +717,20 @@ export default {
     userOptions() {
       return [
         { text: 'ທຸກຜູ້ໃຊ້', value: '' },
-        ...this.users.map(user => ({
+        ...this.users.map((user) => ({
           text: user.cus_name,
-          value: user.id
-        }))
+          value: user.id,
+        })),
       ]
     },
 
     ministryOptions() {
       return [
         { text: 'ທຸກກະຊວງ', value: '' },
-        ...this.ministries.map(ministry => ({
-          text: ministry.name,
-          value: ministry.id
-        }))
+        ...this.ministries.map((ministry) => ({
+          text: `${ministry.ministryCode} - ${ministry.ministryName}`,
+          value: ministry.id,
+        })),
       ]
     },
 
@@ -743,7 +741,10 @@ export default {
     paginationPages() {
       const pages = []
       const start = Math.max(1, this.pagination.currentPage - 2)
-      const end = Math.min(this.pagination.totalPages, this.pagination.currentPage + 2)
+      const end = Math.min(
+        this.pagination.totalPages,
+        this.pagination.currentPage + 2
+      )
 
       for (let i = start; i <= end; i++) {
         pages.push(i)
@@ -752,8 +753,12 @@ export default {
     },
 
     paginationInfo() {
-      const start = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1
-      const end = Math.min(start + this.pagination.itemsPerPage - 1, this.pagination.totalItems)
+      const start =
+        (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1
+      const end = Math.min(
+        start + this.pagination.itemsPerPage - 1,
+        this.pagination.totalItems
+      )
       return {
         start: this.pagination.totalItems > 0 ? start : 0,
         end,
@@ -809,7 +814,7 @@ export default {
       return new Date(date).toLocaleDateString('en-GB', {
         day: '2-digit',
         month: '2-digit',
-        year: '2-digit'
+        year: '2-digit',
       })
     },
 
@@ -825,7 +830,7 @@ export default {
         approved: 'success',
         settled: 'info',
         rejected: 'error',
-        cancelled: 'grey'
+        cancelled: 'grey',
       }
       return colors[status] || 'grey'
     },
@@ -840,7 +845,10 @@ export default {
     },
 
     checkRestorePermissions() {
-      return this.user?.role === 'admin' || this.user?.permissions?.includes('restore_records')
+      return (
+        this.user?.role === 'admin' ||
+        this.user?.permissions?.includes('restore_records')
+      )
     },
 
     // Data loading methods (keeping existing logic)
@@ -873,7 +881,9 @@ export default {
           params.search = this.searchTerm
         }
 
-        const { data } = await this.$axios.get('/api/money-advances', { params })
+        const { data } = await this.$axios.get('/api/money-advances', {
+          params,
+        })
 
         this.advances = data.data.advances
         this.pagination = data.data.pagination
@@ -893,7 +903,10 @@ export default {
         if (this.filters.fromDate) params.fromDate = this.filters.fromDate
         if (this.filters.toDate) params.toDate = this.filters.toDate
 
-        const { data } = await this.$axios.get('/api/money-advances/dashboard', { params })
+        const { data } = await this.$axios.get(
+          '/api/money-advances/dashboard',
+          { params }
+        )
         this.dashboard = data.data
       } catch (error) {
         console.error('Error fetching dashboard:', error)
@@ -959,7 +972,9 @@ export default {
         } else {
           this.bankAccounts = []
         }
-        this.bankAccounts = this.bankAccounts.filter(account => account.isActive)
+        this.bankAccounts = this.bankAccounts.filter(
+          (account) => account.isActive
+        )
       } catch (error) {
         console.error('Error fetching bank accounts:', error)
         this.bankAccounts = []
@@ -997,7 +1012,13 @@ export default {
     },
 
     resetFilters() {
-      this.filters = { status: '', makerId: '', ministryId: '', fromDate: '', toDate: '' }
+      this.filters = {
+        status: '',
+        makerId: '',
+        ministryId: '',
+        fromDate: '',
+        toDate: '',
+      }
       this.searchTerm = ''
       this.statusFilter = ''
       this.clearFromDate()
@@ -1019,15 +1040,27 @@ export default {
     async openDialog(advance = null) {
       this.isEdit = !!advance
       this.showDialog = true
-      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
+        Math.random() * 1000
+      )}`
 
-      if (this.users.length === 0 || this.currencies.length === 0 || this.ministries.length === 0) {
+      if (
+        this.users.length === 0 ||
+        this.currencies.length === 0 ||
+        this.ministries.length === 0
+      ) {
         this.formLoading = true
         await Promise.all([
           this.users.length === 0 ? this.fetchUsers() : Promise.resolve(),
-          this.currencies.length === 0 ? this.fetchCurrencies() : Promise.resolve(),
-          this.ministries.length === 0 ? this.fetchMinistry() : Promise.resolve(),
-          this.bankAccounts.length === 0 ? this.fetchBankAccounts() : Promise.resolve(),
+          this.currencies.length === 0
+            ? this.fetchCurrencies()
+            : Promise.resolve(),
+          this.ministries.length === 0
+            ? this.fetchMinistry()
+            : Promise.resolve(),
+          this.bankAccounts.length === 0
+            ? this.fetchBankAccounts()
+            : Promise.resolve(),
         ])
         this.formLoading = false
       }
@@ -1056,7 +1089,8 @@ export default {
       } else {
         this.resetForm()
         if (this.currencies.length > 0) {
-          const defaultCurrency = this.currencies.find(c => c.code === 'USD') || this.currencies[0]
+          const defaultCurrency =
+            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
           this.form.currencyId = defaultCurrency.id
         }
       }
@@ -1096,7 +1130,9 @@ export default {
       this.saving = true
       try {
         const auditContext = {
-          reason: formData.reason || (this.isEdit ? 'Updated record' : 'Created new record'),
+          reason:
+            formData.reason ||
+            (this.isEdit ? 'Updated record' : 'Created new record'),
           userId: this.user?.id,
         }
 
@@ -1137,7 +1173,9 @@ export default {
 
           this.isEdit = true
           this.$nextTick(() => {
-            this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+            this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
+              Math.random() * 1000
+            )}`
           })
 
           this.showToast('Money advance created successfully', 'success')
@@ -1146,7 +1184,8 @@ export default {
         await this.fetchData()
         await this.fetchDashboard()
       } catch (error) {
-        const message = error.response?.data?.message || 'Error saving money advance'
+        const message =
+          error.response?.data?.message || 'Error saving money advance'
         this.showToast(message, 'error')
         console.error('Save error:', error)
       } finally {
@@ -1159,7 +1198,9 @@ export default {
         const result = await swalConfirm(
           this.$swal,
           'ຢືນຢັນ ການອະນຸມັດ',
-          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(advance.amount)}?`,
+          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(
+            advance.amount
+          )}?`,
           'question',
           'ບໍ່',
           'ຕົກລົງ'
@@ -1187,7 +1228,9 @@ export default {
 
       try {
         this.detailLoading = true
-        const { data } = await this.$axios.get(`/api/money-advances/${advance.id}`)
+        const { data } = await this.$axios.get(
+          `/api/money-advances/${advance.id}`
+        )
         this.advanceDetails = data.data
       } catch (error) {
         console.error('Error fetching advance details:', error)
@@ -1219,7 +1262,9 @@ export default {
           method: '',
           settlementDate: settlementDate,
           bookingDate: settlementDate,
-          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'}`,
+          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${
+            advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'
+          }`,
           moneyAdvanceId: advance.id,
           linkToAdvance: 'true',
         }
@@ -1246,11 +1291,15 @@ export default {
 
         const completeSettlementData = {
           ...settlementData,
-          bookingDate: settlementData.bookingDate || settlementData.settlementDate,
+          bookingDate:
+            settlementData.bookingDate || settlementData.settlementDate,
           ...auditContext,
         }
 
-        const response = await this.$axios.post('/api/settlements', completeSettlementData)
+        const response = await this.$axios.post(
+          '/api/settlements',
+          completeSettlementData
+        )
 
         if (response.data && response.data.success) {
           this.showToast('Settlement created successfully', 'success')
@@ -1258,11 +1307,14 @@ export default {
           await this.fetchData()
           await this.fetchDashboard()
         } else {
-          throw new Error(response.data?.message || 'Failed to create settlement')
+          throw new Error(
+            response.data?.message || 'Failed to create settlement'
+          )
         }
       } catch (error) {
         console.error('Error saving settlement:', error)
-        const message = error.response?.data?.message || 'Error creating settlement'
+        const message =
+          error.response?.data?.message || 'Error creating settlement'
         this.showToast(message, 'error')
       }
     },
@@ -1322,12 +1374,17 @@ export default {
         )
 
         if (result.isConfirmed) {
-          const recordId = this.selectedRecordForAudit?.id || this.selectedRecordForComparison?.id
+          const recordId =
+            this.selectedRecordForAudit?.id ||
+            this.selectedRecordForComparison?.id
 
-          const { data } = await this.$axios.post(`/api/money-advances/${recordId}/restore`, {
-            targetVersion: versionData.version,
-            reason: 'Restored via audit trail',
-          })
+          const { data } = await this.$axios.post(
+            `/api/money-advances/${recordId}/restore`,
+            {
+              targetVersion: versionData.version,
+              reason: 'Restored via audit trail',
+            }
+          )
 
           if (data.success) {
             this.showToast('ກັບຄືນເວີຊັ່ນສຳເລັດ', 'success')
@@ -1408,12 +1465,20 @@ Due Date: ${this.formatDate(advance.dueDate)}
 Created Date: ${this.formatDate(advance.createdAt)}
 Updated Date: ${this.formatDate(advance.updatedAt)}
 
-${advance.bankAccount ? `Bank Account: ${advance.bankAccount.bankName} - ${advance.bankAccount.accountNumber}` : 'No Bank Account'}
+${
+  advance.bankAccount
+    ? `Bank Account: ${advance.bankAccount.bankName} - ${advance.bankAccount.accountNumber}`
+    : 'No Bank Account'
+}
 
 Notes: ${advance.note || 'No notes provided'}
 
 ${advance.checker ? `Checker: ${advance.checker.cus_name}` : ''}
-${advance.approvedAt ? `Approved At: ${this.formatDate(advance.approvedAt)}` : ''}
+${
+  advance.approvedAt
+    ? `Approved At: ${this.formatDate(advance.approvedAt)}`
+    : ''
+}
 ${advance.settledAt ? `Settled At: ${this.formatDate(advance.settledAt)}` : ''}
 
 Generated on: ${new Date().toLocaleString()}
@@ -1442,11 +1507,24 @@ Generated on: ${new Date().toLocaleString()}
     },
 
     // Utility methods
-    formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount || 0)
+    // formatCurrency(amount) {
+    //   return new Intl.NumberFormat('en-US', {
+    //     style: 'currency',
+    //     currency: 'USD',
+    //   }).format(amount || 0)
+    // },
+
+    formatCurrency(amount, currencyCode = 'LAK') {
+      try {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: currencyCode,
+          minimumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
+          maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
+        }).format(amount || 0)
+      } catch (error) {
+        return `${this.formatNumber(amount)} ${currencyCode}`
+      }
     },
 
     showToast(message, type = 'info') {
