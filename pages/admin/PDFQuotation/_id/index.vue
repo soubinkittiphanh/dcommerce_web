@@ -1,208 +1,132 @@
 <template>
   <div id="body">
-    <!-- Loading State -->
-    <div v-if="isLoading" class="loading-container">
-      <div class="loading-spinner"></div>
-      <p>Loading quotation...</p>
-    </div>
-
-    <!-- Main Content -->
-    <div v-else size="A4" class="wrapper page">
-      <v-container fluid class="pa-6">
-        <!-- Header Section -->
-        <div class="header-section mb-6">
-          <v-row align="center" class="mb-4">
-            <v-col cols="4">
-              <div class="logo-container">
-                <img v-if="companyLogo" :src="companyLogo" class="company-logo" alt="Company Logo" />
-              </div>
-            </v-col>
-            <v-col cols="8">
-              <div class="company-info">
-                <h2 class="company-name">{{ companyDataV1?.name || 'PHAIVANH PHARMACY' }}</h2>
-                <div class="company-details">
-                  <p class="mb-1">{{ companyDataV1?.address || 'Company Address' }}</p>
-                  <p class="mb-1">Tel: {{ companyDataV1?.tel || 'Phone Number' }}</p>
-                  <p class="mb-0">Email: {{ companyDataV1?.email || 'info@company.com' }}</p>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-          
-          <!-- Document Title -->
-          <div class="document-title text-center mb-4">
-            <h1 class="quotation-title">ໃບສະເໜີລາຄາ / QUOTATION</h1>
-            <div class="title-underline"></div>
-          </div>
-        </div>
-
-        <!-- Customer & Quote Information -->
-        <div v-if="header" class="info-section mb-5">
+    <div size="A4" class="wrapper page">
+      <v-container>
+        <div style="display: flex; justify-content: center;">
           <v-row>
             <v-col cols="6">
-              <div class="info-card customer-info">
-                <h3 class="section-title">Bill To:</h3>
-                <table class="info-table">
-                  <tr>
-                    <td class="label">Customer ID:</td>
-                    <td class="value">{{ safeGet(header, 'client.id', 'N/A') }}</td>
-                  </tr>
-                  <tr>
-                    <td class="label">Customer Name:</td>
-                    <td class="value">{{ safeGet(header, 'client.name', 'N/A') }}</td>
-                  </tr>
-                  <tr>
-                    <td class="label">Company:</td>
-                    <td class="value">{{ safeGet(header, 'client.company', 'N/A') }}</td>
-                  </tr>
-                  <tr>
-                    <td class="label">Phone:</td>
-                    <td class="value">{{ safeGet(header, 'client.telephone', 'N/A') }}</td>
-                  </tr>
-                </table>
-              </div>
+              <img v-if="companyLogo" :src="companyLogo" width="200px" />
             </v-col>
-            <v-col cols="6">
-              <div class="info-card quote-info">
-                <h3 class="section-title">Quote Details:</h3>
-                <table class="info-table">
-                  <tr>
-                    <td class="label">Quote Number:</td>
-                    <td class="value quote-number">{{ header.id || 'N/A' }}</td>
+            <v-col cols="6" align-self="end">
+              <table class="table-layout" style="font-size: larger; font-weight: bold;">
+                <tbody style="text-align: right;">
+                  <tr style="white-space: nowrap">
+                    <td>{{ companyDataV1?.name || 'N/A' }}</td>
                   </tr>
-                  <tr>
-                    <td class="label">Date:</td>
-                    <td class="value">{{ formatDate(header.bookingDate) || 'N/A' }}</td>
+                  <tr style="white-space: nowrap">
+                    <td>{{ companyDataV1?.address || 'N/A' }}</td>
                   </tr>
-                  <tr>
-                    <td class="label">Prepared By:</td>
-                    <td class="value">{{ safeGet(header, 'user.cus_name', 'N/A') }}</td>
+                  <tr style="white-space: nowrap">
+                    <td>Tel: {{ companyDataV1?.tel || 'N/A' }}</td>
                   </tr>
-                  <tr>
-                    <td class="label">Valid Until:</td>
-                    <td class="value">{{ formatValidDate(header.bookingDate) || 'N/A' }}</td>
-                  </tr>
-                </table>
-              </div>
+                </tbody>
+              </table>
             </v-col>
           </v-row>
         </div>
-
-        <!-- Show message when no header data -->
-        <div v-else class="no-data-message">
-          <p>No quotation data available. Please check the quotation ID and try again.</p>
+        <!-- <h1 style="text-align: center;">PHAIVANH PHARMACY</h1> -->
+        <p class="text-color" style="font-size: 21pt; font-weight: bold; text-align: center">
+          ໃບສະເໜີລາຄາ / QUOTATION
+        </p>
+        <v-divider></v-divider>
+        <div v-if="header">
+          <v-row>
+            <v-col cols="6">
+              <table class="table-layout" style="font-size: 12pt; font-weight: bold;">
+                <tbody>
+                  <tr style="white-space: nowrap">
+                    <td>Customer ID: {{ header.client?.id || 'N/A' }}</td>
+                  </tr>
+                  <tr style="white-space: nowrap">
+                    <td>Customer Name: {{ header.client?.name || 'N/A' }}</td>
+                  </tr>
+                  <tr style="white-space: nowrap">
+                    <td>Company: {{ header.client?.company || 'N/A' }}</td>
+                  </tr>
+                  <tr style="white-space: nowrap">
+                    <td>ເບີໂທ: {{ header.client?.telephone || 'N/A' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </v-col>
+            <v-col cols="6" align-self="end">
+              <table class="table-layout" style="font-size: 12pt; font-weight: bold;">
+                <tbody style="text-align: right;">
+                  <tr style="white-space: nowrap">
+                    <td>Quotation No: {{ header.id || 'N/A' }}</td>
+                  </tr>
+                  <tr style="white-space: nowrap">
+                    <td>Date: {{ header.bookingDate || 'N/A' }}</td>
+                  </tr>
+                  <tr style="white-space: nowrap">
+                    <td>Prepare By: {{ header.user?.cus_name || 'N/A' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </v-col>
+          </v-row>
         </div>
-
-        <!-- Items Table -->
-        <div v-if="header" class="items-section mb-5">
-          <h3 class="section-title mb-3">Items & Services</h3>
-          <div class="table-container">
-            <table class="items-table">
-              <thead>
-                <tr>
-                  <th class="text-center" style="width: 50px">#</th>
-                  <th style="width: 250px">Description</th>
-                  <th class="text-center" style="width: 80px">Qty</th>
-                  <th class="text-center" style="width: 80px">Unit</th>
-                  <th class="text-right" style="width: 120px">Unit Price</th>
-                  <th class="text-right" style="width: 120px">Amount</th>
+        <v-divider></v-divider>
+        <div v-if="header">
+          <table class="table table-layout" style="border-collapse: collapse;" width="100%">
+            <thead>
+              <tr>
+                <th style="width: 40px">#</th>
+                <th style="width: 180px">Description</th>
+                <th style="width: 80px">Qty</th>
+                <th style="width: 80px">Unit</th>
+                <th style="width: 100px">Price</th>
+                <th style="width: 70px">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-if="header.lines && header.lines.length > 0">
+                <tr v-for="(line, i) in header.lines" :key="line.id" class="page-break">
+                  <td class="text-center">{{ i + 1 }}</td>
+                  <td>{{ line.product?.pro_name || 'N/A' }}</td>
+                  <td style="text-align: right;">{{ line.quantity || 0 }}</td>
+                  <td style="text-align: right;">{{ line.unit?.name || 'N/A' }}</td>
+                  <td style="text-align: right;">{{ formatNumber(line.price) }}</td>
+                  <td style="text-align: right;">{{ formatNumber((line.total || 0) + (line.discount || 0)) }}</td>
                 </tr>
-              </thead>
-              <tbody>
-                <template v-if="header.lines && header.lines.length > 0">
-                  <tr v-for="(line, i) in header.lines" :key="line.id" class="item-row">
-                    <td class="text-center">{{ i + 1 }}</td>
-                    <td class="item-description">
-                      <div class="product-name">{{ line.product?.pro_name || 'N/A' }}</div>
-                    </td>
-                    <td class="text-center">{{ line.quantity || 0 }}</td>
-                    <td class="text-center">{{ line.unit?.name || 'N/A' }}</td>
-                    <td class="text-right">{{ formatCurrency(line.price) }}</td>
-                    <td class="text-right amount-cell">{{ formatCurrency((line.total || 0) + (line.discount || 0)) }}</td>
-                  </tr>
-                </template>
-                <template v-else>
-                  <tr>
-                    <td colspan="6" class="text-center no-data">No items available</td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Summary Section -->
-          <div class="summary-section">
-            <v-row>
-              <v-col cols="8"></v-col>
-              <v-col cols="4">
-                <table class="summary-table">
-                  <tr>
-                    <td class="summary-label">Subtotal:</td>
-                    <td class="summary-value">{{ formatCurrency((header.total || 0)) }}</td>
-                  </tr>
-                  <tr v-if="totalDiscount > 0">
-                    <td class="summary-label">Discount:</td>
-                    <td class="summary-value discount">-{{ formatCurrency(totalDiscount) }}</td>
-                  </tr>
-                  <tr class="total-row">
-                    <td class="summary-label total-label">Total:</td>
-                    <td class="summary-value total-value">{{ formatCurrency((header.total || 0) - totalDiscount) }}</td>
-                  </tr>
-                </table>
-              </v-col>
-            </v-row>
-          </div>
+              </template>
+              <template v-else>
+                <tr>
+                  <td colspan="6">ບໍ່ມີຂໍ້ມູນ</td>
+                </tr>
+              </template>
+              <tr class="page-break">
+                <td style="text-align: right; font-weight: bold;" colspan="5">Discount</td>
+                <td style="text-align: right; font-weight: bold;">{{ formatNumber(totalDiscount) }}</td>
+              </tr>
+              <tr class="page-break">
+                <td style="text-align: right; font-weight: bold;" colspan="5">ລາຄາລວມ</td>
+                <td style="text-align: right; font-weight: bold;">{{ formatNumber((header.total || 0) - totalDiscount) }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- Terms & Conditions -->
-        <div class="terms-section mb-5">
-          <h3 class="section-title mb-3">Terms & Conditions</h3>
-          <div class="terms-content">
-            <ul class="terms-list">
-              <li>This quotation is valid for 30 days from the date of issue</li>
-              <li>Prices are in LAK and include all applicable taxes</li>
-              <li>Payment terms: 50% deposit required, balance due on delivery</li>
-              <li>Delivery time: 7-14 business days after order confirmation</li>
-              <li>All products are subject to availability</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Signature Section -->
-        <div class="signature-section">
-          <v-row>
-            <v-col cols="6">
-              <div class="signature-box">
-                <div class="signature-title">Customer Acceptance</div>
-                <div class="signature-area">
-                  <div class="signature-line"></div>
-                  <div class="signature-details">
-                    <p>Signature: ___________________</p>
-                    <p>Name: _______________________</p>
-                    <p>Date: _______________________</p>
-                  </div>
-                </div>
-              </div>
+        <v-row no-gutters>
+          <v-col>
+            <div>
+              Name/signature/company stamp
+            </div>
+          </v-col>
+        </v-row>
+        <div style="">
+          <v-row no-gutters>
+            <v-col cols="5" style="" align-self="end">
+              <v-card class="mx-auto ml-0" height="134" width="100%" outlined>
+                Customer Acceptance (sign below):
+              </v-card>
             </v-col>
-            <v-col cols="6">
-              <div class="signature-box">
-                <div class="signature-title">Authorized By</div>
-                <div class="signature-area">
-                  <div class="signature-line"></div>
-                  <div class="signature-details">
-                    <p>{{ header?.user?.cus_name || 'Authorized Representative' }}</p>
-                    <p>{{ companyDataV1?.name || 'PHAIVANH PHARMACY' }}</p>
-                    <p>Date: {{ currentDate }}</p>
-                  </div>
-                </div>
-              </div>
+            <v-col cols="2"></v-col>
+            <v-col cols="5">
+              <v-card class="mx-auto" height="134" width="100%" outlined>
+                Approved By:
+              </v-card>
             </v-col>
           </v-row>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer-section text-center mt-4">
-          <p class="footer-text">Thank you for your business!</p>
         </div>
       </v-container>
     </div>
@@ -223,56 +147,31 @@ export default {
       id: null,
       header: null,
       isLoading: true,
-      // Cache variables to prevent re-computation
-      _companyDataCache: null,
-      _companyDataV1Cache: null,
-      _companyLogoCache: null,
-      _currentDate: null,
     }
   },
 
   computed: {
     companyData() {
-      // Cache the result to prevent constant re-computation
-      if (!this._companyDataCache) {
-        try {
-          this._companyDataCache = mainCompanyInfo() || {}
-        } catch (error) {
-          console.error('Error loading company data:', error)
-          this._companyDataCache = {}
-        }
-      }
-      return this._companyDataCache
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
+      return mainCompanyInfo()
     },
     companyDataV1() {
-      // Cache the result to prevent constant re-computation
-      if (!this._companyDataV1Cache) {
-        try {
-          this._companyDataV1Cache = mainCompanyInfoV1(this.$store) || {}
-        } catch (error) {
-          console.error('Error loading company data V1:', error)
-          this._companyDataV1Cache = {}
-        }
+      try {
+        let comV1 = mainCompanyInfoV1(this.$store)
+        return comV1 || {}
+      } catch (error) {
+        console.error('Error loading company data:', error)
+        return {}
       }
-      return this._companyDataV1Cache
     },
     companyLogo() {
-      // Use a safer approach for logo loading
-      if (!this._companyLogoCache) {
-        try {
-          const logoName = this.companyData?.companyLogo
-          if (logoName) {
-            // Use a safer method that won't cause webpack issues
-            this._companyLogoCache = `/assets/image/${logoName}`
-          } else {
-            this._companyLogoCache = null
-          }
-        } catch (error) {
-          console.error('Error loading company logo:', error)
-          this._companyLogoCache = null
-        }
+      try {
+        const logoName = this.companyData?.companyLogo
+        return logoName ? require(`~/assets/image/${logoName}`) : null
+      } catch (error) {
+        console.error('Error loading company logo:', error)
+        return null
       }
-      return this._companyLogoCache
     },
     ...mapGetters(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct']),
     totalDiscount() {
@@ -284,29 +183,12 @@ export default {
       }
       totalDiscount += this.header.discount || 0
       return totalDiscount
-    },
-    // Add a computed property for current date to prevent constant re-renders
-    currentDate() {
-      if (!this._currentDate) {
-        this._currentDate = new Date().toLocaleDateString('en-GB')
-      }
-      return this._currentDate
     }
   },
 
   async created() {
     try {
-      // Initialize current date first
-      this._currentDate = new Date().toLocaleDateString('en-GB')
-      
-      // Load company data with timeout
-      const companyDataPromise = this.initiateDataCompany(this.$axios)
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Company data load timeout')), 10000)
-      )
-      
-      await Promise.race([companyDataPromise, timeoutPromise])
-      
+      await this.initiateDataCompany(this.$axios)
       this.id = this.$route.params.id
       
       if (this.id) {
@@ -314,7 +196,6 @@ export default {
       }
     } catch (error) {
       console.error('Error in created hook:', error)
-      // Don't break the component, just log the error
     } finally {
       this.isLoading = false
     }
@@ -324,30 +205,14 @@ export default {
     ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
     
     async loadQuotationData() {
-      if (!this.id) return
-      
       try {
-        // Add timeout for API calls
-        const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
-        
-        const response = await this.$axios.get(`api/quotation/find/${this.id}`, {
-          signal: controller.signal
-        })
-        
-        clearTimeout(timeoutId)
+        const response = await this.$axios.get(`api/quotation/find/${this.id}`)
         this.header = response.data
         console.log('Quotation data loaded:', this.header)
       } catch (error) {
-        if (error.name === 'AbortError') {
-          console.error('Request timeout')
-        } else {
-          console.error('Error loading quotation data:', error)
-        }
-        // Show user-friendly error without breaking the component
-        if (this.$toast && typeof this.$toast.error === 'function') {
-          this.$toast.error('Failed to load quotation data')
-        }
+        console.error('Error loading quotation data:', error)
+        // You might want to show a user-friendly error message here
+        this.$toast.error('Failed to load quotation data')
       }
     },
     
@@ -355,91 +220,111 @@ export default {
       if (val === null || val === undefined || isNaN(val)) return '0'
       return getFormatNum(val)
     },
-
-    formatCurrency(val) {
-      if (val === null || val === undefined || isNaN(val)) return '₭0.00'
-      return '₭' + this.formatNumber(val)
-    },
-
-    formatDate(dateStr) {
-      if (!dateStr) return ''
-      try {
-        const date = new Date(dateStr)
-        return date.toLocaleDateString('en-GB') // DD/MM/YYYY format
-      } catch (error) {
-        return dateStr
-      }
-    },
-
-    formatValidDate(dateStr) {
-      if (!dateStr) return ''
-      try {
-        const date = new Date(dateStr)
-        date.setDate(date.getDate() + 30) // Add 30 days
-        return date.toLocaleDateString('en-GB')
-      } catch (error) {
-        return ''
-      }
-    },
-
-    // Method to clear caches if needed
-    clearCaches() {
-      this._companyDataCache = null
-      this._companyDataV1Cache = null
-      this._companyLogoCache = null
-    },
-
-    // Safe getter for nested properties
-    safeGet(obj, path, defaultValue = '') {
-      return path.split('.').reduce((current, key) => {
-        return current && current[key] !== undefined ? current[key] : defaultValue
-      }, obj)
-    }
-  },
-
-  // Add beforeDestroy to clean up
-  beforeDestroy() {
-    // Clear any caches to prevent memory leaks
-    this.clearCaches()
   }
 }
 </script>
 
 <style scoped>
-/* Global Styles */
 * {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Loading Styles */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-  color: #2c5aa0;
-}
-
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e0e0e0;
-  border-top: 4px solid #2c5aa0;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 16px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  font-family: 'Noto Sans Lao';
 }
 
 #body {
-  background: #f5f5f5;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 12px;
+}
+
+.title-space {
+  margin: 4px 0px;
+}
+
+.heading-14 {
+  font-size: 16px;
+}
+
+.text-color {
+  color: #246AB2;
+}
+
+.page-break {
+  page-break-inside: avoid;
+  page-break-after: auto
+}
+
+@media screen {
+  /* Screen styles */
+}
+
+@media print {
+  body,
+  .page {
+    margin: 0;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto
+  }
+
+  td {
+    page-break-inside: avoid;
+    page-break-after: auto
+  }
+
+  thead {
+    display: table-header-group
+  }
+
+  tfoot {
+    display: table-footer-group
+  }
+
+  #page-break {
+    clear: both;
+    page-break-after: always;
+  }
+
+  @page {
+    margin: 1cm 0cm 0.2cm 0cm;
+  }
+}
+
+.page-footer,
+.page-footer-space {
+  height: 100px;
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 21cm;
+}
+
+.table td,
+th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+
+.table th {
+  font-size: 11pt;
+  text-align: center;
+}
+
+.table td {
+  font-size: 12pt;
+}
+
+* {
+  font-family: Phetsarath OT;
+}
+
+#body {
+  background: rgb(204, 204, 204);
 }
 
 .page {
@@ -447,358 +332,62 @@ export default {
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  min-height: 29.7cm;
 }
 
 .page[size="A4"] {
   width: 21cm;
 }
 
-.no-data-message {
-  text-align: center;
-  padding: 40px 20px;
-  color: #666;
-  font-style: italic;
+.page[size="A4"][layout="landscape"] {
+  width: 29.7cm;
+  height: 21cm;
 }
 
-/* Header Styles */
-.header-section {
-  border-bottom: 3px solid #2c5aa0;
-  padding-bottom: 20px;
+.page[size="A3"] {
+  width: 29.7cm;
+  height: 42cm;
 }
 
-.logo-container {
-  text-align: left;
+.page[size="A3"][layout="landscape"] {
+  width: 42cm;
+  height: 29.7cm;
 }
 
-.company-logo {
-  max-width: 180px;
-  max-height: 100px;
-  object-fit: contain;
+.page[size="A5"] {
+  width: 14.8cm;
+  height: 21cm;
 }
 
-.company-info {
-  text-align: right;
+.page[size="A5"][layout="landscape"] {
+  width: 21cm;
+  height: 14.8cm;
 }
 
-.company-name {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2c5aa0;
-  margin-bottom: 8px;
-  letter-spacing: 1px;
+.d-flex > p {
+  margin-bottom: 0;
 }
 
-.company-details p {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.document-title {
-  margin-top: 30px;
-}
-
-.quotation-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #2c5aa0;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.title-underline {
-  width: 200px;
-  height: 4px;
-  background: linear-gradient(to right, #2c5aa0, #64b5f6);
-  margin: 0 auto;
-  border-radius: 2px;
-}
-
-/* Info Section Styles */
-.info-section {
-  margin: 30px 0;
-}
-
-.info-card {
-  background: #f8f9fa;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-  height: 180px;
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #2c5aa0;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #2c5aa0;
-  padding-bottom: 5px;
-}
-
-.info-table {
+.table-layout {
+  table-layout: fixed;
   width: 100%;
-  border-collapse: collapse;
 }
 
-.info-table td {
-  padding: 6px 0;
-  border: none;
+.table-layout > tbody > tr > td:nth-child(1) {
+  width: 130px;
 }
 
-.info-table .label {
-  font-weight: 600;
-  color: #555;
-  width: 40%;
+.table-layout > tbody > tr > td:nth-child(5) {
+  width: 80px;
 }
 
-.info-table .value {
-  color: #333;
-  font-weight: 500;
+.table-layout > tbody > tr > td:nth-child(6) {
+  width: 150px;
 }
 
-.quote-number {
-  font-size: 18px;
-  font-weight: 700;
-  color: #2c5aa0;
-}
-
-/* Items Table Styles */
-.items-section {
-  margin: 30px 0;
-}
-
-.table-container {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.items-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-}
-
-.items-table thead {
-  background: linear-gradient(135deg, #2c5aa0, #1e3d72);
-  color: white;
-}
-
-.items-table th {
-  padding: 15px 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
-  border: none;
-}
-
-.items-table tbody tr:nth-child(even) {
-  background: #f8f9fa;
-}
-
-.items-table tbody tr:hover {
-  background: #e3f2fd;
-}
-
-.items-table td {
-  padding: 12px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.item-description {
-  font-weight: 500;
-}
-
-.product-name {
-  color: #333;
-  font-size: 14px;
-}
-
-.amount-cell {
-  font-weight: 600;
-  color: #2c5aa0;
-}
-
-.no-data {
-  padding: 30px !important;
-  color: #999;
-  font-style: italic;
-}
-
-/* Summary Styles */
-.summary-section {
-  margin-top: 20px;
-}
-
-.summary-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.summary-table td {
-  padding: 8px 12px;
-  border: none;
-}
-
-.summary-label {
-  text-align: right;
-  font-weight: 500;
-  color: #555;
-}
-
-.summary-value {
-  text-align: right;
-  font-weight: 600;
-  color: #333;
-  width: 120px;
-}
-
-.total-row {
-  border-top: 2px solid #2c5aa0;
-  background: #f8f9fa;
-}
-
-.total-label {
-  font-size: 16px;
-  font-weight: 700;
-  color: #2c5aa0 !important;
-}
-
-.total-value {
-  font-size: 18px;
-  font-weight: 700;
-  color: #2c5aa0 !important;
-}
-
-.discount {
-  color: #f44336 !important;
-}
-
-/* Terms & Conditions */
-.terms-section {
-  margin: 30px 0;
-}
-
-.terms-content {
-  background: #f8f9fa;
-  border-left: 4px solid #2c5aa0;
-  padding: 20px;
-  border-radius: 0 8px 8px 0;
-}
-
-.terms-list {
-  margin: 0;
-  padding-left: 20px;
-  color: #555;
-}
-
-.terms-list li {
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-/* Signature Section */
-.signature-section {
-  margin: 40px 0 20px 0;
-}
-
-.signature-box {
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-  height: 140px;
-  background: #fafafa;
-}
-
-.signature-title {
-  font-weight: 600;
-  color: #2c5aa0;
-  margin-bottom: 15px;
-  text-align: center;
-  font-size: 16px;
-}
-
-.signature-area {
-  height: 80px;
-}
-
-.signature-line {
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 10px;
-  height: 40px;
-}
-
-.signature-details p {
-  margin: 4px 0;
-  font-size: 12px;
-  color: #666;
-}
-
-/* Footer */
-.footer-section {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 15px;
-}
-
-.footer-text {
-  color: #2c5aa0;
-  font-weight: 600;
-  font-size: 16px;
-  margin: 0;
-}
-
-/* Print Styles */
-@media print {
-  #body {
-    background: white;
-  }
-  
-  .page {
-    box-shadow: none;
-    margin: 0;
-  }
-
-  @page {
-    margin: 1cm;
-    size: A4;
-  }
-
-  .info-card {
-    background: white !important;
-    border: 1px solid #ccc !important;
-  }
-
-  .terms-content {
-    background: white !important;
-  }
-
-  .signature-box {
-    background: white !important;
-  }
-
-  .items-table tbody tr:nth-child(even) {
-    background: #f9f9f9 !important;
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .company-name {
-    font-size: 24px;
-  }
-  
-  .quotation-title {
-    font-size: 28px;
-  }
-  
-  .info-card {
-    height: auto;
-    margin-bottom: 20px;
-  }
+td {
+  word-wrap: break-word;
+  vertical-align: top;
+  padding-right: 2px;
+  padding-left: 2px;
 }
 </style>

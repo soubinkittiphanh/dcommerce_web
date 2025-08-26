@@ -120,33 +120,33 @@
                     :checked="voucherData.currency?.code === 'LAK'"
                   />
                 </label>
-                <span class="label"> LAK/ </span>
+                <span class="label"> ກີບ/ </span>
                 <label
                   ><input
                     type="checkbox"
                     :checked="voucherData.currency?.code === 'THB'"
                   />
                 </label>
-                <span class="label"> THB/ </span>
+                <span class="label"> ບາດ/ </span>
                 <label
                   ><input
                     type="checkbox"
                     :checked="voucherData.currency?.code === 'USD'"
                   />
                 </label>
-                <span class="label"> USD </span>
+                <span class="label"> ໂດລາ </span>
               </div>
 
               <div class="detail-row">
                 <span class="label">ຈຳນວນເງິນ</span>
                 <span class="dotted-line">{{
                   formatAmount(voucherData.amount)
-                }}</span>
-                <span class="label">{{
+                }} {{ getCurrencyWord(voucherData.currency?.code) }}</span>
+                <!-- <span class="label">{{
                   voucherData.currency?.name ||
                   voucherData.currency?.currencyName ||
                   'N/A'
-                }}</span>
+                }}</span> -->
               </div>
 
               <div class="detail-row">
@@ -212,7 +212,8 @@
                 <span class="label">ຈຳນວນ</span>
                 <span class="value">{{
                   formatAmount(voucherData.moneyAdvance.amount)
-                }}</span>
+                }} 
+                </span>
                 <span class="dotted-line"></span>
               </div>
 
@@ -231,7 +232,7 @@
             <!-- Signature Section -->
             <div class="signature-section">
               <div class="signature-box">
-                <div class="signature-title">ຫົວໜ້າພະແນກ</div>
+                <div class="signature-title">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
                 <div class="signature-line"></div>
                 <div class="signature-name"></div>
               </div>
@@ -270,186 +271,6 @@
             <i class="fas fa-print"></i>
             ພິມ
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hidden print container -->
-    <div v-show="false" class="print-only">
-      <div class="voucher-container print-version">
-        <!-- Same voucher content for printing with updated structure -->
-        <div class="voucher-header">
-          <div class="company-info">
-            <div class="company-name">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
-            <div class="company-name">
-              ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ
-            </div>
-            <div class="department">ກົມການເງິນ ແລະ ສິນເຊື່ອ</div>
-            <div class="sub-department">
-              ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ
-            </div>
-            <div class="amount-line">.........(000)..........</div>
-          </div>
-        </div>
-
-        <!-- ✅ FIXED: Left-Right Layout Section for Print -->
-        <div class="ministry-voucher-section">
-          <!-- Left section -->
-          <div class="ministry-titles">
-            <div class="voucher-title">ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div>
-            <div class="voucher-title">ກົມແຜນການ ແລະ ການເງິນ</div>
-            <div class="voucher-title">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
-          </div>
-          <!-- Right section -->
-          <div class="voucher-number">
-            <div class="number-box">
-              <span class="number-label">No</span>
-              <span class="number-value">{{
-                formatVoucherNumber(voucherData.id)
-              }}</span>
-            </div>
-            <div v-if="voucherData.externalRefNo" class="external-ref-box">
-              <span class="ref-label">Ref:</span>
-              <span class="ref-value">{{ voucherData.externalRefNo }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="voucher-title">ໃບຮັບເງິນ</div>
-
-        <div class="voucher-details">
-          <div class="detail-row">
-            <span class="label">ຈາກທ່ານ</span>
-            <span class="dotted-line">{{
-              voucherData.fromPersonName || 'N/A'
-            }}</span>
-          </div>
-
-          <div
-            v-if="voucherData.method === 'cheque' && voucherData.chequeNo"
-            class="detail-row"
-          >
-            <span class="label">ເລກເຊັກ</span>
-            <span class="dotted-line">{{ voucherData.chequeNo }}</span>
-          </div>
-
-          <div class="detail-row">
-            <span class="label">ເລກທີ</span>
-            <span class="value">{{ formatVoucherNumber(voucherData.id) }}</span>
-            <span class="label">ວັນທີນີ້</span>
-            <span class="value">{{
-              formatDate(voucherData.bookingDate || voucherData.createdAt).day
-            }}</span>
-            <span class="label">ເດືອນ</span>
-            <span class="value">{{
-              formatDate(voucherData.bookingDate || voucherData.createdAt).month
-            }}</span>
-            <span class="label">ປີ</span>
-            <span class="value">{{
-              formatDate(voucherData.bookingDate || voucherData.createdAt).year
-            }}</span>
-          </div>
-
-          <div class="detail-row">
-            <span class="label">ຈຳນວນເງິນ ກີບລາວ / ເອກະສານສຳຄັນ</span>
-            <div class="currency-options">
-              <label
-                ><input
-                  type="checkbox"
-                  :checked="voucherData.currency?.code === 'LAK'"
-                />
-                LAK</label
-              >
-              <label
-                ><input
-                  type="checkbox"
-                  :checked="voucherData.currency?.code === 'THB'"
-                />
-                THB</label
-              >
-              <label
-                ><input
-                  type="checkbox"
-                  :checked="voucherData.currency?.code === 'USD'"
-                />
-                USD</label
-              >
-            </div>
-          </div>
-
-          <div class="detail-row">
-            <span class="label">ຈຳນວນ</span>
-            <span class="amount-display">{{
-              formatAmount(voucherData.amount)
-            }}</span>
-            <span class="label">{{
-              voucherData.currency?.name ||
-              voucherData.currency?.currencyName ||
-              'N/A'
-            }}</span>
-          </div>
-
-          <div class="detail-row">
-            <span class="label">ຈຳນວນເງິນເປັນຕົວຫນັງສື</span>
-            <span class="amount-words">{{
-              convertToWords(voucherData.amount, voucherData.currency?.code)
-            }}</span>
-          </div>
-
-          <div class="detail-row description">
-            <span class="label">ເນື້ອໃນລາຍການ</span>
-            <div class="description-content">
-              {{ voucherData.notes || voucherData.purpose || 'ບໍ່ມີຫມາຍເຫດ' }}
-            </div>
-          </div>
-        </div>
-
-        <div class="signature-section">
-          <div class="signature-box">
-            <div class="signature-title">ຫົວໜ້າພະແນກ</div>
-            <div class="signature-line"></div>
-            <div class="signature-name"></div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-title">ຜູ້ຮັບຄັງເງິນສົດ</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">
-              {{
-                voucherData.proceeder?.cus_name ||
-                voucherData.proceeder?.name ||
-                ''
-              }}
-            </div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-title">ຜູ້ມອບ</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">
-              {{ voucherData.fromPersonName || '' }}
-            </div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-title">ຜູ້ກວດສອບ</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">
-              {{ voucherData.updateUser?.cus_name || '' }}
-            </div>
-          </div>
-        </div>
-
-        <div class="settlement-footer">
-          <div class="footer-row">
-            <span class="footer-label">ວັນທີຊຳລະ:</span>
-            <span class="footer-value">{{
-              formatDateLao(
-                voucherData.bookingDate || voucherData.settlementDate
-              )
-            }}</span>
-            <span class="footer-label">ເວລາ:</span>
-            <span class="footer-value">{{
-              formatTime(voucherData.createdAt)
-            }}</span>
-          </div>
         </div>
       </div>
     </div>
@@ -564,6 +385,23 @@ export default {
       if (!amount) return '0'
       return new Intl.NumberFormat('en-US').format(amount)
     },
+     getCurrencyWord(currencyCode) {
+      let result = '';
+      switch (currencyCode) {
+        case 'LAK':
+          result += ' ກີບ'
+          break
+        case 'USD':
+          result += ' ໂດລາ'
+          break
+        case 'THB':
+          result += ' ບາດ'
+          break
+        default:
+          result += 'ກີບ'
+      }
+      return result;
+    },
 
     formatExchangeRate(rate) {
       if (!rate || rate === 1) return '1.0000'
@@ -650,21 +488,57 @@ export default {
         result = convertThreeDigits(amount)
       } else if (length <= 6) {
         // 1,000 - 999,999
-        const thousands = Math.floor(amount / 1000)
-        const remainder = amount % 1000
+        if (amount >= 100000) {
+          // Handle ແສນ (100,000) unit for 100,000 - 999,999
+          const saen = Math.floor(amount / 100000)
+          const remainder = amount % 100000
 
-        if (thousands === 10) {
-          // Special case: 10,000 = ສິບພັນ
-          result = 'ສິບພັນ'
-        } else if (thousands === 20) {
-          // Special case: 20,000 = ຊາວພັນ
-          result = 'ຊາວພັນ'
+          if (saen === 10) {
+            // Special case: 1,000,000 should be handled in millions section
+            // This shouldn't happen in this range, but keeping for safety
+            result = 'ສິບແສນ'
+          } else {
+            result = numbers[saen] + 'ແສນ'
+          }
+
+          if (remainder > 0) {
+            if (remainder >= 1000) {
+              const thousands = Math.floor(remainder / 1000)
+              const finalRemainder = remainder % 1000
+
+              if (thousands === 10) {
+                result += 'ສິບພັນ'
+              } else if (thousands === 20) {
+                result += 'ຊາວພັນ'
+              } else {
+                result += convertThreeDigits(thousands) + 'ພັນ'
+              }
+
+              if (finalRemainder > 0) {
+                result += convertThreeDigits(finalRemainder)
+              }
+            } else {
+              result += convertThreeDigits(remainder)
+            }
+          }
         } else {
-          result = convertThreeDigits(thousands) + 'ພັນ'
-        }
+          // Handle ພັນ (1,000) unit for 1,000 - 99,999
+          const thousands = Math.floor(amount / 1000)
+          const remainder = amount % 1000
 
-        if (remainder > 0) {
-          result += convertThreeDigits(remainder)
+          if (thousands === 10) {
+            // Special case: 10,000 = ສິບພັນ
+            result = 'ສິບພັນ'
+          } else if (thousands === 20) {
+            // Special case: 20,000 = ຊາວພັນ
+            result = 'ຊາວພັນ'
+          } else {
+            result = convertThreeDigits(thousands) + 'ພັນ'
+          }
+
+          if (remainder > 0) {
+            result += convertThreeDigits(remainder)
+          }
         }
       } else if (length <= 9) {
         // 1,000,000 - 999,999,999 (millions)
@@ -680,9 +554,36 @@ export default {
           result = convertThreeDigits(millions) + 'ລ້ານ'
         }
 
-        // Handle remainder (thousands and hundreds)
+        // Handle remainder (saen, thousands and hundreds)
         if (remainder > 0) {
-          if (remainder >= 1000) {
+          if (remainder >= 100000) {
+            // Handle ແສນ unit in remainder
+            const saen = Math.floor(remainder / 100000)
+            const saenRemainder = remainder % 100000
+
+            result += numbers[saen] + 'ແສນ'
+
+            if (saenRemainder > 0) {
+              if (saenRemainder >= 1000) {
+                const thousands = Math.floor(saenRemainder / 1000)
+                const finalRemainder = saenRemainder % 1000
+
+                if (thousands === 10) {
+                  result += 'ສິບພັນ'
+                } else if (thousands === 20) {
+                  result += 'ຊາວພັນ'
+                } else {
+                  result += convertThreeDigits(thousands) + 'ພັນ'
+                }
+
+                if (finalRemainder > 0) {
+                  result += convertThreeDigits(finalRemainder)
+                }
+              } else {
+                result += convertThreeDigits(saenRemainder)
+              }
+            }
+          } else if (remainder >= 1000) {
             const thousands = Math.floor(remainder / 1000)
             const finalRemainder = remainder % 1000
 
@@ -709,7 +610,7 @@ export default {
         // Handle billions part
         result = numbers[billions] + 'ພັນລ້ານ'
 
-        // Handle remainder (millions, thousands, hundreds)
+        // Handle remainder (millions, saen, thousands, hundreds)
         if (remainder > 0) {
           if (remainder >= 1000000) {
             const millions = Math.floor(remainder / 1000000)
@@ -724,7 +625,34 @@ export default {
             }
 
             if (millionRemainder > 0) {
-              if (millionRemainder >= 1000) {
+              if (millionRemainder >= 100000) {
+                // Handle ແສນ unit in remainder
+                const saen = Math.floor(millionRemainder / 100000)
+                const saenRemainder = millionRemainder % 100000
+
+                result += numbers[saen] + 'ແສນ'
+
+                if (saenRemainder > 0) {
+                  if (saenRemainder >= 1000) {
+                    const thousands = Math.floor(saenRemainder / 1000)
+                    const finalRemainder = saenRemainder % 1000
+
+                    if (thousands === 10) {
+                      result += 'ສິບພັນ'
+                    } else if (thousands === 20) {
+                      result += 'ຊາວພັນ'
+                    } else {
+                      result += convertThreeDigits(thousands) + 'ພັນ'
+                    }
+
+                    if (finalRemainder > 0) {
+                      result += convertThreeDigits(finalRemainder)
+                    }
+                  } else {
+                    result += convertThreeDigits(saenRemainder)
+                  }
+                }
+              } else if (millionRemainder >= 1000) {
                 const thousands = Math.floor(millionRemainder / 1000)
                 const finalRemainder = millionRemainder % 1000
 
@@ -741,6 +669,33 @@ export default {
                 }
               } else {
                 result += convertThreeDigits(millionRemainder)
+              }
+            }
+          } else if (remainder >= 100000) {
+            // Handle ແສນ unit in remainder
+            const saen = Math.floor(remainder / 100000)
+            const saenRemainder = remainder % 100000
+
+            result += numbers[saen] + 'ແສນ'
+
+            if (saenRemainder > 0) {
+              if (saenRemainder >= 1000) {
+                const thousands = Math.floor(saenRemainder / 1000)
+                const finalRemainder = saenRemainder % 1000
+
+                if (thousands === 10) {
+                  result += 'ສິບພັນ'
+                } else if (thousands === 20) {
+                  result += 'ຊາວພັນ'
+                } else {
+                  result += convertThreeDigits(thousands) + 'ພັນ'
+                }
+
+                if (finalRemainder > 0) {
+                  result += convertThreeDigits(finalRemainder)
+                }
+              } else {
+                result += convertThreeDigits(saenRemainder)
               }
             }
           } else if (remainder >= 1000) {
@@ -799,8 +754,8 @@ export default {
                 line-height: 1.4;
               }
                 .voucher-logo {
-                  max-width: 80px;
-                  max-height: 80px;
+                  max-width: 90px;
+                  max-height: 90px;
                   width: auto;
                   height: auto;
                   object-fit: contain;
@@ -819,7 +774,6 @@ export default {
                 align-items: flex-start; 
                 margin-bottom: 20px; 
                 padding-bottom: 10px; 
-                border-bottom: 1px solid #ccc; 
               }
               .ministry-voucher-section {
                 display: flex;
@@ -833,11 +787,12 @@ export default {
                 text-align: left;
               }
               .ministry-titles .voucher-title {
-                font-size: 12px;
-                margin-bottom: 4px;
+                font-size: 16px;
+                margin-bottom: 1px !important;
+                line-height: 1 !important;
                 text-align: left;
                 text-decoration: none;
-                font-weight: normal;
+                font-weight: bold;
                 color: #333;
               }
               .company-info { 
@@ -1022,13 +977,7 @@ export default {
                   flex: 1 !important;
                   text-align: left !important;
                 }
-                .ministry-titles .voucher-title {
-                  font-size: 11px !important;
-                  margin-bottom: 3px !important;
-                  text-align: left !important;
-                  text-decoration: none !important;
-                  font-weight: normal !important;
-                }
+        
                 .voucher-number {
                   flex: 0 0 auto !important;
                   margin-left: 20px !important;
@@ -1057,8 +1006,8 @@ export default {
 <style scoped>
 /* Modal Styles */
 .voucher-logo {
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 90px;
+  max-height: 90px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -1182,7 +1131,7 @@ export default {
   align-items: flex-start;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc; */
 }
 
 /* ✅ Ministry and Voucher Number Section */
@@ -1200,11 +1149,12 @@ export default {
 }
 
 .ministry-titles .voucher-title {
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 18px;
+  margin-bottom: 1px !important;
+  line-height: 1 !important;
   text-align: left;
   text-decoration: none;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 .company-info {

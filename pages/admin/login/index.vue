@@ -97,8 +97,8 @@ export default {
       this.setSelectedLocation(location)
       //********** refresh component so the data will be update fresh **********//
       this.terminalDialog = false
-      this.$router.push('/admin') // Main screen for minimart business
-      // this.$router.push('/admin/moneyAdvance') // Main screen for minimart business
+      // this.$router.push('/admin') // Main screen for minimart business
+      this.$router.push('/admin/moneyAdvance') // Main screen for YOTHA 
       // this.$router.push('/admin/orders') // Main screen for shipping bussiness
     },
     async userLogin() {
@@ -116,8 +116,8 @@ export default {
         if (response.data.accessToken) {
           console.log(`LOGIN COMPLETED`);
           this.initData()
-          this.terminalDialog = true // Disable for THIS PROJECT
-          // this.switchTerminal() // Auto select for this project only
+          this.terminalDialog = false // Disable for THIS PROJECT
+          this.switchTerminal() // Auto select for this project only
         } else {
           console.log('No token')
           swalError2(this.$swal, 'Error', 'ໄອດີ ຫລື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ')
