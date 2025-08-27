@@ -247,8 +247,8 @@
         <!-- Ministry -->
         <template v-slot:item.ministry="{ item }">
           <div class="ministry-cell">
-            <span class="ministry-name">{{ item.ministry.ministryName }}</span>
-            <span class="ministry-code">{{ item.ministry.ministryCode }}</span>
+            <span class="ministry-name">{{ item.ministry?.ministryName || '' }}</span>
+            <span class="ministry-code">{{ item.ministry?.ministryCode || ''}}</span>
           </div>
         </template>
 

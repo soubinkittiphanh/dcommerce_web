@@ -75,13 +75,13 @@
               <template v-slot:selection="{ item }">
                 <div class="bank-account-selection">
                   <span class="bank-name">{{ item.accountName }}</span>
-                  <small>{{ item.bankName }} - {{ item.accountNumber }}</small>
+                  <small>{{ item.bankName ||'' }} - {{ item.accountNumber }}</small>
                 </div>
               </template>
               <template v-slot:item="{ item }">
                 <div class="bank-account-item">
                   <div class="bank-name">{{ item.accountName }}</div>
-                  <div class="bank-details">{{ item.bankName }} - {{ item.accountNumber }}</div>
+                  <div class="bank-details">{{ item.bankName || ''}} - {{ item.accountNumber }}</div>
                 </div>
               </template>
             </v-select>
@@ -281,17 +281,17 @@
         <!-- Ministry -->
         <template v-slot:item.ministry="{ item }">
           <div class="ministry-cell">
-            <span class="ministry-name">{{ item.ministry.ministryName }}</span>
-            <span class="ministry-code">{{ item.ministry.ministryCode }}</span>
+            <span class="ministry-name">{{ item.ministry?.ministryName || ''}}</span>
+            <span class="ministry-code">{{ item.ministry?.ministryCode || ''}}</span>
           </div>
         </template>
 
         <!-- Bank Account -->
         <template v-slot:item.bankAccount="{ item }">
           <div class="bank-account-cell">
-            <span class="bank-account-name">{{ item.bankAccount.accountName }}</span>
-            <span class="bank-account-number">{{ item.bankAccount.accountNumber }}</span>
-            <span class="bank-name">{{ item.bankAccount.bankName }}</span>
+            <span class="bank-account-name">{{ item.bankAccount?.accountName || ''}}</span>
+            <span class="bank-account-number">{{ item.bankAccount?.accountNumber || ''}}</span>
+            <span class="bank-name">{{ item.bankAccount?.bankName || '' }}</span>
           </div>
         </template>
 
@@ -432,10 +432,10 @@
             </v-col>
             <v-col cols="6">
               <div class="detail-item">
-                <strong>ກະຊວງ:</strong> {{ selectedAdvance.ministry.ministryName }}
+                <strong>ກະຊວງ:</strong> {{ selectedAdvance.ministry?.ministryName ||'' }}
               </div>
               <div class="detail-item">
-                <strong>ລະຫັດກະຊວງ:</strong> {{ selectedAdvance.ministry.ministryCode }}
+                <strong>ລະຫັດກະຊວງ:</strong> {{ selectedAdvance.ministry?.ministryCode ||''}}
               </div>
               <div class="detail-item">
                 <strong>ຈຸດປະສົງ:</strong> {{ selectedAdvance.purpose }}
