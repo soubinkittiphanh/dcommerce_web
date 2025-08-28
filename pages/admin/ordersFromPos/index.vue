@@ -702,6 +702,9 @@ export default {
       return getNextDate(startDate, day)
     },
     numberWithCommas(value) {
+      if (value === null || value === undefined) {
+        return '0'
+      }
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     whatsappLink(item) {

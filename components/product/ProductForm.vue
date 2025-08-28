@@ -185,7 +185,7 @@
                   :items="taxRateOptions"
                   label="Tax Rate*"
                   v-model="formData.taxId"
-                  :rules="rules.taxRule"
+                 
                   prepend-inner-icon="mdi-percent"
                   :loading="loadingTaxRates"
                   clearable
@@ -1078,11 +1078,11 @@ export default {
       }
 
       // ✅ ADD: Validate tax selection
-      if (!this.formData.taxId) {
-        this.$toast?.error?.('Please select a tax rate') ||
-          console.error('Please select a tax rate')
-        return
-      }
+      // if (!this.formData.taxId) {
+      //   this.$toast?.error?.('Please select a tax rate') ||
+      //     console.error('Please select a tax rate')
+      //   return
+      // }
 
       this.isLoading = true
       const formData = new FormData()
