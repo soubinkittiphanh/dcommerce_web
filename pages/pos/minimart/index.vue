@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-6">
+    <div class="pa-0">
         <v-dialog v-model="isloading" hide-overlay persistent width="300">
             <loading-indicator> </loading-indicator>
         </v-dialog>

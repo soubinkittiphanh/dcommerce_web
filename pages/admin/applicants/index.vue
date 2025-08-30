@@ -33,7 +33,11 @@
 
         <div class="filter-group">
           <label>ເພດ:</label>
-          <select v-model="filters.gender" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.gender"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
             <option value="male">ຊາຍ</option>
             <option value="female">ຍິງ</option>
@@ -42,7 +46,11 @@
 
         <div class="filter-group">
           <label>ສະຖານະ:</label>
-          <select v-model="filters.status" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.status"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
             <option value="INTERVIEW">ສໍາພາດ</option>
             <option value="REGISTER">ລົງທະບຽນ</option>
@@ -52,7 +60,11 @@
 
         <div class="filter-group">
           <label>ມີໜັງສືເດີນທາງ:</label>
-          <select v-model="filters.passportAvailability" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.passportAvailability"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
             <option value="true">ມີ</option>
             <option value="false">ບໍ່ມີ</option>
@@ -61,17 +73,33 @@
 
         <div class="filter-group">
           <label>ເມືອງ:</label>
-          <select v-model="filters.city" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.city"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
-            <option v-for="city in availableCities" :key="city" :value="city">{{ city }}</option>
+            <option v-for="city in availableCities" :key="city" :value="city">
+              {{ city }}
+            </option>
           </select>
         </div>
 
         <div class="filter-group">
           <label>ສະຖານທີ່ທຳງານ:</label>
-          <select v-model="filters.workPlace" class="form-control" @change="applyFilters">
+          <select
+            v-model="filters.workPlace"
+            class="form-control"
+            @change="applyFilters"
+          >
             <option value="">ທັງໝົດ</option>
-            <option v-for="place in availableWorkPlaces" :key="place" :value="place">{{ place }}</option>
+            <option
+              v-for="place in availableWorkPlaces"
+              :key="place"
+              :value="place"
+            >
+              {{ place }}
+            </option>
           </select>
         </div>
 
@@ -151,7 +179,9 @@
         <div class="card-content">
           <h3>{{ summaryStats.withPassport.count }}</h3>
           <p>ມີໜັງສືເດີນທາງ</p>
-          <small class="passport-rate">{{ summaryStats.withPassport.percentage }}% ຂອງທັງໝົດ</small>
+          <small class="passport-rate"
+            >{{ summaryStats.withPassport.percentage }}% ຂອງທັງໝົດ</small
+          >
         </div>
       </div>
     </div>
@@ -161,7 +191,9 @@
       <div class="table-header">
         <div class="table-title">
           <h3>ລາຍຊື່ຜູ້ສະໝັກ</h3>
-          <span class="record-count">{{ filteredApplicants.length }} ລາຍການ</span>
+          <span class="record-count"
+            >{{ filteredApplicants.length }} ລາຍການ</span
+          >
         </div>
         <div class="table-actions">
           <div class="per-page-selector">
@@ -220,7 +252,10 @@
                   <strong>{{ getFullName(applicant) }}</strong>
                   <div class="contact-info">
                     <span class="phone">{{ applicant.phone }}</span>
-                    <span v-if="applicant.emergencyContactNo" class="emergency-phone">
+                    <span
+                      v-if="applicant.emergencyContactNo"
+                      class="emergency-phone"
+                    >
                       (ຕິດຕໍ່ສຸກເສີນ: {{ applicant.emergencyContactNo }})
                     </span>
                   </div>
@@ -255,22 +290,42 @@
                     {{ truncateText(applicant.address, 20) }}
                   </div>
                   <div class="location-parts">
-                    <span v-if="applicant.village">{{ applicant.village }}</span>
+                    <span v-if="applicant.village">{{
+                      applicant.village
+                    }}</span>
                     <span v-if="applicant.city">{{ applicant.city }}</span>
-                    <span v-if="applicant.district">{{ applicant.district }}</span>
+                    <span v-if="applicant.district">{{
+                      applicant.district
+                    }}</span>
                   </div>
                 </div>
               </td>
               <td>
                 <div class="passport-info">
-                  <span :class="['passport-status', applicant.passportAvailability ? 'has-passport' : 'no-passport']">
-                    <i :class="applicant.passportAvailability ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i>
+                  <span
+                    :class="[
+                      'passport-status',
+                      applicant.passportAvailability
+                        ? 'has-passport'
+                        : 'no-passport',
+                    ]"
+                  >
+                    <i
+                      :class="
+                        applicant.passportAvailability
+                          ? 'fas fa-check-circle'
+                          : 'fas fa-times-circle'
+                      "
+                    ></i>
                     {{ applicant.passportAvailability ? 'ມີ' : 'ບໍ່ມີ' }}
                   </span>
                   <div v-if="applicant.passportNo" class="passport-number">
                     {{ applicant.passportNo }}
                   </div>
-                  <div v-if="applicant.passportExpiredDate" class="passport-expiry">
+                  <div
+                    v-if="applicant.passportExpiredDate"
+                    class="passport-expiry"
+                  >
                     ໝົດອາຍຸ: {{ formatDate(applicant.passportExpiredDate) }}
                   </div>
                 </div>
@@ -281,8 +336,14 @@
                     <i class="fas fa-building"></i>
                     {{ applicant.workPlace }}
                   </div>
-                  <div v-if="applicant.contactStartDate && applicant.contactEndDate" class="contract-period">
-                    {{ formatDate(applicant.contactStartDate) }} - {{ formatDate(applicant.contactEndDate) }}
+                  <div
+                    v-if="
+                      applicant.contactStartDate && applicant.contactEndDate
+                    "
+                    class="contract-period"
+                  >
+                    {{ formatDate(applicant.contactStartDate) }} -
+                    {{ formatDate(applicant.contactEndDate) }}
                   </div>
                 </div>
               </td>
@@ -296,7 +357,10 @@
                   <div v-if="applicant.registertDate">
                     {{ formatDate(applicant.registertDate) }}
                   </div>
-                  <div v-if="applicant.interviewExamDate" class="interview-date">
+                  <div
+                    v-if="applicant.interviewExamDate"
+                    class="interview-date"
+                  >
                     ສໍາພາດ: {{ formatDate(applicant.interviewExamDate) }}
                   </div>
                 </div>
@@ -385,6 +449,7 @@
       <ApplicantDialog
         :visible="showEditDialog"
         :applicant="selectedApplicant"
+        :fullscreen="true"
         @close="closeEditDialog"
         @save="onApplicantSave"
       />
@@ -490,12 +555,16 @@ export default {
     },
 
     availableCities() {
-      const cities = [...new Set(this.applicants.map(a => a.city).filter(Boolean))]
+      const cities = [
+        ...new Set(this.applicants.map((a) => a.city).filter(Boolean)),
+      ]
       return cities.sort()
     },
 
     availableWorkPlaces() {
-      const workPlaces = [...new Set(this.applicants.map(a => a.workPlace).filter(Boolean))]
+      const workPlaces = [
+        ...new Set(this.applicants.map((a) => a.workPlace).filter(Boolean)),
+      ]
       return workPlaces.sort()
     },
 
@@ -506,9 +575,7 @@ export default {
     },
 
     totalPages() {
-      return Math.ceil(
-        this.filteredApplicants.length / this.pagination.perPage
-      )
+      return Math.ceil(this.filteredApplicants.length / this.pagination.perPage)
     },
 
     paginationInfo() {
@@ -573,7 +640,7 @@ export default {
         }
 
         // Updated API endpoint to match backend
-        const { data } = await this.$axios.get('/api/applicant', { params })
+        const { data } = await this.$axios.get('/api/applicants', { params })
 
         if (data && data.success) {
           this.applicants = data.data.applicants || []
@@ -644,11 +711,11 @@ export default {
         let response
         if (this.selectedApplicant && this.selectedApplicant.id) {
           response = await this.$axios.put(
-            `/api/applicant/${this.selectedApplicant.id}`,
+            `/api/applicants/${this.selectedApplicant.id}`,
             applicantData
           )
         } else {
-          response = await this.$axios.post('/api/applicant', applicantData)
+          response = await this.$axios.post('/api/applicants', applicantData)
         }
 
         if (response.data && response.data.success) {
@@ -674,7 +741,7 @@ export default {
         this.loading = true
 
         const response = await this.$axios.patch(
-          `/api/applicant/${this.selectedApplicant.id}/status`,
+          `/api/applicants/${this.selectedApplicant.id}/status`,
           statusData
         )
 
@@ -688,8 +755,8 @@ export default {
       } catch (error) {
         console.error('Error updating status:', error)
         const errorMessage =
-          error.response?.data?.message || 
-          error.message || 
+          error.response?.data?.message ||
+          error.message ||
           'ອັບເດດສະຖານະບໍ່ສຳເລັດ'
         this.showToast(errorMessage, 'error')
       } finally {
@@ -709,7 +776,8 @@ export default {
             applicant.firstName.toLowerCase().includes(search) ||
             applicant.lastName.toLowerCase().includes(search) ||
             applicant.phone.includes(search) ||
-            (applicant.passportNo && applicant.passportNo.toLowerCase().includes(search))
+            (applicant.passportNo &&
+              applicant.passportNo.toLowerCase().includes(search))
         )
       }
 
@@ -802,29 +870,41 @@ export default {
 
     calculateSummaryStats() {
       const total = this.filteredApplicants.length
-      const male = this.filteredApplicants.filter(a => a.gender === 'male').length
-      const female = this.filteredApplicants.filter(a => a.gender === 'female').length
-      const interview = this.filteredApplicants.filter(a => a.status === 'INTERVIEW').length
-      const register = this.filteredApplicants.filter(a => a.status === 'REGISTER').length
-      const rejected = this.filteredApplicants.filter(a => a.status === 'rejected').length
-      const withPassport = this.filteredApplicants.filter(a => a.passportAvailability).length
+      const male = this.filteredApplicants.filter(
+        (a) => a.gender === 'male'
+      ).length
+      const female = this.filteredApplicants.filter(
+        (a) => a.gender === 'female'
+      ).length
+      const interview = this.filteredApplicants.filter(
+        (a) => a.status === 'INTERVIEW'
+      ).length
+      const register = this.filteredApplicants.filter(
+        (a) => a.status === 'REGISTER'
+      ).length
+      const rejected = this.filteredApplicants.filter(
+        (a) => a.status === 'rejected'
+      ).length
+      const withPassport = this.filteredApplicants.filter(
+        (a) => a.passportAvailability
+      ).length
 
       this.summaryStats = {
         total: { count: total },
-        male: { 
-          count: male, 
-          percentage: total > 0 ? Math.round((male / total) * 100) : 0
+        male: {
+          count: male,
+          percentage: total > 0 ? Math.round((male / total) * 100) : 0,
         },
-        female: { 
-          count: female, 
-          percentage: total > 0 ? Math.round((female / total) * 100) : 0
+        female: {
+          count: female,
+          percentage: total > 0 ? Math.round((female / total) * 100) : 0,
         },
         interview: { count: interview },
         register: { count: register },
         rejected: { count: rejected },
-        withPassport: { 
-          count: withPassport, 
-          percentage: total > 0 ? Math.round((withPassport / total) * 100) : 0 
+        withPassport: {
+          count: withPassport,
+          percentage: total > 0 ? Math.round((withPassport / total) * 100) : 0,
         },
       }
     },
@@ -1033,7 +1113,7 @@ export default {
 }
 
 .location-parts span:not(:last-child)::after {
-  content: "•";
+  content: '•';
   margin-left: 8px;
   color: #ccc;
 }

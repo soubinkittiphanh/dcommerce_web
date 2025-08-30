@@ -41,7 +41,10 @@
         @reload="rebuildStock"
       ></card-form>
     </v-dialog>
-    <v-dialog v-model="editProductForm">
+    <v-dialog
+      v-model="editProductForm"
+
+    >
       <product-form
         :key="productFormKey"
         @close-dialog="editProductForm = false"
@@ -50,7 +53,10 @@
         :isEdit="editProductForm"
       ></product-form>
     </v-dialog>
-    <v-dialog v-model="productFormCreate" >
+    <v-dialog
+      v-model="productFormCreate"
+
+    >
       <product-form-create
         @close-dialog="productFormCreate = false"
         @refresh="fetchData"

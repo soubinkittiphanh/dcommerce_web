@@ -1,6 +1,11 @@
 <template>
   <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
-    <div class="modal-dialog enhanced-dialog" @click.stop>
+    <!-- <div class="modal-dialog enhanced-dialog" @click.stop> -->
+    <div
+      class="modal-dialog enhanced-dialog"
+      :class="{ 'fullscreen-dialog': fullscreen }"
+      @click.stop
+    >
       <div class="modal-header">
         <div class="modal-title-section">
           <i class="fas fa-user-plus modal-icon"></i>
@@ -310,9 +315,23 @@
                 :disabled="!formData.passportAvailability"
                 :min="today"
               />
-              <div v-if="formData.passportExpiredDate" class="field-hint" :class="isPassportExpired ? 'error' : 'success'">
-                <i :class="isPassportExpired ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle'"></i>
-                {{ isPassportExpired ? 'ໜັງສືເດີນທາງໝົດອາຍຸແລ້ວ!' : 'ໜັງສືເດີນທາງຍັງໃຊ້ໄດ້' }}
+              <div
+                v-if="formData.passportExpiredDate"
+                class="field-hint"
+                :class="isPassportExpired ? 'error' : 'success'"
+              >
+                <i
+                  :class="
+                    isPassportExpired
+                      ? 'fas fa-exclamation-triangle'
+                      : 'fas fa-check-circle'
+                  "
+                ></i>
+                {{
+                  isPassportExpired
+                    ? 'ໜັງສືເດີນທາງໝົດອາຍຸແລ້ວ!'
+                    : 'ໜັງສືເດີນທາງຍັງໃຊ້ໄດ້'
+                }}
               </div>
             </div>
 
@@ -455,23 +474,56 @@
                   ສະຫລຸບຂໍ້ມູນ
                 </h5>
                 <div class="summary-items">
-                  <div class="summary-item" :class="{ 'complete': formData.firstName && formData.lastName }">
-                    <i :class="formData.firstName && formData.lastName ? 'fas fa-check' : 'fas fa-times'"></i>
+                  <div
+                    class="summary-item"
+                    :class="{
+                      complete: formData.firstName && formData.lastName,
+                    }"
+                  >
+                    <i
+                      :class="
+                        formData.firstName && formData.lastName
+                          ? 'fas fa-check'
+                          : 'fas fa-times'
+                      "
+                    ></i>
                     <span>ຊື່ ແລະ ນາມສະກຸນ</span>
                   </div>
-                  <div class="summary-item" :class="{ 'complete': formData.gender }">
-                    <i :class="formData.gender ? 'fas fa-check' : 'fas fa-times'"></i>
+                  <div
+                    class="summary-item"
+                    :class="{ complete: formData.gender }"
+                  >
+                    <i
+                      :class="formData.gender ? 'fas fa-check' : 'fas fa-times'"
+                    ></i>
                     <span>ເພດ</span>
                   </div>
-                  <div class="summary-item" :class="{ 'complete': formData.phone }">
-                    <i :class="formData.phone ? 'fas fa-check' : 'fas fa-times'"></i>
+                  <div
+                    class="summary-item"
+                    :class="{ complete: formData.phone }"
+                  >
+                    <i
+                      :class="formData.phone ? 'fas fa-check' : 'fas fa-times'"
+                    ></i>
                     <span>ເບີໂທລະສັບ</span>
                   </div>
-                  <div class="summary-item" :class="{ 'complete': formData.passportAvailability }">
-                    <i :class="formData.passportAvailability ? 'fas fa-check' : 'fas fa-times'"></i>
+                  <div
+                    class="summary-item"
+                    :class="{ complete: formData.passportAvailability }"
+                  >
+                    <i
+                      :class="
+                        formData.passportAvailability
+                          ? 'fas fa-check'
+                          : 'fas fa-times'
+                      "
+                    ></i>
                     <span>ໜັງສືເດີນທາງ</span>
                   </div>
-                  <div v-if="formData.passportAvailability && formData.passportNo" class="summary-item bonus">
+                  <div
+                    v-if="formData.passportAvailability && formData.passportNo"
+                    class="summary-item bonus"
+                  >
                     <i class="fas fa-star"></i>
                     <span>ລະບຸເລກໜັງສືເດີນທາງ</span>
                   </div>
@@ -480,9 +532,19 @@
                     <span>ມີສະຖານທີ່ເຮັດວຽກ</span>
                   </div>
                 </div>
-                <div class="summary-result" :class="{ 'ready': isFormValid }">
-                  <i :class="isFormValid ? 'fas fa-thumbs-up' : 'fas fa-exclamation-triangle'"></i>
-                  {{ isFormValid ? 'ຂໍ້ມູນພ້ອມສຳລັບບັນທຶກ' : 'ກະລຸນາຕື່ມຂໍ້ມູນຂ້ັນຕຳ' }}
+                <div class="summary-result" :class="{ ready: isFormValid }">
+                  <i
+                    :class="
+                      isFormValid
+                        ? 'fas fa-thumbs-up'
+                        : 'fas fa-exclamation-triangle'
+                    "
+                  ></i>
+                  {{
+                    isFormValid
+                      ? 'ຂໍ້ມູນພ້ອມສຳລັບບັນທຶກ'
+                      : 'ກະລຸນາຕື່ມຂໍ້ມູນຂ້ັນຕຳ'
+                  }}
                 </div>
               </div>
             </div>
@@ -533,13 +595,11 @@
 export default {
   name: 'ApplicantDialog',
   props: {
-    visible: {
+    visible: Boolean,
+    applicant: Object,
+    fullscreen: {
       type: Boolean,
       default: false,
-    },
-    applicant: {
-      type: Object,
-      default: null,
     },
   },
 
@@ -597,14 +657,15 @@ export default {
 
     // Contract duration calculation
     contractDuration() {
-      if (!this.formData.contactStartDate || !this.formData.contactEndDate) return null
-      
+      if (!this.formData.contactStartDate || !this.formData.contactEndDate)
+        return null
+
       const startDate = new Date(this.formData.contactStartDate)
       const endDate = new Date(this.formData.contactEndDate)
-      
+
       const diffTime = Math.abs(endDate - startDate)
       const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30))
-      
+
       return diffMonths
     },
 
@@ -755,7 +816,10 @@ export default {
       }
 
       // Age validation
-      if (this.formData.age && (this.formData.age < 18 || this.formData.age > 32)) {
+      if (
+        this.formData.age &&
+        (this.formData.age < 18 || this.formData.age > 32)
+      ) {
         this.errors.age = 'ອາຍຸຕ້ອງຢູ່ລະຫວ່າງ 18-32 ປີ'
         this.formErrors.push('Age must be between 18-32 years')
       }
@@ -764,14 +828,17 @@ export default {
       if (this.formData.contactStartDate && this.formData.contactEndDate) {
         const startDate = new Date(this.formData.contactStartDate)
         const endDate = new Date(this.formData.contactEndDate)
-        
+
         if (endDate <= startDate) {
           this.formErrors.push('Contract end date must be after start date')
         }
       }
 
       // Passport validation
-      if (this.formData.passportAvailability && this.formData.passportExpiredDate) {
+      if (
+        this.formData.passportAvailability &&
+        this.formData.passportExpiredDate
+      ) {
         if (this.isPassportExpired) {
           this.formErrors.push('Passport is expired')
         }
@@ -803,7 +870,9 @@ export default {
         this.$emit('save', submitData)
       } catch (error) {
         console.error('Form submission error:', error)
-        this.formErrors.push('An error occurred while saving. Please try again.')
+        this.formErrors.push(
+          'An error occurred while saving. Please try again.'
+        )
       } finally {
         this.loading = false
       }
@@ -845,7 +914,14 @@ export default {
     opacity: 1;
   }
 }
-
+.fullscreen-dialog {
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
 .enhanced-dialog {
   background: white;
   border-radius: 12px;
@@ -1037,7 +1113,8 @@ export default {
   margin-top: 8px;
 }
 
-.radio-option, .checkbox-option {
+.radio-option,
+.checkbox-option {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1051,7 +1128,8 @@ export default {
   margin: 0;
 }
 
-.radio-label, .checkbox-label {
+.radio-label,
+.checkbox-label {
   font-weight: 500;
 }
 

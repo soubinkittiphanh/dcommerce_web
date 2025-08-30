@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "278.js": "278.js",
+    "280.js": "280.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -60,6 +60,7 @@
     "components/job-fair-agency-maintain.js": "components/job-fair-agency-maintain.js",
     "components/job-fair-agency-view.js": "components/job-fair-agency-view.js",
     "components/job-fair-job-batch.js": "components/job-fair-job-batch.js",
+    "components/job-fair-mou-maintain.js": "components/job-fair-mou-maintain.js",
     "components/line-chart.js": "components/line-chart.js",
     "components/location-form.js": "components/location-form.js",
     "components/m-a-payment-audit-dialog.js": "components/m-a-payment-audit-dialog.js",
@@ -180,6 +181,7 @@
     "pages/admin/inventory_value/index.js": "pages/admin/inventory_value/index.js",
     "pages/admin/jobAdvertise/index.js": "pages/admin/jobAdvertise/index.js",
     "pages/admin/job_fair/agency/index.js": "pages/admin/job_fair/agency/index.js",
+    "pages/admin/job_fair/mou/index.js": "pages/admin/job_fair/mou/index.js",
     "pages/admin/location/index.js": "pages/admin/location/index.js",
     "pages/admin/login/index.js": "pages/admin/login/index.js",
     "pages/admin/logout/index.js": "pages/admin/logout/index.js",
@@ -282,7 +284,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "278.js": "278.js.map",
+    "280.js": "280.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -341,6 +343,7 @@
     "components/job-fair-agency-maintain.js": "components/job-fair-agency-maintain.js.map",
     "components/job-fair-agency-view.js": "components/job-fair-agency-view.js.map",
     "components/job-fair-job-batch.js": "components/job-fair-job-batch.js.map",
+    "components/job-fair-mou-maintain.js": "components/job-fair-mou-maintain.js.map",
     "components/line-chart.js": "components/line-chart.js.map",
     "components/location-form.js": "components/location-form.js.map",
     "components/m-a-payment-audit-dialog.js": "components/m-a-payment-audit-dialog.js.map",
@@ -461,6 +464,7 @@
     "pages/admin/inventory_value/index.js": "pages/admin/inventory_value/index.js.map",
     "pages/admin/jobAdvertise/index.js": "pages/admin/jobAdvertise/index.js.map",
     "pages/admin/job_fair/agency/index.js": "pages/admin/job_fair/agency/index.js.map",
+    "pages/admin/job_fair/mou/index.js": "pages/admin/job_fair/mou/index.js.map",
     "pages/admin/location/index.js": "pages/admin/location/index.js.map",
     "pages/admin/login/index.js": "pages/admin/login/index.js.map",
     "pages/admin/logout/index.js": "pages/admin/logout/index.js.map",

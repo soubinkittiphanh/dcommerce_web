@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-height-dialog">
     <v-dialog v-model="isLoading" hide-overlay persistent width="300">
       <loading-indicator></loading-indicator>
     </v-dialog>
@@ -1061,6 +1061,12 @@ export default {
 
 <style scoped>
 .my-forn {
-  font-weight: bo;
+  font-weight: bold;
+}
+.full-height-dialog {
+  display: flex;
+  flex-direction: column;
+  height: 100vh !important;
+  min-height: 100vh !important;
 }
 </style>

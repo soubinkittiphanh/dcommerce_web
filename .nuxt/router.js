@@ -116,6 +116,7 @@ const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/giant
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
 const _5fa81691 = () => interopDefault(import('../pages/admin/job_fair/agency/index.vue' /* webpackChunkName: "pages/admin/job_fair/agency/index" */))
+const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index.vue' /* webpackChunkName: "pages/admin/job_fair/mou/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
@@ -605,6 +606,10 @@ export const routerOptions = {
     path: "/admin/job_fair/agency",
     component: _5fa81691,
     name: "admin-job_fair-agency"
+  }, {
+    path: "/admin/job_fair/mou",
+    component: _2d5fc25d,
+    name: "admin-job_fair-mou"
   }, {
     path: "/admin/pos/table",
     component: _f1108a54,

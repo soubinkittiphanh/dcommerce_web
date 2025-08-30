@@ -1,0 +1,715 @@
+<template>
+  <v-dialog
+    :value="value"
+    @input="$emit('input', $event)"
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
+    scrollable
+  >
+    <v-card class="maintenance-dialog">
+      <!-- Header -->
+      <v-toolbar color="primary" dark flat class="dialog-toolbar">
+        <v-btn icon @click="cancel" class="close-btn">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title class="toolbar-title">
+          <v-icon left class="mr-2">mdi-file-document-edit</v-icon>
+          {{ isEditing ? 'Edit MOU' : 'Create New MOU' }}
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn
+          text
+          @click="save"
+          :loading="saving"
+          :disabled="!isFormValid"
+          class="save-btn"
+        >
+          <v-icon left>mdi-content-save</v-icon>
+          Save
+        </v-btn>
+      </v-toolbar>
+
+      <!-- Form Content -->
+      <v-card-text class="dialog-content">
+        <v-container fluid class="form-container">
+          <v-form ref="form" v-model="isFormValid" lazy-validation>
+            <v-row>
+              <!-- Basic Information Section -->
+              <v-col cols="12">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-information</v-icon>
+                  <h3 class="section-title">Basic Information</h3>
+                </div>
+              </v-col>
+
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model="form.jobCode"
+                  label="Job Code *"
+                  :rules="[rules.required]"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-identifier"
+                  :disabled="isEditing"
+                  hint="Unique identifier for this MOU"
+                  persistent-hint
+                />
+              </v-col>
+
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model="form.mouNumber"
+                  label="MOU Number"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-file-document"
+                  hint="Official MOU document number"
+                  persistent-hint
+                />
+              </v-col>
+
+              <v-col cols="12" sm="6" md="4">
+                <v-select
+                  v-model="form.jobStatus"
+                  :items="statusOptions"
+                  label="Job Status *"
+                  :rules="[rules.required]"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-flag"
+                >
+                  <template v-slot:selection="{ item }">
+                    <v-chip :color="getStatusColor(item.value)" small text-color="white">
+                      {{ item.text }}
+                    </v-chip>
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <v-chip :color="getStatusColor(item.value)" small text-color="white" class="mr-2">
+                      {{ item.text }}
+                    </v-chip>
+                  </template>
+                </v-select>
+              </v-col>
+
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.jobTitle"
+                  label="Job Title *"
+                  :rules="[rules.required]"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-briefcase"
+                  hint="Description of the job position"
+                  persistent-hint
+                />
+              </v-col>
+
+              <!-- Company & Location Section -->
+              <v-col cols="12" class="pt-6">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-domain</v-icon>
+                  <h3 class="section-title">Company & Location</h3>
+                </div>
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="form.employerCompany"
+                  label="Employer Company"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-office-building"
+                  hint="Name of the hiring company"
+                  persistent-hint
+                />
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="form.workLocation"
+                  label="Work Location"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-map-marker"
+                  hint="Where the work will be performed"
+                  persistent-hint
+                />
+              </v-col>
+
+              <!-- Worker Information Section -->
+              <v-col cols="12" class="pt-6">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-account-group</v-icon>
+                  <h3 class="section-title">Worker Information</h3>
+                </div>
+              </v-col>
+
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  v-model.number="form.numberOfWorkers"
+                  label="Number of Workers *"
+                  :rules="[rules.required, rules.positiveNumber]"
+                  outlined
+                  dense
+                  type="number"
+                  min="1"
+                  prepend-inner-icon="mdi-counter"
+                />
+              </v-col>
+
+              <v-col cols="12" sm="6" md="4">
+                <v-select
+                  v-model="form.workerType"
+                  :items="workerTypeOptions"
+                  label="Worker Type *"
+                  :rules="[rules.required]"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-account"
+                >
+                  <template v-slot:selection="{ item }">
+                    <v-icon small :color="getWorkerTypeColor(item.value)" class="mr-2">
+                      {{ getWorkerTypeIcon(item.value) }}
+                    </v-icon>
+                    {{ item.text }}
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <v-icon small :color="getWorkerTypeColor(item.value)" class="mr-3">
+                      {{ getWorkerTypeIcon(item.value) }}
+                    </v-icon>
+                    {{ item.text }}
+                  </template>
+                </v-select>
+              </v-col>
+
+              <!-- Financial Information Section -->
+              <v-col cols="12" class="pt-6">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-currency-usd</v-icon>
+                  <h3 class="section-title">Financial Information</h3>
+                </div>
+              </v-col>
+
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field
+                  v-model.number="form.pmCharge"
+                  label="PM Charge"
+                  outlined
+                  dense
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  prepend-inner-icon="mdi-cash"
+                  :suffix="selectedCurrency?.code || 'USD'"
+                />
+              </v-col>
+
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field
+                  v-model.number="form.exchangeRate"
+                  label="Exchange Rate"
+                  outlined
+                  dense
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  prepend-inner-icon="mdi-swap-horizontal"
+                  hint="Default: 1.0"
+                  persistent-hint
+                />
+              </v-col>
+
+              <v-col cols="12" sm="6" md="3">
+                <v-select
+                  v-model="form.currencyId"
+                  :items="currencies"
+                  item-text="name"
+                  item-value="id"
+                  label="Currency"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-currency-usd"
+                  :loading="loadingCurrencies"
+                >
+                  <template v-slot:selection="{ item }">
+                    {{ item.code }} - {{ item.name }}
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <strong>{{ item.code }}</strong> - {{ item.name }}
+                  </template>
+                </v-select>
+              </v-col>
+
+              <!-- Agency Selection -->
+              <v-col cols="12" class="pt-6">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-account-tie</v-icon>
+                  <h3 class="section-title">Agency Information</h3>
+                </div>
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <v-select
+                  v-model="form.agencyId"
+                  :items="agencies"
+                  item-text="name"
+                  item-value="id"
+                  label="Agency"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-domain"
+                  :loading="loadingAgencies"
+                  clearable
+                >
+                  <template v-slot:selection="{ item }">
+                    {{ item.name }} <small class="ml-2">({{ item.code }})</small>
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <div>
+                      <div class="font-weight-medium">{{ item.name }}</div>
+                      <small class="text--secondary">{{ item.code }} - {{ item.location }}</small>
+                    </div>
+                  </template>
+                </v-select>
+              </v-col>
+
+              <!-- Notes Section -->
+              <v-col cols="12" class="pt-6">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-note-text</v-icon>
+                  <h3 class="section-title">Additional Information</h3>
+                </div>
+              </v-col>
+
+              <v-col cols="12">
+                <v-textarea
+                  v-model="form.notes"
+                  label="Notes"
+                  outlined
+                  rows="3"
+                  prepend-inner-icon="mdi-note"
+                  hint="Additional notes or comments about this MOU"
+                  persistent-hint
+                />
+              </v-col>
+
+              <!-- Documents Section -->
+              <v-col cols="12" v-if="form.documents && form.documents.length > 0">
+                <div class="section-header">
+                  <v-icon color="primary" class="section-icon">mdi-paperclip</v-icon>
+                  <h3 class="section-title">Attached Documents</h3>
+                </div>
+                <div class="documents-list">
+                  <v-chip
+                    v-for="(doc, index) in form.documents"
+                    :key="index"
+                    class="ma-1"
+                    close
+                    @click:close="removeDocument(index)"
+                  >
+                    <v-icon left small>mdi-file</v-icon>
+                    {{ doc.name }}
+                  </v-chip>
+                </div>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-container>
+      </v-card-text>
+
+      <!-- Footer Actions -->
+      <v-card-actions class="dialog-actions">
+        <v-container fluid>
+          <v-row justify="end">
+            <v-col cols="auto">
+              <v-btn
+                text
+                large
+                @click="cancel"
+                class="mr-3"
+              >
+                <v-icon left>mdi-cancel</v-icon>
+                Cancel
+              </v-btn>
+              <v-btn
+                color="primary"
+                large
+                @click="save"
+                :loading="saving"
+                :disabled="!isFormValid"
+              >
+                <v-icon left>mdi-content-save</v-icon>
+                {{ isEditing ? 'Update MOU' : 'Create MOU' }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+export default {
+  name: 'MouMaintenanceDialog',
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    },
+    editingItem: {
+      type: Object,
+      default: null
+    }
+  },
+  data() {
+    return {
+      isFormValid: false,
+      saving: false,
+      loadingAgencies: false,
+      loadingCurrencies: false,
+      agencies: [],
+      currencies: [],
+      form: {
+        jobCode: '',
+        mouNumber: '',
+        pmCharge: 0,
+        exchangeRate: 1,
+        agencyId: null,
+        employerCompany: '',
+        workLocation: '',
+        jobTitle: '',
+        numberOfWorkers: 1,
+        workerType: 'Any',
+        jobStatus: 'draft',
+        documents: [],
+        notes: '',
+        currencyId: null
+      },
+      statusOptions: [
+        { value: 'draft', text: 'Draft' },
+        { value: 'open', text: 'Open' },
+        { value: 'in_progress', text: 'In Progress' },
+        { value: 'completed', text: 'Completed' },
+        { value: 'cancelled', text: 'Cancelled' }
+      ],
+      workerTypeOptions: [
+        { value: 'Any', text: 'Any Gender' },
+        { value: 'Man', text: 'Male Only' },
+        { value: 'Woman', text: 'Female Only' },
+        { value: 'Spous', text: 'Spouse/Couple' }
+      ],
+      rules: {
+        required: v => !!v || 'This field is required',
+        positiveNumber: v => (v > 0) || 'Must be greater than 0'
+      }
+    }
+  },
+  computed: {
+    isEditing() {
+      return !!this.editingItem
+    },
+    selectedCurrency() {
+      return this.currencies.find(c => c.id === this.form.currencyId)
+    }
+  },
+  watch: {
+    value(newVal) {
+      if (newVal) {
+        this.initForm()
+        this.fetchDropdownData()
+      }
+    },
+    editingItem: {
+      handler() {
+        if (this.editingItem) {
+          this.populateForm()
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    initForm() {
+      if (this.isEditing) {
+        this.populateForm()
+      } else {
+        this.resetForm()
+      }
+    },
+
+    resetForm() {
+      this.form = {
+        jobCode: '',
+        mouNumber: '',
+        pmCharge: 0,
+        exchangeRate: 1,
+        agencyId: null,
+        employerCompany: '',
+        workLocation: '',
+        jobTitle: '',
+        numberOfWorkers: 1,
+        workerType: 'Any',
+        jobStatus: 'draft',
+        documents: [],
+        notes: '',
+        currencyId: null
+      }
+      this.$nextTick(() => {
+        this.$refs.form?.resetValidation()
+      })
+    },
+
+    populateForm() {
+      if (this.editingItem) {
+        this.form = {
+          ...this.form,
+          ...this.editingItem,
+          agencyId: this.editingItem.agency?.id || null,
+          currencyId: this.editingItem.currency?.id || null,
+          documents: this.editingItem.documents || []
+        }
+      }
+    },
+
+    async fetchDropdownData() {
+      await Promise.all([
+        this.fetchAgencies(),
+        this.fetchCurrencies()
+      ])
+    },
+
+    async fetchAgencies() {
+      this.loadingAgencies = true
+      try {
+        const response = await this.$axios.$get('/api/agencies')
+        if (response.success) {
+          this.agencies = response.data
+        }
+      } catch (error) {
+        console.error('Error fetching agencies:', error)
+        this.$toast.error('Failed to load agencies')
+      } finally {
+        this.loadingAgencies = false
+      }
+    },
+
+    async fetchCurrencies() {
+      this.loadingCurrencies = true
+      try {
+        const response = await this.$axios.$get('/api/currencies')
+        if (response.success) {
+          this.currencies = response.data
+        }
+      } catch (error) {
+        console.error('Error fetching currencies:', error)
+        this.$toast.error('Failed to load currencies')
+      } finally {
+        this.loadingCurrencies = false
+      }
+    },
+
+    async save() {
+      if (!this.$refs.form.validate()) {
+        this.$toast.error('Please fix form errors before saving')
+        return
+      }
+
+      this.saving = true
+      try {
+        const payload = { ...this.form }
+        
+        // Clean up the payload
+        if (!payload.pmCharge) payload.pmCharge = 0
+        if (!payload.exchangeRate) payload.exchangeRate = 1
+        if (!payload.numberOfWorkers) payload.numberOfWorkers = 1
+
+        let response
+        if (this.isEditing) {
+          response = await this.$axios.$put(`/api/mous/${this.editingItem.id}`, payload)
+        } else {
+          response = await this.$axios.$post('/api/mous', payload)
+        }
+
+        if (response.success) {
+          this.$toast.success(`MOU ${this.isEditing ? 'updated' : 'created'} successfully`)
+          this.$emit('saved', response.data)
+        }
+      } catch (error) {
+        console.error('Error saving MOU:', error)
+        const errorMessage = error.response?.data?.message || 'An error occurred while saving'
+        this.$toast.error(errorMessage)
+      } finally {
+        this.saving = false
+      }
+    },
+
+    cancel() {
+      this.$emit('cancelled')
+    },
+
+    removeDocument(index) {
+      this.form.documents.splice(index, 1)
+    },
+
+    getStatusColor(status) {
+      const colorMap = {
+        draft: 'grey',
+        open: 'blue',
+        in_progress: 'orange',
+        completed: 'green',
+        cancelled: 'red'
+      }
+      return colorMap[status] || 'grey'
+    },
+
+    getWorkerTypeColor(type) {
+      const colorMap = {
+        Man: 'blue',
+        Woman: 'pink',
+        Spous: 'purple',
+        Any: 'green'
+      }
+      return colorMap[type] || 'grey'
+    },
+
+    getWorkerTypeIcon(type) {
+      const iconMap = {
+        Man: 'mdi-account',
+        Woman: 'mdi-account-outline',
+        Spous: 'mdi-account-heart',
+        Any: 'mdi-account-group'
+      }
+      return iconMap[type] || 'mdi-account'
+    }
+  }
+}
+</script>
+
+<style scoped>
+.maintenance-dialog {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dialog-toolbar {
+  flex-shrink: 0;
+  border-radius: 0 !important;
+}
+
+.toolbar-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.dialog-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #fafafa;
+}
+
+.form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 32px !important;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.section-icon {
+  font-size: 24px !important;
+  margin-right: 12px;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin: 0;
+}
+
+.dialog-actions {
+  flex-shrink: 0;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  padding: 16px 0 !important;
+}
+
+.documents-list {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 60px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Form field customization */
+.v-text-field--outlined >>> .v-input__control > .v-input__slot {
+  min-height: 48px;
+}
+
+.v-select--outlined >>> .v-input__control > .v-input__slot {
+  min-height: 48px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px !important;
+    margin: 0 8px;
+    border-radius: 8px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .section-icon {
+    margin-right: 8px;
+    margin-bottom: 4px;
+  }
+
+  .toolbar-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* Enhanced visual feedback */
+.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.v-card {
+  transition: all 0.3s ease;
+}
+
+/* Status chip styling in select */
+.v-chip.v-size--small {
+  font-size: 0.75rem;
+  height: 24px;
+}
+
+/* Loading states */
+.v-select.v-select--is-loading >>> .v-input__append-inner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>

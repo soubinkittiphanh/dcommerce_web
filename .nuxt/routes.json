@@ -784,6 +784,13 @@
     "_name": "_5fa81691"
   },
   {
+    "name": "admin-job_fair-mou",
+    "path": "/admin/job_fair/mou",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/mou/index.vue",
+    "chunkName": "pages/admin/job_fair/mou/index",
+    "_name": "_2d5fc25d"
+  },
+  {
     "name": "admin-pos-table",
     "path": "/admin/pos/table",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/pos/table/index.vue",
