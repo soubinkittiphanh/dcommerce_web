@@ -1,7 +1,7 @@
-exports.ids = [159,38,46,133];
+exports.ids = [163,38,46,136];
 exports.modules = {
 
-/***/ 1098:
+/***/ 1123:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -267,7 +267,7 @@ var staticRenderFns = [];
 var myUtil = __webpack_require__(137);
 
 // EXTERNAL MODULE: ./components/CategoryForm.vue + 4 modules
-var CategoryForm = __webpack_require__(482);
+var CategoryForm = __webpack_require__(487);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/category/index.vue?vue&type=script&lang=js&
 
@@ -378,18 +378,18 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var category = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(411).default,CategoryForm: __webpack_require__(482).default,DialogClassicMessage: __webpack_require__(410).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(411).default,CategoryForm: __webpack_require__(487).default,DialogClassicMessage: __webpack_require__(410).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
 
-/***/ 394:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(395);
+var content = __webpack_require__(396);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -397,7 +397,7 @@ __webpack_require__(5).default("7b5d4dc6", content, true)
 
 /***/ }),
 
-/***/ 395:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -604,7 +604,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(394);
+/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(395);
 /* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(164);
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__);
@@ -712,7 +712,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 482:
+/***/ 487:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

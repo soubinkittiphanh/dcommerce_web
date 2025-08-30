@@ -383,7 +383,6 @@
                 <v-text-field
                   v-model.number="changes"
                   label="ທອນ"
-                  type="number"
                   outlined
                   dense
                   hide-details
@@ -793,6 +792,7 @@ export default {
     },
 
     changes() {
+      console.info(`CASH RECEIVED ${this.cashReceived}/ ${this.grandTotal} / ${this.discount}`)
       return this.formatNumber(
         this.cashReceived == 0
           ? 0

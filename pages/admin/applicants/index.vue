@@ -26,7 +26,7 @@
             type="text"
             v-model="filters.search"
             class="form-control"
-            placeholder="ຊື່, ເບີໂທ, ອີເມວ..."
+            placeholder="ຊື່, ເບີໂທ, ໜັງສືເດີນທາງ..."
             @input="applyFilters"
           />
         </div>
@@ -44,15 +44,15 @@
           <label>ສະຖານະ:</label>
           <select v-model="filters.status" class="form-control" @change="applyFilters">
             <option value="">ທັງໝົດ</option>
-            <option value="pending">ລໍຖ້າ</option>
-            <option value="approved">ອະນຸມັດ</option>
+            <option value="INTERVIEW">ສໍາພາດ</option>
+            <option value="REGISTER">ລົງທະບຽນ</option>
             <option value="rejected">ປະຕິເສດ</option>
           </select>
         </div>
 
         <div class="filter-group">
           <label>ມີໜັງສືເດີນທາງ:</label>
-          <select v-model="filters.hasPassport" class="form-control" @change="applyFilters">
+          <select v-model="filters.passportAvailability" class="form-control" @change="applyFilters">
             <option value="">ທັງໝົດ</option>
             <option value="true">ມີ</option>
             <option value="false">ບໍ່ມີ</option>
@@ -60,39 +60,19 @@
         </div>
 
         <div class="filter-group">
-          <label>ລະດັບພາສາຈີນ:</label>
-          <select v-model="filters.chineseLanguageLevel" class="form-control" @change="applyFilters">
+          <label>ເມືອງ:</label>
+          <select v-model="filters.city" class="form-control" @change="applyFilters">
             <option value="">ທັງໝົດ</option>
-            <option value="none">ບໍ່ມີ</option>
-            <option value="basic">ພື້ນຖານ</option>
-            <option value="intermediate">ປານກາງ</option>
-            <option value="advanced">ສູງ</option>
+            <option v-for="city in availableCities" :key="city" :value="city">{{ city }}</option>
           </select>
         </div>
 
         <div class="filter-group">
-          <label>ຊ່ວງອາຍຸ:</label>
-          <div class="age-range">
-            <input
-              type="number"
-              v-model.number="filters.minAge"
-              class="form-control age-input"
-              placeholder="18"
-              min="18"
-              max="32"
-              @input="applyFilters"
-            />
-            <span class="age-separator">-</span>
-            <input
-              type="number"
-              v-model.number="filters.maxAge"
-              class="form-control age-input"
-              placeholder="32"
-              min="18"
-              max="32"
-              @input="applyFilters"
-            />
-          </div>
+          <label>ສະຖານທີ່ທຳງານ:</label>
+          <select v-model="filters.workPlace" class="form-control" @change="applyFilters">
+            <option value="">ທັງໝົດ</option>
+            <option v-for="place in availableWorkPlaces" :key="place" :value="place">{{ place }}</option>
+          </select>
         </div>
 
         <div class="filter-actions">
@@ -129,7 +109,6 @@
         <div class="card-content">
           <h3>{{ summaryStats.male.count }}</h3>
           <p>ຊາຍ ({{ summaryStats.male.percentage }}%)</p>
-          <small class="quota-info">ໂຄຕ້າ: {{ summaryStats.male.quota }}/30</small>
         </div>
       </div>
 
@@ -140,40 +119,39 @@
         <div class="card-content">
           <h3>{{ summaryStats.female.count }}</h3>
           <p>ຍິງ ({{ summaryStats.female.percentage }}%)</p>
-          <small class="quota-info">ໂຄຕ້າ: {{ summaryStats.female.quota }}/70</small>
         </div>
       </div>
 
       <!-- Status Statistics Cards -->
-      <div class="summary-card status-pending">
-        <div class="card-icon pending">
-          <i class="fas fa-clock"></i>
+      <div class="summary-card status-interview">
+        <div class="card-icon interview">
+          <i class="fas fa-comments"></i>
         </div>
         <div class="card-content">
-          <h3>{{ summaryStats.pending.count }}</h3>
-          <p>ລໍຖ້າການພິຈາລະນາ</p>
+          <h3>{{ summaryStats.interview.count }}</h3>
+          <p>ລໍຖ້າສໍາພາດ</p>
         </div>
       </div>
 
-      <div class="summary-card status-approved">
-        <div class="card-icon approved">
+      <div class="summary-card status-register">
+        <div class="card-icon register">
           <i class="fas fa-check-circle"></i>
         </div>
         <div class="card-content">
-          <h3>{{ summaryStats.approved.count }}</h3>
-          <p>ອະນຸມັດແລ້ວ</p>
+          <h3>{{ summaryStats.register.count }}</h3>
+          <p>ລົງທະບຽນແລ້ວ</p>
         </div>
       </div>
 
-      <!-- Eligibility Card -->
-      <div class="summary-card eligibility">
-        <div class="card-icon eligible">
-          <i class="fas fa-star"></i>
+      <!-- Passport Card -->
+      <div class="summary-card passport-available">
+        <div class="card-icon passport">
+          <i class="fas fa-passport"></i>
         </div>
         <div class="card-content">
-          <h3>{{ summaryStats.eligible.count }}</h3>
-          <p>ຜູ້ມີຄຸນສົມບັດ</p>
-          <small class="eligibility-rate">{{ summaryStats.eligible.percentage }}% ຂອງທັງໝົດ</small>
+          <h3>{{ summaryStats.withPassport.count }}</h3>
+          <p>ມີໜັງສືເດີນທາງ</p>
+          <small class="passport-rate">{{ summaryStats.withPassport.percentage }}% ຂອງທັງໝົດ</small>
         </div>
       </div>
     </div>
@@ -215,20 +193,21 @@
                 ເພດ
                 <i :class="getSortIcon('gender')"></i>
               </th>
-              <th @click="sortBy('dateOfBirth')" class="sortable">
+              <th @click="sortBy('age')" class="sortable">
                 ອາຍຸ
-                <i :class="getSortIcon('dateOfBirth')"></i>
+                <i :class="getSortIcon('age')"></i>
               </th>
               <th>ຕິດຕໍ່</th>
-              <th>ພາສາຈີນ</th>
-              <th>ຄຸນສົມບັດ</th>
+              <th>ທີ່ຢູ່</th>
+              <th>ໜັງສືເດີນທາງ</th>
+              <th>ວຽກ</th>
               <th @click="sortBy('status')" class="sortable">
                 ສະຖານະ
                 <i :class="getSortIcon('status')"></i>
               </th>
-              <th @click="sortBy('applicationDate')" class="sortable">
-                ວັນທີສະໝັກ
-                <i :class="getSortIcon('applicationDate')"></i>
+              <th @click="sortBy('registertDate')" class="sortable">
+                ວັນທີລົງທະບຽນ
+                <i :class="getSortIcon('registertDate')"></i>
               </th>
               <th>ຟັງຊັ່ນ</th>
             </tr>
@@ -241,6 +220,9 @@
                   <strong>{{ getFullName(applicant) }}</strong>
                   <div class="contact-info">
                     <span class="phone">{{ applicant.phone }}</span>
+                    <span v-if="applicant.emergencyContactNo" class="emergency-phone">
+                      (ຕິດຕໍ່ສຸກເສີນ: {{ applicant.emergencyContactNo }})
+                    </span>
                   </div>
                 </div>
               </td>
@@ -250,55 +232,58 @@
                 </span>
               </td>
               <td class="age-cell">
-                {{ calculateAge(applicant.dateOfBirth) }} ປີ
+                {{ applicant.age || '-' }} ປີ
+                <div v-if="applicant.maritalStatus" class="marital-status">
+                  {{ formatMaritalStatus(applicant.maritalStatus) }}
+                </div>
               </td>
               <td>
                 <div class="contact-details">
-                  <div v-if="applicant.email" class="email">
-                    <i class="fas fa-envelope"></i>
-                    {{ applicant.email }}
+                  <div class="phone">
+                    <i class="fas fa-phone"></i>
+                    {{ applicant.phone }}
                   </div>
-                  <div v-if="applicant.address" class="address">
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{ truncateText(applicant.address, 30) }}
+                  <div v-if="applicant.emergencyContactNo" class="emergency">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    {{ applicant.emergencyContactNo }}
                   </div>
                 </div>
               </td>
               <td>
-                <span :class="['language-badge', applicant.chineseLanguageLevel]">
-                  {{ formatLanguageLevel(applicant.chineseLanguageLevel) }}
-                </span>
+                <div class="address-details">
+                  <div v-if="applicant.address" class="address">
+                    {{ truncateText(applicant.address, 20) }}
+                  </div>
+                  <div class="location-parts">
+                    <span v-if="applicant.village">{{ applicant.village }}</span>
+                    <span v-if="applicant.city">{{ applicant.city }}</span>
+                    <span v-if="applicant.district">{{ applicant.district }}</span>
+                  </div>
+                </div>
               </td>
               <td>
-                <div class="qualifications">
-                  <span
-                    v-if="applicant.hasPassport"
-                    class="qualification-item passport"
-                    title="ມີໜັງສືເດີນທາງ"
-                  >
-                    <i class="fas fa-passport"></i>
+                <div class="passport-info">
+                  <span :class="['passport-status', applicant.passportAvailability ? 'has-passport' : 'no-passport']">
+                    <i :class="applicant.passportAvailability ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i>
+                    {{ applicant.passportAvailability ? 'ມີ' : 'ບໍ່ມີ' }}
                   </span>
-                  <span
-                    v-if="applicant.healthStatus === 'good'"
-                    class="qualification-item health"
-                    title="ສຸຂະພາບດີ"
-                  >
-                    <i class="fas fa-heart"></i>
-                  </span>
-                  <span
-                    v-if="applicant.eyesightGood"
-                    class="qualification-item eyesight"
-                    title="ສາຍຕາດີ"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </span>
-                  <span
-                    v-if="!applicant.hasVisibleTattoos"
-                    class="qualification-item no-tattoo"
-                    title="ບໍ່ມີລາຍສັກ"
-                  >
-                    <i class="fas fa-check-circle"></i>
-                  </span>
+                  <div v-if="applicant.passportNo" class="passport-number">
+                    {{ applicant.passportNo }}
+                  </div>
+                  <div v-if="applicant.passportExpiredDate" class="passport-expiry">
+                    ໝົດອາຍຸ: {{ formatDate(applicant.passportExpiredDate) }}
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="work-info">
+                  <div v-if="applicant.workPlace" class="workplace">
+                    <i class="fas fa-building"></i>
+                    {{ applicant.workPlace }}
+                  </div>
+                  <div v-if="applicant.contactStartDate && applicant.contactEndDate" class="contract-period">
+                    {{ formatDate(applicant.contactStartDate) }} - {{ formatDate(applicant.contactEndDate) }}
+                  </div>
                 </div>
               </td>
               <td>
@@ -306,7 +291,16 @@
                   {{ formatStatus(applicant.status) }}
                 </span>
               </td>
-              <td>{{ formatDate(applicant.applicationDate) }}</td>
+              <td>
+                <div class="date-info">
+                  <div v-if="applicant.registertDate">
+                    {{ formatDate(applicant.registertDate) }}
+                  </div>
+                  <div v-if="applicant.interviewExamDate" class="interview-date">
+                    ສໍາພາດ: {{ formatDate(applicant.interviewExamDate) }}
+                  </div>
+                </div>
+              </td>
               <td class="actions-cell">
                 <button
                   class="btn btn-sm btn-outline-primary"
@@ -323,15 +317,15 @@
                   <i class="fas fa-edit"></i>
                 </button>
                 <button
-                  v-if="applicant.status === 'pending'"
+                  v-if="applicant.status === 'INTERVIEW'"
                   class="btn btn-sm btn-outline-success"
-                  @click="approveApplicant(applicant)"
-                  title="ອະນຸມັດ"
+                  @click="updateToRegister(applicant)"
+                  title="ຍ້າຍໄປລົງທະບຽນ"
                 >
                   <i class="fas fa-check"></i>
                 </button>
                 <button
-                  v-if="applicant.status === 'pending'"
+                  v-if="applicant.status !== 'rejected'"
                   class="btn btn-sm btn-outline-danger"
                   @click="rejectApplicant(applicant)"
                   title="ປະຕິເສດ"
@@ -446,7 +440,7 @@ export default {
       showViewDialog: false,
       showStatusDialog: false,
       selectedApplicant: null,
-      statusAction: '', // 'approve' or 'reject'
+      statusAction: '', // 'register' or 'reject'
 
       // Data arrays
       applicants: [],
@@ -460,15 +454,14 @@ export default {
         search: '',
         gender: '',
         status: '',
-        hasPassport: '',
-        chineseLanguageLevel: '',
-        minAge: '',
-        maxAge: '',
+        passportAvailability: '',
+        city: '',
+        workPlace: '',
       },
 
       // Sorting
       sort: {
-        field: 'applicationDate',
+        field: 'registertDate',
         direction: 'desc',
       },
 
@@ -481,12 +474,12 @@ export default {
       // Summary statistics
       summaryStats: {
         total: { count: 0 },
-        male: { count: 0, percentage: 0, quota: 0 },
-        female: { count: 0, percentage: 0, quota: 0 },
-        pending: { count: 0 },
-        approved: { count: 0 },
+        male: { count: 0, percentage: 0 },
+        female: { count: 0, percentage: 0 },
+        interview: { count: 0 },
+        register: { count: 0 },
         rejected: { count: 0 },
-        eligible: { count: 0, percentage: 0 },
+        withPassport: { count: 0, percentage: 0 },
       },
     }
   },
@@ -494,6 +487,16 @@ export default {
   computed: {
     user() {
       return this.$auth.user || ''
+    },
+
+    availableCities() {
+      const cities = [...new Set(this.applicants.map(a => a.city).filter(Boolean))]
+      return cities.sort()
+    },
+
+    availableWorkPlaces() {
+      const workPlaces = [...new Set(this.applicants.map(a => a.workPlace).filter(Boolean))]
+      return workPlaces.sort()
     },
 
     paginatedApplicants() {
@@ -565,10 +568,12 @@ export default {
         const params = {
           page: 1,
           limit: 1000, // Get all for client-side filtering
+          isActive: true,
           ...this.filters,
         }
 
-        const { data } = await this.$axios.get('/api/applicants', { params })
+        // Updated API endpoint to match backend
+        const { data } = await this.$axios.get('/api/applicant', { params })
 
         if (data && data.success) {
           this.applicants = data.data.applicants || []
@@ -603,9 +608,9 @@ export default {
       this.showViewDialog = true
     },
 
-    approveApplicant(applicant) {
+    updateToRegister(applicant) {
       this.selectedApplicant = applicant
-      this.statusAction = 'approve'
+      this.statusAction = 'register'
       this.showStatusDialog = true
     },
 
@@ -639,11 +644,11 @@ export default {
         let response
         if (this.selectedApplicant && this.selectedApplicant.id) {
           response = await this.$axios.put(
-            `/api/applicants/${this.selectedApplicant.id}`,
+            `/api/applicant/${this.selectedApplicant.id}`,
             applicantData
           )
         } else {
-          response = await this.$axios.post('/api/applicants', applicantData)
+          response = await this.$axios.post('/api/applicant', applicantData)
         }
 
         if (response.data && response.data.success) {
@@ -669,7 +674,7 @@ export default {
         this.loading = true
 
         const response = await this.$axios.patch(
-          `/api/applicants/${this.selectedApplicant.id}/status`,
+          `/api/applicant/${this.selectedApplicant.id}/status`,
           statusData
         )
 
@@ -704,7 +709,7 @@ export default {
             applicant.firstName.toLowerCase().includes(search) ||
             applicant.lastName.toLowerCase().includes(search) ||
             applicant.phone.includes(search) ||
-            (applicant.email && applicant.email.toLowerCase().includes(search))
+            (applicant.passportNo && applicant.passportNo.toLowerCase().includes(search))
         )
       }
 
@@ -723,29 +728,25 @@ export default {
       }
 
       // Passport filter
-      if (this.filters.hasPassport !== '') {
-        const hasPassport = this.filters.hasPassport === 'true'
+      if (this.filters.passportAvailability !== '') {
+        const hasPassport = this.filters.passportAvailability === 'true'
         filtered = filtered.filter(
-          (applicant) => applicant.hasPassport === hasPassport
+          (applicant) => applicant.passportAvailability === hasPassport
         )
       }
 
-      // Chinese language filter
-      if (this.filters.chineseLanguageLevel) {
+      // City filter
+      if (this.filters.city) {
         filtered = filtered.filter(
-          (applicant) => 
-            applicant.chineseLanguageLevel === this.filters.chineseLanguageLevel
+          (applicant) => applicant.city === this.filters.city
         )
       }
 
-      // Age range filter
-      if (this.filters.minAge || this.filters.maxAge) {
-        filtered = filtered.filter((applicant) => {
-          const age = this.calculateAge(applicant.dateOfBirth)
-          const minAge = this.filters.minAge || 0
-          const maxAge = this.filters.maxAge || 100
-          return age >= minAge && age <= maxAge
-        })
+      // Work place filter
+      if (this.filters.workPlace) {
+        filtered = filtered.filter(
+          (applicant) => applicant.workPlace === this.filters.workPlace
+        )
       }
 
       this.filteredApplicants = filtered
@@ -759,10 +760,9 @@ export default {
         search: '',
         gender: '',
         status: '',
-        hasPassport: '',
-        chineseLanguageLevel: '',
-        minAge: '',
-        maxAge: '',
+        passportAvailability: '',
+        city: '',
+        workPlace: '',
       }
       this.applyFilters()
     },
@@ -781,12 +781,6 @@ export default {
       this.filteredApplicants.sort((a, b) => {
         let aVal = a[this.sort.field]
         let bVal = b[this.sort.field]
-
-        // Special handling for calculated age
-        if (this.sort.field === 'dateOfBirth') {
-          aVal = this.calculateAge(a.dateOfBirth)
-          bVal = this.calculateAge(b.dateOfBirth)
-        }
 
         if (typeof aVal === 'string') {
           aVal = aVal.toLowerCase()
@@ -810,40 +804,27 @@ export default {
       const total = this.filteredApplicants.length
       const male = this.filteredApplicants.filter(a => a.gender === 'male').length
       const female = this.filteredApplicants.filter(a => a.gender === 'female').length
-      const pending = this.filteredApplicants.filter(a => a.status === 'pending').length
-      const approved = this.filteredApplicants.filter(a => a.status === 'approved').length
+      const interview = this.filteredApplicants.filter(a => a.status === 'INTERVIEW').length
+      const register = this.filteredApplicants.filter(a => a.status === 'REGISTER').length
       const rejected = this.filteredApplicants.filter(a => a.status === 'rejected').length
-      
-      // Calculate eligible applicants (based on requirements)
-      const eligible = this.filteredApplicants.filter(applicant => {
-        const age = this.calculateAge(applicant.dateOfBirth)
-        return (
-          age >= 18 && age <= 32 &&
-          applicant.hasPassport &&
-          applicant.healthStatus === 'good' &&
-          applicant.eyesightGood &&
-          !applicant.hasVisibleTattoos
-        )
-      }).length
+      const withPassport = this.filteredApplicants.filter(a => a.passportAvailability).length
 
       this.summaryStats = {
         total: { count: total },
         male: { 
           count: male, 
-          percentage: total > 0 ? Math.round((male / total) * 100) : 0,
-          quota: Math.min(male, 30)
+          percentage: total > 0 ? Math.round((male / total) * 100) : 0
         },
         female: { 
           count: female, 
-          percentage: total > 0 ? Math.round((female / total) * 100) : 0,
-          quota: Math.min(female, 70)
+          percentage: total > 0 ? Math.round((female / total) * 100) : 0
         },
-        pending: { count: pending },
-        approved: { count: approved },
+        interview: { count: interview },
+        register: { count: register },
         rejected: { count: rejected },
-        eligible: { 
-          count: eligible, 
-          percentage: total > 0 ? Math.round((eligible / total) * 100) : 0 
+        withPassport: { 
+          count: withPassport, 
+          percentage: total > 0 ? Math.round((withPassport / total) * 100) : 0 
         },
       }
     },
@@ -881,17 +862,23 @@ export default {
         'First Name',
         'Last Name',
         'Gender',
-        'Date of Birth',
         'Age',
+        'Marital Status',
         'Phone',
-        'Email',
-        'Has Passport',
-        'Health Status',
-        'Eyesight Good',
-        'Chinese Language',
-        'Has Tattoos',
+        'Emergency Contact',
+        'Address',
+        'Village',
+        'City',
+        'District',
+        'Passport Available',
+        'Passport No',
+        'Passport Expiry',
+        'Work Place',
+        'Contract Start',
+        'Contract End',
         'Status',
-        'Application Date',
+        'Register Date',
+        'Interview Date',
       ]
       const csvContent = [
         headers.join(','),
@@ -901,17 +888,23 @@ export default {
             row.firstName,
             row.lastName,
             row.gender,
-            row.dateOfBirth,
-            this.calculateAge(row.dateOfBirth),
+            row.age || '',
+            row.maritalStatus || '',
             row.phone,
-            row.email || '',
-            row.hasPassport ? 'Yes' : 'No',
-            row.healthStatus,
-            row.eyesightGood ? 'Yes' : 'No',
-            row.chineseLanguageLevel,
-            row.hasVisibleTattoos ? 'Yes' : 'No',
+            row.emergencyContactNo || '',
+            row.address || '',
+            row.village || '',
+            row.city || '',
+            row.district || '',
+            row.passportAvailability ? 'Yes' : 'No',
+            row.passportNo || '',
+            row.passportExpiredDate || '',
+            row.workPlace || '',
+            row.contactStartDate || '',
+            row.contactEndDate || '',
             row.status,
-            row.applicationDate,
+            row.registertDate || '',
+            row.interviewExamDate || '',
           ].join(',')
         ),
       ].join('\n')
@@ -934,18 +927,6 @@ export default {
       return `${applicant.firstName} ${applicant.lastName}`
     },
 
-    calculateAge(dateOfBirth) {
-      if (!dateOfBirth) return 0
-      const today = new Date()
-      const birthDate = new Date(dateOfBirth)
-      let age = today.getFullYear() - birthDate.getFullYear()
-      const monthDiff = today.getMonth() - birthDate.getMonth()
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--
-      }
-      return age
-    },
-
     formatDate(date) {
       if (!date) return '-'
       return new Date(date).toLocaleDateString('en-US', {
@@ -959,23 +940,23 @@ export default {
       return gender === 'male' ? 'ຊາຍ' : 'ຍິງ'
     },
 
-    formatStatus(status) {
+    formatMaritalStatus(status) {
       const statusLabels = {
-        pending: 'ລໍຖ້າ',
-        approved: 'ອະນຸມັດ',
-        rejected: 'ປະຕິເສດ',
+        single: 'ໂສດ',
+        married: 'ແຕ່ງງານ',
+        divorced: 'ຢ່າຮ້າງ',
+        widowed: 'ເປັນເມ່າຍ',
       }
       return statusLabels[status] || status
     },
 
-    formatLanguageLevel(level) {
-      const levelLabels = {
-        none: 'ບໍ່ມີ',
-        basic: 'ພື້ນຖານ',
-        intermediate: 'ປານກາງ',
-        advanced: 'ສູງ',
+    formatStatus(status) {
+      const statusLabels = {
+        INTERVIEW: 'ສໍາພາດ',
+        REGISTER: 'ລົງທະບຽນ',
+        rejected: 'ປະຕິເສດ',
       }
-      return levelLabels[level] || level
+      return statusLabels[status] || status
     },
 
     truncateText(text, length) {
@@ -1000,6 +981,127 @@ export default {
 </script>
 
 <style scoped>
+/* Existing styles remain the same, with additions for new components */
+
+/* Passport Status Styles */
+.passport-status.has-passport {
+  color: #10b981;
+}
+
+.passport-status.no-passport {
+  color: #dc2626;
+}
+
+.passport-number {
+  font-size: 11px;
+  font-family: monospace;
+  color: #666;
+}
+
+.passport-expiry {
+  font-size: 11px;
+  color: #666;
+}
+
+/* Work Info Styles */
+.work-info .workplace {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.contract-period {
+  font-size: 11px;
+  color: #666;
+}
+
+/* Address Details Styles */
+.address-details .address {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.location-parts {
+  font-size: 11px;
+  color: #666;
+}
+
+.location-parts span {
+  margin-right: 8px;
+}
+
+.location-parts span:not(:last-child)::after {
+  content: "•";
+  margin-left: 8px;
+  color: #ccc;
+}
+
+/* Marital Status */
+.marital-status {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Emergency Contact */
+.emergency-phone {
+  font-size: 11px;
+  color: #666;
+  margin-left: 8px;
+}
+
+.contact-details .emergency {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #f59e0b;
+}
+
+/* Date Info Styles */
+.date-info .interview-date {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Status Badge Updates */
+.status-badge.INTERVIEW {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.status-badge.REGISTER {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+/* Summary Card Updates */
+.summary-card.status-interview .card-icon.interview {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.summary-card.status-register .card-icon.register {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.summary-card.passport-available .card-icon.passport {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.passport-rate {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Rest of the existing CSS styles remain the same */
 .applicant-summary-container {
   padding: 20px;
   background-color: #f5f5f5;
@@ -1062,21 +1164,6 @@ export default {
   font-size: 14px;
 }
 
-.age-range {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.age-input {
-  width: 80px;
-}
-
-.age-separator {
-  color: #666;
-  font-weight: bold;
-}
-
 .filter-actions {
   display: flex;
   gap: 8px;
@@ -1128,20 +1215,6 @@ export default {
   border-left: 4px solid #ec4899;
 }
 
-/* Status Cards */
-.summary-card.status-pending {
-  border-left: 4px solid #f59e0b;
-}
-
-.summary-card.status-approved {
-  border-left: 4px solid #10b981;
-}
-
-/* Eligibility Card */
-.summary-card.eligibility {
-  border-left: 4px solid #8b5cf6;
-}
-
 .card-icon {
   width: 60px;
   height: 60px;
@@ -1169,21 +1242,6 @@ export default {
   color: #ec4899;
 }
 
-.card-icon.pending {
-  background: #fef3c7;
-  color: #f59e0b;
-}
-
-.card-icon.approved {
-  background: #d1fae5;
-  color: #10b981;
-}
-
-.card-icon.eligible {
-  background: #ede9fe;
-  color: #8b5cf6;
-}
-
 .card-content {
   flex: 1;
   min-width: 0;
@@ -1199,13 +1257,6 @@ export default {
 .card-content p {
   margin: 0;
   font-size: 14px;
-}
-
-.quota-info, .eligibility-rate {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-top: 4px;
-  display: block;
 }
 
 /* Table Styles */
@@ -1302,8 +1353,7 @@ export default {
   color: #666;
 }
 
-.contact-details .email,
-.contact-details .address {
+.contact-details .phone {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -1340,33 +1390,6 @@ export default {
   color: #ec4899;
 }
 
-.language-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.language-badge.none {
-  background-color: #f3f4f6;
-  color: #6b7280;
-}
-
-.language-badge.basic {
-  background-color: #fef3c7;
-  color: #d97706;
-}
-
-.language-badge.intermediate {
-  background-color: #dbeafe;
-  color: #2563eb;
-}
-
-.language-badge.advanced {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
 .status-badge {
   padding: 4px 12px;
   border-radius: 12px;
@@ -1375,56 +1398,9 @@ export default {
   text-transform: uppercase;
 }
 
-.status-badge.pending {
-  background-color: #fef3c7;
-  color: #d97706;
-}
-
-.status-badge.approved {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
 .status-badge.rejected {
   background-color: #fee2e2;
   color: #dc2626;
-}
-
-/* Qualifications */
-.qualifications {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.qualification-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  font-size: 10px;
-}
-
-.qualification-item.passport {
-  background-color: #dbeafe;
-  color: #3b82f6;
-}
-
-.qualification-item.health {
-  background-color: #dcfce7;
-  color: #16a34a;
-}
-
-.qualification-item.eyesight {
-  background-color: #fef3c7;
-  color: #d97706;
-}
-
-.qualification-item.no-tattoo {
-  background-color: #d1fae5;
-  color: #059669;
 }
 
 .actions-cell {
@@ -1624,11 +1600,6 @@ export default {
     min-width: auto;
   }
 
-  .filter-actions {
-    flex-direction: row;
-    width: 100%;
-  }
-
   .summary-cards {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1645,10 +1616,6 @@ export default {
     margin-right: 16px;
   }
 
-  .card-content h3 {
-    font-size: 20px;
-  }
-
   .table-header {
     flex-direction: column;
     gap: 16px;
@@ -1661,38 +1628,9 @@ export default {
     align-items: flex-start;
   }
 
-  .pagination-controls {
-    flex-wrap: wrap;
-  }
-
   .actions-cell {
     flex-direction: column;
     gap: 4px;
-  }
-
-  .qualifications {
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .age-range {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .age-input {
-    width: 100%;
-  }
-}
-
-@media (max-width: 576px) {
-  .summary-card {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .card-icon {
-    margin: 0 auto 16px auto;
   }
 }
 </style>

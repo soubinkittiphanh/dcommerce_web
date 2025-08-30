@@ -1,7 +1,7 @@
-exports.ids = [79];
+exports.ids = [82];
 exports.modules = {
 
-/***/ 808:
+/***/ 825:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -162,7 +162,7 @@ var external_vuex_ = __webpack_require__(12);
   data() {
     return {
       imageSvg: __webpack_require__(169),
-      imageSrc: __webpack_require__(141),
+      imageSrc: __webpack_require__(142),
       terminalDialog: false,
       terminalSelected: this.findSelectedTerminal || 1
     };

@@ -20,6 +20,7 @@ const _437d31c6 = () => interopDefault(import('../pages/admin/authority/index.vu
 const _4dc0be2f = () => interopDefault(import('../pages/admin/bank/index.vue' /* webpackChunkName: "pages/admin/bank/index" */))
 const _6ec13158 = () => interopDefault(import('../pages/admin/bankAccount/index.vue' /* webpackChunkName: "pages/admin/bankAccount/index" */))
 const _25b7b8c0 = () => interopDefault(import('../pages/admin/barcodePrint/index.vue' /* webpackChunkName: "pages/admin/barcodePrint/index" */))
+const _7cf1717b = () => interopDefault(import('../pages/admin/batch_job/index.vue' /* webpackChunkName: "pages/admin/batch_job/index" */))
 const _3c041fcc = () => interopDefault(import('../pages/admin/benefit/index.vue' /* webpackChunkName: "pages/admin/benefit/index" */))
 const _8dba0d48 = () => interopDefault(import('../pages/admin/booking/index.vue' /* webpackChunkName: "pages/admin/booking/index" */))
 const _d2e4b598 = () => interopDefault(import('../pages/admin/cafeTable/index.vue' /* webpackChunkName: "pages/admin/cafeTable/index" */))
@@ -114,6 +115,7 @@ const _1b1605c9 = () => interopDefault(import('../pages/admin/ap/invoiceSettleme
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
+const _5fa81691 = () => interopDefault(import('../pages/admin/job_fair/agency/index.vue' /* webpackChunkName: "pages/admin/job_fair/agency/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
@@ -219,6 +221,10 @@ export const routerOptions = {
     path: "/admin/barcodePrint",
     component: _25b7b8c0,
     name: "admin-barcodePrint"
+  }, {
+    path: "/admin/batch_job",
+    component: _7cf1717b,
+    name: "admin-batch_job"
   }, {
     path: "/admin/benefit",
     component: _3c041fcc,
@@ -595,6 +601,10 @@ export const routerOptions = {
     path: "/admin/customer_request/withdraw",
     component: _e852f9ea,
     name: "admin-customer_request-withdraw"
+  }, {
+    path: "/admin/job_fair/agency",
+    component: _5fa81691,
+    name: "admin-job_fair-agency"
   }, {
     path: "/admin/pos/table",
     component: _f1108a54,

@@ -21,7 +21,7 @@ exports.modules = {
 
 /***/ }),
 
-/***/ 810:
+/***/ 827:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64,7 +64,7 @@ var VSpacer = __webpack_require__(381);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ApPayment.vue?vue&type=template&id=30f9dac1&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ApPayment.vue?vue&type=template&id=900c5f90&
 
 
 
@@ -80,7 +80,7 @@ var VTextField = __webpack_require__(37);
 
 
 
-var ApPaymentvue_type_template_id_30f9dac1_render = function render() {
+var ApPaymentvue_type_template_id_900c5f90_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VRow["a" /* default */], {
@@ -170,7 +170,7 @@ var ApPaymentvue_type_template_id_30f9dac1_render = function render() {
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "ຊຶ ບໍ່ລິສັດ ຫລື ຜູ້ຮັບ ການຊຳລະ*",
+      "label": "ຊື່ ບໍ່ລິສັດ ຫລື ຜູ້ຮັບ ການຊຳລະ*",
       "hint": "ຊື່ບຸກຄົນ,ບໍລິສັດ ຫລື ຜູ້ຮັບການຊຳລະ",
       "persistent-hint": "",
       "required": ""
@@ -345,7 +345,7 @@ var ApPaymentvue_type_template_id_30f9dac1_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/accounting/ApPayment.vue?vue&type=template&id=30f9dac1&
+// CONCATENATED MODULE: ./components/accounting/ApPayment.vue?vue&type=template&id=900c5f90&
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(398);
@@ -513,7 +513,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   accounting_ApPaymentvue_type_script_lang_js_,
-  ApPaymentvue_type_template_id_30f9dac1_render,
+  ApPaymentvue_type_template_id_900c5f90_render,
   staticRenderFns,
   false,
   injectStyles,

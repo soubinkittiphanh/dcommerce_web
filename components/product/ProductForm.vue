@@ -1,422 +1,340 @@
 <template>
   <div>
     <v-dialog v-model="isLoading" hide-overlay persistent width="300">
-      <loading-indicator> </loading-indicator>
+      <loading-indicator></loading-indicator>
     </v-dialog>
+    
     <v-dialog v-model="preview" hide-overlay width="400px">
-      <dia-image :i-url="previewSrc" @closeDia="preview = false"> </dia-image>
+      <dia-image :i-url="previewSrc" @closeDia="preview = false"></dia-image>
     </v-dialog>
-    <v-dialog v-model="priceListDialog" max-width="1200px">
+    
+    <v-dialog v-model="priceListDialog" max-width="800px">
       <price-list-form
         :key="priceListFormKey"
         @close-dialog="priceListDialog = false"
         :record-id="pricingRecordId"
         @refresh="fetchData"
-      >
-      </price-list-form>
+      ></price-list-form>
     </v-dialog>
+
     <v-card>
-      <v-card-title>
-        <v-chip class="ma-0" color="primary" label text-color="white">
-          <v-icon start>mdi-label</v-icon>
+      <v-card-title class="py-2">
+        <v-chip small color="primary" text-color="white">
+          <v-icon left small>mdi-label</v-icon>
           {{ title }}
         </v-chip>
-        <!-- <span class="headline">{{ title }}</span> -->
       </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-form ref="formLocal" v-model="validLocal" lazy-validation>
-            <!-- Row 1 -->
-            <v-row>
-              <v-col cols="4" sm="6" md="4">
-                <!-- {{ `company id ${formData.companyId}` }} -->
-                <v-autocomplete
-                  item-text="name"
-                  item-value="id"
-                  :items="companyList"
-                  label="ຮ້ານ*"
-                  v-model="formData.companyId"
-                ></v-autocomplete>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-autocomplete
-                  item-text="categ_name"
-                  item-value="categ_id"
-                  :items="category"
-                  label="ປະເພດສິນຄ້າ*"
-                  v-model="formData.pro_category"
-                ></v-autocomplete>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-text-field
-                  v-model="formData.pro_id"
-                  :counter="10"
-                  :disabled="!!formData.pro_id"
-                  label="ໄອດີສິນຄ້າ"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <!-- Row 2 -->
-            <v-row>
-              <v-col cols="4" sm="6" md="4">
-                <v-text-field
-                  v-model="formData.pro_name"
-                  :counter="50"
-                  :rules="rules.nameRule"
-                  label="ຊື້ສິນຄ້າ*"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-row>
-                  <v-col cols="6" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.pro_price"
-                      :counter="10"
-                      :rules="rules.priceRule"
-                      label="ລາຄາ*"
-                      type="number"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="6" sm="6" md="6">
-                    <v-autocomplete
-                      item-text="code"
-                      item-value="id"
-                      :items="findAllCurrency"
-                      label="Currency*"
-                      v-model="formData.saleCurrencyId"
-                    ></v-autocomplete>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-row>
-                  <v-col cols="6" sm="6" md="6">
-                    <v-text-field
-                      v-model="formData.pro_cost_price"
-                      :counter="10"
-                      type="number"
-                      :rules="rules.priceRule"
-                      label="ຕົ້ນທຶນ*"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="6" sm="6" md="6">
-                    <v-autocomplete
-                      item-text="code"
-                      item-value="id"
-                      :items="findAllCurrency"
-                      label="Currency*"
-                      v-model="formData.costCurrencyId"
-                    ></v-autocomplete>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-            <!-- Row 3 -->
-            <v-row>
-              <v-col cols="2">
-                <v-text-field
-                  v-model="formData.pro_retail_price"
-                  :counter="10"
-                  type="number"
-                  :rules="rules.priceRule"
-                  label="ລາຄາສົ່ງ %"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="2"
-                style="
-                  display: flex;
-                  align-items: center;
-                  /* justify-content: center; */
-                "
+
+      <v-card-text class="pa-3">
+        <v-form ref="formLocal" v-model="validLocal" lazy-validation>
+          <v-row dense>
+            <!-- Row 1: Company, Category, Product ID -->
+            <v-col cols="4">
+              <v-autocomplete
+                item-text="name"
+                item-value="id"
+                :items="companyList"
+                label="ຮ້ານ*"
+                v-model="formData.companyId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="4">
+              <v-autocomplete
+                item-text="categ_name"
+                item-value="categ_id"
+                :items="category"
+                label="ປະເພດສິນຄ້າ*"
+                v-model="formData.pro_category"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="4">
+              <v-text-field
+                v-model="formData.pro_id"
+                :disabled="!!formData.pro_id"
+                label="ໄອດີສິນຄ້າ"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+
+            <!-- Row 2: Name, Price, Cost -->
+            <v-col cols="6">
+              <v-text-field
+                v-model="formData.pro_name"
+                :rules="rules.nameRule"
+                label="ຊື້ສິນຄ້າ*"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-text-field
+                v-model="formData.pro_price"
+                :rules="rules.priceRule"
+                label="ລາຄາ*"
+                type="number"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-text-field
+                v-model="formData.pro_cost_price"
+                :rules="rules.priceRule"
+                label="ຕົ້ນທຶນ*"
+                type="number"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+
+            <!-- Row 3: Currency, Tax, Units -->
+            <v-col cols="2">
+              <v-autocomplete
+                item-text="code"
+                item-value="id"
+                :items="findAllCurrency"
+                label="Currency"
+                v-model="formData.saleCurrencyId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="4">
+              <v-autocomplete
+                item-text="displayText"
+                item-value="id"
+                :items="taxRateOptions"
+                label="Tax Rate"
+                v-model="formData.taxId"
+                :loading="loadingTaxRates"
+                dense
+                outlined
+                hide-details="auto"
+                clearable
               >
-                <v-btn
-                  style="border: 1px solid blue"
-                  color="primary"
-                  rounded
-                  @click="triggerPriceListForm()"
-                >
-                  ຈັດການລາຄາ
-                </v-btn>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-file-input
-                  :rules="rules.imageRule"
-                  ref="filesfield"
-                  multiple
-                  accept="image/png, image/jpeg, image/bmp, image/webp"
-                  placeholder="Pick an avatar"
-                  prepend-icon="mdi-camera"
-                  label="ຮູບພາບຫລາຍພາບ"
-                  @change="onFilesChange"
-                ></v-file-input>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-text-field
-                  v-model="formData.minStock"
-                  :counter="10"
-                  type="number"
-                  :rules="rules.minRule"
-                  label="ສຕັອກຂັ້ນຕ່ຳ*"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
+                <template v-slot:selection="{ item }">
+                  <v-chip x-small :color="item.isDefault ? 'primary' : 'default'">
+                    {{ item.displayRate }}
+                  </v-chip>
+                  <span class="ml-1 text-caption">{{ item.name }}</span>
+                </template>
+              </v-autocomplete>
+            </v-col>
+            <v-col cols="3">
+              <v-autocomplete
+                item-text="name"
+                item-value="id"
+                :items="unitList"
+                label="ຫົວຫນ່ວຍຮັບ*"
+                v-model="formData.receiveUnitId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-autocomplete
+                item-text="name"
+                item-value="id"
+                :items="unitList"
+                label="ຫົວຫນ່ວຍສາງ*"
+                v-model="formData.stockUnitId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
 
-            <!-- Row 4 -->
-            <v-row>
-              <v-col cols="4" sm="6" md="4">
-                <v-text-field
-                  v-model="formData.barCode"
-                  label="barcode"
-                  required
-                ></v-text-field>
-              </v-col>
-              <!-- ✅ NEW: Tax Rate Selection -->
-              <v-col cols="4" sm="6" md="4">
-                <v-autocomplete
-                  item-text="displayText"
-                  item-value="id"
-                  :items="taxRateOptions"
-                  label="Tax Rate*"
-                  v-model="formData.taxId"
-                 
-                  prepend-inner-icon="mdi-percent"
-                  :loading="loadingTaxRates"
-                  clearable
-                  hint="Select applicable tax rate for this product"
-                  persistent-hint
-                >
-                  <!-- Custom item template to show rate and name -->
-                  <template v-slot:item="{ item }">
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <v-chip
-                          :color="item.isDefault ? 'primary' : 'default'"
-                          small
-                          :text-color="item.isDefault ? 'white' : 'black'"
-                        >
-                          {{ item.displayRate }}
-                          <v-icon v-if="item.isDefault" right small
-                            >mdi-star</v-icon
-                          >
-                        </v-chip>
-                        {{ item.name }}
-                      </v-list-item-title>
-                      <v-list-item-subtitle v-if="item.description">
-                        {{ item.description }}
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </template>
+            <!-- Row 4: Retail %, Min Stock, Barcode, File Upload -->
+            <v-col cols="2">
+              <v-text-field
+                v-model="formData.pro_retail_price"
+                type="number"
+                label="ລາຄາສົ່ງ %"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="2">
+              <v-text-field
+                v-model="formData.minStock"
+                type="number"
+                label="ສຕັອກຂັ້ນຕ່ຳ*"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="4">
+              <v-text-field
+                v-model="formData.barCode"
+                label="Barcode"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="4">
+              <v-file-input
+                ref="filesfield"
+                multiple
+                accept="image/*"
+                label="ຮູບພາບ"
+                @change="onFilesChange"
+                dense
+                outlined
+                hide-details="auto"
+                prepend-icon=""
+                prepend-inner-icon="mdi-camera"
+              />
+            </v-col>
 
-                  <!-- Selected item display -->
-                  <template v-slot:selection="{ item }">
-                    <v-chip
-                      :color="item.isDefault ? 'primary' : 'default'"
-                      small
-                      :text-color="item.isDefault ? 'white' : 'black'"
+            <!-- Tax Preview (Compact) -->
+            <v-col cols="12" v-if="formData.taxId && formData.pro_price">
+              <v-alert dense outlined color="info" class="pa-2 mb-1">
+                <div class="d-flex justify-space-between text-caption">
+                  <span>Base: {{ formatNumber(formData.pro_price) }}</span>
+                  <span>Tax ({{ selectedTaxRate?.displayRate }}): {{ formatNumber(calculateTaxAmount()) }}</span>
+                  <span><strong>Total: {{ formatNumber(calculateTotalWithTax()) }}</strong></span>
+                </div>
+              </v-alert>
+            </v-col>
+
+            <!-- Row 5: Action Buttons, Vendor, Status -->
+            <v-col cols="2">
+              <v-btn
+                small
+                color="primary"
+                outlined
+                @click="triggerPriceListForm()"
+                block
+              >
+                ຈັດການລາຄາ
+              </v-btn>
+            </v-col>
+            <v-col cols="4">
+              <v-text-field
+                v-model="formData.vendorName"
+                label="Vendor name"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-switch
+                v-model.number="formData.isActive"
+                label="Active"
+                dense
+                hide-details
+                color="success"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-textarea
+                v-model="formData.pro_desc"
+                label="ຄຳອະທິບາຍ"
+                rows="2"
+                dense
+                outlined
+                hide-details="auto"
+                no-resize
+              />
+            </v-col>
+
+            <!-- Barcode Section (Compact) -->
+            <v-col cols="6">
+              <v-card outlined class="pa-2">
+                <canvas ref="barcodeCanvas" style="max-width: 100%; height: auto;"></canvas>
+                <div class="text-center mt-1">
+                  <v-btn-toggle dense>
+                    <v-btn
+                      x-small
+                      :disabled="formData.barCode.length > 0"
+                      color="primary"
+                      @click="generateBarcode"
                     >
-                      {{ item.displayRate }}
-                    </v-chip>
-                    <span class="ml-2">{{ item.name }}</span>
-                  </template>
-                </v-autocomplete>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-autocomplete
-                  item-text="name"
-                  item-value="id"
-                  :items="unitList"
-                  label="ຫົວຫນ່ວຍຮັບເຄື່ອງ*"
-                  v-model="formData.receiveUnitId"
-                ></v-autocomplete>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-autocomplete
-                  item-text="name"
-                  item-value="id"
-                  :items="unitList"
-                  label="ຫົວຫນ່ວຍນັບສາງ*"
-                  v-model="formData.stockUnitId"
-                ></v-autocomplete>
-              </v-col>
-            </v-row>
-
-            <!-- ✅ NEW: Tax Calculation Preview (Optional) -->
-            <v-row v-if="formData.taxId && formData.pro_price">
-              <v-col cols="12">
-                <v-card outlined color="grey lighten-5" class="pa-3">
-                  <v-card-title class="text-subtitle-1 pa-0 mb-2">
-                    <v-icon left>mdi-calculator</v-icon>
-                    Tax Calculation Preview
-                  </v-card-title>
-                  <v-row>
-                    <v-col cols="3">
-                      <div class="text-body-2">Base Price:</div>
-                      <div class="text-h6">
-                        {{ formatNumber(formData.pro_price) }}
-                      </div>
-                    </v-col>
-                    <v-col cols="3">
-                      <div class="text-body-2">Tax Rate:</div>
-                      <div class="text-h6 primary--text">
-                        {{ selectedTaxRate?.displayRate || '0%' }}
-                      </div>
-                    </v-col>
-                    <v-col cols="3">
-                      <div class="text-body-2">Tax Amount:</div>
-                      <div class="text-h6 warning--text">
-                        {{ formatNumber(calculateTaxAmount()) }}
-                      </div>
-                    </v-col>
-                    <v-col cols="3">
-                      <div class="text-body-2">Total with Tax:</div>
-                      <div class="text-h6 success--text">
-                        {{ formatNumber(calculateTotalWithTax()) }}
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="4" sm="6" md="4">
-                <v-text-field
-                  v-model="formData.vendorName"
-                  label="Vendor name"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="4" sm="6" md="4"> </v-col>
-              <v-col cols="4" sm="6" md="4"> </v-col>
-            </v-row>
-            <!-- Row 5 -->
-            <v-row>
-              <v-col cols="6" sm="6" md="6">
-                <v-card class="mb-1">
-                  <canvas ref="barcodeCanvas"></canvas>
-                  <v-card-text>
-                    ລາຄາ: {{ formatNumber(formData.pro_price) }}
-                    <!-- <img :src="barcodeImage" /> -->
-                  </v-card-text>
-                </v-card>
-                <v-row no-gutters justify="center" align="center">
-                  <!-- <v-col cols="12"> -->
-                  <v-btn
-                    :disabled="formData.barCode.length > 0"
-                    color="primary"
-                    rounded
-                    @click.prevent="generateBarcode"
-                  >
-                    <i class="mdi mdi-barcode"></i>
-                    Generate
-                  </v-btn>
+                      Generate
+                    </v-btn>
+                    <v-btn
+                      x-small
+                      :disabled="formData.barCode.length == 0"
+                      color="success"
+                      @click="printBarcode"
+                    >
+                      Print
+                    </v-btn>
+                  </v-btn-toggle>
                   <v-checkbox
                     v-model.number="threeColPaper"
-                    label="3Col? "
-                  ></v-checkbox>
-                  <v-btn
-                    :disabled="formData.barCode.length == 0"
-                    color="primary"
-                    rounded
-                    @click.prevent="printBarcode"
-                  >
-                    <i class="mdi mdi-barcode"></i>
-                    print
-                  </v-btn>
-                  <!-- </v-col> -->
-                </v-row>
-              </v-col>
-              <v-col cols="4" sm="6" md="4">
-                <v-textarea
-                  outlined
-                  name="input-7-4"
-                  counter="100"
-                  label="ຄຳອະທິບາຍ"
-                  value="abc"
-                  v-model="formData.pro_desc"
-                ></v-textarea>
-              </v-col>
-              <v-col cols="2" sm="2" md="2">
-                <v-checkbox
-                  v-model.number="formData.isActive"
-                  label="Is Active"
-                ></v-checkbox>
-              </v-col>
-            </v-row>
-            <v-divider class="mt-1"></v-divider>
-            <div>
-              <v-card
-                class="pa-md-6 mx-lg-auto"
-                v-for="(img, idx) in formData.pro_image"
-                :key="idx"
-              >
-                <v-row justify="space-around">
-                  <v-list-item-avatar
-                    @click.prevent="previewImg(`${host}/uploads/${img.name}`)"
-                  >
-                    <v-img :src="`${host}/uploads/${img.name}`"> </v-img>
-                  </v-list-item-avatar>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    text
-                    color="blue darken-1"
-                    @click.prevent="deleteFileFrServ(idx)"
-                  >
-                    <i class="fas fa-trash-alt"></i>
-                  </v-btn>
-                </v-row>
+                    label="3Col"
+                    dense
+                    hide-details
+                    class="mt-1"
+                  />
+                </div>
               </v-card>
-            </div>
-            <!-- Image list -->
+            </v-col>
 
-            <div>
-              <v-list three-line>
-                <template v-for="(item, index) in imagesPreviewURL">
-                  <v-list-item :key="index">
-                    <v-list-item-avatar
-                      @click.prevent="previewImg(item.IMG_URL)"
-                    >
-                      <v-img :src="item.IMG_URL"></v-img>
-                      {{ item.IMG_URL }}
-                    </v-list-item-avatar>
-                    <v-list-item-content>
-                      <v-list-item-title v-html="item.NAME"></v-list-item-title>
-                      <v-list-item-subtitle v-html="item.isvalid">
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      text
-                      color="blue darken-1"
-                      @click.prevent="deleteFileFrServ(index)"
-                    >
-                      <i class="fas fa-trash-alt"></i>
-                    </v-btn>
-                  </v-list-item>
-                  <v-divider :key="index + item.NAME"></v-divider>
-                </template>
-              </v-list>
-            </div>
-          </v-form>
-        </v-container>
-        <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
+            <!-- Image Preview (Compact) -->
+            <v-col cols="6">
+              <div style="max-height: 150px; overflow-y: auto;">
+                <!-- Existing Images -->
+                <div v-for="(img, idx) in formData.pro_image" :key="`existing-${idx}`" class="d-flex align-center mb-1">
+                  <v-avatar size="30" @click="previewImg(`${host}/uploads/${img.name}`)">
+                    <v-img :src="`${host}/uploads/${img.name}`"></v-img>
+                  </v-avatar>
+                  <span class="text-caption ml-2 flex-grow-1">{{ img.name }}</span>
+                  <v-btn icon x-small color="error" @click="deleteFileFrServ(idx)">
+                    <v-icon x-small>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+                
+                <!-- New Images Preview -->
+                <div v-for="(item, index) in imagesPreviewURL" :key="`new-${index}`" class="d-flex align-center mb-1">
+                  <v-avatar size="30" @click="previewImg(item.IMG_URL)">
+                    <v-img :src="item.IMG_URL"></v-img>
+                  </v-avatar>
+                  <span class="text-caption ml-2 flex-grow-1">{{ item.NAME }}</span>
+                  <v-btn icon x-small color="error" @click="deleteFile(index)">
+                    <v-icon x-small>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+        </v-form>
+        
+        <div class="text-caption mt-2">* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</div>
       </v-card-text>
-      <v-card-actions>
+
+      <v-card-actions class="pa-3 pt-0">
         <v-spacer></v-spacer>
         <v-btn
-          color="warning"
-          variant="text"
-          rounded
+          text
           @click="$emit('close-dialog')"
+          small
         >
           Close
         </v-btn>
-        <v-btn color="primary" variant="text" rounded @click="uploadFilesLocal">
+        <v-btn
+          color="primary"
+          @click="uploadFilesLocal"
+          small
+        >
           Save
         </v-btn>
       </v-card-actions>

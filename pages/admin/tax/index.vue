@@ -334,250 +334,194 @@
     </v-row>
 
     <!-- Tax Rate Dialog (Create/Edit) -->
-    <v-dialog v-model="showTaxDialog" max-width="700" persistent>
-      <v-card>
-        <v-card-title class="primary white--text">
-          <v-icon left color="white">
-            {{ editingTaxRate ? 'mdi-pencil' : 'mdi-plus' }}
-          </v-icon>
-          {{ editingTaxRate ? 'Edit Tax Rate' : 'Create New Tax Rate' }}
-          <v-spacer></v-spacer>
-          <v-btn icon color="white" @click="closeTaxDialog" :disabled="saving">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
+    <v-dialog v-model="showTaxDialog" persistent max-width="600px">
+  <v-card>
+    <v-card-title class="primary white--text py-2">
+      <v-icon left small color="white">
+        {{ editingTaxRate ? 'mdi-pencil' : 'mdi-plus' }}
+      </v-icon>
+      <span class="text-subtitle-1">{{ editingTaxRate ? 'Edit Tax Rate' : 'Create Tax Rate' }}</span>
+      <v-spacer></v-spacer>
+      <v-btn icon small color="white" @click="closeTaxDialog" :disabled="saving">
+        <v-icon small>mdi-close</v-icon>
+      </v-btn>
+    </v-card-title>
 
-        <v-card-text class="pa-6">
-          <v-form ref="taxForm" v-model="formValid" lazy-validation>
-            <v-row>
-              <!-- Basic Information -->
-              <v-col cols="12">
-                <div class="text-h6 mb-3">Basic Information</div>
-              </v-col>
+    <v-card-text class="pa-3">
+      <v-form ref="taxForm" v-model="formValid" lazy-validation>
+        <v-row dense>
+          <v-col cols="8">
+            <v-text-field
+              v-model="formData.name"
+              label="Tax Rate Name *"
+              :rules="[rules.required]"
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+          <v-col cols="4">
+            <v-text-field
+              v-model="formData.code"
+              label="Code *"
+              :rules="[rules.required, rules.code]"
+              outlined
+              dense
+              hide-details="auto"
+              @input="formData.code = $event.toUpperCase()"
+            />
+          </v-col>
 
-              <v-col cols="12" md="8">
+          <v-col cols="6">
+            <v-text-field
+              v-model="formData.rate"
+              label="Rate (Decimal) *"
+              type="number"
+              step="0.0001"
+              min="0"
+              max="1"
+              :rules="[rules.required, rules.rate]"
+              outlined
+              dense
+              hide-details="auto"
+              @input="updateDisplayRate"
+            />
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              :value="displayPercentage"
+              label="Percentage"
+              outlined
+              dense
+              readonly
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col cols="6">
+            <v-menu
+              ref="effectiveFromMenu"
+              v-model="effectiveFromMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+            >
+              <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="formData.name"
-                  label="Tax Rate Name *"
-                  :rules="[rules.required]"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-tag"
-                  hint="e.g., Standard VAT, Reduced VAT"
-                  persistent-hint
-                />
-              </v-col>
-
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="formData.code"
-                  label="Tax Code *"
-                  :rules="[rules.required, rules.code]"
-                  outlined
-                  dense
-                  style="text-transform: uppercase"
-                  prepend-inner-icon="mdi-identifier"
-                  hint="e.g., STANDARD, REDUCED"
-                  persistent-hint
-                  @input="formData.code = $event.toUpperCase()"
-                />
-              </v-col>
-
-              <v-col cols="12">
-                <v-textarea
-                  v-model="formData.description"
-                  label="Description"
-                  outlined
-                  dense
-                  rows="2"
-                  prepend-inner-icon="mdi-text"
-                  hint="Optional description for this tax rate"
-                  persistent-hint
-                />
-              </v-col>
-
-              <!-- Tax Rate Configuration -->
-              <v-col cols="12">
-                <div class="text-h6 mb-3 mt-2">Tax Rate Configuration</div>
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="formData.rate"
-                  label="Tax Rate (Decimal) *"
-                  type="number"
-                  step="0.0001"
-                  min="0"
-                  max="1"
-                  :rules="[rules.required, rules.rate]"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-calculator"
-                  hint="Enter as decimal (e.g., 0.085 for 8.5%)"
-                  persistent-hint
-                  @input="updateDisplayRate"
-                />
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-text-field
-                  :value="displayPercentage"
-                  label="Percentage Display"
-                  outlined
-                  dense
+                  v-model="formData.effectiveFrom"
+                  label="Effective From *"
                   readonly
-                  prepend-inner-icon="mdi-percent"
-                  hint="Calculated percentage"
-                  persistent-hint
+                  outlined
+                  dense
+                  :rules="[rules.required]"
+                  hide-details="auto"
+                  v-bind="attrs"
+                  v-on="on"
                 />
-              </v-col>
-
-              <!-- Effective Dates -->
-              <v-col cols="12">
-                <div class="text-h6 mb-3 mt-2">Effective Period</div>
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-menu
-                  ref="effectiveFromMenu"
-                  v-model="effectiveFromMenu"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="formData.effectiveFrom"
-                      label="Effective From *"
-                      prepend-inner-icon="mdi-calendar-start"
-                      readonly
-                      outlined
-                      dense
-                      :rules="[rules.required]"
-                      hint="When this rate becomes active"
-                      persistent-hint
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
-                    v-model="formData.effectiveFrom"
-                    @input="effectiveFromMenu = false"
-                  />
-                </v-menu>
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-menu
-                  ref="effectiveToMenu"
-                  v-model="effectiveToMenu"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="formData.effectiveTo"
-                      label="Effective To (Optional)"
-                      prepend-inner-icon="mdi-calendar-end"
-                      readonly
-                      outlined
-                      dense
-                      clearable
-                      hint="Leave empty for permanent rate"
-                      persistent-hint
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
-                    v-model="formData.effectiveTo"
-                    @input="effectiveToMenu = false"
-                    :min="formData.effectiveFrom"
-                  />
-                </v-menu>
-              </v-col>
-
-              <!-- Status Settings -->
-              <v-col cols="12">
-                <div class="text-h6 mb-3 mt-2">Status Settings</div>
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-switch
-                  v-model="formData.isActive"
-                  label="Active"
-                  color="success"
-                  inset
-                  hint="Whether this tax rate is currently active"
-                  persistent-hint
+              </template>
+              <v-date-picker
+                v-model="formData.effectiveFrom"
+                @input="effectiveFromMenu = false"
+              />
+            </v-menu>
+          </v-col>
+          <v-col cols="6">
+            <v-menu
+              ref="effectiveToMenu"
+              v-model="effectiveToMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="formData.effectiveTo"
+                  label="Effective To"
+                  readonly
+                  outlined
+                  dense
+                  clearable
+                  hide-details="auto"
+                  v-bind="attrs"
+                  v-on="on"
                 />
-              </v-col>
+              </template>
+              <v-date-picker
+                v-model="formData.effectiveTo"
+                @input="effectiveToMenu = false"
+                :min="formData.effectiveFrom"
+              />
+            </v-menu>
+          </v-col>
 
-              <v-col cols="12" md="6">
-                <v-switch
-                  v-model="formData.isDefault"
-                  label="Set as Default Rate"
-                  color="primary"
-                  inset
-                  hint="This will become the default tax rate"
-                  persistent-hint
-                />
-              </v-col>
+          <v-col cols="12">
+            <v-textarea
+              v-model="formData.description"
+              label="Description"
+              outlined
+              dense
+              rows="2"
+              hide-details="auto"
+              no-resize
+            />
+          </v-col>
 
-              <!-- Preview Section -->
-              <v-col cols="12" v-if="formData.rate">
-                <v-card outlined color="grey lighten-5">
-                  <v-card-title class="text-subtitle-1">
-                    <v-icon left>mdi-eye</v-icon>
-                    Preview
-                  </v-card-title>
-                  <v-card-text>
-                    <v-row>
-                      <v-col cols="6">
-                        <div class="text-body-2">Tax Rate:</div>
-                        <div class="text-h6 primary--text">
-                          {{ displayPercentage }}
-                        </div>
-                      </v-col>
-                      <v-col cols="6">
-                        <div class="text-body-2">Example (₭100.00):</div>
-                        <div class="text-body-1">
-                          Tax: ₭{{ calculateExampleTax(100, formData.rate) }}
-                        </div>
-                        <div class="text-body-1">
-                          Total: ₭{{
-                            calculateExampleTotal(100, formData.rate)
-                          }}
-                        </div>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-card-text>
+          <v-col cols="6">
+            <v-switch
+              v-model="formData.isActive"
+              label="Active"
+              color="success"
+              dense
+              hide-details
+            />
+          </v-col>
+          <v-col cols="6">
+            <v-switch
+              v-model="formData.isDefault"
+              label="Default Rate"
+              color="primary"
+              dense
+              hide-details
+            />
+          </v-col>
 
-        <v-card-actions class="pa-4">
-          <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="closeTaxDialog" :disabled="saving">
-            Cancel
-          </v-btn>
-          <v-btn
-            color="primary"
-            @click="saveTaxRate"
-            :disabled="!formValid"
-            :loading="saving"
-          >
-            <v-icon left>mdi-content-save</v-icon>
-            {{ editingTaxRate ? 'Update' : 'Create' }}
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+          <!-- Compact Preview -->
+          <v-col cols="12" v-if="formData.rate">
+            <v-alert
+              dense
+              outlined
+              color="info"
+              class="mb-0"
+            >
+              <div class="d-flex justify-space-between align-center">
+                <span><strong>{{ displayPercentage }}</strong></span>
+                <span class="text-caption">
+                  ₭100 → Tax: ₭{{ calculateExampleTax(100, formData.rate) }} | Total: ₭{{ calculateExampleTotal(100, formData.rate) }}
+                </span>
+              </div>
+            </v-alert>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-card-text>
+
+    <v-card-actions class="pa-3 pt-0">
+      <v-spacer></v-spacer>
+      <v-btn text @click="closeTaxDialog" :disabled="saving" small>
+        Cancel
+      </v-btn>
+      <v-btn
+        color="primary"
+        @click="saveTaxRate"
+        :disabled="!formValid"
+        :loading="saving"
+        small
+      >
+        {{ editingTaxRate ? 'Update' : 'Create' }}
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
 
     <!-- Confirmation Dialog -->
     <v-dialog v-model="showConfirmDialog" max-width="500" persistent>

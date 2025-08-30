@@ -27,7 +27,7 @@
                                 hint="ເດຶອນ/ວັນ/ປີ 12/31/2023"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field label="ຊຶ ບໍ່ລິສັດ ຫລື ຜູ້ຮັບ ການຊຳລະ*" v-model="form.header.payee"
+                            <v-text-field label="ຊື່ ບໍ່ລິສັດ ຫລື ຜູ້ຮັບ ການຊຳລະ*" v-model="form.header.payee"
                                 hint="ຊື່ບຸກຄົນ,ບໍລິສັດ ຫລື ຜູ້ຮັບການຊຳລະ" persistent-hint required></v-text-field>
                         </v-col>
                         <v-col cols="12">
