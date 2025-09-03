@@ -468,7 +468,9 @@ export default {
   components: {
     SettlementDialog,
   },
-
+  created() {
+      this.getOutstandingInvoices(false);
+  },
   data() {
     return {
       statusFilter: '',
@@ -648,9 +650,9 @@ export default {
       }
     },
 
-    async getOutstandingInvoices() {
+    async getOutstandingInvoices(showOutstandingModal=true) {
       this.outstandingLoading = true
-      this.showOutstandingModal = true
+      this.showOutstandingModal = showOutstandingModal
 
       try {
         const params = {}

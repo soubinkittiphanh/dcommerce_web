@@ -25,7 +25,7 @@
                   <img
                     :src="require('~/assets/image/MPWT/gov sign.png')"
                     alt="Ministry Logo"
-                    class="voucher-logo"
+                    class="voucher-logo-gov"
                   />
                 </div>
                 <div class="company-name">
@@ -34,42 +34,65 @@
                 <div class="company-name">
                   ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ
                 </div>
-                <div class="amount-line">.........(000)..........</div>
+                <!-- <div class="amount-line">.........(000)..........</div> -->
               </div>
             </div>
-            <!-- ✅ FIXED: Left-Right Layout Section -->
-            <div class="ministry-voucher-section">
-              <div class="ministry-titles">
-                <!-- Logo section -->
+            <!-- ✅ FIXED: Compact Left-Right Layout Section -->
+            <v-row
+              class="ministry-voucher-section"
+              align="end"
+              justify="space-between"
+              no-gutters
+            >
+              <!-- Left side -->
+              <v-col cols="6" class="d-flex flex-column align-start pa-0">
                 <img
-                  :src="require('~/assets/image/PWT.png')"
+                  :src="require('~/assets/image/MPWT/PWT.png')"
                   alt="Ministry Logo"
                   class="voucher-logo"
                 />
                 <div class="voucher-title">ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div>
                 <div class="voucher-title">ກົມແຜນການ ແລະ ການເງິນ</div>
                 <div class="voucher-title">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
-              </div>
-              <!-- Right section -->
-              <div class="voucher-number">
+                <div class="voucher-title"></div>
+              </v-col>
+
+              <!-- Right side -->
+              <v-col cols="6" class="d-flex flex-column align-end pa-0">
                 <div class="number-box">
                   <span class="number-label">No</span>
-                  <span class="number-value">{{
-                    formatVoucherNumber(voucherData.id)
-                  }}</span>
-                </div>
-                <div class="detail-row">
-                  <span class="label" style="font-size: 14px !important"
-                    >ວັນທີ
+                  <span class="number-value">
+                    {{ formatVoucherNumber(voucherData.id) }}
                   </span>
-                  <span class="dotted-line">{{
-                    formatDateLao(voucherData.bookingDate)
-                  }}</span>
                 </div>
-              </div>
-            </div>
+              </v-col>
+            </v-row>
+
+            <v-row
+              class="ministry-voucher-section"
+              align="end"
+              justify="space-between"
+              no-gutters
+            >
+              <!-- Left side -->
+              <v-col cols="6" class="d-flex flex-column align-start pa-0">
+              </v-col>
+
+              <!-- Right side -->
+              <v-col cols="6" class="d-flex flex-column align-end pa-0">
+                <div class="voucher-title">
+                  <span class="label" style="font-size: 14px !important"
+                    >ນະຄອນຫຼວງວຽງຈັນ ວັນທີ</span
+                  >
+                  <span class="dotted-line">
+                    {{ formatDateLao(voucherData.bookingDate) }}
+                  </span>
+                </div>
+              </v-col>
+            </v-row>
+
             <!-- Title -->
-            <div class="voucher-title">ໃບຈ່າຍເງິນສົດອອກຄັງ</div>
+            <div class="voucher-title-main">ໃບຈ່າຍເງິນສົດອອກຄັງ</div>
 
             <!-- Voucher Details -->
             <div class="voucher-details">
@@ -98,29 +121,6 @@
                   formatDate(voucherData.createdAt).year
                 }}</span>
               </div>
-
-              <!-- 
-              <div class="detail-row">
-                <span class="label">ເລກທີ</span>
-                <span class="value">{{
-                  voucherData.externalRefNo ||
-                  formatVoucherNumber(voucherData.id) ||
-                  'N/A'
-                }}</span> -->
-              <!-- <span class="label">ລົງວັນທີ</span>
-                <span class="value">{{
-                  formatDate(voucherData.createdAt).day
-                }}</span>
-                <span class="label">ເດືອນ</span>
-                <span class="value">{{
-                  formatDate(voucherData.createdAt).month
-                }}</span>
-                <span class="label">ປີ</span>
-                <span class="value">{{
-                  formatDate(voucherData.createdAt).year
-                }}</span> 
-              </div>
-              -->
 
               <div class="detail-row">
                 <span class="label"
@@ -209,13 +209,10 @@
 
               <div class="detail-row">
                 <span class="label">ຈຳນວນ</span>
-                <span class="amount-display">{{
-                  formatAmount(voucherData.amount)
-                }} {{ getCurrencyWord(voucherData.currency?.code) }}
+                <span class="amount-display"
+                  >{{ formatAmount(voucherData.amount) }}
+                  {{ getCurrencyWord(voucherData.currency?.code) }}
                 </span>
-                <!-- <span class="label">{{
-                  voucherData.currency?.name || 'N/A'
-                }}</span> -->
               </div>
 
               <div class="detail-row">
@@ -230,12 +227,10 @@
             <div class="signature-section">
               <div class="signature-box">
                 <div class="signature-title">ຫົວໜ້າພະແນກ ຄຸ້ມຄອງລາຍຮັບ</div>
-                <!-- <div class="signature-line"></div> -->
                 <div class="signature-name"></div>
               </div>
               <div class="signature-box">
                 <div class="signature-title">ຜູ້ຮັບເງິນ</div>
-                <!-- <div class="signature-line"></div> -->
                 <div class="signature-name">
                   {{
                     voucherData.receiveName || voucherData.maker?.cus_name || ''
@@ -244,7 +239,6 @@
               </div>
               <div class="signature-box">
                 <div class="signature-title">ຜູ້ຈ່າຍເງິນ</div>
-                <!-- <div class="signature-line"></div> -->
                 <div class="signature-name">
                   {{ voucherData.checker?.cus_name || '' }}
                 </div>
@@ -266,56 +260,6 @@
       </div>
     </div>
 
-    <!-- Hidden print container -->
-    <div v-show="false" class="print-only">
-      <div class="voucher-container print-version">
-        <!-- Same voucher content for printing -->
-        <div class="voucher-header">
-          <div class="company-info">
-            <div class="company-name">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
-            <div class="department">ກົມການເງິນ ແລະ ສິນເຊື່ອ</div>
-            <div class="sub-department">
-              ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ
-            </div>
-            <div class="amount-line">.........(000)..........</div>
-          </div>
-
-          <div class="voucher-number">
-            <div class="number-box">
-              <span class="number-label">No</span>
-              <span class="number-value">{{
-                formatVoucherNumber(voucherData.id)
-              }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="signature-section">
-          <div class="signature-box">
-            <div class="signature-title">ຜູ້ຮັບເງິນຂຶ້ນເຊັນ ຊື່ເຕັມ</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">
-              {{ voucherData.receiveName || voucherData.maker?.cus_name || '' }}
-            </div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-title">ຜູ້ສົ່ງເງິນ</div>
-            <div class="signature-line"></div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-title">ຜູ້ຈ່າຍເງິນ</div>
-            <div class="signature-line"></div>
-          </div>
-          <div class="signature-box">
-            <div class="signature-title">ນາຍຄົນຈັງ</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">
-              {{ voucherData.checker?.cus_name || '' }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -331,7 +275,7 @@ export default {
         purpose: 'test',
         note: '',
         status: 'pending',
-        method: 'cash', // ✅ NEW: Default method
+        method: 'cash',
         approvedAt: null,
         dueDate: '2025-07-24T00:00:00.000Z',
         createdAt: '2025-07-09T15:12:51.000Z',
@@ -434,7 +378,7 @@ export default {
       return new Intl.NumberFormat('en-US').format(amount)
     },
     getCurrencyWord(currencyCode) {
-      let result = '';
+      let result = ''
       switch (currencyCode) {
         case 'LAK':
           result += ' ກີບ'
@@ -448,7 +392,7 @@ export default {
         default:
           result += 'ກີບ'
       }
-      return result;
+      return result
     },
 
     convertToWords(amount, currencyCode) {
@@ -770,7 +714,6 @@ export default {
       return result
     },
 
-    // ✅ FIXED: Single printVoucher method without auto-close
     printVoucher() {
       const printContent = this.$refs.voucherContent.innerHTML
       const printWindow = window.open('', '_blank', 'width=800,height=600')
@@ -785,14 +728,31 @@ export default {
                 margin: 0; 
                 padding: 20px; 
                 line-height: 1.4;
+                font-weight: bold !important;
               }
 
-              .voucher-logo {
+              * {
+                font-weight: bold !important;
+              }
+
+                .voucher-logo {
+                  width: 110px;
+                  height: 110px;
+                  /* width: auto;
+                  height: auto; */
+                  object-fit: contain;
+                  margin-bottom: 1px !important;
+                  line-height: 1 !important;
+                }
+              .voucher-logo-gov {
                 max-width: 90px;
                 max-height: 90px;
                 width: auto;
                 height: auto;
                 object-fit: contain;
+                margin-top: 30px !important;
+                margin-bottom: 4px !important;
+                line-height: 1 !important;
               }
               .voucher-container { 
                 border: 2px solid #000; 
@@ -801,188 +761,155 @@ export default {
                 line-height: 1.4; 
                 max-width: 210mm;
                 margin: 0 auto;
+                font-weight: bold;
               }
               .voucher-header { 
                 display: flex; 
                 justify-content: space-between; 
                 align-items: flex-start; 
-                margin-bottom: 20px; 
-                padding-bottom: 10px; 
+                margin-bottom: 15px; 
+                padding-bottom: 5px; 
               }
               .ministry-voucher-section {
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-start;
-                margin-bottom: 20px;
-                padding: 10px 0;
+                align-items: flex-end;
+                margin: 0 !important;
+                padding: 0 !important;
+                margin-bottom: 10px !important;
               }
-              .ministry-titles {
-                flex: 1;
-                text-align: left;
+              .ministry-voucher-section .col,
+              .ministry-voucher-section > div {
+                padding: 0 !important;
+                margin: 0 !important;
               }
-              .ministry-titles .voucher-title {
+              .voucher-title {
                 font-size: 16px !important;
-                margin-bottom: 1px !important;
-                line-height: 1 !important;
+                margin: 0 !important;
+                margin-bottom: 2px !important;
+                line-height: 1.2 !important;
                 text-align: left;
                 text-decoration: none;
+                font-weight: bold !important;
+              }
+              .voucher-title-main {
+                text-align: center;
+                font-size: 18px;
                 font-weight: bold;
+                margin: 20px 0;
+                text-decoration: underline;
               }
               .company-info { 
                 flex: 1; 
                 text-align: center; 
               }
               .company-name { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 font-size: 14px; 
-                margin-bottom: 5px; 
+                margin-bottom: 3px; 
               }
               .department { 
                 font-size: 12px; 
                 margin-bottom: 3px; 
+                font-weight: bold !important;
               }
               .sub-department { 
                 font-size: 10px; 
                 margin-bottom: 10px; 
+                font-weight: bold !important;
               }
               .amount-line { 
                 font-size: 10px; 
                 letter-spacing: 2px; 
-              }
-              .voucher-number { 
-                flex: 0 0 auto; 
-                margin-left: 20px; 
-                text-align: right;
+                font-weight: bold !important;
               }
               .number-box { 
                 border: 2px solid #000; 
-                padding: 8px 12px; 
+                padding: 5px 8px; 
                 text-align: center; 
                 background: #f9f9f9; 
-                margin-bottom: 8px;
+                margin-bottom: 5px;
               }
               .number-label { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 margin-right: 10px; 
               }
               .number-value { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 color: #d32f2f;
-              }
-              .voucher-title { 
-                text-align: center; 
-                font-size: 16px; 
-                font-weight: bold; 
-                margin: 20px 0; 
-                text-decoration: underline; 
-              }
-              .voucher-details { 
-                margin-bottom: 30px; 
               }
               .detail-row { 
                 display: flex; 
                 align-items: center; 
-                margin-bottom: 12px; 
-                min-height: 24px; 
-              }
-              .detail-row.description { 
-                flex-direction: column; 
-                align-items: flex-start; 
+                margin-bottom: 8px; 
+                min-height: 20px; 
               }
               .label { 
-                font-weight: 500; 
-                margin-right: 10px; 
+                font-weight: bold !important; 
+                margin-right: 8px; 
                 white-space: nowrap; 
               }
               .value { 
-                margin-right: 20px; 
+                margin-right: 15px; 
                 border-bottom: 1px solid #000; 
-                min-width: 40px; 
+                min-width: 35px; 
                 text-align: center; 
-                padding: 2px 5px; 
-                font-weight: 600;
+                padding: 1px 3px; 
+                font-weight: bold !important;
               }
               .dotted-line { 
                 flex: 1; 
                 border-bottom: 1px dotted #000; 
-                margin: 0 10px; 
-                min-height: 20px; 
-                padding: 2px 5px; 
+                margin: 0 8px; 
+                min-height: 18px; 
+                padding: 1px 3px; 
+                font-weight: bold !important;
               }
               .currency-options { 
                 display: flex; 
-                gap: 20px; 
-                margin-left: 10px; 
+                gap: 15px; 
+                margin-left: 8px; 
               }
               .currency-options label { 
                 display: flex; 
                 align-items: center; 
-                gap: 5px; 
-                font-weight: normal; 
+                gap: 3px; 
+                font-weight: bold !important; 
               }
               .amount-display { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 font-size: 14px; 
-                margin: 0 10px; 
+                margin: 0 8px; 
                 color: #d32f2f;
-              }
-              .description-content { 
-                width: 100%; 
-                min-height: 60px; 
-                border: 1px solid #000; 
-                padding: 10px; 
-                margin-top: 5px; 
-                background: #fafafa; 
               }
               .amount-words { 
                 flex: 1; 
                 border-bottom: 1px solid #000; 
-                margin-left: 10px; 
-                padding: 2px 10px; 
+                margin-left: 8px; 
+                padding: 1px 8px; 
                 font-style: italic; 
+                font-weight: bold !important;
               }
               .signature-section { 
                 display: flex; 
                 justify-content: space-between; 
-                margin-top: 40px; 
-                gap: 10px; 
+                margin-top: 30px; 
+                gap: 8px; 
               }
               .signature-box { 
                 flex: 1; 
                 text-align: center; 
               }
               .signature-title { 
-                font-size: 10px; 
-                margin-bottom: 30px; 
-                font-weight: 500; 
-              }
-              .signature-line { 
-                border-bottom: 1px solid #000; 
-                height: 1px; 
-                margin-top: 20px; 
+                font-size: 14px; 
+                margin-bottom: 25px;
+                margin-bottom: 100px; 
+                font-weight: bold !important; 
               }
               .signature-name { 
-                font-size: 9px; 
+                font-size: 14px; 
                 margin-top: 5px; 
-                font-weight: normal; 
-              }
-              @media print {
-                .ministry-voucher-section {
-                  display: flex !important;
-                  justify-content: space-between !important;
-                  align-items: flex-start !important;
-                  margin-bottom: 20px !important;
-                  padding: 10px 0 !important;
-                }
-                .ministry-titles {
-                  flex: 1 !important;
-                  text-align: left !important;
-                }
-                .voucher-number {
-                  flex: 0 0 auto !important;
-                  margin-left: 20px !important;
-                  text-align: right !important;
-                }
+                font-weight: bold !important; 
               }
             </style>
           </head>
@@ -995,9 +922,6 @@ export default {
       printWindow.document.close()
       printWindow.print()
       printWindow.close()
-
-      // ✅ REMOVED: Don't auto-close the dialog after printing
-      // this.showPrintDialog = false
     },
   },
 }
@@ -1007,37 +931,23 @@ export default {
 /* Modal Styles */
 
 .voucher-logo {
-  max-width: 90px;
-  max-height: 90px;
-  width: auto;
-  height: auto;
+  width: 110px;
+  height: 110px;
+  /* width: auto;
+  height: auto; */
   object-fit: contain;
   margin-bottom: 1px !important;
   line-height: 1 !important;
 }
-.ministry-titles {
-  flex: 1;
-  text-align: left;
-  margin-bottom: 1px !important;
+.voucher-logo-gov {
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-top: 30px !important;
+  margin-bottom: 4px !important;
   line-height: 1 !important;
-}
-
-.ministry-titles .voucher-title {
-  font-size: 18px !important;
-  margin-bottom: 1px !important;
-  line-height: 1 !important;
-  text-align: left;
-  text-decoration: none;
-  font-weight: bold;
-  /* font-weight: normal; */
-}
-
-.ministry-voucher-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  /* margin-bottom: 20px; */
-  padding: 10px 0;
 }
 
 .modal-overlay {
@@ -1131,26 +1041,56 @@ export default {
   background: #545b62;
 }
 
-/* Voucher Styles */
+/* Voucher Styles - COMPACT & BOLD */
 .voucher-container {
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 15px;
   font-family: 'Phetsarath OT', 'Noto Sans Lao', Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.3;
   border: 2px solid #333;
   background: white;
+  font-weight: bold;
+}
+
+.voucher-container * {
+  font-weight: bold !important;
 }
 
 .voucher-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  /* border-bottom: 1px solid #ccc; */
+  margin-bottom: 15;
+  padding-bottom: 5px;
+}
+
+/* COMPACT VUETIFY OVERRIDES */
+.ministry-voucher-section {
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.ministry-voucher-section .col {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ministry-voucher-section .v-col {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Remove Vuetify default gutters and spacing */
+.row {
+  margin: 0 !important;
+}
+
+.col {
+  padding: 0 !important;
 }
 
 .company-info {
@@ -1159,65 +1099,74 @@ export default {
 }
 
 .company-name {
-  font-weight: bold;
+  font-weight: bold !important;
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .department {
   font-size: 14px;
   margin-bottom: 3px;
+  font-weight: bold !important;
 }
 
 .sub-department {
   font-size: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-weight: bold !important;
 }
 
 .amount-line {
   font-size: 12px;
   letter-spacing: 2px;
-}
-
-.voucher-number {
-  flex: 0 0 auto;
-  margin-left: 20px;
+  font-weight: bold !important;
 }
 
 .number-box {
   border: 2px solid #333;
-  padding: 8px 12px;
+  padding: 6px 10px;
   text-align: center;
   background: #f9f9f9;
+  margin-bottom: 5px;
 }
 
 .number-label {
-  font-weight: bold;
-  margin-right: 10px;
+  font-weight: bold !important;
+  margin-right: 8px;
 }
 
 .number-value {
-  font-weight: bold;
+  font-weight: bold !important;
   color: #d32f2f;
 }
 
 .voucher-title {
   text-align: center;
   font-size: 18px;
-  font-weight: bold;
-  margin: 20px 0;
+  font-weight: bold !important;
+  margin: 15px 0;
   text-decoration: underline;
 }
 
+.voucher-title:not(.voucher-container > .voucher-title) {
+  font-size: 16px !important;
+  margin: 0 !important;
+  margin-bottom: 2px !important;
+  line-height: 1.2 !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+}
+
 .voucher-details {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .detail-row {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
-  min-height: 24px;
+  margin-bottom: 10px;
+  min-height: 22px;
 }
 
 .detail-row.description {
@@ -1226,104 +1175,118 @@ export default {
 }
 
 .label {
-  font-weight: 500;
-  margin-right: 10px;
+  font-weight: bold !important;
+  margin-right: 8px;
   white-space: nowrap;
 }
 
 .value {
-  margin-right: 20px;
+  margin-right: 15px;
   border-bottom: 1px solid #333;
-  min-width: 40px;
+  min-width: 35px;
   text-align: center;
-  padding: 2px 5px;
+  padding: 2px 4px;
+  font-weight: bold !important;
 }
 
 .dotted-line {
   flex: 1;
   border-bottom: 1px dotted #333;
-  margin: 0 10px;
-  min-height: 20px;
-  padding: 2px 5px;
+  margin: 0 8px;
+  min-height: 18px;
+  padding: 2px 4px;
+  font-weight: bold !important;
 }
 
 .currency-options {
   display: flex;
-  gap: 20px;
-  margin-left: 10px;
+  gap: 15px;
+  margin-left: 8px;
 }
 
 .currency-options label {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-weight: normal;
+  gap: 4px;
+  font-weight: bold !important;
 }
 
 .amount-display {
-  font-weight: bold;
+  font-weight: bold !important;
   font-size: 16px;
-  margin: 0 10px;
+  margin: 0 8px;
   color: #d32f2f;
 }
 
 .description-content {
   width: 100%;
-  min-height: 60px;
+  min-height: 50px;
   border: 1px solid #333;
-  padding: 10px;
-  margin-top: 5px;
+  padding: 8px;
+  margin-top: 4px;
   background: #fafafa;
+  font-weight: bold !important;
 }
 
 .amount-words {
   flex: 1;
   border-bottom: 1px solid #333;
-  margin-left: 10px;
-  padding: 2px 10px;
+  margin-left: 8px;
+  padding: 2px 8px;
   font-style: italic;
+  font-weight: bold !important;
 }
 
 .signature-section {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
-  gap: 10px;
+  margin-top: 30px;
+  gap: 8px;
 }
 
 .signature-box {
   flex: 1;
   text-align: center;
+  
 }
 
 .signature-title {
-  font-size: 12px;
-  margin-bottom: 30px;
-  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 25px;
+  margin-bottom: 100px;
+  font-weight: bold !important;
 }
 
 .signature-line {
   border-bottom: 1px solid #333;
   height: 1px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .signature-name {
-  font-size: 10px;
-  margin-top: 5px;
-  font-weight: normal;
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: bold !important;
   color: #666;
 }
-
+.voucher-title-main {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0;
+  text-decoration: underline;
+}
 /* Print Styles */
 @media print {
-  body * {
-    visibility: hidden;
+  body *,
+  * {
+    font-weight: bold !important;
   }
 
   .print-only,
   .print-only * {
     visibility: visible;
+    font-weight: bold !important;
   }
 
   .print-only {
@@ -1340,44 +1303,7 @@ export default {
     font-size: 12px !important;
     max-width: none !important;
     width: 100% !important;
-  }
-
-  .ministry-voucher-section {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: flex-start !important;
-  }
-
-  /* .voucher-title {
-    font-size: 14px !important;
-  } */
-
-  .company-name {
-    font-size: 14px !important;
-  }
-
-  .amount-display {
-    font-size: 14px !important;
-  }
-
-  .signature-title {
-    font-size: 10px !important;
-  }
-
-  .department {
-    font-size: 12px !important;
-  }
-
-  .sub-department {
-    font-size: 10px !important;
-  }
-
-  .amount-line {
-    font-size: 10px !important;
-  }
-
-  .signature-name {
-    font-size: 9px !important;
+    font-weight: bold !important;
   }
 }
 

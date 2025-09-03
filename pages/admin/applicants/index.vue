@@ -31,6 +31,25 @@
           />
         </div>
 
+        <!-- NEW: Job Batch Filter -->
+        <div class="filter-group">
+          <label>Job Batch:</label>
+          <select
+            v-model="filters.jobBatchId"
+            class="form-control"
+            @change="applyFilters"
+          >
+            <option value="">ທັງໝົດ</option>
+            <option 
+              v-for="batch in availableJobBatches" 
+              :key="batch.id" 
+              :value="batch.id"
+            >
+              {{ batch.batchName }}{{ batch.workPlace ? ` - ${batch.workPlace}` : '' }}
+            </option>
+          </select>
+        </div>
+
         <div class="filter-group">
           <label>ເພດ:</label>
           <select
@@ -85,24 +104,6 @@
           </select>
         </div>
 
-        <div class="filter-group">
-          <label>ສະຖານທີ່ທຳງານ:</label>
-          <select
-            v-model="filters.workPlace"
-            class="form-control"
-            @change="applyFilters"
-          >
-            <option value="">ທັງໝົດ</option>
-            <option
-              v-for="place in availableWorkPlaces"
-              :key="place"
-              :value="place"
-            >
-              {{ place }}
-            </option>
-          </select>
-        </div>
-
         <div class="filter-actions">
           <button class="btn btn-outline-primary" @click="applyFilters">
             <i class="fas fa-search"></i>
@@ -116,7 +117,7 @@
       </div>
     </div>
 
-    <!-- Summary Cards -->
+    <!-- Enhanced Summary Cards -->
     <div class="summary-cards">
       <!-- Total Applicants Card -->
       <div class="summary-card total-applicants">
@@ -171,6 +172,18 @@
         </div>
       </div>
 
+      <!-- NEW: Job Batch Assignment Card -->
+      <div class="summary-card job-batch-assigned">
+        <div class="card-icon job-batch">
+          <i class="fas fa-briefcase-medical"></i>
+        </div>
+        <div class="card-content">
+          <h3>{{ summaryStats.withJobBatch.count }}</h3>
+          <p>ມີ Job Batch</p>
+          <small class="job-batch-rate">{{ summaryStats.withJobBatch.percentage }}% ຂອງທັງໝົດ</small>
+        </div>
+      </div>
+
       <!-- Passport Card -->
       <div class="summary-card passport-available">
         <div class="card-icon passport">
@@ -179,9 +192,7 @@
         <div class="card-content">
           <h3>{{ summaryStats.withPassport.count }}</h3>
           <p>ມີໜັງສືເດີນທາງ</p>
-          <small class="passport-rate"
-            >{{ summaryStats.withPassport.percentage }}% ຂອງທັງໝົດ</small
-          >
+          <small class="passport-rate">{{ summaryStats.withPassport.percentage }}% ຂອງທັງໝົດ</small>
         </div>
       </div>
     </div>
@@ -191,9 +202,7 @@
       <div class="table-header">
         <div class="table-title">
           <h3>ລາຍຊື່ຜູ້ສະໝັກ</h3>
-          <span class="record-count"
-            >{{ filteredApplicants.length }} ລາຍການ</span
-          >
+          <span class="record-count">{{ filteredApplicants.length }} ລາຍການ</span>
         </div>
         <div class="table-actions">
           <div class="per-page-selector">
@@ -221,6 +230,8 @@
                 ຊື່ຜູ້ສະໝັກ
                 <i :class="getSortIcon('firstName')"></i>
               </th>
+              <!-- NEW: Job Batch Column -->
+              <th>Job Batch</th>
               <th @click="sortBy('gender')" class="sortable">
                 ເພດ
                 <i :class="getSortIcon('gender')"></i>
@@ -232,7 +243,6 @@
               <th>ຕິດຕໍ່</th>
               <th>ທີ່ຢູ່</th>
               <th>ໜັງສືເດີນທາງ</th>
-              <th>ວຽກ</th>
               <th @click="sortBy('status')" class="sortable">
                 ສະຖານະ
                 <i :class="getSortIcon('status')"></i>
@@ -258,6 +268,30 @@
                     >
                       (ຕິດຕໍ່ສຸກເສີນ: {{ applicant.emergencyContactNo }})
                     </span>
+                  </div>
+                </div>
+              </td>
+              <!-- NEW: Job Batch Cell -->
+              <td>
+                <div class="job-batch-info">
+                  <div v-if="applicant.jobBatch" class="job-batch-assigned">
+                    <div class="batch-name">
+                      <i class="fas fa-briefcase"></i>
+                      {{ applicant.jobBatch.batchName }}
+                    </div>
+                    <div v-if="applicant.jobBatch.workPlace" class="batch-workplace">
+                      <i class="fas fa-building"></i>
+                      {{ applicant.jobBatch.workPlace }}
+                    </div>
+                    <div v-if="applicant.jobBatch.status" class="batch-status">
+                      <span :class="['batch-status-badge', applicant.jobBatch.status]">
+                        {{ formatJobBatchStatus(applicant.jobBatch.status) }}
+                      </span>
+                    </div>
+                  </div>
+                  <div v-else class="no-job-batch">
+                    <i class="fas fa-minus-circle"></i>
+                    <span>ບໍ່ມີ Job Batch</span>
                   </div>
                 </div>
               </td>
@@ -290,13 +324,9 @@
                     {{ truncateText(applicant.address, 20) }}
                   </div>
                   <div class="location-parts">
-                    <span v-if="applicant.village">{{
-                      applicant.village
-                    }}</span>
+                    <span v-if="applicant.village">{{ applicant.village }}</span>
                     <span v-if="applicant.city">{{ applicant.city }}</span>
-                    <span v-if="applicant.district">{{
-                      applicant.district
-                    }}</span>
+                    <span v-if="applicant.district">{{ applicant.district }}</span>
                   </div>
                 </div>
               </td>
@@ -305,9 +335,7 @@
                   <span
                     :class="[
                       'passport-status',
-                      applicant.passportAvailability
-                        ? 'has-passport'
-                        : 'no-passport',
+                      applicant.passportAvailability ? 'has-passport' : 'no-passport',
                     ]"
                   >
                     <i
@@ -322,28 +350,8 @@
                   <div v-if="applicant.passportNo" class="passport-number">
                     {{ applicant.passportNo }}
                   </div>
-                  <div
-                    v-if="applicant.passportExpiredDate"
-                    class="passport-expiry"
-                  >
+                  <div v-if="applicant.passportExpiredDate" class="passport-expiry">
                     ໝົດອາຍຸ: {{ formatDate(applicant.passportExpiredDate) }}
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="work-info">
-                  <div v-if="applicant.workPlace" class="workplace">
-                    <i class="fas fa-building"></i>
-                    {{ applicant.workPlace }}
-                  </div>
-                  <div
-                    v-if="
-                      applicant.contactStartDate && applicant.contactEndDate
-                    "
-                    class="contract-period"
-                  >
-                    {{ formatDate(applicant.contactStartDate) }} -
-                    {{ formatDate(applicant.contactEndDate) }}
                   </div>
                 </div>
               </td>
@@ -357,10 +365,7 @@
                   <div v-if="applicant.registertDate">
                     {{ formatDate(applicant.registertDate) }}
                   </div>
-                  <div
-                    v-if="applicant.interviewExamDate"
-                    class="interview-date"
-                  >
+                  <div v-if="applicant.interviewExamDate" class="interview-date">
                     ສໍາພາດ: {{ formatDate(applicant.interviewExamDate) }}
                   </div>
                 </div>
@@ -444,14 +449,16 @@
       </div>
     </div>
 
-    <!-- Applicant Dialog (for Create/Edit) -->
+    <!-- Enhanced Applicant Dialog with JobBatch Support -->
     <client-only>
       <ApplicantDialog
         :visible="showEditDialog"
         :applicant="selectedApplicant"
+        :job-batches="jobBatches"
         :fullscreen="true"
         @close="closeEditDialog"
         @save="onApplicantSave"
+        @load-job-batches="loadJobBatches"
       />
     </client-only>
 
@@ -510,18 +517,19 @@ export default {
       // Data arrays
       applicants: [],
       filteredApplicants: [],
+      jobBatches: [], // NEW: Job batches data
 
       // Loading states
       loading: false,
 
-      // Filters
+      // Enhanced Filters with JobBatch
       filters: {
         search: '',
         gender: '',
         status: '',
         passportAvailability: '',
         city: '',
-        workPlace: '',
+        jobBatchId: '', // NEW: Job batch filter
       },
 
       // Sorting
@@ -536,7 +544,7 @@ export default {
         perPage: 25,
       },
 
-      // Summary statistics
+      // Enhanced Summary statistics with JobBatch
       summaryStats: {
         total: { count: 0 },
         male: { count: 0, percentage: 0 },
@@ -545,6 +553,7 @@ export default {
         register: { count: 0 },
         rejected: { count: 0 },
         withPassport: { count: 0, percentage: 0 },
+        withJobBatch: { count: 0, percentage: 0 }, // NEW
       },
     }
   },
@@ -561,11 +570,13 @@ export default {
       return cities.sort()
     },
 
-    availableWorkPlaces() {
-      const workPlaces = [
-        ...new Set(this.applicants.map((a) => a.workPlace).filter(Boolean)),
-      ]
-      return workPlaces.sort()
+    // NEW: Available job batches for filtering
+    availableJobBatches() {
+      return this.jobBatches.filter(batch => batch.id).map(batch => ({
+        id: batch.id,
+        batchName: batch.batchName,
+        workPlace: batch.workPlace
+      })).sort((a, b) => a.batchName.localeCompare(b.batchName))
     },
 
     paginatedApplicants() {
@@ -625,10 +636,26 @@ export default {
 
   mounted() {
     this.fetchApplicants()
+    this.loadJobBatches() // NEW: Load job batches on mount
   },
 
   methods: {
-    // Data Loading Methods
+    // NEW: Load job batches
+    async loadJobBatches() {
+      try {
+        const { data } = await this.$axios.get('/api/batch-job')
+        if (data && data.success) {
+          this.jobBatches = data.data.jobBatches || []
+        } else {
+          this.jobBatches = []
+        }
+      } catch (error) {
+        console.error('Error loading job batches:', error)
+        this.jobBatches = []
+      }
+    },
+
+    // Enhanced Data Loading with JobBatch support
     async fetchApplicants() {
       this.loading = true
       try {
@@ -639,7 +666,6 @@ export default {
           ...this.filters,
         }
 
-        // Updated API endpoint to match backend
         const { data } = await this.$axios.get('/api/applicants', { params })
 
         if (data && data.success) {
@@ -703,7 +729,7 @@ export default {
       this.statusAction = ''
     },
 
-    // Save Handler
+    // Enhanced Save Handler with JobBatch support
     async onApplicantSave(applicantData) {
       try {
         this.loading = true
@@ -764,7 +790,7 @@ export default {
       }
     },
 
-    // Filter and Search Methods
+    // Enhanced Filter and Search Methods with JobBatch
     applyFilters() {
       let filtered = [...this.applicants]
 
@@ -777,7 +803,9 @@ export default {
             applicant.lastName.toLowerCase().includes(search) ||
             applicant.phone.includes(search) ||
             (applicant.passportNo &&
-              applicant.passportNo.toLowerCase().includes(search))
+              applicant.passportNo.toLowerCase().includes(search)) ||
+            (applicant.jobBatch && 
+              applicant.jobBatch.batchName.toLowerCase().includes(search))
         )
       }
 
@@ -810,10 +838,11 @@ export default {
         )
       }
 
-      // Work place filter
-      if (this.filters.workPlace) {
+      // NEW: Job Batch filter
+      if (this.filters.jobBatchId) {
         filtered = filtered.filter(
-          (applicant) => applicant.workPlace === this.filters.workPlace
+          (applicant) => applicant.jobBatchId && 
+            applicant.jobBatchId.toString() === this.filters.jobBatchId.toString()
         )
       }
 
@@ -830,7 +859,7 @@ export default {
         status: '',
         passportAvailability: '',
         city: '',
-        workPlace: '',
+        jobBatchId: '', // NEW: Reset job batch filter
       }
       this.applyFilters()
     },
@@ -868,6 +897,7 @@ export default {
         : 'fas fa-sort-down'
     },
 
+    // Enhanced Statistics Calculation with JobBatch
     calculateSummaryStats() {
       const total = this.filteredApplicants.length
       const male = this.filteredApplicants.filter(
@@ -888,6 +918,10 @@ export default {
       const withPassport = this.filteredApplicants.filter(
         (a) => a.passportAvailability
       ).length
+      // NEW: Job batch statistics
+      const withJobBatch = this.filteredApplicants.filter(
+        (a) => a.jobBatch && a.jobBatch.id
+      ).length
 
       this.summaryStats = {
         total: { count: total },
@@ -905,6 +939,11 @@ export default {
         withPassport: {
           count: withPassport,
           percentage: total > 0 ? Math.round((withPassport / total) * 100) : 0,
+        },
+        // NEW: Job batch statistics
+        withJobBatch: {
+          count: withJobBatch,
+          percentage: total > 0 ? Math.round((withJobBatch / total) * 100) : 0,
         },
       }
     },
@@ -930,7 +969,7 @@ export default {
       this.pagination.currentPage = page
     },
 
-    // Export
+    // Enhanced Export with JobBatch data
     exportData() {
       const csvData = this.convertToCSV(this.filteredApplicants)
       this.downloadCSV(csvData, 'applicants-summary.csv')
@@ -953,6 +992,8 @@ export default {
         'Passport Available',
         'Passport No',
         'Passport Expiry',
+        'Job Batch Name', // NEW
+        'Job Batch Workplace', // NEW
         'Work Place',
         'Contract Start',
         'Contract End',
@@ -979,6 +1020,8 @@ export default {
             row.passportAvailability ? 'Yes' : 'No',
             row.passportNo || '',
             row.passportExpiredDate || '',
+            row.jobBatch?.batchName || '', // NEW
+            row.jobBatch?.workPlace || '', // NEW
             row.workPlace || '',
             row.contactStartDate || '',
             row.contactEndDate || '',
@@ -1039,6 +1082,18 @@ export default {
       return statusLabels[status] || status
     },
 
+    // NEW: Format job batch status
+    formatJobBatchStatus(status) {
+      const statusLabels = {
+        draft: 'ຮ່າງ',
+        active: 'ເປີດໃຊ້',
+        completed: 'ສຳເລັດ',
+        cancelled: 'ຍົກເລີກ',
+        on_hold: 'ລໍຖ້າ',
+      }
+      return statusLabels[status] || status
+    },
+
     truncateText(text, length) {
       if (!text) return ''
       return text.length > length ? text.substring(0, length) + '...' : text
@@ -1061,9 +1116,95 @@ export default {
 </script>
 
 <style scoped>
-/* Existing styles remain the same, with additions for new components */
+/* NEW: Job Batch Styles */
+.job-batch-info {
+  font-size: 12px;
+  min-width: 120px;
+}
 
-/* Passport Status Styles */
+.job-batch-assigned {
+  color: #059669;
+}
+
+.batch-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.batch-workplace {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.batch-status {
+  margin-top: 4px;
+}
+
+.batch-status-badge {
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.batch-status-badge.draft {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.batch-status-badge.active {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.batch-status-badge.completed {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.batch-status-badge.cancelled {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.batch-status-badge.on_hold {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.no-job-batch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* NEW: Job Batch Summary Card */
+.summary-card.job-batch-assigned {
+  border-left: 4px solid #059669;
+}
+
+.summary-card.job-batch-assigned .card-icon.job-batch {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.job-batch-rate {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Existing styles remain the same */
 .passport-status.has-passport {
   color: #10b981;
 }
@@ -1079,20 +1220,6 @@ export default {
 }
 
 .passport-expiry {
-  font-size: 11px;
-  color: #666;
-}
-
-/* Work Info Styles */
-.work-info .workplace {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  margin-bottom: 2px;
-}
-
-.contract-period {
   font-size: 11px;
   color: #666;
 }
@@ -1711,6 +1838,12 @@ export default {
   .actions-cell {
     flex-direction: column;
     gap: 4px;
+  }
+
+  /* Hide Job Batch column on mobile for better space utilization */
+  .data-table th:nth-child(3),
+  .data-table td:nth-child(3) {
+    display: none;
   }
 }
 </style>

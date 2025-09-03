@@ -2,7 +2,7 @@
   <v-dialog
     :value="value"
     @input="$emit('input', $event)"
-    max-width="800px"
+    fullscreen
     persistent
     scrollable
   >
@@ -26,6 +26,71 @@
             <!-- Basic Information -->
             <v-col cols="12">
               <div class="text-subtitle-2 mb-2">Basic Information</div>
+            </v-col>
+
+            <!-- MOU Selection -->
+            <v-col cols="12">
+              <v-select
+                v-model="formData.mouId"
+                :items="mouOptions"
+                :loading="loadingMous"
+                label="Select MOU *"
+                :rules="rules.mouId"
+                outlined
+                dense
+                hide-details="auto"
+                item-text="jobCode"
+                item-value="id"
+                clearable
+                @change="onMouChange"
+              >
+                <template v-slot:selection="{ item }">
+                  <div class="d-flex align-center">
+                    <v-icon small class="mr-2" color="primary">mdi-file-document-outline</v-icon>
+                    <div>
+                      <div class="text-body-2">{{ item.jobCode }}</div>
+                      <div class="text-caption grey--text">{{ item.mouNumber }}</div>
+                    </div>
+                  </div>
+                </template>
+                <template v-slot:item="{ item }">
+                  <div class="d-flex align-center py-2">
+                    <v-icon small class="mr-3" color="primary">mdi-file-document-outline</v-icon>
+                    <div class="flex-grow-1">
+                      <div class="text-body-2">{{ item.jobCode }}</div>
+                      <div class="text-caption grey--text">{{ item.mouNumber }}</div>
+                      <div class="text-caption grey--text">{{ item.employerCompany }}</div>
+                    </div>
+                    <v-chip x-small :color="getMouStatusColor(item.status)">
+                      {{ item.status }}
+                    </v-chip>
+                  </div>
+                </template>
+                <template v-slot:no-data>
+                  <div class="pa-4 text-center">
+                    <div class="text-body-2 grey--text">No MOUs found</div>
+                    <v-btn small text color="primary" @click="fetchMous">
+                      <v-icon small left>mdi-refresh</v-icon>
+                      Refresh
+                    </v-btn>
+                  </div>
+                </template>
+              </v-select>
+            </v-col>
+
+            <!-- Selected MOU Info -->
+            <v-col cols="12" v-if="selectedMou">
+              <v-alert dense outlined color="info" class="mb-2">
+                <div class="d-flex justify-space-between align-center">
+                  <div>
+                    <strong>{{ selectedMou.jobCode }}</strong>
+                    <div class="text-caption">{{ selectedMou.mouNumber }} • {{ selectedMou.employerCompany }}</div>
+                  </div>
+                  <v-chip x-small :color="getMouStatusColor(selectedMou.status)">
+                    {{ selectedMou.status }}
+                  </v-chip>
+                </div>
+              </v-alert>
             </v-col>
 
             <!-- Batch Name -->
@@ -258,6 +323,9 @@
                   <div>
                     <strong>{{ formData.batchName }}</strong>
                     <span v-if="formData.runningNo" class="ml-2 text-caption">({{ formData.runningNo }})</span>
+                    <div v-if="selectedMou" class="text-caption grey--text">
+                      MOU: {{ selectedMou.jobCode }}
+                    </div>
                   </div>
                   <div class="text-right">
                     <v-chip x-small :color="getStatusColor(formData.status)" class="mr-1">
@@ -319,10 +387,14 @@ export default {
     return {
       formValid: false,
       saving: false,
+      loadingMous: false,
       startDateMenu: false,
       endDateMenu: false,
       deploymentDateMenu: false,
+      mouOptions: [],
+      selectedMou: null,
       formData: {
+        mouId: null,
         batchName: '',
         runningNo: '',
         jobDescription: '',
@@ -335,6 +407,9 @@ export default {
         notes: ''
       },
       rules: {
+        mouId: [
+          v => !!v || 'MOU selection is required'
+        ],
         batchName: [
           v => !!v || 'Batch name is required',
           v => (v && v.length <= 100) || 'Batch name must be less than 100 characters'
@@ -367,6 +442,7 @@ export default {
   watch: {
     value(newVal) {
       if (newVal) {
+        this.fetchMous()
         this.initializeForm()
       } else {
         this.resetForm()
@@ -382,10 +458,34 @@ export default {
     }
   },
   methods: {
+    async fetchMous() {
+      this.loadingMous = true
+      try {
+        const response = await this.$axios.get('/api/mous', {
+          params: {
+            status: 'open', // Only show active MOUs
+            limit: 100 // Adjust as needed
+          }
+        })
+        this.mouOptions = response.data.data.mous || response.data.data || []
+      } catch (error) {
+        console.error('Error fetching MOUs:', error)
+        this.$toast.error('Failed to fetch MOUs')
+        this.mouOptions = []
+      } finally {
+        this.loadingMous = false
+      }
+    },
+
+    onMouChange(mouId) {
+      this.selectedMou = this.mouOptions.find(mou => mou.id === mouId) || null
+    },
+
     initializeForm() {
       if (this.isEdit && this.batch) {
         // Edit mode - populate form with existing data
         this.formData = {
+          mouId: this.batch.mouId || null,
           batchName: this.batch.batchName || '',
           runningNo: this.batch.runningNo || '',
           jobDescription: this.batch.jobDescription || '',
@@ -396,6 +496,16 @@ export default {
           status: this.batch.status || 'draft',
           priority: this.batch.priority || 'medium',
           notes: this.batch.notes || ''
+        }
+        
+        // Set selected MOU if editing
+        if (this.batch.mou) {
+          this.selectedMou = this.batch.mou
+        } else if (this.formData.mouId) {
+          // Find the MOU from options if not included in batch object
+          this.$nextTick(() => {
+            this.selectedMou = this.mouOptions.find(mou => mou.id === this.formData.mouId) || null
+          })
         }
       } else {
         // Create mode - reset to defaults
@@ -412,6 +522,7 @@ export default {
 
     resetForm() {
       this.formData = {
+        mouId: null,
         batchName: '',
         runningNo: '',
         jobDescription: '',
@@ -423,6 +534,7 @@ export default {
         priority: 'medium',
         notes: ''
       }
+      this.selectedMou = null
       this.formValid = false
     },
 
@@ -502,6 +614,16 @@ export default {
         urgent: 'mdi-alert'
       }
       return icons[priority] || 'mdi-minus'
+    },
+
+    getMouStatusColor(status) {
+      const colors = {
+        draft: 'orange',
+        active: 'green',
+        expired: 'red',
+        cancelled: 'grey'
+      }
+      return colors[status] || 'grey'
     }
   }
 }

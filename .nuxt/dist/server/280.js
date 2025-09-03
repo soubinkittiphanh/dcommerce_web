@@ -1,7 +1,7 @@
 exports.ids = [280];
 exports.modules = {
 
-/***/ 686:
+/***/ 688:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,6 @@ exports.modules = {
  */
 
 
-__webpack_require__(91);
 __webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
@@ -26,7 +25,7 @@ __webpack_require__(100);
 __webpack_require__(101);
 __webpack_require__(102);
 __webpack_require__(103);
-__webpack_require__(342);
+__webpack_require__(104);
 __webpack_require__(343);
 __webpack_require__(344);
 __webpack_require__(345);
@@ -42,9 +41,10 @@ __webpack_require__(354);
 __webpack_require__(355);
 __webpack_require__(356);
 __webpack_require__(357);
-__webpack_require__(365);
-var helpers_dataset = __webpack_require__(687);
-__webpack_require__(362);
+__webpack_require__(358);
+__webpack_require__(366);
+var helpers_dataset = __webpack_require__(689);
+__webpack_require__(363);
 class Animator {
   constructor() {
     this._request = null;
@@ -12169,7 +12169,7 @@ exports.scales = scales;
 
 /***/ }),
 
-/***/ 687:
+/***/ 689:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12181,7 +12181,6 @@ exports.scales = scales;
  */
 
 
-__webpack_require__(342);
 __webpack_require__(343);
 __webpack_require__(344);
 __webpack_require__(345);
@@ -12197,7 +12196,7 @@ __webpack_require__(354);
 __webpack_require__(355);
 __webpack_require__(356);
 __webpack_require__(357);
-__webpack_require__(91);
+__webpack_require__(358);
 __webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
@@ -12210,7 +12209,8 @@ __webpack_require__(100);
 __webpack_require__(101);
 __webpack_require__(102);
 __webpack_require__(103);
-var color$1 = __webpack_require__(362);
+__webpack_require__(104);
+var color$1 = __webpack_require__(363);
 
 /**
  * @namespace Chart.helpers
@@ -15232,10 +15232,10 @@ exports.valueOrDefault = valueOrDefault;
 
 /***/ }),
 
-/***/ 793:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
-const chartjs = __webpack_require__(686);
+const chartjs = __webpack_require__(688);
 const {
   Chart,
   registerables

@@ -317,8 +317,8 @@
             </v-col>
           </v-row>
         </v-form>
-        
-        <div class="text-caption mt-2">* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</div>
+        <!--TODO: THE PRODUCT UPDATE impact Image loss -->
+        <div class="text-caption mt-2">* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ. </div>
       </v-card-text>
 
       <v-card-actions class="pa-3 pt-0">
@@ -788,57 +788,6 @@ export default {
       if (z > maxSize) {
         return `Max size is ${maxSize / 1000}Kb`
       }
-    },
-    async fetchProId(id) {
-      this.isLoading = true
-      console.log('FECT ID:' + id)
-      await this.$axios
-        .post('/product_f_id', { proid: id })
-        .then((res) => {
-          console.log('Product ID ' + res.data)
-          const el = res.data[0]
-          console.log('===> Min stock', el.minStock)
-          const image =
-            res.data[0].img_name == null
-              ? []
-              : res.data.map((el) => {
-                  return {
-                    name: el.img_name,
-                    path: el.img_path,
-                  }
-                })
-          this.formData = {
-            productId: el.id,
-            pro_category: el.pro_category,
-            pro_id: el.pro_id,
-            pro_name: el.pro_name,
-            pro_price: el.pro_price,
-            pro_desc: el.pro_desc,
-            pro_status: el.pro_status === 1 || false,
-            pro_retail_price: el.retail_cost_percent,
-            pro_cost_price: el.cost_price,
-            companyId: el.companyId,
-            minStock: el.minStock,
-            barCode: el.barCode,
-            receiveUnitId: el.receiveUnitId,
-            stockUnitId: el.stockUnitId,
-            costCurrencyId: el.costCurrencyId,
-            saleCurrencyId: el.saleCurrencyId,
-            pro_image: image,
-            isActive: el.isActive,
-            vendorName: el.vendorName,
-          }
-          if (!this.formData.barCode) {
-            // ****** prevent error temporary *****
-            this.formData.barCode = ''
-          }
-          this.generateBarcodeImage(this.formData.barCode)
-        })
-        .catch((er) => {
-          console.log('Error: ' + er)
-          this.message = er
-        })
-      this.isLoading = false
     },
 
     async deleteFileFrServ(idx) {

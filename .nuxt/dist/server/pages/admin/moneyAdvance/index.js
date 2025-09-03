@@ -1,7 +1,7 @@
 exports.ids = [189,62,63,64,76,77,78,80,82];
 exports.modules = {
 
-/***/ 1150:
+/***/ 1152:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,13 +21,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(383);
+var VCol = __webpack_require__(384);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(387);
+var VDataTable = __webpack_require__(388);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(429);
+var VDatePicker = __webpack_require__(430);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -42,13 +42,13 @@ var VOverlay = __webpack_require__(112);
 var VProgressCircular = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(382);
+var VRow = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(381);
+var VSpacer = __webpack_require__(382);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
@@ -918,25 +918,25 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/moneyAdvance/index.vue?vue&type=template&id=06f119f1&scoped=true&
 
 // EXTERNAL MODULE: ./components/MA/paymentDialog/index.vue + 4 modules
-var paymentDialog = __webpack_require__(846);
+var paymentDialog = __webpack_require__(848);
 
 // EXTERNAL MODULE: ./components/MA/paymentDetailDialog/index.vue + 4 modules
-var paymentDetailDialog = __webpack_require__(847);
+var paymentDetailDialog = __webpack_require__(849);
 
 // EXTERNAL MODULE: ./components/MA/paymentVoucher/index.vue + 4 modules
-var paymentVoucher = __webpack_require__(586);
+var paymentVoucher = __webpack_require__(588);
 
 // EXTERNAL MODULE: ./components/MA/paymentAuditDialog/index.vue + 4 modules
-var paymentAuditDialog = __webpack_require__(848);
+var paymentAuditDialog = __webpack_require__(850);
 
 // EXTERNAL MODULE: ./components/MA/paymentCompareDialog/index.vue + 4 modules
-var paymentCompareDialog = __webpack_require__(849);
+var paymentCompareDialog = __webpack_require__(851);
 
 // EXTERNAL MODULE: ./components/MA/paymentAuditReportDialog/index.vue + 4 modules
-var paymentAuditReportDialog = __webpack_require__(850);
+var paymentAuditReportDialog = __webpack_require__(852);
 
 // EXTERNAL MODULE: ./components/MA/settlementDialog/index.vue + 4 modules
-var settlementDialog = __webpack_require__(520);
+var settlementDialog = __webpack_require__(522);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -1837,7 +1837,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(925)
+  var style0 = __webpack_require__(927)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1859,7 +1859,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 389:
+/***/ 390:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1880,7 +1880,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 390:
+/***/ 391:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1933,7 +1933,7 @@ function isLeapYear(year) {
 
 /***/ }),
 
-/***/ 394:
+/***/ 395:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1992,7 +1992,7 @@ function isLeapYear(year) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(390);
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(391);
 
 const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
@@ -2390,13 +2390,13 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 400:
+/***/ 401:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(401);
+var content = __webpack_require__(402);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2404,7 +2404,7 @@ __webpack_require__(5).default("265ccd52", content, true)
 
 /***/ }),
 
-/***/ 401:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2419,13 +2419,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 402:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(403);
+var content = __webpack_require__(404);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2433,7 +2433,7 @@ __webpack_require__(5).default("ec842454", content, true)
 
 /***/ }),
 
-/***/ 403:
+/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2448,13 +2448,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 404:
+/***/ 405:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(405);
+var content = __webpack_require__(406);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2462,7 +2462,7 @@ __webpack_require__(5).default("075924a4", content, true)
 
 /***/ }),
 
-/***/ 405:
+/***/ 406:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2477,13 +2477,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 406:
+/***/ 407:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(407);
+var content = __webpack_require__(408);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2491,7 +2491,7 @@ __webpack_require__(5).default("0f7d136a", content, true)
 
 /***/ }),
 
-/***/ 407:
+/***/ 408:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2506,13 +2506,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 408:
+/***/ 409:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(409);
+var content = __webpack_require__(410);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2520,7 +2520,7 @@ __webpack_require__(5).default("4dc2915a", content, true)
 
 /***/ }),
 
-/***/ 409:
+/***/ 410:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2535,13 +2535,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 429:
+/***/ 430:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
-var VDatePickerTitle = __webpack_require__(402);
+var VDatePickerTitle = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/index.js
 var VIcon = __webpack_require__(13);
@@ -2664,13 +2664,13 @@ var helpers = __webpack_require__(0);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerHeader.sass
-var VDatePickerHeader = __webpack_require__(404);
+var VDatePickerHeader = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(389);
+var localable = __webpack_require__(390);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
 var themeable = __webpack_require__(7);
@@ -2860,7 +2860,7 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTable.sass
-var VDatePickerTable = __webpack_require__(406);
+var VDatePickerTable = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
 var touch = __webpack_require__(135);
@@ -3109,7 +3109,7 @@ var mergeData = __webpack_require__(14);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(390);
+var dateTimeUtils = __webpack_require__(391);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerDateTable.js
 // Mixins
@@ -3278,7 +3278,7 @@ var dateTimeUtils = __webpack_require__(390);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerYears.sass
-var VDatePickerYears = __webpack_require__(408);
+var VDatePickerYears = __webpack_require__(409);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
  // Mixins
@@ -3362,7 +3362,7 @@ var VDatePickerYears = __webpack_require__(408);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VPicker/VPicker.sass
-var VPicker = __webpack_require__(400);
+var VPicker = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
 var VCard = __webpack_require__(165);
@@ -3523,7 +3523,7 @@ var elevatable = __webpack_require__(75);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var timestamp = __webpack_require__(394);
+var timestamp = __webpack_require__(395);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
 var console = __webpack_require__(3);
@@ -4005,31 +4005,31 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 464:
+/***/ 465:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(486);
+var content = __webpack_require__(487);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("294a1cae", content, true, context)
+  add("7cdaad50", content, true, context)
 };
 
 /***/ }),
 
-/***/ 475:
+/***/ 476:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(503);
+var content = __webpack_require__(504);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4041,23 +4041,93 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 484:
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/settlementVoucher/index.vue?vue&type=template&id=d7aa341c&scoped=true&
-var render = function render() {
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(384);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(383);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/settlementVoucher/index.vue?vue&type=template&id=858123ee&scoped=true&
+
+
+
+var settlementVouchervue_type_template_id_858123ee_scoped_true_render = function render() {
   var _vm$voucherData$curre, _vm$voucherData$curre2, _vm$voucherData$curre3, _vm$voucherData$curre4, _vm$voucherData$curre5, _vm$voucherData$minis, _vm$voucherData$proce, _vm$voucherData$proce2, _vm$voucherData$check;
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_vm._ssrNode(_vm.showPrintDialog ? "<div class=\"modal-overlay\" data-v-d7aa341c><div class=\"modal-content\" data-v-d7aa341c><div class=\"modal-header\" data-v-d7aa341c><h3 data-v-d7aa341c>ພິມໃບຮັບເງິນ</h3> <button class=\"close-btn\" data-v-d7aa341c><i class=\"fas fa-times\" data-v-d7aa341c></i></button></div> <div class=\"modal-body\" data-v-d7aa341c><div id=\"voucher-print\" class=\"voucher-container\" data-v-d7aa341c><div class=\"voucher-header\" data-v-d7aa341c><div class=\"company-info\" data-v-d7aa341c><div class=\"company-name\" data-v-d7aa341c><img" + _vm._ssrAttr("src", __webpack_require__(166)) + " alt=\"Ministry Logo\" class=\"voucher-logo\" data-v-d7aa341c></div> <div class=\"company-name\" data-v-d7aa341c>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-d7aa341c>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div> <div class=\"amount-line\" data-v-d7aa341c>.........(000)..........</div></div></div> <div class=\"ministry-voucher-section\" data-v-d7aa341c><div class=\"ministry-titles\" data-v-d7aa341c><img" + _vm._ssrAttr("src", __webpack_require__(167)) + " alt=\"Ministry Logo\" class=\"voucher-logo\" data-v-d7aa341c> <div class=\"voucher-title\" data-v-d7aa341c>ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div> <div class=\"voucher-title\" data-v-d7aa341c>ກົມແຜນການ ແລະ ການເງິນ</div> <div class=\"voucher-title\" data-v-d7aa341c>ພະແນກຄຸ້ມຄອງລາຍຮັບ</div></div> <div class=\"voucher-number\" data-v-d7aa341c><div class=\"number-box\" data-v-d7aa341c><span class=\"number-label\" data-v-d7aa341c>No</span> <span class=\"number-value\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ວັນທີ </span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.formatDateLao(_vm.voucherData.bookingDate))) + "</span></div></div></div> <div data-v-d7aa341c><div class=\"voucher-title\" data-v-d7aa341c>ໃບຮັບເງິນ</div></div> <div class=\"voucher-details\" data-v-d7aa341c><div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ອີງຕາມ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRef || '')) + "</span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ສະບັບ ເລກທີ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRefNo || '')) + "</span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ພະແນກຄັງເງິນສົດໄດ້ຮັບເງິນ </span> <label data-v-d7aa341c><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cash') + " data-v-d7aa341c></label> <span class=\"label\" data-v-d7aa341c> ສົດ/ </span> <label data-v-d7aa341c><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cheque') + " data-v-d7aa341c></label> <span class=\"label\" data-v-d7aa341c> ເຊັກ/ </span> <label data-v-d7aa341c><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'bank_transfer') + " data-v-d7aa341c></label> <span class=\"label\" data-v-d7aa341c> ໂອນທະນາຄານ/ </span> <label data-v-d7aa341c><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre = _vm.voucherData.currency) === null || _vm$voucherData$curre === void 0 ? void 0 : _vm$voucherData$curre.code) === 'LAK') + " data-v-d7aa341c></label> <span class=\"label\" data-v-d7aa341c> ກີບ/ </span> <label data-v-d7aa341c><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre2 = _vm.voucherData.currency) === null || _vm$voucherData$curre2 === void 0 ? void 0 : _vm$voucherData$curre2.code) === 'THB') + " data-v-d7aa341c></label> <span class=\"label\" data-v-d7aa341c> ບາດ/ </span> <label data-v-d7aa341c><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre3 = _vm.voucherData.currency) === null || _vm$voucherData$curre3 === void 0 ? void 0 : _vm$voucherData$curre3.code) === 'USD') + " data-v-d7aa341c></label> <span class=\"label\" data-v-d7aa341c> ໂດລາ </span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ຈຳນວນເງິນ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount)) + " " + _vm._s(_vm.getCurrencyWord((_vm$voucherData$curre4 = _vm.voucherData.currency) === null || _vm$voucherData$curre4 === void 0 ? void 0 : _vm$voucherData$curre4.code))) + "</span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ຂຽນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre5 = _vm.voucherData.currency) === null || _vm$voucherData$curre5 === void 0 ? void 0 : _vm$voucherData$curre5.code))) + "</span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ຈາກທ່ານ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.fromPersonName || '')) + "</span> <span class=\"label\" data-v-d7aa341c>ຊື່ງແມ່ນພະນັກງານສັງກັດຢູ່</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$minis = _vm.voucherData.ministry) === null || _vm$voucherData$minis === void 0 ? void 0 : _vm$voucherData$minis.ministryName) || '')) + "</span></div> " + (_vm.voucherData.method === 'bank_transfer' && _vm.voucherData.bankAccount ? "<div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ບັນຊີທະນາຄານ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.bankAccount.bankName)) + "</span> <span class=\"label\" data-v-d7aa341c>ເລກບັນຊີ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.bankAccount.accountNumber)) + "</span></div>" : "<!---->") + " " + (_vm.voucherData.method === 'cheque' && _vm.voucherData.chequeNo ? "<div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ເລກເຊັກ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.chequeNo)) + "</span></div>" : "<!---->") + " <div class=\"detail-row\" data-v-d7aa341c><span class=\"dotted-line\" data-v-d7aa341c></span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ເນື້ອໃນລາຍຮັບ</span> <span class=\"dotted-line\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.voucherData.notes || _vm.voucherData.purpose || 'ບໍ່ມີຫມາຍເຫດ')) + "</span></div> " + (_vm.voucherData.moneyAdvance ? "<div class=\"detail-row\" data-v-d7aa341c><span class=\"label\" data-v-d7aa341c>ອ້າງອິງລາຍຈ່າຍລ່ວງໜ້າ</span> <span class=\"value\" data-v-d7aa341c>" + _vm._ssrEscape("#" + _vm._s(_vm.voucherData.moneyAdvance.id)) + "</span> <span class=\"label\" data-v-d7aa341c>ຈຳນວນ</span> <span class=\"value\" data-v-d7aa341c>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.moneyAdvance.amount)) + " \n              ") + "</span> <span class=\"dotted-line\" data-v-d7aa341c></span></div>" : "<!---->") + " <div class=\"detail-row\" data-v-d7aa341c><span class=\"dotted-line\" data-v-d7aa341c></span></div> <div class=\"detail-row\" data-v-d7aa341c><span class=\"dotted-line\" data-v-d7aa341c></span></div></div> <div class=\"voucher-title\" data-v-d7aa341c>\n            ດັ່ງນັ້ນ ຈິ່ງໄດ້ພ້ອມກັນລົງລາຍເຊັນ ຢັ້ງຢືນໄວ້ເປັນຫຫຼັກຖານ\n          </div> <div class=\"signature-section\" data-v-d7aa341c><div class=\"signature-box\" data-v-d7aa341c><div class=\"signature-title\" data-v-d7aa341c>ພະແນກຄຸ້ມຄອງລາຍຮັບ</div> <div class=\"signature-line\" data-v-d7aa341c></div> <div class=\"signature-name\" data-v-d7aa341c></div></div> <div class=\"signature-box\" data-v-d7aa341c><div class=\"signature-title\" data-v-d7aa341c>ຜູ້ຮັບ</div> <div class=\"signature-line\" data-v-d7aa341c></div> <div class=\"signature-name\" data-v-d7aa341c>" + _vm._ssrEscape("\n                " + _vm._s(((_vm$voucherData$proce = _vm.voucherData.proceeder) === null || _vm$voucherData$proce === void 0 ? void 0 : _vm$voucherData$proce.cus_name) || ((_vm$voucherData$proce2 = _vm.voucherData.proceeder) === null || _vm$voucherData$proce2 === void 0 ? void 0 : _vm$voucherData$proce2.name) || '') + "\n              ") + "</div></div> <div class=\"signature-box\" data-v-d7aa341c><div class=\"signature-title\" data-v-d7aa341c>ຜູ້ມອບ</div> <div class=\"signature-line\" data-v-d7aa341c></div> <div class=\"signature-name\" data-v-d7aa341c>" + _vm._ssrEscape("\n                " + _vm._s(_vm.voucherData.fromPersonName || ((_vm$voucherData$check = _vm.voucherData.checker) === null || _vm$voucherData$check === void 0 ? void 0 : _vm$voucherData$check.cus_name) || '') + "\n              ") + "</div></div></div></div></div> <div class=\"modal-footer\" data-v-d7aa341c><button class=\"btn btn-secondary\" data-v-d7aa341c><i class=\"fas fa-times\" data-v-d7aa341c></i>\n          ຍົກເລີກ\n        </button> <button class=\"btn btn-primary\" data-v-d7aa341c><i class=\"fas fa-print\" data-v-d7aa341c></i>\n          ພິມ\n        </button></div></div></div>" : "<!---->")]);
+  return _c('div', [_vm.showPrintDialog ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-858123ee>", "</div>", [_vm._ssrNode("<div class=\"modal-content\" data-v-858123ee>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-858123ee><h3 data-v-858123ee>ພິມໃບຮັບເງິນ</h3> <button class=\"close-btn\" data-v-858123ee><i class=\"fas fa-times\" data-v-858123ee></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-858123ee>", "</div>", [_vm._ssrNode("<div id=\"voucher-print\" class=\"voucher-container\" data-v-858123ee>", "</div>", [_vm._ssrNode("<div class=\"voucher-header\" data-v-858123ee><div class=\"company-info\" data-v-858123ee><div class=\"company-name\" data-v-858123ee><img" + _vm._ssrAttr("src", __webpack_require__(167)) + " alt=\"Ministry Logo\" class=\"voucher-logo-gov\" data-v-858123ee></div> <div class=\"company-name\" data-v-858123ee>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-858123ee>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div></div></div> "), _c(VRow["a" /* default */], {
+    staticClass: "ministry-voucher-section",
+    attrs: {
+      "align": "end",
+      "justify": "space-between",
+      "no-gutters": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-start pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c('img', {
+    staticClass: "voucher-logo",
+    attrs: {
+      "src": __webpack_require__(166),
+      "alt": "Ministry Logo"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  }, [_vm._v("ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.")]), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  }, [_vm._v("ກົມແຜນການ ແລະ ການເງິນ")]), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  }, [_vm._v("ພະແນກຄຸ້ມຄອງລາຍຮັບ")])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-end pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c('div', {
+    staticClass: "number-box"
+  }, [_c('span', {
+    staticClass: "number-label"
+  }, [_vm._v("No")]), _vm._v(" "), _c('span', {
+    staticClass: "number-value"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatVoucherNumber(_vm.voucherData.id)) + "\n                ")])])])], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+    staticClass: "ministry-voucher-section",
+    attrs: {
+      "align": "end",
+      "justify": "space-between",
+      "no-gutters": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-start pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-end pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c('div', {
+    staticClass: "voucher-title"
+  }, [_c('span', {
+    staticClass: "label",
+    staticStyle: {
+      "font-size": "14px !important"
+    }
+  }, [_vm._v("ນະຄອນຫຼວງວຽງຈັນ ວັນທີ")]), _vm._v(" "), _c('span', {
+    staticClass: "dotted-line"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatDateLao(_vm.voucherData.bookingDate)) + "\n                ")])])])], 1), _vm._ssrNode(" <div class=\"voucher-title-main\" data-v-858123ee>ໃບຮັບເງິນ</div> <div class=\"voucher-details\" data-v-858123ee><div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ອີງຕາມ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRef || '')) + "</span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ສະບັບ ເລກທີ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRefNo || '')) + "</span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ພະແນກຄັງເງິນສົດໄດ້ຮັບເງິນ </span> <label data-v-858123ee><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cash') + " data-v-858123ee></label> <span class=\"label\" data-v-858123ee> ສົດ/ </span> <label data-v-858123ee><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cheque') + " data-v-858123ee></label> <span class=\"label\" data-v-858123ee> ເຊັກ/ </span> <label data-v-858123ee><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'bank_transfer') + " data-v-858123ee></label> <span class=\"label\" data-v-858123ee> ໂອນທະນາຄານ/ </span> <label data-v-858123ee><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre = _vm.voucherData.currency) === null || _vm$voucherData$curre === void 0 ? void 0 : _vm$voucherData$curre.code) === 'LAK') + " data-v-858123ee></label> <span class=\"label\" data-v-858123ee> ກີບ/ </span> <label data-v-858123ee><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre2 = _vm.voucherData.currency) === null || _vm$voucherData$curre2 === void 0 ? void 0 : _vm$voucherData$curre2.code) === 'THB') + " data-v-858123ee></label> <span class=\"label\" data-v-858123ee> ບາດ/ </span> <label data-v-858123ee><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre3 = _vm.voucherData.currency) === null || _vm$voucherData$curre3 === void 0 ? void 0 : _vm$voucherData$curre3.code) === 'USD') + " data-v-858123ee></label> <span class=\"label\" data-v-858123ee> ໂດລາ </span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ຈຳນວນເງິນ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount)) + "\n                " + _vm._s(_vm.getCurrencyWord((_vm$voucherData$curre4 = _vm.voucherData.currency) === null || _vm$voucherData$curre4 === void 0 ? void 0 : _vm$voucherData$curre4.code))) + "</span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ຂຽນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre5 = _vm.voucherData.currency) === null || _vm$voucherData$curre5 === void 0 ? void 0 : _vm$voucherData$curre5.code))) + "</span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ຈາກທ່ານ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.fromPersonName || '')) + "</span> <span class=\"label\" data-v-858123ee>ຊື່ງແມ່ນພະນັກງານສັງກັດຢູ່</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$minis = _vm.voucherData.ministry) === null || _vm$voucherData$minis === void 0 ? void 0 : _vm$voucherData$minis.ministryName) || '')) + "</span></div> " + (_vm.voucherData.method === 'bank_transfer' && _vm.voucherData.bankAccount ? "<div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ບັນຊີທະນາຄານ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.bankAccount.bankName)) + "</span> <span class=\"label\" data-v-858123ee>ເລກບັນຊີ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.bankAccount.accountNumber)) + "</span></div>" : "<!---->") + " " + (_vm.voucherData.method === 'cheque' && _vm.voucherData.chequeNo ? "<div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ເລກເຊັກ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.chequeNo)) + "</span></div>" : "<!---->") + " <div class=\"detail-row\" data-v-858123ee><span class=\"dotted-line\" data-v-858123ee></span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ເນື້ອໃນລາຍຮັບ</span> <span class=\"dotted-line\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.voucherData.notes || _vm.voucherData.purpose || 'ບໍ່ມີຫມາຍເຫດ')) + "</span></div> " + (_vm.voucherData.moneyAdvance ? "<div class=\"detail-row\" data-v-858123ee><span class=\"label\" data-v-858123ee>ອ້າງອິງລາຍຈ່າຍລ່ວງໜ້າ</span> <span class=\"value\" data-v-858123ee>" + _vm._ssrEscape("#" + _vm._s(_vm.voucherData.moneyAdvance.id)) + "</span> <span class=\"label\" data-v-858123ee>ຈຳນວນ</span> <span class=\"value\" data-v-858123ee>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.moneyAdvance.amount)) + "\n              ") + "</span> <span class=\"dotted-line\" data-v-858123ee></span></div>" : "<!---->") + " <div class=\"detail-row\" data-v-858123ee><span class=\"dotted-line\" data-v-858123ee></span></div> <div class=\"detail-row\" data-v-858123ee><span class=\"dotted-line\" data-v-858123ee></span></div></div> <div class=\"voucher-title-main\" data-v-858123ee>\n            ດັ່ງນັ້ນ ຈິ່ງໄດ້ພ້ອມກັນລົງລາຍເຊັນ ຢັ້ງຢືນໄວ້ເປັນຫຫຼັກຖານ\n          </div> <div class=\"signature-section\" data-v-858123ee><div class=\"signature-box\" data-v-858123ee><div class=\"signature-title\" data-v-858123ee>ພະແນກຄຸ້ມຄອງລາຍຮັບ</div> <div class=\"signature-name\" data-v-858123ee></div></div> <div class=\"signature-box\" data-v-858123ee><div class=\"signature-title\" data-v-858123ee>ຜູ້ຮັບ</div> <div class=\"signature-name\" data-v-858123ee>" + _vm._ssrEscape("\n                " + _vm._s(((_vm$voucherData$proce = _vm.voucherData.proceeder) === null || _vm$voucherData$proce === void 0 ? void 0 : _vm$voucherData$proce.cus_name) || ((_vm$voucherData$proce2 = _vm.voucherData.proceeder) === null || _vm$voucherData$proce2 === void 0 ? void 0 : _vm$voucherData$proce2.name) || '') + "\n              ") + "</div></div> <div class=\"signature-box\" data-v-858123ee><div class=\"signature-title\" data-v-858123ee>ຜູ້ມອບ</div> <div class=\"signature-name\" data-v-858123ee>" + _vm._ssrEscape("\n                " + _vm._s(_vm.voucherData.fromPersonName || ((_vm$voucherData$check = _vm.voucherData.checker) === null || _vm$voucherData$check === void 0 ? void 0 : _vm$voucherData$check.cus_name) || '') + "\n              ") + "</div></div></div>")], 2)]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-858123ee><button class=\"btn btn-secondary\" data-v-858123ee><i class=\"fas fa-times\" data-v-858123ee></i>\n          ຍົກເລີກ\n        </button> <button class=\"btn btn-primary\" data-v-858123ee><i class=\"fas fa-print\" data-v-858123ee></i>\n          ພິມ\n        </button></div>")], 2)]) : _vm._e()]);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/MA/settlementVoucher/index.vue?vue&type=template&id=d7aa341c&scoped=true&
+// CONCATENATED MODULE: ./components/MA/settlementVoucher/index.vue?vue&type=template&id=858123ee&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/settlementVoucher/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var settlementVouchervue_type_script_lang_js_ = ({
@@ -4071,7 +4141,6 @@ var staticRenderFns = [];
         purpose: 'Settlement payment',
         notes: '',
         method: 'cash',
-        // ✅ NEW: Default method
         status: 'completed',
         bookingDate: '2025-01-20T00:00:00.000Z',
         settlementDate: '2025-01-20T00:00:00.000Z',
@@ -4470,7 +4539,6 @@ var staticRenderFns = [];
       }
       return result;
     },
-    // ✅ FIXED: Single printVoucher method without auto-close
     printVoucher() {
       const printContent = this.$refs.voucherContent.innerHTML;
       const printWindow = window.open('', '_blank', 'width=800,height=600');
@@ -4484,14 +4552,30 @@ var staticRenderFns = [];
                 margin: 0; 
                 padding: 20px; 
                 line-height: 1.4;
+                font-weight: bold !important;
               }
-                .voucher-logo {
-                  max-width: 90px;
-                  max-height: 90px;
-                  width: auto;
-                  height: auto;
-                  object-fit: contain;
-                }
+
+              * {
+                font-weight: bold !important;
+              }
+
+              .voucher-logo {
+                width: 110px;
+                height: 110px;
+                object-fit: contain;
+                margin-bottom: 1px !important;
+                line-height: 1 !important;
+              }
+              .voucher-logo-gov {
+                max-width: 80px;
+                max-height: 80px;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                margin-top: 30px !important;
+                margin-bottom: 4px !important;
+                line-height: 1 !important;
+              }
               .voucher-container { 
                 border: 2px solid #000; 
                 padding: 15px; 
@@ -4499,222 +4583,155 @@ var staticRenderFns = [];
                 line-height: 1.4; 
                 max-width: 210mm;
                 margin: 0 auto;
+                font-weight: bold;
               }
               .voucher-header { 
                 display: flex; 
                 justify-content: space-between; 
                 align-items: flex-start; 
-                margin-bottom: 20px; 
-                padding-bottom: 10px; 
+                margin-bottom: 10px; 
+                padding-bottom: 5px; 
               }
               .ministry-voucher-section {
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-start;
-                margin-bottom: 20px;
-                padding: 10px 0;
+                align-items: flex-end;
+                margin: 0 !important;
+                padding: 0 !important;
+                margin-bottom: 10px !important;
               }
-              .ministry-titles {
-                flex: 1;
-                text-align: left;
+              .ministry-voucher-section .col,
+              .ministry-voucher-section > div {
+                padding: 0 !important;
+                margin: 0 !important;
               }
-              .ministry-titles .voucher-title {
-                font-size: 16px;
-                margin-bottom: 1px !important;
-                line-height: 1 !important;
+              .voucher-title {
+                font-size: 16px !important;
+                margin: 0 !important;
+                margin-bottom: 2px !important;
+                line-height: 1.2 !important;
                 text-align: left;
                 text-decoration: none;
+                font-weight: bold !important;
+              }
+              .voucher-title-main {
+                text-align: center;
+                font-size: 18px;
                 font-weight: bold;
-                color: #333;
+                margin: 20px 0;
+                text-decoration: underline;
               }
               .company-info { 
                 flex: 1; 
                 text-align: center; 
               }
               .company-name { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 font-size: 14px; 
-                margin-bottom: 5px; 
+                margin-bottom: 3px; 
               }
               .department { 
                 font-size: 12px; 
                 margin-bottom: 3px; 
+                font-weight: bold !important;
               }
               .sub-department { 
                 font-size: 10px; 
                 margin-bottom: 10px; 
+                font-weight: bold !important;
               }
               .amount-line { 
                 font-size: 10px; 
                 letter-spacing: 2px; 
-              }
-              .voucher-number { 
-                flex: 0 0 auto; 
-                margin-left: 20px; 
-                text-align: right;
+                font-weight: bold !important;
               }
               .number-box { 
                 border: 2px solid #000; 
-                padding: 8px 12px; 
+                padding: 5px 8px; 
                 text-align: center; 
                 background: #f9f9f9; 
-                margin-bottom: 8px;
+                margin-bottom: 5px;
               }
-              .external-ref-box {
-                border: 1px solid #666;
-                padding: 4px 8px;
-                text-align: center;
-                background: #f5f5f5;
-                font-size: 10px;
-              }
-              .number-label, .ref-label { 
-                font-weight: bold; 
+              .number-label { 
+                font-weight: bold !important; 
                 margin-right: 10px; 
               }
               .number-value { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 color: #d32f2f;
-              }
-              .ref-value { 
-                font-weight: bold; 
-                color: #1976d2;
-              }
-              .voucher-title { 
-                text-align: center; 
-                font-size: 16px; 
-                font-weight: bold; 
-                margin: 20px 0; 
-                text-decoration: underline; 
-              }
-              .voucher-details { 
-                margin-bottom: 30px; 
               }
               .detail-row { 
                 display: flex; 
                 align-items: center; 
-                margin-bottom: 12px; 
-                min-height: 24px; 
-              }
-              .detail-row.description { 
-                flex-direction: column; 
-                align-items: flex-start; 
+                margin-bottom: 8px; 
+                min-height: 20px; 
               }
               .label { 
-                font-weight: 500; 
-                margin-right: 10px; 
+                font-weight: bold !important; 
+                margin-right: 8px; 
                 white-space: nowrap; 
               }
               .value { 
-                margin-right: 20px; 
+                margin-right: 15px; 
                 border-bottom: 1px solid #000; 
-                min-width: 40px; 
+                min-width: 35px; 
                 text-align: center; 
-                padding: 2px 5px; 
-                font-weight: 600;
+                padding: 1px 3px; 
+                font-weight: bold !important;
               }
               .dotted-line { 
                 flex: 1; 
                 border-bottom: 1px dotted #000; 
-                margin: 0 10px; 
-                min-height: 20px; 
-                padding: 2px 5px; 
+                margin: 0 8px; 
+                min-height: 18px; 
+                padding: 1px 3px; 
+                font-weight: bold !important;
               }
               .currency-options { 
                 display: flex; 
-                gap: 20px; 
-                margin-left: 10px; 
+                gap: 15px; 
+                margin-left: 8px; 
               }
               .currency-options label { 
                 display: flex; 
                 align-items: center; 
-                gap: 5px; 
-                font-weight: normal; 
+                gap: 3px; 
+                font-weight: bold !important; 
               }
               .amount-display { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 font-size: 14px; 
-                margin: 0 10px; 
+                margin: 0 8px; 
                 color: #d32f2f;
-              }
-              .description-content { 
-                width: 100%; 
-                min-height: 60px; 
-                border: 1px solid #000; 
-                padding: 10px; 
-                margin-top: 5px; 
-                background: #fafafa; 
               }
               .amount-words { 
                 flex: 1; 
                 border-bottom: 1px solid #000; 
-                margin-left: 10px; 
-                padding: 2px 10px; 
+                margin-left: 8px; 
+                padding: 1px 8px; 
                 font-style: italic; 
+                font-weight: bold !important;
               }
               .signature-section { 
                 display: flex; 
                 justify-content: space-between; 
-                margin-top: 40px; 
-                gap: 10px; 
+                margin-top: 30px; 
+                gap: 8px; 
               }
               .signature-box { 
                 flex: 1; 
                 text-align: center; 
               }
               .signature-title { 
-                font-size: 10px; 
-                margin-bottom: 30px; 
-                font-weight: 500; 
-              }
-              .signature-line { 
-                border-bottom: 1px solid #000; 
-                height: 1px; 
-                margin-top: 20px; 
+                font-size: 14px; 
+                margin-bottom: 25px;
+                margin-bottom: 100px; 
+                font-weight: bold !important; 
               }
               .signature-name { 
-                font-size: 9px; 
+                font-size: 14px; 
                 margin-top: 5px; 
-                font-weight: normal; 
-              }
-              .settlement-footer {
-                margin-top: 20px;
-                padding-top: 10px;
-                border-top: 1px solid #ccc;
-                font-size: 10px;
-              }
-              .footer-row {
-                display: flex;
-                align-items: center;
-                margin-bottom: 5px;
-              }
-              .footer-label {
-                font-weight: 600;
-                margin-right: 8px;
-              }
-              .footer-value {
-                margin-right: 20px;
-              }
-              .footer-spacer {
-                flex: 1;
-              }
-              @media print {
-                .ministry-voucher-section {
-                  display: flex !important;
-                  justify-content: space-between !important;
-                  align-items: flex-start !important;
-                  margin-bottom: 20px !important;
-                  padding: 10px 0 !important;
-                }
-                .ministry-titles {
-                  flex: 1 !important;
-                  text-align: left !important;
-                }
-        
-                .voucher-number {
-                  flex: 0 0 auto !important;
-                  margin-left: 20px !important;
-                  text-align: right !important;
-                }
+                font-weight: bold !important; 
               }
             </style>
           </head>
@@ -4726,9 +4743,6 @@ var staticRenderFns = [];
       printWindow.document.close();
       printWindow.print();
       printWindow.close();
-
-      // ✅ REMOVED: Don't auto-close the dialog after printing
-      // this.showPrintDialog = false
     }
   }
 });
@@ -4743,7 +4757,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(485)
+  var style0 = __webpack_require__(486)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -4752,11 +4766,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_settlementVouchervue_type_script_lang_js_,
-  render,
+  settlementVouchervue_type_template_id_858123ee_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "d7aa341c",
+  "858123ee",
   "42cd2c00"
   
 )
@@ -4765,26 +4779,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 485:
+/***/ 486:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_d7aa341c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(464);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_d7aa341c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_d7aa341c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_d7aa341c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_d7aa341c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_858123ee_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(465);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_858123ee_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_858123ee_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_858123ee_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_858123ee_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 486:
+/***/ 487:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".voucher-logo[data-v-d7aa341c]{height:auto;max-height:90px;max-width:90px;-o-object-fit:contain;object-fit:contain;width:auto}.modal-overlay[data-v-d7aa341c]{align-items:center;background:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1000}.modal-content[data-v-d7aa341c]{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);max-height:90vh;max-width:900px;overflow-y:auto;width:90%}.modal-header[data-v-d7aa341c]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-bottom:1px solid #eee;border-radius:8px 8px 0 0;color:#fff;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-d7aa341c]{color:#fff;margin:0}.close-btn[data-v-d7aa341c]{background:none;border:none;color:#fff;cursor:pointer;font-size:18px;opacity:.8;transition:opacity .2s}.close-btn[data-v-d7aa341c]:hover{opacity:1}.modal-body[data-v-d7aa341c]{padding:20px}.modal-footer[data-v-d7aa341c]{background:#f8f9fa;border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;padding:20px}.btn[data-v-d7aa341c]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:600;gap:8px;padding:10px 20px;transition:all .2s}.btn-primary[data-v-d7aa341c]{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}.btn-primary[data-v-d7aa341c]:hover{background:linear-gradient(135deg,#5a67d8,#6b46c1);transform:translateY(-1px)}.btn-secondary[data-v-d7aa341c]{background:#6c757d;color:#fff}.btn-secondary[data-v-d7aa341c]:hover{background:#545b62;transform:translateY(-1px)}.voucher-container[data-v-d7aa341c]{background:#fff;border:2px solid #333;font-family:\"Phetsarath OT\",\"Noto Sans Lao\",Arial,sans-serif;font-size:14px;line-height:1.4;margin:0 auto;max-width:700px;padding:20px;width:100%}.voucher-header[data-v-d7aa341c]{padding-bottom:10px}.ministry-voucher-section[data-v-d7aa341c],.voucher-header[data-v-d7aa341c]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:20px}.ministry-voucher-section[data-v-d7aa341c]{padding:10px 0}.ministry-titles[data-v-d7aa341c]{flex:1;text-align:left}.ministry-titles .voucher-title[data-v-d7aa341c]{font-size:18px;font-weight:700;line-height:1!important;margin-bottom:1px!important;text-align:left;-webkit-text-decoration:none;text-decoration:none}.company-info[data-v-d7aa341c]{flex:1;text-align:center}.company-name[data-v-d7aa341c]{font-size:16px;font-weight:700;margin-bottom:5px}.department[data-v-d7aa341c]{font-size:14px;margin-bottom:3px}.sub-department[data-v-d7aa341c]{font-size:12px;margin-bottom:10px}.amount-line[data-v-d7aa341c]{font-size:12px;letter-spacing:2px}.voucher-number[data-v-d7aa341c]{flex:0 0 auto;margin-left:20px;text-align:right}.number-box[data-v-d7aa341c]{background:#f9f9f9;border:2px solid #333;margin-bottom:8px;padding:8px 12px;text-align:center}.external-ref-box[data-v-d7aa341c]{background:#f5f5f5;border:1px solid #666;font-size:10px;padding:4px 8px;text-align:center}.number-label[data-v-d7aa341c],.ref-label[data-v-d7aa341c]{font-weight:700;margin-right:10px}.number-value[data-v-d7aa341c]{color:#d32f2f;font-weight:700}.ref-value[data-v-d7aa341c]{color:#1976d2;font-weight:700}.voucher-title[data-v-d7aa341c]{font-size:18px;font-weight:700;margin:20px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-details[data-v-d7aa341c]{margin-bottom:30px}.detail-row[data-v-d7aa341c]{align-items:center;display:flex;margin-bottom:12px;min-height:24px}.detail-row.description[data-v-d7aa341c]{align-items:flex-start;flex-direction:column}.label[data-v-d7aa341c]{font-weight:500;margin-right:10px;white-space:nowrap}.value[data-v-d7aa341c]{border-bottom:1px solid #333;font-weight:600;margin-right:20px;min-width:40px;padding:2px 5px;text-align:center}.dotted-line[data-v-d7aa341c]{border-bottom:1px dotted #333;flex:1;margin:0 10px;min-height:20px;padding:2px 5px}.currency-options[data-v-d7aa341c]{display:flex;gap:20px;margin-left:10px}.currency-options label[data-v-d7aa341c]{align-items:center;display:flex;font-weight:400;gap:5px}.amount-display[data-v-d7aa341c]{color:#d32f2f;font-size:16px;font-weight:700;margin:0 10px}.description-content[data-v-d7aa341c]{background:#fafafa;border:1px solid #333;margin-top:5px;min-height:60px;padding:10px;width:100%}.amount-words[data-v-d7aa341c]{border-bottom:1px solid #333;flex:1;font-style:italic;margin-left:10px;padding:2px 10px}.signature-section[data-v-d7aa341c]{display:flex;gap:10px;justify-content:space-between;margin-top:40px}.signature-box[data-v-d7aa341c]{flex:1;text-align:center}.signature-title[data-v-d7aa341c]{font-size:12px;font-weight:500;margin-bottom:30px}.signature-line[data-v-d7aa341c]{border-bottom:1px solid #333;height:1px;margin-top:20px}.signature-name[data-v-d7aa341c]{color:#666;font-size:10px;font-weight:400;margin-top:5px}.settlement-footer[data-v-d7aa341c]{border-top:1px solid #ccc;color:#666;font-size:11px;margin-top:20px;padding-top:10px}.footer-row[data-v-d7aa341c]{align-items:center;display:flex;margin-bottom:5px}.footer-label[data-v-d7aa341c]{color:#333;font-weight:600;margin-right:8px}.footer-value[data-v-d7aa341c]{color:#333;margin-right:20px}.footer-spacer[data-v-d7aa341c]{flex:1}@media print{body *[data-v-d7aa341c]{visibility:hidden}.print-only[data-v-d7aa341c],.print-only *[data-v-d7aa341c]{visibility:visible}.print-only[data-v-d7aa341c]{left:0;position:absolute;top:0;width:100%}.voucher-container.print-version[data-v-d7aa341c]{border:2px solid #000!important;font-size:12px!important;margin:0!important;max-width:none!important;padding:15px!important;width:100%!important}.ministry-voucher-section[data-v-d7aa341c]{align-items:flex-start!important;display:flex!important;justify-content:space-between!important}.external-ref-box[data-v-d7aa341c],.footer-row[data-v-d7aa341c],.settlement-footer[data-v-d7aa341c]{font-size:9px!important}}.print-only[data-v-d7aa341c]{left:-9999px;position:absolute;top:-9999px}@media print{.print-only[data-v-d7aa341c]{left:auto;position:static;top:auto}}@media (max-width:768px){.ministry-voucher-section[data-v-d7aa341c]{flex-direction:column;gap:16px}.voucher-number[data-v-d7aa341c]{align-self:flex-end;margin-left:0}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".voucher-logo[data-v-858123ee]{height:110px;line-height:1!important;margin-bottom:1px!important;-o-object-fit:contain;object-fit:contain;width:110px}.voucher-logo-gov[data-v-858123ee]{height:auto;line-height:1!important;margin-bottom:4px!important;margin-top:40px!important;max-height:80px;max-width:80px;-o-object-fit:contain;object-fit:contain;width:auto}.modal-overlay[data-v-858123ee]{align-items:center;background:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1000}.modal-content[data-v-858123ee]{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-858123ee]{align-items:center;border-bottom:1px solid #eee;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-858123ee]{color:#333;margin:0}.close-btn[data-v-858123ee]{background:none;border:none;color:#666;cursor:pointer;font-size:18px}.close-btn[data-v-858123ee]:hover{color:#333}.modal-body[data-v-858123ee]{padding:20px}.modal-footer[data-v-858123ee]{border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;padding:20px}.btn[data-v-858123ee]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:14px;gap:8px;padding:10px 20px;transition:all .2s}.btn-primary[data-v-858123ee]{background:#007bff;color:#fff}.btn-primary[data-v-858123ee]:hover{background:#0056b3}.btn-secondary[data-v-858123ee]{background:#6c757d;color:#fff}.btn-secondary[data-v-858123ee]:hover{background:#545b62}.voucher-container[data-v-858123ee]{background:#fff;border:2px solid #333;font-family:\"Phetsarath OT\",\"Noto Sans Lao\",Arial,sans-serif;font-size:14px;font-weight:700;line-height:1.3;margin:0 auto;max-width:700px;padding:15px;width:100%}.voucher-container *[data-v-858123ee]{font-weight:700!important}.voucher-header[data-v-858123ee]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:5px}.ministry-voucher-section[data-v-858123ee]{margin:0 0 10px!important;padding:0!important}.ministry-voucher-section .col[data-v-858123ee],.ministry-voucher-section .v-col[data-v-858123ee]{margin:0!important;padding:0!important}.row[data-v-858123ee]{margin:0!important}.col[data-v-858123ee]{padding:0!important}.company-info[data-v-858123ee]{flex:1;text-align:center}.company-name[data-v-858123ee]{font-size:16px;margin-bottom:3px}.company-name[data-v-858123ee],.department[data-v-858123ee]{font-weight:700!important}.department[data-v-858123ee]{font-size:14px;margin-bottom:3px}.sub-department[data-v-858123ee]{font-size:12px;margin-bottom:8px}.amount-line[data-v-858123ee],.sub-department[data-v-858123ee]{font-weight:700!important}.amount-line[data-v-858123ee]{font-size:12px;letter-spacing:2px}.number-box[data-v-858123ee]{background:#f9f9f9;border:2px solid #333;margin-bottom:5px;padding:6px 10px;text-align:center}.number-label[data-v-858123ee]{margin-right:8px}.number-label[data-v-858123ee],.number-value[data-v-858123ee]{font-weight:700!important}.number-value[data-v-858123ee]{color:#d32f2f}.voucher-title[data-v-858123ee]{font-size:18px;font-weight:700!important;margin:15px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-title[data-v-858123ee]:not(.voucher-container>.voucher-title){font-size:16px!important;font-weight:700!important;line-height:1.2!important;margin:0 0 2px!important;text-align:left!important;-webkit-text-decoration:none!important;text-decoration:none!important}.voucher-title-main[data-v-858123ee]{font-size:18px;font-weight:700!important;margin:20px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-details[data-v-858123ee]{margin-bottom:25px}.detail-row[data-v-858123ee]{align-items:center;display:flex;margin-bottom:10px;min-height:22px}.detail-row.description[data-v-858123ee]{align-items:flex-start;flex-direction:column}.label[data-v-858123ee]{margin-right:8px;white-space:nowrap}.label[data-v-858123ee],.value[data-v-858123ee]{font-weight:700!important}.value[data-v-858123ee]{border-bottom:1px solid #333;margin-right:15px;min-width:35px;padding:2px 4px;text-align:center}.dotted-line[data-v-858123ee]{border-bottom:1px dotted #333;flex:1;font-weight:700!important;margin:0 8px;min-height:18px;padding:2px 4px}.currency-options[data-v-858123ee]{display:flex;gap:15px;margin-left:8px}.currency-options label[data-v-858123ee]{align-items:center;display:flex;gap:4px}.amount-display[data-v-858123ee],.currency-options label[data-v-858123ee]{font-weight:700!important}.amount-display[data-v-858123ee]{color:#d32f2f;font-size:16px;margin:0 8px}.description-content[data-v-858123ee]{background:#fafafa;border:1px solid #333;margin-top:4px;min-height:50px;padding:8px;width:100%}.amount-words[data-v-858123ee],.description-content[data-v-858123ee]{font-weight:700!important}.amount-words[data-v-858123ee]{border-bottom:1px solid #333;flex:1;font-style:italic;margin-left:8px;padding:2px 8px}.signature-section[data-v-858123ee]{display:flex;gap:8px;justify-content:space-between;margin-top:30px}.signature-box[data-v-858123ee]{flex:1;text-align:center}.signature-title[data-v-858123ee]{font-size:14px;font-weight:700!important;margin-bottom:100px}.signature-line[data-v-858123ee]{border-bottom:1px solid #333;height:1px;margin-top:15px}.signature-name[data-v-858123ee]{color:#666;font-size:14px;font-weight:700!important;margin-top:4px}@media print{*[data-v-858123ee],.print-only[data-v-858123ee],.print-only *[data-v-858123ee],body *[data-v-858123ee]{font-weight:700!important}.print-only[data-v-858123ee],.print-only *[data-v-858123ee]{visibility:visible}.print-only[data-v-858123ee]{left:0;position:absolute;top:0;width:100%}.voucher-container.print-version[data-v-858123ee]{border:2px solid #000!important;font-size:12px!important;font-weight:700!important;margin:0!important;max-width:none!important;padding:15px!important;width:100%!important}}.print-only[data-v-858123ee]{left:-9999px;position:absolute;top:-9999px}@media print{.print-only[data-v-858123ee]{left:auto;position:static;top:auto}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -4792,37 +4806,37 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 492:
+/***/ 493:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(556);
+var content = __webpack_require__(558);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("1a2f2d33", content, true, context)
+  add("169341ba", content, true, context)
 };
 
 /***/ }),
 
-/***/ 502:
+/***/ 503:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_216c16b2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(475);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_216c16b2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(476);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_216c16b2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_216c16b2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_216c16b2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_216c16b2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 503:
+/***/ 504:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -4837,7 +4851,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 520:
+/***/ 522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4845,7 +4859,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(429);
+var VDatePicker = __webpack_require__(430);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(125);
@@ -5258,7 +5272,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/MA/settlementDialog/index.vue?vue&type=template&id=216c16b2&scoped=true&
 
 // EXTERNAL MODULE: ./components/MA/settlementVoucher/index.vue + 4 modules
-var settlementVoucher = __webpack_require__(484);
+var settlementVoucher = __webpack_require__(485);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/settlementDialog/index.vue?vue&type=script&lang=js&
 
@@ -6174,7 +6188,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(502)
+  var style0 = __webpack_require__(503)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6196,26 +6210,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 555:
+/***/ 557:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5377d95a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(492);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5377d95a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5377d95a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5377d95a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5377d95a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bbe45fd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(493);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bbe45fd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bbe45fd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bbe45fd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bbe45fd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 556:
+/***/ 558:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".voucher-logo[data-v-5377d95a]{height:auto;max-height:90px;max-width:90px;-o-object-fit:contain;object-fit:contain;width:auto}.ministry-titles[data-v-5377d95a],.voucher-logo[data-v-5377d95a]{line-height:1!important;margin-bottom:1px!important}.ministry-titles[data-v-5377d95a]{flex:1;text-align:left}.ministry-titles .voucher-title[data-v-5377d95a]{font-size:18px!important;font-weight:700;line-height:1!important;margin-bottom:1px!important;text-align:left;-webkit-text-decoration:none;text-decoration:none}.ministry-voucher-section[data-v-5377d95a]{align-items:flex-start;display:flex;justify-content:space-between;padding:10px 0}.modal-overlay[data-v-5377d95a]{align-items:center;background:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1000}.modal-content[data-v-5377d95a]{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-5377d95a]{align-items:center;border-bottom:1px solid #eee;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-5377d95a]{color:#333;margin:0}.close-btn[data-v-5377d95a]{background:none;border:none;color:#666;cursor:pointer;font-size:18px}.close-btn[data-v-5377d95a]:hover{color:#333}.modal-body[data-v-5377d95a]{padding:20px}.modal-footer[data-v-5377d95a]{border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;padding:20px}.btn[data-v-5377d95a]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:14px;gap:8px;padding:10px 20px;transition:all .2s}.btn-primary[data-v-5377d95a]{background:#007bff;color:#fff}.btn-primary[data-v-5377d95a]:hover{background:#0056b3}.btn-secondary[data-v-5377d95a]{background:#6c757d;color:#fff}.btn-secondary[data-v-5377d95a]:hover{background:#545b62}.voucher-container[data-v-5377d95a]{background:#fff;border:2px solid #333;font-family:\"Phetsarath OT\",\"Noto Sans Lao\",Arial,sans-serif;font-size:14px;line-height:1.4;margin:0 auto;max-width:700px;padding:20px;width:100%}.voucher-header[data-v-5377d95a]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:20px;padding-bottom:10px}.company-info[data-v-5377d95a]{flex:1;text-align:center}.company-name[data-v-5377d95a]{font-size:16px;font-weight:700;margin-bottom:5px}.department[data-v-5377d95a]{font-size:14px;margin-bottom:3px}.sub-department[data-v-5377d95a]{font-size:12px;margin-bottom:10px}.amount-line[data-v-5377d95a]{font-size:12px;letter-spacing:2px}.voucher-number[data-v-5377d95a]{flex:0 0 auto;margin-left:20px}.number-box[data-v-5377d95a]{background:#f9f9f9;border:2px solid #333;padding:8px 12px;text-align:center}.number-label[data-v-5377d95a]{font-weight:700;margin-right:10px}.number-value[data-v-5377d95a]{color:#d32f2f;font-weight:700}.voucher-title[data-v-5377d95a]{font-size:18px;font-weight:700;margin:20px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-details[data-v-5377d95a]{margin-bottom:30px}.detail-row[data-v-5377d95a]{align-items:center;display:flex;margin-bottom:12px;min-height:24px}.detail-row.description[data-v-5377d95a]{align-items:flex-start;flex-direction:column}.label[data-v-5377d95a]{font-weight:500;margin-right:10px;white-space:nowrap}.value[data-v-5377d95a]{border-bottom:1px solid #333;margin-right:20px;min-width:40px;padding:2px 5px;text-align:center}.dotted-line[data-v-5377d95a]{border-bottom:1px dotted #333;flex:1;margin:0 10px;min-height:20px;padding:2px 5px}.currency-options[data-v-5377d95a]{display:flex;gap:20px;margin-left:10px}.currency-options label[data-v-5377d95a]{align-items:center;display:flex;font-weight:400;gap:5px}.amount-display[data-v-5377d95a]{color:#d32f2f;font-size:16px;font-weight:700;margin:0 10px}.description-content[data-v-5377d95a]{background:#fafafa;border:1px solid #333;margin-top:5px;min-height:60px;padding:10px;width:100%}.amount-words[data-v-5377d95a]{border-bottom:1px solid #333;flex:1;font-style:italic;margin-left:10px;padding:2px 10px}.signature-section[data-v-5377d95a]{display:flex;gap:10px;justify-content:space-between;margin-top:40px}.signature-box[data-v-5377d95a]{flex:1;text-align:center}.signature-title[data-v-5377d95a]{font-size:12px;font-weight:500;margin-bottom:30px}.signature-line[data-v-5377d95a]{border-bottom:1px solid #333;height:1px;margin-top:20px}.signature-name[data-v-5377d95a]{color:#666;font-size:10px;font-weight:400;margin-top:5px}@media print{body *[data-v-5377d95a]{visibility:hidden}.print-only[data-v-5377d95a],.print-only *[data-v-5377d95a]{visibility:visible}.print-only[data-v-5377d95a]{left:0;position:absolute;top:0;width:100%}.voucher-container.print-version[data-v-5377d95a]{border:2px solid #000!important;font-size:12px!important;margin:0!important;max-width:none!important;padding:15px!important;width:100%!important}.ministry-voucher-section[data-v-5377d95a]{align-items:flex-start!important;display:flex!important;justify-content:space-between!important}.amount-display[data-v-5377d95a],.company-name[data-v-5377d95a]{font-size:14px!important}.signature-title[data-v-5377d95a]{font-size:10px!important}.department[data-v-5377d95a]{font-size:12px!important}.amount-line[data-v-5377d95a],.sub-department[data-v-5377d95a]{font-size:10px!important}.signature-name[data-v-5377d95a]{font-size:9px!important}}.print-only[data-v-5377d95a]{left:-9999px;position:absolute;top:-9999px}@media print{.print-only[data-v-5377d95a]{left:auto;position:static;top:auto}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".voucher-logo[data-v-5bbe45fd]{height:110px;line-height:1!important;margin-bottom:1px!important;-o-object-fit:contain;object-fit:contain;width:110px}.voucher-logo-gov[data-v-5bbe45fd]{height:auto;line-height:1!important;margin-bottom:4px!important;margin-top:30px!important;max-height:80px;max-width:80px;-o-object-fit:contain;object-fit:contain;width:auto}.modal-overlay[data-v-5bbe45fd]{align-items:center;background:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1000}.modal-content[data-v-5bbe45fd]{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-5bbe45fd]{align-items:center;border-bottom:1px solid #eee;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-5bbe45fd]{color:#333;margin:0}.close-btn[data-v-5bbe45fd]{background:none;border:none;color:#666;cursor:pointer;font-size:18px}.close-btn[data-v-5bbe45fd]:hover{color:#333}.modal-body[data-v-5bbe45fd]{padding:20px}.modal-footer[data-v-5bbe45fd]{border-top:1px solid #eee;display:flex;gap:10px;justify-content:flex-end;padding:20px}.btn[data-v-5bbe45fd]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:14px;gap:8px;padding:10px 20px;transition:all .2s}.btn-primary[data-v-5bbe45fd]{background:#007bff;color:#fff}.btn-primary[data-v-5bbe45fd]:hover{background:#0056b3}.btn-secondary[data-v-5bbe45fd]{background:#6c757d;color:#fff}.btn-secondary[data-v-5bbe45fd]:hover{background:#545b62}.voucher-container[data-v-5bbe45fd]{background:#fff;border:2px solid #333;font-family:\"Phetsarath OT\",\"Noto Sans Lao\",Arial,sans-serif;font-size:14px;font-weight:700;line-height:1.3;margin:0 auto;max-width:700px;padding:15px;width:100%}.voucher-container *[data-v-5bbe45fd]{font-weight:700!important}.voucher-header[data-v-5bbe45fd]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:15;padding-bottom:5px}.ministry-voucher-section[data-v-5bbe45fd]{margin:0 0 10px!important;padding:0!important}.ministry-voucher-section .col[data-v-5bbe45fd],.ministry-voucher-section .v-col[data-v-5bbe45fd]{margin:0!important;padding:0!important}.row[data-v-5bbe45fd]{margin:0!important}.col[data-v-5bbe45fd]{padding:0!important}.company-info[data-v-5bbe45fd]{flex:1;text-align:center}.company-name[data-v-5bbe45fd]{font-size:16px;margin-bottom:3px}.company-name[data-v-5bbe45fd],.department[data-v-5bbe45fd]{font-weight:700!important}.department[data-v-5bbe45fd]{font-size:14px;margin-bottom:3px}.sub-department[data-v-5bbe45fd]{font-size:12px;margin-bottom:8px}.amount-line[data-v-5bbe45fd],.sub-department[data-v-5bbe45fd]{font-weight:700!important}.amount-line[data-v-5bbe45fd]{font-size:12px;letter-spacing:2px}.number-box[data-v-5bbe45fd]{background:#f9f9f9;border:2px solid #333;margin-bottom:5px;padding:6px 10px;text-align:center}.number-label[data-v-5bbe45fd]{margin-right:8px}.number-label[data-v-5bbe45fd],.number-value[data-v-5bbe45fd]{font-weight:700!important}.number-value[data-v-5bbe45fd]{color:#d32f2f}.voucher-title[data-v-5bbe45fd]{font-size:18px;font-weight:700!important;margin:15px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}.voucher-title[data-v-5bbe45fd]:not(.voucher-container>.voucher-title){font-size:16px!important;font-weight:700!important;line-height:1.2!important;margin:0 0 2px!important;text-align:left!important;-webkit-text-decoration:none!important;text-decoration:none!important}.voucher-details[data-v-5bbe45fd]{margin-bottom:25px}.detail-row[data-v-5bbe45fd]{align-items:center;display:flex;margin-bottom:10px;min-height:22px}.detail-row.description[data-v-5bbe45fd]{align-items:flex-start;flex-direction:column}.label[data-v-5bbe45fd]{margin-right:8px;white-space:nowrap}.label[data-v-5bbe45fd],.value[data-v-5bbe45fd]{font-weight:700!important}.value[data-v-5bbe45fd]{border-bottom:1px solid #333;margin-right:15px;min-width:35px;padding:2px 4px;text-align:center}.dotted-line[data-v-5bbe45fd]{border-bottom:1px dotted #333;flex:1;font-weight:700!important;margin:0 8px;min-height:18px;padding:2px 4px}.currency-options[data-v-5bbe45fd]{display:flex;gap:15px;margin-left:8px}.currency-options label[data-v-5bbe45fd]{align-items:center;display:flex;gap:4px}.amount-display[data-v-5bbe45fd],.currency-options label[data-v-5bbe45fd]{font-weight:700!important}.amount-display[data-v-5bbe45fd]{color:#d32f2f;font-size:16px;margin:0 8px}.description-content[data-v-5bbe45fd]{background:#fafafa;border:1px solid #333;margin-top:4px;min-height:50px;padding:8px;width:100%}.amount-words[data-v-5bbe45fd],.description-content[data-v-5bbe45fd]{font-weight:700!important}.amount-words[data-v-5bbe45fd]{border-bottom:1px solid #333;flex:1;font-style:italic;margin-left:8px;padding:2px 8px}.signature-section[data-v-5bbe45fd]{display:flex;gap:8px;justify-content:space-between;margin-top:30px}.signature-box[data-v-5bbe45fd]{flex:1;text-align:center}.signature-title[data-v-5bbe45fd]{font-size:14px;font-weight:700!important;margin-bottom:100px}.signature-line[data-v-5bbe45fd]{border-bottom:1px solid #333;height:1px;margin-top:15px}.signature-name[data-v-5bbe45fd]{color:#666;font-size:14px;font-weight:700!important;margin-top:4px}.voucher-title-main[data-v-5bbe45fd]{font-size:18px;font-weight:700;margin:20px 0;text-align:center;-webkit-text-decoration:underline;text-decoration:underline}@media print{*[data-v-5bbe45fd],.print-only[data-v-5bbe45fd],.print-only *[data-v-5bbe45fd],body *[data-v-5bbe45fd]{font-weight:700!important}.print-only[data-v-5bbe45fd],.print-only *[data-v-5bbe45fd]{visibility:visible}.print-only[data-v-5bbe45fd]{left:0;position:absolute;top:0;width:100%}.voucher-container.print-version[data-v-5bbe45fd]{border:2px solid #000!important;font-size:12px!important;font-weight:700!important;margin:0!important;max-width:none!important;padding:15px!important;width:100%!important}}.print-only[data-v-5bbe45fd]{left:-9999px;position:absolute;top:-9999px}@media print{.print-only[data-v-5bbe45fd]{left:auto;position:static;top:auto}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -6223,25 +6237,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 557:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(644);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("2f2c2570", content, true, context)
-};
-
-/***/ }),
-
-/***/ 558:
+/***/ 559:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -6254,12 +6250,12 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5422c78c", content, true, context)
+  add("2f2c2570", content, true, context)
 };
 
 /***/ }),
 
-/***/ 559:
+/***/ 560:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -6272,12 +6268,12 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("683701e4", content, true, context)
+  add("5422c78c", content, true, context)
 };
 
 /***/ }),
 
-/***/ 560:
+/***/ 561:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -6290,12 +6286,12 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("3bcd7bf8", content, true, context)
+  add("683701e4", content, true, context)
 };
 
 /***/ }),
 
-/***/ 561:
+/***/ 562:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -6308,30 +6304,118 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
+  add("3bcd7bf8", content, true, context)
+};
+
+/***/ }),
+
+/***/ 563:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(654);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
   add("9673ac5e", content, true, context)
 };
 
 /***/ }),
 
-/***/ 586:
+/***/ 588:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentVoucher/index.vue?vue&type=template&id=5377d95a&scoped=true&
-var render = function render() {
-  var _vm$voucherData$curre, _vm$voucherData$curre2, _vm$voucherData$curre3, _vm$voucherData$maker, _vm$voucherData$minis, _vm$voucherData$curre4, _vm$voucherData$curre5, _vm$voucherData$maker2, _vm$voucherData$check, _vm$voucherData$maker3, _vm$voucherData$check2;
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(384);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(383);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentVoucher/index.vue?vue&type=template&id=5bbe45fd&scoped=true&
+
+
+
+var paymentVouchervue_type_template_id_5bbe45fd_scoped_true_render = function render() {
+  var _vm$voucherData$curre, _vm$voucherData$curre2, _vm$voucherData$curre3, _vm$voucherData$maker, _vm$voucherData$minis, _vm$voucherData$curre4, _vm$voucherData$curre5, _vm$voucherData$maker2, _vm$voucherData$check;
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_vm._ssrNode((_vm.showPrintDialog ? "<div class=\"modal-overlay\" data-v-5377d95a><div class=\"modal-content\" data-v-5377d95a><div class=\"modal-header\" data-v-5377d95a><h3 data-v-5377d95a>ພິມໃບຈ່າຍສົດອອກຄັງ</h3> <button class=\"close-btn\" data-v-5377d95a><i class=\"fas fa-times\" data-v-5377d95a></i></button></div> <div class=\"modal-body\" data-v-5377d95a><div id=\"voucher-print\" class=\"voucher-container\" data-v-5377d95a><div class=\"voucher-header\" data-v-5377d95a><div class=\"company-info\" data-v-5377d95a><div class=\"company-name\" data-v-5377d95a><img" + _vm._ssrAttr("src", __webpack_require__(166)) + " alt=\"Ministry Logo\" class=\"voucher-logo\" data-v-5377d95a></div> <div class=\"company-name\" data-v-5377d95a>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-5377d95a>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div> <div class=\"amount-line\" data-v-5377d95a>.........(000)..........</div></div></div> <div class=\"ministry-voucher-section\" data-v-5377d95a><div class=\"ministry-titles\" data-v-5377d95a><img" + _vm._ssrAttr("src", __webpack_require__(167)) + " alt=\"Ministry Logo\" class=\"voucher-logo\" data-v-5377d95a> <div class=\"voucher-title\" data-v-5377d95a>ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.</div> <div class=\"voucher-title\" data-v-5377d95a>ກົມແຜນການ ແລະ ການເງິນ</div> <div class=\"voucher-title\" data-v-5377d95a>ພະແນກຄຸ້ມຄອງລາຍຮັບ</div></div> <div class=\"voucher-number\" data-v-5377d95a><div class=\"number-box\" data-v-5377d95a><span class=\"number-label\" data-v-5377d95a>No</span> <span class=\"number-value\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" style=\"font-size: 14px !important\" data-v-5377d95a>ວັນທີ\n                </span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatDateLao(_vm.voucherData.bookingDate))) + "</span></div></div></div> <div class=\"voucher-title\" data-v-5377d95a>ໃບຈ່າຍເງິນສົດອອກຄັງ</div> <div class=\"voucher-details\" data-v-5377d95a><div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ອີງໃສ່ໃບສັ່ງຈ່າຍ ເລກທີ</span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRefNo || _vm.formatVoucherNumber(_vm.voucherData.id) || 'N/A') + "\n                " + _vm._s(_vm.voucherData.externalRef || '')) + "</span> <span class=\"label\" data-v-5377d95a>ລົງວັນທີ</span> <span class=\"value\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).day)) + "</span> <span class=\"label\" data-v-5377d95a>ເດືອນ</span> <span class=\"value\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).month)) + "</span> <span class=\"label\" data-v-5377d95a>ປີ</span> <span class=\"value\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).year)) + "</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ພະແນກຄຸ້ມຄອງລາຍຮັບ, ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ.</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ໄດ້ຈ່າຍເງິນ </span> <label data-v-5377d95a><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cash') + " data-v-5377d95a></label> <span class=\"label\" data-v-5377d95a> ສົດ </span> <label data-v-5377d95a><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cheque') + " data-v-5377d95a></label> <span class=\"label\" data-v-5377d95a> ແຊັກເລກທີ່ </span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.voucherData.chequeNo || '')) + "</span> <div class=\"currency-options\" data-v-5377d95a><label data-v-5377d95a><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre = _vm.voucherData.currency) === null || _vm$voucherData$curre === void 0 ? void 0 : _vm$voucherData$curre.code) === 'LAK') + " data-v-5377d95a>\n                  ກີບ</label> <label data-v-5377d95a><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre2 = _vm.voucherData.currency) === null || _vm$voucherData$curre2 === void 0 ? void 0 : _vm$voucherData$curre2.code) === 'THB') + " data-v-5377d95a>\n                  ບາດ</label> <label data-v-5377d95a><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre3 = _vm.voucherData.currency) === null || _vm$voucherData$curre3 === void 0 ? void 0 : _vm$voucherData$curre3.code) === 'USD') + " data-v-5377d95a>\n                  ໂດລາ</label></div></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ໃຫ້ທ່ານ</span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker = _vm.voucherData.maker) === null || _vm$voucherData$maker === void 0 ? void 0 : _vm$voucherData$maker.cus_name) || '')) + "</span> <span class=\"label\" data-v-5377d95a>ເລກບັດປະຈຳຕົວ</span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveIDNO || '')) + "</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ສັງກັດຢູ່ພາກສ່ວນ ກົມ/ກອງ</span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$minis = _vm.voucherData.ministry) === null || _vm$voucherData$minis === void 0 ? void 0 : _vm$voucherData$minis.ministryName) || '')) + "</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ເນື້ອໃນລາຍຈ່າຍ</span> <span class=\"dotted-line\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.voucherData.purpose || '')) + "</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a></span> <span class=\"dotted-line\" data-v-5377d95a></span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a></span> <span class=\"dotted-line\" data-v-5377d95a></span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ຈຳນວນ</span> <span class=\"amount-display\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount)) + " " + _vm._s(_vm.getCurrencyWord((_vm$voucherData$curre4 = _vm.voucherData.currency) === null || _vm$voucherData$curre4 === void 0 ? void 0 : _vm$voucherData$curre4.code)) + "\n              ") + "</span></div> <div class=\"detail-row\" data-v-5377d95a><span class=\"label\" data-v-5377d95a>ຈຳນວນເງິນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre5 = _vm.voucherData.currency) === null || _vm$voucherData$curre5 === void 0 ? void 0 : _vm$voucherData$curre5.code))) + "</span></div></div> <div class=\"signature-section\" data-v-5377d95a><div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ຫົວໜ້າພະແນກ ຄຸ້ມຄອງລາຍຮັບ</div> <div class=\"signature-name\" data-v-5377d95a></div></div> <div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ຜູ້ຮັບເງິນ</div> <div class=\"signature-name\" data-v-5377d95a>" + _vm._ssrEscape("\n                " + _vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker2 = _vm.voucherData.maker) === null || _vm$voucherData$maker2 === void 0 ? void 0 : _vm$voucherData$maker2.cus_name) || '') + "\n              ") + "</div></div> <div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-name\" data-v-5377d95a>" + _vm._ssrEscape("\n                " + _vm._s(((_vm$voucherData$check = _vm.voucherData.checker) === null || _vm$voucherData$check === void 0 ? void 0 : _vm$voucherData$check.cus_name) || '') + "\n              ") + "</div></div></div></div></div> <div class=\"modal-footer\" data-v-5377d95a><button class=\"btn btn-secondary\" data-v-5377d95a><i class=\"fas fa-times\" data-v-5377d95a></i>\n          ຍົກເລີກ\n        </button> <button class=\"btn btn-primary\" data-v-5377d95a><i class=\"fas fa-print\" data-v-5377d95a></i>\n          ພິມ\n        </button></div></div></div>" : "<!---->") + " <div class=\"print-only\"" + _vm._ssrStyle(null, null, {
-    display: false ? undefined : 'none'
-  }) + " data-v-5377d95a><div class=\"voucher-container print-version\" data-v-5377d95a><div class=\"voucher-header\" data-v-5377d95a><div class=\"company-info\" data-v-5377d95a><div class=\"company-name\" data-v-5377d95a>ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div> <div class=\"department\" data-v-5377d95a>ກົມການເງິນ ແລະ ສິນເຊື່ອ</div> <div class=\"sub-department\" data-v-5377d95a>\n            ພະນັກງານການເງິນ ອຳນວຍການ ວິທະຍາລັຍຂັ້ນສູງ\n          </div> <div class=\"amount-line\" data-v-5377d95a>.........(000)..........</div></div> <div class=\"voucher-number\" data-v-5377d95a><div class=\"number-box\" data-v-5377d95a><span class=\"number-label\" data-v-5377d95a>No</span> <span class=\"number-value\" data-v-5377d95a>" + _vm._ssrEscape(_vm._s(_vm.formatVoucherNumber(_vm.voucherData.id))) + "</span></div></div></div> <div class=\"signature-section\" data-v-5377d95a><div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ຜູ້ຮັບເງິນຂຶ້ນເຊັນ ຊື່ເຕັມ</div> <div class=\"signature-line\" data-v-5377d95a></div> <div class=\"signature-name\" data-v-5377d95a>" + _vm._ssrEscape("\n            " + _vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker3 = _vm.voucherData.maker) === null || _vm$voucherData$maker3 === void 0 ? void 0 : _vm$voucherData$maker3.cus_name) || '') + "\n          ") + "</div></div> <div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ຜູ້ສົ່ງເງິນ</div> <div class=\"signature-line\" data-v-5377d95a></div></div> <div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-line\" data-v-5377d95a></div></div> <div class=\"signature-box\" data-v-5377d95a><div class=\"signature-title\" data-v-5377d95a>ນາຍຄົນຈັງ</div> <div class=\"signature-line\" data-v-5377d95a></div> <div class=\"signature-name\" data-v-5377d95a>" + _vm._ssrEscape("\n            " + _vm._s(((_vm$voucherData$check2 = _vm.voucherData.checker) === null || _vm$voucherData$check2 === void 0 ? void 0 : _vm$voucherData$check2.cus_name) || '') + "\n          ") + "</div></div></div></div></div>")]);
+  return _c('div', [_vm.showPrintDialog ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-5bbe45fd>", "</div>", [_vm._ssrNode("<div class=\"modal-content\" data-v-5bbe45fd>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-5bbe45fd><h3 data-v-5bbe45fd>ພິມໃບຈ່າຍສົດອອກຄັງ</h3> <button class=\"close-btn\" data-v-5bbe45fd><i class=\"fas fa-times\" data-v-5bbe45fd></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-5bbe45fd>", "</div>", [_vm._ssrNode("<div id=\"voucher-print\" class=\"voucher-container\" data-v-5bbe45fd>", "</div>", [_vm._ssrNode("<div class=\"voucher-header\" data-v-5bbe45fd><div class=\"company-info\" data-v-5bbe45fd><div class=\"company-name\" data-v-5bbe45fd><img" + _vm._ssrAttr("src", __webpack_require__(167)) + " alt=\"Ministry Logo\" class=\"voucher-logo-gov\" data-v-5bbe45fd></div> <div class=\"company-name\" data-v-5bbe45fd>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-5bbe45fd>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div></div></div> "), _c(VRow["a" /* default */], {
+    staticClass: "ministry-voucher-section",
+    attrs: {
+      "align": "end",
+      "justify": "space-between",
+      "no-gutters": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-start pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c('img', {
+    staticClass: "voucher-logo",
+    attrs: {
+      "src": __webpack_require__(166),
+      "alt": "Ministry Logo"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  }, [_vm._v("ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ.")]), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  }, [_vm._v("ກົມແຜນການ ແລະ ການເງິນ")]), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  }, [_vm._v("ພະແນກຄຸ້ມຄອງລາຍຮັບ")]), _vm._v(" "), _c('div', {
+    staticClass: "voucher-title"
+  })]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-end pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c('div', {
+    staticClass: "number-box"
+  }, [_c('span', {
+    staticClass: "number-label"
+  }, [_vm._v("No")]), _vm._v(" "), _c('span', {
+    staticClass: "number-value"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatVoucherNumber(_vm.voucherData.id)) + "\n                ")])])])], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+    staticClass: "ministry-voucher-section",
+    attrs: {
+      "align": "end",
+      "justify": "space-between",
+      "no-gutters": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-start pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "d-flex flex-column align-end pa-0",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c('div', {
+    staticClass: "voucher-title"
+  }, [_c('span', {
+    staticClass: "label",
+    staticStyle: {
+      "font-size": "14px !important"
+    }
+  }, [_vm._v("ນະຄອນຫຼວງວຽງຈັນ ວັນທີ")]), _vm._v(" "), _c('span', {
+    staticClass: "dotted-line"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatDateLao(_vm.voucherData.bookingDate)) + "\n                ")])])])], 1), _vm._ssrNode(" <div class=\"voucher-title-main\" data-v-5bbe45fd>ໃບຈ່າຍເງິນສົດອອກຄັງ</div> <div class=\"voucher-details\" data-v-5bbe45fd><div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ອີງໃສ່ໃບສັ່ງຈ່າຍ ເລກທີ</span> <span class=\"dotted-line\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.voucherData.externalRefNo || _vm.formatVoucherNumber(_vm.voucherData.id) || 'N/A') + "\n                " + _vm._s(_vm.voucherData.externalRef || '')) + "</span> <span class=\"label\" data-v-5bbe45fd>ລົງວັນທີ</span> <span class=\"value\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).day)) + "</span> <span class=\"label\" data-v-5bbe45fd>ເດືອນ</span> <span class=\"value\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).month)) + "</span> <span class=\"label\" data-v-5bbe45fd>ປີ</span> <span class=\"value\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.voucherData.createdAt).year)) + "</span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ພະແນກຄຸ້ມຄອງລາຍຮັບ, ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ.</span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ໄດ້ຈ່າຍເງິນ </span> <label data-v-5bbe45fd><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cash') + " data-v-5bbe45fd></label> <span class=\"label\" data-v-5bbe45fd> ສົດ </span> <label data-v-5bbe45fd><input type=\"checkbox\"" + _vm._ssrAttr("checked", _vm.voucherData.method === 'cheque') + " data-v-5bbe45fd></label> <span class=\"label\" data-v-5bbe45fd> ແຊັກເລກທີ່ </span> <span class=\"dotted-line\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.voucherData.chequeNo || '')) + "</span> <div class=\"currency-options\" data-v-5bbe45fd><label data-v-5bbe45fd><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre = _vm.voucherData.currency) === null || _vm$voucherData$curre === void 0 ? void 0 : _vm$voucherData$curre.code) === 'LAK') + " data-v-5bbe45fd>\n                  ກີບ</label> <label data-v-5bbe45fd><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre2 = _vm.voucherData.currency) === null || _vm$voucherData$curre2 === void 0 ? void 0 : _vm$voucherData$curre2.code) === 'THB') + " data-v-5bbe45fd>\n                  ບາດ</label> <label data-v-5bbe45fd><input type=\"checkbox\"" + _vm._ssrAttr("checked", ((_vm$voucherData$curre3 = _vm.voucherData.currency) === null || _vm$voucherData$curre3 === void 0 ? void 0 : _vm$voucherData$curre3.code) === 'USD') + " data-v-5bbe45fd>\n                  ໂດລາ</label></div></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ໃຫ້ທ່ານ</span> <span class=\"dotted-line\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker = _vm.voucherData.maker) === null || _vm$voucherData$maker === void 0 ? void 0 : _vm$voucherData$maker.cus_name) || '')) + "</span> <span class=\"label\" data-v-5bbe45fd>ເລກບັດປະຈຳຕົວ</span> <span class=\"dotted-line\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.voucherData.receiveIDNO || '')) + "</span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ສັງກັດຢູ່ພາກສ່ວນ ກົມ/ກອງ</span> <span class=\"dotted-line\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(((_vm$voucherData$minis = _vm.voucherData.ministry) === null || _vm$voucherData$minis === void 0 ? void 0 : _vm$voucherData$minis.ministryName) || '')) + "</span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ເນື້ອໃນລາຍຈ່າຍ</span> <span class=\"dotted-line\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.voucherData.purpose || '')) + "</span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd></span> <span class=\"dotted-line\" data-v-5bbe45fd></span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd></span> <span class=\"dotted-line\" data-v-5bbe45fd></span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ຈຳນວນ</span> <span class=\"amount-display\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.voucherData.amount)) + "\n                " + _vm._s(_vm.getCurrencyWord((_vm$voucherData$curre4 = _vm.voucherData.currency) === null || _vm$voucherData$curre4 === void 0 ? void 0 : _vm$voucherData$curre4.code)) + "\n              ") + "</span></div> <div class=\"detail-row\" data-v-5bbe45fd><span class=\"label\" data-v-5bbe45fd>ຈຳນວນເງິນເປັນຕົວຫນັງສື</span> <span class=\"amount-words\" data-v-5bbe45fd>" + _vm._ssrEscape(_vm._s(_vm.convertToWords(_vm.voucherData.amount, (_vm$voucherData$curre5 = _vm.voucherData.currency) === null || _vm$voucherData$curre5 === void 0 ? void 0 : _vm$voucherData$curre5.code))) + "</span></div></div> <div class=\"signature-section\" data-v-5bbe45fd><div class=\"signature-box\" data-v-5bbe45fd><div class=\"signature-title\" data-v-5bbe45fd>ຫົວໜ້າພະແນກ ຄຸ້ມຄອງລາຍຮັບ</div> <div class=\"signature-name\" data-v-5bbe45fd></div></div> <div class=\"signature-box\" data-v-5bbe45fd><div class=\"signature-title\" data-v-5bbe45fd>ຜູ້ຮັບເງິນ</div> <div class=\"signature-name\" data-v-5bbe45fd>" + _vm._ssrEscape("\n                " + _vm._s(_vm.voucherData.receiveName || ((_vm$voucherData$maker2 = _vm.voucherData.maker) === null || _vm$voucherData$maker2 === void 0 ? void 0 : _vm$voucherData$maker2.cus_name) || '') + "\n              ") + "</div></div> <div class=\"signature-box\" data-v-5bbe45fd><div class=\"signature-title\" data-v-5bbe45fd>ຜູ້ຈ່າຍເງິນ</div> <div class=\"signature-name\" data-v-5bbe45fd>" + _vm._ssrEscape("\n                " + _vm._s(((_vm$voucherData$check = _vm.voucherData.checker) === null || _vm$voucherData$check === void 0 ? void 0 : _vm$voucherData$check.cus_name) || '') + "\n              ") + "</div></div></div>")], 2)]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-5bbe45fd><button class=\"btn btn-secondary\" data-v-5bbe45fd><i class=\"fas fa-times\" data-v-5bbe45fd></i>\n          ຍົກເລີກ\n        </button> <button class=\"btn btn-primary\" data-v-5bbe45fd><i class=\"fas fa-print\" data-v-5bbe45fd></i>\n          ພິມ\n        </button></div>")], 2)]) : _vm._e()]);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/MA/paymentVoucher/index.vue?vue&type=template&id=5377d95a&scoped=true&
+// CONCATENATED MODULE: ./components/MA/paymentVoucher/index.vue?vue&type=template&id=5bbe45fd&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentVoucher/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var paymentVouchervue_type_script_lang_js_ = ({
@@ -6346,7 +6430,6 @@ var staticRenderFns = [];
         note: '',
         status: 'pending',
         method: 'cash',
-        // ✅ NEW: Default method
         approvedAt: null,
         dueDate: '2025-07-24T00:00:00.000Z',
         createdAt: '2025-07-09T15:12:51.000Z',
@@ -6737,7 +6820,6 @@ var staticRenderFns = [];
       }
       return result;
     },
-    // ✅ FIXED: Single printVoucher method without auto-close
     printVoucher() {
       const printContent = this.$refs.voucherContent.innerHTML;
       const printWindow = window.open('', '_blank', 'width=800,height=600');
@@ -6751,14 +6833,31 @@ var staticRenderFns = [];
                 margin: 0; 
                 padding: 20px; 
                 line-height: 1.4;
+                font-weight: bold !important;
               }
 
-              .voucher-logo {
+              * {
+                font-weight: bold !important;
+              }
+
+                .voucher-logo {
+                  width: 110px;
+                  height: 110px;
+                  /* width: auto;
+                  height: auto; */
+                  object-fit: contain;
+                  margin-bottom: 1px !important;
+                  line-height: 1 !important;
+                }
+              .voucher-logo-gov {
                 max-width: 90px;
                 max-height: 90px;
                 width: auto;
                 height: auto;
                 object-fit: contain;
+                margin-top: 30px !important;
+                margin-bottom: 4px !important;
+                line-height: 1 !important;
               }
               .voucher-container { 
                 border: 2px solid #000; 
@@ -6767,188 +6866,155 @@ var staticRenderFns = [];
                 line-height: 1.4; 
                 max-width: 210mm;
                 margin: 0 auto;
+                font-weight: bold;
               }
               .voucher-header { 
                 display: flex; 
                 justify-content: space-between; 
                 align-items: flex-start; 
-                margin-bottom: 20px; 
-                padding-bottom: 10px; 
+                margin-bottom: 15px; 
+                padding-bottom: 5px; 
               }
               .ministry-voucher-section {
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-start;
-                margin-bottom: 20px;
-                padding: 10px 0;
+                align-items: flex-end;
+                margin: 0 !important;
+                padding: 0 !important;
+                margin-bottom: 10px !important;
               }
-              .ministry-titles {
-                flex: 1;
-                text-align: left;
+              .ministry-voucher-section .col,
+              .ministry-voucher-section > div {
+                padding: 0 !important;
+                margin: 0 !important;
               }
-              .ministry-titles .voucher-title {
+              .voucher-title {
                 font-size: 16px !important;
-                margin-bottom: 1px !important;
-                line-height: 1 !important;
+                margin: 0 !important;
+                margin-bottom: 2px !important;
+                line-height: 1.2 !important;
                 text-align: left;
                 text-decoration: none;
+                font-weight: bold !important;
+              }
+              .voucher-title-main {
+                text-align: center;
+                font-size: 18px;
                 font-weight: bold;
+                margin: 20px 0;
+                text-decoration: underline;
               }
               .company-info { 
                 flex: 1; 
                 text-align: center; 
               }
               .company-name { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 font-size: 14px; 
-                margin-bottom: 5px; 
+                margin-bottom: 3px; 
               }
               .department { 
                 font-size: 12px; 
                 margin-bottom: 3px; 
+                font-weight: bold !important;
               }
               .sub-department { 
                 font-size: 10px; 
                 margin-bottom: 10px; 
+                font-weight: bold !important;
               }
               .amount-line { 
                 font-size: 10px; 
                 letter-spacing: 2px; 
-              }
-              .voucher-number { 
-                flex: 0 0 auto; 
-                margin-left: 20px; 
-                text-align: right;
+                font-weight: bold !important;
               }
               .number-box { 
                 border: 2px solid #000; 
-                padding: 8px 12px; 
+                padding: 5px 8px; 
                 text-align: center; 
                 background: #f9f9f9; 
-                margin-bottom: 8px;
+                margin-bottom: 5px;
               }
               .number-label { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 margin-right: 10px; 
               }
               .number-value { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 color: #d32f2f;
-              }
-              .voucher-title { 
-                text-align: center; 
-                font-size: 16px; 
-                font-weight: bold; 
-                margin: 20px 0; 
-                text-decoration: underline; 
-              }
-              .voucher-details { 
-                margin-bottom: 30px; 
               }
               .detail-row { 
                 display: flex; 
                 align-items: center; 
-                margin-bottom: 12px; 
-                min-height: 24px; 
-              }
-              .detail-row.description { 
-                flex-direction: column; 
-                align-items: flex-start; 
+                margin-bottom: 8px; 
+                min-height: 20px; 
               }
               .label { 
-                font-weight: 500; 
-                margin-right: 10px; 
+                font-weight: bold !important; 
+                margin-right: 8px; 
                 white-space: nowrap; 
               }
               .value { 
-                margin-right: 20px; 
+                margin-right: 15px; 
                 border-bottom: 1px solid #000; 
-                min-width: 40px; 
+                min-width: 35px; 
                 text-align: center; 
-                padding: 2px 5px; 
-                font-weight: 600;
+                padding: 1px 3px; 
+                font-weight: bold !important;
               }
               .dotted-line { 
                 flex: 1; 
                 border-bottom: 1px dotted #000; 
-                margin: 0 10px; 
-                min-height: 20px; 
-                padding: 2px 5px; 
+                margin: 0 8px; 
+                min-height: 18px; 
+                padding: 1px 3px; 
+                font-weight: bold !important;
               }
               .currency-options { 
                 display: flex; 
-                gap: 20px; 
-                margin-left: 10px; 
+                gap: 15px; 
+                margin-left: 8px; 
               }
               .currency-options label { 
                 display: flex; 
                 align-items: center; 
-                gap: 5px; 
-                font-weight: normal; 
+                gap: 3px; 
+                font-weight: bold !important; 
               }
               .amount-display { 
-                font-weight: bold; 
+                font-weight: bold !important; 
                 font-size: 14px; 
-                margin: 0 10px; 
+                margin: 0 8px; 
                 color: #d32f2f;
-              }
-              .description-content { 
-                width: 100%; 
-                min-height: 60px; 
-                border: 1px solid #000; 
-                padding: 10px; 
-                margin-top: 5px; 
-                background: #fafafa; 
               }
               .amount-words { 
                 flex: 1; 
                 border-bottom: 1px solid #000; 
-                margin-left: 10px; 
-                padding: 2px 10px; 
+                margin-left: 8px; 
+                padding: 1px 8px; 
                 font-style: italic; 
+                font-weight: bold !important;
               }
               .signature-section { 
                 display: flex; 
                 justify-content: space-between; 
-                margin-top: 40px; 
-                gap: 10px; 
+                margin-top: 30px; 
+                gap: 8px; 
               }
               .signature-box { 
                 flex: 1; 
                 text-align: center; 
               }
               .signature-title { 
-                font-size: 10px; 
-                margin-bottom: 30px; 
-                font-weight: 500; 
-              }
-              .signature-line { 
-                border-bottom: 1px solid #000; 
-                height: 1px; 
-                margin-top: 20px; 
+                font-size: 14px; 
+                margin-bottom: 25px;
+                margin-bottom: 100px; 
+                font-weight: bold !important; 
               }
               .signature-name { 
-                font-size: 9px; 
+                font-size: 14px; 
                 margin-top: 5px; 
-                font-weight: normal; 
-              }
-              @media print {
-                .ministry-voucher-section {
-                  display: flex !important;
-                  justify-content: space-between !important;
-                  align-items: flex-start !important;
-                  margin-bottom: 20px !important;
-                  padding: 10px 0 !important;
-                }
-                .ministry-titles {
-                  flex: 1 !important;
-                  text-align: left !important;
-                }
-                .voucher-number {
-                  flex: 0 0 auto !important;
-                  margin-left: 20px !important;
-                  text-align: right !important;
-                }
+                font-weight: bold !important; 
               }
             </style>
           </head>
@@ -6960,9 +7026,6 @@ var staticRenderFns = [];
       printWindow.document.close();
       printWindow.print();
       printWindow.close();
-
-      // ✅ REMOVED: Don't auto-close the dialog after printing
-      // this.showPrintDialog = false
     }
   }
 });
@@ -6977,7 +7040,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(555)
+  var style0 = __webpack_require__(557)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6986,11 +7049,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_paymentVouchervue_type_script_lang_js_,
-  render,
+  paymentVouchervue_type_template_id_5bbe45fd_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "5377d95a",
+  "5bbe45fd",
   "36e13303"
   
 )
@@ -6999,19 +7062,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 643:
+/***/ 645:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ef9c6946_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(557);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ef9c6946_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(559);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ef9c6946_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ef9c6946_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ef9c6946_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ef9c6946_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 644:
+/***/ 646:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7026,19 +7089,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 645:
+/***/ 647:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bf00b78_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(558);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bf00b78_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(560);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bf00b78_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bf00b78_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bf00b78_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bf00b78_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 646:
+/***/ 648:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7053,19 +7116,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 647:
+/***/ 649:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(559);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(561);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 648:
+/***/ 650:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7080,19 +7143,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 649:
+/***/ 651:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(560);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(562);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 650:
+/***/ 652:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7107,19 +7170,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 651:
+/***/ 653:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(561);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(563);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 652:
+/***/ 654:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7134,13 +7197,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 737:
+/***/ 739:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(926);
+var content = __webpack_require__(928);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -7152,7 +7215,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 846:
+/***/ 848:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7160,7 +7223,7 @@ module.exports.__inject__ = function (context) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(429);
+var VDatePicker = __webpack_require__(430);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(125);
@@ -7501,7 +7564,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/MA/paymentDialog/index.vue?vue&type=template&id=ef9c6946&scoped=true&
 
 // EXTERNAL MODULE: ./components/MA/paymentVoucher/index.vue + 4 modules
-var paymentVoucher = __webpack_require__(586);
+var paymentVoucher = __webpack_require__(588);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentDialog/index.vue?vue&type=script&lang=js&
 
@@ -8102,7 +8165,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(643)
+  var style0 = __webpack_require__(645)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -8124,7 +8187,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 847:
+/***/ 849:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8261,7 +8324,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(645)
+  var style0 = __webpack_require__(647)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -8283,7 +8346,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 848:
+/***/ 850:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8600,7 +8663,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(647)
+  var style0 = __webpack_require__(649)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -8622,7 +8685,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 849:
+/***/ 851:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9005,7 +9068,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(649)
+  var style0 = __webpack_require__(651)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -9027,7 +9090,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 850:
+/***/ 852:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9464,7 +9527,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(651)
+  var style0 = __webpack_require__(653)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -9486,19 +9549,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 925:
+/***/ 927:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_06f119f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(737);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_06f119f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(739);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_06f119f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_06f119f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_06f119f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_06f119f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 926:
+/***/ 928:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports

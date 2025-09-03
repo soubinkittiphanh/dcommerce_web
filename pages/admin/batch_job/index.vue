@@ -38,6 +38,20 @@
               </v-col>
               <v-col cols="2">
                 <v-select
+                  v-model="filters.mouId"
+                  :items="mouFilterOptions"
+                  :loading="loadingMous"
+                  label="MOU"
+                  dense
+                  outlined
+                  hide-details="auto"
+                  clearable
+                  item-text="mouName"
+                  item-value="id"
+                />
+              </v-col>
+              <v-col cols="2">
+                <v-select
                   v-model="filters.status"
                   :items="statusOptions"
                   label="Status"
@@ -58,7 +72,7 @@
                   clearable
                 />
               </v-col>
-              <v-col cols="3">
+              <v-col cols="2">
                 <v-menu
                   ref="dateMenu"
                   v-model="dateMenu"
@@ -88,7 +102,7 @@
                   />
                 </v-menu>
               </v-col>
-              <v-col cols="2">
+              <v-col cols="1">
                 <v-btn
                   color="secondary"
                   outlined
@@ -96,7 +110,7 @@
                   @click="clearFilters"
                   block
                 >
-                  Clear Filters
+                  Clear
                 </v-btn>
               </v-col>
             </v-row>
@@ -129,7 +143,7 @@
             :options.sync="tableOptions"
             :server-items-length="totalItems"
             :footer-props="{
-              'items-per-page-options': [10, 25, 50, 100]
+              'items-per-page-options': [10, 25, 50, 100],
             }"
             class="elevation-0"
             dense
@@ -139,6 +153,18 @@
               <v-chip x-small color="grey" text-color="white">
                 {{ item.runningNo }}
               </v-chip>
+            </template>
+
+            <!-- MOU Information -->
+            <template v-slot:item.mou="{ item }">
+              <div v-if="item.mou" class="d-flex align-center">
+                <v-icon small color="primary" class="mr-1">mdi-file-document-outline</v-icon>
+                <div>
+                  <div class="text-body-2">{{ item.mou.mouName }}</div>
+                  <div class="text-caption grey--text">{{ item.mou.mouNumber }}</div>
+                </div>
+              </div>
+              <span v-else class="text-caption grey--text">No MOU</span>
             </template>
 
             <!-- Status -->
@@ -159,7 +185,9 @@
                 :color="getPriorityColor(item.priority)"
                 text-color="white"
               >
-                <v-icon left x-small>{{ getPriorityIcon(item.priority) }}</v-icon>
+                <v-icon left x-small>{{
+                  getPriorityIcon(item.priority)
+                }}</v-icon>
                 {{ item.priority.toUpperCase() }}
               </v-chip>
             </template>
@@ -167,7 +195,9 @@
             <!-- Total Positions -->
             <template v-slot:item.totalPositions="{ item }">
               <div class="text-center">
-                <span class="text-body-2 font-weight-bold">{{ item.totalPositions || 0 }}</span>
+                <span class="text-body-2 font-weight-bold">{{
+                  item.totalPositions || 0
+                }}</span>
               </div>
             </template>
 
@@ -260,7 +290,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="showStatusDialog = false">Cancel</v-btn>
-          <v-btn color="primary" @click="confirmStatusUpdate" :loading="updating">
+          <v-btn
+            color="primary"
+            @click="confirmStatusUpdate"
+            :loading="updating"
+          >
             Update
           </v-btn>
         </v-card-actions>
@@ -276,13 +310,14 @@ import { debounce } from 'lodash'
 export default {
   name: 'JobBatchList',
   components: {
-    JobBatchDialog
+    JobBatchDialog,
   },
   middleware: 'auths',
   data() {
     return {
       loading: false,
       updating: false,
+      loadingMous: false,
       dateMenu: false,
       showDialog: false,
       showStatusDialog: false,
@@ -291,50 +326,103 @@ export default {
       newStatus: '',
       jobBatches: [],
       totalItems: 0,
+      mouFilterOptions: [],
       statistics: {
-        total: { title: 'Total Batches', value: 0, icon: 'mdi-briefcase-outline', color: 'primary' },
-        active: { title: 'Active', value: 0, icon: 'mdi-play-circle', color: 'success' },
-        completed: { title: 'Completed', value: 0, icon: 'mdi-check-circle', color: 'success' },
-        overdue: { title: 'Overdue', value: 0, icon: 'mdi-clock-alert', color: 'error' },
-        draft: { title: 'Draft', value: 0, icon: 'mdi-file-document-outline', color: 'warning' },
-        positions: { title: 'Total Positions', value: 0, icon: 'mdi-account-group', color: 'info' }
+        total: {
+          title: 'Total Batches',
+          value: 0,
+          icon: 'mdi-briefcase-outline',
+          color: 'primary',
+        },
+        active: {
+          title: 'Active',
+          value: 0,
+          icon: 'mdi-play-circle',
+          color: 'success',
+        },
+        completed: {
+          title: 'Completed',
+          value: 0,
+          icon: 'mdi-check-circle',
+          color: 'success',
+        },
+        overdue: {
+          title: 'Overdue',
+          value: 0,
+          icon: 'mdi-clock-alert',
+          color: 'error',
+        },
+        draft: {
+          title: 'Draft',
+          value: 0,
+          icon: 'mdi-file-document-outline',
+          color: 'warning',
+        },
+        positions: {
+          title: 'Total Positions',
+          value: 0,
+          icon: 'mdi-account-group',
+          color: 'info',
+        },
       },
       filters: {
         search: '',
+        mouId: '',
         status: '',
         priority: '',
-        dateRange: null
+        dateRange: null,
       },
       tableOptions: {
         page: 1,
         itemsPerPage: 10,
         sortBy: ['createdAt'],
-        sortDesc: [true]
+        sortDesc: [true],
       },
       headers: [
-        { text: 'Running No.', value: 'runningNo', sortable: true, width: '120px' },
+        {
+          text: 'Running No.',
+          value: 'runningNo',
+          sortable: true,
+          width: '100px',
+        },
         { text: 'Batch Name', value: 'batchName', sortable: true },
+        { text: 'MOU', value: 'mou', sortable: false, width: '200px' },
         { text: 'Status', value: 'status', sortable: true, width: '100px' },
         { text: 'Priority', value: 'priority', sortable: true, width: '120px' },
-        { text: 'Positions', value: 'totalPositions', sortable: true, width: '100px' },
-        { text: 'Start Date', value: 'batchStartDate', sortable: true, width: '120px' },
-        { text: 'Deployment', value: 'deploymentDate', sortable: true, width: '120px' },
+        {
+          text: 'Positions',
+          value: 'totalPositions',
+          sortable: true,
+          width: '100px',
+        },
+        {
+          text: 'Start Date',
+          value: 'batchStartDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'Deployment',
+          value: 'deploymentDate',
+          sortable: true,
+          width: '120px',
+        },
         { text: 'Overdue', value: 'isOverdue', sortable: false, width: '80px' },
-        { text: 'Actions', value: 'actions', sortable: false, width: '80px' }
+        { text: 'Actions', value: 'actions', sortable: false, width: '80px' },
       ],
       statusOptions: [
         { text: 'Draft', value: 'draft' },
         { text: 'Active', value: 'active' },
         { text: 'Completed', value: 'completed' },
         { text: 'Cancelled', value: 'cancelled' },
-        { text: 'On Hold', value: 'on_hold' }
+        { text: 'On Hold', value: 'on_hold' },
       ],
       priorityOptions: [
         { text: 'Low', value: 'low' },
         { text: 'Medium', value: 'medium' },
         { text: 'High', value: 'high' },
-        { text: 'Urgent', value: 'urgent' }
-      ]
+        { text: 'Urgent', value: 'urgent' },
+      ],
     }
   },
   watch: {
@@ -342,7 +430,10 @@ export default {
       handler() {
         this.fetchJobBatches()
       },
-      deep: true
+      deep: true,
+    },
+    'filters.mouId'() {
+      this.fetchJobBatches()
     },
     'filters.status'() {
       this.fetchJobBatches()
@@ -352,14 +443,15 @@ export default {
     },
     'filters.dateRange'() {
       this.fetchJobBatches()
-    }
+    },
   },
   mounted() {
     this.fetchJobBatches()
     this.fetchStatistics()
+    this.fetchMouFilterOptions()
   },
   methods: {
-    debounceSearch: debounce(function() {
+    debounceSearch: debounce(function () {
       this.fetchJobBatches()
     }, 500),
 
@@ -370,17 +462,18 @@ export default {
           page: this.tableOptions.page,
           limit: this.tableOptions.itemsPerPage,
           sortBy: this.tableOptions.sortBy[0] || 'createdAt',
-          sortOrder: this.tableOptions.sortDesc[0] ? 'DESC' : 'ASC'
+          sortOrder: this.tableOptions.sortDesc[0] ? 'DESC' : 'ASC',
+          include: 'mou', // Include MOU information
         }
 
         if (this.filters.search) params.search = this.filters.search
+        if (this.filters.mouId) params.mouId = this.filters.mouId
         if (this.filters.status) params.status = this.filters.status
         if (this.filters.priority) params.priority = this.filters.priority
 
         const response = await this.$axios.get('/api/batch-job', { params })
         this.jobBatches = response.data.data.jobBatches
         this.totalItems = response.data.data.pagination.total
-
       } catch (error) {
         this.$toast.error('Failed to fetch job batches')
         console.error('Error fetching job batches:', error)
@@ -393,16 +486,33 @@ export default {
       try {
         const response = await this.$axios.get('/api/batch-job/dashboard-stats')
         const stats = response.data.data
-        
+
         this.statistics.total.value = stats.totalBatches
         this.statistics.active.value = stats.activeBatches
         this.statistics.completed.value = stats.completedBatches
         this.statistics.overdue.value = stats.overdueBatches
         this.statistics.draft.value = stats.draftBatches
         this.statistics.positions.value = stats.totalPositions
-
       } catch (error) {
         console.error('Error fetching statistics:', error)
+      }
+    },
+
+    async fetchMouFilterOptions() {
+      this.loadingMous = true
+      try {
+        const response = await this.$axios.get('/api/mous', {
+          params: {
+            limit: 100, // Get all for filter options
+            fields: 'id,mouName,mouNumber' // Only needed fields for filter
+          }
+        })
+        this.mouFilterOptions = response.data.data.mous || response.data.data || []
+      } catch (error) {
+        console.error('Error fetching MOU filter options:', error)
+        this.mouFilterOptions = []
+      } finally {
+        this.loadingMous = false
       }
     },
 
@@ -431,15 +541,17 @@ export default {
     async confirmStatusUpdate() {
       this.updating = true
       try {
-        await this.$axios.patch(`/api/batch-job/${this.selectedBatch.id}/status`, {
-          status: this.newStatus
-        })
-        
+        await this.$axios.patch(
+          `/api/batch-job/${this.selectedBatch.id}/status`,
+          {
+            status: this.newStatus,
+          }
+        )
+
         this.$toast.success('Status updated successfully')
         this.showStatusDialog = false
         this.fetchJobBatches()
         this.fetchStatistics()
-
       } catch (error) {
         this.$toast.error('Failed to update status')
         console.error('Error updating status:', error)
@@ -471,6 +583,7 @@ export default {
       this.showDialog = false
       this.fetchJobBatches()
       this.fetchStatistics()
+      this.fetchMouFilterOptions() // Refresh MOU options in case new ones were created
     },
 
     onDialogCancelled() {
@@ -480,9 +593,10 @@ export default {
     clearFilters() {
       this.filters = {
         search: '',
+        mouId: '',
         status: '',
         priority: '',
-        dateRange: null
+        dateRange: null,
       }
       this.fetchJobBatches()
     },
@@ -493,7 +607,7 @@ export default {
         active: 'green',
         completed: 'blue',
         cancelled: 'red',
-        on_hold: 'grey'
+        on_hold: 'grey',
       }
       return colors[status] || 'grey'
     },
@@ -503,7 +617,7 @@ export default {
         low: 'green',
         medium: 'orange',
         high: 'red',
-        urgent: 'deep-purple'
+        urgent: 'deep-purple',
       }
       return colors[priority] || 'grey'
     },
@@ -513,15 +627,15 @@ export default {
         low: 'mdi-arrow-down',
         medium: 'mdi-minus',
         high: 'mdi-arrow-up',
-        urgent: 'mdi-alert'
+        urgent: 'mdi-alert',
       }
       return icons[priority] || 'mdi-minus'
     },
 
     formatDate(date) {
       return new Date(date).toLocaleDateString()
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,20 +1,50 @@
 exports.ids = [150,18,19,20];
 exports.modules = {
 
-/***/ 1117:
+/***/ 1119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=template&id=6552b99d&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=template&id=0d96dcd4&scoped=true&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "applicant-summary-container"
-  }, [_vm._ssrNode("<div class=\"page-header\" data-v-6552b99d><div class=\"header-content\" data-v-6552b99d><h1 class=\"page-title\" data-v-6552b99d>ລະບົບຈັດການຜູ້ສະໝັກງານ</h1> <div class=\"header-actions\" data-v-6552b99d><button class=\"btn btn-primary\" data-v-6552b99d><i class=\"fas fa-plus\" data-v-6552b99d></i>\n          ເພີ່ມຜູ້ສະໝັກໃໝ່\n        </button> <button class=\"btn btn-secondary\" data-v-6552b99d><i class=\"fas fa-download\" data-v-6552b99d></i>\n          Export\n        </button></div></div></div> "), _vm._ssrNode("<div class=\"filter-section\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<div class=\"filter-row\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<div class=\"filter-group\" data-v-6552b99d><label data-v-6552b99d>ຄົ້ນຫາ:</label> <input type=\"text\" placeholder=\"ຊື່, ເບີໂທ, ໜັງສືເດີນທາງ...\"" + _vm._ssrAttr("value", _vm.filters.search) + " class=\"form-control\" data-v-6552b99d></div> "), _vm._ssrNode("<div class=\"filter-group\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<label data-v-6552b99d>ເພດ:</label> "), _c('select', {
+  }, [_vm._ssrNode("<div class=\"page-header\" data-v-0d96dcd4><div class=\"header-content\" data-v-0d96dcd4><h1 class=\"page-title\" data-v-0d96dcd4>ລະບົບຈັດການຜູ້ສະໝັກງານ</h1> <div class=\"header-actions\" data-v-0d96dcd4><button class=\"btn btn-primary\" data-v-0d96dcd4><i class=\"fas fa-plus\" data-v-0d96dcd4></i>\n          ເພີ່ມຜູ້ສະໝັກໃໝ່\n        </button> <button class=\"btn btn-secondary\" data-v-0d96dcd4><i class=\"fas fa-download\" data-v-0d96dcd4></i>\n          Export\n        </button></div></div></div> "), _vm._ssrNode("<div class=\"filter-section\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<div class=\"filter-row\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<div class=\"filter-group\" data-v-0d96dcd4><label data-v-0d96dcd4>ຄົ້ນຫາ:</label> <input type=\"text\" placeholder=\"ຊື່, ເບີໂທ, ໜັງສືເດີນທາງ...\"" + _vm._ssrAttr("value", _vm.filters.search) + " class=\"form-control\" data-v-0d96dcd4></div> "), _vm._ssrNode("<div class=\"filter-group\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<label data-v-0d96dcd4>Job Batch:</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.filters.jobBatchId,
+      expression: "filters.jobBatchId"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.filters, "jobBatchId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, _vm.applyFilters]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ທັງໝົດ")]), _vm._v(" "), _vm._l(_vm.availableJobBatches, function (batch) {
+    return _c('option', {
+      key: batch.id,
+      domProps: {
+        "value": batch.id
+      }
+    }, [_vm._v("\n            " + _vm._s(batch.batchName) + _vm._s(batch.workPlace ? ` - ${batch.workPlace}` : '') + "\n          ")]);
+  })], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<label data-v-0d96dcd4>ເພດ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -45,7 +75,7 @@ var render = function render() {
     attrs: {
       "value": "female"
     }
-  }, [_vm._v("ຍິງ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<label data-v-6552b99d>ສະຖານະ:</label> "), _c('select', {
+  }, [_vm._v("ຍິງ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<label data-v-0d96dcd4>ສະຖານະ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -80,7 +110,7 @@ var render = function render() {
     attrs: {
       "value": "rejected"
     }
-  }, [_vm._v("ປະຕິເສດ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<label data-v-6552b99d>ມີໜັງສືເດີນທາງ:</label> "), _c('select', {
+  }, [_vm._v("ປະຕິເສດ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<label data-v-0d96dcd4>ມີໜັງສືເດີນທາງ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -111,7 +141,7 @@ var render = function render() {
     attrs: {
       "value": "false"
     }
-  }, [_vm._v("ບໍ່ມີ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<label data-v-6552b99d>ເມືອງ:</label> "), _c('select', {
+  }, [_vm._v("ບໍ່ມີ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<label data-v-0d96dcd4>ເມືອງ:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -141,37 +171,7 @@ var render = function render() {
         "value": city
       }
     }, [_vm._v("\n            " + _vm._s(city) + "\n          ")]);
-  })], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<label data-v-6552b99d>ສະຖານທີ່ທຳງານ:</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.filters.workPlace,
-      expression: "filters.workPlace"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.filters, "workPlace", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }, _vm.applyFilters]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ທັງໝົດ")]), _vm._v(" "), _vm._l(_vm.availableWorkPlaces, function (place) {
-    return _c('option', {
-      key: place,
-      domProps: {
-        "value": place
-      }
-    }, [_vm._v("\n            " + _vm._s(place) + "\n          ")]);
-  })], 2)], 2), _vm._ssrNode(" <div class=\"filter-actions\" data-v-6552b99d><button class=\"btn btn-outline-primary\" data-v-6552b99d><i class=\"fas fa-search\" data-v-6552b99d></i>\n          ຄົ້ນຫາ\n        </button> <button class=\"btn btn-outline-secondary\" data-v-6552b99d><i class=\"fas fa-undo\" data-v-6552b99d></i>\n          Reset\n        </button></div>")], 2)]), _vm._ssrNode(" <div class=\"summary-cards\" data-v-6552b99d><div class=\"summary-card total-applicants\" data-v-6552b99d><div class=\"card-icon total\" data-v-6552b99d><i class=\"fas fa-users\" data-v-6552b99d></i></div> <div class=\"card-content\" data-v-6552b99d><h3 data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.total.count)) + "</h3> <p data-v-6552b99d>ລວມຜູ້ສະໝັກທັງໝົດ</p></div></div> <div class=\"summary-card gender-male\" data-v-6552b99d><div class=\"card-icon male\" data-v-6552b99d><i class=\"fas fa-male\" data-v-6552b99d></i></div> <div class=\"card-content\" data-v-6552b99d><h3 data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.male.count)) + "</h3> <p data-v-6552b99d>" + _vm._ssrEscape("ຊາຍ (" + _vm._s(_vm.summaryStats.male.percentage) + "%)") + "</p></div></div> <div class=\"summary-card gender-female\" data-v-6552b99d><div class=\"card-icon female\" data-v-6552b99d><i class=\"fas fa-female\" data-v-6552b99d></i></div> <div class=\"card-content\" data-v-6552b99d><h3 data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.female.count)) + "</h3> <p data-v-6552b99d>" + _vm._ssrEscape("ຍິງ (" + _vm._s(_vm.summaryStats.female.percentage) + "%)") + "</p></div></div> <div class=\"summary-card status-interview\" data-v-6552b99d><div class=\"card-icon interview\" data-v-6552b99d><i class=\"fas fa-comments\" data-v-6552b99d></i></div> <div class=\"card-content\" data-v-6552b99d><h3 data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.interview.count)) + "</h3> <p data-v-6552b99d>ລໍຖ້າສໍາພາດ</p></div></div> <div class=\"summary-card status-register\" data-v-6552b99d><div class=\"card-icon register\" data-v-6552b99d><i class=\"fas fa-check-circle\" data-v-6552b99d></i></div> <div class=\"card-content\" data-v-6552b99d><h3 data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.register.count)) + "</h3> <p data-v-6552b99d>ລົງທະບຽນແລ້ວ</p></div></div> <div class=\"summary-card passport-available\" data-v-6552b99d><div class=\"card-icon passport\" data-v-6552b99d><i class=\"fas fa-passport\" data-v-6552b99d></i></div> <div class=\"card-content\" data-v-6552b99d><h3 data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withPassport.count)) + "</h3> <p data-v-6552b99d>ມີໜັງສືເດີນທາງ</p> <small class=\"passport-rate\" data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withPassport.percentage) + "% ຂອງທັງໝົດ") + "</small></div></div></div> "), _vm._ssrNode("<div class=\"table-section\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<div class=\"table-header\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<div class=\"table-title\" data-v-6552b99d><h3 data-v-6552b99d>ລາຍຊື່ຜູ້ສະໝັກ</h3> <span class=\"record-count\" data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.filteredApplicants.length) + " ລາຍການ") + "</span></div> "), _vm._ssrNode("<div class=\"table-actions\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<div class=\"per-page-selector\" data-v-6552b99d>", "</div>", [_vm._ssrNode("<label data-v-6552b99d>Show:</label> "), _c('select', {
+  })], 2)], 2), _vm._ssrNode(" <div class=\"filter-actions\" data-v-0d96dcd4><button class=\"btn btn-outline-primary\" data-v-0d96dcd4><i class=\"fas fa-search\" data-v-0d96dcd4></i>\n          ຄົ້ນຫາ\n        </button> <button class=\"btn btn-outline-secondary\" data-v-0d96dcd4><i class=\"fas fa-undo\" data-v-0d96dcd4></i>\n          Reset\n        </button></div>")], 2)]), _vm._ssrNode(" <div class=\"summary-cards\" data-v-0d96dcd4><div class=\"summary-card total-applicants\" data-v-0d96dcd4><div class=\"card-icon total\" data-v-0d96dcd4><i class=\"fas fa-users\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.total.count)) + "</h3> <p data-v-0d96dcd4>ລວມຜູ້ສະໝັກທັງໝົດ</p></div></div> <div class=\"summary-card gender-male\" data-v-0d96dcd4><div class=\"card-icon male\" data-v-0d96dcd4><i class=\"fas fa-male\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.male.count)) + "</h3> <p data-v-0d96dcd4>" + _vm._ssrEscape("ຊາຍ (" + _vm._s(_vm.summaryStats.male.percentage) + "%)") + "</p></div></div> <div class=\"summary-card gender-female\" data-v-0d96dcd4><div class=\"card-icon female\" data-v-0d96dcd4><i class=\"fas fa-female\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.female.count)) + "</h3> <p data-v-0d96dcd4>" + _vm._ssrEscape("ຍິງ (" + _vm._s(_vm.summaryStats.female.percentage) + "%)") + "</p></div></div> <div class=\"summary-card status-interview\" data-v-0d96dcd4><div class=\"card-icon interview\" data-v-0d96dcd4><i class=\"fas fa-comments\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.interview.count)) + "</h3> <p data-v-0d96dcd4>ລໍຖ້າສໍາພາດ</p></div></div> <div class=\"summary-card status-register\" data-v-0d96dcd4><div class=\"card-icon register\" data-v-0d96dcd4><i class=\"fas fa-check-circle\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.register.count)) + "</h3> <p data-v-0d96dcd4>ລົງທະບຽນແລ້ວ</p></div></div> <div class=\"summary-card job-batch-assigned\" data-v-0d96dcd4><div class=\"card-icon job-batch\" data-v-0d96dcd4><i class=\"fas fa-briefcase-medical\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withJobBatch.count)) + "</h3> <p data-v-0d96dcd4>ມີ Job Batch</p> <small class=\"job-batch-rate\" data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withJobBatch.percentage) + "% ຂອງທັງໝົດ") + "</small></div></div> <div class=\"summary-card passport-available\" data-v-0d96dcd4><div class=\"card-icon passport\" data-v-0d96dcd4><i class=\"fas fa-passport\" data-v-0d96dcd4></i></div> <div class=\"card-content\" data-v-0d96dcd4><h3 data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withPassport.count)) + "</h3> <p data-v-0d96dcd4>ມີໜັງສືເດີນທາງ</p> <small class=\"passport-rate\" data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.summaryStats.withPassport.percentage) + "% ຂອງທັງໝົດ") + "</small></div></div></div> "), _vm._ssrNode("<div class=\"table-section\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<div class=\"table-header\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<div class=\"table-title\" data-v-0d96dcd4><h3 data-v-0d96dcd4>ລາຍຊື່ຜູ້ສະໝັກ</h3> <span class=\"record-count\" data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.filteredApplicants.length) + " ລາຍການ") + "</span></div> "), _vm._ssrNode("<div class=\"table-actions\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<div class=\"per-page-selector\" data-v-0d96dcd4>", "</div>", [_vm._ssrNode("<label data-v-0d96dcd4>Show:</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -205,19 +205,21 @@ var render = function render() {
     attrs: {
       "value": "100"
     }
-  }, [_vm._v("100")])]), _vm._ssrNode(" <span data-v-6552b99d>per page</span>")], 2)])], 2), _vm._ssrNode(" <div class=\"table-container\" data-v-6552b99d><table class=\"data-table\" data-v-6552b99d><thead data-v-6552b99d><tr data-v-6552b99d><th class=\"sortable\" data-v-6552b99d>\n              ID\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('id')) + " data-v-6552b99d></i></th> <th class=\"sortable\" data-v-6552b99d>\n              ຊື່ຜູ້ສະໝັກ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('firstName')) + " data-v-6552b99d></i></th> <th class=\"sortable\" data-v-6552b99d>\n              ເພດ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('gender')) + " data-v-6552b99d></i></th> <th class=\"sortable\" data-v-6552b99d>\n              ອາຍຸ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('age')) + " data-v-6552b99d></i></th> <th data-v-6552b99d>ຕິດຕໍ່</th> <th data-v-6552b99d>ທີ່ຢູ່</th> <th data-v-6552b99d>ໜັງສືເດີນທາງ</th> <th data-v-6552b99d>ວຽກ</th> <th class=\"sortable\" data-v-6552b99d>\n              ສະຖານະ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('status')) + " data-v-6552b99d></i></th> <th class=\"sortable\" data-v-6552b99d>\n              ວັນທີລົງທະບຽນ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('registertDate')) + " data-v-6552b99d></i></th> <th data-v-6552b99d>ຟັງຊັ່ນ</th></tr></thead> <tbody data-v-6552b99d>" + _vm._ssrList(_vm.paginatedApplicants, function (applicant) {
-    return "<tr data-v-6552b99d><td data-v-6552b99d>" + _vm._ssrEscape(_vm._s(applicant.id)) + "</td> <td data-v-6552b99d><div class=\"applicant-name\" data-v-6552b99d><strong data-v-6552b99d>" + _vm._ssrEscape(_vm._s(_vm.getFullName(applicant))) + "</strong> <div class=\"contact-info\" data-v-6552b99d><span class=\"phone\" data-v-6552b99d>" + _vm._ssrEscape(_vm._s(applicant.phone)) + "</span> " + (applicant.emergencyContactNo ? "<span class=\"emergency-phone\" data-v-6552b99d>" + _vm._ssrEscape("\n                    (ຕິດຕໍ່ສຸກເສີນ: " + _vm._s(applicant.emergencyContactNo) + ")\n                  ") + "</span>" : "<!---->") + "</div></div></td> <td data-v-6552b99d><span" + _vm._ssrClass(null, ['gender-badge', applicant.gender]) + " data-v-6552b99d>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatGender(applicant.gender)) + "\n              ") + "</span></td> <td class=\"age-cell\" data-v-6552b99d>" + _vm._ssrEscape("\n              " + _vm._s(applicant.age || '-') + " ປີ\n              ") + (applicant.maritalStatus ? "<div class=\"marital-status\" data-v-6552b99d>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatMaritalStatus(applicant.maritalStatus)) + "\n              ") + "</div>" : "<!---->") + "</td> <td data-v-6552b99d><div class=\"contact-details\" data-v-6552b99d><div class=\"phone\" data-v-6552b99d><i class=\"fas fa-phone\" data-v-6552b99d></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.phone) + "\n                ") + "</div> " + (applicant.emergencyContactNo ? "<div class=\"emergency\" data-v-6552b99d><i class=\"fas fa-exclamation-triangle\" data-v-6552b99d></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.emergencyContactNo) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-6552b99d><div class=\"address-details\" data-v-6552b99d>" + (applicant.address ? "<div class=\"address\" data-v-6552b99d>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.truncateText(applicant.address, 20)) + "\n                ") + "</div>" : "<!---->") + " <div class=\"location-parts\" data-v-6552b99d>" + (applicant.village ? "<span data-v-6552b99d>" + _vm._ssrEscape(_vm._s(applicant.village)) + "</span>" : "<!---->") + " " + (applicant.city ? "<span data-v-6552b99d>" + _vm._ssrEscape(_vm._s(applicant.city)) + "</span>" : "<!---->") + " " + (applicant.district ? "<span data-v-6552b99d>" + _vm._ssrEscape(_vm._s(applicant.district)) + "</span>" : "<!---->") + "</div></div></td> <td data-v-6552b99d><div class=\"passport-info\" data-v-6552b99d><span" + _vm._ssrClass(null, ['passport-status', applicant.passportAvailability ? 'has-passport' : 'no-passport']) + " data-v-6552b99d><i" + _vm._ssrClass(null, applicant.passportAvailability ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-6552b99d></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.passportAvailability ? 'ມີ' : 'ບໍ່ມີ') + "\n                ") + "</span> " + (applicant.passportNo ? "<div class=\"passport-number\" data-v-6552b99d>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.passportNo) + "\n                ") + "</div>" : "<!---->") + " " + (applicant.passportExpiredDate ? "<div class=\"passport-expiry\" data-v-6552b99d>" + _vm._ssrEscape("\n                  ໝົດອາຍຸ: " + _vm._s(_vm.formatDate(applicant.passportExpiredDate)) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-6552b99d><div class=\"work-info\" data-v-6552b99d>" + (applicant.workPlace ? "<div class=\"workplace\" data-v-6552b99d><i class=\"fas fa-building\" data-v-6552b99d></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.workPlace) + "\n                ") + "</div>" : "<!---->") + " " + (applicant.contactStartDate && applicant.contactEndDate ? "<div class=\"contract-period\" data-v-6552b99d>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatDate(applicant.contactStartDate)) + " -\n                  " + _vm._s(_vm.formatDate(applicant.contactEndDate)) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-6552b99d><span" + _vm._ssrClass(null, ['status-badge', applicant.status]) + " data-v-6552b99d>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatStatus(applicant.status)) + "\n              ") + "</span></td> <td data-v-6552b99d><div class=\"date-info\" data-v-6552b99d>" + (applicant.registertDate ? "<div data-v-6552b99d>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatDate(applicant.registertDate)) + "\n                ") + "</div>" : "<!---->") + " " + (applicant.interviewExamDate ? "<div class=\"interview-date\" data-v-6552b99d>" + _vm._ssrEscape("\n                  ສໍາພາດ: " + _vm._s(_vm.formatDate(applicant.interviewExamDate)) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td class=\"actions-cell\" data-v-6552b99d><button title=\"ເບິ່ງລາຍລະອຽດ\" class=\"btn btn-sm btn-outline-primary\" data-v-6552b99d><i class=\"fas fa-eye\" data-v-6552b99d></i></button> <button title=\"ແກ້ໄຂ\" class=\"btn btn-sm btn-outline-info\" data-v-6552b99d><i class=\"fas fa-edit\" data-v-6552b99d></i></button> " + (applicant.status === 'INTERVIEW' ? "<button title=\"ຍ້າຍໄປລົງທະບຽນ\" class=\"btn btn-sm btn-outline-success\" data-v-6552b99d><i class=\"fas fa-check\" data-v-6552b99d></i></button>" : "<!---->") + " " + (applicant.status !== 'rejected' ? "<button title=\"ປະຕິເສດ\" class=\"btn btn-sm btn-outline-danger\" data-v-6552b99d><i class=\"fas fa-times\" data-v-6552b99d></i></button>" : "<!---->") + "</td></tr>";
-  }) + "</tbody></table></div> <div class=\"pagination-container\" data-v-6552b99d><div class=\"pagination-info\" data-v-6552b99d>" + _vm._ssrEscape("\n        Showing " + _vm._s(_vm.paginationInfo.start) + " to " + _vm._s(_vm.paginationInfo.end) + " of\n        " + _vm._s(_vm.paginationInfo.total) + " entries\n      ") + "</div> <div class=\"pagination-controls\" data-v-6552b99d><button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === 1) + " class=\"btn btn-sm btn-outline-secondary\" data-v-6552b99d>\n          Previous\n        </button> " + _vm._ssrList(_vm.visiblePages, function (page) {
-    return "<span data-v-6552b99d>" + (page !== '...' ? "<button" + _vm._ssrClass("btn btn-sm", page === _vm.pagination.currentPage ? 'btn-primary' : 'btn-outline-secondary') + " data-v-6552b99d>" + _vm._ssrEscape("\n            " + _vm._s(page) + "\n          ") + "</button>" : "<span class=\"pagination-ellipsis\" data-v-6552b99d>...</span>") + "</span>";
-  }) + " <button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === _vm.totalPages) + " class=\"btn btn-sm btn-outline-secondary\" data-v-6552b99d>\n          Next\n        </button></div></div>")], 2), _vm._ssrNode(" "), _c('client-only', [_c('ApplicantDialog', {
+  }, [_vm._v("100")])]), _vm._ssrNode(" <span data-v-0d96dcd4>per page</span>")], 2)])], 2), _vm._ssrNode(" <div class=\"table-container\" data-v-0d96dcd4><table class=\"data-table\" data-v-0d96dcd4><thead data-v-0d96dcd4><tr data-v-0d96dcd4><th class=\"sortable\" data-v-0d96dcd4>\n              ID\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('id')) + " data-v-0d96dcd4></i></th> <th class=\"sortable\" data-v-0d96dcd4>\n              ຊື່ຜູ້ສະໝັກ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('firstName')) + " data-v-0d96dcd4></i></th> <th data-v-0d96dcd4>Job Batch</th> <th class=\"sortable\" data-v-0d96dcd4>\n              ເພດ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('gender')) + " data-v-0d96dcd4></i></th> <th class=\"sortable\" data-v-0d96dcd4>\n              ອາຍຸ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('age')) + " data-v-0d96dcd4></i></th> <th data-v-0d96dcd4>ຕິດຕໍ່</th> <th data-v-0d96dcd4>ທີ່ຢູ່</th> <th data-v-0d96dcd4>ໜັງສືເດີນທາງ</th> <th class=\"sortable\" data-v-0d96dcd4>\n              ສະຖານະ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('status')) + " data-v-0d96dcd4></i></th> <th class=\"sortable\" data-v-0d96dcd4>\n              ວັນທີລົງທະບຽນ\n              <i" + _vm._ssrClass(null, _vm.getSortIcon('registertDate')) + " data-v-0d96dcd4></i></th> <th data-v-0d96dcd4>ຟັງຊັ່ນ</th></tr></thead> <tbody data-v-0d96dcd4>" + _vm._ssrList(_vm.paginatedApplicants, function (applicant) {
+    return "<tr data-v-0d96dcd4><td data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(applicant.id)) + "</td> <td data-v-0d96dcd4><div class=\"applicant-name\" data-v-0d96dcd4><strong data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(_vm.getFullName(applicant))) + "</strong> <div class=\"contact-info\" data-v-0d96dcd4><span class=\"phone\" data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(applicant.phone)) + "</span> " + (applicant.emergencyContactNo ? "<span class=\"emergency-phone\" data-v-0d96dcd4>" + _vm._ssrEscape("\n                    (ຕິດຕໍ່ສຸກເສີນ: " + _vm._s(applicant.emergencyContactNo) + ")\n                  ") + "</span>" : "<!---->") + "</div></div></td> <td data-v-0d96dcd4><div class=\"job-batch-info\" data-v-0d96dcd4>" + (applicant.jobBatch ? "<div class=\"job-batch-assigned\" data-v-0d96dcd4><div class=\"batch-name\" data-v-0d96dcd4><i class=\"fas fa-briefcase\" data-v-0d96dcd4></i>" + _vm._ssrEscape("\n                    " + _vm._s(applicant.jobBatch.batchName) + "\n                  ") + "</div> " + (applicant.jobBatch.workPlace ? "<div class=\"batch-workplace\" data-v-0d96dcd4><i class=\"fas fa-building\" data-v-0d96dcd4></i>" + _vm._ssrEscape("\n                    " + _vm._s(applicant.jobBatch.workPlace) + "\n                  ") + "</div>" : "<!---->") + " " + (applicant.jobBatch.status ? "<div class=\"batch-status\" data-v-0d96dcd4><span" + _vm._ssrClass(null, ['batch-status-badge', applicant.jobBatch.status]) + " data-v-0d96dcd4>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.formatJobBatchStatus(applicant.jobBatch.status)) + "\n                    ") + "</span></div>" : "<!---->") + "</div>" : "<div class=\"no-job-batch\" data-v-0d96dcd4><i class=\"fas fa-minus-circle\" data-v-0d96dcd4></i> <span data-v-0d96dcd4>ບໍ່ມີ Job Batch</span></div>") + "</div></td> <td data-v-0d96dcd4><span" + _vm._ssrClass(null, ['gender-badge', applicant.gender]) + " data-v-0d96dcd4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatGender(applicant.gender)) + "\n              ") + "</span></td> <td class=\"age-cell\" data-v-0d96dcd4>" + _vm._ssrEscape("\n              " + _vm._s(applicant.age || '-') + " ປີ\n              ") + (applicant.maritalStatus ? "<div class=\"marital-status\" data-v-0d96dcd4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatMaritalStatus(applicant.maritalStatus)) + "\n              ") + "</div>" : "<!---->") + "</td> <td data-v-0d96dcd4><div class=\"contact-details\" data-v-0d96dcd4><div class=\"phone\" data-v-0d96dcd4><i class=\"fas fa-phone\" data-v-0d96dcd4></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.phone) + "\n                ") + "</div> " + (applicant.emergencyContactNo ? "<div class=\"emergency\" data-v-0d96dcd4><i class=\"fas fa-exclamation-triangle\" data-v-0d96dcd4></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.emergencyContactNo) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-0d96dcd4><div class=\"address-details\" data-v-0d96dcd4>" + (applicant.address ? "<div class=\"address\" data-v-0d96dcd4>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.truncateText(applicant.address, 20)) + "\n                ") + "</div>" : "<!---->") + " <div class=\"location-parts\" data-v-0d96dcd4>" + (applicant.village ? "<span data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(applicant.village)) + "</span>" : "<!---->") + " " + (applicant.city ? "<span data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(applicant.city)) + "</span>" : "<!---->") + " " + (applicant.district ? "<span data-v-0d96dcd4>" + _vm._ssrEscape(_vm._s(applicant.district)) + "</span>" : "<!---->") + "</div></div></td> <td data-v-0d96dcd4><div class=\"passport-info\" data-v-0d96dcd4><span" + _vm._ssrClass(null, ['passport-status', applicant.passportAvailability ? 'has-passport' : 'no-passport']) + " data-v-0d96dcd4><i" + _vm._ssrClass(null, applicant.passportAvailability ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-0d96dcd4></i>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.passportAvailability ? 'ມີ' : 'ບໍ່ມີ') + "\n                ") + "</span> " + (applicant.passportNo ? "<div class=\"passport-number\" data-v-0d96dcd4>" + _vm._ssrEscape("\n                  " + _vm._s(applicant.passportNo) + "\n                ") + "</div>" : "<!---->") + " " + (applicant.passportExpiredDate ? "<div class=\"passport-expiry\" data-v-0d96dcd4>" + _vm._ssrEscape("\n                  ໝົດອາຍຸ: " + _vm._s(_vm.formatDate(applicant.passportExpiredDate)) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td data-v-0d96dcd4><span" + _vm._ssrClass(null, ['status-badge', applicant.status]) + " data-v-0d96dcd4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatStatus(applicant.status)) + "\n              ") + "</span></td> <td data-v-0d96dcd4><div class=\"date-info\" data-v-0d96dcd4>" + (applicant.registertDate ? "<div data-v-0d96dcd4>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatDate(applicant.registertDate)) + "\n                ") + "</div>" : "<!---->") + " " + (applicant.interviewExamDate ? "<div class=\"interview-date\" data-v-0d96dcd4>" + _vm._ssrEscape("\n                  ສໍາພາດ: " + _vm._s(_vm.formatDate(applicant.interviewExamDate)) + "\n                ") + "</div>" : "<!---->") + "</div></td> <td class=\"actions-cell\" data-v-0d96dcd4><button title=\"ເບິ່ງລາຍລະອຽດ\" class=\"btn btn-sm btn-outline-primary\" data-v-0d96dcd4><i class=\"fas fa-eye\" data-v-0d96dcd4></i></button> <button title=\"ແກ້ໄຂ\" class=\"btn btn-sm btn-outline-info\" data-v-0d96dcd4><i class=\"fas fa-edit\" data-v-0d96dcd4></i></button> " + (applicant.status === 'INTERVIEW' ? "<button title=\"ຍ້າຍໄປລົງທະບຽນ\" class=\"btn btn-sm btn-outline-success\" data-v-0d96dcd4><i class=\"fas fa-check\" data-v-0d96dcd4></i></button>" : "<!---->") + " " + (applicant.status !== 'rejected' ? "<button title=\"ປະຕິເສດ\" class=\"btn btn-sm btn-outline-danger\" data-v-0d96dcd4><i class=\"fas fa-times\" data-v-0d96dcd4></i></button>" : "<!---->") + "</td></tr>";
+  }) + "</tbody></table></div> <div class=\"pagination-container\" data-v-0d96dcd4><div class=\"pagination-info\" data-v-0d96dcd4>" + _vm._ssrEscape("\n        Showing " + _vm._s(_vm.paginationInfo.start) + " to " + _vm._s(_vm.paginationInfo.end) + " of\n        " + _vm._s(_vm.paginationInfo.total) + " entries\n      ") + "</div> <div class=\"pagination-controls\" data-v-0d96dcd4><button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === 1) + " class=\"btn btn-sm btn-outline-secondary\" data-v-0d96dcd4>\n          Previous\n        </button> " + _vm._ssrList(_vm.visiblePages, function (page) {
+    return "<span data-v-0d96dcd4>" + (page !== '...' ? "<button" + _vm._ssrClass("btn btn-sm", page === _vm.pagination.currentPage ? 'btn-primary' : 'btn-outline-secondary') + " data-v-0d96dcd4>" + _vm._ssrEscape("\n            " + _vm._s(page) + "\n          ") + "</button>" : "<span class=\"pagination-ellipsis\" data-v-0d96dcd4>...</span>") + "</span>";
+  }) + " <button" + _vm._ssrAttr("disabled", _vm.pagination.currentPage === _vm.totalPages) + " class=\"btn btn-sm btn-outline-secondary\" data-v-0d96dcd4>\n          Next\n        </button></div></div>")], 2), _vm._ssrNode(" "), _c('client-only', [_c('ApplicantDialog', {
     attrs: {
       "visible": _vm.showEditDialog,
       "applicant": _vm.selectedApplicant,
+      "job-batches": _vm.jobBatches,
       "fullscreen": true
     },
     on: {
       "close": _vm.closeEditDialog,
-      "save": _vm.onApplicantSave
+      "save": _vm.onApplicantSave,
+      "load-job-batches": _vm.loadJobBatches
     }
   })], 1), _vm._ssrNode(" "), _c('client-only', [_c('ApplicantViewDialog', {
     attrs: {
@@ -237,68 +239,68 @@ var render = function render() {
       "close": _vm.closeStatusDialog,
       "confirm": _vm.onStatusUpdate
     }
-  })], 1), _vm._ssrNode(" " + (_vm.loading ? "<div class=\"loading-overlay\" data-v-6552b99d><div class=\"loading-spinner\" data-v-6552b99d><i class=\"fas fa-spinner fa-spin\" data-v-6552b99d></i> <p data-v-6552b99d>Loading...</p></div></div>" : "<!---->"))], 2);
+  })], 1), _vm._ssrNode(" " + (_vm.loading ? "<div class=\"loading-overlay\" data-v-0d96dcd4><div class=\"loading-spinner\" data-v-0d96dcd4><i class=\"fas fa-spinner fa-spin\" data-v-0d96dcd4></i> <p data-v-0d96dcd4>Loading...</p></div></div>" : "<!---->"))], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/applicants/index.vue?vue&type=template&id=6552b99d&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/applicants/index.vue?vue&type=template&id=0d96dcd4&scoped=true&
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(342);
+var esnext_set_add_all_js_ = __webpack_require__(343);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(343);
+var esnext_set_delete_all_js_ = __webpack_require__(344);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(344);
+var esnext_set_difference_js_ = __webpack_require__(345);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(345);
+var esnext_set_every_js_ = __webpack_require__(346);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(346);
+var esnext_set_filter_js_ = __webpack_require__(347);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(347);
+var esnext_set_find_js_ = __webpack_require__(348);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(348);
+var esnext_set_intersection_js_ = __webpack_require__(349);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(349);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(350);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(350);
+var esnext_set_is_subset_of_js_ = __webpack_require__(351);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(351);
+var esnext_set_is_superset_of_js_ = __webpack_require__(352);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(352);
+var esnext_set_join_js_ = __webpack_require__(353);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(353);
+var esnext_set_map_js_ = __webpack_require__(354);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(354);
+var esnext_set_reduce_js_ = __webpack_require__(355);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(355);
+var esnext_set_some_js_ = __webpack_require__(356);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(356);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(357);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(357);
+var esnext_set_union_js_ = __webpack_require__(358);
 
 // EXTERNAL MODULE: ./components/applicants/ApplicantDialog/index.vue + 4 modules
-var ApplicantDialog = __webpack_require__(832);
+var ApplicantDialog = __webpack_require__(834);
 
 // EXTERNAL MODULE: ./components/applicants/ApplicantViewDialog/index.vue + 4 modules
-var ApplicantViewDialog = __webpack_require__(833);
+var ApplicantViewDialog = __webpack_require__(835);
 
 // EXTERNAL MODULE: ./components/applicants/StatusUpdateDialog/index.vue + 4 modules
-var StatusUpdateDialog = __webpack_require__(834);
+var StatusUpdateDialog = __webpack_require__(836);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=script&lang=js&
 
@@ -341,17 +343,21 @@ var StatusUpdateDialog = __webpack_require__(834);
       // Data arrays
       applicants: [],
       filteredApplicants: [],
+      jobBatches: [],
+      // NEW: Job batches data
+
       // Loading states
       loading: false,
-      // Filters
+      // Enhanced Filters with JobBatch
       filters: {
         search: '',
         gender: '',
         status: '',
         passportAvailability: '',
         city: '',
-        workPlace: ''
+        jobBatchId: '' // NEW: Job batch filter
       },
+
       // Sorting
       sort: {
         field: 'registertDate',
@@ -362,7 +368,7 @@ var StatusUpdateDialog = __webpack_require__(834);
         currentPage: 1,
         perPage: 25
       },
-      // Summary statistics
+      // Enhanced Summary statistics with JobBatch
       summaryStats: {
         total: {
           count: 0
@@ -387,10 +393,15 @@ var StatusUpdateDialog = __webpack_require__(834);
         withPassport: {
           count: 0,
           percentage: 0
-        }
+        },
+        withJobBatch: {
+          count: 0,
+          percentage: 0
+        } // NEW
       }
     };
   },
+
   computed: {
     user() {
       return this.$auth.user || '';
@@ -399,9 +410,13 @@ var StatusUpdateDialog = __webpack_require__(834);
       const cities = [...new Set(this.applicants.map(a => a.city).filter(Boolean))];
       return cities.sort();
     },
-    availableWorkPlaces() {
-      const workPlaces = [...new Set(this.applicants.map(a => a.workPlace).filter(Boolean))];
-      return workPlaces.sort();
+    // NEW: Available job batches for filtering
+    availableJobBatches() {
+      return this.jobBatches.filter(batch => batch.id).map(batch => ({
+        id: batch.id,
+        batchName: batch.batchName,
+        workPlace: batch.workPlace
+      })).sort((a, b) => a.batchName.localeCompare(b.batchName));
     },
     paginatedApplicants() {
       const start = (this.pagination.currentPage - 1) * this.pagination.perPage;
@@ -450,9 +465,27 @@ var StatusUpdateDialog = __webpack_require__(834);
   },
   mounted() {
     this.fetchApplicants();
+    this.loadJobBatches(); // NEW: Load job batches on mount
   },
+
   methods: {
-    // Data Loading Methods
+    // NEW: Load job batches
+    async loadJobBatches() {
+      try {
+        const {
+          data
+        } = await this.$axios.get('/api/batch-job');
+        if (data && data.success) {
+          this.jobBatches = data.data.jobBatches || [];
+        } else {
+          this.jobBatches = [];
+        }
+      } catch (error) {
+        console.error('Error loading job batches:', error);
+        this.jobBatches = [];
+      }
+    },
+    // Enhanced Data Loading with JobBatch support
     async fetchApplicants() {
       this.loading = true;
       try {
@@ -463,8 +496,6 @@ var StatusUpdateDialog = __webpack_require__(834);
           isActive: true,
           ...this.filters
         };
-
-        // Updated API endpoint to match backend
         const {
           data
         } = await this.$axios.get('/api/applicants', {
@@ -521,7 +552,7 @@ var StatusUpdateDialog = __webpack_require__(834);
       this.selectedApplicant = null;
       this.statusAction = '';
     },
-    // Save Handler
+    // Enhanced Save Handler with JobBatch support
     async onApplicantSave(applicantData) {
       try {
         this.loading = true;
@@ -570,14 +601,14 @@ var StatusUpdateDialog = __webpack_require__(834);
         this.loading = false;
       }
     },
-    // Filter and Search Methods
+    // Enhanced Filter and Search Methods with JobBatch
     applyFilters() {
       let filtered = [...this.applicants];
 
       // Search filter
       if (this.filters.search) {
         const search = this.filters.search.toLowerCase();
-        filtered = filtered.filter(applicant => applicant.firstName.toLowerCase().includes(search) || applicant.lastName.toLowerCase().includes(search) || applicant.phone.includes(search) || applicant.passportNo && applicant.passportNo.toLowerCase().includes(search));
+        filtered = filtered.filter(applicant => applicant.firstName.toLowerCase().includes(search) || applicant.lastName.toLowerCase().includes(search) || applicant.phone.includes(search) || applicant.passportNo && applicant.passportNo.toLowerCase().includes(search) || applicant.jobBatch && applicant.jobBatch.batchName.toLowerCase().includes(search));
       }
 
       // Gender filter
@@ -601,9 +632,9 @@ var StatusUpdateDialog = __webpack_require__(834);
         filtered = filtered.filter(applicant => applicant.city === this.filters.city);
       }
 
-      // Work place filter
-      if (this.filters.workPlace) {
-        filtered = filtered.filter(applicant => applicant.workPlace === this.filters.workPlace);
+      // NEW: Job Batch filter
+      if (this.filters.jobBatchId) {
+        filtered = filtered.filter(applicant => applicant.jobBatchId && applicant.jobBatchId.toString() === this.filters.jobBatchId.toString());
       }
       this.filteredApplicants = filtered;
       this.sortData();
@@ -617,8 +648,9 @@ var StatusUpdateDialog = __webpack_require__(834);
         status: '',
         passportAvailability: '',
         city: '',
-        workPlace: ''
+        jobBatchId: '' // NEW: Reset job batch filter
       };
+
       this.applyFilters();
     },
     sortBy(field) {
@@ -647,6 +679,7 @@ var StatusUpdateDialog = __webpack_require__(834);
       if (this.sort.field !== field) return 'fas fa-sort';
       return this.sort.direction === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
     },
+    // Enhanced Statistics Calculation with JobBatch
     calculateSummaryStats() {
       const total = this.filteredApplicants.length;
       const male = this.filteredApplicants.filter(a => a.gender === 'male').length;
@@ -655,6 +688,8 @@ var StatusUpdateDialog = __webpack_require__(834);
       const register = this.filteredApplicants.filter(a => a.status === 'REGISTER').length;
       const rejected = this.filteredApplicants.filter(a => a.status === 'rejected').length;
       const withPassport = this.filteredApplicants.filter(a => a.passportAvailability).length;
+      // NEW: Job batch statistics
+      const withJobBatch = this.filteredApplicants.filter(a => a.jobBatch && a.jobBatch.id).length;
       this.summaryStats = {
         total: {
           count: total
@@ -679,6 +714,11 @@ var StatusUpdateDialog = __webpack_require__(834);
         withPassport: {
           count: withPassport,
           percentage: total > 0 ? Math.round(withPassport / total * 100) : 0
+        },
+        // NEW: Job batch statistics
+        withJobBatch: {
+          count: withJobBatch,
+          percentage: total > 0 ? Math.round(withJobBatch / total * 100) : 0
         }
       };
     },
@@ -699,14 +739,25 @@ var StatusUpdateDialog = __webpack_require__(834);
     goToPage(page) {
       this.pagination.currentPage = page;
     },
-    // Export
+    // Enhanced Export with JobBatch data
     exportData() {
       const csvData = this.convertToCSV(this.filteredApplicants);
       this.downloadCSV(csvData, 'applicants-summary.csv');
     },
     convertToCSV(data) {
-      const headers = ['ID', 'First Name', 'Last Name', 'Gender', 'Age', 'Marital Status', 'Phone', 'Emergency Contact', 'Address', 'Village', 'City', 'District', 'Passport Available', 'Passport No', 'Passport Expiry', 'Work Place', 'Contract Start', 'Contract End', 'Status', 'Register Date', 'Interview Date'];
-      const csvContent = [headers.join(','), ...data.map(row => [row.id, row.firstName, row.lastName, row.gender, row.age || '', row.maritalStatus || '', row.phone, row.emergencyContactNo || '', row.address || '', row.village || '', row.city || '', row.district || '', row.passportAvailability ? 'Yes' : 'No', row.passportNo || '', row.passportExpiredDate || '', row.workPlace || '', row.contactStartDate || '', row.contactEndDate || '', row.status, row.registertDate || '', row.interviewExamDate || ''].join(','))].join('\n');
+      const headers = ['ID', 'First Name', 'Last Name', 'Gender', 'Age', 'Marital Status', 'Phone', 'Emergency Contact', 'Address', 'Village', 'City', 'District', 'Passport Available', 'Passport No', 'Passport Expiry', 'Job Batch Name',
+      // NEW
+      'Job Batch Workplace',
+      // NEW
+      'Work Place', 'Contract Start', 'Contract End', 'Status', 'Register Date', 'Interview Date'];
+      const csvContent = [headers.join(','), ...data.map(row => {
+        var _row$jobBatch, _row$jobBatch2;
+        return [row.id, row.firstName, row.lastName, row.gender, row.age || '', row.maritalStatus || '', row.phone, row.emergencyContactNo || '', row.address || '', row.village || '', row.city || '', row.district || '', row.passportAvailability ? 'Yes' : 'No', row.passportNo || '', row.passportExpiredDate || '', ((_row$jobBatch = row.jobBatch) === null || _row$jobBatch === void 0 ? void 0 : _row$jobBatch.batchName) || '',
+        // NEW
+        ((_row$jobBatch2 = row.jobBatch) === null || _row$jobBatch2 === void 0 ? void 0 : _row$jobBatch2.workPlace) || '',
+        // NEW
+        row.workPlace || '', row.contactStartDate || '', row.contactEndDate || '', row.status, row.registertDate || '', row.interviewExamDate || ''].join(',');
+      })].join('\n');
       return csvContent;
     },
     downloadCSV(csvContent, filename) {
@@ -752,6 +803,17 @@ var StatusUpdateDialog = __webpack_require__(834);
       };
       return statusLabels[status] || status;
     },
+    // NEW: Format job batch status
+    formatJobBatchStatus(status) {
+      const statusLabels = {
+        draft: 'ຮ່າງ',
+        active: 'ເປີດໃຊ້',
+        completed: 'ສຳເລັດ',
+        cancelled: 'ຍົກເລີກ',
+        on_hold: 'ລໍຖ້າ'
+      };
+      return statusLabels[status] || status;
+    },
     truncateText(text, length) {
       if (!text) return '';
       return text.length > length ? text.substring(0, length) + '...' : text;
@@ -781,7 +843,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(885)
+  var style0 = __webpack_require__(887)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -794,7 +856,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "6552b99d",
+  "0d96dcd4",
   "624c7d16"
   
 )
@@ -803,25 +865,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 527:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(616);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("1790f982", content, true, context)
-};
-
-/***/ }),
-
-/***/ 528:
+/***/ 529:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -834,12 +878,12 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("26f8a99b", content, true, context)
+  add("4ead85aa", content, true, context)
 };
 
 /***/ }),
 
-/***/ 529:
+/***/ 530:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -852,35 +896,26 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6760c6ae", content, true, context)
+  add("26f8a99b", content, true, context)
 };
 
 /***/ }),
 
-/***/ 615:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1f6e53c0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(527);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1f6e53c0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1f6e53c0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1f6e53c0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1f6e53c0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 616:
+/***/ 531:
 /***/ (function(module, exports, __webpack_require__) {
 
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-1f6e53c0]{align-items:center;animation:fadeIn-1f6e53c0 .3s ease-out;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);background:rgba(0,0,0,.6);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}@keyframes fadeIn-1f6e53c0{0%{opacity:0}to{opacity:1}}.fullscreen-dialog[data-v-1f6e53c0]{border-radius:0!important;height:100vh!important;margin:0!important;max-height:100vh!important;max-width:100vw!important;width:100vw!important}.enhanced-dialog[data-v-1f6e53c0]{animation:slideIn-1f6e53c0 .3s ease-out;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;max-width:900px;overflow:hidden;width:95%}@keyframes slideIn-1f6e53c0{0%{opacity:0;transform:translateY(-50px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-1f6e53c0]{align-items:center;background:linear-gradient(135deg,#01532b,#337555);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;padding:24px}.modal-title-section[data-v-1f6e53c0]{align-items:center;display:flex;gap:12px}.modal-icon[data-v-1f6e53c0]{font-size:20px;opacity:.9}.modal-title[data-v-1f6e53c0]{font-size:20px;font-weight:600;margin:0}.close-btn[data-v-1f6e53c0]{background:none;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:18px;opacity:.8;padding:8px;transition:opacity .2s}.close-btn[data-v-1f6e53c0]:hover{background:hsla(0,0%,100%,.1);opacity:1}.modal-body[data-v-1f6e53c0]{max-height:60vh;overflow-y:auto;padding:24px}.form-grid[data-v-1f6e53c0]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:1fr 1fr}.form-group[data-v-1f6e53c0]{margin-bottom:0}.form-group.full-width[data-v-1f6e53c0]{grid-column:1/-1}.section-header[data-v-1f6e53c0]{border-bottom:2px solid #e9ecef;margin:24px 0 16px;padding-bottom:12px}.section-header h4[data-v-1f6e53c0]{align-items:center;color:#495057;display:flex;font-size:16px;font-weight:600;gap:8px;margin:0}.section-header i[data-v-1f6e53c0]{color:#667eea}.form-label[data-v-1f6e53c0]{align-items:center;color:#374151;display:flex;font-size:14px;font-weight:600;gap:8px;margin-bottom:8px}.form-label.required[data-v-1f6e53c0]:after{color:#e74c3c;content:\"*\";margin-left:4px}.form-label i[data-v-1f6e53c0]{color:#6b7280;font-size:12px}.form-control[data-v-1f6e53c0]{background:#fafafa;border:2px solid #e5e7eb;border-radius:8px;box-sizing:border-box;font-size:14px;padding:12px 16px;transition:all .2s ease;width:100%}.form-control[data-v-1f6e53c0]:focus{background:#fff;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1);outline:none}.form-control.is-invalid[data-v-1f6e53c0]{border-color:#e74c3c}.form-control[data-v-1f6e53c0]:disabled{background:#f8f9fa;color:#6c757d;opacity:.7}.invalid-feedback[data-v-1f6e53c0]{color:#e74c3c;display:block;font-size:12px;margin-top:4px}.custom-select-wrapper[data-v-1f6e53c0]{position:relative}.custom-select[data-v-1f6e53c0]{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:40px}.select-icon[data-v-1f6e53c0]{color:#6b7280;pointer-events:none;position:absolute;right:12px;top:50%;transform:translateY(-50%)}.gender-options[data-v-1f6e53c0]{display:flex;gap:20px;margin-top:8px}.checkbox-option[data-v-1f6e53c0],.radio-option[data-v-1f6e53c0]{align-items:center;color:#374151;cursor:pointer;display:flex;font-size:14px;gap:8px}.checkbox-option input[type=checkbox][data-v-1f6e53c0],.radio-option input[type=radio][data-v-1f6e53c0]{margin:0}.checkbox-label[data-v-1f6e53c0],.radio-label[data-v-1f6e53c0]{font-weight:500}.checkbox-group[data-v-1f6e53c0]{margin-top:8px}.field-hint[data-v-1f6e53c0]{align-items:center;display:flex;font-size:12px;gap:6px;margin-top:6px}.field-hint.error[data-v-1f6e53c0]{color:#e74c3c}.field-hint.warning[data-v-1f6e53c0]{color:#f39c12}.field-hint.info[data-v-1f6e53c0]{color:#3b82f6}.field-hint.success[data-v-1f6e53c0]{color:#28a745}.application-summary[data-v-1f6e53c0]{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:2px solid #e2e8f0;border-radius:12px;margin-top:16px;padding:20px}.application-summary h5[data-v-1f6e53c0]{align-items:center;color:#1e293b;display:flex;font-size:16px;font-weight:600;gap:8px;margin:0 0 16px}.application-summary h5 i[data-v-1f6e53c0]{color:#3b82f6}.summary-items[data-v-1f6e53c0]{grid-gap:12px;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:16px}.summary-item[data-v-1f6e53c0]{align-items:center;background:hsla(0,0%,100%,.7);border:1px solid #e2e8f0;border-radius:6px;color:#64748b;display:flex;font-size:13px;gap:8px;padding:8px 12px;transition:all .2s ease}.summary-item.complete[data-v-1f6e53c0]{background:rgba(34,197,94,.1);border-color:#22c55e;color:#15803d}.summary-item.complete i[data-v-1f6e53c0]{color:#22c55e}.summary-item:not(.complete) i[data-v-1f6e53c0]{color:#ef4444}.summary-item.bonus[data-v-1f6e53c0]{background:rgba(251,191,36,.1);border-color:#fbbf24;color:#d97706}.summary-item.bonus i[data-v-1f6e53c0]{color:#fbbf24}.summary-result[data-v-1f6e53c0]{align-items:center;background:rgba(239,68,68,.1);border:2px solid #ef4444;border-radius:8px;color:#dc2626;display:flex;font-size:14px;font-weight:600;gap:8px;justify-content:center;padding:12px 16px;text-align:center}.summary-result.ready[data-v-1f6e53c0]{background:rgba(34,197,94,.1);border-color:#22c55e;color:#15803d}.summary-result i[data-v-1f6e53c0]{font-size:16px}.form-errors[data-v-1f6e53c0]{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;margin-top:20px;padding:16px}.form-errors h6[data-v-1f6e53c0]{align-items:center;color:#dc2626;display:flex;font-size:14px;gap:6px;margin:0 0 10px}.form-errors ul[data-v-1f6e53c0]{color:#dc2626;font-size:13px;margin:0;padding-left:20px}.enhanced-footer[data-v-1f6e53c0]{background:#f8f9fa;border-top:1px solid #e9ecef;display:flex;gap:12px;justify-content:flex-end;padding:20px 24px}.btn[data-v-1f6e53c0]{align-items:center;border:none;border-radius:8px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:600;gap:8px;padding:12px 24px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s ease}.btn[data-v-1f6e53c0]:hover:not(:disabled){box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-1px)}.btn[data-v-1f6e53c0]:active:not(:disabled){transform:translateY(0)}.btn-primary[data-v-1f6e53c0]{background:linear-gradient(135deg,#01532b,#337555);color:#fff}.btn-secondary[data-v-1f6e53c0]{background:#6c757d;color:#fff}.btn[data-v-1f6e53c0]:disabled{box-shadow:none!important;cursor:not-allowed;opacity:.6;transform:none!important}.fa-spin[data-v-1f6e53c0]{animation:spin-1f6e53c0 1s linear infinite}@keyframes spin-1f6e53c0{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@media (max-width:768px){.enhanced-dialog[data-v-1f6e53c0]{margin:10px;width:98%}.form-grid[data-v-1f6e53c0]{grid-template-columns:1fr}.gender-options[data-v-1f6e53c0]{flex-direction:column;gap:12px}.summary-items[data-v-1f6e53c0]{grid-template-columns:1fr}.modal-body[data-v-1f6e53c0],.modal-header[data-v-1f6e53c0]{padding:16px}.enhanced-footer[data-v-1f6e53c0]{flex-direction:column-reverse;padding:16px}.enhanced-footer .btn[data-v-1f6e53c0]{justify-content:center;width:100%}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
+// load the styles
+var content = __webpack_require__(622);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("6760c6ae", content, true, context)
+};
 
 /***/ }),
 
@@ -889,14 +924,41 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_03428464_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(528);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bfbb814_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(529);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bfbb814_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bfbb814_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bfbb814_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0bfbb814_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 618:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-0bfbb814]{align-items:center;animation:fadeIn-0bfbb814 .3s ease-out;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);background:rgba(0,0,0,.6);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}@keyframes fadeIn-0bfbb814{0%{opacity:0}to{opacity:1}}.fullscreen-dialog[data-v-0bfbb814]{border-radius:0!important;height:100vh!important;margin:0!important;max-height:100vh!important;max-width:100vw!important;width:100vw!important}.enhanced-dialog[data-v-0bfbb814]{animation:slideIn-0bfbb814 .3s ease-out;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;max-width:900px;overflow:hidden;width:95%}@keyframes slideIn-0bfbb814{0%{opacity:0;transform:translateY(-50px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-0bfbb814]{align-items:center;background:linear-gradient(135deg,#01532b,#337555);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;padding:24px}.modal-title-section[data-v-0bfbb814]{align-items:center;display:flex;gap:12px}.modal-icon[data-v-0bfbb814]{font-size:20px;opacity:.9}.modal-title[data-v-0bfbb814]{font-size:20px;font-weight:600;margin:0}.close-btn[data-v-0bfbb814]{background:none;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:18px;opacity:.8;padding:8px;transition:opacity .2s}.close-btn[data-v-0bfbb814]:hover{background:hsla(0,0%,100%,.1);opacity:1}.modal-body[data-v-0bfbb814]{max-height:75vh;overflow-y:auto;padding:16px}.form-grid[data-v-0bfbb814]{grid-gap:12px;display:grid;gap:12px;grid-template-columns:1fr 1fr}.form-group[data-v-0bfbb814]{margin-bottom:0}.form-group.full-width[data-v-0bfbb814]{grid-column:1/-1}.form-label[data-v-0bfbb814]{align-items:center;color:#374151;display:flex;font-size:12px;font-weight:600;gap:6px;margin-bottom:4px}.form-label.required[data-v-0bfbb814]:after{color:#e74c3c;content:\"*\";margin-left:2px}.form-label i[data-v-0bfbb814]{color:#6b7280;font-size:10px}.form-control[data-v-0bfbb814]{background:#fafafa;border:1px solid #e5e7eb;border-radius:6px;box-sizing:border-box;font-size:13px;padding:8px 12px;transition:all .2s ease;width:100%}.form-control.compact[data-v-0bfbb814]{font-size:12px;padding:6px 10px}.form-control[data-v-0bfbb814]:focus{background:#fff;border-color:#667eea;box-shadow:0 0 0 2px rgba(102,126,234,.1);outline:none}.form-control.is-invalid[data-v-0bfbb814]{border-color:#e74c3c}.form-control[data-v-0bfbb814]:disabled{background:#f8f9fa;color:#6c757d;opacity:.7}.invalid-feedback[data-v-0bfbb814]{color:#e74c3c;display:block;font-size:10px;margin-top:2px}.custom-select[data-v-0bfbb814]{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:30px}.select-icon[data-v-0bfbb814]{color:#6b7280;font-size:10px;pointer-events:none;position:absolute;right:8px;top:50%;transform:translateY(-50%)}.gender-options.compact[data-v-0bfbb814]{display:flex;gap:16px;margin-top:4px}.checkbox-option[data-v-0bfbb814],.radio-option[data-v-0bfbb814]{align-items:center;color:#374151;cursor:pointer;display:flex;font-size:12px;gap:6px}.checkbox-option input[type=checkbox][data-v-0bfbb814],.radio-option input[type=radio][data-v-0bfbb814]{margin:0;transform:scale(.9)}.checkbox-label[data-v-0bfbb814],.radio-label[data-v-0bfbb814]{font-weight:500}.checkbox-group.compact[data-v-0bfbb814]{margin-top:4px}.field-hint.compact[data-v-0bfbb814]{align-items:center;display:flex;font-size:10px;gap:4px;margin-top:3px}.field-hint.error[data-v-0bfbb814]{color:#e74c3c}.field-hint.warning[data-v-0bfbb814]{color:#f39c12}.field-hint.info[data-v-0bfbb814]{color:#3b82f6}.field-hint.success[data-v-0bfbb814]{color:#28a745}.application-summary.compact[data-v-0bfbb814]{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid #e2e8f0;border-radius:8px;margin-top:8px;padding:12px}.application-summary.compact h6[data-v-0bfbb814]{align-items:center;color:#1e293b;display:flex;font-size:13px;font-weight:600;gap:6px;margin:0 0 8px}.application-summary.compact h6 i[data-v-0bfbb814]{color:#3b82f6;font-size:12px}.summary-items.compact[data-v-0bfbb814]{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.summary-item.compact[data-v-0bfbb814]{align-items:center;background:hsla(0,0%,100%,.7);border:1px solid #e2e8f0;border-radius:4px;color:#64748b;display:flex;font-size:11px;gap:4px;padding:4px 8px;transition:all .2s ease}.summary-item.compact.complete[data-v-0bfbb814]{background:rgba(34,197,94,.1);border-color:#22c55e;color:#15803d}.summary-item.compact.complete i[data-v-0bfbb814]{color:#22c55e}.summary-item.compact:not(.complete) i[data-v-0bfbb814]{color:#ef4444}.summary-item.compact.bonus[data-v-0bfbb814]{background:rgba(251,191,36,.1);border-color:#fbbf24;color:#d97706}.summary-item.compact.bonus i[data-v-0bfbb814]{color:#fbbf24}.summary-result.compact[data-v-0bfbb814]{align-items:center;background:rgba(239,68,68,.1);border:1px solid #ef4444;border-radius:6px;color:#dc2626;display:flex;font-size:12px;font-weight:600;gap:6px;justify-content:center;padding:8px 12px;text-align:center}.summary-result.compact.ready[data-v-0bfbb814]{background:rgba(34,197,94,.1);border-color:#22c55e;color:#15803d}.summary-result.compact i[data-v-0bfbb814]{font-size:12px}.form-errors.compact[data-v-0bfbb814]{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-top:12px;padding:12px}.form-errors.compact h6[data-v-0bfbb814]{align-items:center;color:#dc2626;display:flex;font-size:12px;gap:4px;margin:0 0 6px}.form-errors.compact ul[data-v-0bfbb814]{color:#dc2626;font-size:11px;margin:0;padding-left:16px}.modal-footer.compact[data-v-0bfbb814]{background:#f8f9fa;border-top:1px solid #e9ecef;display:flex;gap:8px;justify-content:flex-end;padding:12px 16px}.btn.compact[data-v-0bfbb814]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:inline-flex;font-size:12px;font-weight:600;gap:6px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s ease}.btn[data-v-0bfbb814]:hover:not(:disabled){box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-1px)}.btn[data-v-0bfbb814]:active:not(:disabled){transform:translateY(0)}.btn-primary[data-v-0bfbb814]{background:linear-gradient(135deg,#01532b,#337555);color:#fff}.btn-secondary[data-v-0bfbb814]{background:#6c757d;color:#fff}.btn[data-v-0bfbb814]:disabled{box-shadow:none!important;cursor:not-allowed;opacity:.6;transform:none!important}.fa-spin[data-v-0bfbb814]{animation:spin-0bfbb814 1s linear infinite}@keyframes spin-0bfbb814{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@media (max-width:768px){.enhanced-dialog[data-v-0bfbb814]{margin:10px;width:98%}.form-grid[data-v-0bfbb814]{grid-template-columns:1fr}.gender-options[data-v-0bfbb814]{flex-direction:column;gap:12px}.summary-items[data-v-0bfbb814]{grid-template-columns:1fr}.modal-body[data-v-0bfbb814],.modal-header[data-v-0bfbb814]{padding:16px}.enhanced-footer[data-v-0bfbb814]{flex-direction:column-reverse;padding:16px}.enhanced-footer .btn[data-v-0bfbb814]{justify-content:center;width:100%}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 619:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_03428464_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(530);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_03428464_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_03428464_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_03428464_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_03428464_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 618:
+/***/ 620:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -911,19 +973,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 619:
+/***/ 621:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6bdd0ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(529);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6bdd0ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(531);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6bdd0ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6bdd0ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6bdd0ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6bdd0ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 620:
+/***/ 622:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -938,32 +1000,32 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 717:
+/***/ 719:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(886);
+var content = __webpack_require__(888);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("bd60bf78", content, true, context)
+  add("3f074f66", content, true, context)
 };
 
 /***/ }),
 
-/***/ 832:
+/***/ 834:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=1f6e53c0&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=0bfbb814&scoped=true&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -974,20 +1036,86 @@ var render = function render() {
     }
   }, [_vm._ssrNode("<div" + _vm._ssrClass("modal-dialog enhanced-dialog", {
     'fullscreen-dialog': _vm.fullscreen
-  }) + " data-v-1f6e53c0>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-1f6e53c0><div class=\"modal-title-section\" data-v-1f6e53c0><i class=\"fas fa-user-plus modal-icon\" data-v-1f6e53c0></i> <h5 class=\"modal-title\" data-v-1f6e53c0>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isEditMode ? 'ແກ້ໄຂຂໍ້ມູນຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກໃໝ່') + "\n        ") + "</h5></div> <button class=\"close-btn\" data-v-1f6e53c0><i class=\"fas fa-times\" data-v-1f6e53c0></i></button></div> "), _vm._ssrNode("<form data-v-1f6e53c0>", "</form>", [_vm._ssrNode("<div class=\"modal-body\" data-v-1f6e53c0>", "</div>", [_vm._ssrNode("<div class=\"form-grid\" data-v-1f6e53c0>", "</div>", [_vm._ssrNode("<div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-user\" data-v-1f6e53c0></i>\n              ຂໍ້ມູນສ່ວນຕົວ\n            </h4></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label required\" data-v-1f6e53c0><i class=\"fas fa-user\" data-v-1f6e53c0></i>\n              ຊື່\n            </label> <input type=\"text\" placeholder=\"ຊື່ຕົວຈິງ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.firstName) + _vm._ssrClass("form-control", {
+  }) + " data-v-0bfbb814>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-0bfbb814><div class=\"modal-title-section\" data-v-0bfbb814><i class=\"fas fa-user-plus modal-icon\" data-v-0bfbb814></i> <h5 class=\"modal-title\" data-v-0bfbb814>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isEditMode ? 'ແກ້ໄຂຂໍ້ມູນຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກໃໝ່') + "\n        ") + "</h5></div> <button class=\"close-btn\" data-v-0bfbb814><i class=\"fas fa-times\" data-v-0bfbb814></i></button></div> "), _vm._ssrNode("<form data-v-0bfbb814>", "</form>", [_vm._ssrNode("<div class=\"modal-body\" data-v-0bfbb814>", "</div>", [_vm._ssrNode("<div class=\"form-grid\" data-v-0bfbb814>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-0bfbb814>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-briefcase\" data-v-0bfbb814></i>\n              Job Batch\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0bfbb814>", "</div>", [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.jobBatchId,
+      expression: "formData.jobBatchId"
+    }],
+    staticClass: "form-control custom-select compact",
+    class: {
+      'is-invalid': _vm.errors.jobBatchId
+    },
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.formData, "jobBatchId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ເລືອກ Job Batch")]), _vm._v(" "), _vm._l(_vm.jobBatches, function (batch) {
+    return _c('option', {
+      key: batch.id,
+      domProps: {
+        "value": batch.id
+      }
+    }, [_vm._v("\n                  " + _vm._s(batch.batchName) + _vm._s(batch.workPlace ? ` - ${batch.workPlace}` : '') + "\n                ")]);
+  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-0bfbb814><i class=\"fas fa-chevron-down\" data-v-0bfbb814></i></div>")], 2), _vm._ssrNode(" " + (_vm.errors.jobBatchId ? "<div class=\"invalid-feedback\" data-v-0bfbb814>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.jobBatchId) + "\n            ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-0bfbb814>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-flag\" data-v-0bfbb814></i>\n              ສະຖານະ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0bfbb814>", "</div>", [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.status,
+      expression: "formData.status"
+    }],
+    staticClass: "form-control custom-select compact",
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.formData, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "INTERVIEW"
+    }
+  }, [_vm._v("ສໍາພາດ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "REGISTER"
+    }
+  }, [_vm._v("ລົງທະບຽນ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "rejected"
+    }
+  }, [_vm._v("ປະຕິເສດ")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-0bfbb814><i class=\"fas fa-chevron-down\" data-v-0bfbb814></i></div>")], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label required\" data-v-0bfbb814><i class=\"fas fa-user\" data-v-0bfbb814></i>\n              ຊື່\n            </label> <input type=\"text\" placeholder=\"ຊື່ຕົວຈິງ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.firstName) + _vm._ssrClass("form-control compact", {
     'is-invalid': _vm.errors.firstName
-  }) + " data-v-1f6e53c0> " + (_vm.errors.firstName ? "<div class=\"invalid-feedback\" data-v-1f6e53c0>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.firstName) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label required\" data-v-1f6e53c0><i class=\"fas fa-user\" data-v-1f6e53c0></i>\n              ນາມສະກຸນ\n            </label> <input type=\"text\" placeholder=\"ນາມສະກຸນ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.lastName) + _vm._ssrClass("form-control", {
+  }) + " data-v-0bfbb814> " + (_vm.errors.firstName ? "<div class=\"invalid-feedback\" data-v-0bfbb814>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.firstName) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label required\" data-v-0bfbb814><i class=\"fas fa-user\" data-v-0bfbb814></i>\n              ນາມສະກຸນ\n            </label> <input type=\"text\" placeholder=\"ນາມສະກຸນ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.lastName) + _vm._ssrClass("form-control compact", {
     'is-invalid': _vm.errors.lastName
-  }) + " data-v-1f6e53c0> " + (_vm.errors.lastName ? "<div class=\"invalid-feedback\" data-v-1f6e53c0>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.lastName) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label required\" data-v-1f6e53c0><i class=\"fas fa-venus-mars\" data-v-1f6e53c0></i>\n              ເພດ\n            </label> <div class=\"gender-options\" data-v-1f6e53c0><label class=\"radio-option\" data-v-1f6e53c0><input type=\"radio\" value=\"male\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "male")) + " data-v-1f6e53c0> <span class=\"radio-label\" data-v-1f6e53c0>ຊາຍ</span></label> <label class=\"radio-option\" data-v-1f6e53c0><input type=\"radio\" value=\"female\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "female")) + " data-v-1f6e53c0> <span class=\"radio-label\" data-v-1f6e53c0>ຍິງ</span></label></div> " + (_vm.errors.gender ? "<div class=\"invalid-feedback\" data-v-1f6e53c0>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.gender) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-calendar\" data-v-1f6e53c0></i>\n              ອາຍຸ\n            </label> <input type=\"number\" min=\"18\" max=\"32\" placeholder=\"ອາຍຸ\"" + _vm._ssrAttr("value", _vm.formData.age) + _vm._ssrClass("form-control", {
+  }) + " data-v-0bfbb814> " + (_vm.errors.lastName ? "<div class=\"invalid-feedback\" data-v-0bfbb814>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.lastName) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label required\" data-v-0bfbb814><i class=\"fas fa-phone\" data-v-0bfbb814></i>\n              ເບີໂທ\n            </label> <input type=\"tel\" placeholder=\"+856 20 12345678\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.phone) + _vm._ssrClass("form-control compact", {
+    'is-invalid': _vm.errors.phone
+  }) + " data-v-0bfbb814> " + (_vm.errors.phone ? "<div class=\"invalid-feedback\" data-v-0bfbb814>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.phone) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-exclamation-triangle\" data-v-0bfbb814></i>\n              ເບີສຸກເສີນ\n            </label> <input type=\"tel\" placeholder=\"+856 20 87654321\"" + _vm._ssrAttr("value", _vm.formData.emergencyContactNo) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label required\" data-v-0bfbb814><i class=\"fas fa-venus-mars\" data-v-0bfbb814></i>\n              ເພດ\n            </label> <div class=\"gender-options compact\" data-v-0bfbb814><label class=\"radio-option\" data-v-0bfbb814><input type=\"radio\" value=\"male\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "male")) + " data-v-0bfbb814> <span class=\"radio-label\" data-v-0bfbb814>ຊາຍ</span></label> <label class=\"radio-option\" data-v-0bfbb814><input type=\"radio\" value=\"female\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "female")) + " data-v-0bfbb814> <span class=\"radio-label\" data-v-0bfbb814>ຍິງ</span></label></div> " + (_vm.errors.gender ? "<div class=\"invalid-feedback\" data-v-0bfbb814>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.gender) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-calendar\" data-v-0bfbb814></i>\n              ອາຍຸ\n            </label> <input type=\"number\" min=\"18\" max=\"32\" placeholder=\"ອາຍຸ\"" + _vm._ssrAttr("value", _vm.formData.age) + _vm._ssrClass("form-control compact", {
     'is-invalid': _vm.errors.age
-  }) + " data-v-1f6e53c0> " + (_vm.errors.age ? "<div class=\"invalid-feedback\" data-v-1f6e53c0>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.age) + "\n            ") + "</div>" : "<!---->") + " <div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>\n              ອາຍຸທີ່ເໝາະສົມ: 18-32 ປີ\n            </div></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-1f6e53c0>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-heart\" data-v-1f6e53c0></i>\n              ສະຖານະການແຕ່ງງານ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-1f6e53c0>", "</div>", [_c('select', {
+  }) + " data-v-0bfbb814> " + (_vm.errors.age ? "<div class=\"invalid-feedback\" data-v-0bfbb814>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.age) + "\n            ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-0bfbb814>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-heart\" data-v-0bfbb814></i>\n              ສະຖານະ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0bfbb814>", "</div>", [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.formData.maritalStatus,
       expression: "formData.maritalStatus"
     }],
-    staticClass: "form-control custom-select",
+    staticClass: "form-control custom-select compact",
     on: {
       "change": function ($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -1019,25 +1147,25 @@ var render = function render() {
     attrs: {
       "value": "widowed"
     }
-  }, [_vm._v("ເປັນເມ່າຍ")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-1f6e53c0><i class=\"fas fa-chevron-down\" data-v-1f6e53c0></i></div>")], 2)], 2), _vm._ssrNode(" <div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-address-book\" data-v-1f6e53c0></i>\n              ຂໍ້ມູນການຕິດຕໍ່\n            </h4></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label required\" data-v-1f6e53c0><i class=\"fas fa-phone\" data-v-1f6e53c0></i>\n              ເບີໂທລະສັບ\n            </label> <input type=\"tel\" placeholder=\"+856 20 12345678\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.phone) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.phone
-  }) + " data-v-1f6e53c0> " + (_vm.errors.phone ? "<div class=\"invalid-feedback\" data-v-1f6e53c0>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.phone) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-exclamation-triangle\" data-v-1f6e53c0></i>\n              ເບີໂທສຸກເສີນ\n            </label> <input type=\"tel\" placeholder=\"+856 20 87654321\"" + _vm._ssrAttr("value", _vm.formData.emergencyContactNo) + " class=\"form-control\" data-v-1f6e53c0> <div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>\n              ເບີໂທຄອບຄົວ ຫຼື ຄົນໃກ້ຊິດ\n            </div></div> <div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-map-marker-alt\" data-v-1f6e53c0></i>\n              ຂໍ້ມູນທີ່ຢູ່\n            </h4></div> <div class=\"form-group full-width\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-home\" data-v-1f6e53c0></i>\n              ທີ່ຢູ່ລະອຽດ\n            </label> <textarea rows=\"2\" placeholder=\"ທີ່ຢູ່ລະອຽດ...\" class=\"form-control\" data-v-1f6e53c0>" + _vm._ssrEscape(_vm._s(_vm.formData.address)) + "</textarea></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-home\" data-v-1f6e53c0></i>\n              ບ້ານ\n            </label> <input type=\"text\" placeholder=\"ຊື່ບ້ານ\"" + _vm._ssrAttr("value", _vm.formData.village) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-city\" data-v-1f6e53c0></i>\n              ເມືອງ\n            </label> <input type=\"text\" placeholder=\"ຊື່ເມືອງ\"" + _vm._ssrAttr("value", _vm.formData.city) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-map\" data-v-1f6e53c0></i>\n              ແຂວງ\n            </label> <input type=\"text\" placeholder=\"ຊື່ແຂວງ\"" + _vm._ssrAttr("value", _vm.formData.district) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-passport\" data-v-1f6e53c0></i>\n              ຂໍ້ມູນໜັງສືເດີນທາງ\n            </h4></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label required\" data-v-1f6e53c0><i class=\"fas fa-passport\" data-v-1f6e53c0></i>\n              ມີໜັງສືເດີນທາງ\n            </label> <div class=\"checkbox-group\" data-v-1f6e53c0><label class=\"checkbox-option\" data-v-1f6e53c0><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.passportAvailability) ? _vm._i(_vm.formData.passportAvailability, null) > -1 : _vm.formData.passportAvailability) + " data-v-1f6e53c0> <span class=\"checkbox-label\" data-v-1f6e53c0>ມີໜັງສືເດີນທາງ</span></label></div> <div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>\n              ຈຳເປັນຕ້ອງມີໜັງສືເດີນທາງ\n            </div></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-id-card\" data-v-1f6e53c0></i>\n              ເລກໜັງສືເດີນທາງ\n            </label> <input type=\"text\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + " placeholder=\"PA1234567\"" + _vm._ssrAttr("value", _vm.formData.passportNo) + " class=\"form-control\" data-v-1f6e53c0> <div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>\n              ໃສ່ຖ້າມີໜັງສືເດີນທາງ\n            </div></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-calendar-times\" data-v-1f6e53c0></i>\n              ວັນໝົດອາຍຸໜັງສືເດີນທາງ\n            </label> <input type=\"date\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("min", _vm.today) + _vm._ssrAttr("value", _vm.formData.passportExpiredDate) + " class=\"form-control\" data-v-1f6e53c0> " + (_vm.formData.passportExpiredDate ? "<div" + _vm._ssrClass("field-hint", _vm.isPassportExpired ? 'error' : 'success') + " data-v-1f6e53c0><i" + _vm._ssrClass(null, _vm.isPassportExpired ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle') + " data-v-1f6e53c0></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.isPassportExpired ? 'ໜັງສືເດີນທາງໝົດອາຍຸແລ້ວ!' : 'ໜັງສືເດີນທາງຍັງໃຊ້ໄດ້') + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-briefcase\" data-v-1f6e53c0></i>\n              ຂໍ້ມູນການເຮັດວຽກ\n            </h4></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-building\" data-v-1f6e53c0></i>\n              ສະຖານທີ່ເຮັດວຽກ\n            </label> <input type=\"text\" placeholder=\"ບໍລິສັດ / ໂຮງງານ\"" + _vm._ssrAttr("value", _vm.formData.workPlace) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-calendar-plus\" data-v-1f6e53c0></i>\n              ວັນເລີ່ມສັນຍາ\n            </label> <input type=\"date\"" + _vm._ssrAttr("value", _vm.formData.contactStartDate) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-calendar-minus\" data-v-1f6e53c0></i>\n              ວັນສິ້ນສຸດສັນຍາ\n            </label> <input type=\"date\"" + _vm._ssrAttr("min", _vm.formData.contactStartDate) + _vm._ssrAttr("value", _vm.formData.contactEndDate) + " class=\"form-control\" data-v-1f6e53c0> " + (_vm.contractDuration ? "<div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>" + _vm._ssrEscape("\n              ໄລຍະສັນຍາ: " + _vm._s(_vm.contractDuration) + " ເດືອນ\n            ") + "</div>" : "<!---->") + "</div> <div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-calendar-check\" data-v-1f6e53c0></i>\n              ວັນທີສຳຄັນ\n            </h4></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-calendar-plus\" data-v-1f6e53c0></i>\n              ວັນທີລົງທະບຽນ\n            </label> <input type=\"datetime-local\"" + _vm._ssrAttr("value", _vm.formData.registertDate) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-comments\" data-v-1f6e53c0></i>\n              ວັນທີສໍາພາດ\n            </label> <input type=\"datetime-local\"" + _vm._ssrAttr("value", _vm.formData.interviewExamDate) + " class=\"form-control\" data-v-1f6e53c0></div> <div class=\"section-header full-width\" data-v-1f6e53c0><h4 data-v-1f6e53c0><i class=\"fas fa-camera\" data-v-1f6e53c0></i>\n              ຮູບຖ່າຍ\n            </h4></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-id-badge\" data-v-1f6e53c0></i>\n              ຮູບໜັງສືເດີນທາງ\n            </label> <input type=\"text\" placeholder=\"URL ຫຼື path ຂອງຮູບໜັງສືເດີນທາງ\"" + _vm._ssrAttr("value", _vm.formData.passportPhoto) + " class=\"form-control\" data-v-1f6e53c0> <div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>\n              ຮູບຖ່າຍຂະໜາດ passport\n            </div></div> <div class=\"form-group\" data-v-1f6e53c0><label class=\"form-label\" data-v-1f6e53c0><i class=\"fas fa-user-circle\" data-v-1f6e53c0></i>\n              ຮູບຜູ້ສະໝັກ\n            </label> <input type=\"text\" placeholder=\"URL ຫຼື path ຂອງຮູບຜູ້ສະໝັກ\"" + _vm._ssrAttr("value", _vm.formData.applicantPhoto) + " class=\"form-control\" data-v-1f6e53c0> <div class=\"field-hint info\" data-v-1f6e53c0><i class=\"fas fa-info-circle\" data-v-1f6e53c0></i>\n              ຮູບຖ່າຍຕົວຈິງຂອງຜູ້ສະໝັກ\n            </div></div> <div class=\"form-group full-width\" data-v-1f6e53c0><div class=\"application-summary\" data-v-1f6e53c0><h5 data-v-1f6e53c0><i class=\"fas fa-clipboard-check\" data-v-1f6e53c0></i>\n                ສະຫລຸບຂໍ້ມູນ\n              </h5> <div class=\"summary-items\" data-v-1f6e53c0><div" + _vm._ssrClass("summary-item", {
+  }, [_vm._v("ເປັນເມ່າຍ")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-0bfbb814><i class=\"fas fa-chevron-down\" data-v-0bfbb814></i></div>")], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-building\" data-v-0bfbb814></i>\n              ສະຖານທີ່ເຮັດວຽກ\n            </label> <input type=\"text\" placeholder=\"ບໍລິສັດ / ໂຮງງານ\"" + _vm._ssrAttr("value", _vm.formData.workPlace) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group full-width\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-home\" data-v-0bfbb814></i>\n              ທີ່ຢູ່\n            </label> <textarea rows=\"2\" placeholder=\"ທີ່ຢູ່ລະອຽດ...\" class=\"form-control compact\" data-v-0bfbb814>" + _vm._ssrEscape(_vm._s(_vm.formData.address)) + "</textarea></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-home\" data-v-0bfbb814></i>\n              ບ້ານ\n            </label> <input type=\"text\" placeholder=\"ຊື່ບ້ານ\"" + _vm._ssrAttr("value", _vm.formData.village) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-city\" data-v-0bfbb814></i>\n              ເມືອງ\n            </label> <input type=\"text\" placeholder=\"ຊື່ເມືອງ\"" + _vm._ssrAttr("value", _vm.formData.city) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-map\" data-v-0bfbb814></i>\n              ແຂວງ\n            </label> <input type=\"text\" placeholder=\"ຊື່ແຂວງ\"" + _vm._ssrAttr("value", _vm.formData.district) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-passport\" data-v-0bfbb814></i>\n              ໜັງສືເດີນທາງ\n            </label> <div class=\"checkbox-group compact\" data-v-0bfbb814><label class=\"checkbox-option\" data-v-0bfbb814><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.passportAvailability) ? _vm._i(_vm.formData.passportAvailability, null) > -1 : _vm.formData.passportAvailability) + " data-v-0bfbb814> <span class=\"checkbox-label\" data-v-0bfbb814>ມີໜັງສືເດີນທາງ</span></label></div></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-id-card\" data-v-0bfbb814></i>\n              ເລກໜັງສື\n            </label> <input type=\"text\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + " placeholder=\"PA1234567\"" + _vm._ssrAttr("value", _vm.formData.passportNo) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-calendar-times\" data-v-0bfbb814></i>\n              ໝົດອາຍຸ\n            </label> <input type=\"date\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("min", _vm.today) + _vm._ssrAttr("value", _vm.formData.passportExpiredDate) + " class=\"form-control compact\" data-v-0bfbb814> " + (_vm.formData.passportExpiredDate ? "<div" + _vm._ssrClass("field-hint compact", _vm.isPassportExpired ? 'error' : 'success') + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.isPassportExpired ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle') + " data-v-0bfbb814></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.isPassportExpired ? 'ໝົດອາຍຸແລ້ວ!' : 'ຍັງໃຊ້ໄດ້') + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-calendar-plus\" data-v-0bfbb814></i>\n              ເລີ່ມສັນຍາ\n            </label> <input type=\"date\"" + _vm._ssrAttr("value", _vm.formData.contactStartDate) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-calendar-minus\" data-v-0bfbb814></i>\n              ສິ້ນສຸດສັນຍາ\n            </label> <input type=\"date\"" + _vm._ssrAttr("min", _vm.formData.contactStartDate) + _vm._ssrAttr("value", _vm.formData.contactEndDate) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-calendar-plus\" data-v-0bfbb814></i>\n              ລົງທະບຽນ\n            </label> <input type=\"datetime-local\"" + _vm._ssrAttr("value", _vm.formData.registertDate) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-comments\" data-v-0bfbb814></i>\n              ວັນສໍາພາດ\n            </label> <input type=\"datetime-local\"" + _vm._ssrAttr("value", _vm.formData.interviewExamDate) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-id-badge\" data-v-0bfbb814></i>\n              ຮູບໜັງສື\n            </label> <input type=\"text\" placeholder=\"URL ຮູບໜັງສືເດີນທາງ\"" + _vm._ssrAttr("value", _vm.formData.passportPhoto) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group\" data-v-0bfbb814><label class=\"form-label\" data-v-0bfbb814><i class=\"fas fa-user-circle\" data-v-0bfbb814></i>\n              ຮູບຜູ້ສະໝັກ\n            </label> <input type=\"text\" placeholder=\"URL ຮູບຜູ້ສະໝັກ\"" + _vm._ssrAttr("value", _vm.formData.applicantPhoto) + " class=\"form-control compact\" data-v-0bfbb814></div> <div class=\"form-group full-width\" data-v-0bfbb814><div class=\"application-summary compact\" data-v-0bfbb814><h6 data-v-0bfbb814><i class=\"fas fa-clipboard-check\" data-v-0bfbb814></i>\n                ສະຫລຸບ\n              </h6> <div class=\"summary-items compact\" data-v-0bfbb814><div" + _vm._ssrClass("summary-item compact", {
     complete: _vm.formData.firstName && _vm.formData.lastName
-  }) + " data-v-1f6e53c0><i" + _vm._ssrClass(null, _vm.formData.firstName && _vm.formData.lastName ? 'fas fa-check' : 'fas fa-times') + " data-v-1f6e53c0></i> <span data-v-1f6e53c0>ຊື່ ແລະ ນາມສະກຸນ</span></div> <div" + _vm._ssrClass("summary-item", {
+  }) + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.formData.firstName && _vm.formData.lastName ? 'fas fa-check' : 'fas fa-times') + " data-v-0bfbb814></i> <span data-v-0bfbb814>ຊື່-ນາມສະກຸນ</span></div> <div" + _vm._ssrClass("summary-item compact", {
     complete: _vm.formData.gender
-  }) + " data-v-1f6e53c0><i" + _vm._ssrClass(null, _vm.formData.gender ? 'fas fa-check' : 'fas fa-times') + " data-v-1f6e53c0></i> <span data-v-1f6e53c0>ເພດ</span></div> <div" + _vm._ssrClass("summary-item", {
+  }) + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.formData.gender ? 'fas fa-check' : 'fas fa-times') + " data-v-0bfbb814></i> <span data-v-0bfbb814>ເພດ</span></div> <div" + _vm._ssrClass("summary-item compact", {
     complete: _vm.formData.phone
-  }) + " data-v-1f6e53c0><i" + _vm._ssrClass(null, _vm.formData.phone ? 'fas fa-check' : 'fas fa-times') + " data-v-1f6e53c0></i> <span data-v-1f6e53c0>ເບີໂທລະສັບ</span></div> <div" + _vm._ssrClass("summary-item", {
+  }) + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.formData.phone ? 'fas fa-check' : 'fas fa-times') + " data-v-0bfbb814></i> <span data-v-0bfbb814>ເບີໂທ</span></div> <div" + _vm._ssrClass("summary-item compact", {
     complete: _vm.formData.passportAvailability
-  }) + " data-v-1f6e53c0><i" + _vm._ssrClass(null, _vm.formData.passportAvailability ? 'fas fa-check' : 'fas fa-times') + " data-v-1f6e53c0></i> <span data-v-1f6e53c0>ໜັງສືເດີນທາງ</span></div> " + (_vm.formData.passportAvailability && _vm.formData.passportNo ? "<div class=\"summary-item bonus\" data-v-1f6e53c0><i class=\"fas fa-star\" data-v-1f6e53c0></i> <span data-v-1f6e53c0>ລະບຸເລກໜັງສືເດີນທາງ</span></div>" : "<!---->") + " " + (_vm.formData.workPlace ? "<div class=\"summary-item bonus\" data-v-1f6e53c0><i class=\"fas fa-briefcase\" data-v-1f6e53c0></i> <span data-v-1f6e53c0>ມີສະຖານທີ່ເຮັດວຽກ</span></div>" : "<!---->") + "</div> <div" + _vm._ssrClass("summary-result", {
+  }) + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.formData.passportAvailability ? 'fas fa-check' : 'fas fa-times') + " data-v-0bfbb814></i> <span data-v-0bfbb814>ໜັງສື</span></div> <div" + _vm._ssrClass("summary-item bonus compact", {
+    complete: _vm.formData.jobBatchId
+  }) + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.formData.jobBatchId ? 'fas fa-check' : 'fas fa-layer-group') + " data-v-0bfbb814></i> <span data-v-0bfbb814>Job Batch</span></div></div> <div" + _vm._ssrClass("summary-result compact", {
     ready: _vm.isFormValid
-  }) + " data-v-1f6e53c0><i" + _vm._ssrClass(null, _vm.isFormValid ? 'fas fa-thumbs-up' : 'fas fa-exclamation-triangle') + " data-v-1f6e53c0></i>" + _vm._ssrEscape("\n                " + _vm._s(_vm.isFormValid ? 'ຂໍ້ມູນພ້ອມສຳລັບບັນທຶກ' : 'ກະລຸນາຕື່ມຂໍ້ມູນຂ້ັນຕຳ') + "\n              ") + "</div></div></div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length > 0 ? "<div class=\"form-errors\" data-v-1f6e53c0><h6 data-v-1f6e53c0><i class=\"fas fa-exclamation-circle\" data-v-1f6e53c0></i>\n            ກະລຸນາແກ້ໄຂຂໍ້ຜິດພາດຕໍ່ໄປນີ້:\n          </h6> <ul data-v-1f6e53c0>" + _vm._ssrList(_vm.formErrors, function (error) {
-    return "<li data-v-1f6e53c0>" + _vm._ssrEscape(_vm._s(error)) + "</li>";
-  }) + "</ul></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"modal-footer enhanced-footer\" data-v-1f6e53c0><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-secondary\" data-v-1f6e53c0><i class=\"fas fa-times\" data-v-1f6e53c0></i>\n          ຍົກເລີກ\n        </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.loading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-1f6e53c0>" + (_vm.loading ? "<i class=\"fas fa-spinner fa-spin\" data-v-1f6e53c0></i>" : "<i" + _vm._ssrClass("fas", _vm.isEditMode ? 'fa-save' : 'fa-plus') + " data-v-1f6e53c0></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.loading ? 'ກຳລັງບັນທຶກ...' : _vm.isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div>")], 2)], 2)]) : _vm._e();
+  }) + " data-v-0bfbb814><i" + _vm._ssrClass(null, _vm.isFormValid ? 'fas fa-thumbs-up' : 'fas fa-exclamation-triangle') + " data-v-0bfbb814></i>" + _vm._ssrEscape("\n                " + _vm._s(_vm.isFormValid ? 'ພ້ອມບັນທຶກ' : 'ຂໍ້ມູນບໍ່ຄົບ') + "\n              ") + "</div></div></div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length > 0 ? "<div class=\"form-errors compact\" data-v-0bfbb814><h6 data-v-0bfbb814><i class=\"fas fa-exclamation-circle\" data-v-0bfbb814></i>\n            ແກ້ໄຂຂໍ້ຜິດພາດ:\n          </h6> <ul data-v-0bfbb814>" + _vm._ssrList(_vm.formErrors, function (error) {
+    return "<li data-v-0bfbb814>" + _vm._ssrEscape(_vm._s(error)) + "</li>";
+  }) + "</ul></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"modal-footer compact\" data-v-0bfbb814><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-secondary compact\" data-v-0bfbb814><i class=\"fas fa-times\" data-v-0bfbb814></i>\n          ຍົກເລີກ\n        </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.loading || !_vm.isFormValid) + " class=\"btn btn-primary compact\" data-v-0bfbb814>" + (_vm.loading ? "<i class=\"fas fa-spinner fa-spin\" data-v-0bfbb814></i>" : "<i" + _vm._ssrClass("fas", _vm.isEditMode ? 'fa-save' : 'fa-plus') + " data-v-0bfbb814></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.loading ? 'ກຳລັງບັນທຶກ...' : _vm.isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div>")], 2)], 2)]) : _vm._e();
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=1f6e53c0&scoped=true&
+// CONCATENATED MODULE: ./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=0bfbb814&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/applicants/ApplicantDialog/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var ApplicantDialogvue_type_script_lang_js_ = ({
@@ -1048,6 +1176,11 @@ var staticRenderFns = [];
     fullscreen: {
       type: Boolean,
       default: false
+    },
+    // NEW: Job batches data
+    jobBatches: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -1074,8 +1207,11 @@ var staticRenderFns = [];
         registertDate: '',
         interviewExamDate: '',
         passportPhoto: '',
-        applicantPhoto: ''
+        applicantPhoto: '',
+        jobBatchId: null,
+        status: 'INTERVIEW' // NEW: Default status
       },
+
       errors: {},
       formErrors: []
     };
@@ -1089,6 +1225,11 @@ var staticRenderFns = [];
     },
     today() {
       return new Date().toISOString().split('T')[0];
+    },
+    // NEW: Get selected job batch details
+    selectedJobBatch() {
+      if (!this.formData.jobBatchId || !this.jobBatches.length) return null;
+      return this.jobBatches.find(batch => batch.id == this.formData.jobBatchId);
     },
     // Passport expiry validation
     isPassportExpired() {
@@ -1115,6 +1256,7 @@ var staticRenderFns = [];
     visible(newVal) {
       if (newVal) {
         this.initializeForm();
+        this.loadJobBatches(); // NEW: Load job batches when dialog opens
       } else {
         this.resetForm();
       }
@@ -1136,9 +1278,37 @@ var staticRenderFns = [];
         this.formData.passportExpiredDate = '';
         this.formData.passportPhoto = '';
       }
+    },
+    // NEW: Auto-populate workplace when job batch changes
+    'formData.jobBatchId'(newVal) {
+      if (newVal && this.selectedJobBatch && this.selectedJobBatch.workPlace) {
+        if (!this.formData.workPlace) {
+          this.formData.workPlace = this.selectedJobBatch.workPlace;
+        }
+      }
     }
   },
   methods: {
+    // NEW: Load job batches
+    async loadJobBatches() {
+      // If parent doesn't provide job batches, emit event to request them
+      if (!this.jobBatches || this.jobBatches.length === 0) {
+        this.$emit('load-job-batches');
+      }
+    },
+    // NEW: Format date for display
+    formatDate(dateString) {
+      if (!dateString) return '';
+      try {
+        return new Date(dateString).toLocaleDateString('lo-LA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } catch (error) {
+        return dateString;
+      }
+    },
     initializeForm() {
       if (this.applicant && this.applicant.id) {
         // Edit mode
@@ -1163,7 +1333,9 @@ var staticRenderFns = [];
           registertDate: this.applicant.registertDate ? this.applicant.registertDate.slice(0, 16) : '',
           interviewExamDate: this.applicant.interviewExamDate ? this.applicant.interviewExamDate.slice(0, 16) : '',
           passportPhoto: this.applicant.passportPhoto || '',
-          applicantPhoto: this.applicant.applicantPhoto || ''
+          applicantPhoto: this.applicant.applicantPhoto || '',
+          jobBatchId: this.applicant.jobBatchId || null,
+          status: this.applicant.status || 'INTERVIEW'
         };
       } else {
         // Create mode - set defaults
@@ -1194,7 +1366,9 @@ var staticRenderFns = [];
         registertDate: '',
         interviewExamDate: '',
         passportPhoto: '',
-        applicantPhoto: ''
+        applicantPhoto: '',
+        jobBatchId: null,
+        status: 'INTERVIEW'
       };
     },
     resetForm() {
@@ -1224,6 +1398,12 @@ var staticRenderFns = [];
         this.errors.phone = 'ກະລຸນາໃສ່ເບີໂທລະສັບ';
         this.formErrors.push('Phone number is required');
       }
+
+      // NEW: Job batch validation (optional but can be added)
+      // if (!this.formData.jobBatchId) {
+      //   this.errors.jobBatchId = 'ກະລຸນາເລືອກ Job Batch'
+      //   this.formErrors.push('Job batch selection is required')
+      // }
 
       // Age validation
       if (this.formData.age && (this.formData.age < 18 || this.formData.age > 32)) {
@@ -1292,7 +1472,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(615)
+  var style0 = __webpack_require__(617)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1305,7 +1485,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "1f6e53c0",
+  "0bfbb814",
   "519f9c22"
   
 )
@@ -1314,7 +1494,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 833:
+/***/ 835:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1454,7 +1634,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(617)
+  var style0 = __webpack_require__(619)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1476,7 +1656,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 834:
+/***/ 836:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1777,7 +1957,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(619)
+  var style0 = __webpack_require__(621)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1799,26 +1979,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 885:
+/***/ 887:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6552b99d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(717);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6552b99d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6552b99d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6552b99d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6552b99d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0d96dcd4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(719);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0d96dcd4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0d96dcd4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0d96dcd4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0d96dcd4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 886:
+/***/ 888:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".passport-status.has-passport[data-v-6552b99d]{color:#10b981}.passport-status.no-passport[data-v-6552b99d]{color:#dc2626}.passport-number[data-v-6552b99d]{font-family:monospace}.passport-expiry[data-v-6552b99d],.passport-number[data-v-6552b99d]{color:#666;font-size:11px}.work-info .workplace[data-v-6552b99d]{align-items:center;display:flex;font-size:12px;gap:4px;margin-bottom:2px}.contract-period[data-v-6552b99d]{color:#666;font-size:11px}.address-details .address[data-v-6552b99d]{font-size:12px;margin-bottom:2px}.location-parts[data-v-6552b99d]{color:#666;font-size:11px}.location-parts span[data-v-6552b99d]{margin-right:8px}.location-parts span[data-v-6552b99d]:not(:last-child):after{color:#ccc;content:\"•\";margin-left:8px}.marital-status[data-v-6552b99d]{color:#666;font-size:11px;margin-top:2px}.emergency-phone[data-v-6552b99d]{color:#666;font-size:11px;margin-left:8px}.contact-details .emergency[data-v-6552b99d]{align-items:center;color:#f59e0b;display:flex;font-size:11px;gap:4px}.date-info .interview-date[data-v-6552b99d]{color:#666;font-size:11px;margin-top:2px}.status-badge.INTERVIEW[data-v-6552b99d]{background-color:#fef3c7;color:#d97706}.status-badge.REGISTER[data-v-6552b99d]{background-color:#d1fae5;color:#065f46}.summary-card.status-interview .card-icon.interview[data-v-6552b99d]{background:#fef3c7;color:#d97706}.summary-card.status-register .card-icon.register[data-v-6552b99d]{background:#d1fae5;color:#065f46}.summary-card.passport-available .card-icon.passport[data-v-6552b99d]{background:#dbeafe;color:#3b82f6}.passport-rate[data-v-6552b99d]{display:block;font-size:12px;margin-top:4px;opacity:.8}.applicant-summary-container[data-v-6552b99d]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-6552b99d]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-6552b99d]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-6552b99d]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-6552b99d]{display:flex;gap:12px}.filter-section[data-v-6552b99d]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-6552b99d]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-6552b99d]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-6552b99d]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-6552b99d]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-6552b99d]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:20px}.summary-card[data-v-6552b99d]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-6552b99d]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-applicants[data-v-6552b99d]{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff}.summary-card.total-applicants .card-icon[data-v-6552b99d]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.gender-male[data-v-6552b99d]{border-left:4px solid #3b82f6}.summary-card.gender-female[data-v-6552b99d]{border-left:4px solid #ec4899}.card-icon[data-v-6552b99d]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-6552b99d]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.male[data-v-6552b99d]{background:#dbeafe;color:#3b82f6}.card-icon.female[data-v-6552b99d]{background:#fce7f3;color:#ec4899}.card-content[data-v-6552b99d]{flex:1;min-width:0}.card-content h3[data-v-6552b99d]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-6552b99d]{font-size:14px;margin:0}.table-section[data-v-6552b99d]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-6552b99d]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-6552b99d]{color:#333;margin:0}.record-count[data-v-6552b99d]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-6552b99d]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-6552b99d]{overflow-x:auto}.data-table[data-v-6552b99d]{border-collapse:collapse;width:100%}.data-table td[data-v-6552b99d],.data-table th[data-v-6552b99d]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-6552b99d]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-6552b99d]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-6552b99d]:hover{background-color:#e9ecef}.data-table th i[data-v-6552b99d]{margin-left:8px;opacity:.5}.applicant-name strong[data-v-6552b99d]{color:#333;display:block;font-size:14px}.contact-info[data-v-6552b99d]{color:#666;font-size:12px;margin-top:2px}.phone[data-v-6552b99d]{font-family:monospace}.contact-details[data-v-6552b99d]{color:#666;font-size:12px}.contact-details .phone[data-v-6552b99d]{align-items:center;display:flex;gap:4px;margin-bottom:2px}.contact-details i[data-v-6552b99d]{color:#999;width:12px}.age-cell[data-v-6552b99d]{color:#495057;font-weight:600}.gender-badge[data-v-6552b99d]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 8px;text-transform:uppercase}.gender-badge.male[data-v-6552b99d]{background-color:#dbeafe;color:#3b82f6}.gender-badge.female[data-v-6552b99d]{background-color:#fce7f3;color:#ec4899}.status-badge[data-v-6552b99d]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 12px;text-transform:uppercase}.status-badge.rejected[data-v-6552b99d]{background-color:#fee2e2;color:#dc2626}.actions-cell[data-v-6552b99d]{display:flex;flex-wrap:wrap;gap:4px}.pagination-container[data-v-6552b99d]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-6552b99d]{color:#666;font-size:14px}.pagination-controls[data-v-6552b99d]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-6552b99d]{color:#666;padding:6px 12px}.btn[data-v-6552b99d]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-6552b99d]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-6552b99d]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-6552b99d]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-6552b99d]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-6552b99d]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-6552b99d]{background-color:transparent;border-color:#007bff;color:#007bff}.btn-outline-primary[data-v-6552b99d]:hover{background-color:#007bff;color:#fff}.btn-outline-secondary[data-v-6552b99d]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-6552b99d]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-6552b99d]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-6552b99d]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-6552b99d]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-6552b99d]:hover{background-color:#28a745;color:#fff}.btn-outline-danger[data-v-6552b99d]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-6552b99d]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-6552b99d]{font-size:12px;padding:4px 8px}.form-control[data-v-6552b99d]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-6552b99d]:focus{border-color:#007bff;box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:none}.loading-overlay[data-v-6552b99d]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-6552b99d]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-6552b99d]{color:#007bff;font-size:32px;margin-bottom:16px}@media (max-width:768px){.applicant-summary-container[data-v-6552b99d]{padding:10px}.header-content[data-v-6552b99d]{align-items:flex-start}.filter-row[data-v-6552b99d],.header-content[data-v-6552b99d]{flex-direction:column;gap:16px}.filter-group[data-v-6552b99d]{min-width:auto;width:100%}.summary-cards[data-v-6552b99d]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-6552b99d]{padding:20px}.card-icon[data-v-6552b99d]{font-size:20px;height:50px;margin-right:16px;width:50px}.pagination-container[data-v-6552b99d],.table-header[data-v-6552b99d]{align-items:flex-start;flex-direction:column;gap:16px}.actions-cell[data-v-6552b99d]{flex-direction:column;gap:4px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".job-batch-info[data-v-0d96dcd4]{font-size:12px;min-width:120px}.job-batch-assigned[data-v-0d96dcd4]{color:#059669}.batch-name[data-v-0d96dcd4]{font-weight:600}.batch-name[data-v-0d96dcd4],.batch-workplace[data-v-0d96dcd4]{align-items:center;display:flex;gap:4px;margin-bottom:2px}.batch-workplace[data-v-0d96dcd4]{color:#6b7280}.batch-status[data-v-0d96dcd4]{margin-top:4px}.batch-status-badge[data-v-0d96dcd4]{border-radius:8px;font-size:10px;font-weight:500;padding:2px 6px;text-transform:uppercase}.batch-status-badge.draft[data-v-0d96dcd4]{background-color:#fef3c7;color:#d97706}.batch-status-badge.active[data-v-0d96dcd4]{background-color:#d1fae5;color:#065f46}.batch-status-badge.completed[data-v-0d96dcd4]{background-color:#dbeafe;color:#1d4ed8}.batch-status-badge.cancelled[data-v-0d96dcd4]{background-color:#fee2e2;color:#dc2626}.batch-status-badge.on_hold[data-v-0d96dcd4]{background-color:#f3f4f6;color:#6b7280}.no-job-batch[data-v-0d96dcd4]{align-items:center;color:#9ca3af;display:flex;font-style:italic;gap:4px}.summary-card.job-batch-assigned[data-v-0d96dcd4]{border-left:4px solid #059669}.summary-card.job-batch-assigned .card-icon.job-batch[data-v-0d96dcd4]{background:#d1fae5;color:#059669}.job-batch-rate[data-v-0d96dcd4]{display:block;font-size:12px;margin-top:4px;opacity:.8}.passport-status.has-passport[data-v-0d96dcd4]{color:#10b981}.passport-status.no-passport[data-v-0d96dcd4]{color:#dc2626}.passport-number[data-v-0d96dcd4]{font-family:monospace}.passport-expiry[data-v-0d96dcd4],.passport-number[data-v-0d96dcd4]{color:#666;font-size:11px}.address-details .address[data-v-0d96dcd4]{font-size:12px;margin-bottom:2px}.location-parts[data-v-0d96dcd4]{color:#666;font-size:11px}.location-parts span[data-v-0d96dcd4]{margin-right:8px}.location-parts span[data-v-0d96dcd4]:not(:last-child):after{color:#ccc;content:\"•\";margin-left:8px}.marital-status[data-v-0d96dcd4]{color:#666;font-size:11px;margin-top:2px}.emergency-phone[data-v-0d96dcd4]{color:#666;font-size:11px;margin-left:8px}.contact-details .emergency[data-v-0d96dcd4]{align-items:center;color:#f59e0b;display:flex;font-size:11px;gap:4px}.date-info .interview-date[data-v-0d96dcd4]{color:#666;font-size:11px;margin-top:2px}.status-badge.INTERVIEW[data-v-0d96dcd4]{background-color:#fef3c7;color:#d97706}.status-badge.REGISTER[data-v-0d96dcd4]{background-color:#d1fae5;color:#065f46}.summary-card.status-interview .card-icon.interview[data-v-0d96dcd4]{background:#fef3c7;color:#d97706}.summary-card.status-register .card-icon.register[data-v-0d96dcd4]{background:#d1fae5;color:#065f46}.summary-card.passport-available .card-icon.passport[data-v-0d96dcd4]{background:#dbeafe;color:#3b82f6}.passport-rate[data-v-0d96dcd4]{display:block;font-size:12px;margin-top:4px;opacity:.8}.applicant-summary-container[data-v-0d96dcd4]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-0d96dcd4]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-0d96dcd4]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-0d96dcd4]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-0d96dcd4]{display:flex;gap:12px}.filter-section[data-v-0d96dcd4]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-0d96dcd4]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-0d96dcd4]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-0d96dcd4]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-0d96dcd4]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-0d96dcd4]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:20px}.summary-card[data-v-0d96dcd4]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-0d96dcd4]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-applicants[data-v-0d96dcd4]{background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff}.summary-card.total-applicants .card-icon[data-v-0d96dcd4]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.gender-male[data-v-0d96dcd4]{border-left:4px solid #3b82f6}.summary-card.gender-female[data-v-0d96dcd4]{border-left:4px solid #ec4899}.card-icon[data-v-0d96dcd4]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-0d96dcd4]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.male[data-v-0d96dcd4]{background:#dbeafe;color:#3b82f6}.card-icon.female[data-v-0d96dcd4]{background:#fce7f3;color:#ec4899}.card-content[data-v-0d96dcd4]{flex:1;min-width:0}.card-content h3[data-v-0d96dcd4]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-0d96dcd4]{font-size:14px;margin:0}.table-section[data-v-0d96dcd4]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-0d96dcd4]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-0d96dcd4]{color:#333;margin:0}.record-count[data-v-0d96dcd4]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-0d96dcd4]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-0d96dcd4]{overflow-x:auto}.data-table[data-v-0d96dcd4]{border-collapse:collapse;width:100%}.data-table td[data-v-0d96dcd4],.data-table th[data-v-0d96dcd4]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-0d96dcd4]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-0d96dcd4]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-0d96dcd4]:hover{background-color:#e9ecef}.data-table th i[data-v-0d96dcd4]{margin-left:8px;opacity:.5}.applicant-name strong[data-v-0d96dcd4]{color:#333;display:block;font-size:14px}.contact-info[data-v-0d96dcd4]{color:#666;font-size:12px;margin-top:2px}.phone[data-v-0d96dcd4]{font-family:monospace}.contact-details[data-v-0d96dcd4]{color:#666;font-size:12px}.contact-details .phone[data-v-0d96dcd4]{align-items:center;display:flex;gap:4px;margin-bottom:2px}.contact-details i[data-v-0d96dcd4]{color:#999;width:12px}.age-cell[data-v-0d96dcd4]{color:#495057;font-weight:600}.gender-badge[data-v-0d96dcd4]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 8px;text-transform:uppercase}.gender-badge.male[data-v-0d96dcd4]{background-color:#dbeafe;color:#3b82f6}.gender-badge.female[data-v-0d96dcd4]{background-color:#fce7f3;color:#ec4899}.status-badge[data-v-0d96dcd4]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 12px;text-transform:uppercase}.status-badge.rejected[data-v-0d96dcd4]{background-color:#fee2e2;color:#dc2626}.actions-cell[data-v-0d96dcd4]{display:flex;flex-wrap:wrap;gap:4px}.pagination-container[data-v-0d96dcd4]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-0d96dcd4]{color:#666;font-size:14px}.pagination-controls[data-v-0d96dcd4]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-0d96dcd4]{color:#666;padding:6px 12px}.btn[data-v-0d96dcd4]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-0d96dcd4]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-0d96dcd4]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-0d96dcd4]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-0d96dcd4]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-0d96dcd4]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-0d96dcd4]{background-color:transparent;border-color:#007bff;color:#007bff}.btn-outline-primary[data-v-0d96dcd4]:hover{background-color:#007bff;color:#fff}.btn-outline-secondary[data-v-0d96dcd4]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-0d96dcd4]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-0d96dcd4]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-0d96dcd4]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-0d96dcd4]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-0d96dcd4]:hover{background-color:#28a745;color:#fff}.btn-outline-danger[data-v-0d96dcd4]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-0d96dcd4]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-0d96dcd4]{font-size:12px;padding:4px 8px}.form-control[data-v-0d96dcd4]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-0d96dcd4]:focus{border-color:#007bff;box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:none}.loading-overlay[data-v-0d96dcd4]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-0d96dcd4]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-0d96dcd4]{color:#007bff;font-size:32px;margin-bottom:16px}@media (max-width:768px){.applicant-summary-container[data-v-0d96dcd4]{padding:10px}.header-content[data-v-0d96dcd4]{align-items:flex-start}.filter-row[data-v-0d96dcd4],.header-content[data-v-0d96dcd4]{flex-direction:column;gap:16px}.filter-group[data-v-0d96dcd4]{min-width:auto;width:100%}.summary-cards[data-v-0d96dcd4]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-0d96dcd4]{padding:20px}.card-icon[data-v-0d96dcd4]{font-size:20px;height:50px;margin-right:16px;width:50px}.pagination-container[data-v-0d96dcd4],.table-header[data-v-0d96dcd4]{align-items:flex-start;flex-direction:column;gap:16px}.actions-cell[data-v-0d96dcd4]{flex-direction:column;gap:4px}.data-table td[data-v-0d96dcd4]:nth-child(3),.data-table th[data-v-0d96dcd4]:nth-child(3){display:none}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

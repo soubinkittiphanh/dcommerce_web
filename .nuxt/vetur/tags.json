@@ -218,6 +218,9 @@
   "CalendarMyCalendar": {
     "description": "Auto imported from components/calendar/MyCalendar.vue"
   },
+  "CampaignForm": {
+    "description": "Auto imported from components/campaign/CampaignForm.vue"
+  },
   "CardCampaignCard": {
     "description": "Auto imported from components/card/campaignCard.vue"
   },
@@ -229,9 +232,6 @@
   },
   "CustomerList": {
     "description": "Auto imported from components/customer/CustomerList.vue"
-  },
-  "CampaignForm": {
-    "description": "Auto imported from components/campaign/CampaignForm.vue"
   },
   "DashboardCardGrouping": {
     "description": "Auto imported from components/dashboard/CardGrouping.vue"
@@ -338,14 +338,14 @@
   "MAPaymentComponentsValidationErrors": {
     "description": "Auto imported from components/MA/paymentComponents/ValidationErrors.vue"
   },
-  "MAPaymentDetailDialog": {
-    "description": "Auto imported from components/MA/paymentDetailDialog/index.vue"
-  },
   "MAPaymentDialog": {
     "description": "Auto imported from components/MA/paymentDialog/index.vue"
   },
   "MAPaymentVoucher": {
     "description": "Auto imported from components/MA/paymentVoucher/index.vue"
+  },
+  "MAPaymentDetailDialog": {
+    "description": "Auto imported from components/MA/paymentDetailDialog/index.vue"
   },
   "MARevenueTargetDialog": {
     "description": "Auto imported from components/MA/revenueTargetDialog/index.vue"
@@ -353,23 +353,11 @@
   "MASettlementDialog": {
     "description": "Auto imported from components/MA/settlementDialog/index.vue"
   },
-  "MASettlementVoucher": {
-    "description": "Auto imported from components/MA/settlementVoucher/index.vue"
-  },
-  "BankBankAccount": {
-    "description": "Auto imported from components/bank/bankAccount/index.vue"
-  },
   "MASettlementViewDialog": {
     "description": "Auto imported from components/MA/settlementViewDialog/index.vue"
   },
-  "BenefitMaintain": {
-    "description": "Auto imported from components/benefit/maintain/index.vue"
-  },
-  "BenefitView": {
-    "description": "Auto imported from components/benefit/view/index.vue"
-  },
-  "ApplicantsApplicantDialog": {
-    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
+  "MASettlementVoucher": {
+    "description": "Auto imported from components/MA/settlementVoucher/index.vue"
   },
   "ApplicantsApplicantViewDialog": {
     "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
@@ -377,14 +365,23 @@
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
   },
+  "BenefitMaintain": {
+    "description": "Auto imported from components/benefit/maintain/index.vue"
+  },
+  "BenefitView": {
+    "description": "Auto imported from components/benefit/view/index.vue"
+  },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
+  },
+  "ApplicantsApplicantDialog": {
+    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
+  },
   "JobAdvertiseMaintain": {
     "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
   },
   "JobAdvertiseStatusUpdate": {
     "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
-  },
-  "JobAdvertiseView": {
-    "description": "Auto imported from components/jobAdvertise/view/index.vue"
   },
   "JobFairJobBatch": {
     "description": "Auto imported from components/job_fair/job_batch/index.vue"
@@ -395,17 +392,23 @@
   "AccountingApSettlement": {
     "description": "Auto imported from components/accounting/ap/settlement/index.vue"
   },
-  "JobFairMouMaintain": {
-    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
+  "JobAdvertiseView": {
+    "description": "Auto imported from components/jobAdvertise/view/index.vue"
   },
   "JobFairAgencyMaintain": {
     "description": "Auto imported from components/job_fair/agency/maintain/index.vue"
   },
+  "JobFairAgencyView": {
+    "description": "Auto imported from components/job_fair/agency/view/index.vue"
+  },
+  "JobFairMouMaintain": {
+    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
+  },
   "AccountingApInvoiceAudit": {
     "description": "Auto imported from components/accounting/ap/invoice/audit/index.vue"
   },
-  "JobFairAgencyView": {
-    "description": "Auto imported from components/job_fair/agency/view/index.vue"
+  "AccountingApSettlementAudit": {
+    "description": "Auto imported from components/accounting/ap/settlement/audit/index.vue"
   },
   "AccountingArInvoiceAudit": {
     "description": "Auto imported from components/accounting/ar/invoice/audit/index.vue"
@@ -416,9 +419,6 @@
   "AccountingArInvoiceView": {
     "description": "Auto imported from components/accounting/ar/invoice/view/index.vue"
   },
-  "AccountingApSettlementAudit": {
-    "description": "Auto imported from components/accounting/ap/settlement/audit/index.vue"
-  },
   "AccountingArReceiveMaintain": {
     "description": "Auto imported from components/accounting/ar/receive/maintain/index.vue"
   },
@@ -428,10 +428,10 @@
   "AccountingApInvoiceAuditView": {
     "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
   },
-  "AccountingArInvoiceAuditView": {
-    "description": "Auto imported from components/accounting/ar/invoice/audit/view/index.vue"
-  },
   "AccountingApSettlementAuditView": {
     "description": "Auto imported from components/accounting/ap/settlement/audit/view/index.vue"
+  },
+  "AccountingArInvoiceAuditView": {
+    "description": "Auto imported from components/accounting/ar/invoice/audit/view/index.vue"
   }
 }
