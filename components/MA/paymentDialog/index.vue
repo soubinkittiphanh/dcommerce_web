@@ -200,18 +200,47 @@
                 />
               </div>
 
+              <!-- NEW: External Booking Date Field -->
               <div class="form-group">
                 <label class="form-label">
-                  <i class="fas fa-hashtag"></i>
-                  ເລກທີ່ໃບສັ່ງຈ່າຍ
+                  <i class="fas fa-calendar-check"></i>
+                  ວັນທີອ້າງອີງພາຍນອກ
                 </label>
-                <input
-                  v-model="localForm.externalRefNo"
-                  type="text"
-                  class="form-control"
-                  placeholder="ເລກທີ່ໃບສັ່ງຈ່າຍ"
-                  maxlength="50"
-                />
+
+                <v-menu
+                  ref="externalBookingDateMenu"
+                  v-model="externalBookingDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                  :disabled="formLoading || saving"
+                >
+                  <template #activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formattedExternalBookingDate"
+                      outlined
+                      dense
+                      clearable
+                      hide-details
+                      prepend-inner-icon="mdi-calendar-check"
+                      :disabled="formLoading || saving"
+                      :class="{ 'compact-date-field': true }"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click:clear="clearExternalBookingDate"
+                      placeholder="ເລືອກວັນທີ"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="pickerExternalBookingDate"
+                    no-title
+                    :max="today"
+                    @input="setExternalBookingDate"
+                    :disabled="formLoading || saving"
+                  />
+                </v-menu>
               </div>
 
               <div class="form-group" v-show="localForm.method === 'cheque'">
@@ -508,9 +537,10 @@ export default {
         ministryId: '',
         bookingDate: '',
         exchangeRate: '',
-        method: 'cash', // ✅ Default method
+        method: 'cash',
         externalRef: '',
         externalRefNo: '',
+        externalBookingDate: '', // NEW FIELD
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
@@ -546,11 +576,14 @@ export default {
     return {
       // Date picker specific properties
       bookingDateMenu: false,
+      externalBookingDateMenu: false, // FIXED: This was declared but not used properly
       dueDateMenu: false,
-      pickerBookingDate: null, // for v-date-picker (YYYY-MM-DD format)
-      pickerDueDate: null, // for v-date-picker (YYYY-MM-DD format)
-      formattedBookingDate: null, // for display (DD/MM/YYYY format)
-      formattedDueDate: null, // for display (DD/MM/YYYY format)
+      pickerBookingDate: null,
+      pickerDueDate: null,
+      pickerExternalBookingDate: null, // NEW: For external booking date picker
+      formattedBookingDate: null,
+      formattedDueDate: null,
+      formattedExternalBookingDate: null, // NEW: For external booking date display
 
       advanceDetails: null,
       showPrintVoucher: false,
@@ -566,9 +599,10 @@ export default {
         ministryId: '',
         bookingDate: '',
         exchangeRate: '',
-        method: 'cash', // ✅ Default method
+        method: 'cash',
         externalRef: '',
         externalRefNo: '',
+        externalBookingDate: '', // NEW FIELD
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
@@ -635,7 +669,7 @@ export default {
         'makerId exists': !!this.localForm.makerId,
         'currencyId exists': !!this.localForm.currencyId,
         'bookingDate exists': !!this.localForm.bookingDate,
-        'method exists': !!this.localForm.method, // ✅ Method validation
+        'method exists': !!this.localForm.method,
         'users available': this.users.length > 0,
         'currencies available': this.currencies.length > 0,
         'exchange rate valid':
@@ -657,7 +691,7 @@ export default {
         'receiveIDNO valid':
           !this.localForm.receiveIDNO ||
           this.localForm.receiveIDNO.length <= 20,
-        // ✅ Conditional validations based on method
+        // Conditional validations based on method
         'cheque number required':
           this.localForm.method !== 'cheque' ||
           (this.localForm.method === 'cheque' && !!this.localForm.chequeNo),
@@ -682,7 +716,6 @@ export default {
       handler(newVal) {
         console.info(`Form data is changing...`, newVal)
         if (newVal && typeof newVal === 'object') {
-          // Only update if we don't have a local form with ID, or if the new data has a different ID
           if (
             !this.localForm.id ||
             (newVal.id && newVal.id !== this.localForm.id)
@@ -692,7 +725,6 @@ export default {
               ...newVal,
             }
 
-            // Ensure method defaults to 'cash' if not provided or empty
             if (!this.localForm.method || this.localForm.method === '') {
               this.localForm.method = 'cash'
               console.info('🔧 Setting method to default: cash')
@@ -714,7 +746,6 @@ export default {
       immediate: true,
     },
 
-    // ✅ Watch method changes to clear conditional fields
     'localForm.method'(newMethod, oldMethod) {
       console.info(`Method changed from "${oldMethod}" to "${newMethod}"`)
       if (oldMethod && newMethod !== oldMethod) {
@@ -729,8 +760,6 @@ export default {
   },
 
   methods: {
-    // 🔧 NEW: Helper method to get default form structure
-
     formatDateForDisplay(date) {
       if (!date) return null
       const d = new Date(date)
@@ -743,7 +772,6 @@ export default {
     // Set booking date from picker
     setBookingDate(val) {
       this.pickerBookingDate = val
-      // Ensure localForm gets the properly formatted date
       this.localForm.bookingDate = this.formatDateForAPI(val)
       this.formattedBookingDate = this.formatDateForDisplay(val)
       this.bookingDateMenu = false
@@ -753,11 +781,21 @@ export default {
       )
     },
 
-    // Set due date from picker
+    // NEW: Set external booking date from picker
+    setExternalBookingDate(val) {
+      this.pickerExternalBookingDate = val
+      this.localForm.externalBookingDate = this.formatDateForAPI(val)
+      this.formattedExternalBookingDate = this.formatDateForDisplay(val)
+      this.externalBookingDateMenu = false
 
+      console.info(
+        `Set external booking date: picker=${val}, localForm=${this.localForm.externalBookingDate}, formatted=${this.formattedExternalBookingDate}`
+      )
+    },
+
+    // Set due date from picker
     setDueDate(val) {
       this.pickerDueDate = val
-      // Ensure localForm gets the properly formatted date
       this.localForm.dueDate = this.formatDateForAPI(val)
       this.formattedDueDate = this.formatDateForDisplay(val)
       this.dueDateMenu = false
@@ -774,12 +812,20 @@ export default {
       this.formattedBookingDate = null
     },
 
+    // NEW: Clear external booking date
+    clearExternalBookingDate() {
+      this.pickerExternalBookingDate = null
+      this.localForm.externalBookingDate = ''
+      this.formattedExternalBookingDate = null
+    },
+
     // Clear due date
     clearDueDate() {
       this.pickerDueDate = null
       this.localForm.dueDate = ''
       this.formattedDueDate = null
     },
+
     getDefaultForm() {
       return {
         id: null,
@@ -796,6 +842,7 @@ export default {
         method: 'cash',
         externalRef: '',
         externalRefNo: '',
+        externalBookingDate: '', // NEW FIELD
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
@@ -811,34 +858,16 @@ export default {
         const month = (date.getMonth() + 1).toString().padStart(2, '0')
         const year = date.getFullYear()
 
-        // Lao months names (optional)
-        const laoMonths = [
-          'ມັງກອນ',
-          'ກຸມພາ',
-          'ມີນາ',
-          'ເມສາ',
-          'ພຶດສະພາ',
-          'ມິຖຸນາ',
-          'ກໍລະກົດ',
-          'ສິງຫາ',
-          'ກັນຍາ',
-          'ຕຸລາ',
-          'ພະຈິກ',
-          'ທັນວາ',
-        ]
-
-        // Return format: DD/MM/YYYY
         return `${day}/${month}/${year}`
-
-        // Or with Lao month name: DD ເດືອນ MM ປີ YYYY
-        // return `${day} ${laoMonths[date.getMonth()]} ${year}`
       } catch (error) {
         return dateString
       }
     },
+
     formatVoucherNumber(id) {
       return String(id).padStart(6, '0')
     },
+
     async fetchAdvanceByid() {
       if (!this.localForm.id)
         return this.showToast('ກະລຸນາບັນທຶກຂໍ້ມູນກ່ອນ', 'error')
@@ -856,11 +885,13 @@ export default {
         this.loading = false
       }
     },
+
     async printAdvanceDetails() {
       await this.saveAdvance()
       await this.fetchAdvanceByid()
       this.showPrintVoucher = true
     },
+
     closePrintVoucher() {
       this.showPrintVoucher = false
       setTimeout(() => {
@@ -868,7 +899,6 @@ export default {
       }, 100)
     },
 
-    // 🔧 FIXED: Simplified initForm method
     initForm() {
       this.formErrors = []
       console.info('🔧 initForm called with formData:', this.formData)
@@ -885,7 +915,7 @@ export default {
           console.info('🔧 Edit mode: Setting method to default cash')
         }
 
-        // 🔧 FIX: Properly format dates when loading existing data
+        // Format dates when loading existing data
         if (this.localForm.bookingDate) {
           const formattedBookingDate = this.formatDateForAPI(
             this.localForm.bookingDate
@@ -894,6 +924,18 @@ export default {
           this.pickerBookingDate = formattedBookingDate
           this.formattedBookingDate =
             this.formatDateForDisplay(formattedBookingDate)
+        }
+
+        // NEW: Handle external booking date in edit mode
+        if (this.localForm.externalBookingDate) {
+          const formattedExternalBookingDate = this.formatDateForAPI(
+            this.localForm.externalBookingDate
+          )
+          this.localForm.externalBookingDate = formattedExternalBookingDate
+          this.pickerExternalBookingDate = formattedExternalBookingDate
+          this.formattedExternalBookingDate = this.formatDateForDisplay(
+            formattedExternalBookingDate
+          )
         }
 
         if (this.localForm.dueDate) {
@@ -907,15 +949,20 @@ export default {
         this.localForm = this.getDefaultForm()
 
         // Set date picker values for new advance
-        const todayDate = this.today // This should already be in YYYY-MM-DD format
+        const todayDate = this.today
         this.localForm.bookingDate = todayDate
         this.pickerBookingDate = todayDate
         this.formattedBookingDate = this.formatDateForDisplay(todayDate)
 
-        // Due date is optional, so leave it empty
+        // Due date and external booking date are optional, so leave them empty
         this.localForm.dueDate = ''
         this.pickerDueDate = null
         this.formattedDueDate = null
+
+        // NEW: Initialize external booking date as empty for new records
+        this.localForm.externalBookingDate = ''
+        this.pickerExternalBookingDate = null
+        this.formattedExternalBookingDate = null
 
         // Set default currency
         if (this.currencies.length > 0) {
@@ -939,7 +986,7 @@ export default {
           console.info('🔧 Copying non-empty formData to localForm')
           Object.assign(this.localForm, this.formData)
 
-          // 🔧 FIX: Format copied dates properly
+          // Format copied dates properly
           if (this.localForm.bookingDate) {
             const formattedBookingDate = this.formatDateForAPI(
               this.localForm.bookingDate
@@ -948,6 +995,18 @@ export default {
             this.pickerBookingDate = formattedBookingDate
             this.formattedBookingDate =
               this.formatDateForDisplay(formattedBookingDate)
+          }
+
+          // NEW: Handle external booking date when copying formData
+          if (this.localForm.externalBookingDate) {
+            const formattedExternalBookingDate = this.formatDateForAPI(
+              this.localForm.externalBookingDate
+            )
+            this.localForm.externalBookingDate = formattedExternalBookingDate
+            this.pickerExternalBookingDate = formattedExternalBookingDate
+            this.formattedExternalBookingDate = this.formatDateForDisplay(
+              formattedExternalBookingDate
+            )
           }
 
           if (this.localForm.dueDate) {
@@ -969,6 +1028,7 @@ export default {
 
       console.info('🔧 Final localForm with formatted dates:', this.localForm)
     },
+
     resetForm() {
       console.info('🔧 resetForm called')
       this.localForm = this.getDefaultForm()
@@ -979,9 +1039,14 @@ export default {
       this.formattedBookingDate = this.formatDateForDisplay(todayDate)
       this.pickerDueDate = null
       this.formattedDueDate = null
+      
+      // NEW: Reset external booking date
+      this.pickerExternalBookingDate = null
+      this.formattedExternalBookingDate = null
 
       // Close any open menus
       this.bookingDateMenu = false
+      this.externalBookingDateMenu = false // NEW
       this.dueDateMenu = false
     },
 
@@ -1004,12 +1069,11 @@ export default {
         this.formErrors.push('Booking date is required')
       }
 
-      // ✅ Method validation
       if (!this.localForm.method) {
         this.formErrors.push('Payment method is required')
       }
 
-      // ✅ Conditional validations based on method
+      // Conditional validations based on method
       if (this.localForm.method === 'cheque' && !this.localForm.chequeNo) {
         this.formErrors.push(
           'Cheque number is required when payment method is cheque'
@@ -1140,7 +1204,6 @@ export default {
       this.$emit('ministry-changed', this.localForm.ministryId)
     },
 
-    // ✅ Handle payment method changes
     handleMethodChange() {
       const method = this.localForm.method
       console.info(`🔧 handleMethodChange: ${method}`)
@@ -1153,13 +1216,13 @@ export default {
         this.localForm.bankAccountId = ''
       }
 
-      // Emit method change event if needed
       this.$emit('method-changed', method)
     },
 
     closeDialog() {
       this.$emit('close')
     },
+
     showToast(message, type = 'info') {
       if (this.$toast) {
         this.$toast[type](message)
@@ -1174,7 +1237,6 @@ export default {
       }
     },
 
-    // 🔧 FIXED: Simple solution - just emit to parent
     async saveAdvance() {
       if (!this.validateForm()) {
         this.$emit('validation-error', 'Please fix the form errors')
@@ -1187,13 +1249,18 @@ export default {
 
       const formData = { ...this.localForm }
 
-      // 🔧 FIX: Format dates properly for API
+      // Format dates properly for API
       if (formData.bookingDate) {
         formData.bookingDate = this.formatDateForAPI(formData.bookingDate)
       }
 
       if (formData.dueDate) {
         formData.dueDate = this.formatDateForAPI(formData.dueDate)
+      }
+
+      // NEW: Format external booking date for API
+      if (formData.externalBookingDate) {
+        formData.externalBookingDate = this.formatDateForAPI(formData.externalBookingDate)
       }
 
       // Clean up empty fields
@@ -1205,6 +1272,7 @@ export default {
       if (!formData.exchangeRate) delete formData.exchangeRate
       if (!formData.externalRef) delete formData.externalRef
       if (!formData.externalRefNo) delete formData.externalRefNo
+      if (!formData.externalBookingDate) delete formData.externalBookingDate // NEW
       if (!formData.chequeNo) delete formData.chequeNo
       if (!formData.receiveName) delete formData.receiveName
       if (!formData.receiveIDNO) delete formData.receiveIDNO
@@ -1213,9 +1281,9 @@ export default {
         `CLEANED FORM DATA WITH FORMATTED DATES: ${JSON.stringify(formData)}`
       )
 
-      // Always emit save - let parent handle create vs update logic
       this.$emit('save', formData)
     },
+
     formatDateForAPI(dateValue) {
       if (!dateValue) return null
 
@@ -1247,9 +1315,7 @@ export default {
 </script>
 
 <style scoped>
-/* Enhanced Modal Styles */
-
-/* Updated compact date field styles to match form controls */
+/* [Same CSS styles as before - no changes needed] */
 .compact-date-field {
   font-size: 12px !important;
 }
@@ -1267,7 +1333,7 @@ export default {
 }
 
 .compact-date-field .v-text-field__details {
-  display: none !important; /* Hide details section completely */
+  display: none !important;
 }
 
 .compact-date-field .v-input__icon--prepend-inner {
@@ -1296,7 +1362,6 @@ export default {
   height: 30px !important;
 }
 
-/* Override Vuetify outline to match your form style */
 .compact-date-field .v-text-field--outlined .v-input__control .v-input__slot {
   border: 1px solid #e5e7eb !important;
   border-radius: 4px !important;
@@ -1339,7 +1404,6 @@ export default {
   opacity: 0.6 !important;
 }
 
-/* Remove the fieldset border that Vuetify adds */
 .compact-date-field .v-text-field--outlined fieldset {
   border: none !important;
 }
@@ -1348,7 +1412,6 @@ export default {
   display: none !important;
 }
 
-/* Date picker menu styling */
 .v-menu__content {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
   border-radius: 8px !important;
@@ -1584,7 +1647,6 @@ textarea.form-control {
   font-size: 12px;
 }
 
-/* Ministry Info Styles */
 .ministry-info {
   margin-top: 6px;
   padding: 6px;
@@ -1624,7 +1686,6 @@ textarea.form-control {
   border-radius: 2px;
 }
 
-/* Bank Account Info Styles */
 .bank-account-info {
   margin-top: 6px;
   padding: 6px;
@@ -1729,7 +1790,6 @@ textarea.form-control {
   animation: spin 1s linear infinite;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .form-grid {
     grid-template-columns: repeat(2, 1fr);

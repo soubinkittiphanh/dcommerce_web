@@ -99,26 +99,21 @@
               <div class="detail-row">
                 <span class="label">ອີງໃສ່ໃບສັ່ງຈ່າຍ ເລກທີ</span>
 
-                <span class="dotted-line"
-                  >{{
-                    voucherData.externalRefNo ||
-                    formatVoucherNumber(voucherData.id) ||
-                    'N/A'
-                  }}
+                <span class="dotted-line">
                   {{ voucherData.externalRef || '' }}</span
                 >
 
                 <span class="label">ລົງວັນທີ</span>
                 <span class="value">{{
-                  formatDate(voucherData.createdAt).day
+                  formatDate(voucherData.externalBookingDate).day
                 }}</span>
                 <span class="label">ເດືອນ</span>
                 <span class="value">{{
-                  formatDate(voucherData.createdAt).month
+                  formatDate(voucherData.externalBookingDate).month
                 }}</span>
                 <span class="label">ປີ</span>
                 <span class="value">{{
-                  formatDate(voucherData.createdAt).year
+                  formatDate(voucherData.externalBookingDate).year
                 }}</span>
               </div>
 
@@ -259,7 +254,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -715,209 +709,309 @@ export default {
     },
 
     printVoucher() {
-      const printContent = this.$refs.voucherContent.innerHTML
+      // Clone the voucher content to avoid modifying the original
+      const voucherElement = this.$refs.voucherContent.cloneNode(true)
+
+      // Get all checkboxes in the cloned element
+      const checkboxes = voucherElement.querySelectorAll(
+        'input[type="checkbox"]'
+      )
+
+      // Manually set the checked state based on data
+      checkboxes.forEach((checkbox, index) => {
+        let shouldBeChecked = false
+
+        // Method 1: Use index-based approach (more reliable)
+        // The checkboxes appear in this order: cash, cheque, LAK, THB, USD
+        if (index === 0) {
+          // First checkbox - Cash
+          shouldBeChecked = this.voucherData.method === 'cash'
+        } else if (index === 1) {
+          // Second checkbox - Cheque
+          shouldBeChecked = this.voucherData.method === 'cheque'
+        } else if (index === 2) {
+          // Third checkbox - LAK (ກີບ)
+          shouldBeChecked = this.voucherData.currency?.code === 'LAK'
+        } else if (index === 3) {
+          // Fourth checkbox - THB (ບາດ)
+          shouldBeChecked = this.voucherData.currency?.code === 'THB'
+        } else if (index === 4) {
+          // Fifth checkbox - USD (ໂດລາ)
+          shouldBeChecked = this.voucherData.currency?.code === 'USD'
+        }
+
+        // Fallback method: Check by parent label text for currency checkboxes
+        if (index >= 2) {
+          const parentLabel = checkbox.closest('label')
+          const parentText = parentLabel ? parentLabel.textContent.trim() : ''
+
+          if (parentText.includes('ກີບ')) {
+            shouldBeChecked = this.voucherData.currency?.code === 'LAK'
+          } else if (parentText.includes('ບາດ')) {
+            shouldBeChecked = this.voucherData.currency?.code === 'THB'
+          } else if (parentText.includes('ໂດລາ')) {
+            shouldBeChecked = this.voucherData.currency?.code === 'USD'
+          }
+        }
+
+        // Set the checked attribute
+        if (shouldBeChecked) {
+          checkbox.setAttribute('checked', 'checked')
+          checkbox.checked = true
+        } else {
+          checkbox.removeAttribute('checked')
+          checkbox.checked = false
+        }
+      })
+
+      // Get the processed HTML content
+      const printContent = voucherElement.innerHTML
       const printWindow = window.open('', '_blank', 'width=800,height=600')
 
       printWindow.document.write(`
-        <html>
-          <head>
-            <title>ໃບຈ່າຍເງິນສົດອອກຄັງ</title>
-            <style>
-              body { 
-                font-family: 'Phetsarath OT', 'Noto Sans Lao', Arial, sans-serif; 
-                margin: 0; 
-                padding: 20px; 
-                line-height: 1.4;
-                font-weight: bold !important;
-              }
+    <html>
+      <head>
+        <title>ໃບຈ່າຍເງິນສົດອອກຄັງ</title>
+        <style>
+          body { 
+            font-family: 'Phetsarath OT', 'Noto Sans Lao', Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            line-height: 1.4;
+            font-weight: bold !important;
+          }
 
-              * {
-                font-weight: bold !important;
-              }
+          * {
+            font-weight: bold !important;
+          }
 
-                .voucher-logo {
-                  width: 110px;
-                  height: 110px;
-                  /* width: auto;
-                  height: auto; */
-                  object-fit: contain;
-                  margin-bottom: 1px !important;
-                  line-height: 1 !important;
-                }
-              .voucher-logo-gov {
-                max-width: 90px;
-                max-height: 90px;
-                width: auto;
-                height: auto;
-                object-fit: contain;
-                margin-top: 30px !important;
-                margin-bottom: 4px !important;
-                line-height: 1 !important;
-              }
-              .voucher-container { 
-                border: 2px solid #000; 
-                padding: 15px; 
-                font-size: 12px; 
-                line-height: 1.4; 
-                max-width: 210mm;
-                margin: 0 auto;
-                font-weight: bold;
-              }
-              .voucher-header { 
-                display: flex; 
-                justify-content: space-between; 
-                align-items: flex-start; 
-                margin-bottom: 15px; 
-                padding-bottom: 5px; 
-              }
-              .ministry-voucher-section {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-end;
-                margin: 0 !important;
-                padding: 0 !important;
-                margin-bottom: 10px !important;
-              }
-              .ministry-voucher-section .col,
-              .ministry-voucher-section > div {
-                padding: 0 !important;
-                margin: 0 !important;
-              }
-              .voucher-title {
-                font-size: 16px !important;
-                margin: 0 !important;
-                margin-bottom: 2px !important;
-                line-height: 1.2 !important;
-                text-align: left;
-                text-decoration: none;
-                font-weight: bold !important;
-              }
-              .voucher-title-main {
-                text-align: center;
-                font-size: 18px;
-                font-weight: bold;
-                margin: 20px 0;
-                text-decoration: underline;
-              }
-              .company-info { 
-                flex: 1; 
-                text-align: center; 
-              }
-              .company-name { 
-                font-weight: bold !important; 
-                font-size: 14px; 
-                margin-bottom: 3px; 
-              }
-              .department { 
-                font-size: 12px; 
-                margin-bottom: 3px; 
-                font-weight: bold !important;
-              }
-              .sub-department { 
-                font-size: 10px; 
-                margin-bottom: 10px; 
-                font-weight: bold !important;
-              }
-              .amount-line { 
-                font-size: 10px; 
-                letter-spacing: 2px; 
-                font-weight: bold !important;
-              }
-              .number-box { 
-                border: 2px solid #000; 
-                padding: 5px 8px; 
-                text-align: center; 
-                background: #f9f9f9; 
-                margin-bottom: 5px;
-              }
-              .number-label { 
-                font-weight: bold !important; 
-                margin-right: 10px; 
-              }
-              .number-value { 
-                font-weight: bold !important; 
-                color: #d32f2f;
-              }
-              .detail-row { 
-                display: flex; 
-                align-items: center; 
-                margin-bottom: 8px; 
-                min-height: 20px; 
-              }
-              .label { 
-                font-weight: bold !important; 
-                margin-right: 8px; 
-                white-space: nowrap; 
-              }
-              .value { 
-                margin-right: 15px; 
-                border-bottom: 1px solid #000; 
-                min-width: 35px; 
-                text-align: center; 
-                padding: 1px 3px; 
-                font-weight: bold !important;
-              }
-              .dotted-line { 
-                flex: 1; 
-                border-bottom: 1px dotted #000; 
-                margin: 0 8px; 
-                min-height: 18px; 
-                padding: 1px 3px; 
-                font-weight: bold !important;
-              }
-              .currency-options { 
-                display: flex; 
-                gap: 15px; 
-                margin-left: 8px; 
-              }
-              .currency-options label { 
-                display: flex; 
-                align-items: center; 
-                gap: 3px; 
-                font-weight: bold !important; 
-              }
-              .amount-display { 
-                font-weight: bold !important; 
-                font-size: 14px; 
-                margin: 0 8px; 
-                color: #d32f2f;
-              }
-              .amount-words { 
-                flex: 1; 
-                border-bottom: 1px solid #000; 
-                margin-left: 8px; 
-                padding: 1px 8px; 
-                font-style: italic; 
-                font-weight: bold !important;
-              }
-              .signature-section { 
-                display: flex; 
-                justify-content: space-between; 
-                margin-top: 30px; 
-                gap: 8px; 
-              }
-              .signature-box { 
-                flex: 1; 
-                text-align: center; 
-              }
-              .signature-title { 
-                font-size: 14px; 
-                margin-bottom: 25px;
-                margin-bottom: 100px; 
-                font-weight: bold !important; 
-              }
-              .signature-name { 
-                font-size: 14px; 
-                margin-top: 5px; 
-                font-weight: bold !important; 
-              }
-            </style>
-          </head>
-          <body>
-            ${printContent}
-          </body>
-        </html>
-      `)
+          .voucher-logo {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 1px !important;
+            line-height: 1 !important;
+          }
+          
+          .voucher-logo-gov {
+            max-width: 90px;
+            max-height: 90px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            margin-top: 30px !important;
+            margin-bottom: 4px !important;
+            line-height: 1 !important;
+          }
+          
+          .voucher-container { 
+            border: 2px solid #000; 
+            padding: 15px; 
+            font-size: 12px; 
+            line-height: 1.4; 
+            max-width: 210mm;
+            margin: 0 auto;
+            font-weight: bold;
+          }
+          
+          .voucher-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            margin-bottom: 15px; 
+            padding-bottom: 5px; 
+          }
+          
+          .ministry-voucher-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin: 0 !important;
+            padding: 0 !important;
+            margin-bottom: 10px !important;
+          }
+          
+          .ministry-voucher-section .col,
+          .ministry-voucher-section > div {
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+          
+          .voucher-title {
+            font-size: 16px !important;
+            margin: 0 !important;
+            margin-bottom: 2px !important;
+            line-height: 1.2 !important;
+            text-align: left;
+            text-decoration: none;
+            font-weight: bold !important;
+          }
+          
+          .voucher-title-main {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-decoration: underline;
+          }
+          
+          .company-info { 
+            flex: 1; 
+            text-align: center; 
+          }
+          
+          .company-name { 
+            font-weight: bold !important; 
+            font-size: 14px; 
+            margin-bottom: 3px; 
+          }
+          
+          .department { 
+            font-size: 12px; 
+            margin-bottom: 3px; 
+            font-weight: bold !important;
+          }
+          
+          .sub-department { 
+            font-size: 10px; 
+            margin-bottom: 10px; 
+            font-weight: bold !important;
+          }
+          
+          .amount-line { 
+            font-size: 10px; 
+            letter-spacing: 2px; 
+            font-weight: bold !important;
+          }
+          
+          .number-box { 
+            border: 2px solid #000; 
+            padding: 5px 8px; 
+            text-align: center; 
+            background: #f9f9f9; 
+            margin-bottom: 5px;
+          }
+          
+          .number-label { 
+            font-weight: bold !important; 
+            margin-right: 10px; 
+          }
+          
+          .number-value { 
+            font-weight: bold !important; 
+          }
+          
+          .detail-row { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 8px; 
+            min-height: 20px; 
+          }
+          
+          .label { 
+            font-weight: bold !important; 
+            margin-right: 8px; 
+            white-space: nowrap; 
+          }
+          
+          .value { 
+            margin-right: 15px; 
+            border-bottom: 1px solid #000; 
+            min-width: 35px; 
+            text-align: center; 
+            padding: 1px 3px; 
+            font-weight: bold !important;
+          }
+          
+          .dotted-line { 
+            flex: 1; 
+            border-bottom: 1px dotted #000; 
+            margin: 0 8px; 
+            min-height: 18px; 
+            padding: 1px 3px; 
+            font-weight: bold !important;
+          }
+          
+          .currency-options { 
+            display: flex; 
+            gap: 15px; 
+            margin-left: 8px; 
+          }
+          
+          .currency-options label { 
+            display: flex; 
+            align-items: center; 
+            gap: 3px; 
+            font-weight: bold !important; 
+          }
+          
+          .amount-display { 
+            font-weight: bold !important; 
+            font-size: 16px; 
+            margin: 0 8px; 
+          }
+          
+          .amount-words { 
+            flex: 1; 
+            border-bottom: 1px solid #000; 
+            margin-left: 8px; 
+            padding: 1px 8px; 
+            font-style: italic; 
+            font-weight: bold !important;
+          }
+          
+          .signature-section { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 30px; 
+            gap: 8px; 
+          }
+          
+          .signature-box { 
+            flex: 1; 
+            text-align: center; 
+          }
+          
+          .signature-title { 
+            font-size: 14px; 
+            margin-bottom: 25px;
+            margin-bottom: 100px; 
+            font-weight: bold !important; 
+          }
+          
+          .signature-name { 
+            font-size: 14px; 
+            margin-top: 5px; 
+            font-weight: bold !important; 
+          }
+
+          /* Ensure checkboxes are visible and properly styled */
+          input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+
+          /* Force checkbox states to be visible in print */
+          input[type="checkbox"]:checked {
+            accent-color: black;
+          }
+
+          @media print {
+            input[type="checkbox"] {
+              -webkit-appearance: checkbox;
+              appearance: checkbox;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        ${printContent}
+      </body>
+    </html>
+  `)
 
       printWindow.document.close()
       printWindow.print()
@@ -1215,7 +1309,6 @@ export default {
   font-weight: bold !important;
   font-size: 16px;
   margin: 0 8px;
-  color: #d32f2f;
 }
 
 .description-content {
@@ -1247,7 +1340,6 @@ export default {
 .signature-box {
   flex: 1;
   text-align: center;
-  
 }
 
 .signature-title {

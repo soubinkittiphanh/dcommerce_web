@@ -1078,6 +1078,7 @@ export default {
           bankAccountId: advance.bankAccountId || '',
           ministryId: advance.ministryId || '',
           bookingDate: advance.bookingDate || '',
+          externalBookingDate: advance.externalBookingDate || '',
           exchangeRate: advance.exchangeRate || '',
           reason: '',
           externalRef: advance.externalRef || '',
