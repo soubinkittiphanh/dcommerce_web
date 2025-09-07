@@ -1,7 +1,7 @@
-exports.ids = [231];
+exports.ids = [232];
 exports.modules = {
 
-/***/ 1177:
+/***/ 1180:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,7 +9,7 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendar.js + 16 modules
-var VCalendar = __webpack_require__(825);
+var VCalendar = __webpack_require__(826);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(384);
@@ -240,7 +240,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(969)
+  var style0 = __webpack_require__(970)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -915,7 +915,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(970);
+var content = __webpack_require__(971);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -927,7 +927,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 825:
+/***/ 826:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3309,7 +3309,7 @@ function getParsedCategories(categories, categoryText) {
 
 /***/ }),
 
-/***/ 969:
+/***/ 970:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3321,7 +3321,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 970:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports

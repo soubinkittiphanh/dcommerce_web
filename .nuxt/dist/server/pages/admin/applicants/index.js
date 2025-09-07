@@ -1,7 +1,7 @@
-exports.ids = [150,18,19,20];
+exports.ids = [151,18,19,20];
 exports.modules = {
 
-/***/ 1119:
+/***/ 1122:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -294,13 +294,13 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(357);
 var esnext_set_union_js_ = __webpack_require__(358);
 
 // EXTERNAL MODULE: ./components/applicants/ApplicantDialog/index.vue + 4 modules
-var ApplicantDialog = __webpack_require__(834);
+var ApplicantDialog = __webpack_require__(835);
 
 // EXTERNAL MODULE: ./components/applicants/ApplicantViewDialog/index.vue + 4 modules
-var ApplicantViewDialog = __webpack_require__(835);
+var ApplicantViewDialog = __webpack_require__(836);
 
 // EXTERNAL MODULE: ./components/applicants/StatusUpdateDialog/index.vue + 4 modules
-var StatusUpdateDialog = __webpack_require__(836);
+var StatusUpdateDialog = __webpack_require__(837);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=script&lang=js&
 
@@ -843,7 +843,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(887)
+  var style0 = __webpack_require__(888)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1006,7 +1006,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(888);
+var content = __webpack_require__(889);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1018,7 +1018,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 834:
+/***/ 835:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1475,7 +1475,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 835:
+/***/ 836:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1637,7 +1637,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 836:
+/***/ 837:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1960,7 +1960,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 887:
+/***/ 888:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1972,7 +1972,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 888:
+/***/ 889:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports

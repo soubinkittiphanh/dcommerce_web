@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "280.js": "280.js",
+    "281.js": "281.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -109,6 +109,7 @@
     "components/payment-form.js": "components/payment-form.js",
     "components/po-form.js": "components/po-form.js",
     "components/pos-cateogory-list.js": "components/pos-cateogory-list.js",
+    "components/pos-dialogs-quantity-update-dialog.js": "components/pos-dialogs-quantity-update-dialog.js",
     "components/price-list-form.js": "components/price-list-form.js",
     "components/product-card-pos.js": "components/product-card-pos.js",
     "components/product-card.js": "components/product-card.js",
@@ -284,7 +285,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "280.js": "280.js.map",
+    "281.js": "281.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -392,6 +393,7 @@
     "components/payment-form.js": "components/payment-form.js.map",
     "components/po-form.js": "components/po-form.js.map",
     "components/pos-cateogory-list.js": "components/pos-cateogory-list.js.map",
+    "components/pos-dialogs-quantity-update-dialog.js": "components/pos-dialogs-quantity-update-dialog.js.map",
     "components/price-list-form.js": "components/price-list-form.js.map",
     "components/product-card-pos.js": "components/product-card-pos.js.map",
     "components/product-card.js": "components/product-card.js.map",

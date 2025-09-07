@@ -1,4 +1,4 @@
-exports.ids = [122];
+exports.ids = [123];
 exports.modules = {
 
 /***/ 432:
@@ -1315,7 +1315,7 @@ const BaseItem = external_vue_default.a.extend({
 
 /***/ }),
 
-/***/ 869:
+/***/ 870:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1323,7 +1323,7 @@ const BaseItem = external_vue_default.a.extend({
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(120);
+var VCard = __webpack_require__(121);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarousel.js + 1 modules
 var VCarousel = __webpack_require__(516);

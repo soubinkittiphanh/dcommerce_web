@@ -1,7 +1,7 @@
 exports.ids = [60];
 exports.modules = {
 
-/***/ 1074:
+/***/ 1075:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1075:
+/***/ 1076:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1236:
+/***/ 1239:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -108,7 +108,7 @@ var staticRenderFns = [];
         // Dynamically import Chart.js to avoid SSR issues
         const {
           default: Chart
-        } = await __webpack_require__.e(/* import() */ 280).then(__webpack_require__.t.bind(null, 795, 7));
+        } = await __webpack_require__.e(/* import() */ 281).then(__webpack_require__.t.bind(null, 795, 7));
         const ctx = this.$refs.chart.getContext('2d');
         this.chart = new Chart(ctx, {
           type: 'line',
@@ -138,7 +138,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1074)
+  var style0 = __webpack_require__(1075)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -166,7 +166,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1075);
+var content = __webpack_require__(1076);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

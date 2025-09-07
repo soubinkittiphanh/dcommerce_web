@@ -1,14 +1,14 @@
-exports.ids = [258];
+exports.ids = [259];
 exports.modules = {
 
-/***/ 1001:
+/***/ 1002:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/bg-about-us.0baaf4b.jpg";
 
 /***/ }),
 
-/***/ 1002:
+/***/ 1003:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1003:
+/***/ 1004:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -35,7 +35,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1199:
+/***/ 1202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43,7 +43,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(120);
+var VCard = __webpack_require__(121);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(6);
@@ -126,7 +126,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/fashion/about-us.vue?vue&type=template&id=77345510&scoped=true&
 
 // EXTERNAL MODULE: ./assets/img/bg-about-us.jpg
-var bg_about_us = __webpack_require__(1001);
+var bg_about_us = __webpack_require__(1002);
 var bg_about_us_default = /*#__PURE__*/__webpack_require__.n(bg_about_us);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/fashion/about-us.vue?vue&type=script&lang=js&
@@ -151,7 +151,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1002)
+  var style0 = __webpack_require__(1003)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -179,7 +179,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1003);
+var content = __webpack_require__(1004);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

@@ -1,7 +1,7 @@
-exports.ids = [178,53,54,55];
+exports.ids = [179,53,54,55];
 exports.modules = {
 
-/***/ 1143:
+/***/ 1146:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -278,13 +278,13 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(357);
 var esnext_set_union_js_ = __webpack_require__(358);
 
 // EXTERNAL MODULE: ./components/jobAdvertise/maintain/index.vue + 4 modules
-var maintain = __webpack_require__(845);
+var maintain = __webpack_require__(846);
 
 // EXTERNAL MODULE: ./components/jobAdvertise/view/index.vue + 4 modules
-var view = __webpack_require__(846);
+var view = __webpack_require__(847);
 
 // EXTERNAL MODULE: ./components/jobAdvertise/statusUpdate/index.vue + 4 modules
-var statusUpdate = __webpack_require__(847);
+var statusUpdate = __webpack_require__(848);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/jobAdvertise/index.vue?vue&type=script&lang=js&
 
@@ -754,7 +754,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(913)
+  var style0 = __webpack_require__(914)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -917,7 +917,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(914);
+var content = __webpack_require__(915);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -929,7 +929,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 845:
+/***/ 846:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1373,7 +1373,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 846:
+/***/ 847:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1554,7 +1554,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 847:
+/***/ 848:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1829,7 +1829,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 913:
+/***/ 914:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1841,7 +1841,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 914:
+/***/ 915:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports

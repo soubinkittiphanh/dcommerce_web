@@ -318,7 +318,7 @@
 const formatDate = (dateInput) => {
   try {
     const date = new Date(dateInput);
-    
+
     if (isNaN(date.getTime())) {
       return 'Invalid Date';
     }
@@ -328,7 +328,7 @@ const formatDate = (dateInput) => {
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-    
+
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   } catch (error) {
     console.error('Error formatting date:', error);
@@ -370,7 +370,7 @@ const generateRegularTransactionList = (productCart, findAllProduct, formatNumbe
 
   return productCart.map(item => {
     const product = findAllProduct.find(el => el.id === item.id);
-    
+
     if (!product) {
       console.warn(`Product not found for ID: ${item.id}`);
       return '';
@@ -407,7 +407,7 @@ const generateReprintTransactionList = (productCart, findAllProduct, formatNumbe
 
   return productCart.map(item => {
     const product = findAllProduct.find(el => el.id === item.product?.id);
-    
+
     if (!product) {
       console.warn(`Product not found for ID: ${item.product?.id}`);
       return '';
@@ -438,7 +438,7 @@ const generateReprintTransactionList = (productCart, findAllProduct, formatNumbe
  */
 const generateDiscountSection = (discount, formatNumber) => {
   if (discount <= 0) return '';
-  
+
   return `
     <div class="ticket">
       <div class="product-name">ສ່ວນຫລຸດ</div>
@@ -465,7 +465,7 @@ const generateTotalSection = (currencyList, grandTotal, discount, formatNumber) 
   return currencyList.map(currency => {
     const rate = currency.rate || 1;
     const convertedAmount = finalTotal / rate;
-    
+
     return `
       <div class="ticket">
         <div class="product-name"></div>
@@ -517,7 +517,7 @@ const generateHeaderSection = (headerData, dateValue) => {
  */
 const generatePaymentSection = (paymentData, formatNumber) => {
   const { currentPaymentCode, cashReceived, changes } = paymentData;
-
+  console.info(`Changes in generatePaymentSection ${changes} ${JSON.stringify(paymentData)}`)
   return `
     <div class="payment-section">
       <div class="ticket">
@@ -530,7 +530,7 @@ const generatePaymentSection = (paymentData, formatNumber) => {
       </div>
       <div class="ticket">
         <div class="product-name"></div>
-        <div class="price-total"><h5>ເງິນທອນ: ${formatNumber(changes)}</h5></div>
+        <div class="price-total"><h5>ເງິນທອນ: ${changes}</h5></div>
       </div>
     </div>
   `;
@@ -561,7 +561,8 @@ const generateWindowContent = (contentData) => {
       <hr>
       ${paymentSectionHtml}
       ${totalHtml}
-      <h2 style="text-align: center; margin-top: 50px;">THANK YOU</h2>
+      <h2 style="text-align: center; margin-top: 50px;margin-bottom: 50px;">THANK YOU</h2>
+      <h2 style="text-align: center;">.</h2>
     </body>
   `;
 };
@@ -574,18 +575,18 @@ const generateWindowContent = (contentData) => {
 const printTicket = (windowContent) => {
   try {
     const printWin = window.open(
-      '', 
-      '', 
+      '',
+      '',
       'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
     );
-    
+
     if (!printWin) {
       throw new Error('Unable to open print window. Please check popup blockers.');
     }
 
     printWin.document.open();
     printWin.document.write(windowContent);
-    
+
     // Use a more reliable way to wait for content to load
     printWin.onload = () => {
       setTimeout(() => {
@@ -635,11 +636,12 @@ export const defaultTicket = (params) => {
     changes = 0
   } = params;
 
+  console.info(`Changes in defaultTicket ${changes} ${JSON.stringify(params)}`)
   if (!validateTicketParams(params, formatNumber)) return;
 
   try {
     const currentDate = new Date();
-    
+
     const transactionListHtml = generateRegularTransactionList(productCart, findAllProduct, formatNumber);
     const discountHtml = generateDiscountSection(discount, formatNumber);
     const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
@@ -751,12 +753,12 @@ export const customerTicket = (params) => {
     cashReceived = 0,
     changes = 0
   } = params;
-
+  console.info(`Changes in customerTicket ${changes} ${JSON.stringify(params)}`)
   if (!validateTicketParams(params, formatNumber)) return;
 
   try {
     const currentDate = new Date();
-    
+
     const transactionListHtml = generateRegularTransactionList(productCart, findAllProduct, formatNumber);
     const discountHtml = generateDiscountSection(discount, formatNumber);
     const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
