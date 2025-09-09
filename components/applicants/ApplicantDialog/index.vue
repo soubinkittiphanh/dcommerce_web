@@ -1,410 +1,482 @@
 <template>
   <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
-      <div class="modal-dialog" @click.stop>
-        <div class="modal-header">
-          <h5 class="modal-title">
-            <i class="fas fa-user-plus"></i>
-            {{ isEditMode ? 'ແກ້ໄຂຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກ' }}
-          </h5>
-          <button @click="closeDialog" class="close-btn">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
+    <!-- Photo Preview Dialog -->
+    <v-dialog v-model="previewDialog.visible" max-width="600px">
+      <v-card>
+        <v-card-title class="headline">
+          {{ previewDialog.title }}
+          <v-spacer></v-spacer>
+          <v-btn icon @click="previewDialog.visible = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="d-flex justify-center">
+          <v-img :src="previewDialog.image" max-height="500" contain></v-img>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
-        <!-- Compact Stepper -->
-        <div class="stepper">
-          <div
-            class="step"
-            :class="{ active: currentStep === 1, completed: currentStep > 1 }"
-            @click="goToStep(1)"
-          >
-            <span class="step-number">{{ currentStep > 1 ? '✓' : '1' }}</span>
-            <span class="step-label">ພື້ນຖານ</span>
-          </div>
-          <div class="step-line" :class="{ completed: currentStep > 1 }"></div>
-          <div
-            class="step"
-            :class="{ active: currentStep === 2, available: step1Valid }"
-            @click="step1Valid && goToStep(2)"
-          >
-            <span class="step-number">2</span>
-            <span class="step-label">ລາຍລະອຽດ</span>
-          </div>
-        </div>
-
-        <form @submit.prevent="saveApplicant">
-          <div class="modal-body">
-            <!-- Step 1: Basic Info -->
-            <div v-show="currentStep === 1">
-              <div class="form-grid">
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-briefcase"></i>
-                    Job Batch
-                  </label>
-                  <select
-                    v-model="formData.jobBatchId"
-                    :class="{ error: errors.jobBatchId }"
-                  >
-                    <option value="">ເລືອກ Job Batch</option>
-                    <option
-                      v-for="batch in jobBatches"
-                      :key="batch.id"
-                      :value="batch.id"
-                    >
-                      {{ batch.batchName
-                      }}{{ batch.workPlace ? ` - ${batch.workPlace}` : '' }}
-                    </option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="required">
-                    <i class="fas fa-user"></i>
-                    ຊື່
-                  </label>
-                  <input
-                    v-model="formData.firstName"
-                    type="text"
-                    placeholder="ຊື່ຕົວຈິງ"
-                    :class="{ error: errors.firstName }"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label class="required">
-                    <i class="fas fa-user"></i>
-                    ນາມສະກຸນ
-                  </label>
-                  <input
-                    v-model="formData.lastName"
-                    type="text"
-                    placeholder="ນາມສະກຸນ"
-                    :class="{ error: errors.lastName }"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label class="required">
-                    <i class="fas fa-venus-mars"></i>
-                    ເພດ
-                  </label>
-                  <div class="radio-group">
-                    <label
-                      ><input
-                        type="radio"
-                        v-model="formData.gender"
-                        value="male"
-                        required
-                      />
-                      ຊາຍ</label
-                    >
-                    <label
-                      ><input
-                        type="radio"
-                        v-model="formData.gender"
-                        value="female"
-                        required
-                      />
-                      ຍິງ</label
-                    >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-calendar"></i>
-                    ອາຍຸ
-                  </label>
-                  <input
-                    v-model.number="formData.age"
-                    type="number"
-                    min="18"
-                    max="32"
-                    placeholder="ອາຍຸ"
-                  />
-                </div>
-
-                <div class="form-group full-width">
-                  <label>
-                    <i class="fas fa-home"></i>
-                    ທີ່ຢູ່
-                  </label>
-                  <textarea
-                    v-model="formData.address"
-                    rows="2"
-                    placeholder="ທີ່ຢູ່ລະອຽດ..."
-                  ></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-passport"></i>
-                    <input
-                      type="checkbox"
-                      v-model="formData.passportAvailability"
-                    />
-                    ມີໜັງສືເດີນທາງ
-                  </label>
-                </div>
-
-                <!-- Compact Photo Upload -->
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-camera"></i>
-                    ຮູບຜູ້ສະໝັກ
-                  </label>
-                  <div
-                    class="photo-upload"
-                    @click="triggerFileInput('applicant')"
-                  >
-                    <img
-                      v-if="formData.applicantPhoto || applicantPhotoPreview"
-                      :src="applicantPhotoPreview || formData.applicantPhoto"
-                      alt="Applicant"
-                    />
-                    <div v-else class="photo-placeholder">
-                      <i class="fas fa-plus"></i>
-                      <span>ເພີ່ມຮູບ</span>
-                    </div>
-                  </div>
-                  <input
-                    ref="applicantFileInput"
-                    type="file"
-                    accept="image/*"
-                    @change="handleFileSelect($event, 'applicant')"
-                    style="display: none"
-                  />
-                </div>
-
-                <div v-if="formData.passportAvailability" class="form-group">
-                  <label>
-                    <i class="fas fa-id-badge"></i>
-                    ຮູບໜັງສື
-                  </label>
-                  <div
-                    class="photo-upload"
-                    @click="triggerFileInput('passport')"
-                  >
-                    <img
-                      v-if="formData.passportPhoto || passportPhotoPreview"
-                      :src="passportPhotoPreview || formData.passportPhoto"
-                      alt="Passport"
-                    />
-                    <div v-else class="photo-placeholder">
-                      <i class="fas fa-plus"></i>
-                      <span>ເພີ່ມຮູບ</span>
-                    </div>
-                  </div>
-                  <input
-                    ref="passportFileInput"
-                    type="file"
-                    accept="image/*"
-                    @change="handleFileSelect($event, 'passport')"
-                    style="display: none"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 2: Additional Info -->
-            <div v-show="currentStep === 2">
-              <div class="form-grid">
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-flag"></i>
-                    ສະຖານະ
-                  </label>
-                  <select v-model="formData.status">
-                    <option value="INTERVIEW">Apply</option>
-                    <option value="REGISTER">Register</option>
-                    <option value="CONFIRM">Confirm</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="required">
-                    <i class="fas fa-phone"></i>
-                    ເບີໂທ
-                  </label>
-                  <input
-                    v-model="formData.phone"
-                    type="tel"
-                    placeholder="+856 20 12345678"
-                    :class="{ error: errors.phone }"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-exclamation-triangle"></i>
-                    ເບີສຸກເສີນ
-                  </label>
-                  <input
-                    v-model="formData.emergencyContactNo"
-                    type="tel"
-                    placeholder="+856 20 87654321"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-heart"></i>
-                    ສະຖານະການແຕ່ງງານ
-                  </label>
-                  <select v-model="formData.maritalStatus">
-                    <option value="">ເລືອກ</option>
-                    <option value="single">ໂສດ</option>
-                    <option value="married">ແຕ່ງງານ</option>
-                    <option value="divorced">ຢ່າຮ້າງ</option>
-                    <option value="widowed">ເປັນເມ່າຍ</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-building"></i>
-                    ສະຖານທີ່ເຮັດວຽກ
-                  </label>
-                  <input
-                    v-model="formData.workPlace"
-                    type="text"
-                    placeholder="ບໍລິສັດ / ໂຮງງານ"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-map-marker-alt"></i>
-                    ບ້ານ/ເມືອງ/ແຂວງ
-                  </label>
-                  <div class="location-group">
-                    <input
-                      v-model="formData.village"
-                      type="text"
-                      placeholder="ບ້ານ"
-                    />
-                    <input
-                      v-model="formData.city"
-                      type="text"
-                      placeholder="ເມືອງ"
-                    />
-                    <input
-                      v-model="formData.district"
-                      type="text"
-                      placeholder="ແຂວງ"
-                    />
-                  </div>
-                </div>
-
-                <div v-if="formData.passportAvailability" class="form-group">
-                  <label>
-                    <i class="fas fa-id-card"></i>
-                    ເລກ/ໝົດອາຍຸ
-                  </label>
-                  <div class="passport-group">
-                    <input
-                      v-model="formData.passportNo"
-                      type="text"
-                      placeholder="PA1234567"
-                    />
-                    <input
-                      v-model="formData.passportExpiredDate"
-                      type="date"
-                      :min="today"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-calendar"></i>
-                    ວັນທີສໍາຄັນ
-                  </label>
-                  <div class="date-group">
-                    <input
-                      v-model="formData.contactStartDate"
-                      type="date"
-                      placeholder="ເລີ່ມສັນຍາ"
-                    />
-                    <input
-                      v-model="formData.contactEndDate"
-                      type="date"
-                      placeholder="ສິ້ນສຸດສັນຍາ"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>
-                    <i class="fas fa-clock"></i>
-                    ເວລາ
-                  </label>
-                  <div class="date-group">
-                    <input
-                      v-model="formData.registertDate"
-                      type="datetime-local"
-                      placeholder="ລົງທະບຽນ"
-                    />
-                    <input
-                      v-model="formData.interviewExamDate"
-                      type="datetime-local"
-                      placeholder="ສໍາພາດ"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Compact Error Display -->
-            <div v-if="formErrors.length > 0" class="form-errors">
-              <strong>ແກ້ໄຂ:</strong> {{ formErrors.join(', ') }}
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <div v-if="currentStep === 1" class="actions">
-              <button type="button" @click="closeDialog" class="btn secondary">
-                ຍົກເລີກ
-              </button>
-              <button
-                type="button"
-                @click="saveStep1Only"
-                class="btn outline"
-                :disabled="!step1Valid || loading"
-              >
-                {{ loading ? 'ກຳລັງບັນທຶກ...' : 'ບັນທຶກ' }}
-              </button>
-              <button
-                type="button"
-                @click="continueToStep2"
-                class="btn primary"
-                :disabled="!step1Valid"
-              >
-                ສືບຕໍ່
-              </button>
-            </div>
-
-            <div v-if="currentStep === 2" class="actions">
-              <button type="button" @click="goToStep(1)" class="btn secondary">
-                ກັບຄືນ
-              </button>
-              <button
-                type="submit"
-                class="btn primary"
-                :disabled="!isFormValid || loading"
-              >
-                {{
-                  loading ? 'ກຳລັງບັນທຶກ...' : isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ'
-                }}
-              </button>
-            </div>
-          </div>
-        </form>
+    <div class="modal-dialog" @click.stop>
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-user-plus"></i>
+          {{ isEditMode ? 'ແກ້ໄຂຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກ' }}
+        </h5>
+        <button @click="closeDialog" class="close-btn">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
+
+      <!-- Compact Stepper -->
+      <div class="stepper">
+        <div
+          class="step"
+          :class="{ active: currentStep === 1, completed: currentStep > 1 }"
+          @click="goToStep(1)"
+        >
+          <span class="step-number">{{ currentStep > 1 ? '✓' : '1' }}</span>
+          <span class="step-label">ພື້ນຖານ</span>
+        </div>
+        <div class="step-line" :class="{ completed: currentStep > 1 }"></div>
+        <div
+          class="step"
+          :class="{ active: currentStep === 2, available: step1Valid }"
+          @click="step1Valid && goToStep(2)"
+        >
+          <span class="step-number">2</span>
+          <span class="step-label">ລາຍລະອຽດ</span>
+        </div>
+      </div>
+
+      <form @submit.prevent="saveApplicant">
+        <div class="modal-body">
+          <!-- Step 1: Basic Info -->
+          <div v-show="currentStep === 1">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-briefcase"></i>
+                  Job Batch
+                </label>
+                <select
+                  v-model="formData.jobBatchId"
+                  :class="{ error: errors.jobBatchId }"
+                >
+                  <option value="">ເລືອກ Job Batch</option>
+                  <option
+                    v-for="batch in jobBatches"
+                    :key="batch.id"
+                    :value="batch.id"
+                  >
+                    {{ batch.batchName
+                    }}{{ batch.workPlace ? ` - ${batch.workPlace}` : '' }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="required">
+                  <i class="fas fa-user"></i>
+                  ຊື່
+                </label>
+                <input
+                  v-model="formData.firstName"
+                  type="text"
+                  placeholder="ຊື່ຕົວຈິງ"
+                  :class="{ error: errors.firstName }"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="required">
+                  <i class="fas fa-user"></i>
+                  ນາມສະກຸນ
+                </label>
+                <input
+                  v-model="formData.lastName"
+                  type="text"
+                  placeholder="ນາມສະກຸນ"
+                  :class="{ error: errors.lastName }"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="required">
+                  <i class="fas fa-venus-mars"></i>
+                  ເພດ
+                </label>
+                <div class="radio-group">
+                  <label
+                    ><input
+                      type="radio"
+                      v-model="formData.gender"
+                      value="male"
+                      required
+                    />
+                    ຊາຍ</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      v-model="formData.gender"
+                      value="female"
+                      required
+                    />
+                    ຍິງ</label
+                  >
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-calendar"></i>
+                  ອາຍຸ
+                </label>
+                <input
+                  v-model.number="formData.age"
+                  type="number"
+                  min="18"
+                  max="32"
+                  placeholder="ອາຍຸ"
+                />
+              </div>
+
+              <div class="form-group full-width">
+                <label>
+                  <i class="fas fa-home"></i>
+                  ທີ່ຢູ່
+                </label>
+                <textarea
+                  v-model="formData.address"
+                  rows="2"
+                  placeholder="ທີ່ຢູ່ລະອຽດ..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-passport"></i>
+                  <input
+                    type="checkbox"
+                    v-model="formData.passportAvailability"
+                  />
+                  ມີໜັງສືເດີນທາງ
+                </label>
+              </div>
+
+              <!-- Compact Photo Upload -->
+              <!-- Applicant Photo -->
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-camera"></i>
+                  ຮູບຜູ້ສະໝັກ
+                </label>
+                <div class="photo-upload-container">
+                  <div class="photo-upload">
+                    <img
+                      v-if="applicantPhotoPreview || formData.applicantPhoto"
+                      :src="
+                        applicantPhotoPreview ||
+                        getImageUrl(formData.applicantPhoto)
+                      "
+                      alt="Applicant"
+                      @click="
+                        openPreview(
+                          'ຮູບຜູ້ສະໝັກ',
+                          applicantPhotoPreview ||
+                            getImageUrl(formData.applicantPhoto)
+                        )
+                      "
+                      style="cursor: pointer"
+                    />
+                    <div
+                      v-else
+                      class="photo-placeholder"
+                      @click="triggerFileInput('applicant')"
+                    >
+                      <i class="fas fa-plus"></i>
+                      <span>ເພີ່ມຮູບ</span>
+                    </div>
+                  </div>
+                  <div
+                    v-if="applicantPhotoFile || formData.applicantPhoto"
+                    class="photo-actions"
+                  >
+                    <button
+                      type="button"
+                      @click.stop="removePhoto('applicant')"
+                      class="btn-remove-photo"
+                      title="ລຶບຮູບ"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <input
+                  ref="applicantFileInput"
+                  type="file"
+                  accept="image/*"
+                  @change="handleFileSelect($event, 'applicant')"
+                  style="display: none"
+                />
+              </div>
+
+              <!-- Passport Photo -->
+              <div v-if="formData.passportAvailability" class="form-group">
+                <label>
+                  <i class="fas fa-id-badge"></i>
+                  ຮູບໜັງສື
+                </label>
+                <div class="photo-upload-container">
+                  <div class="photo-upload">
+                    <img
+                      v-if="passportPhotoPreview || formData.passportPhoto"
+                      :src="
+                        passportPhotoPreview ||
+                        getImageUrl(formData.passportPhoto)
+                      "
+                      alt="Passport"
+                      @click="
+                        openPreview(
+                          'ຮູບໜັງສື',
+                          passportPhotoPreview ||
+                            getImageUrl(formData.passportPhoto)
+                        )
+                      "
+                      style="cursor: pointer"
+                    />
+                    <div
+                      v-else
+                      class="photo-placeholder"
+                      @click="triggerFileInput('passport')"
+                    >
+                      <i class="fas fa-plus"></i>
+                      <span>ເພີ່ມຮູບ</span>
+                    </div>
+                  </div>
+                  <div
+                    v-if="passportPhotoFile || formData.passportPhoto"
+                    class="photo-actions"
+                  >
+                    <button
+                      type="button"
+                      @click.stop="removePhoto('passport')"
+                      class="btn-remove-photo"
+                      title="ລຶບຮູບ"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <input
+                  ref="passportFileInput"
+                  type="file"
+                  accept="image/*"
+                  @change="handleFileSelect($event, 'passport')"
+                  style="display: none"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Additional Info -->
+          <div v-show="currentStep === 2">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-flag"></i>
+                  ສະຖານະ
+                </label>
+                <select v-model="formData.status">
+                  <option value="INTERVIEW">Apply</option>
+                  <option value="REGISTER">Register</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="required">
+                  <i class="fas fa-phone"></i>
+                  ເບີໂທ
+                </label>
+                <input
+                  v-model="formData.phone"
+                  type="tel"
+                  placeholder="+856 20 12345678"
+                  :class="{ error: errors.phone }"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-exclamation-triangle"></i>
+                  ເບີສຸກເສີນ
+                </label>
+                <input
+                  v-model="formData.emergencyContactNo"
+                  type="tel"
+                  placeholder="+856 20 87654321"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-heart"></i>
+                  ສະຖານະການແຕ່ງງານ
+                </label>
+                <select v-model="formData.maritalStatus">
+                  <option value="">ເລືອກ</option>
+                  <option value="single">ໂສດ</option>
+                  <option value="married">ແຕ່ງງານ</option>
+                  <option value="divorced">ຢ່າຮ້າງ</option>
+                  <option value="widowed">ເປັນເມ່າຍ</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-building"></i>
+                  ສະຖານທີ່ເຮັດວຽກ
+                </label>
+                <input
+                  v-model="formData.workPlace"
+                  type="text"
+                  placeholder="ບໍລິສັດ / ໂຮງງານ"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-map-marker-alt"></i>
+                  ບ້ານ/ເມືອງ/ແຂວງ
+                </label>
+                <div class="location-group">
+                  <input
+                    v-model="formData.village"
+                    type="text"
+                    placeholder="ບ້ານ"
+                  />
+                  <input
+                    v-model="formData.city"
+                    type="text"
+                    placeholder="ເມືອງ"
+                  />
+                  <input
+                    v-model="formData.district"
+                    type="text"
+                    placeholder="ແຂວງ"
+                  />
+                </div>
+              </div>
+
+              <div v-if="formData.passportAvailability" class="form-group">
+                <label>
+                  <i class="fas fa-id-card"></i>
+                  ເລກ/ໝົດອາຍຸ
+                </label>
+                <div class="passport-group">
+                  <input
+                    v-model="formData.passportNo"
+                    type="text"
+                    placeholder="PA1234567"
+                  />
+                  <input
+                    v-model="formData.passportExpiredDate"
+                    type="date"
+                    :min="today"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-calendar"></i>
+                  ວັນທີສໍາຄັນ
+                </label>
+                <div class="date-group">
+                  <input
+                    v-model="formData.contactStartDate"
+                    type="date"
+                    placeholder="ເລີ່ມສັນຍາ"
+                  />
+                  <input
+                    v-model="formData.contactEndDate"
+                    type="date"
+                    placeholder="ສິ້ນສຸດສັນຍາ"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-clock"></i>
+                  ເວລາ
+                </label>
+                <div class="date-group">
+                  <input
+                    v-model="formData.registertDate"
+                    type="datetime-local"
+                    placeholder="ລົງທະບຽນ"
+                  />
+                  <input
+                    v-model="formData.interviewExamDate"
+                    type="datetime-local"
+                    placeholder="ສໍາພາດ"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compact Error Display -->
+          <div v-if="formErrors.length > 0" class="form-errors">
+            <strong>ແກ້ໄຂ:</strong> {{ formErrors.join(', ') }}
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div v-if="currentStep === 1" class="actions">
+            <button type="button" @click="closeDialog" class="btn secondary">
+              ຍົກເລີກ
+            </button>
+            <button
+              type="button"
+              @click="saveStep1Only"
+              class="btn outline"
+              :disabled="!step1Valid || loading"
+            >
+              {{ loading ? 'ກຳລັງບັນທຶກ...' : 'ບັນທຶກ' }}
+            </button>
+            <button
+              type="button"
+              @click="continueToStep2"
+              class="btn primary"
+              :disabled="!step1Valid"
+            >
+              ສືບຕໍ່
+            </button>
+          </div>
+
+          <div v-if="currentStep === 2" class="actions">
+            <button type="button" @click="goToStep(1)" class="btn secondary">
+              ກັບຄືນ
+            </button>
+            <button
+              type="submit"
+              class="btn primary"
+              :disabled="!isFormValid || loading"
+            >
+              {{
+                loading ? 'ກຳລັງບັນທຶກ...' : isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ'
+              }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -418,14 +490,25 @@ export default {
       type: Array,
       default: () => [],
     },
+    // apiBaseUrl: {
+    //   type: String,
+    //   default: this.$axios.defaults.baseURL || '',
+    // },
   },
 
   data() {
     return {
+      previewDialog: {
+        visible: false,
+        title: '',
+        image: '',
+      },
       loading: false,
       currentStep: 1,
       applicantPhotoPreview: null,
       passportPhotoPreview: null,
+      applicantPhotoFile: null,
+      passportPhotoFile: null,
       formData: {
         firstName: '',
         lastName: '',
@@ -509,11 +592,17 @@ export default {
         this.formData.passportExpiredDate = ''
         this.formData.passportPhoto = ''
         this.passportPhotoPreview = null
+        this.passportPhotoFile = null
       }
     },
   },
 
   methods: {
+    openPreview(title, image) {
+      this.previewDialog.title = title
+      this.previewDialog.image = image
+      this.previewDialog.visible = true
+    },
     async loadJobBatches() {
       if (!this.jobBatches || this.jobBatches.length === 0) {
         this.$emit('load-job-batches')
@@ -539,20 +628,11 @@ export default {
 
       this.loading = true
       try {
-        const submitData = {
-          firstName: this.formData.firstName.trim(),
-          lastName: this.formData.lastName.trim(),
-          gender: this.formData.gender,
-          age: this.formData.age || null,
-          address: this.formData.address ? this.formData.address.trim() : '',
-          passportAvailability: this.formData.passportAvailability,
-          jobBatchId: this.formData.jobBatchId,
-          status: 'INTERVIEW',
-        }
-
-        this.$emit('save', submitData)
+        const formData = this.createFormData(true) // partial save flag
+        this.$emit('save', formData, true) // emit with partial flag
       } catch (error) {
         this.formErrors.push('An error occurred while saving')
+        console.error('Save error:', error)
       } finally {
         this.loading = false
       }
@@ -596,6 +676,12 @@ export default {
           status: this.applicant.status || 'INTERVIEW',
         }
 
+        // Reset file previews when editing
+        this.applicantPhotoPreview = null
+        this.passportPhotoPreview = null
+        this.applicantPhotoFile = null
+        this.passportPhotoFile = null
+
         if (this.applicant.phone) {
           this.currentStep = 2
         }
@@ -635,6 +721,8 @@ export default {
       }
       this.applicantPhotoPreview = null
       this.passportPhotoPreview = null
+      this.applicantPhotoFile = null
+      this.passportPhotoFile = null
     },
 
     resetForm() {
@@ -686,23 +774,65 @@ export default {
 
       return this.formErrors.length === 0
     },
+    createFormData(isPartial = false) {
+      const formData = new FormData()
 
+      // Add text fields
+      const fieldsToInclude = isPartial
+        ? [
+            'firstName',
+            'lastName',
+            'gender',
+            'age',
+            'address',
+            'passportAvailability',
+            'jobBatchId',
+            'status',
+          ]
+        : Object.keys(this.formData)
+
+      fieldsToInclude.forEach((key) => {
+        const value = this.formData[key]
+        // Skip photo path fields as we'll handle files separately
+        if (key !== 'passportPhoto' && key !== 'applicantPhoto') {
+          if (value !== '' && value !== null) {
+            formData.append(key, value)
+          }
+        }
+      })
+
+      // ✅ Applicant Photo: file → path → empty
+      if (this.applicantPhotoFile) {
+        formData.append('applicantPhoto', this.applicantPhotoFile)
+      } else if (this.formData.applicantPhoto) {
+        formData.append('applicantPhoto', this.formData.applicantPhoto)
+      } else {
+        formData.append('applicantPhoto', '')
+      }
+
+      // ✅ Passport Photo: only if passport is available
+      if (this.formData.passportAvailability) {
+        if (this.passportPhotoFile) {
+          formData.append('passportPhoto', this.passportPhotoFile)
+        } else if (this.formData.passportPhoto) {
+          formData.append('passportPhoto', this.formData.passportPhoto)
+        } else {
+          formData.append('passportPhoto', '')
+        }
+      }
+
+      return formData
+    },
     async saveApplicant() {
       if (!this.validateForm()) return
 
       this.loading = true
       try {
-        const submitData = Object.keys(this.formData).reduce((acc, key) => {
-          const value = this.formData[key]
-          if (value !== '' && value !== null) {
-            acc[key] = value
-          }
-          return acc
-        }, {})
-
-        this.$emit('save', submitData)
+        const formData = this.createFormData()
+        this.$emit('save', formData, false)
       } catch (error) {
         this.formErrors.push('Error saving')
+        console.error('Save error:', error)
       } finally {
         this.loading = false
       }
@@ -728,8 +858,11 @@ export default {
       const file = event.target.files[0]
       if (!file) return
 
+      // Clear previous errors
+      this.formErrors = this.formErrors.filter((err) => !err.includes('ຮູບ'))
+
       if (!file.type.startsWith('image/')) {
-        this.formErrors.push('ເລືອກຮູບພາບ')
+        this.formErrors.push('ເລືອກຮູບພາບເທົ່ານັ້ນ')
         return
       }
 
@@ -738,6 +871,14 @@ export default {
         return
       }
 
+      // Store the file
+      if (type === 'applicant') {
+        this.applicantPhotoFile = file
+      } else if (type === 'passport') {
+        this.passportPhotoFile = file
+      }
+
+      // Create preview
       const reader = new FileReader()
       reader.onload = (e) => {
         if (type === 'applicant') {
@@ -747,6 +888,34 @@ export default {
         }
       }
       reader.readAsDataURL(file)
+    },
+
+    removePhoto(type) {
+      if (type === 'applicant') {
+        this.applicantPhotoFile = null
+        this.applicantPhotoPreview = null
+        this.formData.applicantPhoto = ''
+        if (this.$refs.applicantFileInput) {
+          this.$refs.applicantFileInput.value = ''
+        }
+      } else if (type === 'passport') {
+        this.passportPhotoFile = null
+        this.passportPhotoPreview = null
+        this.formData.passportPhoto = ''
+        if (this.$refs.passportFileInput) {
+          this.$refs.passportFileInput.value = ''
+        }
+      }
+    },
+
+    getImageUrl(path) {
+      if (!path) return null
+      // If path is already a full URL, return it
+      if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path
+      }
+      // Otherwise, prepend the API base URL
+      return `${this.$axios.defaults.baseURL}${path}`
     },
   },
 }
@@ -761,7 +930,7 @@ export default {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: white; /* or any */
+  background: white;
   z-index: 9999;
 }
 
@@ -989,6 +1158,13 @@ export default {
   gap: 8px;
 }
 
+/* Photo Upload Container */
+.photo-upload-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
 /* Compact Photo Upload */
 .photo-upload {
   width: 80px;
@@ -1001,6 +1177,7 @@ export default {
   cursor: pointer;
   overflow: hidden;
   transition: border-color 0.2s;
+  position: relative;
 }
 
 .photo-upload:hover {
@@ -1024,6 +1201,28 @@ export default {
 
 .photo-placeholder i {
   font-size: 18px;
+}
+
+/* Photo Actions */
+.photo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-remove-photo {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.btn-remove-photo:hover {
+  background: #dc2626;
 }
 
 /* Compact Error Display */
@@ -1081,6 +1280,10 @@ export default {
   color: white;
 }
 
+.btn.secondary:hover:not(:disabled) {
+  background: #4b5563;
+}
+
 .btn.outline {
   background: transparent;
   border: 1px solid #01532b;
@@ -1130,6 +1333,15 @@ export default {
   .btn {
     flex: 1;
     min-width: 120px;
+  }
+
+  .photo-upload-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .photo-actions {
+    flex-direction: row;
   }
 }
 </style>

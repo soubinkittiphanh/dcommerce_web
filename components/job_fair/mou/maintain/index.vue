@@ -596,6 +596,7 @@
             contain
             max-height="70vh"
           />
+          <!-- {{ previewImage.preview || previewImage.url }} -->
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
