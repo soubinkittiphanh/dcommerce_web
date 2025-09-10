@@ -1,7 +1,7 @@
 exports.ids = [88];
 exports.modules = {
 
-/***/ 503:
+/***/ 505:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -240,7 +240,7 @@ exports.modules = {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(643);
+var content = __webpack_require__(644);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -252,7 +252,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 642:
+/***/ 643:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -264,7 +264,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 643:
+/***/ 644:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -521,7 +521,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/ministry/MinistryDialog.vue?vue&type=template&id=e38c8604&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ministry/MinistryDialog.vue?vue&type=script&lang=js&
-var MinistryDialogvue_type_script_lang_js_ = __webpack_require__(503);
+var MinistryDialogvue_type_script_lang_js_ = __webpack_require__(505);
 
 // CONCATENATED MODULE: ./components/ministry/MinistryDialog.vue?vue&type=script&lang=js&
  /* harmony default export */ var ministry_MinistryDialogvue_type_script_lang_js_ = (MinistryDialogvue_type_script_lang_js_["a" /* default */]); 
@@ -534,7 +534,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(642)
+  var style0 = __webpack_require__(643)
 if (style0.__inject__) style0.__inject__(context)
 
 }

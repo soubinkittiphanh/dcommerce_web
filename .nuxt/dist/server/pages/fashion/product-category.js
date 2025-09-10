@@ -254,7 +254,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var product_category = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {AllProduct: __webpack_require__(600).default})
+installComponents(component, {AllProduct: __webpack_require__(602).default})
 
 
 /***/ }),
@@ -424,7 +424,7 @@ var themeable = __webpack_require__(7);
 
 /***/ }),
 
-/***/ 600:
+/***/ 602:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

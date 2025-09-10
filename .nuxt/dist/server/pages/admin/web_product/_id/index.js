@@ -5587,7 +5587,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 489:
+/***/ 491:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5960,7 +5960,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 599:
+/***/ 601:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6637,7 +6637,7 @@ var myUtil = __webpack_require__(137);
 var external_vuex_ = __webpack_require__(12);
 
 // EXTERNAL MODULE: ./components/WebProductCategoryForm.vue + 4 modules
-var WebProductCategoryForm = __webpack_require__(599);
+var WebProductCategoryForm = __webpack_require__(601);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/index.vue?vue&type=script&lang=js&
 
@@ -8876,7 +8876,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var web_product = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(413).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(412).default,CategoryForm: __webpack_require__(489).default,ProductFormCreate: __webpack_require__(446).default,PriceListForm: __webpack_require__(428).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(413).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(412).default,CategoryForm: __webpack_require__(491).default,ProductFormCreate: __webpack_require__(446).default,PriceListForm: __webpack_require__(428).default})
 
 
 /***/ })

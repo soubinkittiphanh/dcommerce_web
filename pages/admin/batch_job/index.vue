@@ -158,10 +158,14 @@
             <!-- MOU Information -->
             <template v-slot:item.mou="{ item }">
               <div v-if="item.mou" class="d-flex align-center">
-                <v-icon small color="primary" class="mr-1">mdi-file-document-outline</v-icon>
+                <v-icon small color="primary" class="mr-1"
+                  >mdi-file-document-outline</v-icon
+                >
                 <div>
                   <div class="text-body-2">{{ item.mou.mouName }}</div>
-                  <div class="text-caption grey--text">{{ item.mou.mouNumber }}</div>
+                  <div class="text-caption grey--text">
+                    {{ item.mou.mouNumber }}
+                  </div>
                 </div>
               </div>
               <span v-else class="text-caption grey--text">No MOU</span>
@@ -380,35 +384,82 @@ export default {
       },
       headers: [
         {
-          text: 'Running No.',
+          text: 'ເລກທີ່ລຳດັບ',
           value: 'runningNo',
           sortable: true,
           width: '100px',
         },
-        { text: 'Batch Name', value: 'batchName', sortable: true },
-        { text: 'MOU', value: 'mou', sortable: false, width: '200px' },
-        { text: 'Status', value: 'status', sortable: true, width: '100px' },
-        { text: 'Priority', value: 'priority', sortable: true, width: '120px' },
         {
-          text: 'Positions',
+          text: 'ຊື່ກຸ່ມ',
+          value: 'batchName',
+          sortable: true,
+        },
+        {
+          text: 'ສັນຍາ MOU',
+          value: 'mou',
+          sortable: false,
+          width: '200px',
+        },
+        {
+          text: 'ສະຖານະ',
+          value: 'status',
+          sortable: true,
+          width: '100px',
+        },
+        {
+          text: 'ຄວາມສຳຄັນ',
+          value: 'priority',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ຈຳນວນຕຳແໜ່ງ',
           value: 'totalPositions',
           sortable: true,
           width: '100px',
         },
         {
-          text: 'Start Date',
+          text: 'ຜູ້ສະໝັກ',
+          value: 'applicantStatistics.interview',
+          sortable: true,
+          width: '100px',
+        },
+        {
+          text: 'ຜູ້ລົງທະບຽນ',
+          value: 'applicantStatistics.register',
+          sortable: true,
+          width: '100px',
+        },
+        {
+          text: 'ຜູ້ກຽມສົ່ງ',
+          value: 'applicantStatistics.confirm',
+          sortable: true,
+          width: '100px',
+        },
+        {
+          text: 'ວັນທີເລີ່ມຕົ້ນ',
           value: 'batchStartDate',
           sortable: true,
           width: '120px',
         },
         {
-          text: 'Deployment',
+          text: 'ວັນສົ່ງຄົນງານ',
           value: 'deploymentDate',
           sortable: true,
           width: '120px',
         },
-        { text: 'Overdue', value: 'isOverdue', sortable: false, width: '80px' },
-        { text: 'Actions', value: 'actions', sortable: false, width: '80px' },
+        {
+          text: 'ຊ້າກຳນົດ',
+          value: 'isOverdue',
+          sortable: false,
+          width: '80px',
+        },
+        {
+          text: 'ຄຳສັ່ງ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+        },
       ],
       statusOptions: [
         { text: 'Draft', value: 'draft' },
@@ -504,10 +555,11 @@ export default {
         const response = await this.$axios.get('/api/mous', {
           params: {
             limit: 100, // Get all for filter options
-            fields: 'id,mouName,mouNumber' // Only needed fields for filter
-          }
+            fields: 'id,mouName,mouNumber', // Only needed fields for filter
+          },
         })
-        this.mouFilterOptions = response.data.data.mous || response.data.data || []
+        this.mouFilterOptions =
+          response.data.data.mous || response.data.data || []
       } catch (error) {
         console.error('Error fetching MOU filter options:', error)
         this.mouFilterOptions = []

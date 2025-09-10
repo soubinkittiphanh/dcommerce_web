@@ -483,7 +483,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var web_category = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(413).default,CategoryForm: __webpack_require__(489).default,DialogClassicMessage: __webpack_require__(412).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(413).default,CategoryForm: __webpack_require__(491).default,DialogClassicMessage: __webpack_require__(412).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
@@ -817,7 +817,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 489:
+/***/ 491:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

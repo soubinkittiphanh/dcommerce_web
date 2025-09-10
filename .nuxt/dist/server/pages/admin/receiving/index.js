@@ -349,7 +349,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/receiving/index.vue?vue&type=template&id=7b660802&
 
 // EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
-var PoForm = __webpack_require__(500);
+var PoForm = __webpack_require__(502);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
 var PurchasingFormCRUD = __webpack_require__(485);
@@ -5812,7 +5812,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default,
 
 /***/ }),
 
-/***/ 500:
+/***/ 502:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

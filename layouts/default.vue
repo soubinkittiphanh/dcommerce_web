@@ -21,8 +21,8 @@
       </v-layout>
       <v-list>
         <!-- Home -->
-        <!-- <v-list-item to="/admin/moneyAdvance" router exact>  -->
-        <v-list-item to="/admin" router exact>
+        <v-list-item to="/admin/moneyAdvance" router exact> 
+        <!-- <v-list-item to="/admin" router exact> -->
           <v-list-item-action>
             <v-icon color="white">mdi mdi-home-circle-outline</v-icon>
           </v-list-item-action>

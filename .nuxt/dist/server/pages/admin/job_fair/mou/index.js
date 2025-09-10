@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63e49dd0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(788);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63e49dd0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63e49dd0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63e49dd0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63e49dd0_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2e01ac19_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(788);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2e01ac19_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2e01ac19_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2e01ac19_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2e01ac19_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".mou-summary[data-v-63e49dd0]{background-color:#f5f5f5;min-height:100vh;padding:24px}.page-header[data-v-63e49dd0]{align-items:center;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:32px;padding:24px}.header-content h1[data-v-63e49dd0]{color:#2c3e50;font-size:2rem;font-weight:600;margin:0}.header-content p[data-v-63e49dd0]{color:#7f8c8d;font-size:1rem;margin:4px 0 0}.stats-grid[data-v-63e49dd0]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-bottom:24px}.stat-card[data-v-63e49dd0]{border-radius:12px;overflow:hidden;transition:transform .2s ease}.stat-card[data-v-63e49dd0]:hover{transform:translateY(-4px)}.primary-card[data-v-63e49dd0]{background:linear-gradient(135deg,#667eea,#764ba2)}.success-card[data-v-63e49dd0]{background:linear-gradient(135deg,#4facfe,#00f2fe)}.warning-card[data-v-63e49dd0]{background:linear-gradient(135deg,#f093fb,#f5576c)}.info-card[data-v-63e49dd0]{background:linear-gradient(135deg,#4facfe,#00f2fe)}.stat-content[data-v-63e49dd0]{align-items:center;color:#fff;display:flex;padding:24px}.stat-icon[data-v-63e49dd0]{margin-right:16px;opacity:.9}.stat-details h2[data-v-63e49dd0]{font-size:2.5rem;font-weight:700;line-height:1;margin:0}.stat-details p[data-v-63e49dd0]{font-size:.9rem;margin:4px 0 0;opacity:.9}.chart-card[data-v-63e49dd0],.table-card[data-v-63e49dd0]{border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1)}.card-title[data-v-63e49dd0]{border-bottom:1px solid #e0e0e0;font-weight:600;padding:20px 24px 16px}.status-breakdown[data-v-63e49dd0]{padding:16px 0}.status-item[data-v-63e49dd0]{align-items:center;display:flex;margin-bottom:12px}.status-indicator[data-v-63e49dd0]{border-radius:50%;height:12px;margin-right:12px;width:12px}.status-draft[data-v-63e49dd0]{background-color:#95a5a6}.status-open[data-v-63e49dd0]{background-color:#3498db}.status-inProgress[data-v-63e49dd0]{background-color:#f39c12}.status-completed[data-v-63e49dd0]{background-color:#27ae60}.status-cancelled[data-v-63e49dd0]{background-color:#e74c3c}.status-name[data-v-63e49dd0]{flex:1;font-weight:500}.status-count[data-v-63e49dd0]{background:#ecf0f1;border-radius:12px;color:#2c3e50;font-size:.85rem;font-weight:600;padding:4px 8px}.action-buttons[data-v-63e49dd0]{display:flex;flex-direction:column;gap:8px}.mou-table[data-v-63e49dd0]{border-radius:0 0 12px 12px}.action-buttons-inline[data-v-63e49dd0]{display:flex;gap:4px}.search-field[data-v-63e49dd0]{max-width:300px}@media (max-width:768px){.mou-summary[data-v-63e49dd0]{padding:16px}.page-header[data-v-63e49dd0]{flex-direction:column;gap:16px;text-align:center}.stats-grid[data-v-63e49dd0]{grid-template-columns:1fr}.stat-content[data-v-63e49dd0]{justify-content:center;text-align:center}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".mou-summary[data-v-2e01ac19]{background-color:#f5f5f5;min-height:100vh;padding:24px}.page-header[data-v-2e01ac19]{align-items:center;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:32px;padding:24px}.header-content h1[data-v-2e01ac19]{color:#2c3e50;font-size:2rem;font-weight:600;margin:0}.stats-grid[data-v-2e01ac19]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-bottom:24px}.secondary-stats[data-v-2e01ac19]{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:0}.stat-card[data-v-2e01ac19]{border-radius:12px;overflow:hidden;transition:transform .2s ease}.stat-card[data-v-2e01ac19]:hover{transform:translateY(-4px)}.mini-card[data-v-2e01ac19]{min-height:100px}.primary-card[data-v-2e01ac19]{background:linear-gradient(135deg,#667eea,#764ba2)}.success-card[data-v-2e01ac19]{background:linear-gradient(135deg,#4facfe,#00f2fe)}.warning-card[data-v-2e01ac19]{background:linear-gradient(135deg,#f093fb,#f5576c)}.info-card[data-v-2e01ac19]{background:linear-gradient(135deg,#43e97b,#38f9d7)}.interview-card[data-v-2e01ac19]{background:linear-gradient(135deg,#fa709a,#fee140)}.register-card[data-v-2e01ac19]{background:linear-gradient(135deg,#a8edea,#fed6e3)}.active-card[data-v-2e01ac19]{background:linear-gradient(135deg,#ffecd2,#fcb69f)}.completed-card[data-v-2e01ac19]{background:linear-gradient(135deg,#a8e6cf,#dcedc1)}.stat-content[data-v-2e01ac19]{align-items:center;color:#fff;display:flex;padding:24px}.stat-content.mini[data-v-2e01ac19]{padding:16px}.stat-icon[data-v-2e01ac19]{margin-right:16px;opacity:.9}.stat-icon.mini[data-v-2e01ac19]{margin-right:12px}.stat-details h2[data-v-2e01ac19]{font-size:2.5rem;font-weight:700;line-height:1;margin:0}.stat-details h3.mini[data-v-2e01ac19]{font-size:1.8rem;font-weight:600;line-height:1;margin:0}.stat-details p[data-v-2e01ac19]{font-size:.9rem;margin:4px 0 0;opacity:.9}.stat-details p.mini[data-v-2e01ac19]{font-size:.8rem}.applicant-stats[data-v-2e01ac19],.job-batch-stats[data-v-2e01ac19]{align-items:center;display:flex;flex-direction:column;gap:4px}.stats-breakdown[data-v-2e01ac19],.status-breakdown[data-v-2e01ac19]{display:flex;gap:4px}.total-applicants[data-v-2e01ac19]{margin-bottom:4px}.chart-card[data-v-2e01ac19],.table-card[data-v-2e01ac19]{border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1)}.card-title[data-v-2e01ac19]{border-bottom:1px solid #e0e0e0;font-weight:600;padding:20px 24px 16px}.mou-table[data-v-2e01ac19]{border-radius:0 0 12px 12px}.action-buttons-inline[data-v-2e01ac19]{display:flex;gap:4px}.search-field[data-v-2e01ac19]{max-width:300px}@media (max-width:768px){.mou-summary[data-v-2e01ac19]{padding:16px}.page-header[data-v-2e01ac19]{flex-direction:column;gap:16px;text-align:center}.stats-grid[data-v-2e01ac19]{grid-template-columns:1fr}.secondary-stats[data-v-2e01ac19]{grid-template-columns:repeat(2,1fr)}.stat-content[data-v-2e01ac19]{justify-content:center;text-align:center}.applicant-stats[data-v-2e01ac19],.job-batch-stats[data-v-2e01ac19]{align-items:center}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -47,9 +47,6 @@ var components_VCard = __webpack_require__(6);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(125);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(385);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
 var VDataTable = __webpack_require__(389);
 
@@ -59,16 +56,16 @@ var VDialog = __webpack_require__(342);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(384);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/job_fair/mou/index.vue?vue&type=template&id=63e49dd0&scoped=true&
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
+var VTooltip = __webpack_require__(595);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/job_fair/mou/index.vue?vue&type=template&id=2e01ac19&scoped=true&
 
 
 
@@ -82,14 +79,13 @@ var VTextField = __webpack_require__(37);
 
 
 
-
-var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
+var mouvue_type_template_id_2e01ac19_scoped_true_render = function render() {
   var _vm$deletingItem;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "mou-summary"
-  }, [_vm._ssrNode("<div class=\"page-header\" data-v-63e49dd0>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-63e49dd0><h1 class=\"page-title\" data-v-63e49dd0>MOU Management</h1> <p class=\"page-subtitle\" data-v-63e49dd0>Monitor and manage Memorandums of Understanding</p></div> "), _c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"page-header\" data-v-2e01ac19>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-2e01ac19><h1 class=\"page-title\" data-v-2e01ac19>ຈັດການ ສັນຍາ MOU</h1></div> "), _c(VBtn["a" /* default */], {
     staticClass: "add-btn",
     attrs: {
       "color": "primary",
@@ -102,7 +98,7 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-plus")]), _vm._v("\n      Add New MOU\n    ")], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"stats-grid\" data-v-63e49dd0>", "</div>", [_c(VCard["a" /* default */], {
+  }, [_vm._v("mdi-plus")]), _vm._v("\n      ເພີ່ມສັນຍາ MOU\n    ")], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"stats-grid\" data-v-2e01ac19>", "</div>", [_c(VCard["a" /* default */], {
     staticClass: "stat-card primary-card"
   }, [_c('div', {
     staticClass: "stat-content"
@@ -119,8 +115,25 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
     staticClass: "stat-number"
   }, [_vm._v(_vm._s(_vm.statistics.totalMOUs))]), _vm._v(" "), _c('p', {
     staticClass: "stat-label"
-  }, [_vm._v("Total MOUs")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+  }, [_vm._v("ສັນຍາ MOU ທັງໝົດ")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
     staticClass: "stat-card success-card"
+  }, [_c('div', {
+    staticClass: "stat-content"
+  }, [_c('div', {
+    staticClass: "stat-icon"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "40",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-briefcase-multiple")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "stat-details"
+  }, [_c('h2', {
+    staticClass: "stat-number"
+  }, [_vm._v(_vm._s(_vm.statistics.totalJobBatches))]), _vm._v(" "), _c('p', {
+    staticClass: "stat-label"
+  }, [_vm._v("ກຸ່ມວຽກທັງໝົດ")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "stat-card warning-card"
   }, [_c('div', {
     staticClass: "stat-content"
   }, [_c('div', {
@@ -134,26 +147,9 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
     staticClass: "stat-details"
   }, [_c('h2', {
     staticClass: "stat-number"
-  }, [_vm._v(_vm._s(_vm.statistics.totalWorkers))]), _vm._v(" "), _c('p', {
+  }, [_vm._v(_vm._s(_vm.statistics.totalApplicants))]), _vm._v(" "), _c('p', {
     staticClass: "stat-label"
-  }, [_vm._v("Total Workers")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
-    staticClass: "stat-card warning-card"
-  }, [_c('div', {
-    staticClass: "stat-content"
-  }, [_c('div', {
-    staticClass: "stat-icon"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "40",
-      "color": "white"
-    }
-  }, [_vm._v("mdi-clock-outline")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "stat-details"
-  }, [_c('h2', {
-    staticClass: "stat-number"
-  }, [_vm._v(_vm._s(_vm.statistics.statusBreakdown.inProgress))]), _vm._v(" "), _c('p', {
-    staticClass: "stat-label"
-  }, [_vm._v("In Progress")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+  }, [_vm._v("ຜູ້ສະໝັກທັງໝົດ")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
     staticClass: "stat-card info-card"
   }, [_c('div', {
     staticClass: "stat-content"
@@ -164,78 +160,81 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
       "size": "40",
       "color": "white"
     }
-  }, [_vm._v("mdi-check-circle")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("mdi-account-check")])], 1), _vm._v(" "), _c('div', {
     staticClass: "stat-details"
   }, [_c('h2', {
     staticClass: "stat-number"
-  }, [_vm._v(_vm._s(_vm.statistics.statusBreakdown.completed))]), _vm._v(" "), _c('p', {
+  }, [_vm._v(_vm._s(_vm.statistics.totalConfirmedApplicants))]), _vm._v(" "), _c('p', {
     staticClass: "stat-label"
-  }, [_vm._v("Completed")])])])])], 2), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
-    staticClass: "mt-6"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "6"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "chart-card"
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "card-title"
+  }, [_vm._v("ຜູ້ກຽມສົ່ງ")])])])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"stats-grid secondary-stats\" data-v-2e01ac19>", "</div>", [_c(VCard["a" /* default */], {
+    staticClass: "stat-card mini-card interview-card"
+  }, [_c('div', {
+    staticClass: "stat-content mini"
+  }, [_c('div', {
+    staticClass: "stat-icon mini"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": "",
-      "color": "primary"
+      "size": "24",
+      "color": "white"
     }
-  }, [_vm._v("mdi-chart-pie")]), _vm._v("\n          Status Distribution\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "status-breakdown"
-  }, _vm._l(_vm.statistics.statusBreakdown, function (value, status) {
-    return _c('div', {
-      key: status,
-      staticClass: "status-item"
-    }, [_c('div', {
-      staticClass: "status-indicator",
-      class: `status-${status}`
-    }), _vm._v(" "), _c('span', {
-      staticClass: "status-name"
-    }, [_vm._v(_vm._s(_vm.formatStatusName(status)))]), _vm._v(" "), _c('span', {
-      staticClass: "status-count"
-    }, [_vm._v(_vm._s(value))])]);
-  }), 0)])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "6"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "chart-card"
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "card-title"
+  }, [_vm._v("mdi-account-question")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "stat-details"
+  }, [_c('h3', {
+    staticClass: "stat-number mini"
+  }, [_vm._v(_vm._s(_vm.statistics.totalInterviewApplicants))]), _vm._v(" "), _c('p', {
+    staticClass: "stat-label mini"
+  }, [_vm._v("ຜູ້ສະໝັກ")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "stat-card mini-card register-card"
+  }, [_c('div', {
+    staticClass: "stat-content mini"
+  }, [_c('div', {
+    staticClass: "stat-icon mini"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": "",
-      "color": "primary"
+      "size": "24",
+      "color": "white"
     }
-  }, [_vm._v("mdi-trending-up")]), _vm._v("\n          Quick Actions\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "action-buttons"
-  }, _vm._l(_vm.quickActionStatuses, function (status) {
-    return _c(VBtn["a" /* default */], {
-      key: status.value,
-      staticClass: "ma-1",
-      attrs: {
-        "color": status.color,
-        "outlined": "",
-        "block": ""
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.filterByStatus(status.value);
-        }
-      }
-    }, [_c(VIcon["a" /* default */], {
-      attrs: {
-        "left": ""
-      }
-    }, [_vm._v(_vm._s(status.icon))]), _vm._v("\n              View " + _vm._s(status.label) + " (" + _vm._s(_vm.statistics.statusBreakdown[status.value] || 0) + ")\n            ")], 1);
-  }), 1)])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+  }, [_vm._v("mdi-account-plus")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "stat-details"
+  }, [_c('h3', {
+    staticClass: "stat-number mini"
+  }, [_vm._v(_vm._s(_vm.statistics.totalRegisterApplicants))]), _vm._v(" "), _c('p', {
+    staticClass: "stat-label mini"
+  }, [_vm._v("ຜູ້ລົງທະບຽນ")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "stat-card mini-card active-card"
+  }, [_c('div', {
+    staticClass: "stat-content mini"
+  }, [_c('div', {
+    staticClass: "stat-icon mini"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "24",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-briefcase")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "stat-details"
+  }, [_c('h3', {
+    staticClass: "stat-number mini"
+  }, [_vm._v(_vm._s(_vm.statistics.activeJobBatches))]), _vm._v(" "), _c('p', {
+    staticClass: "stat-label mini"
+  }, [_vm._v("ກຸ່ມວຽກກຳລັງດຳເນີນ")])])])]), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "stat-card mini-card completed-card"
+  }, [_c('div', {
+    staticClass: "stat-content mini"
+  }, [_c('div', {
+    staticClass: "stat-icon mini"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "24",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-check-circle")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "stat-details"
+  }, [_c('h3', {
+    staticClass: "stat-number mini"
+  }, [_vm._v(_vm._s(_vm.statistics.completedJobBatches))]), _vm._v(" "), _c('p', {
+    staticClass: "stat-label mini"
+  }, [_vm._v("ກຸ່ມວຽກສຳເລັດ")])])])])], 2), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
     staticClass: "mt-6 table-card"
   }, [_c(components_VCard["d" /* VCardTitle */], {
     staticClass: "card-title"
@@ -244,11 +243,11 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
       "left": "",
       "color": "primary"
     }
-  }, [_vm._v("mdi-format-list-bulleted")]), _vm._v("\n      Recent MOUs\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
+  }, [_vm._v("mdi-format-list-bulleted")]), _vm._v("\n      ສັນຍາ MOU ລ່າສຸດ\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
     staticClass: "search-field",
     attrs: {
       "append-icon": "mdi-magnify",
-      "label": "Search MOUs",
+      "label": "ຄົ້ນຫາ MOU",
       "single-line": "",
       "hide-details": "",
       "dense": ""
@@ -310,6 +309,151 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
         }, [_vm._v(_vm._s(item.numberOfWorkers))])];
       }
     }, {
+      key: "item.jobBatchStats",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "job-batch-stats"
+        }, [_c(VChip["a" /* default */], {
+          staticClass: "ma-1",
+          attrs: {
+            "small": "",
+            "color": "primary",
+            "text-color": "white"
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-briefcase")]), _vm._v("\n            " + _vm._s(item.jobBatchStatistics.totalJobBatches) + "\n          ")], 1), _vm._v(" "), _c('div', {
+          staticClass: "stats-breakdown"
+        }, [_c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VChip["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "x-small": "",
+                  "color": "green",
+                  "text-color": "white"
+                }
+              }, 'v-chip', attrs, false), on), [_vm._v("\n                  " + _vm._s(item.jobBatchStatistics.activeJobBatches) + "\n                ")])];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("ກຸ່ມວຽກກຳລັງດຳເນີນ")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VChip["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "x-small": "",
+                  "color": "blue",
+                  "text-color": "white"
+                }
+              }, 'v-chip', attrs, false), on), [_vm._v("\n                  " + _vm._s(item.jobBatchStatistics.completedJobBatches) + "\n                ")])];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("ກຸ່ມວຽກສຳເລັດ")])])], 1)], 1)];
+      }
+    }, {
+      key: "item.applicantStats",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "applicant-stats"
+        }, [_c('div', {
+          staticClass: "total-applicants"
+        }, [_c(VChip["a" /* default */], {
+          staticClass: "ma-1",
+          attrs: {
+            "small": "",
+            "color": "indigo",
+            "text-color": "white"
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-account-group")]), _vm._v("\n              " + _vm._s(item.applicantStatistics.totalApplicants) + "\n            ")], 1)], 1), _vm._v(" "), _c('div', {
+          staticClass: "status-breakdown"
+        }, [_c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VChip["a" /* default */], _vm._g(_vm._b({
+                staticClass: "mr-1",
+                attrs: {
+                  "x-small": "",
+                  "color": "orange",
+                  "text-color": "white"
+                }
+              }, 'v-chip', attrs, false), on), [_vm._v("\n                  " + _vm._s(item.applicantStatistics.interview) + "\n                ")])];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("ຜູ້ສະໝັກ")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VChip["a" /* default */], _vm._g(_vm._b({
+                staticClass: "mr-1",
+                attrs: {
+                  "x-small": "",
+                  "color": "blue",
+                  "text-color": "white"
+                }
+              }, 'v-chip', attrs, false), on), [_vm._v("\n                  " + _vm._s(item.applicantStatistics.register) + "\n                ")])];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("ຜູ້ລົງທະບຽນ")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VChip["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "x-small": "",
+                  "color": "green",
+                  "text-color": "white"
+                }
+              }, 'v-chip', attrs, false), on), [_vm._v("\n                  " + _vm._s(item.applicantStatistics.confirm) + "\n                ")])];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("ຜູ້ກຽມສົ່ງ")])])], 1)])];
+      }
+    }, {
       key: "item.pmCharge",
       fn: function ({
         item
@@ -342,6 +486,21 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
             "small": ""
           }
         }, [_vm._v("mdi-pencil")])], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+          attrs: {
+            "icon": "",
+            "small": "",
+            "color": "info"
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.viewJobBatches(item);
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": ""
+          }
+        }, [_vm._v("mdi-briefcase")])], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
           attrs: {
             "icon": "",
             "small": "",
@@ -387,7 +546,7 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
     }
   }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
     staticClass: "headline"
-  }, [_vm._v("Confirm Delete")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_vm._v("\n        Are you sure you want to delete MOU \"" + _vm._s((_vm$deletingItem = _vm.deletingItem) === null || _vm$deletingItem === void 0 ? void 0 : _vm$deletingItem.jobCode) + "\"?\n        This action cannot be undone.\n      ")]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("ຢືນຢັນການລົບ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_vm._v("\n        ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລົບ MOU \"" + _vm._s((_vm$deletingItem = _vm.deletingItem) === null || _vm$deletingItem === void 0 ? void 0 : _vm$deletingItem.jobCode) + "\"?\n        ການກະທຳນີ້ບໍ່ສາມາດຍົກເລີກໄດ້.\n      ")]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "text": ""
     },
@@ -396,7 +555,7 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
         _vm.deleteDialog = false;
       }
     }
-  }, [_vm._v("Cancel")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("ຍົກເລີກ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "error",
       "text": ""
@@ -404,11 +563,11 @@ var mouvue_type_template_id_63e49dd0_scoped_true_render = function render() {
     on: {
       "click": _vm.confirmDelete
     }
-  }, [_vm._v("Delete")])], 1)], 1)], 1)], 2);
+  }, [_vm._v("ລົບ")])], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/job_fair/mou/index.vue?vue&type=template&id=63e49dd0&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/job_fair/mou/index.vue?vue&type=template&id=2e01ac19&scoped=true&
 
 // EXTERNAL MODULE: ./components/job_fair/mou/maintain/index.vue + 3 modules
 var maintain = __webpack_require__(872);
@@ -424,7 +583,13 @@ var maintain = __webpack_require__(872);
     return {
       statistics: {
         totalMOUs: 0,
-        totalWorkers: 0,
+        totalJobBatches: 0,
+        totalApplicants: 0,
+        totalConfirmedApplicants: 0,
+        totalInterviewApplicants: 0,
+        totalRegisterApplicants: 0,
+        activeJobBatches: 0,
+        completedJobBatches: 0,
         statusBreakdown: {
           draft: 0,
           open: 0,
@@ -452,60 +617,49 @@ var maintain = __webpack_require__(872);
         sortDesc: [true]
       },
       headers: [{
-        text: 'Job Code',
+        text: 'ລະຫັດວຽກ',
         value: 'jobCode',
         width: 120
       }, {
-        text: 'Job Title',
+        text: 'ຊື່ວຽກ',
         value: 'jobTitle',
         width: 200
       }, {
-        text: 'Company',
+        text: 'ບໍລິສັດ',
         value: 'employerCompany',
         width: 180
       }, {
-        text: 'Workers',
+        text: 'ຈຳນວນຄົນ',
         value: 'numberOfWorkers',
         width: 100,
         align: 'center'
       }, {
-        text: 'Type',
+        text: 'ປະເພດ',
         value: 'workerType',
         width: 100
       }, {
-        text: 'Status',
+        text: 'ສະຖານະ',
         value: 'jobStatus',
         width: 120
       }, {
-        text: 'PM Charge',
+        text: 'ກຸ່ມວຽກ',
+        value: 'jobBatchStats',
+        width: 140,
+        sortable: false
+      }, {
+        text: 'ຜູ້ສະໝັກ',
+        value: 'applicantStats',
+        width: 160,
+        sortable: false
+      }, {
+        text: 'ຄ່າບໍລິການ',
         value: 'pmCharge',
         width: 120
       }, {
-        text: 'Actions',
+        text: 'ການດຳເນີນການ',
         value: 'actions',
         sortable: false,
-        width: 100
-      }],
-      quickActionStatuses: [{
-        value: 'draft',
-        label: 'Draft',
-        color: 'grey',
-        icon: 'mdi-file-outline'
-      }, {
-        value: 'open',
-        label: 'Open',
-        color: 'blue',
-        icon: 'mdi-folder-open'
-      }, {
-        value: 'inProgress',
-        label: 'In Progress',
-        color: 'orange',
-        icon: 'mdi-clock-outline'
-      }, {
-        value: 'completed',
-        label: 'Completed',
-        color: 'green',
-        icon: 'mdi-check-circle'
+        width: 120
       }]
     };
   },
@@ -521,7 +675,7 @@ var maintain = __webpack_require__(872);
           this.statistics = response.data;
         }
       } catch (error) {
-        this.$toast.error('Failed to load statistics');
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດສະຖິຕິໄດ້');
         console.error('Error fetching statistics:', error);
       }
     },
@@ -551,7 +705,7 @@ var maintain = __webpack_require__(872);
           this.pagination = response.data.pagination;
         }
       } catch (error) {
-        this.$toast.error('Failed to load MOUs');
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດ MOU ໄດ້');
         console.error('Error fetching MOUs:', error);
       } finally {
         this.loading = false;
@@ -567,6 +721,10 @@ var maintain = __webpack_require__(872);
       };
       this.maintenanceDialog = true;
     },
+    viewJobBatches(item) {
+      // Navigate to job batches view filtered by MOU
+      this.$router.push(`/job-batches?mouId=${item.id}`);
+    },
     deleteMOU(item) {
       this.deletingItem = item;
       this.deleteDialog = true;
@@ -575,12 +733,12 @@ var maintain = __webpack_require__(872);
       try {
         const response = await this.$axios.$delete(`/api/mous/${this.deletingItem.id}`);
         if (response.success) {
-          this.$toast.success('MOU deleted successfully');
+          this.$toast.success('ລົບ MOU ສຳເລັດແລ້ວ');
           await this.fetchMOUs();
           await this.fetchStatistics();
         }
       } catch (error) {
-        this.$toast.error('Failed to delete MOU');
+        this.$toast.error('ບໍ່ສາມາດລົບ MOU ໄດ້');
         console.error('Error deleting MOU:', error);
       }
       this.deleteDialog = false;
@@ -596,16 +754,13 @@ var maintain = __webpack_require__(872);
       this.maintenanceDialog = false;
       this.editingItem = null;
     },
-    filterByStatus(status) {
-      this.$router.push(`/mous?status=${status}`);
-    },
     formatStatusName(status) {
       const statusMap = {
-        draft: 'Draft',
-        open: 'Open',
-        inProgress: 'In Progress',
-        completed: 'Completed',
-        cancelled: 'Cancelled'
+        draft: 'ຮ່າງ',
+        open: 'ເປີດ',
+        inProgress: 'ກຳລັງດຳເນີນ',
+        completed: 'ສຳເລັດ',
+        cancelled: 'ຍົກເລີກ'
       };
       return statusMap[status] || status;
     },
@@ -677,11 +832,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   job_fair_mouvue_type_script_lang_js_,
-  mouvue_type_template_id_63e49dd0_scoped_true_render,
+  mouvue_type_template_id_2e01ac19_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "63e49dd0",
+  "2e01ac19",
   "a166cba4"
   
 )
@@ -1105,6 +1260,35 @@ module.exports = ___CSS_LOADER_EXPORT___;
     }
   }
 }));
+
+/***/ }),
+
+/***/ 489:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(490);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("53887fd2", content, true)
+
+/***/ }),
+
+/***/ 490:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-tooltip{display:none}.v-tooltip--attached{display:inline}.v-tooltip__content{background:rgba(97,97,97,.9);border-radius:4px;color:#fff;display:inline-block;font-size:14px;line-height:22px;opacity:0;padding:5px 16px;pointer-events:none;position:absolute;text-transform:none;width:auto}.v-tooltip__content.menuable__content__active{opacity:.9}.v-tooltip__content--fixed{position:fixed}.v-tooltip__content[class*=-active]{transition-timing-function:cubic-bezier(0,0,.2,1)}.v-tooltip__content[class*=enter-active]{transition-duration:.15s}.v-tooltip__content[class*=leave-active]{transition-duration:75ms}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
 
 /***/ }),
 
@@ -1902,6 +2086,211 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
+/***/ 595:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(489);
+/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_activatable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _mixins_delayable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(51);
+/* harmony import */ var _mixins_dependent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
+/* harmony import */ var _mixins_menuable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(106);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
+/* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(2);
+ // Mixins
+
+
+
+
+
+ // Helpers
+
+
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"])(_mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], _mixins_delayable__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], _mixins_dependent__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], _mixins_menuable__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).extend({
+  name: 'v-tooltip',
+  props: {
+    closeDelay: {
+      type: [Number, String],
+      default: 0
+    },
+    disabled: Boolean,
+    openDelay: {
+      type: [Number, String],
+      default: 0
+    },
+    openOnHover: {
+      type: Boolean,
+      default: true
+    },
+    openOnFocus: {
+      type: Boolean,
+      default: true
+    },
+    tag: {
+      type: String,
+      default: 'span'
+    },
+    transition: String
+  },
+  data: () => ({
+    calculatedMinWidth: 0,
+    closeDependents: false
+  }),
+  computed: {
+    calculatedLeft() {
+      const {
+        activator,
+        content
+      } = this.dimensions;
+      const unknown = !this.bottom && !this.left && !this.top && !this.right;
+      const activatorLeft = this.attach !== false ? activator.offsetLeft : activator.left;
+      let left = 0;
+      if (this.top || this.bottom || unknown) {
+        left = activatorLeft + activator.width / 2 - content.width / 2;
+      } else if (this.left || this.right) {
+        left = activatorLeft + (this.right ? activator.width : -content.width) + (this.right ? 10 : -10);
+      }
+      if (this.nudgeLeft) left -= parseInt(this.nudgeLeft);
+      if (this.nudgeRight) left += parseInt(this.nudgeRight);
+      return `${this.calcXOverflow(left, this.dimensions.content.width)}px`;
+    },
+    calculatedTop() {
+      const {
+        activator,
+        content
+      } = this.dimensions;
+      const activatorTop = this.attach !== false ? activator.offsetTop : activator.top;
+      let top = 0;
+      if (this.top || this.bottom) {
+        top = activatorTop + (this.bottom ? activator.height : -content.height) + (this.bottom ? 10 : -10);
+      } else if (this.left || this.right) {
+        top = activatorTop + activator.height / 2 - content.height / 2;
+      }
+      if (this.nudgeTop) top -= parseInt(this.nudgeTop);
+      if (this.nudgeBottom) top += parseInt(this.nudgeBottom);
+      if (this.attach === false) top += this.pageYOffset;
+      return `${this.calcYOverflow(top)}px`;
+    },
+    classes() {
+      return {
+        'v-tooltip--top': this.top,
+        'v-tooltip--right': this.right,
+        'v-tooltip--bottom': this.bottom,
+        'v-tooltip--left': this.left,
+        'v-tooltip--attached': this.attach === '' || this.attach === true || this.attach === 'attach'
+      };
+    },
+    computedTransition() {
+      if (this.transition) return this.transition;
+      return this.isActive ? 'scale-transition' : 'fade-transition';
+    },
+    offsetY() {
+      return this.top || this.bottom;
+    },
+    offsetX() {
+      return this.left || this.right;
+    },
+    styles() {
+      return {
+        left: this.calculatedLeft,
+        maxWidth: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* convertToUnit */ "h"])(this.maxWidth),
+        minWidth: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* convertToUnit */ "h"])(this.minWidth),
+        top: this.calculatedTop,
+        zIndex: this.zIndex || this.activeZIndex
+      };
+    }
+  },
+  beforeMount() {
+    this.$nextTick(() => {
+      this.value && this.callActivate();
+    });
+  },
+  mounted() {
+    if (Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* getSlotType */ "t"])(this, 'activator', true) === 'v-slot') {
+      Object(_util_console__WEBPACK_IMPORTED_MODULE_7__[/* consoleError */ "b"])(`v-tooltip's activator slot must be bound, try '<template #activator="data"><v-btn v-on="data.on>'`, this);
+    }
+  },
+  methods: {
+    activate() {
+      // Update coordinates and dimensions of menu
+      // and its activator
+      this.updateDimensions(); // Start the transition
+
+      requestAnimationFrame(this.startTransition);
+    },
+    deactivate() {
+      this.runDelay('close');
+    },
+    genActivatorListeners() {
+      const listeners = _mixins_activatable__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.methods.genActivatorListeners.call(this);
+      if (this.openOnFocus) {
+        listeners.focus = e => {
+          this.getActivator(e);
+          this.runDelay('open');
+        };
+        listeners.blur = e => {
+          this.getActivator(e);
+          this.runDelay('close');
+        };
+      }
+      listeners.keydown = e => {
+        if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* keyCodes */ "y"].esc) {
+          this.getActivator(e);
+          this.runDelay('close');
+        }
+      };
+      return listeners;
+    },
+    genActivatorAttributes() {
+      return {
+        'aria-haspopup': true,
+        'aria-expanded': String(this.isActive)
+      };
+    },
+    genTransition() {
+      const content = this.genContent();
+      if (!this.computedTransition) return content;
+      return this.$createElement('transition', {
+        props: {
+          name: this.computedTransition
+        }
+      }, [content]);
+    },
+    genContent() {
+      return this.$createElement('div', this.setBackgroundColor(this.color, {
+        staticClass: 'v-tooltip__content',
+        class: {
+          [this.contentClass]: true,
+          menuable__content__active: this.isActive,
+          'v-tooltip__content--fixed': this.activatorFixed
+        },
+        style: this.styles,
+        attrs: this.getScopeIdAttrs(),
+        directives: [{
+          name: 'show',
+          value: this.isContentActive
+        }],
+        ref: 'content'
+      }), this.getContentSlot());
+    }
+  },
+  render(h) {
+    return h(this.tag, {
+      staticClass: 'v-tooltip',
+      class: this.classes
+    }, [this.showLazyContent(() => [this.genTransition()]), this.genActivator()]);
+  }
+}));
+
+/***/ }),
+
 /***/ 675:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1953,7 +2342,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("18bf2b87", content, true, context)
+  add("0cea3a7c", content, true, context)
 };
 
 /***/ }),

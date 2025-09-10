@@ -103,7 +103,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/quotation/index.vue?vue&type=template&id=c8376456&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/quotation/index.vue?vue&type=script&lang=js&
-var quotationvue_type_script_lang_js_ = __webpack_require__(658);
+var quotationvue_type_script_lang_js_ = __webpack_require__(659);
 
 // CONCATENATED MODULE: ./pages/admin/quotation/index.vue?vue&type=script&lang=js&
  /* harmony default export */ var admin_quotationvue_type_script_lang_js_ = (quotationvue_type_script_lang_js_["a" /* default */]); 
@@ -138,7 +138,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 658:
+/***/ 659:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

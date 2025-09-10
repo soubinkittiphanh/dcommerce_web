@@ -3,8 +3,8 @@
     <!-- Header Section -->
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">MOU Management</h1>
-        <p class="page-subtitle">Monitor and manage Memorandums of Understanding</p>
+        <h1 class="page-title">ຈັດການ ສັນຍາ MOU</h1>
+        <!-- <p class="page-subtitle">Monitor and manage Memorandums of Understanding</p> -->
       </div>
       <v-btn
         color="primary"
@@ -13,11 +13,11 @@
         class="add-btn"
       >
         <v-icon left>mdi-plus</v-icon>
-        Add New MOU
+        ເພີ່ມສັນຍາ MOU
       </v-btn>
     </div>
 
-    <!-- Statistics Cards -->
+    <!-- Enhanced Statistics Cards -->
     <div class="stats-grid">
       <v-card class="stat-card primary-card">
         <div class="stat-content">
@@ -26,7 +26,7 @@
           </div>
           <div class="stat-details">
             <h2 class="stat-number">{{ statistics.totalMOUs }}</h2>
-            <p class="stat-label">Total MOUs</p>
+            <p class="stat-label">ສັນຍາ MOU ທັງໝົດ</p>
           </div>
         </div>
       </v-card>
@@ -34,11 +34,11 @@
       <v-card class="stat-card success-card">
         <div class="stat-content">
           <div class="stat-icon">
-            <v-icon size="40" color="white">mdi-account-group</v-icon>
+            <v-icon size="40" color="white">mdi-briefcase-multiple</v-icon>
           </div>
           <div class="stat-details">
-            <h2 class="stat-number">{{ statistics.totalWorkers }}</h2>
-            <p class="stat-label">Total Workers</p>
+            <h2 class="stat-number">{{ statistics.totalJobBatches }}</h2>
+            <p class="stat-label">ກຸ່ມວຽກທັງໝົດ</p>
           </div>
         </div>
       </v-card>
@@ -46,11 +46,11 @@
       <v-card class="stat-card warning-card">
         <div class="stat-content">
           <div class="stat-icon">
-            <v-icon size="40" color="white">mdi-clock-outline</v-icon>
+            <v-icon size="40" color="white">mdi-account-group</v-icon>
           </div>
           <div class="stat-details">
-            <h2 class="stat-number">{{ statistics.statusBreakdown.inProgress }}</h2>
-            <p class="stat-label">In Progress</p>
+            <h2 class="stat-number">{{ statistics.totalApplicants }}</h2>
+            <p class="stat-label">ຜູ້ສະໝັກທັງໝົດ</p>
           </div>
         </div>
       </v-card>
@@ -58,76 +58,77 @@
       <v-card class="stat-card info-card">
         <div class="stat-content">
           <div class="stat-icon">
-            <v-icon size="40" color="white">mdi-check-circle</v-icon>
+            <v-icon size="40" color="white">mdi-account-check</v-icon>
           </div>
           <div class="stat-details">
-            <h2 class="stat-number">{{ statistics.statusBreakdown.completed }}</h2>
-            <p class="stat-label">Completed</p>
+            <h2 class="stat-number">{{ statistics.totalConfirmedApplicants }}</h2>
+            <p class="stat-label">ຜູ້ກຽມສົ່ງ</p>
           </div>
         </div>
       </v-card>
     </div>
 
-    <!-- Status Breakdown Chart -->
-    <v-row class="mt-6">
-      <v-col cols="12" md="6">
-        <v-card class="chart-card">
-          <v-card-title class="card-title">
-            <v-icon left color="primary">mdi-chart-pie</v-icon>
-            Status Distribution
-          </v-card-title>
-          <v-card-text>
-            <div class="status-breakdown">
-              <div 
-                v-for="(value, status) in statistics.statusBreakdown" 
-                :key="status"
-                class="status-item"
-              >
-                <div class="status-indicator" :class="`status-${status}`"></div>
-                <span class="status-name">{{ formatStatusName(status) }}</span>
-                <span class="status-count">{{ value }}</span>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      
-      <v-col cols="12" md="6">
-        <v-card class="chart-card">
-          <v-card-title class="card-title">
-            <v-icon left color="primary">mdi-trending-up</v-icon>
-            Quick Actions
-          </v-card-title>
-          <v-card-text>
-            <div class="action-buttons">
-              <v-btn
-                v-for="status in quickActionStatuses"
-                :key="status.value"
-                :color="status.color"
-                outlined
-                block
-                class="ma-1"
-                @click="filterByStatus(status.value)"
-              >
-                <v-icon left>{{ status.icon }}</v-icon>
-                View {{ status.label }} ({{ statistics.statusBreakdown[status.value] || 0 }})
-              </v-btn>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+    <!-- Additional Statistics Row -->
+    <div class="stats-grid secondary-stats">
+      <v-card class="stat-card mini-card interview-card">
+        <div class="stat-content mini">
+          <div class="stat-icon mini">
+            <v-icon size="24" color="white">mdi-account-question</v-icon>
+          </div>
+          <div class="stat-details">
+            <h3 class="stat-number mini">{{ statistics.totalInterviewApplicants }}</h3>
+            <p class="stat-label mini">ຜູ້ສະໝັກ</p>
+          </div>
+        </div>
+      </v-card>
+
+      <v-card class="stat-card mini-card register-card">
+        <div class="stat-content mini">
+          <div class="stat-icon mini">
+            <v-icon size="24" color="white">mdi-account-plus</v-icon>
+          </div>
+          <div class="stat-details">
+            <h3 class="stat-number mini">{{ statistics.totalRegisterApplicants }}</h3>
+            <p class="stat-label mini">ຜູ້ລົງທະບຽນ</p>
+          </div>
+        </div>
+      </v-card>
+
+      <v-card class="stat-card mini-card active-card">
+        <div class="stat-content mini">
+          <div class="stat-icon mini">
+            <v-icon size="24" color="white">mdi-briefcase</v-icon>
+          </div>
+          <div class="stat-details">
+            <h3 class="stat-number mini">{{ statistics.activeJobBatches }}</h3>
+            <p class="stat-label mini">ກຸ່ມວຽກກຳລັງດຳເນີນ</p>
+          </div>
+        </div>
+      </v-card>
+
+      <v-card class="stat-card mini-card completed-card">
+        <div class="stat-content mini">
+          <div class="stat-icon mini">
+            <v-icon size="24" color="white">mdi-check-circle</v-icon>
+          </div>
+          <div class="stat-details">
+            <h3 class="stat-number mini">{{ statistics.completedJobBatches }}</h3>
+            <p class="stat-label mini">ກຸ່ມວຽກສຳເລັດ</p>
+          </div>
+        </div>
+      </v-card>
+    </div>
 
     <!-- Recent MOUs Table -->
     <v-card class="mt-6 table-card">
       <v-card-title class="card-title">
         <v-icon left color="primary">mdi-format-list-bulleted</v-icon>
-        Recent MOUs
+        ສັນຍາ MOU ລ່າສຸດ
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search MOUs"
+          label="ຄົ້ນຫາ MOU"
           single-line
           hide-details
           dense
@@ -166,6 +167,114 @@
           <span class="font-weight-medium">{{ item.numberOfWorkers }}</span>
         </template>
 
+        <!-- JobBatch Statistics Column -->
+        <template v-slot:item.jobBatchStats="{ item }">
+          <div class="job-batch-stats">
+            <v-chip
+              small
+              color="primary"
+              text-color="white"
+              class="ma-1"
+            >
+              <v-icon small left>mdi-briefcase</v-icon>
+              {{ item.jobBatchStatistics.totalJobBatches }}
+            </v-chip>
+            <div class="stats-breakdown">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip
+                    x-small
+                    color="green"
+                    text-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ item.jobBatchStatistics.activeJobBatches }}
+                  </v-chip>
+                </template>
+                <span>ກຸ່ມວຽກກຳລັງດຳເນີນ</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip
+                    x-small
+                    color="blue"
+                    text-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ item.jobBatchStatistics.completedJobBatches }}
+                  </v-chip>
+                </template>
+                <span>ກຸ່ມວຽກສຳເລັດ</span>
+              </v-tooltip>
+            </div>
+          </div>
+        </template>
+
+        <!-- Applicant Statistics Column -->
+        <template v-slot:item.applicantStats="{ item }">
+          <div class="applicant-stats">
+            <div class="total-applicants">
+              <v-chip
+                small
+                color="indigo"
+                text-color="white"
+                class="ma-1"
+              >
+                <v-icon small left>mdi-account-group</v-icon>
+                {{ item.applicantStatistics.totalApplicants }}
+              </v-chip>
+            </div>
+            <div class="status-breakdown">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip
+                    x-small
+                    color="orange"
+                    text-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="mr-1"
+                  >
+                    {{ item.applicantStatistics.interview }}
+                  </v-chip>
+                </template>
+                <span>ຜູ້ສະໝັກ</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip
+                    x-small
+                    color="blue"
+                    text-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="mr-1"
+                  >
+                    {{ item.applicantStatistics.register }}
+                  </v-chip>
+                </template>
+                <span>ຜູ້ລົງທະບຽນ</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-chip
+                    x-small
+                    color="green"
+                    text-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ item.applicantStatistics.confirm }}
+                  </v-chip>
+                </template>
+                <span>ຜູ້ກຽມສົ່ງ</span>
+              </v-tooltip>
+            </div>
+          </div>
+        </template>
+
         <template v-slot:item.pmCharge="{ item }">
           <span class="font-weight-medium">
             {{ formatCurrency(item.pmCharge, item.currency?.code) }}
@@ -181,6 +290,14 @@
               @click="editMOU(item)"
             >
               <v-icon small>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              small
+              color="info"
+              @click="viewJobBatches(item)"
+            >
+              <v-icon small>mdi-briefcase</v-icon>
             </v-btn>
             <v-btn
               icon
@@ -206,15 +323,15 @@
     <!-- Delete Confirmation Dialog -->
     <v-dialog v-model="deleteDialog" max-width="400">
       <v-card>
-        <v-card-title class="headline">Confirm Delete</v-card-title>
+        <v-card-title class="headline">ຢືນຢັນການລົບ</v-card-title>
         <v-card-text>
-          Are you sure you want to delete MOU "{{ deletingItem?.jobCode }}"?
-          This action cannot be undone.
+          ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລົບ MOU "{{ deletingItem?.jobCode }}"?
+          ການກະທຳນີ້ບໍ່ສາມາດຍົກເລີກໄດ້.
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text @click="deleteDialog = false">Cancel</v-btn>
-          <v-btn color="error" text @click="confirmDelete">Delete</v-btn>
+          <v-btn text @click="deleteDialog = false">ຍົກເລີກ</v-btn>
+          <v-btn color="error" text @click="confirmDelete">ລົບ</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -233,7 +350,13 @@ export default {
     return {
       statistics: {
         totalMOUs: 0,
-        totalWorkers: 0,
+        totalJobBatches: 0,
+        totalApplicants: 0,
+        totalConfirmedApplicants: 0,
+        totalInterviewApplicants: 0,
+        totalRegisterApplicants: 0,
+        activeJobBatches: 0,
+        completedJobBatches: 0,
         statusBreakdown: {
           draft: 0,
           open: 0,
@@ -261,20 +384,16 @@ export default {
         sortDesc: [true]
       },
       headers: [
-        { text: 'Job Code', value: 'jobCode', width: 120 },
-        { text: 'Job Title', value: 'jobTitle', width: 200 },
-        { text: 'Company', value: 'employerCompany', width: 180 },
-        { text: 'Workers', value: 'numberOfWorkers', width: 100, align: 'center' },
-        { text: 'Type', value: 'workerType', width: 100 },
-        { text: 'Status', value: 'jobStatus', width: 120 },
-        { text: 'PM Charge', value: 'pmCharge', width: 120 },
-        { text: 'Actions', value: 'actions', sortable: false, width: 100 }
-      ],
-      quickActionStatuses: [
-        { value: 'draft', label: 'Draft', color: 'grey', icon: 'mdi-file-outline' },
-        { value: 'open', label: 'Open', color: 'blue', icon: 'mdi-folder-open' },
-        { value: 'inProgress', label: 'In Progress', color: 'orange', icon: 'mdi-clock-outline' },
-        { value: 'completed', label: 'Completed', color: 'green', icon: 'mdi-check-circle' }
+        { text: 'ລະຫັດວຽກ', value: 'jobCode', width: 120 },
+        { text: 'ຊື່ວຽກ', value: 'jobTitle', width: 200 },
+        { text: 'ບໍລິສັດ', value: 'employerCompany', width: 180 },
+        { text: 'ຈຳນວນຄົນ', value: 'numberOfWorkers', width: 100, align: 'center' },
+        { text: 'ປະເພດ', value: 'workerType', width: 100 },
+        { text: 'ສະຖານະ', value: 'jobStatus', width: 120 },
+        { text: 'ກຸ່ມວຽກ', value: 'jobBatchStats', width: 140, sortable: false },
+        { text: 'ຜູ້ສະໝັກ', value: 'applicantStats', width: 160, sortable: false },
+        { text: 'ຄ່າບໍລິການ', value: 'pmCharge', width: 120 },
+        { text: 'ການດຳເນີນການ', value: 'actions', sortable: false, width: 120 }
       ]
     }
   },
@@ -290,7 +409,7 @@ export default {
           this.statistics = response.data
         }
       } catch (error) {
-        this.$toast.error('Failed to load statistics')
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດສະຖິຕິໄດ້')
         console.error('Error fetching statistics:', error)
       }
     },
@@ -316,7 +435,7 @@ export default {
           this.pagination = response.data.pagination
         }
       } catch (error) {
-        this.$toast.error('Failed to load MOUs')
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດ MOU ໄດ້')
         console.error('Error fetching MOUs:', error)
       } finally {
         this.loading = false
@@ -333,6 +452,11 @@ export default {
       this.maintenanceDialog = true
     },
 
+    viewJobBatches(item) {
+      // Navigate to job batches view filtered by MOU
+      this.$router.push(`/job-batches?mouId=${item.id}`)
+    },
+
     deleteMOU(item) {
       this.deletingItem = item
       this.deleteDialog = true
@@ -342,12 +466,12 @@ export default {
       try {
         const response = await this.$axios.$delete(`/api/mous/${this.deletingItem.id}`)
         if (response.success) {
-          this.$toast.success('MOU deleted successfully')
+          this.$toast.success('ລົບ MOU ສຳເລັດແລ້ວ')
           await this.fetchMOUs()
           await this.fetchStatistics()
         }
       } catch (error) {
-        this.$toast.error('Failed to delete MOU')
+        this.$toast.error('ບໍ່ສາມາດລົບ MOU ໄດ້')
         console.error('Error deleting MOU:', error)
       }
       this.deleteDialog = false
@@ -366,17 +490,13 @@ export default {
       this.editingItem = null
     },
 
-    filterByStatus(status) {
-      this.$router.push(`/mous?status=${status}`)
-    },
-
     formatStatusName(status) {
       const statusMap = {
-        draft: 'Draft',
-        open: 'Open',
-        inProgress: 'In Progress',
-        completed: 'Completed',
-        cancelled: 'Cancelled'
+        draft: 'ຮ່າງ',
+        open: 'ເປີດ',
+        inProgress: 'ກຳລັງດຳເນີນ',
+        completed: 'ສຳເລັດ',
+        cancelled: 'ຍົກເລີກ'
       }
       return statusMap[status] || status
     },
@@ -460,17 +580,16 @@ export default {
   margin: 0;
 }
 
-.header-content p {
-  color: #7f8c8d;
-  margin: 4px 0 0 0;
-  font-size: 1rem;
-}
-
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   margin-bottom: 24px;
+}
+
+.secondary-stats {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-bottom: 0;
 }
 
 .stat-card {
@@ -483,10 +602,18 @@ export default {
   transform: translateY(-4px);
 }
 
+.mini-card {
+  min-height: 100px;
+}
+
 .primary-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
 .success-card { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
 .warning-card { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-.info-card { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.info-card { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.interview-card { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+.register-card { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+.active-card { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+.completed-card { background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%); }
 
 .stat-content {
   display: flex;
@@ -495,9 +622,17 @@ export default {
   color: white;
 }
 
+.stat-content.mini {
+  padding: 16px;
+}
+
 .stat-icon {
   margin-right: 16px;
   opacity: 0.9;
+}
+
+.stat-icon.mini {
+  margin-right: 12px;
 }
 
 .stat-details h2 {
@@ -507,10 +642,39 @@ export default {
   line-height: 1;
 }
 
+.stat-details h3.mini {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1;
+}
+
 .stat-details p {
   font-size: 0.9rem;
   margin: 4px 0 0 0;
   opacity: 0.9;
+}
+
+.stat-details p.mini {
+  font-size: 0.8rem;
+}
+
+.job-batch-stats,
+.applicant-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stats-breakdown,
+.status-breakdown {
+  display: flex;
+  gap: 4px;
+}
+
+.total-applicants {
+  margin-bottom: 4px;
 }
 
 .chart-card, .table-card {
@@ -522,49 +686,6 @@ export default {
   font-weight: 600;
   padding: 20px 24px 16px;
   border-bottom: 1px solid #e0e0e0;
-}
-
-.status-breakdown {
-  padding: 16px 0;
-}
-
-.status-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.status-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
-.status-draft { background-color: #95a5a6; }
-.status-open { background-color: #3498db; }
-.status-inProgress { background-color: #f39c12; }
-.status-completed { background-color: #27ae60; }
-.status-cancelled { background-color: #e74c3c; }
-
-.status-name {
-  flex: 1;
-  font-weight: 500;
-}
-
-.status-count {
-  background: #ecf0f1;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .mou-table {
@@ -596,9 +717,18 @@ export default {
     grid-template-columns: 1fr;
   }
 
+  .secondary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .stat-content {
     justify-content: center;
     text-align: center;
+  }
+
+  .job-batch-stats,
+  .applicant-stats {
+    align-items: center;
   }
 }
 </style>

@@ -257,7 +257,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var pages = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {Slider: __webpack_require__(871).default,LoadingIndicator: __webpack_require__(86).default,DiscountProductsCard: __webpack_require__(601).default})
+installComponents(component, {Slider: __webpack_require__(871).default,LoadingIndicator: __webpack_require__(86).default,DiscountProductsCard: __webpack_require__(603).default})
 
 
 /***/ }),
@@ -1053,7 +1053,7 @@ const VCarouselItem_baseMixins = Object(mixins["a" /* default */])(VWindowItem, 
 
 /***/ }),
 
-/***/ 601:
+/***/ 603:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
