@@ -763,6 +763,13 @@
     "_name": "_56d2fabe"
   },
   {
+    "name": "admin-cafeTable-customer",
+    "path": "/admin/cafeTable/customer",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafeTable/customer.vue",
+    "chunkName": "pages/admin/cafeTable/customer",
+    "_name": "_324d246c"
+  },
+  {
     "name": "admin-customer_request-topup",
     "path": "/admin/customer_request/topup",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer_request/topup.vue",

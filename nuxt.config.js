@@ -49,7 +49,8 @@ export default {
     { src: '~/plugins/v-calendar.js', ssr: false },
     { src: '~/plugins/draggable.js', ssr: false },
     { src: '~/plugins/gantt-schedule-timeline-calendar.js', mode: 'client' },
-    { src: '~/plugins/vue2-datepicker.js', mode: 'client' }
+    { src: '~/plugins/vue2-datepicker.js', mode: 'client' },
+    { src: '~/plugins/sweetalert.js', mode: 'client' }
     // Removed Chart.js plugin - now using direct imports
   ],
 

@@ -561,7 +561,7 @@ const generateWindowContent = (contentData) => {
       <hr>
       ${paymentSectionHtml}
       ${totalHtml}
-      <h2 style="text-align: center; margin-top: 50px;margin-bottom: 50px;">THANK YOU</h2>
+      <h2 style="text-align: center; margin-bottom: 50px;">THANK YOU</h2>
       <h2 style="text-align: center;">.</h2>
     </body>
   `;

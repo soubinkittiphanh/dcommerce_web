@@ -1,15 +1,12 @@
-exports.ids = [161,27,28,29,30];
+exports.ids = [163,27,28,29,30];
 exports.modules = {
 
-/***/ 1132:
+/***/ 1147:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(447);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
@@ -24,13 +21,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(385);
+var VCol = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(381);
+var VContainer = __webpack_require__(385);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(342);
+var VDialog = __webpack_require__(346);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
@@ -57,16 +54,13 @@ var VMenu = __webpack_require__(126);
 var VProgressCircular = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(384);
+var VRow = __webpack_require__(388);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__(544);
+var VSnackbar = __webpack_require__(552);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(383);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
-var VSubheader = __webpack_require__(127);
+var VSpacer = __webpack_require__(387);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
@@ -77,7 +71,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(136);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/cafeTable/index.vue?vue&type=template&id=a70deaa8&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/cafeTable/index.vue?vue&type=template&id=387ce4d2&scoped=true&
 
 
 
@@ -103,9 +97,7 @@ var components_VToolbar = __webpack_require__(136);
 
 
 
-
-
-var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render() {
+var cafeTablevue_type_template_id_387ce4d2_scoped_true_render = function render() {
   var _vm$selectedTable;
   var _vm = this,
     _c = _vm._self._c;
@@ -147,7 +139,7 @@ var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render(
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-check-circle")]), _vm._v("\n            Available: " + _vm._s(_vm.availableTables) + "\n          ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-check-circle")]), _vm._v("\n            ໂຕະວ່າງ: " + _vm._s(_vm.availableTables) + "\n          ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
       "color": "warning",
@@ -158,7 +150,7 @@ var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render(
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-clock")]), _vm._v("\n            Occupied: " + _vm._s(_vm.occupiedTables) + "\n          ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-clock")]), _vm._v("\n            ມີແຂກ: " + _vm._s(_vm.occupiedTables) + "\n          ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
       "color": "error",
@@ -169,7 +161,7 @@ var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render(
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-silverware-clean")]), _vm._v("\n            Cleaning: " + _vm._s(_vm.cleaningTables) + "\n          ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-silverware-clean")]), _vm._v("\n            ອະນາໄມ: " + _vm._s(_vm.cleaningTables) + "\n          ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
     attrs: {
       "color": "info",
       "text-color": "white"
@@ -179,7 +171,7 @@ var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render(
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-bookmark")]), _vm._v("\n            Reserved: " + _vm._s(_vm.reservedTables) + "\n          ")], 1)], 1)], 1), _vm._v(" "), _vm.loading ? _c(VCard["a" /* default */], {
+  }, [_vm._v("mdi-bookmark")]), _vm._v("\n            ຈອງແລ້ວ: " + _vm._s(_vm.reservedTables) + "\n          ")], 1)], 1)], 1), _vm._v(" "), _vm.loading ? _c(VCard["a" /* default */], {
     staticClass: "flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center"
   }, [_c('div', {
     staticClass: "text-center"
@@ -662,167 +654,23 @@ var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render(
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-printer")]), _vm._v("\n          Yes, Print Receipt\n        ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("mdi-printer")]), _vm._v("\n          Yes, Print Receipt\n        ")], 1)], 1)], 1)], 1), _vm._v(" "), _c('UnifiedPaymentDialog', {
     attrs: {
-      "max-width": "600",
-      "persistent": ""
-    },
-    model: {
-      value: _vm.showPaymentDialog,
-      callback: function ($$v) {
-        _vm.showPaymentDialog = $$v;
-      },
-      expression: "showPaymentDialog"
-    }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary white--text"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "color": "white"
-    }
-  }, [_vm._v("mdi-credit-card")]), _vm._v("\n        Process Payment - Table\n        " + _vm._s(_vm.selectedTable ? _vm.selectedTable.number : '') + "\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "color": "white",
-      "disabled": _vm.actionLoading
+      "show": _vm.showPaymentDialog,
+      "table-number": _vm.selectedTable ? _vm.selectedTable.id : null,
+      "amount": _vm.paymentAmount,
+      "payment-methods": _vm.paymentList,
+      "payment-loading": _vm.paymentLoading,
+      "action-loading": _vm.actionLoading,
+      "enable-q-r": false
     },
     on: {
-      "click": _vm.closePaymentDialog
+      "close": _vm.closePaymentDialog,
+      "confirm-payment": _vm.handlePaymentConfirmation,
+      "reload-payment-methods": _vm.loadPaymentMethods,
+      "show-message": _vm.showMessage
     }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-6"
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "mb-4",
-    attrs: {
-      "outlined": ""
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center pa-4"
-  }, [_c('div', {
-    staticClass: "text-h4 font-weight-bold primary--text"
-  }, [_vm._v("\n              " + _vm._s(_vm.formatPrice(_vm.paymentAmount)) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-subtitle-1 grey--text"
-  }, [_vm._v("Total Amount to Pay")])])], 1), _vm._v(" "), _vm.paymentLoading ? _c('div', {
-    staticClass: "text-center pa-4"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "primary",
-      "indeterminate": ""
-    }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "mt-2"
-  }, [_vm._v("Loading payment methods...")])], 1) : _c('div', [_c(VSubheader["a" /* default */], {
-    staticClass: "px-0"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-wallet")]), _vm._v("\n            Select Payment Method\n          ")], 1), _vm._v(" "), _vm.paymentList.length > 0 ? _c(VRow["a" /* default */], _vm._l(_vm.paymentList, function (payment) {
-    var _vm$selectedPaymentMe, _vm$selectedPaymentMe2, _vm$selectedPaymentMe3, _vm$selectedPaymentMe4, _vm$selectedPaymentMe5;
-    return _c(VCol["a" /* default */], {
-      key: payment.id,
-      staticClass: "pa-1",
-      attrs: {
-        "cols": "6"
-      }
-    }, [_c(VCard["a" /* default */], {
-      class: ['payment-method-card cursor-pointer text-center pa-3', ((_vm$selectedPaymentMe = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe === void 0 ? void 0 : _vm$selectedPaymentMe.id) === payment.id ? 'white--text elevation-4' : 'elevation-1'],
-      attrs: {
-        "color": ((_vm$selectedPaymentMe2 = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe2 === void 0 ? void 0 : _vm$selectedPaymentMe2.id) === payment.id ? _vm.getPaymentColor(payment.payment_code) : '',
-        "hover": "",
-        "height": "100"
-      },
-      on: {
-        "click": function ($event) {
-          _vm.selectedPaymentMethod = payment;
-        }
-      }
-    }, [_c(VIcon["a" /* default */], {
-      staticClass: "mb-2",
-      attrs: {
-        "color": ((_vm$selectedPaymentMe3 = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe3 === void 0 ? void 0 : _vm$selectedPaymentMe3.id) === payment.id ? 'white' : _vm.getPaymentColor(payment.payment_code),
-        "size": "32"
-      }
-    }, [_vm._v("\n                  " + _vm._s(_vm.getPaymentIcon(payment.payment_code)) + "\n                ")]), _vm._v(" "), _c('div', {
-      staticClass: "font-weight-medium",
-      class: ((_vm$selectedPaymentMe4 = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe4 === void 0 ? void 0 : _vm$selectedPaymentMe4.id) === payment.id ? 'white--text' : ''
-    }, [_vm._v("\n                  " + _vm._s(payment.payment_name) + "\n                ")]), _vm._v(" "), _c('div', {
-      staticClass: "caption",
-      class: ((_vm$selectedPaymentMe5 = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe5 === void 0 ? void 0 : _vm$selectedPaymentMe5.id) === payment.id ? 'white--text' : 'grey--text'
-    }, [_vm._v("\n                  " + _vm._s(payment.payment_code) + "\n                ")])], 1)], 1);
-  }), 1) : _c(VAlert["a" /* default */], {
-    staticClass: "ma-0",
-    attrs: {
-      "type": "warning",
-      "outlined": ""
-    }
-  }, [_c('div', {
-    staticClass: "d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-alert")]), _vm._v("\n              No active payment methods available\n            ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mt-2",
-    attrs: {
-      "small": "",
-      "color": "warning"
-    },
-    on: {
-      "click": _vm.loadPaymentMethods
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")]), _vm._v("\n              Retry\n            ")], 1)], 1), _vm._v(" "), _vm.selectedPaymentMethod ? _c(VCard["a" /* default */], {
-    staticClass: "mt-4",
-    attrs: {
-      "outlined": "",
-      "color": "grey lighten-5"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-3"
-  }, [_c('div', {
-    staticClass: "d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-3",
-    attrs: {
-      "color": _vm.getPaymentColor(_vm.selectedPaymentMethod.payment_code)
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.getPaymentIcon(_vm.selectedPaymentMethod.payment_code)) + "\n                ")]), _vm._v(" "), _c('div', [_c('div', {
-    staticClass: "font-weight-medium"
-  }, [_vm._v("\n                    " + _vm._s(_vm.selectedPaymentMethod.payment_name) + "\n                  ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption grey--text"
-  }, [_vm._v("\n                    " + _vm._s(_vm.selectedPaymentMethod.payment_desc || 'No description') + "\n                  ")])])], 1)])], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
-    staticClass: "pa-4"
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "grey",
-      "text": "",
-      "disabled": _vm.actionLoading
-    },
-    on: {
-      "click": _vm.closePaymentDialog
-    }
-  }, [_vm._v("\n          Cancel\n        ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "success",
-      "large": "",
-      "disabled": !_vm.selectedPaymentMethod || _vm.actionLoading,
-      "loading": _vm.actionLoading
-    },
-    on: {
-      "click": _vm.confirmPayment
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-check")]), _vm._v("\n          Process Payment\n        ")], 1)], 1)], 1)], 1), _vm._v(" "), _c('PrintTicketDialog', {
+  }), _vm._v(" "), _c('PrintTicketDialog', {
     attrs: {
       "show": _vm.showCustomerPrint,
       "ticket": _vm.selectedTicket,
@@ -911,16 +759,21 @@ var cafeTablevue_type_template_id_a70deaa8_scoped_true_render = function render(
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/cafeTable/index.vue?vue&type=template&id=a70deaa8&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/cafeTable/index.vue?vue&type=template&id=387ce4d2&scoped=true&
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(586);
+var printdialog = __webpack_require__(594);
+
+// EXTERNAL MODULE: ./components/CAFE/paymentDialogFront/index.vue + 4 modules
+var paymentDialogFront = __webpack_require__(595);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/cafeTable/index.vue?vue&type=script&lang=js&
 
+
 /* harmony default export */ var cafeTablevue_type_script_lang_js_ = ({
   components: {
-    PrintTicketDialog: printdialog["default"]
+    PrintTicketDialog: printdialog["default"],
+    UnifiedPaymentDialog: paymentDialogFront["default"]
   },
   name: 'OperationsTableScreen',
   data() {
@@ -944,7 +797,7 @@ var printdialog = __webpack_require__(586);
       // Payment dialog data
       showPaymentDialog: false,
       paymentList: [],
-      selectedPaymentMethod: null,
+      // Removed selectedPaymentMethod since it's now handled in PaymentDialog component
       paymentLoading: false,
       paymentAmount: 0,
       snackbar: {
@@ -1283,17 +1136,14 @@ var printdialog = __webpack_require__(586);
       await this.loadPaymentMethods();
       this.showPaymentDialog = true;
     },
-    async confirmPayment() {
-      if (!this.selectedPaymentMethod) {
-        this.showMessage('Please select a payment method', 'warning', 'mdi-alert');
-        return;
-      }
+    // Updated method to handle payment confirmation from PaymentDialog component
+    async handlePaymentConfirmation(selectedPaymentMethod) {
       this.actionLoading = true;
       try {
         if (this.selectedTable.currentOrderId) {
           await this.$axios.patch(`/api/ticket/${this.selectedTable.currentOrderId}/payment-status`, {
             paymentStatus: 'paid',
-            paymentId: this.selectedPaymentMethod.id
+            paymentId: selectedPaymentMethod.id
           });
         }
 
@@ -1312,9 +1162,14 @@ var printdialog = __webpack_require__(586);
         this.actionLoading = false;
       }
     },
+    // Legacy method - keep for backward compatibility but simplified
+    async confirmPayment() {
+      // This method is now handled by PaymentDialog component
+      // Kept for any legacy calls that might still exist
+      console.warn('confirmPayment method is deprecated. Use handlePaymentConfirmation instead.');
+    },
     closePaymentDialog() {
       this.showPaymentDialog = false;
-      this.selectedPaymentMethod = null;
       this.paymentAmount = 0;
     },
     // POS methods
@@ -1428,7 +1283,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(899)
+  var style0 = __webpack_require__(910)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1437,11 +1292,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_cafeTablevue_type_script_lang_js_,
-  cafeTablevue_type_template_id_a70deaa8_scoped_true_render,
+  cafeTablevue_type_template_id_387ce4d2_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "a70deaa8",
+  "387ce4d2",
   "528f4703"
   
 )
@@ -1449,18 +1304,18 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var cafeTable = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CafePOSScreen: __webpack_require__(844).default})
+installComponents(component, {CafePOSScreen: __webpack_require__(854).default})
 
 
 /***/ }),
 
-/***/ 393:
+/***/ 401:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(394);
+var content = __webpack_require__(402);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1468,7 +1323,7 @@ __webpack_require__(5).default("c54b7bb4", content, true)
 
 /***/ }),
 
-/***/ 394:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1483,11 +1338,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 416:
+/***/ 424:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(393);
+/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(401);
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
@@ -1584,13 +1439,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 422:
+/***/ 430:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(423);
+var content = __webpack_require__(431);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1598,7 +1453,7 @@ __webpack_require__(5).default("1c8f4490", content, true)
 
 /***/ }),
 
-/***/ 423:
+/***/ 431:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1613,18 +1468,18 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 447:
+/***/ 454:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(422);
+/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(430);
 /* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
 /* harmony import */ var _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
-/* harmony import */ var _mixins_transitionable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(138);
+/* harmony import */ var _mixins_transitionable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(137);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
 /* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(3);
 // Styles
@@ -1828,13 +1683,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 475:
+/***/ 483:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(476);
+var content = __webpack_require__(484);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1842,7 +1697,7 @@ __webpack_require__(5).default("2f6b6adb", content, true)
 
 /***/ }),
 
-/***/ 476:
+/***/ 484:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1857,13 +1712,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 493:
+/***/ 501:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(546);
+var content = __webpack_require__(554);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1875,31 +1730,31 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 494:
+/***/ 502:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(548);
+var content = __webpack_require__(556);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("0670f0cc", content, true, context)
+  add("aa2877e6", content, true, context)
 };
 
 /***/ }),
 
-/***/ 495:
+/***/ 503:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(550);
+var content = __webpack_require__(558);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1911,11 +1766,11 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 544:
+/***/ 552:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(475);
+/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(483);
 /* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
@@ -2098,19 +1953,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 545:
+/***/ 553:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(493);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(501);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 546:
+/***/ 554:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2125,26 +1980,26 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 547:
+/***/ 555:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bb865a2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(494);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bb865a2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bb865a2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bb865a2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bb865a2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e316119_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(502);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e316119_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e316119_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e316119_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e316119_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 548:
+/***/ 556:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-3bb865a2]{cursor:pointer}.payment-method-card[data-v-3bb865a2]{border:2px solid transparent;transition:all .3s ease}.payment-method-card[data-v-3bb865a2]:hover{transform:translateY(-2px)}.payment-method-card.elevation-4[data-v-3bb865a2]{border:2px solid hsla(0,0%,100%,.3)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-7e316119]{cursor:pointer}.payment-card[data-v-7e316119]{transition:all .2s ease}.payment-card[data-v-7e316119]:hover{transform:translateY(-1px)}.text-none[data-v-7e316119]{text-transform:none!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -2152,19 +2007,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 549:
+/***/ 557:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(495);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(503);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 550:
+/***/ 558:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2179,25 +2034,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 551:
+/***/ 559:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(634);
+var content = __webpack_require__(642);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("ea6b8bd8", content, true, context)
+  add("6f64fd4a", content, true, context)
 };
 
 /***/ }),
 
-/***/ 586:
+/***/ 594:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2504,7 +2359,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(545)
+  var style0 = __webpack_require__(553)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2526,7 +2381,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 598:
+/***/ 595:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2534,7 +2389,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(447);
+var VAlert = __webpack_require__(454);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
@@ -2546,10 +2401,10 @@ var VCard = __webpack_require__(121);
 var components_VCard = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(385);
+var VCol = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(342);
+var VDialog = __webpack_require__(346);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -2558,15 +2413,12 @@ var VIcon = __webpack_require__(60);
 var VProgressCircular = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(384);
+var VRow = __webpack_require__(388);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(383);
+var VSpacer = __webpack_require__(387);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
-var VSubheader = __webpack_require__(127);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialog/index.vue?vue&type=template&id=3bb865a2&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=7e316119&scoped=true&
 
 
 
@@ -2580,30 +2432,33 @@ var VSubheader = __webpack_require__(127);
 
 
 
-
-var paymentDialogvue_type_template_id_3bb865a2_scoped_true_render = function render() {
+var paymentDialogFrontvue_type_template_id_7e316119_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c(VDialog["a" /* default */], {
+  return _c('div', [_c(VDialog["a" /* default */], {
     attrs: {
-      "max-width": "600",
+      "max-width": "800",
       "persistent": ""
     },
     model: {
-      value: _vm.dialogVisible,
+      value: _vm.showDialog,
       callback: function ($$v) {
-        _vm.dialogVisible = $$v;
+        _vm.showDialog = $$v;
       },
-      expression: "dialogVisible"
+      expression: "showDialog"
     }
   }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary white--text"
+    staticClass: "primary white--text py-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
       "left": "",
-      "color": "white"
+      "color": "white",
+      "size": "20"
     }
-  }, [_vm._v("mdi-credit-card")]), _vm._v("\n      Process Payment - Table " + _vm._s(_vm.tableId || '') + "\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-credit-card")]), _vm._v("\n        Payment - Table " + _vm._s(_vm.tableNumber) + "\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c('div', {
+    staticClass: "text-h6 font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.amount)))]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "ml-2",
     attrs: {
       "icon": "",
       "color": "white",
@@ -2612,128 +2467,140 @@ var paymentDialogvue_type_template_id_3bb865a2_scoped_true_render = function ren
     on: {
       "click": _vm.closeDialog
     }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-6"
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "mb-4",
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "outlined": ""
+      "size": "20"
     }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center pa-4"
-  }, [_c('div', {
-    staticClass: "text-h4 font-weight-bold primary--text"
-  }, [_vm._v("\n            " + _vm._s(_vm.formatPrice(_vm.paymentAmount)) + "\n          ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-subtitle-1 grey--text"
-  }, [_vm._v("Total Amount to Pay")])])], 1), _vm._v(" "), _vm.paymentLoading ? _c('div', {
-    staticClass: "text-center pa-4"
+  }, [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c(VRow["a" /* default */], {
+    staticClass: "mb-3",
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "text-none",
+    staticStyle: {
+      "background-color": "#01532b !important",
+      "color": "white !important"
+    },
+    attrs: {
+      "block": ""
+    },
+    on: {
+      "click": _vm.showQROnCustomerScreen
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "size": "20"
+    }
+  }, [_vm._v("mdi-monitor-multiple")]), _vm._v("\n              Customer Screen\n            ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "text-none",
+    attrs: {
+      "block": "",
+      "color": "deep-purple"
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showQRDialog = true;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "size": "20"
+    }
+  }, [_vm._v("mdi-qrcode")]), _vm._v("\n              Local QR\n            ")], 1)], 1)], 1), _vm._v(" "), _vm.paymentLoading ? _c('div', {
+    staticClass: "text-center py-2"
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
-      "size": "48",
+      "size": "32",
       "color": "primary",
       "indeterminate": ""
     }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "mt-2"
-  }, [_vm._v("Loading payment methods...")])], 1) : _c('div', [_c(VSubheader["a" /* default */], {
-    staticClass: "px-0"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "caption mt-1"
+  }, [_vm._v("Loading...")])], 1) : _c('div', [_c('div', {
+    staticClass: "subtitle-2 mb-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": ""
+      "left": "",
+      "size": "18"
     }
-  }, [_vm._v("mdi-wallet")]), _vm._v("\n          Select Payment Method\n        ")], 1), _vm._v(" "), _vm.paymentList.length > 0 ? _c(VRow["a" /* default */], _vm._l(_vm.paymentList, function (payment) {
+  }, [_vm._v("mdi-wallet")]), _vm._v("\n            Payment Method\n          ")], 1), _vm._v(" "), _vm.paymentMethods.length > 0 ? _c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, _vm._l(_vm.paymentMethods, function (payment) {
     var _vm$selectedPaymentMe, _vm$selectedPaymentMe2, _vm$selectedPaymentMe3;
     return _c(VCol["a" /* default */], {
       key: payment.id,
       staticClass: "pa-1",
       attrs: {
-        "cols": "6"
+        "cols": "4"
       }
     }, [_c(VCard["a" /* default */], {
-      class: ['payment-method-card cursor-pointer text-center pa-3', ((_vm$selectedPaymentMe = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe === void 0 ? void 0 : _vm$selectedPaymentMe.id) === payment.id ? 'white--text elevation-4' : 'elevation-1'],
+      class: ['payment-card cursor-pointer text-center', ((_vm$selectedPaymentMe = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe === void 0 ? void 0 : _vm$selectedPaymentMe.id) === payment.id ? 'white--text elevation-3' : 'elevation-1'],
       attrs: {
         "color": ((_vm$selectedPaymentMe2 = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe2 === void 0 ? void 0 : _vm$selectedPaymentMe2.id) === payment.id ? _vm.getPaymentColor(payment.payment_code) : '',
         "hover": "",
-        "height": "100"
+        "height": "70"
       },
       on: {
         "click": function ($event) {
           _vm.selectedPaymentMethod = payment;
         }
       }
+    }, [_c(components_VCard["c" /* VCardText */], {
+      staticClass: "pa-2"
     }, [_c(VIcon["a" /* default */], {
-      staticClass: "mb-2",
       attrs: {
         "color": ((_vm$selectedPaymentMe3 = _vm.selectedPaymentMethod) === null || _vm$selectedPaymentMe3 === void 0 ? void 0 : _vm$selectedPaymentMe3.id) === payment.id ? 'white' : _vm.getPaymentColor(payment.payment_code),
-        "size": "32"
+        "size": "24"
       }
-    }, [_vm._v("\n                " + _vm._s(_vm.getPaymentIcon(payment.payment_code)) + "\n              ")]), _vm._v(" "), _c('div', {
-      staticClass: "font-weight-medium"
-    }, [_vm._v("\n                " + _vm._s(payment.payment_name) + "\n              ")]), _vm._v(" "), _c('div', {
-      staticClass: "caption"
-    }, [_vm._v("\n                " + _vm._s(payment.payment_code) + "\n              ")])], 1)], 1);
+    }, [_vm._v("\n                    " + _vm._s(_vm.getPaymentIcon(payment.payment_code)) + "\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "caption font-weight-medium mt-1"
+    }, [_vm._v("\n                    " + _vm._s(payment.payment_name) + "\n                  ")])], 1)], 1)], 1);
   }), 1) : _c(VAlert["a" /* default */], {
     staticClass: "ma-0",
     attrs: {
       "type": "warning",
-      "outlined": ""
+      "dense": ""
     }
-  }, [_c('div', {
-    staticClass: "d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
+  }, [_vm._v("\n            No payment methods available\n            "), _c(VBtn["a" /* default */], {
+    staticClass: "ml-2",
     attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-alert")]), _vm._v("\n            No active payment methods available\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mt-2",
-    attrs: {
-      "small": "",
+      "x-small": "",
       "color": "warning"
     },
     on: {
       "click": function ($event) {
-        return _vm.$emit('retry-payment-methods');
+        return _vm.$emit('reload-payment-methods');
       }
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")]), _vm._v("\n            Retry\n          ")], 1)], 1), _vm._v(" "), _vm.selectedPaymentMethod ? _c(VCard["a" /* default */], {
-    staticClass: "mt-4",
-    attrs: {
-      "outlined": "",
-      "color": "grey lighten-5"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
+  }, [_vm._v("\n              Retry\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
     staticClass: "pa-3"
-  }, [_c('div', {
-    staticClass: "d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-3",
-    attrs: {
-      "color": _vm.getPaymentColor(_vm.selectedPaymentMethod.payment_code)
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.getPaymentIcon(_vm.selectedPaymentMethod.payment_code)) + "\n              ")]), _vm._v(" "), _c('div', [_c('div', {
-    staticClass: "font-weight-medium"
-  }, [_vm._v("\n                  " + _vm._s(_vm.selectedPaymentMethod.payment_name) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption grey--text"
-  }, [_vm._v("\n                  " + _vm._s(_vm.selectedPaymentMethod.payment_desc || 'No description') + "\n                ")])])], 1)])], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
-    staticClass: "pa-4"
   }, [_c(VBtn["a" /* default */], {
     attrs: {
-      "color": "grey",
       "text": "",
       "disabled": _vm.actionLoading
     },
     on: {
       "click": _vm.closeDialog
     }
-  }, [_vm._v("\n        Cancel\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "text-none",
     attrs: {
       "color": "success",
-      "large": "",
       "disabled": !_vm.selectedPaymentMethod || _vm.actionLoading,
       "loading": _vm.actionLoading
     },
@@ -2742,31 +2609,164 @@ var paymentDialogvue_type_template_id_3bb865a2_scoped_true_render = function ren
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
+      "left": "",
+      "size": "18"
+    }
+  }, [_vm._v("mdi-check")]), _vm._v("\n          Process Payment\n        ")], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "400",
+      "persistent": ""
+    },
+    model: {
+      value: _vm.showQRDialog,
+      callback: function ($$v) {
+        _vm.showQRDialog = $$v;
+      },
+      expression: "showQRDialog"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "white--text py-2",
+    staticStyle: {
+      "background-color": "#01532B !important"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white",
+      "size": "20"
+    }
+  }, [_vm._v("mdi-qrcode")]), _vm._v("\n        QR Payment\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c('div', {
+    staticClass: "font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.amount)))]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "ml-2",
+    attrs: {
+      "icon": "",
+      "color": "white"
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showQRDialog = false;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "20"
+    }
+  }, [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4 text-center"
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-2 mb-3",
+    staticStyle: {
+      "border-color": "#01532B !important"
+    },
+    attrs: {
+      "outlined": ""
+    }
+  }, [_c('img', {
+    staticStyle: {
+      "width": "200px",
+      "height": "200px",
+      "display": "block",
+      "margin": "0 auto"
+    },
+    attrs: {
+      "src": _vm.qrCodeUrl,
+      "alt": "QR Payment Code"
+    },
+    on: {
+      "error": _vm.onQRError
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "caption grey--text mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": "",
       "left": ""
     }
-  }, [_vm._v("mdi-check")]), _vm._v("\n        Process Payment\n      ")], 1)], 1)], 1)], 1);
+  }, [_vm._v("mdi-information")]), _vm._v("\n          Scan with mobile banking app\n        ")], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticStyle: {
+      "color": "#01532B !important"
+    },
+    attrs: {
+      "small": "",
+      "text": ""
+    },
+    on: {
+      "click": _vm.downloadQR
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-download")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticStyle: {
+      "color": "#01532B !important"
+    },
+    attrs: {
+      "small": "",
+      "text": ""
+    },
+    on: {
+      "click": _vm.shareQR
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-share")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticStyle: {
+      "color": "#01532B !important"
+    },
+    attrs: {
+      "small": "",
+      "text": ""
+    },
+    on: {
+      "click": _vm.copyQRString
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v(_vm._s(_vm.copied ? 'mdi-check' : 'mdi-content-copy'))])], 1)], 1)], 1)], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CAFE/paymentDialog/index.vue?vue&type=template&id=3bb865a2&scoped=true&
+// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=7e316119&scoped=true&
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialog/index.vue?vue&type=script&lang=js&
-/* harmony default export */ var paymentDialogvue_type_script_lang_js_ = ({
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=script&lang=js&
+/* harmony default export */ var paymentDialogFrontvue_type_script_lang_js_ = ({
   name: 'PaymentDialog',
   props: {
     show: {
       type: Boolean,
       default: false
     },
-    tableId: {
-      type: [String, Number],
-      required: true
-    },
-    paymentAmount: {
+    amount: {
       type: Number,
       default: 0
     },
-    paymentList: {
+    tableNumber: {
+      type: [String, Number],
+      default: ''
+    },
+    paymentMethods: {
       type: Array,
       default: () => []
     },
@@ -2781,39 +2781,134 @@ var staticRenderFns = [];
   },
   data() {
     return {
-      selectedPaymentMethod: null
+      selectedPaymentMethod: null,
+      showQRDialog: false,
+      copied: false,
+      qrString: '00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405100005802LA5907KHAMMAO6260011713a321asS321as2250302120713te rminal000010812test remarks63041c9f'
     };
   },
   computed: {
-    dialogVisible: {
+    showDialog: {
       get() {
         return this.show;
       },
       set(value) {
-        if (!value) {
-          this.closeDialog();
-        }
+        if (!value) this.closeDialog();
       }
+    },
+    qrCodeUrl() {
+      const encodedString = encodeURIComponent(this.currentQRString.replace(/\s/g, ''));
+      return `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodedString}&format=png&margin=10&color=01532B&bgcolor=ffffff`;
+    },
+    currentQRString() {
+      return this.generateQRString();
     }
   },
   watch: {
     show(newVal) {
-      if (!newVal) {
-        this.selectedPaymentMethod = null;
-      }
+      if (!newVal) this.resetComponent();
     }
   },
   methods: {
+    showQROnCustomerScreen() {
+      const qrData = {
+        amount: this.amount,
+        tableNumber: this.tableNumber,
+        qrString: this.generateQRString(),
+        timestamp: Date.now()
+      };
+      localStorage.setItem('customerDisplay', JSON.stringify({
+        type: 'SHOW_QR_PAYMENT',
+        data: qrData
+      }));
+      window.dispatchEvent(new Event('storage'));
+      this.$emit('show-message', `QR displayed on customer screen`, 'success', 'mdi-qrcode');
+    },
+    hideQRFromCustomerScreen() {
+      localStorage.setItem('customerDisplay', JSON.stringify({
+        type: 'HIDE_QR_PAYMENT',
+        timestamp: Date.now()
+      }));
+      window.dispatchEvent(new Event('storage'));
+    },
+    showPaymentSuccessOnCustomerScreen() {
+      localStorage.setItem('customerDisplay', JSON.stringify({
+        type: 'PAYMENT_SUCCESS',
+        data: {
+          amount: this.amount,
+          tableNumber: this.tableNumber
+        },
+        timestamp: Date.now()
+      }));
+      window.dispatchEvent(new Event('storage'));
+    },
+    generateQRString() {
+      if (!this.amount || !this.tableNumber) return this.qrString;
+      const amountStr = Math.round(this.amount).toString().padStart(6, '0');
+      const tableStr = this.tableNumber.toString().padStart(6, '0');
+      return `00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405${amountStr}05802LA5907KHAMMAO6260011713a321asS321as2250302120713terminal${tableStr}0812Table ${this.tableNumber} payment63041c9f`;
+    },
     closeDialog() {
-      this.selectedPaymentMethod = null;
+      this.hideQRFromCustomerScreen();
+      this.resetComponent();
       this.$emit('close');
+    },
+    resetComponent() {
+      this.selectedPaymentMethod = null;
+      this.showQRDialog = false;
+      this.copied = false;
     },
     confirmPayment() {
       if (!this.selectedPaymentMethod) {
         this.$emit('show-message', 'Please select a payment method', 'warning', 'mdi-alert');
         return;
       }
+      this.showPaymentSuccessOnCustomerScreen();
       this.$emit('confirm-payment', this.selectedPaymentMethod);
+    },
+    async copyQRString() {
+      try {
+        const stringToCopy = this.currentQRString;
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(stringToCopy);
+        } else {
+          const textArea = document.createElement('textarea');
+          textArea.value = stringToCopy;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+        this.copied = true;
+        setTimeout(() => {
+          this.copied = false;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy QR string:', err);
+      }
+    },
+    downloadQR() {
+      const link = document.createElement('a');
+      link.href = this.qrCodeUrl;
+      link.download = `qr-payment-table-${this.tableNumber}-${Date.now()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+    shareQR() {
+      if (navigator.share) {
+        navigator.share({
+          title: `Payment QR - Table ${this.tableNumber}`,
+          text: `Payment QR Code for ${this.formatPrice(this.amount)}`,
+          url: this.qrCodeUrl
+        }).catch(err => console.log('Error sharing:', err));
+      } else {
+        this.copyQRString();
+        this.$emit('show-message', 'QR code details copied!', 'success', 'mdi-check');
+      }
+    },
+    onQRError() {
+      this.$emit('show-message', 'Failed to load QR code', 'error', 'mdi-alert');
     },
     formatPrice(amount, includeCurrency = true) {
       const formattedNumber = new Intl.NumberFormat('en-US', {
@@ -2848,20 +2943,23 @@ var staticRenderFns = [];
       };
       return colors[paymentCode] || 'primary';
     }
+  },
+  beforeDestroy() {
+    this.hideQRFromCustomerScreen();
   }
 });
-// CONCATENATED MODULE: ./components/CAFE/paymentDialog/index.vue?vue&type=script&lang=js&
- /* harmony default export */ var CAFE_paymentDialogvue_type_script_lang_js_ = (paymentDialogvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=script&lang=js&
+ /* harmony default export */ var CAFE_paymentDialogFrontvue_type_script_lang_js_ = (paymentDialogFrontvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(10);
 
-// CONCATENATED MODULE: ./components/CAFE/paymentDialog/index.vue
+// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue
 
 
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(547)
+  var style0 = __webpack_require__(555)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2869,21 +2967,21 @@ if (style0.__inject__) style0.__inject__(context)
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  CAFE_paymentDialogvue_type_script_lang_js_,
-  paymentDialogvue_type_template_id_3bb865a2_scoped_true_render,
+  CAFE_paymentDialogFrontvue_type_script_lang_js_,
+  paymentDialogFrontvue_type_template_id_7e316119_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "3bb865a2",
-  "5aa91eb2"
+  "7e316119",
+  "07a78cad"
   
 )
 
-/* harmony default export */ var paymentDialog = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var paymentDialogFront = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ 599:
+/***/ 607:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2903,13 +3001,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(385);
+var VCol = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(342);
+var VDialog = __webpack_require__(346);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(386);
+var VForm = __webpack_require__(390);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -2918,19 +3016,19 @@ var VIcon = __webpack_require__(60);
 var VProgressCircular = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(384);
+var VRow = __webpack_require__(388);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(383);
+var VSpacer = __webpack_require__(387);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(416);
+var VTextarea = __webpack_require__(424);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=template&id=73f437f1&scoped=true&
 
@@ -3495,7 +3593,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(549)
+  var style0 = __webpack_require__(557)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -3517,26 +3615,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 633:
+/***/ 641:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3109b930_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(551);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3109b930_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3109b930_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3109b930_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3109b930_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(559);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 634:
+/***/ 642:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-3109b930]{cursor:pointer}.w-100[data-v-3109b930]{width:100%}.product-card[data-v-3109b930]:hover:not(.product-disabled){transform:translateY(-2px);transition:transform .2s ease}.product-disabled[data-v-3109b930]{cursor:not-allowed!important;opacity:.6}.product-disabled[data-v-3109b930]:hover{transform:none!important}.ticket-line-item[data-v-3109b930]{background-color:rgba(33,150,243,.05);border-left:3px solid #2196f3}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-1bdc38ea]{cursor:pointer}.w-100[data-v-1bdc38ea]{width:100%}.product-card[data-v-1bdc38ea]:hover:not(.product-disabled){transform:translateY(-2px);transition:transform .2s ease}.product-disabled[data-v-1bdc38ea]{cursor:not-allowed!important;opacity:.6}.product-disabled[data-v-1bdc38ea]:hover{transform:none!important}.ticket-line-item[data-v-1bdc38ea]{background-color:rgba(33,150,243,.05);border-left:3px solid #2196f3}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -3544,25 +3642,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 725:
+/***/ 733:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(900);
+var content = __webpack_require__(911);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("cb671396", content, true, context)
+  add("26d1d638", content, true, context)
 };
 
 /***/ }),
 
-/***/ 844:
+/***/ 854:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3570,10 +3668,10 @@ module.exports.__inject__ = function (context) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(447);
+var VAlert = __webpack_require__(454);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(387);
+var VAutocomplete = __webpack_require__(391);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
@@ -3588,13 +3686,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(385);
+var VCol = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(381);
+var VContainer = __webpack_require__(385);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(342);
+var VDialog = __webpack_require__(346);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
@@ -3606,18 +3704,18 @@ var VIcon = __webpack_require__(60);
 var VProgressCircular = __webpack_require__(90);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(384);
+var VRow = __webpack_require__(388);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__(544);
+var VSnackbar = __webpack_require__(552);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(383);
+var VSpacer = __webpack_require__(387);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=template&id=3109b930&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=template&id=1bdc38ea&scoped=true&
 
 
 
@@ -3637,7 +3735,7 @@ var VTextField = __webpack_require__(37);
 
 
 
-var CafePOSScreenvue_type_template_id_3109b930_scoped_true_render = function render() {
+var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], {
@@ -3658,16 +3756,18 @@ var CafePOSScreenvue_type_template_id_3109b930_scoped_true_render = function ren
   }), _vm._v(" "), _c('PaymentDialog', {
     attrs: {
       "show": _vm.showPaymentDialog,
-      "table-id": _vm.tableId,
-      "payment-amount": _vm.paymentAmount,
-      "payment-list": _vm.paymentList,
+      "table-number": _vm.tableId,
+      "amount": _vm.paymentAmount,
+      "payment-methods": _vm.paymentList,
       "payment-loading": _vm.paymentLoading,
-      "action-loading": _vm.actionLoading
+      "action-loading": _vm.actionLoading,
+      "enable-q-r": true,
+      "show-q-r-details": false
     },
     on: {
       "close": _vm.closePaymentDialog,
       "confirm-payment": _vm.handlePaymentConfirm,
-      "retry-payment-methods": _vm.loadPaymentMethods,
+      "reload-payment-methods": _vm.loadPaymentMethods,
       "show-message": _vm.showMessage
     }
   }), _vm._v(" "), _c(VDialog["a" /* default */], {
@@ -4083,7 +4183,7 @@ var CafePOSScreenvue_type_template_id_3109b930_scoped_true_render = function ren
       staticClass: "d-flex justify-space-between align-center mb-2"
     }, [_c('div', [_c('div', {
       staticClass: "font-weight-medium"
-    }, [_vm._v(_vm._s(item.pro_name))]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                    " + _vm._s(_vm.getProductName(item.pro_id)) + "\n                  ")]), _vm._v(" "), _c('div', {
       staticClass: "caption grey--text"
     }, [_vm._v("\n                    ID: " + _vm._s(item.pro_id) + " | " + _vm._s(item.categ_name) + "\n                  ")]), _vm._v(" "), item.isFromTicketLine ? _c('div', {
       staticClass: "caption info--text"
@@ -4286,16 +4386,16 @@ var CafePOSScreenvue_type_template_id_3109b930_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CafePOSScreen/index.vue?vue&type=template&id=3109b930&scoped=true&
+// CONCATENATED MODULE: ./components/CafePOSScreen/index.vue?vue&type=template&id=1bdc38ea&scoped=true&
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(586);
+var printdialog = __webpack_require__(594);
 
-// EXTERNAL MODULE: ./components/CAFE/paymentDialog/index.vue + 4 modules
-var paymentDialog = __webpack_require__(598);
+// EXTERNAL MODULE: ./components/CAFE/paymentDialogFront/index.vue + 4 modules
+var paymentDialogFront = __webpack_require__(595);
 
 // EXTERNAL MODULE: ./components/CAFE/customerDialog/index.vue + 4 modules
-var customerDialog = __webpack_require__(599);
+var customerDialog = __webpack_require__(607);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=script&lang=js&
 
@@ -4304,7 +4404,7 @@ var customerDialog = __webpack_require__(599);
 /* harmony default export */ var CafePOSScreenvue_type_script_lang_js_ = ({
   components: {
     PrintTicketDialog: printdialog["default"],
-    PaymentDialog: paymentDialog["default"],
+    PaymentDialog: paymentDialogFront["default"],
     CustomerDialog: customerDialog["default"]
   },
   name: 'MenuPOSScreen',
@@ -4409,6 +4509,18 @@ var customerDialog = __webpack_require__(599);
     }
   },
   methods: {
+    getProductName(productId) {
+      try {
+        const product = this.filteredProducts.find(el => el.id === parseInt(productId));
+        console.info(`PRODUCT ${this.filteredProducts.length}`);
+        console.info(`PRODUCT ${JSON.stringify(this.filteredProducts)}`);
+        console.info(`PRODUCT ${JSON.stringify(product)}`);
+        return (product === null || product === void 0 ? void 0 : product.pro_name) || `Product ${productId}`;
+      } catch (error) {
+        console.error('Error getting product name:', error);
+        return `Product ${productId}`;
+      }
+    },
     // Core data fetching methods
     async fetchProducts() {
       this.loading = true;
@@ -4966,7 +5078,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(633)
+  var style0 = __webpack_require__(641)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -4975,11 +5087,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_CafePOSScreenvue_type_script_lang_js_,
-  CafePOSScreenvue_type_template_id_3109b930_scoped_true_render,
+  CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "3109b930",
+  "1bdc38ea",
   "79b8fefa"
   
 )
@@ -4988,26 +5100,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 899:
+/***/ 910:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a70deaa8_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(725);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a70deaa8_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a70deaa8_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a70deaa8_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a70deaa8_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_387ce4d2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(733);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_387ce4d2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_387ce4d2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_387ce4d2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_387ce4d2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 900:
+/***/ 911:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-a70deaa8]{cursor:pointer}.w-100[data-v-a70deaa8]{width:100%}.table-card[data-v-a70deaa8]:hover{transform:translateY(-2px);transition:transform .2s ease}.payment-method-card[data-v-a70deaa8]{border:2px solid transparent;transition:all .3s ease}.payment-method-card[data-v-a70deaa8]:hover{transform:translateY(-2px)}.payment-method-card.elevation-4[data-v-a70deaa8]{border:2px solid hsla(0,0%,100%,.3)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-387ce4d2]{cursor:pointer}.w-100[data-v-387ce4d2]{width:100%}.table-card[data-v-387ce4d2]:hover{transform:translateY(-2px);transition:transform .2s ease}.payment-method-card[data-v-387ce4d2]{border:2px solid transparent;transition:all .3s ease}.payment-method-card[data-v-387ce4d2]:hover{transform:translateY(-2px)}.payment-method-card.elevation-4[data-v-387ce4d2]{border:2px solid hsla(0,0%,100%,.3)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

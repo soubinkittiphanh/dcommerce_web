@@ -10,8 +10,8 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
   // const baseURL = 'http://150.95.31.23:8021' //  *** carcare sokpaluang
-  const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
-  // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
+  // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
+  const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
 }
@@ -107,8 +107,8 @@ export const mainCompanyInfo = (store) => {
     imageUrl: '',
     imageName: '',
     address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'TAIPHUAN.jpeg',
-    companyLogo: 'TAIPHUAN.jpeg',
+    ticketLogo: 'TAIPHUAN.png',
+    companyLogo: 'TAIPHUAN.png',
     dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   }

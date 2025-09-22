@@ -10,16 +10,19 @@
     />
 
     <!-- Payment Dialog -->
+    <!-- Replace your current PaymentDialog section with this -->
     <PaymentDialog
       :show="showPaymentDialog"
-      :table-id="tableId"
-      :payment-amount="paymentAmount"
-      :payment-list="paymentList"
+      :table-number="tableId"
+      :amount="paymentAmount"
+      :payment-methods="paymentList"
       :payment-loading="paymentLoading"
       :action-loading="actionLoading"
+      :enable-q-r="true"
+      :show-q-r-details="false"
       @close="closePaymentDialog"
       @confirm-payment="handlePaymentConfirm"
-      @retry-payment-methods="loadPaymentMethods"
+      @reload-payment-methods="loadPaymentMethods"
       @show-message="showMessage"
     />
 
@@ -357,7 +360,9 @@
               >
                 <div class="d-flex justify-space-between align-center mb-2">
                   <div>
-                    <div class="font-weight-medium">{{ item.pro_name }}</div>
+                    <div class="font-weight-medium">
+                      {{ getProductName(item.pro_id) }}
+                    </div>
                     <div class="caption grey--text">
                       ID: {{ item.pro_id }} | {{ item.categ_name }}
                     </div>
@@ -545,7 +550,7 @@
 
 <script>
 import PrintTicketDialog from '@/components/CAFE/printdialog'
-import PaymentDialog from '@/components/CAFE/paymentDialog'
+import PaymentDialog from '@/components/CAFE/paymentDialogFront'
 import CustomerDialog from '@/components/CAFE/customerDialog'
 
 export default {
@@ -668,6 +673,22 @@ export default {
   },
 
   methods: {
+    getProductName(productId) {
+      try {
+        const product = this.filteredProducts.find(
+          (el) => el.id === parseInt(productId)
+        )
+
+        console.info(`PRODUCT ${this.filteredProducts.length}`)
+        console.info(`PRODUCT ${JSON.stringify(this.filteredProducts)}`)
+        console.info(`PRODUCT ${JSON.stringify(product)}`)
+
+        return product?.pro_name || `Product ${productId}`
+      } catch (error) {
+        console.error('Error getting product name:', error)
+        return `Product ${productId}`
+      }
+    },
     // Core data fetching methods
     async fetchProducts() {
       this.loading = true
@@ -1252,7 +1273,9 @@ export default {
           ticketForPrint.total = subtotal + subtotal * 0.085
         }
 
-        console.log(`Updated ticket for print: ${JSON.stringify(ticketForPrint)} }`)
+        console.log(
+          `Updated ticket for print: ${JSON.stringify(ticketForPrint)} }`
+        )
         console.log('Ticket lines count:', mappedTicketLines.length)
 
         // Update the current ticket with latest data

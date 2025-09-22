@@ -26,133 +26,91 @@
     </div>
 
     <!-- Filters Card -->
-    <v-card class="filter-card mb-4" elevation="2">
-      <v-card-title class="filter-title d-flex align-center">
-        <v-icon class="mr-2">mdi-filter</v-icon>
-        ຕົວກອງ (Filters)
-      </v-card-title>
-
-      <v-card-text class="pa-4">
-        <!-- First Row -->
-        <v-row>
-          <!-- From Date -->
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="filters.fromDate"
-              type="date"
-              label="ຈາກວັນທີ (From Date)"
-              outlined
-              dense
-              @change="applyFilters"
-            ></v-text-field>
-          </v-col>
-
-          <!-- To Date -->
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="filters.toDate"
-              type="date"
-              label="ຫາວັນທີ (To Date)"
-              outlined
-              dense
-              @change="applyFilters"
-            ></v-text-field>
-          </v-col>
-
-          <!-- Ministry -->
-          <v-col cols="12" md="4">
-            <v-select
-              v-model="filters.ministryId"
-              :items="ministries"
-              item-text="ministryName"
-              item-value="id"
-              label="Ministry"
-              clearable
-              outlined
-              dense
-              @change="applyFilters"
-            ></v-select>
-          </v-col>
-        </v-row>
-
-        <!-- Second Row -->
-        <v-row>
-          <!-- Currency -->
-          <v-col cols="12" md="4">
-            <v-select
-              v-model="filters.currencyId"
-              :items="currencies"
-              item-text="name"
-              item-value="id"
-              label="Currency"
-              clearable
-              outlined
-              dense
-              @change="applyFilters"
-            ></v-select>
-          </v-col>
-
-          <!-- Status -->
-          <v-col cols="12" md="4">
-            <v-select
-              v-model="filters.status"
-              :items="statusOptions"
-              item-text="text"
-              item-value="value"
-              label="Status"
-              clearable
-              outlined
-              dense
-              @change="applyFilters"
-            ></v-select>
-          </v-col>
-
-          <!-- Maker -->
-          <v-col cols="12" md="4">
-            <v-select
-              v-model="filters.makerId"
-              :items="users"
-              item-text="cus_name"
-              item-value="id"
-              label="Maker"
-              clearable
-              outlined
-              dense
-              @change="applyFilters"
-            ></v-select>
-          </v-col>
-        </v-row>
-
-        <!-- Buttons Row -->
-        <v-row class="mt-2">
-          <v-col cols="12" md="3">
-            <v-btn
-              class="custom-primary-bg white--text"
-              block
-              outlined
-              @click="applyFilters"
-              :loading="loading"
-            >
-              <v-icon left color="white">mdi-refresh</v-icon>
-              Refresh
-            </v-btn>
-          </v-col>
-
-          <v-col cols="12" md="3">
-            <v-btn
-              class="custom-secondary-btn"
-              block
-              outlined
-              @click="resetFilters"
-              color="grey lighten-1"
-            >
-              <v-icon left>mdi-restore</v-icon>
-              Reset
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <v-card class="filter-card mb-4" elevation="1">
+    <v-card-title class="filter-title py-2">
+      <v-icon small class="mr-2">mdi-filter</v-icon>
+      ຕົວກອງ (Filters)
+    </v-card-title>
+    <v-card-text class="pa-3">
+      <!-- Compact Filter Row -->
+      <v-row dense>
+        <!-- Date Range -->
+        <v-col cols="6" sm="3">
+          <v-text-field
+            v-model="filters.fromDate"
+            type="date"
+            label="From"
+            outlined
+            dense
+            hide-details
+            @change="applyFilters"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="6" sm="3">
+          <v-text-field
+            v-model="filters.toDate"
+            type="date"
+            label="To"
+            outlined
+            dense
+            hide-details
+            @change="applyFilters"
+          ></v-text-field>
+        </v-col>
+        
+        <!-- Ministry -->
+        <v-col cols="6" sm="2">
+          <v-select
+            v-model="filters.ministryId"
+            :items="ministries"
+            item-text="ministryName"
+            item-value="id"
+            label="Ministry"
+            clearable
+            outlined
+            dense
+            hide-details
+            @change="applyFilters"
+          ></v-select>
+        </v-col>
+        
+        <!-- Currency -->
+        <v-col cols="6" sm="2">
+          <v-select
+            v-model="filters.currencyId"
+            :items="currencies"
+            item-text="name"
+            item-value="id"
+            label="Currency"
+            clearable
+            outlined
+            dense
+            hide-details
+            @change="applyFilters"
+          ></v-select>
+        </v-col>
+        
+        <!-- Actions -->
+        <v-col cols="12" sm="2" class="d-flex align-center">
+          <v-btn
+            class="custom-primary-bg white--text mr-1"
+            small
+            @click="applyFilters"
+            :loading="loading"
+          >
+            <v-icon small>mdi-refresh</v-icon>
+          </v-btn>
+          <v-btn
+            class="custom-secondary-btn"
+            small
+            @click="resetFilters"
+          >
+            <v-icon small>mdi-restore</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
 
     <!-- Enhanced Summary Cards -->
     <v-row class="mb-4" dense>
@@ -270,476 +228,6 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <!-- Additional Summary Cards -->
-    <v-row class="additional-summary mb-4" v-if="summaryData.totalRecords">
-      <v-col cols="12" md="2">
-        <v-card class="stats-card" elevation="2">
-          <v-card-text class="text-center">
-            <h3 class="stats-number">{{ summaryData.totalRecords || 0 }}</h3>
-            <p class="stats-label">ທັງໝົດ<br />Total Records</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-card class="stats-card" elevation="2">
-          <v-card-text class="text-center">
-            <h3 class="stats-number text-success">
-              {{ summaryData.fullySettledCount || 0 }}
-            </h3>
-            <p class="stats-label">ຊຳລະເຕັມ<br />Fully Settled</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-card class="stats-card" elevation="2">
-          <v-card-text class="text-center">
-            <h3 class="stats-number text-warning">
-              {{ summaryData.partiallySettledCount || 0 }}
-            </h3>
-            <p class="stats-label">ຊຳລະບາງສ່ວນ<br />Partial</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-card class="stats-card" elevation="2">
-          <v-card-text class="text-center">
-            <h3 class="stats-number text-error">
-              {{ summaryData.unsettledCount || 0 }}
-            </h3>
-            <p class="stats-label">ຍັງບໍ່ຊຳລະ<br />Unsettled</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-card class="stats-card" elevation="2">
-          <v-card-text class="text-center">
-            <h3 class="stats-number text-error">
-              {{ summaryData.overdueCount || 0 }}
-            </h3>
-            <p class="stats-label">ເກີນກຳນົດ<br />Overdue</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-card class="stats-card" elevation="2">
-          <v-card-text class="text-center">
-            <h3 class="stats-number">
-              {{ summaryData.averageSettlementPercentage || 0 }}%
-            </h3>
-            <p class="stats-label">ເຄື່ອງຊຳລະ<br />Avg Settlement</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <!-- Currency Breakdown Card -->
-    <v-card
-      class="currency-breakdown-card mb-4"
-      elevation="2"
-      v-if="
-        summaryData.currencyBreakdown &&
-        summaryData.currencyBreakdown.length > 0
-      "
-    >
-      <v-card-title class="currency-title">
-        <i class="fas fa-coins"></i>
-        ສະຫຼູບຕາມສະກຸນເງິນ (Currency Breakdown)
-      </v-card-title>
-      <v-card-text>
-        <v-row>
-          <v-col
-            v-for="currency in summaryData.currencyBreakdown"
-            :key="currency.currencyCode"
-            cols="12"
-            md="4"
-          >
-            <v-card outlined class="currency-card">
-              <v-card-text>
-                <div class="currency-summary">
-                  <h4>
-                    {{ currency.currencyCode }} - {{ currency.currencyName }}
-                  </h4>
-                  <div class="currency-details">
-                    <p>
-                      <strong>ລວມລາຍຈ່າຍ:</strong>
-                      {{ formatCurrency(currency.totalAdvances) }}
-                    </p>
-                    <p>
-                      <strong>ລວມຊຳລະ:</strong>
-                      {{ formatCurrency(currency.totalSettlements) }}
-                    </p>
-                    <p>
-                      <strong>ຍອດຄ້າງ:</strong>
-                      {{ formatCurrency(currency.outstandingBalance) }}
-                    </p>
-                    <p>
-                      <strong>ເທົ່າກັບກີບ:</strong>
-                      {{ formatCurrency(currency.lcyEquivalent) }}
-                    </p>
-                    <p><strong>ຈຳນວນ:</strong> {{ currency.count }} ລາຍການ</p>
-                  </div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
-
-    <!-- Chart Ministry Report -->
-    <v-row class="mb-4">
-      <v-col cols="12">
-        <v-card elevation="2" class="rounded-xl">
-          <v-card-title
-            class="ministry-table-title py-2 px-4 d-flex align-center"
-          >
-            <v-icon class="mr-2" color="white">mdi-office-building</v-icon>
-            <span class="text-subtitle-1 font-weight-medium">
-              ລາຍງານ ຕາມກົມ
-            </span>
-            <v-spacer></v-spacer>
-
-            <!-- Export Button -->
-            <v-btn
-              class="custom-export-btn mr-2"
-              small
-              outlined
-              @click="exportMinistryReportToExcel"
-              :disabled="!ministrySummaryReport.length"
-              :loading="exporting"
-            >
-              <v-icon small left>mdi-file-excel</v-icon>
-              Export Excel
-            </v-btn>
-            <v-btn
-              icon
-              small
-              @click="refreshMinistryReport"
-              :loading="loadingMinistryReport"
-              class="white--text"
-            >
-              <v-icon small>mdi-refresh</v-icon>
-            </v-btn>
-          </v-card-title>
-
-          <v-divider></v-divider>
-
-          <v-card-text class="pa-0">
-            <div v-if="loadingMinistryReport" class="text-center py-6">
-              <v-progress-circular indeterminate color="#01532B" />
-              <div class="mt-2 text-caption">Loading ministry report...</div>
-            </div>
-
-            <div
-              v-else-if="!ministrySummaryReport.length"
-              class="text-center py-6"
-            >
-              <v-icon size="48" color="grey lighten-2"
-                >mdi-information-outline</v-icon
-              >
-              <div class="mt-2 text-subtitle-2 grey--text">
-                No ministry data available
-              </div>
-            </div>
-
-            <v-simple-table v-else dense>
-              <template v-slot:default>
-                <thead>
-                  <tr class="ministry-table-header">
-                    <th class="white--text text-caption font-weight-bold">#</th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Ministry Code
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Ministry Name
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      Count
-                    </th>
-                    <th
-                      v-for="currency in currencyList"
-                      :key="'head-' + currency"
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      {{ currency }}
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      Total (LAK)
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr
-                    v-for="(item, index) in ministrySummaryReport"
-                    :key="item.ministryId"
-                    :class="{
-                      'grey lighten-5': index % 2 === 0,
-                      'orange lighten-4': item.ministryId === 'NO_MINISTRY',
-                    }"
-                  >
-                    <td class="text-caption text-center">{{ index + 1 }}</td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text': item.ministryId === 'NO_MINISTRY',
-                      }"
-                    >
-                      {{ item.ministryCode }}
-                    </td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text font-italic':
-                          item.ministryId === 'NO_MINISTRY',
-                      }"
-                    >
-                      {{ item.ministryName }}
-                    </td>
-                    <td class="text-body-2 text-right">
-                      {{ item.settlementCount }}
-                    </td>
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'amt-' + currency"
-                      class="text-body-2 text-right"
-                    >
-                      {{ formatAmount(item.amounts?.[currency] || 0) }}
-                    </td>
-                    <td class="text-right font-weight-bold success--text">
-                      {{ formatAmount(item.totalLakEquivalent || 0) }}
-                    </td>
-                  </tr>
-
-                  <!-- Totals -->
-                  <tr class="ministry-table-footer">
-                    <td colspan="3" class="font-weight-bold text-caption">
-                      ລວມ
-                    </td>
-                    <td class="text-right font-weight-bold text-body-2">
-                      {{
-                        ministrySummaryReport.reduce(
-                          (sum, m) => sum + m.settlementCount,
-                          0
-                        )
-                      }}
-                    </td>
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'sum-' + currency"
-                      class="text-right font-weight-bold text-body-2"
-                    >
-                      {{
-                        formatAmount(
-                          ministryTotals?.currencyTotals?.[currency] || 0
-                        )
-                      }}
-                    </td>
-                    <td
-                      class="text-right font-weight-bold text-body-2 white--text"
-                    >
-                      {{
-                        formatAmount(ministryTotals?.totalLakEquivalent || 0)
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <!-- Chart Bank Account Report -->
-    <v-row class="mb-4">
-      <v-col cols="12">
-        <v-card elevation="2" class="rounded-xl">
-          <v-card-title class="bank-table-title py-2 px-4 d-flex align-center">
-            <v-icon class="mr-2" color="white">mdi-bank</v-icon>
-            <span class="text-subtitle-1 font-weight-medium">
-              ລາຍງານ ບັນຊີທະນາຄານ
-            </span>
-            <v-spacer></v-spacer>
-
-            <!-- Export Button -->
-            <v-btn
-              class="custom-export-btn mr-2"
-              small
-              outlined
-              @click="exportBankAccountReportToExcel"
-              :disabled="!bankAccountSummaryReport.length"
-              :loading="exporting"
-            >
-              <v-icon small left>mdi-file-excel</v-icon>
-              Export Excel
-            </v-btn>
-            <v-btn
-              icon
-              small
-              @click="refreshBankAccountReport"
-              :loading="loadingBankAccountReport"
-              class="white--text"
-            >
-              <v-icon small>mdi-refresh</v-icon>
-            </v-btn>
-          </v-card-title>
-
-          <v-divider></v-divider>
-
-          <v-card-text class="pa-0">
-            <div v-if="loadingBankAccountReport" class="text-center py-6">
-              <v-progress-circular indeterminate color="#01532B" />
-              <div class="mt-2 text-caption">
-                Loading bank account report...
-              </div>
-            </div>
-
-            <div
-              v-else-if="!bankAccountSummaryReport.length"
-              class="text-center py-6"
-            >
-              <v-icon size="48" color="grey lighten-2"
-                >mdi-information-outline</v-icon
-              >
-              <div class="mt-2 text-subtitle-2 grey--text">
-                No bank account data available
-              </div>
-            </div>
-
-            <v-simple-table v-else dense>
-              <template v-slot:default>
-                <thead>
-                  <tr class="bank-table-header">
-                    <th class="white--text text-caption font-weight-bold">#</th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Account Number
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Account Name
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Bank Name
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Type
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      Count
-                    </th>
-                    <th
-                      v-for="currency in bankAccountCurrencyList"
-                      :key="'bank-head-' + currency"
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      {{ currency }}
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      Total (LAK)
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr
-                    v-for="(item, index) in bankAccountSummaryReport"
-                    :key="item.bankAccountId"
-                    :class="{
-                      'grey lighten-5': index % 2 === 0,
-                      'orange lighten-4':
-                        item.bankAccountId === 'NO_BANK_ACCOUNT',
-                    }"
-                  >
-                    <td class="text-caption text-center">{{ index + 1 }}</td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text': item.bankAccountId === 'NO_BANK_ACCOUNT',
-                      }"
-                    >
-                      {{ item.accountNumber }}
-                    </td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text font-italic':
-                          item.bankAccountId === 'NO_BANK_ACCOUNT',
-                      }"
-                    >
-                      {{ item.accountName }}
-                    </td>
-                    <td class="text-body-2">
-                      {{ item.bankName }}
-                    </td>
-                    <td class="text-body-2">
-                      <v-chip small outlined>
-                        {{ item.accountType }}
-                      </v-chip>
-                    </td>
-                    <td class="text-body-2 text-right">
-                      {{ item.settlementCount }}
-                    </td>
-                    <td
-                      v-for="currency in bankAccountCurrencyList"
-                      :key="'bank-amt-' + currency"
-                      class="text-body-2 text-right"
-                    >
-                      {{ formatAmount(item.amounts?.[currency] || 0) }}
-                    </td>
-                    <td class="text-right font-weight-bold success--text">
-                      {{ formatAmount(item.totalLakEquivalent || 0) }}
-                    </td>
-                  </tr>
-
-                  <!-- Totals -->
-                  <tr class="bank-table-footer">
-                    <td colspan="5" class="font-weight-bold text-caption">
-                      ລວມ
-                    </td>
-                    <td class="text-right font-weight-bold text-body-2">
-                      {{
-                        bankAccountSummaryReport.reduce(
-                          (sum, b) => sum + b.settlementCount,
-                          0
-                        )
-                      }}
-                    </td>
-                    <td
-                      v-for="currency in bankAccountCurrencyList"
-                      :key="'bank-sum-' + currency"
-                      class="text-right font-weight-bold text-body-2"
-                    >
-                      {{
-                        formatAmount(
-                          bankAccountTotals?.currencyTotals?.[currency] || 0
-                        )
-                      }}
-                    </td>
-                    <td
-                      class="text-right font-weight-bold text-body-2 white--text"
-                    >
-                      {{
-                        formatAmount(bankAccountTotals?.totalLakEquivalent || 0)
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-
     <!-- Enhanced Detailed Report Table -->
     <v-card class="table-card" elevation="2">
       <v-card-title class="table-title">
@@ -1621,7 +1109,6 @@ export default {
     async applyFilters() {
       this.loading = true
       try {
-        // Build query params
         const params = new URLSearchParams()
         Object.keys(this.filters).forEach((key) => {
           if (this.filters[key]) {
@@ -1642,23 +1129,44 @@ export default {
           this.summaryData = response.data.summary || this.calculateSummary()
         }
 
-        // Process ministry report data with the same dataset
-        const processedMinistryData = this.processMinistryReportData({
-          data: this.reportData,
-        })
-        this.ministrySummaryReport = processedMinistryData.ministrySummaryReport
-        this.ministryTotals = processedMinistryData.ministryTotals
-        this.currencyList = processedMinistryData.currencyList
+        // ===== ADD THESE DEBUG LINES =====
+        console.log('=== DEBUG INFORMATION ===')
+        console.log('Full API Response:', response.data)
+        console.log('reportData type:', typeof this.reportData)
+        console.log('reportData is Array?', Array.isArray(this.reportData))
+        console.log('reportData length:', this.reportData.length)
+        console.log('First reportData item:', this.reportData[0])
+        console.log('Summary data:', this.summaryData)
+        console.log('========================')
 
-        // Process bank account report data with the same dataset
-        const processedBankAccountData = this.processBankAccountReportData({
-          data: this.reportData,
-        })
-        this.bankAccountSummaryReport =
-          processedBankAccountData.bankAccountSummaryReport
-        this.bankAccountTotals = processedBankAccountData.bankAccountTotals
-        this.bankAccountCurrencyList =
-          processedBankAccountData.bankAccountCurrencyList
+        // Check if we should use summary-based approach
+        if (
+          this.reportData.length === 0 &&
+          this.summaryData?.currencyBreakdown?.length > 0
+        ) {
+          console.log('Using summary-based processing')
+          this.processSummaryBasedReports()
+        } else {
+          console.log('Using detailed data processing')
+          // Process ministry report data with the same dataset
+          const processedMinistryData = this.processMinistryReportData({
+            data: this.reportData,
+          })
+          this.ministrySummaryReport =
+            processedMinistryData.ministrySummaryReport
+          this.ministryTotals = processedMinistryData.ministryTotals
+          this.currencyList = processedMinistryData.currencyList
+
+          // Process bank account report data with the same dataset
+          const processedBankAccountData = this.processBankAccountReportData({
+            data: this.reportData,
+          })
+          this.bankAccountSummaryReport =
+            processedBankAccountData.bankAccountSummaryReport
+          this.bankAccountTotals = processedBankAccountData.bankAccountTotals
+          this.bankAccountCurrencyList =
+            processedBankAccountData.bankAccountCurrencyList
+        }
 
         // Update charts after data is loaded
         this.$nextTick(() => {
@@ -1670,6 +1178,75 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+
+    // Add this method to handle summary-based processing
+    processSummaryBasedReports() {
+      console.log('Processing summary-based reports with:', this.summaryData)
+
+      const currencyBreakdown = this.summaryData.currencyBreakdown || []
+
+      // Create ministry report from summary
+      this.ministrySummaryReport = [
+        {
+          ministryId: 'SUMMARY',
+          ministryCode: 'ALL',
+          ministryName: 'ສະຫຼຸບລວມ (All Ministries)',
+          settlementCount: this.summaryData.totalRecords || 0,
+          amounts: {},
+          totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0,
+        },
+      ]
+
+      // Create bank account report from summary
+      this.bankAccountSummaryReport = [
+        {
+          bankAccountId: 'SUMMARY',
+          accountNumber: 'ALL',
+          accountName: 'ສະຫຼຸບລວມ (All Accounts)',
+          bankName: 'All Banks',
+          accountType: 'Summary',
+          settlementCount: this.summaryData.totalRecords || 0,
+          amounts: {},
+          totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0,
+        },
+      ]
+
+      // Process currency breakdown
+      const currencyTotals = {}
+      const currencyList = []
+
+      currencyBreakdown.forEach((item) => {
+        const currencyCode = item.currencyCode || 'LAK'
+        currencyList.push(currencyCode)
+        currencyTotals[currencyCode] = item.totalAdvances || 0
+
+        // Add to reports
+        this.ministrySummaryReport[0].amounts[currencyCode] =
+          item.totalAdvances || 0
+        this.bankAccountSummaryReport[0].amounts[currencyCode] =
+          item.totalAdvances || 0
+      })
+
+      // Set totals
+      this.ministryTotals = {
+        currencyTotals,
+        totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0,
+      }
+
+      this.bankAccountTotals = {
+        currencyTotals,
+        totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0,
+      }
+
+      this.currencyList = currencyList.sort()
+      this.bankAccountCurrencyList = currencyList.sort()
+
+      console.log('Summary-based reports created:', {
+        ministry: this.ministrySummaryReport,
+        bankAccount: this.bankAccountSummaryReport,
+        currencies: currencyList,
+      })
     },
 
     resetFilters() {
@@ -2117,7 +1694,7 @@ export default {
 }
 /* Custom Color Theme #01532B */
 .custom-primary-bg {
-  background-color: #01532B !important;
+  background-color: #01532b !important;
 }
 .summary-details .summary-title {
   margin: 0;

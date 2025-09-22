@@ -231,19 +231,19 @@
             </v-avatar>
           </template> -->
           <template v-slot:[`item.discount`]="{ item }">
-            {{ numberWithCommas(item.discount) }}
+            {{ getFormatNum(item.discount) }}
           </template>
           <template v-slot:[`item.total`]="{ item }">
-            {{ numberWithCommas(item.total) }}
+            {{ getFormatNum(item.total) }}
           </template>
           <template v-slot:[`item.cards`]="{ item }">
-            {{ numberWithCommas(calculateTotalCost(item.cards)) }}
+            {{ getFormatNum(calculateTotalCost(item.cards)) }}
           </template>
           <template v-slot:[`item.price`]="{ item }">
-            {{ numberWithCommas(item.total) }}
+            {{ getFormatNum(item.total) }}
           </template>
           <template v-slot:[`item.profit`]="{ item }">
-            {{ numberWithCommas(item.total - calculateTotalCost(item.cards)) }}
+            {{ getFormatNum(item.total - calculateTotalCost(item.cards)) }}
           </template>
           <!-- <template v-slot:[`item.id`]="{ item }">
             <v-btn color="primary" text @click="viewItem(item)
@@ -441,7 +441,12 @@ export default {
   async created() {
     // this.creteria.userId = this.user['id']
     await this.loadData()
+    // await this.loadClientData()
+  },
+  async mounted() {
+    // this.creteria.userId = this.user['id']
     await this.loadClientData()
+    // await this.loadClientData()
   },
   watch: {
     isedit(v) {
@@ -633,7 +638,10 @@ export default {
       // return `https://api.whatsapp.com/send?phone=${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
     },
     getFormatNum(val) {
-      return new Intl.NumberFormat().format(val)
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(val)
     },
     editItem(item) {
       this.componentKey += 1
@@ -672,28 +680,33 @@ export default {
         const response = await this.$axios.get(apiLine, { params: { date } })
         this.orderHeaderList = response.data
       } catch (error) {
-        swalError2(
-          this.$swal,
-          'Error',
-          'Could no load data ' + JSON.stringify(error)
-        )
+        console.error('Error loading data:', error)
+        // Just log the error, don't try to show alert/toast on server-side
+        if (process.client) {
+          // Only show user-facing error on client-side
+          console.log('Could not load data. Please try again.')
+        }
       }
 
       this.isloading = false
     },
+
     async loadClientData() {
       this.isloading = true
       let apiLine = 'api/client/find'
       try {
         const response = await this.$axios.get(apiLine)
-        this.customerList = response.data
+        this.customerList = response.data || []
         this.customerList.push({ id: -1, name: 'ທັງຫມົດ' })
       } catch (error) {
-        swalError2(
-          this.$swal,
-          'Error',
-          'Could no load data ' + JSON.stringify(error)
-        )
+        console.error('Error loading client data:', error)
+        // Initialize with default data on error
+        this.customerList = [{ id: -1, name: 'ທັງຫມົດ' }]
+
+        if (process.client) {
+          // Only show user-facing error on client-side
+          console.log('Could not load client data. Please try again.')
+        }
       }
       this.isloading = false
     },

@@ -1,26 +1,26 @@
-exports.ids = [224,281];
+exports.ids = [226,283];
 exports.modules = {
 
-/***/ 1050:
+/***/ 1063:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(797);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_567e9f41_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_080451fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(806);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_080451fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_080451fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_080451fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_080451fa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1051:
+/***/ 1064:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-report[data-v-567e9f41]{padding:0}.report-header[data-v-567e9f41]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-567e9f41]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-567e9f41]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-567e9f41]{display:flex;gap:16px}.custom-btn[data-v-567e9f41]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-567e9f41]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-567e9f41]{background:#fff;border-radius:8px}.filter-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.custom-primary-btn[data-v-567e9f41]{background-color:#01532b!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-primary-btn[data-v-567e9f41]:hover{background-color:#014025!important}.custom-secondary-btn[data-v-567e9f41]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-567e9f41]:hover{background-color:#5a6268!important}.summary-card[data-v-567e9f41]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-567e9f41]:hover{transform:translateY(-2px)}.summary-icon[data-v-567e9f41]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.custom-primary-bg[data-v-567e9f41]{background-color:#01532b!important}.summary-details .summary-title[data-v-567e9f41]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details .summary-subtitle[data-v-567e9f41]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details .summary-amount[data-v-567e9f41]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-567e9f41]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.advance-card[data-v-567e9f41],.brought-forward-card[data-v-567e9f41],.outstanding-card[data-v-567e9f41],.settlement-card[data-v-567e9f41]{background:#01532b;color:#fff}.additional-summary[data-v-567e9f41]{margin-bottom:24px}.stats-card[data-v-567e9f41]{border-radius:8px;height:100px;transition:all .3s ease}.stats-card[data-v-567e9f41]:hover{box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-2px)}.stats-number[data-v-567e9f41]{color:#01532b;font-size:24px;font-weight:700;margin:0}.stats-label[data-v-567e9f41]{color:#666;font-size:11px;line-height:1.2;margin:4px 0 0}.currency-breakdown-card[data-v-567e9f41]{border-radius:8px;margin-bottom:24px}.currency-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.currency-card[data-v-567e9f41]{border-radius:8px;transition:all .3s ease}.currency-card[data-v-567e9f41]:hover{border-color:#01532b;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-summary h4[data-v-567e9f41]{border-bottom:1px solid #01532b;color:#01532b;font-weight:600;margin:0 0 12px;padding-bottom:8px}.currency-details p[data-v-567e9f41]{font-size:13px;margin:4px 0}.currency-details strong[data-v-567e9f41]{color:#01532b}.ministry-table-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.ministry-table-header[data-v-567e9f41]{background:#01532b!important}.ministry-table-footer[data-v-567e9f41]{background:rgba(1,83,43,.8)!important;color:#fff}.custom-export-btn[data-v-567e9f41]{border-color:#fff!important;color:#fff!important}.custom-export-btn[data-v-567e9f41]:hover{background-color:#fff!important;color:#01532b!important}.bank-table-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.bank-table-header[data-v-567e9f41]{background:#01532b!important}.bank-table-footer[data-v-567e9f41]{background:rgba(1,83,43,.8)!important;color:#fff}.table-card[data-v-567e9f41]{border-radius:8px;margin-bottom:24px}.table-title[data-v-567e9f41]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-567e9f41]{max-width:300px}.search-field[data-v-567e9f41] .v-icon,.search-field[data-v-567e9f41] input{color:#fff!important}.report-table[data-v-567e9f41]{background:#fff}.report-table[data-v-567e9f41] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-567e9f41] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-567e9f41]{color:#01532b;font-family:monospace;font-size:13px}.amount-cell[data-v-567e9f41]{font-weight:600;text-align:right}.amount-cell[data-v-567e9f41],.exchange-rate-cell[data-v-567e9f41]{display:block;font-family:monospace}.exchange-rate-cell[data-v-567e9f41]{font-size:12px;text-align:center}.advance-amount[data-v-567e9f41]{color:#01532b}.settlement-amount[data-v-567e9f41]{color:#228b22}.outstanding-amount[data-v-567e9f41]{color:#dc3545}.lcy-amount[data-v-567e9f41]{color:#32cd32}.settlement-progress[data-v-567e9f41]{width:100%}.progress-text[data-v-567e9f41]{color:#fff;font-size:11px;font-weight:600;text-shadow:1px 1px 1px rgba(0,0,0,.5)}.ministry-cell[data-v-567e9f41]{display:flex;flex-direction:column}.ministry-name[data-v-567e9f41]{color:#01532b;font-size:13px;font-weight:600}.ministry-code[data-v-567e9f41]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.dialog-header[data-v-567e9f41]{background:#01532b!important;font-weight:600!important}.close-btn[data-v-567e9f41],.dialog-header[data-v-567e9f41]{color:#fff!important}.detail-item[data-v-567e9f41]{font-size:14px;margin-bottom:12px}.detail-item strong[data-v-567e9f41]{color:#01532b}.settlement-table[data-v-567e9f41]{margin-top:16px}.settlement-table[data-v-567e9f41] thead th{background-color:#01532b!important;color:#fff!important;font-weight:600!important}@media print{.action-buttons[data-v-567e9f41],.filter-card[data-v-567e9f41],.v-btn[data-v-567e9f41]{display:none!important}.additional-summary[data-v-567e9f41],.chart-card[data-v-567e9f41],.currency-breakdown-card[data-v-567e9f41],.summary-cards[data-v-567e9f41]{page-break-inside:avoid}.report-header[data-v-567e9f41]{background:#01532b!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-567e9f41]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-567e9f41]{font-size:24px}.action-buttons[data-v-567e9f41]{flex-wrap:wrap;justify-content:center}.summary-icon[data-v-567e9f41]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details .summary-amount[data-v-567e9f41]{font-size:20px}.stats-card[data-v-567e9f41]{height:80px}.stats-number[data-v-567e9f41]{font-size:18px}.stats-label[data-v-567e9f41]{font-size:10px}}.v-dialog .v-card-text[data-v-567e9f41]{max-height:70vh;overflow-y:auto}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar{width:6px}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar-thumb{background:#01532b;border-radius:3px}.v-dialog .v-card-text[data-v-567e9f41]::-webkit-scrollbar-thumb:hover{background:#014025}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-report[data-v-080451fa]{padding:0}.report-header[data-v-080451fa]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-080451fa]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-080451fa]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-080451fa]{display:flex;gap:16px}.custom-btn[data-v-080451fa]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-080451fa]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-080451fa]{background:#fff;border-radius:8px}.filter-title[data-v-080451fa]{background:#01532b;color:#fff;font-weight:600}.custom-primary-btn[data-v-080451fa]{background-color:#01532b!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-primary-btn[data-v-080451fa]:hover{background-color:#014025!important}.custom-secondary-btn[data-v-080451fa]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-080451fa]:hover{background-color:#5a6268!important}.summary-card[data-v-080451fa]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-080451fa]:hover{transform:translateY(-2px)}.summary-icon[data-v-080451fa]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.custom-primary-bg[data-v-080451fa]{background-color:#01532b!important}.summary-details .summary-title[data-v-080451fa]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details .summary-subtitle[data-v-080451fa]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details .summary-amount[data-v-080451fa]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-080451fa]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.advance-card[data-v-080451fa],.brought-forward-card[data-v-080451fa],.outstanding-card[data-v-080451fa],.settlement-card[data-v-080451fa]{background:#01532b;color:#fff}.additional-summary[data-v-080451fa]{margin-bottom:24px}.stats-card[data-v-080451fa]{border-radius:8px;height:100px;transition:all .3s ease}.stats-card[data-v-080451fa]:hover{box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-2px)}.stats-number[data-v-080451fa]{color:#01532b;font-size:24px;font-weight:700;margin:0}.stats-label[data-v-080451fa]{color:#666;font-size:11px;line-height:1.2;margin:4px 0 0}.currency-breakdown-card[data-v-080451fa]{border-radius:8px;margin-bottom:24px}.currency-title[data-v-080451fa]{background:#01532b;color:#fff;font-weight:600}.currency-card[data-v-080451fa]{border-radius:8px;transition:all .3s ease}.currency-card[data-v-080451fa]:hover{border-color:#01532b;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-summary h4[data-v-080451fa]{border-bottom:1px solid #01532b;color:#01532b;font-weight:600;margin:0 0 12px;padding-bottom:8px}.currency-details p[data-v-080451fa]{font-size:13px;margin:4px 0}.currency-details strong[data-v-080451fa]{color:#01532b}.ministry-table-title[data-v-080451fa]{background:#01532b;color:#fff;font-weight:600}.ministry-table-header[data-v-080451fa]{background:#01532b!important}.ministry-table-footer[data-v-080451fa]{background:rgba(1,83,43,.8)!important;color:#fff}.custom-export-btn[data-v-080451fa]{border-color:#fff!important;color:#fff!important}.custom-export-btn[data-v-080451fa]:hover{background-color:#fff!important;color:#01532b!important}.bank-table-title[data-v-080451fa]{background:#01532b;color:#fff;font-weight:600}.bank-table-header[data-v-080451fa]{background:#01532b!important}.bank-table-footer[data-v-080451fa]{background:rgba(1,83,43,.8)!important;color:#fff}.table-card[data-v-080451fa]{border-radius:8px;margin-bottom:24px}.table-title[data-v-080451fa]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-080451fa]{max-width:300px}.search-field[data-v-080451fa] .v-icon,.search-field[data-v-080451fa] input{color:#fff!important}.report-table[data-v-080451fa]{background:#fff}.report-table[data-v-080451fa] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-080451fa] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-080451fa]{color:#01532b;font-family:monospace;font-size:13px}.amount-cell[data-v-080451fa]{font-weight:600;text-align:right}.amount-cell[data-v-080451fa],.exchange-rate-cell[data-v-080451fa]{display:block;font-family:monospace}.exchange-rate-cell[data-v-080451fa]{font-size:12px;text-align:center}.advance-amount[data-v-080451fa]{color:#01532b}.settlement-amount[data-v-080451fa]{color:#228b22}.outstanding-amount[data-v-080451fa]{color:#dc3545}.lcy-amount[data-v-080451fa]{color:#32cd32}.settlement-progress[data-v-080451fa]{width:100%}.progress-text[data-v-080451fa]{color:#fff;font-size:11px;font-weight:600;text-shadow:1px 1px 1px rgba(0,0,0,.5)}.ministry-cell[data-v-080451fa]{display:flex;flex-direction:column}.ministry-name[data-v-080451fa]{color:#01532b;font-size:13px;font-weight:600}.ministry-code[data-v-080451fa]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.dialog-header[data-v-080451fa]{background:#01532b!important;font-weight:600!important}.close-btn[data-v-080451fa],.dialog-header[data-v-080451fa]{color:#fff!important}.detail-item[data-v-080451fa]{font-size:14px;margin-bottom:12px}.detail-item strong[data-v-080451fa]{color:#01532b}.settlement-table[data-v-080451fa]{margin-top:16px}.settlement-table[data-v-080451fa] thead th{background-color:#01532b!important;color:#fff!important;font-weight:600!important}@media print{.action-buttons[data-v-080451fa],.filter-card[data-v-080451fa],.v-btn[data-v-080451fa]{display:none!important}.additional-summary[data-v-080451fa],.chart-card[data-v-080451fa],.currency-breakdown-card[data-v-080451fa],.summary-cards[data-v-080451fa]{page-break-inside:avoid}.report-header[data-v-080451fa]{background:#01532b!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-080451fa]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-080451fa]{font-size:24px}.action-buttons[data-v-080451fa]{flex-wrap:wrap;justify-content:center}.summary-icon[data-v-080451fa]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details .summary-amount[data-v-080451fa]{font-size:20px}.stats-card[data-v-080451fa]{height:80px}.stats-number[data-v-080451fa]{font-size:18px}.stats-label[data-v-080451fa]{font-size:10px}}.v-dialog .v-card-text[data-v-080451fa]{max-height:70vh;overflow-y:auto}.v-dialog .v-card-text[data-v-080451fa]::-webkit-scrollbar{width:6px}.v-dialog .v-card-text[data-v-080451fa]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}.v-dialog .v-card-text[data-v-080451fa]::-webkit-scrollbar-thumb{background:#01532b;border-radius:3px}.v-dialog .v-card-text[data-v-080451fa]::-webkit-scrollbar-thumb:hover{background:#014025}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1270:
+/***/ 1287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48,13 +48,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(385);
+var VCol = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(389);
+var VDataTable = __webpack_require__(397);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(342);
+var VDialog = __webpack_require__(346);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
@@ -62,28 +62,22 @@ var VDivider = __webpack_require__(120);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(90);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 var VProgressLinear = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(384);
+var VRow = __webpack_require__(388);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
-var VSimpleTable = __webpack_require__(160);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(383);
+var VSpacer = __webpack_require__(387);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/payment/index.vue?vue&type=template&id=567e9f41&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/payment/index.vue?vue&type=template&id=080451fa&scoped=true&
 
 
 
@@ -100,15 +94,13 @@ var VTextField = __webpack_require__(37);
 
 
 
-
-
-var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() {
+var paymentvue_type_template_id_080451fa_scoped_true_render = function render() {
   var _vm$selectedItem$mini, _vm$selectedItem$make;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "money-advance-report"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-567e9f41>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-567e9f41><h1 class=\"page-title\" data-v-567e9f41><i class=\"fas fa-chart-line\" data-v-567e9f41></i>\n        ລາຍງານ ລາຍຈ່າຍລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-567e9f41>Money Advance Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-567e9f41>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-080451fa>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-080451fa><h1 class=\"page-title\" data-v-080451fa><i class=\"fas fa-chart-line\" data-v-080451fa></i>\n        ລາຍງານ ລາຍຈ່າຍລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-080451fa>Money Advance Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-080451fa>", "</div>", [_c(VBtn["a" /* default */], {
     staticClass: "custom-btn export-btn",
     attrs: {
       "loading": _vm.exporting
@@ -128,25 +120,33 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
   }), _vm._v("\n        Print\n      ")])], 2)], 2), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
     staticClass: "filter-card mb-4",
     attrs: {
-      "elevation": "2"
+      "elevation": "1"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "filter-title d-flex align-center"
+    staticClass: "filter-title py-2"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2"
-  }, [_vm._v("mdi-filter")]), _vm._v("\n      ຕົວກອງ (Filters)\n    ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-4"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
-      "cols": "12",
-      "md": "4"
+      "small": ""
+    }
+  }, [_vm._v("mdi-filter")]), _vm._v("\n    ຕົວກອງ (Filters)\n  ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-3"
+  }, [_c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "sm": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "type": "date",
-      "label": "ຈາກວັນທີ (From Date)",
+      "label": "From",
       "outlined": "",
-      "dense": ""
+      "dense": "",
+      "hide-details": ""
     },
     on: {
       "change": _vm.applyFilters
@@ -160,15 +160,16 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "md": "4"
+      "cols": "6",
+      "sm": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "type": "date",
-      "label": "ຫາວັນທີ (To Date)",
+      "label": "To",
       "outlined": "",
-      "dense": ""
+      "dense": "",
+      "hide-details": ""
     },
     on: {
       "change": _vm.applyFilters
@@ -182,8 +183,8 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "md": "4"
+      "cols": "6",
+      "sm": "2"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
@@ -193,7 +194,8 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
       "label": "Ministry",
       "clearable": "",
       "outlined": "",
-      "dense": ""
+      "dense": "",
+      "hide-details": ""
     },
     on: {
       "change": _vm.applyFilters
@@ -205,10 +207,10 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
       },
       expression: "filters.ministryId"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "md": "4"
+      "cols": "6",
+      "sm": "2"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
@@ -218,7 +220,8 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
       "label": "Currency",
       "clearable": "",
       "outlined": "",
-      "dense": ""
+      "dense": "",
+      "hide-details": ""
     },
     on: {
       "change": _vm.applyFilters
@@ -231,67 +234,15 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
       expression: "filters.currencyId"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "d-flex align-center",
     attrs: {
       "cols": "12",
-      "md": "4"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.statusOptions,
-      "item-text": "text",
-      "item-value": "value",
-      "label": "Status",
-      "clearable": "",
-      "outlined": "",
-      "dense": ""
-    },
-    on: {
-      "change": _vm.applyFilters
-    },
-    model: {
-      value: _vm.filters.status,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "status", $$v);
-      },
-      expression: "filters.status"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "4"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.users,
-      "item-text": "cus_name",
-      "item-value": "id",
-      "label": "Maker",
-      "clearable": "",
-      "outlined": "",
-      "dense": ""
-    },
-    on: {
-      "change": _vm.applyFilters
-    },
-    model: {
-      value: _vm.filters.makerId,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "makerId", $$v);
-      },
-      expression: "filters.makerId"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mt-2"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "3"
+      "sm": "2"
     }
   }, [_c(VBtn["a" /* default */], {
-    staticClass: "custom-primary-bg white--text",
+    staticClass: "custom-primary-bg white--text mr-1",
     attrs: {
-      "block": "",
-      "outlined": "",
+      "small": "",
       "loading": _vm.loading
     },
     on: {
@@ -299,29 +250,21 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": "",
-      "color": "white"
+      "small": ""
     }
-  }, [_vm._v("mdi-refresh")]), _vm._v("\n            Refresh\n          ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "3"
-    }
-  }, [_c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-refresh")])], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "custom-secondary-btn",
     attrs: {
-      "block": "",
-      "outlined": "",
-      "color": "grey lighten-1"
+      "small": ""
     },
     on: {
       "click": _vm.resetFilters
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": ""
+      "small": ""
     }
-  }, [_vm._v("mdi-restore")]), _vm._v("\n            Reset\n          ")], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+  }, [_vm._v("mdi-restore")])], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4",
     attrs: {
       "dense": ""
@@ -478,436 +421,7 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
     staticClass: "summary-amount"
   }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForward)) + "\n                ")]), _vm._v(" "), _vm.summaryData.broughtForwardLcy ? _c('div', {
     staticClass: "summary-lcy"
-  }, [_vm._v("\n                  LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForwardLcy)) + "\n                ")]) : _vm._e()])])], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm.summaryData.totalRecords ? _c(VRow["a" /* default */], {
-    staticClass: "additional-summary mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "2"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "stats-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('h3', {
-    staticClass: "stats-number"
-  }, [_vm._v(_vm._s(_vm.summaryData.totalRecords || 0))]), _vm._v(" "), _c('p', {
-    staticClass: "stats-label"
-  }, [_vm._v("ທັງໝົດ"), _c('br'), _vm._v("Total Records")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "2"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "stats-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('h3', {
-    staticClass: "stats-number text-success"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryData.fullySettledCount || 0) + "\n          ")]), _vm._v(" "), _c('p', {
-    staticClass: "stats-label"
-  }, [_vm._v("ຊຳລະເຕັມ"), _c('br'), _vm._v("Fully Settled")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "2"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "stats-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('h3', {
-    staticClass: "stats-number text-warning"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryData.partiallySettledCount || 0) + "\n          ")]), _vm._v(" "), _c('p', {
-    staticClass: "stats-label"
-  }, [_vm._v("ຊຳລະບາງສ່ວນ"), _c('br'), _vm._v("Partial")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "2"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "stats-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('h3', {
-    staticClass: "stats-number text-error"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryData.unsettledCount || 0) + "\n          ")]), _vm._v(" "), _c('p', {
-    staticClass: "stats-label"
-  }, [_vm._v("ຍັງບໍ່ຊຳລະ"), _c('br'), _vm._v("Unsettled")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "2"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "stats-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('h3', {
-    staticClass: "stats-number text-error"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryData.overdueCount || 0) + "\n          ")]), _vm._v(" "), _c('p', {
-    staticClass: "stats-label"
-  }, [_vm._v("ເກີນກຳນົດ"), _c('br'), _vm._v("Overdue")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "2"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "stats-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('h3', {
-    staticClass: "stats-number"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryData.averageSettlementPercentage || 0) + "%\n          ")]), _vm._v(" "), _c('p', {
-    staticClass: "stats-label"
-  }, [_vm._v("ເຄື່ອງຊຳລະ"), _c('br'), _vm._v("Avg Settlement")])])], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.summaryData.currencyBreakdown && _vm.summaryData.currencyBreakdown.length > 0 ? _c(VCard["a" /* default */], {
-    staticClass: "currency-breakdown-card mb-4",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "currency-title"
-  }, [_c('i', {
-    staticClass: "fas fa-coins"
-  }), _vm._v("\n      ສະຫຼູບຕາມສະກຸນເງິນ (Currency Breakdown)\n    ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], _vm._l(_vm.summaryData.currencyBreakdown, function (currency) {
-    return _c(VCol["a" /* default */], {
-      key: currency.currencyCode,
-      attrs: {
-        "cols": "12",
-        "md": "4"
-      }
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "currency-card",
-      attrs: {
-        "outlined": ""
-      }
-    }, [_c(components_VCard["c" /* VCardText */], [_c('div', {
-      staticClass: "currency-summary"
-    }, [_c('h4', [_vm._v("\n                  " + _vm._s(currency.currencyCode) + " - " + _vm._s(currency.currencyName) + "\n                ")]), _vm._v(" "), _c('div', {
-      staticClass: "currency-details"
-    }, [_c('p', [_c('strong', [_vm._v("ລວມລາຍຈ່າຍ:")]), _vm._v("\n                    " + _vm._s(_vm.formatCurrency(currency.totalAdvances)) + "\n                  ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("ລວມຊຳລະ:")]), _vm._v("\n                    " + _vm._s(_vm.formatCurrency(currency.totalSettlements)) + "\n                  ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("ຍອດຄ້າງ:")]), _vm._v("\n                    " + _vm._s(_vm.formatCurrency(currency.outstandingBalance)) + "\n                  ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("ເທົ່າກັບກີບ:")]), _vm._v("\n                    " + _vm._s(_vm.formatCurrency(currency.lcyEquivalent)) + "\n                  ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("ຈຳນວນ:")]), _vm._v(" " + _vm._s(currency.count) + " ລາຍການ")])])])])], 1)], 1);
-  }), 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "ministry-table-title py-2 px-4 d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "white"
-    }
-  }, [_vm._v("mdi-office-building")]), _vm._v(" "), _c('span', {
-    staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ຕາມກົມ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "custom-export-btn mr-2",
-    attrs: {
-      "small": "",
-      "outlined": "",
-      "disabled": !_vm.ministrySummaryReport.length,
-      "loading": _vm.exporting
-    },
-    on: {
-      "click": _vm.exportMinistryReportToExcel
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": "",
-      "left": ""
-    }
-  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "white--text",
-    attrs: {
-      "icon": "",
-      "small": "",
-      "loading": _vm.loadingMinistryReport
-    },
-    on: {
-      "click": _vm.refreshMinistryReport
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.loadingMinistryReport ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "indeterminate": "",
-      "color": "#01532B"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-caption"
-  }, [_vm._v("Loading ministry report...")])], 1) : !_vm.ministrySummaryReport.length ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
-    }
-  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-subtitle-2 grey--text"
-  }, [_vm._v("\n              No ministry data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
-    attrs: {
-      "dense": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function () {
-        var _vm$ministryTotals2;
-        return [_c('thead', [_c('tr', {
-          staticClass: "ministry-table-header"
-        }, [_c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("#")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Ministry Code\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Ministry Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Count\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          return _c('th', {
-            key: 'head-' + currency,
-            staticClass: "white--text text-caption font-weight-bold text-right"
-          }, [_vm._v("\n                    " + _vm._s(currency) + "\n                  ")]);
-        }), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Total (LAK)\n                  ")])], 2)]), _vm._v(" "), _c('tbody', [_vm._l(_vm.ministrySummaryReport, function (item, index) {
-          return _c('tr', {
-            key: item.ministryId,
-            class: {
-              'grey lighten-5': index % 2 === 0,
-              'orange lighten-4': item.ministryId === 'NO_MINISTRY'
-            }
-          }, [_c('td', {
-            staticClass: "text-caption text-center"
-          }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text': item.ministryId === 'NO_MINISTRY'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.ministryCode) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text font-italic': item.ministryId === 'NO_MINISTRY'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.ministryName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2 text-right"
-          }, [_vm._v("\n                    " + _vm._s(item.settlementCount) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-            var _item$amounts;
-            return _c('td', {
-              key: 'amt-' + currency,
-              staticClass: "text-body-2 text-right"
-            }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts = item.amounts) === null || _item$amounts === void 0 ? void 0 : _item$amounts[currency]) || 0)) + "\n                  ")]);
-          }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold success--text"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
-        }), _vm._v(" "), _c('tr', {
-          staticClass: "ministry-table-footer"
-        }, [_c('td', {
-          staticClass: "font-weight-bold text-caption",
-          attrs: {
-            "colspan": "3"
-          }
-        }, [_vm._v("\n                    ລວມ\n                  ")]), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.ministrySummaryReport.reduce((sum, m) => sum + m.settlementCount, 0)) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          var _vm$ministryTotals, _vm$ministryTotals$cu;
-          return _c('td', {
-            key: 'sum-' + currency,
-            staticClass: "text-right font-weight-bold text-body-2"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals = _vm.ministryTotals) === null || _vm$ministryTotals === void 0 ? void 0 : (_vm$ministryTotals$cu = _vm$ministryTotals.currencyTotals) === null || _vm$ministryTotals$cu === void 0 ? void 0 : _vm$ministryTotals$cu[currency]) || 0)) + "\n                  ")]);
-        }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 white--text"
-        }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals2 = _vm.ministryTotals) === null || _vm$ministryTotals2 === void 0 ? void 0 : _vm$ministryTotals2.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
-      },
-      proxy: true
-    }])
-  })], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "bank-table-title py-2 px-4 d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "white"
-    }
-  }, [_vm._v("mdi-bank")]), _vm._v(" "), _c('span', {
-    staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ບັນຊີທະນາຄານ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "custom-export-btn mr-2",
-    attrs: {
-      "small": "",
-      "outlined": "",
-      "disabled": !_vm.bankAccountSummaryReport.length,
-      "loading": _vm.exporting
-    },
-    on: {
-      "click": _vm.exportBankAccountReportToExcel
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": "",
-      "left": ""
-    }
-  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "white--text",
-    attrs: {
-      "icon": "",
-      "small": "",
-      "loading": _vm.loadingBankAccountReport
-    },
-    on: {
-      "click": _vm.refreshBankAccountReport
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.loadingBankAccountReport ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "indeterminate": "",
-      "color": "#01532B"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-caption"
-  }, [_vm._v("\n              Loading bank account report...\n            ")])], 1) : !_vm.bankAccountSummaryReport.length ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
-    }
-  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-subtitle-2 grey--text"
-  }, [_vm._v("\n              No bank account data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
-    attrs: {
-      "dense": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function () {
-        var _vm$bankAccountTotals3;
-        return [_c('thead', [_c('tr', {
-          staticClass: "bank-table-header"
-        }, [_c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("#")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Account Number\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Account Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Bank Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Type\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Count\n                  ")]), _vm._v(" "), _vm._l(_vm.bankAccountCurrencyList, function (currency) {
-          return _c('th', {
-            key: 'bank-head-' + currency,
-            staticClass: "white--text text-caption font-weight-bold text-right"
-          }, [_vm._v("\n                    " + _vm._s(currency) + "\n                  ")]);
-        }), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Total (LAK)\n                  ")])], 2)]), _vm._v(" "), _c('tbody', [_vm._l(_vm.bankAccountSummaryReport, function (item, index) {
-          return _c('tr', {
-            key: item.bankAccountId,
-            class: {
-              'grey lighten-5': index % 2 === 0,
-              'orange lighten-4': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_c('td', {
-            staticClass: "text-caption text-center"
-          }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.accountNumber) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text font-italic': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.accountName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2"
-          }, [_vm._v("\n                    " + _vm._s(item.bankName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2"
-          }, [_c(VChip["a" /* default */], {
-            attrs: {
-              "small": "",
-              "outlined": ""
-            }
-          }, [_vm._v("\n                      " + _vm._s(item.accountType) + "\n                    ")])], 1), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2 text-right"
-          }, [_vm._v("\n                    " + _vm._s(item.settlementCount) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.bankAccountCurrencyList, function (currency) {
-            var _item$amounts2;
-            return _c('td', {
-              key: 'bank-amt-' + currency,
-              staticClass: "text-body-2 text-right"
-            }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts2 = item.amounts) === null || _item$amounts2 === void 0 ? void 0 : _item$amounts2[currency]) || 0)) + "\n                  ")]);
-          }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold success--text"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
-        }), _vm._v(" "), _c('tr', {
-          staticClass: "bank-table-footer"
-        }, [_c('td', {
-          staticClass: "font-weight-bold text-caption",
-          attrs: {
-            "colspan": "5"
-          }
-        }, [_vm._v("\n                    ລວມ\n                  ")]), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.bankAccountSummaryReport.reduce((sum, b) => sum + b.settlementCount, 0)) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.bankAccountCurrencyList, function (currency) {
-          var _vm$bankAccountTotals, _vm$bankAccountTotals2;
-          return _c('td', {
-            key: 'bank-sum-' + currency,
-            staticClass: "text-right font-weight-bold text-body-2"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals = _vm.bankAccountTotals) === null || _vm$bankAccountTotals === void 0 ? void 0 : (_vm$bankAccountTotals2 = _vm$bankAccountTotals.currencyTotals) === null || _vm$bankAccountTotals2 === void 0 ? void 0 : _vm$bankAccountTotals2[currency]) || 0)) + "\n                  ")]);
-        }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 white--text"
-        }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals3 = _vm.bankAccountTotals) === null || _vm$bankAccountTotals3 === void 0 ? void 0 : _vm$bankAccountTotals3.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
-      },
-      proxy: true
-    }])
-  })], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+  }, [_vm._v("\n                  LCY: " + _vm._s(_vm.formatCurrency(_vm.summaryData.broughtForwardLcy)) + "\n                ")]) : _vm._e()])])], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
     staticClass: "table-card",
     attrs: {
       "elevation": "2"
@@ -1248,10 +762,10 @@ var paymentvue_type_template_id_567e9f41_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/payment/index.vue?vue&type=template&id=567e9f41&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/report/MA/payment/index.vue?vue&type=template&id=080451fa&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/payment/index.vue?vue&type=script&lang=js&
-var paymentvue_type_script_lang_js_ = __webpack_require__(688);
+var paymentvue_type_script_lang_js_ = __webpack_require__(696);
 
 // CONCATENATED MODULE: ./pages/admin/report/MA/payment/index.vue?vue&type=script&lang=js&
  /* harmony default export */ var MA_paymentvue_type_script_lang_js_ = (paymentvue_type_script_lang_js_["a" /* default */]); 
@@ -1264,7 +778,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1050)
+  var style0 = __webpack_require__(1063)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1273,11 +787,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_paymentvue_type_script_lang_js_,
-  paymentvue_type_template_id_567e9f41_scoped_true_render,
+  paymentvue_type_template_id_080451fa_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "567e9f41",
+  "080451fa",
   "64bc55d8"
   
 )
@@ -1286,7 +800,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 688:
+/***/ 696:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1316,39 +830,39 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(104);
 /* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(344);
+/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(348);
 /* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(345);
+/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(349);
 /* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(346);
+/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(350);
 /* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(347);
+/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(351);
 /* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(348);
+/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(352);
 /* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(349);
+/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(353);
 /* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(350);
+/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(354);
 /* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(351);
+/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(355);
 /* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(352);
+/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(356);
 /* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(353);
+/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(357);
 /* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(354);
+/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(358);
 /* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(355);
+/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(359);
 /* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(356);
+/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(360);
 /* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(357);
+/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(361);
 /* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(358);
+/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(362);
 /* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(359);
+/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(363);
 /* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(796);
+/* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(805);
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(chart_js_auto__WEBPACK_IMPORTED_MODULE_29__);
 
 
@@ -1974,7 +1488,7 @@ var component = Object(componentNormalizer["a" /* default */])(
     async applyFilters() {
       this.loading = true;
       try {
-        // Build query params
+        var _this$summaryData, _this$summaryData$cur;
         const params = new URLSearchParams();
         Object.keys(this.filters).forEach(key => {
           if (this.filters[key]) {
@@ -1992,21 +1506,38 @@ var component = Object(componentNormalizer["a" /* default */])(
           this.summaryData = response.data.summary || this.calculateSummary();
         }
 
-        // Process ministry report data with the same dataset
-        const processedMinistryData = this.processMinistryReportData({
-          data: this.reportData
-        });
-        this.ministrySummaryReport = processedMinistryData.ministrySummaryReport;
-        this.ministryTotals = processedMinistryData.ministryTotals;
-        this.currencyList = processedMinistryData.currencyList;
+        // ===== ADD THESE DEBUG LINES =====
+        console.log('=== DEBUG INFORMATION ===');
+        console.log('Full API Response:', response.data);
+        console.log('reportData type:', typeof this.reportData);
+        console.log('reportData is Array?', Array.isArray(this.reportData));
+        console.log('reportData length:', this.reportData.length);
+        console.log('First reportData item:', this.reportData[0]);
+        console.log('Summary data:', this.summaryData);
+        console.log('========================');
 
-        // Process bank account report data with the same dataset
-        const processedBankAccountData = this.processBankAccountReportData({
-          data: this.reportData
-        });
-        this.bankAccountSummaryReport = processedBankAccountData.bankAccountSummaryReport;
-        this.bankAccountTotals = processedBankAccountData.bankAccountTotals;
-        this.bankAccountCurrencyList = processedBankAccountData.bankAccountCurrencyList;
+        // Check if we should use summary-based approach
+        if (this.reportData.length === 0 && ((_this$summaryData = this.summaryData) === null || _this$summaryData === void 0 ? void 0 : (_this$summaryData$cur = _this$summaryData.currencyBreakdown) === null || _this$summaryData$cur === void 0 ? void 0 : _this$summaryData$cur.length) > 0) {
+          console.log('Using summary-based processing');
+          this.processSummaryBasedReports();
+        } else {
+          console.log('Using detailed data processing');
+          // Process ministry report data with the same dataset
+          const processedMinistryData = this.processMinistryReportData({
+            data: this.reportData
+          });
+          this.ministrySummaryReport = processedMinistryData.ministrySummaryReport;
+          this.ministryTotals = processedMinistryData.ministryTotals;
+          this.currencyList = processedMinistryData.currencyList;
+
+          // Process bank account report data with the same dataset
+          const processedBankAccountData = this.processBankAccountReportData({
+            data: this.reportData
+          });
+          this.bankAccountSummaryReport = processedBankAccountData.bankAccountSummaryReport;
+          this.bankAccountTotals = processedBankAccountData.bankAccountTotals;
+          this.bankAccountCurrencyList = processedBankAccountData.bankAccountCurrencyList;
+        }
 
         // Update charts after data is loaded
         this.$nextTick(() => {
@@ -2018,6 +1549,63 @@ var component = Object(componentNormalizer["a" /* default */])(
       } finally {
         this.loading = false;
       }
+    },
+    // Add this method to handle summary-based processing
+    processSummaryBasedReports() {
+      console.log('Processing summary-based reports with:', this.summaryData);
+      const currencyBreakdown = this.summaryData.currencyBreakdown || [];
+
+      // Create ministry report from summary
+      this.ministrySummaryReport = [{
+        ministryId: 'SUMMARY',
+        ministryCode: 'ALL',
+        ministryName: 'ສະຫຼຸບລວມ (All Ministries)',
+        settlementCount: this.summaryData.totalRecords || 0,
+        amounts: {},
+        totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0
+      }];
+
+      // Create bank account report from summary
+      this.bankAccountSummaryReport = [{
+        bankAccountId: 'SUMMARY',
+        accountNumber: 'ALL',
+        accountName: 'ສະຫຼຸບລວມ (All Accounts)',
+        bankName: 'All Banks',
+        accountType: 'Summary',
+        settlementCount: this.summaryData.totalRecords || 0,
+        amounts: {},
+        totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0
+      }];
+
+      // Process currency breakdown
+      const currencyTotals = {};
+      const currencyList = [];
+      currencyBreakdown.forEach(item => {
+        const currencyCode = item.currencyCode || 'LAK';
+        currencyList.push(currencyCode);
+        currencyTotals[currencyCode] = item.totalAdvances || 0;
+
+        // Add to reports
+        this.ministrySummaryReport[0].amounts[currencyCode] = item.totalAdvances || 0;
+        this.bankAccountSummaryReport[0].amounts[currencyCode] = item.totalAdvances || 0;
+      });
+
+      // Set totals
+      this.ministryTotals = {
+        currencyTotals,
+        totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0
+      };
+      this.bankAccountTotals = {
+        currencyTotals,
+        totalLakEquivalent: this.summaryData.totalAdvancesLcy || 0
+      };
+      this.currencyList = currencyList.sort();
+      this.bankAccountCurrencyList = currencyList.sort();
+      console.log('Summary-based reports created:', {
+        ministry: this.ministrySummaryReport,
+        bankAccount: this.bankAccountSummaryReport,
+        currencies: currencyList
+      });
     },
     resetFilters() {
       this.filters = {
@@ -2309,11 +1897,11 @@ var component = Object(componentNormalizer["a" /* default */])(
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(341)["URL"], __webpack_require__(341)["URLSearchParams"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(345)["URL"], __webpack_require__(345)["URLSearchParams"]))
 
 /***/ }),
 
-/***/ 689:
+/***/ 697:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2338,10 +1926,6 @@ __webpack_require__(101);
 __webpack_require__(102);
 __webpack_require__(103);
 __webpack_require__(104);
-__webpack_require__(344);
-__webpack_require__(345);
-__webpack_require__(346);
-__webpack_require__(347);
 __webpack_require__(348);
 __webpack_require__(349);
 __webpack_require__(350);
@@ -2354,9 +1938,13 @@ __webpack_require__(356);
 __webpack_require__(357);
 __webpack_require__(358);
 __webpack_require__(359);
-__webpack_require__(367);
-var helpers_dataset = __webpack_require__(690);
-__webpack_require__(364);
+__webpack_require__(360);
+__webpack_require__(361);
+__webpack_require__(362);
+__webpack_require__(363);
+__webpack_require__(371);
+var helpers_dataset = __webpack_require__(698);
+__webpack_require__(368);
 class Animator {
   constructor() {
     this._request = null;
@@ -14481,7 +14069,7 @@ exports.scales = scales;
 
 /***/ }),
 
-/***/ 690:
+/***/ 698:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14493,10 +14081,6 @@ exports.scales = scales;
  */
 
 
-__webpack_require__(344);
-__webpack_require__(345);
-__webpack_require__(346);
-__webpack_require__(347);
 __webpack_require__(348);
 __webpack_require__(349);
 __webpack_require__(350);
@@ -14509,6 +14093,10 @@ __webpack_require__(356);
 __webpack_require__(357);
 __webpack_require__(358);
 __webpack_require__(359);
+__webpack_require__(360);
+__webpack_require__(361);
+__webpack_require__(362);
+__webpack_require__(363);
 __webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
@@ -14522,7 +14110,7 @@ __webpack_require__(101);
 __webpack_require__(102);
 __webpack_require__(103);
 __webpack_require__(104);
-var color$1 = __webpack_require__(364);
+var color$1 = __webpack_require__(368);
 
 /**
  * @namespace Chart.helpers
@@ -17544,10 +17132,10 @@ exports.valueOrDefault = valueOrDefault;
 
 /***/ }),
 
-/***/ 796:
+/***/ 805:
 /***/ (function(module, exports, __webpack_require__) {
 
-const chartjs = __webpack_require__(689);
+const chartjs = __webpack_require__(697);
 const {
   Chart,
   registerables
@@ -17557,20 +17145,20 @@ module.exports = Object.assign(Chart, chartjs);
 
 /***/ }),
 
-/***/ 797:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1051);
+var content = __webpack_require__(1064);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("459b256e", content, true, context)
+  add("021db678", content, true, context)
 };
 
 /***/ })
