@@ -28,13 +28,13 @@
         <div class="pa-16">
           <v-row>
             <v-col cols="12">
-              <!-- <p class="text-center"
-                style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
-                DCOMMERCE </p> -->
               <p class="text-center"
                 style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
-                ລະບົບລາຍຮັບ ແລະ ລາຍຈ່າຍ </p>
-              <!-- <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2> -->
+                DCOMMERCE </p>
+              <!-- <p class="text-center"
+                style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
+                ລະບົບລາຍຮັບ ແລະ ລາຍຈ່າຍ </p> -->
+              <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2>
             </v-col>
           </v-row>
           <v-card-text>
