@@ -298,10 +298,23 @@
           <span v-else class="no-data">-</span>
         </template>
 
-        <!-- Amount Column -->
+        <!--Paid Amount Column -->
         <template #item.amount="{ item }">
           <div class="amount-column">
-            <span class="amount-value">{{ formatCurrency(item.amount,item.currency.code) }}</span>
+            <span class="amount-value">{{
+              formatCurrency(item.amount, item.currency.code)
+            }}</span>
+            <span v-if="item.currency" class="currency-code">{{
+              item.currency.code
+            }}</span>
+          </div>
+        </template>
+        <!-- Settle Amount Column -->
+        <template #item.settleLine="{ item }">
+          <div class="amount-column">
+            <span class="amount-value">{{
+              formatCurrency(getSettleAmount(item.settlementLine || 0), item.currency.code)
+            }}</span>
             <span v-if="item.currency" class="currency-code">{{
               item.currency.code
             }}</span>
@@ -689,7 +702,8 @@ export default {
         { text: 'ID', value: 'id', width: '60px', sortable: true },
         { text: 'ຜູ້ລົງ', value: 'maker', width: '100px', sortable: true },
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
-        { text: 'ຈຳນວນ', value: 'amount', width: '100px', sortable: true },
+        { text: 'ຈຳນວນ ຈ່າຍ', value: 'amount', width: '100px', sortable: true },
+        { text: 'ຈຳນວນ ຮັບ', value: 'settleLine', width: '100px', sortable: true },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
         {
           text: 'ບັນຊີ',
@@ -773,6 +787,12 @@ export default {
   },
 
   methods: {
+    getSettleAmount(settlements) {
+      let total = settlements.reduce((total, item) => {
+        return total + item.amount
+      }, 0)
+      return total
+    },
     // Date formatting and handling methods
     formatDate(date) {
       if (!date) return null

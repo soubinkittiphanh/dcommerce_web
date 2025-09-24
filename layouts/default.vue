@@ -14,14 +14,14 @@
       <v-layout column align-center>
         <v-flex class="shadow mt-4 mb-4">
           <v-img
-            :src="require(`~/assets/image/${this.companyData.dcLogo}`)"
+            v-if="companyData && companyData.dcLogo"
+            :src="require(`~/assets/image/${companyData.dcLogo}`)"
             style="max-height: 1400px"
           />
         </v-flex>
       </v-layout>
       <v-list>
         <!-- Home -->
-        <!-- <v-list-item to="/admin/moneyAdvance" router exact>  -->
         <v-list-item to="/admin" router exact>
           <v-list-item-action>
             <v-icon color="white">mdi mdi-home-circle-outline</v-icon>
@@ -33,10 +33,11 @@
             />
           </v-list-item-content>
         </v-list-item>
+        
         <!-- Group A -->
         <v-divider></v-divider>
         <v-list-group
-          v-for="(menu, i) in myMenu"
+          v-for="(menu, i) in safeMenu"
           :key="i"
           :prepend-icon="menu.icon"
           color="white"
@@ -52,7 +53,7 @@
 
           <!-- Group A menu items -->
           <v-list-item
-            v-for="(item, i) in menu.menuLines"
+            v-for="(item, i) in (menu.menuLines || [])"
             :key="i"
             :to="item.path"
             router
@@ -94,7 +95,7 @@
           <v-card-text style="height: 300px">
             <v-radio-group v-model="terminalSelected" column>
               <v-radio
-                v-for="terminal in findAllTerminal"
+                v-for="terminal in safeTerminals"
                 :key="terminal.id"
                 :label="terminal.name + ' - ' + terminal.description"
                 :value="terminal.id"
@@ -114,19 +115,23 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-container>
+      <v-container fluid>
         <Nuxt />
       </v-container>
     </v-main>
+    
     <v-footer app>
       <v-spacer></v-spacer>
-      <span
-        >&copy;{{ new Date().getFullYear() }} Dcommerce: V.R23.0.5 user:
+      <span v-if="user">
+        &copy;{{ new Date().getFullYear() }} Dcommerce: V.R23.0.5 user:
         {{ user.cus_name }} id: {{ user.id }}
       </span>
-      <!-- FIX 1: Add null check for currentTerminal -->
+      <span v-else>
+        &copy;{{ new Date().getFullYear() }} Dcommerce: V.R23.0.5
+      </span>
+      
       <v-chip
-        v-if="findSelectedTerminal && currentTerminal"
+        v-if="currentTerminal"
         class="ma-2"
         color="warning"
         variant="outlined"
@@ -141,6 +146,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { hostName, mainCompanyInfo } from '~/common/api'
+
 export default {
   data() {
     return {
@@ -157,22 +163,36 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js',
+      dataLoaded: false,
     }
   },
-  created() {
-    // FIX 2: Add null check before setting terminalSelected
-    if (this.findSelectedTerminal) {
-      this.terminalSelected = this.findSelectedTerminal
+
+  async created() {
+    // Initialize data and handle potential errors
+    try {
+      await this.initializeApp()
+    } catch (error) {
+      console.error('Error initializing app:', error)
     }
   },
-  mounted() {
-    this.checkAllInitData()
-    this.loadMenu()
-    window.addEventListener('beforeunload', this.checkAllInitData)
+
+  async mounted() {
+    try {
+      await this.checkAllInitData()
+      await this.loadMenu()
+      this.dataLoaded = true
+    } catch (error) {
+      console.error('Error in mounted:', error)
+    }
+    
+    window.addEventListener('beforeunload', this.clearInterval)
   },
+
   beforeDestroy() {
+    this.clearInterval()
     window.removeEventListener('beforeunload', this.clearInterval)
   },
+
   computed: {
     ...mapGetters([
       'findSelectedTerminal',
@@ -180,100 +200,140 @@ export default {
       'findAllLocation',
       'currentSelectedLocation',
     ]),
+
     user() {
-      return this.$auth.user || ''
+      return this.$auth && this.$auth.user ? this.$auth.user : null
     },
+
     companyData() {
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
-      return mainCompanyInfo()
+      try {
+        return mainCompanyInfo() || {}
+      } catch (error) {
+        console.error('Error getting company data:', error)
+        return {}
+      }
     },
+
+    safeTerminals() {
+      return Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
+    },
+
+    safeMenu() {
+      return Array.isArray(this.myMenu) ? this.myMenu : []
+    },
+
     currentTerminal() {
-      console.log(
-        `ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`
-      )
-      // FIX 3: Add proper null checks
-      if (!this.findAllTerminal || this.findAllTerminal.length === 0 || !this.findSelectedTerminal) {
+      if (!this.safeTerminals.length || !this.findSelectedTerminal) {
         return null
       }
-      return this.findAllTerminal.find(
-        (el) => el['id'] == this.findSelectedTerminal
+      
+      return this.safeTerminals.find(
+        (el) => el && el.id == this.findSelectedTerminal
       ) || null
     },
   },
+
   methods: {
+    ...mapActions(['initiateData', 'setSelectedTerminal', 'setSelectedLocation']),
+
+    async initializeApp() {
+      // Set default terminal if available
+      if (this.findSelectedTerminal) {
+        this.terminalSelected = this.findSelectedTerminal
+      }
+    },
+
     isGranted(code) {
-      // FIX 4: Add null checks for user data
       if (!this.user || !this.user.userGroup || !this.user.userGroup.authorities) {
         return false
       }
-      const grantedCodes = this.user.userGroup.authorities.map((el) => el.code)
-      console.log(`Grand code len: ${grantedCodes.length}`)
-      return grantedCodes.includes(code)
+      
+      try {
+        const grantedCodes = this.user.userGroup.authorities.map((el) => el.code)
+        return grantedCodes.includes(code)
+      } catch (error) {
+        console.error('Error checking permissions:', error)
+        return false
+      }
     },
 
     clearInterval() {
-      clearInterval(this.intervalId)
+      if (this.intervalId) {
+        clearInterval(this.intervalId)
+        this.intervalId = null
+      }
     },
-    ...mapActions(['initiateData']),
-    checkAllInitData() {
+
+    async checkAllInitData() {
       console.info(
-        `...loading ${
-          this.findAllTerminal.length
-        }... ${new Date().toLocaleTimeString()}`
+        `...loading ${this.safeTerminals.length}... ${new Date().toLocaleTimeString()}`
       )
-      if (this.findAllTerminal.length == 0) {
-        console.error(`Data missing need to reload`)
-        this.initData()
-      }
       
-      // FIX 5: Add proper null checks before accessing array
-      if (!this.currentSelectedLocation && this.findAllTerminal.length > 0) {
-        this.terminalSelected = this.findAllTerminal[0]['id']
+      if (this.safeTerminals.length === 0) {
+        console.error('Data missing, need to reload')
+        await this.initData()
+      }
+
+      if (!this.currentSelectedLocation && this.safeTerminals.length > 0) {
+        this.terminalSelected = this.safeTerminals[0].id
       }
     },
-    initData() {
-      this.initiateData(this.$axios)
-    },
-    async loadMenu() {
+
+    async initData() {
       try {
-        console.log(`===> Loading user menu`)
-        // FIX 6: Add null check for user data
-        if (!this.user || !this.user.userGroup || !this.user.userGroup.id) {
-          console.error('User or userGroup data is not available')
-          return
-        }
+        await this.initiateData(this.$axios)
+      } catch (error) {
+        console.error('Error initializing data:', error)
+      }
+    },
+
+    async loadMenu() {
+      if (!this.user || !this.user.userGroup || !this.user.userGroup.id) {
+        console.warn('User or userGroup data is not available')
+        this.myMenu = []
+        return
+      }
+
+      try {
         const response = await this.$axios.get(
           `api/group/find/${this.user.userGroup.id}`
         )
-        this.myMenu = response.data['menuHeaders'] || []
+        this.myMenu = response.data && response.data.menuHeaders 
+          ? response.data.menuHeaders 
+          : []
       } catch (error) {
         console.error('Error loading menu:', error)
         this.myMenu = []
       }
     },
+
     switchTerminal() {
-      // FIX 7: Add validation before switching terminal
-      if (!this.terminalSelected || this.findAllTerminal.length === 0) {
+      if (!this.terminalSelected || this.safeTerminals.length === 0) {
         console.error('Invalid terminal selection')
         return
       }
-      
-      this.setSelectedTerminal(this.terminalSelected)
-      const selectedTerminal = this.findAllTerminal.find((el) => el.id == this.terminalSelected)
-      
-      if (selectedTerminal && selectedTerminal.locationId) {
-        const location = this.findAllLocation.find(
-          (el) => el.id == selectedTerminal.locationId
+
+      try {
+        this.setSelectedTerminal(this.terminalSelected)
+        const selectedTerminal = this.safeTerminals.find(
+          (el) => el.id == this.terminalSelected
         )
-        if (location) {
-          this.setSelectedLocation(location)
+
+        if (selectedTerminal && selectedTerminal.locationId) {
+          const location = this.findAllLocation.find(
+            (el) => el.id == selectedTerminal.locationId
+          )
+          if (location) {
+            this.setSelectedLocation(location)
+          }
         }
+
+        this.mainComponentKey += 1
+        this.terminalDialog = false
+      } catch (error) {
+        console.error('Error switching terminal:', error)
       }
-      
-      this.mainComponentKey += 1
-      this.terminalDialog = false
     },
-    ...mapActions(['setSelectedTerminal', 'setSelectedLocation']),
   },
 }
 </script>
@@ -281,5 +341,26 @@ export default {
 <style scoped>
 * {
   font-family: 'noto sans lao';
+}
+
+/* Fix potential scrolling issues */
+.v-application {
+  overflow: auto !important;
+}
+
+.v-main {
+  overflow-y: auto !important;
+  height: 100vh !important;
+}
+
+.v-container {
+  min-height: calc(100vh - 64px);
+  padding-bottom: 60px; /* Account for footer */
+}
+
+/* Ensure proper page flow */
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>

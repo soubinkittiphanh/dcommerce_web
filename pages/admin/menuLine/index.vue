@@ -118,6 +118,12 @@ export default {
           sortable: true,
         },
         {
+          text: 'Path',
+          align: 'center',
+          value: 'path',
+          sortable: true,
+        },
+        {
           text: 'View/Update',
           align: 'end',
           value: 'edit',

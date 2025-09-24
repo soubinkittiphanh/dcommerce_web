@@ -94,7 +94,7 @@
               Refresh
             </v-btn>
           </v-col>
-          
+
           <v-col cols="12" md="3">
             <v-btn
               class="custom-secondary-btn"
@@ -215,6 +215,19 @@
         <i class="fas fa-table"></i>
         ລາຍລະອຽດການຈ່າຍເງິນ (Payment Details)
         <v-spacer></v-spacer>
+        
+        <!-- Group toggle button -->
+        <v-btn-toggle v-model="viewMode" mandatory class="mr-4">
+          <v-btn value="flat" small>
+            <v-icon small>mdi-view-list</v-icon>
+            ແບບລາຍການ
+          </v-btn>
+          <v-btn value="grouped" small>
+            <v-icon small>mdi-view-tree</v-icon>
+            ແບບກຸ່ມ
+          </v-btn>
+        </v-btn-toggle>
+        
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -229,16 +242,145 @@
 
       <v-data-table
         :headers="tableHeaders"
-        :items="reportData"
+        :items="currentDisplayData"
         :search="search"
         :loading="loading"
         class="report-table"
-        :items-per-page="25"
+        :items-per-page="viewMode === 'grouped' ? -1 : 25"
         :footer-props="{
-          itemsPerPageOptions: [10, 25, 50, 100],
+          itemsPerPageOptions: viewMode === 'grouped' ? [-1] : [10, 25, 50, 100],
           itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
         }"
+        :hide-default-footer="viewMode === 'grouped'"
+        :custom-sort="customSort"
       >
+        <!-- Custom item template for grouped view -->
+        <template v-slot:item="{ item }" v-if="viewMode === 'grouped'">
+          <!-- Ministry Header Row -->
+          <tr v-if="item.isMinistryHeader" class="ministry-header-row">
+            <td :colspan="tableHeaders.length" class="ministry-header-cell">
+              <div class="ministry-header-content">
+                <v-icon color="white" class="mr-2">mdi-office-building</v-icon>
+                <strong>{{ item.ministryName }}</strong>
+                <v-spacer></v-spacer>
+                <span class="ministry-record-count">{{ item.recordCount }} ລາຍການ</span>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Currency Header Row -->
+          <tr v-else-if="item.isCurrencyHeader" class="currency-header-row">
+            <td :colspan="tableHeaders.length" class="currency-header-cell">
+              <div class="currency-header-content">
+                <v-chip small :color="getCurrencyColor(item.currencyCode)" text-color="white" class="mr-2">
+                  {{ item.currencyCode }}
+                </v-chip>
+                <span>{{ item.recordCount }} ລາຍການ ({{ item.recordCount }} Records)</span>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Currency Subtotal Row -->
+          <tr v-else-if="item.isCurrencySubtotal" class="currency-subtotal-row">
+            <td class="subtotal-label">{{ item.currencyCode }} ລວມຍ່ອຍ</td>
+            <td></td>
+            <td>
+              <v-chip small :color="getCurrencyColor(item.currencyCode)" text-color="white">
+                {{ item.currencyCode }}
+              </v-chip>
+            </td>
+            <td class="subtotal-amount">{{ formatCurrency(item.totalAmount) }}</td>
+            <td class="subtotal-amount">{{ formatCurrency(item.totalSettlements) }}</td>
+            <td class="subtotal-amount">{{ formatCurrency(item.totalLcy) }}</td>
+            <td></td>
+            <td></td>
+            <td class="subtotal-amount outstanding-amount">{{ formatCurrency(item.totalOutstanding) }}</td>
+            <td></td>
+          </tr>
+          
+          <!-- Ministry Subtotal Row -->
+          <tr v-else-if="item.isMinistrySubtotal" class="ministry-subtotal-row">
+            <td class="subtotal-label ministry-total-label">
+              <strong>ລວມທັງໝົດ</strong>
+            </td>
+            <td></td>
+            <td></td>
+            <td class="subtotal-amount ministry-total-amount">
+              <strong>{{ formatCurrency(item.totalAmount) }}</strong>
+            </td>
+            <td class="subtotal-amount ministry-total-amount">
+              <strong>{{ formatCurrency(item.totalSettlements) }}</strong>
+            </td>
+            <td class="subtotal-amount ministry-total-amount">
+              <strong>{{ formatCurrency(item.totalLcy) }}</strong>
+            </td>
+            <td></td>
+            <td></td>
+            <td class="subtotal-amount ministry-total-amount outstanding-amount">
+              <strong>{{ formatCurrency(item.totalOutstanding) }}</strong>
+            </td>
+            <td></td>
+          </tr>
+          
+          <!-- Regular Data Row -->
+          <tr v-else class="data-row">
+            <td>
+              <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
+            </td>
+            <td>
+              <div class="ministry-cell">
+                <span class="ministry-name">{{ item.ministry?.ministryName || '' }}</span>
+                <span class="ministry-code">{{ item.ministry?.ministryCode || '' }}</span>
+              </div>
+            </td>
+            <td>
+              <v-chip small :color="getCurrencyColor(item.currencyCode)" text-color="white">
+                {{ item.currencyCode }}
+              </v-chip>
+            </td>
+            <td>
+              <div class="amount-breakdown">
+                <span class="amount-cell">{{ formatCurrency(item.amount) }}</span>
+                <div class="exchange-rate">Rate: {{ formatExchangeRate(item.exchangeRate) }}</div>
+              </div>
+            </td>
+            <td>
+              <div class="amount-column">
+                <span class="amount-cell">{{ formatCurrency(getSettleAmount(item.settlementLine || [])) }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="amount-cell lcy-amount">{{ formatCurrency(item.lcyEquivalent) }}</span>
+            </td>
+            <td>
+              <v-chip small :color="getStatusColor(item.status)" text-color="white">
+                {{ getStatusText(item.status) }}
+              </v-chip>
+            </td>
+            <td>
+              <v-progress-linear
+                :value="parseFloat(item.settlementPercentage || 0)"
+                :color="getProgressColor(item.settlementPercentage)"
+                height="20"
+                rounded
+              >
+                <span class="progress-text">{{ item.settlementPercentage || 0 }}%</span>
+              </v-progress-linear>
+            </td>
+            <td>
+              <span class="amount-cell" :class="item.outstandingLcyEquivalent > 0 ? 'outstanding-amount' : 'settled-amount'">
+                {{ formatCurrency(item.outstandingLcyEquivalent) }}
+              </span>
+            </td>
+            <td>
+              <v-btn small class="custom-action-btn" @click="viewPaymentDetails(item)">
+                <i class="fas fa-eye"></i>
+                ລາຍລະອຽດ
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+
         <!-- Booking Date -->
         <template v-slot:item.bookingDate="{ item }">
           <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
@@ -247,8 +389,12 @@
         <!-- Ministry -->
         <template v-slot:item.ministry="{ item }">
           <div class="ministry-cell">
-            <span class="ministry-name">{{ item.ministry?.ministryName || '' }}</span>
-            <span class="ministry-code">{{ item.ministry?.ministryCode || ''}}</span>
+            <span class="ministry-name">{{
+              item.ministry?.ministryName || ''
+            }}</span>
+            <span class="ministry-code">{{
+              item.ministry?.ministryCode || ''
+            }}</span>
           </div>
         </template>
 
@@ -273,6 +419,20 @@
           </div>
         </template>
 
+        <!-- Settle Amount Column -->
+        <template #item.settleLine="{ item }">
+          <div class="amount-column">
+            <span class="amount-cell">{{
+              formatCurrency(
+                getSettleAmount(item.settlementLine || [])
+              )
+            }}</span>
+            <span v-if="item.currency" class="currency-code">{{
+              item.currency.code
+            }}</span>
+          </div>
+        </template>
+
         <!-- LCY Equivalent -->
         <template v-slot:item.lcyEquivalent="{ item }">
           <span class="amount-cell lcy-amount">
@@ -282,11 +442,7 @@
 
         <!-- Settlement Status -->
         <template v-slot:item.status="{ item }">
-          <v-chip
-            small
-            :color="getStatusColor(item.status)"
-            text-color="white"
-          >
+          <v-chip small :color="getStatusColor(item.status)" text-color="white">
             {{ getStatusText(item.status) }}
           </v-chip>
         </template>
@@ -294,12 +450,12 @@
         <!-- Settlement Percentage -->
         <template v-slot:item.settlementPercentage="{ item }">
           <v-progress-linear
-            :value="parseFloat(item.settlementPercentage)"
+            :value="parseFloat(item.settlementPercentage || 0)"
             :color="getProgressColor(item.settlementPercentage)"
             height="20"
             rounded
           >
-            <span class="progress-text">{{ item.settlementPercentage }}%</span>
+            <span class="progress-text">{{ item.settlementPercentage || 0 }}%</span>
           </v-progress-linear>
         </template>
 
@@ -307,7 +463,11 @@
         <template v-slot:item.outstandingLcyEquivalent="{ item }">
           <span
             class="amount-cell"
-            :class="item.outstandingLcyEquivalent > 0 ? 'outstanding-amount' : 'settled-amount'"
+            :class="
+              item.outstandingLcyEquivalent > 0
+                ? 'outstanding-amount'
+                : 'settled-amount'
+            "
           >
             {{ formatCurrency(item.outstandingLcyEquivalent) }}
           </span>
@@ -342,7 +502,9 @@
           <!-- Payment Summary -->
           <v-row class="mb-4">
             <v-col cols="12">
-              <h3 class="section-title">ຂໍ້ມູນການຈ່າຍເງິນ (Payment Information)</h3>
+              <h3 class="section-title">
+                ຂໍ້ມູນການຈ່າຍເງິນ (Payment Information)
+              </h3>
               <v-divider class="custom-divider mb-3"></v-divider>
             </v-col>
             <v-col cols="6" md="3">
@@ -358,7 +520,10 @@
                   {{ formatCurrency(selectedPayment.amount) }}
                   {{ selectedPayment.currencyCode }}
                 </p>
-                <small>LCY: {{ formatCurrency(selectedPayment.lcyEquivalent) }}</small>
+                <small
+                  >ກີບ:
+                  {{ formatCurrency(selectedPayment.lcyEquivalent) }}</small
+                >
               </div>
             </v-col>
             <v-col cols="6" md="3">
@@ -371,14 +536,22 @@
               <div class="detail-stat">
                 <strong>ຄ້າງຊຳລະ:</strong>
                 <p class="outstanding-text">
-                  {{ formatCurrency(selectedPayment.outstandingLcyEquivalent) }} LAK
+                  {{
+                    formatCurrency(selectedPayment.outstandingLcyEquivalent)
+                  }}
+                  LAK
                 </p>
               </div>
             </v-col>
           </v-row>
 
           <!-- Settlement Details -->
-          <v-row v-if="selectedPayment.settlementLine && selectedPayment.settlementLine.length > 0">
+          <v-row
+            v-if="
+              selectedPayment.settlementLine &&
+              selectedPayment.settlementLine.length > 0
+            "
+          >
             <v-col cols="12">
               <h3 class="section-title">ລາຍການຊຳລະ (Settlement Details)</h3>
               <v-divider class="custom-divider mb-3"></v-divider>
@@ -389,10 +562,14 @@
                 class="detail-table"
               >
                 <template v-slot:item.bookingDate="{ item }">
-                  <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
+                  <span class="date-cell">{{
+                    formatDate(item.bookingDate)
+                  }}</span>
                 </template>
                 <template v-slot:item.amount="{ item }">
-                  <span class="amount-cell">{{ formatCurrency(item.amount) }}</span>
+                  <span class="amount-cell">{{
+                    formatCurrency(item.amount)
+                  }}</span>
                 </template>
                 <template v-slot:item.method="{ item }">
                   <v-chip small color="#01532B" text-color="white">
@@ -419,6 +596,7 @@ export default {
       search: '',
       detailsDialog: false,
       selectedPayment: null,
+      viewMode: 'flat', // 'flat' or 'grouped'
 
       // Filter data
       filters: {
@@ -460,6 +638,12 @@ export default {
         { text: 'ກະຊວງ', value: 'ministry', width: '200px' },
         { text: 'ສະກຸນເງິນ', value: 'currencyCode', width: '80px' },
         { text: 'ຈຳນວນເງິນ', value: 'amount', width: '130px' },
+        {
+          text: 'ຈຳນວນ ຮັບ',
+          value: 'settleLine',
+          width: '100px',
+          sortable: true,
+        },
         { text: 'LCY', value: 'lcyEquivalent', width: '120px' },
         { text: 'ສະຖານະ', value: 'status', width: '100px' },
         { text: 'ຊຳລະແລ້ວ %', value: 'settlementPercentage', width: '120px' },
@@ -505,6 +689,120 @@ export default {
       const timeDiff = to.getTime() - from.getTime()
       return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1
     },
+
+    groupedReportData() {
+      if (!this.reportData || this.reportData.length === 0) {
+        return []
+      }
+
+      // Group by ministry first, then by currency
+      const grouped = {}
+      
+      this.reportData.forEach(item => {
+        const ministryKey = item.ministry?.ministryName || 'Unknown Ministry'
+        const currencyKey = item.currencyCode || 'Unknown Currency'
+        
+        if (!grouped[ministryKey]) {
+          grouped[ministryKey] = {}
+        }
+        
+        if (!grouped[ministryKey][currencyKey]) {
+          grouped[ministryKey][currencyKey] = []
+        }
+        
+        grouped[ministryKey][currencyKey].push(item)
+      })
+
+      // Convert to flat array with group headers and subtotals
+      const result = []
+      
+      Object.keys(grouped).sort().forEach(ministryName => {
+        let ministryRecordCount = 0
+        let ministryTotalAmount = 0
+        let ministryTotalLcy = 0
+        let ministryTotalSettlements = 0
+        let ministryTotalOutstanding = 0
+        
+        // Count total records for ministry
+        Object.keys(grouped[ministryName]).forEach(currency => {
+          ministryRecordCount += grouped[ministryName][currency].length
+        })
+        
+        // Ministry header
+        result.push({
+          isMinistryHeader: true,
+          ministryName,
+          recordCount: ministryRecordCount,
+          id: `ministry-${ministryName}`
+        })
+        
+        Object.keys(grouped[ministryName]).sort().forEach(currency => {
+          const items = grouped[ministryName][currency]
+          
+          // Currency subheader
+          result.push({
+            isCurrencyHeader: true,
+            ministryName,
+            currencyCode: currency,
+            recordCount: items.length,
+            id: `currency-${ministryName}-${currency}`
+          })
+          
+          // Add actual data rows
+          items.forEach(item => {
+            result.push({
+              ...item,
+              isDataRow: true
+            })
+          })
+          
+          // Calculate currency subtotals
+          const currencyTotalAmount = items.reduce((sum, item) => sum + (item.amount || 0), 0)
+          const currencyTotalLcy = items.reduce((sum, item) => sum + (item.lcyEquivalent || 0), 0)
+          const currencyTotalSettlements = items.reduce((sum, item) => {
+            const settlements = item.settlementLine || []
+            return sum + settlements.reduce((settleSum, settle) => settleSum + (settle.amount || 0), 0)
+          }, 0)
+          const currencyTotalOutstanding = items.reduce((sum, item) => sum + (item.outstandingLcyEquivalent || 0), 0)
+          
+          // Currency subtotal row
+          result.push({
+            isCurrencySubtotal: true,
+            ministryName,
+            currencyCode: currency,
+            totalAmount: currencyTotalAmount,
+            totalLcy: currencyTotalLcy,
+            totalSettlements: currencyTotalSettlements,
+            totalOutstanding: currencyTotalOutstanding,
+            recordCount: items.length,
+            id: `subtotal-${ministryName}-${currency}`
+          })
+          
+          ministryTotalAmount += currencyTotalAmount
+          ministryTotalLcy += currencyTotalLcy
+          ministryTotalSettlements += currencyTotalSettlements
+          ministryTotalOutstanding += currencyTotalOutstanding
+        })
+        
+        // Ministry total row
+        result.push({
+          isMinistrySubtotal: true,
+          ministryName,
+          totalAmount: ministryTotalAmount,
+          totalLcy: ministryTotalLcy,
+          totalSettlements: ministryTotalSettlements,
+          totalOutstanding: ministryTotalOutstanding,
+          recordCount: ministryRecordCount,
+          id: `ministry-total-${ministryName}`
+        })
+      })
+      
+      return result
+    },
+
+    currentDisplayData() {
+      return this.viewMode === 'grouped' ? this.groupedReportData : this.reportData
+    }
   },
 
   async created() {
@@ -514,6 +812,13 @@ export default {
   },
 
   methods: {
+    getSettleAmount(settlements) {
+      if (!settlements || !Array.isArray(settlements)) return 0
+      return settlements.reduce((total, item) => {
+        return total + (item.amount || 0)
+      }, 0)
+    },
+
     async loadInitialData() {
       try {
         const response = await this.$axios.get('/api/ministries')
@@ -550,7 +855,7 @@ export default {
         const params = new URLSearchParams()
         params.append('fromDate', this.filters.fromDate)
         params.append('toDate', this.filters.toDate)
-        
+
         if (this.filters.ministryId) {
           params.append('ministryId', this.filters.ministryId)
         }
@@ -567,8 +872,12 @@ export default {
         if (response.data && response.data.success && response.data.data) {
           this.reportData = response.data.data
           this.summaryData = response.data.summary || this.getDefaultSummary()
-          
-          console.log('Data loaded successfully:', this.reportData.length, 'records')
+
+          console.log(
+            'Data loaded successfully:',
+            this.reportData.length,
+            'records'
+          )
         } else {
           throw new Error('Invalid response format')
         }
@@ -576,7 +885,7 @@ export default {
         console.error('Error loading report data:', error)
         this.reportData = []
         this.summaryData = this.getDefaultSummary()
-        
+
         if (error.response) {
           const status = error.response.status
           const message = error.response.data?.message || 'Server error'
@@ -614,8 +923,52 @@ export default {
     },
 
     viewPaymentDetails(item) {
+      // Skip if it's a header or subtotal row
+      if (this.isGroupHeader(item) || this.isSubtotalRow(item)) {
+        return
+      }
       this.selectedPayment = item
       this.detailsDialog = true
+    },
+
+    isGroupHeader(item) {
+      return item && (item.isMinistryHeader || item.isCurrencyHeader)
+    },
+    
+    isSubtotalRow(item) {
+      return item && (item.isCurrencySubtotal || item.isMinistrySubtotal)
+    },
+
+    shouldShowSlotForItem(item) {
+      // Only show individual column slots for flat view or data rows in grouped view
+      return this.viewMode === 'flat' || (!this.isGroupHeader(item) && !this.isSubtotalRow(item))
+    },
+
+    customSort(items, sortBy, sortDesc) {
+      // For grouped view, don't sort as we want to maintain grouping
+      if (this.viewMode === 'grouped') {
+        return items
+      }
+      
+      // Default sorting for flat view
+      return items.sort((a, b) => {
+        const sortKey = sortBy[0]
+        const desc = sortDesc[0]
+        
+        let aVal = a[sortKey]
+        let bVal = b[sortKey]
+        
+        if (typeof aVal === 'string') {
+          aVal = aVal.toLowerCase()
+          bVal = bVal.toLowerCase()
+        }
+        
+        if (desc) {
+          return aVal < bVal ? 1 : aVal > bVal ? -1 : 0
+        } else {
+          return aVal > bVal ? 1 : aVal < bVal ? -1 : 0
+        }
+      })
     },
 
     async exportToExcel() {
@@ -628,6 +981,9 @@ export default {
           }
         })
 
+        // Add view mode to export params
+        params.append('viewMode', this.viewMode)
+
         const response = await this.$axios.get(
           `/api/money-advances/report/export?${params}`,
           { responseType: 'blob' }
@@ -636,7 +992,10 @@ export default {
         const blob = new Blob([response.data])
         const link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = `payment-report-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx`
+        const filename = this.viewMode === 'grouped' 
+          ? `payment-report-grouped-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx`
+          : `payment-report-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx`
+        link.download = filename
         link.click()
       } catch (error) {
         console.error('Error exporting report:', error)
@@ -651,7 +1010,7 @@ export default {
     },
 
     formatCurrency(amount) {
-      if (!amount) return '0.00'
+      if (!amount || isNaN(amount)) return '0.00'
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -659,7 +1018,7 @@ export default {
     },
 
     formatExchangeRate(rate) {
-      if (!rate) return '1.0000'
+      if (!rate || isNaN(rate)) return '1.0000'
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 4,
         maximumFractionDigits: 4,
@@ -717,12 +1076,12 @@ export default {
         case 'rejected':
           return 'ປະຕິເສດ'
         default:
-          return status
+          return status || ''
       }
     },
 
     getProgressColor(percentage) {
-      const percent = parseFloat(percentage)
+      const percent = parseFloat(percentage || 0)
       if (percent === 100) return '#28a745'
       if (percent >= 50) return '#ffc107'
       return '#dc3545'
@@ -732,7 +1091,7 @@ export default {
 </script>
 
 <style scoped>
-/* All the existing styles from your original component */
+/* Existing styles */
 .payment-report {
   padding: 0;
 }
@@ -943,7 +1302,7 @@ export default {
   font-size: 12px;
   font-weight: 600;
   color: white;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .custom-action-btn {
@@ -1015,6 +1374,129 @@ export default {
   color: #01532b;
 }
 
+/* NEW GROUPED VIEW STYLES */
+
+/* View mode toggle styles */
+.v-btn-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.v-btn-toggle .v-btn {
+  color: white !important;
+  font-size: 12px !important;
+  min-width: 80px !important;
+}
+
+.v-btn-toggle .v-btn.v-btn--active {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+
+/* Ministry header styles */
+.ministry-header-row {
+  background: linear-gradient(135deg, #01532b, #0a6633) !important;
+}
+
+.ministry-header-cell {
+  padding: 16px !important;
+  border: none !important;
+}
+
+.ministry-header-content {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ministry-record-count {
+  font-size: 14px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Currency header styles */
+.currency-header-row {
+  background: rgba(1, 83, 43, 0.1) !important;
+}
+
+.currency-header-cell {
+  padding: 12px 16px !important;
+  border-left: 4px solid #01532b !important;
+}
+
+.currency-header-content {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #01532b;
+  font-size: 14px;
+}
+
+/* Currency subtotal styles */
+.currency-subtotal-row {
+  background: rgba(1, 83, 43, 0.05) !important;
+  border-top: 1px solid rgba(1, 83, 43, 0.2) !important;
+}
+
+.currency-subtotal-row td {
+  padding: 8px 16px !important;
+  font-weight: 600 !important;
+  font-style: italic;
+  color: #01532b;
+}
+
+/* Ministry subtotal styles */
+.ministry-subtotal-row {
+  background: rgba(1, 83, 43, 0.15) !important;
+  border-top: 2px solid #01532b !important;
+  border-bottom: 2px solid #01532b !important;
+}
+
+.ministry-subtotal-row td {
+  padding: 12px 16px !important;
+  font-weight: 700 !important;
+  color: #01532b;
+}
+
+.ministry-total-label {
+  font-size: 16px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ministry-total-amount {
+  font-size: 16px !important;
+  font-family: 'Courier New', monospace;
+}
+
+.subtotal-label {
+  font-weight: 600;
+  color: #01532b;
+  text-align: left;
+  padding-left: 24px !important;
+}
+
+.subtotal-amount {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Data row styles */
+.data-row {
+  transition: background-color 0.2s ease;
+}
+
+.data-row:hover {
+  background-color: rgba(1, 83, 43, 0.05) !important;
+}
+
+/* Responsive adjustments for grouped view */
 @media (max-width: 768px) {
   .report-header {
     flex-direction: column;
@@ -1040,6 +1522,54 @@ export default {
 
   .summary-details h2 {
     font-size: 20px;
+  }
+
+  .ministry-header-content {
+    font-size: 16px;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .currency-header-content {
+    font-size: 12px;
+  }
+  
+  .subtotal-label,
+  .ministry-total-label {
+    font-size: 12px !important;
+  }
+  
+  .subtotal-amount,
+  .ministry-total-amount {
+    font-size: 12px !important;
+  }
+  
+  .v-btn-toggle .v-btn {
+    min-width: 60px !important;
+    font-size: 10px !important;
+  }
+}
+
+/* Print styles for grouped view */
+@media print {
+  .ministry-header-row {
+    background: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .ministry-header-content {
+    color: #000 !important;
+  }
+  
+  .currency-subtotal-row,
+  .ministry-subtotal-row {
+    background: #f5f5f5 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .v-btn-toggle {
+    display: none !important;
   }
 }
 </style>

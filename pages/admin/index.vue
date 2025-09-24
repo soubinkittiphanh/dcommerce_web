@@ -203,7 +203,7 @@ import {
   today,
   getFormatNum,
 } from '~/common'
-import { hostName, mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
+import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 import CardOnTop from '~/components/dashboard/CardOnTop.vue'
 import CardGrouping from '~/components/dashboard/CardGrouping.vue'
 import CampaignCard from '~/components/card/campaignCard.vue'
@@ -291,12 +291,6 @@ export default {
           path: '/pos/minimart',
         },
         {
-          title: 'POS Cafe',
-          // icon: 'mdi-coffee',
-          svgIcon: require('~/assets/icons/coffee.svg'), // You'll need a coffee/cafe icon
-          path: '/admin/cafeTable',
-        },
-        {
           title: 'Invoice',
           // icon: 'mdi-file-document-multiple',
           svgIcon: require('~/assets/icons/invoice.svg'),
@@ -309,10 +303,10 @@ export default {
           path: '/admin/ordersFromPosCredit',
         },
         {
-          title: 'Stock',
-          // icon: 'mdi-warehouse',
-          svgIcon: require('~/assets/icons/stock.svg'),
-          path: '/admin/product/productlist',
+            title: 'Stock',
+            // icon: 'mdi-warehouse',
+            svgIcon: require('~/assets/icons/stock.svg'),
+            path: '/admin/product/productlist'
         },
         {
           // title: 'ລາຍການ ການຂາຍ',

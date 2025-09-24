@@ -1,26 +1,26 @@
 exports.ids = [224];
 exports.modules = {
 
-/***/ 1061:
+/***/ 1063:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63fa3b6a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(804);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63fa3b6a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63fa3b6a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63fa3b6a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_63fa3b6a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2218ca56_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(806);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2218ca56_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2218ca56_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2218ca56_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2218ca56_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1062:
+/***/ 1064:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".payment-report[data-v-63fa3b6a]{padding:0}.report-header[data-v-63fa3b6a]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-63fa3b6a]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-63fa3b6a]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-63fa3b6a]{display:flex;gap:16px}.custom-btn[data-v-63fa3b6a]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-63fa3b6a]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-63fa3b6a]{background:#fff;border-radius:8px}.filter-title[data-v-63fa3b6a]{background:#01532b;color:#fff;font-weight:600}.custom-primary-bg[data-v-63fa3b6a]{background-color:#01532b!important}.custom-secondary-btn[data-v-63fa3b6a]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.date-range-alert[data-v-63fa3b6a]{background-color:rgba(1,83,43,.1)!important;border-color:#01532b!important;color:#01532b!important}.summary-cards[data-v-63fa3b6a]{margin-bottom:24px}.summary-card[data-v-63fa3b6a]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-content[data-v-63fa3b6a]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-63fa3b6a]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-63fa3b6a]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-63fa3b6a]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-63fa3b6a]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.advance-card[data-v-63fa3b6a],.outstanding-card[data-v-63fa3b6a],.records-card[data-v-63fa3b6a],.settlement-card[data-v-63fa3b6a]{background:#01532b;color:#fff}.table-card[data-v-63fa3b6a]{border-radius:8px;margin-bottom:24px}.table-title[data-v-63fa3b6a]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-63fa3b6a]{max-width:300px}.report-table[data-v-63fa3b6a] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-63fa3b6a] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.ministry-cell[data-v-63fa3b6a]{display:flex;flex-direction:column}.ministry-name[data-v-63fa3b6a]{color:#01532b;font-size:14px;font-weight:600}.ministry-code[data-v-63fa3b6a]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:\"Courier New\",monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.amount-breakdown[data-v-63fa3b6a]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-63fa3b6a]{font-family:\"Courier New\",monospace;font-size:14px;font-weight:700}.exchange-rate[data-v-63fa3b6a]{color:#666;font-size:11px;font-style:italic;margin-top:4px}.lcy-amount[data-v-63fa3b6a]{color:#01532b!important}.outstanding-amount[data-v-63fa3b6a]{color:#dc3545!important}.settled-amount[data-v-63fa3b6a]{color:#28a745!important}.progress-text[data-v-63fa3b6a]{color:#fff;font-size:12px;font-weight:600;text-shadow:1px 1px 2px rgba(0,0,0,.5)}.custom-action-btn[data-v-63fa3b6a]{background-color:#01532b!important;border-radius:8px!important;font-size:12px!important;text-transform:none!important}.custom-action-btn[data-v-63fa3b6a],.dialog-header[data-v-63fa3b6a]{color:#fff!important;font-weight:600!important}.dialog-header[data-v-63fa3b6a]{background:#01532b!important}.close-btn[data-v-63fa3b6a]{color:#fff!important}.section-title[data-v-63fa3b6a]{color:#01532b;font-size:18px;font-weight:700}.custom-divider[data-v-63fa3b6a]{border-color:#01532b!important;opacity:.3!important}.detail-stat[data-v-63fa3b6a]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.detail-stat strong[data-v-63fa3b6a]{color:#01532b;display:block;font-size:15px;font-weight:700;margin-bottom:12px}.detail-stat p[data-v-63fa3b6a]{font-family:\"Courier New\",monospace;font-size:20px;font-weight:700;margin:0}.detail-stat small[data-v-63fa3b6a]{color:#666;display:block;font-size:12px;font-style:italic;margin-top:8px}.date-cell[data-v-63fa3b6a]{color:#01532b;font-family:\"Courier New\",monospace;font-size:13px;font-weight:500}@media (max-width:768px){.report-header[data-v-63fa3b6a]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-63fa3b6a]{font-size:24px}.action-buttons[data-v-63fa3b6a]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-63fa3b6a]{flex-direction:column;padding:12px;text-align:center}.summary-details h2[data-v-63fa3b6a]{font-size:20px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".payment-report[data-v-2218ca56]{padding:0}.report-header[data-v-2218ca56]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-2218ca56]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-2218ca56]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-2218ca56]{display:flex;gap:16px}.custom-btn[data-v-2218ca56]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-2218ca56]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-2218ca56]{background:#fff;border-radius:8px}.filter-title[data-v-2218ca56]{background:#01532b;color:#fff;font-weight:600}.custom-primary-bg[data-v-2218ca56]{background-color:#01532b!important}.custom-secondary-btn[data-v-2218ca56]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.date-range-alert[data-v-2218ca56]{background-color:rgba(1,83,43,.1)!important;border-color:#01532b!important;color:#01532b!important}.summary-cards[data-v-2218ca56]{margin-bottom:24px}.summary-card[data-v-2218ca56]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-content[data-v-2218ca56]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-2218ca56]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-2218ca56]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-2218ca56]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-2218ca56]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.advance-card[data-v-2218ca56],.outstanding-card[data-v-2218ca56],.records-card[data-v-2218ca56],.settlement-card[data-v-2218ca56]{background:#01532b;color:#fff}.table-card[data-v-2218ca56]{border-radius:8px;margin-bottom:24px}.table-title[data-v-2218ca56]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-2218ca56]{max-width:300px}.report-table[data-v-2218ca56] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-2218ca56] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.ministry-cell[data-v-2218ca56]{display:flex;flex-direction:column}.ministry-name[data-v-2218ca56]{color:#01532b;font-size:14px;font-weight:600}.ministry-code[data-v-2218ca56]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:\"Courier New\",monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.amount-breakdown[data-v-2218ca56]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-2218ca56]{font-family:\"Courier New\",monospace;font-size:14px;font-weight:700}.exchange-rate[data-v-2218ca56]{color:#666;font-size:11px;font-style:italic;margin-top:4px}.lcy-amount[data-v-2218ca56]{color:#01532b!important}.outstanding-amount[data-v-2218ca56]{color:#dc3545!important}.settled-amount[data-v-2218ca56]{color:#28a745!important}.progress-text[data-v-2218ca56]{color:#fff;font-size:12px;font-weight:600;text-shadow:1px 1px 2px rgba(0,0,0,.5)}.custom-action-btn[data-v-2218ca56]{background-color:#01532b!important;border-radius:8px!important;font-size:12px!important;text-transform:none!important}.custom-action-btn[data-v-2218ca56],.dialog-header[data-v-2218ca56]{color:#fff!important;font-weight:600!important}.dialog-header[data-v-2218ca56]{background:#01532b!important}.close-btn[data-v-2218ca56]{color:#fff!important}.section-title[data-v-2218ca56]{color:#01532b;font-size:18px;font-weight:700}.custom-divider[data-v-2218ca56]{border-color:#01532b!important;opacity:.3!important}.detail-stat[data-v-2218ca56]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.detail-stat strong[data-v-2218ca56]{color:#01532b;display:block;font-size:15px;font-weight:700;margin-bottom:12px}.detail-stat p[data-v-2218ca56]{font-family:\"Courier New\",monospace;font-size:20px;font-weight:700;margin:0}.detail-stat small[data-v-2218ca56]{color:#666;display:block;font-size:12px;font-style:italic;margin-top:8px}.date-cell[data-v-2218ca56]{color:#01532b;font-family:\"Courier New\",monospace;font-size:13px;font-weight:500}.v-btn-toggle[data-v-2218ca56]{background:hsla(0,0%,100%,.1);border-radius:8px}.v-btn-toggle .v-btn[data-v-2218ca56]{color:#fff!important;font-size:12px!important;min-width:80px!important}.v-btn-toggle .v-btn.v-btn--active[data-v-2218ca56]{background:hsla(0,0%,100%,.2)!important;color:#fff!important}.ministry-header-row[data-v-2218ca56]{background:linear-gradient(135deg,#01532b,#0a6633)!important}.ministry-header-cell[data-v-2218ca56]{border:none!important;padding:16px!important}.ministry-header-content[data-v-2218ca56]{align-items:center;color:#fff;display:flex;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase}.ministry-record-count[data-v-2218ca56]{font-size:14px;font-weight:500;opacity:.9}.currency-header-row[data-v-2218ca56]{background:rgba(1,83,43,.1)!important}.currency-header-cell[data-v-2218ca56]{border-left:4px solid #01532b!important;padding:12px 16px!important}.currency-header-content[data-v-2218ca56]{align-items:center;color:#01532b;display:flex;font-size:14px;font-weight:600}.currency-subtotal-row[data-v-2218ca56]{background:rgba(1,83,43,.05)!important;border-top:1px solid rgba(1,83,43,.2)!important}.currency-subtotal-row td[data-v-2218ca56]{color:#01532b;font-style:italic;font-weight:600!important;padding:8px 16px!important}.ministry-subtotal-row[data-v-2218ca56]{background:rgba(1,83,43,.15)!important;border-bottom:2px solid #01532b!important;border-top:2px solid #01532b!important}.ministry-subtotal-row td[data-v-2218ca56]{color:#01532b;font-weight:700!important;padding:12px 16px!important}.ministry-total-label[data-v-2218ca56]{letter-spacing:.5px;text-transform:uppercase}.ministry-total-amount[data-v-2218ca56],.ministry-total-label[data-v-2218ca56]{font-size:16px!important}.ministry-total-amount[data-v-2218ca56]{font-family:\"Courier New\",monospace}.subtotal-label[data-v-2218ca56]{color:#01532b;font-weight:600;padding-left:24px!important;text-align:left}.subtotal-amount[data-v-2218ca56]{font-family:\"Courier New\",monospace;font-weight:600;text-align:right}.data-row[data-v-2218ca56]{transition:background-color .2s ease}.data-row[data-v-2218ca56]:hover{background-color:rgba(1,83,43,.05)!important}@media (max-width:768px){.report-header[data-v-2218ca56]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-2218ca56]{font-size:24px}.action-buttons[data-v-2218ca56]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-2218ca56]{flex-direction:column;padding:12px;text-align:center}.summary-details h2[data-v-2218ca56]{font-size:20px}.ministry-header-content[data-v-2218ca56]{flex-direction:column;font-size:16px;gap:8px;text-align:center}.currency-header-content[data-v-2218ca56]{font-size:12px}.ministry-total-amount[data-v-2218ca56],.ministry-total-label[data-v-2218ca56],.subtotal-amount[data-v-2218ca56],.subtotal-label[data-v-2218ca56]{font-size:12px!important}.v-btn-toggle .v-btn[data-v-2218ca56]{font-size:10px!important;min-width:60px!important}}@media print{.ministry-header-row[data-v-2218ca56]{background:#f0f0f0!important;-webkit-print-color-adjust:exact}.ministry-header-content[data-v-2218ca56]{color:#000!important}.currency-subtotal-row[data-v-2218ca56],.ministry-subtotal-row[data-v-2218ca56]{background:#f5f5f5!important;-webkit-print-color-adjust:exact}.v-btn-toggle[data-v-2218ca56]{display:none!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1286:
+/***/ 1290:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,10 +36,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(454);
+var VAlert = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
+var VBtnToggle = __webpack_require__(479);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(121);
@@ -51,13 +54,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(389);
+var VCol = __webpack_require__(391);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(397);
+var VDataTable = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(346);
+var VDialog = __webpack_require__(348);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
@@ -69,20 +72,18 @@ var VIcon = __webpack_require__(60);
 var VProgressLinear = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(388);
+var VRow = __webpack_require__(390);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(387);
+var VSpacer = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(37);
+var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=63fa3b6a&scoped=true&
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=2218ca56&scoped=true&
 
 
 
@@ -98,13 +99,16 @@ var VTextField = __webpack_require__(37);
 
 
 
-var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function render() {
+
+
+
+var ministrySummaryvue_type_template_id_2218ca56_scoped_true_render = function render() {
   var _vm$selectedPayment;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "payment-report"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-63fa3b6a>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-63fa3b6a><h1 class=\"page-title\" data-v-63fa3b6a><i class=\"fas fa-money-bill-wave\" data-v-63fa3b6a></i>\n        ລາຍງານການຈ່າຍເງິນລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-63fa3b6a>Money Advance Payment Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-63fa3b6a>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-2218ca56>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-2218ca56><h1 class=\"page-title\" data-v-2218ca56><i class=\"fas fa-money-bill-wave\" data-v-2218ca56></i>\n        ລາຍງານການຈ່າຍເງິນລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-2218ca56>Money Advance Payment Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-2218ca56>", "</div>", [_c(VBtn["a" /* default */], {
     staticClass: "custom-btn export-btn",
     attrs: {
       "loading": _vm.exporting
@@ -380,7 +384,37 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
     staticClass: "table-title"
   }, [_c('i', {
     staticClass: "fas fa-table"
-  }), _vm._v("\n      ລາຍລະອຽດການຈ່າຍເງິນ (Payment Details)\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
+  }), _vm._v("\n      ລາຍລະອຽດການຈ່າຍເງິນ (Payment Details)\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtnToggle["a" /* default */], {
+    staticClass: "mr-4",
+    attrs: {
+      "mandatory": ""
+    },
+    model: {
+      value: _vm.viewMode,
+      callback: function ($$v) {
+        _vm.viewMode = $$v;
+      },
+      expression: "viewMode"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "value": "flat",
+      "small": ""
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-view-list")]), _vm._v("\n          ແບບລາຍການ\n        ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "value": "grouped",
+      "small": ""
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-view-tree")]), _vm._v("\n          ແບບກຸ່ມ\n        ")], 1)], 1), _vm._v(" "), _c(VTextField["a" /* default */], {
     staticClass: "search-field",
     attrs: {
       "append-icon": "mdi-magnify",
@@ -401,16 +435,146 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
     staticClass: "report-table",
     attrs: {
       "headers": _vm.tableHeaders,
-      "items": _vm.reportData,
+      "items": _vm.currentDisplayData,
       "search": _vm.search,
       "loading": _vm.loading,
-      "items-per-page": 25,
+      "items-per-page": _vm.viewMode === 'grouped' ? -1 : 25,
       "footer-props": {
-        itemsPerPageOptions: [10, 25, 50, 100],
+        itemsPerPageOptions: _vm.viewMode === 'grouped' ? [-1] : [10, 25, 50, 100],
         itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:'
-      }
+      },
+      "hide-default-footer": _vm.viewMode === 'grouped',
+      "custom-sort": _vm.customSort
     },
-    scopedSlots: _vm._u([{
+    scopedSlots: _vm._u([_vm.viewMode === 'grouped' ? {
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        var _item$ministry, _item$ministry2;
+        return [item.isMinistryHeader ? _c('tr', {
+          staticClass: "ministry-header-row"
+        }, [_c('td', {
+          staticClass: "ministry-header-cell",
+          attrs: {
+            "colspan": _vm.tableHeaders.length
+          }
+        }, [_c('div', {
+          staticClass: "ministry-header-content"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-2",
+          attrs: {
+            "color": "white"
+          }
+        }, [_vm._v("mdi-office-building")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(item.ministryName))]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c('span', {
+          staticClass: "ministry-record-count"
+        }, [_vm._v(_vm._s(item.recordCount) + " ລາຍການ")])], 1)])]) : item.isCurrencyHeader ? _c('tr', {
+          staticClass: "currency-header-row"
+        }, [_c('td', {
+          staticClass: "currency-header-cell",
+          attrs: {
+            "colspan": _vm.tableHeaders.length
+          }
+        }, [_c('div', {
+          staticClass: "currency-header-content"
+        }, [_c(VChip["a" /* default */], {
+          staticClass: "mr-2",
+          attrs: {
+            "small": "",
+            "color": _vm.getCurrencyColor(item.currencyCode),
+            "text-color": "white"
+          }
+        }, [_vm._v("\n                " + _vm._s(item.currencyCode) + "\n              ")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.recordCount) + " ລາຍການ (" + _vm._s(item.recordCount) + " Records)")])], 1)])]) : item.isCurrencySubtotal ? _c('tr', {
+          staticClass: "currency-subtotal-row"
+        }, [_c('td', {
+          staticClass: "subtotal-label"
+        }, [_vm._v(_vm._s(item.currencyCode) + " ລວມຍ່ອຍ")]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": _vm.getCurrencyColor(item.currencyCode),
+            "text-color": "white"
+          }
+        }, [_vm._v("\n              " + _vm._s(item.currencyCode) + "\n            ")])], 1), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.totalAmount)))]), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.totalSettlements)))]), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.totalLcy)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount outstanding-amount"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.totalOutstanding)))]), _vm._v(" "), _c('td')]) : item.isMinistrySubtotal ? _c('tr', {
+          staticClass: "ministry-subtotal-row"
+        }, [_c('td', {
+          staticClass: "subtotal-label ministry-total-label"
+        }, [_c('strong', [_vm._v("ລວມທັງໝົດ")])]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount ministry-total-amount"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.formatCurrency(item.totalAmount)))])]), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount ministry-total-amount"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.formatCurrency(item.totalSettlements)))])]), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount ministry-total-amount"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.formatCurrency(item.totalLcy)))])]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', {
+          staticClass: "subtotal-amount ministry-total-amount outstanding-amount"
+        }, [_c('strong', [_vm._v(_vm._s(_vm.formatCurrency(item.totalOutstanding)))])]), _vm._v(" "), _c('td')]) : _c('tr', {
+          staticClass: "data-row"
+        }, [_c('td', [_c('span', {
+          staticClass: "date-cell"
+        }, [_vm._v(_vm._s(_vm.formatDate(item.bookingDate)))])]), _vm._v(" "), _c('td', [_c('div', {
+          staticClass: "ministry-cell"
+        }, [_c('span', {
+          staticClass: "ministry-name"
+        }, [_vm._v(_vm._s(((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryName) || ''))]), _vm._v(" "), _c('span', {
+          staticClass: "ministry-code"
+        }, [_vm._v(_vm._s(((_item$ministry2 = item.ministry) === null || _item$ministry2 === void 0 ? void 0 : _item$ministry2.ministryCode) || ''))])])]), _vm._v(" "), _c('td', [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": _vm.getCurrencyColor(item.currencyCode),
+            "text-color": "white"
+          }
+        }, [_vm._v("\n              " + _vm._s(item.currencyCode) + "\n            ")])], 1), _vm._v(" "), _c('td', [_c('div', {
+          staticClass: "amount-breakdown"
+        }, [_c('span', {
+          staticClass: "amount-cell"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.amount)))]), _vm._v(" "), _c('div', {
+          staticClass: "exchange-rate"
+        }, [_vm._v("Rate: " + _vm._s(_vm.formatExchangeRate(item.exchangeRate)))])])]), _vm._v(" "), _c('td', [_c('div', {
+          staticClass: "amount-column"
+        }, [_c('span', {
+          staticClass: "amount-cell"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(_vm.getSettleAmount(item.settlementLine || []))))])])]), _vm._v(" "), _c('td', [_c('span', {
+          staticClass: "amount-cell lcy-amount"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.lcyEquivalent)))])]), _vm._v(" "), _c('td', [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": _vm.getStatusColor(item.status),
+            "text-color": "white"
+          }
+        }, [_vm._v("\n              " + _vm._s(_vm.getStatusText(item.status)) + "\n            ")])], 1), _vm._v(" "), _c('td', [_c(VProgressLinear["a" /* default */], {
+          attrs: {
+            "value": parseFloat(item.settlementPercentage || 0),
+            "color": _vm.getProgressColor(item.settlementPercentage),
+            "height": "20",
+            "rounded": ""
+          }
+        }, [_c('span', {
+          staticClass: "progress-text"
+        }, [_vm._v(_vm._s(item.settlementPercentage || 0) + "%")])])], 1), _vm._v(" "), _c('td', [_c('span', {
+          staticClass: "amount-cell",
+          class: item.outstandingLcyEquivalent > 0 ? 'outstanding-amount' : 'settled-amount'
+        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.outstandingLcyEquivalent)) + "\n            ")])]), _vm._v(" "), _c('td', [_c(VBtn["a" /* default */], {
+          staticClass: "custom-action-btn",
+          attrs: {
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.viewPaymentDetails(item);
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-eye"
+        }), _vm._v("\n              ລາຍລະອຽດ\n            ")])], 1)])];
+      }
+    } : null, {
       key: "item.bookingDate",
       fn: function ({
         item
@@ -424,14 +588,14 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
       fn: function ({
         item
       }) {
-        var _item$ministry, _item$ministry2;
+        var _item$ministry3, _item$ministry4;
         return [_c('div', {
           staticClass: "ministry-cell"
         }, [_c('span', {
           staticClass: "ministry-name"
-        }, [_vm._v(_vm._s(((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryName) || ''))]), _vm._v(" "), _c('span', {
+        }, [_vm._v(_vm._s(((_item$ministry3 = item.ministry) === null || _item$ministry3 === void 0 ? void 0 : _item$ministry3.ministryName) || ''))]), _vm._v(" "), _c('span', {
           staticClass: "ministry-code"
-        }, [_vm._v(_vm._s(((_item$ministry2 = item.ministry) === null || _item$ministry2 === void 0 ? void 0 : _item$ministry2.ministryCode) || ''))])])];
+        }, [_vm._v(_vm._s(((_item$ministry4 = item.ministry) === null || _item$ministry4 === void 0 ? void 0 : _item$ministry4.ministryCode) || ''))])])];
       }
     }, {
       key: "item.currencyCode",
@@ -458,6 +622,19 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
         }, [_vm._v(_vm._s(_vm.formatCurrency(item.amount)))]), _vm._v(" "), _c('div', {
           staticClass: "exchange-rate"
         }, [_vm._v("\n            Rate: " + _vm._s(_vm.formatExchangeRate(item.exchangeRate)) + "\n          ")])])];
+      }
+    }, {
+      key: "item.settleLine",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "amount-column"
+        }, [_c('span', {
+          staticClass: "amount-cell"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(_vm.getSettleAmount(item.settlementLine || []))))]), _vm._v(" "), item.currency ? _c('span', {
+          staticClass: "currency-code"
+        }, [_vm._v(_vm._s(item.currency.code))]) : _vm._e()])];
       }
     }, {
       key: "item.lcyEquivalent",
@@ -488,14 +665,14 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
       }) {
         return [_c(VProgressLinear["a" /* default */], {
           attrs: {
-            "value": parseFloat(item.settlementPercentage),
+            "value": parseFloat(item.settlementPercentage || 0),
             "color": _vm.getProgressColor(item.settlementPercentage),
             "height": "20",
             "rounded": ""
           }
         }, [_c('span', {
           staticClass: "progress-text"
-        }, [_vm._v(_vm._s(item.settlementPercentage) + "%")])])];
+        }, [_vm._v(_vm._s(item.settlementPercentage || 0) + "%")])])];
       }
     }, {
       key: "item.outstandingLcyEquivalent",
@@ -526,7 +703,7 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
           staticClass: "fas fa-eye"
         }), _vm._v("\n          ລາຍລະອຽດ\n        ")])];
       }
-    }])
+    }], null, true)
   })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "1000px"
@@ -560,7 +737,7 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
     }
   }, [_c('h3', {
     staticClass: "section-title"
-  }, [_vm._v("ຂໍ້ມູນການຈ່າຍເງິນ (Payment Information)")]), _vm._v(" "), _c(VDivider["a" /* default */], {
+  }, [_vm._v("\n              ຂໍ້ມູນການຈ່າຍເງິນ (Payment Information)\n            ")]), _vm._v(" "), _c(VDivider["a" /* default */], {
     staticClass: "custom-divider mb-3"
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
@@ -576,7 +753,7 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
     }
   }, [_c('div', {
     staticClass: "detail-stat"
-  }, [_c('strong', [_vm._v("ຈຳນວນເງິນ:")]), _vm._v(" "), _c('p', [_vm._v("\n                " + _vm._s(_vm.formatCurrency(_vm.selectedPayment.amount)) + "\n                " + _vm._s(_vm.selectedPayment.currencyCode) + "\n              ")]), _vm._v(" "), _c('small', [_vm._v("LCY: " + _vm._s(_vm.formatCurrency(_vm.selectedPayment.lcyEquivalent)))])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('strong', [_vm._v("ຈຳນວນເງິນ:")]), _vm._v(" "), _c('p', [_vm._v("\n                " + _vm._s(_vm.formatCurrency(_vm.selectedPayment.amount)) + "\n                " + _vm._s(_vm.selectedPayment.currencyCode) + "\n              ")]), _vm._v(" "), _c('small', [_vm._v("ກີບ:\n                " + _vm._s(_vm.formatCurrency(_vm.selectedPayment.lcyEquivalent)))])])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
       "md": "3"
@@ -592,7 +769,7 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
     staticClass: "detail-stat"
   }, [_c('strong', [_vm._v("ຄ້າງຊຳລະ:")]), _vm._v(" "), _c('p', {
     staticClass: "outstanding-text"
-  }, [_vm._v("\n                " + _vm._s(_vm.formatCurrency(_vm.selectedPayment.outstandingLcyEquivalent)) + " LAK\n              ")])])])], 1), _vm._v(" "), _vm.selectedPayment.settlementLine && _vm.selectedPayment.settlementLine.length > 0 ? _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_vm._v("\n                " + _vm._s(_vm.formatCurrency(_vm.selectedPayment.outstandingLcyEquivalent)) + "\n                LAK\n              ")])])])], 1), _vm._v(" "), _vm.selectedPayment.settlementLine && _vm.selectedPayment.settlementLine.length > 0 ? _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12"
     }
@@ -643,10 +820,10 @@ var ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render = function r
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=63fa3b6a&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=2218ca56&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/ministrySummary/index.vue?vue&type=script&lang=js&
-var ministrySummaryvue_type_script_lang_js_ = __webpack_require__(695);
+var ministrySummaryvue_type_script_lang_js_ = __webpack_require__(697);
 
 // CONCATENATED MODULE: ./pages/admin/report/MA/ministrySummary/index.vue?vue&type=script&lang=js&
  /* harmony default export */ var MA_ministrySummaryvue_type_script_lang_js_ = (ministrySummaryvue_type_script_lang_js_["a" /* default */]); 
@@ -659,7 +836,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1061)
+  var style0 = __webpack_require__(1063)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -668,11 +845,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_ministrySummaryvue_type_script_lang_js_,
-  ministrySummaryvue_type_template_id_63fa3b6a_scoped_true_render,
+  ministrySummaryvue_type_template_id_2218ca56_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "63fa3b6a",
+  "2218ca56",
   "6e70f8f9"
   
 )
@@ -681,13 +858,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 430:
+/***/ 432:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(431);
+var content = __webpack_require__(433);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -695,7 +872,7 @@ __webpack_require__(5).default("1c8f4490", content, true)
 
 /***/ }),
 
-/***/ 431:
+/***/ 433:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -710,15 +887,44 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 454:
+/***/ 442:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(430);
+/* harmony import */ var _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+// Extensions
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].extend({
+  name: 'button-group',
+  provide() {
+    return {
+      btnToggle: this
+    };
+  },
+  computed: {
+    classes() {
+      return _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].options.computed.classes.call(this);
+    }
+  },
+  methods: {
+    // Isn't being passed down through types
+    genData: _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].options.methods.genData
+  }
+}));
+
+/***/ }),
+
+/***/ 456:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(432);
 /* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
-/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 /* harmony import */ var _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
 /* harmony import */ var _mixins_transitionable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(137);
@@ -925,7 +1131,93 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 695:
+/***/ 457:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(458);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("09e1a384", content, true)
+
+/***/ }),
+
+/***/ 458:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-btn-toggle:not(.v-btn-toggle--group){background:#fff;color:rgba(0,0,0,.87)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:rgba(0,0,0,.12)!important}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:rgba(0,0,0,.26)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#000}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group){background:#1e1e1e;color:#fff}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:hsla(0,0%,100%,.12)!important}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:hsla(0,0%,100%,.3)}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#fff}.v-btn-toggle{border-radius:4px;display:inline-flex;max-width:100%}.v-btn-toggle>.v-btn.v-btn{border-radius:0;border-style:solid;border-width:thin;box-shadow:none;opacity:.8;padding:0 12px}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:first-child{border-bottom-left-radius:inherit;border-top-left-radius:inherit}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:last-child,.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:first-child{border-bottom-right-radius:inherit;border-top-right-radius:inherit}.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:last-child{border-bottom-left-radius:inherit;border-top-left-radius:inherit}.v-btn-toggle>.v-btn.v-btn--active{color:inherit;opacity:1}.v-btn-toggle>.v-btn.v-btn:after{display:none}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:not(:first-child),.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:not(:last-child){border-left-width:0}.v-btn-toggle .v-btn.v-btn.v-size--default{min-height:0;min-width:48px}.v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default{height:48px}.v-btn-toggle--borderless>.v-btn.v-btn{border-width:0}.v-btn-toggle--dense>.v-btn.v-btn{padding:0 8px}.v-btn-toggle--group{border-radius:0}.v-btn-toggle--group>.v-btn.v-btn{background-color:transparent!important;border-color:transparent;margin:4px;min-width:auto}.v-btn-toggle--rounded{border-radius:24px}.v-btn-toggle--shaped{border-radius:24px 4px}.v-btn-toggle--tile{border-radius:0}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 479:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(457);
+/* harmony import */ var _src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_button_group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(442);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+// Styles
+ // Mixins
+
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(_mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).extend({
+  name: 'v-btn-toggle',
+  props: {
+    backgroundColor: String,
+    borderless: Boolean,
+    dense: Boolean,
+    group: Boolean,
+    rounded: Boolean,
+    shaped: Boolean,
+    tile: Boolean
+  },
+  computed: {
+    classes() {
+      return {
+        ..._mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.classes.call(this),
+        'v-btn-toggle': true,
+        'v-btn-toggle--borderless': this.borderless,
+        'v-btn-toggle--dense': this.dense,
+        'v-btn-toggle--group': this.group,
+        'v-btn-toggle--rounded': this.rounded,
+        'v-btn-toggle--shaped': this.shaped,
+        'v-btn-toggle--tile': this.tile,
+        ...this.themeClasses
+      };
+    }
+  },
+  methods: {
+    genData() {
+      const data = this.setTextColor(this.color, {
+        ..._mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.methods.genData.call(this)
+      });
+      if (this.group) return data;
+      return this.setBackgroundColor(this.backgroundColor, data);
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 697:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -938,6 +1230,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
       search: '',
       detailsDialog: false,
       selectedPayment: null,
+      viewMode: 'flat',
+      // 'flat' or 'grouped'
+
       // Filter data
       filters: {
         fromDate: null,
@@ -982,6 +1277,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
         text: 'ຈຳນວນເງິນ',
         value: 'amount',
         width: '130px'
+      }, {
+        text: 'ຈຳນວນ ຮັບ',
+        value: 'settleLine',
+        width: '100px',
+        sortable: true
       }, {
         text: 'LCY',
         value: 'lcyEquivalent',
@@ -1039,6 +1339,111 @@ module.exports = ___CSS_LOADER_EXPORT___;
       const to = new Date(this.filters.toDate);
       const timeDiff = to.getTime() - from.getTime();
       return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+    },
+    groupedReportData() {
+      if (!this.reportData || this.reportData.length === 0) {
+        return [];
+      }
+
+      // Group by ministry first, then by currency
+      const grouped = {};
+      this.reportData.forEach(item => {
+        var _item$ministry;
+        const ministryKey = ((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryName) || 'Unknown Ministry';
+        const currencyKey = item.currencyCode || 'Unknown Currency';
+        if (!grouped[ministryKey]) {
+          grouped[ministryKey] = {};
+        }
+        if (!grouped[ministryKey][currencyKey]) {
+          grouped[ministryKey][currencyKey] = [];
+        }
+        grouped[ministryKey][currencyKey].push(item);
+      });
+
+      // Convert to flat array with group headers and subtotals
+      const result = [];
+      Object.keys(grouped).sort().forEach(ministryName => {
+        let ministryRecordCount = 0;
+        let ministryTotalAmount = 0;
+        let ministryTotalLcy = 0;
+        let ministryTotalSettlements = 0;
+        let ministryTotalOutstanding = 0;
+
+        // Count total records for ministry
+        Object.keys(grouped[ministryName]).forEach(currency => {
+          ministryRecordCount += grouped[ministryName][currency].length;
+        });
+
+        // Ministry header
+        result.push({
+          isMinistryHeader: true,
+          ministryName,
+          recordCount: ministryRecordCount,
+          id: `ministry-${ministryName}`
+        });
+        Object.keys(grouped[ministryName]).sort().forEach(currency => {
+          const items = grouped[ministryName][currency];
+
+          // Currency subheader
+          result.push({
+            isCurrencyHeader: true,
+            ministryName,
+            currencyCode: currency,
+            recordCount: items.length,
+            id: `currency-${ministryName}-${currency}`
+          });
+
+          // Add actual data rows
+          items.forEach(item => {
+            result.push({
+              ...item,
+              isDataRow: true
+            });
+          });
+
+          // Calculate currency subtotals
+          const currencyTotalAmount = items.reduce((sum, item) => sum + (item.amount || 0), 0);
+          const currencyTotalLcy = items.reduce((sum, item) => sum + (item.lcyEquivalent || 0), 0);
+          const currencyTotalSettlements = items.reduce((sum, item) => {
+            const settlements = item.settlementLine || [];
+            return sum + settlements.reduce((settleSum, settle) => settleSum + (settle.amount || 0), 0);
+          }, 0);
+          const currencyTotalOutstanding = items.reduce((sum, item) => sum + (item.outstandingLcyEquivalent || 0), 0);
+
+          // Currency subtotal row
+          result.push({
+            isCurrencySubtotal: true,
+            ministryName,
+            currencyCode: currency,
+            totalAmount: currencyTotalAmount,
+            totalLcy: currencyTotalLcy,
+            totalSettlements: currencyTotalSettlements,
+            totalOutstanding: currencyTotalOutstanding,
+            recordCount: items.length,
+            id: `subtotal-${ministryName}-${currency}`
+          });
+          ministryTotalAmount += currencyTotalAmount;
+          ministryTotalLcy += currencyTotalLcy;
+          ministryTotalSettlements += currencyTotalSettlements;
+          ministryTotalOutstanding += currencyTotalOutstanding;
+        });
+
+        // Ministry total row
+        result.push({
+          isMinistrySubtotal: true,
+          ministryName,
+          totalAmount: ministryTotalAmount,
+          totalLcy: ministryTotalLcy,
+          totalSettlements: ministryTotalSettlements,
+          totalOutstanding: ministryTotalOutstanding,
+          recordCount: ministryRecordCount,
+          id: `ministry-total-${ministryName}`
+        });
+      });
+      return result;
+    },
+    currentDisplayData() {
+      return this.viewMode === 'grouped' ? this.groupedReportData : this.reportData;
     }
   },
   async created() {
@@ -1047,6 +1452,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
     this.applyFilters();
   },
   methods: {
+    getSettleAmount(settlements) {
+      if (!settlements || !Array.isArray(settlements)) return 0;
+      return settlements.reduce((total, item) => {
+        return total + (item.amount || 0);
+      }, 0);
+    },
     async loadInitialData() {
       try {
         const response = await this.$axios.get('/api/ministries');
@@ -1131,8 +1542,45 @@ module.exports = ___CSS_LOADER_EXPORT___;
       };
     },
     viewPaymentDetails(item) {
+      // Skip if it's a header or subtotal row
+      if (this.isGroupHeader(item) || this.isSubtotalRow(item)) {
+        return;
+      }
       this.selectedPayment = item;
       this.detailsDialog = true;
+    },
+    isGroupHeader(item) {
+      return item && (item.isMinistryHeader || item.isCurrencyHeader);
+    },
+    isSubtotalRow(item) {
+      return item && (item.isCurrencySubtotal || item.isMinistrySubtotal);
+    },
+    shouldShowSlotForItem(item) {
+      // Only show individual column slots for flat view or data rows in grouped view
+      return this.viewMode === 'flat' || !this.isGroupHeader(item) && !this.isSubtotalRow(item);
+    },
+    customSort(items, sortBy, sortDesc) {
+      // For grouped view, don't sort as we want to maintain grouping
+      if (this.viewMode === 'grouped') {
+        return items;
+      }
+
+      // Default sorting for flat view
+      return items.sort((a, b) => {
+        const sortKey = sortBy[0];
+        const desc = sortDesc[0];
+        let aVal = a[sortKey];
+        let bVal = b[sortKey];
+        if (typeof aVal === 'string') {
+          aVal = aVal.toLowerCase();
+          bVal = bVal.toLowerCase();
+        }
+        if (desc) {
+          return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+        } else {
+          return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+        }
+      });
     },
     async exportToExcel() {
       this.exporting = true;
@@ -1143,13 +1591,17 @@ module.exports = ___CSS_LOADER_EXPORT___;
             params.append(key, this.filters[key]);
           }
         });
+
+        // Add view mode to export params
+        params.append('viewMode', this.viewMode);
         const response = await this.$axios.get(`/api/money-advances/report/export?${params}`, {
           responseType: 'blob'
         });
         const blob = new Blob([response.data]);
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = `payment-report-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx`;
+        const filename = this.viewMode === 'grouped' ? `payment-report-grouped-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx` : `payment-report-${this.filters.fromDate}-to-${this.filters.toDate}.xlsx`;
+        link.download = filename;
         link.click();
       } catch (error) {
         console.error('Error exporting report:', error);
@@ -1162,14 +1614,14 @@ module.exports = ___CSS_LOADER_EXPORT___;
       window.print();
     },
     formatCurrency(amount) {
-      if (!amount) return '0.00';
+      if (!amount || isNaN(amount)) return '0.00';
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       }).format(amount);
     },
     formatExchangeRate(rate) {
-      if (!rate) return '1.0000';
+      if (!rate || isNaN(rate)) return '1.0000';
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 4,
         maximumFractionDigits: 4
@@ -1222,35 +1674,35 @@ module.exports = ___CSS_LOADER_EXPORT___;
         case 'rejected':
           return 'ປະຕິເສດ';
         default:
-          return status;
+          return status || '';
       }
     },
     getProgressColor(percentage) {
-      const percent = parseFloat(percentage);
+      const percent = parseFloat(percentage || 0);
       if (percent === 100) return '#28a745';
       if (percent >= 50) return '#ffc107';
       return '#dc3545';
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(345)["URLSearchParams"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(347)["URLSearchParams"]))
 
 /***/ }),
 
-/***/ 804:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1062);
+var content = __webpack_require__(1064);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5e1b0236", content, true, context)
+  add("03e31642", content, true, context)
 };
 
 /***/ })

@@ -29,7 +29,7 @@
     "bootstrap": "^5.3.7",
     "chart.js": "^4.5.0",
     "child_process": "^1.0.2",
-    "core-js": "^3.20.0",
+    "core-js": "^3.45.1",
     "echarts": "^5.4.3",
     "gantt-elastic": "^1.0.12",
     "gantt-schedule-timeline-calendar": "^3.35.2",

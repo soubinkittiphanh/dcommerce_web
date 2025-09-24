@@ -1,26 +1,26 @@
 exports.ids = [229,225];
 exports.modules = {
 
-/***/ 1065:
+/***/ 1067:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(808);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2116f6e9_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(810);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1066:
+/***/ 1068:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".banking-primary--text[data-v-2116f6e9]{color:#01532b!important}.banking-success--text[data-v-2116f6e9]{color:#059669!important}.summary-card[data-v-2116f6e9]{border-left:4px solid transparent;transition:all .3s ease}.summary-card[data-v-2116f6e9]:hover{box-shadow:0 8px 25px rgba(1,83,43,.15);transform:translateY(-4px)}.report-card[data-v-2116f6e9]{border-left:4px solid #01532b}.report-header[data-v-2116f6e9]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-table[data-v-2116f6e9]{font-family:\"Roboto\",sans-serif}.banking-table-header[data-v-2116f6e9]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important}.banking-table-header th[data-v-2116f6e9]{background:transparent!important;border-right:1px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-size:.875rem!important;font-weight:700!important;padding:12px 8px!important}.banking-table tbody td[data-v-2116f6e9]{border-bottom:1px solid #e0e0e0!important;border-right:1px solid #f5f5f5!important;font-size:.8rem!important;padding:8px!important}.banking-table tbody tr[data-v-2116f6e9]:hover{background-color:rgba(1,83,43,.05)!important}.banking-row-even[data-v-2116f6e9]{background-color:#f8f9fa!important}.banking-row-special[data-v-2116f6e9]{background-color:#fef3c7!important}.banking-table-footer[data-v-2116f6e9]{background:linear-gradient(90deg,rgba(1,83,43,.1),rgba(1,83,43,.15))!important;border-top:2px solid #01532b!important}.banking-table-footer td[data-v-2116f6e9]{background:transparent!important;border-top:2px solid #01532b!important;font-weight:700!important}.data-table-card[data-v-2116f6e9]{border-left:4px solid #01532b}.data-table-header[data-v-2116f6e9]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-data-table[data-v-2116f6e9]{background:#fff}.date-chip[data-v-2116f6e9]{font-family:\"Roboto Mono\",monospace;font-size:.75rem}.banking-divider[data-v-2116f6e9]{border-color:#01532b!important;border-width:2px!important}.dialog-header[data-v-2116f6e9]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important;color:#fff!important;font-weight:600}.sortable[data-v-2116f6e9]{cursor:pointer;transition:background-color .2s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.sortable[data-v-2116f6e9]:hover{background-color:hsla(0,0%,100%,.1)!important}.v-text-field[data-v-2116f6e9] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-text-field[data-v-2116f6e9] .v-label{color:#01532b!important}.v-select[data-v-2116f6e9] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-select[data-v-2116f6e9] .v-label{color:#01532b!important}.v-textarea[data-v-2116f6e9] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-textarea[data-v-2116f6e9] .v-label{color:#01532b!important}@media (max-width:768px){.banking-table[data-v-2116f6e9]{font-size:.75rem}.banking-table tbody td[data-v-2116f6e9],.banking-table-header th[data-v-2116f6e9]{font-size:.7rem!important;padding:6px 4px!important}.report-card[data-v-2116f6e9],.summary-card[data-v-2116f6e9]{margin-bottom:16px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".banking-primary--text[data-v-ebeb1d9c]{color:#01532b!important}.banking-success--text[data-v-ebeb1d9c]{color:#059669!important}.summary-card[data-v-ebeb1d9c]{border-left:4px solid transparent;transition:all .3s ease}.summary-card[data-v-ebeb1d9c]:hover{box-shadow:0 8px 25px rgba(1,83,43,.15);transform:translateY(-4px)}.report-card[data-v-ebeb1d9c]{border-left:4px solid #01532b}.report-header[data-v-ebeb1d9c]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-table[data-v-ebeb1d9c]{font-family:\"Roboto\",sans-serif}.banking-table-header[data-v-ebeb1d9c]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important}.banking-table-header th[data-v-ebeb1d9c]{background:transparent!important;border-right:1px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-size:.875rem!important;font-weight:700!important;padding:12px 8px!important}.banking-table tbody td[data-v-ebeb1d9c]{border-bottom:1px solid #e0e0e0!important;border-right:1px solid #f5f5f5!important;font-size:.8rem!important;padding:8px!important}.banking-table tbody tr[data-v-ebeb1d9c]:hover{background-color:rgba(1,83,43,.05)!important}.banking-row-even[data-v-ebeb1d9c]{background-color:#f8f9fa!important}.banking-row-special[data-v-ebeb1d9c]{background-color:#fef3c7!important}.banking-table-footer[data-v-ebeb1d9c]{background:linear-gradient(90deg,rgba(1,83,43,.1),rgba(1,83,43,.15))!important;border-top:2px solid #01532b!important}.banking-table-footer td[data-v-ebeb1d9c]{background:transparent!important;border-top:2px solid #01532b!important;font-weight:700!important}.data-table-card[data-v-ebeb1d9c]{border-left:4px solid #01532b}.data-table-header[data-v-ebeb1d9c]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-data-table[data-v-ebeb1d9c]{background:#fff}.date-chip[data-v-ebeb1d9c]{font-family:\"Roboto Mono\",monospace;font-size:.75rem}.banking-divider[data-v-ebeb1d9c]{border-color:#01532b!important;border-width:2px!important}.dialog-header[data-v-ebeb1d9c]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important;color:#fff!important;font-weight:600}.sortable[data-v-ebeb1d9c]{cursor:pointer;transition:background-color .2s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.sortable[data-v-ebeb1d9c]:hover{background-color:hsla(0,0%,100%,.1)!important}.v-text-field[data-v-ebeb1d9c] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-text-field[data-v-ebeb1d9c] .v-label{color:#01532b!important}.v-select[data-v-ebeb1d9c] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-select[data-v-ebeb1d9c] .v-label{color:#01532b!important}.v-textarea[data-v-ebeb1d9c] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-textarea[data-v-ebeb1d9c] .v-label{color:#01532b!important}@media (max-width:768px){.banking-table[data-v-ebeb1d9c]{font-size:.75rem}.banking-table tbody td[data-v-ebeb1d9c],.banking-table-header th[data-v-ebeb1d9c]{font-size:.7rem!important;padding:6px 4px!important}.report-card[data-v-ebeb1d9c],.summary-card[data-v-ebeb1d9c]{margin-bottom:16px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1241:
+/***/ 1245:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51,22 +51,22 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(389);
+var VCol = __webpack_require__(391);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(385);
+var VContainer = __webpack_require__(387);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(397);
+var VDataTable = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(346);
+var VDialog = __webpack_require__(348);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(390);
+var VForm = __webpack_require__(392);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -80,33 +80,25 @@ var VList = __webpack_require__(9);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
 var VListItemIcon = __webpack_require__(61);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(90);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(388);
+var VRow = __webpack_require__(390);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
-var VSimpleTable = __webpack_require__(161);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(387);
+var VSpacer = __webpack_require__(389);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(37);
+var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(424);
+var VTextarea = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
-var VTooltip = __webpack_require__(604);
+var VTooltip = __webpack_require__(606);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=2116f6e9&scoped=true&
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=ebeb1d9c&scoped=true&
 
 
 
@@ -133,7 +125,7 @@ var VTooltip = __webpack_require__(604);
 
 
 
-var settlementvue_type_template_id_2116f6e9_scoped_true_render = function render() {
+var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render() {
   var _vm$currentSettlement;
   var _vm = this,
     _c = _vm._self._c;
@@ -271,471 +263,7 @@ var settlementvue_type_template_id_2116f6e9_scoped_true_render = function render
     staticClass: "text-h4 font-weight-bold"
   }, [_vm._v(_vm._s(_vm.stats.pending || 0))]), _vm._v(" "), _c('div', {
     staticClass: "text-subtitle-1"
-  }, [_vm._v("Pending")])], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl report-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "banking-primary--text py-2 px-4 d-flex align-center report-header"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "#01532B"
-    }
-  }, [_vm._v("mdi-office-building")]), _vm._v(" "), _c('span', {
-    staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ຕາມກົມ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "#059669",
-      "small": "",
-      "outlined": "",
-      "disabled": !_vm.ministrySummaryReport.length
-    },
-    on: {
-      "click": _vm.exportMinistryReportToExcel
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": "",
-      "left": ""
-    }
-  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "small": "",
-      "loading": _vm.loadingMinistryReport,
-      "color": "#01532B"
-    },
-    on: {
-      "click": _vm.fetchMinistryReport
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
-    staticClass: "banking-divider"
-  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.loadingMinistryReport ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "indeterminate": "",
-      "color": "#01532B"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-caption"
-  }, [_vm._v("Loading ministry report...")])], 1) : !_vm.ministrySummaryReport.length ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
-    }
-  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-subtitle-2 grey--text"
-  }, [_vm._v("\n              No ministry data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
-    staticClass: "banking-table",
-    attrs: {
-      "dense": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function () {
-        var _vm$ministryTotals2;
-        return [_c('thead', [_c('tr', {
-          staticClass: "banking-table-header"
-        }, [_c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("#")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Ministry Code\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Ministry Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Count\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          return _c('th', {
-            key: 'head-' + currency,
-            staticClass: "white--text text-caption font-weight-bold text-right"
-          }, [_vm._v("\n                    " + _vm._s(currency) + "\n                  ")]);
-        }), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Total (LAK)\n                  ")])], 2)]), _vm._v(" "), _c('tbody', [_vm._l(_vm.ministrySummaryReport, function (item, index) {
-          return _c('tr', {
-            key: item.ministryId,
-            class: {
-              'banking-row-even': index % 2 === 0,
-              'banking-row-special': item.ministryId === 'NO_MINISTRY'
-            }
-          }, [_c('td', {
-            staticClass: "text-caption text-center"
-          }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text': item.ministryId === 'NO_MINISTRY'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.ministryCode) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text font-italic': item.ministryId === 'NO_MINISTRY'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.ministryName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2 text-right"
-          }, [_vm._v("\n                    " + _vm._s(item.settlementCount) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-            var _item$amounts;
-            return _c('td', {
-              key: 'amt-' + currency,
-              staticClass: "text-body-2 text-right"
-            }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts = item.amounts) === null || _item$amounts === void 0 ? void 0 : _item$amounts[currency]) || 0)) + "\n                  ")]);
-          }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold banking-success--text"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
-        }), _vm._v(" "), _c('tr', {
-          staticClass: "banking-table-footer"
-        }, [_c('td', {
-          staticClass: "font-weight-bold text-caption",
-          attrs: {
-            "colspan": "3"
-          }
-        }, [_vm._v("\n                    ລວມ\n                  ")]), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.ministrySummaryReport.reduce((sum, m) => sum + m.settlementCount, 0)) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          var _vm$ministryTotals, _vm$ministryTotals$cu;
-          return _c('td', {
-            key: 'sum-' + currency,
-            staticClass: "text-right font-weight-bold text-body-2"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals = _vm.ministryTotals) === null || _vm$ministryTotals === void 0 ? void 0 : (_vm$ministryTotals$cu = _vm$ministryTotals.currencyTotals) === null || _vm$ministryTotals$cu === void 0 ? void 0 : _vm$ministryTotals$cu[currency]) || 0)) + "\n                  ")]);
-        }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 banking-primary--text"
-        }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$ministryTotals2 = _vm.ministryTotals) === null || _vm$ministryTotals2 === void 0 ? void 0 : _vm$ministryTotals2.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
-      },
-      proxy: true
-    }])
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl report-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "banking-primary--text py-2 px-4 d-flex align-center report-header"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "#01532B"
-    }
-  }, [_vm._v("mdi-bank")]), _vm._v(" "), _c('span', {
-    staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ຕາມບັນຊີທະນາຄານ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "#059669",
-      "small": "",
-      "outlined": "",
-      "disabled": !_vm.bankAccountSummaryReport.length
-    },
-    on: {
-      "click": _vm.exportBankAccountReportToExcel
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": "",
-      "left": ""
-    }
-  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "small": "",
-      "loading": _vm.loadingBankAccountReport,
-      "color": "#01532B"
-    },
-    on: {
-      "click": _vm.fetchBankAccountReport
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
-    staticClass: "banking-divider"
-  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.loadingBankAccountReport ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "indeterminate": "",
-      "color": "#01532B"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-caption"
-  }, [_vm._v("\n              Loading bank account report...\n            ")])], 1) : !_vm.bankAccountSummaryReport.length ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
-    }
-  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-subtitle-2 grey--text"
-  }, [_vm._v("\n              No bank account data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
-    staticClass: "banking-table",
-    attrs: {
-      "dense": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function () {
-        var _vm$bankAccountTotals3;
-        return [_c('thead', [_c('tr', {
-          staticClass: "banking-table-header"
-        }, [_c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("#")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Account Number\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Account Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Bank Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Type\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Count\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          return _c('th', {
-            key: 'head-' + currency,
-            staticClass: "white--text text-caption font-weight-bold text-right"
-          }, [_vm._v("\n                    " + _vm._s(currency) + "\n                  ")]);
-        }), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Total (LAK)\n                  ")])], 2)]), _vm._v(" "), _c('tbody', [_vm._l(_vm.bankAccountSummaryReport, function (item, index) {
-          return _c('tr', {
-            key: item.bankAccountId,
-            class: {
-              'banking-row-even': index % 2 === 0,
-              'banking-row-special': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_c('td', {
-            staticClass: "text-caption text-center"
-          }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.accountNumber) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text font-italic': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.accountName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text font-italic': item.bankAccountId === 'NO_BANK_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.bankName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2"
-          }, [_c(VChip["a" /* default */], {
-            attrs: {
-              "x-small": "",
-              "color": item.accountType === 'Cash' ? '#F59E0B' : '#01532B',
-              "text-color": "white"
-            }
-          }, [_vm._v("\n                      " + _vm._s(item.accountType) + "\n                    ")])], 1), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2 text-right"
-          }, [_vm._v("\n                    " + _vm._s(item.settlementCount) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-            var _item$amounts2;
-            return _c('td', {
-              key: 'amt-' + currency,
-              staticClass: "text-body-2 text-right"
-            }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts2 = item.amounts) === null || _item$amounts2 === void 0 ? void 0 : _item$amounts2[currency]) || 0)) + "\n                  ")]);
-          }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold banking-success--text"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
-        }), _vm._v(" "), _c('tr', {
-          staticClass: "banking-table-footer"
-        }, [_c('td', {
-          staticClass: "font-weight-bold text-caption",
-          attrs: {
-            "colspan": "5"
-          }
-        }, [_vm._v("\n                    ລວມ\n                  ")]), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.bankAccountSummaryReport.reduce((sum, b) => sum + b.settlementCount, 0)) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          var _vm$bankAccountTotals, _vm$bankAccountTotals2;
-          return _c('td', {
-            key: 'sum-' + currency,
-            staticClass: "text-right font-weight-bold text-body-2"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals = _vm.bankAccountTotals) === null || _vm$bankAccountTotals === void 0 ? void 0 : (_vm$bankAccountTotals2 = _vm$bankAccountTotals.currencyTotals) === null || _vm$bankAccountTotals2 === void 0 ? void 0 : _vm$bankAccountTotals2[currency]) || 0)) + "\n                  ")]);
-        }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 banking-primary--text"
-        }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$bankAccountTotals3 = _vm.bankAccountTotals) === null || _vm$bankAccountTotals3 === void 0 ? void 0 : _vm$bankAccountTotals3.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
-      },
-      proxy: true
-    }])
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "rounded-xl report-card",
-    attrs: {
-      "elevation": "2"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "banking-primary--text py-2 px-4 d-flex align-center report-header"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "#01532B"
-    }
-  }, [_vm._v("mdi-account-multiple")]), _vm._v(" "), _c('span', {
-    staticClass: "text-subtitle-1 font-weight-medium"
-  }, [_vm._v("\n            ລາຍງານ ຕາມຫົວບັນຊີ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "#059669",
-      "small": "",
-      "outlined": "",
-      "disabled": !_vm.chartAccountSummaryReport.length
-    },
-    on: {
-      "click": _vm.exportChartAccountReportToExcel
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": "",
-      "left": ""
-    }
-  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "small": "",
-      "loading": _vm.loadingChartAccountReport,
-      "color": "#01532B"
-    },
-    on: {
-      "click": _vm.fetchChartAccountReport
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
-    staticClass: "banking-divider"
-  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.loadingChartAccountReport ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "indeterminate": "",
-      "color": "#01532B"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-caption"
-  }, [_vm._v("\n              Loading chart account report...\n            ")])], 1) : !_vm.chartAccountSummaryReport.length ? _c('div', {
-    staticClass: "text-center py-6"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
-    }
-  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
-    staticClass: "mt-2 text-subtitle-2 grey--text"
-  }, [_vm._v("\n              No chart account data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
-    staticClass: "banking-table",
-    attrs: {
-      "dense": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function () {
-        var _vm$chartAccountTotal3;
-        return [_c('thead', [_c('tr', {
-          staticClass: "banking-table-header"
-        }, [_c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("#")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Account Number\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold"
-        }, [_vm._v("\n                    Account Name\n                  ")]), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Count\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          return _c('th', {
-            key: 'head-' + currency,
-            staticClass: "white--text text-caption font-weight-bold text-right"
-          }, [_vm._v("\n                    " + _vm._s(currency) + "\n                  ")]);
-        }), _vm._v(" "), _c('th', {
-          staticClass: "white--text text-caption font-weight-bold text-right"
-        }, [_vm._v("\n                    Total (LAK)\n                  ")])], 2)]), _vm._v(" "), _c('tbody', [_vm._l(_vm.chartAccountSummaryReport, function (item, index) {
-          return _c('tr', {
-            key: item.chartAccountId,
-            class: {
-              'banking-row-even': index % 2 === 0,
-              'banking-row-special': item.chartAccountId === 'NO_CHART_ACCOUNT'
-            }
-          }, [_c('td', {
-            staticClass: "text-caption text-center"
-          }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text': item.chartAccountId === 'NO_CHART_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.accountNumber) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2",
-            class: {
-              'grey--text font-italic': item.chartAccountId === 'NO_CHART_ACCOUNT'
-            }
-          }, [_vm._v("\n                    " + _vm._s(item.accountName) + "\n                  ")]), _vm._v(" "), _c('td', {
-            staticClass: "text-body-2 text-right"
-          }, [_vm._v("\n                    " + _vm._s(item.settlementCount) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-            var _item$amounts3;
-            return _c('td', {
-              key: 'amt-' + currency,
-              staticClass: "text-body-2 text-right"
-            }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_item$amounts3 = item.amounts) === null || _item$amounts3 === void 0 ? void 0 : _item$amounts3[currency]) || 0)) + "\n                  ")]);
-          }), _vm._v(" "), _c('td', {
-            staticClass: "text-right font-weight-bold banking-success--text"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(item.totalLakEquivalent || 0)) + "\n                  ")])], 2);
-        }), _vm._v(" "), _c('tr', {
-          staticClass: "banking-table-footer"
-        }, [_c('td', {
-          staticClass: "font-weight-bold text-caption",
-          attrs: {
-            "colspan": "3"
-          }
-        }, [_vm._v("\n                    ລວມ\n                  ")]), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.chartAccountSummaryReport.reduce((sum, c) => sum + c.settlementCount, 0)) + "\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
-          var _vm$chartAccountTotal, _vm$chartAccountTotal2;
-          return _c('td', {
-            key: 'sum-' + currency,
-            staticClass: "text-right font-weight-bold text-body-2"
-          }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$chartAccountTotal = _vm.chartAccountTotals) === null || _vm$chartAccountTotal === void 0 ? void 0 : (_vm$chartAccountTotal2 = _vm$chartAccountTotal.currencyTotals) === null || _vm$chartAccountTotal2 === void 0 ? void 0 : _vm$chartAccountTotal2[currency]) || 0)) + "\n                  ")]);
-        }), _vm._v(" "), _c('td', {
-          staticClass: "text-right font-weight-bold text-body-2 banking-primary--text"
-        }, [_vm._v("\n                    " + _vm._s(_vm.formatAmount(((_vm$chartAccountTotal3 = _vm.chartAccountTotals) === null || _vm$chartAccountTotal3 === void 0 ? void 0 : _vm$chartAccountTotal3.totalLakEquivalent) || 0)) + "\n                  ")])], 2)], 2)];
-      },
-      proxy: true
-    }])
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCard["a" /* default */], {
+  }, [_vm._v("Pending")])], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCard["a" /* default */], {
     staticClass: "data-table-card",
     attrs: {
       "elevation": "2"
@@ -1211,7 +739,7 @@ var settlementvue_type_template_id_2116f6e9_scoped_true_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=2116f6e9&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=ebeb1d9c&scoped=true&
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(92);
@@ -1253,55 +781,55 @@ var esnext_map_some_js_ = __webpack_require__(103);
 var esnext_map_update_js_ = __webpack_require__(104);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(348);
+var esnext_set_add_all_js_ = __webpack_require__(350);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(349);
+var esnext_set_delete_all_js_ = __webpack_require__(351);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(350);
+var esnext_set_difference_js_ = __webpack_require__(352);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(351);
+var esnext_set_every_js_ = __webpack_require__(353);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(352);
+var esnext_set_filter_js_ = __webpack_require__(354);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(353);
+var esnext_set_find_js_ = __webpack_require__(355);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(354);
+var esnext_set_intersection_js_ = __webpack_require__(356);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(355);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(357);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(356);
+var esnext_set_is_subset_of_js_ = __webpack_require__(358);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(357);
+var esnext_set_is_superset_of_js_ = __webpack_require__(359);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(358);
+var esnext_set_join_js_ = __webpack_require__(360);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(359);
+var esnext_set_map_js_ = __webpack_require__(361);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(360);
+var esnext_set_reduce_js_ = __webpack_require__(362);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(361);
+var esnext_set_some_js_ = __webpack_require__(363);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(362);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(364);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(363);
+var esnext_set_union_js_ = __webpack_require__(365);
 
 // EXTERNAL MODULE: ./pages/admin/report/MA/mixin/excel.js
-var excel = __webpack_require__(807);
+var excel = __webpack_require__(809);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=script&lang=js&
 
@@ -1889,7 +1417,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1065)
+  var style0 = __webpack_require__(1067)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1898,11 +1426,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_settlementvue_type_script_lang_js_,
-  settlementvue_type_template_id_2116f6e9_scoped_true_render,
+  settlementvue_type_template_id_ebeb1d9c_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "2116f6e9",
+  "ebeb1d9c",
   "f0f67526"
   
 )
@@ -1911,13 +1439,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 401:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(402);
+var content = __webpack_require__(404);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1925,7 +1453,7 @@ __webpack_require__(5).default("c54b7bb4", content, true)
 
 /***/ }),
 
-/***/ 402:
+/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1940,13 +1468,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 424:
+/***/ 426:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(401);
+/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(403);
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
+/* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 // Styles
  // Extensions
@@ -2041,13 +1569,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 497:
+/***/ 499:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(498);
+var content = __webpack_require__(500);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2055,7 +1583,7 @@ __webpack_require__(5).default("53887fd2", content, true)
 
 /***/ }),
 
-/***/ 498:
+/***/ 500:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2070,11 +1598,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 604:
+/***/ 606:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(497);
+/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(499);
 /* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_activatable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
@@ -2275,12 +1803,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 807:
+/***/ 809:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(367);
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(369);
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2502,20 +2030,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 808:
+/***/ 810:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1066);
+var content = __webpack_require__(1068);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("003e32c6", content, true, context)
+  add("b95b6316", content, true, context)
 };
 
 /***/ })

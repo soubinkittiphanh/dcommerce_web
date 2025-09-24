@@ -96,10 +96,10 @@ export default {
       const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId'])
       this.setSelectedLocation(location)
       //********** refresh component so the data will be update fresh **********//
-      this.terminalDialog = false
       this.$router.push('/admin') // Main screen for minimart business
       // this.$router.push('/admin/moneyAdvance') // Main screen for YOTHA 
       // this.$router.push('/admin/orders') // Main screen for shipping bussiness
+      this.terminalDialog = false
     },
     async userLogin() {
       if(this.isLoading) return
