@@ -1,7 +1,7 @@
 exports.ids = [283];
 exports.modules = {
 
-/***/ 699:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,6 @@ exports.modules = {
  */
 
 
-__webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
 __webpack_require__(95);
@@ -26,6 +25,7 @@ __webpack_require__(101);
 __webpack_require__(102);
 __webpack_require__(103);
 __webpack_require__(104);
+__webpack_require__(105);
 __webpack_require__(350);
 __webpack_require__(351);
 __webpack_require__(352);
@@ -43,7 +43,7 @@ __webpack_require__(363);
 __webpack_require__(364);
 __webpack_require__(365);
 __webpack_require__(373);
-var helpers_dataset = __webpack_require__(700);
+var helpers_dataset = __webpack_require__(702);
 __webpack_require__(370);
 class Animator {
   constructor() {
@@ -12169,7 +12169,7 @@ exports.scales = scales;
 
 /***/ }),
 
-/***/ 700:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12197,7 +12197,6 @@ __webpack_require__(362);
 __webpack_require__(363);
 __webpack_require__(364);
 __webpack_require__(365);
-__webpack_require__(92);
 __webpack_require__(93);
 __webpack_require__(94);
 __webpack_require__(95);
@@ -12210,6 +12209,7 @@ __webpack_require__(101);
 __webpack_require__(102);
 __webpack_require__(103);
 __webpack_require__(104);
+__webpack_require__(105);
 var color$1 = __webpack_require__(370);
 
 /**
@@ -15232,10 +15232,10 @@ exports.valueOrDefault = valueOrDefault;
 
 /***/ }),
 
-/***/ 807:
+/***/ 809:
 /***/ (function(module, exports, __webpack_require__) {
 
-const chartjs = __webpack_require__(699);
+const chartjs = __webpack_require__(701);
 const {
   Chart,
   registerables

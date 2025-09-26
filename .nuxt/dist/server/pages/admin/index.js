@@ -1,7 +1,7 @@
 exports.ids = [179,34,42,43,45,46,83,86,87,110,113,114,216,281];
 exports.modules = {
 
-/***/ 1133:
+/***/ 1136:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -246,19 +246,19 @@ var common = __webpack_require__(11);
 var api = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./components/dashboard/CardOnTop.vue + 4 modules
-var CardOnTop = __webpack_require__(843);
+var CardOnTop = __webpack_require__(845);
 
 // EXTERNAL MODULE: ./components/dashboard/CardGrouping.vue + 4 modules
-var CardGrouping = __webpack_require__(844);
+var CardGrouping = __webpack_require__(846);
 
 // EXTERNAL MODULE: ./components/card/campaignCard.vue + 4 modules
-var campaignCard = __webpack_require__(845);
+var campaignCard = __webpack_require__(847);
 
 // EXTERNAL MODULE: ./components/minStockCard/index.vue + 4 modules
-var minStockCard = __webpack_require__(706);
+var minStockCard = __webpack_require__(708);
 
 // EXTERNAL MODULE: ./components/menuOverview/index.vue + 4 modules
-var menuOverview = __webpack_require__(707);
+var menuOverview = __webpack_require__(709);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(13);
@@ -349,35 +349,35 @@ var external_echarts_ = __webpack_require__(371);
       menus: [{
         title: 'POS',
         // icon: 'mdi-network-pos',
-        svgIcon: __webpack_require__(888),
+        svgIcon: __webpack_require__(891),
         path: '/pos/minimart'
       }, {
         title: 'Invoice',
         // icon: 'mdi-file-document-multiple',
-        svgIcon: __webpack_require__(889),
+        svgIcon: __webpack_require__(892),
         path: '/admin/ordersFromPos'
       }, {
         title: 'ລູກຫນີ້',
         // icon: 'mdi-credit-card-refresh-outline',
-        svgIcon: __webpack_require__(890),
+        svgIcon: __webpack_require__(893),
         path: '/admin/ordersFromPosCredit'
       }, {
         title: 'Stock',
         // icon: 'mdi-warehouse',
-        svgIcon: __webpack_require__(891),
+        svgIcon: __webpack_require__(894),
         path: '/admin/product/productlist'
       }, {
         // title: 'ລາຍການ ການຂາຍ',
         title: 'ລາຍງານ ລູກຄ້າຕິດຫນີ້ ',
         //231001 CR By Bae
         // icon: 'mdi-warehouse',
-        svgIcon: __webpack_require__(892),
+        svgIcon: __webpack_require__(895),
         // path: '/admin/ordersFromPos'
         path: '/admin/ordersFromPosSummaryByCustomer' //231001 CR By Bae
       }, {
         title: 'Customer',
         // icon: 'mdi-warehouse',
-        svgIcon: __webpack_require__(893),
+        svgIcon: __webpack_require__(896),
         path: '/admin/client'
       }
       // {
@@ -881,7 +881,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var admin = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(86).default,Menu: __webpack_require__(846).default,MenuOverview: __webpack_require__(707).default,MinStockCard: __webpack_require__(706).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(86).default,Menu: __webpack_require__(848).default,MenuOverview: __webpack_require__(709).default,MinStockCard: __webpack_require__(708).default})
 
 
 /***/ }),
@@ -5807,13 +5807,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 539:
+/***/ 540:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(618);
+var content = __webpack_require__(619);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -5825,19 +5825,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 617:
+/***/ 618:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(539);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(540);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 618:
+/***/ 619:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -5852,7 +5852,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 706:
+/***/ 708:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6215,7 +6215,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 707:
+/***/ 709:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6407,7 +6407,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 843:
+/***/ 845:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6501,7 +6501,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(617)
+  var style0 = __webpack_require__(618)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6523,7 +6523,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 844:
+/***/ 846:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6615,7 +6615,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 845:
+/***/ 847:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6761,7 +6761,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 846:
+/***/ 848:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6978,42 +6978,42 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 888:
+/***/ 891:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier_2.208aede.svg";
 
 /***/ }),
 
-/***/ 889:
+/***/ 892:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/invoice.45f420f.svg";
 
 /***/ }),
 
-/***/ 890:
+/***/ 893:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/pay-card.8fb80cc.svg";
 
 /***/ }),
 
-/***/ 891:
+/***/ 894:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/stock.b6becdb.svg";
 
 /***/ }),
 
-/***/ 892:
+/***/ 895:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/responsive.bfad449.svg";
 
 /***/ }),
 
-/***/ 893:
+/***/ 896:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/patient.1cdc99c.svg";

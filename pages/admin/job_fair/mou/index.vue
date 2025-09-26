@@ -18,7 +18,7 @@
     </div>
 
     <!-- Enhanced Statistics Cards -->
-    <div class="stats-grid">
+    <!-- <div class="stats-grid">
       <v-card class="stat-card primary-card">
         <div class="stat-content">
           <div class="stat-icon">
@@ -66,10 +66,10 @@
           </div>
         </div>
       </v-card>
-    </div>
+    </div> -->
 
     <!-- Additional Statistics Row -->
-    <div class="stats-grid secondary-stats">
+    <!-- <div class="stats-grid secondary-stats">
       <v-card class="stat-card mini-card interview-card">
         <div class="stat-content mini">
           <div class="stat-icon mini">
@@ -117,7 +117,7 @@
           </div>
         </div>
       </v-card>
-    </div>
+    </div> -->
 
     <!-- Recent MOUs Table -->
     <v-card class="mt-6 table-card">

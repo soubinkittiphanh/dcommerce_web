@@ -1,7 +1,7 @@
 exports.ids = [266,26,48];
 exports.modules = {
 
-/***/ 1225:
+/***/ 1228:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -204,11 +204,11 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/fashion/index_20240429.vue?vue&type=template&id=653d1813&
 
 // EXTERNAL MODULE: ./assets/img/banners/banner_1.png
-var banner_1 = __webpack_require__(670);
+var banner_1 = __webpack_require__(671);
 var banner_1_default = /*#__PURE__*/__webpack_require__.n(banner_1);
 
 // EXTERNAL MODULE: ./assets/img/banners/banner_2.png
-var banner_2 = __webpack_require__(671);
+var banner_2 = __webpack_require__(672);
 var banner_2_default = /*#__PURE__*/__webpack_require__.n(banner_2);
 
 // EXTERNAL MODULE: ./common/index.js
@@ -318,18 +318,18 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var index_20240429 = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {Brands: __webpack_require__(873).default,DiscountProductsCard: __webpack_require__(613).default})
+installComponents(component, {Brands: __webpack_require__(875).default,DiscountProductsCard: __webpack_require__(614).default})
 
 
 /***/ }),
 
-/***/ 518:
+/***/ 488:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(519);
+var content = __webpack_require__(489);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -337,7 +337,7 @@ __webpack_require__(5).default("d67becdc", content, true)
 
 /***/ }),
 
-/***/ 519:
+/***/ 489:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -352,217 +352,14 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 613:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(124);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(121);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(394);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
-var VImg = __webpack_require__(83);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=template&id=9e91c85c&
-
-
-
-
-
-
-
-
-var discount_products_cardvue_type_template_id_9e91c85c_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VHover["a" /* default */], {
-    attrs: {
-      "open-delay": "50"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function ({
-        hover
-      }) {
-        return [_c(VCard["a" /* default */], {
-          attrs: {
-            "elevation": hover ? 8 : 0,
-            "width": "220"
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.gotoProductDetail(_vm.product.id);
-            }
-          }
-        }, [_c(VCard["a" /* default */], {
-          attrs: {
-            "height": " 280"
-          }
-        }, [_vm.product['images'].length > 0 ? _c(VImg["a" /* default */], {
-          staticClass: "pointer-cursor",
-          attrs: {
-            "max-width": "220",
-            "src": _vm.host + '/' + _vm.product['images'][0]['img_path']
-          }
-        }) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-          staticClass: "text-start"
-        }, [_c('div', {
-          staticClass: "font-weight-meduim black--text"
-        }, [_vm._v(_vm._s(_vm.product.pro_name))]), _vm._v(" "), _c('div', {
-          staticClass: "font-weight-meduim green--text"
-        }, [_vm._v("\n          ລາຄາ: " + _vm._s(_vm.formatPrice(_vm.product.pro_price)) + "\n        ")]), _vm._v(" "), _c('div', {
-          staticClass: "d-flex justify-space-between mt-2"
-        }, [_c(VChip["a" /* default */], {
-          staticClass: "ma-0 white--text",
-          attrs: {
-            "small": "",
-            "label": "",
-            "color": "white"
-          }
-        }, [_c(VBtn["a" /* default */], {
-          attrs: {
-            "icon": "",
-            "color": "green"
-          },
-          on: {
-            "click": function ($event) {
-              _vm.whatsappProduct(_vm.product.pro_price);
-            }
-          }
-        }, [_c(VIcon["a" /* default */], [_vm._v("mdi-whatsapp")])], 1)], 1), _vm._v(" "), _c(VChip["a" /* default */], {
-          staticClass: "ma-0",
-          attrs: {
-            "small": "",
-            "label": "",
-            "outlined": "",
-            "color": "primary"
-          }
-        }, [_vm._v("\n            " + _vm._s("ພ້ອມສົ່ງ") + "\n          ")])], 1)])], 1)];
-      }
-    }])
-  })], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/discount-products-card.vue?vue&type=template&id=9e91c85c&
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(37);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=script&lang=js&
-
-
-/* harmony default export */ var discount_products_cardvue_type_script_lang_js_ = ({
-  name: 'discount-products-card',
-  props: {
-    product: {
-      type: Object,
-      require: true
-    }
-  },
-  computed: {
-    host() {
-      return Object(api["a" /* hostName */])();
-    }
-  },
-  data() {
-    return {
-      discountPrice: '119000 LAK',
-      discountPercent: '-50%'
-    };
-  },
-  methods: {
-    gotoProductDetail(productId) {
-      // this.$router.push({ name: 'product-details', params: { id: productId } });
-      this.$router.push({
-        path: `product/${productId}`
-      });
-    },
-    formatPrice(price) {
-      console.log(`Price ${Object(common["e" /* getFormatNum */])(price)}`);
-      return Object(common["e" /* getFormatNum */])(price);
-    },
-    whatsappProduct(pro_price) {
-      console.log(`Price ${this.formatPrice(pro_price)}`);
-      // TODO: Get whatsapp function done
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/discount-products-card.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_discount_products_cardvue_type_script_lang_js_ = (discount_products_cardvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/discount-products-card.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_discount_products_cardvue_type_script_lang_js_,
-  discount_products_cardvue_type_template_id_9e91c85c_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "bcaa0480"
-  
-)
-
-/* harmony default export */ var discount_products_card = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 670:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "img/banner_1.a8ec209.png";
-
-/***/ }),
-
-/***/ 671:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "img/banner_2.e1b3784.png";
-
-/***/ }),
-
-/***/ 672:
+/***/ 520:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export calculateUpdatedOffset */
 /* unused harmony export calculateCenteredOffset */
-/* unused harmony export BaseSlideGroup */
-/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(518);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
 /* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
@@ -972,7 +769,7 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
     return h('div', this.genData(), [this.genPrev(), this.genWrapper(), this.genNext()]);
   }
 });
-/* harmony default export */ __webpack_exports__["a"] = (BaseSlideGroup.extend({
+/* harmony default export */ __webpack_exports__["b"] = (BaseSlideGroup.extend({
   name: 'v-slide-group',
   provide() {
     return {
@@ -983,6 +780,209 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
 
 /***/ }),
 
+/***/ 614:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(124);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(121);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(125);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
+var VHover = __webpack_require__(394);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
+var VImg = __webpack_require__(83);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=template&id=9e91c85c&
+
+
+
+
+
+
+
+
+var discount_products_cardvue_type_template_id_9e91c85c_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VHover["a" /* default */], {
+    attrs: {
+      "open-delay": "50"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function ({
+        hover
+      }) {
+        return [_c(VCard["a" /* default */], {
+          attrs: {
+            "elevation": hover ? 8 : 0,
+            "width": "220"
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.gotoProductDetail(_vm.product.id);
+            }
+          }
+        }, [_c(VCard["a" /* default */], {
+          attrs: {
+            "height": " 280"
+          }
+        }, [_vm.product['images'].length > 0 ? _c(VImg["a" /* default */], {
+          staticClass: "pointer-cursor",
+          attrs: {
+            "max-width": "220",
+            "src": _vm.host + '/' + _vm.product['images'][0]['img_path']
+          }
+        }) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+          staticClass: "text-start"
+        }, [_c('div', {
+          staticClass: "font-weight-meduim black--text"
+        }, [_vm._v(_vm._s(_vm.product.pro_name))]), _vm._v(" "), _c('div', {
+          staticClass: "font-weight-meduim green--text"
+        }, [_vm._v("\n          ລາຄາ: " + _vm._s(_vm.formatPrice(_vm.product.pro_price)) + "\n        ")]), _vm._v(" "), _c('div', {
+          staticClass: "d-flex justify-space-between mt-2"
+        }, [_c(VChip["a" /* default */], {
+          staticClass: "ma-0 white--text",
+          attrs: {
+            "small": "",
+            "label": "",
+            "color": "white"
+          }
+        }, [_c(VBtn["a" /* default */], {
+          attrs: {
+            "icon": "",
+            "color": "green"
+          },
+          on: {
+            "click": function ($event) {
+              _vm.whatsappProduct(_vm.product.pro_price);
+            }
+          }
+        }, [_c(VIcon["a" /* default */], [_vm._v("mdi-whatsapp")])], 1)], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+          staticClass: "ma-0",
+          attrs: {
+            "small": "",
+            "label": "",
+            "outlined": "",
+            "color": "primary"
+          }
+        }, [_vm._v("\n            " + _vm._s("ພ້ອມສົ່ງ") + "\n          ")])], 1)])], 1)];
+      }
+    }])
+  })], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/discount-products-card.vue?vue&type=template&id=9e91c85c&
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./common/api.js
+var api = __webpack_require__(37);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=script&lang=js&
+
+
+/* harmony default export */ var discount_products_cardvue_type_script_lang_js_ = ({
+  name: 'discount-products-card',
+  props: {
+    product: {
+      type: Object,
+      require: true
+    }
+  },
+  computed: {
+    host() {
+      return Object(api["a" /* hostName */])();
+    }
+  },
+  data() {
+    return {
+      discountPrice: '119000 LAK',
+      discountPercent: '-50%'
+    };
+  },
+  methods: {
+    gotoProductDetail(productId) {
+      // this.$router.push({ name: 'product-details', params: { id: productId } });
+      this.$router.push({
+        path: `product/${productId}`
+      });
+    },
+    formatPrice(price) {
+      console.log(`Price ${Object(common["e" /* getFormatNum */])(price)}`);
+      return Object(common["e" /* getFormatNum */])(price);
+    },
+    whatsappProduct(pro_price) {
+      console.log(`Price ${this.formatPrice(pro_price)}`);
+      // TODO: Get whatsapp function done
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/discount-products-card.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_discount_products_cardvue_type_script_lang_js_ = (discount_products_cardvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/discount-products-card.vue
+
+
+
+function injectStyles (context) {
+  
+  
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_discount_products_cardvue_type_script_lang_js_,
+  discount_products_cardvue_type_template_id_9e91c85c_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  null,
+  "bcaa0480"
+  
+)
+
+/* harmony default export */ var discount_products_card = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 671:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "img/banner_1.a8ec209.png";
+
+/***/ }),
+
+/***/ 672:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "img/banner_2.e1b3784.png";
+
+/***/ }),
+
 /***/ 673:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -990,7 +990,7 @@ module.exports = __webpack_require__.p + "img/xiaomi.db57d06.png";
 
 /***/ }),
 
-/***/ 724:
+/***/ 726:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1078,7 +1078,7 @@ const BaseItem = external_vue_default.a.extend({
 
 /***/ }),
 
-/***/ 873:
+/***/ 875:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1098,10 +1098,10 @@ var VImg = __webpack_require__(83);
 var VSheet = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
-var VSlideGroup = __webpack_require__(672);
+var VSlideGroup = __webpack_require__(520);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(724);
+var VSlideItem = __webpack_require__(726);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=template&id=53ec9e7e&
 
@@ -1116,7 +1116,7 @@ var brandsvue_type_template_id_53ec9e7e_render = function render() {
     _c = _vm._self._c;
   return _c('div', [_c(VSheet["a" /* default */], {
     staticClass: "rounded-lg"
-  }, [_c(VSlideGroup["a" /* default */], {
+  }, [_c(VSlideGroup["b" /* default */], {
     attrs: {
       "show-arrows": "",
       "center-active": ""

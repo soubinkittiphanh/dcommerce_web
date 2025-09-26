@@ -419,7 +419,464 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 524:
+/***/ 488:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(489);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("d67becdc", content, true)
+
+/***/ }),
+
+/***/ 489:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-slide-group{display:flex}.v-slide-group:not(.v-slide-group--has-affixes)>.v-slide-group__next,.v-slide-group:not(.v-slide-group--has-affixes)>.v-slide-group__prev{display:none}.v-slide-group.v-item-group>.v-slide-group__next,.v-slide-group.v-item-group>.v-slide-group__prev{cursor:pointer}.v-slide-item{display:inline-flex;flex:0 1 auto}.v-slide-group__next,.v-slide-group__prev{align-items:center;display:flex;flex:0 1 52px;justify-content:center;min-width:52px}.v-slide-group__content{display:flex;flex:1 0 auto;position:relative;transition:.3s cubic-bezier(.25,.8,.5,1);white-space:nowrap}.v-slide-group__wrapper{contain:content;display:flex;flex:1 1 auto;overflow:hidden}.v-slide-group__next--disabled,.v-slide-group__prev--disabled{pointer-events:none}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 520:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export calculateUpdatedOffset */
+/* unused harmony export calculateCenteredOffset */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
+/* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
+/* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(56);
+/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(53);
+/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(135);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
+// Styles
+ // Components
+
+
+ // Extensions
+
+ // Mixins
+
+ // Directives
+
+
+ // Utilities
+
+
+
+function bias(val) {
+  const c = 0.501;
+  const x = Math.abs(val);
+  return Math.sign(val) * (x / ((1 / c - 2) * (1 - x) + 1));
+}
+function calculateUpdatedOffset(selectedElement, widths, rtl, currentScrollOffset) {
+  const clientWidth = selectedElement.clientWidth;
+  const offsetLeft = rtl ? widths.content - selectedElement.offsetLeft - clientWidth : selectedElement.offsetLeft;
+  if (rtl) {
+    currentScrollOffset = -currentScrollOffset;
+  }
+  const totalWidth = widths.wrapper + currentScrollOffset;
+  const itemOffset = clientWidth + offsetLeft;
+  const additionalOffset = clientWidth * 0.4;
+  if (offsetLeft <= currentScrollOffset) {
+    currentScrollOffset = Math.max(offsetLeft - additionalOffset, 0);
+  } else if (totalWidth <= itemOffset) {
+    currentScrollOffset = Math.min(currentScrollOffset - (totalWidth - itemOffset - additionalOffset), widths.content - widths.wrapper);
+  }
+  return rtl ? -currentScrollOffset : currentScrollOffset;
+}
+function calculateCenteredOffset(selectedElement, widths, rtl) {
+  const {
+    offsetLeft,
+    clientWidth
+  } = selectedElement;
+  if (rtl) {
+    const offsetCentered = widths.content - offsetLeft - clientWidth / 2 - widths.wrapper / 2;
+    return -Math.min(widths.content - widths.wrapper, Math.max(0, offsetCentered));
+  } else {
+    const offsetCentered = offsetLeft + clientWidth / 2 - widths.wrapper / 2;
+    return Math.min(widths.content - widths.wrapper, Math.max(0, offsetCentered));
+  }
+}
+const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__[/* BaseItemGroup */ "a"], _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).extend({
+  name: 'base-slide-group',
+  directives: {
+    Resize: _directives_resize__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"],
+    Touch: _directives_touch__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]
+  },
+  props: {
+    activeClass: {
+      type: String,
+      default: 'v-slide-item--active'
+    },
+    centerActive: Boolean,
+    nextIcon: {
+      type: String,
+      default: '$next'
+    },
+    prevIcon: {
+      type: String,
+      default: '$prev'
+    },
+    showArrows: {
+      type: [Boolean, String],
+      validator: v => typeof v === 'boolean' || ['always', 'desktop', 'mobile'].includes(v)
+    }
+  },
+  data: () => ({
+    isOverflowing: false,
+    resizeTimeout: 0,
+    startX: 0,
+    isSwipingHorizontal: false,
+    isSwiping: false,
+    scrollOffset: 0,
+    widths: {
+      content: 0,
+      wrapper: 0
+    }
+  }),
+  computed: {
+    canTouch() {
+      return typeof window !== 'undefined';
+    },
+    __cachedNext() {
+      return this.genTransition('next');
+    },
+    __cachedPrev() {
+      return this.genTransition('prev');
+    },
+    classes() {
+      return {
+        ..._VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__[/* BaseItemGroup */ "a"].options.computed.classes.call(this),
+        'v-slide-group': true,
+        'v-slide-group--has-affixes': this.hasAffixes,
+        'v-slide-group--is-overflowing': this.isOverflowing
+      };
+    },
+    hasAffixes() {
+      switch (this.showArrows) {
+        // Always show arrows on desktop & mobile
+        case 'always':
+          return true;
+        // Always show arrows on desktop
+
+        case 'desktop':
+          return !this.isMobile;
+        // Show arrows on mobile when overflowing.
+        // This matches the default 2.2 behavior
+
+        case true:
+          return this.isOverflowing || Math.abs(this.scrollOffset) > 0;
+        // Always show on mobile
+
+        case 'mobile':
+          return this.isMobile || this.isOverflowing || Math.abs(this.scrollOffset) > 0;
+        // https://material.io/components/tabs#scrollable-tabs
+        // Always show arrows when
+        // overflowed on desktop
+
+        default:
+          return !this.isMobile && (this.isOverflowing || Math.abs(this.scrollOffset) > 0);
+      }
+    },
+    hasNext() {
+      if (!this.hasAffixes) return false;
+      const {
+        content,
+        wrapper
+      } = this.widths; // Check one scroll ahead to know the width of right-most item
+
+      return content > Math.abs(this.scrollOffset) + wrapper;
+    },
+    hasPrev() {
+      return this.hasAffixes && this.scrollOffset !== 0;
+    }
+  },
+  watch: {
+    internalValue: 'setWidths',
+    // When overflow changes, the arrows alter
+    // the widths of the content and wrapper
+    // and need to be recalculated
+    isOverflowing: 'setWidths',
+    scrollOffset(val) {
+      if (this.$vuetify.rtl) val = -val;
+      let scroll = val <= 0 ? bias(-val) : val > this.widths.content - this.widths.wrapper ? -(this.widths.content - this.widths.wrapper) + bias(this.widths.content - this.widths.wrapper - val) : -val;
+      if (this.$vuetify.rtl) scroll = -scroll;
+      this.$refs.content.style.transform = `translateX(${scroll}px)`;
+    }
+  },
+  mounted() {
+    if (typeof ResizeObserver !== 'undefined') {
+      const obs = new ResizeObserver(() => {
+        this.onResize();
+      });
+      obs.observe(this.$el);
+      obs.observe(this.$refs.content);
+      this.$on('hook:destroyed', () => {
+        obs.disconnect();
+      });
+    } else {
+      let itemsLength = 0;
+      this.$on('hook:beforeUpdate', () => {
+        var _a;
+        itemsLength = (((_a = this.$refs.content) === null || _a === void 0 ? void 0 : _a.children) || []).length;
+      });
+      this.$on('hook:updated', () => {
+        var _a;
+        if (itemsLength === (((_a = this.$refs.content) === null || _a === void 0 ? void 0 : _a.children) || []).length) return;
+        this.setWidths();
+      });
+    }
+  },
+  methods: {
+    onScroll() {
+      this.$refs.wrapper.scrollLeft = 0;
+    },
+    onFocusin(e) {
+      if (!this.isOverflowing) return; // Focused element is likely to be the root of an item, so a
+      // breadth-first search will probably find it in the first iteration
+
+      for (const el of Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* composedPath */ "g"])(e)) {
+        for (const vm of this.items) {
+          if (vm.$el === el) {
+            this.scrollOffset = calculateUpdatedOffset(vm.$el, this.widths, this.$vuetify.rtl, this.scrollOffset);
+            return;
+          }
+        }
+      }
+    },
+    // Always generate next for scrollable hint
+    genNext() {
+      const slot = this.$scopedSlots.next ? this.$scopedSlots.next({}) : this.$slots.next || this.__cachedNext;
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__next',
+        class: {
+          'v-slide-group__next--disabled': !this.hasNext
+        },
+        on: {
+          click: () => this.onAffixClick('next')
+        },
+        key: 'next'
+      }, [slot]);
+    },
+    genContent() {
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__content',
+        ref: 'content',
+        on: {
+          focusin: this.onFocusin
+        }
+      }, this.$slots.default);
+    },
+    genData() {
+      return {
+        class: this.classes,
+        directives: [{
+          name: 'resize',
+          value: this.onResize
+        }]
+      };
+    },
+    genIcon(location) {
+      let icon = location;
+      if (this.$vuetify.rtl && location === 'prev') {
+        icon = 'next';
+      } else if (this.$vuetify.rtl && location === 'next') {
+        icon = 'prev';
+      }
+      const upperLocation = `${location[0].toUpperCase()}${location.slice(1)}`;
+      const hasAffix = this[`has${upperLocation}`];
+      if (!this.showArrows && !hasAffix) return null;
+      return this.$createElement(_VIcon__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
+        props: {
+          disabled: !hasAffix
+        }
+      }, this[`${icon}Icon`]);
+    },
+    // Always generate prev for scrollable hint
+    genPrev() {
+      const slot = this.$scopedSlots.prev ? this.$scopedSlots.prev({}) : this.$slots.prev || this.__cachedPrev;
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__prev',
+        class: {
+          'v-slide-group__prev--disabled': !this.hasPrev
+        },
+        on: {
+          click: () => this.onAffixClick('prev')
+        },
+        key: 'prev'
+      }, [slot]);
+    },
+    genTransition(location) {
+      return this.$createElement(_transitions__WEBPACK_IMPORTED_MODULE_2__[/* VFadeTransition */ "d"], [this.genIcon(location)]);
+    },
+    genWrapper() {
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__wrapper',
+        directives: [{
+          name: 'touch',
+          value: {
+            start: e => this.overflowCheck(e, this.onTouchStart),
+            move: e => this.overflowCheck(e, this.onTouchMove),
+            end: e => this.overflowCheck(e, this.onTouchEnd)
+          }
+        }],
+        ref: 'wrapper',
+        on: {
+          scroll: this.onScroll
+        }
+      }, [this.genContent()]);
+    },
+    calculateNewOffset(direction, widths, rtl, currentScrollOffset) {
+      const sign = rtl ? -1 : 1;
+      const newAbosluteOffset = sign * currentScrollOffset + (direction === 'prev' ? -1 : 1) * widths.wrapper;
+      return sign * Math.max(Math.min(newAbosluteOffset, widths.content - widths.wrapper), 0);
+    },
+    onAffixClick(location) {
+      this.$emit(`click:${location}`);
+      this.scrollTo(location);
+    },
+    onResize() {
+      /* istanbul ignore next */
+      if (this._isDestroyed) return;
+      this.setWidths();
+    },
+    onTouchStart(e) {
+      const {
+        content
+      } = this.$refs;
+      this.startX = this.scrollOffset + e.touchstartX;
+      content.style.setProperty('transition', 'none');
+      content.style.setProperty('willChange', 'transform');
+    },
+    onTouchMove(e) {
+      if (!this.canTouch) return;
+      if (!this.isSwiping) {
+        // only calculate disableSwipeHorizontal during the first onTouchMove invoke
+        // in order to ensure disableSwipeHorizontal value is consistent between onTouchStart and onTouchEnd
+        const diffX = e.touchmoveX - e.touchstartX;
+        const diffY = e.touchmoveY - e.touchstartY;
+        this.isSwipingHorizontal = Math.abs(diffX) > Math.abs(diffY);
+        this.isSwiping = true;
+      }
+      if (this.isSwipingHorizontal) {
+        // sliding horizontally
+        this.scrollOffset = this.startX - e.touchmoveX; // temporarily disable window vertical scrolling
+
+        document.documentElement.style.overflowY = 'hidden';
+      }
+    },
+    onTouchEnd() {
+      if (!this.canTouch) return;
+      const {
+        content,
+        wrapper
+      } = this.$refs;
+      const maxScrollOffset = content.clientWidth - wrapper.clientWidth;
+      content.style.setProperty('transition', null);
+      content.style.setProperty('willChange', null);
+      if (this.$vuetify.rtl) {
+        /* istanbul ignore else */
+        if (this.scrollOffset > 0 || !this.isOverflowing) {
+          this.scrollOffset = 0;
+        } else if (this.scrollOffset <= -maxScrollOffset) {
+          this.scrollOffset = -maxScrollOffset;
+        }
+      } else {
+        /* istanbul ignore else */
+        if (this.scrollOffset < 0 || !this.isOverflowing) {
+          this.scrollOffset = 0;
+        } else if (this.scrollOffset >= maxScrollOffset) {
+          this.scrollOffset = maxScrollOffset;
+        }
+      }
+      this.isSwiping = false; // rollback whole page scrolling to default
+
+      document.documentElement.style.removeProperty('overflow-y');
+    },
+    overflowCheck(e, fn) {
+      e.stopPropagation();
+      this.isOverflowing && fn(e);
+    },
+    scrollIntoView
+    /* istanbul ignore next */() {
+      if (!this.selectedItem && this.items.length) {
+        const lastItemPosition = this.items[this.items.length - 1].$el.getBoundingClientRect();
+        const wrapperPosition = this.$refs.wrapper.getBoundingClientRect();
+        if (this.$vuetify.rtl && wrapperPosition.right < lastItemPosition.right || !this.$vuetify.rtl && wrapperPosition.left > lastItemPosition.left) {
+          this.scrollTo('prev');
+        }
+      }
+      if (!this.selectedItem) {
+        return;
+      }
+      if (this.selectedIndex === 0 || !this.centerActive && !this.isOverflowing) {
+        this.scrollOffset = 0;
+      } else if (this.centerActive) {
+        this.scrollOffset = calculateCenteredOffset(this.selectedItem.$el, this.widths, this.$vuetify.rtl);
+      } else if (this.isOverflowing) {
+        this.scrollOffset = calculateUpdatedOffset(this.selectedItem.$el, this.widths, this.$vuetify.rtl, this.scrollOffset);
+      }
+    },
+    scrollTo
+    /* istanbul ignore next */(location) {
+      this.scrollOffset = this.calculateNewOffset(location, {
+        // Force reflow
+        content: this.$refs.content ? this.$refs.content.clientWidth : 0,
+        wrapper: this.$refs.wrapper ? this.$refs.wrapper.clientWidth : 0
+      }, this.$vuetify.rtl, this.scrollOffset);
+    },
+    setWidths() {
+      window.requestAnimationFrame(() => {
+        if (this._isDestroyed) return;
+        const {
+          content,
+          wrapper
+        } = this.$refs;
+        this.widths = {
+          content: content ? content.clientWidth : 0,
+          wrapper: wrapper ? wrapper.clientWidth : 0
+        }; // https://github.com/vuetifyjs/vuetify/issues/13212
+        // We add +1 to the wrappers width to prevent an issue where the `clientWidth`
+        // gets calculated wrongly by the browser if using a different zoom-level.
+
+        this.isOverflowing = this.widths.wrapper + 1 < this.widths.content;
+        this.scrollIntoView();
+      });
+    }
+  },
+  render(h) {
+    return h('div', this.genData(), [this.genPrev(), this.genWrapper(), this.genNext()]);
+  }
+});
+/* harmony default export */ __webpack_exports__["b"] = (BaseSlideGroup.extend({
+  name: 'v-slide-group',
+  provide() {
+    return {
+      slideGroup: this
+    };
+  }
+}));
+
+/***/ }),
+
+/***/ 525:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -456,13 +913,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
       pdfViewerDialog: false,
       currentPdfUrl: null,
       currentPdfName: null,
-      pdfViewerDialog: false,
-      currentPdfUrl: null,
-      currentPdfName: null,
       form: {
         jobCode: '',
         mouNumber: '',
         pmCharge: 0,
+        projectAmount: 0,
         exchangeRate: 1,
         agencyId: null,
         employerCompany: '',
@@ -548,6 +1003,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
         jobCode: '',
         mouNumber: '',
         pmCharge: 0,
+        projectAmount: 0,
         exchangeRate: 1,
         agencyId: null,
         employerCompany: '',
@@ -571,7 +1027,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
     populateForm() {
       if (this.editingItem) {
         var _this$editingItem$age, _this$editingItem$cur;
-        // Transform existing images from database format to frontend format
         const transformedImages = (this.editingItem.images || []).map(img => ({
           id: img.id,
           name: img.orgName || img.img_path,
@@ -581,8 +1036,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
           preview: this.getFileUrl('images', img.img_name || img.img_path),
           isExisting: true
         }));
-
-        // Transform existing documents from database format to frontend format
         const transformedDocuments = (this.editingItem.documents || []).map((doc, index) => ({
           id: doc.id || index,
           name: doc.name,
@@ -603,11 +1056,8 @@ module.exports = ___CSS_LOADER_EXPORT___;
         };
       }
     },
-    // File handling methods - IMPROVED TO PREVENT FREEZING
     async handleImageSelection(files) {
       if (!files || files.length === 0) return;
-
-      // File size validation (5MB per image)
       const maxSize = 5 * 1024 * 1024;
       const validFiles = Array.from(files).filter(file => {
         if (!file.type.startsWith('image/')) {
@@ -624,22 +1074,15 @@ module.exports = ___CSS_LOADER_EXPORT___;
         this.selectedImages = [];
         return;
       }
-
-      // Set processing state
       this.processingFiles = true;
       this.fileProgress = {
         current: 0,
         total: validFiles.length
       };
       try {
-        // Process files sequentially to avoid freezing
         for (let i = 0; i < validFiles.length; i++) {
           const file = validFiles[i];
-
-          // Update progress
           this.fileProgress.current = i;
-
-          // Use async file reading with proper error handling
           try {
             const preview = await this.readFileAsDataURL(file);
             this.form.images.push({
@@ -650,8 +1093,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
               preview: preview,
               isNew: true
             });
-
-            // Add small delay to prevent UI blocking
             await this.delay(10);
           } catch (error) {
             console.error(`Error processing image ${file.name}:`, error);
@@ -664,15 +1105,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
         console.error('Error in handleImageSelection:', error);
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫລດຮູບພາບ');
       } finally {
-        // Reset processing state
         this.processingFiles = false;
         this.fileProgress = {
           current: 0,
           total: 0
         };
         this.selectedImages = [];
-
-        // Reset file input
         this.$nextTick(() => {
           if (this.$refs.imageInput) {
             this.$refs.imageInput.reset();
@@ -682,12 +1120,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
     },
     async handleDocumentSelection(files) {
       if (!files || files.length === 0) return;
-
-      // File size validation (10MB per document)
       const maxSize = 10 * 1024 * 1024;
       const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/plain'];
       const validFiles = Array.from(files).filter(file => {
-        if (!allowedTypes.includes(file.mimetype) && !this.isValidDocumentExtension(file.name)) {
+        if (!allowedTypes.includes(file.type) && !this.isValidDocumentExtension(file.name)) {
           this.$toast.error(`${file.name} ບໍ່ແມ່ນໄຟລ໌ເອກະສານທີ່ຮອງຮັບ`);
           return false;
         }
@@ -701,15 +1137,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
         this.selectedDocuments = [];
         return;
       }
-
-      // Set processing state
       this.processingFiles = true;
       this.fileProgress = {
         current: 0,
         total: validFiles.length
       };
       try {
-        // Process documents (no preview needed, faster processing)
         for (let i = 0; i < validFiles.length; i++) {
           const file = validFiles[i];
           this.fileProgress.current = i + 1;
@@ -720,8 +1153,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
             file: file,
             isNew: true
           });
-
-          // Small delay to keep UI responsive
           await this.delay(5);
         }
         this.$toast.success(`ໂຫລດເອກະສານ ${validFiles.length} ໄຟລ໌ສຳເລັດ`);
@@ -729,15 +1160,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
         console.error('Error in handleDocumentSelection:', error);
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫລດເອກະສານ');
       } finally {
-        // Reset processing state
         this.processingFiles = false;
         this.fileProgress = {
           current: 0,
           total: 0
         };
         this.selectedDocuments = [];
-
-        // Reset file input
         this.$nextTick(() => {
           if (this.$refs.documentInput) {
             this.$refs.documentInput.reset();
@@ -745,19 +1173,14 @@ module.exports = ___CSS_LOADER_EXPORT___;
         });
       }
     },
-    // Helper method for async file reading
     readFileAsDataURL(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = e => resolve(e.target.result);
         reader.onerror = e => reject(new Error('Failed to read file'));
         reader.onabort = e => reject(new Error('File reading aborted'));
-
-        // For large images, consider using a smaller canvas for thumbnails
         if (file.size > 1024 * 1024) {
-          // 1MB
           this.createImageThumbnail(file, 300, 300).then(resolve).catch(() => {
-            // Fallback to full image if thumbnail creation fails
             reader.readAsDataURL(file);
           });
         } else {
@@ -765,14 +1188,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
         }
       });
     },
-    // Create thumbnail to reduce memory usage
     createImageThumbnail(file, maxWidth, maxHeight) {
       return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         const img = new Image();
         img.onload = () => {
-          // Calculate new dimensions
           let {
             width,
             height
@@ -788,50 +1209,39 @@ module.exports = ___CSS_LOADER_EXPORT___;
               height = maxHeight;
             }
           }
-
-          // Resize canvas and draw image
           canvas.width = width;
           canvas.height = height;
           ctx.drawImage(img, 0, 0, width, height);
-
-          // Convert to data URL with compression
           resolve(canvas.toDataURL('image/jpeg', 0.8));
         };
         img.onerror = reject;
         img.src = URL.createObjectURL(file);
       });
     },
-    // Check document file extension
     isValidDocumentExtension(filename) {
       const validExtensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.txt'];
       const ext = filename.toLowerCase().substring(filename.lastIndexOf('.'));
       return validExtensions.includes(ext);
     },
-    // Check if file is PDF
     isPdfFile(filename) {
       if (!filename) return false;
       const ext = filename.toLowerCase().substring(filename.lastIndexOf('.'));
       return ext === '.pdf';
     },
-    // View PDF in dialog
     async viewPdf(doc) {
       try {
         this.currentPdfName = doc.name;
         if (doc.isExisting && doc.url) {
-          // For existing PDFs, we need to get the file content via axios
           const response = await this.$axios({
             method: 'GET',
             url: doc.url,
             responseType: 'blob'
           });
-
-          // Create blob URL for PDF viewing
           const blob = new Blob([response.data], {
             type: 'application/pdf'
           });
           this.currentPdfUrl = window.URL.createObjectURL(blob);
         } else if (doc.file && doc.isNew) {
-          // For newly uploaded PDFs, create object URL directly
           this.currentPdfUrl = URL.createObjectURL(doc.file);
         }
         this.pdfViewerDialog = true;
@@ -840,7 +1250,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
         this.$toast.error('ເປີດ PDF ບໍ່ສຳເລັດ');
       }
     },
-    // Download current PDF being viewed
     async downloadCurrentPdf() {
       if (this.currentPdfUrl && this.currentPdfName) {
         try {
@@ -857,31 +1266,22 @@ module.exports = ___CSS_LOADER_EXPORT___;
         }
       }
     },
-    // Add small delay to prevent UI blocking
     delay(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
     removeImage(index) {
       const imageToRemove = this.form.images[index];
-
-      // If it's an existing image from database, call delete API
       if (imageToRemove.isExisting && imageToRemove.id) {
         this.deleteExistingImage(imageToRemove.id);
       }
-
-      // Remove from form array
       this.form.images.splice(index, 1);
     },
     async removeDocument(index) {
       var _this$editingItem;
       const docToRemove = this.form.documents[index];
-
-      // If it's an existing document from database, call delete API
       if (docToRemove.isExisting && (_this$editingItem = this.editingItem) !== null && _this$editingItem !== void 0 && _this$editingItem.id) {
         await this.deleteExistingDocument(this.editingItem.id, index);
       }
-
-      // Remove from form array
       this.form.documents.splice(index, 1);
     },
     openImagePreview(image, index) {
@@ -900,29 +1300,18 @@ module.exports = ___CSS_LOADER_EXPORT___;
     async downloadDocument(doc) {
       if (doc.url) {
         try {
-          // Use axios to download with authentication headers
           const response = await this.$axios({
             method: 'GET',
             url: doc.url,
-            responseType: 'blob',
-            // Important for file download
-            headers: {
-              // Your existing auth headers will be automatically included by axios
-            }
+            responseType: 'blob'
           });
-
-          // Create blob URL and download
           const blob = new Blob([response.data]);
           const url = window.URL.createObjectURL(blob);
-
-          // Create temporary download link
           const link = document.createElement('a');
           link.href = url;
           link.download = doc.name || 'document';
           document.body.appendChild(link);
           link.click();
-
-          // Cleanup
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
           this.$toast.success('ດາວໂຫລດເອກະສານສຳເລັດ');
@@ -931,20 +1320,17 @@ module.exports = ___CSS_LOADER_EXPORT___;
           this.$toast.error('ດາວໂຫລດເອກະສານບໍ່ສຳເລັດ');
         }
       } else {
-        this.$toast.warning('ເອກະສານຍັງບໍ່ໄດ້ຖືກບັນທຶກ, ກະລຸນາບັນທຶກ MOU ກ່ອນ');
+        this.$toast.warning('ເອກະສານຍັງບໍ່ໄດ້ຖືກບັນທຶກ');
       }
     },
     async downloadImage(image) {
       if (image.url) {
         try {
-          // Use axios to download with authentication headers
           const response = await this.$axios({
             method: 'GET',
             url: image.url,
             responseType: 'blob'
           });
-
-          // Create blob URL and download
           const blob = new Blob([response.data]);
           const url = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
@@ -952,8 +1338,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
           link.download = image.name || 'image';
           document.body.appendChild(link);
           link.click();
-
-          // Cleanup
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
           this.$toast.success('ດາວໂຫລດຮູບພາບສຳເລັດ');
@@ -962,12 +1346,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
           this.$toast.error('ດາວໂຫລດຮູບພາບບໍ່ສຳເລັດ');
         }
       } else if (image.preview) {
-        // For new images, download the preview data URL
         this.downloadDataURL(image.preview, image.name);
         this.$toast.success('ດາວໂຫລດຮູບພາບສຳເລັດ');
       }
     },
-    // Helper method to download data URL as file
     downloadDataURL(dataURL, filename) {
       const link = document.createElement('a');
       link.href = dataURL;
@@ -976,7 +1358,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
       link.click();
       document.body.removeChild(link);
     },
-    // Delete existing image from database
     async deleteExistingImage(imageId) {
       try {
         const response = await this.$axios.$delete(`/api/mous/image/${imageId}`);
@@ -988,7 +1369,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
         this.$toast.error('ລຶບຮູບພາບບໍ່ສຳເລັດ');
       }
     },
-    // Delete existing document from database  
     async deleteExistingDocument(mouId, documentIndex) {
       try {
         const response = await this.$axios.$delete(`/api/mous/${mouId}/document/${documentIndex}`);
@@ -1000,25 +1380,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
         this.$toast.error('ລຶບເອກະສານບໍ່ສຳເລັດ');
       }
     },
-    // Get file URL for display
     getFileUrl(type, filename) {
-      console.info(`Getting file URL for ${type}: ${filename}`);
       if (!filename) return '';
       const baseUrl = this.$axios.defaults.baseURL || '';
-      console.info(`Base URL: ${baseUrl}`);
       return `${baseUrl}/uploads/${type}/${filename}`.replace(/\/+/g, '/').replace(':/', '://');
     },
-    // Get download URL for documents
     getDocumentDownloadUrl(mouId, documentIndex) {
       const baseUrl = this.$axios.defaults.baseURL || '';
       return `${baseUrl}/api/mous/download/document/${mouId}/${documentIndex}`.replace(/\/+/g, '/').replace(':/', '://');
     },
-    // Get download URL for images  
     getImageDownloadUrl(imageId) {
       const baseUrl = this.$axios.defaults.baseURL || '';
       return `${baseUrl}/api/mous/download/image/${imageId}`.replace(/\/+/g, '/').replace(':/', '://');
     },
-    // Utility methods
     formatFileSize(bytes) {
       if (bytes === 0) return '0 Bytes';
       const k = 1024;
@@ -1059,13 +1433,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
       this.loadingAgencies = true;
       try {
         const response = await this.$axios.$get('/api/agency');
-        console.info(`AGENCY ${JSON.stringify(response)}`);
         if (response.success && response.data && response.data.agencies) {
           this.agencies = response.data.agencies;
         } else if (response.success && Array.isArray(response.data)) {
           this.agencies = response.data;
         }
-        console.log('Agencies loaded:', this.agencies);
       } catch (error) {
         console.error('Error fetching agencies:', error);
         this.$toast.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ');
@@ -1084,7 +1456,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
         } else if (response && !response.success) {
           this.currencies = response;
         }
-        console.log('Currencies loaded:', this.currencies);
       } catch (error) {
         console.error('Error fetching currencies:', error);
         this.$toast.error('ໂຫລດຂໍ້ມູນສະກຸນເງິນບໍ່ສຳເລັດ');
@@ -1102,31 +1473,21 @@ module.exports = ___CSS_LOADER_EXPORT___;
         const payload = {
           ...this.form
         };
-
-        // Clean up the payload
         if (!payload.pmCharge) payload.pmCharge = 0;
         if (!payload.exchangeRate) payload.exchangeRate = 1;
         if (!payload.numberOfWorkers) payload.numberOfWorkers = 1;
-
-        // Handle file uploads if needed
         const formData = new FormData();
-
-        // Add form data
         Object.keys(payload).forEach(key => {
           if (key !== 'images' && key !== 'documents') {
             formData.append(key, payload[key]);
           }
         });
-
-        // Add new images
-        payload.images.forEach((image, index) => {
+        payload.images.forEach(image => {
           if (image.isNew && image.file) {
             formData.append(`images`, image.file);
           }
         });
-
-        // Add new documents
-        payload.documents.forEach((doc, index) => {
+        payload.documents.forEach(doc => {
           if (doc.isNew && doc.file) {
             formData.append(`documents`, doc.file);
           }
@@ -1195,7 +1556,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 589:
+/***/ 590:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(688);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("2fe449f6", content, true, context)
+};
+
+/***/ }),
+
+/***/ 685:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -1205,23 +1584,7 @@ var content = __webpack_require__(686);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("dc2a334e", content, true, context)
-};
-
-/***/ }),
-
-/***/ 685:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3084fa43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(589);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3084fa43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3084fa43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3084fa43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3084fa43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
+__webpack_require__(5).default("44600667", content, true)
 
 /***/ }),
 
@@ -1232,7 +1595,34 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".maintenance-dialog[data-v-3084fa43]{display:flex;flex-direction:column;height:100vh}.dialog-toolbar[data-v-3084fa43]{border-radius:0!important;flex-shrink:0}.toolbar-title[data-v-3084fa43]{font-size:1.25rem;font-weight:500}.dialog-content[data-v-3084fa43]{background-color:#fafafa;flex:1;overflow-y:auto}.form-container[data-v-3084fa43]{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);margin:0 auto;max-width:1200px;padding:32px!important}.section-header[data-v-3084fa43]{align-items:center;border-bottom:2px solid #e3f2fd;display:flex;margin-bottom:20px;padding-bottom:12px}.section-icon[data-v-3084fa43]{font-size:24px!important;margin-right:12px}.section-title[data-v-3084fa43]{color:#1976d2;font-size:1.1rem;font-weight:600;margin:0}.dialog-actions[data-v-3084fa43]{background:#fff;border-top:1px solid #e0e0e0;flex-shrink:0;padding:16px 0!important}.documents-list[data-v-3084fa43]{min-height:60px}.documents-list[data-v-3084fa43],.image-gallery[data-v-3084fa43]{background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:12px}.image-card[data-v-3084fa43]{cursor:pointer;position:relative;transition:all .3s ease}.image-card[data-v-3084fa43]:hover{box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-2px)}.image-container[data-v-3084fa43]{position:relative}.image-overlay[data-v-3084fa43],.image-preview[data-v-3084fa43]{border-radius:8px 8px 0 0}.image-overlay[data-v-3084fa43]{background:rgba(0,0,0,.5);opacity:0;transition:opacity .3s ease}.image-card:hover .image-overlay[data-v-3084fa43]{opacity:1}.image-actions[data-v-3084fa43]{align-items:center;display:flex;gap:8px;height:100%;justify-content:center}.document-card[data-v-3084fa43]{border:1px solid #e0e0e0;transition:all .3s ease}.document-card[data-v-3084fa43]:hover{box-shadow:0 2px 8px rgba(0,0,0,.15)}.document-actions[data-v-3084fa43]{display:flex;gap:4px}.v-select--outlined[data-v-3084fa43] .v-input__control>.v-input__slot,.v-text-field--outlined[data-v-3084fa43] .v-input__control>.v-input__slot{min-height:48px}.v-file-input[data-v-3084fa43] .v-file-input__text{max-width:200px}@media (max-width:768px){.form-container[data-v-3084fa43]{border-radius:8px;margin:0 8px;padding:20px!important}.section-header[data-v-3084fa43]{align-items:flex-start;flex-direction:column;text-align:left}.section-icon[data-v-3084fa43]{margin-bottom:4px;margin-right:8px}.toolbar-title[data-v-3084fa43]{font-size:1.1rem}.image-actions[data-v-3084fa43]{gap:4px}}.v-btn[data-v-3084fa43]:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover{box-shadow:0 4px 8px rgba(0,0,0,.2);transform:translateY(-1px)}.v-card[data-v-3084fa43]{transition:all .3s ease}.v-chip.v-size--small[data-v-3084fa43]{font-size:.75rem;height:24px}.v-select.v-select--is-loading[data-v-3084fa43] .v-input__append-inner{animation:spin-3084fa43 1s linear infinite}@keyframes spin-3084fa43{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.v-dialog[data-v-3084fa43] .v-card{overflow:visible}.pdf-viewer-content[data-v-3084fa43]{height:calc(100vh - 64px)}.pdf-container[data-v-3084fa43]{background:#f5f5f5;height:100%;position:relative;width:100%}.pdf-iframe[data-v-3084fa43]{background:#fff;border:none;height:100%;width:100%}.pdf-error[data-v-3084fa43],.pdf-loading[data-v-3084fa43]{align-items:center;color:#666;display:flex;flex-direction:column;font-size:16px;height:100%;justify-content:center}.pdf-loading[data-v-3084fa43]{background:#fff}.pdf-error[data-v-3084fa43]{background:#f8f8f8}@media (max-width:768px){.pdf-viewer-content[data-v-3084fa43]{height:calc(100vh - 56px)}.pdf-error[data-v-3084fa43],.pdf-loading[data-v-3084fa43]{font-size:14px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-chip-group .v-chip{margin:4px 8px 4px 0}.v-chip-group .v-chip--active{color:inherit}.v-chip-group .v-chip--active.v-chip--no-color:after{opacity:.22}.v-chip-group .v-chip--active.v-chip--no-color:focus:after{opacity:.32}.v-chip-group .v-slide-group__content{padding:4px 0}.v-chip-group--column .v-slide-group__content{flex-wrap:wrap;max-width:100%;white-space:normal}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 687:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_670d6a32_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(590);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_670d6a32_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_670d6a32_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_670d6a32_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_670d6a32_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 688:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".maintenance-dialog[data-v-670d6a32]{display:flex;flex-direction:column;height:100vh}.dialog-toolbar[data-v-670d6a32]{border-radius:0!important;flex-shrink:0;min-height:56px!important}.toolbar-title[data-v-670d6a32]{font-size:1.1rem;font-weight:500}.dialog-content[data-v-670d6a32]{background-color:#fafafa;flex:1;overflow-y:auto;padding:12px 8px!important}.form-container[data-v-670d6a32]{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.1);margin:0 auto;max-width:1400px;padding:16px!important}.section-header[data-v-670d6a32]{align-items:center;border-bottom:1px solid #e3f2fd;display:flex;margin-bottom:12px;padding-bottom:8px}.section-header.compact[data-v-670d6a32]{margin-bottom:8px;padding-bottom:4px}.section-title[data-v-670d6a32]{color:#1976d2;font-size:.95rem;font-weight:600;margin:0}.dialog-actions[data-v-670d6a32]{background:#fff;border-top:1px solid #e0e0e0;flex-shrink:0}.v-select--outlined[data-v-670d6a32] .v-input__control>.v-input__slot,.v-text-field--outlined[data-v-670d6a32] .v-input__control>.v-input__slot,.v-textarea[data-v-670d6a32] .v-input__control>.v-input__slot{min-height:40px!important}.v-text-field.v-text-field--enclosed[data-v-670d6a32]:not(.v-text-field--rounded) .v-input__prepend-inner{margin-top:8px!important}.v-expansion-panel-header[data-v-670d6a32]{min-height:40px!important}.v-expansion-panel-content[data-v-670d6a32] .v-expansion-panel-content__wrap,.v-expansion-panel-header[data-v-670d6a32]{padding:8px 16px!important}.v-chip-group[data-v-670d6a32]{gap:4px}.v-chip.v-size--small[data-v-670d6a32]{font-size:.75rem;height:24px!important}.v-chip.v-size--x-small[data-v-670d6a32]{font-size:.7rem;height:20px!important}.pdf-viewer-content[data-v-670d6a32]{height:calc(100vh - 64px)}.pdf-container[data-v-670d6a32]{background:#f5f5f5;height:100%;position:relative;width:100%}.pdf-iframe[data-v-670d6a32]{background:#fff;border:none;height:100%;width:100%}.pdf-error[data-v-670d6a32],.pdf-loading[data-v-670d6a32]{align-items:center;color:#666;display:flex;flex-direction:column;font-size:14px;height:100%;justify-content:center}@media (max-width:768px){.form-container[data-v-670d6a32]{border-radius:6px;margin:0 4px;padding:12px!important}.toolbar-title[data-v-670d6a32]{font-size:1rem}.pdf-viewer-content[data-v-670d6a32]{height:calc(100vh - 56px)}}.v-input--dense[data-v-670d6a32] .v-messages{min-height:0!important}.v-text-field[data-v-670d6a32] .v-text-field__details{margin-bottom:0!important;padding-top:2px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1251,7 +1641,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 885:
+/***/ 882:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1270,6 +1660,62 @@ var components_VCard = __webpack_require__(6);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(125);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VChipGroup/VChipGroup.sass
+var VChipGroup = __webpack_require__(685);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
+var VSlideGroup = __webpack_require__(520);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
+var colorable = __webpack_require__(8);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
+var mixins = __webpack_require__(2);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
+// Styles
+ // Extensions
+
+ // Mixins
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ var VChipGroup_VChipGroup = (Object(mixins["a" /* default */])(VSlideGroup["a" /* BaseSlideGroup */], colorable["a" /* default */]).extend({
+  name: 'v-chip-group',
+  provide() {
+    return {
+      chipGroup: this
+    };
+  },
+  props: {
+    column: Boolean
+  },
+  computed: {
+    classes() {
+      return {
+        ...VSlideGroup["a" /* BaseSlideGroup */].options.computed.classes.call(this),
+        'v-chip-group': true,
+        'v-chip-group--column': this.column
+      };
+    }
+  },
+  watch: {
+    column(val) {
+      if (val) this.scrollOffset = 0;
+      this.$nextTick(this.onResize);
+    }
+  },
+  methods: {
+    genData() {
+      return this.setTextColor(this.color, {
+        ...VSlideGroup["a" /* BaseSlideGroup */].options.methods.genData.call(this)
+      });
+    }
+  }
+}));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(391);
 
@@ -1278,6 +1724,18 @@ var VContainer = __webpack_require__(387);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(348);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
+var VExpansionPanel = __webpack_require__(396);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelContent.js
+var VExpansionPanelContent = __webpack_require__(398);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelHeader.js
+var VExpansionPanelHeader = __webpack_require__(397);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
+var VExpansionPanels = __webpack_require__(395);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
 var VFileInput = __webpack_require__(470);
@@ -1290,9 +1748,6 @@ var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(83);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VOverlay/VOverlay.js
-var VOverlay = __webpack_require__(113);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
 var VProgressCircular = __webpack_require__(90);
@@ -1321,7 +1776,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(136);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/mou/maintain/index.vue?vue&type=template&id=3084fa43&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/mou/maintain/index.vue?vue&type=template&id=670d6a32&scoped=true&
 
 
 
@@ -1346,7 +1801,11 @@ var components_VToolbar = __webpack_require__(136);
 
 
 
-var maintainvue_type_template_id_3084fa43_scoped_true_render = function render() {
+
+
+
+
+var maintainvue_type_template_id_670d6a32_scoped_true_render = function render() {
   var _vm$selectedCurrency;
   var _vm = this,
     _c = _vm._self._c;
@@ -1402,7 +1861,7 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "left": ""
     }
   }, [_vm._v("mdi-content-save")]), _vm._v("\n        ບັນທຶກ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "dialog-content"
+    staticClass: "dialog-content pa-0"
   }, [_c(VContainer["a" /* default */], {
     staticClass: "form-container",
     attrs: {
@@ -1420,24 +1879,30 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       },
       expression: "isFormValid"
     }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "pb-0",
     attrs: {
       "cols": "12"
     }
   }, [_c('div', {
-    staticClass: "section-header"
+    staticClass: "section-header compact"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
+    staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "primary",
+      "small": ""
     }
   }, [_vm._v("mdi-information")]), _vm._v(" "), _c('h3', {
     staticClass: "section-title"
   }, [_vm._v("ຂໍ້ມູນພື້ນຖານ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "sm": "6",
-      "md": "4"
+      "sm": "4",
+      "md": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
@@ -1445,10 +1910,9 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "rules": [_vm.rules.required],
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "prepend-inner-icon": "mdi-identifier",
-      "disabled": _vm.isEditing,
-      "hint": "ລະຫັດງານເອກະລັກສຳລັບ MOU ນີ້",
-      "persistent-hint": ""
+      "disabled": _vm.isEditing
     },
     model: {
       value: _vm.form.jobCode,
@@ -1460,30 +1924,29 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "sm": "6",
-      "md": "4"
+      "sm": "4",
+      "md": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "ເລກທີ MOU",
+      "label": "MOU / Order",
       "outlined": "",
       "dense": "",
-      "prepend-inner-icon": "mdi-file-document",
-      "hint": "ເລກທີເອກະສານ MOU ທາງການ",
-      "persistent-hint": ""
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-file-document"
     },
     model: {
-      value: _vm.form.mouNumber,
+      value: _vm.form.projectAmount,
       callback: function ($$v) {
-        _vm.$set(_vm.form, "mouNumber", $$v);
+        _vm.$set(_vm.form, "projectAmount", $$v);
       },
-      expression: "form.mouNumber"
+      expression: "form.projectAmount"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "sm": "6",
-      "md": "4"
+      "sm": "4",
+      "md": "3"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
@@ -1492,6 +1955,7 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "rules": [_vm.rules.required],
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "prepend-inner-icon": "mdi-flag"
     },
     scopedSlots: _vm._u([{
@@ -1502,21 +1966,7 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
         return [_c(VChip["a" /* default */], {
           attrs: {
             "color": _vm.getStatusColor(item.value),
-            "small": "",
-            "text-color": "white"
-          }
-        }, [_vm._v("\n                    " + _vm._s(item.text) + "\n                  ")])];
-      }
-    }, {
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          staticClass: "mr-2",
-          attrs: {
-            "color": _vm.getStatusColor(item.value),
-            "small": "",
+            "x-small": "",
             "text-color": "white"
           }
         }, [_vm._v("\n                    " + _vm._s(item.text) + "\n                  ")])];
@@ -1531,17 +1981,17 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12"
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "ຫົວຂໍ້ວຽກ *",
+      "label": "ໜ້າວຽກ *",
       "rules": [_vm.rules.required],
       "outlined": "",
       "dense": "",
-      "prepend-inner-icon": "mdi-briefcase",
-      "hint": "ລາຍລະອຽດຂອງຕຳແໜ່ງວຽກ",
-      "persistent-hint": ""
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-briefcase"
     },
     model: {
       value: _vm.form.jobTitle,
@@ -1551,16 +2001,17 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       expression: "form.jobTitle"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
+    staticClass: "pb-0 pt-2",
     attrs: {
       "cols": "12"
     }
   }, [_c('div', {
-    staticClass: "section-header"
+    staticClass: "section-header compact"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
+    staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "primary",
+      "small": ""
     }
   }, [_vm._v("mdi-domain")]), _vm._v(" "), _c('h3', {
     staticClass: "section-title"
@@ -1574,9 +2025,8 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "label": "ບໍລິສັດນາຍຈ້າງ",
       "outlined": "",
       "dense": "",
-      "prepend-inner-icon": "mdi-office-building",
-      "hint": "ຊື່ບໍລິສັດທີ່ຈ້າງງານ",
-      "persistent-hint": ""
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-office-building"
     },
     model: {
       value: _vm.form.employerCompany,
@@ -1595,9 +2045,8 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "label": "ສະຖານທີ່ເຮັດວຽກ",
       "outlined": "",
       "dense": "",
-      "prepend-inner-icon": "mdi-map-marker",
-      "hint": "ບ່ອນທີ່ຈະປະຕິບັດວຽກ",
-      "persistent-hint": ""
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-map-marker"
     },
     model: {
       value: _vm.form.workLocation,
@@ -1607,24 +2056,25 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       expression: "form.workLocation"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
+    staticClass: "pb-0 pt-2",
     attrs: {
       "cols": "12"
     }
   }, [_c('div', {
-    staticClass: "section-header"
+    staticClass: "section-header compact"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
+    staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "primary",
+      "small": ""
     }
   }, [_vm._v("mdi-account-group")]), _vm._v(" "), _c('h3', {
     staticClass: "section-title"
-  }, [_vm._v("ຂໍ້ມູນແຮງງານ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("ແຮງງານ & ການເງິນ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "4"
+      "cols": "6",
+      "sm": "3",
+      "md": "2"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
@@ -1632,6 +2082,7 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "rules": [_vm.rules.required, _vm.rules.positiveNumber],
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "type": "number",
       "min": "1",
       "prepend-inner-icon": "mdi-counter"
@@ -1645,9 +2096,9 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "4"
+      "cols": "6",
+      "sm": "3",
+      "md": "2"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
@@ -1656,35 +2107,9 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "rules": [_vm.rules.required],
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "prepend-inner-icon": "mdi-account"
     },
-    scopedSlots: _vm._u([{
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_c(VIcon["a" /* default */], {
-          staticClass: "mr-2",
-          attrs: {
-            "small": "",
-            "color": _vm.getWorkerTypeColor(item.value)
-          }
-        }, [_vm._v("\n                    " + _vm._s(_vm.getWorkerTypeIcon(item.value)) + "\n                  ")]), _vm._v("\n                  " + _vm._s(item.text) + "\n                ")];
-      }
-    }, {
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VIcon["a" /* default */], {
-          staticClass: "mr-3",
-          attrs: {
-            "small": "",
-            "color": _vm.getWorkerTypeColor(item.value)
-          }
-        }, [_vm._v("\n                    " + _vm._s(_vm.getWorkerTypeIcon(item.value)) + "\n                  ")]), _vm._v("\n                  " + _vm._s(item.text) + "\n                ")];
-      }
-    }]),
     model: {
       value: _vm.form.workerType,
       callback: function ($$v) {
@@ -1693,30 +2118,17 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       expression: "form.workerType"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
     attrs: {
-      "cols": "12"
-    }
-  }, [_c('div', {
-    staticClass: "section-header"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-currency-usd")]), _vm._v(" "), _c('h3', {
-    staticClass: "section-title"
-  }, [_vm._v("ຂໍ້ມູນການເງິນ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
+      "cols": "6",
+      "sm": "3",
+      "md": "2"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "label": "ຄ່າບໍລິຫານ PM",
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "type": "number",
       "min": "0",
       "step": "0.01",
@@ -1732,21 +2144,20 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
+      "cols": "6",
+      "sm": "3",
+      "md": "2"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "label": "ອັດຕາແລກປ່ຽນ",
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "type": "number",
       "min": "0",
       "step": "0.001",
-      "prepend-inner-icon": "mdi-swap-horizontal",
-      "hint": "ຄ່າເລີ່ມຕົ້ນ: 1.0",
-      "persistent-hint": ""
+      "prepend-inner-icon": "mdi-swap-horizontal"
     },
     model: {
       value: _vm.form.exchangeRate,
@@ -1757,36 +2168,22 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "3"
+      "cols": "6",
+      "sm": "4",
+      "md": "2"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.currencies,
-      "item-text": "name",
+      "item-text": "code",
       "item-value": "id",
       "label": "ສະກຸນເງິນ",
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "prepend-inner-icon": "mdi-currency-usd",
       "loading": _vm.loadingCurrencies
     },
-    scopedSlots: _vm._u([{
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                  " + _vm._s(item.code) + " - " + _vm._s(item.name) + "\n                ")];
-      }
-    }, {
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c('strong', [_vm._v(_vm._s(item.code))]), _vm._v(" - " + _vm._s(item.name) + "\n                ")];
-      }
-    }]),
     model: {
       value: _vm.form.currencyId,
       callback: function ($$v) {
@@ -1795,23 +2192,10 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       expression: "form.currencyId"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
     attrs: {
-      "cols": "12"
-    }
-  }, [_c('div', {
-    staticClass: "section-header"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-account-tie")]), _vm._v(" "), _c('h3', {
-    staticClass: "section-title"
-  }, [_vm._v("ຂໍ້ມູນຕົວແທນ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "6"
+      "cols": "6",
+      "sm": "8",
+      "md": "2"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
@@ -1821,31 +2205,11 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "label": "ຕົວແທນ",
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "prepend-inner-icon": "mdi-domain",
       "loading": _vm.loadingAgencies,
       "clearable": ""
     },
-    scopedSlots: _vm._u([{
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                  " + _vm._s(item.agencyName) + "\n                  "), _c('small', {
-          staticClass: "ml-2"
-        }, [_vm._v("(" + _vm._s(item.agencyCode) + ")")])];
-      }
-    }, {
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c('div', [_c('div', {
-          staticClass: "font-weight-medium"
-        }, [_vm._v("\n                      " + _vm._s(item.agencyName) + "\n                    ")]), _vm._v(" "), _c('small', {
-          staticClass: "text--secondary"
-        }, [_vm._v(_vm._s(item.agencyCode) + " - " + _vm._s(item.address))])])];
-      }
-    }]),
     model: {
       value: _vm.form.agencyId,
       callback: function ($$v) {
@@ -1854,20 +2218,21 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       expression: "form.agencyId"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
+    staticClass: "pb-0 pt-2",
     attrs: {
       "cols": "12"
     }
   }, [_c('div', {
-    staticClass: "section-header"
+    staticClass: "section-header compact"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
+    staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "primary",
+      "small": ""
     }
   }, [_vm._v("mdi-note-text")]), _vm._v(" "), _c('h3', {
     staticClass: "section-title"
-  }, [_vm._v("ຂໍ້ມູນເພີ່ມເຕີມ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("ໝາຍເຫດ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12"
     }
@@ -1875,10 +2240,10 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     attrs: {
       "label": "ໝາຍເຫດ",
       "outlined": "",
-      "rows": "3",
-      "prepend-inner-icon": "mdi-note",
-      "hint": "ໝາຍເຫດ ຫຼື ຄຳອະທິບາຍເພີ່ມເຕີມກ່ຽວກັບ MOU ນີ້",
-      "persistent-hint": ""
+      "dense": "",
+      "rows": "2",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-note"
     },
     model: {
       value: _vm.form.notes,
@@ -1888,37 +2253,37 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       expression: "form.notes"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
+    staticClass: "pb-0 pt-2",
     attrs: {
       "cols": "12"
     }
   }, [_c('div', {
-    staticClass: "section-header"
+    staticClass: "section-header compact"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
+    staticClass: "mr-2",
     attrs: {
-      "color": "primary"
+      "color": "primary",
+      "small": ""
     }
-  }, [_vm._v("mdi-image-multiple")]), _vm._v(" "), _c('h3', {
+  }, [_vm._v("mdi-file-multiple")]), _vm._v(" "), _c('h3', {
     staticClass: "section-title"
-  }, [_vm._v("ຮູບພາບ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("ໄຟລ໌ແນບ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12"
+      "cols": "12",
+      "md": "6"
     }
   }, [_c(VFileInput["a" /* default */], {
     ref: "imageInput",
     attrs: {
-      "label": "ເລືອກຮູບພາບ",
+      "label": "ຮູບພາບ (5MB)",
       "multiple": "",
       "accept": "image/*",
       "prepend-icon": "mdi-camera",
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "clearable": false,
-      "show-size": "",
-      "disabled": _vm.processingFiles,
-      "hint": "ສາມາດເລືອກຮູບພາບໄດ້ຫຼາຍໄຟລ໌ (JPG, PNG, GIF, ຂະໜາດສູງສຸດ 5MB ຕໍ່ໄຟລ໌)",
-      "persistent-hint": ""
+      "disabled": _vm.processingFiles
     },
     on: {
       "change": _vm.handleImageSelection
@@ -1930,11 +2295,11 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       }) {
         return [_c(VChip["a" /* default */], {
           attrs: {
-            "small": "",
+            "x-small": "",
             "label": "",
             "color": "primary"
           }
-        }, [_vm._v("\n                    " + _vm._s(_vm.selectedImages ? _vm.selectedImages.length : 0) + " ຮູບພາບ\n                  ")])];
+        }, [_vm._v("\n                    " + _vm._s(_vm.selectedImages ? _vm.selectedImages.length : 0) + " ຮູບ\n                  ")])];
       }
     }]),
     model: {
@@ -1944,140 +2309,23 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       },
       expression: "selectedImages"
     }
-  }), _vm._v(" "), _vm.processingFiles && _vm.fileProgress.total > 0 ? _c(VProgressLinear["a" /* default */], {
-    staticClass: "mt-2",
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "value": _vm.fileProgress.current / _vm.fileProgress.total * 100,
-      "color": "primary",
-      "height": "4"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function () {
-        return [_c('small', [_vm._v("ກຳລັງປະມວນຜົນ " + _vm._s(_vm.fileProgress.current) + " / " + _vm._s(_vm.fileProgress.total) + " ໄຟລ໌...")])];
-      },
-      proxy: true
-    }], null, false, 2510038093)
-  }) : _vm._e()], 1), _vm._v(" "), _vm.form.images && _vm.form.images.length > 0 ? _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c('div', {
-    staticClass: "image-gallery"
-  }, [_c(VRow["a" /* default */], _vm._l(_vm.form.images, function (image, index) {
-    return _c(VCol["a" /* default */], {
-      key: `image-${index}`,
-      attrs: {
-        "cols": "6",
-        "sm": "4",
-        "md": "3",
-        "lg": "2"
-      }
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "image-card",
-      attrs: {
-        "elevation": "2"
-      }
-    }, [_c('div', {
-      staticClass: "image-container"
-    }, [_c(VImg["a" /* default */], {
-      staticClass: "image-preview",
-      attrs: {
-        "src": image.preview || image.url,
-        "alt": image.name,
-        "aspect-ratio": "1"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.openImagePreview(image, index);
-        }
-      },
-      scopedSlots: _vm._u([{
-        key: "placeholder",
-        fn: function () {
-          return [_c(VRow["a" /* default */], {
-            staticClass: "fill-height ma-0",
-            attrs: {
-              "align": "center",
-              "justify": "center"
-            }
-          }, [_c(VProgressCircular["a" /* default */], {
-            attrs: {
-              "indeterminate": "",
-              "color": "grey lighten-5"
-            }
-          })], 1)];
-        },
-        proxy: true
-      }], null, true)
-    }), _vm._v(" "), _c(VOverlay["a" /* default */], {
-      staticClass: "image-overlay",
-      attrs: {
-        "absolute": ""
-      }
-    }, [_c('div', {
-      staticClass: "image-actions"
-    }, [_c(VBtn["a" /* default */], {
-      attrs: {
-        "icon": "",
-        "small": "",
-        "color": "white"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.openImagePreview(image, index);
-        }
-      }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-eye")])], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-      attrs: {
-        "icon": "",
-        "small": "",
-        "color": "white"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.removeImage(index);
-        }
-      }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-delete")])], 1)], 1)])], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-      staticClass: "pa-2"
-    }, [_c('div', {
-      staticClass: "text-caption text-truncate"
-    }, [_vm._v("\n                          " + _vm._s(image.name) + "\n                        ")]), _vm._v(" "), _c('div', {
-      staticClass: "text-caption text--secondary"
-    }, [_vm._v("\n                          " + _vm._s(_vm.formatFileSize(image.size)) + "\n                        ")])])], 1)], 1);
-  }), 1)], 1)]) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-6",
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c('div', {
-    staticClass: "section-header"
-  }, [_c(VIcon["a" /* default */], {
-    staticClass: "section-icon",
-    attrs: {
-      "color": "primary"
-    }
-  }, [_vm._v("mdi-file-multiple")]), _vm._v(" "), _c('h3', {
-    staticClass: "section-title"
-  }, [_vm._v("ເອກະສານ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
+      "cols": "12",
+      "md": "6"
     }
   }, [_c(VFileInput["a" /* default */], {
     ref: "documentInput",
     attrs: {
-      "label": "ເລືອກເອກະສານ",
+      "label": "ເອກະສານ (10MB)",
       "multiple": "",
       "accept": ".pdf,.doc,.docx,.xls,.xlsx,.txt",
       "prepend-icon": "mdi-file-document",
       "outlined": "",
       "dense": "",
+      "hide-details": "auto",
       "clearable": false,
-      "show-size": "",
-      "disabled": _vm.processingFiles,
-      "hint": "ສາມາດເລືອກເອກະສານໄດ້ຫຼາຍໄຟລ໌ (PDF, DOC, DOCX, XLS, XLSX, TXT, ຂະໜາດສູງສຸດ 10MB ຕໍ່ໄຟລ໌)",
-      "persistent-hint": ""
+      "disabled": _vm.processingFiles
     },
     on: {
       "change": _vm.handleDocumentSelection
@@ -2089,7 +2337,7 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       }) {
         return [_c(VChip["a" /* default */], {
           attrs: {
-            "small": "",
+            "x-small": "",
             "label": "",
             "color": "primary"
           }
@@ -2103,111 +2351,142 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       },
       expression: "selectedDocuments"
     }
-  })], 1), _vm._v(" "), _vm.form.documents && _vm.form.documents.length > 0 ? _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _vm.processingFiles && _vm.fileProgress.total > 0 ? _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12"
     }
+  }, [_c(VProgressLinear["a" /* default */], {
+    attrs: {
+      "value": _vm.fileProgress.current / _vm.fileProgress.total * 100,
+      "color": "primary",
+      "height": "3"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function () {
+        return [_c('small', [_vm._v(_vm._s(_vm.fileProgress.current) + "/" + _vm._s(_vm.fileProgress.total))])];
+      },
+      proxy: true
+    }], null, false, 245601818)
+  })], 1) : _vm._e(), _vm._v(" "), _vm.form.images && _vm.form.images.length > 0 || _vm.form.documents && _vm.form.documents.length > 0 ? _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VExpansionPanels["a" /* default */], {
+    attrs: {
+      "flat": ""
+    }
+  }, [_c(VExpansionPanel["a" /* default */], [_c(VExpansionPanelHeader["a" /* default */], {
+    staticClass: "pa-2"
   }, [_c('div', {
-    staticClass: "documents-list"
-  }, [_c(VRow["a" /* default */], _vm._l(_vm.form.documents, function (doc, index) {
-    return _c(VCol["a" /* default */], {
+    staticClass: "d-flex align-center"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-paperclip")]), _vm._v(" "), _c('span', {
+    staticClass: "text-caption"
+  }, [_vm._v("\n                        " + _vm._s(_vm.form.images.length) + " ຮູບພາບ, " + _vm._s(_vm.form.documents.length) + " ເອກະສານ\n                      ")])], 1)]), _vm._v(" "), _c(VExpansionPanelContent["a" /* default */], [_vm.form.images.length > 0 ? _c('div', {
+    staticClass: "mb-2"
+  }, [_c(VChipGroup_VChipGroup, {
+    attrs: {
+      "column": ""
+    }
+  }, _vm._l(_vm.form.images, function (image, index) {
+    return _c(VChip["a" /* default */], {
+      key: `img-${index}`,
+      attrs: {
+        "small": "",
+        "close": ""
+      },
+      on: {
+        "click:close": function ($event) {
+          return _vm.removeImage(index);
+        },
+        "click": function ($event) {
+          return _vm.openImagePreview(image, index);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "small": "",
+        "left": ""
+      }
+    }, [_vm._v("mdi-image")]), _vm._v("\n                          " + _vm._s(image.name) + "\n                        ")], 1);
+  }), 1)], 1) : _vm._e(), _vm._v(" "), _vm.form.documents.length > 0 ? _c('div', [_c(VChipGroup_VChipGroup, {
+    attrs: {
+      "column": ""
+    }
+  }, _vm._l(_vm.form.documents, function (doc, index) {
+    return _c(VChip["a" /* default */], {
       key: `doc-${index}`,
       attrs: {
-        "cols": "12",
-        "sm": "6",
-        "md": "4"
-      }
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "document-card",
-      attrs: {
-        "elevation": "1"
-      }
-    }, [_c(components_VCard["c" /* VCardText */], {
-      staticClass: "pa-3"
-    }, [_c('div', {
-      staticClass: "d-flex align-center"
-    }, [_c(VIcon["a" /* default */], {
-      staticClass: "mr-3",
-      attrs: {
-        "large": "",
-        "color": _vm.getDocumentTypeColor(doc.name)
-      }
-    }, [_vm._v("\n                            " + _vm._s(_vm.getDocumentTypeIcon(doc.name)) + "\n                          ")]), _vm._v(" "), _c('div', {
-      staticClass: "flex-grow-1"
-    }, [_c('div', {
-      staticClass: "font-weight-medium text-truncate"
-    }, [_vm._v("\n                              " + _vm._s(doc.name) + "\n                            ")]), _vm._v(" "), _c('div', {
-      staticClass: "text-caption text--secondary"
-    }, [_vm._v("\n                              " + _vm._s(_vm.formatFileSize(doc.size)) + "\n                            ")])]), _vm._v(" "), _c('div', {
-      staticClass: "document-actions"
-    }, [doc.url && _vm.isPdfFile(doc.name) ? _c(VBtn["a" /* default */], {
-      attrs: {
-        "icon": "",
         "small": "",
-        "color": "green",
-        "title": 'ເບິ່ງ PDF'
+        "close": ""
       },
       on: {
-        "click": function ($event) {
-          return _vm.viewPdf(doc);
-        }
-      }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-eye")])], 1) : _vm._e(), _vm._v(" "), doc.url ? _c(VBtn["a" /* default */], {
-      attrs: {
-        "icon": "",
-        "small": "",
-        "color": "primary",
-        "title": 'ດາວໂຫລດ'
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.downloadDocument(doc);
-        }
-      }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-download")])], 1) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
-      attrs: {
-        "icon": "",
-        "small": "",
-        "color": "red",
-        "title": 'ລຶບ'
-      },
-      on: {
-        "click": function ($event) {
+        "click:close": function ($event) {
           return _vm.removeDocument(index);
         }
       }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-delete")])], 1)], 1)], 1)])], 1)], 1);
-  }), 1)], 1)]) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
-    staticClass: "dialog-actions"
-  }, [_c(VContainer["a" /* default */], {
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "small": "",
+        "left": "",
+        "color": _vm.getDocumentTypeColor(doc.name)
+      }
+    }, [_vm._v("\n                            " + _vm._s(_vm.getDocumentTypeIcon(doc.name)) + "\n                          ")]), _vm._v("\n                          " + _vm._s(doc.name) + "\n                          "), _vm.isPdfFile(doc.name) && doc.url ? _c(VBtn["a" /* default */], {
+      staticClass: "ml-1",
+      attrs: {
+        "icon": "",
+        "x-small": ""
+      },
+      on: {
+        "click": function ($event) {
+          $event.stopPropagation();
+          return _vm.viewPdf(doc);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "x-small": ""
+      }
+    }, [_vm._v("mdi-eye")])], 1) : _vm._e(), _vm._v(" "), doc.url ? _c(VBtn["a" /* default */], {
+      staticClass: "ml-1",
+      attrs: {
+        "icon": "",
+        "x-small": ""
+      },
+      on: {
+        "click": function ($event) {
+          $event.stopPropagation();
+          return _vm.downloadDocument(doc);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "x-small": ""
+      }
+    }, [_vm._v("mdi-download")])], 1) : _vm._e()], 1);
+  }), 1)], 1) : _vm._e()])], 1)], 1)], 1) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+    staticClass: "dialog-actions pa-3"
+  }, [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
-      "fluid": ""
-    }
-  }, [_c(VRow["a" /* default */], {
-    attrs: {
-      "justify": "end"
-    }
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "auto"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "mr-3",
-    attrs: {
-      "text": "",
-      "large": ""
+      "text": ""
     },
     on: {
       "click": _vm.cancel
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": ""
+      "left": "",
+      "small": ""
     }
-  }, [_vm._v("mdi-cancel")]), _vm._v("\n              ຍົກເລີກ\n            ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-cancel")]), _vm._v("\n        ຍົກເລີກ\n      ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
-      "large": "",
       "loading": _vm.saving,
       "disabled": !_vm.isFormValid
     },
@@ -2216,9 +2495,10 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": ""
+      "left": "",
+      "small": ""
     }
-  }, [_vm._v("mdi-content-save")]), _vm._v("\n              " + _vm._s(_vm.isEditing ? 'ອັບເດດ MOU' : 'ສ້າງ MOU') + "\n            ")], 1)], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("mdi-content-save")]), _vm._v("\n        " + _vm._s(_vm.isEditing ? 'ອັບເດດ' : 'ສ້າງ') + "\n      ")], 1)], 1)], 1), _vm._v(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "90vw"
     },
@@ -2329,7 +2609,7 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
       "height": "100%",
       "frameborder": "0"
     }
-  }, [_c('p', [_vm._v("Your browser does not support iframes. Please download the PDF to view it.")])]) : _c('div', {
+  }, [_c('p', [_vm._v("Your browser does not support iframes.")])]) : _c('div', {
     staticClass: "pdf-loading"
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
@@ -2339,33 +2619,14 @@ var maintainvue_type_template_id_3084fa43_scoped_true_render = function render()
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "mt-4"
-  }, [_vm._v("ກຳລັງໂຫລດ PDF...")])], 1), _vm._v(" "), _vm.pdfViewerDialog && !_vm.currentPdfUrl ? _c('div', {
-    staticClass: "pdf-error"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "size": "64",
-      "color": "error"
-    }
-  }, [_vm._v("mdi-alert-circle")]), _vm._v(" "), _c('p', {
-    staticClass: "mt-4"
-  }, [_vm._v("ໂຫລດ PDF ບໍ່ສຳເລັດ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mt-2",
-    attrs: {
-      "color": "primary"
-    },
-    on: {
-      "click": function ($event) {
-        _vm.pdfViewerDialog = false;
-      }
-    }
-  }, [_vm._v("\n              ປິດ\n            ")])], 1) : _vm._e()])])], 1)], 1)], 1);
+  }, [_vm._v("ກຳລັງໂຫລດ PDF...")])], 1)])])], 1)], 1)], 1);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/job_fair/mou/maintain/index.vue?vue&type=template&id=3084fa43&scoped=true&
+// CONCATENATED MODULE: ./components/job_fair/mou/maintain/index.vue?vue&type=template&id=670d6a32&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/mou/maintain/index.vue?vue&type=script&lang=js&
-var maintainvue_type_script_lang_js_ = __webpack_require__(524);
+var maintainvue_type_script_lang_js_ = __webpack_require__(525);
 
 // CONCATENATED MODULE: ./components/job_fair/mou/maintain/index.vue?vue&type=script&lang=js&
  /* harmony default export */ var mou_maintainvue_type_script_lang_js_ = (maintainvue_type_script_lang_js_["a" /* default */]); 
@@ -2378,7 +2639,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(685)
+  var style0 = __webpack_require__(687)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2387,11 +2648,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   mou_maintainvue_type_script_lang_js_,
-  maintainvue_type_template_id_3084fa43_scoped_true_render,
+  maintainvue_type_template_id_670d6a32_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "3084fa43",
+  "670d6a32",
   "2ef59eb0"
   
 )

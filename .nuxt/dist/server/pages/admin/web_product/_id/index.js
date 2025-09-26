@@ -1,7 +1,7 @@
 exports.ids = [258,38,44,45,46,110,113,114,138,139,216,259,281];
 exports.modules = {
 
-/***/ 1253:
+/***/ 1256:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -406,7 +406,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/web_product/_id/index.vue?vue&type=template&id=c520b150&
 
 // EXTERNAL MODULE: ./pages/admin/web_product/index.vue + 4 modules
-var web_product = __webpack_require__(842);
+var web_product = __webpack_require__(844);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/_id/index.vue?vue&type=script&lang=js&
 // import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
@@ -565,7 +565,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(439).default,DiaConfirm: __webpack_require__(534).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(439).default,DiaConfirm: __webpack_require__(535).default})
 
 
 /***/ }),
@@ -5587,7 +5587,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 501:
+/***/ 503:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5859,7 +5859,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 534:
+/***/ 535:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5960,7 +5960,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 611:
+/***/ 612:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6279,7 +6279,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 842:
+/***/ 844:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6637,7 +6637,7 @@ var myUtil = __webpack_require__(138);
 var external_vuex_ = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./components/WebProductCategoryForm.vue + 4 modules
-var WebProductCategoryForm = __webpack_require__(611);
+var WebProductCategoryForm = __webpack_require__(612);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/index.vue?vue&type=script&lang=js&
 
@@ -8876,7 +8876,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var web_product = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(423).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(422).default,CategoryForm: __webpack_require__(501).default,ProductFormCreate: __webpack_require__(459).default,PriceListForm: __webpack_require__(438).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(423).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(422).default,CategoryForm: __webpack_require__(503).default,ProductFormCreate: __webpack_require__(459).default,PriceListForm: __webpack_require__(438).default})
 
 
 /***/ })

@@ -1,7 +1,7 @@
 exports.ids = [161];
 exports.modules = {
 
-/***/ 1150:
+/***/ 1153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15,7 +15,7 @@ var VAlert = __webpack_require__(456);
 var VBtn = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendar.js + 16 modules
-var VCalendar = __webpack_require__(840);
+var VCalendar = __webpack_require__(842);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(121);
@@ -1073,7 +1073,21 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 502:
+/***/ 504:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(550);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("44d02f7c", content, true)
+
+/***/ }),
+
+/***/ 548:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -1083,25 +1097,11 @@ var content = __webpack_require__(549);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("44d02f7c", content, true)
-
-/***/ }),
-
-/***/ 547:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(548);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
 __webpack_require__(5).default("6bd7c8b4", content, true)
 
 /***/ }),
 
-/***/ 548:
+/***/ 549:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1116,7 +1116,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 549:
+/***/ 550:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1131,13 +1131,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 550:
+/***/ 551:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(551);
+var content = __webpack_require__(552);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1145,7 +1145,7 @@ __webpack_require__(5).default("2f91f78c", content, true)
 
 /***/ }),
 
-/***/ 551:
+/***/ 552:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1160,13 +1160,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 552:
+/***/ 553:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(553);
+var content = __webpack_require__(554);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1174,7 +1174,7 @@ __webpack_require__(5).default("b9d8c43c", content, true)
 
 /***/ }),
 
-/***/ 553:
+/***/ 554:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1189,13 +1189,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 840:
+/***/ 842:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/mixins/calendar-with-events.sass
-var calendar_with_events = __webpack_require__(547);
+var calendar_with_events = __webpack_require__(548);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/ripple/index.js
 var ripple = __webpack_require__(17);
@@ -2478,7 +2478,7 @@ const MINUTES_IN_DAY = 1440;
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarWeekly.sass
-var VCalendarWeekly = __webpack_require__(502);
+var VCalendarWeekly = __webpack_require__(504);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(20);
@@ -2704,7 +2704,7 @@ var dateTimeUtils = __webpack_require__(402);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarDaily.sass
-var VCalendarDaily = __webpack_require__(550);
+var VCalendarDaily = __webpack_require__(551);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/mixins/calendar-with-intervals.js
 // Mixins
@@ -3079,7 +3079,7 @@ var VCalendarDaily = __webpack_require__(550);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarCategory.sass
-var VCalendarCategory = __webpack_require__(552);
+var VCalendarCategory = __webpack_require__(553);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/parser.js
 function parsedCategoryText(category, categoryText) {

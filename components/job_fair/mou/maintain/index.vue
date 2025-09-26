@@ -31,47 +31,43 @@
       </v-toolbar>
 
       <!-- Form Content -->
-      <v-card-text class="dialog-content">
+      <v-card-text class="dialog-content pa-0">
         <v-container fluid class="form-container">
           <v-form ref="form" v-model="isFormValid" lazy-validation>
-            <v-row>
+            <v-row dense>
               <!-- Basic Information Section -->
-              <v-col cols="12">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-information</v-icon
-                  >
+              <v-col cols="12" class="pb-0">
+                <div class="section-header compact">
+                  <v-icon color="primary" small class="mr-2">mdi-information</v-icon>
                   <h3 class="section-title">ຂໍ້ມູນພື້ນຖານ</h3>
                 </div>
               </v-col>
 
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="4" md="3">
                 <v-text-field
                   v-model="form.jobCode"
                   label="ລະຫັດວຽກ *"
                   :rules="[rules.required]"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-identifier"
                   :disabled="isEditing"
-                  hint="ລະຫັດງານເອກະລັກສຳລັບ MOU ນີ້"
-                  persistent-hint
                 />
               </v-col>
 
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="4" md="3">
                 <v-text-field
-                  v-model="form.mouNumber"
-                  label="ເລກທີ MOU"
+                  v-model="form.projectAmount"
+                  label="MOU / Order"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-file-document"
-                  hint="ເລກທີເອກະສານ MOU ທາງການ"
-                  persistent-hint
                 />
               </v-col>
 
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="4" md="3">
                 <v-select
                   v-model="form.jobStatus"
                   :items="statusOptions"
@@ -79,49 +75,33 @@
                   :rules="[rules.required]"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-flag"
                 >
                   <template v-slot:selection="{ item }">
-                    <v-chip
-                      :color="getStatusColor(item.value)"
-                      small
-                      text-color="white"
-                    >
-                      {{ item.text }}
-                    </v-chip>
-                  </template>
-                  <template v-slot:item="{ item }">
-                    <v-chip
-                      :color="getStatusColor(item.value)"
-                      small
-                      text-color="white"
-                      class="mr-2"
-                    >
+                    <v-chip :color="getStatusColor(item.value)" x-small text-color="white">
                       {{ item.text }}
                     </v-chip>
                   </template>
                 </v-select>
               </v-col>
 
-              <v-col cols="12">
+              <v-col cols="12" md="3">
                 <v-text-field
                   v-model="form.jobTitle"
-                  label="ຫົວຂໍ້ວຽກ *"
+                  label="ໜ້າວຽກ *"
                   :rules="[rules.required]"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-briefcase"
-                  hint="ລາຍລະອຽດຂອງຕຳແໜ່ງວຽກ"
-                  persistent-hint
                 />
               </v-col>
 
               <!-- Company & Location Section -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-domain</v-icon
-                  >
+              <v-col cols="12" class="pb-0 pt-2">
+                <div class="section-header compact">
+                  <v-icon color="primary" small class="mr-2">mdi-domain</v-icon>
                   <h3 class="section-title">ບໍລິສັດ & ສະຖານທີ່</h3>
                 </div>
               </v-col>
@@ -132,9 +112,8 @@
                   label="ບໍລິສັດນາຍຈ້າງ"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-office-building"
-                  hint="ຊື່ບໍລິສັດທີ່ຈ້າງງານ"
-                  persistent-hint
                 />
               </v-col>
 
@@ -144,36 +123,34 @@
                   label="ສະຖານທີ່ເຮັດວຽກ"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-map-marker"
-                  hint="ບ່ອນທີ່ຈະປະຕິບັດວຽກ"
-                  persistent-hint
                 />
               </v-col>
 
-              <!-- Worker Information Section -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-account-group</v-icon
-                  >
-                  <h3 class="section-title">ຂໍ້ມູນແຮງງານ</h3>
+              <!-- Worker & Financial Information -->
+              <v-col cols="12" class="pb-0 pt-2">
+                <div class="section-header compact">
+                  <v-icon color="primary" small class="mr-2">mdi-account-group</v-icon>
+                  <h3 class="section-title">ແຮງງານ & ການເງິນ</h3>
                 </div>
               </v-col>
 
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="6" sm="3" md="2">
                 <v-text-field
                   v-model.number="form.numberOfWorkers"
                   label="ຈຳນວນແຮງງານ *"
                   :rules="[rules.required, rules.positiveNumber]"
                   outlined
                   dense
+                  hide-details="auto"
                   type="number"
                   min="1"
                   prepend-inner-icon="mdi-counter"
                 />
               </v-col>
 
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="6" sm="3" md="2">
                 <v-select
                   v-model="form.workerType"
                   :items="workerTypeOptions"
@@ -181,47 +158,18 @@
                   :rules="[rules.required]"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-account"
-                >
-                  <template v-slot:selection="{ item }">
-                    <v-icon
-                      small
-                      :color="getWorkerTypeColor(item.value)"
-                      class="mr-2"
-                    >
-                      {{ getWorkerTypeIcon(item.value) }}
-                    </v-icon>
-                    {{ item.text }}
-                  </template>
-                  <template v-slot:item="{ item }">
-                    <v-icon
-                      small
-                      :color="getWorkerTypeColor(item.value)"
-                      class="mr-3"
-                    >
-                      {{ getWorkerTypeIcon(item.value) }}
-                    </v-icon>
-                    {{ item.text }}
-                  </template>
-                </v-select>
+                />
               </v-col>
 
-              <!-- Financial Information Section -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-currency-usd</v-icon
-                  >
-                  <h3 class="section-title">ຂໍ້ມູນການເງິນ</h3>
-                </div>
-              </v-col>
-
-              <v-col cols="12" sm="6" md="3">
+              <v-col cols="6" sm="3" md="2">
                 <v-text-field
                   v-model.number="form.pmCharge"
                   label="ຄ່າບໍລິຫານ PM"
                   outlined
                   dense
+                  hide-details="auto"
                   type="number"
                   min="0"
                   step="0.01"
@@ -230,53 +178,36 @@
                 />
               </v-col>
 
-              <v-col cols="12" sm="6" md="3">
+              <v-col cols="6" sm="3" md="2">
                 <v-text-field
                   v-model.number="form.exchangeRate"
                   label="ອັດຕາແລກປ່ຽນ"
                   outlined
                   dense
+                  hide-details="auto"
                   type="number"
                   min="0"
                   step="0.001"
                   prepend-inner-icon="mdi-swap-horizontal"
-                  hint="ຄ່າເລີ່ມຕົ້ນ: 1.0"
-                  persistent-hint
                 />
               </v-col>
 
-              <v-col cols="12" sm="6" md="3">
+              <v-col cols="6" sm="4" md="2">
                 <v-select
                   v-model="form.currencyId"
                   :items="currencies"
-                  item-text="name"
+                  item-text="code"
                   item-value="id"
                   label="ສະກຸນເງິນ"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-currency-usd"
                   :loading="loadingCurrencies"
-                >
-                  <template v-slot:selection="{ item }">
-                    {{ item.code }} - {{ item.name }}
-                  </template>
-                  <template v-slot:item="{ item }">
-                    <strong>{{ item.code }}</strong> - {{ item.name }}
-                  </template>
-                </v-select>
+                />
               </v-col>
 
-              <!-- Agency Selection -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-account-tie</v-icon
-                  >
-                  <h3 class="section-title">ຂໍ້ມູນຕົວແທນ</h3>
-                </div>
-              </v-col>
-
-              <v-col cols="12" md="6">
+              <v-col cols="6" sm="8" md="2">
                 <v-select
                   v-model="form.agencyId"
                   :items="agencies"
@@ -285,34 +216,18 @@
                   label="ຕົວແທນ"
                   outlined
                   dense
+                  hide-details="auto"
                   prepend-inner-icon="mdi-domain"
                   :loading="loadingAgencies"
                   clearable
-                >
-                  <template v-slot:selection="{ item }">
-                    {{ item.agencyName }}
-                    <small class="ml-2">({{ item.agencyCode }})</small>
-                  </template>
-                  <template v-slot:item="{ item }">
-                    <div>
-                      <div class="font-weight-medium">
-                        {{ item.agencyName }}
-                      </div>
-                      <small class="text--secondary"
-                        >{{ item.agencyCode }} - {{ item.address }}</small
-                      >
-                    </div>
-                  </template>
-                </v-select>
+                />
               </v-col>
 
               <!-- Notes Section -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-note-text</v-icon
-                  >
-                  <h3 class="section-title">ຂໍ້ມູນເພີ່ມເຕີມ</h3>
+              <v-col cols="12" class="pb-0 pt-2">
+                <div class="section-header compact">
+                  <v-icon color="primary" small class="mr-2">mdi-note-text</v-icon>
+                  <h3 class="section-title">ໝາຍເຫດ</h3>
                 </div>
               </v-col>
 
@@ -321,263 +236,170 @@
                   v-model="form.notes"
                   label="ໝາຍເຫດ"
                   outlined
-                  rows="3"
+                  dense
+                  rows="2"
+                  hide-details="auto"
                   prepend-inner-icon="mdi-note"
-                  hint="ໝາຍເຫດ ຫຼື ຄຳອະທິບາຍເພີ່ມເຕີມກ່ຽວກັບ MOU ນີ້"
-                  persistent-hint
                 />
               </v-col>
 
-              <!-- Images Section -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-image-multiple</v-icon
-                  >
-                  <h3 class="section-title">ຮູບພາບ</h3>
+              <!-- Files Section -->
+              <v-col cols="12" class="pb-0 pt-2">
+                <div class="section-header compact">
+                  <v-icon color="primary" small class="mr-2">mdi-file-multiple</v-icon>
+                  <h3 class="section-title">ໄຟລ໌ແນບ</h3>
                 </div>
               </v-col>
 
-              <v-col cols="12">
+              <v-col cols="12" md="6">
                 <v-file-input
                   ref="imageInput"
                   v-model="selectedImages"
-                  label="ເລືອກຮູບພາບ"
+                  label="ຮູບພາບ (5MB)"
                   multiple
                   accept="image/*"
                   prepend-icon="mdi-camera"
                   outlined
                   dense
+                  hide-details="auto"
                   :clearable="false"
-                  show-size
                   @change="handleImageSelection"
                   :disabled="processingFiles"
-                  hint="ສາມາດເລືອກຮູບພາບໄດ້ຫຼາຍໄຟລ໌ (JPG, PNG, GIF, ຂະໜາດສູງສຸດ 5MB ຕໍ່ໄຟລ໌)"
-                  persistent-hint
                 >
                   <template v-slot:selection="{ text }">
-                    <v-chip small label color="primary">
-                      {{ selectedImages ? selectedImages.length : 0 }} ຮູບພາບ
+                    <v-chip x-small label color="primary">
+                      {{ selectedImages ? selectedImages.length : 0 }} ຮູບ
                     </v-chip>
                   </template>
                 </v-file-input>
-
-                <!-- File Processing Progress -->
-                <v-progress-linear
-                  v-if="processingFiles && fileProgress.total > 0"
-                  :value="(fileProgress.current / fileProgress.total) * 100"
-                  color="primary"
-                  height="4"
-                  class="mt-2"
-                >
-                  <template v-slot:default>
-                    <small>ກຳລັງປະມວນຜົນ {{ fileProgress.current }} / {{ fileProgress.total }} ໄຟລ໌...</small>
-                  </template>
-                </v-progress-linear>
               </v-col>
 
-              <!-- Image Preview Grid -->
-              <v-col cols="12" v-if="form.images && form.images.length > 0">
-                <div class="image-gallery">
-                  <v-row>
-                    <v-col
-                      cols="6"
-                      sm="4"
-                      md="3"
-                      lg="2"
-                      v-for="(image, index) in form.images"
-                      :key="`image-${index}`"
-                    >
-                      <v-card class="image-card" elevation="2">
-                        <div class="image-container">
-                          <v-img
-                            :src="image.preview || image.url"
-                            :alt="image.name"
-                            aspect-ratio="1"
-                            class="image-preview"
-                            @click="openImagePreview(image, index)"
-                          >
-                            <template v-slot:placeholder>
-                              <v-row
-                                class="fill-height ma-0"
-                                align="center"
-                                justify="center"
-                              >
-                                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                              </v-row>
-                            </template>
-                          </v-img>
-                          
-                          <!-- Image overlay actions -->
-                          <v-overlay absolute class="image-overlay">
-                            <div class="image-actions">
-                              <v-btn
-                                icon
-                                small
-                                color="white"
-                                @click="openImagePreview(image, index)"
-                              >
-                                <v-icon>mdi-eye</v-icon>
-                              </v-btn>
-                              <v-btn
-                                icon
-                                small
-                                color="white"
-                                @click="removeImage(index)"
-                              >
-                                <v-icon>mdi-delete</v-icon>
-                              </v-btn>
-                            </div>
-                          </v-overlay>
-                        </div>
-                        
-                        <!-- Image info -->
-                        <v-card-text class="pa-2">
-                          <div class="text-caption text-truncate">
-                            {{ image.name }}
-                          </div>
-                          <div class="text-caption text--secondary">
-                            {{ formatFileSize(image.size) }}
-                          </div>
-                        </v-card-text>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                </div>
-              </v-col>
-
-              <!-- Documents Section -->
-              <v-col cols="12" class="pt-6">
-                <div class="section-header">
-                  <v-icon color="primary" class="section-icon"
-                    >mdi-file-multiple</v-icon
-                  >
-                  <h3 class="section-title">ເອກະສານ</h3>
-                </div>
-              </v-col>
-
-              <v-col cols="12">
+              <v-col cols="12" md="6">
                 <v-file-input
                   ref="documentInput"
                   v-model="selectedDocuments"
-                  label="ເລືອກເອກະສານ"
+                  label="ເອກະສານ (10MB)"
                   multiple
                   accept=".pdf,.doc,.docx,.xls,.xlsx,.txt"
                   prepend-icon="mdi-file-document"
                   outlined
                   dense
+                  hide-details="auto"
                   :clearable="false"
-                  show-size
                   @change="handleDocumentSelection"
                   :disabled="processingFiles"
-                  hint="ສາມາດເລືອກເອກະສານໄດ້ຫຼາຍໄຟລ໌ (PDF, DOC, DOCX, XLS, XLSX, TXT, ຂະໜາດສູງສຸດ 10MB ຕໍ່ໄຟລ໌)"
-                  persistent-hint
                 >
                   <template v-slot:selection="{ text }">
-                    <v-chip small label color="primary">
+                    <v-chip x-small label color="primary">
                       {{ selectedDocuments ? selectedDocuments.length : 0 }} ເອກະສານ
                     </v-chip>
                   </template>
                 </v-file-input>
               </v-col>
 
-              <!-- Documents List -->
-              <v-col cols="12" v-if="form.documents && form.documents.length > 0">
-                <div class="documents-list">
-                  <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                      v-for="(doc, index) in form.documents"
-                      :key="`doc-${index}`"
-                    >
-                      <v-card class="document-card" elevation="1">
-                        <v-card-text class="pa-3">
-                          <div class="d-flex align-center">
-                            <v-icon
-                              large
-                              :color="getDocumentTypeColor(doc.name)"
-                              class="mr-3"
-                            >
+              <!-- File Progress -->
+              <v-col cols="12" v-if="processingFiles && fileProgress.total > 0">
+                <v-progress-linear
+                  :value="(fileProgress.current / fileProgress.total) * 100"
+                  color="primary"
+                  height="3"
+                >
+                  <template v-slot:default>
+                    <small>{{ fileProgress.current }}/{{ fileProgress.total }}</small>
+                  </template>
+                </v-progress-linear>
+              </v-col>
+
+              <!-- File Preview -->
+              <v-col cols="12" v-if="(form.images && form.images.length > 0) || (form.documents && form.documents.length > 0)">
+                <v-expansion-panels flat>
+                  <v-expansion-panel>
+                    <v-expansion-panel-header class="pa-2">
+                      <div class="d-flex align-center">
+                        <v-icon small class="mr-2">mdi-paperclip</v-icon>
+                        <span class="text-caption">
+                          {{ form.images.length }} ຮູບພາບ, {{ form.documents.length }} ເອກະສານ
+                        </span>
+                      </div>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <!-- Images -->
+                      <div v-if="form.images.length > 0" class="mb-2">
+                        <v-chip-group column>
+                          <v-chip
+                            v-for="(image, index) in form.images"
+                            :key="`img-${index}`"
+                            small
+                            close
+                            @click:close="removeImage(index)"
+                            @click="openImagePreview(image, index)"
+                          >
+                            <v-icon small left>mdi-image</v-icon>
+                            {{ image.name }}
+                          </v-chip>
+                        </v-chip-group>
+                      </div>
+                      
+                      <!-- Documents -->
+                      <div v-if="form.documents.length > 0">
+                        <v-chip-group column>
+                          <v-chip
+                            v-for="(doc, index) in form.documents"
+                            :key="`doc-${index}`"
+                            small
+                            close
+                            @click:close="removeDocument(index)"
+                          >
+                            <v-icon small left :color="getDocumentTypeColor(doc.name)">
                               {{ getDocumentTypeIcon(doc.name) }}
                             </v-icon>
-                            <div class="flex-grow-1">
-                              <div class="font-weight-medium text-truncate">
-                                {{ doc.name }}
-                              </div>
-                              <div class="text-caption text--secondary">
-                                {{ formatFileSize(doc.size) }}
-                              </div>
-                            </div>
-                            <div class="document-actions">
-                              <!-- View PDF Button -->
-                              <v-btn
-                                icon
-                                small
-                                color="green"
-                                @click="viewPdf(doc)"
-                                v-if="doc.url && isPdfFile(doc.name)"
-                                :title="'ເບິ່ງ PDF'"
-                              >
-                                <v-icon>mdi-eye</v-icon>
-                              </v-btn>
-                              <!-- Download Button -->
-                              <v-btn
-                                icon
-                                small
-                                color="primary"
-                                @click="downloadDocument(doc)"
-                                v-if="doc.url"
-                                :title="'ດາວໂຫລດ'"
-                              >
-                                <v-icon>mdi-download</v-icon>
-                              </v-btn>
-                              <!-- Delete Button -->
-                              <v-btn
-                                icon
-                                small
-                                color="red"
-                                @click="removeDocument(index)"
-                                :title="'ລຶບ'"
-                              >
-                                <v-icon>mdi-delete</v-icon>
-                              </v-btn>
-                            </div>
-                          </div>
-                        </v-card-text>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                </div>
+                            {{ doc.name }}
+                            <v-btn
+                              v-if="isPdfFile(doc.name) && doc.url"
+                              icon
+                              x-small
+                              @click.stop="viewPdf(doc)"
+                              class="ml-1"
+                            >
+                              <v-icon x-small>mdi-eye</v-icon>
+                            </v-btn>
+                            <v-btn
+                              v-if="doc.url"
+                              icon
+                              x-small
+                              @click.stop="downloadDocument(doc)"
+                              class="ml-1"
+                            >
+                              <v-icon x-small>mdi-download</v-icon>
+                            </v-btn>
+                          </v-chip>
+                        </v-chip-group>
+                      </div>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
               </v-col>
             </v-row>
           </v-form>
         </v-container>
       </v-card-text>
 
-      <!-- Footer Actions -->
-      <v-card-actions class="dialog-actions">
-        <v-container fluid>
-          <v-row justify="end">
-            <v-col cols="auto">
-              <v-btn text large @click="cancel" class="mr-3">
-                <v-icon left>mdi-cancel</v-icon>
-                ຍົກເລີກ
-              </v-btn>
-              <v-btn
-                color="primary"
-                large
-                @click="save"
-                :loading="saving"
-                :disabled="!isFormValid"
-              >
-                <v-icon left>mdi-content-save</v-icon>
-                {{ isEditing ? 'ອັບເດດ MOU' : 'ສ້າງ MOU' }}
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
+      <!-- Footer -->
+      <v-card-actions class="dialog-actions pa-3">
+        <v-spacer></v-spacer>
+        <v-btn text @click="cancel" class="mr-2">
+          <v-icon left small>mdi-cancel</v-icon>
+          ຍົກເລີກ
+        </v-btn>
+        <v-btn
+          color="primary"
+          @click="save"
+          :loading="saving"
+          :disabled="!isFormValid"
+        >
+          <v-icon left small>mdi-content-save</v-icon>
+          {{ isEditing ? 'ອັບເດດ' : 'ສ້າງ' }}
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -596,7 +418,6 @@
             contain
             max-height="70vh"
           />
-          <!-- {{ previewImage.preview || previewImage.url }} -->
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -651,7 +472,6 @@
         
         <v-card-text class="pa-0 pdf-viewer-content">
           <div class="pdf-container">
-            <!-- PDF Viewer using iframe -->
             <iframe
               v-if="currentPdfUrl"
               :src="currentPdfUrl + '#toolbar=1&navpanes=1&scrollbar=1'"
@@ -660,10 +480,9 @@
               frameborder="0"
               class="pdf-iframe"
             >
-              <p>Your browser does not support iframes. Please download the PDF to view it.</p>
+              <p>Your browser does not support iframes.</p>
             </iframe>
             
-            <!-- Loading state -->
             <div v-else class="pdf-loading">
               <v-progress-circular
                 indeterminate
@@ -671,19 +490,6 @@
                 color="primary"
               ></v-progress-circular>
               <p class="mt-4">ກຳລັງໂຫລດ PDF...</p>
-            </div>
-            
-            <!-- Error state -->
-            <div v-if="pdfViewerDialog && !currentPdfUrl" class="pdf-error">
-              <v-icon size="64" color="error">mdi-alert-circle</v-icon>
-              <p class="mt-4">ໂຫລດ PDF ບໍ່ສຳເລັດ</p>
-              <v-btn 
-                color="primary" 
-                @click="pdfViewerDialog = false"
-                class="mt-2"
-              >
-                ປິດ
-              </v-btn>
             </div>
           </div>
         </v-card-text>
@@ -696,14 +502,8 @@
 export default {
   name: 'MouMaintenanceDialog',
   props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
-    editingItem: {
-      type: Object,
-      default: null,
-    },
+    value: { type: Boolean, default: false },
+    editingItem: { type: Object, default: null },
   },
   data() {
     return {
@@ -723,13 +523,11 @@ export default {
       pdfViewerDialog: false,
       currentPdfUrl: null,
       currentPdfName: null,
-      pdfViewerDialog: false,
-      currentPdfUrl: null,
-      currentPdfName: null,
       form: {
         jobCode: '',
         mouNumber: '',
         pmCharge: 0,
+        projectAmount: 0,
         exchangeRate: 1,
         agencyId: null,
         employerCompany: '',
@@ -794,12 +592,12 @@ export default {
         this.resetForm()
       }
     },
-
     resetForm() {
       this.form = {
         jobCode: '',
         mouNumber: '',
         pmCharge: 0,
+        projectAmount: 0,
         exchangeRate: 1,
         agencyId: null,
         employerCompany: '',
@@ -819,37 +617,28 @@ export default {
         this.$refs.form?.resetValidation()
       })
     },
-
-     populateForm() {
+    populateForm() {
       if (this.editingItem) {
-        // Transform existing images from database format to frontend format
-        const transformedImages = (this.editingItem.images || []).map(
-          (img) => ({
-            id: img.id,
-            name: img.orgName || img.img_path,
-            size: img.imageSize || img.size,
-            type: img.imageMimeType || img.type,
-            url: this.getFileUrl('images', img.img_name || img.img_path),
-            preview: this.getFileUrl('images', img.img_name || img.img_path),
-            isExisting: true,
-          })
-        )
+        const transformedImages = (this.editingItem.images || []).map((img) => ({
+          id: img.id,
+          name: img.orgName || img.img_path,
+          size: img.imageSize || img.size,
+          type: img.imageMimeType || img.type,
+          url: this.getFileUrl('images', img.img_name || img.img_path),
+          preview: this.getFileUrl('images', img.img_name || img.img_path),
+          isExisting: true,
+        }))
 
-        // Transform existing documents from database format to frontend format
-        const transformedDocuments = (this.editingItem.documents || []).map(
-          (doc, index) => ({
-            id: doc.id || index,
-            name: doc.name,
-            size: doc.size,
-            type: doc.mimetype || doc.type,
-            url: doc.path
-              ? this.getDocumentDownloadUrl(this.editingItem.id, index)
-              : null,
-            path: doc.path,
-            filename: doc.filename,
-            isExisting: true,
-          })
-        )
+        const transformedDocuments = (this.editingItem.documents || []).map((doc, index) => ({
+          id: doc.id || index,
+          name: doc.name,
+          size: doc.size,
+          type: doc.mimetype || doc.type,
+          url: doc.path ? this.getDocumentDownloadUrl(this.editingItem.id, index) : null,
+          path: doc.path,
+          filename: doc.filename,
+          isExisting: true,
+        }))
 
         this.form = {
           ...this.form,
@@ -861,12 +650,8 @@ export default {
         }
       }
     },
-
-    // File handling methods - IMPROVED TO PREVENT FREEZING
     async handleImageSelection(files) {
       if (!files || files.length === 0) return
-
-      // File size validation (5MB per image)
       const maxSize = 5 * 1024 * 1024
       const validFiles = Array.from(files).filter(file => {
         if (!file.type.startsWith('image/')) {
@@ -885,22 +670,15 @@ export default {
         return
       }
 
-      // Set processing state
       this.processingFiles = true
       this.fileProgress = { current: 0, total: validFiles.length }
 
       try {
-        // Process files sequentially to avoid freezing
         for (let i = 0; i < validFiles.length; i++) {
           const file = validFiles[i]
-          
-          // Update progress
           this.fileProgress.current = i
-
-          // Use async file reading with proper error handling
           try {
             const preview = await this.readFileAsDataURL(file)
-            
             this.form.images.push({
               name: file.name,
               size: file.size,
@@ -909,29 +687,21 @@ export default {
               preview: preview,
               isNew: true
             })
-
-            // Add small delay to prevent UI blocking
             await this.delay(10)
-
           } catch (error) {
             console.error(`Error processing image ${file.name}:`, error)
             this.$toast.error(`ໂຫລດຮູບພາບ ${file.name} ບໍ່ສຳເລັດ`)
           }
         }
-
         this.fileProgress.current = validFiles.length
         this.$toast.success(`ໂຫລດຮູບພາບ ${validFiles.length} ໄຟລ໌ສຳເລັດ`)
-
       } catch (error) {
         console.error('Error in handleImageSelection:', error)
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫລດຮູບພາບ')
       } finally {
-        // Reset processing state
         this.processingFiles = false
         this.fileProgress = { current: 0, total: 0 }
         this.selectedImages = []
-        
-        // Reset file input
         this.$nextTick(() => {
           if (this.$refs.imageInput) {
             this.$refs.imageInput.reset()
@@ -939,11 +709,8 @@ export default {
         })
       }
     },
-
     async handleDocumentSelection(files) {
       if (!files || files.length === 0) return
-
-      // File size validation (10MB per document)
       const maxSize = 10 * 1024 * 1024
       const allowedTypes = [
         'application/pdf',
@@ -955,7 +722,7 @@ export default {
       ]
 
       const validFiles = Array.from(files).filter(file => {
-        if (!allowedTypes.includes(file.mimetype) && !this.isValidDocumentExtension(file.name)) {
+        if (!allowedTypes.includes(file.type) && !this.isValidDocumentExtension(file.name)) {
           this.$toast.error(`${file.name} ບໍ່ແມ່ນໄຟລ໌ເອກະສານທີ່ຮອງຮັບ`)
           return false
         }
@@ -971,17 +738,13 @@ export default {
         return
       }
 
-      // Set processing state
       this.processingFiles = true
       this.fileProgress = { current: 0, total: validFiles.length }
 
       try {
-        // Process documents (no preview needed, faster processing)
         for (let i = 0; i < validFiles.length; i++) {
           const file = validFiles[i]
-          
           this.fileProgress.current = i + 1
-
           this.form.documents.push({
             name: file.name,
             size: file.size,
@@ -989,23 +752,16 @@ export default {
             file: file,
             isNew: true
           })
-
-          // Small delay to keep UI responsive
           await this.delay(5)
         }
-
         this.$toast.success(`ໂຫລດເອກະສານ ${validFiles.length} ໄຟລ໌ສຳເລັດ`)
-
       } catch (error) {
         console.error('Error in handleDocumentSelection:', error)
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫລດເອກະສານ')
       } finally {
-        // Reset processing state
         this.processingFiles = false
         this.fileProgress = { current: 0, total: 0 }
         this.selectedDocuments = []
-        
-        // Reset file input
         this.$nextTick(() => {
           if (this.$refs.documentInput) {
             this.$refs.documentInput.reset()
@@ -1013,20 +769,14 @@ export default {
         })
       }
     },
-
-    // Helper method for async file reading
     readFileAsDataURL(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader()
-        
         reader.onload = (e) => resolve(e.target.result)
         reader.onerror = (e) => reject(new Error('Failed to read file'))
         reader.onabort = (e) => reject(new Error('File reading aborted'))
-        
-        // For large images, consider using a smaller canvas for thumbnails
-        if (file.size > 1024 * 1024) { // 1MB
+        if (file.size > 1024 * 1024) {
           this.createImageThumbnail(file, 300, 300).then(resolve).catch(() => {
-            // Fallback to full image if thumbnail creation fails
             reader.readAsDataURL(file)
           })
         } else {
@@ -1034,18 +784,13 @@ export default {
         }
       })
     },
-
-    // Create thumbnail to reduce memory usage
     createImageThumbnail(file, maxWidth, maxHeight) {
       return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         const img = new Image()
-        
         img.onload = () => {
-          // Calculate new dimensions
           let { width, height } = img
-          
           if (width > height) {
             if (width > maxWidth) {
               height = (height * maxWidth) / width
@@ -1057,66 +802,45 @@ export default {
               height = maxHeight
             }
           }
-          
-          // Resize canvas and draw image
           canvas.width = width
           canvas.height = height
           ctx.drawImage(img, 0, 0, width, height)
-          
-          // Convert to data URL with compression
           resolve(canvas.toDataURL('image/jpeg', 0.8))
         }
-        
         img.onerror = reject
         img.src = URL.createObjectURL(file)
       })
     },
-
-    // Check document file extension
     isValidDocumentExtension(filename) {
       const validExtensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.txt']
       const ext = filename.toLowerCase().substring(filename.lastIndexOf('.'))
       return validExtensions.includes(ext)
     },
-
-    // Check if file is PDF
     isPdfFile(filename) {
       if (!filename) return false
       const ext = filename.toLowerCase().substring(filename.lastIndexOf('.'))
       return ext === '.pdf'
     },
-
-    // View PDF in dialog
     async viewPdf(doc) {
       try {
         this.currentPdfName = doc.name
-        
         if (doc.isExisting && doc.url) {
-          // For existing PDFs, we need to get the file content via axios
           const response = await this.$axios({
             method: 'GET',
             url: doc.url,
             responseType: 'blob',
           })
-
-          // Create blob URL for PDF viewing
           const blob = new Blob([response.data], { type: 'application/pdf' })
           this.currentPdfUrl = window.URL.createObjectURL(blob)
-          
         } else if (doc.file && doc.isNew) {
-          // For newly uploaded PDFs, create object URL directly
           this.currentPdfUrl = URL.createObjectURL(doc.file)
         }
-        
         this.pdfViewerDialog = true
-        
       } catch (error) {
         console.error('Error viewing PDF:', error)
         this.$toast.error('ເປີດ PDF ບໍ່ສຳເລັດ')
       }
     },
-
-    // Download current PDF being viewed
     async downloadCurrentPdf() {
       if (this.currentPdfUrl && this.currentPdfName) {
         try {
@@ -1126,7 +850,6 @@ export default {
           document.body.appendChild(link)
           link.click()
           document.body.removeChild(link)
-          
           this.$toast.success('ດາວໂຫລດ PDF ສຳເລັດ')
         } catch (error) {
           console.error('Error downloading PDF:', error)
@@ -1134,42 +857,28 @@ export default {
         }
       }
     },
-
-    // Add small delay to prevent UI blocking
     delay(ms) {
       return new Promise(resolve => setTimeout(resolve, ms))
     },
-
     removeImage(index) {
       const imageToRemove = this.form.images[index]
-      
-      // If it's an existing image from database, call delete API
       if (imageToRemove.isExisting && imageToRemove.id) {
         this.deleteExistingImage(imageToRemove.id)
       }
-      
-      // Remove from form array
       this.form.images.splice(index, 1)
     },
-
     async removeDocument(index) {
       const docToRemove = this.form.documents[index]
-      
-      // If it's an existing document from database, call delete API
       if (docToRemove.isExisting && this.editingItem?.id) {
         await this.deleteExistingDocument(this.editingItem.id, index)
       }
-      
-      // Remove from form array
       this.form.documents.splice(index, 1)
     },
-
     openImagePreview(image, index) {
       this.previewImage = image
       this.previewImageIndex = index
       this.imagePreviewDialog = true
     },
-
     removeImageFromPreview() {
       if (this.previewImageIndex !== null) {
         this.removeImage(this.previewImageIndex)
@@ -1178,84 +887,59 @@ export default {
         this.previewImageIndex = null
       }
     },
-
     async downloadDocument(doc) {
       if (doc.url) {
         try {
-          // Use axios to download with authentication headers
           const response = await this.$axios({
             method: 'GET',
             url: doc.url,
-            responseType: 'blob', // Important for file download
-            headers: {
-              // Your existing auth headers will be automatically included by axios
-            }
+            responseType: 'blob',
           })
-
-          // Create blob URL and download
           const blob = new Blob([response.data])
           const url = window.URL.createObjectURL(blob)
-          
-          // Create temporary download link
           const link = document.createElement('a')
           link.href = url
           link.download = doc.name || 'document'
           document.body.appendChild(link)
           link.click()
-          
-          // Cleanup
           document.body.removeChild(link)
           window.URL.revokeObjectURL(url)
-          
           this.$toast.success('ດາວໂຫລດເອກະສານສຳເລັດ')
-          
         } catch (error) {
           console.error('Download error:', error)
           this.$toast.error('ດາວໂຫລດເອກະສານບໍ່ສຳເລັດ')
         }
       } else {
-        this.$toast.warning('ເອກະສານຍັງບໍ່ໄດ້ຖືກບັນທຶກ, ກະລຸນາບັນທຶກ MOU ກ່ອນ')
+        this.$toast.warning('ເອກະສານຍັງບໍ່ໄດ້ຖືກບັນທຶກ')
       }
     },
-
     async downloadImage(image) {
       if (image.url) {
         try {
-          // Use axios to download with authentication headers
           const response = await this.$axios({
             method: 'GET',
             url: image.url,
             responseType: 'blob',
           })
-
-          // Create blob URL and download
           const blob = new Blob([response.data])
           const url = window.URL.createObjectURL(blob)
-          
           const link = document.createElement('a')
           link.href = url
           link.download = image.name || 'image'
           document.body.appendChild(link)
           link.click()
-          
-          // Cleanup
           document.body.removeChild(link)
           window.URL.revokeObjectURL(url)
-          
           this.$toast.success('ດາວໂຫລດຮູບພາບສຳເລັດ')
-          
         } catch (error) {
           console.error('Download error:', error)
           this.$toast.error('ດາວໂຫລດຮູບພາບບໍ່ສຳເລັດ')
         }
       } else if (image.preview) {
-        // For new images, download the preview data URL
         this.downloadDataURL(image.preview, image.name)
         this.$toast.success('ດາວໂຫລດຮູບພາບສຳເລັດ')
       }
     },
-
-    // Helper method to download data URL as file
     downloadDataURL(dataURL, filename) {
       const link = document.createElement('a')
       link.href = dataURL
@@ -1264,8 +948,6 @@ export default {
       link.click()
       document.body.removeChild(link)
     },
-
-    // Delete existing image from database
     async deleteExistingImage(imageId) {
       try {
         const response = await this.$axios.$delete(`/api/mous/image/${imageId}`)
@@ -1277,8 +959,6 @@ export default {
         this.$toast.error('ລຶບຮູບພາບບໍ່ສຳເລັດ')
       }
     },
-
-    // Delete existing document from database  
     async deleteExistingDocument(mouId, documentIndex) {
       try {
         const response = await this.$axios.$delete(`/api/mous/${mouId}/document/${documentIndex}`)
@@ -1290,31 +970,19 @@ export default {
         this.$toast.error('ລຶບເອກະສານບໍ່ສຳເລັດ')
       }
     },
-
-    // Get file URL for display
     getFileUrl(type, filename) {
-      console.info(`Getting file URL for ${type}: ${filename}`)
       if (!filename) return ''
       const baseUrl = this.$axios.defaults.baseURL || ''
-      console.info(`Base URL: ${baseUrl}`)
-      return `${baseUrl}/uploads/${type}/${filename}`
-        .replace(/\/+/g, '/')
-        .replace(':/', '://')
+      return `${baseUrl}/uploads/${type}/${filename}`.replace(/\/+/g, '/').replace(':/', '://')
     },
-
-    // Get download URL for documents
     getDocumentDownloadUrl(mouId, documentIndex) {
       const baseUrl = this.$axios.defaults.baseURL || ''
       return `${baseUrl}/api/mous/download/document/${mouId}/${documentIndex}`.replace(/\/+/g, '/').replace(':/', '://')
     },
-
-    // Get download URL for images  
     getImageDownloadUrl(imageId) {
       const baseUrl = this.$axios.defaults.baseURL || ''
       return `${baseUrl}/api/mous/download/image/${imageId}`.replace(/\/+/g, '/').replace(':/', '://')
     },
-
-    // Utility methods
     formatFileSize(bytes) {
       if (bytes === 0) return '0 Bytes'
       const k = 1024
@@ -1322,7 +990,6 @@ export default {
       const i = Math.floor(Math.log(bytes) / Math.log(k))
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
     },
-
     getDocumentTypeIcon(filename) {
       const ext = filename.split('.').pop().toLowerCase()
       const iconMap = {
@@ -1336,7 +1003,6 @@ export default {
       }
       return iconMap[ext] || iconMap.default
     },
-
     getDocumentTypeColor(filename) {
       const ext = filename.split('.').pop().toLowerCase()
       const colorMap = {
@@ -1350,22 +1016,18 @@ export default {
       }
       return colorMap[ext] || colorMap.default
     },
-
     async fetchDropdownData() {
       await Promise.all([this.fetchAgencies(), this.fetchCurrencies()])
     },
-
     async fetchAgencies() {
       this.loadingAgencies = true
       try {
         const response = await this.$axios.$get('/api/agency')
-        console.info(`AGENCY ${JSON.stringify(response)}`)
         if (response.success && response.data && response.data.agencies) {
           this.agencies = response.data.agencies
         } else if (response.success && Array.isArray(response.data)) {
           this.agencies = response.data
         }
-        console.log('Agencies loaded:', this.agencies)
       } catch (error) {
         console.error('Error fetching agencies:', error)
         this.$toast.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ')
@@ -1373,12 +1035,10 @@ export default {
         this.loadingAgencies = false
       }
     },
-
     async fetchCurrencies() {
       this.loadingCurrencies = true
       try {
         const response = await this.$axios.$get('/api/currency/find')
-
         if (Array.isArray(response)) {
           this.currencies = response
         } else if (response.success && response.data) {
@@ -1386,8 +1046,6 @@ export default {
         } else if (response && !response.success) {
           this.currencies = response
         }
-
-        console.log('Currencies loaded:', this.currencies)
       } catch (error) {
         console.error('Error fetching currencies:', error)
         this.$toast.error('ໂຫລດຂໍ້ມູນສະກຸນເງິນບໍ່ສຳເລັດ')
@@ -1395,85 +1053,58 @@ export default {
         this.loadingCurrencies = false
       }
     },
-
     async save() {
       if (!this.$refs.form.validate()) {
         this.$toast.error('ກະລຸນາແກ້ໄຂຂໍ້ຜິດພາດໃນແບບຟອມກ່ອນບັນທຶກ')
         return
       }
-
       this.saving = true
       try {
         const payload = { ...this.form }
-
-        // Clean up the payload
         if (!payload.pmCharge) payload.pmCharge = 0
         if (!payload.exchangeRate) payload.exchangeRate = 1
         if (!payload.numberOfWorkers) payload.numberOfWorkers = 1
-
-        // Handle file uploads if needed
         const formData = new FormData()
-        
-        // Add form data
         Object.keys(payload).forEach(key => {
           if (key !== 'images' && key !== 'documents') {
             formData.append(key, payload[key])
           }
         })
-
-        // Add new images
-        payload.images.forEach((image, index) => {
+        payload.images.forEach((image) => {
           if (image.isNew && image.file) {
             formData.append(`images`, image.file)
           }
         })
-
-        // Add new documents
-        payload.documents.forEach((doc, index) => {
+        payload.documents.forEach((doc) => {
           if (doc.isNew && doc.file) {
             formData.append(`documents`, doc.file)
           }
         })
-
         let response
         if (this.isEditing) {
-          response = await this.$axios.$put(
-            `/api/mous/${this.editingItem.id}`,
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
-          )
+          response = await this.$axios.$put(`/api/mous/${this.editingItem.id}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          })
         } else {
           response = await this.$axios.$post('/api/mous', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
+            headers: { 'Content-Type': 'multipart/form-data' }
           })
         }
-
         if (response.success) {
-          this.$toast.success(
-            `MOU ${this.isEditing ? 'ອັບເດດ' : 'ສ້າງ'}ສຳເລັດແລ້ວ`
-          )
+          this.$toast.success(`MOU ${this.isEditing ? 'ອັບເດດ' : 'ສ້າງ'}ສຳເລັດແລ້ວ`)
           this.$emit('saved', response.data)
         }
       } catch (error) {
         console.error('Error saving MOU:', error)
-        const errorMessage =
-          error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ'
+        const errorMessage = error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ'
         this.$toast.error(errorMessage)
       } finally {
         this.saving = false
       }
     },
-
     cancel() {
       this.$emit('cancelled')
     },
-
     getStatusColor(status) {
       const colorMap = {
         draft: 'grey',
@@ -1484,7 +1115,6 @@ export default {
       }
       return colorMap[status] || 'grey'
     },
-
     getWorkerTypeColor(type) {
       const colorMap = {
         Man: 'blue',
@@ -1494,7 +1124,6 @@ export default {
       }
       return colorMap[type] || 'grey'
     },
-
     getWorkerTypeIcon(type) {
       const iconMap = {
         Man: 'mdi-account',
@@ -1518,10 +1147,11 @@ export default {
 .dialog-toolbar {
   flex-shrink: 0;
   border-radius: 0 !important;
+  min-height: 56px !important;
 }
 
 .toolbar-title {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 500;
 }
 
@@ -1529,32 +1159,33 @@ export default {
   flex: 1;
   overflow-y: auto;
   background-color: #fafafa;
+  padding: 12px 8px !important;
 }
 
 .form-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 32px !important;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px !important;
 }
 
 .section-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #e3f2fd;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e3f2fd;
 }
 
-.section-icon {
-  font-size: 24px !important;
-  margin-right: 12px;
+.section-header.compact {
+  margin-bottom: 8px;
+  padding-bottom: 4px;
 }
 
 .section-title {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #1976d2;
   margin: 0;
@@ -1564,158 +1195,47 @@ export default {
   flex-shrink: 0;
   background: white;
   border-top: 1px solid #e0e0e0;
-  padding: 16px 0 !important;
 }
 
-.documents-list {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 12px;
-  min-height: 60px;
-  border: 1px solid #e0e0e0;
+/* Compact form fields */
+.v-text-field--outlined >>> .v-input__control > .v-input__slot,
+.v-select--outlined >>> .v-input__control > .v-input__slot,
+.v-textarea >>> .v-input__control > .v-input__slot {
+  min-height: 40px !important;
 }
 
-/* Image Gallery Styles */
-.image-gallery {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 12px;
-  border: 1px solid #e0e0e0;
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) >>> .v-input__prepend-inner {
+  margin-top: 8px !important;
 }
 
-.image-card {
-  position: relative;
-  transition: all 0.3s ease;
-  cursor: pointer;
+/* Compact expansion panel */
+.v-expansion-panel-header {
+  min-height: 40px !important;
+  padding: 8px 16px !important;
 }
 
-.image-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.v-expansion-panel-content >>> .v-expansion-panel-content__wrap {
+  padding: 8px 16px !important;
 }
 
-.image-container {
-  position: relative;
-}
-
-.image-preview {
-  border-radius: 8px 8px 0 0;
-}
-
-.image-overlay {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px 8px 0 0;
-}
-
-.image-card:hover .image-overlay {
-  opacity: 1;
-}
-
-.image-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-/* Document Card Styles */
-.document-card {
-  transition: all 0.3s ease;
-  border: 1px solid #e0e0e0;
-}
-
-.document-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.document-actions {
-  display: flex;
+/* Compact chips */
+.v-chip-group {
   gap: 4px;
 }
 
-/* Form field customization */
-.v-text-field--outlined >>> .v-input__control > .v-input__slot {
-  min-height: 48px;
-}
-
-.v-select--outlined >>> .v-input__control > .v-input__slot {
-  min-height: 48px;
-}
-
-/* File input styling */
-.v-file-input >>> .v-file-input__text {
-  max-width: 200px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .form-container {
-    padding: 20px !important;
-    margin: 0 8px;
-    border-radius: 8px;
-  }
-
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .section-icon {
-    margin-right: 8px;
-    margin-bottom: 4px;
-  }
-
-  .toolbar-title {
-    font-size: 1.1rem;
-  }
-
-  .image-actions {
-    gap: 4px;
-  }
-}
-
-/* Enhanced visual feedback */
-.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.v-card {
-  transition: all 0.3s ease;
-}
-
-/* Status chip styling in select */
 .v-chip.v-size--small {
+  height: 24px !important;
   font-size: 0.75rem;
-  height: 24px;
 }
 
-/* Loading states */
-.v-select.v-select--is-loading >>> .v-input__append-inner {
-  animation: spin 1s linear infinite;
+.v-chip.v-size--x-small {
+  height: 20px !important;
+  font-size: 0.7rem;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Image preview dialog */
-.v-dialog >>> .v-card {
-  overflow: visible;
-}
-
-/* PDF Viewer Styles */
+/* PDF Viewer */
 .pdf-viewer-content {
-  height: calc(100vh - 64px); /* Full height minus toolbar */
+  height: calc(100vh - 64px);
 }
 
 .pdf-container {
@@ -1740,25 +1260,33 @@ export default {
   justify-content: center;
   height: 100%;
   color: #666;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.pdf-loading {
-  background: white;
-}
-
-.pdf-error {
-  background: #f8f8f8;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
+  .form-container {
+    padding: 12px !important;
+    margin: 0 4px;
+    border-radius: 6px;
+  }
+
+  .toolbar-title {
+    font-size: 1rem;
+  }
+
   .pdf-viewer-content {
-    height: calc(100vh - 56px); /* Adjust for smaller mobile toolbar */
+    height: calc(100vh - 56px);
   }
-  
-  .pdf-loading,
-  .pdf-error {
-    font-size: 14px;
-  }
+}
+
+/* Remove extra spacing */
+.v-input--dense >>> .v-messages {
+  min-height: 0 !important;
+}
+
+.v-text-field >>> .v-text-field__details {
+  margin-bottom: 0 !important;
+  padding-top: 2px !important;
 }
 </style>

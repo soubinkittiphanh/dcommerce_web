@@ -1,7 +1,7 @@
 exports.ids = [217,36,45,46,110,113,114,139,216,281];
 exports.modules = {
 
-/***/ 1241:
+/***/ 1244:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2774,7 +2774,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var productlist = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(423).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(422).default,CardForm: __webpack_require__(532).default,ProductForm: __webpack_require__(460).default,ProductFormCreate: __webpack_require__(459).default,PriceListForm: __webpack_require__(438).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(423).default,LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(422).default,CardForm: __webpack_require__(533).default,ProductForm: __webpack_require__(460).default,ProductFormCreate: __webpack_require__(459).default,PriceListForm: __webpack_require__(438).default})
 
 
 /***/ }),
@@ -7796,7 +7796,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 532:
+/***/ 533:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

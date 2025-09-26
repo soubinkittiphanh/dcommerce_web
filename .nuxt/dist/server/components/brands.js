@@ -1,13 +1,13 @@
 exports.ids = [26];
 exports.modules = {
 
-/***/ 518:
+/***/ 488:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(519);
+var content = __webpack_require__(489);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -15,7 +15,7 @@ __webpack_require__(5).default("d67becdc", content, true)
 
 /***/ }),
 
-/***/ 519:
+/***/ 489:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -30,14 +30,14 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 672:
+/***/ 520:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export calculateUpdatedOffset */
 /* unused harmony export calculateCenteredOffset */
-/* unused harmony export BaseSlideGroup */
-/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(518);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
 /* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
@@ -447,7 +447,7 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
     return h('div', this.genData(), [this.genPrev(), this.genWrapper(), this.genNext()]);
   }
 });
-/* harmony default export */ __webpack_exports__["a"] = (BaseSlideGroup.extend({
+/* harmony default export */ __webpack_exports__["b"] = (BaseSlideGroup.extend({
   name: 'v-slide-group',
   provide() {
     return {
@@ -465,7 +465,7 @@ module.exports = __webpack_require__.p + "img/xiaomi.db57d06.png";
 
 /***/ }),
 
-/***/ 724:
+/***/ 726:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -553,7 +553,7 @@ const BaseItem = external_vue_default.a.extend({
 
 /***/ }),
 
-/***/ 873:
+/***/ 875:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -573,10 +573,10 @@ var VImg = __webpack_require__(83);
 var VSheet = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
-var VSlideGroup = __webpack_require__(672);
+var VSlideGroup = __webpack_require__(520);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(724);
+var VSlideItem = __webpack_require__(726);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=template&id=53ec9e7e&
 
@@ -591,7 +591,7 @@ var brandsvue_type_template_id_53ec9e7e_render = function render() {
     _c = _vm._self._c;
   return _c('div', [_c(VSheet["a" /* default */], {
     staticClass: "rounded-lg"
-  }, [_c(VSlideGroup["a" /* default */], {
+  }, [_c(VSlideGroup["b" /* default */], {
     attrs: {
       "show-arrows": "",
       "center-active": ""

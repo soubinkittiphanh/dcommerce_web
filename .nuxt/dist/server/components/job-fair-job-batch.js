@@ -2521,44 +2521,44 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 544:
+/***/ 545:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(638);
+var content = __webpack_require__(639);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("0802647d", content, true, context)
+  add("c49b8770", content, true, context)
 };
 
 /***/ }),
 
-/***/ 637:
+/***/ 638:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7bbbb0ca_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(544);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7bbbb0ca_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7bbbb0ca_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7bbbb0ca_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7bbbb0ca_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(545);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 638:
+/***/ 639:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-chip--x-small[data-v-7bbbb0ca]{font-size:10px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".section-header[data-v-6bead9c2]{align-items:center;border-bottom:2px solid #e3f2fd;display:flex;margin-bottom:12px;padding-bottom:8px}.section-title[data-v-6bead9c2]{color:#1976d2;font-size:.95rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase}.v-chip--x-small[data-v-6bead9c2]{font-size:10px!important;height:20px!important}.v-select--outlined[data-v-6bead9c2] .v-input__control>.v-input__slot,.v-text-field--outlined[data-v-6bead9c2] .v-input__control>.v-input__slot,.v-textarea[data-v-6bead9c2] .v-input__control>.v-input__slot{min-height:40px!important}.v-toolbar--dense[data-v-6bead9c2]{min-height:48px!important}.v-input--dense[data-v-6bead9c2] .v-messages{min-height:0!important}.v-text-field[data-v-6bead9c2] .v-text-field__details{margin-bottom:0!important;padding-top:2px!important}.v-alert--dense[data-v-6bead9c2]{padding:12px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -2566,7 +2566,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 854:
+/***/ 856:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2597,6 +2597,9 @@ var VDatePicker = __webpack_require__(441);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(348);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(120);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(392);
 
@@ -2621,7 +2624,13 @@ var VTextField = __webpack_require__(36);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(426);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/job_batch/index.vue?vue&type=template&id=7bbbb0ca&scoped=true&
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
+var VToolbar = __webpack_require__(28);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
+var components_VToolbar = __webpack_require__(136);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/job_batch/index.vue?vue&type=template&id=6bead9c2&scoped=true&
 
 
 
@@ -2641,8 +2650,10 @@ var VTextarea = __webpack_require__(426);
 
 
 
-var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render() {
-  var _vm$formData$status, _vm$formData$priority;
+
+
+var job_batchvue_type_template_id_6bead9c2_scoped_true_render = function render() {
+  var _vm$selectedMou, _vm$selectedMou2, _vm$selectedMou3, _vm$selectedMou4, _vm$formData$status, _vm$formData$priority;
   var _vm = this,
     _c = _vm._self._c;
   return _c(VDialog["a" /* default */], {
@@ -2657,21 +2668,24 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
         return _vm.$emit('input', $event);
       }
     }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "primary white--text py-2"
+  }, [_c(VCard["a" /* default */], [_c(VToolbar["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "dark": "",
+      "flat": "",
+      "dense": ""
+    }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
       "left": "",
-      "small": "",
-      "color": "white"
+      "small": ""
     }
-  }, [_vm._v("\n        " + _vm._s(_vm.isEdit ? 'mdi-pencil' : 'mdi-plus') + "\n      ")]), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.isEdit ? 'mdi-pencil' : 'mdi-plus'))]), _vm._v(" "), _c(components_VToolbar["a" /* VToolbarTitle */], {
     staticClass: "text-subtitle-1"
   }, [_vm._v("\n        " + _vm._s(_vm.isEdit ? 'Edit Job Batch' : 'Create New Job Batch') + "\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "icon": "",
       "small": "",
-      "color": "white",
       "disabled": _vm.saving
     },
     on: {
@@ -2682,7 +2696,7 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       "small": ""
     }
   }, [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-3"
+    staticClass: "pa-4"
   }, [_c(VForm["a" /* default */], {
     ref: "form",
     attrs: {
@@ -2700,20 +2714,30 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       "dense": ""
     }
   }, [_c(VCol["a" /* default */], {
+    staticClass: "pb-2",
     attrs: {
       "cols": "12"
     }
   }, [_c('div', {
-    staticClass: "text-subtitle-2 mb-2"
-  }, [_vm._v("Basic Information")])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "section-header"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
-      "cols": "12"
+      "small": "",
+      "color": "primary"
+    }
+  }, [_vm._v("mdi-information")]), _vm._v(" "), _c('span', {
+    staticClass: "section-title"
+  }, [_vm._v("ຂໍ້ມູນ ພື້ນຖານ (Basic Information)")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.mouOptions,
       "loading": _vm.loadingMous,
-      "label": "Select MOU *",
+      "label": "ເລືອກ ລະຫັດ Job / MOU*",
       "rules": _vm.rules.mouId,
       "outlined": "",
       "dense": "",
@@ -2738,10 +2762,10 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
             "small": "",
             "color": "primary"
           }
-        }, [_vm._v("mdi-file-document-outline")]), _vm._v(" "), _c('div', [_c('div', {
+        }, [_vm._v("mdi-file-document-outline")]), _vm._v(" "), _c('div', [_c('span', {
           staticClass: "text-body-2"
-        }, [_vm._v(_vm._s(item.jobCode))]), _vm._v(" "), _c('div', {
-          staticClass: "text-caption grey--text"
+        }, [_vm._v(_vm._s(item.jobCode))]), _vm._v(" "), _c('span', {
+          staticClass: "text-caption grey--text ml-2"
         }, [_vm._v(_vm._s(item.mouNumber))])])], 1)];
       }
     }, {
@@ -2750,9 +2774,9 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
         item
       }) {
         return [_c('div', {
-          staticClass: "d-flex align-center py-2"
+          staticClass: "d-flex align-center py-1 flex-grow-1"
         }, [_c(VIcon["a" /* default */], {
-          staticClass: "mr-3",
+          staticClass: "mr-2",
           attrs: {
             "small": "",
             "color": "primary"
@@ -2763,25 +2787,23 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
           staticClass: "text-body-2"
         }, [_vm._v(_vm._s(item.jobCode))]), _vm._v(" "), _c('div', {
           staticClass: "text-caption grey--text"
-        }, [_vm._v(_vm._s(item.mouNumber))]), _vm._v(" "), _c('div', {
-          staticClass: "text-caption grey--text"
-        }, [_vm._v(_vm._s(item.employerCompany))])]), _vm._v(" "), _c(VChip["a" /* default */], {
+        }, [_vm._v("\n                      " + _vm._s(item.mouNumber) + " • " + _vm._s(item.employerCompany) + "\n                    ")])]), _vm._v(" "), _c(VChip["a" /* default */], {
           attrs: {
             "x-small": "",
             "color": _vm.getMouStatusColor(item.status)
           }
-        }, [_vm._v("\n                    " + _vm._s(item.status) + "\n                  ")])], 1)];
+        }, [_vm._v(_vm._s(item.status))])], 1)];
       }
     }, {
       key: "no-data",
       fn: function () {
         return [_c('div', {
-          staticClass: "pa-4 text-center"
+          staticClass: "pa-2 text-center"
         }, [_c('div', {
-          staticClass: "text-body-2 grey--text"
+          staticClass: "text-caption grey--text"
         }, [_vm._v("No MOUs found")]), _vm._v(" "), _c(VBtn["a" /* default */], {
           attrs: {
-            "small": "",
+            "x-small": "",
             "text": "",
             "color": "primary"
           },
@@ -2790,10 +2812,10 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
           }
         }, [_c(VIcon["a" /* default */], {
           attrs: {
-            "small": "",
+            "x-small": "",
             "left": ""
           }
-        }, [_vm._v("mdi-refresh")]), _vm._v("\n                    Refresh\n                  ")], 1)], 1)];
+        }, [_vm._v("mdi-refresh")]), _vm._v("Refresh\n                  ")], 1)], 1)];
       },
       proxy: true
     }]),
@@ -2804,59 +2826,20 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       },
       expression: "formData.mouId"
     }
-  })], 1), _vm._v(" "), _vm.selectedMou ? _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "),  false ? undefined : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12"
-    }
-  }, [_c(VAlert["a" /* default */], {
-    staticClass: "mb-2",
-    attrs: {
-      "dense": "",
-      "outlined": "",
-      "color": "info"
-    }
-  }, [_c('div', {
-    staticClass: "d-flex justify-space-between align-center"
-  }, [_c('div', [_c('strong', [_vm._v(_vm._s(_vm.selectedMou.jobCode))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v(_vm._s(_vm.selectedMou.mouNumber) + " • " + _vm._s(_vm.selectedMou.employerCompany))])]), _vm._v(" "), _c(VChip["a" /* default */], {
-    attrs: {
-      "x-small": "",
-      "color": _vm.getMouStatusColor(_vm.selectedMou.status)
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.selectedMou.status) + "\n                ")])], 1)])], 1) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "8"
+      "cols": "12",
+      "md": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "Batch Name *",
-      "rules": _vm.rules.batchName,
-      "outlined": "",
-      "dense": "",
-      "hide-details": "auto",
-      "counter": "100"
-    },
-    model: {
-      value: _vm.formData.batchName,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "batchName", $$v);
-      },
-      expression: "formData.batchName"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "Running Number",
+      "label": "ຮອບຈັດສົ່ງ.",
       "outlined": "",
       "dense": "",
       "hide-details": "auto",
       "disabled": !_vm.isEdit,
-      "hint": _vm.isEdit ? 'Edit carefully' : 'Auto-generated',
-      "persistent-hint": ""
+      "placeholder": _vm.isEdit ? 'Edit' : 'Auto-generated',
+      "prepend-inner-icon": "mdi-numeric"
     },
     model: {
       value: _vm.formData.runningNo,
@@ -2867,43 +2850,18 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12"
-    }
-  }, [_c(VTextarea["a" /* default */], {
-    attrs: {
-      "label": "Job Description",
-      "outlined": "",
-      "dense": "",
-      "rows": "3",
-      "hide-details": "auto",
-      "no-resize": ""
-    },
-    model: {
-      value: _vm.formData.jobDescription,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "jobDescription", $$v);
-      },
-      expression: "formData.jobDescription"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c('div', {
-    staticClass: "text-subtitle-2 mb-2 mt-2"
-  }, [_vm._v("Batch Configuration")])]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
+      "cols": "12",
+      "md": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "Total Positions",
+      "label": "ຈຳນວນເປີດຮັບສະຫມັກ",
       "type": "number",
-      "min": "0",
       "rules": _vm.rules.totalPositions,
       "outlined": "",
       "dense": "",
-      "hide-details": "auto"
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-account-multiple"
     },
     model: {
       value: _vm.formData.totalPositions,
@@ -2914,12 +2872,77 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "4"
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "ຈຳນວນສະໝັກແລ້ວ",
+      "type": "number",
+      "outlined": "",
+      "dense": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-account-multiple"
+    },
+    model: {
+      value: _vm.formData.totalApplied,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "totalApplied", _vm._n($$v));
+      },
+      expression: "formData.totalApplied"
+    }
+  })], 1), _vm._v(" "),  false ? undefined : _vm._e(), _vm._v(" "), _vm.selectedMou ? _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VAlert["a" /* default */], {
+    staticClass: "mb-0",
+    attrs: {
+      "dense": "",
+      "outlined": "",
+      "color": "info"
+    }
+  }, [_c('div', {
+    staticClass: "d-flex justify-space-between align-center"
+  }, [_c('div', {
+    staticClass: "text-caption"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.selectedMou.jobCode))]), _vm._v(" "), _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    " + _vm._s(_vm.selectedMou.mouNumber) + " •\n                    " + _vm._s(_vm.selectedMou.employerCompany) + "\n                    "), _vm.selectedMou.agency ? [_vm._v("\n                      • Agency: " + _vm._s(_vm.selectedMou.agency.agencyName) + "\n                    ")] : _vm._e(), _vm._v("\n                    • ບໍລິສັດນາຍຈ່າງ: " + _vm._s(_vm.selectedMou.employerCompany) + " \n                    • ສະຖານທີ່ເຮັດວຽກ: " + _vm._s(_vm.selectedMou.workLocation) + " \n                    • ໜ້າວຽກ: " + _vm._s(_vm.selectedMou.jobTitle) + "\n                  ")], 2)]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "x-small": "",
+      "color": _vm.getMouStatusColor(_vm.selectedMou.status)
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.selectedMou.status) + "\n                ")])], 1)])], 1) : _vm._e()], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "my-4"
+  }), _vm._v(" "), _c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "pb-2",
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('div', {
+    staticClass: "section-header"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "small": "",
+      "color": "primary"
+    }
+  }, [_vm._v("mdi-cog")]), _vm._v(" "), _c('span', {
+    staticClass: "section-title"
+  }, [_vm._v("Configuration & Status")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.statusOptions,
-      "label": "Status *",
+      "label": "ສະຖານະງານ *",
       "rules": _vm.rules.status,
       "outlined": "",
       "dense": "",
@@ -2937,19 +2960,6 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
           }
         }, [_vm._v("\n                  " + _vm._s(item.text) + "\n                ")])];
       }
-    }, {
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          staticClass: "mr-2",
-          attrs: {
-            "x-small": "",
-            "color": _vm.getStatusColor(item.value)
-          }
-        }, [_vm._v("\n                  " + _vm._s(item.text) + "\n                ")])];
-      }
     }]),
     model: {
       value: _vm.formData.status,
@@ -2958,74 +2968,12 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       },
       expression: "formData.status"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "),  false ? undefined : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "4"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.priorityOptions,
-      "label": "Priority *",
-      "rules": _vm.rules.priority,
-      "outlined": "",
-      "dense": "",
-      "hide-details": "auto"
-    },
-    scopedSlots: _vm._u([{
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          attrs: {
-            "x-small": "",
-            "color": _vm.getPriorityColor(item.value)
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": "",
-            "x-small": ""
-          }
-        }, [_vm._v(_vm._s(_vm.getPriorityIcon(item.value)))]), _vm._v("\n                  " + _vm._s(item.text) + "\n                ")], 1)];
-      }
-    }, {
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          staticClass: "mr-2",
-          attrs: {
-            "x-small": "",
-            "color": _vm.getPriorityColor(item.value)
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": "",
-            "x-small": ""
-          }
-        }, [_vm._v(_vm._s(_vm.getPriorityIcon(item.value)))]), _vm._v("\n                  " + _vm._s(item.text) + "\n                ")], 1)];
-      }
-    }]),
-    model: {
-      value: _vm.formData.priority,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "priority", $$v);
-      },
-      expression: "formData.priority"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c('div', {
-    staticClass: "text-subtitle-2 mb-2 mt-2"
-  }, [_vm._v("Important Dates")])]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VMenu["a" /* default */], {
-    ref: "startDateMenu",
     attrs: {
       "close-on-content-click": false,
       "transition": "scale-transition",
@@ -3040,7 +2988,7 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "Batch Start Date",
+            "label": "ກຳນົດເວລາສັນຫາ",
             "prepend-inner-icon": "mdi-calendar",
             "readonly": "",
             "outlined": "",
@@ -3080,10 +3028,10 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
     }
   })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "4"
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VMenu["a" /* default */], {
-    ref: "endDateMenu",
     attrs: {
       "close-on-content-click": false,
       "transition": "scale-transition",
@@ -3098,14 +3046,13 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "Batch End Date",
+            "label": "ກຳນົດເວລາ ຈັດສົ່ງແຮງງານ",
             "prepend-inner-icon": "mdi-calendar",
             "readonly": "",
             "outlined": "",
             "dense": "",
             "hide-details": "auto",
-            "clearable": "",
-            "min": _vm.formData.batchStartDate
+            "clearable": ""
           },
           model: {
             value: _vm.formData.batchEndDate,
@@ -3140,77 +3087,19 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       },
       expression: "formData.batchEndDate"
     }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "),  false ? undefined : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "4"
-    }
-  }, [_c(VMenu["a" /* default */], {
-    ref: "deploymentDateMenu",
-    attrs: {
-      "close-on-content-click": false,
-      "transition": "scale-transition",
-      "offset-y": "",
-      "min-width": "auto"
-    },
-    scopedSlots: _vm._u([{
-      key: "activator",
-      fn: function ({
-        on,
-        attrs
-      }) {
-        return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
-          attrs: {
-            "label": "Deployment Date",
-            "prepend-inner-icon": "mdi-calendar",
-            "readonly": "",
-            "outlined": "",
-            "dense": "",
-            "hide-details": "auto",
-            "clearable": ""
-          },
-          model: {
-            value: _vm.formData.deploymentDate,
-            callback: function ($$v) {
-              _vm.$set(_vm.formData, "deploymentDate", $$v);
-            },
-            expression: "formData.deploymentDate"
-          }
-        }, 'v-text-field', attrs, false), on))];
-      }
-    }]),
-    model: {
-      value: _vm.deploymentDateMenu,
-      callback: function ($$v) {
-        _vm.deploymentDateMenu = $$v;
-      },
-      expression: "deploymentDateMenu"
-    }
-  }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
-    on: {
-      "input": function ($event) {
-        _vm.deploymentDateMenu = false;
-      }
-    },
-    model: {
-      value: _vm.formData.deploymentDate,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "deploymentDate", $$v);
-      },
-      expression: "formData.deploymentDate"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
+      "cols": "12",
+      "md": "8"
     }
   }, [_c(VTextarea["a" /* default */], {
     attrs: {
-      "label": "Additional Notes",
+      "label": "ຂໍ້ມູນເພີ່ມເຕີມ",
       "outlined": "",
       "dense": "",
       "rows": "2",
       "hide-details": "auto",
-      "no-resize": "",
-      "counter": "500"
+      "no-resize": ""
     },
     model: {
       value: _vm.formData.notes,
@@ -3219,7 +3108,12 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       },
       expression: "formData.notes"
     }
-  })], 1), _vm._v(" "), _vm.formData.batchName ? _c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _vm.formData.batchName ? _c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "pt-3",
     attrs: {
       "cols": "12"
     }
@@ -3228,16 +3122,26 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
     attrs: {
       "dense": "",
       "outlined": "",
-      "color": "info"
+      "color": "primary"
     }
   }, [_c('div', {
-    staticClass: "d-flex justify-space-between align-center"
-  }, [_c('div', [_c('strong', [_vm._v(_vm._s(_vm.formData.batchName))]), _vm._v(" "), _vm.formData.runningNo ? _c('span', {
-    staticClass: "ml-2 text-caption"
-  }, [_vm._v("(" + _vm._s(_vm.formData.runningNo) + ")")]) : _vm._e(), _vm._v(" "), _vm.selectedMou ? _c('div', {
-    staticClass: "text-caption grey--text"
-  }, [_vm._v("\n                    MOU: " + _vm._s(_vm.selectedMou.jobCode) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "text-right"
+    staticClass: "d-flex justify-space-between align-center flex-wrap"
+  }, [_c('div', {
+    staticClass: "text-body-2"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formData.batchName))]), _vm._v(" "), _vm.formData.runningNo ? _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    (" + _vm._s(_vm.formData.runningNo) + ")\n                  ")]) : _vm._e(), _vm._v(" "), _vm.selectedMou ? _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    • MOU: " + _vm._s(_vm.selectedMou.jobCode) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm$selectedMou = _vm.selectedMou) !== null && _vm$selectedMou !== void 0 && _vm$selectedMou.agency ? _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    • Agency: " + _vm._s(_vm.selectedMou.agency.agencyName) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm$selectedMou2 = _vm.selectedMou) !== null && _vm$selectedMou2 !== void 0 && _vm$selectedMou2.employerCompany ? _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    • ບໍລິສັດນາຍຈ່າງ: " + _vm._s(_vm.selectedMou.employerCompany) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm$selectedMou3 = _vm.selectedMou) !== null && _vm$selectedMou3 !== void 0 && _vm$selectedMou3.workLocation ? _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    • ສະຖານທີ່ເຮັດວຽກ: " + _vm._s(_vm.selectedMou.workLocation) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm$selectedMou4 = _vm.selectedMou) !== null && _vm$selectedMou4 !== void 0 && _vm$selectedMou4.jobTitle ? _c('span', {
+    staticClass: "grey--text ml-2"
+  }, [_vm._v("\n                    • ໜ້າວຽກ: " + _vm._s(_vm.selectedMou.jobTitle) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex mt-2 mt-sm-0"
   }, [_c(VChip["a" /* default */], {
     staticClass: "mr-1",
     attrs: {
@@ -3254,25 +3158,21 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
       "left": "",
       "x-small": ""
     }
-  }, [_vm._v(_vm._s(_vm.getPriorityIcon(_vm.formData.priority)))]), _vm._v("\n                    " + _vm._s((_vm$formData$priority = _vm.formData.priority) === null || _vm$formData$priority === void 0 ? void 0 : _vm$formData$priority.toUpperCase()) + "\n                  ")], 1)], 1)]), _vm._v(" "), _vm.formData.totalPositions ? _c('div', {
-    staticClass: "mt-1 text-caption"
-  }, [_vm._v("\n                Total Positions: " + _vm._s(_vm.formData.totalPositions) + "\n              ")]) : _vm._e()])], 1) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
-    staticClass: "pa-3 pt-0"
+  }, [_vm._v(_vm._s(_vm.getPriorityIcon(_vm.formData.priority)))]), _vm._v("\n                    " + _vm._s((_vm$formData$priority = _vm.formData.priority) === null || _vm$formData$priority === void 0 ? void 0 : _vm$formData$priority.toUpperCase()) + "\n                  ")], 1)], 1)])])], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+    staticClass: "pa-3"
   }, [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "text": "",
-      "disabled": _vm.saving,
-      "small": ""
+      "disabled": _vm.saving
     },
     on: {
       "click": _vm.handleCancel
     }
-  }, [_vm._v("\n        Cancel\n      ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v(" Cancel ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "disabled": !_vm.formValid,
-      "loading": _vm.saving,
-      "small": ""
+      "loading": _vm.saving
     },
     on: {
       "click": _vm.handleSave
@@ -3286,7 +3186,7 @@ var job_batchvue_type_template_id_7bbbb0ca_scoped_true_render = function render(
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/job_fair/job_batch/index.vue?vue&type=template&id=7bbbb0ca&scoped=true&
+// CONCATENATED MODULE: ./components/job_fair/job_batch/index.vue?vue&type=template&id=6bead9c2&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/job_batch/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var job_batchvue_type_script_lang_js_ = ({
@@ -3317,10 +3217,10 @@ var staticRenderFns = [];
       selectedMou: null,
       formData: {
         mouId: null,
-        batchName: '',
-        runningNo: '',
+        batchName: '_',
         jobDescription: '',
         totalPositions: 0,
+        totalApplied: 0,
         batchStartDate: null,
         batchEndDate: null,
         deploymentDate: null,
@@ -3330,26 +3230,15 @@ var staticRenderFns = [];
       },
       rules: {
         mouId: [v => !!v || 'MOU selection is required'],
-        batchName: [v => !!v || 'Batch name is required', v => v && v.length <= 100 || 'Batch name must be less than 100 characters'],
         status: [v => !!v || 'Status is required'],
-        priority: [v => !!v || 'Priority is required'],
-        totalPositions: [v => v >= 0 || 'Total positions must be 0 or greater']
+        totalPositions: [v => v >= 0 || 'Must be 0 or greater']
       },
       statusOptions: [{
-        text: 'Draft',
+        text: 'ລໍຖ້າ',
         value: 'draft'
       }, {
-        text: 'Active',
+        text: 'ດຳເນີນງານ',
         value: 'active'
-      }, {
-        text: 'Completed',
-        value: 'completed'
-      }, {
-        text: 'Cancelled',
-        value: 'cancelled'
-      }, {
-        text: 'On Hold',
-        value: 'on_hold'
       }],
       priorityOptions: [{
         text: 'Low',
@@ -3391,11 +3280,9 @@ var staticRenderFns = [];
         const response = await this.$axios.get('/api/mous', {
           params: {
             status: 'open',
-            // Only show active MOUs
-            limit: 100 // Adjust as needed
+            limit: 100
           }
         });
-
         this.mouOptions = response.data.data.mous || response.data.data || [];
       } catch (error) {
         console.error('Error fetching MOUs:', error);
@@ -3410,13 +3297,12 @@ var staticRenderFns = [];
     },
     initializeForm() {
       if (this.isEdit && this.batch) {
-        // Edit mode - populate form with existing data
         this.formData = {
           mouId: this.batch.mouId || null,
           batchName: this.batch.batchName || '',
-          runningNo: this.batch.runningNo || '',
           jobDescription: this.batch.jobDescription || '',
           totalPositions: this.batch.totalPositions || 0,
+          totalApplied: this.batch.totalApplied || 0,
           batchStartDate: this.batch.batchStartDate || null,
           batchEndDate: this.batch.batchEndDate || null,
           deploymentDate: this.batch.deploymentDate || null,
@@ -3424,22 +3310,16 @@ var staticRenderFns = [];
           priority: this.batch.priority || 'medium',
           notes: this.batch.notes || ''
         };
-
-        // Set selected MOU if editing
         if (this.batch.mou) {
           this.selectedMou = this.batch.mou;
         } else if (this.formData.mouId) {
-          // Find the MOU from options if not included in batch object
           this.$nextTick(() => {
             this.selectedMou = this.mouOptions.find(mou => mou.id === this.formData.mouId) || null;
           });
         }
       } else {
-        // Create mode - reset to defaults
         this.resetForm();
       }
-
-      // Reset form validation
       this.$nextTick(() => {
         if (this.$refs.form) {
           this.$refs.form.resetValidation();
@@ -3450,9 +3330,9 @@ var staticRenderFns = [];
       this.formData = {
         mouId: null,
         batchName: '',
-        runningNo: '',
         jobDescription: '',
         totalPositions: 0,
+        totalApplied: 0,
         batchStartDate: null,
         batchEndDate: null,
         deploymentDate: null,
@@ -3471,11 +3351,9 @@ var staticRenderFns = [];
       try {
         let response;
         if (this.isEdit) {
-          // Update existing batch
           response = await this.$axios.put(`/api/batch-job/${this.batch.id}`, this.formData);
           this.$toast.success('Job batch updated successfully');
         } else {
-          // Create new batch
           response = await this.$axios.post('/api/batch-job', this.formData);
           this.$toast.success('Job batch created successfully');
         }
@@ -3485,7 +3363,6 @@ var staticRenderFns = [];
         var _error$response, _error$response$data, _error$response2, _error$response2$data;
         console.error('Error saving job batch:', error);
         if ((_error$response = error.response) !== null && _error$response !== void 0 && (_error$response$data = _error$response.data) !== null && _error$response$data !== void 0 && _error$response$data.errors) {
-          // Validation errors
           const errors = error.response.data.errors;
           const errorMessages = errors.map(e => `${e.field}: ${e.message}`).join('\n');
           this.$toast.error(`Validation errors:\n${errorMessages}`);
@@ -3553,7 +3430,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(637)
+  var style0 = __webpack_require__(638)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -3562,11 +3439,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   job_fair_job_batchvue_type_script_lang_js_,
-  job_batchvue_type_template_id_7bbbb0ca_scoped_true_render,
+  job_batchvue_type_template_id_6bead9c2_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "7bbbb0ca",
+  "6bead9c2",
   "b60c2e76"
   
 )

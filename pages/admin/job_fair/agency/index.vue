@@ -85,7 +85,7 @@
         </v-card>
 
         <!-- Summary Cards -->
-        <v-row class="mb-4">
+        <!-- <v-row class="mb-4">
           <v-col cols="12" sm="6" md="3">
             <v-card color="primary" dark>
               <v-card-text>
@@ -138,7 +138,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <!-- Data Table -->
         <v-card>

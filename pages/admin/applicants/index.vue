@@ -118,7 +118,7 @@
     </div>
 
     <!-- Enhanced Summary Cards -->
-    <div class="summary-cards">
+    <div class="summary-cards" v-if="1==0">
       <!-- Total Applicants Card -->
       <div class="summary-card total-applicants">
         <div class="card-icon total">

@@ -1,47 +1,47 @@
 exports.ids = [268];
 exports.modules = {
 
-/***/ 1025:
+/***/ 1028:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/01.a928446.jpg";
 
 /***/ }),
 
-/***/ 1026:
+/***/ 1029:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/02.04addcf.jpg";
 
 /***/ }),
 
-/***/ 1027:
+/***/ 1030:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/03.078b967.jpg";
 
 /***/ }),
 
-/***/ 1028:
+/***/ 1031:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/04.28a6224.jpg";
 
 /***/ }),
 
-/***/ 1029:
+/***/ 1032:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_product_detail_vue_vue_type_style_index_0_id_0ec2f3ae_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(790);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_product_detail_vue_vue_type_style_index_0_id_0ec2f3ae_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(792);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_product_detail_vue_vue_type_style_index_0_id_0ec2f3ae_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_product_detail_vue_vue_type_style_index_0_id_0ec2f3ae_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_product_detail_vue_vue_type_style_index_0_id_0ec2f3ae_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_product_detail_vue_vue_type_style_index_0_id_0ec2f3ae_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1030:
+/***/ 1033:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -56,7 +56,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1228:
+/***/ 1231:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64,16 +64,16 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbs.js + 2 modules
-var VBreadcrumbs = __webpack_require__(604);
+var VBreadcrumbs = __webpack_require__(605);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarousel.js + 1 modules
-var VCarousel = __webpack_require__(527);
+var VCarousel = __webpack_require__(528);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarouselItem.js + 1 modules
-var VCarouselItem = __webpack_require__(528);
+var VCarouselItem = __webpack_require__(529);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
 var VCheckbox = __webpack_require__(431);
@@ -357,19 +357,19 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/fashion/product-detail.vue?vue&type=template&id=0ec2f3ae&
 
 // EXTERNAL MODULE: ./assets/img/product/01.jpg
-var _01 = __webpack_require__(1025);
+var _01 = __webpack_require__(1028);
 var _01_default = /*#__PURE__*/__webpack_require__.n(_01);
 
 // EXTERNAL MODULE: ./assets/img/product/02.jpg
-var _02 = __webpack_require__(1026);
+var _02 = __webpack_require__(1029);
 var _02_default = /*#__PURE__*/__webpack_require__.n(_02);
 
 // EXTERNAL MODULE: ./assets/img/product/03.jpg
-var _03 = __webpack_require__(1027);
+var _03 = __webpack_require__(1030);
 var _03_default = /*#__PURE__*/__webpack_require__.n(_03);
 
 // EXTERNAL MODULE: ./assets/img/product/04.jpg
-var _04 = __webpack_require__(1028);
+var _04 = __webpack_require__(1031);
 var _04_default = /*#__PURE__*/__webpack_require__.n(_04);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/fashion/product-detail.vue?vue&type=script&lang=js&
@@ -425,7 +425,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1029)
+  var style0 = __webpack_require__(1032)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -704,7 +704,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 527:
+/***/ 528:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1168,7 +1168,7 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 528:
+/***/ 529:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1379,7 +1379,7 @@ const VCarouselItem_baseMixins = Object(mixins["a" /* default */])(VWindowItem, 
 
 /***/ }),
 
-/***/ 604:
+/***/ 605:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1508,13 +1508,13 @@ var themeable = __webpack_require__(7);
 
 /***/ }),
 
-/***/ 790:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1030);
+var content = __webpack_require__(1033);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

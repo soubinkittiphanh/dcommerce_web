@@ -19,7 +19,7 @@
           <v-container class="py-0">
             <!-- Row 1: Company Name + Code -->
             <v-row dense>
-              <v-col cols="8">
+              <v-col cols="12" md="8">
                 <v-text-field
                   v-model="formData.agencyName"
                   label="ຊື່ບໍລິສັດ *"
@@ -29,7 +29,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="formData.agencyCode"
                   label="ລະຫັດ"
@@ -40,48 +40,9 @@
               </v-col>
             </v-row>
 
-            <!-- Row 2: Registration + Date -->
+            <!-- Row 2: Phone + Email -->
             <v-row dense>
-              <v-col cols="6">
-                <v-text-field
-                  v-model="formData.registrationNumber"
-                  label="ເລກທະບຽນ"
-                  outlined
-                  dense
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="6">
-                <v-menu
-                  v-model="registrationDateMenu"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="290px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="formData.registrationDate"
-                      label="ວັນທີລົງທະບຽນ"
-                      readonly
-                      outlined
-                      dense
-                      hide-details="auto"
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="formData.registrationDate"
-                    @input="registrationDateMenu = false"
-                  ></v-date-picker>
-                </v-menu>
-              </v-col>
-            </v-row>
-
-            <!-- Row 3: Phone + Email -->
-            <v-row dense>
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <v-text-field
                   v-model="formData.phone"
                   label="ເບີໂທ *"
@@ -91,7 +52,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" v-if="0==1">
                 <v-text-field
                   v-model="formData.email"
                   label="ອີເມວ"
@@ -103,9 +64,18 @@
               </v-col>
             </v-row>
 
-            <!-- Row 4: City + District -->
+            <!-- Row 3: Village + City + District -->
             <v-row dense>
-              <v-col cols="6">
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="formData.village"
+                  label="ບ້ານ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="formData.city"
                   label="ເມືອງ"
@@ -114,7 +84,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="4">
                 <v-text-field
                   v-model="formData.district"
                   label="ແຂວງ"
@@ -125,7 +95,7 @@
               </v-col>
             </v-row>
 
-            <!-- Row 5: Address -->
+            <!-- Row 4: Address -->
             <v-row dense>
               <v-col cols="12">
                 <v-text-field
@@ -138,18 +108,46 @@
               </v-col>
             </v-row>
 
-            <!-- Row 6: License + Expiry -->
+
+            <!-- Row 6: Registration Number + Date -->
             <v-row dense>
-              <v-col cols="6">
+              <v-col cols="12" md="6" v-if="0==1">
                 <v-text-field
-                  v-model="formData.licenseNumber"
-                  label="ເລກໃບອະນຸຍາດ"
+                  v-model="formData.registrationNumber"
+                  label="ເລກທະບຽນ"
                   outlined
                   dense
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" >
+                <v-menu
+                  v-model="registrationDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formData.registrationDate"
+                      label="ວັນທີເລີ່ມຕົ້ນສັນຍາ"
+                      readonly
+                      outlined
+                      dense
+                      hide-details="auto"
+                      prepend-inner-icon="mdi-calendar"
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="formData.registrationDate"
+                    @input="registrationDateMenu = false"
+                  ></v-date-picker>
+                </v-menu>
+              </v-col>
+              <v-col cols="12" md="6">
                 <v-menu
                   v-model="licenseExpiryMenu"
                   :close-on-content-click="false"
@@ -160,11 +158,12 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-model="formData.licenseExpiryDate"
-                      label="ໝົດອາຍຸ"
+                      label="ວັນທີສິ້ນສຸດສັນຍາ"
                       readonly
                       outlined
                       dense
                       hide-details="auto"
+                      prepend-inner-icon="mdi-calendar"
                       :color="isLicenseExpired ? 'error' : 'primary'"
                       v-bind="attrs"
                       v-on="on"
@@ -184,9 +183,23 @@
               </v-col>
             </v-row>
 
-            <!-- Row 7: Contact Person + Position -->
+            <!-- Row 7: License Number + Expiry Date -->
+            <v-row dense v-if="1==0">
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="formData.licenseNumber"
+                  label="ເລກໃບອະນຸຍາດ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+              
+            </v-row>
+
+            <!-- Row 8: Contact Person + Position -->
             <v-row dense>
-              <v-col cols="6">
+              <v-col cols="12" md="6" v-if="0==1">
                 <v-text-field
                   v-model="formData.contactPersonName"
                   label="ຜູ້ຕິດຕໍ່"
@@ -195,7 +208,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" v-if="0==1">
                 <v-text-field
                   v-model="formData.contactPersonPosition"
                   label="ຕຳແໜ່ງ"
@@ -206,9 +219,9 @@
               </v-col>
             </v-row>
 
-            <!-- Row 8: Contact Phone + Status -->
+            <!-- Row 9: Contact Phone + Status -->
             <v-row dense>
-              <v-col cols="6">
+              <v-col cols="12" md="6" v-if="0==1">
                 <v-text-field
                   v-model="formData.contactPersonPhone"
                   label="ເບີຜູ້ຕິດຕໍ່"
@@ -217,7 +230,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" v-if="0==1">
                 <v-select
                   v-model="formData.status"
                   :items="statusOptions"
@@ -230,9 +243,9 @@
               </v-col>
             </v-row>
 
-            <!-- Row 9: Notes -->
+            <!-- Row 10: Notes -->
             <v-row dense>
-              <v-col cols="12">
+              <v-col cols="12" v-if="0==1">
                 <v-textarea
                   v-model="formData.notes"
                   label="ໝາຍເຫດ"
@@ -287,17 +300,19 @@ export default {
       registrationDateMenu: false,
       licenseExpiryMenu: false,
 
+
       formData: {
         agencyName: '',
         agencyCode: '',
-        registrationNumber: '',
         phone: '',
         email: '',
-        address: '',
+        village: '',
         city: '',
         district: '',
-        licenseNumber: '',
+        address: '',
+        registrationNumber: '',
         registrationDate: '',
+        licenseNumber: '',
         licenseExpiryDate: '',
         contactPersonName: '',
         contactPersonPosition: '',
@@ -327,6 +342,10 @@ export default {
       return this.formData.licenseExpiryDate && 
              new Date(this.formData.licenseExpiryDate) <= new Date()
     },
+    isContractExpired() {
+      return this.formData.contractEndDate && 
+             new Date(this.formData.contractEndDate) <= new Date()
+    },
   },
 
   watch: {
@@ -347,12 +366,12 @@ export default {
           this.formData[key] = this.agency[key] || ''
         })
         // Handle date formatting
-        if (this.agency.registrationDate) {
-          this.formData.registrationDate = this.agency.registrationDate.split('T')[0]
-        }
-        if (this.agency.licenseExpiryDate) {
-          this.formData.licenseExpiryDate = this.agency.licenseExpiryDate.split('T')[0]
-        }
+        const dateFields = ['registrationDate', 'licenseExpiryDate']
+        dateFields.forEach(field => {
+          if (this.agency[field]) {
+            this.formData[field] = this.agency[field].split('T')[0]
+          }
+        })
       } else {
         this.resetFormData()
       }

@@ -1,7 +1,7 @@
 exports.ids = [191,36,45,46,110,113,114,216,281];
 exports.modules = {
 
-/***/ 1174:
+/***/ 1177:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -637,7 +637,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var minstock = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(422).default,CardForm: __webpack_require__(532).default,ProductForm: __webpack_require__(460).default,ProductFormCreate: __webpack_require__(459).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(86).default,DialogClassicMessage: __webpack_require__(422).default,CardForm: __webpack_require__(533).default,ProductForm: __webpack_require__(460).default,ProductFormCreate: __webpack_require__(459).default})
 
 
 /***/ }),
@@ -5563,7 +5563,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 532:
+/***/ 533:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
