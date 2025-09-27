@@ -1,7 +1,7 @@
 exports.ids = [258,38,44,45,46,110,113,114,138,139,216,259,281];
 exports.modules = {
 
-/***/ 1256:
+/***/ 1254:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -406,7 +406,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/web_product/_id/index.vue?vue&type=template&id=c520b150&
 
 // EXTERNAL MODULE: ./pages/admin/web_product/index.vue + 4 modules
-var web_product = __webpack_require__(844);
+var web_product = __webpack_require__(840);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/_id/index.vue?vue&type=script&lang=js&
 // import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
@@ -917,7 +917,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 429:
+/***/ 430:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2411,7 +2411,7 @@ module.exports.__inject__ = function (context) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/mixins/ImagePreviewMixin.vue?vue&type=script&lang=js&
-var ImagePreviewMixinvue_type_script_lang_js_ = __webpack_require__(429);
+var ImagePreviewMixinvue_type_script_lang_js_ = __webpack_require__(430);
 
 // CONCATENATED MODULE: ./pages/admin/product/mixins/ImagePreviewMixin.vue?vue&type=script&lang=js&
  /* harmony default export */ var mixins_ImagePreviewMixinvue_type_script_lang_js_ = (ImagePreviewMixinvue_type_script_lang_js_["a" /* default */]); 
@@ -5960,7 +5960,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 612:
+/***/ 610:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6279,7 +6279,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 844:
+/***/ 840:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6637,7 +6637,7 @@ var myUtil = __webpack_require__(138);
 var external_vuex_ = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./components/WebProductCategoryForm.vue + 4 modules
-var WebProductCategoryForm = __webpack_require__(612);
+var WebProductCategoryForm = __webpack_require__(610);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/index.vue?vue&type=script&lang=js&
 

@@ -1,391 +1,278 @@
 <template>
-  <v-dialog v-model="visible" max-width="700px">
+  <v-dialog v-model="visible" max-width="1200px" scrollable>
     <v-card>
       <!-- Dialog Header -->
-      <v-card-title class="primary white--text">
+      <v-card-title class="primary white--text py-3">
         <v-icon class="mr-2" color="white">mdi-eye</v-icon>
         <span>ລາຍລະອຽດບໍລິສັດ</span>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn icon dark @click="closeDialog">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
 
-      <v-card-text class="pt-6" v-if="agency">
-        <v-container>
-          <!-- Basic Information Section -->
-          <v-row>
+      <v-card-text class="pa-4" v-if="agency">
+        <!-- Basic Information -->
+        <v-row dense class="mb-3">
+          <v-col cols="12">
+            <div class="section-title">
+              <v-icon small color="primary" class="mr-1">mdi-information</v-icon>
+              <span class="font-weight-bold">ຂໍ້ມູນພື້ນຖານ</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="8">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="primary">mdi-office-building</v-icon>
+              <span class="info-label">ຊື່ບໍລິສັດ:</span>
+              <span class="info-value primary--text font-weight-bold">{{ agency.agencyName }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="4">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-barcode</v-icon>
+              <span class="info-label">ລະຫັດ:</span>
+              <v-chip x-small color="primary" outlined v-if="agency.agencyCode">
+                {{ agency.agencyCode }}
+              </v-chip>
+              <span v-else class="text--disabled">-</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-file-document</v-icon>
+              <span class="info-label">ເລກທະບຽນ:</span>
+              <span class="info-value">{{ agency.registrationNumber || '-' }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-calendar-check</v-icon>
+              <span class="info-label">ວັນທີລົງທະບຽນ:</span>
+              <span class="info-value">{{ formatDate(agency.registrationDate) }}</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-divider class="my-3" />
+
+        <!-- Contact Information -->
+        <v-row dense class="mb-2">
+          <v-col cols="12">
+            <div class="section-title">
+              <v-icon small color="primary" class="mr-1">mdi-phone</v-icon>
+              <span class="font-weight-bold">ຂໍ້ມູນຕິດຕໍ່</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="success">mdi-phone</v-icon>
+              <span class="info-label">ເບີໂທ:</span>
+              <a :href="`tel:${agency.phone}`" class="info-value link">{{ agency.phone }}</a>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="info">mdi-email</v-icon>
+              <span class="info-label">ອີເມວ:</span>
+              <a v-if="agency.email" :href="`mailto:${agency.email}`" class="info-value link">
+                {{ agency.email }}
+              </a>
+              <span v-else class="text--disabled">-</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense v-if="agency.address">
+          <v-col cols="12">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-map-marker</v-icon>
+              <span class="info-label">ທີ່ຢູ່:</span>
+              <span class="info-value">{{ agency.address }}</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="4">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="orange">mdi-home-group</v-icon>
+              <span class="info-label">ບ້ານ:</span>
+              <span class="info-value">{{ agency.village || '-' }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="4">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="purple">mdi-map-marker</v-icon>
+              <span class="info-label">ເມືອງ:</span>
+              <span class="info-value">{{ agency.district || '-' }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="4">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="blue">mdi-city</v-icon>
+              <span class="info-label">ແຂວງ:</span>
+              <span class="info-value">{{ agency.city || '-' }}</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-divider class="my-3" />
+
+        <!-- Business Information -->
+        <v-row dense class="mb-2">
+          <v-col cols="12">
+            <div class="section-title">
+              <v-icon small color="primary" class="mr-1">mdi-certificate</v-icon>
+              <span class="font-weight-bold">ຂໍ້ມູນທຸລະກິດ</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="success">mdi-certificate</v-icon>
+              <span class="info-label">ເລກໃບອະນຸຍາດ:</span>
+              <v-chip x-small color="success" outlined v-if="agency.licenseNumber">
+                {{ agency.licenseNumber }}
+              </v-chip>
+              <span v-else class="text--disabled">ບໍ່ມີ</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" :color="isLicenseExpired ? 'error' : 'success'">
+                mdi-calendar-end
+              </v-icon>
+              <span class="info-label">ວັນໝົດອາຍຸ:</span>
+              <span class="info-value">{{ formatDate(agency.licenseExpiryDate) }}</span>
+              <v-chip
+                x-small
+                :color="isLicenseExpired ? 'error' : 'success'"
+                class="ml-2"
+                v-if="agency.licenseExpiryDate"
+              >
+                {{ isLicenseExpired ? 'ໝົດອາຍຸ' : 'ໃຊ້ໄດ້' }}
+              </v-chip>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-divider class="my-3" />
+
+        <!-- Contact Person -->
+        <v-row dense class="mb-2">
+          <v-col cols="12">
+            <div class="section-title">
+              <v-icon small color="primary" class="mr-1">mdi-account-tie</v-icon>
+              <span class="font-weight-bold">ຜູ້ຕິດຕໍ່</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-account</v-icon>
+              <span class="info-label">ຊື່:</span>
+              <span class="info-value font-weight-medium">{{ agency.contactPersonName || '-' }}</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-briefcase</v-icon>
+              <span class="info-label">ຕຳແໜ່ງ:</span>
+              <span class="info-value">{{ agency.contactPersonPosition || '-' }}</span>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row dense>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1" color="success">mdi-phone</v-icon>
+              <span class="info-label">ເບີໂທ:</span>
+              <a v-if="agency.contactPersonPhone" :href="`tel:${agency.contactPersonPhone}`" class="info-value link">
+                {{ agency.contactPersonPhone }}
+              </a>
+              <span v-else class="text--disabled">-</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
+            <div class="info-row">
+              <v-icon x-small class="mr-1">mdi-check-circle</v-icon>
+              <span class="info-label">ສະຖານະ:</span>
+              <v-chip
+                x-small
+                :color="getStatusColor(agency.status)"
+                dark
+              >
+                {{ formatStatus(agency.status) }}
+              </v-chip>
+            </div>
+          </v-col>
+        </v-row>
+
+        <!-- Notes -->
+        <template v-if="agency.notes">
+          <v-divider class="my-3" />
+          <v-row dense class="mb-2">
             <v-col cols="12">
-              <div class="section-header">
-                <v-icon color="primary" class="mr-2">mdi-information</v-icon>
-                <span class="text-h6">ຂໍ້ມູນພື້ນຖານ</span>
-              </div>
-              <v-divider class="mb-4"></v-divider>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="8">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-office-building</v-icon>
-                  ຊື່ບໍລິສັດ
-                </div>
-                <div class="info-value primary--text font-weight-bold">
-                  {{ agency.agencyName }}
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="4">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-identifier</v-icon>
-                  ລະຫັດບໍລິສັດ
-                </div>
-                <div class="info-value">
-                  <v-chip small color="primary" outlined v-if="agency.agencyCode">
-                    {{ agency.agencyCode }}
-                  </v-chip>
-                  <span v-else class="text--disabled">-</span>
-                </div>
+              <div class="section-title">
+                <v-icon small color="primary" class="mr-1">mdi-note-text</v-icon>
+                <span class="font-weight-bold">ໝາຍເຫດ</span>
               </div>
             </v-col>
           </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-file-document</v-icon>
-                  ເລກທະບຽນບໍລິສັດ
-                </div>
-                <div class="info-value">
-                  {{ agency.registrationNumber || '-' }}
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-calendar</v-icon>
-                  ວັນທີລົງທະບຽນ
-                </div>
-                <div class="info-value">
-                  {{ agency.registrationDate ? formatDate(agency.registrationDate) : '-' }}
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Contact Information Section -->
-          <v-row>
+          <v-row dense>
             <v-col cols="12">
-              <div class="section-header mt-6">
-                <v-icon color="primary" class="mr-2">mdi-phone</v-icon>
-                <span class="text-h6">ຂໍ້ມູນຕິດຕໍ່</span>
-              </div>
-              <v-divider class="mb-4"></v-divider>
+              <div class="notes-box">{{ agency.notes }}</div>
             </v-col>
           </v-row>
+        </template>
 
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-phone</v-icon>
-                  ເບີໂທລະສັບ
-                </div>
-                <div class="info-value">
-                  <a :href="`tel:${agency.phone}`" class="text-decoration-none">
-                    {{ agency.phone }}
-                  </a>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-email</v-icon>
-                  ອີເມວ
-                </div>
-                <div class="info-value">
-                  <a v-if="agency.email" :href="`mailto:${agency.email}`" class="text-decoration-none">
-                    {{ agency.email }}
-                  </a>
-                  <span v-else class="text--disabled">-</span>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
+        <!-- System Information -->
+        <v-divider class="my-3" />
+        <v-row dense class="mb-2">
+          <v-col cols="12">
+            <div class="section-title">
+              <v-icon small color="grey" class="mr-1">mdi-cog</v-icon>
+              <span class="font-weight-bold grey--text text--darken-1">ຂໍ້ມູນລະບົບ</span>
+            </div>
+          </v-col>
+        </v-row>
 
-          <v-row v-if="agency.address">
-            <v-col cols="12">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-map-marker</v-icon>
-                  ທີ່ຢູ່
-                </div>
-                <div class="info-value">
-                  {{ agency.address }}
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-city</v-icon>
-                  ເມືອງ
-                </div>
-                <div class="info-value">
-                  <v-chip small color="info" outlined v-if="agency.city">
-                    {{ agency.city }}
-                  </v-chip>
-                  <span v-else class="text--disabled">-</span>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-map</v-icon>
-                  ແຂວງ
-                </div>
-                <div class="info-value">
-                  <v-chip small color="secondary" outlined v-if="agency.district">
-                    {{ agency.district }}
-                  </v-chip>
-                  <span v-else class="text--disabled">-</span>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Business Information Section -->
-          <v-row>
-            <v-col cols="12">
-              <div class="section-header mt-6">
-                <v-icon color="primary" class="mr-2">mdi-certificate</v-icon>
-                <span class="text-h6">ຂໍ້ມູນທຸລະກິດ</span>
-              </div>
-              <v-divider class="mb-4"></v-divider>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-certificate</v-icon>
-                  ເລກໃບອະນຸຍາດ
-                </div>
-                <div class="info-value">
-                  <v-chip small color="success" outlined v-if="agency.licenseNumber">
-                    {{ agency.licenseNumber }}
-                  </v-chip>
-                  <span v-else class="text--disabled">ບໍ່ມີ</span>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-calendar-clock</v-icon>
-                  ວັນໝົດອາຍຸໃບອະນຸຍາດ
-                </div>
-                <div class="info-value">
-                  <div v-if="agency.licenseExpiryDate">
-                    <div class="mb-1">{{ formatDate(agency.licenseExpiryDate) }}</div>
-                    <v-chip
-                      small
-                      :color="isLicenseExpired ? 'error' : 'success'"
-                      dark
-                    >
-                      <v-icon small left>{{ isLicenseExpired ? 'mdi-alert-circle' : 'mdi-check-circle' }}</v-icon>
-                      {{ isLicenseExpired ? 'ໝົດອາຍຸແລ້ວ' : 'ຍັງໃຊ້ໄດ້' }}
-                    </v-chip>
-                  </div>
-                  <span v-else class="text--disabled">-</span>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Contact Person Section -->
-          <v-row>
-            <v-col cols="12">
-              <div class="section-header mt-6">
-                <v-icon color="primary" class="mr-2">mdi-account-tie</v-icon>
-                <span class="text-h6">ຜູ້ຕິດຕໍ່</span>
-              </div>
-              <v-divider class="mb-4"></v-divider>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-account</v-icon>
-                  ຊື່ຜູ້ຕິດຕໍ່
-                </div>
-                <div class="info-value font-weight-medium">
-                  {{ agency.contactPersonName || '-' }}
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-briefcase</v-icon>
-                  ຕຳແໜ່ງ
-                </div>
-                <div class="info-value">
-                  {{ agency.contactPersonPosition || '-' }}
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-phone</v-icon>
-                  ເບີໂທຜູ້ຕິດຕໍ່
-                </div>
-                <div class="info-value">
-                  <a v-if="agency.contactPersonPhone" :href="`tel:${agency.contactPersonPhone}`" class="text-decoration-none">
-                    {{ agency.contactPersonPhone }}
-                  </a>
-                  <span v-else class="text--disabled">-</span>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-check-circle</v-icon>
-                  ສະຖານະ
-                </div>
-                <div class="info-value">
-                  <v-chip
-                    small
-                    :color="getStatusColor(agency.status)"
-                    dark
-                  >
-                    <v-icon small left>{{ getStatusIcon(agency.status) }}</v-icon>
-                    {{ formatStatus(agency.status) }}
-                  </v-chip>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Notes Section -->
-          <v-row v-if="agency.notes">
-            <v-col cols="12">
-              <div class="section-header mt-6">
-                <v-icon color="primary" class="mr-2">mdi-note-text</v-icon>
-                <span class="text-h6">ໝາຍເຫດ</span>
-              </div>
-              <v-divider class="mb-4"></v-divider>
-            </v-col>
-          </v-row>
-
-          <v-row v-if="agency.notes">
-            <v-col cols="12">
-              <v-card color="grey lighten-5" flat>
-                <v-card-text>
-                  <div class="info-value">
-                    {{ agency.notes }}
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-col>
-          </v-row>
-
-          <!-- System Information -->
-          <v-row>
-            <v-col cols="12">
-              <div class="section-header mt-6">
-                <v-icon color="grey" class="mr-2">mdi-information-outline</v-icon>
-                <span class="text-h6 grey--text">ຂໍ້ມູນລະບົບ</span>
-              </div>
-              <v-divider class="mb-4"></v-divider>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-calendar-plus</v-icon>
-                  ວັນທີສ້າງ
-                </div>
-                <div class="info-value caption">
-                  {{ formatDateTime(agency.createdAt) }}
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-calendar-edit</v-icon>
-                  ວັນທີອັບເດດ
-                </div>
-                <div class="info-value caption">
-                  {{ formatDateTime(agency.updateTimestamp) }}
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-account-plus</v-icon>
-                  ຜູ້ສ້າງ
-                </div>
-                <div class="info-value caption">
-                  {{ agency.maker?.name || '-' }}
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="12" md="6">
-              <div class="info-item">
-                <div class="info-label">
-                  <v-icon small class="mr-2">mdi-account-edit</v-icon>
-                  ຜູ້ອັບເດດ
-                </div>
-                <div class="info-value caption">
-                  {{ agency.updateUser?.name || '-' }}
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
+        <v-row dense class="caption grey--text text--darken-1">
+          <v-col cols="12" md="6">
+            <div class="info-row-small">
+              <v-icon x-small class="mr-1">mdi-calendar-plus</v-icon>
+              <span>ສ້າງ: {{ formatDateTime(agency.createdAt) }} ({{ agency.maker?.name || '-' }})</span>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6">
+            <div class="info-row-small">
+              <v-icon x-small class="mr-1">mdi-calendar-edit</v-icon>
+              <span>ອັບເດດ: {{ formatDateTime(agency.updateTimestamp) }} ({{ agency.updateUser?.name || '-' }})</span>
+            </div>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <!-- Dialog Actions -->
-      <v-card-actions class="pa-4">
-        <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          text
-          @click="editAgency"
-        >
-          <v-icon left>mdi-pencil</v-icon>
-          ແກ້ໄຂ
-        </v-btn>
-        <v-btn
-          text
-          @click="closeDialog"
-        >
-          <v-icon left>mdi-close</v-icon>
+      <v-divider />
+      <v-card-actions class="pa-3">
+        <v-spacer />
+        <v-btn text small @click="closeDialog">
+          <v-icon left small>mdi-close</v-icon>
           ປິດ
         </v-btn>
       </v-card-actions>
@@ -409,7 +296,7 @@ export default {
   
   computed: {
     isLicenseExpired() {
-      if (!this.agency || !this.agency.licenseExpiryDate) return false
+      if (!this.agency?.licenseExpiryDate) return false
       return new Date(this.agency.licenseExpiryDate) <= new Date()
     },
   },
@@ -428,7 +315,7 @@ export default {
       if (!date) return '-'
       return new Date(date).toLocaleDateString('lo-LA', {
         year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
       })
     },
@@ -461,82 +348,78 @@ export default {
       }
       return colorMap[status] || 'grey'
     },
-    
-    getStatusIcon(status) {
-      const iconMap = {
-        active: 'mdi-check-circle',
-        inactive: 'mdi-pause-circle',
-        suspended: 'mdi-alert-circle',
-      }
-      return iconMap[status] || 'mdi-help-circle'
-    },
   },
 }
 </script>
 
 <style scoped>
-.section-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.section-header .text-h6 {
-  font-weight: 600;
-  color: #1976d2;
-}
-
 .v-card-title.primary {
   background: linear-gradient(45deg, #1976d2, #1565c0);
 }
 
-.info-item {
-  margin-bottom: 16px;
-}
-
-.info-label {
+.section-title {
   display: flex;
   align-items: center;
   font-size: 14px;
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.info-row-small {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.info-label {
   color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 4px;
   font-weight: 500;
+  min-width: 80px;
 }
 
 .info-value {
-  font-size: 16px;
   color: rgba(0, 0, 0, 0.87);
-  line-height: 1.4;
 }
 
-.info-value.caption {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.info-value a {
+.link {
   color: #1976d2;
+  text-decoration: none;
 }
 
-.info-value a:hover {
-  text-decoration: underline !important;
+.link:hover {
+  text-decoration: underline;
 }
 
-.text--disabled {
-  color: rgba(0, 0, 0, 0.38) !important;
+.notes-box {
+  background: #f5f5f5;
+  border-left: 3px solid #1976d2;
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 4px;
 }
 
-.grey--text {
-  color: rgba(0, 0, 0, 0.6) !important;
+.v-chip.x-small {
+  height: 20px !important;
+  font-size: 11px !important;
 }
 
-/* Custom chip spacing */
-.v-chip {
-  margin: 2px;
+/* Override Vuetify dense row */
+.row.dense {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-/* Card styling for notes */
-.v-card.grey.lighten-5 {
-  border-left: 4px solid #1976d2;
+.row.dense > .col {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 </style>

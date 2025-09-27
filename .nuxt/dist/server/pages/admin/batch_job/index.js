@@ -1,7 +1,7 @@
 exports.ids = [159,58];
 exports.modules = {
 
-/***/ 1151:
+/***/ 1149:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68,7 +68,7 @@ var VSpacer = __webpack_require__(389);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/batch_job/index.vue?vue&type=template&id=068748dd&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/batch_job/index.vue?vue&type=template&id=526360aa&scoped=true&
 
 
 
@@ -92,7 +92,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render() {
+var batch_jobvue_type_template_id_526360aa_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], {
@@ -104,22 +104,16 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
       "cols": "12"
     }
   }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "py-2"
-  }, [_c(VChip["a" /* default */], {
-    attrs: {
-      "small": "",
-      "color": "primary",
-      "text-color": "white"
-    }
+    staticClass: "primary white--text py-3"
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
-      "left": "",
-      "small": ""
+      "color": "white"
     }
-  }, [_vm._v("mdi-briefcase-outline")]), _vm._v("\n            Job Batch Management\n          ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-briefcase-outline")]), _vm._v(" "), _c('span', [_vm._v("ລະບົບຈັດການ Job Batch")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
-      "color": "primary",
-      "small": "",
+      "color": "white",
+      "text": "",
       "disabled": _vm.loading
     },
     on: {
@@ -127,10 +121,9 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": "",
-      "small": ""
+      "left": ""
     }
-  }, [_vm._v("mdi-plus")]), _vm._v("\n            New Batch\n          ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+  }, [_vm._v("mdi-plus")]), _vm._v("\n            ເພີ່ມໃໝ່\n          ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-3"
   }, [_c(VRow["a" /* default */], {
     attrs: {
@@ -138,15 +131,16 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   }, [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "3"
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "Search",
+      "label": "ຄົ້ນຫາ",
       "prepend-inner-icon": "mdi-magnify",
       "dense": "",
       "outlined": "",
-      "hide-details": "auto",
+      "hide-details": "",
       "clearable": ""
     },
     on: {
@@ -161,16 +155,18 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "2"
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.mouFilterOptions,
       "loading": _vm.loadingMous,
-      "label": "MOU",
+      "label": "ສັນຍາ MOU",
+      "prepend-inner-icon": "mdi-file-document",
       "dense": "",
       "outlined": "",
-      "hide-details": "auto",
+      "hide-details": "",
       "clearable": "",
       "item-text": "mouName",
       "item-value": "id"
@@ -184,15 +180,17 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "2"
+      "cols": "12",
+      "md": "2"
     }
   }, [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.statusOptions,
-      "label": "Status",
+      "label": "ສະຖານະ",
+      "prepend-inner-icon": "mdi-information",
       "dense": "",
       "outlined": "",
-      "hide-details": "auto",
+      "hide-details": "",
       "clearable": ""
     },
     model: {
@@ -204,30 +202,10 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "2"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.priorityOptions,
-      "label": "Priority",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "auto",
-      "clearable": ""
-    },
-    model: {
-      value: _vm.filters.priority,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "priority", $$v);
-      },
-      expression: "filters.priority"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
+      "cols": "12",
+      "md": "2"
     }
   }, [_c(VMenu["a" /* default */], {
-    ref: "dateMenu",
     attrs: {
       "close-on-content-click": false,
       "transition": "scale-transition",
@@ -242,20 +220,25 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "Date Range",
+            "label": "ຊ່ວງເວລາ",
             "prepend-inner-icon": "mdi-calendar",
             "readonly": "",
             "dense": "",
             "outlined": "",
-            "hide-details": "auto",
+            "hide-details": "",
             "clearable": ""
           },
+          on: {
+            "click:clear": function ($event) {
+              _vm.filters.dateRange = null;
+            }
+          },
           model: {
-            value: _vm.filters.dateRange,
+            value: _vm.dateRangeText,
             callback: function ($$v) {
-              _vm.$set(_vm.filters, "dateRange", $$v);
+              _vm.dateRangeText = $$v;
             },
-            expression: "filters.dateRange"
+            expression: "dateRangeText"
           }
         }, 'v-text-field', attrs, false), on))];
       }
@@ -285,46 +268,38 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "1"
+      "cols": "12",
+      "md": "2"
     }
   }, [_c(VBtn["a" /* default */], {
     attrs: {
       "color": "secondary",
       "outlined": "",
-      "small": "",
       "block": ""
     },
     on: {
       "click": _vm.clearFilters
     }
-  }, [_vm._v("\n                Clear\n              ")])], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-3 pt-0"
-  }, [_c(VRow["a" /* default */], _vm._l(_vm.statistics, function (stat) {
-    return _c(VCol["a" /* default */], {
-      key: stat.title,
-      attrs: {
-        "cols": "2"
-      }
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "text-center pa-2",
-      attrs: {
-        "outlined": ""
-      }
-    }, [_c(VIcon["a" /* default */], {
-      attrs: {
-        "color": stat.color,
-        "size": "24"
-      }
-    }, [_vm._v(_vm._s(stat.icon))]), _vm._v(" "), _c('div', {
-      staticClass: "text-h6 mt-1"
-    }, [_vm._v(_vm._s(stat.value))]), _vm._v(" "), _c('div', {
-      staticClass: "text-caption"
-    }, [_vm._v(_vm._s(stat.title))])], 1)], 1);
-  }), 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-refresh")]), _vm._v("\n                Reset\n              ")], 1)], 1)], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-3"
+  }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12"
     }
-  }, [_c(VCard["a" /* default */], [_c(VDataTable["a" /* default */], {
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "py-2"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2"
+  }, [_vm._v("mdi-table")]), _vm._v(" "), _c('span', [_vm._v("ລາຍການ Job Batch")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "outlined": ""
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.totalItems) + " ລາຍການ\n          ")])], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
     staticClass: "elevation-0",
     attrs: {
       "headers": _vm.headers,
@@ -335,7 +310,8 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
       "footer-props": {
         'items-per-page-options': [10, 25, 50, 100]
       },
-      "dense": ""
+      "loading-text": "ກຳລັງໂຫຼດຂໍ້ມູນ...",
+      "no-data-text": "ບໍ່ມີຂໍ້ມູນ"
     },
     on: {
       "update:options": function ($event) {
@@ -347,13 +323,21 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
       fn: function ({
         item
       }) {
-        return [_c(VChip["a" /* default */], {
+        return [_c('div', {
+          staticClass: "d-flex align-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
           attrs: {
             "x-small": "",
-            "color": "grey",
+            "color": "grey"
+          }
+        }, [_vm._v("mdi-numeric")]), _vm._v(" "), _c(VChip["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "color": "grey lighten-1",
             "text-color": "white"
           }
-        }, [_vm._v("\n              " + _vm._s(item.runningNo) + "\n            ")])];
+        }, [_vm._v("\n                " + _vm._s(item.runningNo) + "\n              ")])], 1)];
       }
     }, {
       key: "item.mou",
@@ -368,13 +352,54 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
             "small": "",
             "color": "primary"
           }
-        }, [_vm._v("mdi-file-document-outline")]), _vm._v(" "), _c('div', [_c('div', {
-          staticClass: "text-body-2"
+        }, [_vm._v("mdi-file-document")]), _vm._v(" "), _c('div', [_c('div', {
+          staticClass: "text-caption font-weight-bold"
         }, [_vm._v(_vm._s(item.mou.mouName))]), _vm._v(" "), _c('div', {
           staticClass: "text-caption grey--text"
-        }, [_vm._v("\n                  " + _vm._s(item.mou.mouNumber) + "\n                ")])])], 1) : _c('span', {
+        }, [_vm._v(_vm._s(item.mou.mouNumber))])])], 1) : _c('span', {
           staticClass: "text-caption grey--text"
-        }, [_vm._v("No MOU")])];
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
+          attrs: {
+            "x-small": ""
+          }
+        }, [_vm._v("mdi-minus-circle")]), _vm._v("\n              ບໍ່ມີ MOU\n            ")], 1)];
+      }
+    }, {
+      key: "item.workPlace",
+      fn: function ({
+        item
+      }) {
+        var _item$mou;
+        return [_c('div', {
+          staticClass: "d-flex align-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
+          attrs: {
+            "x-small": "",
+            "color": "blue"
+          }
+        }, [_vm._v("mdi-map-marker")]), _vm._v(" "), _c('span', {
+          staticClass: "text-caption"
+        }, [_vm._v(_vm._s(((_item$mou = item.mou) === null || _item$mou === void 0 ? void 0 : _item$mou.workLocation) || '-'))])], 1)];
+      }
+    }, {
+      key: "item.jobTitle",
+      fn: function ({
+        item
+      }) {
+        var _item$mou2;
+        return [_c('div', {
+          staticClass: "d-flex align-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
+          attrs: {
+            "x-small": "",
+            "color": "purple"
+          }
+        }, [_vm._v("mdi-briefcase")]), _vm._v(" "), _c('span', {
+          staticClass: "text-caption"
+        }, [_vm._v(_vm._s(((_item$mou2 = item.mou) === null || _item$mou2 === void 0 ? void 0 : _item$mou2.jobTitle) || '-'))])], 1)];
       }
     }, {
       key: "item.status",
@@ -387,25 +412,12 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
             "color": _vm.getStatusColor(item.status),
             "text-color": "white"
           }
-        }, [_vm._v("\n              " + _vm._s(item.status.toUpperCase()) + "\n            ")])];
-      }
-    }, {
-      key: "item.priority",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          attrs: {
-            "x-small": "",
-            "color": _vm.getPriorityColor(item.priority),
-            "text-color": "white"
-          }
         }, [_c(VIcon["a" /* default */], {
           attrs: {
-            "left": "",
-            "x-small": ""
+            "x-small": "",
+            "left": ""
           }
-        }, [_vm._v(_vm._s(_vm.getPriorityIcon(item.priority)))]), _vm._v("\n              " + _vm._s(item.priority.toUpperCase()) + "\n            ")], 1)];
+        }, [_vm._v(_vm._s(_vm.getStatusIcon(item.status)))]), _vm._v("\n              " + _vm._s(_vm.formatStatus(item.status)) + "\n            ")], 1)];
       }
     }, {
       key: "item.totalPositions",
@@ -413,44 +425,75 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
         item
       }) {
         return [_c('div', {
-          staticClass: "text-center"
-        }, [_c('span', {
-          staticClass: "text-body-2 font-weight-bold"
-        }, [_vm._v(_vm._s(item.totalPositions || 0))])])];
+          staticClass: "d-flex align-center justify-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
+          attrs: {
+            "x-small": "",
+            "color": "success"
+          }
+        }, [_vm._v("mdi-account-multiple")]), _vm._v(" "), _c('span', {
+          staticClass: "text-caption font-weight-bold"
+        }, [_vm._v(_vm._s(item.totalPositions || 0))])], 1)];
+      }
+    }, {
+      key: "item.applicantCount",
+      fn: function ({
+        item
+      }) {
+        var _item$applicantStatis;
+        return [_c('div', {
+          staticClass: "d-flex align-center justify-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
+          attrs: {
+            "x-small": "",
+            "color": "info"
+          }
+        }, [_vm._v("mdi-account-check")]), _vm._v(" "), _c('span', {
+          staticClass: "text-caption font-weight-bold"
+        }, [_vm._v("\n                " + _vm._s(((_item$applicantStatis = item.applicantStatistics) === null || _item$applicantStatis === void 0 ? void 0 : _item$applicantStatis.interview) || 0) + "\n              ")])], 1)];
       }
     }, {
       key: "item.batchStartDate",
       fn: function ({
         item
       }) {
-        return [item.batchStartDate ? _c('span', {
-          staticClass: "text-caption"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatDate(item.batchStartDate)) + "\n            ")]) : _c('span', {
-          staticClass: "text-caption grey--text"
-        }, [_vm._v("Not set")])];
-      }
-    }, {
-      key: "item.deploymentDate",
-      fn: function ({
-        item
-      }) {
-        return [item.deploymentDate ? _c('span', {
-          staticClass: "text-caption"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatDate(item.deploymentDate)) + "\n            ")]) : _c('span', {
-          staticClass: "text-caption grey--text"
-        }, [_vm._v("Not set")])];
-      }
-    }, {
-      key: "item.isOverdue",
-      fn: function ({
-        item
-      }) {
-        return [item.isOverdue ? _c(VIcon["a" /* default */], {
+        return [_c('div', {
+          staticClass: "d-flex align-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
           attrs: {
-            "color": "error",
-            "small": ""
+            "x-small": "",
+            "color": "green"
           }
-        }, [_vm._v("\n              mdi-clock-alert\n            ")]) : _vm._e()];
+        }, [_vm._v("mdi-calendar-start")]), _vm._v(" "), item.batchStartDate ? _c('span', {
+          staticClass: "text-caption"
+        }, [_vm._v("\n                " + _vm._s(_vm.formatDate(item.batchStartDate)) + "\n              ")]) : _c('span', {
+          staticClass: "text-caption grey--text"
+        }, [_vm._v("ບໍ່ມີ")])], 1)];
+      }
+    }, {
+      key: "item.batchEndDate",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "d-flex align-center"
+        }, [_c(VIcon["a" /* default */], {
+          staticClass: "mr-1",
+          attrs: {
+            "x-small": "",
+            "color": _vm.isOverdue(item.batchEndDate) ? 'error' : 'warning'
+          }
+        }, [_vm._v("\n                mdi-calendar-end\n              ")]), _vm._v(" "), item.batchEndDate ? _c('span', {
+          staticClass: "text-caption",
+          class: {
+            'error--text': _vm.isOverdue(item.batchEndDate)
+          }
+        }, [_vm._v("\n                " + _vm._s(_vm.formatDate(item.batchEndDate)) + "\n              ")]) : _c('span', {
+          staticClass: "text-caption grey--text"
+        }, [_vm._v("ບໍ່ມີ")])], 1)];
       }
     }, {
       key: "item.actions",
@@ -487,24 +530,15 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
         }, [_c(VListItem["a" /* default */], {
           on: {
             "click": function ($event) {
-              return _vm.viewDetails(item);
-            }
-          }
-        }, [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
-          attrs: {
-            "small": ""
-          }
-        }, [_vm._v("mdi-eye")])], 1), _vm._v(" "), _c(components_VList["c" /* VListItemTitle */], [_vm._v("View")])], 1), _vm._v(" "), _c(VListItem["a" /* default */], {
-          on: {
-            "click": function ($event) {
               return _vm.editBatch(item);
             }
           }
         }, [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
           attrs: {
-            "small": ""
+            "small": "",
+            "color": "info"
           }
-        }, [_vm._v("mdi-pencil")])], 1), _vm._v(" "), _c(components_VList["c" /* VListItemTitle */], [_vm._v("Edit")])], 1), _vm._v(" "), _c(VListItem["a" /* default */], {
+        }, [_vm._v("mdi-pencil")])], 1), _vm._v(" "), _c(components_VList["c" /* VListItemTitle */], [_vm._v("ແກ້ໄຂ")])], 1), _vm._v(" "), _c(VListItem["a" /* default */], {
           on: {
             "click": function ($event) {
               return _vm.updateStatus(item);
@@ -512,21 +546,10 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
           }
         }, [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
           attrs: {
-            "small": ""
-          }
-        }, [_vm._v("mdi-update")])], 1), _vm._v(" "), _c(components_VList["c" /* VListItemTitle */], [_vm._v("Update Status")])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VListItem["a" /* default */], {
-          staticClass: "error--text",
-          on: {
-            "click": function ($event) {
-              return _vm.deleteBatch(item);
-            }
-          }
-        }, [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
-          attrs: {
             "small": "",
-            "color": "error"
+            "color": "orange"
           }
-        }, [_vm._v("mdi-delete")])], 1), _vm._v(" "), _c(components_VList["c" /* VListItemTitle */], [_vm._v("Delete")])], 1)], 1)], 1)];
+        }, [_vm._v("mdi-update")])], 1), _vm._v(" "), _c(components_VList["c" /* VListItemTitle */], [_vm._v("ອັບເດດສະຖານະ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */])], 1)], 1)];
       }
     }])
   })], 1)], 1)], 1), _vm._v(" "), _c('job-batch-dialog', {
@@ -536,7 +559,9 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     },
     on: {
       "saved": _vm.onBatchSaved,
-      "cancelled": _vm.onDialogCancelled
+      "cancelled": function ($event) {
+        _vm.showDialog = false;
+      }
     },
     model: {
       value: _vm.showDialog,
@@ -559,10 +584,10 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     }
   }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
     staticClass: "text-h6"
-  }, [_vm._v("Update Status")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VSelect["a" /* default */], {
+  }, [_vm._v("ອັບເດດສະຖານະ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.statusOptions,
-      "label": "New Status",
+      "label": "ສະຖານະໃໝ່",
       "outlined": "",
       "dense": ""
     },
@@ -582,7 +607,7 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
         _vm.showStatusDialog = false;
       }
     }
-  }, [_vm._v("Cancel")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("ຍົກເລີກ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "loading": _vm.updating
@@ -590,14 +615,14 @@ var batch_jobvue_type_template_id_068748dd_scoped_true_render = function render(
     on: {
       "click": _vm.confirmStatusUpdate
     }
-  }, [_vm._v("\n          Update\n        ")])], 1)], 1)], 1)], 1);
+  }, [_vm._v("\n          ອັບເດດ\n        ")])], 1)], 1)], 1)], 1);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/batch_job/index.vue?vue&type=template&id=068748dd&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/batch_job/index.vue?vue&type=template&id=526360aa&scoped=true&
 
 // EXTERNAL MODULE: ./components/job_fair/job_batch/index.vue + 4 modules
-var job_batch = __webpack_require__(856);
+var job_batch = __webpack_require__(850);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(367);
@@ -625,152 +650,93 @@ var external_lodash_ = __webpack_require__(367);
       jobBatches: [],
       totalItems: 0,
       mouFilterOptions: [],
-      statistics: {
-        total: {
-          title: 'Total Batches',
-          value: 0,
-          icon: 'mdi-briefcase-outline',
-          color: 'primary'
-        },
-        active: {
-          title: 'Active',
-          value: 0,
-          icon: 'mdi-play-circle',
-          color: 'success'
-        },
-        completed: {
-          title: 'Completed',
-          value: 0,
-          icon: 'mdi-check-circle',
-          color: 'success'
-        },
-        overdue: {
-          title: 'Overdue',
-          value: 0,
-          icon: 'mdi-clock-alert',
-          color: 'error'
-        },
-        draft: {
-          title: 'Draft',
-          value: 0,
-          icon: 'mdi-file-document-outline',
-          color: 'warning'
-        },
-        positions: {
-          title: 'Total Positions',
-          value: 0,
-          icon: 'mdi-account-group',
-          color: 'info'
-        }
-      },
       filters: {
         search: '',
         mouId: '',
         status: '',
-        priority: '',
         dateRange: null
       },
       tableOptions: {
         page: 1,
-        itemsPerPage: 10,
+        itemsPerPage: 25,
         sortBy: ['createdAt'],
         sortDesc: [true]
       },
       headers: [{
-        text: 'ເລກທີ່ລຳດັບ',
+        text: 'ເລກທີ່',
         value: 'runningNo',
         sortable: true,
         width: '100px'
       }, {
-        text: 'ຊື່ກຸ່ມ',
-        value: 'batchName',
-        sortable: true
-      }, {
-        text: 'ສັນຍາ MOU',
+        text: 'ລະຫັດ Job',
         value: 'mou',
         sortable: false,
         width: '200px'
       }, {
+        text: 'ສະຖານທີ່ວຽກ',
+        value: 'workPlace',
+        sortable: false,
+        width: '150px'
+      }, {
+        text: 'ໜ້າວຽກ',
+        value: 'jobTitle',
+        sortable: false,
+        width: '150px'
+      }, {
         text: 'ສະຖານະ',
         value: 'status',
         sortable: true,
-        width: '100px'
-      }, {
-        text: 'ຄວາມສຳຄັນ',
-        value: 'priority',
-        sortable: true,
         width: '120px'
       }, {
-        text: 'ຈຳນວນຕຳແໜ່ງ',
+        text: 'ເປີດຮັບ',
         value: 'totalPositions',
         sortable: true,
-        width: '100px'
+        width: '100px',
+        align: 'center'
       }, {
-        text: 'ຜູ້ສະໝັກ',
-        value: 'applicantStatistics.interview',
-        sortable: true,
-        width: '100px'
+        text: 'ສະໝັກແລ້ວ',
+        value: 'applicantCount',
+        sortable: false,
+        width: '100px',
+        align: 'center'
       }, {
-        text: 'ຜູ້ລົງທະບຽນ',
-        value: 'applicantStatistics.register',
-        sortable: true,
-        width: '100px'
-      }, {
-        text: 'ຜູ້ກຽມສົ່ງ',
-        value: 'applicantStatistics.confirm',
-        sortable: true,
-        width: '100px'
-      }, {
-        text: 'ວັນທີເລີ່ມຕົ້ນ',
+        text: 'ວັນເລີ່ມ',
         value: 'batchStartDate',
         sortable: true,
         width: '120px'
       }, {
-        text: 'ວັນສົ່ງຄົນງານ',
-        value: 'deploymentDate',
+        text: 'ວັນສິ້ນສຸດ',
+        value: 'batchEndDate',
         sortable: true,
         width: '120px'
-      }, {
-        text: 'ຊ້າກຳນົດ',
-        value: 'isOverdue',
-        sortable: false,
-        width: '80px'
       }, {
         text: 'ຄຳສັ່ງ',
         value: 'actions',
         sortable: false,
-        width: '80px'
+        width: '80px',
+        align: 'center'
       }],
       statusOptions: [{
-        text: 'Draft',
-        value: 'draft'
-      }, {
-        text: 'Active',
+        text: 'ດຳເນີນການ',
         value: 'active'
       }, {
-        text: 'Completed',
+        text: 'ສຳເລັດ',
         value: 'completed'
       }, {
-        text: 'Cancelled',
+        text: 'ຍົກເລີກ',
         value: 'cancelled'
       }, {
-        text: 'On Hold',
+        text: 'ລໍຖ້າ',
         value: 'on_hold'
-      }],
-      priorityOptions: [{
-        text: 'Low',
-        value: 'low'
-      }, {
-        text: 'Medium',
-        value: 'medium'
-      }, {
-        text: 'High',
-        value: 'high'
-      }, {
-        text: 'Urgent',
-        value: 'urgent'
       }]
     };
+  },
+  computed: {
+    dateRangeText() {
+      if (!this.filters.dateRange || this.filters.dateRange.length === 0) return '';
+      if (this.filters.dateRange.length === 1) return this.filters.dateRange[0];
+      return `${this.filters.dateRange[0]} - ${this.filters.dateRange[1]}`;
+    }
   },
   watch: {
     tableOptions: {
@@ -785,16 +751,12 @@ var external_lodash_ = __webpack_require__(367);
     'filters.status'() {
       this.fetchJobBatches();
     },
-    'filters.priority'() {
-      this.fetchJobBatches();
-    },
     'filters.dateRange'() {
       this.fetchJobBatches();
     }
   },
   mounted() {
     this.fetchJobBatches();
-    this.fetchStatistics();
     this.fetchMouFilterOptions();
   },
   methods: {
@@ -809,54 +771,39 @@ var external_lodash_ = __webpack_require__(367);
           limit: this.tableOptions.itemsPerPage,
           sortBy: this.tableOptions.sortBy[0] || 'createdAt',
           sortOrder: this.tableOptions.sortDesc[0] ? 'DESC' : 'ASC',
-          include: 'mou' // Include MOU information
+          include: 'mou'
         };
-
         if (this.filters.search) params.search = this.filters.search;
         if (this.filters.mouId) params.mouId = this.filters.mouId;
         if (this.filters.status) params.status = this.filters.status;
-        if (this.filters.priority) params.priority = this.filters.priority;
-        const response = await this.$axios.get('/api/batch-job', {
+        const {
+          data
+        } = await this.$axios.get('/api/batch-job', {
           params
         });
-        this.jobBatches = response.data.data.jobBatches;
-        this.totalItems = response.data.data.pagination.total;
+        this.jobBatches = data.data.jobBatches;
+        this.totalItems = data.data.pagination.total;
       } catch (error) {
-        this.$toast.error('Failed to fetch job batches');
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ');
         console.error('Error fetching job batches:', error);
       } finally {
         this.loading = false;
       }
     },
-    async fetchStatistics() {
-      try {
-        const response = await this.$axios.get('/api/batch-job/dashboard-stats');
-        const stats = response.data.data;
-        this.statistics.total.value = stats.totalBatches;
-        this.statistics.active.value = stats.activeBatches;
-        this.statistics.completed.value = stats.completedBatches;
-        this.statistics.overdue.value = stats.overdueBatches;
-        this.statistics.draft.value = stats.draftBatches;
-        this.statistics.positions.value = stats.totalPositions;
-      } catch (error) {
-        console.error('Error fetching statistics:', error);
-      }
-    },
     async fetchMouFilterOptions() {
       this.loadingMous = true;
       try {
-        const response = await this.$axios.get('/api/mous', {
+        const {
+          data
+        } = await this.$axios.get('/api/mous', {
           params: {
             limit: 100,
-            // Get all for filter options
-            fields: 'id,mouName,mouNumber' // Only needed fields for filter
+            fields: 'id,mouName,mouNumber'
           }
         });
-
-        this.mouFilterOptions = response.data.data.mous || response.data.data || [];
+        this.mouFilterOptions = data.data.mous || data.data || [];
       } catch (error) {
-        console.error('Error fetching MOU filter options:', error);
-        this.mouFilterOptions = [];
+        console.error('Error fetching MOU options:', error);
       } finally {
         this.loadingMous = false;
       }
@@ -873,9 +820,6 @@ var external_lodash_ = __webpack_require__(367);
       this.isEdit = true;
       this.showDialog = true;
     },
-    viewDetails(batch) {
-      this.$router.push(`/job-batches/${batch.id}`);
-    },
     updateStatus(batch) {
       this.selectedBatch = batch;
       this.newStatus = batch.status;
@@ -887,29 +831,27 @@ var external_lodash_ = __webpack_require__(367);
         await this.$axios.patch(`/api/batch-job/${this.selectedBatch.id}/status`, {
           status: this.newStatus
         });
-        this.$toast.success('Status updated successfully');
+        this.$toast.success('ອັບເດດສະຖານະສຳເລັດແລ້ວ');
         this.showStatusDialog = false;
         this.fetchJobBatches();
-        this.fetchStatistics();
       } catch (error) {
-        this.$toast.error('Failed to update status');
+        this.$toast.error('ອັບເດດສະຖານະບໍ່ສຳເລັດ');
         console.error('Error updating status:', error);
       } finally {
         this.updating = false;
       }
     },
     async deleteBatch(batch) {
-      const confirmed = await this.$confirm(`Are you sure you want to delete "${batch.batchName}"?`, {
-        title: 'Confirm Delete'
+      const confirmed = await this.$confirm(`ທ່ານຕ້ອງການລົບ "${batch.batchName}" ແມ່ນບໍ?`, {
+        title: 'ຢືນຢັນການລົບ'
       });
       if (confirmed) {
         try {
           await this.$axios.delete(`/api/batch-job/${batch.id}`);
-          this.$toast.success('Job batch deleted successfully');
+          this.$toast.success('ລົບສຳເລັດແລ້ວ');
           this.fetchJobBatches();
-          this.fetchStatistics();
         } catch (error) {
-          this.$toast.error('Failed to delete job batch');
+          this.$toast.error('ການລົບບໍ່ສຳເລັດ');
           console.error('Error deleting batch:', error);
         }
       }
@@ -917,53 +859,55 @@ var external_lodash_ = __webpack_require__(367);
     onBatchSaved() {
       this.showDialog = false;
       this.fetchJobBatches();
-      this.fetchStatistics();
-      this.fetchMouFilterOptions(); // Refresh MOU options in case new ones were created
-    },
-
-    onDialogCancelled() {
-      this.showDialog = false;
+      this.fetchMouFilterOptions();
     },
     clearFilters() {
       this.filters = {
         search: '',
         mouId: '',
         status: '',
-        priority: '',
         dateRange: null
       };
       this.fetchJobBatches();
     },
     getStatusColor(status) {
       const colors = {
-        draft: 'orange',
-        active: 'green',
-        completed: 'blue',
-        cancelled: 'red',
-        on_hold: 'grey'
+        active: 'success',
+        completed: 'primary',
+        cancelled: 'error',
+        on_hold: 'warning'
       };
       return colors[status] || 'grey';
     },
-    getPriorityColor(priority) {
-      const colors = {
-        low: 'green',
-        medium: 'orange',
-        high: 'red',
-        urgent: 'deep-purple'
-      };
-      return colors[priority] || 'grey';
-    },
-    getPriorityIcon(priority) {
+    getStatusIcon(status) {
       const icons = {
-        low: 'mdi-arrow-down',
-        medium: 'mdi-minus',
-        high: 'mdi-arrow-up',
-        urgent: 'mdi-alert'
+        active: 'mdi-play-circle',
+        completed: 'mdi-check-circle',
+        cancelled: 'mdi-close-circle',
+        on_hold: 'mdi-pause-circle'
       };
-      return icons[priority] || 'mdi-minus';
+      return icons[status] || 'mdi-help-circle';
+    },
+    formatStatus(status) {
+      const labels = {
+        active: 'ດຳເນີນການ',
+        completed: 'ສຳເລັດ',
+        cancelled: 'ຍົກເລີກ',
+        on_hold: 'ລໍຖ້າ'
+      };
+      return labels[status] || status;
     },
     formatDate(date) {
-      return new Date(date).toLocaleDateString();
+      if (!date) return '-';
+      return new Date(date).toLocaleDateString('lo-LA', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    },
+    isOverdue(date) {
+      if (!date) return false;
+      return new Date(date) < new Date();
     }
   }
 });
@@ -978,7 +922,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(911)
+  var style0 = __webpack_require__(905)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -987,11 +931,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_batch_jobvue_type_script_lang_js_,
-  batch_jobvue_type_template_id_068748dd_scoped_true_render,
+  batch_jobvue_type_template_id_526360aa_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "068748dd",
+  "526360aa",
   "38f3134a"
   
 )
@@ -3520,44 +3464,44 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 545:
+/***/ 543:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(639);
+var content = __webpack_require__(633);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("c49b8770", content, true, context)
+  add("2160d2ca", content, true, context)
 };
 
 /***/ }),
 
-/***/ 638:
+/***/ 632:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(545);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6bead9c2_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5d9541c4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(543);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5d9541c4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5d9541c4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5d9541c4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5d9541c4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 639:
+/***/ 633:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".section-header[data-v-6bead9c2]{align-items:center;border-bottom:2px solid #e3f2fd;display:flex;margin-bottom:12px;padding-bottom:8px}.section-title[data-v-6bead9c2]{color:#1976d2;font-size:.95rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase}.v-chip--x-small[data-v-6bead9c2]{font-size:10px!important;height:20px!important}.v-select--outlined[data-v-6bead9c2] .v-input__control>.v-input__slot,.v-text-field--outlined[data-v-6bead9c2] .v-input__control>.v-input__slot,.v-textarea[data-v-6bead9c2] .v-input__control>.v-input__slot{min-height:40px!important}.v-toolbar--dense[data-v-6bead9c2]{min-height:48px!important}.v-input--dense[data-v-6bead9c2] .v-messages{min-height:0!important}.v-text-field[data-v-6bead9c2] .v-text-field__details{margin-bottom:0!important;padding-top:2px!important}.v-alert--dense[data-v-6bead9c2]{padding:12px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".section-header[data-v-5d9541c4]{align-items:center;border-bottom:2px solid #e3f2fd;display:flex;margin-bottom:12px;padding-bottom:8px}.section-title[data-v-5d9541c4]{color:#1976d2;font-size:.95rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase}.v-chip--x-small[data-v-5d9541c4]{font-size:10px!important;height:20px!important}.v-select--outlined[data-v-5d9541c4] .v-input__control>.v-input__slot,.v-text-field--outlined[data-v-5d9541c4] .v-input__control>.v-input__slot,.v-textarea[data-v-5d9541c4] .v-input__control>.v-input__slot{min-height:40px!important}.v-toolbar--dense[data-v-5d9541c4]{min-height:48px!important}.v-input--dense[data-v-5d9541c4] .v-messages{min-height:0!important}.v-text-field[data-v-5d9541c4] .v-text-field__details{margin-bottom:0!important;padding-top:2px!important}.v-alert--dense[data-v-5d9541c4]{padding:12px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -3565,25 +3509,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 735:
+/***/ 729:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(912);
+var content = __webpack_require__(906);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("d77e2ba0", content, true, context)
+  add("1c4e3db6", content, true, context)
 };
 
 /***/ }),
 
-/***/ 856:
+/***/ 850:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3647,7 +3591,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(136);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/job_batch/index.vue?vue&type=template&id=6bead9c2&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/job_batch/index.vue?vue&type=template&id=5d9541c4&scoped=true&
 
 
 
@@ -3669,7 +3613,7 @@ var components_VToolbar = __webpack_require__(136);
 
 
 
-var job_batchvue_type_template_id_6bead9c2_scoped_true_render = function render() {
+var job_batchvue_type_template_id_5d9541c4_scoped_true_render = function render() {
   var _vm$selectedMou, _vm$selectedMou2, _vm$selectedMou3, _vm$selectedMou4, _vm$formData$status, _vm$formData$priority;
   var _vm = this,
     _c = _vm._self._c;
@@ -3802,9 +3746,9 @@ var job_batchvue_type_template_id_6bead9c2_scoped_true_render = function render(
           staticClass: "flex-grow-1"
         }, [_c('div', {
           staticClass: "text-body-2"
-        }, [_vm._v(_vm._s(item.jobCode))]), _vm._v(" "), _c('div', {
+        }, [_vm._v(_vm._s(item.jobCode) + " • ")]), _vm._v(" "), _c('div', {
           staticClass: "text-caption grey--text"
-        }, [_vm._v("\n                      " + _vm._s(item.mouNumber) + " • " + _vm._s(item.employerCompany) + "\n                    ")])]), _vm._v(" "), _c(VChip["a" /* default */], {
+        }, [_vm._v("\n                      " + _vm._s(item.jobTitle) + " • " + _vm._s(item.employerCompany) + "\n                    ")])]), _vm._v(" "), _c(VChip["a" /* default */], {
           attrs: {
             "x-small": "",
             "color": _vm.getMouStatusColor(item.status)
@@ -3854,9 +3798,8 @@ var job_batchvue_type_template_id_6bead9c2_scoped_true_render = function render(
       "outlined": "",
       "dense": "",
       "hide-details": "auto",
-      "disabled": !_vm.isEdit,
-      "placeholder": _vm.isEdit ? 'Edit' : 'Auto-generated',
-      "prepend-inner-icon": "mdi-numeric"
+      "disabled": "",
+      "placeholder": _vm.isEdit ? 'Edit' : 'Auto-generated'
     },
     model: {
       value: _vm.formData.runningNo,
@@ -3886,27 +3829,6 @@ var job_batchvue_type_template_id_6bead9c2_scoped_true_render = function render(
         _vm.$set(_vm.formData, "totalPositions", _vm._n($$v));
       },
       expression: "formData.totalPositions"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "6"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "ຈຳນວນສະໝັກແລ້ວ",
-      "type": "number",
-      "outlined": "",
-      "dense": "",
-      "hide-details": "auto",
-      "prepend-inner-icon": "mdi-account-multiple"
-    },
-    model: {
-      value: _vm.formData.totalApplied,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "totalApplied", _vm._n($$v));
-      },
-      expression: "formData.totalApplied"
     }
   })], 1), _vm._v(" "),  false ? undefined : _vm._e(), _vm._v(" "), _vm.selectedMou ? _c(VCol["a" /* default */], {
     attrs: {
@@ -4203,7 +4125,7 @@ var job_batchvue_type_template_id_6bead9c2_scoped_true_render = function render(
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/job_fair/job_batch/index.vue?vue&type=template&id=6bead9c2&scoped=true&
+// CONCATENATED MODULE: ./components/job_fair/job_batch/index.vue?vue&type=template&id=5d9541c4&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/job_fair/job_batch/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var job_batchvue_type_script_lang_js_ = ({
@@ -4234,6 +4156,7 @@ var staticRenderFns = [];
       selectedMou: null,
       formData: {
         mouId: null,
+        runningNo: '',
         batchName: '_',
         jobDescription: '',
         totalPositions: 0,
@@ -4317,6 +4240,7 @@ var staticRenderFns = [];
         this.formData = {
           mouId: this.batch.mouId || null,
           batchName: this.batch.batchName || '',
+          runningNo: this.batch.runningNo || '',
           jobDescription: this.batch.jobDescription || '',
           totalPositions: this.batch.totalPositions || 0,
           totalApplied: this.batch.totalApplied || 0,
@@ -4347,6 +4271,7 @@ var staticRenderFns = [];
       this.formData = {
         mouId: null,
         batchName: '',
+        runningNo: '',
         jobDescription: '',
         totalPositions: 0,
         totalApplied: 0,
@@ -4447,7 +4372,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(638)
+  var style0 = __webpack_require__(632)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -4456,11 +4381,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   job_fair_job_batchvue_type_script_lang_js_,
-  job_batchvue_type_template_id_6bead9c2_scoped_true_render,
+  job_batchvue_type_template_id_5d9541c4_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "6bead9c2",
+  "5d9541c4",
   "b60c2e76"
   
 )
@@ -4469,26 +4394,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 911:
+/***/ 905:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_068748dd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(735);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_068748dd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_068748dd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_068748dd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_068748dd_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_526360aa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(729);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_526360aa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_526360aa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_526360aa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_526360aa_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 912:
+/***/ 906:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-chip--small[data-v-068748dd]{font-size:10px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-card-title.primary[data-v-526360aa]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-526360aa]{font-size:12px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

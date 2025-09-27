@@ -68,9 +68,9 @@
                       >mdi-file-document-outline</v-icon
                     >
                     <div class="flex-grow-1">
-                      <div class="text-body-2">{{ item.jobCode }}</div>
+                      <div class="text-body-2">{{ item.jobCode }} • </div>
                       <div class="text-caption grey--text">
-                        {{ item.mouNumber }} • {{ item.employerCompany }}
+                        {{ item.jobTitle }} • {{ item.employerCompany }}
                       </div>
                     </div>
                     <v-chip x-small :color="getMouStatusColor(item.status)">{{
@@ -110,9 +110,8 @@
                 outlined
                 dense
                 hide-details="auto"
-                :disabled="!isEdit"
+                disabled
                 :placeholder="isEdit ? 'Edit' : 'Auto-generated'"
-                prepend-inner-icon="mdi-numeric"
               />
             </v-col>
 
@@ -129,19 +128,6 @@
                 prepend-inner-icon="mdi-account-multiple"
               />
             </v-col>
-            <!-- Total Applied -->
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model.number="formData.totalApplied"
-                label="ຈຳນວນສະໝັກແລ້ວ"
-                type="number"
-                outlined
-                dense
-                hide-details="auto"
-                prepend-inner-icon="mdi-account-multiple"
-              />
-            </v-col>
-
             <!-- Job Description -->
             <v-col cols="12" v-if="1 == 0">
               <v-textarea
@@ -435,6 +421,7 @@ export default {
       selectedMou: null,
       formData: {
         mouId: null,
+        runningNo:'',
         batchName: '_',
         jobDescription: '',
         totalPositions: 0,
@@ -505,6 +492,7 @@ export default {
         this.formData = {
           mouId: this.batch.mouId || null,
           batchName: this.batch.batchName || '',
+          runningNo: this.batch.runningNo || '',
           jobDescription: this.batch.jobDescription || '',
           totalPositions: this.batch.totalPositions || 0,
           totalApplied: this.batch.totalApplied || 0,
@@ -537,6 +525,7 @@ export default {
       this.formData = {
         mouId: null,
         batchName: '',
+        runningNo: '',
         jobDescription: '',
         totalPositions: 0,
         totalApplied: 0,

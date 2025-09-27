@@ -1,19 +1,19 @@
 exports.ids = [265,93];
 exports.modules = {
 
-/***/ 1024:
+/***/ 1018:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_copy_vue_vue_type_style_index_0_id_50c51215_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(790);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_copy_vue_vue_type_style_index_0_id_50c51215_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(784);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_copy_vue_vue_type_style_index_0_id_50c51215_prod_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_copy_vue_vue_type_style_index_0_id_50c51215_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_copy_vue_vue_type_style_index_0_id_50c51215_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_copy_vue_vue_type_style_index_0_id_50c51215_prod_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1025:
+/***/ 1019:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1229:
+/***/ 1227:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -352,43 +352,43 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/fashion/index copy.vue?vue&type=template&id=50c51215&
 
 // EXTERNAL MODULE: ./assets/img/carousel/1.jpg
-var _1 = __webpack_require__(620);
+var _1 = __webpack_require__(618);
 var _1_default = /*#__PURE__*/__webpack_require__.n(_1);
 
 // EXTERNAL MODULE: ./assets/img/carousel/2.jpg
-var _2 = __webpack_require__(621);
+var _2 = __webpack_require__(619);
 var _2_default = /*#__PURE__*/__webpack_require__.n(_2);
 
 // EXTERNAL MODULE: ./assets/img/carousel/3.jpg
-var _3 = __webpack_require__(622);
+var _3 = __webpack_require__(620);
 var _3_default = /*#__PURE__*/__webpack_require__.n(_3);
 
 // EXTERNAL MODULE: ./assets/img/category/01.jpg
-var _01 = __webpack_require__(623);
+var _01 = __webpack_require__(621);
 var _01_default = /*#__PURE__*/__webpack_require__.n(_01);
 
 // EXTERNAL MODULE: ./assets/img/category/02.jpg
-var _02 = __webpack_require__(624);
+var _02 = __webpack_require__(622);
 var _02_default = /*#__PURE__*/__webpack_require__.n(_02);
 
 // EXTERNAL MODULE: ./assets/img/category/03.jpg
-var _03 = __webpack_require__(625);
+var _03 = __webpack_require__(623);
 var _03_default = /*#__PURE__*/__webpack_require__.n(_03);
 
 // EXTERNAL MODULE: ./assets/img/brand/lovelyn.png
-var lovelyn = __webpack_require__(626);
+var lovelyn = __webpack_require__(624);
 var lovelyn_default = /*#__PURE__*/__webpack_require__.n(lovelyn);
 
 // EXTERNAL MODULE: ./assets/img/brand/pachara.png
-var pachara = __webpack_require__(627);
+var pachara = __webpack_require__(625);
 var pachara_default = /*#__PURE__*/__webpack_require__.n(pachara);
 
 // EXTERNAL MODULE: ./assets/img/brand/poem.png
-var poem = __webpack_require__(628);
+var poem = __webpack_require__(626);
 var poem_default = /*#__PURE__*/__webpack_require__.n(poem);
 
 // EXTERNAL MODULE: ./assets/img/brand/wdb.png
-var wdb = __webpack_require__(629);
+var wdb = __webpack_require__(627);
 var wdb_default = /*#__PURE__*/__webpack_require__.n(wdb);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/fashion/index copy.vue?vue&type=script&lang=js&
@@ -460,7 +460,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1024)
+  var style0 = __webpack_require__(1018)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -481,7 +481,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var index_copy = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {NewUpdateProduct: __webpack_require__(609).default})
+installComponents(component, {NewUpdateProduct: __webpack_require__(607).default})
 
 
 /***/ }),
@@ -1255,7 +1255,7 @@ const VCarouselItem_baseMixins = Object(mixins["a" /* default */])(VWindowItem, 
 
 /***/ }),
 
-/***/ 609:
+/***/ 607:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1395,83 +1395,83 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 620:
+/***/ 618:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/1.2db4992.jpg";
 
 /***/ }),
 
-/***/ 621:
+/***/ 619:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/2.f2f5178.jpg";
 
 /***/ }),
 
-/***/ 622:
+/***/ 620:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/3.1def38a.jpg";
 
 /***/ }),
 
-/***/ 623:
+/***/ 621:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/01.4639337.jpg";
 
 /***/ }),
 
-/***/ 624:
+/***/ 622:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/02.6016a44.jpg";
 
 /***/ }),
 
-/***/ 625:
+/***/ 623:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/03.e49716c.jpg";
 
 /***/ }),
 
-/***/ 626:
+/***/ 624:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/lovelyn.94beb90.png";
 
 /***/ }),
 
-/***/ 627:
+/***/ 625:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/pachara.e7ee7b8.png";
 
 /***/ }),
 
-/***/ 628:
+/***/ 626:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/poem.502089d.png";
 
 /***/ }),
 
-/***/ 629:
+/***/ 627:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/wdb.7af4225.png";
 
 /***/ }),
 
-/***/ 790:
+/***/ 784:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1025);
+var content = __webpack_require__(1019);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

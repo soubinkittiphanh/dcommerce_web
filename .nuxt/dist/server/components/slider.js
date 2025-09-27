@@ -1220,14 +1220,14 @@ const VCarouselItem_baseMixins = Object(mixins["a" /* default */])(VWindowItem, 
 
 /***/ }),
 
-/***/ 707:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/product_1.4a4e54e.jpg";
 
 /***/ }),
 
-/***/ 726:
+/***/ 720:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1315,7 +1315,7 @@ const BaseItem = external_vue_default.a.extend({
 
 /***/ }),
 
-/***/ 887:
+/***/ 881:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1344,7 +1344,7 @@ var VSheet = __webpack_require__(27);
 var VSlideGroup = __webpack_require__(520);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(726);
+var VSlideItem = __webpack_require__(720);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=template&id=921bc894&
 
@@ -1441,7 +1441,7 @@ var common = __webpack_require__(11);
 var api = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./assets/img/products/product_1.jpg
-var product_1 = __webpack_require__(707);
+var product_1 = __webpack_require__(701);
 var product_1_default = /*#__PURE__*/__webpack_require__.n(product_1);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=script&lang=js&

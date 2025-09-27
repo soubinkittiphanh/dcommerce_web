@@ -4,77 +4,60 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-card-title class="py-2">
-            <v-chip small color="primary" text-color="white">
-              <v-icon left small>mdi-briefcase-outline</v-icon>
-              Job Batch Management
-            </v-chip>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              small
-              @click="openCreateDialog"
-              :disabled="loading"
-            >
-              <v-icon left small>mdi-plus</v-icon>
-              New Batch
+          <v-card-title class="primary white--text py-3">
+            <v-icon color="white" class="mr-2">mdi-briefcase-outline</v-icon>
+            <span>ລະບົບຈັດການ Job Batch</span>
+            <v-spacer />
+            <v-btn color="white" text @click="openCreateDialog" :disabled="loading">
+              <v-icon left>mdi-plus</v-icon>
+              ເພີ່ມໃໝ່
             </v-btn>
           </v-card-title>
 
           <!-- Filters -->
           <v-card-text class="pa-3">
             <v-row dense>
-              <v-col cols="3">
+              <v-col cols="12" md="3">
                 <v-text-field
                   v-model="filters.search"
-                  label="Search"
+                  label="ຄົ້ນຫາ"
                   prepend-inner-icon="mdi-magnify"
                   dense
                   outlined
-                  hide-details="auto"
+                  hide-details
                   clearable
                   @input="debounceSearch"
                 />
               </v-col>
-              <v-col cols="2">
+              <v-col cols="12" md="3">
                 <v-select
                   v-model="filters.mouId"
                   :items="mouFilterOptions"
                   :loading="loadingMous"
-                  label="MOU"
+                  label="ສັນຍາ MOU"
+                  prepend-inner-icon="mdi-file-document"
                   dense
                   outlined
-                  hide-details="auto"
+                  hide-details
                   clearable
                   item-text="mouName"
                   item-value="id"
                 />
               </v-col>
-              <v-col cols="2">
+              <v-col cols="12" md="2">
                 <v-select
                   v-model="filters.status"
                   :items="statusOptions"
-                  label="Status"
+                  label="ສະຖານະ"
+                  prepend-inner-icon="mdi-information"
                   dense
                   outlined
-                  hide-details="auto"
+                  hide-details
                   clearable
                 />
               </v-col>
-              <v-col cols="2">
-                <v-select
-                  v-model="filters.priority"
-                  :items="priorityOptions"
-                  label="Priority"
-                  dense
-                  outlined
-                  hide-details="auto"
-                  clearable
-                />
-              </v-col>
-              <v-col cols="2">
+              <v-col cols="12" md="2">
                 <v-menu
-                  ref="dateMenu"
                   v-model="dateMenu"
                   :close-on-content-click="false"
                   transition="scale-transition"
@@ -83,16 +66,17 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      v-model="filters.dateRange"
-                      label="Date Range"
+                      v-model="dateRangeText"
+                      label="ຊ່ວງເວລາ"
                       prepend-inner-icon="mdi-calendar"
                       readonly
                       dense
                       outlined
-                      hide-details="auto"
+                      hide-details
                       clearable
                       v-bind="attrs"
                       v-on="on"
+                      @click:clear="filters.dateRange = null"
                     />
                   </template>
                   <v-date-picker
@@ -102,29 +86,11 @@
                   />
                 </v-menu>
               </v-col>
-              <v-col cols="1">
-                <v-btn
-                  color="secondary"
-                  outlined
-                  small
-                  @click="clearFilters"
-                  block
-                >
-                  Clear
+              <v-col cols="12" md="2">
+                <v-btn color="secondary" outlined block @click="clearFilters">
+                  <v-icon left>mdi-refresh</v-icon>
+                  Reset
                 </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-
-          <!-- Statistics Cards -->
-          <v-card-text class="pa-3 pt-0">
-            <v-row>
-              <v-col cols="2" v-for="stat in statistics" :key="stat.title">
-                <v-card outlined class="text-center pa-2">
-                  <v-icon :color="stat.color" size="24">{{ stat.icon }}</v-icon>
-                  <div class="text-h6 mt-1">{{ stat.value }}</div>
-                  <div class="text-caption">{{ stat.title }}</div>
-                </v-card>
               </v-col>
             </v-row>
           </v-card-text>
@@ -133,9 +99,18 @@
     </v-row>
 
     <!-- Data Table -->
-    <v-row>
+    <v-row class="mt-3">
       <v-col cols="12">
         <v-card>
+          <v-card-title class="py-2">
+            <v-icon class="mr-2">mdi-table</v-icon>
+            <span>ລາຍການ Job Batch</span>
+            <v-spacer />
+            <v-chip color="primary" outlined>
+              {{ totalItems }} ລາຍການ
+            </v-chip>
+          </v-card-title>
+
           <v-data-table
             :headers="headers"
             :items="jobBatches"
@@ -146,29 +121,48 @@
               'items-per-page-options': [10, 25, 50, 100],
             }"
             class="elevation-0"
-            dense
+            loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+            no-data-text="ບໍ່ມີຂໍ້ມູນ"
           >
             <!-- Running Number -->
             <template v-slot:item.runningNo="{ item }">
-              <v-chip x-small color="grey" text-color="white">
-                {{ item.runningNo }}
-              </v-chip>
+              <div class="d-flex align-center">
+                <v-icon x-small color="grey" class="mr-1">mdi-numeric</v-icon>
+                <v-chip x-small color="grey lighten-1" text-color="white">
+                  {{ item.runningNo }}
+                </v-chip>
+              </div>
             </template>
 
             <!-- MOU Information -->
             <template v-slot:item.mou="{ item }">
               <div v-if="item.mou" class="d-flex align-center">
-                <v-icon small color="primary" class="mr-1"
-                  >mdi-file-document-outline</v-icon
-                >
+                <v-icon small color="primary" class="mr-1">mdi-file-document</v-icon>
                 <div>
-                  <div class="text-body-2">{{ item.mou.mouName }}</div>
-                  <div class="text-caption grey--text">
-                    {{ item.mou.mouNumber }}
-                  </div>
+                  <div class="text-caption font-weight-bold">{{ item.mou.mouName }}</div>
+                  <div class="text-caption grey--text">{{ item.mou.mouNumber }}</div>
                 </div>
               </div>
-              <span v-else class="text-caption grey--text">No MOU</span>
+              <span v-else class="text-caption grey--text">
+                <v-icon x-small class="mr-1">mdi-minus-circle</v-icon>
+                ບໍ່ມີ MOU
+              </span>
+            </template>
+
+            <!-- Work Place -->
+            <template v-slot:item.workPlace="{ item }">
+              <div class="d-flex align-center">
+                <v-icon x-small color="blue" class="mr-1">mdi-map-marker</v-icon>
+                <span class="text-caption">{{ item.mou?.workLocation || '-' }}</span>
+              </div>
+            </template>
+
+            <!-- Job Title -->
+            <template v-slot:item.jobTitle="{ item }">
+              <div class="d-flex align-center">
+                <v-icon x-small color="purple" class="mr-1">mdi-briefcase</v-icon>
+                <span class="text-caption">{{ item.mou?.jobTitle || '-' }}</span>
+              </div>
             </template>
 
             <!-- Status -->
@@ -178,53 +172,59 @@
                 :color="getStatusColor(item.status)"
                 text-color="white"
               >
-                {{ item.status.toUpperCase() }}
-              </v-chip>
-            </template>
-
-            <!-- Priority -->
-            <template v-slot:item.priority="{ item }">
-              <v-chip
-                x-small
-                :color="getPriorityColor(item.priority)"
-                text-color="white"
-              >
-                <v-icon left x-small>{{
-                  getPriorityIcon(item.priority)
-                }}</v-icon>
-                {{ item.priority.toUpperCase() }}
+                <v-icon x-small left>{{ getStatusIcon(item.status) }}</v-icon>
+                {{ formatStatus(item.status) }}
               </v-chip>
             </template>
 
             <!-- Total Positions -->
             <template v-slot:item.totalPositions="{ item }">
-              <div class="text-center">
-                <span class="text-body-2 font-weight-bold">{{
-                  item.totalPositions || 0
-                }}</span>
+              <div class="d-flex align-center justify-center">
+                <v-icon x-small color="success" class="mr-1">mdi-account-multiple</v-icon>
+                <span class="text-caption font-weight-bold">{{ item.totalPositions || 0 }}</span>
               </div>
             </template>
 
-            <!-- Dates -->
+            <!-- Applicants Count -->
+            <template v-slot:item.applicantCount="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-icon x-small color="info" class="mr-1">mdi-account-check</v-icon>
+                <span class="text-caption font-weight-bold">
+                  {{ item.applicantStatistics?.interview || 0 }}
+                </span>
+              </div>
+            </template>
+
+            <!-- Start Date -->
             <template v-slot:item.batchStartDate="{ item }">
-              <span v-if="item.batchStartDate" class="text-caption">
-                {{ formatDate(item.batchStartDate) }}
-              </span>
-              <span v-else class="text-caption grey--text">Not set</span>
+              <div class="d-flex align-center">
+                <v-icon x-small color="green" class="mr-1">mdi-calendar-start</v-icon>
+                <span v-if="item.batchStartDate" class="text-caption">
+                  {{ formatDate(item.batchStartDate) }}
+                </span>
+                <span v-else class="text-caption grey--text">ບໍ່ມີ</span>
+              </div>
             </template>
 
-            <template v-slot:item.deploymentDate="{ item }">
-              <span v-if="item.deploymentDate" class="text-caption">
-                {{ formatDate(item.deploymentDate) }}
-              </span>
-              <span v-else class="text-caption grey--text">Not set</span>
-            </template>
-
-            <!-- Overdue indicator -->
-            <template v-slot:item.isOverdue="{ item }">
-              <v-icon v-if="item.isOverdue" color="error" small>
-                mdi-clock-alert
-              </v-icon>
+            <!-- End Date -->
+            <template v-slot:item.batchEndDate="{ item }">
+              <div class="d-flex align-center">
+                <v-icon 
+                  x-small 
+                  :color="isOverdue(item.batchEndDate) ? 'error' : 'warning'" 
+                  class="mr-1"
+                >
+                  mdi-calendar-end
+                </v-icon>
+                <span 
+                  v-if="item.batchEndDate" 
+                  class="text-caption"
+                  :class="{ 'error--text': isOverdue(item.batchEndDate) }"
+                >
+                  {{ formatDate(item.batchEndDate) }}
+                </span>
+                <span v-else class="text-caption grey--text">ບໍ່ມີ</span>
+              </div>
             </template>
 
             <!-- Actions -->
@@ -236,31 +236,25 @@
                   </v-btn>
                 </template>
                 <v-list dense>
-                  <v-list-item @click="viewDetails(item)">
-                    <v-list-item-icon>
-                      <v-icon small>mdi-eye</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>View</v-list-item-title>
-                  </v-list-item>
                   <v-list-item @click="editBatch(item)">
                     <v-list-item-icon>
-                      <v-icon small>mdi-pencil</v-icon>
+                      <v-icon small color="info">mdi-pencil</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>Edit</v-list-item-title>
+                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="updateStatus(item)">
                     <v-list-item-icon>
-                      <v-icon small>mdi-update</v-icon>
+                      <v-icon small color="orange">mdi-update</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>Update Status</v-list-item-title>
+                    <v-list-item-title>ອັບເດດສະຖານະ</v-list-item-title>
                   </v-list-item>
-                  <v-divider></v-divider>
-                  <v-list-item @click="deleteBatch(item)" class="error--text">
+                  <v-divider />
+                  <!-- <v-list-item @click="deleteBatch(item)">
                     <v-list-item-icon>
                       <v-icon small color="error">mdi-delete</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>Delete</v-list-item-title>
-                  </v-list-item>
+                    <v-list-item-title class="error--text">ລົບ</v-list-item-title>
+                  </v-list-item> -->
                 </v-list>
               </v-menu>
             </template>
@@ -275,31 +269,27 @@
       :batch="selectedBatch"
       :is-edit="isEdit"
       @saved="onBatchSaved"
-      @cancelled="onDialogCancelled"
+      @cancelled="showDialog = false"
     />
 
     <!-- Status Update Dialog -->
     <v-dialog v-model="showStatusDialog" max-width="400px" persistent>
       <v-card>
-        <v-card-title class="text-h6">Update Status</v-card-title>
+        <v-card-title class="text-h6">ອັບເດດສະຖານະ</v-card-title>
         <v-card-text>
           <v-select
             v-model="newStatus"
             :items="statusOptions"
-            label="New Status"
+            label="ສະຖານະໃໝ່"
             outlined
             dense
           />
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn text @click="showStatusDialog = false">Cancel</v-btn>
-          <v-btn
-            color="primary"
-            @click="confirmStatusUpdate"
-            :loading="updating"
-          >
-            Update
+          <v-spacer />
+          <v-btn text @click="showStatusDialog = false">ຍົກເລີກ</v-btn>
+          <v-btn color="primary" @click="confirmStatusUpdate" :loading="updating">
+            ອັບເດດ
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -317,6 +307,7 @@ export default {
     JobBatchDialog,
   },
   middleware: 'auths',
+
   data() {
     return {
       loading: false,
@@ -331,151 +322,51 @@ export default {
       jobBatches: [],
       totalItems: 0,
       mouFilterOptions: [],
-      statistics: {
-        total: {
-          title: 'Total Batches',
-          value: 0,
-          icon: 'mdi-briefcase-outline',
-          color: 'primary',
-        },
-        active: {
-          title: 'Active',
-          value: 0,
-          icon: 'mdi-play-circle',
-          color: 'success',
-        },
-        completed: {
-          title: 'Completed',
-          value: 0,
-          icon: 'mdi-check-circle',
-          color: 'success',
-        },
-        overdue: {
-          title: 'Overdue',
-          value: 0,
-          icon: 'mdi-clock-alert',
-          color: 'error',
-        },
-        draft: {
-          title: 'Draft',
-          value: 0,
-          icon: 'mdi-file-document-outline',
-          color: 'warning',
-        },
-        positions: {
-          title: 'Total Positions',
-          value: 0,
-          icon: 'mdi-account-group',
-          color: 'info',
-        },
-      },
+
       filters: {
         search: '',
         mouId: '',
         status: '',
-        priority: '',
         dateRange: null,
       },
+
       tableOptions: {
         page: 1,
-        itemsPerPage: 10,
+        itemsPerPage: 25,
         sortBy: ['createdAt'],
         sortDesc: [true],
       },
+
       headers: [
-        {
-          text: 'ເລກທີ່ລຳດັບ',
-          value: 'runningNo',
-          sortable: true,
-          width: '100px',
-        },
-        {
-          text: 'ຊື່ກຸ່ມ',
-          value: 'batchName',
-          sortable: true,
-        },
-        {
-          text: 'ສັນຍາ MOU',
-          value: 'mou',
-          sortable: false,
-          width: '200px',
-        },
-        {
-          text: 'ສະຖານະ',
-          value: 'status',
-          sortable: true,
-          width: '100px',
-        },
-        {
-          text: 'ຄວາມສຳຄັນ',
-          value: 'priority',
-          sortable: true,
-          width: '120px',
-        },
-        {
-          text: 'ຈຳນວນຕຳແໜ່ງ',
-          value: 'totalPositions',
-          sortable: true,
-          width: '100px',
-        },
-        {
-          text: 'ຜູ້ສະໝັກ',
-          value: 'applicantStatistics.interview',
-          sortable: true,
-          width: '100px',
-        },
-        {
-          text: 'ຜູ້ລົງທະບຽນ',
-          value: 'applicantStatistics.register',
-          sortable: true,
-          width: '100px',
-        },
-        {
-          text: 'ຜູ້ກຽມສົ່ງ',
-          value: 'applicantStatistics.confirm',
-          sortable: true,
-          width: '100px',
-        },
-        {
-          text: 'ວັນທີເລີ່ມຕົ້ນ',
-          value: 'batchStartDate',
-          sortable: true,
-          width: '120px',
-        },
-        {
-          text: 'ວັນສົ່ງຄົນງານ',
-          value: 'deploymentDate',
-          sortable: true,
-          width: '120px',
-        },
-        {
-          text: 'ຊ້າກຳນົດ',
-          value: 'isOverdue',
-          sortable: false,
-          width: '80px',
-        },
-        {
-          text: 'ຄຳສັ່ງ',
-          value: 'actions',
-          sortable: false,
-          width: '80px',
-        },
+        { text: 'ເລກທີ່', value: 'runningNo', sortable: true, width: '100px' },
+        { text: 'ລະຫັດ Job', value: 'mou', sortable: false, width: '200px' },
+        { text: 'ສະຖານທີ່ວຽກ', value: 'workPlace', sortable: false, width: '150px' },
+        { text: 'ໜ້າວຽກ', value: 'jobTitle', sortable: false, width: '150px' },
+        { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px' },
+        { text: 'ເປີດຮັບ', value: 'totalPositions', sortable: true, width: '100px', align: 'center' },
+        { text: 'ສະໝັກແລ້ວ', value: 'applicantCount', sortable: false, width: '100px', align: 'center' },
+        { text: 'ວັນເລີ່ມ', value: 'batchStartDate', sortable: true, width: '120px' },
+        { text: 'ວັນສິ້ນສຸດ', value: 'batchEndDate', sortable: true, width: '120px' },
+        { text: 'ຄຳສັ່ງ', value: 'actions', sortable: false, width: '80px', align: 'center' },
       ],
+
       statusOptions: [
-        { text: 'Draft', value: 'draft' },
-        { text: 'Active', value: 'active' },
-        { text: 'Completed', value: 'completed' },
-        { text: 'Cancelled', value: 'cancelled' },
-        { text: 'On Hold', value: 'on_hold' },
-      ],
-      priorityOptions: [
-        { text: 'Low', value: 'low' },
-        { text: 'Medium', value: 'medium' },
-        { text: 'High', value: 'high' },
-        { text: 'Urgent', value: 'urgent' },
+        { text: 'ດຳເນີນການ', value: 'active' },
+        { text: 'ສຳເລັດ', value: 'completed' },
+        { text: 'ຍົກເລີກ', value: 'cancelled' },
+        { text: 'ລໍຖ້າ', value: 'on_hold' },
       ],
     }
   },
+
+  computed: {
+    dateRangeText() {
+      if (!this.filters.dateRange || this.filters.dateRange.length === 0) return ''
+      if (this.filters.dateRange.length === 1) return this.filters.dateRange[0]
+      return `${this.filters.dateRange[0]} - ${this.filters.dateRange[1]}`
+    },
+  },
+
   watch: {
     tableOptions: {
       handler() {
@@ -489,18 +380,16 @@ export default {
     'filters.status'() {
       this.fetchJobBatches()
     },
-    'filters.priority'() {
-      this.fetchJobBatches()
-    },
     'filters.dateRange'() {
       this.fetchJobBatches()
     },
   },
+
   mounted() {
     this.fetchJobBatches()
-    this.fetchStatistics()
     this.fetchMouFilterOptions()
   },
+
   methods: {
     debounceSearch: debounce(function () {
       this.fetchJobBatches()
@@ -514,55 +403,33 @@ export default {
           limit: this.tableOptions.itemsPerPage,
           sortBy: this.tableOptions.sortBy[0] || 'createdAt',
           sortOrder: this.tableOptions.sortDesc[0] ? 'DESC' : 'ASC',
-          include: 'mou', // Include MOU information
+          include: 'mou',
         }
 
         if (this.filters.search) params.search = this.filters.search
         if (this.filters.mouId) params.mouId = this.filters.mouId
         if (this.filters.status) params.status = this.filters.status
-        if (this.filters.priority) params.priority = this.filters.priority
 
-        const response = await this.$axios.get('/api/batch-job', { params })
-        this.jobBatches = response.data.data.jobBatches
-        this.totalItems = response.data.data.pagination.total
+        const { data } = await this.$axios.get('/api/batch-job', { params })
+        this.jobBatches = data.data.jobBatches
+        this.totalItems = data.data.pagination.total
       } catch (error) {
-        this.$toast.error('Failed to fetch job batches')
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
         console.error('Error fetching job batches:', error)
       } finally {
         this.loading = false
       }
     },
 
-    async fetchStatistics() {
-      try {
-        const response = await this.$axios.get('/api/batch-job/dashboard-stats')
-        const stats = response.data.data
-
-        this.statistics.total.value = stats.totalBatches
-        this.statistics.active.value = stats.activeBatches
-        this.statistics.completed.value = stats.completedBatches
-        this.statistics.overdue.value = stats.overdueBatches
-        this.statistics.draft.value = stats.draftBatches
-        this.statistics.positions.value = stats.totalPositions
-      } catch (error) {
-        console.error('Error fetching statistics:', error)
-      }
-    },
-
     async fetchMouFilterOptions() {
       this.loadingMous = true
       try {
-        const response = await this.$axios.get('/api/mous', {
-          params: {
-            limit: 100, // Get all for filter options
-            fields: 'id,mouName,mouNumber', // Only needed fields for filter
-          },
+        const { data } = await this.$axios.get('/api/mous', {
+          params: { limit: 100, fields: 'id,mouName,mouNumber' },
         })
-        this.mouFilterOptions =
-          response.data.data.mous || response.data.data || []
+        this.mouFilterOptions = data.data.mous || data.data || []
       } catch (error) {
-        console.error('Error fetching MOU filter options:', error)
-        this.mouFilterOptions = []
+        console.error('Error fetching MOU options:', error)
       } finally {
         this.loadingMous = false
       }
@@ -580,9 +447,7 @@ export default {
       this.showDialog = true
     },
 
-    viewDetails(batch) {
-      this.$router.push(`/job-batches/${batch.id}`)
-    },
+
 
     updateStatus(batch) {
       this.selectedBatch = batch
@@ -593,19 +458,14 @@ export default {
     async confirmStatusUpdate() {
       this.updating = true
       try {
-        await this.$axios.patch(
-          `/api/batch-job/${this.selectedBatch.id}/status`,
-          {
-            status: this.newStatus,
-          }
-        )
-
-        this.$toast.success('Status updated successfully')
+        await this.$axios.patch(`/api/batch-job/${this.selectedBatch.id}/status`, {
+          status: this.newStatus,
+        })
+        this.$toast.success('ອັບເດດສະຖານະສຳເລັດແລ້ວ')
         this.showStatusDialog = false
         this.fetchJobBatches()
-        this.fetchStatistics()
       } catch (error) {
-        this.$toast.error('Failed to update status')
+        this.$toast.error('ອັບເດດສະຖານະບໍ່ສຳເລັດ')
         console.error('Error updating status:', error)
       } finally {
         this.updating = false
@@ -614,18 +474,17 @@ export default {
 
     async deleteBatch(batch) {
       const confirmed = await this.$confirm(
-        `Are you sure you want to delete "${batch.batchName}"?`,
-        { title: 'Confirm Delete' }
+        `ທ່ານຕ້ອງການລົບ "${batch.batchName}" ແມ່ນບໍ?`,
+        { title: 'ຢືນຢັນການລົບ' }
       )
 
       if (confirmed) {
         try {
           await this.$axios.delete(`/api/batch-job/${batch.id}`)
-          this.$toast.success('Job batch deleted successfully')
+          this.$toast.success('ລົບສຳເລັດແລ້ວ')
           this.fetchJobBatches()
-          this.fetchStatistics()
         } catch (error) {
-          this.$toast.error('Failed to delete job batch')
+          this.$toast.error('ການລົບບໍ່ສຳເລັດ')
           console.error('Error deleting batch:', error)
         }
       }
@@ -634,12 +493,7 @@ export default {
     onBatchSaved() {
       this.showDialog = false
       this.fetchJobBatches()
-      this.fetchStatistics()
-      this.fetchMouFilterOptions() // Refresh MOU options in case new ones were created
-    },
-
-    onDialogCancelled() {
-      this.showDialog = false
+      this.fetchMouFilterOptions()
     },
 
     clearFilters() {
@@ -647,7 +501,6 @@ export default {
         search: '',
         mouId: '',
         status: '',
-        priority: '',
         dateRange: null,
       }
       this.fetchJobBatches()
@@ -655,44 +508,57 @@ export default {
 
     getStatusColor(status) {
       const colors = {
-        draft: 'orange',
-        active: 'green',
-        completed: 'blue',
-        cancelled: 'red',
-        on_hold: 'grey',
+        active: 'success',
+        completed: 'primary',
+        cancelled: 'error',
+        on_hold: 'warning',
       }
       return colors[status] || 'grey'
     },
 
-    getPriorityColor(priority) {
-      const colors = {
-        low: 'green',
-        medium: 'orange',
-        high: 'red',
-        urgent: 'deep-purple',
+    getStatusIcon(status) {
+      const icons = {
+        active: 'mdi-play-circle',
+        completed: 'mdi-check-circle',
+        cancelled: 'mdi-close-circle',
+        on_hold: 'mdi-pause-circle',
       }
-      return colors[priority] || 'grey'
+      return icons[status] || 'mdi-help-circle'
     },
 
-    getPriorityIcon(priority) {
-      const icons = {
-        low: 'mdi-arrow-down',
-        medium: 'mdi-minus',
-        high: 'mdi-arrow-up',
-        urgent: 'mdi-alert',
+    formatStatus(status) {
+      const labels = {
+        active: 'ດຳເນີນການ',
+        completed: 'ສຳເລັດ',
+        cancelled: 'ຍົກເລີກ',
+        on_hold: 'ລໍຖ້າ',
       }
-      return icons[priority] || 'mdi-minus'
+      return labels[status] || status
     },
 
     formatDate(date) {
-      return new Date(date).toLocaleDateString()
+      if (!date) return '-'
+      return new Date(date).toLocaleDateString('lo-LA', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    },
+
+    isOverdue(date) {
+      if (!date) return false
+      return new Date(date) < new Date()
     },
   },
 }
 </script>
 
 <style scoped>
-.v-chip--small {
-  font-size: 10px !important;
+.v-card-title.primary {
+  background: linear-gradient(45deg, #1976d2, #1565c0);
+}
+
+.text-caption {
+  font-size: 12px !important;
 }
 </style>
