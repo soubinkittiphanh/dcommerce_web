@@ -6,11 +6,11 @@
     persistent
     scrollable
   >
-    <v-card>
+    <v-card class="maintenance-dialog">
       <v-toolbar color="primary" dark flat dense>
         <v-icon left small>{{ isEdit ? 'mdi-pencil' : 'mdi-plus' }}</v-icon>
         <v-toolbar-title class="text-subtitle-1">
-          {{ isEdit ? 'Edit Job Batch' : 'Create New Job Batch' }}
+          {{ isEdit ? 'ແກ້ໄຂ Job Batch' : 'ເພີ່ມ Job Batch' }}
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon small @click="handleCancel" :disabled="saving">
@@ -18,381 +18,237 @@
         </v-btn>
       </v-toolbar>
 
-      <v-card-text class="pa-4">
-        <v-form ref="form" v-model="formValid" lazy-validation>
-          <!-- Basic Information Section -->
-          <v-row dense>
-            <v-col cols="12" class="pb-2">
-              <div class="section-header">
-                <v-icon small color="primary" class="mr-2"
-                  >mdi-information</v-icon
-                >
-                <span class="section-title"
-                  >ຂໍ້ມູນ ພື້ນຖານ (Basic Information)</span
-                >
-              </div>
-            </v-col>
+      <v-card-text class="dialog-content pa-0">
+        <v-container fluid class="form-container">
+          <v-form ref="form" v-model="formValid" lazy-validation>
+            <!-- Basic Information Section -->
+            <v-row dense>
+              <v-col cols="12" class="pb-2">
+                <div class="section-header">
+                  <v-icon small color="primary" class="mr-2">mdi-information</v-icon>
+                  <span class="section-title">ຂໍ້ມູນພື້ນຖານ (Basic Information)</span>
+                </div>
+              </v-col>
 
-            <!-- MOU Selection -->
-            <v-col cols="12" md="6">
-              <v-select
-                v-model="formData.mouId"
-                :items="mouOptions"
-                :loading="loadingMous"
-                label="ເລືອກ ລະຫັດ Job / MOU*"
-                :rules="rules.mouId"
-                outlined
-                dense
-                hide-details="auto"
-                item-text="jobCode"
-                item-value="id"
-                clearable
-                @change="onMouChange"
-              >
-                <template v-slot:selection="{ item }">
-                  <div class="d-flex align-center">
-                    <v-icon small class="mr-2" color="primary"
-                      >mdi-file-document-outline</v-icon
-                    >
-                    <div>
-                      <span class="text-body-2">{{ item.jobCode }}</span>
-                      <span class="text-caption grey--text ml-2">{{
-                        item.mouNumber
-                      }}</span>
-                    </div>
-                  </div>
-                </template>
-                <template v-slot:item="{ item }">
-                  <div class="d-flex align-center py-1 flex-grow-1">
-                    <v-icon small class="mr-2" color="primary"
-                      >mdi-file-document-outline</v-icon
-                    >
-                    <div class="flex-grow-1">
-                      <div class="text-body-2">{{ item.jobCode }} • </div>
-                      <div class="text-caption grey--text">
-                        {{ item.jobTitle }} • {{ item.employerCompany }}
+              <!-- MOU Selection -->
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="formData.mouId"
+                  :items="mouOptions"
+                  :loading="loadingMous"
+                  label="ເລືອກລະຫັດ Job / MOU*"
+                  :rules="rules.mouId"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  item-text="jobCode"
+                  item-value="id"
+                  clearable
+                  @change="onMouChange"
+                >
+                  <template v-slot:selection="{ item }">
+                    <div class="d-flex align-center">
+                      <v-icon small class="mr-2" color="primary">mdi-file-document-outline</v-icon>
+                      <div>
+                        <span class="text-body-2">{{ item.jobCode }}</span>
+                        <span class="text-caption grey--text ml-2">{{ item.mouNumber }}</span>
                       </div>
                     </div>
-                    <v-chip x-small :color="getMouStatusColor(item.status)">{{
-                      item.status
-                    }}</v-chip>
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <div class="d-flex align-center py-1 flex-grow-1">
+                      <v-icon small class="mr-2" color="primary">mdi-file-document-outline</v-icon>
+                      <div class="flex-grow-1">
+                        <div class="text-body-2">{{ item.jobCode }}</div>
+                        <div class="text-caption grey--text">{{ item.jobTitle }} • {{ item.employerCompany }}</div>
+                      </div>
+                      <v-chip x-small :color="getMouStatusColor(item.status)">{{ item.status }}</v-chip>
+                    </div>
+                  </template>
+                  <template v-slot:no-data>
+                    <div class="pa-2 text-center">
+                      <div class="text-caption grey--text">No MOUs found</div>
+                      <v-btn x-small text color="primary" @click="fetchMous">
+                        <v-icon x-small left>mdi-refresh</v-icon>Refresh
+                      </v-btn>
+                    </div>
+                  </template>
+                </v-select>
+              </v-col>
+
+              <!-- Running Number -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="formData.runningNo"
+                  label="ຮອບຈັດສົ່ງ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  disabled
+                  :placeholder="isEdit ? 'Edit' : 'Auto-generated'"
+                />
+              </v-col>
+
+              <!-- Total Positions -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model.number="formData.totalPositions"
+                  label="ຈຳນວນເປີດຮັບສະໝັກ"
+                  type="number"
+                  :rules="rules.totalPositions"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-account-multiple"
+                />
+              </v-col>
+
+              <!-- Selected MOU Info Card -->
+              <v-col cols="12" v-if="selectedMou">
+                <div class="mou-summary-card">
+                  <div class="summary-header">
+                    <v-icon small color="white" class="mr-2">mdi-file-document-outline</v-icon>
+                    <span>ຂໍ້ມູນ MOU ທີ່ເລືອກ</span>
+                    <v-spacer></v-spacer>
+                    <v-chip x-small :color="getMouStatusColor(selectedMou.status)" dark>
+                      {{ selectedMou.status }}
+                    </v-chip>
                   </div>
-                </template>
-                <template v-slot:no-data>
-                  <div class="pa-2 text-center">
-                    <div class="text-caption grey--text">No MOUs found</div>
-                    <v-btn x-small text color="primary" @click="fetchMous">
-                      <v-icon x-small left>mdi-refresh</v-icon>Refresh
-                    </v-btn>
+                  <div class="summary-content">
+                    <div class="summary-row">
+                      <strong>Job Code:</strong>
+                      <span>{{ selectedMou.jobCode }}</span>
+                    </div>
+                    <div class="summary-row">
+                      <strong>MOU Number:</strong>
+                      <span>{{ selectedMou.mouNumber || '-' }}</span>
+                    </div>
+                    <div class="summary-row" v-if="selectedMou.agency">
+                      <strong>Agency:</strong>
+                      <span>{{ selectedMou.agency.agencyName }}</span>
+                    </div>
+                    <div class="summary-row">
+                      <strong>ບໍລິສັດນາຍຈ່າງ:</strong>
+                      <span>{{ selectedMou.employerCompany || '-' }}</span>
+                    </div>
+                    <div class="summary-row">
+                      <strong>ສະຖານທີ່ເຮັດວຽກ:</strong>
+                      <span>{{ selectedMou.workLocation || '-' }}</span>
+                    </div>
+                    <div class="summary-row">
+                      <strong>ໜ້າວຽກ:</strong>
+                      <span>{{ selectedMou.jobTitle || '-' }}</span>
+                    </div>
                   </div>
-                </template>
-              </v-select>
-            </v-col>
-
-            <!-- Batch Name -->
-            <v-col cols="12" md="6" v-if="1==0">
-              <v-text-field
-                v-model="formData.batchName"
-                label="Batch Name *"
-                :rules="rules.batchName"
-                outlined
-                dense
-                hide-details="auto"
-                counter="100"
-              />
-            </v-col>
-
-            <!-- Running Number -->
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="formData.runningNo"
-                label="ຮອບຈັດສົ່ງ."
-                outlined
-                dense
-                hide-details="auto"
-                disabled
-                :placeholder="isEdit ? 'Edit' : 'Auto-generated'"
-              />
-            </v-col>
-
-            <!-- Total Positions -->
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model.number="formData.totalPositions"
-                label="ຈຳນວນເປີດຮັບສະຫມັກ"
-                type="number"
-                :rules="rules.totalPositions"
-                outlined
-                dense
-                hide-details="auto"
-                prepend-inner-icon="mdi-account-multiple"
-              />
-            </v-col>
-            <!-- Job Description -->
-            <v-col cols="12" v-if="1 == 0">
-              <v-textarea
-                v-model="formData.jobDescription"
-                label="Job Description"
-                outlined
-                dense
-                rows="3"
-                hide-details="auto"
-                no-resize
-              />
-            </v-col>
-
-            <!-- Selected MOU Info Alert -->
-            <v-col cols="12" v-if="selectedMou">
-              <v-alert dense outlined color="info" class="mb-0">
-                <div class="d-flex justify-space-between align-center">
-                  <div class="text-caption">
-                    <strong>{{ selectedMou.jobCode }}</strong>
-                    <span class="grey--text ml-2">
-                      {{ selectedMou.mouNumber }} •
-                      {{ selectedMou.employerCompany }}
-                      <template v-if="selectedMou.agency">
-                        • Agency: {{ selectedMou.agency.agencyName }}
-                      </template>
-                      • ບໍລິສັດນາຍຈ່າງ: {{ selectedMou.employerCompany }} 
-                      • ສະຖານທີ່ເຮັດວຽກ: {{ selectedMou.workLocation }} 
-                      • ໜ້າວຽກ: {{ selectedMou.jobTitle }}
-                    </span>
-                  </div>
-                  <v-chip
-                    x-small
-                    :color="getMouStatusColor(selectedMou.status)"
-                  >
-                    {{ selectedMou.status }}
-                  </v-chip>
                 </div>
-              </v-alert>
-            </v-col>
-          </v-row>
+              </v-col>
+            </v-row>
 
-          <v-divider class="my-4"></v-divider>
+            <v-divider class="my-4"></v-divider>
 
-          <!-- Configuration & Status Section -->
-          <v-row dense>
-            <v-col cols="12" class="pb-2">
-              <div class="section-header">
-                <v-icon small color="primary" class="mr-2">mdi-cog</v-icon>
-                <span class="section-title">Configuration & Status</span>
-              </div>
-            </v-col>
-
-            <!-- Status -->
-            <v-col cols="12" md="3">
-              <v-select
-                v-model="formData.status"
-                :items="statusOptions"
-                label="ສະຖານະງານ *"
-                :rules="rules.status"
-                outlined
-                dense
-                hide-details="auto"
-              >
-                <template v-slot:selection="{ item }">
-                  <v-chip x-small :color="getStatusColor(item.value)">
-                    {{ item.text }}
-                  </v-chip>
-                </template>
-              </v-select>
-            </v-col>
-
-            <!-- Priority -->
-            <v-col cols="12" md="3" v-if="1==0">
-              <v-select
-                v-model="formData.priority"
-                :items="priorityOptions"
-                label="Priority *"
-                :rules="rules.priority"
-                outlined
-                dense
-                hide-details="auto"
-              >
-                <template v-slot:selection="{ item }">
-                  <v-chip x-small :color="getPriorityColor(item.value)">
-                    <v-icon left x-small>{{
-                      getPriorityIcon(item.value)
-                    }}</v-icon>
-                    {{ item.text }}
-                  </v-chip>
-                </template>
-              </v-select>
-            </v-col>
-
-            <!-- Start Date -->
-            <v-col cols="12" md="3">
-              <v-menu
-                v-model="startDateMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="formData.batchStartDate"
-                    label="ກຳນົດເວລາສັນຫາ"
-                    prepend-inner-icon="mdi-calendar"
-                    readonly
-                    outlined
-                    dense
-                    hide-details="auto"
-                    clearable
-                    v-bind="attrs"
-                    v-on="on"
-                  />
-                </template>
-                <v-date-picker
-                  v-model="formData.batchStartDate"
-                  @input="startDateMenu = false"
-                />
-              </v-menu>
-            </v-col>
-
-            <!-- End Date -->
-            <v-col cols="12" md="3">
-              <v-menu
-                v-model="endDateMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="formData.batchEndDate"
-                    label="ກຳນົດເວລາ ຈັດສົ່ງແຮງງານ"
-                    prepend-inner-icon="mdi-calendar"
-                    readonly
-                    outlined
-                    dense
-                    hide-details="auto"
-                    clearable
-                    v-bind="attrs"
-                    v-on="on"
-                  />
-                </template>
-                <v-date-picker
-                  v-model="formData.batchEndDate"
-                  @input="endDateMenu = false"
-                  :min="formData.batchStartDate"
-                />
-              </v-menu>
-            </v-col>
-
-            <!-- Deployment Date -->
-            <v-col cols="12" md="4" v-if="1==0">
-              <v-menu
-                v-model="deploymentDateMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="formData.deploymentDate"
-                    label="ກຳນົດເວລາສັນຫາ"
-                    prepend-inner-icon="mdi-calendar-check"
-                    readonly
-                    outlined
-                    dense
-                    hide-details="auto"
-                    clearable
-                    v-bind="attrs"
-                    v-on="on"
-                  />
-                </template>
-                <v-date-picker
-                  v-model="formData.deploymentDate"
-                  @input="deploymentDateMenu = false"
-                />
-              </v-menu>
-            </v-col>
-
-            <!-- Notes -->
-            <v-col cols="12" md="8" >
-              <v-textarea
-                v-model="formData.notes"
-                label="ຂໍ້ມູນເພີ່ມເຕີມ"
-                outlined
-                dense
-                rows="2"
-                hide-details="auto"
-                no-resize
-              />
-            </v-col>
-          </v-row>
-
-          <!-- Summary Alert -->
-          <v-row dense v-if="formData.batchName">
-            <v-col cols="12" class="pt-3">
-              <v-alert dense outlined color="primary" class="mb-0">
-                <div
-                  class="d-flex justify-space-between align-center flex-wrap"
+            <!-- Configuration & Status Section -->
+            <v-row dense>
+              <!-- Status -->
+              <v-col cols="12" md="3">
+                <v-select
+                  v-model="formData.status"
+                  :items="statusOptions"
+                  label="ສະຖານະງານ *"
+                  :rules="rules.status"
+                  outlined
+                  dense
+                  hide-details="auto"
                 >
-                  <div class="text-body-2">
-                    <strong>{{ formData.batchName }}</strong>
-                    <span v-if="formData.runningNo" class="grey--text ml-2">
-                      ({{ formData.runningNo }})
-                    </span>
-                    <span v-if="selectedMou" class="grey--text ml-2">
-                      • MOU: {{ selectedMou.jobCode }}
-                    </span>
-                    <span v-if="selectedMou?.agency" class="grey--text ml-2">
-                      • Agency: {{ selectedMou.agency.agencyName }}
-                    </span>
-                    <span
-                      v-if="selectedMou?.employerCompany"
-                      class="grey--text ml-2"
-                    >
-                      • ບໍລິສັດນາຍຈ່າງ: {{ selectedMou.employerCompany }}
-                    </span>
-                    <span v-if="selectedMou?.workLocation" class="grey--text ml-2">
-                      • ສະຖານທີ່ເຮັດວຽກ: {{ selectedMou.workLocation }}
-                    </span>
-                    <span v-if="selectedMou?.jobTitle" class="grey--text ml-2">
-                      • ໜ້າວຽກ: {{ selectedMou.jobTitle }}
-                    </span>
-                  </div>
-                  <div class="d-flex mt-2 mt-sm-0">
-                    <v-chip
-                      x-small
-                      :color="getStatusColor(formData.status)"
-                      class="mr-1"
-                    >
-                      {{ formData.status?.toUpperCase() }}
-                    </v-chip>
-                    <v-chip
-                      x-small
-                      :color="getPriorityColor(formData.priority)"
-                    >
-                      <v-icon left x-small>{{
-                        getPriorityIcon(formData.priority)
-                      }}</v-icon>
-                      {{ formData.priority?.toUpperCase() }}
-                    </v-chip>
-                  </div>
-                </div>
-              </v-alert>
-            </v-col>
-          </v-row>
-        </v-form>
+                  <template v-slot:selection="{ item }">
+                    <v-chip x-small :color="getStatusColor(item.value)">{{ item.text }}</v-chip>
+                  </template>
+                </v-select>
+              </v-col>
+
+              <!-- Start Date -->
+              <v-col cols="12" md="3">
+                <v-menu
+                  v-model="startDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formData.batchStartDate"
+                      label="ກຳນົດເວລາສັນຫາ"
+                      prepend-inner-icon="mdi-calendar"
+                      readonly
+                      outlined
+                      dense
+                      hide-details="auto"
+                      clearable
+                      v-bind="attrs"
+                      v-on="on"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="formData.batchStartDate"
+                    @input="startDateMenu = false"
+                  />
+                </v-menu>
+              </v-col>
+
+              <!-- End Date -->
+              <v-col cols="12" md="3">
+                <v-menu
+                  v-model="endDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formData.batchEndDate"
+                      label="ກຳນົດເວລາຈັດສົ່ງແຮງງານ"
+                      prepend-inner-icon="mdi-calendar"
+                      readonly
+                      outlined
+                      dense
+                      hide-details="auto"
+                      clearable
+                      v-bind="attrs"
+                      v-on="on"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="formData.batchEndDate"
+                    @input="endDateMenu = false"
+                    :min="formData.batchStartDate"
+                  />
+                </v-menu>
+              </v-col>
+
+              <!-- Notes -->
+              <v-col cols="12" md="9">
+                <v-textarea
+                  v-model="formData.notes"
+                  label="ຂໍ້ມູນເພີ່ມເຕີມ"
+                  outlined
+                  dense
+                  rows="2"
+                  hide-details="auto"
+                  no-resize
+                />
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-container>
       </v-card-text>
 
       <v-divider></v-divider>
 
       <v-card-actions class="pa-3">
         <v-spacer></v-spacer>
-        <v-btn text @click="handleCancel" :disabled="saving"> Cancel </v-btn>
-        <v-btn
-          color="primary"
-          @click="handleSave"
-          :disabled="!formValid"
-          :loading="saving"
-        >
+        <v-btn text @click="handleCancel" :disabled="saving">Cancel</v-btn>
+        <v-btn color="primary" @click="handleSave" :disabled="!formValid" :loading="saving">
           <v-icon left small>mdi-content-save</v-icon>
           {{ isEdit ? 'Update' : 'Create' }}
         </v-btn>
@@ -416,21 +272,16 @@ export default {
       loadingMous: false,
       startDateMenu: false,
       endDateMenu: false,
-      deploymentDateMenu: false,
       mouOptions: [],
       selectedMou: null,
       formData: {
         mouId: null,
-        runningNo:'',
+        runningNo: '',
         batchName: '_',
-        jobDescription: '',
         totalPositions: 0,
-        totalApplied: 0,
         batchStartDate: null,
         batchEndDate: null,
-        deploymentDate: null,
         status: 'draft',
-        priority: 'medium',
         notes: '',
       },
       rules: {
@@ -441,12 +292,6 @@ export default {
       statusOptions: [
         { text: 'ລໍຖ້າ', value: 'draft' },
         { text: 'ດຳເນີນງານ', value: 'active' },
-      ],
-      priorityOptions: [
-        { text: 'Low', value: 'low' },
-        { text: 'Medium', value: 'medium' },
-        { text: 'High', value: 'high' },
-        { text: 'Urgent', value: 'urgent' },
       ],
     }
   },
@@ -461,9 +306,7 @@ export default {
     },
     batch: {
       handler() {
-        if (this.value) {
-          this.initializeForm()
-        }
+        if (this.value) this.initializeForm()
       },
       deep: true,
     },
@@ -493,32 +336,24 @@ export default {
           mouId: this.batch.mouId || null,
           batchName: this.batch.batchName || '',
           runningNo: this.batch.runningNo || '',
-          jobDescription: this.batch.jobDescription || '',
           totalPositions: this.batch.totalPositions || 0,
-          totalApplied: this.batch.totalApplied || 0,
           batchStartDate: this.batch.batchStartDate || null,
           batchEndDate: this.batch.batchEndDate || null,
-          deploymentDate: this.batch.deploymentDate || null,
           status: this.batch.status || 'draft',
-          priority: this.batch.priority || 'medium',
           notes: this.batch.notes || '',
         }
         if (this.batch.mou) {
           this.selectedMou = this.batch.mou
         } else if (this.formData.mouId) {
           this.$nextTick(() => {
-            this.selectedMou =
-              this.mouOptions.find((mou) => mou.id === this.formData.mouId) ||
-              null
+            this.selectedMou = this.mouOptions.find((mou) => mou.id === this.formData.mouId) || null
           })
         }
       } else {
         this.resetForm()
       }
       this.$nextTick(() => {
-        if (this.$refs.form) {
-          this.$refs.form.resetValidation()
-        }
+        if (this.$refs.form) this.$refs.form.resetValidation()
       })
     },
     resetForm() {
@@ -526,54 +361,38 @@ export default {
         mouId: null,
         batchName: '',
         runningNo: '',
-        jobDescription: '',
         totalPositions: 0,
-        totalApplied: 0,
         batchStartDate: null,
         batchEndDate: null,
-        deploymentDate: null,
         status: 'draft',
-        priority: 'medium',
         notes: '',
       }
       this.selectedMou = null
       this.formValid = false
     },
     async handleSave() {
-      if (!this.$refs.form.validate()) {
-        return
-      }
+      if (!this.$refs.form.validate()) return
+      
       this.saving = true
       try {
-        let response
-        if (this.isEdit) {
-          response = await this.$axios.put(
-            `/api/batch-job/${this.batch.id}`,
-            this.formData
-          )
-          this.$toast.success('Job batch updated successfully')
-        } else {
-          response = await this.$axios.post('/api/batch-job', this.formData)
-          this.$toast.success('Job batch created successfully')
-        }
+        const endpoint = this.isEdit ? `/api/batch-job/${this.batch.id}` : '/api/batch-job'
+        const method = this.isEdit ? 'put' : 'post'
+        const response = await this.$axios[method](endpoint, this.formData)
+        
+        this.$toast.success(`Job batch ${this.isEdit ? 'updated' : 'created'} successfully`)
         this.$emit('saved', response.data.data)
         this.resetForm()
       } catch (error) {
         console.error('Error saving job batch:', error)
         if (error.response?.data?.errors) {
-          const errors = error.response.data.errors
-          const errorMessages = errors
+          const errorMessages = error.response.data.errors
             .map((e) => `${e.field}: ${e.message}`)
             .join('\n')
           this.$toast.error(`Validation errors:\n${errorMessages}`)
         } else if (error.response?.data?.message) {
           this.$toast.error(error.response.data.message)
         } else {
-          this.$toast.error(
-            this.isEdit
-              ? 'Failed to update job batch'
-              : 'Failed to create job batch'
-          )
+          this.$toast.error(`Failed to ${this.isEdit ? 'update' : 'create'} job batch`)
         }
       } finally {
         this.saving = false
@@ -594,24 +413,6 @@ export default {
       }
       return colors[status] || 'grey'
     },
-    getPriorityColor(priority) {
-      const colors = {
-        low: 'green',
-        medium: 'orange',
-        high: 'red',
-        urgent: 'deep-purple',
-      }
-      return colors[priority] || 'grey'
-    },
-    getPriorityIcon(priority) {
-      const icons = {
-        low: 'mdi-arrow-down',
-        medium: 'mdi-minus',
-        high: 'mdi-arrow-up',
-        urgent: 'mdi-alert',
-      }
-      return icons[priority] || 'mdi-minus'
-    },
     getMouStatusColor(status) {
       const colors = {
         draft: 'orange',
@@ -626,6 +427,12 @@ export default {
 </script>
 
 <style scoped>
+.maintenance-dialog {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .section-header {
   display: flex;
   align-items: center;
@@ -642,6 +449,61 @@ export default {
   letter-spacing: 0.5px;
 }
 
+/* MOU Summary Card */
+.mou-summary-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+}
+
+.mou-summary-card .summary-header {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.mou-summary-card .summary-content {
+  background: white;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.mou-summary-card .summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mou-summary-card .summary-row strong {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.mou-summary-card .summary-row span {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.form-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px !important;
+}
+
+/* Vuetify overrides */
 .v-chip--x-small {
   font-size: 10px !important;
   height: 20px !important;
@@ -654,7 +516,13 @@ export default {
 }
 
 .v-toolbar--dense {
-  min-height: 48px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+}
+
+.v-toolbar--dense .v-toolbar__content {
+  height: 24px !important;
+  padding: 4px 16px;
 }
 
 .v-input--dense >>> .v-messages {

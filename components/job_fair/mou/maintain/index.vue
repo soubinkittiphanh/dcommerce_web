@@ -59,7 +59,7 @@
               <v-col cols="12" sm="4" md="3">
                 <v-text-field
                   v-model="form.projectAmount"
-                  label="MOU / Order"
+                  label="ມູນຄ່າ Order"
                   outlined
                   dense
                   hide-details="auto"
@@ -86,7 +86,7 @@
                 </v-select>
               </v-col>
 
-              <v-col cols="12" md="3">
+              <v-col cols="4" md="4">
                 <v-text-field
                   v-model="form.jobTitle"
                   label="ໜ້າວຽກ *"
@@ -99,14 +99,14 @@
               </v-col>
 
               <!-- Company & Location Section -->
-              <v-col cols="12" class="pb-0 pt-2">
+              <v-col cols="4" class="pb-0 pt-2">
                 <div class="section-header compact">
                   <v-icon color="primary" small class="mr-2">mdi-domain</v-icon>
                   <h3 class="section-title">ບໍລິສັດ & ສະຖານທີ່</h3>
                 </div>
               </v-col>
 
-              <v-col cols="12" md="6">
+              <v-col cols="4" md="4">
                 <v-text-field
                   v-model="form.employerCompany"
                   label="ບໍລິສັດນາຍຈ້າງ"
@@ -117,7 +117,7 @@
                 />
               </v-col>
 
-              <v-col cols="12" md="6">
+              <v-col cols="4" md="4">
                 <v-text-field
                   v-model="form.workLocation"
                   label="ສະຖານທີ່ເຮັດວຽກ"

@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "283.js": "283.js",
+    "284.js": "284.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -194,6 +194,7 @@
     "pages/admin/ministry/index.js": "pages/admin/ministry/index.js",
     "pages/admin/minstock/index.js": "pages/admin/minstock/index.js",
     "pages/admin/moneyAdvance/index.js": "pages/admin/moneyAdvance/index.js",
+    "pages/admin/moneyAdvanceByBank/index.js": "pages/admin/moneyAdvanceByBank/index.js",
     "pages/admin/moneyAdvanceDashboard/index.js": "pages/admin/moneyAdvanceDashboard/index.js",
     "pages/admin/moneyAdvanceSettlement/index.js": "pages/admin/moneyAdvanceSettlement/index.js",
     "pages/admin/moneyAdvanceSettlementByBank/index.js": "pages/admin/moneyAdvanceSettlementByBank/index.js",
@@ -287,7 +288,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "283.js": "283.js.map",
+    "284.js": "284.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -480,6 +481,7 @@
     "pages/admin/ministry/index.js": "pages/admin/ministry/index.js.map",
     "pages/admin/minstock/index.js": "pages/admin/minstock/index.js.map",
     "pages/admin/moneyAdvance/index.js": "pages/admin/moneyAdvance/index.js.map",
+    "pages/admin/moneyAdvanceByBank/index.js": "pages/admin/moneyAdvanceByBank/index.js.map",
     "pages/admin/moneyAdvanceDashboard/index.js": "pages/admin/moneyAdvanceDashboard/index.js.map",
     "pages/admin/moneyAdvanceSettlement/index.js": "pages/admin/moneyAdvanceSettlement/index.js.map",
     "pages/admin/moneyAdvanceSettlementByBank/index.js": "pages/admin/moneyAdvanceSettlementByBank/index.js.map",

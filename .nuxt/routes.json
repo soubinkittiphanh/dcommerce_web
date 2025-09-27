@@ -308,6 +308,13 @@
     "_name": "_50e72015"
   },
   {
+    "name": "admin-moneyAdvanceByBank",
+    "path": "/admin/moneyAdvanceByBank",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceByBank/index.vue",
+    "chunkName": "pages/admin/moneyAdvanceByBank/index",
+    "_name": "_6d42a028"
+  },
+  {
     "name": "admin-moneyAdvanceDashboard",
     "path": "/admin/moneyAdvanceDashboard",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceDashboard/index.vue",

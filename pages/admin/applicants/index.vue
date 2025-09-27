@@ -211,9 +211,10 @@
     </v-card>
 
     <!-- Dialog for Applicant Form -->
-    <v-dialog v-model="showEditDialog" max-width="95vw" persistent>
+    <v-dialog v-model="showEditDialog" fullscreen persistent>
       <v-card>
         <ApplicantForm
+          :key="dialogKey"
           :applicant="selectedApplicant"
           :job-batches="jobBatches"
           @close="closeEditDialog"
@@ -237,6 +238,7 @@ export default {
     return {
       showEditDialog: false,
       selectedApplicant: null,
+      dialogKey: 0, // Add this
       applicants: [],
       filteredApplicants: [],
       jobBatches: [],
@@ -332,11 +334,13 @@ export default {
 
     openCreateDialog() {
       this.selectedApplicant = null
+      this.dialogKey++ // Increment key to force re-render
       this.showEditDialog = true
     },
 
     editApplicant(applicant) {
       this.selectedApplicant = applicant
+      this.dialogKey++ // Increment key to force re-render
       this.showEditDialog = true
     },
 

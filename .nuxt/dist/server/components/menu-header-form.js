@@ -142,7 +142,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 712:
+/***/ 717:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -191,7 +191,7 @@ var VSpacer = __webpack_require__(389);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MenuHeaderForm.vue?vue&type=template&id=76d7c05c&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MenuHeaderForm.vue?vue&type=template&id=dd80bef8&
 
 
 
@@ -209,7 +209,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
+var MenuHeaderFormvue_type_template_id_dd80bef8_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -240,7 +240,7 @@ var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v("\n                ຈັດການເມນູ\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
+  }, [_vm._v("mdi-label")]), _vm._v("\n        ຈັດການເມນູ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
     ref: "form"
   }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
@@ -337,11 +337,25 @@ var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
     }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
-      "item-text": "name",
-      "item-value": "id",
       "items": _vm.menuLineList,
-      "label": "ເມນູຍ່ອຍ*"
+      "label": "ເມນູຍ່ອຍ*",
+      "item-value": "id"
     },
+    scopedSlots: _vm._u([{
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n                " + _vm._s(item.name) + " (ID: " + _vm._s(item.id) + ") (: " + _vm._s(item.llname) + ")\n              ")];
+      }
+    }, {
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n                " + _vm._s(item.name) + " (ID: " + _vm._s(item.id) + ")  (: " + _vm._s(item.llname) + ")\n              ")];
+      }
+    }]),
     model: {
       value: _vm.menuLineSelected,
       callback: function ($$v) {
@@ -361,7 +375,7 @@ var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
     }
   }, [_c('span', {
     staticClass: "mdi mdi-note-plus-outline"
-  }), _vm._v("\n                            ເພີ່ມ ເມນູຍ່ອຍ\n                        ")])], 1)], 1), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+  }), _vm._v("\n              ເພີ່ມ ເມນູຍ່ອຍ\n            ")])], 1)], 1), _vm._v(" "), _c(VCheckbox["a" /* default */], {
     attrs: {
       "label": "Is Active"
     },
@@ -396,7 +410,7 @@ var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
           return _vm.removeMenuLine(menu);
         }
       }
-    }, [_vm._v("\n                        " + _vm._s(menu.id) + " - " + _vm._s(menu.name) + "\n                    ")]);
+    }, [_vm._v("\n            " + _vm._s(menu.id) + " - " + _vm._s(menu.name) + "\n          ")]);
   }), 1)], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "warning",
@@ -408,7 +422,7 @@ var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
         return _vm.$emit('close-dialog');
       }
     }
-  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("\n        Close\n      ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "rounded": "",
@@ -417,11 +431,11 @@ var MenuHeaderFormvue_type_template_id_76d7c05c_render = function render() {
     on: {
       "click": _vm.commitRecord
     }
-  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
+  }, [_vm._v("\n        Save\n      ")])], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/MenuHeaderForm.vue?vue&type=template&id=76d7c05c&
+// CONCATENATED MODULE: ./components/MenuHeaderForm.vue?vue&type=template&id=dd80bef8&
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -489,22 +503,22 @@ var common = __webpack_require__(11);
         // Implement form submission logic here
         this.isloading = true;
         let api = this.isCreate ? 'api/menuHeader/create' : `api/menuHeader/update/${this.recordId}`;
-        console.log("API => ", api);
+        console.log('API => ', api);
         if (this.isCreate) {
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
             return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            console.log('Error: ', error);
+            return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
             return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            console.log('Error: ', error);
+            return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -519,7 +533,7 @@ var common = __webpack_require__(11);
           // this.form.isActive = response.data["isActive"]
           this.form = response.data;
         }).catch(error => {
-          console.log("Cannot fetch data " + error);
+          console.log('Cannot fetch data ' + error);
         });
       }
     },
@@ -529,7 +543,7 @@ var common = __webpack_require__(11);
       await this.$axios.get(`api/menuLine/find`).then(response => {
         this.menuLineList = response.data;
       }).catch(error => {
-        console.log("Cannot fetch data " + error);
+        console.log('Cannot fetch data ' + error);
       });
       // }
     },
@@ -557,7 +571,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_MenuHeaderFormvue_type_script_lang_js_,
-  MenuHeaderFormvue_type_template_id_76d7c05c_render,
+  MenuHeaderFormvue_type_template_id_dd80bef8_render,
   staticRenderFns,
   false,
   null,

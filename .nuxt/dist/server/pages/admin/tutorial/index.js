@@ -1,7 +1,7 @@
-exports.ids = [248,119,130,139];
+exports.ids = [249,119,130,139];
 exports.modules = {
 
-/***/ 1214:
+/***/ 1218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -234,7 +234,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/tutorial/index.vue?vue&type=template&id=a4e9f704&
 
 // EXTERNAL MODULE: ./components/RiderForm.vue + 4 modules
-var RiderForm = __webpack_require__(601);
+var RiderForm = __webpack_require__(611);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -359,7 +359,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var tutorial = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {TutorialForm: __webpack_require__(866).default,YoutubePlayer: __webpack_require__(423).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {TutorialForm: __webpack_require__(867).default,YoutubePlayer: __webpack_require__(423).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
@@ -601,7 +601,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 601:
+/***/ 611:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -880,7 +880,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 866:
+/***/ 867:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

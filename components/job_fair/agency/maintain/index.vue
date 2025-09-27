@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    v-model="visible"
-    persistent
-    transition="dialog-bottom-transition"
-  >
+  <v-dialog v-model="visible" persistent transition="dialog-bottom-transition">
     <v-card>
       <v-card-title class="primary white--text py-3">
         <v-icon class="mr-2" color="white">mdi-office-building</v-icon>
@@ -38,6 +34,17 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
+              <v-col cols="12" md="3">
+                <v-select
+                  v-model="formData.agencyType"
+                  :items="agencyTypeOptions"
+                  label="ປະເພດ *"
+                  :rules="typeRules"
+                  outlined
+                  dense
+                  hide-details="auto"
+                ></v-select>
+              </v-col>
             </v-row>
 
             <!-- Row 2: Phone + Email -->
@@ -52,7 +59,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="6" v-if="0==1">
+              <v-col cols="12" md="6" v-if="0 == 1">
                 <v-text-field
                   v-model="formData.email"
                   label="ອີເມວ"
@@ -108,10 +115,9 @@
               </v-col>
             </v-row>
 
-
             <!-- Row 6: Registration Number + Date -->
             <v-row dense>
-              <v-col cols="12" md="6" v-if="0==1">
+              <v-col cols="12" md="6" v-if="0 == 1">
                 <v-text-field
                   v-model="formData.registrationNumber"
                   label="ເລກທະບຽນ"
@@ -120,7 +126,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="6" >
+              <v-col cols="12" md="6">
                 <v-menu
                   v-model="registrationDateMenu"
                   :close-on-content-click="false"
@@ -169,8 +175,15 @@
                       v-on="on"
                     >
                       <template v-slot:append v-if="formData.licenseExpiryDate">
-                        <v-icon small :color="isLicenseExpired ? 'error' : 'success'">
-                          {{ isLicenseExpired ? 'mdi-alert-circle' : 'mdi-check-circle' }}
+                        <v-icon
+                          small
+                          :color="isLicenseExpired ? 'error' : 'success'"
+                        >
+                          {{
+                            isLicenseExpired
+                              ? 'mdi-alert-circle'
+                              : 'mdi-check-circle'
+                          }}
                         </v-icon>
                       </template>
                     </v-text-field>
@@ -184,7 +197,7 @@
             </v-row>
 
             <!-- Row 7: License Number + Expiry Date -->
-            <v-row dense v-if="1==0">
+            <v-row dense v-if="1 == 0">
               <v-col cols="12" md="6">
                 <v-text-field
                   v-model="formData.licenseNumber"
@@ -194,12 +207,11 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              
             </v-row>
 
             <!-- Row 8: Contact Person + Position -->
             <v-row dense>
-              <v-col cols="12" md="6" v-if="0==1">
+              <v-col cols="12" md="6" v-if="0 == 1">
                 <v-text-field
                   v-model="formData.contactPersonName"
                   label="ຜູ້ຕິດຕໍ່"
@@ -208,7 +220,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="6" v-if="0==1">
+              <v-col cols="12" md="6" v-if="0 == 1">
                 <v-text-field
                   v-model="formData.contactPersonPosition"
                   label="ຕຳແໜ່ງ"
@@ -221,7 +233,7 @@
 
             <!-- Row 9: Contact Phone + Status -->
             <v-row dense>
-              <v-col cols="12" md="6" v-if="0==1">
+              <v-col cols="12" md="6" v-if="0 == 1">
                 <v-text-field
                   v-model="formData.contactPersonPhone"
                   label="ເບີຜູ້ຕິດຕໍ່"
@@ -230,7 +242,7 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="6" v-if="0==1">
+              <v-col cols="12" md="6" v-if="0 == 1">
                 <v-select
                   v-model="formData.status"
                   :items="statusOptions"
@@ -245,7 +257,7 @@
 
             <!-- Row 10: Notes -->
             <v-row dense>
-              <v-col cols="12" v-if="0==1">
+              <v-col cols="12" v-if="0 == 1">
                 <v-textarea
                   v-model="formData.notes"
                   label="ໝາຍເຫດ"
@@ -262,9 +274,7 @@
 
         <v-card-actions class="px-6 py-3">
           <v-spacer></v-spacer>
-          <v-btn text @click="closeDialog" :disabled="loading">
-            ຍົກເລີກ
-          </v-btn>
+          <v-btn text @click="closeDialog" :disabled="loading"> ຍົກເລີກ </v-btn>
           <v-btn
             color="primary"
             type="submit"
@@ -299,11 +309,12 @@ export default {
       loading: false,
       registrationDateMenu: false,
       licenseExpiryMenu: false,
-
+      agencyTypeOptions: ['Agency','Broker'],
 
       formData: {
         agencyName: '',
         agencyCode: '',
+        agencyType: '',
         phone: '',
         email: '',
         village: '',
@@ -327,10 +338,16 @@ export default {
         { text: 'ຖືກຢຸດ', value: 'suspended' },
       ],
 
-      nameRules: [v => !!v || 'ຈຳເປັນ', v => v?.length >= 2 || 'ສັ້ນເກີນໄປ'],
-      phoneRules: [v => !!v || 'ຈຳເປັນ', v => v?.length >= 8 || 'ບໍ່ຖືກຕ້ອງ'],
-      emailRules: [v => !v || /.+@.+\..+/.test(v) || 'ບໍ່ຖືກຕ້ອງ'],
-      statusRules: [v => !!v || 'ຈຳເປັນ'],
+      nameRules: [
+        (v) => !!v || 'ຈຳເປັນ',
+        (v) => v?.length >= 2 || 'ສັ້ນເກີນໄປ',
+      ],
+      phoneRules: [
+        (v) => !!v || 'ຈຳເປັນ',
+        (v) => v?.length >= 8 || 'ບໍ່ຖືກຕ້ອງ',
+      ],
+      emailRules: [(v) => !v || /.+@.+\..+/.test(v) || 'ບໍ່ຖືກຕ້ອງ'],
+      statusRules: [(v) => !!v || 'ຈຳເປັນ'],
     }
   },
 
@@ -339,12 +356,16 @@ export default {
       return this.agency?.id
     },
     isLicenseExpired() {
-      return this.formData.licenseExpiryDate && 
-             new Date(this.formData.licenseExpiryDate) <= new Date()
+      return (
+        this.formData.licenseExpiryDate &&
+        new Date(this.formData.licenseExpiryDate) <= new Date()
+      )
     },
     isContractExpired() {
-      return this.formData.contractEndDate && 
-             new Date(this.formData.contractEndDate) <= new Date()
+      return (
+        this.formData.contractEndDate &&
+        new Date(this.formData.contractEndDate) <= new Date()
+      )
     },
   },
 
@@ -354,7 +375,9 @@ export default {
       else this.resetForm()
     },
     agency: {
-      handler() { if (this.visible) this.$nextTick(() => this.initializeForm()) },
+      handler() {
+        if (this.visible) this.$nextTick(() => this.initializeForm())
+      },
       deep: true,
     },
   },
@@ -362,12 +385,12 @@ export default {
   methods: {
     initializeForm() {
       if (this.agency?.id) {
-        Object.keys(this.formData).forEach(key => {
+        Object.keys(this.formData).forEach((key) => {
           this.formData[key] = this.agency[key] || ''
         })
         // Handle date formatting
         const dateFields = ['registrationDate', 'licenseExpiryDate']
-        dateFields.forEach(field => {
+        dateFields.forEach((field) => {
           if (this.agency[field]) {
             this.formData[field] = this.agency[field].split('T')[0]
           }
@@ -379,7 +402,7 @@ export default {
     },
 
     resetFormData() {
-      Object.keys(this.formData).forEach(key => {
+      Object.keys(this.formData).forEach((key) => {
         this.formData[key] = key === 'status' ? 'active' : ''
       })
     },
@@ -397,7 +420,9 @@ export default {
         this.loading = true
         try {
           const submitData = Object.fromEntries(
-            Object.entries(this.formData).filter(([_, v]) => v !== '' && v !== null)
+            Object.entries(this.formData).filter(
+              ([_, v]) => v !== '' && v !== null
+            )
           )
           this.$emit('save', submitData)
         } catch (error) {

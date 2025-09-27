@@ -49,7 +49,9 @@
                     :value="batch.id"
                   >
                     {{ batch.mou.jobCode }} - {{ batch.mou.jobTitle }} -
-                    {{ batch.mou.workLocation }}
+                    {{ batch.mou.workLocation }} -
+                    {{ `ຮອບ ${batch.runningNo}` }} -
+                    {{ `ເປີດຮັບ ຈຳນວນ ${batch.totalPositions} ຄົນ` }}
                   </option>
                 </select>
               </div>
@@ -114,6 +116,16 @@
                   placeholder="ນາມສະກຸນ"
                   :class="{ error: errors.lastName }"
                   required
+                />
+              </div>
+              <div class="form-group">
+                <label class="required">
+                  <i class="fas fa-graduation-cap"></i> ລະດັບການສຶກສາ
+                </label>
+                <input
+                  v-model="formData.education"
+                  type="text"
+                  placeholder="ລະດັບການສຶກສາ"
                 />
               </div>
 
@@ -343,71 +355,33 @@
               />
             </div>
 
-            <!-- Passport Photo Upload Section -->
-            <div
-              v-if="formData.passportAvailability"
-              class="form-group passport-photo-group"
-            >
-              <label><i class="fas fa-id-badge"></i> ຮູບໜັງສື</label>
-              <div class="passport-photo-section">
-                <div
-                  class="photo-upload-small"
-                  @click="
-                    !passportPhotoPreview &&
-                      !formData.passportPhoto &&
-                      triggerFileInput('passport')
-                  "
-                >
-                  <img
-                    v-if="passportPhotoPreview || formData.passportPhoto"
-                    :src="
-                      passportPhotoPreview ||
-                      getImageUrl(formData.passportPhoto)
-                    "
-                    alt="Passport"
-                  />
-                  <div v-else class="photo-placeholder-small">
-                    <i class="fas fa-id-badge"></i>
-                    <span>ເພີ່ມຮູບໜັງສື</span>
-                  </div>
-                </div>
-                <button
-                  v-if="passportPhotoFile || formData.passportPhoto"
-                  type="button"
-                  @click="removePhoto('passport')"
-                  class="btn-remove-small"
-                >
-                  <i class="fas fa-trash"></i> ລຶບ
-                </button>
-              </div>
-              <input
-                ref="passportFileInput"
-                type="file"
-                accept="image/*"
-                @change="handleFileSelect($event, 'passport')"
-                hidden
-              />
+            <div class="form-group">
+              <label
+                ><i class="fas fa-calendar-check"></i> ວັນທີ່ເລີ່ມສັນຍາ</label
+              >
+              <input v-model="formData.contactStartDate" type="date" />
             </div>
 
-            <div v-if="formData.passportAvailability" class="form-group">
-              <label><i class="fas fa-id-card"></i> ເລກໜັງສື</label>
+            <div class="form-group">
+              <label
+                ><i class="fas fa-calendar-times"></i> ວັນທີ່ສິ້ນສຸດສັນຍາ</label
+              >
               <input
-                v-model="formData.passportNo"
-                type="text"
-                placeholder="PA1234567"
-              />
-            </div>
-
-            <div v-if="formData.passportAvailability" class="form-group">
-              <label><i class="fas fa-calendar-times"></i> ອອກວັນທີ</label>
-              <input v-model="formData.passportIssueDate" type="date" />
-            </div>
-            <div v-if="formData.passportAvailability" class="form-group">
-              <label><i class="fas fa-calendar-times"></i> ຫມົດອາຍຸວັນທີ</label>
-              <input
-                v-model="formData.passportExpiredDate"
+                v-model="formData.contactEndDate"
                 type="date"
-                :min="today"
+                :min="formData.contactStartDate"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                ><i class="fas fa-money-bill-wave"></i> ຈຳນວນເງິນມັດຈຳ</label
+              >
+              <input
+                v-model.number="formData.depositAmount"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
               />
             </div>
           </div>
@@ -480,11 +454,13 @@ export default {
       formData: {
         firstName: '',
         lastName: '',
+        education: '',
         gender: '',
         age: null,
         maritalStatus: '',
         phone: '',
         emergencyContactNo: '',
+        depositAmount: '',
         address: '',
         village: '',
         city: '',
@@ -567,6 +543,15 @@ export default {
         } else if (response.success && Array.isArray(response.data)) {
           this.agencies = response.data
         }
+
+        // Set first agency as default if not in edit mode and no agency selected
+        if (
+          this.agencies.length > 0 &&
+          !this.isEditMode &&
+          !this.formData.agencyId
+        ) {
+          this.formData.agencyId = this.agencies[0].id
+        }
       } catch (error) {
         console.error('Error fetching agencies:', error)
         this.$toast.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ')
@@ -635,6 +620,7 @@ export default {
           firstName: a.firstName || '',
           lastName: a.lastName || '',
           gender: a.gender || '',
+          education: a.education || '',
           age: a.age || null,
           maritalStatus: a.maritalStatus || '',
           phone: a.phone || '',
@@ -643,6 +629,7 @@ export default {
           village: a.village || '',
           city: a.city || '',
           district: a.district || '',
+          depositAmount: a.depositAmount || 0,
           passportAvailability: a.passportAvailability || false,
           passportNo: a.passportNo || '',
           passportExpiredDate: a.passportExpiredDate?.split('T')[0] || '',

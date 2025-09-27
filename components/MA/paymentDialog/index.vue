@@ -570,6 +570,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    paymentMethod: {
+      type: String,
+      default: 'cash',
+    },
   },
 
   data() {
@@ -947,13 +951,13 @@ export default {
       } else {
         console.info('🔧 New mode - using defaults')
         this.localForm = this.getDefaultForm()
-
+        console.info(`POPERTY PAYMEN ${this.paymentMethod}`);
         // Set date picker values for new advance
         const todayDate = this.today
         this.localForm.bookingDate = todayDate
         this.pickerBookingDate = todayDate
         this.formattedBookingDate = this.formatDateForDisplay(todayDate)
-
+        this.localForm.method = this.paymentMethod;
         // Due date and external booking date are optional, so leave them empty
         this.localForm.dueDate = ''
         this.pickerDueDate = null
