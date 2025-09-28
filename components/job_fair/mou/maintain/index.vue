@@ -38,12 +38,14 @@
               <!-- Basic Information Section -->
               <v-col cols="12" class="pb-0">
                 <div class="section-header compact">
-                  <v-icon color="primary" small class="mr-2">mdi-information</v-icon>
+                  <v-icon color="primary" small class="mr-2"
+                    >mdi-information</v-icon
+                  >
                   <h3 class="section-title">ຂໍ້ມູນພື້ນຖານ</h3>
                 </div>
               </v-col>
 
-              <v-col cols="12" sm="4" md="3">
+              <v-col cols="6" sm="4" md="3">
                 <v-text-field
                   v-model="form.jobCode"
                   label="ລະຫັດວຽກ *"
@@ -56,7 +58,7 @@
                 />
               </v-col>
 
-              <v-col cols="12" sm="4" md="3">
+              <v-col cols="6" sm="4" md="3">
                 <v-text-field
                   v-model="form.projectAmount"
                   label="ມູນຄ່າ Order"
@@ -66,46 +68,64 @@
                   prepend-inner-icon="mdi-file-document"
                 />
               </v-col>
-
-              <v-col cols="12" sm="4" md="3">
-                <v-select
-                  v-model="form.jobStatus"
-                  :items="statusOptions"
-                  label="ສະຖານະວຽກ *"
-                  :rules="[rules.required]"
-                  outlined
-                  dense
-                  hide-details="auto"
-                  prepend-inner-icon="mdi-flag"
-                >
-                  <template v-slot:selection="{ item }">
-                    <v-chip :color="getStatusColor(item.value)" x-small text-color="white">
-                      {{ item.text }}
-                    </v-chip>
-                  </template>
-                </v-select>
-              </v-col>
-
-              <v-col cols="4" md="4">
+              <v-col cols="6" sm="4" md="2">
                 <v-text-field
-                  v-model="form.jobTitle"
-                  label="ໜ້າວຽກ *"
-                  :rules="[rules.required]"
+                  v-model.number="form.pmCharge"
+                  label="ຄ່າບໍລິຫານ PM"
                   outlined
                   dense
                   hide-details="auto"
-                  prepend-inner-icon="mdi-briefcase"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  prepend-inner-icon="mdi-cash"
+                  :suffix="selectedCurrency?.code || 'USD'"
                 />
               </v-col>
 
-              <!-- Company & Location Section -->
-              <v-col cols="4" class="pb-0 pt-2">
-                <div class="section-header compact">
-                  <v-icon color="primary" small class="mr-2">mdi-domain</v-icon>
-                  <h3 class="section-title">ບໍລິສັດ & ສະຖານທີ່</h3>
-                </div>
+              <v-col cols="6" sm="4" md="2">
+                <v-select
+                  v-model="form.currencyId"
+                  :items="currencies"
+                  item-text="code"
+                  item-value="id"
+                  label="ສະກຸນເງິນ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-currency-usd"
+                  :loading="loadingCurrencies"
+                />
+              </v-col>
+              <v-col cols="6" sm="3" md="2">
+                <v-text-field
+                  v-model.number="form.exchangeRate"
+                  label="ອັດຕາແລກປ່ຽນ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  prepend-inner-icon="mdi-swap-horizontal"
+                />
               </v-col>
 
+              <v-col cols="4" sm="4" md="2">
+                <v-select
+                  v-model="form.agencyId"
+                  :items="agencies"
+                  item-text="agencyName"
+                  item-value="id"
+                  label="ຕົວແທນ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-domain"
+                  :loading="loadingAgencies"
+                  clearable
+                />
+              </v-col>
               <v-col cols="4" md="4">
                 <v-text-field
                   v-model="form.employerCompany"
@@ -115,6 +135,14 @@
                   hide-details="auto"
                   prepend-inner-icon="mdi-office-building"
                 />
+              </v-col>
+
+              <!-- Company & Location Section -->
+              <v-col cols="12" class="pb-0 pt-2">
+                <div class="section-header compact">
+                  <v-icon color="primary" small class="mr-2">mdi-domain</v-icon>
+                  <h3 class="section-title">ບໍລິສັດ & ສະຖານທີ່</h3>
+                </div>
               </v-col>
 
               <v-col cols="4" md="4">
@@ -127,11 +155,24 @@
                   prepend-inner-icon="mdi-map-marker"
                 />
               </v-col>
+              <v-col cols="4" md="4">
+                <v-text-field
+                  v-model="form.jobTitle"
+                  label="ໜ້າວຽກ *"
+                  :rules="[rules.required]"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-briefcase"
+                />
+              </v-col>
 
               <!-- Worker & Financial Information -->
               <v-col cols="12" class="pb-0 pt-2">
                 <div class="section-header compact">
-                  <v-icon color="primary" small class="mr-2">mdi-account-group</v-icon>
+                  <v-icon color="primary" small class="mr-2"
+                    >mdi-account-group</v-icon
+                  >
                   <h3 class="section-title">ແຮງງານ & ການເງິນ</h3>
                 </div>
               </v-col>
@@ -162,71 +203,35 @@
                   prepend-inner-icon="mdi-account"
                 />
               </v-col>
-
-              <v-col cols="6" sm="3" md="2">
-                <v-text-field
-                  v-model.number="form.pmCharge"
-                  label="ຄ່າບໍລິຫານ PM"
-                  outlined
-                  dense
-                  hide-details="auto"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  prepend-inner-icon="mdi-cash"
-                  :suffix="selectedCurrency?.code || 'USD'"
-                />
-              </v-col>
-
-              <v-col cols="6" sm="3" md="2">
-                <v-text-field
-                  v-model.number="form.exchangeRate"
-                  label="ອັດຕາແລກປ່ຽນ"
-                  outlined
-                  dense
-                  hide-details="auto"
-                  type="number"
-                  min="0"
-                  step="0.001"
-                  prepend-inner-icon="mdi-swap-horizontal"
-                />
-              </v-col>
-
-              <v-col cols="6" sm="4" md="2">
+              <v-col cols="4" sm="4" md="3">
                 <v-select
-                  v-model="form.currencyId"
-                  :items="currencies"
-                  item-text="code"
-                  item-value="id"
-                  label="ສະກຸນເງິນ"
+                  v-model="form.jobStatus"
+                  :items="statusOptions"
+                  label="ສະຖານະວຽກ *"
+                  :rules="[rules.required]"
                   outlined
                   dense
                   hide-details="auto"
-                  prepend-inner-icon="mdi-currency-usd"
-                  :loading="loadingCurrencies"
-                />
-              </v-col>
-
-              <v-col cols="6" sm="8" md="2">
-                <v-select
-                  v-model="form.agencyId"
-                  :items="agencies"
-                  item-text="agencyName"
-                  item-value="id"
-                  label="ຕົວແທນ"
-                  outlined
-                  dense
-                  hide-details="auto"
-                  prepend-inner-icon="mdi-domain"
-                  :loading="loadingAgencies"
-                  clearable
-                />
+                  prepend-inner-icon="mdi-flag"
+                >
+                  <template v-slot:selection="{ item }">
+                    <v-chip
+                      :color="getStatusColor(item.value)"
+                      x-small
+                      text-color="white"
+                    >
+                      {{ item.text }}
+                    </v-chip>
+                  </template>
+                </v-select>
               </v-col>
 
               <!-- Notes Section -->
               <v-col cols="12" class="pb-0 pt-2">
                 <div class="section-header compact">
-                  <v-icon color="primary" small class="mr-2">mdi-note-text</v-icon>
+                  <v-icon color="primary" small class="mr-2"
+                    >mdi-note-text</v-icon
+                  >
                   <h3 class="section-title">ໝາຍເຫດ</h3>
                 </div>
               </v-col>
@@ -246,7 +251,9 @@
               <!-- Files Section -->
               <v-col cols="12" class="pb-0 pt-2">
                 <div class="section-header compact">
-                  <v-icon color="primary" small class="mr-2">mdi-file-multiple</v-icon>
+                  <v-icon color="primary" small class="mr-2"
+                    >mdi-file-multiple</v-icon
+                  >
                   <h3 class="section-title">ໄຟລ໌ແນບ</h3>
                 </div>
               </v-col>
@@ -291,7 +298,8 @@
                 >
                   <template v-slot:selection="{ text }">
                     <v-chip x-small label color="primary">
-                      {{ selectedDocuments ? selectedDocuments.length : 0 }} ເອກະສານ
+                      {{ selectedDocuments ? selectedDocuments.length : 0 }}
+                      ເອກະສານ
                     </v-chip>
                   </template>
                 </v-file-input>
@@ -305,20 +313,31 @@
                   height="3"
                 >
                   <template v-slot:default>
-                    <small>{{ fileProgress.current }}/{{ fileProgress.total }}</small>
+                    <small
+                      >{{ fileProgress.current }}/{{
+                        fileProgress.total
+                      }}</small
+                    >
                   </template>
                 </v-progress-linear>
               </v-col>
 
               <!-- File Preview -->
-              <v-col cols="12" v-if="(form.images && form.images.length > 0) || (form.documents && form.documents.length > 0)">
+              <v-col
+                cols="12"
+                v-if="
+                  (form.images && form.images.length > 0) ||
+                  (form.documents && form.documents.length > 0)
+                "
+              >
                 <v-expansion-panels flat>
                   <v-expansion-panel>
                     <v-expansion-panel-header class="pa-2">
                       <div class="d-flex align-center">
                         <v-icon small class="mr-2">mdi-paperclip</v-icon>
                         <span class="text-caption">
-                          {{ form.images.length }} ຮູບພາບ, {{ form.documents.length }} ເອກະສານ
+                          {{ form.images.length }} ຮູບພາບ,
+                          {{ form.documents.length }} ເອກະສານ
                         </span>
                       </div>
                     </v-expansion-panel-header>
@@ -339,7 +358,7 @@
                           </v-chip>
                         </v-chip-group>
                       </div>
-                      
+
                       <!-- Documents -->
                       <div v-if="form.documents.length > 0">
                         <v-chip-group column>
@@ -350,7 +369,11 @@
                             close
                             @click:close="removeDocument(index)"
                           >
-                            <v-icon small left :color="getDocumentTypeColor(doc.name)">
+                            <v-icon
+                              small
+                              left
+                              :color="getDocumentTypeColor(doc.name)"
+                            >
                               {{ getDocumentTypeIcon(doc.name) }}
                             </v-icon>
                             {{ doc.name }}
@@ -430,11 +453,7 @@
             <v-icon left>mdi-download</v-icon>
             ດາວໂຫລດ
           </v-btn>
-          <v-btn
-            color="red"
-            text
-            @click="removeImageFromPreview"
-          >
+          <v-btn color="red" text @click="removeImageFromPreview">
             <v-icon left>mdi-delete</v-icon>
             ລຶບ
           </v-btn>
@@ -443,8 +462,8 @@
     </v-dialog>
 
     <!-- PDF Viewer Dialog -->
-    <v-dialog 
-      v-model="pdfViewerDialog" 
+    <v-dialog
+      v-model="pdfViewerDialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
@@ -460,16 +479,12 @@
             {{ currentPdfName }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn 
-            text 
-            @click="downloadCurrentPdf"
-            v-if="currentPdfUrl"
-          >
+          <v-btn text @click="downloadCurrentPdf" v-if="currentPdfUrl">
             <v-icon left>mdi-download</v-icon>
             ດາວໂຫລດ
           </v-btn>
         </v-toolbar>
-        
+
         <v-card-text class="pa-0 pdf-viewer-content">
           <div class="pdf-container">
             <iframe
@@ -482,7 +497,7 @@
             >
               <p>Your browser does not support iframes.</p>
             </iframe>
-            
+
             <div v-else class="pdf-loading">
               <v-progress-circular
                 indeterminate
@@ -619,26 +634,32 @@ export default {
     },
     populateForm() {
       if (this.editingItem) {
-        const transformedImages = (this.editingItem.images || []).map((img) => ({
-          id: img.id,
-          name: img.orgName || img.img_path,
-          size: img.imageSize || img.size,
-          type: img.imageMimeType || img.type,
-          url: this.getFileUrl('images', img.img_name || img.img_path),
-          preview: this.getFileUrl('images', img.img_name || img.img_path),
-          isExisting: true,
-        }))
+        const transformedImages = (this.editingItem.images || []).map(
+          (img) => ({
+            id: img.id,
+            name: img.orgName || img.img_path,
+            size: img.imageSize || img.size,
+            type: img.imageMimeType || img.type,
+            url: this.getFileUrl('images', img.img_name || img.img_path),
+            preview: this.getFileUrl('images', img.img_name || img.img_path),
+            isExisting: true,
+          })
+        )
 
-        const transformedDocuments = (this.editingItem.documents || []).map((doc, index) => ({
-          id: doc.id || index,
-          name: doc.name,
-          size: doc.size,
-          type: doc.mimetype || doc.type,
-          url: doc.path ? this.getDocumentDownloadUrl(this.editingItem.id, index) : null,
-          path: doc.path,
-          filename: doc.filename,
-          isExisting: true,
-        }))
+        const transformedDocuments = (this.editingItem.documents || []).map(
+          (doc, index) => ({
+            id: doc.id || index,
+            name: doc.name,
+            size: doc.size,
+            type: doc.mimetype || doc.type,
+            url: doc.path
+              ? this.getDocumentDownloadUrl(this.editingItem.id, index)
+              : null,
+            path: doc.path,
+            filename: doc.filename,
+            isExisting: true,
+          })
+        )
 
         this.form = {
           ...this.form,
@@ -653,7 +674,7 @@ export default {
     async handleImageSelection(files) {
       if (!files || files.length === 0) return
       const maxSize = 5 * 1024 * 1024
-      const validFiles = Array.from(files).filter(file => {
+      const validFiles = Array.from(files).filter((file) => {
         if (!file.type.startsWith('image/')) {
           this.$toast.error(`${file.name} ບໍ່ແມ່ນໄຟລ໌ຮູບພາບ`)
           return false
@@ -685,7 +706,7 @@ export default {
               type: file.type,
               file: file,
               preview: preview,
-              isNew: true
+              isNew: true,
             })
             await this.delay(10)
           } catch (error) {
@@ -718,11 +739,14 @@ export default {
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'text/plain'
+        'text/plain',
       ]
 
-      const validFiles = Array.from(files).filter(file => {
-        if (!allowedTypes.includes(file.type) && !this.isValidDocumentExtension(file.name)) {
+      const validFiles = Array.from(files).filter((file) => {
+        if (
+          !allowedTypes.includes(file.type) &&
+          !this.isValidDocumentExtension(file.name)
+        ) {
           this.$toast.error(`${file.name} ບໍ່ແມ່ນໄຟລ໌ເອກະສານທີ່ຮອງຮັບ`)
           return false
         }
@@ -750,7 +774,7 @@ export default {
             size: file.size,
             type: file.type,
             file: file,
-            isNew: true
+            isNew: true,
           })
           await this.delay(5)
         }
@@ -776,9 +800,11 @@ export default {
         reader.onerror = (e) => reject(new Error('Failed to read file'))
         reader.onabort = (e) => reject(new Error('File reading aborted'))
         if (file.size > 1024 * 1024) {
-          this.createImageThumbnail(file, 300, 300).then(resolve).catch(() => {
-            reader.readAsDataURL(file)
-          })
+          this.createImageThumbnail(file, 300, 300)
+            .then(resolve)
+            .catch(() => {
+              reader.readAsDataURL(file)
+            })
         } else {
           reader.readAsDataURL(file)
         }
@@ -858,7 +884,7 @@ export default {
       }
     },
     delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
+      return new Promise((resolve) => setTimeout(resolve, ms))
     },
     removeImage(index) {
       const imageToRemove = this.form.images[index]
@@ -961,7 +987,9 @@ export default {
     },
     async deleteExistingDocument(mouId, documentIndex) {
       try {
-        const response = await this.$axios.$delete(`/api/mous/${mouId}/document/${documentIndex}`)
+        const response = await this.$axios.$delete(
+          `/api/mous/${mouId}/document/${documentIndex}`
+        )
         if (response.success) {
           this.$toast.success('ລຶບເອກະສານສຳເລັດແລ້ວ')
         }
@@ -973,15 +1001,21 @@ export default {
     getFileUrl(type, filename) {
       if (!filename) return ''
       const baseUrl = this.$axios.defaults.baseURL || ''
-      return `${baseUrl}/uploads/${type}/${filename}`.replace(/\/+/g, '/').replace(':/', '://')
+      return `${baseUrl}/uploads/${type}/${filename}`
+        .replace(/\/+/g, '/')
+        .replace(':/', '://')
     },
     getDocumentDownloadUrl(mouId, documentIndex) {
       const baseUrl = this.$axios.defaults.baseURL || ''
-      return `${baseUrl}/api/mous/download/document/${mouId}/${documentIndex}`.replace(/\/+/g, '/').replace(':/', '://')
+      return `${baseUrl}/api/mous/download/document/${mouId}/${documentIndex}`
+        .replace(/\/+/g, '/')
+        .replace(':/', '://')
     },
     getImageDownloadUrl(imageId) {
       const baseUrl = this.$axios.defaults.baseURL || ''
-      return `${baseUrl}/api/mous/download/image/${imageId}`.replace(/\/+/g, '/').replace(':/', '://')
+      return `${baseUrl}/api/mous/download/image/${imageId}`
+        .replace(/\/+/g, '/')
+        .replace(':/', '://')
     },
     formatFileSize(bytes) {
       if (bytes === 0) return '0 Bytes'
@@ -999,7 +1033,7 @@ export default {
         xls: 'mdi-file-excel-box',
         xlsx: 'mdi-file-excel-box',
         txt: 'mdi-file-document-outline',
-        default: 'mdi-file-document'
+        default: 'mdi-file-document',
       }
       return iconMap[ext] || iconMap.default
     },
@@ -1012,7 +1046,7 @@ export default {
         xls: 'green',
         xlsx: 'green',
         txt: 'grey',
-        default: 'primary'
+        default: 'primary',
       }
       return colorMap[ext] || colorMap.default
     },
@@ -1065,7 +1099,7 @@ export default {
         if (!payload.exchangeRate) payload.exchangeRate = 1
         if (!payload.numberOfWorkers) payload.numberOfWorkers = 1
         const formData = new FormData()
-        Object.keys(payload).forEach(key => {
+        Object.keys(payload).forEach((key) => {
           if (key !== 'images' && key !== 'documents') {
             formData.append(key, payload[key])
           }
@@ -1082,21 +1116,28 @@ export default {
         })
         let response
         if (this.isEditing) {
-          response = await this.$axios.$put(`/api/mous/${this.editingItem.id}`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-          })
+          response = await this.$axios.$put(
+            `/api/mous/${this.editingItem.id}`,
+            formData,
+            {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            }
+          )
         } else {
           response = await this.$axios.$post('/api/mous', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 'Content-Type': 'multipart/form-data' },
           })
         }
         if (response.success) {
-          this.$toast.success(`MOU ${this.isEditing ? 'ອັບເດດ' : 'ສ້າງ'}ສຳເລັດແລ້ວ`)
+          this.$toast.success(
+            `MOU ${this.isEditing ? 'ອັບເດດ' : 'ສ້າງ'}ສຳເລັດແລ້ວ`
+          )
           this.$emit('saved', response.data)
         }
       } catch (error) {
         console.error('Error saving MOU:', error)
-        const errorMessage = error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ'
+        const errorMessage =
+          error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ'
         this.$toast.error(errorMessage)
       } finally {
         this.saving = false
@@ -1204,7 +1245,8 @@ export default {
   min-height: 40px !important;
 }
 
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) >>> .v-input__prepend-inner {
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+  >>> .v-input__prepend-inner {
   margin-top: 8px !important;
 }
 
