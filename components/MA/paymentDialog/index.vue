@@ -537,7 +537,7 @@ export default {
         ministryId: '',
         bookingDate: '',
         exchangeRate: '',
-        method: 'cash',
+        method: '',
         externalRef: '',
         externalRefNo: '',
         externalBookingDate: '', // NEW FIELD
@@ -603,7 +603,7 @@ export default {
         ministryId: '',
         bookingDate: '',
         exchangeRate: '',
-        method: 'cash',
+        method: '',
         externalRef: '',
         externalRefNo: '',
         externalBookingDate: '', // NEW FIELD
@@ -730,7 +730,7 @@ export default {
             }
 
             if (!this.localForm.method || this.localForm.method === '') {
-              this.localForm.method = 'cash'
+              this.localForm.method = this.paymentMethod
               console.info('🔧 Setting method to default: cash')
             }
 
@@ -759,7 +759,7 @@ export default {
   },
 
   mounted() {
-    console.info('🔧 Component mounted, initializing form...')
+    console.info(`🔧 Component mounted, initializing form... ${this.paymentMethod}`)
     this.initForm()
   },
 
@@ -843,7 +843,7 @@ export default {
         ministryId: '',
         bookingDate: this.today,
         exchangeRate: '',
-        method: 'cash',
+        method: this.paymentMethod,
         externalRef: '',
         externalRefNo: '',
         externalBookingDate: '', // NEW FIELD
@@ -915,7 +915,7 @@ export default {
         }
 
         if (!this.localForm.method || this.localForm.method === '') {
-          this.localForm.method = 'cash'
+          this.localForm.method = this.paymentMethod
           console.info('🔧 Edit mode: Setting method to default cash')
         }
 
@@ -1026,7 +1026,7 @@ export default {
 
       // Always ensure method is set
       if (!this.localForm.method) {
-        this.localForm.method = 'cash'
+        this.localForm.method = this.paymentMethod
         console.info('🔧 Final fallback: Setting method to cash')
       }
 

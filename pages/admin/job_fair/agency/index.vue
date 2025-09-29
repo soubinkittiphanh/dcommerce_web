@@ -6,15 +6,17 @@
         <v-card class="mb-4">
           <v-card-title class="d-flex justify-space-between align-center">
             <div>
-              <v-icon large color="white" class="mr-2">mdi-office-building</v-icon>
+              <v-icon large color="white" class="mr-2"
+                >mdi-office-building</v-icon
+              >
               <span class="text-h4">ລະບົບຈັດການບໍລິສັດແນະນຳແຮງງານ</span>
             </div>
             <div>
-              <v-btn color="white" text @click="openCreateDialog" class="mr-2">
+              <v-btn color="white" @click="openCreateDialog" class="mr-2">
                 <v-icon left>mdi-plus</v-icon>
                 ເພີ່ມບໍລິສັດໃໝ່
               </v-btn>
-              <v-btn color="white" text @click="exportData">
+              <v-btn color="white" @click="exportData">
                 <v-icon left>mdi-download</v-icon>
                 Export
               </v-btn>
@@ -113,7 +115,7 @@
             :items-per-page="25"
             :loading="loading"
             :footer-props="{
-              'items-per-page-options': [10, 25, 50, 100]
+              'items-per-page-options': [10, 25, 50, 100],
             }"
             class="elevation-1"
             loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
@@ -123,7 +125,9 @@
             <template v-slot:item.agencyName="{ item }">
               <div>
                 <div class="font-weight-bold d-flex align-center">
-                  <v-icon small class="mr-2" color="primary">mdi-office-building</v-icon>
+                  <v-icon small class="mr-2" color="primary"
+                    >mdi-office-building</v-icon
+                  >
                   {{ item.agencyName }}
                 </div>
                 <div class="caption text--secondary">
@@ -150,7 +154,9 @@
             <!-- Village -->
             <template v-slot:item.village="{ item }">
               <div class="d-flex align-center">
-                <v-icon small class="mr-1" color="orange">mdi-home-group</v-icon>
+                <v-icon small class="mr-1" color="orange"
+                  >mdi-home-group</v-icon
+                >
                 {{ item.village || '-' }}
               </div>
             </template>
@@ -158,7 +164,9 @@
             <!-- District -->
             <template v-slot:item.district="{ item }">
               <div class="d-flex align-center">
-                <v-icon small class="mr-1" color="purple">mdi-map-marker</v-icon>
+                <v-icon small class="mr-1" color="purple"
+                  >mdi-map-marker</v-icon
+                >
                 {{ item.district || '-' }}
               </div>
             </template>
@@ -174,7 +182,9 @@
             <!-- Registration Date -->
             <template v-slot:item.registrationDate="{ item }">
               <div class="d-flex align-center">
-                <v-icon small class="mr-1" color="green">mdi-calendar-start</v-icon>
+                <v-icon small class="mr-1" color="green"
+                  >mdi-calendar-start</v-icon
+                >
                 {{ formatDate(item.registrationDate) }}
               </div>
             </template>
@@ -182,14 +192,24 @@
             <!-- License Expiry Date -->
             <template v-slot:item.licenseExpiryDate="{ item }">
               <div class="d-flex align-center">
-                <v-icon 
-                  small 
-                  class="mr-1" 
-                  :color="isLicenseExpired(item.licenseExpiryDate) ? 'error' : 'warning'"
+                <v-icon
+                  small
+                  class="mr-1"
+                  :color="
+                    isLicenseExpired(item.licenseExpiryDate)
+                      ? 'error'
+                      : 'warning'
+                  "
                 >
                   mdi-calendar-end
                 </v-icon>
-                <span :class="isLicenseExpired(item.licenseExpiryDate) ? 'error--text' : ''">
+                <span
+                  :class="
+                    isLicenseExpired(item.licenseExpiryDate)
+                      ? 'error--text'
+                      : ''
+                  "
+                >
                   {{ formatDate(item.licenseExpiryDate) }}
                 </span>
               </div>
@@ -322,8 +342,16 @@ export default {
         { text: 'ບ້ານ', value: 'village', sortable: false },
         { text: 'ເມືອງ', value: 'district', sortable: false },
         { text: 'ແຂວງ', value: 'city', sortable: false },
-        { text: 'ວັນທີ່ເລີມຕົ້ນສັນຍາ', value: 'registrationDate', sortable: true },
-        { text: 'ວັນທີ່ສິນສຸດສັນຍາ', value: 'licenseExpiryDate', sortable: true },
+        {
+          text: 'ວັນທີ່ເລີມຕົ້ນສັນຍາ',
+          value: 'registrationDate',
+          sortable: true,
+        },
+        {
+          text: 'ວັນທີ່ສິນສຸດສັນຍາ',
+          value: 'licenseExpiryDate',
+          sortable: true,
+        },
         { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, align: 'center' },
       ],
 
@@ -337,13 +365,19 @@ export default {
 
   computed: {
     availableCities() {
-      const cities = [...new Set(this.agencies.map(a => a.city).filter(Boolean))]
-      return cities.sort().map(city => ({ text: city, value: city }))
+      const cities = [
+        ...new Set(this.agencies.map((a) => a.city).filter(Boolean)),
+      ]
+      return cities.sort().map((city) => ({ text: city, value: city }))
     },
 
     availableDistricts() {
-      const districts = [...new Set(this.agencies.map(a => a.district).filter(Boolean))]
-      return districts.sort().map(district => ({ text: district, value: district }))
+      const districts = [
+        ...new Set(this.agencies.map((a) => a.district).filter(Boolean)),
+      ]
+      return districts
+        .sort()
+        .map((district) => ({ text: district, value: district }))
     },
   },
 
@@ -356,7 +390,7 @@ export default {
       this.loading = true
       try {
         const { data } = await this.$axios.get('/api/agency', {
-          params: { page: 1, limit: 1000, isActive: true }
+          params: { page: 1, limit: 1000, isActive: true },
         })
 
         this.agencies = data?.success ? data.data.agencies || [] : []
@@ -397,11 +431,11 @@ export default {
     async onAgencySave(agencyData) {
       try {
         this.loading = true
-        const url = this.selectedAgency?.id 
-          ? `/api/agency/${this.selectedAgency.id}` 
+        const url = this.selectedAgency?.id
+          ? `/api/agency/${this.selectedAgency.id}`
           : '/api/agency'
         const method = this.selectedAgency?.id ? 'put' : 'post'
-        
+
         const { data } = await this.$axios[method](url, agencyData)
 
         if (data?.success) {
@@ -422,25 +456,26 @@ export default {
 
       if (this.filters.search) {
         const search = this.filters.search.toLowerCase()
-        filtered = filtered.filter(a =>
-          a.agencyName.toLowerCase().includes(search) ||
-          a.agencyCode?.toLowerCase().includes(search) ||
-          a.phone.includes(search) ||
-          a.email?.toLowerCase().includes(search) ||
-          a.contactPersonName?.toLowerCase().includes(search)
+        filtered = filtered.filter(
+          (a) =>
+            a.agencyName.toLowerCase().includes(search) ||
+            a.agencyCode?.toLowerCase().includes(search) ||
+            a.phone.includes(search) ||
+            a.email?.toLowerCase().includes(search) ||
+            a.contactPersonName?.toLowerCase().includes(search)
         )
       }
 
       if (this.filters.status) {
-        filtered = filtered.filter(a => a.status === this.filters.status)
+        filtered = filtered.filter((a) => a.status === this.filters.status)
       }
 
       if (this.filters.city) {
-        filtered = filtered.filter(a => a.city === this.filters.city)
+        filtered = filtered.filter((a) => a.city === this.filters.city)
       }
 
       if (this.filters.district) {
-        filtered = filtered.filter(a => a.district === this.filters.district)
+        filtered = filtered.filter((a) => a.district === this.filters.district)
       }
 
       this.filteredAgencies = filtered
@@ -458,21 +493,30 @@ export default {
 
     exportData() {
       const headers = [
-        'ຊື່ບໍລິສັດ', 'ລະຫັດ', 'ເບີໂທ', 'ອີເມວ', 'ບ້ານ', 'ເມືອງ', 'ແຂວງ',
-        'ວັນທີລົງທະບຽນ', 'ວັນໝົດອາຍຸ'
+        'ຊື່ບໍລິສັດ',
+        'ລະຫັດ',
+        'ເບີໂທ',
+        'ອີເມວ',
+        'ບ້ານ',
+        'ເມືອງ',
+        'ແຂວງ',
+        'ວັນທີລົງທະບຽນ',
+        'ວັນໝົດອາຍຸ',
       ]
-      
-      const rows = this.filteredAgencies.map(r => [
-        r.agencyName,
-        r.agencyCode || '',
-        r.phone,
-        r.email || '',
-        r.village || '',
-        r.district || '',
-        r.city || '',
-        this.formatDate(r.registrationDate),
-        this.formatDate(r.licenseExpiryDate)
-      ].join(','))
+
+      const rows = this.filteredAgencies.map((r) =>
+        [
+          r.agencyName,
+          r.agencyCode || '',
+          r.phone,
+          r.email || '',
+          r.village || '',
+          r.district || '',
+          r.city || '',
+          this.formatDate(r.registrationDate),
+          this.formatDate(r.licenseExpiryDate),
+        ].join(',')
+      )
 
       const csv = [headers.join(','), ...rows].join('\n')
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })

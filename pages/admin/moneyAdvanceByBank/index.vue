@@ -4,7 +4,7 @@
     <v-card class="header-card" flat>
       <v-card-text class="py-3">
         <div class="header-content">
-          <h1 class="header-title">ອອກລາຍຈ່າຍ</h1>
+          <h1 class="header-title">ອອກລາຍຈ່າຍ ເງິນຝາກ</h1>
           <div class="header-actions">
             <v-btn color="secondary" small outlined @click="openAuditReports">
               <v-icon left small>mdi-chart-line</v-icon>
@@ -30,34 +30,6 @@
             <div class="summary-content">
               <div class="summary-amount">{{ dashboard.counts.total }}</div>
               <div class="summary-label">ຈນ ລາຍຈ່າຍ</div>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-
-      <v-card class="summary-card pending">
-        <v-card-text class="pa-3">
-          <div class="summary-layout">
-            <div class="summary-icon">
-              <v-icon color="warning">mdi-clock-outline</v-icon>
-            </div>
-            <div class="summary-content">
-              <div class="summary-amount">{{ dashboard.counts.pending }}</div>
-              <div class="summary-label">ຄ້າງອະນຸມັດ</div>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-
-      <v-card class="summary-card approved">
-        <v-card-text class="pa-3">
-          <div class="summary-layout">
-            <div class="summary-icon">
-              <v-icon color="success">mdi-check-circle</v-icon>
-            </div>
-            <div class="summary-content">
-              <div class="summary-amount">{{ dashboard.counts.approved }}</div>
-              <div class="summary-label">ອະນຸມັດແລ້ວ</div>
             </div>
           </div>
         </v-card-text>
@@ -165,20 +137,6 @@
             </v-menu>
           </v-col>
 
-          <!-- Status Filter -->
-          <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-select
-              v-model="statusFilter"
-              :items="statusOptions"
-              label="ສະຖານະ"
-              dense
-              outlined
-              clearable
-              hide-details="auto"
-              @change="onFilterChange"
-            />
-          </v-col>
-
           <!-- User Filter -->
           <v-col cols="12" sm="6" md="2" class="px-1">
             <v-select
@@ -221,24 +179,21 @@
                 @input="debounceSearch"
                 style="margin-bottom: 4px"
               />
-              <div class="action-buttons">
-                <v-btn
-                  color="primary"
-                  x-small
-                  @click="applyFilters"
-                  :loading="loading"
-                >
-                  <v-icon small>mdi-filter</v-icon>
-                </v-btn>
-                <v-btn
-                  x-small
-                  outlined
-                  @click="resetFilters"
-                  :disabled="loading"
-                >
-                  <v-icon small>mdi-refresh</v-icon>
-                </v-btn>
-              </div>
+            </div>
+          </v-col>
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <div class="action-buttons">
+              <v-btn
+                color="primary"
+                x-small
+                @click="applyFilters"
+                :loading="loading"
+              >
+                <v-icon small>mdi-filter</v-icon>
+              </v-btn>
+              <v-btn x-small outlined @click="resetFilters" :disabled="loading">
+                <v-icon small>mdi-refresh</v-icon>
+              </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -313,7 +268,10 @@
         <template #item.settleLine="{ item }">
           <div class="amount-column">
             <span class="amount-value">{{
-              formatCurrency(getSettleAmount(item.settlementLine || 0), item.currency.code)
+              formatCurrency(
+                getSettleAmount(item.settlementLine || 0),
+                item.currency.code
+              )
             }}</span>
             <span v-if="item.currency" class="currency-code">{{
               item.currency.code
@@ -673,7 +631,7 @@ export default {
       form: {
         id: null,
         amount: '',
-        method: 'cash',
+        method: 'bank_transfer',
         purpose: '',
         note: '',
         makerId: '',
@@ -704,7 +662,12 @@ export default {
         { text: 'ຜູ້ລົງ', value: 'maker', width: '100px', sortable: true },
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
         { text: 'ຈຳນວນ ຈ່າຍ', value: 'amount', width: '100px', sortable: true },
-        { text: 'ຈຳນວນ ຮັບ', value: 'settleLine', width: '100px', sortable: true },
+        {
+          text: 'ຈຳນວນ ຮັບ',
+          value: 'settleLine',
+          width: '100px',
+          sortable: true,
+        },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
         {
           text: 'ບັນຊີ',
@@ -722,7 +685,6 @@ export default {
     // Filter options
     statusOptions() {
       return [
-        { text: 'ທຸກສະຖານະ', value: '' },
         { text: 'ຄ້າງອະນຸມັດ', value: 'pending' },
         { text: 'ອະນຸມັດແລ້ວ', value: 'approved' },
         { text: 'ຊຳລະແລ້ວ', value: 'settled' },
@@ -891,6 +853,7 @@ export default {
         const params = {
           page: this.pagination.currentPage,
           limit: this.pagination.itemsPerPage,
+          method: 'bank_transfer',
           ...this.filters,
         }
 
@@ -923,7 +886,7 @@ export default {
         if (this.filters.ministryId) params.ministryId = this.filters.ministryId
         if (this.filters.fromDate) params.fromDate = this.filters.fromDate
         if (this.filters.toDate) params.toDate = this.filters.toDate
-
+        params.method = 'bank_transfer'
         const { data } = await this.$axios.get(
           '/api/money-advances/dashboard',
           { params }
@@ -1138,7 +1101,7 @@ export default {
         ministryId: '',
         bookingDate: today,
         reason: '',
-        method: 'cash',
+        method: 'bank_transfer',
         externalRef: '',
         externalRefNo: '',
         chequeNo: '',
@@ -1175,7 +1138,7 @@ export default {
           this.form = {
             id: newRecord.id,
             amount: newRecord.amount,
-            method: newRecord.method || 'cash',
+            method: newRecord.method || 'bank_transfer',
             purpose: newRecord.purpose || '',
             note: newRecord.note || '',
             makerId: newRecord.makerId,
