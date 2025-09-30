@@ -1,7 +1,7 @@
 exports.ids = [83];
 exports.modules = {
 
-/***/ 850:
+/***/ 849:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,19 +21,19 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(348);
+var VDialog = __webpack_require__(347);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(394);
+var VHover = __webpack_require__(393);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
-var VRadio = __webpack_require__(386);
+var VRadio = __webpack_require__(385);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
-var VRadioGroup = __webpack_require__(385);
+var VRadioGroup = __webpack_require__(384);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menu/index.vue?vue&type=template&id=8df4f1be&
 
