@@ -1,0 +1,622 @@
+<template>
+  <div class="customer-display-container">
+    <!-- Welcome Screen (when no QR is showing) -->
+    <div v-if="!showQR" class="welcome-screen">
+      <div class="logo-section">
+        <v-icon size="120" class="dcommerce-green-text mb-4">mdi-storefront</v-icon>
+        <h1 class="store-name">DCOMMERCE CAFE</h1>
+        <p class="welcome-text">Customer Display</p>
+        <p class="status-text">Ready for QR Payment</p>
+      </div>
+      <div class="waiting-animation">
+        <v-progress-circular 
+          indeterminate 
+          color="#01532B" 
+          size="64" 
+          width="4"
+          class="mb-4"
+        ></v-progress-circular>
+        <p class="waiting-text">Waiting for payment request...</p>
+      </div>
+    </div>
+
+    <!-- QR Payment Screen -->
+    <div v-if="showQR" class="qr-payment-screen">
+      <!-- Header -->
+      <div class="payment-header">
+        <h2 class="payment-title">Scan to Pay</h2>
+        <div class="table-info" v-if="qrData.tableNumber">
+          <v-chip class="dcommerce-green white--text" large>
+            <v-icon left>mdi-table-furniture</v-icon>
+            Table {{ qrData.tableNumber }}
+          </v-chip>
+        </div>
+      </div>
+
+      <!-- Payment Amount Display -->
+      <div class="amount-display">
+        <div class="amount-label">Total Amount</div>
+        <div class="amount-value">
+          {{ formatPrice(qrData.amount) }}
+        </div>
+        <div class="currency-label">Lao Kip (LAK)</div>
+      </div>
+
+      <!-- QR Code Display -->
+      <div class="qr-display-section">
+        <div class="qr-code-container">
+          <div class="qr-wrapper">
+            <img 
+              :src="qrCodeUrl" 
+              alt="Payment QR Code"
+              class="qr-code-image"
+              @error="onQRError"
+            />
+          </div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="qr-instructions">
+          <v-icon class="dcommerce-green-text mb-3" size="40">mdi-cellphone-android</v-icon>
+          <h3 class="instruction-title">How to Pay:</h3>
+          <ol class="instruction-list">
+            <li>Open your mobile banking app</li>
+            <li>Select "QR Payment" or "Scan to Pay"</li>
+            <li>Point your camera at the QR code above</li>
+            <li>Confirm the payment amount</li>
+            <li>Complete the transaction</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Payment Status -->
+      <div class="payment-status">
+        <div class="status-indicator">
+          <v-progress-circular 
+            v-if="!paymentComplete"
+            indeterminate 
+            color="#01532B" 
+            size="24"
+            class="mr-2"
+          ></v-progress-circular>
+          <v-icon v-else color="success" size="24" class="mr-2">mdi-check-circle</v-icon>
+          <span class="status-text" :class="paymentComplete ? 'success--text' : 'dcommerce-green-text'">
+            {{ paymentComplete ? 'Payment Received!' : 'Waiting for payment confirmation...' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Timer Display -->
+      <div class="timer-display" v-if="timeRemaining > 0 && !paymentComplete">
+        <v-icon small class="mr-2 dcommerce-green-text">mdi-timer-outline</v-icon>
+        <span class="timer-text">
+          QR code expires in: <strong>{{ formatTime(timeRemaining) }}</strong>
+        </span>
+      </div>
+
+      <!-- Close Button (for testing) -->
+      <div class="close-button" v-if="showCloseButton">
+        <v-btn 
+          color="grey" 
+          text 
+          @click="hideQR"
+          class="mt-4"
+        >
+          <v-icon left small>mdi-close</v-icon>
+          Close QR (Test)
+        </v-btn>
+      </div>
+    </div>
+
+    <!-- Payment Success Overlay -->
+    <v-overlay v-if="paymentComplete" class="success-overlay">
+      <div class="success-content">
+        <v-icon size="120" color="success" class="mb-4 success-icon">mdi-check-circle</v-icon>
+        <h2 class="success-title">Payment Successful!</h2>
+        <div class="success-amount">{{ formatPrice(qrData.amount) }}</div>
+        <p class="success-message">Thank you for your payment</p>
+        <p class="success-submessage">Please keep your receipt</p>
+        
+        <!-- Auto-hide timer -->
+        <div class="success-timer mt-4">
+          <v-progress-linear
+            :value="successProgress"
+            color="success"
+            height="4"
+            rounded
+          ></v-progress-linear>
+          <p class="caption mt-2">Screen will reset in {{ Math.ceil(successTimeRemaining / 1000) }}s</p>
+        </div>
+      </div>
+    </v-overlay>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'CustomerScreen',
+  layout: 'empty', // Use empty layout for full screen
+  
+  data() {
+    return {
+      showQR: false,
+      qrData: {
+        amount: 0,
+        tableNumber: '',
+        qrString: '',
+        timestamp: null
+      },
+      paymentComplete: false,
+      timeRemaining: 300, // 5 minutes
+      timer: null,
+      showCloseButton: process.env.NODE_ENV === 'development', // Only show in development
+      
+      // Success screen timer
+      successTimeRemaining: 5000, // 5 seconds
+      successProgress: 0,
+      successTimer: null
+    }
+  },
+  
+  computed: {
+    qrCodeUrl() {
+      if (!this.qrData.qrString) return ''
+      const encodedString = encodeURIComponent(this.qrData.qrString.replace(/\s/g, ''))
+      return `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodedString}&format=png&margin=20&color=01532B&bgcolor=ffffff`
+    }
+  },
+  
+  mounted() {
+    this.setupCommunication()
+    this.checkForExistingQR()
+  },
+  
+  beforeDestroy() {
+    this.cleanup()
+  },
+  
+  methods: {
+    setupCommunication() {
+      // Listen for localStorage changes from cashier screen
+      window.addEventListener('storage', this.handleStorageChange)
+      
+      // Also check localStorage on load in case QR was already set
+      this.checkForExistingQR()
+    },
+    
+    handleStorageChange(event) {
+      if (event.key === 'customerDisplay') {
+        const data = event.newValue
+        if (data) {
+          try {
+            const message = JSON.parse(data)
+            this.handleDisplayMessage(message)
+          } catch (error) {
+            console.error('Error parsing customer display data:', error)
+          }
+        }
+      }
+    },
+    
+    checkForExistingQR() {
+      const customerDisplayData = localStorage.getItem('customerDisplay')
+      if (customerDisplayData) {
+        try {
+          const message = JSON.parse(customerDisplayData)
+          this.handleDisplayMessage(message)
+        } catch (error) {
+          console.error('Error parsing existing customer display data:', error)
+        }
+      }
+    },
+    
+    handleDisplayMessage(message) {
+      console.log('Customer screen received message:', message)
+      
+      if (message.type === 'SHOW_QR_PAYMENT') {
+        this.displayQR(message.data)
+      } else if (message.type === 'HIDE_QR_PAYMENT') {
+        this.hideQR()
+      } else if (message.type === 'PAYMENT_SUCCESS') {
+        this.showPaymentSuccess()
+      }
+    },
+    
+    displayQR(data) {
+      console.log('Displaying QR for:', data)
+      
+      this.qrData = {
+        ...data,
+        timestamp: Date.now()
+      }
+      this.showQR = true
+      this.paymentComplete = false
+      this.startTimer()
+      
+      // Clear localStorage after reading to prevent re-showing on refresh
+      // Comment this out if you want QR to persist on refresh
+      // localStorage.removeItem('customerDisplay')
+    },
+    
+    hideQR() {
+      console.log('Hiding QR display')
+      this.showQR = false
+      this.paymentComplete = false
+      this.stopTimer()
+      this.stopSuccessTimer()
+      
+      // Clear localStorage
+      localStorage.removeItem('customerDisplay')
+    },
+    
+    showPaymentSuccess() {
+      console.log('Showing payment success')
+      this.paymentComplete = true
+      this.stopTimer()
+      this.startSuccessTimer()
+    },
+    
+    startTimer() {
+      this.timeRemaining = 300 // 5 minutes
+      this.timer = setInterval(() => {
+        this.timeRemaining--
+        if (this.timeRemaining <= 0) {
+          this.hideQR()
+        }
+      }, 1000)
+    },
+    
+    stopTimer() {
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+    },
+    
+    startSuccessTimer() {
+      this.successTimeRemaining = 5000
+      this.successProgress = 0
+      
+      this.successTimer = setInterval(() => {
+        this.successTimeRemaining -= 100
+        this.successProgress = ((5000 - this.successTimeRemaining) / 5000) * 100
+        
+        if (this.successTimeRemaining <= 0) {
+          this.hideQR()
+        }
+      }, 100)
+    },
+    
+    stopSuccessTimer() {
+      if (this.successTimer) {
+        clearInterval(this.successTimer)
+        this.successTimer = null
+      }
+    },
+    
+    cleanup() {
+      window.removeEventListener('storage', this.handleStorageChange)
+      this.stopTimer()
+      this.stopSuccessTimer()
+    },
+    
+    formatPrice(amount) {
+      if (!amount) return '0 ₭'
+      const formattedNumber = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(Math.round(amount))
+      return `${formattedNumber} ₭`
+    },
+    
+    formatTime(seconds) {
+      const mins = Math.floor(seconds / 60)
+      const secs = seconds % 60
+      return `${mins}:${secs.toString().padStart(2, '0')}`
+    },
+    
+    onQRError() {
+      console.error('Failed to load QR code image')
+    }
+  }
+}
+</script>
+
+<style scoped>
+.customer-display-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  font-family: 'Roboto', 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+/* DCOMMERCE Green Theme */
+.dcommerce-green {
+  background-color: #01532B !important;
+}
+
+.dcommerce-green-text {
+  color: #01532B !important;
+}
+
+/* Welcome Screen */
+.welcome-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.logo-section {
+  margin-bottom: 3rem;
+}
+
+.store-name {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #01532B;
+  margin: 1rem 0;
+  letter-spacing: -1px;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  color: #6c757d;
+  margin: 0.5rem 0;
+}
+
+.status-text {
+  font-size: 1.2rem;
+  color: #01532B;
+  font-weight: 500;
+  margin: 0.5rem 0;
+}
+
+.waiting-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.waiting-text {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* QR Payment Screen */
+.qr-payment-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.payment-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.payment-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #01532B;
+  margin-bottom: 1rem;
+}
+
+/* Amount Display */
+.amount-display {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(1, 83, 43, 0.15);
+  border: 3px solid rgba(1, 83, 43, 0.1);
+}
+
+.amount-label {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.amount-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #01532B;
+  line-height: 1;
+}
+
+.currency-label {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+
+/* QR Display */
+.qr-display-section {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.qr-code-container {
+  flex-shrink: 0;
+}
+
+.qr-wrapper {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
+  border: 4px solid #01532B;
+  position: relative;
+}
+
+.qr-code-image {
+  width: 300px;
+  height: 300px;
+  display: block;
+}
+
+.qr-instructions {
+  flex: 1;
+  text-align: left;
+  padding-left: 2rem;
+}
+
+.instruction-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #01532B;
+  margin-bottom: 1rem;
+}
+
+.instruction-list {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #495057;
+  padding-left: 1.5rem;
+}
+
+.instruction-list li {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Payment Status */
+.payment-status {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Timer */
+.timer-display {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.timer-text {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+/* Success Screen */
+.success-overlay {
+  background: rgba(40, 167, 69, 0.95) !important;
+}
+
+.success-content {
+  text-align: center;
+  color: white;
+  padding: 3rem;
+  max-width: 600px;
+}
+
+.success-icon {
+  animation: successPulse 1s ease-in-out;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.success-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.success-submessage {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.success-timer {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.close-button {
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .qr-display-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .qr-instructions {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .qr-code-image {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .payment-title {
+    font-size: 2rem;
+  }
+  
+  .amount-value {
+    font-size: 2.5rem;
+  }
+  
+  .store-name {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .qr-payment-screen {
+    padding: 1rem;
+  }
+  
+  .qr-code-image {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .qr-wrapper {
+    padding: 1rem;
+  }
+}
+</style>

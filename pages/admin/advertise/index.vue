@@ -106,7 +106,7 @@ import ImagePreviewMixin from './mixins/ImagePreviewMixin.vue'
 export default {
   middleware: 'auths',
   mixins: [ImagePreviewMixin],
-
+  middleware: 'auths',
   data() {
     return {
       search: '',

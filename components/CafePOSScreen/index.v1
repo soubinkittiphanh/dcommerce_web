@@ -1,0 +1,584 @@
+<template>
+  <v-container fluid class="pa-0 fill-height">
+    <v-row no-gutters style="height: 100vh;">
+      <!-- Left Panel - Menu -->
+      <v-col cols="8" class="d-flex flex-column" style="overflow: hidden;">
+        <!-- Header with Search and Filters -->
+        <v-card class="ma-0 rounded-0">
+          <v-card-title class="primary white--text">
+            <v-icon left color="white">mdi-storefront</v-icon>
+            Product Menu
+            <v-spacer></v-spacer>
+            <v-chip color="white" text-color="primary" class="mr-2">
+              <v-icon left small>mdi-package-variant</v-icon>
+              {{ filteredProducts.length }} items
+            </v-chip>
+            <v-btn color="white" text @click="refreshProducts" :loading="loading">
+              <v-icon left>mdi-refresh</v-icon>
+              Refresh
+            </v-btn>
+          </v-card-title>
+          
+          <!-- Search and Filter Row -->
+          <v-card-text class="pa-3">
+            <v-row>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="searchQuery"
+                  prepend-inner-icon="mdi-magnify"
+                  label="Search products..."
+                  variant="outlined"
+                  density="compact"
+                  clearable
+                  hide-details
+                />
+              </v-col>
+              <v-col cols="3">
+                <v-autocomplete
+                  v-model="categoryFilter"
+                  :items="categoryOptions"
+                  item-text="title"
+                  item-value="value"
+                  label="Filter by Category"
+                  variant="outlined"
+                  density="compact"
+                  clearable
+                  hide-details
+                />
+              </v-col>
+              <v-col cols="3">
+                <v-autocomplete
+                  v-model="statusFilter"
+                  :items="statusOptions"
+                  item-text="title"
+                  item-value="value"
+                  label="Filter by Status"
+                  variant="outlined"
+                  density="compact"
+                  clearable
+                  hide-details
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <!-- Loading State -->
+        <v-card v-if="loading" class="flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center">
+          <div class="text-center">
+            <v-progress-circular size="64" color="primary" indeterminate></v-progress-circular>
+            <p class="mt-4 text-h6">Loading products...</p>
+          </div>
+        </v-card>
+
+        <!-- Menu Items Grid -->
+        <v-card v-else class="flex-grow-1 ma-0 rounded-0" style="overflow-y: auto;">
+          <v-card-text class="pa-4">
+            <v-row v-if="filteredProducts.length > 0">
+              <v-col
+                v-for="product in filteredProducts"
+                :key="product.id"
+                cols="4"
+                class="pa-2"
+              >
+                <v-card
+                  @click="addToCart(product)"
+                  elevation="2"
+                  hover
+                  class="text-center pa-4 cursor-pointer product-card"
+                  height="160"
+                  :disabled="!product.isActive || product.stock_count <= 0"
+                  :class="{ 'product-disabled': !product.isActive || product.stock_count <= 0 }"
+                >
+                  <v-card-title class="justify-center text-subtitle-1 pa-1" style="line-height: 1.2;">
+                    {{ product.pro_name }}
+                  </v-card-title>
+                  <v-card-text class="pa-2">
+                    <div class="text-h5 primary--text font-weight-bold mb-2">
+                      {{ formatPrice(product.pro_price) }}
+                    </div>
+                    <div class="d-flex justify-space-between align-center">
+                      <v-chip 
+                        :color="getCategoryColor(product.categ_name)" 
+                        text-color="white" 
+                        x-small
+                      >
+                        {{ product.categ_name }}
+                      </v-chip>
+                      <v-chip 
+                        :color="getStockColor(product.stock_count)" 
+                        text-color="white" 
+                        x-small
+                      >
+                        {{ product.stock_count }} left
+                      </v-chip>
+                    </div>
+                    <div v-if="product.pro_desc" class="caption mt-2 grey--text" style="height: 32px; overflow: hidden;">
+                      {{ product.pro_desc }}
+                    </div>
+                    <div v-if="!product.isActive" class="caption mt-1 error--text font-weight-bold">
+                      INACTIVE
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+            
+            <!-- No Products State -->
+            <div v-else class="text-center pa-8">
+              <v-icon size="64" color="grey">mdi-package-variant-closed</v-icon>
+              <p class="text-h6 mt-4 grey--text">No products found</p>
+              <p class="grey--text">Try adjusting your search or filters</p>
+              <v-btn color="primary" @click="refreshProducts" class="mt-2">
+                <v-icon left>mdi-refresh</v-icon>
+                Refresh Products
+              </v-btn>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <!-- Right Panel - Cart -->
+      <v-col cols="4" class="d-flex flex-column" style="max-height: 100vh; overflow: hidden;">
+        <v-card class="flex-grow-1 ma-0 rounded-0 d-flex flex-column" elevation="2" style="overflow: hidden;">
+          <!-- Cart Header -->
+          <v-card-title class="secondary white--text">
+            <v-icon left color="white">mdi-shopping</v-icon>
+            Current Order
+            <v-spacer></v-spacer>
+            <v-chip color="white" text-color="secondary" small>
+              {{ getTotalItems() }} items
+            </v-chip>
+          </v-card-title>
+
+          <!-- Scrollable Cart Items Section -->
+          <div class="flex-grow-1" style="overflow-y: auto; padding: 16px;">
+            <div v-if="cart.length === 0" class="text-center mt-8">
+              <v-icon size="64" color="grey lighten-2" class="mb-4">
+                mdi-shopping-outline
+              </v-icon>
+              <p class="grey--text">No items in cart</p>
+              <p class="grey--text caption">Add items from the menu</p>
+            </div>
+
+            <div v-else>
+              <v-card
+                v-for="item in cart"
+                :key="item.id"
+                class="mb-2 pa-2"
+                outlined
+              >
+                <div class="d-flex justify-space-between align-center mb-2">
+                  <div>
+                    <div class="font-weight-medium">{{ item.pro_name }}</div>
+                    <div class="caption grey--text">ID: {{ item.pro_id }} | {{ item.categ_name }}</div>
+                  </div>
+                  <v-btn
+                    @click="removeFromCart(item.id)"
+                    icon
+                    small
+                    color="error"
+                  >
+                    <v-icon small>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+                <div class="d-flex justify-space-between align-center">
+                  <div class="d-flex align-center">
+                    <v-btn
+                      @click="updateQuantity(item.id, -1)"
+                      icon
+                      x-small
+                      color="grey"
+                    >
+                      <v-icon>mdi-minus</v-icon>
+                    </v-btn>
+                    <span class="mx-3 font-weight-bold">{{ item.quantity }}</span>
+                    <v-btn
+                      @click="updateQuantity(item.id, 1)"
+                      icon
+                      x-small
+                      color="grey"
+                      :disabled="item.quantity >= item.stock_count"
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                  </div>
+                  <div class="font-weight-bold primary--text">
+                    {{ formatPrice(item.pro_price * item.quantity) }}
+                  </div>
+                </div>
+                <div v-if="item.quantity >= item.stock_count" class="caption error--text mt-1">
+                  Max stock reached
+                </div>
+              </v-card>
+            </div>
+          </div>
+
+          <!-- Cart Summary and Actions -->
+          <div class="pa-4">
+            <v-card v-if="cart.length > 0" class="mb-3 pa-3 w-100" outlined>
+              <div class="d-flex justify-space-between mb-1">
+                <span>Subtotal:</span>
+                <span class="font-weight-medium">{{ formatPrice(getTotalPrice()) }}</span>
+              </div>
+              <div class="d-flex justify-space-between mb-1">
+                <span>Tax (8.5%):</span>
+                <span class="font-weight-medium">{{ formatPrice(getTotalPrice() * 0.085) }}</span>
+              </div>
+              <v-divider class="my-2"></v-divider>
+              <div class="d-flex justify-space-between text-h6 font-weight-bold">
+                <span>Total:</span>
+                <span class="primary--text">{{ formatPrice(getTotalPrice() * 1.085) }}</span>
+              </div>
+            </v-card>
+
+            <v-btn
+              v-if="cart.length > 0"
+              @click="showPayment = !showPayment"
+              color="primary"
+              block
+              large
+              class="mb-2"
+            >
+              <v-icon left>mdi-credit-card</v-icon>
+              {{ showPayment ? 'Hide Payment' : 'Proceed to Payment' }}
+            </v-btn>
+
+            <div v-if="cart.length > 0 && showPayment" class="w-100 mb-2">
+              <v-btn
+                @click="processPayment('Cash')"
+                color="success"
+                block
+                class="mb-2"
+                :loading="processingPayment"
+              >
+                <v-icon left>mdi-cash</v-icon>
+                Pay Cash
+              </v-btn>
+              <v-btn
+                @click="processPayment('Card')"
+                color="purple"
+                dark
+                block
+                class="mb-2"
+                :loading="processingPayment"
+              >
+                <v-icon left>mdi-credit-card</v-icon>
+                Pay Card
+              </v-btn>
+            </div>
+
+            <v-btn
+              v-if="cart.length > 0"
+              @click="clearCart"
+              color="grey"
+              dark
+              block
+            >
+              <v-icon left>mdi-cart-remove</v-icon>
+              Clear Cart
+            </v-btn>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Snackbar for Messages -->
+    <v-snackbar
+      v-model="snackbar.show"
+      :color="snackbar.color"
+      :timeout="snackbar.timeout"
+      location="top right"
+      variant="elevated"
+    >
+      <div class="d-flex align-center">
+        <v-icon class="mr-2">{{ snackbar.icon }}</v-icon>
+        {{ snackbar.message }}
+      </div>
+      <template v-slot:actions>
+        <v-btn color="white" variant="text" @click="snackbar.show = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: 'MenuPOSScreen',
+  data() {
+    return {
+      cart: [],
+      showPayment: false,
+      loading: false,
+      processingPayment: false,
+      products: [],
+      searchQuery: '',
+      categoryFilter: '',
+      statusFilter: '',
+      snackbar: {
+        show: false,
+        message: '',
+        color: 'success',
+        icon: 'mdi-check-circle',
+        timeout: 4000,
+      },
+      categoryOptions: [
+        { title: 'All Categories', value: '' },
+        { title: 'Engine Oils', value: 49 },
+        { title: 'Car Care', value: 50 }
+      ],
+      statusOptions: [
+        { title: 'Active', value: true },
+        { title: 'Inactive', value: false }
+      ]
+    }
+  },
+  computed: {
+    filteredProducts() {
+      let filtered = this.products
+
+      // Search filter
+      if (this.searchQuery) {
+        const searchTerm = this.searchQuery.toLowerCase()
+        filtered = filtered.filter(product =>
+          product.pro_name.toLowerCase().includes(searchTerm) ||
+          product.pro_desc?.toLowerCase().includes(searchTerm) ||
+          product.pro_id.toString().includes(searchTerm) ||
+          product.barCode?.toLowerCase().includes(searchTerm)
+        )
+      }
+
+      // Category filter
+      if (this.categoryFilter) {
+        filtered = filtered.filter(product => product.pro_category === this.categoryFilter)
+      }
+
+      // Status filter
+      if (this.statusFilter !== '') {
+        filtered = filtered.filter(product => product.isActive === this.statusFilter)
+      }
+
+      // Sort by name
+      return filtered.sort((a, b) => a.pro_name.localeCompare(b.pro_name))
+    }
+  },
+  mounted() {
+    this.fetchProducts()
+  },
+  methods: {
+    showMessage(message, color = 'success', icon = 'mdi-check-circle') {
+      this.snackbar = {
+        show: true,
+        message,
+        color,
+        icon,
+        timeout: 4000,
+      }
+    },
+    async fetchProducts() {
+      this.loading = true
+      try {
+        const response = await this.$axios.get('product_f/1')
+        console.log('Products response:', response.data)
+        
+        // Extract product data from API response
+        const productData = response.data.data || response.data
+        
+        this.products = productData.map(product => ({
+          id: product.id,
+          pro_id: product.pro_id,
+          pro_name: product.pro_name,
+          pro_price: product.pro_price,
+          duration_minutes: product.duration_minutes || 0,
+          pro_desc: product.pro_desc || '',
+          pro_status: product.pro_status,
+          pro_image_path: product.img_path,
+          retail_cost_percent: product.retail_cost_percent || 0,
+          cost_price: product.cost_price,
+          stock_count: product.card_count || 0, // Using card_count as stock
+          minStock: product.minStock || 0,
+          locking_session_id: product.locking_session_id,
+          barCode: product.barCode,
+          vendorName: product.vendorName,
+          isActive: product.pro_status === 1, // Convert 1/0 to true/false
+          _category: 'product', // Default to product since no category field
+          categ_name: product.categ_name,
+          co_name: product.co_name,
+          companyId: product.companyId,
+          img_name: product.img_name,
+          receiveUnitId: product.receiveUnitId,
+          stockUnitId: product.stockUnitId,
+          pro_category: product.pro_category,
+          saleCurrencyId: product.saleCurrencyId,
+          costCurrencyId: product.costCurrencyId,
+          createdAt: product.createdAt,
+          updatedAt: product.updatedAt
+        }))
+        
+        this.showMessage(`Loaded ${this.products.length} products successfully!`)
+      } catch (error) {
+        console.error('Error fetching products:', error)
+        this.showMessage('Failed to load products. Please try again.', 'error', 'mdi-alert')
+        
+        // Fallback to demo data if API fails
+        this.loadDemoData()
+      } finally {
+        this.loading = false
+      }
+    },
+    loadDemoData() {
+      this.products = [
+        {
+          id: 1, pro_id: 1, pro_name: 'Espresso', pro_price: 2.50, duration_minutes: 5,
+          pro_desc: 'Strong coffee shot', pro_status: true, stock_count: 50,
+          isActive: true, _category: 'product', minStock: 10
+        },
+        {
+          id: 2, pro_id: 2, pro_name: 'Cappuccino', pro_price: 4.50, duration_minutes: 8,
+          pro_desc: 'Coffee with steamed milk', pro_status: true, stock_count: 30,
+          isActive: true, _category: 'product', minStock: 5
+        },
+        {
+          id: 3, pro_id: 3, pro_name: 'Avocado Toast', pro_price: 8.50, duration_minutes: 15,
+          pro_desc: 'Fresh avocado on toast', pro_status: true, stock_count: 15,
+          isActive: true, _category: 'product', minStock: 3
+        }
+      ]
+    },
+    refreshProducts() {
+      this.fetchProducts()
+    },
+    addToCart(product) {
+      if (!product.isActive) {
+        this.showMessage('This product is currently inactive', 'warning', 'mdi-alert')
+        return
+      }
+      
+      if (product.stock_count <= 0) {
+        this.showMessage('This product is out of stock', 'error', 'mdi-alert')
+        return
+      }
+
+      const existingItem = this.cart.find(cartItem => cartItem.id === product.id)
+      if (existingItem) {
+        if (existingItem.quantity >= product.stock_count) {
+          this.showMessage('Cannot add more items. Stock limit reached.', 'warning', 'mdi-alert')
+          return
+        }
+        existingItem.quantity += 1
+      } else {
+        this.cart.push({ ...product, quantity: 1 })
+      }
+      
+      this.showMessage(`${product.pro_name} added to cart`, 'success', 'mdi-cart-plus')
+    },
+    updateQuantity(id, change) {
+      const item = this.cart.find(item => item.id === id)
+      if (item) {
+        const newQuantity = item.quantity + change
+        
+        if (newQuantity <= 0) {
+          this.removeFromCart(id)
+          return
+        }
+        
+        if (newQuantity > item.stock_count) {
+          this.showMessage('Cannot exceed available stock', 'warning', 'mdi-alert')
+          return
+        }
+        
+        item.quantity = newQuantity
+      }
+    },
+    removeFromCart(id) {
+      const index = this.cart.findIndex(item => item.id === id)
+      if (index > -1) {
+        const item = this.cart[index]
+        this.cart.splice(index, 1)
+        this.showMessage(`${item.pro_name} removed from cart`, 'info', 'mdi-cart-minus')
+      }
+    },
+    clearCart() {
+      this.cart = []
+      this.showPayment = false
+      this.showMessage('Cart cleared', 'info', 'mdi-cart-remove')
+    },
+    async processPayment(method) {
+      this.processingPayment = true
+      try {
+        // Show processing message
+        this.showMessage(`Processing ${method} payment...`, 'info', 'mdi-loading')
+        
+        // Simulate API call to process payment
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        
+        // Update stock counts (in real app, this would be done by the backend)
+        this.updateProductStock()
+        
+        const total = this.formatPrice(this.getTotalPrice() * 1.085, false)
+        this.showMessage(`Payment of ${total} processed successfully via ${method}!`, 'success', 'mdi-check-circle')
+        
+        this.clearCart()
+      } catch (error) {
+        this.showMessage('Payment failed. Please try again.', 'error', 'mdi-alert')
+      } finally {
+        this.processingPayment = false
+      }
+    },
+    updateProductStock() {
+      // Update local stock counts (in real app, backend would handle this)
+      this.cart.forEach(cartItem => {
+        const product = this.products.find(p => p.id === cartItem.id)
+        if (product) {
+          product.stock_count -= cartItem.quantity
+        }
+      })
+    },
+    getTotalPrice() {
+      return this.cart.reduce((total, item) => total + (item.pro_price * item.quantity), 0)
+    },
+    getTotalItems() {
+      return this.cart.reduce((total, item) => total + item.quantity, 0)
+    },
+    formatPrice(amount, includeCurrency = true) {
+      const formattedNumber = Number(amount).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })
+      return includeCurrency ? `${formattedNumber}` : `${formattedNumber}`
+    },
+    getCategoryColor(categoryName) {
+      if (categoryName && categoryName.includes('Engine')) return 'primary'
+      if (categoryName && categoryName.includes('ຄາແຄຣ')) return 'purple'
+      return 'info'
+    },
+    getStockColor(stockCount) {
+      if (stockCount <= 0) return 'error'
+      if (stockCount <= 5) return 'warning'
+      return 'success'
+    }
+  }
+}
+</script>
+
+<style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
+.w-100 {
+  width: 100%;
+}
+.product-card:hover:not(.product-disabled) {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+.product-disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+.product-disabled:hover {
+  transform: none !important;
+}
+</style>

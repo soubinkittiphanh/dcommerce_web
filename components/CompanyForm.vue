@@ -46,6 +46,21 @@
                             <v-checkbox v-model.number="form.isActive" label="Is Active"></v-checkbox>
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-col cols="6">
+                            <v-text-field v-model="form.bank" label=" ຊື່ທະນາຄານ" ></v-text-field>
+                        </v-col>
+                        <v-col cols="6">
+                            <v-text-field v-model="form.accountName" label=" ຊື່ບັນຊີ" ></v-text-field>
+                        </v-col>
+            
+                    </v-row>
+                    <v-row>
+                        <v-col cols="6">
+                            <v-text-field v-model="form.accounts" label="ເລກບັນຊີ (ຂັ້ນຫລາຍບັນຊີດ້ວຍ ເຄື່ອງໝາຍ | )" ></v-text-field>
+                        </v-col>
+           
+                    </v-row>
                 </v-form>
                 <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
             </v-card-text>
@@ -91,6 +106,8 @@ export default {
                 "district": "Toronto",
                 "village": "Downtown",
                 "remark": "This is a sample company",
+                "bank": "ທະນາຄານ BCEL",
+                "accounts": "",
                 isActive: true
             },
             items: ['Gold', 'Silver', 'Platinum', 'Diamond', 'Master'],

@@ -53,9 +53,15 @@ export default {
             entries: [],
             headers: [
                 {
-                    text: 'Name',
+                    text: 'Code',
                     align: 'end',
                     value: 'name',
+                    sortable: false,
+                },
+                {
+                    text: 'ເກດ',
+                    align: 'end',
+                    value: 'grade',
                     sortable: false,
                 },
                 {

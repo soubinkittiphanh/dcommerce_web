@@ -31,6 +31,9 @@
               <p class="text-center"
                 style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
                 DCOMMERCE </p>
+              <!-- <p class="text-center"
+                style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
+                ລະບົບລາຍຮັບ ແລະ ລາຍຈ່າຍ </p> -->
               <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2>
             </v-col>
           </v-row>
@@ -93,9 +96,10 @@ export default {
       const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId'])
       this.setSelectedLocation(location)
       //********** refresh component so the data will be update fresh **********//
-      this.terminalDialog = false
       this.$router.push('/admin') // Main screen for minimart business
+      // this.$router.push('/admin/moneyAdvance') // Main screen for YOTHA 
       // this.$router.push('/admin/orders') // Main screen for shipping bussiness
+      this.terminalDialog = false
     },
     async userLogin() {
       if(this.isLoading) return
@@ -111,8 +115,9 @@ export default {
         }
         if (response.data.accessToken) {
           console.log(`LOGIN COMPLETED`);
-          this.initiateData(this.$axios)
-          this.terminalDialog = true
+          this.initData()
+          this.terminalDialog = true // Disable for THIS PROJECT  | POS: True, MWT: False
+          // this.switchTerminal() // Auto select for this project only // Comment this line for POS
         } else {
           console.log('No token')
           swalError2(this.$swal, 'Error', 'ໄອດີ ຫລື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ')
@@ -122,6 +127,12 @@ export default {
         console.log(err)
       }
       this.isLoading = false
+    },
+    initData() {
+        // Call the method directly
+        this.initiateData(
+          this.$axios
+        );
     },
 
   },

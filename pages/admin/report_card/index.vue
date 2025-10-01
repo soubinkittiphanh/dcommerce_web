@@ -235,7 +235,7 @@ export default {
             return {
               txnHisId: el.product_id,
               amount: this.getFormatNum(el.pro_price),
-              userId: el.update_user+' '+el.user_name,
+              userId: el.update_user+' '+el.cus_name,
               inputter: el.product_id+' '+el.pro_name,
               txnDate: el.update_time,
               txnName: el.card_number,

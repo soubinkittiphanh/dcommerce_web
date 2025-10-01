@@ -1,9 +1,12 @@
-// all sate variable [data]
+// store/index.js
+// All state variables [data]
 export const state = () => ({
     user: '',
     isAuth: true,
     productDetail: null,
     productSearchKeyboard: '',
+    productPriceList: [],
+    productPriceListToCreate: [],
     cartOfproductSelected: [],
     listOfConfirmStockInOrder: [],
     listOfConfirmPaymentOrder: [],
@@ -20,6 +23,10 @@ export const state = () => ({
     locationList: [],
     selectedTerminal: null,
     companyList: [],
+    // Add loading states
+    isLoading: false,
+    dataInitialized: false,
+    errors: [],
     customerForm: {
         name: '',
         tel: '',
@@ -34,23 +41,79 @@ export const state = () => ({
     }
 })
 
-// the function to update state variable should be called by setter [actions]
+// Mutations with better error handling
 export const mutations = {
+    // Add loading state mutations
+    SET_LOADING(state, isLoading) {
+        state.isLoading = isLoading
+    },
+    
+    SET_DATA_INITIALIZED(state, initialized) {
+        state.dataInitialized = initialized
+    },
+    
+    ADD_ERROR(state, error) {
+        state.errors.push({
+            message: error.message || error,
+            timestamp: new Date().toISOString()
+        })
+    },
+    
+    CLEAR_ERRORS(state) {
+        state.errors = []
+    },
 
+    UPDATE_QTY(state, { productId, qty }) {
+        try {
+            const product = state.cartOfproductSelected.find(p => p.id === productId)
+            if (product && qty >= 0) {
+                product.qty = qty
+            }
+        } catch (error) {
+            console.error('Error updating quantity:', error)
+        }
+    },
+
+    initProductPriceList(state, productPrices) {
+        state.productPriceList = Array.isArray(productPrices) ? productPrices : []
+    },
+
+    addProductPriceListToCreate(state, productPrices) {
+        if (productPrices) {
+            state.productPriceListToCreate.push(productPrices)
+        }
+    },
+
+    deleteProductPriceListToCreate(state, index) {
+        if (index >= 0 && index < state.productPriceListToCreate.length) {
+            state.productPriceListToCreate.splice(index, 1)
+        }
+    },
+
+    clearProductPriceListToCreate(state) {
+        state.productPriceListToCreate = []
+    },
 
     removeFromStockConfirm(state, order) {
-        const idx = state.listOfConfirmStockInOrder.indexOf(order)
-        state.listOfConfirmStockInOrder.splice(idx, 1)
+        if (order && order.trackingNumber) {
+            state.listOfConfirmStockInOrder = state.listOfConfirmStockInOrder.filter(
+                item => item.trackingNumber !== order.trackingNumber
+            )
+        }
     },
-    removeFromPaymentConfirk(state, order) {
-        const idx = state.listOfConfirmPaymentOrder.indexOf(order)
-        state.listOfConfirmPaymentOrder.splice(idx, 1)
-    },
-    clearConfirmPaymentList(state) {
 
-        state.listOfConfirmPaymentOrder.length = 0
-        console.log(`LIST OF PAYMENT HAS BEEN CLEARED ${state.listOfConfirmPaymentOrder.length}`);
+    removeFromPaymentConfirm(state, order) {
+        if (order && order.trackingNumber) {
+            state.listOfConfirmPaymentOrder = state.listOfConfirmPaymentOrder.filter(
+                item => item.trackingNumber !== order.trackingNumber
+            )
+        }
     },
+
+    clearConfirmPaymentList(state) {
+        state.listOfConfirmPaymentOrder = []
+    },
+
     clearCustomerForm(state) {
         state.customerForm = {
             name: '',
@@ -64,438 +127,666 @@ export const mutations = {
             geoId: 1,
             discount: 0,
         }
-        console.log(`customer form has been cleared `);
     },
-    setCustomerForm(state,payload) {
-        console.log(`customer form has been assigned `);
-        state.customerForm = payload
-    },
-    clearConfirmStockList(state) {
 
-        state.listOfConfirmStockInOrder.length = 0
-        console.log(`LIST OF STOCK HAS BEEN CLEARED ${state.listOfConfirmStockInOrder.length}`);
-    },
-    SetCurrencyList(state, currency) {
-        state.currencyList = currency
-    },
-    SetUnitList(state, unit) {
-        state.unitList = unit
-    },
-    SetTerminalList(state, terminal) {
-        state.terminalList = terminal
-    },
-    SetLocationList(state, location) {
-        state.locationList = location
-    },
-    SetClientList(state, client) {
-        for (const iterator of client) {
-            iterator['company'] += ' - ' + iterator['name']
+    setCustomerForm(state, payload) {
+        if (payload && typeof payload === 'object') {
+            state.customerForm = { ...state.customerForm, ...payload }
         }
-        state.clientList = client
     },
+
+    clearConfirmStockList(state) {
+        state.listOfConfirmStockInOrder = []
+    },
+
+    SetCurrencyList(state, currency) {
+        state.currencyList = Array.isArray(currency) ? currency : []
+    },
+
+    SetUnitList(state, unit) {
+        state.unitList = Array.isArray(unit) ? unit : []
+    },
+
+    SetTerminalList(state, terminal) {
+        state.terminalList = Array.isArray(terminal) ? terminal : []
+    },
+
+    SetLocationList(state, location) {
+        state.locationList = Array.isArray(location) ? location : []
+    },
+
+    SetClientList(state, client) {
+        if (Array.isArray(client)) {
+            state.clientList = client.map(item => ({
+                ...item,
+                company: item.company && item.name ? `${item.company} - ${item.name}` : item.company || item.name || 'Unknown',
+            }))
+        } else {
+            state.clientList = []
+        }
+    },
+
     SetPaymentList(state, payment) {
-        state.paymentList = payment
+        state.paymentList = Array.isArray(payment) ? payment : []
     },
+
     ChooseTerminal(state, terminalId) {
-        state.selectedTerminal = terminalId
+        if (terminalId !== null && terminalId !== undefined) {
+            state.selectedTerminal = terminalId
+        }
     },
+
     SetProductList(state, product) {
-        state.productList = product
+        state.productList = Array.isArray(product) ? product : []
     },
+
     SetClass(state, bodyClass) {
         state.bodyClass = bodyClass
     },
+
     SetSearchKeyword(state, value) {
-        state.productSearchKeyboard = value
+        state.productSearchKeyboard = value || ''
     },
+
     setSelecteCategoryId(state, categoryId) {
-        state.selectedCategoryId = categoryId
+        state.selectedCategoryId = categoryId || 9999
     },
+
     setSelectedCustomer(state, customer) {
         state.selectedCustomer = customer
     },
+
     setSelectedPayment(state, paymentId) {
-        state.selectedPayment = paymentId
+        state.selectedPayment = paymentId || 1
     },
+
     setSelectedLocation(state, location) {
         state.selectedLocation = location
     },
 
     addPaymentConfirmList(state, order) {
-        let found = false;
-        state.listOfConfirmPaymentOrder.forEach(item => {
-            if (item.trackingNumber === order.trackingNumber) {
-                found = true;
-                //Nothing todo
-            }
-        });
-        if (!found) {
-            // state.cart.push({ ...product, qty: 1 });
+        if (order && order.trackingNumber && 
+            !state.listOfConfirmPaymentOrder.some(item => item.trackingNumber === order.trackingNumber)) {
             state.listOfConfirmPaymentOrder.push(order)
         }
-        console.log(`Order add ${found} to mutation payment ${state.listOfConfirmPaymentOrder.length}`);
     },
+
     addStockInConfirmList(state, order) {
-        // console.log(`Order add to mutation ${JSON.stringify(order)}`);
-        let found = false;
-        state.listOfConfirmStockInOrder.forEach(item => {
-            if (item.trackingNumber === order.trackingNumber) {
-                found = true;
-                //Nothing todo
-            }
-        });
-        if (!found) {
-            // state.cart.push({ ...product, qty: 1 });
+        if (order && order.trackingNumber && 
+            !state.listOfConfirmStockInOrder.some(item => item.trackingNumber === order.trackingNumber)) {
             state.listOfConfirmStockInOrder.push(order)
         }
-        console.log(`Order add ${found} to mutation ${state.listOfConfirmStockInOrder.length}`);
-
     },
+
     addProductToCart(state, product) {
-        let found = false;
-        state.cartOfproductSelected.forEach(item => {
-            if (item.id === product.id) {
-                item.qty++;
-                found = true;
-            }
-        });
-        if (!found) {
-            // state.cart.push({ ...product, qty: 1 });
-            state.cartOfproductSelected.push({ ...product, qty: 1 })
-        }
+        try {
+            if (!product || !product.id) return
 
-    },
-    updateProductCart(state, productInfo) {
-        const productId = productInfo['productId']
-        const price = productInfo['amount']
-        console.log(`PRODUCT MODEL ${JSON.stringify(state.cartOfproductSelected[0])}`);
-        const productIdxFound = state.cartOfproductSelected.findIndex(el => el['id'] == productId)
-        if (productIdxFound < 0) return
-        console.log(`Found INDEX ${productIdxFound}`);
-        let newPrice = 0;
-        if (productInfo['type'] != 'Price') {
-            newPrice = (state.cartOfproductSelected[productIdxFound]['localPrice'] * price / 100) * state.cartOfproductSelected[productIdxFound]['qty']
-            newPrice += state.cartOfproductSelected[productIdxFound]['localPrice']
-        } else {
-            newPrice = price * state.cartOfproductSelected[productIdxFound]['qty']
-        }
-        console.log(`Found new price ${newPrice}`);
-        state.cartOfproductSelected[productIdxFound]['localPrice'] = newPrice
-    },
-    removeProductFromCart(state, product) {
-        let found = false;
-        state.cartOfproductSelected.forEach(item => {
-            if (item.id === product.id) {
-                if (!(item.qty == 1)) {
-                    item.qty--;
-                } else {
-                    const index = state.cartOfproductSelected.indexOf(product);
-                    if (index !== -1) {
-                        state.cartOfproductSelected.splice(index, 1);
-                    }
+            const customerGrade = state.selectedCustomer?.grade
+            let customerPrice = null
+
+            if (customerGrade && Array.isArray(state.productPriceList)) {
+                const productPrice = state.productPriceList.find(p => p.id === product.id)
+                if (productPrice && Array.isArray(productPrice.priceLists)) {
+                    const priceList = productPrice.priceLists.find(pl => pl.grade === customerGrade)
+                    customerPrice = priceList?.amount
                 }
             }
-        });
-    },
-    clearProductFromCart(state, product) {
-        const index = state.cartOfproductSelected.indexOf(product);
-        state.cartOfproductSelected.splice(index, 1);
-    },
-    clearAllProductFromCart(state,) {
-        state.cartOfproductSelected = [];
+
+            const originalProductLocalPrice = product.localPrice
+            product.localPrice = customerPrice ?? product.localPrice
+
+            const existingProductIndex = state.cartOfproductSelected.findIndex(
+                item => item.id === product.id
+            )
+
+            if (existingProductIndex !== -1) {
+                state.cartOfproductSelected[existingProductIndex].qty++
+            } else {
+                state.cartOfproductSelected.push({ ...product, qty: 1 })
+            }
+
+            // Restore original price
+            product.localPrice = originalProductLocalPrice
+        } catch (error) {
+            console.error('Error adding product to cart:', error)
+        }
     },
 
+    updateProductCart(state, productInfo) {
+        try {
+            if (!productInfo || !productInfo.productId) return
+
+            const productId = productInfo.productId
+            const price = productInfo.amount
+            const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId)
+            
+            if (productIdxFound < 0) return
+
+            let newPrice = 0
+            const product = state.cartOfproductSelected[productIdxFound]
+            
+            if (productInfo.type !== 'Price') {
+                newPrice = (product.localPrice * price / 100) * product.qty
+                newPrice += product.localPrice
+            } else {
+                newPrice = price * product.qty
+            }
+            
+            state.cartOfproductSelected[productIdxFound].localPrice = newPrice
+        } catch (error) {
+            console.error('Error updating product cart:', error)
+        }
+    },
+
+    removeProductFromCart(state, product) {
+        try {
+            if (!product || !product.id) return
+            
+            const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id)
+            if (existingProduct) {
+                if (existingProduct.qty > 1) {
+                    existingProduct.qty--
+                } else {
+                    state.cartOfproductSelected = state.cartOfproductSelected.filter(
+                        item => item.id !== product.id
+                    )
+                }
+            }
+        } catch (error) {
+            console.error('Error removing product from cart:', error)
+        }
+    },
+
+    clearProductFromCart(state, product) {
+        if (product && product.id) {
+            state.cartOfproductSelected = state.cartOfproductSelected.filter(
+                item => item.id !== product.id
+            )
+        }
+    },
+
+    clearAllProductFromCart(state) {
+        state.cartOfproductSelected = []
+    },
 
     setUser(state, payload) {
-        console.log("setUser: " + payload.name);
-        state.user = { "name": payload.name, "id": payload.id, "phone": payload.phone, "token": payload.token }
+        if (payload) {
+            state.user = {
+                name: payload.name || '',
+                id: payload.id || '',
+                phone: payload.phone || '',
+                token: payload.token || ''
+            }
+        }
     },
+
     setLogin(state) {
-        console.log("SET LOGIN");
-        state.isAuth = true;
+        state.isAuth = true
     },
+
     setLogout(state) {
-        state.isAuth = false;
-        state.user = '';
+        state.isAuth = false
+        state.user = ''
+        // Clear sensitive data on logout
+        state.cartOfproductSelected = []
+        state.selectedCustomer = null
     },
+
     setProductDetail(state, payload) {
-        state.productDetail = payload;
+        state.productDetail = payload
     },
+
     setCompanyList(state, payload) {
-        state.companyList = payload;
+        state.companyList = Array.isArray(payload) ? payload : []
     },
-
-
 }
-// action to get sate
+
+// Improved getters with null safety
 export const getters = {
-
-    findCustomerForm(state) {
-        return state.customerForm
-    },
-    findAllListOfConfirmStockIn(state) {
-        return state.listOfConfirmStockInOrder
-    },
-    findAllListOfConfirmPayment(state) {
-        return state.listOfConfirmPaymentOrder
-    },
-    findAllProduct(state) {
-        return state.productList
-    },
-    findAllTerminal(state) {
-        return state.terminalList
-    },
-    findAllLocation(state) {
-        return state.locationList
-    },
-    finaAllCompany(state) {
-        return state.companyList
-    },
-    findAllPayment(state) {
-        return state.paymentList
-    },
-    findAllClient(state) {
-        return state.clientList
-    },
-    findAllCurrency(state) {
-        return state.currencyList
-    },
-    findAllUnit(state) {
-        return state.unitList
-    },
-    isAuth(state) {
-        return state.isAuth
-    },
-    findSelectedProductDetail(state) {
-        return state.productDetail
-    },
-    findSelectedTerminal(state) {
-        return state.selectedTerminal
-    },
-
-    isAuthenticated(state) {
-        return state.auth.loggedIn
-    },
-
-    loggedInUser(state) {
-        return state.auth.user
-    },
-    searchKeyword(state) {
-        return state.productSearchKeyboard
-    },
-    cartOfProduct(state) {
-        return state.cartOfproductSelected
-    },
-    currenctSelectedCategoryId(state) {
-        return state.selectedCategoryId
-    },
-    currentSelectedCustomer(state) {
-        return state.selectedCustomer
-    },
-    currentSelectedPayment(state) {
-        return state.selectedPayment
-    },
-    currentSelectedLocation(state) {
-        return state.selectedLocation
-    }
-
+    findCustomerForm: (state) => state.customerForm || {},
+    findAllListOfConfirmStockIn: (state) => state.listOfConfirmStockInOrder || [],
+    findAllListOfConfirmPayment: (state) => state.listOfConfirmPaymentOrder || [],
+    findAllProduct: (state) => state.productList || [],
+    findAllProductPriceListToCreate: (state) => state.productPriceListToCreate || [],
+    findAllTerminal: (state) => state.terminalList || [],
+    findAllLocation: (state) => state.locationList || [],
+    findAllCompany: (state) => state.companyList || [],
+    findAllPayment: (state) => state.paymentList || [],
+    findAllClient: (state) => state.clientList || [],
+    findAllCurrency: (state) => state.currencyList || [],
+    findAllUnit: (state) => state.unitList || [],
+    isAuth: (state) => state.isAuth,
+    findSelectedProductDetail: (state) => state.productDetail,
+    findSelectedTerminal: (state) => state.selectedTerminal,
+    searchKeyword: (state) => state.productSearchKeyboard || '',
+    cartOfProduct: (state) => state.cartOfproductSelected || [],
+    currenctSelectedCategoryId: (state) => state.selectedCategoryId || 9999,
+    currentSelectedCustomer: (state) => state.selectedCustomer,
+    currentSelectedPayment: (state) => state.selectedPayment || 1,
+    currentSelectedLocation: (state) => state.selectedLocation,
+    // Add loading state getters
+    isLoading: (state) => state.isLoading,
+    isDataInitialized: (state) => state.dataInitialized,
+    getErrors: (state) => state.errors || [],
 }
-// action to set sate
+
+// Improved actions with better error handling
 export const actions = {
-    clearCustomerFormAction(state) {
-
-        state.commit("clearCustomerForm")
-    },
-    assignCustomerFormAction(state,payload) {
-
-        state.commit("setCustomerForm",payload)
-    },
-    // TODO: Implement these above 2 function in fontend mapGetters mapAction ...
-    clearPaymentList(state) {
-
-        state.commit("clearConfirmPaymentList")
+    // Add error handling actions
+    addError({ commit }, error) {
+        commit('ADD_ERROR', error)
     },
 
-    clearStockList(state) {
-        state.commit("clearConfirmStockList")
-    },
-    removeOrderFromStockConfirm(state, order) {
-        state.commit("removeFromStockConfirm", order)
-    }, removeOrderFromPaymentConfirm(state, order) {
-        state.commit("removeFromPaymentConfirk", order)
-    },
-    addOrderToConformPaymentList(state, payload) {
-        state.commit("addPaymentConfirmList", payload)
-    },
-    addOrderToConfirmStockInList(state, payload) {
-        console.log(`Order add to state ${JSON.stringify(payload)}`);
-        state.commit("addStockInConfirmList", payload)
-    },
-    login(state, payload) {
-        state.commit("setUser", payload)
-        state.commit("setLogin")
-    },
-    logout(state) {
-        state.commit("setLogout");
-    },
-    clearCart(state) {
-        state.commit("clearAllProductFromCart");
-    },
-    assignProductDetail(state, payload) {
-        state.commit("setProductDetail", payload)
-    },
-    addProduct(state, product) {
-        state.commit("addProductToCart", product)
-    },
-    updateProduct(state, product) {
-        state.commit("updateProductCart", product)
-    },
-    setSelectedTerminal(state, terminalId) {
-        state.commit("ChooseTerminal", terminalId)
+    clearErrors({ commit }) {
+        commit('CLEAR_ERRORS')
     },
 
-    setSelectedLocation(state, location) {
-        state.commit("setSelectedLocation", location)
+    setLoading({ commit }, isLoading) {
+        commit('SET_LOADING', isLoading)
     },
 
-    deleteProduct(state, product) {
-        state.commit("removeProductFromCart", product)
+    // Existing actions with error handling
+    clearCustomerFormAction({ commit }) {
+        try {
+            commit("clearCustomerForm")
+        } catch (error) {
+            console.error('Error clearing customer form:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    updateSelectedCategoryId(state, categoryId) {
-        state.commit("setSelecteCategoryId", categoryId)
+
+    assignCustomerFormAction({ commit }, payload) {
+        try {
+            commit("setCustomerForm", payload)
+        } catch (error) {
+            console.error('Error assigning customer form:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    deleteProductFromCart(state, product) {
-        state.commit("clearProductFromCart", product)
+
+    clearPaymentList({ commit }) {
+        try {
+            commit("clearConfirmPaymentList")
+        } catch (error) {
+            console.error('Error clearing payment list:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    addCustomer(state, customer) {
-        state.commit("setSelectedCustomer", customer)
+
+    clearStockList({ commit }) {
+        try {
+            commit("clearConfirmStockList")
+        } catch (error) {
+            console.error('Error clearing stock list:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    addSelectedPayment(state, paymentId) {
-        state.commit("setSelectedPayment", paymentId)
+
+    removeOrderFromStockConfirm({ commit }, order) {
+        try {
+            commit("removeFromStockConfirm", order)
+        } catch (error) {
+            console.error('Error removing order from stock confirm:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initProduct(state, product) {
-        state.commit("SetProductList", product)
+
+    removeOrderFromPaymentConfirm({ commit }, order) {
+        try {
+            commit("removeFromPaymentConfirm", order)
+        } catch (error) {
+            console.error('Error removing order from payment confirm:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initPayment(state, payment) {
-        state.commit("SetPaymentList", payment)
+
+    addOrderToConfirmPaymentList({ commit }, payload) {
+        try {
+            commit("addPaymentConfirmList", payload)
+        } catch (error) {
+            console.error('Error adding order to payment list:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initCurrency(state, currency) {
-        state.commit("SetCurrencyList", currency)
+
+    addOrderToConfirmStockInList({ commit }, payload) {
+        try {
+            commit("addStockInConfirmList", payload)
+        } catch (error) {
+            console.error('Error adding order to stock list:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initClient(state, client) {
-        state.commit("SetClientList", client)
+
+    login({ commit }, payload) {
+        try {
+            commit("setUser", payload)
+            commit("setLogin")
+        } catch (error) {
+            console.error('Error during login:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initUnit(state, unit) {
-        state.commit("SetUnitList", unit)
+
+    logout({ commit }) {
+        try {
+            commit("setLogout")
+        } catch (error) {
+            console.error('Error during logout:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initTerminal(state, terminal) {
-        state.commit("SetTerminalList", terminal)
+
+    clearCart({ commit }) {
+        try {
+            commit("clearAllProductFromCart")
+        } catch (error) {
+            console.error('Error clearing cart:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initLocation(state, location) {
-        state.commit("SetLocationList", location)
+
+    assignProductDetail({ commit }, payload) {
+        try {
+            commit("setProductDetail", payload)
+        } catch (error) {
+            console.error('Error assigning product detail:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    initCompany(state, company) {
-        state.commit("setCompanyList", company)
+
+    addProduct({ commit }, product) {
+        try {
+            commit("addProductToCart", product)
+        } catch (error) {
+            console.error('Error adding product:', error)
+            commit('ADD_ERROR', error)
+        }
     },
-    async initiateData(state, axios) {
-        initTerminal(state, axios);
-        // initLocation(state, axios);
-        // initProduct(state, axios);
-        // initClient(state, axios);
-        initCurrency(state, axios);
-        // initPayment(state, axios);
-        // initUnit(state, axios);
-        // initCompanyData(state, axios);
+
+    updateProduct({ commit }, product) {
+        try {
+            commit("updateProductCart", product)
+        } catch (error) {
+            console.error('Error updating product:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    setSelectedTerminal({ commit }, terminalId) {
+        try {
+            commit("ChooseTerminal", terminalId)
+        } catch (error) {
+            console.error('Error setting selected terminal:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    setSelectedLocation({ commit }, location) {
+        try {
+            commit("setSelectedLocation", location)
+        } catch (error) {
+            console.error('Error setting selected location:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    deleteProduct({ commit }, product) {
+        try {
+            commit("removeProductFromCart", product)
+        } catch (error) {
+            console.error('Error deleting product:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    updateSelectedCategoryId({ commit }, categoryId) {
+        try {
+            commit("setSelecteCategoryId", categoryId)
+        } catch (error) {
+            console.error('Error updating selected category:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    deleteProductFromCart({ commit }, product) {
+        try {
+            commit("clearProductFromCart", product)
+        } catch (error) {
+            console.error('Error deleting product from cart:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    addCustomer({ commit }, customer) {
+        try {
+            commit("setSelectedCustomer", customer)
+        } catch (error) {
+            console.error('Error adding customer:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    addSelectedPayment({ commit }, paymentId) {
+        try {
+            commit("setSelectedPayment", paymentId)
+        } catch (error) {
+            console.error('Error adding selected payment:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initProduct({ commit }, product) {
+        try {
+            commit("SetProductList", product)
+        } catch (error) {
+            console.error('Error initializing products:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initProductPrices({ commit }, product) {
+        try {
+            commit("initProductPriceList", product)
+        } catch (error) {
+            console.error('Error initializing product prices:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    addProductPricesToCreate({ commit }, product) {
+        try {
+            commit("addProductPriceListToCreate", product)
+        } catch (error) {
+            console.error('Error adding product prices to create:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    deleteProductPricesToCreate({ commit }, index) {
+        try {
+            commit("deleteProductPriceListToCreate", index)
+        } catch (error) {
+            console.error('Error deleting product prices to create:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    clearProductPricesToCreate({ commit }) {
+        try {
+            commit("clearProductPriceListToCreate")
+        } catch (error) {
+            console.error('Error clearing product prices to create:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initPayment({ commit }, payment) {
+        try {
+            commit("SetPaymentList", payment)
+        } catch (error) {
+            console.error('Error initializing payments:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initCurrency({ commit }, currency) {
+        try {
+            commit("SetCurrencyList", currency)
+        } catch (error) {
+            console.error('Error initializing currencies:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initClient({ commit }, client) {
+        try {
+            commit("SetClientList", client)
+        } catch (error) {
+            console.error('Error initializing clients:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initUnit({ commit }, unit) {
+        try {
+            commit("SetUnitList", unit)
+        } catch (error) {
+            console.error('Error initializing units:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initTerminal({ commit }, terminal) {
+        try {
+            commit("SetTerminalList", terminal)
+        } catch (error) {
+            console.error('Error initializing terminals:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initLocation({ commit }, location) {
+        try {
+            commit("SetLocationList", location)
+        } catch (error) {
+            console.error('Error initializing locations:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    initCompany({ commit }, company) {
+        try {
+            commit("setCompanyList", company)
+        } catch (error) {
+            console.error('Error initializing companies:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+
+    async initiateData({ commit, dispatch }, axios) {
+        commit('SET_LOADING', true)
+        commit('CLEAR_ERRORS')
+        
+        try {
+            const initPromises = [
+                initTerminal(dispatch, axios),
+                initLocation(dispatch, axios),
+                initClient(dispatch, axios),
+                initCurrency(dispatch, axios),
+                initPayment(dispatch, axios),
+                initUnit(dispatch, axios),
+                initCompanyData(dispatch, axios)
+            ]
+            
+            // Add product initialization after other data is loaded
+            await Promise.allSettled(initPromises)
+            
+            // Initialize products after locations are loaded
+            await initProduct(dispatch, axios)
+            await initProductPrices(dispatch, axios)
+            
+            commit('SET_DATA_INITIALIZED', true)
+        } catch (error) {
+            console.error("Failed to initialize data:", error)
+            commit('ADD_ERROR', error)
+        } finally {
+            commit('SET_LOADING', false)
+        }
+    },
+
+    async initiateDataCompany({ commit, dispatch }, axios) {
+        commit('SET_LOADING', true)
+        try {
+            await initCompanyData(dispatch, axios)
+        } catch (error) {
+            console.error("Failed to initialize company data:", error)
+            commit('ADD_ERROR', error)
+        } finally {
+            commit('SET_LOADING', false)
+        }
+    },
+
+    // Add server-side initialization for Nuxt
+    async nuxtServerInit({ dispatch }, { app, error }) {
+        try {
+            // Server-side initialization logic
+            if (app.$axios) {
+                // Only initialize essential data on server
+                await dispatch('initiateDataCompany', app.$axios)
+            }
+        } catch (err) {
+            console.error('Server init error:', err)
+            // Don't crash the app on server init errors
+        }
     }
-
-}
-// this.$actions.assignProductDetail', payload)       => this to set sate
-// this.$store.getters.findSelectedProductDetail         => get data from sate
-
-
-
-//************************* All the function to get data and init to common variable centally **************************/
-
-const initClient = async (state, axios) => {
-    console.log(`Data client initialize ===>`);
-    await axios
-        .get('api/client/find')
-        .then((res) => {
-            actions.initClient(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Client initiate fail ' + er)
-        })
-}
-const initPayment = async (state, axios) => {
-    await axios
-        .get('api/paymentMethod/find')
-        .then((res) => {
-            actions.initPayment(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Payment initiate fail ' + er)
-        })
-}
-const initProduct = async (state, axios) => {
-    await axios
-        .get(`product_f/${getters.findAllLocation['id'] || 1}`)
-        .then((res) => {
-            actions.initProduct(state, res.data)
-        })
-        .catch((er) => {
-            console.log('Data: ' + er)
-        })
-}
-const initCurrency = async (state, axios) => {
-    await axios
-        .get('api/currency/find')
-        .then((res) => {
-            actions.initCurrency(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Currency initiate fail ' + er)
-        })
-}
-const initLocation = async (state, axios) => {
-    await axios
-        .get(`api/location/find`)
-        .then((res) => {
-            actions.initLocation(state, res.data)
-        })
-        .catch((er) => {
-            console.error(' Location initiate data fail ' + er)
-        })
-}
-const initTerminal = async (state, axios) => {
-    await axios
-        .get('api/terminal/find')
-        .then((res) => {
-            actions.initTerminal(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Terminal initiate fail ' + er)
-        })
-}
-const initUnit = async (state, axios) => {
-    await axios
-        .get('api/unit/find')
-        .then((res) => {
-            actions.initUnit(state, res.data)
-        })
-        .catch((er) => {
-            console.error('Unit initiate data fail ' + er)
-        })
-}
-const initCompanyData = async (state, axios) => {
-    await axios
-        .get('api/company/find')
-        .then((res) => {
-            actions.initCompany(state, res.data)
-            console.log(`Init company data done`);
-        })
-        .catch((er) => {
-            console.error('Company initiate data fail ' + er)
-        })
 }
 
+// Helper functions with improved error handling
+const fetchData = async (url, action, dispatch, axios, errorMessage) => {
+    try {
+        const response = await axios.get(url)
+        await dispatch(action, response.data)
+    } catch (error) {
+        console.error(`${errorMessage}: ${error.message || error}`)
+        await dispatch('addError', `${errorMessage}: ${error.message || error}`)
+        throw error
+    }
+}
+
+const initProduct = async (dispatch, axios) => {
+    try {
+        // Default to location ID 1 if no location is selected
+        const response = await axios.get('product_f/1')
+        await dispatch('initProduct', response.data)
+    } catch (error) {
+        console.error(`Product initialization failed: ${error.message || error}`)
+        await dispatch('addError', `Product initialization failed: ${error.message || error}`)
+        throw error
+    }
+}
+
+const initClient = (dispatch, axios) => 
+    fetchData('api/client/find', 'initClient', dispatch, axios, 'Client initialization failed')
+
+const initPayment = (dispatch, axios) => 
+    fetchData('api/paymentMethod/find', 'initPayment', dispatch, axios, 'Payment initialization failed')
+
+const initProductPrices = (dispatch, axios) => 
+    fetchData('api/product/find', 'initProductPrices', dispatch, axios, 'Product price initialization failed')
+
+const initCurrency = (dispatch, axios) => 
+    fetchData('api/currency/find', 'initCurrency', dispatch, axios, 'Currency initialization failed')
+
+const initLocation = (dispatch, axios) => 
+    fetchData('api/location/find', 'initLocation', dispatch, axios, 'Location initialization failed')
+
+const initTerminal = (dispatch, axios) => 
+    fetchData('api/terminal/find', 'initTerminal', dispatch, axios, 'Terminal initialization failed')
+
+const initUnit = (dispatch, axios) => 
+    fetchData('api/unit/find', 'initUnit', dispatch, axios, 'Unit initialization failed')
+
+const initCompanyData = (dispatch, axios) => 
+    fetchData('api/company/find', 'initCompany', dispatch, axios, 'Company initialization failed')

@@ -45,7 +45,8 @@
 </template>
 
 <script>
-import { hostName, getFormatNum } from '~/common'
+import {  getFormatNum } from '~/common'
+import { hostName } from '~/common/api'
 export default {
   name: 'discount-products-card',
   props: {

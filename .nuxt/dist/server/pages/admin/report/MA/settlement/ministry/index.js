@@ -1,0 +1,1771 @@
+exports.ids = [231];
+exports.modules = {
+
+/***/ 1074:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_00719b58_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(815);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_00719b58_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_00719b58_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_00719b58_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_00719b58_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1075:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".ministry-settlement-report[data-v-00719b58]{padding:0}.report-header[data-v-00719b58]{align-items:center;border-radius:8px;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-00719b58]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-00719b58]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-00719b58]{display:flex;gap:16px}.custom-btn[data-v-00719b58]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-00719b58]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-00719b58]{background:#fff;border-radius:8px}.filter-title[data-v-00719b58]{background:#01532b;color:#fff;font-weight:600}.custom-primary-bg[data-v-00719b58]{background-color:#01532b!important}.custom-secondary-btn[data-v-00719b58]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-00719b58]:hover{background-color:#5a6268!important}.ministry-selection .ministry-name[data-v-00719b58]{color:#01532b;font-weight:600}.ministry-item .ministry-name[data-v-00719b58]{color:#333;font-weight:600}.ministry-item .ministry-details[data-v-00719b58]{color:#666;font-size:12px}.summary-cards[data-v-00719b58]{margin-bottom:24px}.summary-card[data-v-00719b58]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-00719b58]:hover{transform:translateY(-2px)}.summary-content[data-v-00719b58]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-00719b58]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-00719b58]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-00719b58]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-00719b58]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-00719b58]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.amount-card[data-v-00719b58],.lak-card[data-v-00719b58],.settlement-card[data-v-00719b58],.total-ministries-card[data-v-00719b58]{background:#01532b;color:#fff}.currency-breakdown[data-v-00719b58]{margin-bottom:24px}.currency-title[data-v-00719b58]{background:#01532b;color:#fff;font-weight:600}.currency-card[data-v-00719b58]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;height:100%;padding:16px;text-align:center;transition:all .3s ease}.currency-card[data-v-00719b58]:hover{border-color:#01532b;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-header[data-v-00719b58]{align-items:center;display:flex;justify-content:space-between;margin-bottom:12px}.currency-flag[data-v-00719b58]{font-size:24px}.currency-stats[data-v-00719b58]{text-align:center}.original-amount[data-v-00719b58]{color:#01532b;font-family:monospace;font-size:18px;font-weight:700;margin-bottom:4px}.lak-equivalent[data-v-00719b58]{color:#228b22;font-family:monospace;font-size:14px;font-weight:600;margin-bottom:8px}.settlement-count[data-v-00719b58]{color:#666;font-size:12px;margin-bottom:4px}.percentage[data-v-00719b58]{color:#999;font-size:11px}.ministry-table[data-v-00719b58]{background:#fff}.ministry-table-header[data-v-00719b58],.ministry-table-header th[data-v-00719b58]{background-color:#01532b!important}.ministry-table-header th[data-v-00719b58]{border-bottom:none!important;color:#fff!important;padding:12px 8px!important}.ministry-row-even[data-v-00719b58]{background-color:#f8f9fa}.ministry-row-special[data-v-00719b58]{background-color:#fff3cd;font-style:italic}.ministry-table-footer[data-v-00719b58]{background-color:#e9ecef!important;font-weight:700}.ministry-table-footer td[data-v-00719b58]{background-color:#e9ecef!important;border-top:2px solid #01532b!important;padding:12px 8px!important}.ministry-divider[data-v-00719b58]{border-color:#01532b!important;opacity:.3!important}.ministry-primary--text[data-v-00719b58]{color:#01532b!important}.ministry-success--text[data-v-00719b58]{color:#28a745!important}.report-card[data-v-00719b58]{border-radius:12px}.report-header[data-v-00719b58]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-00719b58] .v-icon,.search-field[data-v-00719b58] input{color:#fff!important}.search-field[data-v-00719b58] .v-label{color:hsla(0,0%,100%,.7)!important}.search-field[data-v-00719b58] .v-input__control{border-color:hsla(0,0%,100%,.3)!important}.dialog-header[data-v-00719b58]{background:#01532b!important;font-weight:600!important}.close-btn[data-v-00719b58],.dialog-header[data-v-00719b58]{color:#fff!important}.section-title[data-v-00719b58]{color:#01532b;font-size:18px;font-weight:600;margin:0}.custom-divider[data-v-00719b58]{border-color:#01532b!important;opacity:.3!important}.detail-stat[data-v-00719b58]{align-items:center;background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;display:flex;height:100%;padding:16px;transition:all .3s ease}.detail-stat[data-v-00719b58]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.stat-icon[data-v-00719b58]{color:#01532b;font-size:24px;margin-right:12px}.stat-info strong[data-v-00719b58]{color:#01532b;display:block;font-size:12px;font-weight:700;margin-bottom:4px}.stat-number[data-v-00719b58]{color:#333;font-family:monospace;font-size:16px;font-weight:600;margin:0}.method-card[data-v-00719b58]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.method-card[data-v-00719b58]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.method-header[data-v-00719b58]{margin-bottom:12px}.method-count[data-v-00719b58]{color:#666;font-size:14px;margin-bottom:4px}.method-amount[data-v-00719b58]{color:#01532b;font-family:monospace;font-size:18px;font-weight:600}.settlement-table[data-v-00719b58]{background:#fff}.settlement-table[data-v-00719b58] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.settlement-table[data-v-00719b58] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-00719b58]{color:#01532b;font-family:monospace;font-size:13px}.amount-breakdown[data-v-00719b58]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-00719b58]{font-family:monospace;font-size:13px;font-weight:600}.exchange-rate-cell[data-v-00719b58]{text-align:center}.exchange-rate-cell .default-rate[data-v-00719b58]{color:#999;font-style:italic}.lak-amount-cell[data-v-00719b58]{text-align:center}.lak-amount[data-v-00719b58]{color:#228b22;font-family:monospace;font-size:13px;font-weight:600}.user-info .user-name[data-v-00719b58]{font-weight:500}.advance-info .advance-status[data-v-00719b58]{color:#666;font-size:10px;margin-top:2px}.no-advance[data-v-00719b58]{color:#999;font-style:italic}.text-center[data-v-00719b58]{text-align:center}.py-8[data-v-00719b58]{padding:64px 0}.mt-4[data-v-00719b58]{margin-top:16px}.mt-3[data-v-00719b58]{margin-top:12px}.mt-2[data-v-00719b58]{margin-top:8px}.mb-4[data-v-00719b58]{margin-bottom:24px}.mb-3[data-v-00719b58]{margin-bottom:12px}.my-3[data-v-00719b58]{margin:12px 0}.pa-4[data-v-00719b58]{padding:24px}@media print{.action-buttons[data-v-00719b58],.filter-card[data-v-00719b58],.v-btn[data-v-00719b58]{display:none!important}.summary-cards[data-v-00719b58]{page-break-inside:avoid}.report-header[data-v-00719b58]{background:#01532b!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-00719b58]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-00719b58]{font-size:24px}.action-buttons[data-v-00719b58]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-00719b58]{flex-direction:column;padding:12px;text-align:center}.summary-icon[data-v-00719b58]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details h2[data-v-00719b58]{font-size:20px}.detail-stat[data-v-00719b58]{flex-direction:column;text-align:center}.stat-icon[data-v-00719b58]{margin-bottom:8px;margin-right:0}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1300:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(124);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(121);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(125);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(390);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
+var VDataTable = __webpack_require__(398);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(347);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(120);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__(90);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(389);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(19);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
+var VSimpleTable = __webpack_require__(161);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(388);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
+var VTextField = __webpack_require__(36);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/ministry/index.vue?vue&type=template&id=00719b58&scoped=true&
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ministryvue_type_template_id_00719b58_scoped_true_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "ministry-settlement-report"
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-00719b58>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-00719b58><h1 class=\"page-title\" data-v-00719b58><i class=\"fas fa-building\" data-v-00719b58></i>\n        ລາຍງານຊຳລະຕາມກະຊວງ\n      </h1> <p class=\"page-subtitle\" data-v-00719b58>Ministry Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-00719b58>", "</div>", [_c(VBtn["a" /* default */], {
+    staticClass: "custom-btn export-btn",
+    attrs: {
+      "loading": _vm.exporting
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-file-excel"
+  }), _vm._v("\n        Export Excel\n      ")]), _vm._ssrNode(" "), _c(VBtn["a" /* default */], {
+    staticClass: "custom-btn print-btn",
+    on: {
+      "click": _vm.printReport
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  }), _vm._v("\n        Print\n      ")])], 2)], 2), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "filter-card mb-4",
+    attrs: {
+      "elevation": "2"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "filter-title d-flex align-center"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2"
+  }, [_vm._v("mdi-filter")]), _vm._v("\n      ຕົວກອງ (Filters)\n    ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "type": "date",
+      "label": "ວັນທີເລີ່ມຕົ້ນ (From Date)",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.loadDashboardData
+    },
+    model: {
+      value: _vm.filters.startDate,
+      callback: function ($$v) {
+        _vm.$set(_vm.filters, "startDate", $$v);
+      },
+      expression: "filters.startDate"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "type": "date",
+      "label": "ວັນທີສິ້ນສຸດ (To Date)",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.loadDashboardData
+    },
+    model: {
+      value: _vm.filters.endDate,
+      callback: function ($$v) {
+        _vm.$set(_vm.filters, "endDate", $$v);
+      },
+      expression: "filters.endDate"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "4"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.ministries,
+      "item-text": "name",
+      "item-value": "id",
+      "label": "ກະຊວງ (Ministry)",
+      "clearable": "",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.loadDashboardData
+    },
+    scopedSlots: _vm._u([{
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "ministry-selection"
+        }, [_c('span', {
+          staticClass: "ministry-name"
+        }, [_vm._v(_vm._s(item.ministryName))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(item.ministryCode) + " - " + _vm._s(item.ministryType))])])];
+      }
+    }, {
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "ministry-item"
+        }, [_c('div', {
+          staticClass: "ministry-name"
+        }, [_vm._v(_vm._s(item.ministryName))]), _vm._v(" "), _c('div', {
+          staticClass: "ministry-details"
+        }, [_vm._v("\n                  Code: " + _vm._s(item.ministryCode) + " | Type: " + _vm._s(item.ministryType) + "\n                ")])])];
+      }
+    }]),
+    model: {
+      value: _vm.filters.ministryId,
+      callback: function ($$v) {
+        _vm.$set(_vm.filters, "ministryId", $$v);
+      },
+      expression: "filters.ministryId"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "2"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.settlementMethods,
+      "label": "ວິທີການຊຳລະ (Method)",
+      "clearable": "",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.loadDashboardData
+    },
+    model: {
+      value: _vm.filters.method,
+      callback: function ($$v) {
+        _vm.$set(_vm.filters, "method", $$v);
+      },
+      expression: "filters.method"
+    }
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "custom-primary-bg white--text",
+    attrs: {
+      "block": "",
+      "outlined": "",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": _vm.loadDashboardData
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-refresh")]), _vm._v("\n            Refresh\n          ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "custom-secondary-btn",
+    attrs: {
+      "block": "",
+      "outlined": "",
+      "color": "grey lighten-1"
+    },
+    on: {
+      "click": _vm.resetFilters
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-restore")]), _vm._v("\n            Reset\n          ")], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), !_vm.loading ? _c(VRow["a" /* default */], {
+    staticClass: "summary-cards mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "summary-card total-ministries-card",
+    attrs: {
+      "elevation": "4"
+    }
+  }, [_c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "summary-content"
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-building"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "summary-details"
+  }, [_c('h3', {
+    staticClass: "summary-title"
+  }, [_vm._v("ທັງໝົດກະຊວງ")]), _vm._v(" "), _c('p', {
+    staticClass: "summary-subtitle"
+  }, [_vm._v("Total Ministries")]), _vm._v(" "), _c('h2', {
+    staticClass: "summary-amount"
+  }, [_vm._v(_vm._s(_vm.ministryStats.length))]), _vm._v(" "), _c('p', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("Active Ministries")])])])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "summary-card settlement-card",
+    attrs: {
+      "elevation": "4"
+    }
+  }, [_c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "summary-content"
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-money-bill-wave"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "summary-details"
+  }, [_c('h3', {
+    staticClass: "summary-title"
+  }, [_vm._v("ຈຳນວນການຊຳລະ")]), _vm._v(" "), _c('p', {
+    staticClass: "summary-subtitle"
+  }, [_vm._v("Total Settlements")]), _vm._v(" "), _c('h2', {
+    staticClass: "summary-amount"
+  }, [_vm._v(_vm._s(_vm.totalSettlementsCount))]), _vm._v(" "), _c('p', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("Settlement Count")])])])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "summary-card amount-card",
+    attrs: {
+      "elevation": "4"
+    }
+  }, [_c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "summary-content"
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-coins"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "summary-details"
+  }, [_c('h3', {
+    staticClass: "summary-title"
+  }, [_vm._v("ລວມທຸກສະກຸນ")]), _vm._v(" "), _c('p', {
+    staticClass: "summary-subtitle"
+  }, [_vm._v("Multi-Currency Total")]), _vm._v(" "), _c('h2', {
+    staticClass: "summary-amount"
+  }, [_vm._v(_vm._s(_vm.uniqueCurrencies))]), _vm._v(" "), _c('p', {
+    staticClass: "summary-lcy"
+  }, [_vm._v(_vm._s(_vm.uniqueCurrencies) + " Currencies")])])])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "summary-card lak-card",
+    attrs: {
+      "elevation": "4"
+    }
+  }, [_c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "summary-content"
+  }, [_c('div', {
+    staticClass: "summary-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-calculator"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "summary-details"
+  }, [_c('h3', {
+    staticClass: "summary-title"
+  }, [_vm._v("ລາວກີບ (LAK)")]), _vm._v(" "), _c('p', {
+    staticClass: "summary-subtitle"
+  }, [_vm._v("Total LAK Equivalent")]), _vm._v(" "), _c('h2', {
+    staticClass: "summary-amount"
+  }, [_vm._v("\n                " + _vm._s(_vm.formatCurrency(_vm.totalLakAmount, 'LAK')) + "\n              ")]), _vm._v(" "), _c('p', {
+    staticClass: "summary-lcy"
+  }, [_vm._v("Local Currency")])])])])], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), !_vm.loading && _vm.currencyBreakdown.length > 0 ? _c(VRow["a" /* default */], {
+    staticClass: "currency-breakdown mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VCard["a" /* default */], {
+    attrs: {
+      "elevation": "2"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "currency-title"
+  }, [_c('i', {
+    staticClass: "fas fa-coins"
+  }), _vm._v("\n          ການແຈກຢາຍຕາມສະກຸນເງິນ (Currency Breakdown)\n        ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], _vm._l(_vm.currencyBreakdown, function (currency) {
+    return _c(VCol["a" /* default */], {
+      key: currency.currencyCode || currency.currencyId,
+      attrs: {
+        "cols": "12",
+        "md": "4",
+        "lg": "3"
+      }
+    }, [_c('div', {
+      staticClass: "currency-card"
+    }, [_c('div', {
+      staticClass: "currency-header"
+    }, [_c(VChip["a" /* default */], {
+      attrs: {
+        "color": _vm.getCurrencyColor(currency.currencyCode),
+        "text-color": "white",
+        "large": ""
+      }
+    }, [_vm._v("\n                    " + _vm._s(currency.currencyCode || 'LAK') + "\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "currency-flag"
+    }, [_vm._v("\n                    " + _vm._s(_vm.getCurrencyFlag(currency.currencyCode)) + "\n                  ")])], 1), _vm._v(" "), _c('div', {
+      staticClass: "currency-stats"
+    }, [_c('div', {
+      staticClass: "original-amount"
+    }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(currency.totalAmount, currency.currencyCode)) + "\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "lak-equivalent"
+    }, [_vm._v("\n                    ≈ " + _vm._s(_vm.formatCurrency(currency.lakEquivalent, 'LAK')) + "\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "settlement-count"
+    }, [_vm._v("\n                    " + _vm._s(currency.count) + " ການຊຳລະ\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "percentage"
+    }, [_vm._v("\n                    " + _vm._s(Math.round(currency.lakEquivalent / _vm.totalLakAmount * 100)) + "% ຂອງທັງໝົດ\n                  ")])])])]);
+  }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"text-center py-8\" data-v-00719b58>", "</div>", [_c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "indeterminate": "",
+      "color": "#01532B",
+      "size": "64"
+    }
+  }), _vm._ssrNode(" <p class=\"mt-4 text-gray-600\" data-v-00719b58>\n      ກຳລັງໂຫລດຂໍ້ມູນ... Loading ministry reports...\n    </p>")], 2) : _vm._e(), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "rounded-xl report-card",
+    attrs: {
+      "elevation": "2"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "ministry-primary--text py-2 px-4 d-flex align-center report-header"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "#01532B"
+    }
+  }, [_vm._v("mdi-building")]), _vm._v(" "), _c('span', {
+    staticClass: "text-subtitle-1 font-weight-medium"
+  }, [_vm._v("\n            ລາຍງານ ຕາມກະຊວງ\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
+    staticClass: "search-field mr-4",
+    staticStyle: {
+      "max-width": "250px"
+    },
+    attrs: {
+      "append-icon": "mdi-magnify",
+      "label": "ຄົ້ນຫາກະຊວງ...",
+      "single-line": "",
+      "hide-details": "",
+      "outlined": "",
+      "dense": ""
+    },
+    model: {
+      value: _vm.search,
+      callback: function ($$v) {
+        _vm.search = $$v;
+      },
+      expression: "search"
+    }
+  }), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "#059669",
+      "small": "",
+      "outlined": "",
+      "disabled": !_vm.filteredMinistries.length,
+      "loading": _vm.exporting
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": "",
+      "left": ""
+    }
+  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            Export Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "icon": "",
+      "small": "",
+      "loading": _vm.loading,
+      "color": "#01532B"
+    },
+    on: {
+      "click": _vm.loadDashboardData
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-refresh")])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "ministry-divider"
+  }), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [_vm.loading ? _c('div', {
+    staticClass: "text-center py-6"
+  }, [_c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "indeterminate": "",
+      "color": "#01532B"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "mt-2 text-caption"
+  }, [_vm._v("\n              Loading ministry report...\n            ")])], 1) : !_vm.ministryStats.length ? _c('div', {
+    staticClass: "text-center py-6"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "48",
+      "color": "grey lighten-2"
+    }
+  }, [_vm._v("mdi-information-outline")]), _vm._v(" "), _c('div', {
+    staticClass: "mt-2 text-subtitle-2 grey--text"
+  }, [_vm._v("\n              No ministry data available\n            ")])], 1) : _c(VSimpleTable["a" /* default */], {
+    staticClass: "ministry-table",
+    attrs: {
+      "dense": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function () {
+        return [_c('thead', [_c('tr', {
+          staticClass: "ministry-table-header"
+        }, [_c('th', {
+          staticClass: "white--text text-caption font-weight-bold"
+        }, [_vm._v("#")]), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold"
+        }, [_vm._v("\n                    Ministry Code\n                  ")]), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold"
+        }, [_vm._v("\n                    Ministry Name\n                  ")]), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold"
+        }, [_vm._v("\n                    Ministry Type\n                  ")]), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold"
+        }, [_vm._v("\n                    Description\n                  ")]), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold text-right"
+        }, [_vm._v("\n                    Count\n                  ")]), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
+          return _c('th', {
+            key: 'head-' + currency.code,
+            staticClass: "white--text text-caption font-weight-bold text-right"
+          }, [_vm._v("\n                    " + _vm._s(currency.code) + "\n                  ")]);
+        }), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold text-right"
+        }, [_vm._v("\n                    Total (LAK)\n                  ")]), _vm._v(" "), _c('th', {
+          staticClass: "white--text text-caption font-weight-bold text-center"
+        }, [_vm._v("\n                    Actions\n                  ")])], 2)]), _vm._v(" "), _c('tbody', [_vm._l(_vm.filteredMinistries, function (item, index) {
+          var _item$ministry, _item$ministry2, _item$ministry3, _item$ministry4, _item$ministry5;
+          return _c('tr', {
+            key: item.ministryId,
+            class: {
+              'ministry-row-even': index % 2 === 0,
+              'ministry-row-special': item.ministryId === 'NO_MINISTRY'
+            }
+          }, [_c('td', {
+            staticClass: "text-caption text-center"
+          }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
+            staticClass: "text-body-2 font-weight-medium",
+            class: {
+              'grey--text': item.ministryId === 'NO_MINISTRY'
+            }
+          }, [_vm._v("\n                    " + _vm._s(((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryCode) || 'N/A') + "\n                  ")]), _vm._v(" "), _c('td', {
+            staticClass: "text-body-2",
+            class: {
+              'grey--text font-italic': item.ministryId === 'NO_MINISTRY'
+            }
+          }, [_vm._v("\n                    " + _vm._s(((_item$ministry2 = item.ministry) === null || _item$ministry2 === void 0 ? void 0 : _item$ministry2.ministryName) || 'Unknown Ministry') + "\n                  ")]), _vm._v(" "), _c('td', {
+            staticClass: "text-body-2"
+          }, [_c(VChip["a" /* default */], {
+            attrs: {
+              "x-small": "",
+              "color": _vm.getMinistryTypeColor((_item$ministry3 = item.ministry) === null || _item$ministry3 === void 0 ? void 0 : _item$ministry3.ministryType),
+              "text-color": "white"
+            }
+          }, [_vm._v("\n                      " + _vm._s(((_item$ministry4 = item.ministry) === null || _item$ministry4 === void 0 ? void 0 : _item$ministry4.ministryType) || 'N/A') + "\n                    ")])], 1), _vm._v(" "), _c('td', {
+            staticClass: "text-body-2",
+            class: {
+              'grey--text font-italic': item.ministryId === 'NO_MINISTRY'
+            }
+          }, [_vm._v("\n                    " + _vm._s(((_item$ministry5 = item.ministry) === null || _item$ministry5 === void 0 ? void 0 : _item$ministry5.description) || 'N/A') + "\n                  ")]), _vm._v(" "), _c('td', {
+            staticClass: "text-body-2 text-right"
+          }, [_c(VChip["a" /* default */], {
+            attrs: {
+              "x-small": "",
+              "color": "#228B22",
+              "text-color": "white"
+            }
+          }, [_vm._v("\n                      " + _vm._s(item.count) + "\n                    ")])], 1), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
+            var _item$amounts;
+            return _c('td', {
+              key: 'amt-' + currency.code,
+              staticClass: "text-body-2 text-right"
+            }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(((_item$amounts = item.amounts) === null || _item$amounts === void 0 ? void 0 : _item$amounts[currency.code]) || 0)) + "\n                  ")]);
+          }), _vm._v(" "), _c('td', {
+            staticClass: "text-right font-weight-bold ministry-success--text"
+          }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(item.totalLak || 0, 'LAK')) + "\n                  ")]), _vm._v(" "), _c('td', {
+            staticClass: "text-center"
+          }, [_c(VBtn["a" /* default */], {
+            staticClass: "white--text",
+            attrs: {
+              "x-small": "",
+              "color": "#01532B"
+            },
+            on: {
+              "click": function ($event) {
+                return _vm.selectMinistry(item.ministryId);
+              }
+            }
+          }, [_c(VIcon["a" /* default */], {
+            attrs: {
+              "x-small": ""
+            }
+          }, [_vm._v("mdi-eye")]), _vm._v("\n                      ເບິ່ງ\n                    ")], 1)], 1)], 2);
+        }), _vm._v(" "), _c('tr', {
+          staticClass: "ministry-table-footer"
+        }, [_c('td', {
+          staticClass: "font-weight-bold text-caption",
+          attrs: {
+            "colspan": "5"
+          }
+        }, [_vm._v("\n                    ລວມ (Total)\n                  ")]), _vm._v(" "), _c('td', {
+          staticClass: "text-right font-weight-bold text-body-2"
+        }, [_c(VChip["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "color": "#01532B",
+            "text-color": "white"
+          }
+        }, [_vm._v("\n                      " + _vm._s(_vm.totalSettlementsCount) + "\n                    ")])], 1), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
+          return _c('td', {
+            key: 'sum-' + currency.code,
+            staticClass: "text-right font-weight-bold text-body-2"
+          }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(_vm.getCurrencyTotal(currency.code))) + "\n                  ")]);
+        }), _vm._v(" "), _c('td', {
+          staticClass: "text-right font-weight-bold text-body-2 ministry-primary--text"
+        }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(_vm.totalLakAmount, 'LAK')) + "\n                  ")]), _vm._v(" "), _c('td', {
+          staticClass: "text-center"
+        }, [_c(VChip["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "color": "grey"
+          }
+        }, [_vm._v(_vm._s(_vm.filteredMinistries.length) + " ministries")])], 1)], 2)], 2)];
+      },
+      proxy: true
+    }])
+  })], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "1200px",
+      "scrollable": ""
+    },
+    model: {
+      value: _vm.settlementDialog,
+      callback: function ($$v) {
+        _vm.settlementDialog = $$v;
+      },
+      expression: "settlementDialog"
+    }
+  }, [_vm.selectedMinistry ? _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "dialog-header"
+  }, [_c('i', {
+    staticClass: "fas fa-building"
+  }), _vm._v("\n        ລາຍລະອຽດການຊຳລະ - " + _vm._s(_vm.selectedMinistry.name) + "\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "close-btn",
+    attrs: {
+      "icon": ""
+    },
+    on: {
+      "click": _vm.closeDialog
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], {
+    staticClass: "summary-section mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "section-title"
+  }, [_vm._v("\n              ສະຫຼຸບກະຊວງ (Ministry Summary)\n            ")]), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "custom-divider mb-3"
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "detail-stat"
+  }, [_c('div', {
+    staticClass: "stat-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-list-ol"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "stat-info"
+  }, [_c('strong', [_vm._v("ຈຳນວນການຊຳລະ:")]), _vm._v(" "), _c('p', {
+    staticClass: "stat-number"
+  }, [_vm._v("\n                  " + _vm._s(_vm.settlementSummary.settlementCount) + "\n                ")])])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "detail-stat"
+  }, [_c('div', {
+    staticClass: "stat-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-dollar-sign"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "stat-info"
+  }, [_c('strong', [_vm._v("ລວມຈຳນວນເງິນ:")]), _vm._v(" "), _c('p', {
+    staticClass: "stat-number"
+  }, [_vm._v("\n                  $" + _vm._s(_vm.formatCurrency(_vm.settlementSummary.totalAmount)) + "\n                ")])])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "detail-stat"
+  }, [_c('div', {
+    staticClass: "stat-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-calculator"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "stat-info"
+  }, [_c('strong', [_vm._v("ຄ່າສະເລ່ຍ:")]), _vm._v(" "), _c('p', {
+    staticClass: "stat-number"
+  }, [_vm._v("\n                  $" + _vm._s(_vm.formatCurrency(_vm.settlementSummary.totalAmount / _vm.settlementSummary.settlementCount)) + "\n                ")])])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "detail-stat"
+  }, [_c('div', {
+    staticClass: "stat-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-building"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "stat-info"
+  }, [_c('strong', [_vm._v("ລະຫັດກະຊວງ:")]), _vm._v(" "), _c('p', {
+    staticClass: "stat-number"
+  }, [_vm._v("\n                  " + _vm._s(_vm.selectedMinistry.code) + "\n                ")])])])])], 1), _vm._v(" "), _vm.methodDistribution.length > 0 ? _c(VRow["a" /* default */], {
+    staticClass: "method-distribution mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "section-title"
+  }, [_vm._v("\n              ການແຈກຢາຍຕາມວິທີການ (Method Distribution)\n            ")]), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "custom-divider mb-3"
+  })], 1), _vm._v(" "), _vm._l(_vm.methodDistribution, function (method) {
+    return _c(VCol["a" /* default */], {
+      key: method.method,
+      attrs: {
+        "cols": "12",
+        "md": "4"
+      }
+    }, [_c('div', {
+      staticClass: "method-card"
+    }, [_c('div', {
+      staticClass: "method-header"
+    }, [_c(VChip["a" /* default */], {
+      attrs: {
+        "color": _vm.getMethodColor(method.method),
+        "text-color": "white",
+        "small": ""
+      }
+    }, [_vm._v("\n                  " + _vm._s(_vm.formatMethod(method.method)) + "\n                ")])], 1), _vm._v(" "), _c('div', {
+      staticClass: "method-stats"
+    }, [_c('div', {
+      staticClass: "method-count"
+    }, [_vm._v(_vm._s(method.count) + " ການຊຳລະ")]), _vm._v(" "), _c('div', {
+      staticClass: "method-amount"
+    }, [_vm._v("\n                  $" + _vm._s(_vm.formatCurrency(method.total)) + "\n                ")])])])]);
+  })], 2) : _vm._e(), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "section-title"
+  }, [_vm._v("\n              ລາຍການການຊຳລະ (Settlement Transactions)\n            ")]), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "custom-divider mb-3"
+  }), _vm._v(" "), _c(VDataTable["a" /* default */], {
+    staticClass: "settlement-table",
+    attrs: {
+      "headers": _vm.settlementHeaders,
+      "items": _vm.selectedSettlements,
+      "loading": _vm.loadingDetails,
+      "items-per-page": 10,
+      "footer-props": {
+        itemsPerPageOptions: [5, 10, 25, 50],
+        itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:'
+      }
+    },
+    scopedSlots: _vm._u([{
+      key: "item.bookingDate",
+      fn: function ({
+        item
+      }) {
+        return [_c('span', {
+          staticClass: "date-cell"
+        }, [_vm._v(_vm._s(_vm.formatDate(item.bookingDate)))])];
+      }
+    }, {
+      key: "item.currency",
+      fn: function ({
+        item
+      }) {
+        var _item$currency, _item$currency2;
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getCurrencyColor((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code),
+            "text-color": "white",
+            "small": ""
+          }
+        }, [_vm._v("\n                  " + _vm._s(((_item$currency2 = item.currency) === null || _item$currency2 === void 0 ? void 0 : _item$currency2.code) || 'LAK') + "\n                ")])];
+      }
+    }, {
+      key: "item.amount",
+      fn: function ({
+        item
+      }) {
+        var _item$currency3;
+        return [_c('div', {
+          staticClass: "amount-breakdown"
+        }, [_c('span', {
+          staticClass: "amount-cell"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.amount, (_item$currency3 = item.currency) === null || _item$currency3 === void 0 ? void 0 : _item$currency3.code)))])])];
+      }
+    }, {
+      key: "item.exchangeRate",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "exchange-rate-cell"
+        }, [item.exchangeRate && item.exchangeRate !== 1 ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.formatExchangeRate(item.exchangeRate)) + "\n                  ")]) : _c('span', {
+          staticClass: "default-rate"
+        }, [_vm._v("1.0000")])])];
+      }
+    }, {
+      key: "item.lakAmount",
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "lak-amount-cell"
+        }, [_c('span', {
+          staticClass: "lak-amount"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(_vm.calculateLakAmount(item.amount, item.exchangeRate), 'LAK')))])])];
+      }
+    }, {
+      key: "item.method",
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getMethodColor(item.method),
+            "text-color": "white",
+            "small": ""
+          }
+        }, [_vm._v("\n                  " + _vm._s(_vm.formatMethod(item.method)) + "\n                ")])];
+      }
+    }, {
+      key: "item.proceeder",
+      fn: function ({
+        item
+      }) {
+        var _item$proceeder;
+        return [_c('div', {
+          staticClass: "user-info"
+        }, [_c('span', {
+          staticClass: "user-name"
+        }, [_vm._v(_vm._s(((_item$proceeder = item.proceeder) === null || _item$proceeder === void 0 ? void 0 : _item$proceeder.name) || 'N/A'))])])];
+      }
+    }, {
+      key: "item.moneyAdvance",
+      fn: function ({
+        item
+      }) {
+        return [item.moneyAdvance ? _c('div', {
+          staticClass: "advance-info"
+        }, [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "#01532B",
+            "text-color": "white",
+            "small": ""
+          }
+        }, [_vm._v("\n                    #" + _vm._s(item.moneyAdvance.id) + "\n                  ")]), _vm._v(" "), _c('div', {
+          staticClass: "advance-status"
+        }, [_vm._v("\n                    " + _vm._s(item.moneyAdvance.status) + "\n                  ")])], 1) : _c('span', {
+          staticClass: "no-advance"
+        }, [_vm._v("Standalone")])];
+      }
+    }, {
+      key: "item.actions",
+      fn: function ({
+        item
+      }) {
+        return [_c(VBtn["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": "#01532B"
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.viewSettlement(item.id);
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fas fa-eye"
+        }), _vm._v("\n                  ເບິ່ງ\n                ")])];
+      }
+    }], null, false, 3682692414)
+  })], 1)], 1)], 1)], 1) : _vm._e()], 1)], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/ministry/index.vue?vue&type=template&id=00719b58&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/ministry/index.vue?vue&type=script&lang=js&
+var ministryvue_type_script_lang_js_ = __webpack_require__(704);
+
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/ministry/index.vue?vue&type=script&lang=js&
+ /* harmony default export */ var settlement_ministryvue_type_script_lang_js_ = (ministryvue_type_script_lang_js_["a" /* default */]); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/ministry/index.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(1074)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  settlement_ministryvue_type_script_lang_js_,
+  ministryvue_type_template_id_00719b58_scoped_true_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "00719b58",
+  "35feddf7"
+  
+)
+
+/* harmony default export */ var ministry = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 704:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(URLSearchParams) {/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(349);
+/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(350);
+/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(351);
+/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(352);
+/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(353);
+/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(354);
+/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(355);
+/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(356);
+/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(357);
+/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(358);
+/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(359);
+/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(360);
+/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(361);
+/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(362);
+/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(363);
+/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(364);
+/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(368);
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_16__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  name: 'MinistrySettlementReport',
+  head() {
+    return {
+      title: 'Ministry Settlement Reports'
+    };
+  },
+  data() {
+    return {
+      // Options data
+      ministries: [],
+      loading: false,
+      exporting: false,
+      loadingDetails: false,
+      search: '',
+      settlementDialog: false,
+      ministryStats: [],
+      selectedMinistry: null,
+      selectedSettlements: [],
+      settlementSummary: {
+        totalAmount: 0,
+        settlementCount: 0,
+        averageAmount: 0
+      },
+      methodDistribution: [],
+      filters: {
+        startDate: null,
+        endDate: null,
+        method: '',
+        ministryId: null
+      },
+      settlementMethods: [{
+        text: 'ທັງໝົດ (All Methods)',
+        value: ''
+      }, {
+        text: 'ເງິນສົດ (Cash)',
+        value: 'cash'
+      }, {
+        text: 'ໂອນເງິນຜ່ານທະນາຄານ (Bank Transfer)',
+        value: 'bank_transfer'
+      }, {
+        text: 'ຫັກລົບ (Deduction)',
+        value: 'deduction'
+      }],
+      currencyOptions: [{
+        text: 'ທັງໝົດສະກຸນເງິນ (All Currencies)',
+        value: null
+      }, {
+        text: 'ລາວກີບ (LAK)',
+        value: 1
+      }, {
+        text: 'ໂດລາອາເມລິກັນ (USD)',
+        value: 2
+      }, {
+        text: 'ບາດໄທ (THB)',
+        value: 3
+      }, {
+        text: 'ຢວນຈີນ (CNY)',
+        value: 4
+      }, {
+        text: 'ເອີໂຣ (EUR)',
+        value: 5
+      }],
+      currencyBreakdown: [],
+      currencyList: [],
+      settlementHeaders: [{
+        text: 'ວັນທີ',
+        value: 'bookingDate',
+        width: '120px'
+      }, {
+        text: 'ສະກຸນເງິນ',
+        value: 'currency',
+        width: '80px'
+      }, {
+        text: 'ຈຳນວນເງິນຕົ້ນ',
+        value: 'amount',
+        width: '130px'
+      }, {
+        text: 'ອັດຕາແລກປ່ຽນ',
+        value: 'exchangeRate',
+        width: '100px'
+      }, {
+        text: 'ເທົ່າກັບລາວກີບ',
+        value: 'lakAmount',
+        width: '130px'
+      }, {
+        text: 'ວິທີການ',
+        value: 'method',
+        width: '120px'
+      }, {
+        text: 'ຜູ້ດຳເນີນການ',
+        value: 'proceeder',
+        width: '150px'
+      }, {
+        text: 'ເງິນກ່ອນ',
+        value: 'moneyAdvance',
+        width: '120px'
+      }, {
+        text: 'ຈັດການ',
+        value: 'actions',
+        sortable: false,
+        width: '100px'
+      }]
+    };
+  },
+  computed: {
+    uniqueCurrencies() {
+      const currencies = new Set();
+      this.ministryStats.forEach(ministry => {
+        Object.keys(ministry.amounts || {}).forEach(currency => {
+          currencies.add(currency);
+        });
+      });
+      return currencies.size;
+    },
+    totalLakAmount() {
+      return this.ministryStats.reduce((sum, ministry) => sum + (ministry.totalLak || 0), 0);
+    },
+    filteredMinistries() {
+      if (!this.search) return this.ministryStats;
+      return this.ministryStats.filter(ministry => {
+        var _ministry$ministry, _ministry$ministry$na, _ministry$ministry2, _ministry$ministry2$c, _ministry$ministry3, _ministry$ministry3$t;
+        return ((_ministry$ministry = ministry.ministry) === null || _ministry$ministry === void 0 ? void 0 : (_ministry$ministry$na = _ministry$ministry.name) === null || _ministry$ministry$na === void 0 ? void 0 : _ministry$ministry$na.toLowerCase().includes(this.search.toLowerCase())) || ((_ministry$ministry2 = ministry.ministry) === null || _ministry$ministry2 === void 0 ? void 0 : (_ministry$ministry2$c = _ministry$ministry2.code) === null || _ministry$ministry2$c === void 0 ? void 0 : _ministry$ministry2$c.toLowerCase().includes(this.search.toLowerCase())) || ((_ministry$ministry3 = ministry.ministry) === null || _ministry$ministry3 === void 0 ? void 0 : (_ministry$ministry3$t = _ministry$ministry3.type) === null || _ministry$ministry3$t === void 0 ? void 0 : _ministry$ministry3$t.toLowerCase().includes(this.search.toLowerCase()));
+      });
+    },
+    totalSettlementsCount() {
+      return this.ministryStats.reduce((sum, ministry) => sum + parseInt(ministry.count || 0), 0);
+    },
+    totalAmount() {
+      return this.ministryStats.reduce((sum, ministry) => sum + parseFloat(ministry.totalLak || 0), 0);
+    },
+    averageAmount() {
+      return this.totalSettlementsCount > 0 ? this.totalAmount / this.totalSettlementsCount : 0;
+    },
+    maxAmount() {
+      return Math.max(...this.ministryStats.map(ministry => parseFloat(ministry.totalLak || 0)), 0);
+    }
+  },
+  mounted() {
+    this.setDefaultDates();
+    this.loadDashboardData();
+    this.loadInitialData();
+  },
+  methods: {
+    async loadInitialData() {
+      try {
+        const response = await this.$axios.get('/api/ministries');
+        this.ministries = response.data.data || response.data;
+      } catch (error) {
+        console.error('Error loading ministries:', error);
+        this.$toast.error('Error loading initial data');
+      }
+      try {
+        const response = await this.$axios.get('/api/currency/find');
+        const currencies = response.data.data || response.data;
+        // Ensure currencyList has the right structure for the template
+        this.currencyList = currencies.map(currency => ({
+          code: currency.code,
+          name: currency.name,
+          id: currency.id
+        }));
+      } catch (error) {
+        console.error('Error loading currencies:', error);
+        this.$toast.error('Error loading initial data');
+      }
+    },
+    // Group settlements by ministry
+    groupSettlementsByMinistry(settlements) {
+      const grouped = {};
+      settlements.forEach(settlement => {
+        var _settlement$currency;
+        const ministryId = settlement.ministryId || 'NO_MINISTRY';
+        if (!grouped[ministryId]) {
+          grouped[ministryId] = {
+            ministryId: ministryId,
+            ministry: settlement.ministry || {
+              code: 'N/A',
+              name: 'Unknown Ministry',
+              type: 'N/A',
+              description: 'N/A'
+            },
+            count: 0,
+            amounts: {},
+            totalLak: 0
+          };
+        }
+        const ministry = grouped[ministryId];
+        ministry.count += 1;
+
+        // Get currency code
+        const currencyCode = ((_settlement$currency = settlement.currency) === null || _settlement$currency === void 0 ? void 0 : _settlement$currency.code) || 'LAK';
+
+        // Initialize currency amount if not exists
+        if (!ministry.amounts[currencyCode]) {
+          ministry.amounts[currencyCode] = 0;
+        }
+
+        // Add amount to currency
+        ministry.amounts[currencyCode] += parseFloat(settlement.amount || 0);
+
+        // Calculate LAK equivalent
+        const exchangeRate = settlement.exchangeRate || 1;
+        const lakAmount = parseFloat(settlement.amount || 0) * exchangeRate;
+        ministry.totalLak += lakAmount;
+      });
+
+      // Convert grouped object to array
+      return Object.values(grouped);
+    },
+    async loadDashboardData() {
+      this.loading = true;
+      try {
+        const params = new URLSearchParams();
+        if (this.filters.startDate) params.append('fromDate', this.filters.startDate);
+        if (this.filters.endDate) params.append('toDate', this.filters.endDate);
+        if (this.filters.method) params.append('method', this.filters.method);
+        if (this.filters.ministryId) params.append('ministryId', this.filters.ministryId);
+        const response = await this.$axios.get(`/api/settlements?${params}`);
+        if (response.data.success) {
+          console.info(`DATA FROM API: ${JSON.stringify(response.data.data)}`);
+
+          // Transform individual settlements into grouped ministry stats
+          const settlements = response.data.data.settlements || [];
+          this.ministryStats = this.groupSettlementsByMinistry(settlements);
+
+          // Calculate currency breakdown
+          await this.calculateCurrencyBreakdown();
+        }
+      } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        this.$toast.error('Failed to load ministry reports');
+      } finally {
+        this.loading = false;
+      }
+    },
+    getCurrencyColor(currencyCode) {
+      const colors = {
+        LAK: '#01532B',
+        USD: '#228B22',
+        THB: '#32CD32',
+        CNY: '#006400',
+        EUR: '#9ACD32',
+        JPY: '#00FA9A',
+        GBP: '#66CDAA',
+        KRW: '#20B2AA'
+      };
+      return colors[currencyCode] || '#01532B';
+    },
+    getMinistryTypeColor(ministryType) {
+      const colors = {
+        'Government': '#01532B',
+        'Ministry': '#228B22',
+        'Department': '#DC3545',
+        'Agency': '#6610F2',
+        'Bureau': '#198754',
+        'Office': '#FD7E14',
+        'Commission': '#20C997',
+        'Council': '#E83E8C'
+      };
+      return colors[ministryType] || '#01532B';
+    },
+    getCurrencyFlag(currencyCode) {
+      const flags = {
+        LAK: '🇱🇦',
+        USD: '🇺🇸',
+        THB: '🇹🇭',
+        CNY: '🇨🇳',
+        EUR: '🇪🇺',
+        JPY: '🇯🇵',
+        GBP: '🇬🇧',
+        KRW: '🇰🇷'
+      };
+      return flags[currencyCode] || '🏳️';
+    },
+    calculateLakAmount(amount, exchangeRate) {
+      if (!amount) return 0;
+      const rate = exchangeRate || 1;
+      return amount * rate;
+    },
+    formatCurrency(amount, currencyCode = 'USD') {
+      if (!amount) return '0.00';
+      const formatted = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+
+      // Add currency symbol or code
+      if (currencyCode === 'LAK') {
+        return formatted + ' ₭';
+      } else if (currencyCode === 'USD') {
+        return '$' + formatted;
+      } else if (currencyCode === 'THB') {
+        return formatted + ' ฿';
+      } else if (currencyCode === 'CNY') {
+        return '¥' + formatted;
+      } else if (currencyCode === 'EUR') {
+        return '€' + formatted;
+      } else {
+        return formatted + ' ' + currencyCode;
+      }
+    },
+    setDefaultDates() {
+      const now = new Date();
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+      this.filters.startDate = firstDay.toISOString().substr(0, 10);
+      this.filters.endDate = now.toISOString().substr(0, 10);
+    },
+    async calculateCurrencyBreakdown() {
+      try {
+        const params = new URLSearchParams();
+        if (this.filters.startDate) params.append('startDate', this.filters.startDate);
+        if (this.filters.endDate) params.append('endDate', this.filters.endDate);
+        if (this.filters.method) params.append('method', this.filters.method);
+        if (this.filters.ministryId) params.append('ministryId', this.filters.ministryId);
+        const response = await this.$axios.get(`/api/settlements/currency-breakdown?${params}`);
+        if (response.data.success) {
+          this.currencyBreakdown = response.data.data.currencies || [];
+        }
+      } catch (error) {
+        console.error('Error calculating currency breakdown:', error);
+        // Fallback: create empty breakdown if API fails
+        this.currencyBreakdown = [];
+      }
+    },
+    async selectMinistry(ministryId) {
+      this.loadingDetails = true;
+      this.settlementDialog = true;
+      try {
+        const response = await this.$axios.get(`/api/settlements/by-ministry/${ministryId}`);
+        if (response.data.success) {
+          this.selectedSettlements = response.data.data.settlements;
+          this.settlementSummary = response.data.data.summary;
+
+          // Find the selected ministry details
+          const stat = this.ministryStats.find(s => s.ministryId == ministryId);
+          this.selectedMinistry = stat ? stat.ministry : null;
+
+          // Calculate method distribution
+          this.calculateMethodDistribution();
+        }
+      } catch (error) {
+        console.error('Error loading ministry settlements:', error);
+        this.$toast.error('Failed to load settlement details');
+      } finally {
+        this.loadingDetails = false;
+      }
+    },
+    calculateMethodDistribution() {
+      const methods = {};
+      this.selectedSettlements.forEach(settlement => {
+        if (!methods[settlement.method]) {
+          methods[settlement.method] = {
+            count: 0,
+            total: 0
+          };
+        }
+        methods[settlement.method].count++;
+        methods[settlement.method].total += parseFloat(settlement.amount);
+      });
+      this.methodDistribution = Object.keys(methods).map(method => ({
+        method,
+        count: methods[method].count,
+        total: methods[method].total
+      }));
+    },
+    resetFilters() {
+      this.filters = {
+        startDate: null,
+        endDate: null,
+        method: '',
+        ministryId: null
+      };
+      this.setDefaultDates();
+      this.loadDashboardData();
+    },
+    closeDialog() {
+      this.settlementDialog = false;
+      this.selectedMinistry = null;
+      this.selectedSettlements = [];
+      this.methodDistribution = [];
+    },
+    // Complete exportToExcel function for Ministry Settlement Report
+    async exportToExcel() {
+      this.exporting = true;
+      try {
+        // Import XLSX library (alternative dynamic import method)
+        const XLSX = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 368, 7));
+
+        // Create workbook
+        const workbook = XLSX.utils.book_new();
+
+        // Prepare summary data
+        const summaryData = [['Ministry Settlement Report'], [`Report Period: ${this.filters.startDate || 'All'} to ${this.filters.endDate || 'All'}`], [`Generated on: ${new Date().toLocaleDateString()}`], [''],
+        // Empty row
+        ['Summary Statistics'], [`Total Ministries: ${this.ministryStats.length}`], [`Total Settlements: ${this.totalSettlementsCount}`], [`Total Amount (LAK): ${this.formatCurrency(this.totalLakAmount, 'LAK')}`], [`Unique Currencies: ${this.uniqueCurrencies}`], [''],
+        // Empty row
+        ['Ministry Details'] // Header for main data
+        ];
+
+        // Create header row for ministry details
+        const headerRow = ['#', 'Ministry Code', 'Ministry Name', 'Ministry Type', 'Description', 'Settlement Count'];
+
+        // Add currency columns dynamically
+        this.currencyList.forEach(currency => {
+          headerRow.push(`${currency.code} Amount`);
+        });
+        headerRow.push('Total (LAK)');
+        summaryData.push(headerRow);
+
+        // Add ministry data
+        this.filteredMinistries.forEach((ministry, index) => {
+          var _ministry$ministry4, _ministry$ministry5, _ministry$ministry6, _ministry$ministry7;
+          const row = [index + 1, ((_ministry$ministry4 = ministry.ministry) === null || _ministry$ministry4 === void 0 ? void 0 : _ministry$ministry4.ministryCode) || 'N/A', ((_ministry$ministry5 = ministry.ministry) === null || _ministry$ministry5 === void 0 ? void 0 : _ministry$ministry5.ministryName) || 'Unknown Ministry', ((_ministry$ministry6 = ministry.ministry) === null || _ministry$ministry6 === void 0 ? void 0 : _ministry$ministry6.ministryType) || 'N/A', ((_ministry$ministry7 = ministry.ministry) === null || _ministry$ministry7 === void 0 ? void 0 : _ministry$ministry7.description) || 'N/A', ministry.count];
+
+          // Add currency amounts
+          this.currencyList.forEach(currency => {
+            var _ministry$amounts;
+            row.push(((_ministry$amounts = ministry.amounts) === null || _ministry$amounts === void 0 ? void 0 : _ministry$amounts[currency.code]) || 0);
+          });
+          row.push(ministry.totalLak || 0);
+          summaryData.push(row);
+        });
+
+        // Add totals row
+        const totalsRow = ['', '', '', '', 'TOTAL', this.totalSettlementsCount];
+        this.currencyList.forEach(currency => {
+          totalsRow.push(this.getCurrencyTotal(currency.code));
+        });
+        totalsRow.push(this.totalLakAmount);
+        summaryData.push(totalsRow);
+
+        // Create summary worksheet
+        const summaryWorksheet = XLSX.utils.aoa_to_sheet(summaryData);
+
+        // Set column widths
+        const colWidths = [{
+          wch: 5
+        },
+        // #
+        {
+          wch: 15
+        },
+        // Ministry Code
+        {
+          wch: 30
+        },
+        // Ministry Name  
+        {
+          wch: 15
+        },
+        // Ministry Type
+        {
+          wch: 25
+        },
+        // Description
+        {
+          wch: 15
+        } // Count
+        ];
+
+        // Add currency column widths
+        this.currencyList.forEach(() => {
+          colWidths.push({
+            wch: 15
+          });
+        });
+        colWidths.push({
+          wch: 18
+        }); // Total LAK
+
+        summaryWorksheet['!cols'] = colWidths;
+
+        // Style the headers and important rows
+        const range = XLSX.utils.decode_range(summaryWorksheet['!ref']);
+        for (let R = range.s.r; R <= range.e.r; ++R) {
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cellAddress = XLSX.utils.encode_cell({
+              r: R,
+              c: C
+            });
+            if (!summaryWorksheet[cellAddress]) continue;
+
+            // Style title row
+            if (R === 0) {
+              summaryWorksheet[cellAddress].s = {
+                font: {
+                  bold: true,
+                  sz: 16
+                },
+                alignment: {
+                  horizontal: 'center'
+                }
+              };
+            }
+
+            // Style header row (Ministry Details header)
+            if (R === 11) {
+              summaryWorksheet[cellAddress].s = {
+                font: {
+                  bold: true,
+                  color: {
+                    rgb: 'FFFFFF'
+                  }
+                },
+                fill: {
+                  fgColor: {
+                    rgb: '01532B'
+                  }
+                },
+                alignment: {
+                  horizontal: 'center'
+                }
+              };
+            }
+
+            // Style totals row (last row)
+            if (R === range.e.r) {
+              summaryWorksheet[cellAddress].s = {
+                font: {
+                  bold: true
+                },
+                fill: {
+                  fgColor: {
+                    rgb: 'E9ECEF'
+                  }
+                }
+              };
+            }
+          }
+        }
+
+        // Add summary sheet to workbook
+        XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Ministry Summary');
+
+        // Create ministry type breakdown sheet
+        if (this.ministryStats.length > 0) {
+          const typeBreakdown = {};
+          this.ministryStats.forEach(ministry => {
+            var _ministry$ministry8;
+            const ministryType = ((_ministry$ministry8 = ministry.ministry) === null || _ministry$ministry8 === void 0 ? void 0 : _ministry$ministry8.ministryType) || 'Unknown';
+            if (!typeBreakdown[ministryType]) {
+              typeBreakdown[ministryType] = {
+                count: 0,
+                totalAmount: 0,
+                settlements: 0
+              };
+            }
+            typeBreakdown[ministryType].count += 1;
+            typeBreakdown[ministryType].totalAmount += ministry.totalLak || 0;
+            typeBreakdown[ministryType].settlements += ministry.count || 0;
+          });
+          const typeData = [['Ministry Type Analysis'], [''], ['Ministry Type', 'Number of Ministries', 'Total Settlements', 'Total Amount (LAK)', 'Average per Ministry']];
+          Object.keys(typeBreakdown).forEach(type => {
+            const data = typeBreakdown[type];
+            typeData.push([type, data.count, data.settlements, data.totalAmount, data.count > 0 ? data.totalAmount / data.count : 0]);
+          });
+          const typeWorksheet = XLSX.utils.aoa_to_sheet(typeData);
+          typeWorksheet['!cols'] = [{
+            wch: 18
+          },
+          // Ministry Type
+          {
+            wch: 20
+          },
+          // Number of Ministries
+          {
+            wch: 18
+          },
+          // Total Settlements
+          {
+            wch: 20
+          },
+          // Total Amount
+          {
+            wch: 20
+          } // Average per Ministry
+          ];
+
+          XLSX.utils.book_append_sheet(workbook, typeWorksheet, 'Ministry Type Analysis');
+        }
+
+        // Create top ministries sheet (by amount)
+        if (this.ministryStats.length > 0) {
+          const topMinistries = [...this.ministryStats].sort((a, b) => (b.totalLak || 0) - (a.totalLak || 0)).slice(0, 10); // Top 10 ministries
+
+          const topData = [['Top 10 Ministries by Amount'], [''], ['Rank', 'Ministry Name', 'Ministry Type', 'Settlement Count', 'Total Amount (LAK)', 'Percentage of Total']];
+          topMinistries.forEach((ministry, index) => {
+            var _ministry$ministry9, _ministry$ministry10;
+            const percentage = this.totalLakAmount > 0 ? ((ministry.totalLak || 0) / this.totalLakAmount * 100).toFixed(2) : 0;
+            topData.push([index + 1, ((_ministry$ministry9 = ministry.ministry) === null || _ministry$ministry9 === void 0 ? void 0 : _ministry$ministry9.ministryName) || 'Unknown Ministry', ((_ministry$ministry10 = ministry.ministry) === null || _ministry$ministry10 === void 0 ? void 0 : _ministry$ministry10.ministryType) || 'N/A', ministry.count || 0, ministry.totalLak || 0, `${percentage}%`]);
+          });
+          const topWorksheet = XLSX.utils.aoa_to_sheet(topData);
+          topWorksheet['!cols'] = [{
+            wch: 8
+          },
+          // Rank
+          {
+            wch: 30
+          },
+          // Ministry Name
+          {
+            wch: 15
+          },
+          // Ministry Type
+          {
+            wch: 15
+          },
+          // Settlement Count
+          {
+            wch: 18
+          },
+          // Total Amount
+          {
+            wch: 15
+          } // Percentage
+          ];
+
+          XLSX.utils.book_append_sheet(workbook, topWorksheet, 'Top 10 Ministries');
+        }
+
+        // Create currency breakdown sheet if data exists
+        if (this.currencyBreakdown.length > 0) {
+          const currencyData = [['Currency Breakdown Report'], [''], ['Currency', 'Total Amount (Original)', 'LAK Equivalent', 'Settlement Count', 'Percentage']];
+          this.currencyBreakdown.forEach(currency => {
+            currencyData.push([currency.currencyCode || 'LAK', currency.totalAmount || 0, currency.lakEquivalent || 0, currency.count || 0, `${Math.round(currency.lakEquivalent / this.totalLakAmount * 100)}%`]);
+          });
+          const currencyWorksheet = XLSX.utils.aoa_to_sheet(currencyData);
+          currencyWorksheet['!cols'] = [{
+            wch: 12
+          },
+          // Currency
+          {
+            wch: 20
+          },
+          // Total Amount
+          {
+            wch: 18
+          },
+          // LAK Equivalent
+          {
+            wch: 15
+          },
+          // Count
+          {
+            wch: 12
+          } // Percentage
+          ];
+
+          XLSX.utils.book_append_sheet(workbook, currencyWorksheet, 'Currency Breakdown');
+        }
+
+        // Generate filename
+        const filename = `ministry-settlement-report-${this.filters.startDate || 'all'}-${this.filters.endDate || 'all'}.xlsx`;
+
+        // Generate Excel file and download
+        XLSX.writeFile(workbook, filename);
+        this.$toast.success('Ministry Report exported successfully!');
+      } catch (error) {
+        console.error('Error exporting report:', error);
+        this.$toast.error('Error exporting report: ' + error.message);
+      } finally {
+        this.exporting = false;
+      }
+    },
+    printReport() {
+      window.print();
+    },
+    viewSettlement(settlementId) {
+      this.$router.push(`/settlements/${settlementId}`);
+    },
+    formatExchangeRate(rate) {
+      if (!rate) return '1.0000';
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 4
+      }).format(rate);
+    },
+    formatDate(date) {
+      if (!date) return '';
+      return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    },
+    formatMethod(method) {
+      const methods = {
+        cash: 'ເງິນສົດ (Cash)',
+        bank_transfer: 'ໂອນເງິນ (Transfer)',
+        deduction: 'ຫັກລົບ (Deduction)'
+      };
+      return methods[method] || method;
+    },
+    getCurrencyTotal(currencyCode) {
+      return this.ministryStats.reduce((sum, ministry) => {
+        var _ministry$amounts2;
+        return sum + (((_ministry$amounts2 = ministry.amounts) === null || _ministry$amounts2 === void 0 ? void 0 : _ministry$amounts2[currencyCode]) || 0);
+      }, 0);
+    },
+    getMethodColor(method) {
+      const colors = {
+        cash: '#01532B',
+        bank_transfer: '#228B22',
+        deduction: '#32CD32'
+      };
+      return colors[method] || '#01532B';
+    }
+  }
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(346)["URLSearchParams"]))
+
+/***/ }),
+
+/***/ 815:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1075);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("b56b848a", content, true, context)
+};
+
+/***/ })
+
+};;
+//# sourceMappingURL=index.js.map

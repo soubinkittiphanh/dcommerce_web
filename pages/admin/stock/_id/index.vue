@@ -80,6 +80,9 @@
               single-line
               hide-detailsx
             />
+            <!-- <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary" rounded>
+                <span class="mdi mdi-microsoft-excel"></span>Generate excel file
+              </v-btn> -->
             <v-text-field
               v-model="userId"
               append-icon="mdi-magnify"
@@ -105,6 +108,9 @@
         :search="search"
         :items="loaddata"
       >
+      <template v-slot:[`item.cost`]="{ item }">
+          {{ formatNumber(item.cost) }}
+        </template>
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title
@@ -136,6 +142,7 @@
 </template>
 
 <script>
+import { getFormatNum } from '~/common'
 export default {
   middleware: 'auths',
   validate(data) {
@@ -182,7 +189,8 @@ export default {
       headers: [
         { text: 'id', align: 'center', value: 'card_id' },
         { text: 'ລະຫັດສິນຄ້າ', align: 'center', value: 'pro_id' },
-        { text: 'card sequence', align: 'center', value: 'card_number' },
+        // { text: 'card sequence', align: 'center', value: 'card_number' },
+        { text: 'ຕົ້ນທຶນ', align: 'center', value: 'cost' },
         { text: 'ວັນທີ', align: 'center', value: 'input_date_time' },
         { text: 'Admin', align: 'center', value: 'inputter' },
         { text: 'ສະຖານະ', align: 'center', value: 'status' },
@@ -223,6 +231,9 @@ export default {
   },
 
   methods: {
+    formatNumber(value) {
+      return getFormatNum(value)
+    },
     async fetchData() {
       this.isloading = true
       const prodId = this.$route.params.id
@@ -240,7 +251,8 @@ export default {
               card_id: el.id,
               pro_id: el.product_id,
               card_number: el.card_number,
-              inputter: el.inputter + ' ' + el.user_name,
+              cost: el.cost,
+              inputter: el.inputter + ' ' + el.cus_name,
               status:
                 el.card_isused === 1
                   ? 'ໃຊ້ງານແລ້ວ'
@@ -284,6 +296,12 @@ export default {
       if (!date) return null
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+    exportToExcel() {
+      const worksheet = this.$xlsx.utils.json_to_sheet(this.activeOrderHeaderList);
+      const workbook = this.$xlsx.utils.book_new();
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+      this.$xlsx.writeFile(workbook, 'data.xlsx');
     },
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date)

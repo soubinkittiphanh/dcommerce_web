@@ -130,7 +130,8 @@
 <script>
 import Banner_1 from '~/assets/img/banners/banner_1.png'
 import Banner_2 from '~/assets/img/banners/banner_2.png'
-import { hostName, getFormatNum } from "~/common";
+import {  getFormatNum } from "~/common";
+import { hostName } from '~/common/api'
 export default {
     layout: "web",
     data() {

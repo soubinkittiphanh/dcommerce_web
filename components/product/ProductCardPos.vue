@@ -22,7 +22,8 @@
   
 <script>
 import { mapMutations, mapState,mapGetters,mapActions } from 'vuex'
-import { hostName,getFormatNum } from '../../common/index'
+import { getFormatNum } from '../../common/index'
+import { hostName } from '~/common/api'
 export default {
     name: 'product-card-pos', 
     props: {

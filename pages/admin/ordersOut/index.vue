@@ -133,10 +133,7 @@
 <script>
 import OrderForm from '@/components/OrderForm.vue';
 import { mapActions, mapGetters } from 'vuex'
-// addOrderToConfirmStockInList
-//     addOrderToConformPaymentList
-//     findAllListOfConfirmStockIn
-//     findAllListOfConfirmPayment
+import { hostName,mainCompanyInfo } from '~/common/api'
 import OrderStatusForm from '@/components/OrderStatusForm.vue';
 import { ticketHtml, jsDateToMysqlDate, swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
 export default {
@@ -164,7 +161,6 @@ export default {
       isCreate: false,
       isloading: false,
       dialogKey: 1,
-      logoCompany: require('~/assets/image/BWLOGO.jpeg'),
       headers: [
         {
           text: 'ວັນທີສັ່ງ',
@@ -255,6 +251,14 @@ export default {
     window.removeEventListener('keydown', this.handleKeyDown);
   },
   computed: {
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
+      return mainCompanyInfo()
+    },
+
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.ticketLogo}`)
+    },
     localStatus() {
       const status = [
         { 'name': 'ຍັງບໍ່ເຂົ້າສາງ', 'code': 'ORDERED' },
@@ -362,7 +366,7 @@ export default {
          ${this.ticketCommon.header}
             <body>
                 <div style="text-align: center;">
-                    <img src="${this.logoCompany}" alt="Description of the image" width="100" height="100">
+                    <img src="${this.companyLogo}" alt="Description of the image" width="100" height="100">
                 </div>
                 <h3> ເຈ້ນ່ອງ ຂົນສົ່ງ ໄທ-ລາວ </h3>
                 <h3> ໃບຮັບເງິນ</h3>

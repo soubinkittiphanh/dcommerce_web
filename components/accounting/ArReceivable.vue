@@ -115,15 +115,15 @@ export default {
                     bookingDate: '',
                     receiveNumber: 'DEFAULT',
                     payee: 'ຮ້ານຄ້າທົ່ວໄປ',
-                    paymentId: null,
-                    currencyId: null,
+                    paymentId: 1,
+                    currencyId: 1,
                     rate: 1,
                     totalAmount: '1,000',
                     notes: '',
                     // locking_session_id: 'abc123',
                     update_user: 1,
-                    drAccountId: 15,
-                    crAccountId: 1,
+                    drAccountId: 1,
+                    crAccountId: 13,
                     isActive: true
                 },
                 line: {
@@ -141,6 +141,7 @@ export default {
         // const today = new Date().toLocaleDateString();
         this.bookingDate = today
         this.form.header.bookingDate = today
+        this.form.header.currencyId = this.currencyList[0]['id']
         if (this.isEdit) {
             console.log("Load payment header");
             this.loadReceiveById()
@@ -169,6 +170,7 @@ export default {
                 .get('/api/paymentMethod/find')
                 .then((res) => {
                     this.paymentList = res.data
+                    this.form.header.paymentId = this.paymentList[0]['id']
                 })
                 .catch((er) => {
                     swalError2(this.$swal, "Error", er)

@@ -34,7 +34,8 @@
 
 <script>
 import MyFooter from '@/components/footer'
-import { hostName, getFormatNum } from '~/common'
+import { getFormatNum } from '~/common'
+import { hostName } from '~/common/api'
 export default {
   name: 'DefaultLayout',
   data() {

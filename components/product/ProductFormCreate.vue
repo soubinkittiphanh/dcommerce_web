@@ -4,23 +4,36 @@
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
     </v-dialog>
+    
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
-      <loading-indicator> </loading-indicator>
+      <loading-indicator></loading-indicator>
     </v-dialog>
+    
     <v-dialog v-model="preview" hide-overlay width="400px">
-      <dia-image :i-url="previewSrc" @closeDia="preview = false"> </dia-image>
+      <dia-image :i-url="previewSrc" @closeDia="preview = false"></dia-image>
     </v-dialog>
+    
+    <v-dialog v-model="priceListDialog" max-width="800px">
+      <price-list-form
+        :key="priceListFormKey"
+        @close-dialog="priceListDialog = false"
+        :record-id="pricingRecordId"
+        @refresh="fetchData"
+      ></price-list-form>
+    </v-dialog>
+
     <v-card>
-      <v-card-title>
-        <v-chip class="ma-2" color="primary" label text-color="white">
-          <v-icon start>mdi-label</v-icon>
+      <v-card-title class="py-2">
+        <v-chip small color="primary" text-color="white">
+          <v-icon left small>mdi-label</v-icon>
           {{ title }}
         </v-chip>
       </v-card-title>
-      <v-card-text>
+
+      <v-card-text class="pa-3">
         <v-form ref="form" v-model="valid" lazy-validation>
-          <!-- Row 1 -->
-          <v-row>
+          <v-row dense>
+            <!-- Row 1: Company, Category, Product ID -->
             <v-col cols="4">
               <v-autocomplete
                 item-text="name"
@@ -28,7 +41,10 @@
                 :items="companyList"
                 label="ຮ້ານ*"
                 v-model="formData.companyId"
-              ></v-autocomplete>
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
             <v-col cols="4">
               <v-autocomplete
@@ -37,264 +53,258 @@
                 :items="category"
                 label="ປະເພດສິນຄ້າ*"
                 v-model="formData.pro_category"
-              ></v-autocomplete>
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
             <v-col cols="4">
               <v-text-field
                 :value="formData.pro_id || '1XXX'"
-                :counter="10"
                 label="ໄອດີສິນຄ້າ"
                 disabled
-                required
-              ></v-text-field>
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
-          </v-row>
-          <!-- Row 2 -->
-          <v-row>
-            <v-col cols="4">
+
+            <!-- Row 2: Name, Price, Cost -->
+            <v-col cols="6">
               <v-text-field
                 v-model="formData.pro_name"
-                :counter="50"
                 :rules="rules.nameRule"
                 label="ຊື້ສິນຄ້າ*"
-                required
-              ></v-text-field>
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
-            <v-col cols="4">
-              <v-row>
-                <v-col cols="6" sm="6" md="6">
-                  <v-text-field
-                    v-model="formData.pro_price"
-                    :counter="10"
-                    :rules="rules.priceRule"
-                    label="ລາຄາ*"
-                    type="number"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6">
-                  <v-autocomplete
-                    item-text="code"
-                    item-value="id"
-                    :items="findAllCurrency"
-                    label="Currency*"
-                    v-model="formData.saleCurrencyId"
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
+            <v-col cols="3">
+              <v-text-field
+                v-model="formData.pro_price"
+                :rules="rules.priceRule"
+                label="ລາຄາ*"
+                type="number"
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
-            <v-col cols="4">
-              <v-row>
-                <v-col cols="6" sm="6" md="6">
-                  <v-text-field
-                    v-model="formData.pro_cost_price"
-                    :counter="10"
-                    type="number"
-                    :rules="rules.priceRule"
-                    label="ຕົ້ນທຶນ*"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6">
-                  <v-autocomplete
-                    item-text="code"
-                    item-value="id"
-                    :items="findAllCurrency"
-                    label="Currency*"
-                    v-model="formData.costCurrencyId"
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
+            <v-col cols="3">
+              <v-text-field
+                v-model="formData.pro_cost_price"
+                :rules="rules.priceRule"
+                label="ຕົ້ນທຶນ*"
+                type="number"
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
-          </v-row>
-          <!-- Row 3 -->
-          <v-row>
-            <v-col cols="4">
+
+            <!-- Row 3: Currency, Retail %, Min Stock, File Upload -->
+            <v-col cols="2">
+              <v-autocomplete
+                item-text="code"
+                item-value="id"
+                :items="findAllCurrency"
+                label="Currency*"
+                v-model="formData.saleCurrencyId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="2">
               <v-text-field
                 v-model="formData.pro_retail_price"
-                :counter="10"
                 type="number"
-                :rules="rules.priceRule"
                 label="ລາຄາສົ່ງ %"
-                required
-              ></v-text-field>
+                dense
+                outlined
+                hide-details="auto"
+              />
             </v-col>
-            <v-col cols="4">
+            <v-col cols="2">
+              <v-text-field
+                v-model="formData.minStock"
+                type="number"
+                label="ສຕັອກຂັ້ນຕ່ຳ*"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="6">
               <v-file-input
-                :rules="rules.imageRule"
                 ref="filesfield"
                 multiple
                 accept="image/png, image/jpeg, image/bmp"
-                placeholder="Pick an avatar"
-                prepend-icon="mdi-camera"
-                label="ຮູບພາບຫລາຍພາບ"
+                label="ຮູບພາບ"
                 @change="onFilesChange"
-              ></v-file-input>
+                dense
+                outlined
+                hide-details="auto"
+                prepend-icon=""
+                prepend-inner-icon="mdi-camera"
+              />
             </v-col>
-            <v-col cols="4">
-              <v-text-field
-                v-model="formData.minStock"
-                :counter="10"
-                type="number"
-                :rules="rules.minRule"
-                label="ສຕັອກຂັ້ນຕ່ຳ*"
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <!-- Row 4 -->
-          <v-row>
-            <v-col cols="4">
+
+            <!-- Row 4: Barcode, Units, Vendor -->
+            <v-col cols="3">
               <v-text-field
                 v-model="formData.barCode"
-                label="barcode"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="4">
-              <v-autocomplete
-                item-text="name"
-                item-value="id"
-                :items="unitList"
-                label="ຫົວຫນ່ວຍຮັບເຄື່ອງ*"
-                v-model="formData.receiveUnitId"
-              ></v-autocomplete>
-            </v-col>
-            <v-col cols="4">
-              <v-autocomplete
-                item-text="name"
-                item-value="id"
-                :items="unitList"
-                label="ຫົວຫນ່ວຍນັບສາງ*"
-                v-model="formData.stockUnitId"
-              ></v-autocomplete>
-            </v-col>
-          </v-row>
-          <!-- Row 5 -->
-          <v-row>
-            <v-col cols="6">
-              <v-card class="mb-1">
-                <canvas ref="barcodeCanvas"></canvas>
-                <v-card-text>
-                  ລາຄາ: {{ formatNumber(formData.pro_price) }}
-                  <!-- <img :src="barcodeImage" /> -->
-                </v-card-text>
-              </v-card>
-              <v-row no-gutters justify="center" align="center">
-                <v-btn
-                  :disabled="formData.barCode.length > 0"
-                  color="primary"
-                  rounded
-                  @click.prevent="generateBarcode"
-                >
-                  <i class="mdi mdi-barcode"></i>
-                  Generate
-                </v-btn>
-                <v-checkbox
-                  v-model.number="threeColPaper"
-                  label="3Col? "
-                ></v-checkbox>
-                <v-btn
-                  :disabled="formData.barCode.length == 0"
-                  color="primary"
-                  rounded
-                  @click.prevent="printBarcode"
-                >
-                  <i class="mdi mdi-barcode"></i>
-                  print
-                </v-btn>
-              </v-row>
-            </v-col>
-            <v-col cols="4">
-              <v-textarea
+                label="Barcode"
+                dense
                 outlined
-                name="input-7-4"
-                counter="100"
-                label="ຄຳອະທິບາຍ"
-                value="abc"
-                v-model="formData.pro_desc"
-              ></v-textarea>
+                hide-details="auto"
+              />
             </v-col>
-            <v-col cols="2">
-              <v-checkbox
+            <v-col cols="3">
+              <v-autocomplete
+                item-text="name"
+                item-value="id"
+                :items="unitList"
+                label="ຫົວຫນ່ວຍຮັບ*"
+                v-model="formData.receiveUnitId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-autocomplete
+                item-text="name"
+                item-value="id"
+                :items="unitList"
+                label="ຫົວຫນ່ວຍສາງ*"
+                v-model="formData.stockUnitId"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-text-field
+                v-model="formData.vendorName"
+                label="Vendor"
+                dense
+                outlined
+                hide-details="auto"
+              />
+            </v-col>
+
+            <!-- Row 5: Description, Active Status, Price Management -->
+            <v-col cols="6">
+              <v-textarea
+                v-model="formData.pro_desc"
+                label="ຄຳອະທິບາຍ"
+                rows="2"
+                dense
+                outlined
+                hide-details="auto"
+                no-resize
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-switch
                 v-model.number="formData.isActive"
-                label="Is Active"
-              ></v-checkbox>
+                label="Active"
+                dense
+                hide-details
+                color="success"
+              />
+            </v-col>
+            <v-col cols="3">
+              <v-btn
+                small
+                color="primary"
+                outlined
+                @click="triggerPriceListForm"
+                block
+                style="margin-top: 8px;"
+              >
+                ຈັດການລາຄາ
+              </v-btn>
+            </v-col>
+
+            <!-- Barcode Section (Compact) -->
+            <v-col cols="6">
+              <v-card outlined class="pa-2">
+                <canvas ref="barcodeCanvas" style="max-width: 100%; height: auto;"></canvas>
+                <div class="text-center text-caption mt-1">
+                  ລາຄາ: {{ formatNumber(formData.pro_price) }}
+                </div>
+                <div class="text-center mt-1">
+                  <v-btn-toggle dense>
+                    <v-btn
+                      x-small
+                      :disabled="formData.barCode.length > 0"
+                      color="primary"
+                      @click="generateBarcode"
+                    >
+                      Generate
+                    </v-btn>
+                    <v-btn
+                      x-small
+                      :disabled="formData.barCode.length == 0"
+                      color="success"
+                      @click="printBarcode"
+                    >
+                      Print
+                    </v-btn>
+                  </v-btn-toggle>
+                  <v-checkbox
+                    v-model.number="threeColPaper"
+                    label="3Col"
+                    dense
+                    hide-details
+                    class="mt-1"
+                  />
+                </div>
+              </v-card>
+            </v-col>
+
+            <!-- Image Preview (Compact) -->
+            <v-col cols="6">
+              <div style="max-height: 150px; overflow-y: auto;">
+                <div v-for="(item, index) in imagesPreviewURL" :key="index" class="d-flex align-center mb-1">
+                  <v-avatar size="30" @click="previewImg(item.IMG_URL)">
+                    <v-img :src="item.IMG_URL"></v-img>
+                  </v-avatar>
+                  <div class="ml-2 flex-grow-1">
+                    <div class="text-caption">{{ item.NAME }}</div>
+                    <div v-if="item.isvalid" class="text-caption error--text">{{ item.isvalid }}</div>
+                  </div>
+                  <v-btn icon x-small color="error" @click="deleteFile(index)">
+                    <v-icon x-small>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+              </div>
             </v-col>
           </v-row>
-          <v-divider class="mt-1"></v-divider>
-          <div v-if="1 == 0">
-            <v-card class="pa-md-6 mx-lg-auto">
-              <v-row justify="space-around">
-                <v-card v-for="(imgUrl, idx) in imagesPreviewURL" :key="idx">
-                  <v-list-item-avatar>
-                    <v-img :src="imgUrl.IMG_URL"></v-img>
-                  </v-list-item-avatar>
-                  <v-card-title v-if="imgUrl.isvalid">
-                    <v-alert dense outlined type="error">
-                      <div class="grey--text mb-2">
-                        ຂະຫນາດຮູບພາບສູງກ່ອນກຳນົດ
-                        <strong>{{ imgUrl.isvalid }}</strong>
-                      </div>
-                    </v-alert>
-                  </v-card-title>
-                  <v-card-actions>
-                    <v-btn
-                      text
-                      color="primary"
-                      rounded
-                      @click.prevent="deleteFile(idx)"
-                    >
-                      <i class="fas fa-trash-alt"></i>
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-row>
-            </v-card>
-          </div>
-          <div>
-            <v-list three-line>
-              <template v-for="(item, index) in imagesPreviewURL">
-                <v-list-item :key="index">
-                  <v-list-item-avatar @click.prevent="previewImg(item.IMG_URL)">
-                    <v-img :src="item.IMG_URL"></v-img>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title v-html="item.NAME"></v-list-item-title>
-                    <v-list-item-subtitle v-html="item.isvalid">
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    text
-                    color="blue darken-1"
-                    @click.prevent="deleteFile(index)"
-                  >
-                    <i class="fas fa-trash-alt"></i>
-                  </v-btn>
-                </v-list-item>
-                <v-divider :key="index + item.NAME"></v-divider>
-              </template>
-            </v-list>
-          </div>
         </v-form>
       </v-card-text>
-      <v-card-actions>
+
+      <v-card-actions class="pa-3 pt-0">
         <v-spacer></v-spacer>
         <v-btn
-          color="warning"
-          variant="text"
-          rounded
+          text
           @click="$emit('close-dialog')"
+          small
         >
           Close
         </v-btn>
-        <v-btn color="primary" variant="text" rounded @click="uploadFiles">
+        <v-btn
+          color="primary"
+          @click="uploadFiles"
+          small
+        >
           Save
         </v-btn>
       </v-card-actions>
     </v-card>
-    <!-- <nuxt-child /> -->
   </div>
 </template>
 <script>
@@ -316,6 +326,9 @@ export default {
 
   data() {
     return {
+      priceListFormKey: 1,
+      pricingRecordId: null,
+      priceListDialog: false,
       threeColPaper: false,
       preview: false,
       previewSrc: null,
@@ -392,6 +405,7 @@ export default {
         saleCurrencyId: 1,
         costCurrencyId: 1,
         isActive: true,
+        vendorName:'',
       },
       companyList: [],
     }
@@ -414,6 +428,8 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'findAllProductPriceListToCreate',
+
       'findAllProduct',
       'findAllClient',
       'findAllPayment',
@@ -510,6 +526,17 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'clearProductPricesToCreate',
+      'addProductPricesToCreate',
+      'deleteProductPricesToCreate',
+    ]),
+    fetchData() {},
+    triggerPriceListForm() {
+      this.pricingRecordId = this.headerId
+      this.priceListFormKey += 1
+      this.priceListDialog = true
+    },
     validate() {
       this.$refs.form.validate()
     },
@@ -559,8 +586,7 @@ export default {
         ? this.barcode3by2cm
         : this.barcodeNormal
 
-
-        //*********** No story 20240502 ********* */
+      //*********** No story 20240502 ********* */
       // const windowContent = `
       //     <!DOCTYPE html>
       //     <html>
@@ -593,7 +619,7 @@ export default {
       //       </body>
       //       </html>
       //   `
-      
+
       const printWin = window.open(
         '',
         '',
@@ -626,6 +652,7 @@ export default {
               categ_desc: el.categ_desc,
             }
           })
+          this.formData.pro_category = this.category[0]['categ_id']
         })
         .catch((er) => {
           console.log('error: ' + er.response.data)
@@ -655,28 +682,72 @@ export default {
       if (!this.$refs.form.validate()) {
         return
       }
+
       this.isloading = true
       const formData = new FormData()
       formData.append('FORM', JSON.stringify(this.formData))
+
       this.files.forEach((element) => {
         formData.append('files', element)
       })
-      await this.$axios
-        .post('uploadmulti', formData, {
+
+      try {
+        const response = await this.$axios.post('uploadmulti', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then((res) => {
-          this.isloading = false
-          swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
-          this.$emit('refresh')
-          this.$emit('close-dialog')
-          // this.message = res.data
+
+        const productIdCreated = response.data.split('|')[1]
+        console.log(`Product ID created: ${productIdCreated}`)
+        const commResponse = await this.commitPriceListRecord(productIdCreated)
+        console.info(`Commit response ${commResponse}`)
+        this.isloading = false
+        swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
+        console.info(
+          `Create product complete: response => ${JSON.stringify(response)}`
+        )
+
+        this.$emit('refresh')
+        this.$emit('close-dialog')
+      } catch (error) {
+        this.isloading = false
+        swalError2(this.$swal, 'Error', error)
+        console.error('Error response:', error.response)
+      }
+    },
+
+    async commitPriceListRecord(productId) {
+      this.isloading = true
+      let api = 'api/priceList/create'
+      console.log(`API => ProductId='${productId}'`, api)
+
+      try {
+        // Use Promise.all to handle multiple API calls concurrently
+        const requests = this.findAllProductPriceListToCreate.map((item) => {
+          // item.productId = productId
+          // Create a new object instead of modifying Vuex state directly
+          const newItem = { ...item, productId }
+
+          return this.$axios.post(api, newItem)
         })
-        .catch((er) => {
-          this.isloading = false
-          swalError2(this.$swal, 'Error', er)
-          // this.message = er.response.data
+
+        // Wait for all requests to complete
+        const responses = await Promise.all(requests)
+
+        // Log the responses
+        responses.forEach((response) => {
+          console.log(`Load data: ${JSON.stringify(response)}`)
         })
+        this.clearProductPricesToCreate()
+        return responses
+      } catch (error) {
+        swalError2(
+          this.$swal,
+          'Error',
+          'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ໃນການເພີ່ມ price list'
+        )
+        console.error('Error during price list commit:', error)
+        return null
+      }
     },
     previewImg(url) {
       this.previewSrc = url

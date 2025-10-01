@@ -149,6 +149,7 @@ export default {
                     totalCost: this.stockCost,
                     productId: this.id,
                     srcLocationId: this.srcLocationId,
+                    currencyId: this.currencyId,
                     exchangeRate: this.currencyExchangeRate,
                 }
                 console.log("Pre fly ", stockData);

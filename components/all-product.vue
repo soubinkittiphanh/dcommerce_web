@@ -41,7 +41,7 @@
   
   <script>
 import ProductImage from '~/assets/img/product/product.jpg'
-import { hostName } from '../common/index'
+import { hostName } from '~/common/api'
 export default {
   name: 'new-products-card',
   props: {

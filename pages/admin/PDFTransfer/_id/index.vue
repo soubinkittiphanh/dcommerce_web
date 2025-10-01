@@ -7,7 +7,7 @@
             <img :src="companyLogo" width="200px" />
           </div>
         </div>
-        <h1 style="text-align: center;">{{this.companyData.name}}</h1>
+        <h1 style="text-align: center;">{{companyDataV1.name}}</h1>
         <p class="text-color" style="font-size: 11pt; font-weight: bold; text-align: center">
           Company addres here ...
         </p>
@@ -128,9 +128,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters,mapActions } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
-import { getFormatNum, mainCompanyInfo } from '~/common'
+import { getFormatNum } from '~/common'
+import { mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',
@@ -140,21 +141,28 @@ export default {
     return {
       id: null,
       header: null,
-      companyLogo: require('~/assets/image/company_logo.jpeg'),
+      // companyLogo: require('~/assets/image/company_logo.jpeg'),
 
     }
   },
 
   computed: {
-    companyData(){
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`);
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
+    },
+    companyDataV1() {
+      let comV1 = mainCompanyInfoV1(this.$store)
+      return comV1
+    },
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.companyLogo}`)
     },
     ...mapGetters(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct']),
 
   },
   async created() {
-
+    await this.initiateDataCompany(this.$axios)
     // this.id = parseInt(this.$route.query.id)
     this.id = this.$route.params.id
     if (this.id) {
@@ -174,6 +182,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
     formatNumber(val) {
       return getFormatNum(val)
     },

@@ -84,7 +84,8 @@
 <script>
 import { mapGetters } from 'vuex'
 // import { _getMonthDiff, _calculateAge } from '@/helper/Utils'
-import { getFormatNum, mainCompanyInfo,swalSuccess,swalError2 } from '~/common'
+import { getFormatNum,swalSuccess,swalError2 } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
 export default {
   name: 'Quotation',
   layout: 'login',
@@ -94,15 +95,19 @@ export default {
     return {
       id: null,
       header: null,
-      companyLogo: require('~/assets/image/company_logo.jpeg'),
+      // companyLogo: require('~/assets/image/company_logo.jpeg'),
       currencyList:null,
     }
   },
 
   computed: {
-    companyData(){
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`);
+    companyData() {
+      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
+    },
+
+    companyLogo() {
+      return require(`~/assets/image/${this.companyData.companyLogo}`)
     },
     ...mapGetters(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct']),
 

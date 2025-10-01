@@ -109,6 +109,7 @@ export default {
     mounted() {
         this.loadTxn()
     },
+      middleware: 'auths',
     data() {
         return {
             userId: "",

@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-6">
+    <div class="pa-0">
         <v-dialog v-model="isloading" hide-overlay persistent width="300">
             <loading-indicator> </loading-indicator>
         </v-dialog>
@@ -27,11 +27,13 @@
 <script>
 import { getFormatNum, swalError2, swalSuccess } from '~/common'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
     layout: "pos",
     middleware: 'auths',
     data() {
         return {
+            productPriceList:[],
             barcode: '',
             timer: null,
             tab: null,
@@ -48,9 +50,10 @@ export default {
     },
     async mounted() {
         await this.loadProduct()
+        await this.loadProductWithPriceList()
         await this.loadCategory()
         // await this.loadPayment()
-
+        console.warn(`the company info is ${JSON.stringify(mainCompanyInfoV1(this.$store))}`)
         window.addEventListener('keydown', this.handleKeyDown);
     },
     beforeDestroy() {
@@ -126,10 +129,31 @@ export default {
                 .get(`product_f/${this.currentSelectedLocation['id']}`)
                 .then((res) => {
                     for (const iterator of res.data) {
+                        console.warn(`Currency id ${iterator['saleCurrencyId']}`)
                         const currency = this.findCurrency(iterator['saleCurrencyId'])
                         iterator['localPrice'] = iterator['pro_price'] * currency['rate']
                         this.productList.push(iterator)
                     }
+                })
+                .catch((er) => {
+                    this.message = er
+                    swalError2(this.$swal, "Error 1111", er)
+                })
+            this.isloading = false
+        },
+        async loadProductWithPriceList() {
+            this.isloading = true
+            this.productPriceList = []
+            await this.$axios
+                .get(`/api/product/find`)
+                .then((res) => {
+                    this.productPriceList = res.data
+                    // for (const iterator of res.data) {
+                    //     const currency = this.findCurrency(iterator['saleCurrencyId'])
+                    //     iterator['localPrice'] = iterator['pro_price'] * currency['rate']
+                    //     this.productList.push(iterator)
+                    // }
+                    console.info(`PRICE LIST ${JSON.stringify(this.productPriceList)}`)
                 })
                 .catch((er) => {
                     this.message = er
@@ -152,21 +176,6 @@ export default {
                 })
             this.isloading = false;
         },
-        // async loadPayment() {
-        //     this.isloading = true;
-        //     this.paymentList = []
-        //     await this.$axios
-        //         .get('/api/paymentMethod/find')
-        //         .then((res) => {
-        //             for (const iterator of res.data) {
-        //                 this.paymentList.push(iterator);
-        //             }
-        //         })
-        //         .catch((er) => {
-        //             swalError2(this.$swal, "Error", er)
-        //         })
-        //     this.isloading = false;
-        // },
     }
 }
 </script>

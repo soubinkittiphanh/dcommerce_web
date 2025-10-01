@@ -27,7 +27,7 @@
                                 hint="ເດຶອນ/ວັນ/ປີ 12/31/2023"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field label="ຊຶ ບໍ່ລິສັດ ຫລື ຜູ້ຮັບ ການຊຳລະ*" v-model="form.header.payee"
+                            <v-text-field label="ຊື່ ບໍ່ລິສັດ ຫລື ຜູ້ຮັບ ການຊຳລະ*" v-model="form.header.payee"
                                 hint="ຊື່ບຸກຄົນ,ບໍລິສັດ ຫລື ຜູ້ຮັບການຊຳລະ" persistent-hint required></v-text-field>
                         </v-col>
                         <v-col cols="12">
@@ -135,6 +135,7 @@ export default {
         // const today = new Date().toLocaleDateString();
         this.bookingDate = today
         this.form.header.bookingDate = today
+        this.form.header.currencyId = this.currencyList[0]['id']
         if (this.isEdit) {
             console.log("Load payment header");
             this.loadPaymentById()
@@ -159,6 +160,7 @@ export default {
                 .get('/api/paymentMethod/find')
                 .then((res) => {
                     this.paymentList = res.data
+                    this.form.header.paymentId = this.paymentList[0]['id']
                 })
                 .catch((er) => {
                     swalError2(this.$swal, "Error", er)

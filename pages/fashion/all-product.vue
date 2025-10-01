@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { hostName } from '../../common/index'
+import { hostName } from '~/common/api'
 export default {
   layout: "fashion",
   name: 'IndexPage',
