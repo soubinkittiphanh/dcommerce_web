@@ -45,6 +45,23 @@
                   hide-details="auto"
                 ></v-select>
               </v-col>
+              <v-col cols="12" md="9">
+                <v-radio-group v-model="radios" row class="mt-1">
+                  <template v-slot:label> ສະຖານະ Agency</template>
+                  <v-radio value="active">
+                    <template v-slot:label>
+                      <div class="primary--text">ເປີດ</div>
+                    </template>
+                  </v-radio>
+                  <v-radio value="inactive">
+                    <template v-slot:label>
+                      <div class="red--text">
+                       ປິດ
+                      </div>
+                    </template>
+                  </v-radio>
+                </v-radio-group>
+              </v-col>
             </v-row>
 
             <!-- Row 2: Phone + Email -->
@@ -309,8 +326,8 @@ export default {
       loading: false,
       registrationDateMenu: false,
       licenseExpiryMenu: false,
-      agencyTypeOptions: ['Agency','Broker'],
-
+      agencyTypeOptions: ['Agency', 'Broker'],
+      radios: 'active',
       formData: {
         agencyName: '',
         agencyCode: '',

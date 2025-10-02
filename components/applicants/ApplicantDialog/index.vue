@@ -31,12 +31,14 @@
 
     <!-- Scrollable Content Area -->
     <div class="form-content">
+      
       <form @submit.prevent="saveApplicant">
         <!-- Step 1: Basic Info -->
         <div v-show="currentStep === 1" class="split-layout">
           <div class="left-section">
             <div class="form-grid">
               <div class="form-group full-width">
+                <!-- <h3>ຮັບສະໝັກ</h3> -->
                 <label><i class="fas fa-briefcase"></i> Job Batch</label>
                 <select
                   v-model="formData.jobBatchId"
@@ -118,8 +120,9 @@
                   required
                 />
               </div>
+
               <div class="form-group">
-                <label class="required">
+                <label class="">
                   <i class="fas fa-graduation-cap"></i> ລະດັບການສຶກສາ
                 </label>
                 <input
@@ -156,6 +159,19 @@
               </div>
 
               <div class="form-group">
+                <label class="required"
+                  ><i class="fas fa-phone"></i> ເບີໂທ</label
+                >
+                <input
+                  v-model="formData.phone"
+                  type="tel"
+                  placeholder="+856 20 12345678"
+                  :class="{ error: errors.phone }"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
                 <label><i class="fas fa-calendar"></i> ອາຍຸ</label>
                 <input
                   v-model.number="formData.age"
@@ -165,14 +181,40 @@
                   placeholder="ອາຍຸ"
                 />
               </div>
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ບ້ານ</label>
+                <input
+                  v-model="formData.village"
+                  type="text"
+                  placeholder="ບ້ານ"
+                />
+              </div>
+
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ເມືອງ</label>
+                <input
+                  v-model="formData.city"
+                  type="text"
+                  placeholder="ເມືອງ"
+                />
+              </div>
+
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ແຂວງ</label>
+                <input
+                  v-model="formData.district"
+                  type="text"
+                  placeholder="ແຂວງ"
+                />
+              </div>
 
               <div class="form-group full-width">
-                <label><i class="fas fa-home"></i> ທີ່ຢູ່</label>
+                <!-- <label><i class="fas fa-home"></i> ທີ່ຢູ່</label>
                 <textarea
                   v-model="formData.address"
                   rows="2"
                   placeholder="ທີ່ຢູ່ລະອຽດ..."
-                ></textarea>
+                ></textarea> -->
               </div>
 
               <div class="form-group">
@@ -284,7 +326,7 @@
               </select>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="required"><i class="fas fa-phone"></i> ເບີໂທ</label>
               <input
                 v-model="formData.phone"
@@ -293,7 +335,7 @@
                 :class="{ error: errors.phone }"
                 required
               />
-            </div>
+            </div> -->
 
             <div class="form-group">
               <label
@@ -316,7 +358,7 @@
                 <option value="widowed">ເປັນເມ່າຍ</option>
               </select>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label><i class="fas fa-map-marker-alt"></i> ບ້ານ</label>
               <input
                 v-model="formData.village"
@@ -337,7 +379,7 @@
                 type="text"
                 placeholder="ແຂວງ"
               />
-            </div>
+            </div> -->
             <div class="form-group">
               <label><i class="fas fa-building"></i> ຕົວແທນສັນຫາ</label>
               <v-select
@@ -383,6 +425,31 @@
                 step="0.01"
                 placeholder="0.00"
               />
+            </div>
+            <div class="form-group">
+              <label for="currencyId">ສະກຸນເງິນ</label>
+              <select
+                id="currencyId"
+             
+                class="form-control"
+              
+              >
+                <option value="">ເລືອກສະກຸນເງິນ</option>
+                <option
+                 
+                >
+                  LAK
+                </option>
+              </select>
+            </div>
+            <div class="form-group mt-10">
+              <label>
+                <input
+                  type="checkbox"
+                  v-model="formData.passportAvailability"
+                />
+                <i class="fas fa-passport"></i> ຮັບພາດສະປອດແລ້ວ
+              </label>
             </div>
           </div>
         </div>
@@ -444,7 +511,7 @@ export default {
   data() {
     return {
       loading: false,
-      currentStep: 1,
+      currentStep: 2,
       agencies: [],
       loadingAgencies: false,
       applicantPhotoPreview: null,
@@ -479,6 +546,7 @@ export default {
         jobBatchId: null,
         agencyId: null,
         status: 'INTERVIEW',
+       
       },
       errors: {},
       formErrors: [],

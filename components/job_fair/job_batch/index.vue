@@ -80,7 +80,7 @@
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="formData.runningNo"
-                  label="ຮອບຈັດສົ່ງ"
+                  label="ຮອບການຈັດສົ່ງ"
                   outlined
                   dense
                   hide-details="auto"
@@ -208,6 +208,37 @@
                     <v-text-field
                       v-model="formData.batchEndDate"
                       label="ກຳນົດເວລາຈັດສົ່ງແຮງງານ"
+                      prepend-inner-icon="mdi-calendar"
+                      readonly
+                      outlined
+                      dense
+                      hide-details="auto"
+                      clearable
+                      v-bind="attrs"
+                      v-on="on"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="formData.batchEndDate"
+                    @input="endDateMenu = false"
+                    :min="formData.batchStartDate"
+                  />
+                </v-menu>
+              </v-col>
+
+              <!-- Delivery Date -->
+              <v-col cols="12" md="3">
+                <v-menu
+                  v-model="endDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formData.batchEndDate"
+                      label="ວັນທີ່ສົ່ງແຮງງານ"
                       prepend-inner-icon="mdi-calendar"
                       readonly
                       outlined
@@ -536,5 +567,8 @@ export default {
 
 .v-alert--dense {
   padding: 12px !important;
+}
+.text-subtitle-1 {
+font-family: NotoSansLaoUI-Regular, Roboto-Regular !important;
 }
 </style>

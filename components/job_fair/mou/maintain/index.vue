@@ -111,13 +111,20 @@
                 />
               </v-col>
 
+              <v-col cols="4" sm="4" md="2" class="mt-n2">
+                <v-checkbox
+                  v-model="checkbox1"
+                  :label="`ນາຍຈ້າງສຳຮອງຈ່າຍ: ${checkbox1.toString()}`"
+                ></v-checkbox>
+              </v-col>
+
               <v-col cols="4" sm="4" md="2">
                 <v-select
                   v-model="form.agencyId"
                   :items="agencies"
                   item-text="agencyName"
                   item-value="id"
-                  label="ຕົວແທນ"
+                  label="Agency"
                   outlined
                   dense
                   hide-details="auto"
@@ -538,6 +545,7 @@ export default {
       pdfViewerDialog: false,
       currentPdfUrl: null,
       currentPdfName: null,
+       checkbox1: true,
       form: {
         jobCode: '',
         mouNumber: '',

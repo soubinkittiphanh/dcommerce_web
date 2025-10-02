@@ -6,13 +6,13 @@
         <v-card class="mb-4">
           <v-card-title class="d-flex justify-space-between align-center">
             <div>
-              <v-icon large color="white" class="mr-2"
+              <v-icon large color="primary" class="mr-2"
                 >mdi-office-building</v-icon
               >
               <span class="text-h4">ລະບົບຈັດການບໍລິສັດແນະນຳແຮງງານ</span>
             </div>
             <div>
-              <v-btn color="white" @click="openCreateDialog" class="mr-2">
+              <v-btn color="primary" @click="openCreateDialog" class="mr-2">
                 <v-icon left>mdi-plus</v-icon>
                 ເພີ່ມບໍລິສັດໃໝ່
               </v-btn>
@@ -551,5 +551,8 @@ export default {
 
 .caption {
   font-size: 12px !important;
+}
+.text-h4 {
+  font-family: NotoSansLaoUI-Regular, Roboto-Regular !important;
 }
 </style>

@@ -338,8 +338,8 @@ export default {
       },
 
       headers: [
-        { text: 'ເລກທີ່', value: 'runningNo', sortable: true, width: '100px' },
-        { text: 'ລະຫັດ Job', value: 'mou', sortable: false, width: '200px' },
+        { text: 'ຮອບຈັດສົ່ງ', value: 'runningNo', sortable: true, width: '100px' },
+        { text: 'ບໍລິສັດນາຍຈ້າງ', value: 'mou', sortable: false, width: '200px' },
         { text: 'ສະຖານທີ່ວຽກ', value: 'workPlace', sortable: false, width: '150px' },
         { text: 'ໜ້າວຽກ', value: 'jobTitle', sortable: false, width: '150px' },
         { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px' },

@@ -1,150 +1,150 @@
-export const AccountForm = () => import('../../components/AccountForm.vue' /* webpackChunkName: "components/account-form" */).then(c => wrapFunctional(c.default || c))
-export const AuthorityForm = () => import('../../components/AuthorityForm.vue' /* webpackChunkName: "components/authority-form" */).then(c => wrapFunctional(c.default || c))
-export const BasicAlert = () => import('../../components/BasicAlert.vue' /* webpackChunkName: "components/basic-alert" */).then(c => wrapFunctional(c.default || c))
-export const CancelTicketForm = () => import('../../components/CancelTicketForm.vue' /* webpackChunkName: "components/cancel-ticket-form" */).then(c => wrapFunctional(c.default || c))
-export const CardDashBoard = () => import('../../components/CardDashBoard.vue' /* webpackChunkName: "components/card-dash-board" */).then(c => wrapFunctional(c.default || c))
-export const Carousel3d = () => import('../../components/Carousel3d.vue' /* webpackChunkName: "components/carousel3d" */).then(c => wrapFunctional(c.default || c))
-export const CategoryForm = () => import('../../components/CategoryForm.vue' /* webpackChunkName: "components/category-form" */).then(c => wrapFunctional(c.default || c))
-export const ComingSoon = () => import('../../components/ComingSoon.vue' /* webpackChunkName: "components/coming-soon" */).then(c => wrapFunctional(c.default || c))
-export const CompanyForm = () => import('../../components/CompanyForm.vue' /* webpackChunkName: "components/company-form" */).then(c => wrapFunctional(c.default || c))
-export const CurrencyForm = () => import('../../components/CurrencyForm.vue' /* webpackChunkName: "components/currency-form" */).then(c => wrapFunctional(c.default || c))
-export const DiaConfirm = () => import('../../components/DiaConfirm.vue' /* webpackChunkName: "components/dia-confirm" */).then(c => wrapFunctional(c.default || c))
-export const DiaImage = () => import('../../components/DiaImage.vue' /* webpackChunkName: "components/dia-image" */).then(c => wrapFunctional(c.default || c))
-export const DialogClassicMessage = () => import('../../components/DialogClassicMessage.vue' /* webpackChunkName: "components/dialog-classic-message" */).then(c => wrapFunctional(c.default || c))
-export const GanttChart = () => import('../../components/GanttChart.vue' /* webpackChunkName: "components/gantt-chart" */).then(c => wrapFunctional(c.default || c))
-export const GroupForm = () => import('../../components/GroupForm.vue' /* webpackChunkName: "components/group-form" */).then(c => wrapFunctional(c.default || c))
-export const ImageDialog = () => import('../../components/ImageDialog.vue' /* webpackChunkName: "components/image-dialog" */).then(c => wrapFunctional(c.default || c))
-export const LineChart = () => import('../../components/LineChart.vue' /* webpackChunkName: "components/line-chart" */).then(c => wrapFunctional(c.default || c))
-export const LoadingIndicator = () => import('../../components/LoadingIndicator.vue' /* webpackChunkName: "components/loading-indicator" */).then(c => wrapFunctional(c.default || c))
-export const LocationForm = () => import('../../components/LocationForm.vue' /* webpackChunkName: "components/location-form" */).then(c => wrapFunctional(c.default || c))
-export const MenuHeaderForm = () => import('../../components/MenuHeaderForm.vue' /* webpackChunkName: "components/menu-header-form" */).then(c => wrapFunctional(c.default || c))
-export const MenuLineForm = () => import('../../components/MenuLineForm.vue' /* webpackChunkName: "components/menu-line-form" */).then(c => wrapFunctional(c.default || c))
-export const MyChart = () => import('../../components/MyChart.vue' /* webpackChunkName: "components/my-chart" */).then(c => wrapFunctional(c.default || c))
-export const NewComing = () => import('../../components/NewComing.vue' /* webpackChunkName: "components/new-coming" */).then(c => wrapFunctional(c.default || c))
-export const Notification = () => import('../../components/Notification.vue' /* webpackChunkName: "components/notification" */).then(c => wrapFunctional(c.default || c))
-export const NuxtLogo = () => import('../../components/NuxtLogo.vue' /* webpackChunkName: "components/nuxt-logo" */).then(c => wrapFunctional(c.default || c))
-export const OrderDetail = () => import('../../components/OrderDetail.vue' /* webpackChunkName: "components/order-detail" */).then(c => wrapFunctional(c.default || c))
-export const OrderDetailPos = () => import('../../components/OrderDetailPos.vue' /* webpackChunkName: "components/order-detail-pos" */).then(c => wrapFunctional(c.default || c))
-export const OrderDetailPosCRUD = () => import('../../components/OrderDetailPosCRUD.vue' /* webpackChunkName: "components/order-detail-pos-c-r-u-d" */).then(c => wrapFunctional(c.default || c))
-export const OrderForm = () => import('../../components/OrderForm.vue' /* webpackChunkName: "components/order-form" */).then(c => wrapFunctional(c.default || c))
-export const OrderHistoryList = () => import('../../components/OrderHistoryList.vue' /* webpackChunkName: "components/order-history-list" */).then(c => wrapFunctional(c.default || c))
-export const OrderStatusForm = () => import('../../components/OrderStatusForm.vue' /* webpackChunkName: "components/order-status-form" */).then(c => wrapFunctional(c.default || c))
-export const PaymentForm = () => import('../../components/PaymentForm.vue' /* webpackChunkName: "components/payment-form" */).then(c => wrapFunctional(c.default || c))
-export const PriceListForm = () => import('../../components/PriceListForm.vue' /* webpackChunkName: "components/price-list-form" */).then(c => wrapFunctional(c.default || c))
-export const PricingOption = () => import('../../components/PricingOption.vue' /* webpackChunkName: "components/pricing-option" */).then(c => wrapFunctional(c.default || c))
-export const ProductCard = () => import('../../components/ProductCard.vue' /* webpackChunkName: "components/product-card" */).then(c => wrapFunctional(c.default || c))
-export const PurchasingFormCRUD = () => import('../../components/PurchasingFormCRUD.vue' /* webpackChunkName: "components/purchasing-form-c-r-u-d" */).then(c => wrapFunctional(c.default || c))
-export const ReceivingFormCRUD = () => import('../../components/ReceivingFormCRUD.vue' /* webpackChunkName: "components/receiving-form-c-r-u-d" */).then(c => wrapFunctional(c.default || c))
-export const ReservationForm = () => import('../../components/ReservationForm.vue' /* webpackChunkName: "components/reservation-form" */).then(c => wrapFunctional(c.default || c))
-export const RiderFormCopy = () => import('../../components/RiderForm-copy.vue' /* webpackChunkName: "components/rider-form-copy" */).then(c => wrapFunctional(c.default || c))
-export const RiderForm = () => import('../../components/RiderForm.vue' /* webpackChunkName: "components/rider-form" */).then(c => wrapFunctional(c.default || c))
-export const Settlement = () => import('../../components/Settlement.vue' /* webpackChunkName: "components/settlement" */).then(c => wrapFunctional(c.default || c))
-export const ShippingForm = () => import('../../components/ShippingForm.vue' /* webpackChunkName: "components/shipping-form" */).then(c => wrapFunctional(c.default || c))
-export const TerminalForm = () => import('../../components/TerminalForm.vue' /* webpackChunkName: "components/terminal-form" */).then(c => wrapFunctional(c.default || c))
-export const TransferForm = () => import('../../components/TransferForm.vue' /* webpackChunkName: "components/transfer-form" */).then(c => wrapFunctional(c.default || c))
-export const TransferViewForm = () => import('../../components/TransferViewForm.vue' /* webpackChunkName: "components/transfer-view-form" */).then(c => wrapFunctional(c.default || c))
-export const Tutorial = () => import('../../components/Tutorial.vue' /* webpackChunkName: "components/tutorial" */).then(c => wrapFunctional(c.default || c))
-export const TutorialForm = () => import('../../components/TutorialForm.vue' /* webpackChunkName: "components/tutorial-form" */).then(c => wrapFunctional(c.default || c))
-export const UserForm = () => import('../../components/UserForm.vue' /* webpackChunkName: "components/user-form" */).then(c => wrapFunctional(c.default || c))
-export const VendorForm = () => import('../../components/VendorForm.vue' /* webpackChunkName: "components/vendor-form" */).then(c => wrapFunctional(c.default || c))
-export const VuetifyLogo = () => import('../../components/VuetifyLogo.vue' /* webpackChunkName: "components/vuetify-logo" */).then(c => wrapFunctional(c.default || c))
-export const Wallet = () => import('../../components/Wallet.vue' /* webpackChunkName: "components/wallet" */).then(c => wrapFunctional(c.default || c))
-export const WebCategoryForm = () => import('../../components/WebCategoryForm.vue' /* webpackChunkName: "components/web-category-form" */).then(c => wrapFunctional(c.default || c))
-export const WebCategoryProductForm = () => import('../../components/WebCategoryProductForm.vue' /* webpackChunkName: "components/web-category-product-form" */).then(c => wrapFunctional(c.default || c))
-export const WebProductCategoryForm = () => import('../../components/WebProductCategoryForm.vue' /* webpackChunkName: "components/web-product-category-form" */).then(c => wrapFunctional(c.default || c))
-export const YoutubePlayer = () => import('../../components/YoutubePlayer.vue' /* webpackChunkName: "components/youtube-player" */).then(c => wrapFunctional(c.default || c))
-export const AllProduct = () => import('../../components/all-product.vue' /* webpackChunkName: "components/all-product" */).then(c => wrapFunctional(c.default || c))
-export const Brands = () => import('../../components/brands.vue' /* webpackChunkName: "components/brands" */).then(c => wrapFunctional(c.default || c))
-export const DeliveryForm = () => import('../../components/deliveryForm.vue' /* webpackChunkName: "components/delivery-form" */).then(c => wrapFunctional(c.default || c))
-export const DiscountProductsCard = () => import('../../components/discount-products-card.vue' /* webpackChunkName: "components/discount-products-card" */).then(c => wrapFunctional(c.default || c))
-export const Footer = () => import('../../components/footer.vue' /* webpackChunkName: "components/footer" */).then(c => wrapFunctional(c.default || c))
-export const HotProductsCard = () => import('../../components/hot-products-card.vue' /* webpackChunkName: "components/hot-products-card" */).then(c => wrapFunctional(c.default || c))
-export const NewProductsCard = () => import('../../components/new-products-card.vue' /* webpackChunkName: "components/new-products-card" */).then(c => wrapFunctional(c.default || c))
-export const NewUpdateProduct = () => import('../../components/new-update-product.vue' /* webpackChunkName: "components/new-update-product" */).then(c => wrapFunctional(c.default || c))
-export const OrderSumaryCard = () => import('../../components/orderSumaryCard.vue' /* webpackChunkName: "components/order-sumary-card" */).then(c => wrapFunctional(c.default || c))
-export const OrderSumaryCardPos = () => import('../../components/orderSumaryCardPos.vue' /* webpackChunkName: "components/order-sumary-card-pos" */).then(c => wrapFunctional(c.default || c))
-export const OrderSumaryCardV2 = () => import('../../components/orderSumaryCardV2.vue' /* webpackChunkName: "components/order-sumary-card-v2" */).then(c => wrapFunctional(c.default || c))
-export const Slider = () => import('../../components/slider.vue' /* webpackChunkName: "components/slider" */).then(c => wrapFunctional(c.default || c))
-export const UnitForm = () => import('../../components/unitForm.vue' /* webpackChunkName: "components/unit-form" */).then(c => wrapFunctional(c.default || c))
-export const CafePOSScreen = () => import('../../components/CafePOSScreen/index.vue' /* webpackChunkName: "components/cafe-p-o-s-screen" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApPayment = () => import('../../components/accounting/ApPayment.vue' /* webpackChunkName: "components/accounting-ap-payment" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArReceivable = () => import('../../components/accounting/ArReceivable.vue' /* webpackChunkName: "components/accounting-ar-receivable" */).then(c => wrapFunctional(c.default || c))
-export const AccountingGLForm = () => import('../../components/accounting/GLForm.vue' /* webpackChunkName: "components/accounting-g-l-form" */).then(c => wrapFunctional(c.default || c))
-export const CalendarMyCalendar = () => import('../../components/calendar/MyCalendar.vue' /* webpackChunkName: "components/calendar-my-calendar" */).then(c => wrapFunctional(c.default || c))
-export const CampaignForm = () => import('../../components/campaign/CampaignForm.vue' /* webpackChunkName: "components/campaign-form" */).then(c => wrapFunctional(c.default || c))
-export const CardCampaignCard = () => import('../../components/card/campaignCard.vue' /* webpackChunkName: "components/card-campaign-card" */).then(c => wrapFunctional(c.default || c))
-export const CardForm = () => import('../../components/card/cardForm.vue' /* webpackChunkName: "components/card-form" */).then(c => wrapFunctional(c.default || c))
-export const CustomerForm = () => import('../../components/customer/CustomerForm.vue' /* webpackChunkName: "components/customer-form" */).then(c => wrapFunctional(c.default || c))
-export const CustomerList = () => import('../../components/customer/CustomerList.vue' /* webpackChunkName: "components/customer-list" */).then(c => wrapFunctional(c.default || c))
-export const DashboardCardGrouping = () => import('../../components/dashboard/CardGrouping.vue' /* webpackChunkName: "components/dashboard-card-grouping" */).then(c => wrapFunctional(c.default || c))
-export const DashboardCardOnTop = () => import('../../components/dashboard/CardOnTop.vue' /* webpackChunkName: "components/dashboard-card-on-top" */).then(c => wrapFunctional(c.default || c))
-export const DialogsBottomAlert = () => import('../../components/dialogs/bottomAlert.vue' /* webpackChunkName: "components/dialogs-bottom-alert" */).then(c => wrapFunctional(c.default || c))
-export const Menu = () => import('../../components/menu/index.vue' /* webpackChunkName: "components/menu" */).then(c => wrapFunctional(c.default || c))
-export const MenuOverview = () => import('../../components/menuOverview/index.vue' /* webpackChunkName: "components/menu-overview" */).then(c => wrapFunctional(c.default || c))
-export const MinStockCard = () => import('../../components/minStockCard/index.vue' /* webpackChunkName: "components/min-stock-card" */).then(c => wrapFunctional(c.default || c))
-export const MinistryDialog = () => import('../../components/ministry/MinistryDialog.vue' /* webpackChunkName: "components/ministry-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MinistryViewDialog = () => import('../../components/ministry/MinistryViewDialog.vue' /* webpackChunkName: "components/ministry-view-dialog" */).then(c => wrapFunctional(c.default || c))
-export const PaymentCard = () => import('../../components/paymentCard/index.vue' /* webpackChunkName: "components/payment-card" */).then(c => wrapFunctional(c.default || c))
-export const PaymentQr = () => import('../../components/payment_qr/index.vue' /* webpackChunkName: "components/payment-qr" */).then(c => wrapFunctional(c.default || c))
-export const PoForm = () => import('../../components/po/PoForm.vue' /* webpackChunkName: "components/po-form" */).then(c => wrapFunctional(c.default || c))
-export const PosCateogoryList = () => import('../../components/pos/CateogoryList.vue' /* webpackChunkName: "components/pos-cateogory-list" */).then(c => wrapFunctional(c.default || c))
-export const ProductItem = () => import('../../components/product/Item.vue' /* webpackChunkName: "components/product-item" */).then(c => wrapFunctional(c.default || c))
-export const ProductCardPos = () => import('../../components/product/ProductCardPos.vue' /* webpackChunkName: "components/product-card-pos" */).then(c => wrapFunctional(c.default || c))
-export const ProductForm = () => import('../../components/product/ProductForm.vue' /* webpackChunkName: "components/product-form" */).then(c => wrapFunctional(c.default || c))
-export const ProductFormCreate = () => import('../../components/product/ProductFormCreate.vue' /* webpackChunkName: "components/product-form-create" */).then(c => wrapFunctional(c.default || c))
-export const Quotation = () => import('../../components/quotation/index.vue' /* webpackChunkName: "components/quotation" */).then(c => wrapFunctional(c.default || c))
-export const ScheduleMonthTable = () => import('../../components/schedule/MonthTable.vue' /* webpackChunkName: "components/schedule-month-table" */).then(c => wrapFunctional(c.default || c))
-export const TimelineGianttTimeline = () => import('../../components/timeline/GianttTimeline.vue' /* webpackChunkName: "components/timeline-giantt-timeline" */).then(c => wrapFunctional(c.default || c))
-export const CAFECustomerDialog = () => import('../../components/CAFE/customerDialog/index.vue' /* webpackChunkName: "components/c-a-f-e-customer-dialog" */).then(c => wrapFunctional(c.default || c))
-export const CAFEPaymentDialogFront = () => import('../../components/CAFE/paymentDialogFront/index.vue' /* webpackChunkName: "components/c-a-f-e-payment-dialog-front" */).then(c => wrapFunctional(c.default || c))
-export const CAFEPrintdialog = () => import('../../components/CAFE/printdialog/index.vue' /* webpackChunkName: "components/c-a-f-e-printdialog" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentAuditDialog = () => import('../../components/MA/paymentAuditDialog/index.vue' /* webpackChunkName: "components/m-a-payment-audit-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentAuditReportDialog = () => import('../../components/MA/paymentAuditReportDialog/index.vue' /* webpackChunkName: "components/m-a-payment-audit-report-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentCompareDialog = () => import('../../components/MA/paymentCompareDialog/index.vue' /* webpackChunkName: "components/m-a-payment-compare-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsBankAccountInfo = () => import('../../components/MA/paymentComponents/BankAccountInfo.vue' /* webpackChunkName: "components/m-a-payment-components-bank-account-info" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsDateField = () => import('../../components/MA/paymentComponents/DateField.vue' /* webpackChunkName: "components/m-a-payment-components-date-field" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsDialogFooter = () => import('../../components/MA/paymentComponents/DialogFooter.vue' /* webpackChunkName: "components/m-a-payment-components-dialog-footer" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsDialogHeader = () => import('../../components/MA/paymentComponents/DialogHeader.vue' /* webpackChunkName: "components/m-a-payment-components-dialog-header" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsFormSection = () => import('../../components/MA/paymentComponents/FormSection.vue' /* webpackChunkName: "components/m-a-payment-components-form-section" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsInputField = () => import('../../components/MA/paymentComponents/InputField.vue' /* webpackChunkName: "components/m-a-payment-components-input-field" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsLoadingState = () => import('../../components/MA/paymentComponents/LoadingState.vue' /* webpackChunkName: "components/m-a-payment-components-loading-state" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsMinistryInfo = () => import('../../components/MA/paymentComponents/MinistryInfo.vue' /* webpackChunkName: "components/m-a-payment-components-ministry-info" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsSelectField = () => import('../../components/MA/paymentComponents/SelectField.vue' /* webpackChunkName: "components/m-a-payment-components-select-field" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsTextareaField = () => import('../../components/MA/paymentComponents/TextareaField.vue' /* webpackChunkName: "components/m-a-payment-components-textarea-field" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentComponentsValidationErrors = () => import('../../components/MA/paymentComponents/ValidationErrors.vue' /* webpackChunkName: "components/m-a-payment-components-validation-errors" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentDetailDialog = () => import('../../components/MA/paymentDetailDialog/index.vue' /* webpackChunkName: "components/m-a-payment-detail-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentVoucher = () => import('../../components/MA/paymentVoucher/index.vue' /* webpackChunkName: "components/m-a-payment-voucher" */).then(c => wrapFunctional(c.default || c))
-export const MAPaymentDialog = () => import('../../components/MA/paymentDialog/index.vue' /* webpackChunkName: "components/m-a-payment-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MARevenueTargetDialog = () => import('../../components/MA/revenueTargetDialog/index.vue' /* webpackChunkName: "components/m-a-revenue-target-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MASettlementDialog = () => import('../../components/MA/settlementDialog/index.vue' /* webpackChunkName: "components/m-a-settlement-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MASettlementViewDialog = () => import('../../components/MA/settlementViewDialog/index.vue' /* webpackChunkName: "components/m-a-settlement-view-dialog" */).then(c => wrapFunctional(c.default || c))
-export const MASettlementVoucher = () => import('../../components/MA/settlementVoucher/index.vue' /* webpackChunkName: "components/m-a-settlement-voucher" */).then(c => wrapFunctional(c.default || c))
-export const ApplicantsApplicantDialog = () => import('../../components/applicants/ApplicantDialog/index.vue' /* webpackChunkName: "components/applicants-applicant-dialog" */).then(c => wrapFunctional(c.default || c))
-export const ApplicantsApplicantViewDialog = () => import('../../components/applicants/ApplicantViewDialog/index.vue' /* webpackChunkName: "components/applicants-applicant-view-dialog" */).then(c => wrapFunctional(c.default || c))
-export const ApplicantsStatusUpdateDialog = () => import('../../components/applicants/StatusUpdateDialog/index.vue' /* webpackChunkName: "components/applicants-status-update-dialog" */).then(c => wrapFunctional(c.default || c))
-export const BenefitMaintain = () => import('../../components/benefit/maintain/index.vue' /* webpackChunkName: "components/benefit-maintain" */).then(c => wrapFunctional(c.default || c))
-export const BenefitView = () => import('../../components/benefit/view/index.vue' /* webpackChunkName: "components/benefit-view" */).then(c => wrapFunctional(c.default || c))
-export const BankBankAccount = () => import('../../components/bank/bankAccount/index.vue' /* webpackChunkName: "components/bank-bank-account" */).then(c => wrapFunctional(c.default || c))
-export const JobAdvertiseMaintain = () => import('../../components/jobAdvertise/maintain/index.vue' /* webpackChunkName: "components/job-advertise-maintain" */).then(c => wrapFunctional(c.default || c))
-export const JobAdvertiseStatusUpdate = () => import('../../components/jobAdvertise/statusUpdate/index.vue' /* webpackChunkName: "components/job-advertise-status-update" */).then(c => wrapFunctional(c.default || c))
-export const JobAdvertiseView = () => import('../../components/jobAdvertise/view/index.vue' /* webpackChunkName: "components/job-advertise-view" */).then(c => wrapFunctional(c.default || c))
-export const JobFairJobBatch = () => import('../../components/job_fair/job_batch/index.vue' /* webpackChunkName: "components/job-fair-job-batch" */).then(c => wrapFunctional(c.default || c))
-export const PosDialogsQuantityUpdateDialog = () => import('../../components/pos/dialogs/QuantityUpdateDialog.vue' /* webpackChunkName: "components/pos-dialogs-quantity-update-dialog" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApInvoice = () => import('../../components/accounting/ap/invoice/index.vue' /* webpackChunkName: "components/accounting-ap-invoice" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApSettlement = () => import('../../components/accounting/ap/settlement/index.vue' /* webpackChunkName: "components/accounting-ap-settlement" */).then(c => wrapFunctional(c.default || c))
-export const JobFairAgencyMaintain = () => import('../../components/job_fair/agency/maintain/index.vue' /* webpackChunkName: "components/job-fair-agency-maintain" */).then(c => wrapFunctional(c.default || c))
-export const JobFairAgencyView = () => import('../../components/job_fair/agency/view/index.vue' /* webpackChunkName: "components/job-fair-agency-view" */).then(c => wrapFunctional(c.default || c))
-export const JobFairMouMaintain = () => import('../../components/job_fair/mou/maintain/index.vue' /* webpackChunkName: "components/job-fair-mou-maintain" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApInvoiceAudit = () => import('../../components/accounting/ap/invoice/audit/index.vue' /* webpackChunkName: "components/accounting-ap-invoice-audit" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApSettlementAudit = () => import('../../components/accounting/ap/settlement/audit/index.vue' /* webpackChunkName: "components/accounting-ap-settlement-audit" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArInvoiceAudit = () => import('../../components/accounting/ar/invoice/audit/index.vue' /* webpackChunkName: "components/accounting-ar-invoice-audit" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArInvoiceMaintain = () => import('../../components/accounting/ar/invoice/maintain/index.vue' /* webpackChunkName: "components/accounting-ar-invoice-maintain" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArInvoiceView = () => import('../../components/accounting/ar/invoice/view/index.vue' /* webpackChunkName: "components/accounting-ar-invoice-view" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArReceiveMaintain = () => import('../../components/accounting/ar/receive/maintain/index.vue' /* webpackChunkName: "components/accounting-ar-receive-maintain" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArReceiveView = () => import('../../components/accounting/ar/receive/view/index.vue' /* webpackChunkName: "components/accounting-ar-receive-view" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApInvoiceAuditView = () => import('../../components/accounting/ap/invoice/audit/view/index.vue' /* webpackChunkName: "components/accounting-ap-invoice-audit-view" */).then(c => wrapFunctional(c.default || c))
-export const AccountingArInvoiceAuditView = () => import('../../components/accounting/ar/invoice/audit/view/index.vue' /* webpackChunkName: "components/accounting-ar-invoice-audit-view" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApSettlementAuditView = () => import('../../components/accounting/ap/settlement/audit/view/index.vue' /* webpackChunkName: "components/accounting-ap-settlement-audit-view" */).then(c => wrapFunctional(c.default || c))
+export { default as AccountForm } from '../..\\components\\AccountForm.vue'
+export { default as AllProduct } from '../..\\components\\all-product.vue'
+export { default as AuthorityForm } from '../..\\components\\AuthorityForm.vue'
+export { default as BasicAlert } from '../..\\components\\BasicAlert.vue'
+export { default as Brands } from '../..\\components\\brands.vue'
+export { default as CancelTicketForm } from '../..\\components\\CancelTicketForm.vue'
+export { default as CardDashBoard } from '../..\\components\\CardDashBoard.vue'
+export { default as Carousel3d } from '../..\\components\\Carousel3d.vue'
+export { default as CategoryForm } from '../..\\components\\CategoryForm.vue'
+export { default as ComingSoon } from '../..\\components\\ComingSoon.vue'
+export { default as CompanyForm } from '../..\\components\\CompanyForm.vue'
+export { default as CurrencyForm } from '../..\\components\\CurrencyForm.vue'
+export { default as DeliveryForm } from '../..\\components\\deliveryForm.vue'
+export { default as DiaConfirm } from '../..\\components\\DiaConfirm.vue'
+export { default as DiaImage } from '../..\\components\\DiaImage.vue'
+export { default as DialogClassicMessage } from '../..\\components\\DialogClassicMessage.vue'
+export { default as DiscountProductsCard } from '../..\\components\\discount-products-card.vue'
+export { default as Footer } from '../..\\components\\footer.vue'
+export { default as GanttChart } from '../..\\components\\GanttChart.vue'
+export { default as GroupForm } from '../..\\components\\GroupForm.vue'
+export { default as HotProductsCard } from '../..\\components\\hot-products-card.vue'
+export { default as ImageDialog } from '../..\\components\\ImageDialog.vue'
+export { default as LineChart } from '../..\\components\\LineChart.vue'
+export { default as LoadingIndicator } from '../..\\components\\LoadingIndicator.vue'
+export { default as LocationForm } from '../..\\components\\LocationForm.vue'
+export { default as MenuHeaderForm } from '../..\\components\\MenuHeaderForm.vue'
+export { default as MenuLineForm } from '../..\\components\\MenuLineForm.vue'
+export { default as MyChart } from '../..\\components\\MyChart.vue'
+export { default as NewProductsCard } from '../..\\components\\new-products-card.vue'
+export { default as NewUpdateProduct } from '../..\\components\\new-update-product.vue'
+export { default as NewComing } from '../..\\components\\NewComing.vue'
+export { default as Notification } from '../..\\components\\Notification.vue'
+export { default as NuxtLogo } from '../..\\components\\NuxtLogo.vue'
+export { default as OrderDetail } from '../..\\components\\OrderDetail.vue'
+export { default as OrderDetailPos } from '../..\\components\\OrderDetailPos.vue'
+export { default as OrderDetailPosCRUD } from '../..\\components\\OrderDetailPosCRUD.vue'
+export { default as OrderForm } from '../..\\components\\OrderForm.vue'
+export { default as OrderHistoryList } from '../..\\components\\OrderHistoryList.vue'
+export { default as OrderStatusForm } from '../..\\components\\OrderStatusForm.vue'
+export { default as OrderSumaryCard } from '../..\\components\\orderSumaryCard.vue'
+export { default as OrderSumaryCardPos } from '../..\\components\\orderSumaryCardPos.vue'
+export { default as OrderSumaryCardV2 } from '../..\\components\\orderSumaryCardV2.vue'
+export { default as PaymentForm } from '../..\\components\\PaymentForm.vue'
+export { default as PriceListForm } from '../..\\components\\PriceListForm.vue'
+export { default as PricingOption } from '../..\\components\\PricingOption.vue'
+export { default as ProductCard } from '../..\\components\\ProductCard.vue'
+export { default as PurchasingFormCRUD } from '../..\\components\\PurchasingFormCRUD.vue'
+export { default as ReceivingFormCRUD } from '../..\\components\\ReceivingFormCRUD.vue'
+export { default as ReservationForm } from '../..\\components\\ReservationForm.vue'
+export { default as RiderFormCopy } from '../..\\components\\RiderForm-copy.vue'
+export { default as RiderForm } from '../..\\components\\RiderForm.vue'
+export { default as Settlement } from '../..\\components\\Settlement.vue'
+export { default as ShippingForm } from '../..\\components\\ShippingForm.vue'
+export { default as Slider } from '../..\\components\\slider.vue'
+export { default as TerminalForm } from '../..\\components\\TerminalForm.vue'
+export { default as TransferForm } from '../..\\components\\TransferForm.vue'
+export { default as TransferViewForm } from '../..\\components\\TransferViewForm.vue'
+export { default as Tutorial } from '../..\\components\\Tutorial.vue'
+export { default as TutorialForm } from '../..\\components\\TutorialForm.vue'
+export { default as UnitForm } from '../..\\components\\unitForm.vue'
+export { default as UserForm } from '../..\\components\\UserForm.vue'
+export { default as VendorForm } from '../..\\components\\VendorForm.vue'
+export { default as VuetifyLogo } from '../..\\components\\VuetifyLogo.vue'
+export { default as Wallet } from '../..\\components\\Wallet.vue'
+export { default as WebCategoryForm } from '../..\\components\\WebCategoryForm.vue'
+export { default as WebCategoryProductForm } from '../..\\components\\WebCategoryProductForm.vue'
+export { default as WebProductCategoryForm } from '../..\\components\\WebProductCategoryForm.vue'
+export { default as YoutubePlayer } from '../..\\components\\YoutubePlayer.vue'
+export { default as AccountingApPayment } from '../..\\components\\accounting\\ApPayment.vue'
+export { default as AccountingArReceivable } from '../..\\components\\accounting\\ArReceivable.vue'
+export { default as AccountingGLForm } from '../..\\components\\accounting\\GLForm.vue'
+export { default as CalendarMyCalendar } from '../..\\components\\calendar\\MyCalendar.vue'
+export { default as CafePOSScreen } from '../..\\components\\CafePOSScreen\\index.vue'
+export { default as CampaignForm } from '../..\\components\\campaign\\CampaignForm.vue'
+export { default as CardCampaignCard } from '../..\\components\\card\\campaignCard.vue'
+export { default as CardForm } from '../..\\components\\card\\cardForm.vue'
+export { default as CustomerForm } from '../..\\components\\customer\\CustomerForm.vue'
+export { default as CustomerList } from '../..\\components\\customer\\CustomerList.vue'
+export { default as DashboardCardGrouping } from '../..\\components\\dashboard\\CardGrouping.vue'
+export { default as DashboardCardOnTop } from '../..\\components\\dashboard\\CardOnTop.vue'
+export { default as DialogsBottomAlert } from '../..\\components\\dialogs\\bottomAlert.vue'
+export { default as Menu } from '../..\\components\\menu\\index.vue'
+export { default as MenuOverview } from '../..\\components\\menuOverview\\index.vue'
+export { default as MinistryDialog } from '../..\\components\\ministry\\MinistryDialog.vue'
+export { default as MinistryViewDialog } from '../..\\components\\ministry\\MinistryViewDialog.vue'
+export { default as MinStockCard } from '../..\\components\\minStockCard\\index.vue'
+export { default as PaymentCard } from '../..\\components\\paymentCard\\index.vue'
+export { default as PaymentQr } from '../..\\components\\payment_qr\\index.vue'
+export { default as PoForm } from '../..\\components\\po\\PoForm.vue'
+export { default as PosCateogoryList } from '../..\\components\\pos\\CateogoryList.vue'
+export { default as ProductItem } from '../..\\components\\product\\Item.vue'
+export { default as ProductCardPos } from '../..\\components\\product\\ProductCardPos.vue'
+export { default as ProductForm } from '../..\\components\\product\\ProductForm.vue'
+export { default as ProductFormCreate } from '../..\\components\\product\\ProductFormCreate.vue'
+export { default as Quotation } from '../..\\components\\quotation\\index.vue'
+export { default as ScheduleMonthTable } from '../..\\components\\schedule\\MonthTable.vue'
+export { default as TimelineGianttTimeline } from '../..\\components\\timeline\\GianttTimeline.vue'
+export { default as ApplicantsApplicantDialog } from '../..\\components\\applicants\\ApplicantDialog\\index.vue'
+export { default as ApplicantsApplicantViewDialog } from '../..\\components\\applicants\\ApplicantViewDialog\\index.vue'
+export { default as ApplicantsStatusUpdateDialog } from '../..\\components\\applicants\\StatusUpdateDialog\\index.vue'
+export { default as BenefitMaintain } from '../..\\components\\benefit\\maintain\\index.vue'
+export { default as BankBankAccount } from '../..\\components\\bank\\bankAccount\\index.vue'
+export { default as BenefitView } from '../..\\components\\benefit\\view\\index.vue'
+export { default as CAFECustomerDialog } from '../..\\components\\CAFE\\customerDialog\\index.vue'
+export { default as CAFEPrintdialog } from '../..\\components\\CAFE\\printdialog\\index.vue'
+export { default as CAFEPaymentDialogFront } from '../..\\components\\CAFE\\paymentDialogFront\\index.vue'
+export { default as JobAdvertiseStatusUpdate } from '../..\\components\\jobAdvertise\\statusUpdate\\index.vue'
+export { default as JobAdvertiseMaintain } from '../..\\components\\jobAdvertise\\maintain\\index.vue'
+export { default as JobAdvertiseView } from '../..\\components\\jobAdvertise\\view\\index.vue'
+export { default as JobFairJobBatch } from '../..\\components\\job_fair\\job_batch\\index.vue'
+export { default as MAPaymentAuditDialog } from '../..\\components\\MA\\paymentAuditDialog\\index.vue'
+export { default as MAPaymentAuditReportDialog } from '../..\\components\\MA\\paymentAuditReportDialog\\index.vue'
+export { default as MAPaymentCompareDialog } from '../..\\components\\MA\\paymentCompareDialog\\index.vue'
+export { default as MAPaymentComponentsBankAccountInfo } from '../..\\components\\MA\\paymentComponents\\BankAccountInfo.vue'
+export { default as MAPaymentComponentsDateField } from '../..\\components\\MA\\paymentComponents\\DateField.vue'
+export { default as MAPaymentComponentsDialogFooter } from '../..\\components\\MA\\paymentComponents\\DialogFooter.vue'
+export { default as MAPaymentComponentsDialogHeader } from '../..\\components\\MA\\paymentComponents\\DialogHeader.vue'
+export { default as MAPaymentComponentsFormSection } from '../..\\components\\MA\\paymentComponents\\FormSection.vue'
+export { default as MAPaymentComponentsInputField } from '../..\\components\\MA\\paymentComponents\\InputField.vue'
+export { default as MAPaymentComponentsLoadingState } from '../..\\components\\MA\\paymentComponents\\LoadingState.vue'
+export { default as MAPaymentComponentsMinistryInfo } from '../..\\components\\MA\\paymentComponents\\MinistryInfo.vue'
+export { default as MAPaymentComponentsSelectField } from '../..\\components\\MA\\paymentComponents\\SelectField.vue'
+export { default as MAPaymentComponentsTextareaField } from '../..\\components\\MA\\paymentComponents\\TextareaField.vue'
+export { default as MAPaymentComponentsValidationErrors } from '../..\\components\\MA\\paymentComponents\\ValidationErrors.vue'
+export { default as MAPaymentDetailDialog } from '../..\\components\\MA\\paymentDetailDialog\\index.vue'
+export { default as MAPaymentDialog } from '../..\\components\\MA\\paymentDialog\\index.vue'
+export { default as MAPaymentVoucher } from '../..\\components\\MA\\paymentVoucher\\index.vue'
+export { default as MARevenueTargetDialog } from '../..\\components\\MA\\revenueTargetDialog\\index.vue'
+export { default as MASettlementDialog } from '../..\\components\\MA\\settlementDialog\\index.vue'
+export { default as MASettlementViewDialog } from '../..\\components\\MA\\settlementViewDialog\\index.vue'
+export { default as MASettlementVoucher } from '../..\\components\\MA\\settlementVoucher\\index.vue'
+export { default as PosDialogsQuantityUpdateDialog } from '../..\\components\\pos\\dialogs\\QuantityUpdateDialog.vue'
+export { default as AccountingApInvoice } from '../..\\components\\accounting\\ap\\invoice\\index.vue'
+export { default as AccountingApSettlement } from '../..\\components\\accounting\\ap\\settlement\\index.vue'
+export { default as JobFairAgencyMaintain } from '../..\\components\\job_fair\\agency\\maintain\\index.vue'
+export { default as JobFairAgencyView } from '../..\\components\\job_fair\\agency\\view\\index.vue'
+export { default as JobFairMouMaintain } from '../..\\components\\job_fair\\mou\\maintain\\index.vue'
+export { default as AccountingApSettlementAudit } from '../..\\components\\accounting\\ap\\settlement\\audit\\index.vue'
+export { default as AccountingApInvoiceAudit } from '../..\\components\\accounting\\ap\\invoice\\audit\\index.vue'
+export { default as AccountingArInvoiceAudit } from '../..\\components\\accounting\\ar\\invoice\\audit\\index.vue'
+export { default as AccountingArInvoiceMaintain } from '../..\\components\\accounting\\ar\\invoice\\maintain\\index.vue'
+export { default as AccountingArInvoiceView } from '../..\\components\\accounting\\ar\\invoice\\view\\index.vue'
+export { default as AccountingArReceiveMaintain } from '../..\\components\\accounting\\ar\\receive\\maintain\\index.vue'
+export { default as AccountingArReceiveView } from '../..\\components\\accounting\\ar\\receive\\view\\index.vue'
+export { default as AccountingApSettlementAuditView } from '../..\\components\\accounting\\ap\\settlement\\audit\\view\\index.vue'
+export { default as AccountingApInvoiceAuditView } from '../..\\components\\accounting\\ap\\invoice\\audit\\view\\index.vue'
+export { default as AccountingArInvoiceAuditView } from '../..\\components\\accounting\\ar\\invoice\\audit\\view\\index.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

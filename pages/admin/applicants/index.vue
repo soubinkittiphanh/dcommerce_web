@@ -194,6 +194,24 @@
           </v-chip>
         </template>
 
+         <!-- Passport Column -->
+        <template v-slot:item.passportRevice="{ item }">
+          <v-chip
+            small
+            :color="item.passportRevice ? 'success' : 'error'"
+            text-color="white"
+          >
+            <v-icon left small>
+              {{
+                item.passportRevice
+                  ? 'mdi-check-circle'
+                  : 'mdi-close-circle'
+              }}
+            </v-icon>
+            {{ item.passportRevice ? 'ຮັບ' : 'ຍັງບໍ່ຮັບ' }}
+          </v-chip>
+        </template>
+
         <!-- Status Column -->
         <template v-slot:item.status="{ item }">
           <v-chip small :color="getStatusColor(item.status)" text-color="white">
@@ -270,6 +288,7 @@ export default {
         { text: 'ຕົວແທນສັນຫາ', value: 'agency', sortable: false },
         { text: 'ໜັງສືເດີນທາງ', value: 'passportAvailability', sortable: true },
         { text: 'ສະຖານະ', value: 'status', sortable: true },
+        { text: 'ຮັບພາດສະປອດແລ້ວ', value: 'passportRevice', sortable: true },
         { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, align: 'center' },
       ],
       genderOptions: [

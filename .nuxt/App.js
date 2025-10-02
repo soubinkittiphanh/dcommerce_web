@@ -2,27 +2,30 @@ import Vue from 'vue'
 import { decode, parsePath, withoutBase, withoutTrailingSlash, normalizeURL } from 'ufo'
 
 import { getMatchedComponentsInstances, getChildrenComponentInstancesUsingFetch, promisify, globalHandleError, urlJoin, sanitizeComponent } from './utils'
-import NuxtError from '../layouts/error.vue'
+import NuxtError from '..\\layouts\\error.vue'
 import NuxtLoading from './components/nuxt-loading.vue'
+import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
-import '../assets/css/mycss.css'
+import '..\\assets\\css\\mycss.css'
 
-import '../assets/css/style.css'
+import '..\\assets\\css\\style.css'
 
-import '../node_modules/@fortawesome/fontawesome-free/css/all.css'
+import '..\\node_modules\\@fortawesome\\fontawesome-free\\css\\all.css'
 
-import '../node_modules/vue2-datepicker/index.css'
+import '..\\node_modules\\vue2-datepicker\\index.css'
 
-import _d43c67dc from '../layouts/comingSoon.vue'
-import _6f6c098b from '../layouts/default.vue'
-import _77430317 from '../layouts/empty.vue'
-import _59c15dfc from '../layouts/fashion.vue'
-import _2d2495d5 from '../layouts/home.vue'
-import _77a66d33 from '../layouts/login.vue'
-import _2d26b655 from '../layouts/menu.vue'
-import _1a3b1a9e from '../layouts/pos.vue'
-import _1bda075a from '../layouts/products.vue'
-import _1a3b339e from '../layouts/web.vue'
+import '..\\node_modules\\vuetify\\dist\\vuetify.css'
+
+import _d43c67dc from '..\\layouts\\comingSoon.vue'
+import _6f6c098b from '..\\layouts\\default.vue'
+import _77430317 from '..\\layouts\\empty.vue'
+import _59c15dfc from '..\\layouts\\fashion.vue'
+import _2d2495d5 from '..\\layouts\\home.vue'
+import _77a66d33 from '..\\layouts\\login.vue'
+import _2d26b655 from '..\\layouts\\menu.vue'
+import _1a3b1a9e from '..\\layouts\\pos.vue'
+import _1bda075a from '..\\layouts\\products.vue'
+import _1a3b339e from '..\\layouts\\web.vue'
 
 const layouts = { "_comingSoon": sanitizeComponent(_d43c67dc),"_default": sanitizeComponent(_6f6c098b),"_empty": sanitizeComponent(_77430317),"_fashion": sanitizeComponent(_59c15dfc),"_home": sanitizeComponent(_2d2495d5),"_login": sanitizeComponent(_77a66d33),"_menu": sanitizeComponent(_2d26b655),"_pos": sanitizeComponent(_1a3b1a9e),"_products": sanitizeComponent(_1bda075a),"_web": sanitizeComponent(_1a3b339e) }
 
@@ -59,7 +62,7 @@ export default {
       }
     }, [
       loadingEl,
-
+      h(NuxtBuildIndicator),
       transitionEl
     ])
   },
@@ -200,6 +203,10 @@ export default {
     },
 
     setLayout (layout) {
+      if(layout && typeof layout !== 'string') {
+        throw new Error('[nuxt] Avoid using non-string value as layout property.')
+      }
+
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
       }
