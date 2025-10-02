@@ -9,7 +9,7 @@
               <v-icon large color="white" class="mr-2"
                 >mdi-office-building</v-icon
               >
-              <span class="text-h4">ລະບົບຈັດການບໍລິສັດແນະນຳແຮງງານ</span>
+              <span class="text-h4">ລະບົບຈັດການບໍລິສັດແນະນຳແຮງງານ dsdfsdf</span>
             </div>
             <div>
               <v-btn color="white" @click="openCreateDialog" class="mr-2">
@@ -18,7 +18,11 @@
               </v-btn>
               <v-btn color="white" @click="exportData">
                 <v-icon left>mdi-download</v-icon>
-                Export
+                Export 1
+              </v-btn>
+              <v-btn color="white" @click="exportData">
+                <v-icon left>mdi-download</v-icon>
+                Export 2
               </v-btn>
             </div>
           </v-card-title>
