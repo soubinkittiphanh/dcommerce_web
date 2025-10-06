@@ -111,13 +111,20 @@
                 />
               </v-col>
 
+              <v-col cols="4" sm="4" md="2" class="mt-n2">
+                <v-checkbox
+                  v-model="form.isPaidByEmployer"
+                  :label="`ນາຍຈ້າງສຳຮອງຈ່າຍ`"
+                ></v-checkbox>
+              </v-col>
+
               <v-col cols="4" sm="4" md="2">
                 <v-select
                   v-model="form.agencyId"
                   :items="agencies"
                   item-text="agencyName"
                   item-value="id"
-                  label="ຕົວແທນ"
+                  label="Agency"
                   outlined
                   dense
                   hide-details="auto"
@@ -135,6 +142,12 @@
                   hide-details="auto"
                   prepend-inner-icon="mdi-office-building"
                 />
+              </v-col>
+              <v-col cols="4" md="4">
+                <v-chip class="ma-0" color="primary" label text-color="white">
+                  <v-icon start>mdi-cash-lock</v-icon>
+                  ຄ້າງຊຳລະ: {{ formatCurrency(outStanding,selectedCurrency?.code) || formatCurrency(form.pmCharge,selectedCurrency?.code) }}
+                </v-chip>
               </v-col>
 
               <!-- Company & Location Section -->
@@ -518,6 +531,7 @@ export default {
   name: 'MouMaintenanceDialog',
   props: {
     value: { type: Boolean, default: false },
+    outStanding: { type: Number, default: 0 },
     editingItem: { type: Object, default: null },
   },
   data() {
@@ -538,6 +552,7 @@ export default {
       pdfViewerDialog: false,
       currentPdfUrl: null,
       currentPdfName: null,
+
       form: {
         jobCode: '',
         mouNumber: '',
@@ -555,6 +570,7 @@ export default {
         images: [],
         notes: '',
         currencyId: null,
+        isPaidByEmployer: true,
       },
       statusOptions: [
         { value: 'draft', text: 'ຮ່າງ' },
@@ -600,6 +616,15 @@ export default {
     },
   },
   methods: {
+    formatCurrency(amount, currencyCode = 'USD') {
+      if (!amount) return '-'
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currencyCode,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(amount)
+    },
     initForm() {
       if (this.isEditing) {
         this.populateForm()
@@ -625,6 +650,7 @@ export default {
         images: [],
         notes: '',
         currencyId: null,
+        isPaidByEmployer: false,
       }
       this.selectedImages = []
       this.selectedDocuments = []

@@ -103,6 +103,30 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="jobBatchId" class="required">ແບັດຈັອບ</label>
+                    <select
+                      id="jobBatchId"
+                      v-model="form.jobBatchId"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.jobBatchId }"
+                      @change="onBatchJobChange"
+                    >
+                      <option value="">ເລືອກແບັດຈັອບ</option>
+                      <option
+                        v-for="jobBatch in jobBatches"
+                        :key="jobBatch.id"
+                        :value="jobBatch.id"
+                      >
+                        {{ jobBatch.runningNo }} ({{
+                          jobBatch.totalPositions || jobBatch.mou.jobTitle
+                        }})
+                      </option>
+                    </select>
+                    <div v-if="errors.jobBatchId" class="invalid-feedback">
+                      {{ errors.jobBatchId }}
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="status">ສະຖານະ</label>
                     <select
                       id="status"
@@ -474,10 +498,18 @@ export default {
       type: Array,
       default: () => [],
     },
+    jobBatches: {
+      type: Array,
+      default: () => [],
+    },
     currencies: {
       type: Array,
       default: () => [],
     },
+      preselectedBatchId: {  // ADD THIS PROP
+    type: Number,
+    default: null,
+  },
   },
 
   data() {
@@ -497,6 +529,7 @@ export default {
         invoiceDate: '',
         dueDate: '',
         clientId: '',
+        jobBatchId: '',
         currencyId: '',
         exchangeRate: 1.0,
         totalAmount: 0.0,
@@ -525,6 +558,7 @@ export default {
         invoiceDate: this.form.invoiceDate,
         status: this.form.status,
         clientId: this.form.clientId,
+        jobBatchId: this.form.jobBatchId,
         currencyId: this.form.currencyId,
         description: this.form.description,
       }
@@ -586,7 +620,17 @@ export default {
       },
       immediate: true,
     },
-
+  preselectedBatchId: {
+    handler(batchId) {
+      if (batchId && this.visible && !this.isEdit) {
+        this.$nextTick(() => {
+          this.form.jobBatchId = batchId
+          this.onBatchJobChange()
+        })
+      }
+    },
+    immediate: true,
+  },
     invoice: {
       handler() {
         if (this.visible) {
@@ -620,6 +664,7 @@ export default {
             ? this.invoice.dueDate.split('T')[0]
             : '',
           clientId: this.invoice.clientId,
+          jobBatchId: this.invoice.jobBatchId,
           currencyId: this.invoice.currencyId,
           exchangeRate: this.invoice.exchangeRate || 1.0,
           totalAmount: this.invoice.totalAmount || 0.0,
@@ -763,6 +808,92 @@ export default {
       this.calculateDueDate()
       this.clearFieldError('clientId')
     },
+    onBatchJobChange() {
+      this.clearFieldError('jobBatchId')
+
+      if (!this.form.jobBatchId) {
+        return
+      }
+
+      // Find the selected job batch
+      const selectedBatch = this.jobBatches.find(
+        (batch) => batch.id === this.form.jobBatchId
+      )
+
+      if (!selectedBatch) {
+        return
+      }
+
+      // Clear existing line items or ask user confirmation if lines exist
+      if (
+        this.lineItems.length > 0 &&
+        this.lineItems.some((line) => line.description)
+      ) {
+        const shouldClear = confirm(
+          'ມີລາຍການສິນຄ້າຢູ່ແລ້ວ. ທ່ານຕ້ອງການແທນທີ່ດ້ວຍລາຍການຈາກ Job Batch ບໍ?'
+        )
+        if (!shouldClear) {
+          return
+        }
+      }
+
+      // Clear existing lines
+      this.lineItems = []
+
+      // Get MOU data from the job batch
+      const mou = selectedBatch.mou
+
+      if (!mou) {
+        this.showToast('ບໍ່ພົບຂໍ້ມູນ MOU ສຳລັບ Job Batch ນີ້', 'warning')
+        this.lineItems = [this.createEmptyLine()]
+        return
+      }
+
+      // Calculate unit price: pmCharge / numberOfWorkers
+      const pmCharge = parseFloat(mou.pmCharge) || 0
+      const numberOfWorkers = parseFloat(mou.numberOfWorkers) || 1 // Prevent division by zero
+      const unitPrice =
+        numberOfWorkers > 0 ? pmCharge / numberOfWorkers : pmCharge
+
+      // Get quantity from job batch totalPositions
+      const quantity = parseFloat(selectedBatch.totalPositions) || 0
+
+      // Set currency from MOU if available
+      if (mou.currencyId ) {
+        this.form.currencyId = mou.currencyId
+        this.updateSelectedCurrency()
+      }
+
+      // Add line for recruitment service
+      const recruitmentLine = {
+        tempId: this.nextTempId++,
+        lineNumber: 1,
+        description: `ຄ່າບໍລິການຮັບສະໝັກງານ - ${mou.jobTitle || 'N/A'} (${
+          selectedBatch.runningNo
+        }) - ${mou.employerCompany || ''}`,
+        quantity: quantity,
+        unitPrice: unitPrice,
+        taxRate: 0, // Adjust if you have tax rate in your data
+        taxAmount: 0,
+        lineTotal: 0,
+      }
+      this.calculateLineTotal(recruitmentLine)
+      this.lineItems.push(recruitmentLine)
+
+      // Update line numbers
+      this.updateLineNumbers()
+
+      // Show success message with calculation details
+      this.showToast(
+        `ເພີ່ມລາຍການຈາກ Job Batch ${
+          selectedBatch.runningNo
+        } ສຳເລັດແລ້ວ (${quantity} ຕຳແໜ່ງ × ${this.formatCurrency(unitPrice)})`,
+        'success'
+      )
+
+      // Switch to lines tab to show the populated items
+      this.activeTab = 'lines'
+    },
 
     onCurrencyChange() {
       this.updateSelectedCurrency()
@@ -890,6 +1021,7 @@ export default {
         invoiceDate: '',
         dueDate: '',
         clientId: '',
+        jobBatchId: '',
         currencyId: '',
         exchangeRate: 1.0,
         totalAmount: 0.0,

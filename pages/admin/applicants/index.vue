@@ -170,11 +170,11 @@
         </template>
 
         <!-- Address Column -->
-        <template v-slot:item.address="{ item }">
+        <!-- <template v-slot:item.address="{ item }">
           <div v-if="item.address">
             {{ truncateText(item.address, 20) }}
           </div>
-        </template>
+        </template> -->
 
         <!-- Passport Column -->
         <template v-slot:item.passportAvailability="{ item }">
@@ -191,6 +191,24 @@
               }}
             </v-icon>
             {{ item.passportAvailability ? 'ມີ' : 'ບໍ່ມີ' }}
+          </v-chip>
+        </template>
+
+         <!-- Passport Column -->
+        <template v-slot:item.passportRecieve="{ item }">
+          <v-chip
+            small
+            :color="item.passportRecieve === true || item.passportRecieve === 'true' ? 'success' : 'error'"
+            text-color="white"
+          >
+            <v-icon left small>
+              {{
+                item.passportRecieve === true || item.passportRecieve === 'true'
+                  ? 'mdi-check-circle'
+                  : 'mdi-close-circle'
+              }}
+            </v-icon>
+            {{ item.passportRecieve === true || item.passportRecieve === 'true' ? 'ຮັບ' : 'ຍັງບໍ່ຮັບ' }}
           </v-chip>
         </template>
 
@@ -270,6 +288,7 @@ export default {
         { text: 'ຕົວແທນສັນຫາ', value: 'agency', sortable: false },
         { text: 'ໜັງສືເດີນທາງ', value: 'passportAvailability', sortable: true },
         { text: 'ສະຖານະ', value: 'status', sortable: true },
+        { text: 'ຮັບພາດສະປອດແລ້ວ', value: 'passportRecieve', sortable: true },
         { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, align: 'center' },
       ],
       genderOptions: [

@@ -763,6 +763,13 @@
     "_name": "_1b1605c9"
   },
   {
+    "name": "admin-applicants-index-1",
+    "path": "/admin/applicants/index-1",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/applicants/index-1.vue",
+    "chunkName": "pages/admin/applicants/index-1",
+    "_name": "_103d8bf0"
+  },
+  {
     "name": "admin-barcodePrint-gianttTime",
     "path": "/admin/barcodePrint/gianttTime",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/barcodePrint/gianttTime.vue",
@@ -796,6 +803,20 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/agency/index.vue",
     "chunkName": "pages/admin/job_fair/agency/index",
     "_name": "_5fa81691"
+  },
+  {
+    "name": "admin-job_fair-broker",
+    "path": "/admin/job_fair/broker",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/broker/index.vue",
+    "chunkName": "pages/admin/job_fair/broker/index",
+    "_name": "_21eab965"
+  },
+  {
+    "name": "admin-job_fair-employee",
+    "path": "/admin/job_fair/employee",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/employee/index.vue",
+    "chunkName": "pages/admin/job_fair/employee/index",
+    "_name": "_d3be8c8c"
   },
   {
     "name": "admin-job_fair-mou",

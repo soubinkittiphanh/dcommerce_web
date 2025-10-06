@@ -113,11 +113,14 @@ const _2517700b = () => interopDefault(import('../pages/pos/restaurant/index.vue
 const _4b336acc = () => interopDefault(import('../pages/pos/ticket/index.vue' /* webpackChunkName: "pages/pos/ticket/index" */))
 const _4d058200 = () => interopDefault(import('../pages/admin/ap/invoice/index.vue' /* webpackChunkName: "pages/admin/ap/invoice/index" */))
 const _1b1605c9 = () => interopDefault(import('../pages/admin/ap/invoiceSettlement/index.vue' /* webpackChunkName: "pages/admin/ap/invoiceSettlement/index" */))
+const _103d8bf0 = () => interopDefault(import('../pages/admin/applicants/index-1.vue' /* webpackChunkName: "pages/admin/applicants/index-1" */))
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
 const _324d246c = () => interopDefault(import('../pages/admin/cafeTable/customer.vue' /* webpackChunkName: "pages/admin/cafeTable/customer" */))
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
 const _5fa81691 = () => interopDefault(import('../pages/admin/job_fair/agency/index.vue' /* webpackChunkName: "pages/admin/job_fair/agency/index" */))
+const _21eab965 = () => interopDefault(import('../pages/admin/job_fair/broker/index.vue' /* webpackChunkName: "pages/admin/job_fair/broker/index" */))
+const _d3be8c8c = () => interopDefault(import('../pages/admin/job_fair/employee/index.vue' /* webpackChunkName: "pages/admin/job_fair/employee/index" */))
 const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index.vue' /* webpackChunkName: "pages/admin/job_fair/mou/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
@@ -597,6 +600,10 @@ export const routerOptions = {
     component: _1b1605c9,
     name: "admin-ap-invoiceSettlement"
   }, {
+    path: "/admin/applicants/index-1",
+    component: _103d8bf0,
+    name: "admin-applicants-index-1"
+  }, {
     path: "/admin/barcodePrint/gianttTime",
     component: _56d2fabe,
     name: "admin-barcodePrint-gianttTime"
@@ -616,6 +623,14 @@ export const routerOptions = {
     path: "/admin/job_fair/agency",
     component: _5fa81691,
     name: "admin-job_fair-agency"
+  }, {
+    path: "/admin/job_fair/broker",
+    component: _21eab965,
+    name: "admin-job_fair-broker"
+  }, {
+    path: "/admin/job_fair/employee",
+    component: _d3be8c8c,
+    name: "admin-job_fair-employee"
   }, {
     path: "/admin/job_fair/mou",
     component: _2d5fc25d,
