@@ -176,6 +176,33 @@
                 </span>
               </div>
             </template>
+            <!-- Invoice amount -->
+            <template v-slot:item.invoiceAmount="{ item }">
+              <div class="d-flex align-center">
+                <v-icon x-small color="teal" class="mr-1">mdi-cash</v-icon>
+                <span class="text-caption font-weight-medium">
+                  {{ formatCurrency(item.invoiceStatistics.totalReceivedAmount+item.invoiceStatistics.outstandingAmount, item.currency?.code) }}
+                </span>
+              </div>
+            </template>
+            <!-- Paid amount -->
+            <template v-slot:item.paidAmount="{ item }">
+              <div class="d-flex align-center">
+                <v-icon x-small color="teal" class="mr-1">mdi-cash</v-icon>
+                <span class="text-caption font-weight-medium">
+                  {{ formatCurrency(item.invoiceStatistics.totalReceivedAmount, item.currency?.code) }}
+                </span>
+              </div>
+            </template>
+            <!-- Outstanding -->
+            <template v-slot:item.invoiceOutstanding="{ item }">
+              <div class="d-flex align-center">
+                <v-icon x-small color="teal" class="mr-1">mdi-cash</v-icon>
+                <span class="text-caption font-weight-medium">
+                  {{ formatCurrency(item.invoiceStatistics.outstandingAmount, item.currency?.code) }}
+                </span>
+              </div>
+            </template>
 
             <!-- Actions -->
             <template v-slot:item.actions="{ item }">
@@ -217,6 +244,7 @@
     <MouMaintenanceDialog
       v-model="maintenanceDialog"
       :editing-item="editingItem"
+      :outStanding="selectedMOUOutstanding"
       @saved="onMOUSaved"
       @cancelled="maintenanceDialog = false"
     />
@@ -250,6 +278,7 @@ export default {
 
   data() {
     return {
+      selectedMOUOutstanding:0,
       mous: [],
       loading: false,
       search: '',
@@ -274,16 +303,19 @@ export default {
 
       headers: [
         { text: 'ລະຫັດ', value: 'jobCode', width: '100px' },
-        { text: 'ຊື່ວຽກ', value: 'jobTitle', width: '180px' },
-        { text: 'ບໍລິສັດ', value: 'employerCompany', width: '180px' },
+        { text: 'ລາຍລະອຽດໜ້າວຽກ', value: 'jobTitle', width: '180px' },
+        { text: 'ບໍລິສັດນາຍຈ້າງ', value: 'employerCompany', width: '180px' },
         { text: 'ສະຖານທີ່', value: 'workLocation', width: '150px' },
-        { text: 'ຈຳນວນ', value: 'numberOfWorkers', width: '100px', align: 'center' },
+        { text: 'ຈຳນວນແຮງງານ', value: 'numberOfWorkers', width: '120px', align: 'center' },
         { text: 'Agency', value: 'agency', width: '150px' },
         { text: 'ສະຖານະ', value: 'jobStatus', width: '120px' },
-        { text: 'Job Batch', value: 'jobBatchStats', width: '120px', sortable: false, align: 'center' },
+        { text: 'ເປີດຮັບແຮງງານ', value: 'jobBatchStats', width: '120px', sortable: false, align: 'center' },
         { text: 'ຜູ້ສະໝັກ', value: 'applicantStats', width: '150px', sortable: false, align: 'center' },
-        { text: 'MOU Amount', value: 'projectAmount', width: '120px' },
+        { text: 'MOU Amount', value: 'projectAmount', width: '130px' },
         { text: 'PM Charge', value: 'pmCharge', width: '120px' },
+        { text: 'ຍອດອອກອິນວອຍ', value: 'invoiceAmount', width: '120px' },
+        { text: 'ຊຳລະແລ້ວ', value: 'paidAmount', width: '120px' },
+        { text: 'ຄ້າງຊຳລະ', value: 'invoiceOutstanding', width: '120px' },
         { text: 'ຄຳສັ່ງ', value: 'actions', sortable: false, width: '80px', align: 'center' },
       ],
     }
@@ -345,6 +377,7 @@ export default {
 
     editMOU(item) {
       this.editingItem = { ...item }
+      this.selectedMOUOutstanding = item.invoiceStatistics.outstandingAmount;
       this.maintenanceDialog = true
     },
 

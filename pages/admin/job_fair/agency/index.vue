@@ -6,23 +6,19 @@
         <v-card class="mb-4">
           <v-card-title class="d-flex justify-space-between align-center">
             <div>
-              <v-icon large color="white" class="mr-2"
+              <v-icon large color="primary" class="mr-2"
                 >mdi-office-building</v-icon
               >
-              <span class="text-h4">ລະບົບຈັດການບໍລິສັດແນະນຳແຮງງານ dsdfsdf</span>
+              <span class="text-h4">ລະບົບຈັດການບໍລິສັດແນະນຳແຮງງານ</span>
             </div>
             <div>
-              <v-btn color="white" @click="openCreateDialog" class="mr-2">
+              <v-btn color="primary" @click="openCreateDialog" class="mr-2">
                 <v-icon left>mdi-plus</v-icon>
                 ເພີ່ມບໍລິສັດໃໝ່
               </v-btn>
               <v-btn color="white" @click="exportData">
                 <v-icon left>mdi-download</v-icon>
-                Export 1
-              </v-btn>
-              <v-btn color="white" @click="exportData">
-                <v-icon left>mdi-download</v-icon>
-                Export 2
+                Export
               </v-btn>
             </div>
           </v-card-title>
@@ -242,7 +238,7 @@
                   <v-btn
                     icon
                     small
-                    color="info"
+                    color="primary"
                     v-bind="attrs"
                     v-on="on"
                     @click="editAgency(item)"
@@ -261,6 +257,7 @@
     <!-- Agency Dialog -->
     <v-dialog v-model="showDialog" max-width="900px" persistent>
       <AgencyDialog
+        category="Agency"
         :visible="showDialog"
         :agency="selectedAgency"
         @close="closeDialog"
@@ -394,7 +391,7 @@ export default {
       this.loading = true
       try {
         const { data } = await this.$axios.get('/api/agency', {
-          params: { page: 1, limit: 1000, isActive: true },
+          params: { page: 1, limit: 1000, isActive: true,agencyType:'Agency' },
         })
 
         this.agencies = data?.success ? data.data.agencies || [] : []
@@ -555,5 +552,8 @@ export default {
 
 .caption {
   font-size: 12px !important;
+}
+.text-h4 {
+  font-family: NotoSansLaoUI-Regular, Roboto-Regular !important;
 }
 </style>

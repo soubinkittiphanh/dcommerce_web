@@ -37,6 +37,7 @@
           <div class="left-section">
             <div class="form-grid">
               <div class="form-group full-width">
+                <!-- <h3>ຮັບສະໝັກ</h3> -->
                 <label><i class="fas fa-briefcase"></i> Job Batch</label>
                 <select
                   v-model="formData.jobBatchId"
@@ -118,8 +119,9 @@
                   required
                 />
               </div>
+
               <div class="form-group">
-                <label class="required">
+                <label class="">
                   <i class="fas fa-graduation-cap"></i> ລະດັບການສຶກສາ
                 </label>
                 <input
@@ -156,6 +158,19 @@
               </div>
 
               <div class="form-group">
+                <label class="required"
+                  ><i class="fas fa-phone"></i> ເບີໂທ</label
+                >
+                <input
+                  v-model="formData.phone"
+                  type="tel"
+                  placeholder="+856 20 12345678"
+                  :class="{ error: errors.phone }"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
                 <label><i class="fas fa-calendar"></i> ອາຍຸ</label>
                 <input
                   v-model.number="formData.age"
@@ -165,14 +180,40 @@
                   placeholder="ອາຍຸ"
                 />
               </div>
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ບ້ານ</label>
+                <input
+                  v-model="formData.village"
+                  type="text"
+                  placeholder="ບ້ານ"
+                />
+              </div>
+
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ເມືອງ</label>
+                <input
+                  v-model="formData.city"
+                  type="text"
+                  placeholder="ເມືອງ"
+                />
+              </div>
+
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ແຂວງ</label>
+                <input
+                  v-model="formData.district"
+                  type="text"
+                  placeholder="ແຂວງ"
+                />
+              </div>
 
               <div class="form-group full-width">
-                <label><i class="fas fa-home"></i> ທີ່ຢູ່</label>
+                <!-- <label><i class="fas fa-home"></i> ທີ່ຢູ່</label>
                 <textarea
                   v-model="formData.address"
                   rows="2"
                   placeholder="ທີ່ຢູ່ລະອຽດ..."
-                ></textarea>
+                ></textarea> -->
               </div>
 
               <div class="form-group">
@@ -225,6 +266,58 @@
                 type="file"
                 accept="image/*"
                 @change="handleFileSelect($event, 'applicant')"
+                hidden
+              />
+            </div>
+            <!-- Passport Photo Upload Section -->
+            <div
+              v-if="formData.passportAvailability"
+              class="form-group full-width"
+            >
+              <label><i class="fas fa-id-badge"></i> ຮູບໜັງສື</label>
+              <div class="passport-photo-section">
+                <div
+                  class="photo-upload-small"
+                  @click="
+                    !passportPhotoPreview &&
+                      !formData.passportPhoto &&
+                      triggerFileInput('passport')
+                  "
+                >
+                  <img
+                    v-if="passportPhotoPreview || formData.passportPhoto"
+                    :src="
+                      passportPhotoPreview ||
+                      getImageUrl(formData.passportPhoto)
+                    "
+                    alt="Passport"
+                    @click.stop="
+                      openPreview(
+                        'ຮູບໜັງສື',
+                        passportPhotoPreview ||
+                          getImageUrl(formData.passportPhoto)
+                      )
+                    "
+                  />
+                  <div v-else class="photo-placeholder-small">
+                    <i class="fas fa-id-badge"></i>
+                    <span>ເພີ່ມຮູບໜັງສືເດີນທາງ</span>
+                  </div>
+                </div>
+                <button
+                  v-if="passportPhotoFile || formData.passportPhoto"
+                  type="button"
+                  @click="removePhoto('passport')"
+                  class="btn-remove-small"
+                >
+                  <i class="fas fa-trash"></i> ລຶບ
+                </button>
+              </div>
+              <input
+                ref="passportFileInput"
+                type="file"
+                accept="image/*"
+                @change="handleFileSelect($event, 'passport')"
                 hidden
               />
             </div>
@@ -283,18 +376,6 @@
                 <option value="SUBMITED">ເດີນທາງແລ້ວ</option>
               </select>
             </div>
-
-            <div class="form-group">
-              <label class="required"><i class="fas fa-phone"></i> ເບີໂທ</label>
-              <input
-                v-model="formData.phone"
-                type="tel"
-                placeholder="+856 20 12345678"
-                :class="{ error: errors.phone }"
-                required
-              />
-            </div>
-
             <div class="form-group">
               <label
                 ><i class="fas fa-exclamation-triangle"></i> ເບີສຸກເສີນ</label
@@ -315,28 +396,6 @@
                 <option value="divorced">ຢ່າຮ້າງ</option>
                 <option value="widowed">ເປັນເມ່າຍ</option>
               </select>
-            </div>
-            <div class="form-group">
-              <label><i class="fas fa-map-marker-alt"></i> ບ້ານ</label>
-              <input
-                v-model="formData.village"
-                type="text"
-                placeholder="ບ້ານ"
-              />
-            </div>
-
-            <div class="form-group">
-              <label><i class="fas fa-map-marker-alt"></i> ເມືອງ</label>
-              <input v-model="formData.city" type="text" placeholder="ເມືອງ" />
-            </div>
-
-            <div class="form-group">
-              <label><i class="fas fa-map-marker-alt"></i> ແຂວງ</label>
-              <input
-                v-model="formData.district"
-                type="text"
-                placeholder="ແຂວງ"
-              />
             </div>
             <div class="form-group">
               <label><i class="fas fa-building"></i> ຕົວແທນສັນຫາ</label>
@@ -383,6 +442,19 @@
                 step="0.01"
                 placeholder="0.00"
               />
+            </div>
+            <div class="form-group">
+              <label for="currencyId">ສະກຸນເງິນ</label>
+              <select id="currencyId" class="form-control">
+                <option value="">ເລືອກສະກຸນເງິນ</option>
+                <option>LAK</option>
+              </select>
+            </div>
+            <div class="form-group mt-10">
+              <label>
+                <input type="checkbox" v-model="formData.passportRecieve" />
+                <i class="fas fa-passport"></i> ຮັບພາດສະປອດແລ້ວ
+              </label>
             </div>
           </div>
         </div>
@@ -444,7 +516,7 @@ export default {
   data() {
     return {
       loading: false,
-      currentStep: 1,
+      currentStep: 2,
       agencies: [],
       loadingAgencies: false,
       applicantPhotoPreview: null,
@@ -466,6 +538,7 @@ export default {
         city: '',
         district: '',
         passportAvailability: false,
+        passportRecieve: false,
         passportNo: '',
         passportExpiredDate: '',
         passportIssueDate: '',
@@ -631,6 +704,7 @@ export default {
           district: a.district || '',
           depositAmount: a.depositAmount || 0,
           passportAvailability: a.passportAvailability || false,
+          passportRecieve: a.passportRecieve || false,
           passportNo: a.passportNo || '',
           passportExpiredDate: a.passportExpiredDate?.split('T')[0] || '',
           passportIssueDate: a.passportIssueDate?.split('T')[0] || '',

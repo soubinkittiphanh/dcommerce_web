@@ -8,7 +8,12 @@
             <v-icon color="white" class="mr-2">mdi-briefcase-outline</v-icon>
             <span>ລະບົບຈັດການ Job Batch</span>
             <v-spacer />
-            <v-btn color="white" text @click="openCreateDialog" :disabled="loading">
+            <v-btn
+              color="white"
+              text
+              @click="openCreateDialog"
+              :disabled="loading"
+            >
               <v-icon left>mdi-plus</v-icon>
               ເພີ່ມໃໝ່
             </v-btn>
@@ -106,9 +111,7 @@
             <v-icon class="mr-2">mdi-table</v-icon>
             <span>ລາຍການ Job Batch</span>
             <v-spacer />
-            <v-chip color="primary" outlined>
-              {{ totalItems }} ລາຍການ
-            </v-chip>
+            <v-chip color="primary" outlined> {{ totalItems }} ລາຍການ </v-chip>
           </v-card-title>
 
           <v-data-table
@@ -137,10 +140,16 @@
             <!-- MOU Information -->
             <template v-slot:item.mou="{ item }">
               <div v-if="item.mou" class="d-flex align-center">
-                <v-icon small color="primary" class="mr-1">mdi-file-document</v-icon>
+                <v-icon small color="primary" class="mr-1"
+                  >mdi-file-document</v-icon
+                >
                 <div>
-                  <div class="text-caption font-weight-bold">{{ item.mou.mouName }}</div>
-                  <div class="text-caption grey--text">{{ item.mou.mouNumber }}</div>
+                  <div class="text-caption font-weight-bold">
+                    {{ item.mou.mouName }}
+                  </div>
+                  <div class="text-caption grey--text">
+                    {{ item.mou.mouNumber }}
+                  </div>
                 </div>
               </div>
               <span v-else class="text-caption grey--text">
@@ -152,16 +161,24 @@
             <!-- Work Place -->
             <template v-slot:item.workPlace="{ item }">
               <div class="d-flex align-center">
-                <v-icon x-small color="blue" class="mr-1">mdi-map-marker</v-icon>
-                <span class="text-caption">{{ item.mou?.workLocation || '-' }}</span>
+                <v-icon x-small color="blue" class="mr-1"
+                  >mdi-map-marker</v-icon
+                >
+                <span class="text-caption">{{
+                  item.mou?.workLocation || '-'
+                }}</span>
               </div>
             </template>
 
             <!-- Job Title -->
             <template v-slot:item.jobTitle="{ item }">
               <div class="d-flex align-center">
-                <v-icon x-small color="purple" class="mr-1">mdi-briefcase</v-icon>
-                <span class="text-caption">{{ item.mou?.jobTitle || '-' }}</span>
+                <v-icon x-small color="purple" class="mr-1"
+                  >mdi-briefcase</v-icon
+                >
+                <span class="text-caption">{{
+                  item.mou?.jobTitle || '-'
+                }}</span>
               </div>
             </template>
 
@@ -180,15 +197,21 @@
             <!-- Total Positions -->
             <template v-slot:item.totalPositions="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-icon x-small color="success" class="mr-1">mdi-account-multiple</v-icon>
-                <span class="text-caption font-weight-bold">{{ item.totalPositions || 0 }}</span>
+                <v-icon x-small color="success" class="mr-1"
+                  >mdi-account-multiple</v-icon
+                >
+                <span class="text-caption font-weight-bold">{{
+                  item.totalPositions || 0
+                }}</span>
               </div>
             </template>
 
             <!-- Applicants Count -->
             <template v-slot:item.applicantCount="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-icon x-small color="info" class="mr-1">mdi-account-check</v-icon>
+                <v-icon x-small color="info" class="mr-1"
+                  >mdi-account-check</v-icon
+                >
                 <span class="text-caption font-weight-bold">
                   {{ item.applicantStatistics?.interview || 0 }}
                 </span>
@@ -198,7 +221,9 @@
             <!-- Start Date -->
             <template v-slot:item.batchStartDate="{ item }">
               <div class="d-flex align-center">
-                <v-icon x-small color="green" class="mr-1">mdi-calendar-start</v-icon>
+                <v-icon x-small color="green" class="mr-1"
+                  >mdi-calendar-start</v-icon
+                >
                 <span v-if="item.batchStartDate" class="text-caption">
                   {{ formatDate(item.batchStartDate) }}
                 </span>
@@ -209,15 +234,15 @@
             <!-- End Date -->
             <template v-slot:item.batchEndDate="{ item }">
               <div class="d-flex align-center">
-                <v-icon 
-                  x-small 
-                  :color="isOverdue(item.batchEndDate) ? 'error' : 'warning'" 
+                <v-icon
+                  x-small
+                  :color="isOverdue(item.batchEndDate) ? 'error' : 'warning'"
                   class="mr-1"
                 >
                   mdi-calendar-end
                 </v-icon>
-                <span 
-                  v-if="item.batchEndDate" 
+                <span
+                  v-if="item.batchEndDate"
                   class="text-caption"
                   :class="{ 'error--text': isOverdue(item.batchEndDate) }"
                 >
@@ -226,38 +251,40 @@
                 <span v-else class="text-caption grey--text">ບໍ່ມີ</span>
               </div>
             </template>
-
-            <!-- Actions -->
-            <template v-slot:item.actions="{ item }">
-              <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon small v-bind="attrs" v-on="on">
-                    <v-icon small>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list dense>
-                  <v-list-item @click="editBatch(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="info">mdi-pencil</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="updateStatus(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="orange">mdi-update</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ອັບເດດສະຖານະ</v-list-item-title>
-                  </v-list-item>
-                  <v-divider />
-                  <!-- <v-list-item @click="deleteBatch(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="error">mdi-delete</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title class="error--text">ລົບ</v-list-item-title>
-                  </v-list-item> -->
-                </v-list>
-              </v-menu>
-            </template>
+           <!-- Actions -->
+<template v-slot:item.actions="{ item }">
+  <v-menu bottom left>
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn icon small v-bind="attrs" v-on="on">
+        <v-icon small>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </template>
+    <v-list dense>
+      <v-list-item @click="editBatch(item)">
+        <v-list-item-icon>
+          <v-icon small color="info">mdi-pencil</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+      </v-list-item>
+      
+      <!-- NEW: Create Invoice Option -->
+      <v-list-item @click="createInvoiceFromBatch(item)">
+        <v-list-item-icon>
+          <v-icon small color="success">mdi-file-invoice-outline</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>ສ້າງໃບແຈ້ງໜີ້</v-list-item-title>
+      </v-list-item>
+      
+      <v-list-item @click="updateStatus(item)">
+        <v-list-item-icon>
+          <v-icon small color="orange">mdi-update</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>ອັບເດດສະຖານະ</v-list-item-title>
+      </v-list-item>
+      <v-divider />
+    </v-list>
+  </v-menu>
+</template>
           </v-data-table>
         </v-card>
       </v-col>
@@ -271,7 +298,19 @@
       @saved="onBatchSaved"
       @cancelled="showDialog = false"
     />
-
+<!-- Invoice Header Dialog (for Create/Edit) -->
+<client-only>
+  <InvoiceHeaderMaintain
+    :visible="showEditDialog"
+    :invoice="selectedInvoice"
+    :customers="customers"
+    :jobBatches="jobBatches"
+    :currencies="currencies"
+    :preselected-batch-id="preselectedBatchId"
+    @close="closeEditDialog"
+    @save="onInvoiceSave"
+  />
+</client-only>
     <!-- Status Update Dialog -->
     <v-dialog v-model="showStatusDialog" max-width="400px" persistent>
       <v-card>
@@ -288,7 +327,11 @@
         <v-card-actions>
           <v-spacer />
           <v-btn text @click="showStatusDialog = false">ຍົກເລີກ</v-btn>
-          <v-btn color="primary" @click="confirmStatusUpdate" :loading="updating">
+          <v-btn
+            color="primary"
+            @click="confirmStatusUpdate"
+            :loading="updating"
+          >
             ອັບເດດ
           </v-btn>
         </v-card-actions>
@@ -300,16 +343,23 @@
 <script>
 import JobBatchDialog from '~/components/job_fair/job_batch'
 import { debounce } from 'lodash'
-
+import InvoiceHeaderMaintain from '~/components/accounting/ar/invoice/maintain'
 export default {
   name: 'JobBatchList',
   components: {
     JobBatchDialog,
+    InvoiceHeaderMaintain,
   },
   middleware: 'auths',
 
   data() {
     return {
+          showEditDialog: false,  // CHANGE: rename from showInvoiceDialog
+      showInvoiceDialog: false, // NEW
+      selectedInvoice: null, // NEW
+      preselectedBatchId: null, // NEW
+      customers: [], // NEW
+      currencies: [], // NEW
       loading: false,
       updating: false,
       loadingMous: false,
@@ -338,16 +388,59 @@ export default {
       },
 
       headers: [
-        { text: 'ເລກທີ່', value: 'runningNo', sortable: true, width: '100px' },
-        { text: 'ລະຫັດ Job', value: 'mou', sortable: false, width: '200px' },
-        { text: 'ສະຖານທີ່ວຽກ', value: 'workPlace', sortable: false, width: '150px' },
+        {
+          text: 'ຮອບຈັດສົ່ງ',
+          value: 'runningNo',
+          sortable: true,
+          width: '100px',
+        },
+        {
+          text: 'ບໍລິສັດນາຍຈ້າງ',
+          value: 'mou',
+          sortable: false,
+          width: '200px',
+        },
+        {
+          text: 'ສະຖານທີ່ວຽກ',
+          value: 'workPlace',
+          sortable: false,
+          width: '150px',
+        },
         { text: 'ໜ້າວຽກ', value: 'jobTitle', sortable: false, width: '150px' },
         { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px' },
-        { text: 'ເປີດຮັບ', value: 'totalPositions', sortable: true, width: '100px', align: 'center' },
-        { text: 'ສະໝັກແລ້ວ', value: 'applicantCount', sortable: false, width: '100px', align: 'center' },
-        { text: 'ວັນເລີ່ມ', value: 'batchStartDate', sortable: true, width: '120px' },
-        { text: 'ວັນສິ້ນສຸດ', value: 'batchEndDate', sortable: true, width: '120px' },
-        { text: 'ຄຳສັ່ງ', value: 'actions', sortable: false, width: '80px', align: 'center' },
+        {
+          text: 'ເປີດຮັບ',
+          value: 'totalPositions',
+          sortable: true,
+          width: '100px',
+          align: 'center',
+        },
+        {
+          text: 'ສະໝັກແລ້ວ',
+          value: 'applicantCount',
+          sortable: false,
+          width: '100px',
+          align: 'center',
+        },
+        {
+          text: 'ວັນເລີ່ມ',
+          value: 'batchStartDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ວັນສິ້ນສຸດ',
+          value: 'batchEndDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ຄຳສັ່ງ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+          align: 'center',
+        },
       ],
 
       statusOptions: [
@@ -361,7 +454,8 @@ export default {
 
   computed: {
     dateRangeText() {
-      if (!this.filters.dateRange || this.filters.dateRange.length === 0) return ''
+      if (!this.filters.dateRange || this.filters.dateRange.length === 0)
+        return ''
       if (this.filters.dateRange.length === 1) return this.filters.dateRange[0]
       return `${this.filters.dateRange[0]} - ${this.filters.dateRange[1]}`
     },
@@ -388,9 +482,89 @@ export default {
   mounted() {
     this.fetchJobBatches()
     this.fetchMouFilterOptions()
+    this.loadCustomers() // Add this
+    this.loadCurrencies() // Add this
   },
 
   methods: {
+
+  closeEditDialog() {
+    this.showEditDialog = false  // CHANGED: was closeInvoiceDialog
+    this.preselectedBatchId = null
+    this.selectedInvoice = null
+  },
+
+  async createInvoiceFromBatch(batch) {
+    // Load required data if not already loaded
+    await Promise.all([this.loadCustomers(), this.loadCurrencies()])
+
+    // Set the preselected batch ID
+    this.preselectedBatchId = batch.id
+
+    // Clear any existing invoice
+    this.selectedInvoice = null
+
+    // Open invoice dialog
+    this.showEditDialog = true  // CHANGED: was showInvoiceDialog
+  },
+
+    async loadCustomers() {
+      if (this.customers.length > 0) return // Already loaded
+
+      try {
+        const { data } = await this.$axios.get('/api/client/find')
+        if (data) {
+          this.customers = data || []
+        }
+      } catch (error) {
+        console.error('Error loading customers:', error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດຂໍ້ມູນລູກຄ້າໄດ້')
+      }
+    },
+
+    async loadCurrencies() {
+      if (this.currencies.length > 0) return // Already loaded
+
+      try {
+        const { data } = await this.$axios.get('/api/currency/find')
+        if (data) {
+          this.currencies = data || []
+        }
+      } catch (error) {
+        console.error('Error loading currencies:', error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດຂໍ້ມູນສະກຸນເງິນໄດ້')
+      }
+    },
+
+    closeInvoiceDialog() {
+      this.showInvoiceDialog = false
+      this.preselectedBatchId = null
+      this.selectedInvoice = null
+    },
+
+    
+  async onInvoiceSave(invoiceData) {
+    try {
+      const endpoint = invoiceData.id
+        ? `/api/ar-invoices/${invoiceData.id}`
+        : '/api/ar-invoices'
+      const method = invoiceData.id ? 'put' : 'post'
+
+      const { data } = await this.$axios[method](endpoint, invoiceData)
+
+      this.$toast.success(
+        invoiceData.id
+          ? 'ອັບເດດໃບແຈ້ງໜີ້ສຳເລັດແລ້ວ'
+          : 'ສ້າງໃບແຈ້ງໜີ້ສຳເລັດແລ້ວ'
+      )
+
+      this.closeEditDialog()  // CHANGED: was closeInvoiceDialog
+    } catch (error) {
+      console.error('Error saving invoice:', error)
+      this.$toast.error('ບໍ່ສາມາດບັນທຶກໃບແຈ້ງໜີ້ໄດ້')
+    }
+  },
+
     debounceSearch: debounce(function () {
       this.fetchJobBatches()
     }, 500),
@@ -447,8 +621,6 @@ export default {
       this.showDialog = true
     },
 
-
-
     updateStatus(batch) {
       this.selectedBatch = batch
       this.newStatus = batch.status
@@ -458,9 +630,12 @@ export default {
     async confirmStatusUpdate() {
       this.updating = true
       try {
-        await this.$axios.patch(`/api/batch-job/${this.selectedBatch.id}/status`, {
-          status: this.newStatus,
-        })
+        await this.$axios.patch(
+          `/api/batch-job/${this.selectedBatch.id}/status`,
+          {
+            status: this.newStatus,
+          }
+        )
         this.$toast.success('ອັບເດດສະຖານະສຳເລັດແລ້ວ')
         this.showStatusDialog = false
         this.fetchJobBatches()

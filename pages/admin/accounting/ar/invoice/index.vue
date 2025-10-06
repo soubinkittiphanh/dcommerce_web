@@ -1,354 +1,259 @@
 <template>
-  <div class="invoice-header-summary-container">
+  <v-container fluid class="invoice-summary-container">
     <!-- Header Section -->
-    <div class="page-header">
-      <div class="header-content">
-        <h1 class="page-title">ລະບົບຈັດການໃບທວງໜີ້</h1>
-        <div class="header-actions">
-          <button class="btn btn-primary" @click="openCreateDialog">
-            <i class="fas fa-plus"></i>
-            ໃບທວງໜີ້ໃໝ່
-          </button>
-          <button class="btn btn-secondary" @click="exportData">
-            <i class="fas fa-download"></i>
-            Export
-          </button>
-        </div>
-      </div>
-    </div>
+    <v-row>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title class="primary white--text py-3">
+            <v-icon color="white" class="mr-2">mdi-file-invoice-dollar</v-icon>
+            <span>ລະບົບຈັດການໃບທວງໜີ້</span>
+            <v-spacer />
+            <v-btn color="white" text @click="openCreateDialog">
+              <v-icon left>mdi-plus</v-icon>
+              ເພີ່ມໃໝ່
+            </v-btn>
+            <v-btn color="white" text @click="exportData">
+              <v-icon left>mdi-download</v-icon>
+              Export
+            </v-btn>
+          </v-card-title>
 
-    <!-- Filter Section -->
-    <div class="filter-section">
-      <div class="filter-row">
-        <div class="filter-group">
-          <label>ຄົ້ນຫາ:</label>
-          <input
-            type="text"
-            v-model="filters.search"
-            class="form-control"
-            placeholder="ເລກທີໃບແຈ້ງໜີ້, ລູກຄ້າ..."
-            @input="applyFilters"
-          />
-        </div>
-
-        <div class="filter-group">
-          <label>ສະຖານະ:</label>
-          <select v-model="filters.status" class="form-control" @change="applyFilters">
-            <option value="">ທັງໝົດ</option>
-            <option value="draft">ແບບຮ່າງ</option>
-            <option value="sent">ສົ່ງແລ້ວ</option>
-            <option value="paid">ຈ່າຍແລ້ວ</option>
-            <option value="overdue">ເກີນກຳນົດ</option>
-            <option value="cancelled">ຍົກເລີກ</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label>ລູກຄ້າ:</label>
-          <select v-model="filters.customerId" class="form-control" @change="applyFilters">
-            <option value="">ທັງໝົດ</option>
-            <option v-for="customer in customers" :key="customer.id" :value="customer.id">
-              {{ customer.name }}
-            </option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label>ວັນທີແຈ້ງໜີ້ຈາກ:</label>
-          <input
-            type="date"
-            v-model="filters.dateFrom"
-            class="form-control"
-            @change="applyFilters"
-          />
-        </div>
-
-        <div class="filter-group">
-          <label>ວັນທີແຈ້ງໜີ້ເຖິງ:</label>
-          <input
-            type="date"
-            v-model="filters.dateTo"
-            class="form-control"
-            @change="applyFilters"
-          />
-        </div>
-
-        <div class="filter-actions">
-          <button class="btn btn-outline-primary" @click="applyFilters">
-            <i class="fas fa-search"></i>
-            ຄົ້ນຫາ
-          </button>
-          <button class="btn btn-outline-secondary" @click="resetFilters">
-            <i class="fas fa-undo"></i>
-            Reset
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Summary Cards -->
-    <div class="summary-cards">
-      <!-- Total Invoices Card -->
-      <div class="summary-card total-invoices">
-        <div class="card-icon total">
-          <i class="fas fa-file-invoice"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ summaryStats.total.count }}</h3>
-          <p>ລວມໃບແຈ້ງໜີ້ທັງໝົດ</p>
-        </div>
-      </div>
-
-      <!-- Draft Invoices -->
-      <div class="summary-card status-draft">
-        <div class="card-icon draft">
-          <i class="fas fa-edit"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ summaryStats.draft.count }}</h3>
-          <p>ແບບຮ່າງ ({{ summaryStats.draft.percentage }}%)</p>
-        </div>
-      </div>
-
-      <!-- Sent Invoices -->
-      <div class="summary-card status-sent">
-        <div class="card-icon sent">
-          <i class="fas fa-paper-plane"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ summaryStats.sent.count }}</h3>
-          <p>ສົ່ງແລ້ວ ({{ summaryStats.sent.percentage }}%)</p>
-        </div>
-      </div>
-
-      <!-- Paid Invoices -->
-      <div class="summary-card status-paid">
-        <div class="card-icon paid">
-          <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ summaryStats.paid.count }}</h3>
-          <p>ຈ່າຍແລ້ວ ({{ summaryStats.paid.percentage }}%)</p>
-        </div>
-      </div>
-
-      <!-- Overdue Invoices -->
-      <div class="summary-card status-overdue">
-        <div class="card-icon overdue">
-          <i class="fas fa-exclamation-triangle"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ summaryStats.overdue.count }}</h3>
-          <p>ເກີນກຳນົດ ({{ summaryStats.overdue.percentage }}%)</p>
-        </div>
-      </div>
-
-      <!-- Total Amount Card -->
-      <div class="summary-card amount-stats">
-        <div class="card-icon amount">
-          <i class="fas fa-dollar-sign"></i>
-        </div>
-        <div class="card-content">
-          <h3>{{ formatCurrency(summaryStats.totalAmount) }}</h3>
-          <p>ຍອດລວມທັງໝົດ</p>
-          <small class="amount-info">ຈ່າຍແລ້ວ: {{ formatCurrency(summaryStats.paidAmount) }}</small>
-        </div>
-      </div>
-    </div>
+          <!-- Filters -->
+          <v-card-text class="pa-3">
+            <v-row dense>
+              <v-col cols="12" md="3">
+                <v-text-field
+                  v-model="filters.search"
+                  label="ຄົ້ນຫາ"
+                  placeholder="ເລກທີໃບແຈ້ງໜີ້, ລູກຄ້າ..."
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-magnify"
+                  @input="applyFilters"
+                />
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-select
+                  v-model="filters.customerId"
+                  :items="customers"
+                  item-text="name"
+                  item-value="id"
+                  label="ລູກຄ້າ"
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-account"
+                  @change="applyFilters"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="filters.dateFrom"
+                  label="ວັນທີເລີ່ມຕົ້ນ"
+                  type="date"
+                  outlined
+                  dense
+                  hide-details
+                  prepend-inner-icon="mdi-calendar-start"
+                  @change="applyFilters"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="filters.dateTo"
+                  label="ວັນທີສິ້ນສຸດ"
+                  type="date"
+                  outlined
+                  dense
+                  hide-details
+                  prepend-inner-icon="mdi-calendar-end"
+                  @change="applyFilters"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-btn color="secondary" outlined block @click="resetFilters">
+                  <v-icon left>mdi-refresh</v-icon>
+                  Reset
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
 
     <!-- Data Table -->
-    <div class="table-section">
-      <div class="table-header">
-        <div class="table-title">
-          <h3>ລາຍການໃບແຈ້ງໜີ້</h3>
-          <span class="record-count">{{ filteredInvoices.length }} ລາຍການ</span>
-        </div>
-        <div class="table-actions">
-          <div class="per-page-selector">
-            <label>Show:</label>
-            <select v-model="pagination.perPage" @change="updatePagination">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            <span>per page</span>
-          </div>
-        </div>
-      </div>
+    <v-row class="mt-3">
+      <v-col cols="12">
+        <v-card>
+          <v-card-title class="py-2">
+            <v-icon class="mr-2">mdi-table</v-icon>
+            <span>ລາຍການໃບແຈ້ງໜີ້</span>
+            <v-spacer />
+            <v-chip color="primary" outlined>
+              {{ filteredInvoices.length }} ລາຍການ
+            </v-chip>
+          </v-card-title>
 
-      <div class="table-container">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th @click="sortBy('invoiceNumber')" class="sortable">
-                ເລກທີໃບແຈ້ງໜີ້
-                <i :class="getSortIcon('invoiceNumber')"></i>
-              </th>
-              <th @click="sortBy('invoiceDate')" class="sortable">
-                ວັນທີແຈ້ງໜີ້
-                <i :class="getSortIcon('invoiceDate')"></i>
-              </th>
-              <th>ລູກຄ້າ</th>
-              <th @click="sortBy('dueDate')" class="sortable">
-                ວັນທີຄົບກຳນົດ
-                <i :class="getSortIcon('dueDate')"></i>
-              </th>
-              <th @click="sortBy('totalAmount')" class="sortable">
-                ຍອດລວມ
-                <i :class="getSortIcon('totalAmount')"></i>
-              </th>
-              <th @click="sortBy('status')" class="sortable">
-                ສະຖານະ
-                <i :class="getSortIcon('status')"></i>
-              </th>
-              <th>ຜູ້ສ້າງ</th>
-              <th>ຟັງຊັ່ນ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="invoice in paginatedInvoices" :key="invoice.id">
-              <td>
-                <div class="invoice-number">
-                  <strong>{{ invoice.invoiceNumber }}</strong>
-                  <div v-if="invoice.description" class="invoice-description">
-                    {{ truncateText(invoice.description, 50) }}
-                  </div>
-                </div>
-              </td>
-              <td>{{ formatDate(invoice.invoiceDate) }}</td>
-              <td>
-                <div class="customer-info">
-                  <div class="customer-name">
-                    <i class="fas fa-user"></i>
-                    {{ invoice.customer ? invoice.customer.name : 'N/A' }}
-                  </div>
-                  <div v-if="invoice.customer && invoice.customer.email" class="customer-email">
-                    {{ invoice.customer.email }}
-                  </div>
-                </div>
-              </td>
-              <td>
-                <span :class="getDueDateClass(invoice.dueDate, invoice.status)">
-                  {{ formatDate(invoice.dueDate) }}
-                </span>
-              </td>
-              <td>
-                <div class="amount-details">
-                  <div class="total-amount">
-                    {{ formatCurrency(invoice.totalAmount) }}
-                  </div>
-                  <div class="amount-breakdown">
-                    <small>Net: {{ formatCurrency(invoice.netAmount) }}</small>
-                    <small v-if="invoice.taxAmount > 0">Tax: {{ formatCurrency(invoice.taxAmount) }}</small>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <span :class="['status-badge', invoice.status]">
-                  {{ formatStatus(invoice.status) }}
-                </span>
-              </td>
-              <td>
-                <div class="maker-info">
-                  {{ invoice.maker ? invoice.maker.username : 'N/A' }}
-                  <small v-if="invoice.createdAt">{{ formatDate(invoice.createdAt) }}</small>
-                </div>
-              </td>
-              <td class="actions-cell">
-                <button
-                  class="btn btn-sm btn-outline-primary"
-                  @click="viewInvoice(invoice)"
-                  title="ເບິ່ງລາຍລະອຽດ"
-                >
-                  <i class="fas fa-eye"></i>
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-info"
-                  @click="editInvoice(invoice)"
-                  title="ແກ້ໄຂ"
-                  :disabled="invoice.status === 'paid'"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button
-                  v-if="invoice.status !== 'paid' && invoice.status !== 'cancelled'"
-                  class="btn btn-sm btn-outline-success"
-                  @click="updateStatus(invoice, 'paid')"
-                  title="ຈ່າຍແລ້ວ"
-                >
-                  <i class="fas fa-check"></i>
-                </button>
-                <button
-                  v-if="invoice.status === 'draft'"
-                  class="btn btn-sm btn-outline-warning"
-                  @click="updateStatus(invoice, 'sent')"
-                  title="ສົ່ງໃບແຈ້ງໜີ້"
-                >
-                  <i class="fas fa-paper-plane"></i>
-                </button>
-                <!-- <button
-                  v-if="invoice.status !== 'paid' && invoice.status !== 'cancelled'"
-                  class="btn btn-sm btn-outline-danger"
-                  @click="updateStatus(invoice, 'cancelled')"
-                  title="ຍົກເລີກ"
-                >
-                  <i class="fas fa-times"></i>
-                </button> -->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Pagination -->
-      <div class="pagination-container">
-        <div class="pagination-info">
-          Showing {{ paginationInfo.start }} to {{ paginationInfo.end }} of
-          {{ paginationInfo.total }} entries
-        </div>
-        <div class="pagination-controls">
-          <button
-            class="btn btn-sm btn-outline-secondary"
-            @click="previousPage"
-            :disabled="pagination.currentPage === 1"
+          <v-data-table
+            :headers="headers"
+            :items="paginatedInvoices"
+            :loading="loading"
+            :items-per-page.sync="pagination.perPage"
+            :page.sync="pagination.currentPage"
+            :server-items-length="filteredInvoices.length"
+            hide-default-footer
+            class="elevation-0"
+            loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+            no-data-text="ບໍ່ມີຂໍ້ມູນ"
           >
-            Previous
-          </button>
+            <!-- Invoice Number -->
+            <template v-slot:item.invoiceNumber="{ item }">
+              <div>
+                <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
+                <div v-if="item.description" class="text-caption grey--text text-truncate" style="max-width: 200px;">
+                  {{ item.description }}
+                </div>
+              </div>
+            </template>
 
-          <span v-for="page in visiblePages" :key="page">
-            <button
-              v-if="page !== '...'"
-              class="btn btn-sm"
-              :class="
-                page === pagination.currentPage
-                  ? 'btn-primary'
-                  : 'btn-outline-secondary'
-              "
-              @click="goToPage(page)"
-            >
-              {{ page }}
-            </button>
-            <span v-else class="pagination-ellipsis">...</span>
-          </span>
+            <!-- Invoice Date -->
+            <template v-slot:item.invoiceDate="{ item }">
+              <span class="text-caption">{{ formatDate(item.invoiceDate) }}</span>
+            </template>
 
-          <button
-            class="btn btn-sm btn-outline-secondary"
-            @click="nextPage"
-            :disabled="pagination.currentPage === totalPages"
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    </div>
+            <!-- Customer -->
+            <template v-slot:item.customer="{ item }">
+              <div v-if="item.customer">
+                <div class="font-weight-medium">
+                  <v-icon x-small class="mr-1">mdi-account</v-icon>
+                  {{ item.customer.name }}
+                </div>
+                <div v-if="item.customer.email" class="text-caption grey--text">
+                  {{ item.customer.email }}
+                </div>
+              </div>
+              <span v-else class="grey--text text-caption">N/A</span>
+            </template>
 
-    <!-- Invoice Header Dialog (for Create/Edit) -->
+            <!-- Due Date -->
+            <template v-slot:item.dueDate="{ item }">
+              <span 
+                class="text-caption"
+                :class="{
+                  'error--text font-weight-bold': getDueDateClass(item.dueDate, item.status) === 'overdue-date',
+                  'warning--text font-weight-medium': getDueDateClass(item.dueDate, item.status) === 'due-soon'
+                }"
+              >
+                {{ formatDate(item.dueDate) }}
+              </span>
+            </template>
+
+            <!-- Total Amount -->
+            <template v-slot:item.totalAmount="{ item }">
+              <div class="text-right">
+                <div class="font-weight-bold">{{ formatCurrency(item.totalAmount) }}</div>
+                <div class="text-caption grey--text">
+                  Net: {{ formatCurrency(item.netAmount) }}
+                  <span v-if="item.taxAmount > 0"> | Tax: {{ formatCurrency(item.taxAmount) }}</span>
+                </div>
+              </div>
+            </template>
+
+            <!-- Status -->
+            <template v-slot:item.status="{ item }">
+              <v-chip
+                x-small
+                :color="getStatusColor(item.status)"
+                text-color="white"
+              >
+                {{ formatStatus(item.status) }}
+              </v-chip>
+            </template>
+
+            <!-- Maker -->
+            <template v-slot:item.maker="{ item }">
+              <div class="text-caption">
+                <div>{{ item.maker ? item.maker.username : 'N/A' }}</div>
+                <div v-if="item.createdAt" class="grey--text">
+                  {{ formatDate(item.createdAt) }}
+                </div>
+              </div>
+            </template>
+
+            <!-- Actions -->
+            <template v-slot:item.actions="{ item }">
+              <v-menu bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon small v-bind="attrs" v-on="on">
+                    <v-icon small>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item @click="viewInvoice(item)">
+                    <v-list-item-icon>
+                      <v-icon small color="info">mdi-eye</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item
+                    @click="editInvoice(item)"
+                    :disabled="item.status === 'paid'"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="warning">mdi-pencil</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </v-data-table>
+
+          <!-- Custom Pagination -->
+          <v-card-text class="pa-3">
+            <v-row align="center" justify="space-between">
+              <v-col cols="12" md="6">
+                <div class="text-caption grey--text">
+                  ສະແດງ {{ paginationInfo.start }} ເຖິງ {{ paginationInfo.end }} ຈາກ {{ paginationInfo.total }} ລາຍການ
+                </div>
+              </v-col>
+              <v-col cols="12" md="6" class="d-flex justify-end align-center">
+                <v-select
+                  v-model="pagination.perPage"
+                  :items="[10, 25, 50, 100]"
+                  label="ຈຳນວນຕໍ່ໜ້າ"
+                  dense
+                  outlined
+                  hide-details
+                  style="max-width: 100px;"
+                  class="mr-3"
+                  @change="updatePagination"
+                />
+                <v-pagination
+                  v-model="pagination.currentPage"
+                  :length="totalPages"
+                  :total-visible="7"
+                  circle
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Invoice Maintain Dialog -->
     <client-only>
       <InvoiceHeaderMaintain
         :visible="showEditDialog"
         :invoice="selectedInvoice"
         :customers="customers"
+        :jobBatches="jobBatches"
         :currencies="currencies"
         @close="closeEditDialog"
         @save="onInvoiceSave"
@@ -363,15 +268,7 @@
         @close="closeViewDialog"
       />
     </client-only>
-
-    <!-- Loading Overlay -->
-    <div v-if="loading" class="loading-overlay">
-      <div class="loading-spinner">
-        <i class="fas fa-spinner fa-spin"></i>
-        <p>Loading...</p>
-      </div>
-    </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -387,52 +284,43 @@ export default {
 
   data() {
     return {
-      // Dialog visibility states
       showEditDialog: false,
       showViewDialog: false,
       selectedInvoice: null,
-
-      // Data arrays
       invoices: [],
       filteredInvoices: [],
       customers: [],
+      jobBatches: [],
       currencies: [],
-
-      // Loading states
       loading: false,
 
-      // Filters
       filters: {
         search: '',
-        status: '',
         customerId: '',
         dateFrom: '',
         dateTo: '',
       },
 
-      // Sorting
       sort: {
         field: 'invoiceDate',
         direction: 'desc',
       },
 
-      // Pagination
       pagination: {
         currentPage: 1,
         perPage: 25,
       },
 
-      // Summary statistics
-      summaryStats: {
-        total: { count: 0 },
-        draft: { count: 0, percentage: 0 },
-        sent: { count: 0, percentage: 0 },
-        paid: { count: 0, percentage: 0 },
-        overdue: { count: 0, percentage: 0 },
-        cancelled: { count: 0, percentage: 0 },
-        totalAmount: 0,
-        paidAmount: 0,
-      },
+      headers: [
+        { text: 'ເລກທີໃບແຈ້ງໜີ້', value: 'invoiceNumber', sortable: true, width: '200px' },
+        { text: 'ວັນທີແຈ້ງໜີ້', value: 'invoiceDate', sortable: true, width: '120px' },
+        { text: 'ລູກຄ້າ', value: 'customer', sortable: false, width: '200px' },
+        { text: 'ວັນທີຄົບກຳນົດ', value: 'dueDate', sortable: true, width: '120px' },
+        { text: 'ຍອດລວມ', value: 'totalAmount', sortable: true, align: 'end', width: '180px' },
+        { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px', align: 'center' },
+        { text: 'ຜູ້ສ້າງ', value: 'maker', sortable: false, width: '150px' },
+        { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, width: '80px', align: 'center' },
+      ],
     }
   },
 
@@ -448,74 +336,37 @@ export default {
     },
 
     totalPages() {
-      return Math.ceil(
-        this.filteredInvoices.length / this.pagination.perPage
-      )
+      return Math.ceil(this.filteredInvoices.length / this.pagination.perPage)
     },
 
     paginationInfo() {
-      const start =
-        (this.pagination.currentPage - 1) * this.pagination.perPage + 1
+      const start = (this.pagination.currentPage - 1) * this.pagination.perPage + 1
       const end = Math.min(
         start + this.pagination.perPage - 1,
         this.filteredInvoices.length
       )
       return {
-        start,
+        start: this.filteredInvoices.length > 0 ? start : 0,
         end,
         total: this.filteredInvoices.length,
       }
-    },
-
-    visiblePages() {
-      const pages = []
-      const current = this.pagination.currentPage
-      const total = this.totalPages
-
-      if (total <= 7) {
-        for (let i = 1; i <= total; i++) {
-          pages.push(i)
-        }
-      } else {
-        if (current <= 4) {
-          for (let i = 1; i <= 5; i++) pages.push(i)
-          pages.push('...')
-          pages.push(total)
-        } else if (current >= total - 3) {
-          pages.push(1)
-          pages.push('...')
-          for (let i = total - 4; i <= total; i++) pages.push(i)
-        } else {
-          pages.push(1)
-          pages.push('...')
-          for (let i = current - 1; i <= current + 1; i++) pages.push(i)
-          pages.push('...')
-          pages.push(total)
-        }
-      }
-
-      return pages
     },
   },
 
   mounted() {
     this.fetchInvoices()
     this.fetchCustomers()
+    this.fetchJobBatches()
     this.fetchCurrencies()
   },
 
   methods: {
-    // Data Loading Methods
     async fetchInvoices() {
       this.loading = true
       try {
-        const params = {
-          page: 1,
-          limit: 1000, // Get all for client-side filtering
-          ...this.filters,
-        }
-
-        const { data } = await this.$axios.get('/api/ar-invoices', { params })
+        const { data } = await this.$axios.get('/api/ar-invoices', {
+          params: { page: 1, limit: 1000 }
+        })
 
         if (data && data.success) {
           this.invoices = data.data.invoices || []
@@ -524,47 +375,49 @@ export default {
         }
 
         this.applyFilters()
-        this.calculateSummaryStats()
       } catch (error) {
-        console.error('Error fetching invoices:', error)
-        this.showToast('Error loading invoice data', 'error')
-        this.invoices = []
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
       } finally {
         this.loading = false
       }
     },
 
     async fetchCustomers() {
-      
       try {
         const { data } = await this.$axios.get('/api/client/find')
-        console.info(`Customer len ${JSON.stringify(data)}`)
-        if (data) {
-          this.customers = data || []
-        }
+        this.customers = data || []
       } catch (error) {
-        console.error('Error fetching customers:', error)
+        console.error(error)
+      }
+    },
+
+    async fetchJobBatches() {
+      try {
+        const { data } = await this.$axios.get('/api/batch-job', {
+          params: { include: 'mou' }
+        })
+        this.jobBatches = data.data.jobBatches || []
+      } catch (error) {
+        console.error(error)
       }
     },
 
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')
-        if (data) {
-          this.currencies = data || []
-        }
+        this.currencies = data || []
       } catch (error) {
-        console.error('Error fetching currencies:', error)
+        console.error(error)
       }
     },
 
-    // Dialog Control Methods
-    async openCreateDialog() {
+    openCreateDialog() {
       this.selectedInvoice = null
       this.showEditDialog = true
     },
 
-    async editInvoice(invoice) {
+    editInvoice(invoice) {
       this.selectedInvoice = invoice
       this.showEditDialog = true
     },
@@ -584,13 +437,12 @@ export default {
       this.selectedInvoice = null
     },
 
-    // Save Handler
     async onInvoiceSave(invoiceData) {
       try {
         this.loading = true
 
         let response
-        if (this.selectedInvoice && this.selectedInvoice.id) {
+        if (this.selectedInvoice?.id) {
           response = await this.$axios.put(
             `/api/ar-invoices/${this.selectedInvoice.id}`,
             invoiceData
@@ -599,87 +451,44 @@ export default {
           response = await this.$axios.post('/api/ar-invoices', invoiceData)
         }
 
-        if (response.data && response.data.success) {
-          this.showToast('ການບັນທຶກສຳເລັດແລ້ວ', 'success')
+        if (response.data?.success) {
+          this.$toast.success('ບັນທຶກສຳເລັດ')
           this.closeEditDialog()
           await this.fetchInvoices()
         } else {
           throw new Error(response.data?.message || 'Save failed')
         }
       } catch (error) {
-        console.error('Error saving invoice:', error)
-        const errorMessage =
-          error.response?.data?.message || error.message || 'ການບັນທຶກບໍ່ສຳເລັດ'
-        this.showToast(errorMessage, 'error')
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
       } finally {
         this.loading = false
       }
     },
 
-    // Status Update Handler
-    async updateStatus(invoice, newStatus) {
-      try {
-        this.loading = true
-
-        const response = await this.$axios.patch(
-          `/api/ar-invoices/${invoice.id}/status`,
-          { status: newStatus }
-        )
-
-        if (response.data && response.data.success) {
-          this.showToast('ອັບເດດສະຖານະສຳເລັດແລ້ວ', 'success')
-          await this.fetchInvoices()
-        } else {
-          throw new Error(response.data?.message || 'Status update failed')
-        }
-      } catch (error) {
-        console.error('Error updating status:', error)
-        const errorMessage =
-          error.response?.data?.message || 
-          error.message || 
-          'ອັບເດດສະຖານະບໍ່ສຳເລັດ'
-        this.showToast(errorMessage, 'error')
-      } finally {
-        this.loading = false
-      }
-    },
-
-    // Filter and Search Methods
     applyFilters() {
       let filtered = [...this.invoices]
 
-      // Search filter
       if (this.filters.search) {
         const search = this.filters.search.toLowerCase()
         filtered = filtered.filter(
-          (invoice) =>
-            invoice.invoiceNumber.toLowerCase().includes(search) ||
-            (invoice.description && invoice.description.toLowerCase().includes(search)) ||
-            (invoice.customer && invoice.customer.name.toLowerCase().includes(search))
+          (inv) =>
+            inv.invoiceNumber.toLowerCase().includes(search) ||
+            inv.description?.toLowerCase().includes(search) ||
+            inv.customer?.name.toLowerCase().includes(search)
         )
       }
 
-      // Status filter
-      if (this.filters.status) {
-        filtered = filtered.filter(
-          (invoice) => invoice.status === this.filters.status
-        )
-      }
-
-      // Customer filter
       if (this.filters.customerId) {
-        filtered = filtered.filter(
-          (invoice) => invoice.customerId == this.filters.customerId
-        )
+        filtered = filtered.filter((inv) => inv.customerId == this.filters.customerId)
       }
 
-      // Date range filter
       if (this.filters.dateFrom || this.filters.dateTo) {
-        filtered = filtered.filter((invoice) => {
-          const invoiceDate = new Date(invoice.invoiceDate)
+        filtered = filtered.filter((inv) => {
+          const invoiceDate = new Date(inv.invoiceDate)
           const dateFrom = this.filters.dateFrom ? new Date(this.filters.dateFrom) : null
           const dateTo = this.filters.dateTo ? new Date(this.filters.dateTo) : null
-          
+
           if (dateFrom && invoiceDate < dateFrom) return false
           if (dateTo && invoiceDate > dateTo) return false
           return true
@@ -687,15 +496,12 @@ export default {
       }
 
       this.filteredInvoices = filtered
-      this.sortData()
       this.pagination.currentPage = 1
-      this.calculateSummaryStats()
     },
 
     resetFilters() {
       this.filters = {
         search: '',
-        status: '',
         customerId: '',
         dateFrom: '',
         dateTo: '',
@@ -703,119 +509,17 @@ export default {
       this.applyFilters()
     },
 
-    sortBy(field) {
-      if (this.sort.field === field) {
-        this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc'
-      } else {
-        this.sort.field = field
-        this.sort.direction = 'asc'
-      }
-      this.sortData()
-    },
-
-    sortData() {
-      this.filteredInvoices.sort((a, b) => {
-        let aVal = a[this.sort.field]
-        let bVal = b[this.sort.field]
-
-        if (typeof aVal === 'string') {
-          aVal = aVal.toLowerCase()
-          bVal = bVal.toLowerCase()
-        }
-
-        if (aVal < bVal) return this.sort.direction === 'asc' ? -1 : 1
-        if (aVal > bVal) return this.sort.direction === 'asc' ? 1 : -1
-        return 0
-      })
-    },
-
-    getSortIcon(field) {
-      if (this.sort.field !== field) return 'fas fa-sort'
-      return this.sort.direction === 'asc'
-        ? 'fas fa-sort-up'
-        : 'fas fa-sort-down'
-    },
-
-    calculateSummaryStats() {
-      const total = this.filteredInvoices.length
-      const draft = this.filteredInvoices.filter(i => i.status === 'draft').length
-      const sent = this.filteredInvoices.filter(i => i.status === 'sent').length
-      const paid = this.filteredInvoices.filter(i => i.status === 'paid').length
-      const overdue = this.filteredInvoices.filter(i => i.status === 'overdue').length
-      const cancelled = this.filteredInvoices.filter(i => i.status === 'cancelled').length
-      
-      const totalAmount = this.filteredInvoices.reduce((sum, inv) => sum + parseFloat(inv.totalAmount || 0), 0)
-      const paidAmount = this.filteredInvoices
-        .filter(i => i.status === 'paid')
-        .reduce((sum, inv) => sum + parseFloat(inv.totalAmount || 0), 0)
-
-      this.summaryStats = {
-        total: { count: total },
-        draft: { 
-          count: draft, 
-          percentage: total > 0 ? Math.round((draft / total) * 100) : 0
-        },
-        sent: { 
-          count: sent, 
-          percentage: total > 0 ? Math.round((sent / total) * 100) : 0
-        },
-        paid: { 
-          count: paid, 
-          percentage: total > 0 ? Math.round((paid / total) * 100) : 0
-        },
-        overdue: { 
-          count: overdue, 
-          percentage: total > 0 ? Math.round((overdue / total) * 100) : 0
-        },
-        cancelled: { 
-          count: cancelled, 
-          percentage: total > 0 ? Math.round((cancelled / total) * 100) : 0
-        },
-        totalAmount,
-        paidAmount,
-      }
-    },
-
-    // Pagination methods
     updatePagination() {
       this.pagination.currentPage = 1
     },
 
-    previousPage() {
-      if (this.pagination.currentPage > 1) {
-        this.pagination.currentPage--
-      }
-    },
-
-    nextPage() {
-      if (this.pagination.currentPage < this.totalPages) {
-        this.pagination.currentPage++
-      }
-    },
-
-    goToPage(page) {
-      this.pagination.currentPage = page
-    },
-
-    // Export
     exportData() {
       const csvData = this.convertToCSV(this.filteredInvoices)
-      this.downloadCSV(csvData, 'invoices-summary.csv')
+      this.downloadCSV(csvData, 'invoices-export.csv')
     },
 
     convertToCSV(data) {
-      const headers = [
-        'Invoice Number',
-        'Invoice Date',
-        'Due Date',
-        'Customer',
-        'Total Amount',
-        'Tax Amount',
-        'Net Amount',
-        'Status',
-        'Description',
-        'Created Date',
-      ]
+      const headers = ['Invoice Number', 'Invoice Date', 'Due Date', 'Customer', 'Total Amount', 'Status']
       const csvContent = [
         headers.join(','),
         ...data.map((row) =>
@@ -823,17 +527,12 @@ export default {
             `"${row.invoiceNumber}"`,
             row.invoiceDate,
             row.dueDate || '',
-            `"${row.customer ? row.customer.name : ''}"`,
+            `"${row.customer?.name || ''}"`,
             row.totalAmount,
-            row.taxAmount,
-            row.netAmount,
             row.status,
-            `"${(row.description || '').replace(/"/g, '""')}"`,
-            this.formatDate(row.createdAt),
           ].join(',')
         ),
       ].join('\n')
-
       return csvContent
     },
 
@@ -847,14 +546,9 @@ export default {
       window.URL.revokeObjectURL(url)
     },
 
-    // Utility methods
     formatDate(date) {
       if (!date) return '-'
-      return new Date(date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      })
+      return new Date(date).toLocaleDateString('en-GB')
     },
 
     formatCurrency(amount) {
@@ -866,678 +560,51 @@ export default {
     },
 
     formatStatus(status) {
-      const statusLabels = {
+      const labels = {
         draft: 'ແບບຮ່າງ',
         sent: 'ສົ່ງແລ້ວ',
         paid: 'ຈ່າຍແລ້ວ',
         overdue: 'ເກີນກຳນົດ',
         cancelled: 'ຍົກເລີກ',
       }
-      return statusLabels[status] || status
+      return labels[status] || status
+    },
+
+    getStatusColor(status) {
+      const colors = {
+        draft: 'grey',
+        sent: 'info',
+        paid: 'success',
+        overdue: 'error',
+        cancelled: 'grey darken-2',
+      }
+      return colors[status] || 'grey'
     },
 
     getDueDateClass(dueDate, status) {
       if (!dueDate || status === 'paid' || status === 'cancelled') return ''
-      
+
       const today = new Date()
       const due = new Date(dueDate)
-      
-      if (due < today && status !== 'paid') return 'overdue-date'
+
+      if (due < today) return 'overdue-date'
       if (due <= new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)) return 'due-soon'
       return ''
-    },
-
-    truncateText(text, length) {
-      if (!text) return ''
-      return text.length > length ? text.substring(0, length) + '...' : text
-    },
-
-    showToast(message, type = 'info') {
-      console.log(`${type}: ${message}`)
-      if (this.$toast) {
-        this.$toast[type](message)
-      } else {
-        if (type === 'error') {
-          alert(`Error: ${message}`)
-        } else if (type === 'success') {
-          console.log(`✅ ${message}`)
-        }
-      }
     },
   },
 }
 </script>
 
 <style scoped>
-/* Same CSS classes as the job advertise component, adapted for invoices */
-.invoice-header-summary-container {
+.invoice-summary-container {
   padding: 20px;
-  background-color: #f5f5f5;
-  min-height: 100vh;
 }
 
-/* Header Styles */
-.page-header {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.v-card-title.primary {
+  background: linear-gradient(45deg, #1976d2, #1565c0);
 }
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.page-title {
-  margin: 0;
-  color: #333;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-/* Filter Styles */
-.filter-section {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.filter-row {
-  display: flex;
-  gap: 20px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 150px;
-}
-
-.filter-group label {
-  font-weight: 500;
-  color: #555;
-  font-size: 14px;
-}
-
-.filter-actions {
-  display: flex;
-  gap: 8px;
-  align-self: flex-end;
-}
-
-/* Enhanced Summary Card Styles */
-.summary-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.summary-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  display: flex;
-  align-items: flex-start;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid #e9ecef;
-}
-
-.summary-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* Total Invoices Card */
-.summary-card.total-invoices {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-}
-
-.summary-card.total-invoices .card-icon {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-/* Status Cards */
-.summary-card.status-draft {
-  border-left: 4px solid #6c757d;
-}
-
-.summary-card.status-sent {
-  border-left: 4px solid #17a2b8;
-}
-
-.summary-card.status-paid {
-  border-left: 4px solid #28a745;
-}
-
-.summary-card.status-overdue {
-  border-left: 4px solid #dc3545;
-}
-
-.summary-card.amount-stats {
-  border-left: 4px solid #ffc107;
-}
-
-.card-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-right: 20px;
-  flex-shrink: 0;
-}
-
-.card-icon.total {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.card-icon.draft {
-  background: #f8f9fa;
-  color: #6c757d;
-}
-
-.card-icon.sent {
-  background: #d1ecf1;
-  color: #17a2b8;
-}
-
-.card-icon.paid {
-  background: #d4edda;
-  color: #28a745;
-}
-
-.card-icon.overdue {
-  background: #f8d7da;
-  color: #dc3545;
-}
-
-.card-icon.amount {
-  background: #fff3cd;
-  color: #ffc107;
-}
-
-.card-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.card-content h3 {
-  margin: 0 0 8px 0;
-  font-size: 24px;
-  font-weight: 700;
-  word-break: break-word;
-}
-
-.card-content p {
-  margin: 0;
-  font-size: 14px;
-}
-
-.amount-info {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-top: 4px;
-  display: block;
-}
-
-/* Table Styles */
-.table-section {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-header {
-  padding: 20px;
-  border-bottom: 1px solid #e9ecef;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.table-title h3 {
-  margin: 0;
-  color: #333;
-}
-
-.record-count {
-  color: #666;
-  font-size: 14px;
-  margin-left: 8px;
-}
-
-.per-page-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.table-container {
-  overflow-x: auto;
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.data-table th,
-.data-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.data-table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
-
-.data-table th.sortable {
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s;
-}
-
-.data-table th.sortable:hover {
-  background-color: #e9ecef;
-}
-
-.data-table th i {
-  margin-left: 8px;
-  opacity: 0.5;
-}
-
-/* Invoice Number Cell */
-.invoice-number strong {
-  display: block;
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.invoice-description {
-  font-size: 12px;
-  color: #666;
-}
-
-/* Customer Info */
-.customer-info .customer-name {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 600;
-  color: #495057;
-  margin-bottom: 2px;
-}
-
-.customer-info .customer-email {
-  font-size: 12px;
-  color: #666;
-  margin-left: 16px;
-}
-
-/* Amount Details */
-.amount-details .total-amount {
-  font-weight: 600;
-  color: #495057;
-  margin-bottom: 2px;
-}
-
-.amount-breakdown {
-  font-size: 11px;
-  color: #666;
-}
-
-.amount-breakdown small {
-  display: block;
-}
-
-/* Due Date Classes */
-.overdue-date {
-  color: #dc3545;
-  font-weight: 600;
-}
-
-.due-soon {
-  color: #ffc107;
-  font-weight: 500;
-}
-
-/* Status Badge */
-.status-badge {
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.status-badge.draft {
-  background-color: #f8f9fa;
-  color: #6c757d;
-}
-
-.status-badge.sent {
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-.status-badge.paid {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-badge.overdue {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-.status-badge.cancelled {
-  background-color: #e2e3e5;
-  color: #383d41;
-}
-
-/* Maker Info */
-.maker-info {
-  font-size: 14px;
-  color: #495057;
-}
-
-.maker-info small {
-  display: block;
-  font-size: 12px;
-  color: #666;
-  margin-top: 2px;
-}
-
-.actions-cell {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-/* Pagination */
-.pagination-container {
-  padding: 20px;
-  border-top: 1px solid #e9ecef;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pagination-info {
-  color: #666;
-  font-size: 14px;
-}
-
-.pagination-controls {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.pagination-ellipsis {
-  padding: 6px 12px;
-  color: #666;
-}
-
-/* Button Styles */
-.btn {
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: #5a6268;
-  border-color: #5a6268;
-}
-
-.btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
-  background-color: transparent;
-}
-
-.btn-outline-primary:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
-  background-color: transparent;
-}
-
-.btn-outline-secondary:hover {
-  background-color: #6c757d;
-  color: white;
-}
-
-.btn-outline-info {
-  color: #17a2b8;
-  border-color: #17a2b8;
-  background-color: transparent;
-}
-
-.btn-outline-info:hover {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.btn-outline-success {
-  color: #28a745;
-  border-color: #28a745;
-  background-color: transparent;
-}
-
-.btn-outline-success:hover {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn-outline-warning {
-  color: #ffc107;
-  border-color: #ffc107;
-  background-color: transparent;
-}
-
-.btn-outline-warning:hover {
-  background-color: #ffc107;
-  color: #212529;
-}
-
-.btn-outline-danger {
-  color: #dc3545;
-  border-color: #dc3545;
-  background-color: transparent;
-}
-
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-sm {
-  padding: 4px 8px;
-  font-size: 12px;
-}
-
-/* Form Controls */
-.form-control {
-  padding: 8px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-/* Loading Overlay */
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.loading-spinner {
-  background: white;
-  padding: 40px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.loading-spinner i {
-  font-size: 32px;
-  color: #007bff;
-  margin-bottom: 16px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .invoice-header-summary-container {
-    padding: 10px;
-  }
-
-  .header-content {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .filter-row {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .filter-group {
-    width: 100%;
-    min-width: auto;
-  }
-
-  .filter-actions {
-    flex-direction: row;
-    width: 100%;
-  }
-
-  .summary-cards {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .summary-card {
-    padding: 20px;
-  }
-
-  .card-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    margin-right: 16px;
-  }
-
-  .card-content h3 {
-    font-size: 20px;
-  }
-
-  .table-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .pagination-container {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .pagination-controls {
-    flex-wrap: wrap;
-  }
-
-  .actions-cell {
-    flex-direction: column;
-    gap: 4px;
-  }
-}
-
-@media (max-width: 576px) {
-  .summary-card {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .card-icon {
-    margin: 0 auto 16px auto;
-  }
+.text-caption {
+  font-size: 12px !important;
 }
 </style>

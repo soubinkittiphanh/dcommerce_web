@@ -118,26 +118,28 @@
                       {{ errors.vendorInvoiceNumber }}
                     </div>
                   </div>
+                  <!-- FIX: Agency/Vendor selection -->
                   <div class="form-group">
-                    <label for="vendorId" class="required">ຜູ້ຂາຍ</label>
+                    <label for="agencyId" class="required">ຕົວແທນ/ຜູ້ຂາຍ</label>
                     <select
-                      id="vendorId"
-                      v-model="form.vendorId"
+                      id="agencyId"
+                      v-model="form.agencyId"
                       class="form-control"
-                      :class="{ 'is-invalid': errors.vendorId }"
+                      :class="{ 'is-invalid': errors.agencyId }"
                       @change="onVendorChange"
                     >
-                      <option value="">ເລືອກຜູ້ຂາຍ</option>
+                      <option value="">ເລືອກຕົວແທນ</option>
                       <option
-                        v-for="vendor in vendors"
-                        :key="vendor.id"
-                        :value="vendor.id"
+                        v-for="agency in agencies"
+                        :key="agency.id"
+                        :value="agency.id"
                       >
-                        {{ vendor.name }} ({{ vendor.vendorCode }})
+                        {{ agency.name || agency.agencyName }}
+                        ({{ agency.code || agency.agencyCode }})
                       </option>
                     </select>
-                    <div v-if="errors.vendorId" class="invalid-feedback">
-                      {{ errors.vendorId }}
+                    <div v-if="errors.agencyId" class="invalid-feedback">
+                      {{ errors.agencyId }}
                     </div>
                   </div>
                   <div class="form-group">
@@ -638,7 +640,7 @@ export default {
   props: {
     visible: { type: Boolean, default: false },
     invoice: { type: Object, default: null },
-    vendors: { type: Array, default: () => [] },
+    agencies: { type: Array, default: () => [] },
     currencies: { type: Array, default: () => [] },
     glAccounts: { type: Array, default: () => [] },
     user: { type: Object, default: null },
@@ -660,6 +662,7 @@ export default {
         invoiceNumber: '',
         vendorInvoiceNumber: '',
         vendorId: '',
+        agencyId: '',
         invoiceDate: '',
         dueDate: '',
         description: '',
@@ -752,7 +755,7 @@ export default {
       const hasValidHeader =
         this.form.invoiceNumber &&
         this.form.vendorInvoiceNumber &&
-        this.form.vendorId &&
+        this.form.agencyId &&
         this.form.invoiceDate &&
         this.form.dueDate &&
         this.form.currencyId &&
@@ -801,6 +804,7 @@ export default {
           invoiceNumber: this.invoice.invoiceNumber,
           vendorInvoiceNumber: this.invoice.vendorInvoiceNumber,
           vendorId: this.invoice.vendorId,
+          agencyId: this.invoice.agencyId,
           invoiceDate: this.invoice.invoiceDate
             ? this.invoice.invoiceDate.split('T')[0]
             : '',
@@ -931,9 +935,9 @@ export default {
       this.clearFieldError('exchangeRate')
     },
     updateSelectedVendor() {
-      if (this.form.vendorId && this.vendors.length > 0) {
-        this.selectedVendor = this.vendors.find(
-          (v) => v.id === this.form.vendorId
+      if (this.form.agencyId && this.agencies.length > 0) {
+        this.selectedVendor = this.agencies.find(
+          (v) => v.id === this.form.agencyId
         )
       } else {
         this.selectedVendor = null
@@ -954,35 +958,44 @@ export default {
     onVendorChange() {
       this.updateSelectedVendor()
       this.calculateDueDate()
-      this.clearFieldError('vendorId')
+      this.clearFieldError('agencyId')
     },
     onCurrencyChange() {
       this.updateSelectedCurrency()
       this.clearFieldError('currencyId')
-      // Update the exchange rate based on 
-      console.info(`Currency structure ${JSON.stringify(this.currencies) }`)
-      this.form.exchangeRate = this.currencies.find(
+
+      // FIX: Find currency and set exchange rate
+      const selectedCurrency = this.currencies.find(
         (c) => c.id === this.form.currencyId
-      ).rate
-      this.calculateExchangeAmounts();
+      )
+      if (selectedCurrency) {
+        this.form.exchangeRate = selectedCurrency.rate || 1.0
+        this.calculateExchangeAmounts()
+      }
     },
     calculateDueDate() {
-      if (this.form.invoiceDate && this.selectedVendor?.paymentTerms) {
+      if (this.form.invoiceDate && this.selectedVendor) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(invoiceDate)
-        dueDate.setDate(
-          dueDate.getDate() + parseInt(this.selectedVendor.paymentTerms)
-        )
+
+        // FIX: Check for paymentTerms in agency object
+        const paymentTerms =
+          this.selectedVendor.paymentTerms ||
+          this.selectedVendor.payment_terms ||
+          30 // Default to 30 days
+
+        dueDate.setDate(dueDate.getDate() + parseInt(paymentTerms))
         this.form.dueDate = dueDate.toISOString().split('T')[0]
       }
     },
     validateForm() {
       this.errors = {}
+
       if (!this.form.invoiceNumber)
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
       if (!this.form.vendorInvoiceNumber)
         this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
-      if (!this.form.vendorId) this.errors.vendorId = 'ກະລຸນາເລືອກຜູ້ຂາຍ'
+      if (!this.form.agencyId) this.errors.agencyId = 'ກະລຸນາເລືອກຕົວແທນ' // Updated error message
       if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
       if (!this.form.exchangeRate)
         this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ'
@@ -991,6 +1004,7 @@ export default {
       if (!this.form.invoiceDate)
         this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້'
       if (!this.form.dueDate) this.errors.dueDate = 'ກະລຸນາໃສ່ວັນທີຄົບກຳນົດ'
+
       if (this.form.invoiceDate && this.form.dueDate) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(this.form.dueDate)
@@ -998,6 +1012,7 @@ export default {
           this.errors.dueDate = 'ວັນທີຄົບກຳນົດຕ້ອງຫຼັງຈາກວັນທີໃບແຈ້ງໜີ້'
         }
       }
+
       if (this.lineItems.length === 0) {
         this.errors.lineItems = 'ກະລຸນາເພີ່ມລາຍການສິນຄ້າຢ່າງໜ້ອຍ 1 ລາຍການ'
       } else {
@@ -1015,10 +1030,13 @@ export default {
             this.errors[`line_${i}_CRglAccountId`] = 'ກະລຸນາເລືອກ CR Account'
         }
       }
+
       if (this.isEdit && !this.form.reason)
         this.errors.reason = 'ກະລຸນາລະບຸເຫດຜົນຂອງການແກ້ໄຂ'
+
       return Object.keys(this.errors).length === 0
     },
+
     clearErrors() {
       this.errors = {}
     },
@@ -1067,6 +1085,7 @@ export default {
         invoiceNumber: '',
         vendorInvoiceNumber: '',
         vendorId: '',
+        agencyId: '',
         invoiceDate: '',
         dueDate: '',
         description: '',

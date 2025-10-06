@@ -25,8 +25,12 @@
             <v-row dense>
               <v-col cols="12" class="pb-2">
                 <div class="section-header">
-                  <v-icon small color="primary" class="mr-2">mdi-information</v-icon>
-                  <span class="section-title">ຂໍ້ມູນພື້ນຖານ (Basic Information)</span>
+                  <v-icon small color="primary" class="mr-2"
+                    >mdi-information</v-icon
+                  >
+                  <span class="section-title"
+                    >ຂໍ້ມູນພື້ນຖານ (Basic Information)</span
+                  >
                 </div>
               </v-col>
 
@@ -48,21 +52,31 @@
                 >
                   <template v-slot:selection="{ item }">
                     <div class="d-flex align-center">
-                      <v-icon small class="mr-2" color="primary">mdi-file-document-outline</v-icon>
+                      <v-icon small class="mr-2" color="primary"
+                        >mdi-file-document-outline</v-icon
+                      >
                       <div>
                         <span class="text-body-2">{{ item.jobCode }}</span>
-                        <span class="text-caption grey--text ml-2">{{ item.mouNumber }}</span>
+                        <span class="text-caption grey--text ml-2">{{
+                          item.mouNumber
+                        }}</span>
                       </div>
                     </div>
                   </template>
                   <template v-slot:item="{ item }">
                     <div class="d-flex align-center py-1 flex-grow-1">
-                      <v-icon small class="mr-2" color="primary">mdi-file-document-outline</v-icon>
+                      <v-icon small class="mr-2" color="primary"
+                        >mdi-file-document-outline</v-icon
+                      >
                       <div class="flex-grow-1">
                         <div class="text-body-2">{{ item.jobCode }}</div>
-                        <div class="text-caption grey--text">{{ item.jobTitle }} • {{ item.employerCompany }}</div>
+                        <div class="text-caption grey--text">
+                          {{ item.jobTitle }} • {{ item.employerCompany }}
+                        </div>
                       </div>
-                      <v-chip x-small :color="getMouStatusColor(item.status)">{{ item.status }}</v-chip>
+                      <v-chip x-small :color="getMouStatusColor(item.status)">{{
+                        item.status
+                      }}</v-chip>
                     </div>
                   </template>
                   <template v-slot:no-data>
@@ -80,13 +94,28 @@
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="formData.runningNo"
-                  label="ຮອບຈັດສົ່ງ"
+                  label="ຮອບການຈັດສົ່ງ"
                   outlined
                   dense
                   hide-details="auto"
                   disabled
-                  :placeholder="isEdit ? 'Edit' : 'Auto-generated'"
-                />
+                  :placeholder="
+                    isEdit
+                      ? formData.runningNo
+                      : nextRunningNo || 'ເລືອກ MOU ກ່ອນ'
+                  "
+                  :loading="loadingRunningNo"
+                >
+                  <template v-slot:append>
+                    <v-icon
+                      v-if="nextRunningNo && !isEdit"
+                      small
+                      color="success"
+                    >
+                      mdi-check-circle
+                    </v-icon>
+                  </template>
+                </v-text-field>
               </v-col>
 
               <!-- Total Positions -->
@@ -107,10 +136,16 @@
               <v-col cols="12" v-if="selectedMou">
                 <div class="mou-summary-card">
                   <div class="summary-header">
-                    <v-icon small color="white" class="mr-2">mdi-file-document-outline</v-icon>
+                    <v-icon small color="white" class="mr-2"
+                      >mdi-file-document-outline</v-icon
+                    >
                     <span>ຂໍ້ມູນ MOU ທີ່ເລືອກ</span>
                     <v-spacer></v-spacer>
-                    <v-chip x-small :color="getMouStatusColor(selectedMou.status)" dark>
+                    <v-chip
+                      x-small
+                      :color="getMouStatusColor(selectedMou.status)"
+                      dark
+                    >
                       {{ selectedMou.status }}
                     </v-chip>
                   </div>
@@ -160,7 +195,9 @@
                   hide-details="auto"
                 >
                   <template v-slot:selection="{ item }">
-                    <v-chip x-small :color="getStatusColor(item.value)">{{ item.text }}</v-chip>
+                    <v-chip x-small :color="getStatusColor(item.value)">{{
+                      item.text
+                    }}</v-chip>
                   </template>
                 </v-select>
               </v-col>
@@ -226,6 +263,37 @@
                 </v-menu>
               </v-col>
 
+              <!-- Delivery Date - NEW FIELD -->
+              <v-col cols="12" md="3">
+                <v-menu
+                  v-model="deliveryDateMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="formData.batchDeliveryDate"
+                      label="ວັນທີ່ສົ່ງແຮງງານ"
+                      prepend-inner-icon="mdi-calendar-export"
+                      readonly
+                      outlined
+                      dense
+                      hide-details="auto"
+                      clearable
+                      v-bind="attrs"
+                      v-on="on"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="formData.batchDeliveryDate"
+                    @input="deliveryDateMenu = false"
+                    :min="formData.batchEndDate || formData.batchStartDate"
+                  />
+                </v-menu>
+              </v-col>
+
               <!-- Notes -->
               <v-col cols="12" md="9">
                 <v-textarea
@@ -248,7 +316,12 @@
       <v-card-actions class="pa-3">
         <v-spacer></v-spacer>
         <v-btn text @click="handleCancel" :disabled="saving">Cancel</v-btn>
-        <v-btn color="primary" @click="handleSave" :disabled="!formValid" :loading="saving">
+        <v-btn
+          color="primary"
+          @click="handleSave"
+          :disabled="!formValid"
+          :loading="saving"
+        >
           <v-icon left small>mdi-content-save</v-icon>
           {{ isEdit ? 'Update' : 'Create' }}
         </v-btn>
@@ -267,6 +340,8 @@ export default {
   },
   data() {
     return {
+      nextRunningNo: null,
+      loadingRunningNo: false,
       formValid: false,
       saving: false,
       loadingMous: false,
@@ -274,6 +349,7 @@ export default {
       endDateMenu: false,
       mouOptions: [],
       selectedMou: null,
+      deliveryDateMenu: false, // Add this with other menu flags
       formData: {
         mouId: null,
         runningNo: '',
@@ -281,6 +357,7 @@ export default {
         totalPositions: 0,
         batchStartDate: null,
         batchEndDate: null,
+        batchDeliveryDate: null, // Add this
         status: 'draft',
         notes: '',
       },
@@ -312,6 +389,7 @@ export default {
     },
   },
   methods: {
+
     async fetchMous() {
       this.loadingMous = true
       try {
@@ -327,9 +405,36 @@ export default {
         this.loadingMous = false
       }
     },
+    async fetchNextRunningNo(mouId) {
+      if (!mouId || this.isEdit) return
+
+      this.loadingRunningNo = true
+      try {
+        const response = await this.$axios.get(
+          `/api/batch-job/next-running-no/${mouId}`
+        )
+        if (response.data.success) {
+          this.nextRunningNo = response.data.data.nextRunningNo
+          // Optionally update formData to show in the field
+          this.formData.runningNo = this.nextRunningNo
+        }
+      } catch (error) {
+        console.error('Error fetching next running number:', error)
+        this.nextRunningNo = null
+        this.formData.runningNo = ''
+      } finally {
+        this.loadingRunningNo = false
+      }
+    },
     onMouChange(mouId) {
       this.selectedMou = this.mouOptions.find((mou) => mou.id === mouId) || null
+
+      // Fetch next running number when MOU changes (only for new batches)
+      if (mouId && !this.isEdit) {
+        this.fetchNextRunningNo(mouId)
+      }
     },
+
     initializeForm() {
       if (this.isEdit && this.batch) {
         this.formData = {
@@ -339,6 +444,7 @@ export default {
           totalPositions: this.batch.totalPositions || 0,
           batchStartDate: this.batch.batchStartDate || null,
           batchEndDate: this.batch.batchEndDate || null,
+          batchDeliveryDate: this.batch.batchDeliveryDate || null, // Add this
           status: this.batch.status || 'draft',
           notes: this.batch.notes || '',
         }
@@ -346,7 +452,9 @@ export default {
           this.selectedMou = this.batch.mou
         } else if (this.formData.mouId) {
           this.$nextTick(() => {
-            this.selectedMou = this.mouOptions.find((mou) => mou.id === this.formData.mouId) || null
+            this.selectedMou =
+              this.mouOptions.find((mou) => mou.id === this.formData.mouId) ||
+              null
           })
         }
       } else {
@@ -364,22 +472,29 @@ export default {
         totalPositions: 0,
         batchStartDate: null,
         batchEndDate: null,
+        batchDeliveryDate: null,
         status: 'draft',
         notes: '',
       }
       this.selectedMou = null
+      this.nextRunningNo = null // Reset next running number
       this.formValid = false
     },
+
     async handleSave() {
       if (!this.$refs.form.validate()) return
-      
+
       this.saving = true
       try {
-        const endpoint = this.isEdit ? `/api/batch-job/${this.batch.id}` : '/api/batch-job'
+        const endpoint = this.isEdit
+          ? `/api/batch-job/${this.batch.id}`
+          : '/api/batch-job'
         const method = this.isEdit ? 'put' : 'post'
         const response = await this.$axios[method](endpoint, this.formData)
-        
-        this.$toast.success(`Job batch ${this.isEdit ? 'updated' : 'created'} successfully`)
+
+        this.$toast.success(
+          `Job batch ${this.isEdit ? 'updated' : 'created'} successfully`
+        )
         this.$emit('saved', response.data.data)
         this.resetForm()
       } catch (error) {
@@ -392,7 +507,9 @@ export default {
         } else if (error.response?.data?.message) {
           this.$toast.error(error.response.data.message)
         } else {
-          this.$toast.error(`Failed to ${this.isEdit ? 'update' : 'create'} job batch`)
+          this.$toast.error(
+            `Failed to ${this.isEdit ? 'update' : 'create'} job batch`
+          )
         }
       } finally {
         this.saving = false
