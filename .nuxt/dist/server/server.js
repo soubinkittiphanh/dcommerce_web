@@ -18097,10 +18097,10 @@ __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", func
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
 __webpack_require__.d(components_namespaceObject, "CalendarMyCalendar", function() { return CalendarMyCalendar; });
 __webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
-__webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
-__webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
 __webpack_require__.d(components_namespaceObject, "CardCampaignCard", function() { return CardCampaignCard; });
 __webpack_require__.d(components_namespaceObject, "CardForm", function() { return CardForm; });
+__webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
+__webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardGrouping", function() { return DashboardCardGrouping; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardOnTop", function() { return DashboardCardOnTop; });
 __webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
@@ -23912,7 +23912,7 @@ function mergeProperty(storeModule, moduleData, property) {
 const AccountForm = () => __webpack_require__.e(/* import() | components/account-form */ 1).then(__webpack_require__.bind(null, 723)).then(c => wrapFunctional(c.default || c));
 const AuthorityForm = () => __webpack_require__.e(/* import() | components/authority-form */ 22).then(__webpack_require__.bind(null, 721)).then(c => wrapFunctional(c.default || c));
 const BasicAlert = () => __webpack_require__.e(/* import() | components/basic-alert */ 24).then(__webpack_require__.bind(null, 1286)).then(c => wrapFunctional(c.default || c));
-const CancelTicketForm = () => __webpack_require__.e(/* import() | components/cancel-ticket-form */ 34).then(__webpack_require__.bind(null, 406)).then(c => wrapFunctional(c.default || c));
+const CancelTicketForm = () => __webpack_require__.e(/* import() | components/cancel-ticket-form */ 34).then(__webpack_require__.bind(null, 405)).then(c => wrapFunctional(c.default || c));
 const CardDashBoard = () => __webpack_require__.e(/* import() | components/card-dash-board */ 36).then(__webpack_require__.bind(null, 1287)).then(c => wrapFunctional(c.default || c));
 const Carousel3d = () => __webpack_require__.e(/* import() | components/carousel3d */ 38).then(__webpack_require__.bind(null, 1154)).then(c => wrapFunctional(c.default || c));
 const CategoryForm = () => __webpack_require__.e(/* import() | components/category-form */ 39).then(__webpack_require__.bind(null, 511)).then(c => wrapFunctional(c.default || c));
@@ -23920,7 +23920,7 @@ const components_ComingSoon = () => Promise.resolve(/* import() */).then(__webpa
 const CompanyForm = () => __webpack_require__.e(/* import() | components/company-form */ 40).then(__webpack_require__.bind(null, 725)).then(c => wrapFunctional(c.default || c));
 const CurrencyForm = () => __webpack_require__.e(/* import() | components/currency-form */ 41).then(__webpack_require__.bind(null, 625)).then(c => wrapFunctional(c.default || c));
 const DiaConfirm = () => __webpack_require__.e(/* import() | components/dia-confirm */ 45).then(__webpack_require__.bind(null, 557)).then(c => wrapFunctional(c.default || c));
-const DiaImage = () => __webpack_require__.e(/* import() | components/dia-image */ 46).then(__webpack_require__.bind(null, 440)).then(c => wrapFunctional(c.default || c));
+const DiaImage = () => __webpack_require__.e(/* import() | components/dia-image */ 46).then(__webpack_require__.bind(null, 439)).then(c => wrapFunctional(c.default || c));
 const DialogClassicMessage = () => __webpack_require__.e(/* import() | components/dialog-classic-message */ 47).then(__webpack_require__.bind(null, 422)).then(c => wrapFunctional(c.default || c));
 const GanttChart = () => __webpack_require__.e(/* import() | components/gantt-chart */ 50).then(__webpack_require__.bind(null, 1155)).then(c => wrapFunctional(c.default || c));
 const GroupForm = () => __webpack_require__.e(/* import() | components/group-form */ 51).then(__webpack_require__.bind(null, 726)).then(c => wrapFunctional(c.default || c));
@@ -23983,10 +23983,10 @@ const AccountingArReceivable = () => __webpack_require__.e(/* import() | compone
 const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 17).then(__webpack_require__.bind(null, 876)).then(c => wrapFunctional(c.default || c));
 const CalendarMyCalendar = () => __webpack_require__.e(/* import() | components/calendar-my-calendar */ 32).then(__webpack_require__.bind(null, 1297)).then(c => wrapFunctional(c.default || c));
 const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 33).then(__webpack_require__.bind(null, 722)).then(c => wrapFunctional(c.default || c));
-const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 42).then(__webpack_require__.bind(null, 724)).then(c => wrapFunctional(c.default || c));
-const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 89)).then(c => wrapFunctional(c.default || c));
 const CardCampaignCard = () => __webpack_require__.e(/* import() | components/card-campaign-card */ 35).then(__webpack_require__.bind(null, 865)).then(c => wrapFunctional(c.default || c));
 const CardForm = () => __webpack_require__.e(/* import() | components/card-form */ 37).then(__webpack_require__.bind(null, 556)).then(c => wrapFunctional(c.default || c));
+const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 42).then(__webpack_require__.bind(null, 724)).then(c => wrapFunctional(c.default || c));
+const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 89)).then(c => wrapFunctional(c.default || c));
 const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 43).then(__webpack_require__.bind(null, 864)).then(c => wrapFunctional(c.default || c));
 const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 44).then(__webpack_require__.bind(null, 863)).then(c => wrapFunctional(c.default || c));
 const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 48).then(__webpack_require__.bind(null, 1298)).then(c => wrapFunctional(c.default || c));

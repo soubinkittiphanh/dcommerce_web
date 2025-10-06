@@ -8,36 +8,18 @@
       </h5>
     </div>
 
-    <!-- Stepper -->
-    <div class="stepper">
-      <div
-        class="step"
-        :class="{ active: currentStep === 1, completed: currentStep > 1 }"
-        @click="goToStep(1)"
-      >
-        <span class="step-number">{{ currentStep > 1 ? '✓' : '1' }}</span>
-        <span class="step-label">ຮັບສະໝັກ</span>
-      </div>
-      <div class="step-line" :class="{ completed: currentStep > 1 }"></div>
-      <div
-        class="step"
-        :class="{ active: currentStep === 2, available: step1Valid }"
-        @click="step1Valid && goToStep(2)"
-      >
-        <span class="step-number">2</span>
-        <span class="step-label"> ລົງທະບຽນ</span>
-      </div>
-    </div>
-
     <!-- Scrollable Content Area -->
     <div class="form-content">
       <form @submit.prevent="saveApplicant">
-        <!-- Step 1: Basic Info -->
-        <div v-show="currentStep === 1" class="split-layout">
+        <div class="split-layout">
+          <!-- Left Section -->
           <div class="left-section">
-            <div class="form-grid">
+            <!-- Job Batch Selection -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-briefcase"></i> ຂໍ້ມູນວຽກ
+              </h3>
               <div class="form-group full-width">
-                <!-- <h3>ຮັບສະໝັກ</h3> -->
                 <label><i class="fas fa-briefcase"></i> Job Batch</label>
                 <select
                   v-model="formData.jobBatchId"
@@ -56,7 +38,8 @@
                   </option>
                 </select>
               </div>
-              <!-- Summary Card for Selected Job Batch -->
+
+              <!-- Summary Card -->
               <div v-if="selectedBatch" class="batch-summary-card">
                 <div class="summary-header">
                   <i class="fas fa-info-circle"></i>
@@ -95,140 +78,300 @@
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="required"><i class="fas fa-user"></i> ຊື່</label>
-                <input
-                  v-model="formData.firstName"
-                  type="text"
-                  placeholder="ຊື່ຕົວຈິງ"
-                  :class="{ error: errors.firstName }"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="required"
-                  ><i class="fas fa-user"></i> ນາມສະກຸນ</label
-                >
-                <input
-                  v-model="formData.lastName"
-                  type="text"
-                  placeholder="ນາມສະກຸນ"
-                  :class="{ error: errors.lastName }"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="">
-                  <i class="fas fa-graduation-cap"></i> ລະດັບການສຶກສາ
-                </label>
-                <input
-                  v-model="formData.education"
-                  type="text"
-                  placeholder="ລະດັບການສຶກສາ"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="required"
-                  ><i class="fas fa-venus-mars"></i> ເພດ</label
-                >
-                <div class="radio-group">
-                  <label
-                    ><input
-                      type="radio"
-                      v-model="formData.gender"
-                      value="male"
-                      required
-                    />
-                    ຊາຍ</label
+            <!-- Basic Information -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-user"></i> ຂໍ້ມູນສ່ວນຕົວ
+              </h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="required"
+                    ><i class="fas fa-user"></i> ຊື່</label
                   >
-                  <label
-                    ><input
-                      type="radio"
-                      v-model="formData.gender"
-                      value="female"
-                      required
-                    />
-                    ຍິງ</label
+                  <input
+                    v-model="formData.firstName"
+                    type="text"
+                    placeholder="ຊື່ຕົວຈິງ"
+                    :class="{ error: errors.firstName }"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="required"
+                    ><i class="fas fa-user"></i> ນາມສະກຸນ</label
                   >
+                  <input
+                    v-model="formData.lastName"
+                    type="text"
+                    placeholder="ນາມສະກຸນ"
+                    :class="{ error: errors.lastName }"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="required"
+                    ><i class="fas fa-venus-mars"></i> ເພດ</label
+                  >
+                  <div class="radio-group">
+                    <label
+                      ><input
+                        type="radio"
+                        v-model="formData.gender"
+                        value="male"
+                        required
+                      />
+                      ຊາຍ</label
+                    >
+                    <label
+                      ><input
+                        type="radio"
+                        v-model="formData.gender"
+                        value="female"
+                        required
+                      />
+                      ຍິງ</label
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-calendar"></i> ອາຍຸ</label>
+                  <input
+                    v-model.number="formData.age"
+                    type="number"
+                    min="18"
+                    max="32"
+                    placeholder="ອາຍຸ"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="required"
+                    ><i class="fas fa-phone"></i> ເບີໂທ</label
+                  >
+                  <input
+                    v-model="formData.phone"
+                    type="tel"
+                    placeholder="+856 20 12345678"
+                    :class="{ error: errors.phone }"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label
+                    ><i class="fas fa-exclamation-triangle"></i>
+                    ເບີສຸກເສີນ</label
+                  >
+                  <input
+                    v-model="formData.emergencyContactNo"
+                    type="tel"
+                    placeholder="+856 20 87654321"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="">
+                    <i class="fas fa-graduation-cap"></i> ລະດັບການສຶກສາ
+                  </label>
+                  <input
+                    v-model="formData.education"
+                    type="text"
+                    placeholder="ລະດັບການສຶກສາ"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-heart"></i> ສະຖານະການແຕ່ງງານ</label>
+                  <select v-model="formData.maritalStatus">
+                    <option value="">ເລືອກ</option>
+                    <option value="single">ໂສດ</option>
+                    <option value="married">ແຕ່ງງານ</option>
+                    <option value="divorced">ຢ່າຮ້າງ</option>
+                    <option value="widowed">ເປັນເມ່າຍ</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-map-marker-alt"></i> ບ້ານ</label>
+                  <input
+                    v-model="formData.village"
+                    type="text"
+                    placeholder="ບ້ານ"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-map-marker-alt"></i> ເມືອງ</label>
+                  <input
+                    v-model="formData.city"
+                    type="text"
+                    placeholder="ເມືອງ"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-map-marker-alt"></i> ແຂວງ</label>
+                  <input
+                    v-model="formData.district"
+                    type="text"
+                    placeholder="ແຂວງ"
+                  />
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="required"
-                  ><i class="fas fa-phone"></i> ເບີໂທ</label
-                >
-                <input
-                  v-model="formData.phone"
-                  type="tel"
-                  placeholder="+856 20 12345678"
-                  :class="{ error: errors.phone }"
-                  required
-                />
-              </div>
+            <!-- Registration Information -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-clipboard-list"></i> ຂໍ້ມູນລົງທະບຽນ
+              </h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label><i class="fas fa-flag"></i> ສະຖານະ</label>
+                  <select v-model="formData.status">
+                    <option value="INTERVIEW">ສະໝັກ</option>
+                    <option value="REGISTER">ລົງທະບຽນ</option>
+                    <option value="CONFIRM">ພ້ອມເດີນທາງ</option>
+                    <option value="SUBMITED">ເດີນທາງແລ້ວ</option>
+                  </select>
+                </div>
 
-              <div class="form-group">
-                <label><i class="fas fa-calendar"></i> ອາຍຸ</label>
-                <input
-                  v-model.number="formData.age"
-                  type="number"
-                  min="18"
-                  max="32"
-                  placeholder="ອາຍຸ"
-                />
-              </div>
-              <div class="form-group">
-                <label><i class="fas fa-map-marker-alt"></i> ບ້ານ</label>
-                <input
-                  v-model="formData.village"
-                  type="text"
-                  placeholder="ບ້ານ"
-                />
-              </div>
-
-              <div class="form-group">
-                <label><i class="fas fa-map-marker-alt"></i> ເມືອງ</label>
-                <input
-                  v-model="formData.city"
-                  type="text"
-                  placeholder="ເມືອງ"
-                />
-              </div>
-
-              <div class="form-group">
-                <label><i class="fas fa-map-marker-alt"></i> ແຂວງ</label>
-                <input
-                  v-model="formData.district"
-                  type="text"
-                  placeholder="ແຂວງ"
-                />
-              </div>
-
-              <div class="form-group full-width">
-                <!-- <label><i class="fas fa-home"></i> ທີ່ຢູ່</label>
-                <textarea
-                  v-model="formData.address"
-                  rows="2"
-                  placeholder="ທີ່ຢູ່ລະອຽດ..."
-                ></textarea> -->
-              </div>
-
-              <div class="form-group">
-                <label>
-                  <input
-                    type="checkbox"
-                    v-model="formData.passportAvailability"
+                <div class="form-group">
+                  <label><i class="fas fa-building"></i> ຕົວແທນສັນຫາ</label>
+                  <v-select
+                    v-model="formData.agencyId"
+                    :items="agencies"
+                    item-text="agencyName"
+                    item-value="id"
+                    label="ຕົວແທນ"
+                    outlined
+                    dense
+                    hide-details="auto"
+                    prepend-inner-icon="mdi-domain"
+                    :loading="loadingAgencies"
+                    clearable
                   />
-                  <i class="fas fa-passport"></i> ມີໜັງສືເດີນທາງ
-                </label>
+                </div>
+
+                <div class="form-group">
+                  <label
+                    ><i class="fas fa-calendar-check"></i>
+                    ວັນທີ່ເລີ່ມສັນຍາ</label
+                  >
+                  <input v-model="formData.contactStartDate" type="date" />
+                </div>
+
+                <div class="form-group">
+                  <label
+                    ><i class="fas fa-calendar-times"></i>
+                    ວັນທີ່ສິ້ນສຸດສັນຍາ</label
+                  >
+                  <input
+                    v-model="formData.contactEndDate"
+                    type="date"
+                    :min="formData.contactStartDate"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label
+                    ><i class="fas fa-money-bill-wave"></i>
+                    ຈຳນວນເງິນມັດຈຳ</label
+                  >
+                  <input
+                    v-model.number="formData.depositAmount"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="currencyId">ສະກຸນເງິນ</label>
+                  <v-select
+                    v-model="formData.currencyId"
+                    :items="currencies"
+                    item-text="code"
+                    item-value="id"
+                    label="ສະກຸນເງິນ"
+                    outlined
+                    dense
+                    hide-details="auto"
+                    prepend-inner-icon="mdi-currency-usd"
+                    :loading="loadingCurrencies"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Passport Information -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-passport"></i> ຂໍ້ມູນໜັງສືເດີນທາງ
+              </h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="formData.passportAvailability"
+                    />
+                    <i class="fas fa-passport"></i> ມີໜັງສືເດີນທາງ
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" v-model="formData.passportRecieve" />
+                    <i class="fas fa-passport"></i> ຮັບພາດສະປອດແລ້ວ
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-id-card"></i> ເລກໜັງສືເດີນທາງ</label>
+                  <input
+                    v-model="formData.passportNo"
+                    type="text"
+                    placeholder="ເລກໜັງສືເດີນທາງ"
+                    :disabled="!formData.passportAvailability"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label
+                    ><i class="fas fa-calendar-plus"></i>
+                    ວັນທີ່ອອກໜັງສືເດີນທາງ</label
+                  >
+                  <input
+                    v-model="formData.passportIssueDate"
+                    type="date"
+                    :disabled="!formData.passportAvailability"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label
+                    ><i class="fas fa-calendar-minus"></i>
+                    ວັນທີ່ໝົດອາຍຸໜັງສືເດີນທາງ</label
+                  >
+                  <input
+                    v-model="formData.passportExpiredDate"
+                    type="date"
+                    :min="formData.passportIssueDate"
+                    :disabled="!formData.passportAvailability"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Photos -->
+          <!-- Right Section - Photos -->
           <div class="right-section">
             <div class="photo-section">
               <label><i class="fas fa-camera"></i> ຮູບຜູ້ສະໝັກ</label>
@@ -269,12 +412,13 @@
                 hidden
               />
             </div>
+
             <!-- Passport Photo Upload Section -->
             <div
               v-if="formData.passportAvailability"
               class="form-group full-width"
             >
-              <label><i class="fas fa-id-badge"></i> ຮູບໜັງສື</label>
+              <label><i class="fas fa-id-badge"></i> ຮູບໜັງສືເດີນທາງ</label>
               <div class="passport-photo-section">
                 <div
                   class="photo-upload-small"
@@ -291,13 +435,6 @@
                       getImageUrl(formData.passportPhoto)
                     "
                     alt="Passport"
-                    @click.stop="
-                      openPreview(
-                        'ຮູບໜັງສື',
-                        passportPhotoPreview ||
-                          getImageUrl(formData.passportPhoto)
-                      )
-                    "
                   />
                   <div v-else class="photo-placeholder-small">
                     <i class="fas fa-id-badge"></i>
@@ -324,141 +461,6 @@
           </div>
         </div>
 
-        <!-- Step 2: Additional Info -->
-        <div v-show="currentStep === 2">
-          <!-- Summary Card for Selected Job Batch -->
-          <div v-if="selectedBatch" class="batch-summary-card">
-            <div class="summary-header">
-              <i class="fas fa-info-circle"></i>
-              <span>ຂໍ້ມູນ Job Batch ທີ່ເລືອກ</span>
-            </div>
-            <div class="summary-content">
-              <div class="summary-row">
-                <strong>ຮອບ:</strong>
-                <span>{{
-                  selectedBatch.runningNo || selectedBatch.batchName
-                }}</span>
-              </div>
-              <div class="summary-row" v-if="selectedBatch.mou">
-                <strong>Job Code:</strong>
-                <span>{{ selectedBatch.mou.jobCode }}</span>
-              </div>
-              <div class="summary-row" v-if="selectedBatch.mou">
-                <strong>ບໍລິສັດ:</strong>
-                <span>{{ selectedBatch.mou.employerCompany || '-' }}</span>
-              </div>
-              <div class="summary-row">
-                <strong>ວຽກທີ່ສະໝັກ:</strong>
-                <span>{{ selectedBatch.mou.jobTitle || 0 }} ຄົນ</span>
-              </div>
-              <div class="summary-row" v-if="selectedBatch.mou">
-                <strong>ສະຖານທີ່ເຮັດວຽກ:</strong>
-                <span>{{ selectedBatch.mou.workLocation || '-' }}</span>
-              </div>
-              <div class="summary-row" v-if="selectedBatch.batchStartDate">
-                <strong>ວັນທີ່ເລີມຕົ້ນສັນຍາ:</strong>
-                <span>{{ formatDate(selectedBatch.batchStartDate) }}</span>
-              </div>
-              <div class="summary-row" v-if="selectedBatch.batchEndDate">
-                <strong>ວັນທີ່ສິນສຸດສັນຍາ:</strong>
-                <span>{{ formatDate(selectedBatch.batchEndDate) }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-grid-step2">
-            <div class="form-group">
-              <label><i class="fas fa-flag"></i> ສະຖານະ</label>
-              <select v-model="formData.status">
-                <option value="INTERVIEW">ສະໝັກ</option>
-                <option value="REGISTER">ລົງທະບຽນ</option>
-                <option value="CONFIRM">ພ້ອມເດີນທາງ</option>
-                <option value="SUBMITED">ເດີນທາງແລ້ວ</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label
-                ><i class="fas fa-exclamation-triangle"></i> ເບີສຸກເສີນ</label
-              >
-              <input
-                v-model="formData.emergencyContactNo"
-                type="tel"
-                placeholder="+856 20 87654321"
-              />
-            </div>
-
-            <div class="form-group">
-              <label><i class="fas fa-heart"></i> ສະຖານະການແຕ່ງງານ</label>
-              <select v-model="formData.maritalStatus">
-                <option value="">ເລືອກ</option>
-                <option value="single">ໂສດ</option>
-                <option value="married">ແຕ່ງງານ</option>
-                <option value="divorced">ຢ່າຮ້າງ</option>
-                <option value="widowed">ເປັນເມ່າຍ</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label><i class="fas fa-building"></i> ຕົວແທນສັນຫາ</label>
-              <v-select
-                v-model="formData.agencyId"
-                :items="agencies"
-                item-text="agencyName"
-                item-value="id"
-                label="ຕົວແທນ"
-                outlined
-                dense
-                hide-details="auto"
-                prepend-inner-icon="mdi-domain"
-                :loading="loadingAgencies"
-                clearable
-              />
-            </div>
-
-            <div class="form-group">
-              <label
-                ><i class="fas fa-calendar-check"></i> ວັນທີ່ເລີ່ມສັນຍາ</label
-              >
-              <input v-model="formData.contactStartDate" type="date" />
-            </div>
-
-            <div class="form-group">
-              <label
-                ><i class="fas fa-calendar-times"></i> ວັນທີ່ສິ້ນສຸດສັນຍາ</label
-              >
-              <input
-                v-model="formData.contactEndDate"
-                type="date"
-                :min="formData.contactStartDate"
-              />
-            </div>
-            <div class="form-group">
-              <label
-                ><i class="fas fa-money-bill-wave"></i> ຈຳນວນເງິນມັດຈຳ</label
-              >
-              <input
-                v-model.number="formData.depositAmount"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-              />
-            </div>
-            <div class="form-group">
-              <label for="currencyId">ສະກຸນເງິນ</label>
-              <select id="currencyId" class="form-control">
-                <option value="">ເລືອກສະກຸນເງິນ</option>
-                <option>LAK</option>
-              </select>
-            </div>
-            <div class="form-group mt-10">
-              <label>
-                <input type="checkbox" v-model="formData.passportRecieve" />
-                <i class="fas fa-passport"></i> ຮັບພາດສະປອດແລ້ວ
-              </label>
-            </div>
-          </div>
-        </div>
-
         <div v-if="formErrors.length" class="form-errors">
           <strong>ແກ້ໄຂ:</strong> {{ formErrors.join(', ') }}
         </div>
@@ -467,31 +469,9 @@
 
     <!-- Footer Buttons -->
     <div class="form-footer">
-      <div v-if="currentStep === 1" class="actions">
+      <div class="actions">
         <button type="button" @click="$emit('close')" class="btn secondary">
           ຍົກເລີກ
-        </button>
-        <button
-          type="button"
-          @click="saveStep1Only"
-          class="btn outline"
-          :disabled="!step1Valid || loading"
-        >
-          {{ loading ? 'ກຳລັງບັນທຶກ...' : 'ບັນທຶກ' }}
-        </button>
-        <button
-          type="button"
-          @click="continueToStep2"
-          class="btn primary"
-          :disabled="!step1Valid"
-        >
-          ລົງທະບຽນ
-        </button>
-      </div>
-
-      <div v-if="currentStep === 2" class="actions">
-        <button type="button" @click="goToStep(1)" class="btn secondary">
-          ກັບຄືນ
         </button>
         <button
           type="button"
@@ -516,8 +496,8 @@ export default {
   data() {
     return {
       loading: false,
-      currentStep: 2,
       agencies: [],
+      currencies: [],
       loadingAgencies: false,
       applicantPhotoPreview: null,
       passportPhotoPreview: null,
@@ -551,6 +531,7 @@ export default {
         applicantPhoto: '',
         jobBatchId: null,
         agencyId: null,
+        currencyId: null,
         status: 'INTERVIEW',
       },
       errors: {},
@@ -567,20 +548,14 @@ export default {
         (batch) => batch.id === this.formData.jobBatchId
       )
     },
-    today() {
-      return new Date().toISOString().split('T')[0]
-    },
-    step1Valid() {
+    isFormValid() {
       return (
         this.formData.firstName.trim() &&
         this.formData.lastName.trim() &&
-        this.formData.gender
+        this.formData.gender &&
+        this.formData.phone?.trim() &&
+        !this.formErrors.length
       )
-    },
-    isFormValid() {
-      const step2Valid =
-        this.currentStep === 2 ? this.formData.phone?.trim() : true
-      return this.step1Valid && step2Valid && !this.formErrors.length
     },
   },
   watch: {
@@ -605,8 +580,27 @@ export default {
   mounted() {
     if (!this.jobBatches?.length) this.$emit('load-job-batches')
     this.fetchAgencies()
+    this.fetchCurrencies()
   },
   methods: {
+    async fetchCurrencies() {
+      this.loadingCurrencies = true
+      try {
+        const response = await this.$axios.$get('/api/currency/find')
+        if (Array.isArray(response)) {
+          this.currencies = response
+        } else if (response.success && response.data) {
+          this.currencies = response.data
+        } else if (response && !response.success) {
+          this.currencies = response
+        }
+      } catch (error) {
+        console.error('Error fetching currencies:', error)
+        this.$toast.error('ໂຫລດຂໍ້ມູນສະກຸນເງິນບໍ່ສຳເລັດ')
+      } finally {
+        this.loadingCurrencies = false
+      }
+    },
     async fetchAgencies() {
       this.loadingAgencies = true
       try {
@@ -617,7 +611,6 @@ export default {
           this.agencies = response.data
         }
 
-        // Set first agency as default if not in edit mode and no agency selected
         if (
           this.agencies.length > 0 &&
           !this.isEditMode &&
@@ -640,51 +633,6 @@ export default {
         month: 'long',
         day: 'numeric',
       })
-    },
-    formatCurrency(amount, currency) {
-      if (!amount) return '-'
-      const currencySymbol = currency?.symbol || currency?.code || ''
-      return `${amount.toLocaleString()} ${currencySymbol}`
-    },
-    getPriorityText(priority) {
-      const priorities = {
-        low: 'ຕໍ່າ',
-        medium: 'ປານກາງ',
-        high: 'ສູງ',
-        urgent: 'ຮີບດ່ວນ',
-      }
-      return priorities[priority] || priority
-    },
-    getStatusText(status) {
-      const statuses = {
-        draft: 'ຮ່າງ',
-        active: 'ເປີດໃຊ້ງານ',
-        completed: 'ສຳເລັດ',
-        cancelled: 'ຍົກເລີກ',
-      }
-      return statuses[status] || status
-    },
-    goToStep(step) {
-      if (step === 1 || (step === 2 && this.step1Valid)) {
-        this.currentStep = step
-        this.errors = {}
-        this.formErrors = []
-      }
-    },
-    continueToStep2() {
-      if (this.step1Valid) this.currentStep = 2
-    },
-    async saveStep1Only() {
-      if (!this.step1Valid) return
-      this.loading = true
-      try {
-        this.$emit('save', this.createFormData(true), true)
-      } catch (error) {
-        this.formErrors.push('An error occurred')
-        console.error(error)
-      } finally {
-        this.loading = false
-      }
     },
     initializeForm() {
       if (this.applicant?.id) {
@@ -717,6 +665,7 @@ export default {
           applicantPhoto: a.applicantPhoto || '',
           jobBatchId: a.jobBatchId || null,
           agencyId: a.agencyId || null,
+          currencyId: a.currencyId || null,
           status: a.status || 'INTERVIEW',
         }
         this.applicantPhotoPreview =
@@ -724,26 +673,13 @@ export default {
           this.applicantPhotoFile =
           this.passportPhotoFile =
             null
-        if (a.phone) this.currentStep = 2
       }
       this.errors = {}
       this.formErrors = []
     },
-    createFormData(isPartial = false) {
+    createFormData() {
       const fd = new FormData()
-      const fields = isPartial
-        ? [
-            'firstName',
-            'lastName',
-            'gender',
-            'age',
-            'address',
-            'passportAvailability',
-            'jobBatchId',
-            'status',
-          ]
-        : Object.keys(this.formData)
-      fields.forEach((key) => {
+      Object.keys(this.formData).forEach((key) => {
         if (key !== 'passportPhoto' && key !== 'applicantPhoto') {
           const val = this.formData[key]
           if (val !== '' && val !== null) fd.append(key, val)
@@ -837,15 +773,6 @@ export default {
   color: white;
   flex-shrink: 0;
 }
-.stepper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
-  flex-shrink: 0;
-}
 .form-content {
   flex: 1;
   overflow-y: auto;
@@ -853,7 +780,7 @@ export default {
   background: #fafafa;
 }
 .form-footer {
-  padding: 40px 20px;
+  padding: 16px 20px;
   border-top: 1px solid #e5e7eb;
   background: white;
   flex-shrink: 0;
@@ -867,75 +794,53 @@ export default {
   align-items: center;
   gap: 10px;
 }
-.step {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-.step.active {
-  background: rgba(1, 83, 43, 0.1);
-  color: #01532b;
-}
-.step.completed {
-  color: #059669;
-}
-.step:not(.available) {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.step-number {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 600;
-}
-.step.active .step-number {
-  background: #01532b;
-  color: white;
-}
-.step.completed .step-number {
-  background: #059669;
-  color: white;
-}
-.step-label {
-  font-size: 15px;
-  font-weight: 500;
-}
-.step-line {
-  width: 60px;
-  height: 2px;
-  background: #e5e7eb;
-  margin: 0 16px;
-}
-.step-line.completed {
-  background: #059669;
-}
 
 .split-layout {
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 20px;
 }
-.left-section,
-.right-section {
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-section {
   background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #01532b;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.right-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  align-self: start;
+  position: sticky;
+  top: 20px;
+}
+
 .photo-section {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 20px;
 }
 .photo-section label {
   display: flex;
@@ -947,7 +852,7 @@ export default {
 }
 .photo-upload {
   width: 100%;
-  height: 240px;
+  height: 280px;
   border: 2px dashed #d1d5db;
   border-radius: 8px;
   display: flex;
@@ -1033,6 +938,8 @@ export default {
   gap: 8px;
   color: #6b7280;
   font-size: 13px;
+  text-align: center;
+  padding: 10px;
 }
 .photo-placeholder-small i {
   font-size: 32px;
@@ -1055,14 +962,12 @@ export default {
   background: #dc2626;
 }
 
-/* Batch Summary Card Styles */
 .batch-summary-card {
-  grid-column: 1 / -1;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-top: 16px;
 }
 
 .summary-header {
@@ -1106,75 +1011,17 @@ export default {
   font-weight: 500;
 }
 
-.priority-low {
-  color: #10b981;
-  font-weight: 600;
-}
-
-.priority-medium {
-  color: #f59e0b;
-  font-weight: 600;
-}
-
-.priority-high {
-  color: #ef4444;
-  font-weight: 600;
-}
-
-.priority-urgent {
-  color: #dc2626;
-  font-weight: 700;
-  animation: pulse 2s infinite;
-}
-
-.status-draft {
-  color: #6b7280;
-  font-weight: 600;
-}
-
-.status-active {
-  color: #10b981;
-  font-weight: 600;
-}
-
-.status-completed {
-  color: #3b82f6;
-  font-weight: 600;
-}
-
-.status-cancelled {
-  color: #ef4444;
-  font-weight: 600;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-.form-grid-step2 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
+
 .form-group {
   display: flex;
   flex-direction: column;
 }
 .form-group.full-width {
-  grid-column: 1 / -1;
-}
-.form-group.passport-photo-group {
   grid-column: 1 / -1;
 }
 .form-group label {
@@ -1201,6 +1048,12 @@ export default {
   background: white;
   transition: all 0.2s;
 }
+.form-group input:disabled,
+.form-group select:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -1211,10 +1064,6 @@ export default {
 .form-group input.error,
 .form-group select.error {
   border-color: #ef4444;
-}
-.form-group textarea {
-  resize: vertical;
-  min-height: 60px;
 }
 
 .radio-group {
@@ -1242,11 +1091,11 @@ export default {
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
 }
 .btn {
-  padding: 10px 20px;
+  padding: 10px 24px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -1272,55 +1121,40 @@ export default {
 .btn.secondary:hover:not(:disabled) {
   background: #4b5563;
 }
-.btn.outline {
-  background: transparent;
-  border: 2px solid #01532b;
-  color: #01532b;
-}
-.btn.outline:hover:not(:disabled) {
-  background: #01532b;
-  color: white;
-}
 
 @media (max-width: 1024px) {
   .split-layout {
     grid-template-columns: 1fr;
   }
   .right-section {
+    position: relative;
+    top: 0;
     order: -1;
   }
   .photo-upload {
-    height: 200px;
-  }
-  .form-grid-step2 {
-    grid-template-columns: repeat(2, 1fr);
+    height: 220px;
   }
   .summary-content {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 768px) {
   .form-content {
     padding: 16px;
   }
-  .left-section,
-  .right-section {
+  .form-section {
     padding: 16px;
   }
   .form-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  .form-grid-step2 {
+  .photo-upload {
+    height: 200px;
+  }
+  .summary-content {
     grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .stepper {
-    padding: 12px;
-  }
-  .step-line {
-    width: 40px;
-    margin: 0 12px;
   }
   .actions {
     flex-wrap: wrap;
@@ -1328,12 +1162,6 @@ export default {
   .btn {
     flex: 1;
     min-width: 120px;
-  }
-  .photo-upload {
-    height: 180px;
-  }
-  .summary-content {
-    grid-template-columns: 1fr;
   }
 }
 </style>

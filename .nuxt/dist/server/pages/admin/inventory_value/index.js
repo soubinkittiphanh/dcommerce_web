@@ -1574,7 +1574,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 440:
+/***/ 439:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3556,7 +3556,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductFormCreate = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(440).default,PriceListForm: __webpack_require__(438).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(439).default,PriceListForm: __webpack_require__(438).default})
 
 
 /***/ }),
@@ -4321,7 +4321,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(440).default,PriceListForm: __webpack_require__(438).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(439).default,PriceListForm: __webpack_require__(438).default})
 
 
 /***/ }),
