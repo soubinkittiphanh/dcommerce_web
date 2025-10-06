@@ -703,10 +703,10 @@ export default {
 
     formatStatus(status) {
       const labels = {
+        draft: 'ລໍຖ້າ',
         active: 'ດຳເນີນການ',
         completed: 'ສຳເລັດ',
-        cancelled: 'ຍົກເລີກ',
-        on_hold: 'ລໍຖ້າ',
+        settled: 'ຊຳລະແລ້ວ',
       }
       return labels[status] || status
     },

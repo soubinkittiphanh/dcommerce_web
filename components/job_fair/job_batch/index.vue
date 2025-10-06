@@ -182,9 +182,9 @@
             <v-divider class="my-4"></v-divider>
 
             <!-- Configuration & Status Section -->
-            <v-row dense>
+             <v-row dense>
               <!-- Status -->
-              <v-col cols="12" md="3">
+              <v-col cols="3" md="3">
                 <v-select
                   v-model="formData.status"
                   :items="statusOptions"
@@ -201,97 +201,53 @@
                   </template>
                 </v-select>
               </v-col>
-
+            </v-row>
+            <v-row dense>
               <!-- Start Date -->
               <v-col cols="12" md="3">
-                <v-menu
-                  v-model="startDateMenu"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="formData.batchStartDate"
-                      label="ກຳນົດເວລາສັນຫາ"
-                      prepend-inner-icon="mdi-calendar"
-                      readonly
-                      outlined
-                      dense
-                      hide-details="auto"
-                      clearable
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
+                <div class="date-field-wrapper">
+                  <label class="date-label">
+                    <v-icon small class="mr-1">mdi-calendar</v-icon>
+                    ກຳນົດເວລາສັນຫາ
+                  </label>
+                  <input
                     v-model="formData.batchStartDate"
-                    @input="startDateMenu = false"
+                    type="date"
+                    class="date-input"
                   />
-                </v-menu>
+                </div>
               </v-col>
 
               <!-- End Date -->
               <v-col cols="12" md="3">
-                <v-menu
-                  v-model="endDateMenu"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="formData.batchEndDate"
-                      label="ກຳນົດເວລາຈັດສົ່ງແຮງງານ"
-                      prepend-inner-icon="mdi-calendar"
-                      readonly
-                      outlined
-                      dense
-                      hide-details="auto"
-                      clearable
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
+                <div class="date-field-wrapper">
+                  <label class="date-label">
+                    <v-icon small class="mr-1">mdi-calendar</v-icon>
+                    ກຳນົດເວລາຈັດສົ່ງແຮງງານ
+                  </label>
+                  <input
                     v-model="formData.batchEndDate"
-                    @input="endDateMenu = false"
+                    type="date"
+                    class="date-input"
                     :min="formData.batchStartDate"
                   />
-                </v-menu>
+                </div>
               </v-col>
 
-              <!-- Delivery Date - NEW FIELD -->
+              <!-- Delivery Date -->
               <v-col cols="12" md="3">
-                <v-menu
-                  v-model="deliveryDateMenu"
-                  :close-on-content-click="false"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="formData.batchDeliveryDate"
-                      label="ວັນທີ່ສົ່ງແຮງງານ"
-                      prepend-inner-icon="mdi-calendar-export"
-                      readonly
-                      outlined
-                      dense
-                      hide-details="auto"
-                      clearable
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
+                <div class="date-field-wrapper">
+                  <label class="date-label">
+                    <v-icon small class="mr-1">mdi-calendar-export</v-icon>
+                    ວັນທີ່ສົ່ງແຮງງານ
+                  </label>
+                  <input
                     v-model="formData.batchDeliveryDate"
-                    @input="deliveryDateMenu = false"
+                    type="date"
+                    class="date-input"
                     :min="formData.batchEndDate || formData.batchStartDate"
                   />
-                </v-menu>
+                </div>
               </v-col>
 
               <!-- Notes -->
@@ -369,6 +325,8 @@ export default {
       statusOptions: [
         { text: 'ລໍຖ້າ', value: 'draft' },
         { text: 'ດຳເນີນງານ', value: 'active' },
+        { text: 'ສຳເລັດ', value: 'complted' },
+        { text: 'ຊຳລະແລ້ວ', value: 'settled' },
       ],
     }
   },
@@ -389,7 +347,6 @@ export default {
     },
   },
   methods: {
-
     async fetchMous() {
       this.loadingMous = true
       try {
@@ -442,9 +399,11 @@ export default {
           batchName: this.batch.batchName || '',
           runningNo: this.batch.runningNo || '',
           totalPositions: this.batch.totalPositions || 0,
-          batchStartDate: this.batch.batchStartDate || null,
-          batchEndDate: this.batch.batchEndDate || null,
-          batchDeliveryDate: this.batch.batchDeliveryDate || null, // Add this
+          // Extract date only (YYYY-MM-DD)
+          batchStartDate: this.batch.batchStartDate?.split('T')[0] || null,
+          batchEndDate: this.batch.batchEndDate?.split('T')[0] || null,
+          batchDeliveryDate:
+            this.batch.batchDeliveryDate?.split('T')[0] || null,
           status: this.batch.status || 'draft',
           notes: this.batch.notes || '',
         }
@@ -477,7 +436,7 @@ export default {
         notes: '',
       }
       this.selectedMou = null
-      this.nextRunningNo = null // Reset next running number
+      this.nextRunningNo = null
       this.formValid = false
     },
 
@@ -544,6 +503,47 @@ export default {
 </script>
 
 <style scoped>
+/* Date Field Styles */
+.date-field-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 4px;
+}
+
+.date-input {
+  padding: 9px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.date-input:hover {
+  border-color: rgba(0, 0, 0, 0.87);
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  border-width: 2px;
+  padding: 8px 11px; /* Adjust padding to maintain size */
+}
+
+.date-input:disabled {
+  background: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 .maintenance-dialog {
   display: flex;
   flex-direction: column;
