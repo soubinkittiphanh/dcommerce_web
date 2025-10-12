@@ -35,6 +35,21 @@
                 <!-- Row 1: Basic Info -->
                 <div class="form-row">
                   <div class="form-group">
+                    <label for="bookingDate" class="required"
+                      >ວັນທີບັນທຶກ</label
+                    >
+                    <input
+                      id="bookingDate"
+                      v-model="form.bookingDate"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.bookingDate }"
+                    />
+                    <div v-if="errors.bookingDate" class="invalid-feedback">
+                      {{ errors.bookingDate }}
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="receiptNumber" class="required"
                       >ເລກທີໃບຮັບ</label
                     >
@@ -52,43 +67,63 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>ວິທີການຊຳລະ <span class="required">*</span></label>
-                    <select
+                    <label for="paymentId" class="required">ວິທີການຊຳລະ</label>
+                    <v-autocomplete
+                      id="paymentId"
                       v-model="form.paymentId"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.paymentId }"
-                      required
+                      :items="paymentMethods"
+                      item-value="id"
+                      item-text="payment_name"
+                      :filter="paymentMethodFilter"
+                      :error="!!errors.paymentId"
+                      :error-messages="errors.paymentId"
+                      dense
+                      outlined
+                      clearable
+                      hide-details="auto"
+                      placeholder="ເລືອກວິທີການຊຳລະ"
                     >
-                      <option value="">ເລືອກວິທີການຊຳລະ</option>
-                      <option
-                        v-for="method in paymentMethods"
-                        :key="method.id"
-                        :value="method.id"
-                      >
-                        {{ method.payment_name }}
-                      </option>
-                    </select>
-                    <div v-if="errors.paymentId" class="invalid-feedback">
-                      {{ errors.paymentId }}
-                    </div>
+                      <template v-slot:item="{ item }">
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            {{ item.payment_name }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </template>
+                      <template v-slot:selection="{ item }">
+                        {{ item.payment_name }}
+                      </template>
+                    </v-autocomplete>
                   </div>
                   <div class="form-group">
                     <label for="currencyId">ສະກຸນເງິນ</label>
-                    <select
+                    <v-autocomplete
                       id="currencyId"
                       v-model="form.currencyId"
-                      class="form-control"
+                      :items="currencies"
+                      item-value="id"
+                      item-text="name"
+                      :filter="currencyFilter"
+                      :error="!!errors.currencyId"
+                      :error-messages="errors.currencyId"
+                      dense
+                      outlined
+                      clearable
+                      hide-details="auto"
+                      placeholder="ເລືອກສະກຸນເງິນ"
                       @change="onCurrencyChange"
                     >
-                      <option value="">ເລືອກສະກຸນເງິນ</option>
-                      <option
-                        v-for="currency in currencies"
-                        :key="currency.id"
-                        :value="currency.id"
-                      >
-                        {{ currency.name }} ({{ currency.code }})
-                      </option>
-                    </select>
+                      <template v-slot:item="{ item }">
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            {{ item.name }} ({{ item.code }})
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </template>
+                      <template v-slot:selection="{ item }">
+                        {{ item.name }} ({{ item.code }})
+                      </template>
+                    </v-autocomplete>
                   </div>
                   <div class="form-group">
                     <label for="exchangeRate">ອັດຕາແລກປ່ຽນ</label>
@@ -112,60 +147,10 @@
                       placeholder="ເລກອ້າງອີງ..."
                     />
                   </div>
-                  <div class="form-group">
-                    <label for="invoiceHeaderId">ໃບແຈ້ງໜີ້ (ທາງເລືອກ)</label>
-                    <div class="invoice-selector">
-                      <select
-                        id="invoiceHeaderId"
-                        v-model="form.invoiceHeaderId"
-                        class="form-control"
-                        @change="onInvoiceChange"
-                      >
-                        <option value="">ເລືອກໃບແຈ້ງໜີ້ (ຖ້າມີ)</option>
-                        <option
-                          v-for="invoice in invoices"
-                          :key="invoice.id"
-                          :value="invoice.id"
-                        >
-                          {{ invoice.invoiceNumber }} -
-                          {{ invoice.customer ? invoice.customer.name : 'N/A' }}
-                          ({{ formatCurrency(invoice.totalAmount) }})
-                        </option>
-                      </select>
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary btn-sm"
-                        @click="openInvoiceBrowser"
-                        title="ເລືອກໃບແຈ້ງໜີ້"
-                      >
-                        <i class="fas fa-search"></i>
-                        ຄົ້ນຫາ
-                      </button>
-                    </div>
-                    <small class="form-text text-muted">
-                      <i class="fas fa-info-circle"></i>
-                      ເລືອກໃບແຈ້ງໜີ້ເພື່ອໂຫຼດລາຍການອັດຕະໂນມັດ
-                    </small>
-                  </div>
                 </div>
 
                 <!-- Row 3: Dates and Amount -->
                 <div class="form-row">
-                  <div class="form-group">
-                    <label for="bookingDate" class="required"
-                      >ວັນທີບັນທຶກ</label
-                    >
-                    <input
-                      id="bookingDate"
-                      v-model="form.bookingDate"
-                      type="date"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.bookingDate }"
-                    />
-                    <div v-if="errors.bookingDate" class="invalid-feedback">
-                      {{ errors.bookingDate }}
-                    </div>
-                  </div>
                   <div class="form-group">
                     <label for="receivedDate" class="required"
                       >ວັນທີຮັບເງິນ</label
@@ -180,6 +165,57 @@
                     <div v-if="errors.receivedDate" class="invalid-feedback">
                       {{ errors.receivedDate }}
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="invoiceHeaderId">ໃບແຈ້ງໜີ້ (ທາງເລືອກ)</label>
+                    <div class="d-flex align-items-start invoice-selector">
+                      <v-autocomplete
+                        id="invoiceHeaderId"
+                        v-model="form.invoiceHeaderId"
+                        :items="invoices"
+                        item-value="id"
+                        item-text="invoiceNumber"
+                        :filter="invoiceFilter"
+                        dense
+                        outlined
+                        clearable
+                        hide-details
+                        placeholder="ເລືອກໃບແຈ້ງໜີ້ (ຖ້າມີ)"
+                        class="flex-grow-1"
+                        @change="onInvoiceChange"
+                      >
+                        <template v-slot:item="{ item }">
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              {{ item.invoiceNumber }} -
+                              {{ item.customer ? item.customer.name : 'N/A' }}
+                            </v-list-item-title>
+                            <v-list-item-subtitle>
+                              {{ formatCurrency(item.totalAmount) }}
+                            </v-list-item-subtitle>
+                          </v-list-item-content>
+                        </template>
+                        <template v-slot:selection="{ item }">
+                          {{ item.invoiceNumber }} -
+                          {{ item.customer ? item.customer.name : 'N/A' }}
+                          ({{ formatCurrency(item.totalAmount) }})
+                        </template>
+                      </v-autocomplete>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm ml-2"
+                        style="height: 40px; margin-top: 0"
+                        @click="openInvoiceBrowser"
+                        title="ເລືອກໃບແຈ້ງໜີ້"
+                      >
+                        <i class="fas fa-search"></i>
+                        ຄົ້ນຫາ
+                      </button>
+                    </div>
+                    <small class="form-text text-muted mt-2">
+                      <i class="fas fa-info-circle"></i>
+                      ເລືອກໃບແຈ້ງໜີ້ເພື່ອໂຫຼດລາຍການອັດຕະໂນມັດ
+                    </small>
                   </div>
                   <!-- <div class="form-group">
                     <label for="totalReceivedAmount" class="auto-calculated">
@@ -843,7 +879,7 @@ export default {
 
   data() {
     return {
-       selectedCurrency: null,
+      selectedCurrency: null,
       paymentMethods: [],
       transactionCodes: [], // Add this
       loadingTransactionCodes: false, // Add this
@@ -952,6 +988,7 @@ export default {
   async mounted() {
     await this.loadTransactionCodes() // Add this
     await this.loadPaymentMethods() // Add this
+    
   },
 
   watch: {
@@ -1000,7 +1037,28 @@ export default {
   },
 
   methods: {
-     onCurrencyChange() {
+    async requestSequence() {
+      try {
+        const { data } = await this.$axios.get('/api/ar-receive-headers/sequence')
+
+        if (data.success) {
+          // Assign the generated invoice number to your form
+          this.form.receiptNumber = data.data.invoiceNumber
+
+          // Optional: Show success message
+          this.$message.success(
+            `Invoice number generated: ${data.data.invoiceNumber}`
+          )
+
+          return data.data.invoiceNumber
+        }
+      } catch (error) {
+        console.error('Error getting invoice sequence:', error)
+        this.$message.error('Failed to generate invoice number')
+        throw error
+      }
+    },
+    onCurrencyChange() {
       if (this.form.currencyId && this.currencies.length > 0) {
         this.selectedCurrency = this.currencies.find(
           (c) => c.id === this.form.currencyId
@@ -1445,6 +1503,7 @@ export default {
         if (this.user && this.user.id) {
           this.form.inputterId = this.user.id
         }
+       this.requestSequence()
       }
     },
 

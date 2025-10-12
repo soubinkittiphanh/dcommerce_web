@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <div>
     <v-row>
       <v-col cols="12">
         <!-- Page Header -->
@@ -297,7 +297,7 @@
     <v-overlay :value="loading">
       <v-progress-circular indeterminate size="64" />
     </v-overlay>
-  </v-container>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="applicant-summary-container">
+  <div>
     <!-- Header Section -->
     <div class="page-header">
       <div class="header-content">

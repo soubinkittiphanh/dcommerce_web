@@ -1,7 +1,7 @@
-exports.ids = [199,64,65,66,78,79,80,82,84];
+exports.ids = [199,78,79,80,82,84];
 exports.modules = {
 
-/***/ 1205:
+/***/ 1202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53,7 +53,7 @@ var VSpacer = __webpack_require__(388);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=26c1dbea&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=4b38046a&scoped=true&
 
 
 
@@ -71,12 +71,10 @@ var VTextField = __webpack_require__(36);
 
 
 
-var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = function render() {
+var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "money-advance-container"
-  }, [_c(VCard["a" /* default */], {
+  return _c('div', [_c(VCard["a" /* default */], {
     staticClass: "header-card",
     attrs: {
       "flat": ""
@@ -91,20 +89,6 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
     staticClass: "header-actions"
   }, [_c(VBtn["a" /* default */], {
     attrs: {
-      "color": "secondary",
-      "small": "",
-      "outlined": ""
-    },
-    on: {
-      "click": _vm.openAuditReports
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-chart-line")]), _vm._v("\n            ລາຍງານ\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
       "color": "primary",
       "small": ""
     },
@@ -118,7 +102,22 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-plus")]), _vm._v("\n            ລົງລາຍຈ່າຍ\n          ")], 1)], 1)])])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"summary-grid mb-2\" data-v-26c1dbea>", "</div>", [_c(VCard["a" /* default */], {
+  }, [_vm._v("mdi-plus")]), _vm._v("\n            ລົງລາຍຈ່າຍ\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "secondary",
+      "small": "",
+      "outlined": "",
+      "disabled": _vm.loading || _vm.advances.length === 0
+    },
+    on: {
+      "click": _vm.exportData
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-download")]), _vm._v("\n            Export\n          ")], 1)], 1)])])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"summary-grid mb-2\" data-v-4b38046a>", "</div>", [_c(VCard["a" /* default */], {
     staticClass: "summary-card"
   }, [_c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-3"
@@ -376,12 +375,7 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
       "sm": "6",
       "md": "2"
     }
-  }, [_c('div', {
-    staticClass: "filter-actions"
   }, [_c(VTextField["a" /* default */], {
-    staticStyle: {
-      "margin-bottom": "4px"
-    },
     attrs: {
       "label": "ຄົ້ນຫາ",
       "dense": "",
@@ -400,7 +394,7 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
       },
       expression: "searchTerm"
     }
-  })], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "px-1",
     attrs: {
       "cols": "12",
@@ -444,48 +438,15 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
     staticClass: "py-2 px-3"
   }, [_c('span', {
     staticClass: "table-title"
-  }, [_vm._v("ລາຍການ (" + _vm._s(_vm.advances.length) + ")")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c('div', {
-    staticClass: "table-controls"
-  }, [_c(VSelect["a" /* default */], {
-    staticStyle: {
-      "max-width": "70px"
-    },
-    attrs: {
-      "items": _vm.perPageOptions,
-      "label": "ແຖວ",
-      "dense": "",
-      "outlined": "",
-      "hide-details": ""
-    },
-    on: {
-      "input": function ($event) {
-        return _vm.changePage(1);
-      }
-    },
-    model: {
-      value: _vm.pagination.itemsPerPage,
-      callback: function ($$v) {
-        _vm.$set(_vm.pagination, "itemsPerPage", $$v);
-      },
-      expression: "pagination.itemsPerPage"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
+  }, [_vm._v("ລາຍການ (" + _vm._s(_vm.advances.length) + ")")]), _vm._v(" "), _c(VSpacer["a" /* default */])], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
     staticClass: "compact-table",
     attrs: {
       "headers": _vm.compactHeaders,
       "items": _vm.advances,
-      "page": _vm.pagination.currentPage,
-      "items-per-page": _vm.pagination.itemsPerPage,
-      "server-items-length": _vm.pagination.totalItems,
+      "items-per-page": 25,
       "dense": "",
-      "hide-default-footer": "",
       "loading": _vm.loading,
       "loading-text": "ກຳລັງໂຫຼດຂໍ້ມູນ..."
-    },
-    on: {
-      "update:page": function ($event) {
-        return _vm.$set(_vm.pagination, "currentPage", $event);
-      }
     },
     scopedSlots: _vm._u([{
       key: "item.id",
@@ -503,7 +464,7 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
       }) {
         return [_c('span', {
           staticClass: "maker-name"
-        }, [_vm._v(_vm._s(item.maker ? item.maker.cus_name : 'N/A'))])];
+        }, [_vm._v("\n          " + _vm._s(item.maker ? item.maker.cus_name : 'N/A') + "\n        ")])];
       }
     }, {
       key: "item.ministry",
@@ -531,9 +492,9 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
           staticClass: "amount-column"
         }, [_c('span', {
           staticClass: "amount-value"
-        }, [_vm._v(_vm._s(_vm.formatCurrency(item.amount, item.currency.code)))]), _vm._v(" "), item.currency ? _c('span', {
+        }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(item.amount, item.currency.code)) + "\n          ")]), _vm._v(" "), item.currency ? _c('span', {
           staticClass: "currency-code"
-        }, [_vm._v(_vm._s(item.currency.code))]) : _vm._e()])];
+        }, [_vm._v("\n            " + _vm._s(item.currency.code) + "\n          ")]) : _vm._e()])];
       }
     }, {
       key: "item.settleLine",
@@ -544,9 +505,9 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
           staticClass: "amount-column"
         }, [_c('span', {
           staticClass: "amount-value"
-        }, [_vm._v(_vm._s(_vm.formatCurrency(_vm.getSettleAmount(item.settlementLine || 0), item.currency.code)))]), _vm._v(" "), item.currency ? _c('span', {
+        }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(_vm.getSettleAmount(item.settlementLine || []), item.currency.code)) + "\n          ")]), _vm._v(" "), item.currency ? _c('span', {
           staticClass: "currency-code"
-        }, [_vm._v(_vm._s(item.currency.code))]) : _vm._e()])];
+        }, [_vm._v("\n            " + _vm._s(item.currency.code) + "\n          ")]) : _vm._e()])];
       }
     }, {
       key: "item.purpose",
@@ -571,7 +532,7 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
           staticClass: "bank-name"
         }, [_vm._v(_vm._s(item.bankAccount.bankName))]), _vm._v(" "), _c('div', {
           staticClass: "account-number"
-        }, [_vm._v("\n            " + _vm._s(item.bankAccount.accountNumber) + "\n          ")])]) : _c('span', {
+        }, [_vm._v(_vm._s(item.bankAccount.accountNumber))])]) : _c('span', {
           staticClass: "no-data"
         }, [_vm._v("-")])];
       }
@@ -587,18 +548,6 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
             "outlined": ""
           }
         }, [_vm._v("\n          " + _vm._s(_vm.getStatusInLao(item.status)) + "\n        ")])];
-      }
-    }, {
-      key: "item.dueDate",
-      fn: function ({
-        item
-      }) {
-        return [_c('span', {
-          staticClass: "date-compact",
-          class: {
-            overdue: _vm.isOverdue(item.dueDate)
-          }
-        }, [_vm._v("\n          " + _vm._s(_vm.formatCompactDate(item.dueDate)) + "\n        ")])];
       }
     }, {
       key: "item.bookingDate",
@@ -697,52 +646,7 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
         }, [_vm._v("mdi-printer")])], 1)], 1)];
       }
     }])
-  }), _vm._v(" "), _c('div', {
-    staticClass: "compact-pagination"
-  }, [_c('div', {
-    staticClass: "pagination-info"
-  }, [_vm._v("\n        " + _vm._s(_vm.paginationInfo.start) + "-" + _vm._s(_vm.paginationInfo.end) + " ຈາກ\n        " + _vm._s(_vm.pagination.totalItems) + "\n      ")]), _vm._v(" "), _c('div', {
-    staticClass: "pagination-controls"
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "small": "",
-      "disabled": _vm.pagination.currentPage === 1
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.changePage(_vm.pagination.currentPage - 1);
-      }
-    }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-chevron-left")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "page-numbers"
-  }, _vm._l(_vm.paginationPages, function (page) {
-    return _c(VBtn["a" /* default */], {
-      key: page,
-      attrs: {
-        "color": page === _vm.pagination.currentPage ? 'primary' : '',
-        "outlined": page !== _vm.pagination.currentPage,
-        "x-small": "",
-        "min-width": "30"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.changePage(page);
-        }
-      }
-    }, [_vm._v("\n            " + _vm._s(page) + "\n          ")]);
-  }), 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "small": "",
-      "disabled": _vm.pagination.currentPage === _vm.pagination.totalPages
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.changePage(_vm.pagination.currentPage + 1);
-      }
-    }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-chevron-right")])], 1)], 1)])], 1), _vm._ssrNode(" "), !_vm.loading && _vm.advances.length === 0 ? _c(VCard["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), !_vm.loading && _vm.advances.length === 0 ? _c(VCard["a" /* default */], {
     staticClass: "no-data-card",
     attrs: {
       "flat": ""
@@ -758,8 +662,8 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
     staticClass: "mt-3 text-h6 grey--text"
   }, [_vm._v("ບໍ່ມີຂໍ້ມູນ")]), _vm._v(" "), _c('div', {
     staticClass: "grey--text"
-  }, [_vm._v("\n        ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ\n      ")])], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _c('money-advance-dialog', {
-    key: _vm.randomKeyMaintenanceDialog,
+  }, [_vm._v("ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ")])], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _c('money-advance-dialog', {
+    key: _vm.dialogKey,
     attrs: {
       "show": _vm.showDialog,
       "is-edit": _vm.isEdit,
@@ -793,49 +697,9 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
     on: {
       "close": _vm.closeDetailDialog,
       "print": _vm.printAdvanceDetails,
-      "download": _vm.downloadAdvanceDetails,
-      "retry-load": _vm.retryLoadDetails,
       "edit": _vm.handleEditFromDetail,
       "approve": _vm.handleApproveFromDetail,
       "create-settlement": _vm.handleCreateSettlement
-    }
-  }), _vm._ssrNode(" "), _vm.selectedRecordForAudit && _vm.selectedRecordForAudit.id ? _c('audit-trail-dialog', {
-    attrs: {
-      "show": _vm.showAuditDialog,
-      "record-id": _vm.selectedRecordForAudit.id,
-      "record-data": _vm.selectedRecordForAudit,
-      "can-restore": _vm.canRestoreRecord
-    },
-    on: {
-      "close": _vm.closeAuditDialog,
-      "compare": _vm.handleVersionComparison,
-      "restore": _vm.handleVersionRestore,
-      "view-full-changes": _vm.handleViewFullChanges,
-      "success": _vm.showToast,
-      "error": msg => _vm.showToast(msg, 'error')
-    }
-  }) : _vm._e(), _vm._ssrNode(" "), _vm.selectedRecordForComparison && _vm.selectedRecordForComparison.id ? _c('version-comparison-dialog', {
-    attrs: {
-      "show": _vm.showComparisonDialog,
-      "record-id": _vm.selectedRecordForComparison.id,
-      "record-data": _vm.selectedRecordForComparison,
-      "initial-comparison": _vm.comparisonData,
-      "can-restore": _vm.canRestoreRecord
-    },
-    on: {
-      "close": _vm.closeComparisonDialog,
-      "restore": _vm.handleVersionRestore,
-      "success": _vm.showToast,
-      "error": msg => _vm.showToast(msg, 'error')
-    }
-  }) : _vm._e(), _vm._ssrNode(" "), _c('audit-reports-dialog', {
-    attrs: {
-      "show": _vm.showAuditReportsDialog
-    },
-    on: {
-      "close": _vm.closeAuditReportsDialog,
-      "success": _vm.showToast,
-      "error": msg => _vm.showToast(msg, 'error')
     }
   }), _vm._ssrNode(" "), _vm.showPrintVoucher && _vm.advanceDetails ? _c('VoucherPrintComponent', {
     key: _vm.advanceDetails.id,
@@ -874,36 +738,27 @@ var moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=26c1dbea&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=4b38046a&scoped=true&
 
 // EXTERNAL MODULE: ./components/MA/paymentDialog/index.vue + 4 modules
-var paymentDialog = __webpack_require__(634);
+var paymentDialog = __webpack_require__(625);
 
 // EXTERNAL MODULE: ./components/MA/paymentDetailDialog/index.vue + 4 modules
-var paymentDetailDialog = __webpack_require__(635);
+var paymentDetailDialog = __webpack_require__(626);
 
 // EXTERNAL MODULE: ./components/MA/paymentVoucher/index.vue + 4 modules
-var paymentVoucher = __webpack_require__(529);
-
-// EXTERNAL MODULE: ./components/MA/paymentAuditDialog/index.vue + 4 modules
-var paymentAuditDialog = __webpack_require__(636);
-
-// EXTERNAL MODULE: ./components/MA/paymentCompareDialog/index.vue + 4 modules
-var paymentCompareDialog = __webpack_require__(637);
-
-// EXTERNAL MODULE: ./components/MA/paymentAuditReportDialog/index.vue + 4 modules
-var paymentAuditReportDialog = __webpack_require__(638);
+var paymentVoucher = __webpack_require__(526);
 
 // EXTERNAL MODULE: ./components/MA/settlementDialog/index.vue + 4 modules
-var settlementDialog = __webpack_require__(530);
+var settlementDialog = __webpack_require__(527);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
 
+// EXTERNAL MODULE: external "xlsx"
+var external_xlsx_ = __webpack_require__(368);
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceByBank/index.vue?vue&type=script&lang=js&
-// Import all the existing components
-
-
 
 
 
@@ -911,14 +766,11 @@ var common = __webpack_require__(11);
 
 
 /* harmony default export */ var moneyAdvanceByBankvue_type_script_lang_js_ = ({
-  name: 'MoneyAdvanceManagement',
+  name: 'BankTransferPaymentManagement',
   components: {
     MoneyAdvanceDialog: paymentDialog["default"],
     MoneyAdvanceDetailDialog: paymentDetailDialog["default"],
     VoucherPrintComponent: paymentVoucher["default"],
-    AuditTrailDialog: paymentAuditDialog["default"],
-    VersionComparisonDialog: paymentCompareDialog["default"],
-    AuditReportsDialog: paymentAuditReportDialog["default"],
     SettlementDialog: settlementDialog["default"]
   },
   middleware: 'auths',
@@ -931,8 +783,7 @@ var common = __webpack_require__(11);
       pickerToDate: null,
       formattedFromDate: null,
       formattedToDate: null,
-      // Filter and search state
-      statusFilter: '',
+      // Search state
       searchTerm: '',
       searchTimeout: null,
       // Status configuration
@@ -963,16 +814,8 @@ var common = __webpack_require__(11);
           pending: 0
         }
       },
-      // Pagination
-      pagination: {
-        currentPage: 1,
-        totalPages: 1,
-        totalItems: 0,
-        itemsPerPage: 25
-      },
       // Filters
       filters: {
-        status: '',
         makerId: '',
         ministryId: '',
         fromDate: '',
@@ -985,24 +828,17 @@ var common = __webpack_require__(11);
       detailLoading: false,
       // Dialog states
       showDialog: false,
-      randomKeyMaintenanceDialog: 1,
+      dialogKey: 1,
       showDetailDialog: false,
       showPrintVoucher: false,
       showSettlementDialog: false,
-      showAuditDialog: false,
-      showComparisonDialog: false,
-      showAuditReportsDialog: false,
       // Selected data
       selectedAdvance: null,
       advanceDetails: null,
       settlementData: null,
       selectedAdvanceForSettlement: null,
-      selectedRecordForAudit: null,
-      selectedRecordForComparison: null,
-      comparisonData: null,
       // Form state
       isEdit: false,
-      canRestoreRecord: false,
       form: {
         id: null,
         amount: '',
@@ -1020,7 +856,8 @@ var common = __webpack_require__(11);
         externalRefNo: '',
         chequeNo: '',
         receiveName: '',
-        receiveIDNO: ''
+        receiveIDNO: '',
+        exchangeRate: 1
       }
     };
   },
@@ -1028,7 +865,6 @@ var common = __webpack_require__(11);
     user() {
       return this.$auth.user || '';
     },
-    // Compact table headers
     compactHeaders() {
       return [{
         text: 'ID',
@@ -1036,9 +872,9 @@ var common = __webpack_require__(11);
         width: '60px',
         sortable: true
       }, {
-        text: 'ຜູ້ລົງ',
-        value: 'maker',
-        width: '100px',
+        text: 'ວັນທີ',
+        value: 'bookingDate',
+        width: '80px',
         sortable: true
       }, {
         text: 'ກົມ',
@@ -1071,33 +907,15 @@ var common = __webpack_require__(11);
         width: '80px',
         sortable: true
       }, {
-        text: 'ຄົບກຳໜົດ',
-        value: 'dueDate',
-        width: '80px',
-        sortable: true
-      }, {
-        text: 'ວັນທີ',
-        value: 'bookingDate',
-        width: '80px',
+        text: 'ຜູ້ລົງ',
+        value: 'maker',
+        width: '100px',
         sortable: true
       }, {
         text: '',
         value: 'actions',
         width: '120px',
         sortable: false
-      }];
-    },
-    // Filter options
-    statusOptions() {
-      return [{
-        text: 'ຄ້າງອະນຸມັດ',
-        value: 'pending'
-      }, {
-        text: 'ອະນຸມັດແລ້ວ',
-        value: 'approved'
-      }, {
-        text: 'ຊຳລະແລ້ວ',
-        value: 'settled'
       }];
     },
     userOptions() {
@@ -1117,43 +935,151 @@ var common = __webpack_require__(11);
         text: `${ministry.ministryCode} - ${ministry.ministryName}`,
         value: ministry.id
       }))];
-    },
-    perPageOptions() {
-      return [10, 25, 50, 100];
-    },
-    paginationPages() {
-      const pages = [];
-      const start = Math.max(1, this.pagination.currentPage - 2);
-      const end = Math.min(this.pagination.totalPages, this.pagination.currentPage + 2);
-      for (let i = start; i <= end; i++) {
-        pages.push(i);
-      }
-      return pages;
-    },
-    paginationInfo() {
-      const start = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1;
-      const end = Math.min(start + this.pagination.itemsPerPage - 1, this.pagination.totalItems);
-      return {
-        start: this.pagination.totalItems > 0 ? start : 0,
-        end,
-        total: this.pagination.totalItems
-      };
     }
   },
   async mounted() {
     await this.loadInitialData();
-    this.canRestoreRecord = this.checkRestorePermissions();
   },
   methods: {
-    getSettleAmount(settlements) {
-      let total = settlements.reduce((total, item) => {
-        return total + item.amount;
-      }, 0);
-      return total;
+    // Excel Export Function
+    exportData() {
+      try {
+        // Prepare data for export
+        const exportData = this.advances.map((item, index) => {
+          var _item$maker, _item$currency, _item$bankAccount, _item$bankAccount2;
+          return {
+            'ລຳດັບ': index + 1,
+            'ID': item.id,
+            'ວັນທີ': this.formatDate(item.bookingDate),
+            'ຜູ້ລົງ': ((_item$maker = item.maker) === null || _item$maker === void 0 ? void 0 : _item$maker.cus_name) || '-',
+            'ກະຊວງ/ກົມ': item.ministry ? `${item.ministry.ministryCode || ''} - ${item.ministry.name || item.ministry.ministryName || ''}` : '-',
+            'ຈຳນວນເງິນຈ່າຍ': item.amount,
+            'ສະກຸນເງິນ': ((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code) || '',
+            'ຈຳນວນເງິນຮັບ': this.getSettleAmount(item.settlementLine || []),
+            'ຈຸດປະສົງ': item.purpose || '',
+            'ທະນາຄານ': ((_item$bankAccount = item.bankAccount) === null || _item$bankAccount === void 0 ? void 0 : _item$bankAccount.bankName) || '-',
+            'ເລກບັນຊີ': ((_item$bankAccount2 = item.bankAccount) === null || _item$bankAccount2 === void 0 ? void 0 : _item$bankAccount2.accountNumber) || '-',
+            'ສະຖານະ': this.getStatusInLao(item.status),
+            'ຊື່ຜູ້ຮັບ': item.receiveName || '-',
+            'ເລກບັດປະຈຳຕົວ': item.receiveIDNO || '-',
+            'ເລກອ້າງອີງພາຍນອກ': item.externalRefNo || '-',
+            'ເລກເຊັກ': item.chequeNo || '-',
+            'ໝາຍເຫດ': item.note || '-'
+          };
+        });
+
+        // Create worksheet
+        const ws = external_xlsx_["utils"].json_to_sheet(exportData);
+
+        // Set column widths
+        const colWidths = [{
+          wch: 8
+        },
+        // ລຳດັບ
+        {
+          wch: 8
+        },
+        // ID
+        {
+          wch: 12
+        },
+        // ວັນທີ
+        {
+          wch: 20
+        },
+        // ຜູ້ລົງ
+        {
+          wch: 30
+        },
+        // ກະຊວງ/ກົມ
+        {
+          wch: 15
+        },
+        // ຈຳນວນເງິນຈ່າຍ
+        {
+          wch: 10
+        },
+        // ສະກຸນເງິນ
+        {
+          wch: 15
+        },
+        // ຈຳນວນເງິນຮັບ
+        {
+          wch: 30
+        },
+        // ຈຸດປະສົງ
+        {
+          wch: 20
+        },
+        // ທະນາຄານ
+        {
+          wch: 20
+        },
+        // ເລກບັນຊີ
+        {
+          wch: 12
+        },
+        // ສະຖານະ
+        {
+          wch: 20
+        },
+        // ຊື່ຜູ້ຮັບ
+        {
+          wch: 18
+        },
+        // ເລກບັດປະຈຳຕົວ
+        {
+          wch: 20
+        },
+        // ເລກອ້າງອີງພາຍນອກ
+        {
+          wch: 15
+        },
+        // ເລກເຊັກ
+        {
+          wch: 30
+        } // ໝາຍເຫດ
+        ];
+
+        ws['!cols'] = colWidths;
+
+        // Create workbook
+        const wb = external_xlsx_["utils"].book_new();
+        external_xlsx_["utils"].book_append_sheet(wb, ws, 'ລາຍຈ່າຍເງິນຝາກ');
+
+        // Add summary sheet
+        const summaryData = [{
+          'ລາຍການ': 'ທັງໝົດ',
+          'ຈຳນວນ': this.dashboard.counts.total
+        }, {
+          'ລາຍການ': 'ຊຳລະແລ້ວ',
+          'ຈຳນວນ': this.dashboard.counts.settled
+        }, {
+          'ລາຍການ': 'ລວມຍອດທັງໝົດ',
+          'ຈຳນວນ': this.dashboard.amounts.total
+        }];
+        const wsSummary = external_xlsx_["utils"].json_to_sheet(summaryData);
+        external_xlsx_["utils"].book_append_sheet(wb, wsSummary, 'ສະຫຼຸບ');
+
+        // Generate filename with date
+        const date = new Date().toISOString().split('T')[0];
+        const filename = `bank-transfer-payment-${date}.xlsx`;
+
+        // Write file
+        external_xlsx_["writeFile"](wb, filename);
+        this.showToast('ສົ່ງອອກຂໍ້ມູນສຳເລັດ', 'success');
+      } catch (error) {
+        console.error('Export error:', error);
+        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກຂໍ້ມູນ', 'error');
+      }
     },
-    // Date formatting and handling methods
+    getSettleAmount(settlements) {
+      if (!Array.isArray(settlements)) return 0;
+      return settlements.reduce((total, item) => total + (item.amount || 0), 0);
+    },
+    // Date formatting methods
     formatDate(date) {
-      if (!date) return null;
+      if (!date) return '-';
       const d = new Date(date);
       const day = String(d.getDate()).padStart(2, '0');
       const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -1208,15 +1134,7 @@ var common = __webpack_require__(11);
     getStatusInLao(status) {
       return this.statusLabels[status] || status.toUpperCase();
     },
-    isOverdue(dueDate) {
-      if (!dueDate) return false;
-      return new Date(dueDate) < new Date();
-    },
-    checkRestorePermissions() {
-      var _this$user, _this$user2, _this$user2$permissio;
-      return ((_this$user = this.user) === null || _this$user === void 0 ? void 0 : _this$user.role) === 'admin' || ((_this$user2 = this.user) === null || _this$user2 === void 0 ? void 0 : (_this$user2$permissio = _this$user2.permissions) === null || _this$user2$permissio === void 0 ? void 0 : _this$user2$permissio.includes('restore_records'));
-    },
-    // Data loading methods (keeping existing logic)
+    // Data loading methods
     async loadInitialData() {
       await Promise.all([this.fetchData(), this.fetchDashboard(), this.fetchUsers(), this.fetchCurrencies(), this.fetchMinistry(), this.fetchBankAccounts(), this.fetchChartAccounts()]);
     },
@@ -1224,14 +1142,9 @@ var common = __webpack_require__(11);
       this.loading = true;
       try {
         const params = {
-          page: this.pagination.currentPage,
-          limit: this.pagination.itemsPerPage,
           method: 'bank_transfer',
           ...this.filters
         };
-        if (this.statusFilter) {
-          params.status = this.statusFilter;
-        }
         if (this.searchTerm) {
           params.search = this.searchTerm;
         }
@@ -1240,8 +1153,7 @@ var common = __webpack_require__(11);
         } = await this.$axios.get('/api/money-advances', {
           params
         });
-        this.advances = data.data.advances;
-        this.pagination = data.data.pagination;
+        this.advances = data.data.advances || [];
       } catch (error) {
         this.showToast('Error fetching money advances', 'error');
         console.error(error);
@@ -1251,12 +1163,10 @@ var common = __webpack_require__(11);
     },
     async fetchDashboard() {
       try {
-        const params = {};
-        if (this.filters.makerId) params.makerId = this.filters.makerId;
-        if (this.filters.ministryId) params.ministryId = this.filters.ministryId;
-        if (this.filters.fromDate) params.fromDate = this.filters.fromDate;
-        if (this.filters.toDate) params.toDate = this.filters.toDate;
-        params.method = 'bank_transfer';
+        const params = {
+          ...this.filters,
+          method: 'bank_transfer'
+        };
         const {
           data
         } = await this.$axios.get('/api/money-advances/dashboard', {
@@ -1272,17 +1182,10 @@ var common = __webpack_require__(11);
         const {
           data
         } = await this.$axios.get('/api/user/find');
-        if (data && data.data) {
-          this.users = Array.isArray(data.data) ? data.data : [];
-        } else if (Array.isArray(data)) {
-          this.users = data;
-        } else {
-          this.users = [];
-        }
+        this.users = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : [];
       } catch (error) {
         console.error('Error fetching users:', error);
         this.users = [];
-        this.showToast('Failed to load users', 'error');
       }
     },
     async fetchCurrencies() {
@@ -1290,31 +1193,20 @@ var common = __webpack_require__(11);
         const {
           data
         } = await this.$axios.get('/api/currency/find');
-        if (data && data.data) {
-          this.currencies = Array.isArray(data.data) ? data.data : [];
-        } else if (Array.isArray(data)) {
-          this.currencies = data;
-        } else {
-          this.currencies = [];
-        }
+        this.currencies = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : [];
       } catch (error) {
         console.error('Error fetching currencies:', error);
         this.currencies = [];
-        this.showToast('Failed to load currencies', 'error');
       }
     },
     async fetchMinistry() {
       try {
+        var _response$data;
         const response = await this.$axios.get('/api/ministries');
-        if (response.data && response.data.success) {
-          this.ministries = response.data.data || [];
-        } else {
-          this.ministries = [];
-        }
+        this.ministries = ((_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.data) || [];
       } catch (error) {
         console.error('Error fetching ministries:', error);
         this.ministries = [];
-        this.showToast('Failed to load ministries', 'error');
       }
     },
     async fetchBankAccounts() {
@@ -1322,14 +1214,8 @@ var common = __webpack_require__(11);
         const {
           data
         } = await this.$axios.get('/api/bank_account/find');
-        if (data && data.data) {
-          this.bankAccounts = Array.isArray(data.data) ? data.data : [];
-        } else if (Array.isArray(data)) {
-          this.bankAccounts = data;
-        } else {
-          this.bankAccounts = [];
-        }
-        this.bankAccounts = this.bankAccounts.filter(account => account.isActive);
+        const accounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : [];
+        this.bankAccounts = accounts.filter(account => account.isActive);
       } catch (error) {
         console.error('Error fetching bank accounts:', error);
         this.bankAccounts = [];
@@ -1340,61 +1226,44 @@ var common = __webpack_require__(11);
         const {
           data
         } = await this.$axios.get('/api/accountChart/find');
-        if (data && data.data) {
-          this.chartAccounts = Array.isArray(data.data) ? data.data : [];
-        } else if (Array.isArray(data)) {
-          this.chartAccounts = data;
-        } else {
-          this.chartAccounts = [];
-        }
+        this.chartAccounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : [];
       } catch (error) {
         console.error('Error fetching chart accounts:', error);
         this.chartAccounts = [];
       }
     },
-    // Filter and search methods
-    onFilterChange() {
-      this.filters.status = this.statusFilter;
-      this.pagination.currentPage = 1;
-      this.fetchData();
-      this.fetchDashboard();
-    },
+    // Filter methods
     applyFilters() {
-      this.pagination.currentPage = 1;
       this.fetchData();
       this.fetchDashboard();
     },
     resetFilters() {
       this.filters = {
-        status: '',
         makerId: '',
         ministryId: '',
         fromDate: '',
         toDate: ''
       };
       this.searchTerm = '';
-      this.statusFilter = '';
       this.clearFromDate();
       this.clearToDate();
-      this.pagination.currentPage = 1;
       this.fetchData();
       this.fetchDashboard();
     },
     debounceSearch() {
       clearTimeout(this.searchTimeout);
       this.searchTimeout = setTimeout(() => {
-        this.pagination.currentPage = 1;
         this.fetchData();
       }, 500);
     },
-    // Keep all existing dialog and CRUD methods
+    // Dialog methods
     async openDialog(advance = null) {
       this.isEdit = !!advance;
       this.showDialog = true;
-      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      if (this.users.length === 0 || this.currencies.length === 0 || this.ministries.length === 0) {
+      this.dialogKey = Date.now();
+      if (!this.users.length || !this.currencies.length || !this.ministries.length) {
         this.formLoading = true;
-        await Promise.all([this.users.length === 0 ? this.fetchUsers() : Promise.resolve(), this.currencies.length === 0 ? this.fetchCurrencies() : Promise.resolve(), this.ministries.length === 0 ? this.fetchMinistry() : Promise.resolve(), this.bankAccounts.length === 0 ? this.fetchBankAccounts() : Promise.resolve()]);
+        await this.loadInitialData();
         this.formLoading = false;
       }
       if (advance) {
@@ -1410,8 +1279,7 @@ var common = __webpack_require__(11);
           bankAccountId: advance.bankAccountId || '',
           ministryId: advance.ministryId || '',
           bookingDate: advance.bookingDate || '',
-          externalBookingDate: advance.externalBookingDate || '',
-          exchangeRate: advance.exchangeRate || '',
+          exchangeRate: advance.exchangeRate || 1,
           reason: '',
           externalRef: advance.externalRef || '',
           externalRefNo: advance.externalRefNo || '',
@@ -1421,7 +1289,7 @@ var common = __webpack_require__(11);
         };
       } else {
         this.resetForm();
-        if (this.currencies.length > 0) {
+        if (this.currencies.length) {
           const defaultCurrency = this.currencies.find(c => c.code === 'USD') || this.currencies[0];
           this.form.currencyId = defaultCurrency.id;
         }
@@ -1458,10 +1326,10 @@ var common = __webpack_require__(11);
     async saveAdvance(formData) {
       this.saving = true;
       try {
-        var _this$user3;
+        var _this$user;
         const auditContext = {
           reason: formData.reason || (this.isEdit ? 'Updated record' : 'Created new record'),
-          userId: (_this$user3 = this.user) === null || _this$user3 === void 0 ? void 0 : _this$user3.id
+          userId: (_this$user = this.user) === null || _this$user === void 0 ? void 0 : _this$user.id
         };
         if (this.isEdit && formData.id) {
           formData.updateUserId = this.user.id;
@@ -1477,6 +1345,7 @@ var common = __webpack_require__(11);
           });
           const newRecord = response.data.data;
           this.form = {
+            ...this.form,
             id: newRecord.id,
             amount: newRecord.amount,
             method: newRecord.method || 'bank_transfer',
@@ -1488,17 +1357,11 @@ var common = __webpack_require__(11);
             bankAccountId: newRecord.bankAccountId || '',
             ministryId: newRecord.ministryId || '',
             bookingDate: newRecord.bookingDate || '',
-            exchangeRate: newRecord.exchangeRate || '',
-            reason: '',
-            externalRef: newRecord.externalRef || '',
-            externalRefNo: newRecord.externalRefNo || '',
-            chequeNo: newRecord.chequeNo || '',
-            receiveName: newRecord.receiveName || '',
-            receiveIDNO: newRecord.receiveIDNO || ''
+            exchangeRate: newRecord.exchangeRate || 1
           };
           this.isEdit = true;
           this.$nextTick(() => {
-            this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+            this.dialogKey = Date.now();
           });
           this.showToast('Money advance created successfully', 'success');
         }
@@ -1515,7 +1378,8 @@ var common = __webpack_require__(11);
     },
     async approveAdvance(advance) {
       try {
-        const result = await Object(common["i" /* swalConfirm */])(this.$swal, 'ຢືນຢັນ ການອະນຸມັດ', `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(advance.amount)}?`, 'question', 'ບໍ່', 'ຕົກລົງ');
+        var _advance$currency;
+        const result = await Object(common["i" /* swalConfirm */])(this.$swal, 'ຢືນຢັນ ການອະນຸມັດ', `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(advance.amount, (_advance$currency = advance.currency) === null || _advance$currency === void 0 ? void 0 : _advance$currency.code)}?`, 'question', 'ບໍ່', 'ຕົກລົງ');
         if (result.isConfirmed) {
           await this.$axios.put(`/api/money-advances/${advance.id}/approve`, {
             checkerId: this.user.id,
@@ -1530,7 +1394,6 @@ var common = __webpack_require__(11);
         this.showToast('Error approving money advance', 'error');
       }
     },
-    // Keep all other existing methods (viewDetails, createSettlement, etc.)
     async viewDetails(advance) {
       this.selectedAdvance = advance;
       this.showDetailDialog = true;
@@ -1584,10 +1447,10 @@ var common = __webpack_require__(11);
     },
     async saveSettlement(settlementData) {
       try {
-        var _this$selectedAdvance, _this$user4;
+        var _this$selectedAdvance, _this$user2, _response$data2;
         const auditContext = {
           reason: `Settlement created for Money Advance #${(_this$selectedAdvance = this.selectedAdvanceForSettlement) === null || _this$selectedAdvance === void 0 ? void 0 : _this$selectedAdvance.id}`,
-          userId: (_this$user4 = this.user) === null || _this$user4 === void 0 ? void 0 : _this$user4.id
+          userId: (_this$user2 = this.user) === null || _this$user2 === void 0 ? void 0 : _this$user2.id
         };
         const completeSettlementData = {
           ...settlementData,
@@ -1595,14 +1458,14 @@ var common = __webpack_require__(11);
           ...auditContext
         };
         const response = await this.$axios.post('/api/settlements', completeSettlementData);
-        if (response.data && response.data.success) {
+        if ((_response$data2 = response.data) !== null && _response$data2 !== void 0 && _response$data2.success) {
           this.showToast('Settlement created successfully', 'success');
           this.closeSettlementDialog();
           await this.fetchData();
           await this.fetchDashboard();
         } else {
-          var _response$data;
-          throw new Error(((_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.message) || 'Failed to create settlement');
+          var _response$data3;
+          throw new Error(((_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) || 'Failed to create settlement');
         }
       } catch (error) {
         var _error$response2, _error$response2$data;
@@ -1624,86 +1487,6 @@ var common = __webpack_require__(11);
         this.advanceDetails = null;
       }, 100);
     },
-    // Audit methods (keeping existing)
-    viewAuditTrail(advance) {
-      this.selectedRecordForAudit = advance;
-      this.showAuditDialog = true;
-    },
-    closeAuditDialog() {
-      this.showAuditDialog = false;
-      setTimeout(() => {
-        this.selectedRecordForAudit = null;
-      }, 300);
-    },
-    handleVersionComparison(comparisonData) {
-      this.selectedRecordForComparison = this.selectedRecordForAudit;
-      this.comparisonData = comparisonData;
-      this.showAuditDialog = false;
-      this.showComparisonDialog = true;
-    },
-    closeComparisonDialog() {
-      this.showComparisonDialog = false;
-      setTimeout(() => {
-        this.selectedRecordForComparison = null;
-        this.comparisonData = null;
-      }, 300);
-    },
-    async handleVersionRestore(versionData) {
-      try {
-        const result = await Object(common["i" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການກັບຄືນ', `ທ່ານແນ່ໃຈທີ່ຈະກັບຄືນໄປຫາເວີຊັ່ນນີ້ບໍ່?`, 'question', 'ຍົກເລີກ', 'ກັບຄືນ');
-        if (result.isConfirmed) {
-          var _this$selectedRecordF, _this$selectedRecordF2;
-          const recordId = ((_this$selectedRecordF = this.selectedRecordForAudit) === null || _this$selectedRecordF === void 0 ? void 0 : _this$selectedRecordF.id) || ((_this$selectedRecordF2 = this.selectedRecordForComparison) === null || _this$selectedRecordF2 === void 0 ? void 0 : _this$selectedRecordF2.id);
-          const {
-            data
-          } = await this.$axios.post(`/api/money-advances/${recordId}/restore`, {
-            targetVersion: versionData.version,
-            reason: 'Restored via audit trail'
-          });
-          if (data.success) {
-            this.showToast('ກັບຄືນເວີຊັ່ນສຳເລັດ', 'success');
-            this.closeAuditDialog();
-            this.closeComparisonDialog();
-            await this.fetchData();
-          } else {
-            throw new Error(data.message || 'Restore failed');
-          }
-        }
-      } catch (error) {
-        console.error('Error restoring version:', error);
-        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການກັບຄືນ', 'error');
-      }
-    },
-    handleViewFullChanges(auditEntry) {
-      console.log('View full changes for:', auditEntry);
-      this.showToast('ຟັງຊັ່ນນີ້ຈະຖືກພັດທະນາໃນອະນາຄົດ', 'info');
-    },
-    openAuditReports() {
-      this.showAuditReportsDialog = true;
-    },
-    closeAuditReportsDialog() {
-      this.showAuditReportsDialog = false;
-    },
-    // Detail dialog handlers
-    downloadAdvanceDetails() {
-      const details = this.formatAdvanceForDownload();
-      const blob = new Blob([details], {
-        type: 'text/plain'
-      });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `money-advance-${this.advanceDetails.id}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    },
-    retryLoadDetails() {
-      if (this.selectedAdvance) {
-        this.viewDetails(this.selectedAdvance);
-      }
-    },
     handleEditFromDetail(advance) {
       this.closeDetailDialog();
       this.openDialog(advance);
@@ -1716,41 +1499,6 @@ var common = __webpack_require__(11);
       this.closeDetailDialog();
       this.createSettlement(advance);
     },
-    formatAdvanceForDownload() {
-      var _advance$maker, _advance$ministry, _advance$currency;
-      const advance = this.advanceDetails;
-      return `
-MONEY ADVANCE DETAILS
-=====================
-
-ID: ${advance.id}
-Maker: ${((_advance$maker = advance.maker) === null || _advance$maker === void 0 ? void 0 : _advance$maker.cus_name) || 'N/A'}
-Ministry: ${((_advance$ministry = advance.ministry) === null || _advance$ministry === void 0 ? void 0 : _advance$ministry.name) || 'N/A'}
-Amount: ${this.formatCurrency(advance.amount)} ${((_advance$currency = advance.currency) === null || _advance$currency === void 0 ? void 0 : _advance$currency.code) || ''}
-Purpose: ${advance.purpose || 'N/A'}
-Status: ${advance.status.toUpperCase()}
-Due Date: ${this.formatDate(advance.dueDate)}
-Created Date: ${this.formatDate(advance.createdAt)}
-Updated Date: ${this.formatDate(advance.updatedAt)}
-
-${advance.bankAccount ? `Bank Account: ${advance.bankAccount.bankName} - ${advance.bankAccount.accountNumber}` : 'No Bank Account'}
-
-Notes: ${advance.note || 'No notes provided'}
-
-${advance.checker ? `Checker: ${advance.checker.cus_name}` : ''}
-${advance.approvedAt ? `Approved At: ${this.formatDate(advance.approvedAt)}` : ''}
-${advance.settledAt ? `Settled At: ${this.formatDate(advance.settledAt)}` : ''}
-
-Generated on: ${new Date().toLocaleString()}
-      `.trim();
-    },
-    // Pagination
-    changePage(page) {
-      if (page >= 1 && page <= this.pagination.totalPages) {
-        this.pagination.currentPage = page;
-        this.fetchData();
-      }
-    },
     // Update methods for form dialog
     updateSelectedCurrency(currencyId) {
       console.log('Currency changed to:', currencyId);
@@ -1761,14 +1509,6 @@ Generated on: ${new Date().toLocaleString()}
     updateSelectedMinistry(ministryId) {
       console.log('Ministry changed to:', ministryId);
     },
-    // Utility methods
-    // formatCurrency(amount) {
-    //   return new Intl.NumberFormat('en-US', {
-    //     style: 'currency',
-    //     currency: 'USD',
-    //   }).format(amount || 0)
-    // },
-
     formatCurrency(amount, currencyCode = 'LAK') {
       try {
         return new Intl.NumberFormat('en-US', {
@@ -1778,7 +1518,7 @@ Generated on: ${new Date().toLocaleString()}
           maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2
         }).format(amount || 0);
       } catch (error) {
-        return `${this.formatNumber(amount)} ${currencyCode}`;
+        return `${amount || 0} ${currencyCode}`;
       }
     },
     showToast(message, type = 'info') {
@@ -1807,7 +1547,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(954)
+  var style0 = __webpack_require__(945)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1816,11 +1556,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_moneyAdvanceByBankvue_type_script_lang_js_,
-  moneyAdvanceByBankvue_type_template_id_26c1dbea_scoped_true_render,
+  moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "26c1dbea",
+  "4b38046a",
   "59e89739"
   
 )
@@ -4821,7 +4561,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(538);
+var content = __webpack_require__(535);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4893,7 +4633,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(594);
+var content = __webpack_require__(591);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4911,7 +4651,7 @@ module.exports.__inject__ = function (context) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(596);
+var content = __webpack_require__(593);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4923,61 +4663,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 519:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(598);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("683701e4", content, true, context)
-};
-
-/***/ }),
-
-/***/ 520:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(600);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("3bcd7bf8", content, true, context)
-};
-
-/***/ }),
-
-/***/ 521:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(602);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("9673ac5e", content, true, context)
-};
-
-/***/ }),
-
-/***/ 529:
+/***/ 526:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5793,7 +5479,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(537)
+  var style0 = __webpack_require__(534)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -5815,7 +5501,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 530:
+/***/ 527:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7174,7 +6860,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 537:
+/***/ 534:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7186,7 +6872,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 538:
+/***/ 535:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7201,7 +6887,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 593:
+/***/ 590:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7213,7 +6899,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 594:
+/***/ 591:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7228,7 +6914,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 595:
+/***/ 592:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7240,7 +6926,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 596:
+/***/ 593:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7255,88 +6941,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 597:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(519);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5c476a8a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 598:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".audit-dialog[data-v-5c476a8a]{max-height:90vh;max-width:900px;width:95%}.audit-header[data-v-5c476a8a]{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff}.audit-content[data-v-5c476a8a]{max-height:70vh;overflow-y:auto}.error-container[data-v-5c476a8a],.loading-container[data-v-5c476a8a],.no-data-container[data-v-5c476a8a]{color:#666;padding:40px 20px;text-align:center}.spinner[data-v-5c476a8a]{animation:spin-5c476a8a 1s linear infinite;border:4px solid #f3f3f3;border-radius:50%;border-top-color:#4f46e5;height:40px;margin:0 auto 20px;width:40px}@keyframes spin-5c476a8a{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.error-icon[data-v-5c476a8a],.no-data-icon[data-v-5c476a8a]{font-size:48px;margin-bottom:15px;opacity:.5}.audit-summary[data-v-5c476a8a]{grid-gap:16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:24px}.summary-card[data-v-5c476a8a]{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;gap:12px;padding:16px}.summary-card[data-v-5c476a8a],.summary-icon[data-v-5c476a8a]{align-items:center;display:flex}.summary-icon[data-v-5c476a8a]{background:#4f46e5;border-radius:50%;color:#fff;font-size:18px;height:40px;justify-content:center;width:40px}.summary-info[data-v-5c476a8a]{flex:1}.summary-label[data-v-5c476a8a]{color:#64748b;font-size:12px;margin-bottom:4px}.summary-value[data-v-5c476a8a]{color:#1e293b;font-size:16px;font-weight:600}.audit-controls[data-v-5c476a8a]{margin-bottom:24px}.filter-controls[data-v-5c476a8a]{align-items:center;display:flex;gap:12px}.filter-select[data-v-5c476a8a]{border:1px solid #d1d5db;border-radius:6px;font-size:14px;max-width:200px;padding:8px 12px}.audit-timeline[data-v-5c476a8a]{position:relative}.audit-timeline[data-v-5c476a8a]:before{background:#e2e8f0;bottom:0;content:\"\";left:20px;position:absolute;top:0;width:2px}.timeline-item[data-v-5c476a8a]{margin-bottom:24px;margin-left:40px;position:relative}.timeline-item.expandable .timeline-header[data-v-5c476a8a]{cursor:pointer}.timeline-item.expandable .timeline-header[data-v-5c476a8a]:hover{background:#f8fafc}.timeline-marker[data-v-5c476a8a]{align-items:center;background:#fff;border:2px solid #e2e8f0;border-radius:50%;display:flex;font-size:16px;height:40px;justify-content:center;left:-60px;position:absolute;top:8px;width:40px}.timeline-content[data-v-5c476a8a]{background:#fff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}.timeline-header[data-v-5c476a8a]{align-items:center;border-radius:8px;display:flex;justify-content:space-between;padding:16px;transition:background-color .2s}.timeline-main-info[data-v-5c476a8a]{flex:1}.timeline-action[data-v-5c476a8a]{align-items:center;display:flex;gap:12px;margin-bottom:4px}.action-badge[data-v-5c476a8a]{border-radius:12px;font-size:12px;font-weight:600;padding:4px 8px;text-transform:uppercase}.action-badge.create[data-v-5c476a8a]{background:#dcfce7;color:#166534}.action-badge.update[data-v-5c476a8a]{background:#fef3c7;color:#92400e}.action-badge.approve[data-v-5c476a8a]{background:#dcfce7;color:#166534}.action-badge.settle[data-v-5c476a8a]{background:#dbeafe;color:#1e40af}.action-badge.delete[data-v-5c476a8a]{background:#fee2e2;color:#dc2626}.timeline-time[data-v-5c476a8a]{color:#64748b;font-size:12px}.timeline-user[data-v-5c476a8a]{align-items:center;color:#475569;display:flex;font-size:14px;gap:6px}.timeline-toggle[data-v-5c476a8a]{align-items:center;color:#64748b;display:flex;gap:8px}.changes-count[data-v-5c476a8a],.toggle-icon[data-v-5c476a8a]{font-size:12px}.toggle-icon[data-v-5c476a8a]{transition:transform .2s}.timeline-reason[data-v-5c476a8a]{align-items:center;background:#f1f5f9;border-top:1px solid #e2e8f0;color:#475569;display:flex;font-size:14px;font-style:italic;gap:8px;padding:8px 16px}.timeline-details[data-v-5c476a8a]{background:#fafbfc;border-top:1px solid #e2e8f0;padding:16px}.changes-list h6[data-v-5c476a8a]{color:#374151;font-size:14px;margin:0 0 12px}.change-item[data-v-5c476a8a]{background:#fff;border:1px solid #e2e8f0;border-radius:6px;margin-bottom:12px;padding:12px}.change-field[data-v-5c476a8a]{align-items:center;color:#374151;display:flex;font-size:14px;font-weight:600;gap:8px;margin-bottom:8px}.change-values[data-v-5c476a8a]{grid-gap:12px;align-items:center;display:grid;gap:12px;grid-template-columns:1fr auto 1fr}.new-value[data-v-5c476a8a],.old-value[data-v-5c476a8a]{display:flex;flex-direction:column;gap:4px}.value-label[data-v-5c476a8a]{color:#64748b;font-size:12px;font-weight:500}.value[data-v-5c476a8a]{background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;color:#1e293b;font-size:14px;padding:6px 8px}.old-value .value[data-v-5c476a8a]{background:#fef2f2;border-color:#fecaca;color:#991b1b}.new-value .value[data-v-5c476a8a]{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.arrow[data-v-5c476a8a]{color:#64748b;font-size:14px}.view-full-details[data-v-5c476a8a]{margin-top:12px;text-align:center}.load-more-container[data-v-5c476a8a]{border-top:1px solid #e2e8f0;margin-top:24px;padding-top:24px;text-align:center}.btn[data-v-5c476a8a]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;transition:all .2s}.btn[data-v-5c476a8a]:hover:not(:disabled){box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-1px)}.btn-primary[data-v-5c476a8a]{background:#4f46e5;color:#fff}.btn-secondary[data-v-5c476a8a]{background:#6b7280;color:#fff}.btn-info[data-v-5c476a8a]{background:#0ea5e9;color:#fff}.btn-link[data-v-5c476a8a]{background:none;border:1px solid transparent;color:#4f46e5;-webkit-text-decoration:none;text-decoration:none}.btn-link[data-v-5c476a8a]:hover{background:#f0f9ff;border-color:#bae6fd}.btn-sm[data-v-5c476a8a]{font-size:12px;padding:6px 12px}.btn[data-v-5c476a8a]:disabled{box-shadow:none!important;cursor:not-allowed;opacity:.6;transform:none!important}.audit-footer[data-v-5c476a8a]{background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;gap:12px;justify-content:flex-end}@media (max-width:768px){.audit-dialog[data-v-5c476a8a]{margin:10px;width:98%}.audit-summary[data-v-5c476a8a]{grid-template-columns:1fr}.filter-controls[data-v-5c476a8a]{align-items:stretch;flex-direction:column}.filter-select[data-v-5c476a8a]{max-width:none}.timeline-item[data-v-5c476a8a]{margin-left:20px}.timeline-marker[data-v-5c476a8a]{font-size:14px;height:30px;left:-40px;width:30px}.change-values[data-v-5c476a8a]{gap:8px;grid-template-columns:1fr}.arrow[data-v-5c476a8a]{text-align:center;transform:rotate(90deg)}.audit-footer[data-v-5c476a8a]{flex-direction:column-reverse}.audit-footer .btn[data-v-5c476a8a]{justify-content:center;width:100%}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 599:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(520);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_e6a23e30_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 600:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-e6a23e30]{align-items:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);background:rgba(0,0,0,.6);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.comparison-dialog[data-v-e6a23e30]{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;max-width:1000px;overflow:hidden;width:95%}.modal-header[data-v-e6a23e30]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;padding:24px}.modal-title-section[data-v-e6a23e30]{align-items:center;display:flex;gap:12px}.modal-icon[data-v-e6a23e30]{font-size:20px}.modal-title[data-v-e6a23e30]{font-size:18px;font-weight:600;margin:0}.close-btn[data-v-e6a23e30]{background:none;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:18px;opacity:.8;padding:8px;transition:opacity .2s}.close-btn[data-v-e6a23e30]:hover{background:hsla(0,0%,100%,.1);opacity:1}.modal-body[data-v-e6a23e30]{max-height:70vh;overflow-y:auto;padding:0}.error-state[data-v-e6a23e30],.loading-state[data-v-e6a23e30],.no-differences[data-v-e6a23e30],.select-versions-prompt[data-v-e6a23e30]{align-items:center;display:flex;flex-direction:column;justify-content:center;padding:60px 20px;text-align:center}.spinner[data-v-e6a23e30]{animation:spin-e6a23e30 1s linear infinite;border:4px solid #f3f3f3;border-radius:50%;border-top-color:#667eea;height:40px;margin-bottom:20px;width:40px}@keyframes spin-e6a23e30{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.error-icon[data-v-e6a23e30],.no-diff-icon[data-v-e6a23e30],.prompt-icon[data-v-e6a23e30]{font-size:48px;margin-bottom:20px;opacity:.6}.error-icon[data-v-e6a23e30]{color:#e74c3c}.prompt-icon[data-v-e6a23e30]{color:#3498db}.no-diff-icon[data-v-e6a23e30]{color:#27ae60}.version-selector[data-v-e6a23e30]{grid-gap:20px;align-items:end;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:grid;gap:20px;grid-template-columns:1fr auto 1fr;padding:24px}.selector-group[data-v-e6a23e30]{display:flex;flex-direction:column;gap:8px}.selector-group label[data-v-e6a23e30]{color:#2c3e50;font-size:14px;font-weight:600}.form-control[data-v-e6a23e30]{background:#fff;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;padding:12px 16px;transition:border-color .2s ease}.form-control[data-v-e6a23e30]:focus{border-color:#667eea;outline:none}.comparison-arrow[data-v-e6a23e30]{align-items:center;background:#667eea;border-radius:50%;color:#fff;display:flex;font-size:16px;height:40px;justify-content:center;margin-top:24px;width:40px}.comparison-results[data-v-e6a23e30]{padding:24px}.comparison-summary[data-v-e6a23e30]{grid-gap:16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:24px}.summary-card[data-v-e6a23e30]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.05);gap:12px;padding:16px}.summary-card[data-v-e6a23e30],.summary-icon[data-v-e6a23e30]{align-items:center;display:flex}.summary-icon[data-v-e6a23e30]{background:#667eea;border-radius:50%;color:#fff;font-size:16px;height:40px;justify-content:center;width:40px}.summary-number[data-v-e6a23e30]{color:#2c3e50;font-size:20px;font-weight:700}.summary-text[data-v-e6a23e30]{color:#2c3e50;font-size:12px;font-weight:600;word-break:break-word}.summary-label[data-v-e6a23e30]{color:#7f8c8d;font-size:11px;margin-top:4px}.differences-table h6[data-v-e6a23e30]{align-items:center;color:#2c3e50;display:flex;font-size:16px;font-weight:600;gap:8px;margin-bottom:16px}.table-container[data-v-e6a23e30]{border:1px solid #e9ecef;border-radius:8px;overflow:hidden}.comparison-table[data-v-e6a23e30]{background:#fff;border-collapse:collapse;width:100%}.comparison-table th[data-v-e6a23e30]{background:#f8f9fa;border-bottom:2px solid #e9ecef;font-size:13px;font-weight:600;padding:16px 12px;text-align:left}.field-header[data-v-e6a23e30]{color:#495057;width:200px}.version-header[data-v-e6a23e30]{position:relative}.version-header.version1[data-v-e6a23e30]{background:linear-gradient(135deg,#ffe6e6,#fcc)}.version-header.version2[data-v-e6a23e30]{background:linear-gradient(135deg,#e6ffe6,#cfc)}.version-info[data-v-e6a23e30]{text-align:center}.version-label[data-v-e6a23e30]{color:#2c3e50;font-weight:700}.version-date[data-v-e6a23e30]{color:#7f8c8d;font-size:11px;margin-top:2px}.comparison-table td[data-v-e6a23e30]{border-bottom:1px solid #f1f3f4;padding:16px 12px;vertical-align:top}.diff-row[data-v-e6a23e30]:hover{background:#f8f9fa}.field-cell[data-v-e6a23e30]{background:#fafbfc;border-right:1px solid #e9ecef}.field-info[data-v-e6a23e30]{align-items:center;display:flex;gap:8px}.field-info i[data-v-e6a23e30]{color:#6c757d;text-align:center;width:16px}.field-name[data-v-e6a23e30]{color:#495057;font-size:13px;font-weight:600}.value-cell[data-v-e6a23e30]{position:relative}.value-cell.version1[data-v-e6a23e30]{background:#fff8f8}.value-cell.version2[data-v-e6a23e30]{background:#f8fff8}.value-content[data-v-e6a23e30]{align-items:center;display:flex;justify-content:space-between;min-height:24px;position:relative}.value-text[data-v-e6a23e30]{background:hsla(0,0%,100%,.8);border:1px solid transparent;border-radius:4px;flex:1;font-family:\"Monaco\",\"Menlo\",\"Ubuntu Mono\",monospace;font-size:12px;padding:6px 10px}.old-value .value-text[data-v-e6a23e30]{background:#fef2f2;border-color:#fecaca;color:#dc2626}.new-value .value-text[data-v-e6a23e30]{background:#f0fdf4;border-color:#bbf7d0;color:#059669}.change-indicator[data-v-e6a23e30]{color:#3b82f6;font-size:12px;margin-left:8px;opacity:.7}.comparison-actions[data-v-e6a23e30]{gap:12px;justify-content:center;margin-top:24px;padding-top:24px}.comparison-actions[data-v-e6a23e30],.modal-footer[data-v-e6a23e30]{border-top:1px solid #e9ecef;display:flex}.modal-footer[data-v-e6a23e30]{align-items:center;background:#f8f9fa;justify-content:space-between;padding:20px 24px}.btn[data-v-e6a23e30]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s ease}.btn[data-v-e6a23e30]:hover:not(:disabled){box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateY(-1px)}.btn[data-v-e6a23e30]:disabled{cursor:not-allowed;opacity:.6;transform:none!important}.btn-primary[data-v-e6a23e30]{background:#667eea;color:#fff}.btn-secondary[data-v-e6a23e30]{background:#6c757d;color:#fff}.btn-warning[data-v-e6a23e30]{background:#f39c12;color:#fff}.btn-outline[data-v-e6a23e30]{background:#fff;border:2px solid #667eea;color:#667eea}.btn-outline[data-v-e6a23e30]:hover:not(:disabled){background:#667eea;color:#fff}.btn-sm[data-v-e6a23e30]{font-size:12px;padding:8px 16px}@media (max-width:768px){.comparison-dialog[data-v-e6a23e30]{margin:10px;width:98%}.version-selector[data-v-e6a23e30]{gap:16px;grid-template-columns:1fr}.comparison-arrow[data-v-e6a23e30]{margin:0 auto;transform:rotate(90deg)}.comparison-summary[data-v-e6a23e30]{grid-template-columns:1fr}.comparison-table[data-v-e6a23e30]{font-size:12px}.comparison-table td[data-v-e6a23e30],.comparison-table th[data-v-e6a23e30]{padding:12px 8px}.field-header[data-v-e6a23e30]{width:auto}.modal-footer[data-v-e6a23e30]{gap:12px}.comparison-actions[data-v-e6a23e30],.modal-footer[data-v-e6a23e30]{flex-direction:column}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 601:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(521);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7e1ed358_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 602:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-7e1ed358]{align-items:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);background:rgba(0,0,0,.6);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.reports-dialog[data-v-7e1ed358]{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;max-width:1200px;overflow:hidden;width:95%}.modal-header[data-v-7e1ed358]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;padding:24px}.modal-title-section[data-v-7e1ed358]{align-items:center;display:flex;gap:12px}.modal-icon[data-v-7e1ed358]{font-size:20px}.modal-title[data-v-7e1ed358]{font-size:18px;font-weight:600;margin:0}.close-btn[data-v-7e1ed358]{background:none;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:18px;opacity:.8;padding:8px;transition:opacity .2s}.close-btn[data-v-7e1ed358]:hover{background:hsla(0,0%,100%,.1);opacity:1}.modal-body[data-v-7e1ed358]{max-height:70vh;overflow-y:auto;padding:0}.tabs-container[data-v-7e1ed358]{background:#f8f9fa;border-bottom:1px solid #e9ecef}.tabs[data-v-7e1ed358]{display:flex;padding:0 24px}.tab-btn[data-v-7e1ed358]{align-items:center;background:none;border:none;border-bottom:3px solid transparent;color:#6c757d;cursor:pointer;display:flex;font-size:14px;font-weight:500;gap:8px;padding:16px 24px;transition:all .2s ease}.tab-btn[data-v-7e1ed358]:hover{background:hsla(0,0%,100%,.5);color:#495057}.tab-btn.active[data-v-7e1ed358]{background:#fff;border-bottom-color:#667eea;color:#667eea}.report-content[data-v-7e1ed358]{padding:24px}.report-header[data-v-7e1ed358]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;margin-bottom:24px;padding-bottom:16px}.report-header h6[data-v-7e1ed358]{color:#2c3e50;font-size:16px;gap:8px;margin:0}.date-filter[data-v-7e1ed358],.report-header h6[data-v-7e1ed358]{align-items:center;display:flex}.date-filter[data-v-7e1ed358]{gap:12px}.date-filter span[data-v-7e1ed358]{color:#6c757d;font-size:14px}.form-control[data-v-7e1ed358]{border:1px solid #ddd;border-radius:4px;font-size:14px;padding:8px 12px}.loading-state[data-v-7e1ed358]{align-items:center;color:#6c757d;display:flex;gap:12px;justify-content:center;padding:60px}.spinner-sm[data-v-7e1ed358]{animation:spin-7e1ed358 1s linear infinite;border:2px solid #f3f3f3;border-radius:50%;border-top-color:#667eea;height:20px;width:20px}.activity-summary[data-v-7e1ed358]{grid-gap:16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:24px}.summary-card[data-v-7e1ed358]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.05);gap:12px;padding:16px}.summary-card[data-v-7e1ed358],.summary-icon[data-v-7e1ed358]{align-items:center;display:flex}.summary-icon[data-v-7e1ed358]{background:#667eea;border-radius:50%;color:#fff;font-size:16px;height:40px;justify-content:center;width:40px}.summary-number[data-v-7e1ed358]{color:#2c3e50;font-size:20px;font-weight:700}.summary-text[data-v-7e1ed358]{color:#2c3e50;font-size:14px;font-weight:600}.summary-label[data-v-7e1ed358]{color:#7f8c8d;font-size:11px;margin-top:4px}.activity-table[data-v-7e1ed358]{border:1px solid #e9ecef;border-radius:8px;overflow:hidden}.table[data-v-7e1ed358]{border-collapse:collapse;margin:0;width:100%}.table th[data-v-7e1ed358]{background:#f8f9fa;border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;text-align:left}.table td[data-v-7e1ed358],.table th[data-v-7e1ed358]{font-size:13px;padding:12px}.table td[data-v-7e1ed358]{border-bottom:1px solid #f1f3f4}.user-info[data-v-7e1ed358]{display:flex;flex-direction:column;gap:2px}.user-name[data-v-7e1ed358]{color:#2c3e50;font-weight:600}.user-id[data-v-7e1ed358]{color:#7f8c8d;font-size:11px}.activity-count[data-v-7e1ed358]{border-radius:12px;display:inline-block;font-size:11px;font-weight:600;min-width:24px;padding:4px 8px;text-align:center}.activity-count.create[data-v-7e1ed358]{background:#d4edda;color:#155724}.activity-count.update[data-v-7e1ed358]{background:#fff3cd;color:#856404}.activity-count.approve[data-v-7e1ed358]{background:#cce5ff;color:#004085}.activity-count.settle[data-v-7e1ed358]{background:#e2e3e5;color:#495057}.activity-count.delete[data-v-7e1ed358]{background:#f8d7da;color:#721c24}.total-count[data-v-7e1ed358]{color:#2c3e50;font-weight:700}.chart-container[data-v-7e1ed358]{margin-bottom:32px}.chart-container h6[data-v-7e1ed358]{color:#2c3e50;margin-bottom:16px}.chart-placeholder[data-v-7e1ed358]{background:#f8f9fa;border-radius:8px;min-height:200px;padding:20px}.chart-bars[data-v-7e1ed358]{align-items:end;display:flex;gap:4px;height:150px;margin-bottom:8px}.chart-bar[data-v-7e1ed358]{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:4px 4px 0 0;cursor:pointer;flex:1;min-height:8px;position:relative;transition:all .2s ease}.chart-bar[data-v-7e1ed358]:hover{opacity:.8}.bar-value[data-v-7e1ed358]{color:#495057;font-size:10px;font-weight:600;left:50%;position:absolute;top:-20px;transform:translateX(-50%)}.chart-labels[data-v-7e1ed358]{display:flex;gap:4px}.chart-label[data-v-7e1ed358]{color:#6c757d;flex:1;font-size:10px;text-align:center}.breakdown-grid[data-v-7e1ed358]{grid-gap:16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:32px}.breakdown-item[data-v-7e1ed358]{align-items:center;background:#f8f9fa;border-radius:8px;display:flex;gap:12px;padding:16px}.breakdown-icon[data-v-7e1ed358]{align-items:center;border-radius:50%;color:#fff;display:flex;font-size:14px;height:32px;justify-content:center;width:32px}.breakdown-icon.create[data-v-7e1ed358]{background:#28a745}.breakdown-icon.update[data-v-7e1ed358]{background:#ffc107;color:#212529}.breakdown-icon.approve[data-v-7e1ed358]{background:#17a2b8}.breakdown-icon.settle[data-v-7e1ed358]{background:#6c757d}.breakdown-icon.delete[data-v-7e1ed358]{background:#dc3545}.breakdown-label[data-v-7e1ed358]{color:#2c3e50;font-size:12px;font-weight:600}.breakdown-count[data-v-7e1ed358]{color:#495057;font-size:18px;font-weight:700}.breakdown-percentage[data-v-7e1ed358]{color:#7f8c8d;font-size:11px}.changes-timeline[data-v-7e1ed358]{display:flex;flex-direction:column;gap:12px}.change-item[data-v-7e1ed358]{background:#f8f9fa;border-radius:6px;gap:12px;padding:12px}.change-icon[data-v-7e1ed358],.change-item[data-v-7e1ed358]{align-items:center;display:flex}.change-icon[data-v-7e1ed358]{border-radius:50%;color:#fff;font-size:10px;height:24px;justify-content:center;width:24px}.change-content[data-v-7e1ed358]{flex:1}.change-text[data-v-7e1ed358]{color:#495057;font-size:13px;margin-bottom:2px}.change-time[data-v-7e1ed358]{color:#7f8c8d;font-size:11px}.export-options[data-v-7e1ed358]{display:flex;flex-direction:column;gap:24px}.export-option[data-v-7e1ed358]{border:1px solid #e9ecef;border-radius:8px;padding:20px}.option-header[data-v-7e1ed358]{align-items:center;display:flex;gap:12px;margin-bottom:12px}.option-header i[data-v-7e1ed358]{color:#667eea;font-size:18px}.option-header h6[data-v-7e1ed358]{color:#2c3e50;margin:0}.export-controls[data-v-7e1ed358]{gap:12px;margin-top:16px}.date-range[data-v-7e1ed358],.export-controls[data-v-7e1ed358]{align-items:center;display:flex}.date-range[data-v-7e1ed358]{gap:8px}.backup-info[data-v-7e1ed358]{color:#6c757d}.btn[data-v-7e1ed358]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;transition:all .2s ease}.btn[data-v-7e1ed358]:hover:not(:disabled){transform:translateY(-1px)}.btn[data-v-7e1ed358]:disabled{cursor:not-allowed;opacity:.6;transform:none!important}.btn-primary[data-v-7e1ed358]{background:#667eea;color:#fff}.btn-secondary[data-v-7e1ed358]{background:#6c757d;color:#fff}.btn-warning[data-v-7e1ed358]{background:#ffc107;color:#212529}.btn-outline[data-v-7e1ed358]{background:#fff;border:2px solid #667eea;color:#667eea}.btn-outline[data-v-7e1ed358]:hover:not(:disabled){background:#667eea;color:#fff}.btn-sm[data-v-7e1ed358]{font-size:12px;padding:6px 12px}.modal-footer[data-v-7e1ed358]{align-items:center;background:#f8f9fa;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px 24px}.no-data[data-v-7e1ed358]{color:#6c757d;padding:60px 20px;text-align:center}.no-data i[data-v-7e1ed358]{font-size:48px;margin-bottom:16px;opacity:.5}@media (max-width:768px){.reports-dialog[data-v-7e1ed358]{margin:10px;width:98%}.tabs[data-v-7e1ed358]{overflow-x:auto;padding:0 16px}.tab-btn[data-v-7e1ed358]{padding:12px 16px;white-space:nowrap}.report-content[data-v-7e1ed358]{padding:16px}.report-header[data-v-7e1ed358]{align-items:stretch;flex-direction:column;gap:16px}.date-filter[data-v-7e1ed358]{flex-wrap:wrap}.activity-summary[data-v-7e1ed358],.breakdown-grid[data-v-7e1ed358]{grid-template-columns:1fr}.export-controls[data-v-7e1ed358]{align-items:stretch;flex-direction:column}.date-range[data-v-7e1ed358]{justify-content:center}}@keyframes spin-7e1ed358{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 634:
+/***/ 625:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7750,7 +7355,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/MA/paymentDialog/index.vue?vue&type=template&id=0024d5f2&scoped=true&
 
 // EXTERNAL MODULE: ./components/MA/paymentVoucher/index.vue + 4 modules
-var paymentVoucher = __webpack_require__(529);
+var paymentVoucher = __webpack_require__(526);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentDialog/index.vue?vue&type=script&lang=js&
 
@@ -8380,7 +7985,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(593)
+  var style0 = __webpack_require__(590)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -8402,7 +8007,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 635:
+/***/ 626:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8539,7 +8144,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(595)
+  var style0 = __webpack_require__(592)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -8561,1247 +8166,44 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 636:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentAuditDialog/index.vue?vue&type=template&id=5c476a8a&scoped=true&
-var render = function render() {
-  var _vm$auditTrail$, _vm$auditTrail$2;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.closeDialog
-    }
-  }, [_vm._ssrNode("<div class=\"modal-dialog audit-dialog\" data-v-5c476a8a>", "</div>", [_vm._ssrNode("<div class=\"modal-header audit-header\" data-v-5c476a8a><div class=\"modal-title-section\" data-v-5c476a8a><i class=\"fas fa-history modal-icon\" data-v-5c476a8a></i> <h5 class=\"modal-title\" data-v-5c476a8a>" + _vm._ssrEscape("\n          ປະຫວັດການປ່ຽນແປງ - " + _vm._s(_vm.recordTitle) + "\n        ") + "</h5></div> <button class=\"close-btn\" data-v-5c476a8a><i class=\"fas fa-times\" data-v-5c476a8a></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-5c476a8a>", "</div>", [_vm.loading ? _vm._ssrNode("<div class=\"loading-container\" data-v-5c476a8a>", "</div>", [_vm._ssrNode("<div class=\"spinner\" data-v-5c476a8a></div> <p data-v-5c476a8a>ກຳລັງໂຫຼດປະຫວັດການປ່ຽນແປງ...</p>")], 2) : _vm.error ? _vm._ssrNode("<div class=\"error-container\" data-v-5c476a8a><div class=\"error-icon\" data-v-5c476a8a><i class=\"fas fa-exclamation-triangle\" data-v-5c476a8a></i></div> <h4 data-v-5c476a8a>ເກີດຂໍ້ຜິດພາດ</h4> <p data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(_vm.error)) + "</p> <button class=\"btn btn-primary btn-sm\" data-v-5c476a8a><i class=\"fas fa-redo\" data-v-5c476a8a></i>\n          ລອງໃໝ່\n        </button></div>") : _vm.auditTrail.length === 0 ? _vm._ssrNode("<div class=\"no-data-container\" data-v-5c476a8a><div class=\"no-data-icon\" data-v-5c476a8a><i class=\"fas fa-history\" data-v-5c476a8a></i></div> <h4 data-v-5c476a8a>ບໍ່ມີປະຫວັດການປ່ຽນແປງ</h4> <p data-v-5c476a8a>ບໍ່ພົບປະຫວັດການປ່ຽນແປງສຳລັບບັນຊີນີ້</p></div>") : _vm._ssrNode("<div class=\"audit-content\" data-v-5c476a8a>", "</div>", [_vm._ssrNode("<div class=\"audit-summary\" data-v-5c476a8a><div class=\"summary-card\" data-v-5c476a8a><div class=\"summary-icon\" data-v-5c476a8a><i class=\"fas fa-list\" data-v-5c476a8a></i></div> <div class=\"summary-info\" data-v-5c476a8a><div class=\"summary-label\" data-v-5c476a8a>ລວມການປ່ຽນແປງ</div> <div class=\"summary-value\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(_vm.auditTrail.length)) + "</div></div></div> <div class=\"summary-card\" data-v-5c476a8a><div class=\"summary-icon\" data-v-5c476a8a><i class=\"fas fa-clock\" data-v-5c476a8a></i></div> <div class=\"summary-info\" data-v-5c476a8a><div class=\"summary-label\" data-v-5c476a8a>ການປ່ຽນແປງລ່າສຸດ</div> <div class=\"summary-value\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime((_vm$auditTrail$ = _vm.auditTrail[0]) === null || _vm$auditTrail$ === void 0 ? void 0 : _vm$auditTrail$.changedAt))) + "</div></div></div> <div class=\"summary-card\" data-v-5c476a8a><div class=\"summary-icon\" data-v-5c476a8a><i class=\"fas fa-user\" data-v-5c476a8a></i></div> <div class=\"summary-info\" data-v-5c476a8a><div class=\"summary-label\" data-v-5c476a8a>ຜູ້ປ່ຽນແປງລ່າສຸດ</div> <div class=\"summary-value\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(((_vm$auditTrail$2 = _vm.auditTrail[0]) === null || _vm$auditTrail$2 === void 0 ? void 0 : _vm$auditTrail$2.changedBy) || 'ລະບົບ')) + "</div></div></div></div> "), _vm._ssrNode("<div class=\"audit-controls\" data-v-5c476a8a>", "</div>", [_vm._ssrNode("<div class=\"filter-controls\" data-v-5c476a8a>", "</div>", [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.actionFilter,
-      expression: "actionFilter"
-    }],
-    staticClass: "form-control filter-select",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.actionFilter = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.filterAuditTrail]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ທຸກການດຳເນີນການ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "CREATE"
-    }
-  }, [_vm._v("ສ້າງ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "UPDATE"
-    }
-  }, [_vm._v("ແກ້ໄຂ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "APPROVE"
-    }
-  }, [_vm._v("ອະນຸມັດ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "SETTLE"
-    }
-  }, [_vm._v("ຊຳລະ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "DELETE"
-    }
-  }, [_vm._v("ລົບ")])]), _vm._ssrNode(" <button class=\"btn btn-secondary btn-sm\" data-v-5c476a8a><i class=\"fas fa-download\" data-v-5c476a8a></i>\n              ສົ່ງອອກ\n            </button>")], 2)]), _vm._ssrNode(" <div class=\"audit-timeline\" data-v-5c476a8a>" + _vm._ssrList(_vm.filteredAuditTrail, function (item, index) {
-    return "<div" + _vm._ssrClass("timeline-item", {
-      'expandable': item.totalChanges > 0
-    }) + " data-v-5c476a8a><div class=\"timeline-marker\" data-v-5c476a8a><i" + _vm._ssrClass(null, _vm.getActionIcon(item.action)) + " data-v-5c476a8a></i></div> <div class=\"timeline-content\" data-v-5c476a8a><div class=\"timeline-header\" data-v-5c476a8a><div class=\"timeline-main-info\" data-v-5c476a8a><div class=\"timeline-action\" data-v-5c476a8a><span" + _vm._ssrClass(null, ['action-badge', item.action.toLowerCase()]) + " data-v-5c476a8a>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.getActionInLao(item.action)) + "\n                    ") + "</span> <span class=\"timeline-time\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime(item.changedAt))) + "</span></div> <div class=\"timeline-user\" data-v-5c476a8a><i class=\"fas fa-user-circle\" data-v-5c476a8a></i>" + _vm._ssrEscape("\n                    " + _vm._s(item.changedBy || 'ລະບົບ') + "\n                  ") + "</div></div> " + (item.totalChanges > 0 ? "<div class=\"timeline-toggle\" data-v-5c476a8a><span class=\"changes-count\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(item.totalChanges) + " ການປ່ຽນແປງ") + "</span> <i" + _vm._ssrClass("toggle-icon", ['fas', item.expanded ? 'fa-chevron-up' : 'fa-chevron-down']) + " data-v-5c476a8a></i></div>" : "<!---->") + "</div> " + (item.reason ? "<div class=\"timeline-reason\" data-v-5c476a8a><i class=\"fas fa-comment\" data-v-5c476a8a></i> <span data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(item.reason)) + "</span></div>" : "<!---->") + " " + (item.expanded && item.keyChanges && item.keyChanges.length > 0 ? "<div class=\"timeline-details\" data-v-5c476a8a><div class=\"changes-list\" data-v-5c476a8a><h6 data-v-5c476a8a>ລາຍລະອຽດການປ່ຽນແປງ:</h6> " + _vm._ssrList(item.keyChanges, function (change) {
-      return "<div class=\"change-item\" data-v-5c476a8a><div class=\"change-field\" data-v-5c476a8a><i" + _vm._ssrClass(null, _vm.getFieldIcon(change.field)) + " data-v-5c476a8a></i>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.getFieldNameInLao(change.field)) + "\n                    ") + "</div> <div class=\"change-values\" data-v-5c476a8a><div class=\"old-value\" data-v-5c476a8a><span class=\"value-label\" data-v-5c476a8a>ເກົ່າ:</span> <span class=\"value\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(_vm.formatValue(change.field, change.oldValue))) + "</span></div> <div class=\"arrow\" data-v-5c476a8a><i class=\"fas fa-arrow-right\" data-v-5c476a8a></i></div> <div class=\"new-value\" data-v-5c476a8a><span class=\"value-label\" data-v-5c476a8a>ໃໝ່:</span> <span class=\"value\" data-v-5c476a8a>" + _vm._ssrEscape(_vm._s(_vm.formatValue(change.field, change.newValue))) + "</span></div></div></div>";
-    }) + "</div></div>" : "<!---->") + " " + (item.totalChanges > 3 && item.expanded ? "<div class=\"view-full-details\" data-v-5c476a8a><button class=\"btn btn-link btn-sm\" data-v-5c476a8a><i class=\"fas fa-eye\" data-v-5c476a8a></i>" + _vm._ssrEscape("\n                  ເບິ່ງລາຍລະອຽດທັງໝົດ (" + _vm._s(item.totalChanges) + " ການປ່ຽນແປງ)\n                ") + "</button></div>" : "<!---->") + "</div></div>";
-  }) + "</div> " + (_vm.hasMoreData ? "<div class=\"load-more-container\" data-v-5c476a8a><button" + _vm._ssrAttr("disabled", _vm.loadingMore) + " class=\"btn btn-secondary\" data-v-5c476a8a>" + (_vm.loadingMore ? "<i class=\"fas fa-spinner fa-spin\" data-v-5c476a8a></i>" : "<i class=\"fas fa-plus\" data-v-5c476a8a></i>") + _vm._ssrEscape("\n            " + _vm._s(_vm.loadingMore ? 'ກຳລັງໂຫຼດ...' : 'ໂຫຼດເພີ່ມ') + "\n          ") + "</button></div>" : "<!---->"))], 2)]), _vm._ssrNode(" <div class=\"modal-footer audit-footer\" data-v-5c476a8a><button" + _vm._ssrAttr("disabled", _vm.auditTrail.length < 2) + " class=\"btn btn-info\" data-v-5c476a8a><i class=\"fas fa-balance-scale\" data-v-5c476a8a></i>\n        ປຽບທຽບເວີຊັ່ນ\n      </button> <button class=\"btn btn-secondary\" data-v-5c476a8a><i class=\"fas fa-times\" data-v-5c476a8a></i>\n        ປິດ\n      </button></div>")], 2)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/MA/paymentAuditDialog/index.vue?vue&type=template&id=5c476a8a&scoped=true&
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentAuditDialog/index.vue?vue&type=script&lang=js&
-/* harmony default export */ var paymentAuditDialogvue_type_script_lang_js_ = ({
-  name: 'MoneyAdvanceAuditDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    recordId: {
-      type: [Number, String],
-      required: true
-    },
-    recordTitle: {
-      type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      auditTrail: [],
-      filteredAuditTrail: [],
-      loading: false,
-      loadingMore: false,
-      error: null,
-      actionFilter: '',
-      currentPage: 1,
-      hasMoreData: false,
-      // Lao translations
-      actionLabels: {
-        CREATE: 'ສ້າງ',
-        UPDATE: 'ແກ້ໄຂ',
-        APPROVE: 'ອະນຸມັດ',
-        SETTLE: 'ຊຳລະ',
-        DELETE: 'ລົບ'
-      },
-      fieldLabels: {
-        amount: 'ຈຳນວນເງິນ',
-        purpose: 'ຈຸດປະສົງ',
-        status: 'ສະຖານະ',
-        note: 'ໂນ໊ດ',
-        dueDate: 'ວັນຄົບຮອບ',
-        bookingDate: 'ວັນທີບັນຊີ',
-        makerId: 'ຜູ້ລົງບັນຊີ',
-        checkerId: 'ຜູ້ກວດ',
-        currencyId: 'ສະກຸນເງິນ',
-        bankAccountId: 'ບັນຊີທະນາຄານ',
-        ministryId: 'ກະຊວງ',
-        exchangeRate: 'ອັດຕາແລກປ່ຽນ',
-        approvedAt: 'ວັນທີອະນຸມັດ'
-      }
-    };
-  },
-  watch: {
-    show(newVal) {
-      if (newVal && this.recordId) {
-        this.loadAuditTrail();
-      }
-    },
-    recordId(newVal) {
-      if (newVal && this.show) {
-        this.loadAuditTrail();
-      }
-    }
-  },
-  methods: {
-    async loadAuditTrail() {
-      this.loading = true;
-      this.error = null;
-      this.currentPage = 1;
-      try {
-        const response = await this.$axios.get(`/api/money-advances/${this.recordId}/audit`, {
-          params: {
-            limit: 20,
-            offset: 0
-          }
-        });
-        this.auditTrail = response.data.data.map(item => ({
-          ...item,
-          expanded: false
-        }));
-        this.hasMoreData = response.data.data.length === 20;
-        this.filterAuditTrail();
-      } catch (error) {
-        var _error$response, _error$response$data;
-        console.error('Error loading audit trail:', error);
-        this.error = ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : (_error$response$data = _error$response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || 'ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ';
-      } finally {
-        this.loading = false;
-      }
-    },
-    async loadMoreAuditTrail() {
-      this.loadingMore = true;
-      this.currentPage++;
-      try {
-        const response = await this.$axios.get(`/api/money-advances/${this.recordId}/audit`, {
-          params: {
-            limit: 20,
-            offset: (this.currentPage - 1) * 20
-          }
-        });
-        const newItems = response.data.data.map(item => ({
-          ...item,
-          expanded: false
-        }));
-        this.auditTrail.push(...newItems);
-        this.hasMoreData = newItems.length === 20;
-        this.filterAuditTrail();
-      } catch (error) {
-        console.error('Error loading more audit trail:', error);
-        this.currentPage--; // Revert page increment on error
-      } finally {
-        this.loadingMore = false;
-      }
-    },
-    filterAuditTrail() {
-      if (this.actionFilter) {
-        this.filteredAuditTrail = this.auditTrail.filter(item => item.action === this.actionFilter);
-      } else {
-        this.filteredAuditTrail = [...this.auditTrail];
-      }
-    },
-    toggleExpand(item) {
-      if (item.totalChanges > 0) {
-        this.$set(item, 'expanded', !item.expanded);
-      }
-    },
-    getActionInLao(action) {
-      return this.actionLabels[action] || action;
-    },
-    getFieldNameInLao(field) {
-      return this.fieldLabels[field] || field;
-    },
-    getActionIcon(action) {
-      const icons = {
-        CREATE: 'fas fa-plus text-success',
-        UPDATE: 'fas fa-edit text-warning',
-        APPROVE: 'fas fa-check text-success',
-        SETTLE: 'fas fa-money-bill text-info',
-        DELETE: 'fas fa-trash text-danger'
-      };
-      return icons[action] || 'fas fa-circle';
-    },
-    getFieldIcon(field) {
-      const icons = {
-        amount: 'fas fa-dollar-sign',
-        purpose: 'fas fa-tag',
-        status: 'fas fa-flag',
-        note: 'fas fa-sticky-note',
-        dueDate: 'fas fa-calendar',
-        bookingDate: 'fas fa-calendar-alt',
-        makerId: 'fas fa-user',
-        checkerId: 'fas fa-user-check',
-        currencyId: 'fas fa-coins',
-        bankAccountId: 'fas fa-university',
-        ministryId: 'fas fa-building',
-        exchangeRate: 'fas fa-exchange-alt',
-        approvedAt: 'fas fa-check-circle'
-      };
-      return icons[field] || 'fas fa-info-circle';
-    },
-    formatValue(field, value) {
-      if (value === null || value === undefined) {
-        return 'ບໍ່ມີ';
-      }
-      if (field === 'amount') {
-        return new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        }).format(value);
-      }
-      if (field.includes('Date') || field.includes('At')) {
-        return this.formatDate(value);
-      }
-      if (field === 'status') {
-        const statusLabels = {
-          pending: 'ຄ້າງອະນຸມັດ',
-          approved: 'ອະນຸມັດແລ້ວ',
-          settled: 'ຊຳລະແລ້ວ'
-        };
-        return statusLabels[value] || value;
-      }
-      return value.toString();
-    },
-    formatDateTime(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleString('lo-LA', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    },
-    formatDate(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleDateString('lo-LA');
-    },
-    async exportAuditTrail() {
-      try {
-        const response = await this.$axios.get(`/api/money-advances/${this.recordId}/audit`, {
-          params: {
-            limit: 1000,
-            offset: 0,
-            format: 'csv'
-          },
-          responseType: 'blob'
-        });
-        const blob = new Blob([response.data], {
-          type: 'text/csv'
-        });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `audit-trail-${this.recordId}-${Date.now()}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      } catch (error) {
-        console.error('Export error:', error);
-        this.$emit('show-toast', 'ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກຂໍ້ມູນ', 'error');
-      }
-    },
-    compareVersions() {
-      this.$emit('compare-versions', this.recordId);
-    },
-    viewFullDetails(item) {
-      this.$emit('view-full-details', item);
-    },
-    closeDialog() {
-      this.$emit('close');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/MA/paymentAuditDialog/index.vue?vue&type=script&lang=js&
- /* harmony default export */ var MA_paymentAuditDialogvue_type_script_lang_js_ = (paymentAuditDialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/MA/paymentAuditDialog/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(597)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  MA_paymentAuditDialogvue_type_script_lang_js_,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "5c476a8a",
-  "2eaf8618"
-  
-)
-
-/* harmony default export */ var paymentAuditDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 637:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentCompareDialog/index.vue?vue&type=template&id=e6a23e30&scoped=true&
-var render = function render() {
-  var _vm$recordData;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.closeDialog
-    }
-  }, [_vm._ssrNode("<div class=\"modal-dialog comparison-dialog\" data-v-e6a23e30>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-e6a23e30><div class=\"modal-title-section\" data-v-e6a23e30><i class=\"fas fa-code-compare modal-icon\" data-v-e6a23e30></i> <h5 class=\"modal-title\" data-v-e6a23e30>" + _vm._ssrEscape("\n          ປຽບທຽບເວີຊັ່ນ - " + _vm._s(((_vm$recordData = _vm.recordData) === null || _vm$recordData === void 0 ? void 0 : _vm$recordData.purpose) || `Record #${_vm.recordId}`) + "\n        ") + "</h5></div> <button class=\"close-btn\" data-v-e6a23e30><i class=\"fas fa-times\" data-v-e6a23e30></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-e6a23e30>", "</div>", [_vm.loading ? _vm._ssrNode("<div class=\"loading-state\" data-v-e6a23e30>", "</div>", [_vm._ssrNode("<div class=\"spinner\" data-v-e6a23e30></div> <p data-v-e6a23e30>ກຳລັງໂຫຼດຂໍ້ມູນສຳລັບປຽບທຽບ...</p>")], 2) : _vm.error ? _vm._ssrNode("<div class=\"error-state\" data-v-e6a23e30><div class=\"error-icon\" data-v-e6a23e30><i class=\"fas fa-exclamation-triangle\" data-v-e6a23e30></i></div> <h6 data-v-e6a23e30>ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ</h6> <p data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.error)) + "</p> <button class=\"btn btn-primary btn-sm\" data-v-e6a23e30><i class=\"fas fa-redo\" data-v-e6a23e30></i>\n          ລອງໃໝ່\n        </button></div>") : _vm._ssrNode("<div class=\"comparison-content\" data-v-e6a23e30>", "</div>", [_vm._ssrNode("<div class=\"version-selector\" data-v-e6a23e30>", "</div>", [_vm._ssrNode("<div class=\"selector-group\" data-v-e6a23e30>", "</div>", [_vm._ssrNode("<label data-v-e6a23e30>ເວີຊັ່ນທີ່ 1 (ເກົ່າ):</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.selectedVersion1,
-      expression: "selectedVersion1"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.selectedVersion1 = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.loadComparison]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກເວີຊັ່ນ...")]), _vm._v(" "), _vm._l(_vm.availableVersions, function (version) {
-    return _c('option', {
-      key: version.id,
-      attrs: {
-        "disabled": version.id === _vm.selectedVersion2
-      },
-      domProps: {
-        "value": version.id
-      }
-    }, [_vm._v("\n                " + _vm._s(_vm.getVersionLabel(version)) + "\n              ")]);
-  })], 2)], 2), _vm._ssrNode(" <div class=\"comparison-arrow\" data-v-e6a23e30><i class=\"fas fa-exchange-alt\" data-v-e6a23e30></i></div> "), _vm._ssrNode("<div class=\"selector-group\" data-v-e6a23e30>", "</div>", [_vm._ssrNode("<label data-v-e6a23e30>ເວີຊັ່ນທີ່ 2 (ໃໝ່):</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.selectedVersion2,
-      expression: "selectedVersion2"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.selectedVersion2 = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.loadComparison]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກເວີຊັ່ນ...")]), _vm._v(" "), _vm._l(_vm.availableVersions, function (version) {
-    return _c('option', {
-      key: version.id,
-      attrs: {
-        "disabled": version.id === _vm.selectedVersion1
-      },
-      domProps: {
-        "value": version.id
-      }
-    }, [_vm._v("\n                " + _vm._s(_vm.getVersionLabel(version)) + "\n              ")]);
-  })], 2)], 2)], 2), _vm._ssrNode(" " + (_vm.comparisonData ? "<div class=\"comparison-results\" data-v-e6a23e30><div class=\"comparison-summary\" data-v-e6a23e30><div class=\"summary-card\" data-v-e6a23e30><div class=\"summary-icon\" data-v-e6a23e30><i class=\"fas fa-edit\" data-v-e6a23e30></i></div> <div class=\"summary-info\" data-v-e6a23e30><div class=\"summary-number\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(Object.keys(_vm.comparisonData.differences || {}).length)) + "</div> <div class=\"summary-label\" data-v-e6a23e30>ການປ່ຽນແປງ</div></div></div> <div class=\"summary-card\" data-v-e6a23e30><div class=\"summary-icon\" data-v-e6a23e30><i class=\"fas fa-calendar\" data-v-e6a23e30></i></div> <div class=\"summary-info\" data-v-e6a23e30><div class=\"summary-number\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.getTimeDifference())) + "</div> <div class=\"summary-label\" data-v-e6a23e30>ວັນຫ່າງກັນ</div></div></div> <div class=\"summary-card\" data-v-e6a23e30><div class=\"summary-icon\" data-v-e6a23e30><i class=\"fas fa-user\" data-v-e6a23e30></i></div> <div class=\"summary-info\" data-v-e6a23e30><div class=\"summary-text\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.getDifferentUsers())) + "</div> <div class=\"summary-label\" data-v-e6a23e30>ຜູ້ປ່ຽນແປງ</div></div></div></div> " + (Object.keys(_vm.comparisonData.differences || {}).length === 0 ? "<div class=\"no-differences\" data-v-e6a23e30><div class=\"no-diff-icon\" data-v-e6a23e30><i class=\"fas fa-equals\" data-v-e6a23e30></i></div> <h6 data-v-e6a23e30>ບໍ່ມີການປ່ຽນແປງ</h6> <p data-v-e6a23e30>ເວີຊັ່ນທັງສອງມີຂໍ້ມູນຄືກັນ</p></div>" : "<div class=\"differences-table\" data-v-e6a23e30><h6 data-v-e6a23e30><i class=\"fas fa-list\" data-v-e6a23e30></i>\n              ລາຍລະອຽດການປ່ຽນແປງ\n            </h6> <div class=\"table-container\" data-v-e6a23e30><table class=\"comparison-table\" data-v-e6a23e30><thead data-v-e6a23e30><tr data-v-e6a23e30><th class=\"field-header\" data-v-e6a23e30>ຟິວ</th> <th class=\"version-header version1\" data-v-e6a23e30><div class=\"version-info\" data-v-e6a23e30><div class=\"version-label\" data-v-e6a23e30>" + _vm._ssrEscape("ເວີຊັ່ນ " + _vm._s(_vm.getVersionNumber(_vm.selectedVersion1))) + "</div> <div class=\"version-date\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.getVersionDate(_vm.selectedVersion1))) + "</div></div></th> <th class=\"version-header version2\" data-v-e6a23e30><div class=\"version-info\" data-v-e6a23e30><div class=\"version-label\" data-v-e6a23e30>" + _vm._ssrEscape("ເວີຊັ່ນ " + _vm._s(_vm.getVersionNumber(_vm.selectedVersion2))) + "</div> <div class=\"version-date\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.getVersionDate(_vm.selectedVersion2))) + "</div></div></th></tr></thead> <tbody data-v-e6a23e30>" + _vm._ssrList(_vm.comparisonData.differences, function (diff, field) {
-    return "<tr class=\"diff-row\" data-v-e6a23e30><td class=\"field-cell\" data-v-e6a23e30><div class=\"field-info\" data-v-e6a23e30><i" + _vm._ssrClass(null, _vm.getFieldIcon(field)) + " data-v-e6a23e30></i> <span class=\"field-name\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.getFieldLabel(field))) + "</span></div></td> <td class=\"value-cell version1\" data-v-e6a23e30><div class=\"value-content old-value\" data-v-e6a23e30><div class=\"value-text\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.formatValue(diff.current))) + "</div></div></td> <td class=\"value-cell version2\" data-v-e6a23e30><div class=\"value-content new-value\" data-v-e6a23e30><div class=\"value-text\" data-v-e6a23e30>" + _vm._ssrEscape(_vm._s(_vm.formatValue(diff.version))) + "</div> <div class=\"change-indicator\" data-v-e6a23e30><i class=\"fas fa-arrow-left\" data-v-e6a23e30></i></div></div></td></tr>";
-  }) + "</tbody></table></div></div>") + " " + (Object.keys(_vm.comparisonData.differences || {}).length > 0 ? "<div class=\"comparison-actions\" data-v-e6a23e30>" + (_vm.canRestore ? "<button class=\"btn btn-warning\" data-v-e6a23e30><i class=\"fas fa-undo\" data-v-e6a23e30></i>" + _vm._ssrEscape("\n              ກັບຄືນໄປເວີຊັ່ນ " + _vm._s(_vm.getVersionNumber(_vm.selectedVersion1)) + "\n            ") + "</button>" : "<!---->") + " <button class=\"btn btn-secondary\" data-v-e6a23e30><i class=\"fas fa-download\" data-v-e6a23e30></i>\n              ສົ່ງອອກການປຽບທຽບ\n            </button></div>" : "<!---->") + "</div>" : "<div class=\"select-versions-prompt\" data-v-e6a23e30><div class=\"prompt-icon\" data-v-e6a23e30><i class=\"fas fa-hand-pointer\" data-v-e6a23e30></i></div> <h6 data-v-e6a23e30>ເລືອກເວີຊັ່ນເພື່ອປຽບທຽບ</h6> <p data-v-e6a23e30>ກະລຸນາເລືອກສອງເວີຊັ່ນທີ່ທ່ານຕ້ອງການປຽບທຽບ</p></div>"))], 2)]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-e6a23e30><button" + _vm._ssrAttr("disabled", !_vm.selectedVersion1 || !_vm.selectedVersion2) + " class=\"btn btn-outline\" data-v-e6a23e30><i class=\"fas fa-exchange-alt\" data-v-e6a23e30></i>\n        ສະຫຼັບເວີຊັ່ນ\n      </button> <button class=\"btn btn-primary\" data-v-e6a23e30><i class=\"fas fa-times\" data-v-e6a23e30></i>\n        ປິດ\n      </button></div>")], 2)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/MA/paymentCompareDialog/index.vue?vue&type=template&id=e6a23e30&scoped=true&
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentCompareDialog/index.vue?vue&type=script&lang=js&
-/* harmony default export */ var paymentCompareDialogvue_type_script_lang_js_ = ({
-  name: 'VersionComparisonDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    recordId: {
-      type: [Number, String],
-      required: true
-    },
-    recordData: {
-      type: Object,
-      default: null
-    },
-    initialComparison: {
-      type: Object,
-      default: null
-    },
-    canRestore: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      loading: false,
-      error: null,
-      availableVersions: [],
-      selectedVersion1: null,
-      selectedVersion2: null,
-      comparisonData: null,
-      fieldLabels: {
-        amount: 'ຈຳນວນເງິນ',
-        purpose: 'ຈຸດປະສົງ',
-        status: 'ສະຖານະ',
-        dueDate: 'ວັນຄົບກຳນົດ',
-        note: 'ໝາຍເຫດ',
-        ministryId: 'ກະຊວງ',
-        bankAccountId: 'ບັນຊີທະນາຄານ',
-        currencyId: 'ສະກຸນເງິນ',
-        bookingDate: 'ວັນທີ່ລົງບັນຊີ',
-        exchangeRate: 'ອັດຕາແລກປ່ຽນ',
-        makerId: 'ຜູ້ລົງບັນຊີ',
-        checkerId: 'ຜູ້ອະນຸມັດ',
-        approvedAt: 'ວັນທີ່ອະນຸມັດ'
-      }
-    };
-  },
-  watch: {
-    show(newVal) {
-      if (newVal) {
-        this.initializeDialog();
-      }
-    },
-    initialComparison: {
-      handler(newVal) {
-        if (newVal && this.show) {
-          this.setupInitialComparison();
-        }
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    async initializeDialog() {
-      if (this.initialComparison) {
-        this.setupInitialComparison();
-      } else {
-        await this.fetchAvailableVersions();
-      }
-    },
-    setupInitialComparison() {
-      if (this.initialComparison.current && this.initialComparison.previous) {
-        this.selectedVersion1 = this.initialComparison.previous.id;
-        this.selectedVersion2 = this.initialComparison.current.id;
-
-        // Mock the comparison data structure
-        this.comparisonData = {
-          currentVersion: this.initialComparison.current.version || 1,
-          compareVersion: this.initialComparison.previous.version || 1,
-          differences: this.calculateDifferences(this.initialComparison.previous, this.initialComparison.current)
-        };
-      }
-    },
-    calculateDifferences(version1, version2) {
-      const differences = {};
-      const fieldsToCompare = Object.keys(this.fieldLabels);
-      fieldsToCompare.forEach(field => {
-        var _version1$data, _version2$data;
-        const val1 = ((_version1$data = version1.data) === null || _version1$data === void 0 ? void 0 : _version1$data[field]) || version1[field];
-        const val2 = ((_version2$data = version2.data) === null || _version2$data === void 0 ? void 0 : _version2$data[field]) || version2[field];
-        if (val1 !== val2) {
-          differences[field] = {
-            current: val2,
-            version: val1
-          };
-        }
-      });
-      return differences;
-    },
-    async fetchAvailableVersions() {
-      if (!this.recordId) return;
-      this.loading = true;
-      this.error = null;
-      try {
-        const {
-          data
-        } = await this.$axios.get(`/api/money-advances/${this.recordId}/audit`);
-        if (data.success) {
-          this.availableVersions = data.data.map(entry => ({
-            id: entry.id,
-            version: entry.version || 1,
-            action: entry.action,
-            changedAt: entry.changedAt,
-            changedBy: entry.changedBy,
-            data: entry.newData || entry.oldData || {}
-          }));
-        } else {
-          throw new Error(data.message || 'Failed to fetch versions');
-        }
-      } catch (error) {
-        var _error$response, _error$response$data;
-        console.error('Error fetching versions:', error);
-        this.error = ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : (_error$response$data = _error$response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || error.message;
-      } finally {
-        this.loading = false;
-      }
-    },
-    async loadComparison() {
-      if (!this.selectedVersion1 || !this.selectedVersion2) {
-        this.comparisonData = null;
-        return;
-      }
-      try {
-        // For now, calculate differences locally
-        // In a real implementation, you might want to call an API endpoint
-        const version1 = this.availableVersions.find(v => v.id === this.selectedVersion1);
-        const version2 = this.availableVersions.find(v => v.id === this.selectedVersion2);
-        if (version1 && version2) {
-          this.comparisonData = {
-            currentVersion: version2.version,
-            compareVersion: version1.version,
-            differences: this.calculateDifferences(version1, version2)
-          };
-        }
-      } catch (error) {
-        console.error('Error loading comparison:', error);
-        this.error = 'ເກີດຂໍ້ຜິດພາດໃນການປຽບທຽບ';
-      }
-    },
-    getVersionLabel(version) {
-      const actionLabel = {
-        CREATE: 'ສ້າງ',
-        UPDATE: 'ແກ້ໄຂ',
-        APPROVE: 'ອະນຸມັດ',
-        SETTLE: 'ຊຳລະ',
-        DELETE: 'ລົບ'
-      };
-      const date = new Date(version.changedAt).toLocaleDateString('lo-LA');
-      const action = actionLabel[version.action] || version.action;
-      return `v${version.version} - ${action} (${date})`;
-    },
-    getVersionNumber(versionId) {
-      const version = this.availableVersions.find(v => v.id === versionId);
-      return (version === null || version === void 0 ? void 0 : version.version) || '?';
-    },
-    getVersionDate(versionId) {
-      const version = this.availableVersions.find(v => v.id === versionId);
-      return version ? new Date(version.changedAt).toLocaleDateString('lo-LA') : '';
-    },
-    getTimeDifference() {
-      if (!this.selectedVersion1 || !this.selectedVersion2) return 0;
-      const version1 = this.availableVersions.find(v => v.id === this.selectedVersion1);
-      const version2 = this.availableVersions.find(v => v.id === this.selectedVersion2);
-      if (version1 && version2) {
-        const date1 = new Date(version1.changedAt);
-        const date2 = new Date(version2.changedAt);
-        const diffTime = Math.abs(date2 - date1);
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      }
-      return 0;
-    },
-    getDifferentUsers() {
-      if (!this.selectedVersion1 || !this.selectedVersion2) return 'N/A';
-      const version1 = this.availableVersions.find(v => v.id === this.selectedVersion1);
-      const version2 = this.availableVersions.find(v => v.id === this.selectedVersion2);
-      if (version1 && version2) {
-        if (version1.changedBy === version2.changedBy) {
-          return version1.changedBy || 'ບໍ່ຮູ້';
-        } else {
-          return `${version1.changedBy || 'ບໍ່ຮູ້'} → ${version2.changedBy || 'ບໍ່ຮູ້'}`;
-        }
-      }
-      return 'N/A';
-    },
-    getFieldIcon(field) {
-      const icons = {
-        amount: 'fas fa-dollar-sign',
-        purpose: 'fas fa-tag',
-        status: 'fas fa-flag',
-        dueDate: 'fas fa-calendar',
-        note: 'fas fa-sticky-note',
-        ministryId: 'fas fa-building',
-        bankAccountId: 'fas fa-university',
-        currencyId: 'fas fa-coins',
-        bookingDate: 'fas fa-calendar-day',
-        exchangeRate: 'fas fa-exchange-alt',
-        makerId: 'fas fa-user',
-        checkerId: 'fas fa-user-check',
-        approvedAt: 'fas fa-calendar-check'
-      };
-      return icons[field] || 'fas fa-info-circle';
-    },
-    getFieldLabel(field) {
-      return this.fieldLabels[field] || field;
-    },
-    formatValue(value) {
-      if (value === null || value === undefined) return 'N/A';
-      if (typeof value === 'boolean') return value ? 'ແມ່ນ' : 'ບໍ່';
-      if (typeof value === 'number') return value.toLocaleString();
-      if (typeof value === 'string' && value.includes('T')) {
-        // Likely a date
-        try {
-          return new Date(value).toLocaleDateString('lo-LA');
-        } catch {
-          return value;
-        }
-      }
-      return String(value);
-    },
-    swapVersions() {
-      const temp = this.selectedVersion1;
-      this.selectedVersion1 = this.selectedVersion2;
-      this.selectedVersion2 = temp;
-      this.loadComparison();
-    },
-    restoreToVersion(versionId) {
-      const version = this.availableVersions.find(v => v.id === versionId);
-      if (version) {
-        this.$emit('restore', version);
-      }
-    },
-    async exportComparison() {
-      if (!this.comparisonData) return;
-      try {
-        const csvContent = this.generateComparisonCSV();
-        const blob = new Blob([csvContent], {
-          type: 'text/csv;charset=utf-8;'
-        });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `comparison-${this.recordId}-v${this.getVersionNumber(this.selectedVersion1)}-v${this.getVersionNumber(this.selectedVersion2)}.csv`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-        this.$emit('success', 'ສົ່ງອອກການປຽບທຽບສຳເລັດ');
-      } catch (error) {
-        console.error('Export error:', error);
-        this.$emit('error', 'ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກ');
-      }
-    },
-    generateComparisonCSV() {
-      const headers = ['Field', 'Version 1 Value', 'Version 2 Value'];
-      const rows = [headers];
-      Object.entries(this.comparisonData.differences).forEach(([field, diff]) => {
-        rows.push([this.getFieldLabel(field), this.formatValue(diff.version), this.formatValue(diff.current)]);
-      });
-      return rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-    },
-    closeDialog() {
-      this.selectedVersion1 = null;
-      this.selectedVersion2 = null;
-      this.comparisonData = null;
-      this.$emit('close');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/MA/paymentCompareDialog/index.vue?vue&type=script&lang=js&
- /* harmony default export */ var MA_paymentCompareDialogvue_type_script_lang_js_ = (paymentCompareDialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/MA/paymentCompareDialog/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(599)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  MA_paymentCompareDialogvue_type_script_lang_js_,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "e6a23e30",
-  "60dc4ca2"
-  
-)
-
-/* harmony default export */ var paymentCompareDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 638:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentAuditReportDialog/index.vue?vue&type=template&id=7e1ed358&scoped=true&
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.closeDialog
-    }
-  }, [_vm._ssrNode("<div class=\"modal-dialog reports-dialog\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-7e1ed358><div class=\"modal-title-section\" data-v-7e1ed358><i class=\"fas fa-chart-line modal-icon\" data-v-7e1ed358></i> <h5 class=\"modal-title\" data-v-7e1ed358>ລາຍງານປະຫວັດການປ່ຽນແປງ</h5></div> <button class=\"close-btn\" data-v-7e1ed358><i class=\"fas fa-times\" data-v-7e1ed358></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<div class=\"tabs-container\" data-v-7e1ed358><div class=\"tabs\" data-v-7e1ed358>" + _vm._ssrList(_vm.reportTabs, function (tab) {
-    return "<button" + _vm._ssrClass(null, ['tab-btn', {
-      active: _vm.activeTab === tab.id
-    }]) + " data-v-7e1ed358><i" + _vm._ssrClass(null, tab.icon) + " data-v-7e1ed358></i>" + _vm._ssrEscape("\n            " + _vm._s(tab.label) + "\n          ") + "</button>";
-  }) + "</div></div> " + (_vm.activeTab === 'user-activity' ? "<div class=\"report-content\" data-v-7e1ed358><div class=\"report-header\" data-v-7e1ed358><h6 data-v-7e1ed358><i class=\"fas fa-users\" data-v-7e1ed358></i>\n            ລາຍງານກິດຈະກຳຜູ້ໃຊ້\n          </h6> <div class=\"date-filter\" data-v-7e1ed358><input type=\"date\"" + _vm._ssrAttr("value", _vm.userActivityFilter.startDate) + " class=\"form-control\" data-v-7e1ed358> <span data-v-7e1ed358>ຫາ</span> <input type=\"date\"" + _vm._ssrAttr("value", _vm.userActivityFilter.endDate) + " class=\"form-control\" data-v-7e1ed358> <button class=\"btn btn-primary btn-sm\" data-v-7e1ed358><i class=\"fas fa-search\" data-v-7e1ed358></i>\n              ຄົ້ນຫາ\n            </button></div></div> " + (_vm.userActivityLoading ? "<div class=\"loading-state\" data-v-7e1ed358><div class=\"spinner-sm\" data-v-7e1ed358></div> <span data-v-7e1ed358>ກຳລັງໂຫຼດຂໍ້ມູນ...</span></div>" : _vm.userActivityData.length > 0 ? "<div class=\"user-activity-content\" data-v-7e1ed358><div class=\"activity-summary\" data-v-7e1ed358><div class=\"summary-card\" data-v-7e1ed358><div class=\"summary-icon\" data-v-7e1ed358><i class=\"fas fa-user-friends\" data-v-7e1ed358></i></div> <div class=\"summary-info\" data-v-7e1ed358><div class=\"summary-number\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(_vm.uniqueActiveUsers)) + "</div> <div class=\"summary-label\" data-v-7e1ed358>ຜູ້ໃຊ້ທີ່ມີກິດຈະກຳ</div></div></div> <div class=\"summary-card\" data-v-7e1ed358><div class=\"summary-icon\" data-v-7e1ed358><i class=\"fas fa-edit\" data-v-7e1ed358></i></div> <div class=\"summary-info\" data-v-7e1ed358><div class=\"summary-number\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(_vm.totalActivities)) + "</div> <div class=\"summary-label\" data-v-7e1ed358>ລວມກິດຈະກຳ</div></div></div> <div class=\"summary-card\" data-v-7e1ed358><div class=\"summary-icon\" data-v-7e1ed358><i class=\"fas fa-crown\" data-v-7e1ed358></i></div> <div class=\"summary-info\" data-v-7e1ed358><div class=\"summary-text\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(_vm.mostActiveUser)) + "</div> <div class=\"summary-label\" data-v-7e1ed358>ຜູ້ໃຊ້ທີ່ມີກິດຈະກຳສູງສຸດ</div></div></div></div> <div class=\"activity-table\" data-v-7e1ed358><table class=\"table\" data-v-7e1ed358><thead data-v-7e1ed358><tr data-v-7e1ed358><th data-v-7e1ed358>ຜູ້ໃຊ້</th> <th data-v-7e1ed358>ສ້າງ</th> <th data-v-7e1ed358>ແກ້ໄຂ</th> <th data-v-7e1ed358>ອະນຸມັດ</th> <th data-v-7e1ed358>ຊຳລະ</th> <th data-v-7e1ed358>ລົບ</th> <th data-v-7e1ed358>ລວມ</th> <th data-v-7e1ed358>ກິດຈະກຳຫຼ້າສຸດ</th></tr></thead> <tbody data-v-7e1ed358>" + _vm._ssrList(_vm.userActivityData, function (user) {
-    return "<tr data-v-7e1ed358><td data-v-7e1ed358><div class=\"user-info\" data-v-7e1ed358><div class=\"user-name\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.userName)) + "</div> <div class=\"user-id\" data-v-7e1ed358>" + _vm._ssrEscape("ID: " + _vm._s(user.userId)) + "</div></div></td> <td data-v-7e1ed358><span class=\"activity-count create\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.activities.CREATE || 0)) + "</span></td> <td data-v-7e1ed358><span class=\"activity-count update\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.activities.UPDATE || 0)) + "</span></td> <td data-v-7e1ed358><span class=\"activity-count approve\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.activities.APPROVE || 0)) + "</span></td> <td data-v-7e1ed358><span class=\"activity-count settle\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.activities.SETTLE || 0)) + "</span></td> <td data-v-7e1ed358><span class=\"activity-count delete\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.activities.DELETE || 0)) + "</span></td> <td data-v-7e1ed358><span class=\"total-count\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(user.totalActivities)) + "</span></td> <td data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime(user.lastActivity))) + "</td></tr>";
-  }) + "</tbody></table></div></div>" : "<div class=\"no-data\" data-v-7e1ed358><i class=\"fas fa-chart-bar\" data-v-7e1ed358></i> <p data-v-7e1ed358>ບໍ່ມີຂໍ້ມູນກິດຈະກຳໃນຊ່ວງເວລານີ້</p></div>") + "</div>" : "<!---->") + " "), _vm.activeTab === 'system-activity' ? _vm._ssrNode("<div class=\"report-content\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<div class=\"report-header\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<h6 data-v-7e1ed358><i class=\"fas fa-server\" data-v-7e1ed358></i>\n            ລາຍງານກິດຈະກຳລະບົບ\n          </h6> "), _vm._ssrNode("<div class=\"date-filter\" data-v-7e1ed358>", "</div>", [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.systemActivityFilter.period,
-      expression: "systemActivityFilter.period"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.systemActivityFilter, "period", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }, _vm.fetchSystemActivity]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "7"
-    }
-  }, [_vm._v("7 ວັນຜ່ານມາ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "30"
-    }
-  }, [_vm._v("30 ວັນຜ່ານມາ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "90"
-    }
-  }, [_vm._v("90 ວັນຜ່ານມາ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "365"
-    }
-  }, [_vm._v("1 ປີຜ່ານມາ")])]), _vm._ssrNode(" <button class=\"btn btn-primary btn-sm\" data-v-7e1ed358><i class=\"fas fa-sync\" data-v-7e1ed358></i>\n              ອັບເດດ\n            </button>")], 2)], 2), _vm._ssrNode(" " + (_vm.systemActivityLoading ? "<div class=\"loading-state\" data-v-7e1ed358><div class=\"spinner-sm\" data-v-7e1ed358></div> <span data-v-7e1ed358>ກຳລັງໂຫຼດຂໍ້ມູນ...</span></div>" : _vm.systemActivityData ? "<div class=\"system-activity-content\" data-v-7e1ed358><div class=\"chart-container\" data-v-7e1ed358><h6 data-v-7e1ed358>ກິດຈະກຳລາຍວັນ</h6> <div class=\"chart-placeholder\" data-v-7e1ed358><div class=\"chart-bars\" data-v-7e1ed358>" + _vm._ssrList(_vm.systemActivityData.dailyStats, function (day, index) {
-    return "<div" + _vm._ssrAttr("title", `${day.date}: ${day.count} ກິດຈະກຳ`) + " class=\"chart-bar\"" + _vm._ssrStyle(null, {
-      height: day.count / _vm.maxDailyActivity * 100 + '%'
-    }, null) + " data-v-7e1ed358><div class=\"bar-value\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(day.count)) + "</div></div>";
-  }) + "</div> <div class=\"chart-labels\" data-v-7e1ed358>" + _vm._ssrList(_vm.systemActivityData.dailyStats, function (day, index) {
-    return "<span class=\"chart-label\" data-v-7e1ed358>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatShortDate(day.date)) + "\n                ") + "</span>";
-  }) + "</div></div></div> <div class=\"activity-breakdown\" data-v-7e1ed358><h6 data-v-7e1ed358>ການແບ່ງປະເພດກິດຈະກຳ</h6> <div class=\"breakdown-grid\" data-v-7e1ed358>" + _vm._ssrList(_vm.systemActivityData.activityBreakdown, function (activity) {
-    return "<div class=\"breakdown-item\" data-v-7e1ed358><div" + _vm._ssrClass("breakdown-icon", activity.action.toLowerCase()) + " data-v-7e1ed358><i" + _vm._ssrClass(null, _vm.getActivityIcon(activity.action)) + " data-v-7e1ed358></i></div> <div class=\"breakdown-info\" data-v-7e1ed358><div class=\"breakdown-label\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(_vm.getActivityLabel(activity.action))) + "</div> <div class=\"breakdown-count\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(activity.count)) + "</div> <div class=\"breakdown-percentage\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(activity.percentage) + "%") + "</div></div></div>";
-  }) + "</div></div> <div class=\"recent-changes\" data-v-7e1ed358><h6 data-v-7e1ed358>ການປ່ຽນແປງຫຼ້າສຸດ</h6> <div class=\"changes-timeline\" data-v-7e1ed358>" + _vm._ssrList(_vm.systemActivityData.recentChanges, function (change) {
-    return "<div class=\"change-item\" data-v-7e1ed358><div" + _vm._ssrClass("change-icon", change.action.toLowerCase()) + " data-v-7e1ed358><i" + _vm._ssrClass(null, _vm.getActivityIcon(change.action)) + " data-v-7e1ed358></i></div> <div class=\"change-content\" data-v-7e1ed358><div class=\"change-text\" data-v-7e1ed358><strong data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(change.user)) + "</strong>" + _vm._ssrEscape(" \n                    " + _vm._s(_vm.getActivityLabel(change.action)) + " \n                    ") + "<em data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(change.recordPurpose || `Record #${change.recordId}`)) + "</em></div> <div class=\"change-time\" data-v-7e1ed358>" + _vm._ssrEscape(_vm._s(_vm.formatRelativeTime(change.changedAt))) + "</div></div></div>";
-  }) + "</div></div></div>" : "<div class=\"no-data\" data-v-7e1ed358><i class=\"fas fa-server\" data-v-7e1ed358></i> <p data-v-7e1ed358>ບໍ່ມີຂໍ້ມູນກິດຈະກຳລະບົບ</p></div>"))], 2) : _vm._e(), _vm._ssrNode(" "), _vm.activeTab === 'export' ? _vm._ssrNode("<div class=\"report-content\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<div class=\"export-content\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<h6 data-v-7e1ed358><i class=\"fas fa-download\" data-v-7e1ed358></i>\n            ສົ່ງອອກລາຍງານ\n          </h6> "), _vm._ssrNode("<div class=\"export-options\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<div class=\"export-option\" data-v-7e1ed358><div class=\"option-header\" data-v-7e1ed358><i class=\"fas fa-file-csv\" data-v-7e1ed358></i> <h6 data-v-7e1ed358>ສົ່ງອອກຂໍ້ມູນ CSV</h6></div> <p data-v-7e1ed358>ສົ່ງອອກຂໍ້ມູນປະຫວັດການປ່ຽນແປງໃນຮູບແບບ CSV ສຳລັບການວິເຄາະ</p> <div class=\"export-controls\" data-v-7e1ed358><div class=\"date-range\" data-v-7e1ed358><input type=\"date\"" + _vm._ssrAttr("value", _vm.exportFilter.startDate) + " class=\"form-control\" data-v-7e1ed358> <span data-v-7e1ed358>ຫາ</span> <input type=\"date\"" + _vm._ssrAttr("value", _vm.exportFilter.endDate) + " class=\"form-control\" data-v-7e1ed358></div> <button" + _vm._ssrAttr("disabled", _vm.exportLoading) + " class=\"btn btn-secondary\" data-v-7e1ed358>" + (_vm.exportLoading ? "<i class=\"fas fa-spinner fa-spin\" data-v-7e1ed358></i>" : "<i class=\"fas fa-download\" data-v-7e1ed358></i>") + "\n                  ສົ່ງອອກ CSV\n                </button></div></div> "), _vm._ssrNode("<div class=\"export-option\" data-v-7e1ed358>", "</div>", [_vm._ssrNode("<div class=\"option-header\" data-v-7e1ed358><i class=\"fas fa-chart-pie\" data-v-7e1ed358></i> <h6 data-v-7e1ed358>ລາຍງານສະຫຼຸບ</h6></div> <p data-v-7e1ed358>ສົ່ງອອກລາຍງານສະຫຼຸບດ້ວຍກາຟິກແລະການວິເຄາະ</p> "), _vm._ssrNode("<div class=\"export-controls\" data-v-7e1ed358>", "</div>", [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.exportFilter.reportType,
-      expression: "exportFilter.reportType"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.exportFilter, "reportType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "summary"
-    }
-  }, [_vm._v("ສະຫຼຸບທົ່ວໄປ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "user-activity"
-    }
-  }, [_vm._v("ກິດຈະກຳຜູ້ໃຊ້")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "trend-analysis"
-    }
-  }, [_vm._v("ການວິເຄາະແນວໂນ້ມ")])]), _vm._ssrNode(" <button" + _vm._ssrAttr("disabled", _vm.exportLoading) + " class=\"btn btn-primary\" data-v-7e1ed358>" + (_vm.exportLoading ? "<i class=\"fas fa-spinner fa-spin\" data-v-7e1ed358></i>" : "<i class=\"fas fa-file-pdf\" data-v-7e1ed358></i>") + "\n                  ສ້າງລາຍງານ\n                </button>")], 2)], 2), _vm._ssrNode(" <div class=\"export-option\" data-v-7e1ed358><div class=\"option-header\" data-v-7e1ed358><i class=\"fas fa-database\" data-v-7e1ed358></i> <h6 data-v-7e1ed358>ສໍາລອງຂໍ້ມູນ</h6></div> <p data-v-7e1ed358>ສໍາລອງຂໍ້ມູນປະຫວັດການປ່ຽນແປງທັງໝົດ</p> <div class=\"export-controls\" data-v-7e1ed358><div class=\"backup-info\" data-v-7e1ed358><small data-v-7e1ed358>ຂໍ້ມູນທັງໝົດຈະຖືກສໍາລອງໃນຮູບແບບ JSON</small></div> <button" + _vm._ssrAttr("disabled", _vm.exportLoading) + " class=\"btn btn-warning\" data-v-7e1ed358>" + (_vm.exportLoading ? "<i class=\"fas fa-spinner fa-spin\" data-v-7e1ed358></i>" : "<i class=\"fas fa-archive\" data-v-7e1ed358></i>") + "\n                  ສໍາລອງຂໍ້ມູນ\n                </button></div></div>")], 2)], 2)]) : _vm._e()], 2), _vm._ssrNode(" <div class=\"modal-footer\" data-v-7e1ed358><button" + _vm._ssrAttr("disabled", _vm.isLoading) + " class=\"btn btn-outline\" data-v-7e1ed358><i class=\"fas fa-sync\" data-v-7e1ed358></i>\n        ອັບເດດ\n      </button> <button class=\"btn btn-primary\" data-v-7e1ed358><i class=\"fas fa-times\" data-v-7e1ed358></i>\n        ປິດ\n      </button></div>")], 2)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/MA/paymentAuditReportDialog/index.vue?vue&type=template&id=7e1ed358&scoped=true&
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentAuditReportDialog/index.vue?vue&type=script&lang=js&
-/* harmony default export */ var paymentAuditReportDialogvue_type_script_lang_js_ = ({
-  name: 'AuditReportsDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      activeTab: 'user-activity',
-      reportTabs: [{
-        id: 'user-activity',
-        label: 'ກິດຈະກຳຜູ້ໃຊ້',
-        icon: 'fas fa-users'
-      }, {
-        id: 'system-activity',
-        label: 'ກິດຈະກຳລະບົບ',
-        icon: 'fas fa-server'
-      }, {
-        id: 'export',
-        label: 'ສົ່ງອອກ',
-        icon: 'fas fa-download'
-      }],
-      // User Activity
-      userActivityLoading: false,
-      userActivityData: [],
-      userActivityFilter: {
-        startDate: this.getDateDaysAgo(30),
-        endDate: this.getTodayDate()
-      },
-      // System Activity
-      systemActivityLoading: false,
-      systemActivityData: null,
-      systemActivityFilter: {
-        period: '30'
-      },
-      // Export
-      exportLoading: false,
-      exportFilter: {
-        startDate: this.getDateDaysAgo(30),
-        endDate: this.getTodayDate(),
-        reportType: 'summary'
-      },
-      actionLabels: {
-        CREATE: 'ສ້າງ',
-        UPDATE: 'ແກ້ໄຂ',
-        APPROVE: 'ອະນຸມັດ',
-        SETTLE: 'ຊຳລະ',
-        DELETE: 'ລົບ'
-      }
-    };
-  },
-  computed: {
-    isLoading() {
-      return this.userActivityLoading || this.systemActivityLoading || this.exportLoading;
-    },
-    uniqueActiveUsers() {
-      return this.userActivityData.length;
-    },
-    totalActivities() {
-      return this.userActivityData.reduce((sum, user) => sum + user.totalActivities, 0);
-    },
-    mostActiveUser() {
-      if (this.userActivityData.length === 0) return 'N/A';
-      const topUser = this.userActivityData.reduce((max, user) => user.totalActivities > max.totalActivities ? user : max);
-      return topUser.userName;
-    },
-    maxDailyActivity() {
-      var _this$systemActivityD;
-      if (!((_this$systemActivityD = this.systemActivityData) !== null && _this$systemActivityD !== void 0 && _this$systemActivityD.dailyStats)) return 1;
-      return Math.max(...this.systemActivityData.dailyStats.map(day => day.count));
-    }
-  },
-  watch: {
-    show(newVal) {
-      if (newVal) {
-        this.initializeReports();
-      }
-    }
-  },
-  methods: {
-    async initializeReports() {
-      await this.fetchUserActivity();
-      await this.fetchSystemActivity();
-    },
-    async fetchUserActivity() {
-      this.userActivityLoading = true;
-      try {
-        const params = {
-          startDate: this.userActivityFilter.startDate,
-          endDate: this.userActivityFilter.endDate
-        };
-        const {
-          data
-        } = await this.$axios.get('/api/money-advances/audit/date-range', {
-          params
-        });
-
-        // Process the audit data to group by user
-        const userActivities = {};
-        data.data.forEach(auditEntry => {
-          var _auditEntry$changedBy;
-          const userId = auditEntry.changedBy;
-          const userName = ((_auditEntry$changedBy = auditEntry.changedByUser) === null || _auditEntry$changedBy === void 0 ? void 0 : _auditEntry$changedBy.cus_name) || 'Unknown User';
-          if (!userActivities[userId]) {
-            userActivities[userId] = {
-              userId,
-              userName,
-              activities: {},
-              totalActivities: 0,
-              lastActivity: auditEntry.changedAt
-            };
-          }
-          if (!userActivities[userId].activities[auditEntry.action]) {
-            userActivities[userId].activities[auditEntry.action] = 0;
-          }
-          userActivities[userId].activities[auditEntry.action]++;
-          userActivities[userId].totalActivities++;
-          if (new Date(auditEntry.changedAt) > new Date(userActivities[userId].lastActivity)) {
-            userActivities[userId].lastActivity = auditEntry.changedAt;
-          }
-        });
-        this.userActivityData = Object.values(userActivities).sort((a, b) => b.totalActivities - a.totalActivities);
-      } catch (error) {
-        console.error('Error fetching user activity:', error);
-        this.userActivityData = [];
-        this.$emit('error', 'ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນກິດຈະກຳຜູ້ໃຊ້');
-      } finally {
-        this.userActivityLoading = false;
-      }
-    },
-    async fetchSystemActivity() {
-      this.systemActivityLoading = true;
-      try {
-        const days = parseInt(this.systemActivityFilter.period);
-        const endDate = new Date();
-        const startDate = new Date();
-        startDate.setDate(startDate.getDate() - days);
-        const params = {
-          startDate: startDate.toISOString().split('T')[0],
-          endDate: endDate.toISOString().split('T')[0],
-          limit: 500
-        };
-        const {
-          data
-        } = await this.$axios.get('/api/money-advances/audit/date-range', {
-          params
-        });
-
-        // Process daily statistics
-        const dailyStats = {};
-        const activityBreakdown = {};
-        let totalActivities = 0;
-        data.data.forEach(auditEntry => {
-          const date = auditEntry.changedAt.split('T')[0];
-
-          // Daily stats
-          if (!dailyStats[date]) {
-            dailyStats[date] = {
-              date,
-              count: 0
-            };
-          }
-          dailyStats[date].count++;
-
-          // Activity breakdown
-          if (!activityBreakdown[auditEntry.action]) {
-            activityBreakdown[auditEntry.action] = 0;
-          }
-          activityBreakdown[auditEntry.action]++;
-          totalActivities++;
-        });
-
-        // Fill missing dates with 0
-        for (let i = 0; i < days; i++) {
-          const date = new Date();
-          date.setDate(date.getDate() - i);
-          const dateStr = date.toISOString().split('T')[0];
-          if (!dailyStats[dateStr]) {
-            dailyStats[dateStr] = {
-              date: dateStr,
-              count: 0
-            };
-          }
-        }
-        this.systemActivityData = {
-          dailyStats: Object.values(dailyStats).sort((a, b) => new Date(a.date) - new Date(b.date)),
-          activityBreakdown: Object.entries(activityBreakdown).map(([action, count]) => ({
-            action,
-            count,
-            percentage: (count / totalActivities * 100).toFixed(1)
-          })).sort((a, b) => b.count - a.count),
-          recentChanges: data.data.sort((a, b) => new Date(b.changedAt) - new Date(a.changedAt)).slice(0, 10).map(entry => {
-            var _entry$changedByUser, _entry$record;
-            return {
-              id: entry.id,
-              action: entry.action,
-              user: ((_entry$changedByUser = entry.changedByUser) === null || _entry$changedByUser === void 0 ? void 0 : _entry$changedByUser.cus_name) || 'Unknown',
-              recordId: entry.recordId,
-              recordPurpose: (_entry$record = entry.record) === null || _entry$record === void 0 ? void 0 : _entry$record.purpose,
-              changedAt: entry.changedAt
-            };
-          })
-        };
-      } catch (error) {
-        console.error('Error fetching system activity:', error);
-        this.systemActivityData = null;
-        this.$emit('error', 'ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນກິດຈະກຳລະບົບ');
-      } finally {
-        this.systemActivityLoading = false;
-      }
-    },
-    async exportCSV() {
-      this.exportLoading = true;
-      try {
-        const params = {
-          startDate: this.exportFilter.startDate,
-          endDate: this.exportFilter.endDate,
-          format: 'csv'
-        };
-        const response = await this.$axios.get('/api/money-advances/audit/export', {
-          params,
-          responseType: 'blob'
-        });
-        const blob = new Blob([response.data], {
-          type: 'text/csv'
-        });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `audit-report-${params.startDate}-to-${params.endDate}.csv`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-        this.$emit('success', 'ສົ່ງອອກ CSV ສຳເລັດ');
-      } catch (error) {
-        console.error('Export error:', error);
-        this.$emit('error', 'ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກ CSV');
-      } finally {
-        this.exportLoading = false;
-      }
-    },
-    async generateReport() {
-      this.exportLoading = true;
-      try {
-        // This would generate a PDF report
-        this.$emit('success', 'ຟັງຊັ່ນນີ້ຈະຖືກພັດທະນາໃນອະນາຄົດ');
-      } catch (error) {
-        this.$emit('error', 'ເກີດຂໍ້ຜິດພາດໃນການສ້າງລາຍງານ');
-      } finally {
-        this.exportLoading = false;
-      }
-    },
-    async backupData() {
-      this.exportLoading = true;
-      try {
-        // This would create a full backup
-        this.$emit('success', 'ຟັງຊັ່ນນີ້ຈະຖືກພັດທະນາໃນອະນາຄົດ');
-      } catch (error) {
-        this.$emit('error', 'ເກີດຂໍ້ຜິດພາດໃນການສໍາລອງຂໍ້ມູນ');
-      } finally {
-        this.exportLoading = false;
-      }
-    },
-    refreshCurrentReport() {
-      if (this.activeTab === 'user-activity') {
-        this.fetchUserActivity();
-      } else if (this.activeTab === 'system-activity') {
-        this.fetchSystemActivity();
-      }
-    },
-    getActivityIcon(action) {
-      const icons = {
-        CREATE: 'fas fa-plus-circle',
-        UPDATE: 'fas fa-edit',
-        APPROVE: 'fas fa-check-circle',
-        SETTLE: 'fas fa-money-bill-wave',
-        DELETE: 'fas fa-trash-alt'
-      };
-      return icons[action] || 'fas fa-question-circle';
-    },
-    getActivityLabel(action) {
-      return this.actionLabels[action] || action;
-    },
-    formatDateTime(dateTime) {
-      if (!dateTime) return 'N/A';
-      return new Date(dateTime).toLocaleString('lo-LA');
-    },
-    formatShortDate(date) {
-      return new Date(date).toLocaleDateString('lo-LA', {
-        month: 'short',
-        day: 'numeric'
-      });
-    },
-    formatRelativeTime(dateTime) {
-      const now = new Date();
-      const date = new Date(dateTime);
-      const diffMs = now - date;
-      const diffMins = Math.floor(diffMs / 60000);
-      const diffHours = Math.floor(diffMs / 3600000);
-      const diffDays = Math.floor(diffMs / 86400000);
-      if (diffMins < 1) return 'ຫຼ້າສຸດ';
-      if (diffMins < 60) return `${diffMins} ນາທີຜ່ານມາ`;
-      if (diffHours < 24) return `${diffHours} ຊົ່ວໂມງຜ່ານມາ`;
-      return `${diffDays} ມື້ຜ່ານມາ`;
-    },
-    getDateDaysAgo(days) {
-      const date = new Date();
-      date.setDate(date.getDate() - days);
-      return date.toISOString().split('T')[0];
-    },
-    getTodayDate() {
-      return new Date().toISOString().split('T')[0];
-    },
-    closeDialog() {
-      this.$emit('close');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/MA/paymentAuditReportDialog/index.vue?vue&type=script&lang=js&
- /* harmony default export */ var MA_paymentAuditReportDialogvue_type_script_lang_js_ = (paymentAuditReportDialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/MA/paymentAuditReportDialog/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(601)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  MA_paymentAuditReportDialogvue_type_script_lang_js_,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "7e1ed358",
-  "2d1edbac"
-  
-)
-
-/* harmony default export */ var paymentAuditReportDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 762:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(955);
+var content = __webpack_require__(946);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("37438256", content, true, context)
+  add("625b90cc", content, true, context)
 };
 
 /***/ }),
 
-/***/ 954:
+/***/ 945:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26c1dbea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(762);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26c1dbea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26c1dbea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26c1dbea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26c1dbea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(750);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 955:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-container[data-v-26c1dbea]{background-color:#fafafa;min-height:100vh;padding:8px}.header-card[data-v-26c1dbea]{border:1px solid #e2e8f0;margin-bottom:8px}.header-content[data-v-26c1dbea]{align-items:center;display:flex;justify-content:space-between}.header-title[data-v-26c1dbea]{color:#1a202c;font-size:18px;font-weight:600;margin:0}.header-actions[data-v-26c1dbea]{display:flex;gap:8px}.summary-grid[data-v-26c1dbea]{grid-gap:8px;display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}.summary-card[data-v-26c1dbea]{border:1px solid #e2e8f0;transition:transform .2s}.summary-card[data-v-26c1dbea]:hover{transform:translateY(-2px)}.summary-card.total-amount[data-v-26c1dbea]{background:linear-gradient(135deg,#667eea,#764ba2)!important;color:#fff}.summary-card.pending[data-v-26c1dbea]{border-left:4px solid #f59e0b}.summary-card.approved[data-v-26c1dbea]{border-left:4px solid #10b981}.summary-card.settled[data-v-26c1dbea]{border-left:4px solid #3b82f6}.summary-layout[data-v-26c1dbea]{gap:12px}.summary-icon[data-v-26c1dbea],.summary-layout[data-v-26c1dbea]{align-items:center;display:flex}.summary-icon[data-v-26c1dbea]{background:#f3f4f6;border-radius:50%;flex-shrink:0;height:36px;justify-content:center;width:36px}.summary-icon.total[data-v-26c1dbea]{background:hsla(0,0%,100%,.2)}.summary-content[data-v-26c1dbea]{flex:1;min-width:0}.summary-amount[data-v-26c1dbea]{color:#1a202c;font-size:16px;font-weight:700;word-break:break-word}.total-amount .summary-amount[data-v-26c1dbea]{color:#fff}.summary-label[data-v-26c1dbea]{color:#718096;font-size:11px;margin-top:2px}.total-amount .summary-label[data-v-26c1dbea]{color:hsla(0,0%,100%,.9)}.filter-card[data-v-26c1dbea]{border:1px solid #e2e8f0}.filter-row[data-v-26c1dbea]{align-items:flex-end}.filter-actions[data-v-26c1dbea]{flex-direction:column}.action-buttons[data-v-26c1dbea],.filter-actions[data-v-26c1dbea]{display:flex;gap:4px}.table-card[data-v-26c1dbea]{border:1px solid #e2e8f0}.table-title[data-v-26c1dbea]{font-size:14px;font-weight:600}.table-controls[data-v-26c1dbea]{align-items:center;display:flex;gap:8px}.compact-table[data-v-26c1dbea]{font-size:12px}.compact-table[data-v-26c1dbea] th{background:#f8fafc!important;font-size:11px!important;font-weight:600!important;height:36px!important;padding:6px 8px!important}.compact-table[data-v-26c1dbea] td{border-bottom:1px solid #f1f5f9!important;height:40px!important;padding:4px 8px!important}.id-text[data-v-26c1dbea]{font-size:12px;font-weight:600}.maker-name[data-v-26c1dbea]{color:#2d3748;font-size:11px}.ministry-compact[data-v-26c1dbea]{display:flex;justify-content:center}.amount-column[data-v-26c1dbea]{align-items:flex-end;display:flex;flex-direction:column;text-align:right}.amount-value[data-v-26c1dbea]{color:#22c55e;font-size:12px;font-weight:600}.currency-code[data-v-26c1dbea]{color:#718096;font-size:9px;text-transform:uppercase}.purpose-text[data-v-26c1dbea]{color:#4a5568;font-size:11px}.bank-compact[data-v-26c1dbea]{font-size:10px}.bank-name[data-v-26c1dbea]{color:#2d3748;font-weight:600}.account-number[data-v-26c1dbea]{color:#718096;font-family:monospace}.date-compact[data-v-26c1dbea]{color:#4a5568;font-size:10px}.date-compact.overdue[data-v-26c1dbea]{color:#e53e3e;font-weight:600}.action-buttons-table[data-v-26c1dbea]{display:flex;gap:2px;justify-content:center}.no-data[data-v-26c1dbea]{color:#a0aec0;font-size:10px;font-style:italic}.no-data-card[data-v-26c1dbea]{border:1px solid #e2e8f0;margin-top:16px}.compact-pagination[data-v-26c1dbea]{align-items:center;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:8px 12px}.pagination-info[data-v-26c1dbea]{color:#718096;font-size:11px}.pagination-controls[data-v-26c1dbea]{align-items:center;display:flex;gap:4px}.page-numbers[data-v-26c1dbea]{display:flex;gap:2px;margin:0 8px}@media (max-width:960px){.header-content[data-v-26c1dbea]{align-items:stretch;flex-direction:column;gap:12px}.summary-grid[data-v-26c1dbea]{grid-template-columns:repeat(2,1fr)}.filter-row[data-v-26c1dbea]{gap:8px}.action-buttons-table[data-v-26c1dbea]{flex-direction:column;gap:1px}}@media (max-width:600px){.money-advance-container[data-v-26c1dbea]{padding:4px}.summary-grid[data-v-26c1dbea]{grid-template-columns:1fr}.compact-pagination[data-v-26c1dbea]{align-items:stretch;text-align:center}.compact-pagination[data-v-26c1dbea],.summary-layout[data-v-26c1dbea],.table-controls[data-v-26c1dbea]{flex-direction:column;gap:8px}.summary-layout[data-v-26c1dbea]{text-align:center}.summary-icon[data-v-26c1dbea]{margin:0 auto}}.v-card[data-v-26c1dbea]{box-shadow:0 1px 3px rgba(0,0,0,.1)!important}.v-btn--small[data-v-26c1dbea]{height:28px!important;min-width:60px!important}.v-btn--x-small[data-v-26c1dbea]{height:24px!important;min-width:24px!important}.v-chip--x-small[data-v-26c1dbea]{font-size:10px!important;height:18px!important;padding:0 6px!important}.v-select--dense .v-input__control[data-v-26c1dbea],.v-text-field--dense .v-input__control[data-v-26c1dbea]{min-height:32px!important}.v-text-field--dense .v-input__details[data-v-26c1dbea]{min-height:14px!important;padding-top:2px!important}.v-text-field--dense .v-messages[data-v-26c1dbea]{font-size:10px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-container[data-v-4b38046a]{background-color:#fafafa;min-height:100vh;padding:8px}.header-card[data-v-4b38046a]{border:1px solid #e2e8f0;margin-bottom:8px}.header-content[data-v-4b38046a]{align-items:center;display:flex;justify-content:space-between}.header-title[data-v-4b38046a]{color:#1a202c;font-size:18px;font-weight:600;margin:0}.header-actions[data-v-4b38046a]{display:flex;gap:8px}.summary-grid[data-v-4b38046a]{grid-gap:8px;display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}.summary-card[data-v-4b38046a]{border:1px solid #e2e8f0;transition:transform .2s}.summary-card[data-v-4b38046a]:hover{transform:translateY(-2px)}.summary-card.total-amount[data-v-4b38046a]{background:linear-gradient(135deg,#667eea,#764ba2)!important;color:#fff}.summary-card.pending[data-v-4b38046a]{border-left:4px solid #f59e0b}.summary-card.approved[data-v-4b38046a]{border-left:4px solid #10b981}.summary-card.settled[data-v-4b38046a]{border-left:4px solid #3b82f6}.summary-layout[data-v-4b38046a]{gap:12px}.summary-icon[data-v-4b38046a],.summary-layout[data-v-4b38046a]{align-items:center;display:flex}.summary-icon[data-v-4b38046a]{background:#f3f4f6;border-radius:50%;flex-shrink:0;height:36px;justify-content:center;width:36px}.summary-icon.total[data-v-4b38046a]{background:hsla(0,0%,100%,.2)}.summary-content[data-v-4b38046a]{flex:1;min-width:0}.summary-amount[data-v-4b38046a]{color:#1a202c;font-size:16px;font-weight:700;word-break:break-word}.total-amount .summary-amount[data-v-4b38046a]{color:#fff}.summary-label[data-v-4b38046a]{color:#718096;font-size:11px;margin-top:2px}.total-amount .summary-label[data-v-4b38046a]{color:hsla(0,0%,100%,.9)}.filter-card[data-v-4b38046a]{border:1px solid #e2e8f0}.filter-row[data-v-4b38046a]{align-items:flex-end}.filter-actions[data-v-4b38046a]{flex-direction:column}.action-buttons[data-v-4b38046a],.filter-actions[data-v-4b38046a]{display:flex;gap:4px}.table-card[data-v-4b38046a]{border:1px solid #e2e8f0}.table-title[data-v-4b38046a]{font-size:14px;font-weight:600}.table-controls[data-v-4b38046a]{align-items:center;display:flex;gap:8px}.compact-table[data-v-4b38046a]{font-size:12px}.compact-table[data-v-4b38046a] th{background:#f8fafc!important;font-size:11px!important;font-weight:600!important;height:36px!important;padding:6px 8px!important}.compact-table[data-v-4b38046a] td{border-bottom:1px solid #f1f5f9!important;height:40px!important;padding:4px 8px!important}.id-text[data-v-4b38046a]{font-size:12px;font-weight:600}.maker-name[data-v-4b38046a]{color:#2d3748;font-size:11px}.ministry-compact[data-v-4b38046a]{display:flex;justify-content:center}.amount-column[data-v-4b38046a]{align-items:flex-end;display:flex;flex-direction:column;text-align:right}.amount-value[data-v-4b38046a]{color:#22c55e;font-size:12px;font-weight:600}.currency-code[data-v-4b38046a]{color:#718096;font-size:9px;text-transform:uppercase}.purpose-text[data-v-4b38046a]{color:#4a5568;font-size:11px}.bank-compact[data-v-4b38046a]{font-size:10px}.bank-name[data-v-4b38046a]{color:#2d3748;font-weight:600}.account-number[data-v-4b38046a]{color:#718096;font-family:monospace}.date-compact[data-v-4b38046a]{color:#4a5568;font-size:10px}.date-compact.overdue[data-v-4b38046a]{color:#e53e3e;font-weight:600}.action-buttons-table[data-v-4b38046a]{display:flex;gap:2px;justify-content:center}.no-data[data-v-4b38046a]{color:#a0aec0;font-size:10px;font-style:italic}.no-data-card[data-v-4b38046a]{border:1px solid #e2e8f0;margin-top:16px}.compact-pagination[data-v-4b38046a]{align-items:center;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:8px 12px}.pagination-info[data-v-4b38046a]{color:#718096;font-size:11px}.pagination-controls[data-v-4b38046a]{align-items:center;display:flex;gap:4px}.page-numbers[data-v-4b38046a]{display:flex;gap:2px;margin:0 8px}@media (max-width:960px){.header-content[data-v-4b38046a]{align-items:stretch;flex-direction:column;gap:12px}.summary-grid[data-v-4b38046a]{grid-template-columns:repeat(2,1fr)}.filter-row[data-v-4b38046a]{gap:8px}.action-buttons-table[data-v-4b38046a]{flex-direction:column;gap:1px}}@media (max-width:600px){.money-advance-container[data-v-4b38046a]{padding:4px}.summary-grid[data-v-4b38046a]{grid-template-columns:1fr}.compact-pagination[data-v-4b38046a]{align-items:stretch;text-align:center}.compact-pagination[data-v-4b38046a],.summary-layout[data-v-4b38046a],.table-controls[data-v-4b38046a]{flex-direction:column;gap:8px}.summary-layout[data-v-4b38046a]{text-align:center}.summary-icon[data-v-4b38046a]{margin:0 auto}}.v-card[data-v-4b38046a]{box-shadow:0 1px 3px rgba(0,0,0,.1)!important}.v-btn--small[data-v-4b38046a]{height:28px!important;min-width:60px!important}.v-btn--x-small[data-v-4b38046a]{height:24px!important;min-width:24px!important}.v-chip--x-small[data-v-4b38046a]{font-size:10px!important;height:18px!important;padding:0 6px!important}.v-select--dense .v-input__control[data-v-4b38046a],.v-text-field--dense .v-input__control[data-v-4b38046a]{min-height:32px!important}.v-text-field--dense .v-input__details[data-v-4b38046a]{min-height:14px!important;padding-top:2px!important}.v-text-field--dense .v-messages[data-v-4b38046a]{font-size:10px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

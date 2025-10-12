@@ -1,7 +1,7 @@
 exports.ids = [154,20];
 exports.modules = {
 
-/***/ 1171:
+/***/ 1168:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41,7 +41,7 @@ var VSelect = __webpack_require__(19);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=template&id=131987af&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=template&id=2566165f&scoped=true&
 
 
 
@@ -54,12 +54,10 @@ var VTextField = __webpack_require__(36);
 
 
 
-var applicantsvue_type_template_id_131987af_scoped_true_render = function render() {
+var applicantsvue_type_template_id_2566165f_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "applicant-summary-container"
-  }, [_vm._ssrNode("<div class=\"page-header\" data-v-131987af>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-131987af>", "</div>", [_vm._ssrNode("<h1 class=\"page-title\" data-v-131987af>ລະບົບຈັດການຜູ້ສະໝັກງານ</h1> "), _vm._ssrNode("<div class=\"header-actions\" data-v-131987af>", "</div>", [_c(VBtn["a" /* default */], {
+  return _c('div', [_vm._ssrNode("<div class=\"page-header\" data-v-2566165f>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-2566165f>", "</div>", [_vm._ssrNode("<h1 class=\"page-title\" data-v-2566165f>ລະບົບຈັດການຜູ້ສະໝັກງານ</h1> "), _vm._ssrNode("<div class=\"header-actions\" data-v-2566165f>", "</div>", [_c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary"
     },
@@ -395,10 +393,10 @@ var applicantsvue_type_template_id_131987af_scoped_true_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/applicants/index.vue?vue&type=template&id=131987af&scoped=true&
+// CONCATENATED MODULE: ./pages/admin/applicants/index.vue?vue&type=template&id=2566165f&scoped=true&
 
 // EXTERNAL MODULE: ./components/applicants/ApplicantDialog/index.vue + 4 modules
-var ApplicantDialog = __webpack_require__(631);
+var ApplicantDialog = __webpack_require__(622);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index.vue?vue&type=script&lang=js&
 
@@ -668,7 +666,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(912)
+  var style0 = __webpack_require__(903)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -677,11 +675,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_applicantsvue_type_script_lang_js_,
-  applicantsvue_type_template_id_131987af_scoped_true_render,
+  applicantsvue_type_template_id_2566165f_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "131987af",
+  "2566165f",
   "624c7d16"
   
 )
@@ -696,7 +694,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(565);
+var content = __webpack_require__(562);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -708,7 +706,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 564:
+/***/ 561:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -720,7 +718,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 565:
+/***/ 562:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -735,7 +733,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 631:
+/***/ 622:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1161,7 +1159,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(564)
+  var style0 = __webpack_require__(561)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1183,44 +1181,44 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 741:
+/***/ 729:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(913);
+var content = __webpack_require__(904);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("a56d1598", content, true, context)
+  add("552dd282", content, true, context)
 };
 
 /***/ }),
 
-/***/ 912:
+/***/ 903:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_131987af_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(741);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_131987af_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_131987af_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_131987af_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_131987af_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2566165f_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(729);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2566165f_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2566165f_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2566165f_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2566165f_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 913:
+/***/ 904:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".applicant-summary-container[data-v-131987af]{padding:20px}.page-header[data-v-131987af]{margin-bottom:20px}.header-content[data-v-131987af]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-131987af]{font-size:28px;font-weight:600;margin:0}.header-actions[data-v-131987af]{display:flex;gap:12px}.filter-section[data-v-131987af]{margin-bottom:20px}.applicant-name[data-v-131987af]{display:flex;flex-direction:column}.contact-info[data-v-131987af]{color:#666;font-size:12px}.contact-details[data-v-131987af]{align-items:center;display:flex}@media (max-width:768px){.header-content[data-v-131987af]{align-items:flex-start;flex-direction:column;gap:16px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".applicant-summary-container[data-v-2566165f]{padding:20px}.page-header[data-v-2566165f]{margin-bottom:20px}.header-content[data-v-2566165f]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-2566165f]{font-size:28px;font-weight:600;margin:0}.header-actions[data-v-2566165f]{display:flex;gap:12px}.filter-section[data-v-2566165f]{margin-bottom:20px}.applicant-name[data-v-2566165f]{display:flex;flex-direction:column}.contact-info[data-v-2566165f]{color:#666;font-size:12px}.contact-details[data-v-2566165f]{align-items:center;display:flex}@media (max-width:768px){.header-content[data-v-2566165f]{align-items:flex-start;flex-direction:column;gap:16px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

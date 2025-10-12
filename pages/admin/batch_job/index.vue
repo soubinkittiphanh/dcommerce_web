@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <div>
     <!-- Header Section -->
     <v-row>
       <v-col cols="12">
@@ -337,7 +337,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>

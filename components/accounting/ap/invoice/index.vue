@@ -67,6 +67,39 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="agencyId" class="required">ຟົວແທນ/ຜູ້ຂາຍ</label>
+                  <v-autocomplete
+                    id="agencyId"
+                    v-model="form.agencyId"
+                    :items="agencies"
+                    item-value="id"
+                    item-text="agencyName"
+                    :error="!!errors.agencyId"
+                    :error-messages="errors.agencyId"
+                    dense
+                    outlined
+                    clearable
+                    hide-details="auto"
+                    placeholder="ເລືອກຕົວແທນ"
+                    @change="onVendorChange"
+                  >
+                    <template v-slot:item="{ item }">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item.name || item.agencyName }} - ({{
+                            item.code || item.agencyCode
+                          }})
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <template v-slot:selection="{ item }">
+                      {{ item.name || item.agencyName }} ({{
+                        item.code || item.agencyCode
+                      }})
+                    </template>
+                  </v-autocomplete>
+                </div>
+                <div class="form-group">
                   <label for="vendorInvoiceNumber">ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label>
                   <input
                     id="vendorInvoiceNumber"
@@ -83,50 +116,35 @@
                     {{ errors.vendorInvoiceNumber }}
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="agencyId" class="required">ຕົວແທນ/ຜູ້ຂາຍ</label>
-                  <select
-                    id="agencyId"
-                    v-model="form.agencyId"
-                    class="form-control"
-                    :class="{ 'is-invalid': errors.agencyId }"
-                    @change="onVendorChange"
-                  >
-                    <option value="">ເລືອກຕົວແທນ</option>
-                    <option
-                      v-for="agency in agencies"
-                      :key="agency.id"
-                      :value="agency.id"
-                    >
-                      {{ agency.name || agency.agencyName }}
-                      ({{ agency.code || agency.agencyCode }})
-                    </option>
-                  </select>
-                  <div v-if="errors.agencyId" class="invalid-feedback">
-                    {{ errors.agencyId }}
-                  </div>
-                </div>
+
                 <div class="form-group">
                   <label for="currencyId" class="required">ສະກຸນເງິນ</label>
-                  <select
+                  <v-autocomplete
                     id="currencyId"
                     v-model="form.currencyId"
-                    class="form-control"
-                    :class="{ 'is-invalid': errors.currencyId }"
+                    :items="currencies"
+                    item-value="id"
+                    item-text="name"
+                    :error="!!errors.currencyId"
+                    :error-messages="errors.currencyId"
+                    dense
+                    outlined
+                    clearable
+                    hide-details="auto"
+                    placeholder="ເລືອກສະກຸນເງິນ"
                     @change="onCurrencyChange"
                   >
-                    <option value="">ເລືອກສະກຸນເງິນ</option>
-                    <option
-                      v-for="currency in currencies"
-                      :key="currency.id"
-                      :value="currency.id"
-                    >
-                      {{ currency.name }} ({{ currency.code }})
-                    </option>
-                  </select>
-                  <div v-if="errors.currencyId" class="invalid-feedback">
-                    {{ errors.currencyId }}
-                  </div>
+                    <template v-slot:item="{ item }">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item.name }} ({{ item.code }})
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <template v-slot:selection="{ item }">
+                      {{ item.name }} ({{ item.code }})
+                    </template>
+                  </v-autocomplete>
                 </div>
                 <div class="form-group">
                   <label for="exchangeRate" class="required">
@@ -411,7 +429,7 @@
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
-                
+
                         <td class="line-total">
                           {{
                             formatCurrency(
@@ -674,9 +692,7 @@ export default {
           (line) =>
             line.description &&
             (parseFloat(line.quantity) || 0) > 0 &&
-            (parseFloat(line.unitPrice) || 0) >= 0 &&
-            line.DRglAccountId &&
-            line.CRglAccountId
+            (parseFloat(line.unitPrice) || 0) >= 0
         )
       return hasValidHeader && hasValidLines
     },
@@ -694,6 +710,27 @@ export default {
     },
   },
   methods: {
+    async requestSequence() {
+      try {
+        const { data } = await this.$axios.get('/api/ap-invoices/sequence')
+
+        if (data.success) {
+          // Assign the generated invoice number to your form
+          this.form.invoiceNumber = data.data.invoiceNumber
+
+          // Optional: Show success message
+          this.$message.success(
+            `Invoice number generated: ${data.data.invoiceNumber}`
+          )
+
+          return data.data.invoiceNumber
+        }
+      } catch (error) {
+        console.error('Error getting invoice sequence:', error)
+        this.$message.error('Failed to generate invoice number')
+        throw error
+      }
+    },
     async initializeDialog() {
       this.clearErrors()
       if (this.invoice) {
@@ -730,6 +767,7 @@ export default {
           this.form.exchangeRate = defaultCurrency.code === 'LAK' ? 1.0 : 1.0
         }
         this.lineItems = [this.createEmptyLine()]
+        this.requestSequence()
       }
       this.updateSelectedVendor()
       this.updateSelectedCurrency()
@@ -781,8 +819,8 @@ export default {
         description: '',
         quantity: 1,
         unitPrice: 0,
-        DRglAccountId: '',
-        CRglAccountId: '',
+        DRglAccountId: null,
+        CRglAccountId: null,
         discountRate: 0,
         discountAmount: 0,
         taxRate: 0,
@@ -909,10 +947,10 @@ export default {
             this.errors[`line_${i}_quantity`] = 'ຈຳນວນຕ້ອງຫຼາຍກວ່າ 0'
           if (line.unitPrice === '' || parseFloat(line.unitPrice) < 0)
             this.errors[`line_${i}_unitPrice`] = 'ລາຄາຕ້ອງເປັນຄ່າບວກ'
-          if (!line.DRglAccountId)
-            this.errors[`line_${i}_DRglAccountId`] = 'ກະລຸນາເລືອກ DR Account'
-          if (!line.CRglAccountId)
-            this.errors[`line_${i}_CRglAccountId`] = 'ກະລຸນາເລືອກ CR Account'
+          // if (!line.DRglAccountId)
+          //   this.errors[`line_${i}_DRglAccountId`] = 'ກະລຸນາເລືອກ DR Account'
+          // if (!line.CRglAccountId)
+          //   this.errors[`line_${i}_CRglAccountId`] = 'ກະລຸນາເລືອກ CR Account'
         }
       }
       if (this.isEdit && !this.form.reason)
@@ -945,6 +983,7 @@ export default {
         })),
       }
       this.$emit('save', formData)
+      this.saving = false
     },
     handleOverlayClick() {
       if (!this.saving) this.handleClose()

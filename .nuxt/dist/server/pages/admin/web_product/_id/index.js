@@ -1,7 +1,7 @@
 exports.ids = [266,40,46,47,48,112,115,116,140,141,223,267,289];
 exports.modules = {
 
-/***/ 1285:
+/***/ 1282:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -406,7 +406,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/web_product/_id/index.vue?vue&type=template&id=c520b150&
 
 // EXTERNAL MODULE: ./pages/admin/web_product/index.vue + 4 modules
-var web_product = __webpack_require__(862);
+var web_product = __webpack_require__(853);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/_id/index.vue?vue&type=script&lang=js&
 // import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
@@ -565,7 +565,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(438).default,DiaConfirm: __webpack_require__(556).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default,DiaImage: __webpack_require__(438).default,DiaConfirm: __webpack_require__(553).default})
 
 
 /***/ }),
@@ -5859,7 +5859,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 556:
+/***/ 553:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5960,7 +5960,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 640:
+/***/ 628:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6279,7 +6279,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 862:
+/***/ 853:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6637,7 +6637,7 @@ var myUtil = __webpack_require__(138);
 var external_vuex_ = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./components/WebProductCategoryForm.vue + 4 modules
-var WebProductCategoryForm = __webpack_require__(640);
+var WebProductCategoryForm = __webpack_require__(628);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/index.vue?vue&type=script&lang=js&
 

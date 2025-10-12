@@ -46,50 +46,65 @@
               </div>
 
               <div class="form-group">
-                <label>ວິທີການຊຳລະ <span class="required">*</span></label>
-                <select
-                  v-model="form.paymentMethodId"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.paymentMethodId }"
-                  required
+                <label for="paymentMethodId" class="required"
+                  >ວິທີການຊຳລະ</label
                 >
-                  <option value="">ເລືອກວິທີການຊຳລະ</option>
-                  <option
-                    v-for="method in paymentMethods"
-                    :key="method.id"
-                    :value="method.id"
-                  >
-                    {{ method.payment_name }}
-                  </option>
-                </select>
-                <div v-if="errors.paymentMethodId" class="invalid-feedback">
-                  {{ errors.paymentMethodId }}
-                </div>
+                <v-autocomplete
+                  id="paymentMethodId"
+                  v-model="form.paymentMethodId"
+                  :items="paymentMethods"
+                  item-value="id"
+                  item-text="payment_name"
+                  :error="!!errors.paymentMethodId"
+                  :error-messages="errors.paymentMethodId"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  placeholder="ເລືອກວິທີການຊຳລະ"
+                >
+                  <template v-slot:item="{ item }">
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ item.payment_name }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+                  <template v-slot:selection="{ item }">
+                    {{ item.payment_name }}
+                  </template>
+                </v-autocomplete>
               </div>
               <div class="form-group">
-                <label for="currencyId"
-                  >ສະກຸນເງິນ <span class="required">*</span></label
-                >
-                <select
-                  id="currencyId"
-                  v-model="form.currencyId"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.currencyId }"
-                  @change="onCurrencyChange"
-                >
-                  <option value="">ເລືອກສະກຸນເງິນ</option>
-                  <option
-                    v-for="currency in currencies"
-                    :key="currency.id"
-                    :value="currency.id"
-                  >
-                    {{ currency.name }} ({{ currency.code }})
-                  </option>
-                </select>
-                <div v-if="errors.currencyId" class="invalid-feedback">
-                  {{ errors.currencyId }}
-                </div>
-              </div>
+  <label for="currencyId" class="required">ສະກຸນເງິນ</label>
+  <v-autocomplete
+    id="currencyId"
+    v-model="form.currencyId"
+    :items="currencies"
+    item-value="id"
+    item-text="name"
+    :filter="currencyFilter"
+    :error="!!errors.currencyId"
+    :error-messages="errors.currencyId"
+    dense
+    outlined
+    clearable
+    hide-details="auto"
+    placeholder="ເລືອກສະກຸນເງິນ"
+    @change="onCurrencyChange"
+  >
+    <template v-slot:item="{ item }">
+      <v-list-item-content>
+        <v-list-item-title>
+          {{ item.name }} ({{ item.code }})
+        </v-list-item-title>
+      </v-list-item-content>
+    </template>
+    <template v-slot:selection="{ item }">
+      {{ item.name }} ({{ item.code }})
+    </template>
+  </v-autocomplete>
+</div>
               <div class="form-group">
                 <label for="exchangeRate" class="required">
                   ອັດຕາແລກປ່ຽນ
@@ -114,17 +129,33 @@
               </div>
 
               <div class="form-group">
-                <label>ບັນຊີທະນາຄານ</label>
-                <select v-model="form.bankAccountId" class="form-control">
-                  <option value="">ເລືອກບັນຊີທະນາຄານ</option>
-                  <option
-                    v-for="account in bankAccounts"
-                    :key="account.id"
-                    :value="account.id"
-                  >
-                    {{ account.accountNumber }} - {{ account.bankName }}
-                  </option>
-                </select>
+                <label for="bankAccountId">ບັນຊີທະນາຄານ</label>
+                <v-autocomplete
+                  id="bankAccountId"
+                  v-model="form.bankAccountId"
+                  :items="bankAccounts"
+                  item-value="id"
+                  item-text="accountNumber"
+                  :filter="bankAccountFilter"
+                  :error="!!errors.bankAccountId"
+                  :error-messages="errors.bankAccountId"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  placeholder="ເລືອກບັນຊີທະນາຄານ"
+                >
+                  <template v-slot:item="{ item }">
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ item.accountNumber }} - {{ item.bankName }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+                  <template v-slot:selection="{ item }">
+                    {{ item.accountNumber }} - {{ item.bankName }}
+                  </template>
+                </v-autocomplete>
               </div>
 
               <div class="form-group">
@@ -280,21 +311,31 @@
 
                       <!-- Agency -->
                       <td>
-                        <select
+                        <v-autocomplete
                           v-if="line.type === 'manual'"
                           v-model="line.agencyId"
-                          class="form-control form-control-xs"
+                          :items="agencies"
+                          item-value="id"
+                          item-text="agencyName"
+                          :filter="agencyFilterForTable"
                           :disabled="!canModifyAllocations"
+                          dense
+                          outlined
+                          hide-details
+                          placeholder="ເລືອກຕົວແທນ"
+                          class="table-autocomplete"
                         >
-                          <option value="">ເລືອກຕົວແທນ</option>
-                          <option
-                            v-for="agency in agencies"
-                            :key="agency.id"
-                            :value="agency.id"
-                          >
-                            {{ agency.agencyName }} - {{ agency.agencyCode }}
-                          </option>
-                        </select>
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                {{ item.agencyName }} - {{ item.agencyCode }}
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </template>
+                          <template v-slot:selection="{ item }">
+                            {{ item.agencyName }} - {{ item.agencyCode }}
+                          </template>
+                        </v-autocomplete>
                         <span
                           v-else
                           class="text-truncate"

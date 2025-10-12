@@ -1,5 +1,5 @@
 <template>
-  <div class="settlement-container">
+  <div>
     <!-- Compact Header -->
     <div class="page-header">
       <h1 class="page-title">ສະຫລຸບບັນຊີ ລາຍຮັບ</h1>
@@ -134,12 +134,7 @@
               >
                 <v-icon small>mdi-magnify</v-icon>
               </v-btn>
-              <v-btn
-                small
-                outlined
-                @click="resetFilters"
-                :disabled="loading"
-              >
+              <v-btn small outlined @click="resetFilters" :disabled="loading">
                 <v-icon small>mdi-refresh</v-icon>
               </v-btn>
             </div>
@@ -181,8 +176,12 @@
             text
             @click="showAdvancedFilters = !showAdvancedFilters"
           >
-            {{ showAdvancedFilters ? 'ປິດຕົວກອງເພີ່ມເຕີມ' : 'ເປີດຕົວກອງເພີ່ມເຕີມ' }}
-            <v-icon small>{{ showAdvancedFilters ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            {{
+              showAdvancedFilters ? 'ປິດຕົວກອງເພີ່ມເຕີມ' : 'ເປີດຕົວກອງເພີ່ມເຕີມ'
+            }}
+            <v-icon small>{{
+              showAdvancedFilters ? 'mdi-chevron-up' : 'mdi-chevron-down'
+            }}</v-icon>
           </v-btn>
         </div>
       </v-card-text>
@@ -198,8 +197,12 @@
               <v-icon>mdi-calculator</v-icon>
             </div>
             <div class="summary-details">
-              <div class="summary-amount">{{ formatCurrency(summaryStats.totalLAK.amount, 'LAK') }}</div>
-              <div class="summary-label">ລວມທັງໝົດ ({{ summaryStats.totalLAK.count }} ລາຍການ)</div>
+              <div class="summary-amount">
+                {{ formatCurrency(summaryStats.totalLAK.amount, 'LAK') }}
+              </div>
+              <div class="summary-label">
+                ລວມທັງໝົດ ({{ summaryStats.totalLAK.count }} ລາຍການ)
+              </div>
             </div>
           </div>
         </v-card-text>
@@ -218,10 +221,19 @@
             </div>
             <div class="summary-details">
               <div class="summary-amount">
-                {{ formatCurrencyAmount(currencyStat.originalAmount, currencyStat.currencyCode) }}
+                {{
+                  formatCurrencyAmount(
+                    currencyStat.originalAmount,
+                    currencyStat.currencyCode
+                  )
+                }}
               </div>
-              <div class="summary-label">{{ currencyStat.currencyCode }} ({{ currencyStat.count }})</div>
-              <div class="lak-equivalent">≈ {{ formatCurrency(currencyStat.lakEquivalent, 'LAK') }}</div>
+              <div class="summary-label">
+                {{ currencyStat.currencyCode }} ({{ currencyStat.count }})
+              </div>
+              <div class="lak-equivalent">
+                ≈ {{ formatCurrency(currencyStat.lakEquivalent, 'LAK') }}
+              </div>
             </div>
           </div>
         </v-card-text>
@@ -231,52 +243,40 @@
     <!-- Compact Data Table -->
     <v-card class="table-card" flat>
       <v-card-title class="py-2">
-        <span class="table-title">ລາຍການ ({{ filteredSettlements.length }})</span>
+        <span class="table-title"
+          >ລາຍການ ({{ filteredSettlements.length }})</span
+        >
         <v-spacer />
-        <div class="table-controls">
-          <v-select
-            v-model="pagination.perPage"
-            :items="[10, 25, 50, 100]"
-            label="ແຖວ"
-            dense
-            outlined
-            hide-details
-            style="max-width: 80px"
-            @input="updatePagination"
-          />
-        </div>
+        
       </v-card-title>
 
       <v-data-table
         :headers="tableHeaders"
         :items="filteredSettlements"
-        :page.sync="pagination.currentPage"
-        :items-per-page="pagination.perPage"
-        :server-items-length="filteredSettlements.length"
+        :items-per-page="25"
         class="compact-table"
         dense
-        hide-default-footer
       >
         <!-- ID Column -->
         <template #item.id="{ item }">
           <div class="id-cell">
             {{ item.id }}
-            <span v-if="item.moneyAdvanceId" class="advance-id">({{ item.moneyAdvanceId }})</span>
+            <span v-if="item.moneyAdvanceId" class="advance-id"
+              >({{ item.moneyAdvanceId }})</span
+            >
           </div>
         </template>
 
         <!-- Date Column -->
         <template #item.bookingDate="{ item }">
-          <span class="date-text">{{ formatCompactDate(item.bookingDate) }}</span>
+          <span class="date-text">{{
+            formatCompactDate(item.bookingDate)
+          }}</span>
         </template>
 
         <!-- Method Column -->
         <template #item.method="{ item }">
-          <v-chip
-            :color="getMethodColor(item.method)"
-            small
-            outlined
-          >
+          <v-chip :color="getMethodColor(item.method)" small outlined>
             {{ formatMethod(item.method) }}
           </v-chip>
         </template>
@@ -285,31 +285,23 @@
         <template #item.amount="{ item }">
           <div class="amount-cell">
             <div class="amount-value">{{ formatSettlementAmount(item) }}</div>
-            <div class="currency-code">{{ getSettlementCurrency(item)?.code || 'LAK' }}</div>
+            <div class="currency-code">
+              {{ getSettlementCurrency(item)?.code || 'LAK' }}
+            </div>
           </div>
         </template>
 
         <!-- Ministry Column -->
         <template #item.ministry="{ item }">
-          <v-chip
-            v-if="item.ministry"
-            color="info"
-            x-small
-            outlined
-          >
-            {{ item.ministry.ministryCode }}
+          <v-chip v-if="item.ministry" color="info" x-small outlined>
+            {{ item.ministry.ministryName }}
           </v-chip>
           <span v-else class="no-data">-</span>
         </template>
 
         <!-- Chart Account Column -->
         <template #item.chartAccount="{ item }">
-          <v-chip
-            v-if="item.chartAccount"
-            color="warning"
-            x-small
-            outlined
-          >
+          <v-chip v-if="item.chartAccount" color="warning" x-small outlined>
             {{ item.chartAccount.accountNumber }}
           </v-chip>
           <span v-else class="no-data">-</span>
@@ -345,49 +337,6 @@
           </div>
         </template>
       </v-data-table>
-
-      <!-- Custom Pagination -->
-      <div class="custom-pagination">
-        <div class="pagination-info">
-          {{ paginationInfo.start }} - {{ paginationInfo.end }} ຈາກ {{ paginationInfo.total }}
-        </div>
-        <div class="pagination-controls">
-          <v-btn
-            icon
-            small
-            :disabled="pagination.currentPage === 1"
-            @click="previousPage"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          
-          <span class="page-numbers">
-            <v-btn
-              v-for="page in visiblePages"
-              :key="page"
-              :outlined="page !== pagination.currentPage"
-              :color="page === pagination.currentPage ? 'primary' : ''"
-              small
-              min-width="32"
-              height="32"
-              @click="goToPage(page)"
-              v-if="page !== '...'"
-            >
-              {{ page }}
-            </v-btn>
-            <span v-else class="ellipsis">...</span>
-          </span>
-
-          <v-btn
-            icon
-            small
-            :disabled="pagination.currentPage === totalPages"
-            @click="nextPage"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </div>
-      </div>
     </v-card>
 
     <!-- Dialogs (keeping existing) -->
@@ -426,11 +375,7 @@
 
     <!-- Loading Overlay -->
     <v-overlay :value="loading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-        color="primary"
-      />
+      <v-progress-circular indeterminate size="64" color="primary" />
     </v-overlay>
   </div>
 </template>
@@ -458,7 +403,7 @@ export default {
       pickerEndDate: null,
       formattedStartDate: null,
       formattedEndDate: null,
-      
+
       // UI state
       showAdvancedFilters: false,
       showPrintVoucher: false,
@@ -522,11 +467,16 @@ export default {
       return [
         { text: 'ID', value: 'id', width: '80px', sortable: true },
         { text: 'ວັນທີ', value: 'bookingDate', width: '100px', sortable: true },
-        { text: 'ວິທີ', value: 'method', width: '90px', sortable: true },
-        { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
+        { text: 'ການຊຳລະ', value: 'method', width: '90px', sortable: true },
         { text: 'ຈຳນວນ', value: 'amount', width: '120px', sortable: true },
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
-        { text: 'ບັນຊີ', value: 'chartAccount', width: '80px', sortable: false },
+        {
+          text: 'ບັນຊີ',
+          value: 'chartAccount',
+          width: '80px',
+          sortable: false,
+        },
+         { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
         { text: 'ຈັດການ', value: 'actions', width: '100px', sortable: false },
       ]
     },
@@ -545,30 +495,30 @@ export default {
     accountOptions() {
       return [
         { text: 'ທັງໝົດ', value: '' },
-        ...this.accountList.map(account => ({
+        ...this.accountList.map((account) => ({
           text: `${account.bankName} - ${account.accountNumber}`,
-          value: account.id
-        }))
+          value: account.id,
+        })),
       ]
     },
 
     ministryOptions() {
       return [
         { text: 'ທັງໝົດ', value: '' },
-        ...this.ministries.map(ministry => ({
+        ...this.ministries.map((ministry) => ({
           text: `${ministry.ministryCode} - ${ministry.ministryName}`,
-          value: ministry.id
-        }))
+          value: ministry.id,
+        })),
       ]
     },
 
     chartAccountOptions() {
       return [
         { text: 'ທັງໝົດ', value: '' },
-        ...this.chartAccounts.map(account => ({
+        ...this.chartAccounts.map((account) => ({
           text: `${account.accountNumber} - ${account.accountName}`,
-          value: account.id
-        }))
+          value: account.id,
+        })),
       ]
     },
 
@@ -580,12 +530,18 @@ export default {
     },
 
     totalPages() {
-      return Math.ceil(this.filteredSettlements.length / this.pagination.perPage)
+      return Math.ceil(
+        this.filteredSettlements.length / this.pagination.perPage
+      )
     },
 
     paginationInfo() {
-      const start = (this.pagination.currentPage - 1) * this.pagination.perPage + 1
-      const end = Math.min(start + this.pagination.perPage - 1, this.filteredSettlements.length)
+      const start =
+        (this.pagination.currentPage - 1) * this.pagination.perPage + 1
+      const end = Math.min(
+        start + this.pagination.perPage - 1,
+        this.filteredSettlements.length
+      )
       return {
         start: this.filteredSettlements.length > 0 ? start : 0,
         end,
@@ -670,7 +626,7 @@ export default {
       return new Date(date).toLocaleDateString('en-GB', {
         day: '2-digit',
         month: '2-digit',
-        year: '2-digit'
+        year: '2-digit',
       })
     },
 
@@ -680,7 +636,7 @@ export default {
         cash: 'success',
         cheque: 'warning',
         bank_transfer: 'info',
-        deduction: 'error'
+        deduction: 'error',
       }
       return colors[method] || 'grey'
     },
@@ -746,7 +702,9 @@ export default {
         } else {
           this.accountList = []
         }
-        this.accountList = this.accountList.filter(account => account.isActive)
+        this.accountList = this.accountList.filter(
+          (account) => account.isActive
+        )
       } catch (error) {
         console.error('Error fetching bank accounts:', error)
         this.accountList = []
@@ -791,29 +749,36 @@ export default {
       this.loading = true
       try {
         const response = await this.$axios.get('/api/settlements')
-        if (response.data && response.data.success && response.data.data && response.data.data.settlements) {
-          this.settlements = response.data.data.settlements.map(settlement => ({
-            id: settlement.id,
-            bookingDate: settlement.bookingDate,
-            method: settlement.method,
-            requester: settlement.proceeder?.cus_name || 'Unknown',
-            amount: settlement.amount,
-            userId: settlement.userId,
-            currencyId: settlement.currencyId,
-            currency: settlement.currency,
-            bankAccountId: settlement.bankAccountId,
-            ministryId: settlement.ministryId,
-            chartAccountId: settlement.chartAccountId,
-            ministry: settlement.ministry,
-            chartAccount: settlement.chartAccount,
-            moneyAdvanceId: settlement.moneyAdvanceId,
-            exchangeRate: settlement.exchangeRate,
-            externalRef: settlement.externalRef,
-            externalRefNo: settlement.externalRefNo,
-            chequeNo: settlement.chequeNo,
-            fromPersonName: settlement.fromPersonName,
-            notes: settlement.notes,
-          }))
+        if (
+          response.data &&
+          response.data.success &&
+          response.data.data &&
+          response.data.data.settlements
+        ) {
+          this.settlements = response.data.data.settlements.map(
+            (settlement) => ({
+              id: settlement.id,
+              bookingDate: settlement.bookingDate,
+              method: settlement.method,
+              requester: settlement.proceeder?.cus_name || 'Unknown',
+              amount: settlement.amount,
+              userId: settlement.userId,
+              currencyId: settlement.currencyId,
+              currency: settlement.currency,
+              bankAccountId: settlement.bankAccountId,
+              ministryId: settlement.ministryId,
+              chartAccountId: settlement.chartAccountId,
+              ministry: settlement.ministry,
+              chartAccount: settlement.chartAccount,
+              moneyAdvanceId: settlement.moneyAdvanceId,
+              exchangeRate: settlement.exchangeRate,
+              externalRef: settlement.externalRef,
+              externalRefNo: settlement.externalRefNo,
+              chequeNo: settlement.chequeNo,
+              fromPersonName: settlement.fromPersonName,
+              notes: settlement.notes,
+            })
+          )
         } else {
           this.settlements = []
         }
@@ -889,7 +854,10 @@ export default {
           id: newSettlement.id,
           bookingDate: newSettlement.bookingDate || newSettlement.createdAt,
           method: newSettlement.method,
-          requester: newSettlement.proceeder?.cus_name || this.user?.cus_name || 'Unknown',
+          requester:
+            newSettlement.proceeder?.cus_name ||
+            this.user?.cus_name ||
+            'Unknown',
           amount: newSettlement.amount,
           userId: newSettlement.userId,
           currencyId: newSettlement.currencyId,
@@ -916,11 +884,14 @@ export default {
 
     async handleSettlementUpdated(updatedSettlement) {
       if (this.settlements && Array.isArray(this.settlements)) {
-        const index = this.settlements.findIndex(s => s.id === updatedSettlement.id)
+        const index = this.settlements.findIndex(
+          (s) => s.id === updatedSettlement.id
+        )
         if (index !== -1) {
           this.$set(this.settlements, index, {
             id: updatedSettlement.id,
-            bookingDate: updatedSettlement.bookingDate || updatedSettlement.createdAt,
+            bookingDate:
+              updatedSettlement.bookingDate || updatedSettlement.createdAt,
             method: updatedSettlement.method,
             requester: updatedSettlement.proceeder?.cus_name || 'Unknown',
             amount: updatedSettlement.amount,
@@ -966,8 +937,20 @@ export default {
     async loadOutstandingInvoices() {
       try {
         this.outstandingInvoices = [
-          { id: 1, invoiceNumber: 'INV-001', vendor: { id: 1, name: 'Test Vendor 1' }, dueDate: '2025-08-01', outstandingAmount: 1000 },
-          { id: 2, invoiceNumber: 'INV-002', vendor: { id: 2, name: 'Test Vendor 2' }, dueDate: '2025-08-15', outstandingAmount: 2500 },
+          {
+            id: 1,
+            invoiceNumber: 'INV-001',
+            vendor: { id: 1, name: 'Test Vendor 1' },
+            dueDate: '2025-08-01',
+            outstandingAmount: 1000,
+          },
+          {
+            id: 2,
+            invoiceNumber: 'INV-002',
+            vendor: { id: 2, name: 'Test Vendor 2' },
+            dueDate: '2025-08-15',
+            outstandingAmount: 2500,
+          },
         ]
       } catch (error) {
         console.error('Error loading outstanding invoices:', error)
@@ -981,22 +964,30 @@ export default {
       let filtered = [...this.settlements]
 
       if (this.filters.startDate) {
-        filtered = filtered.filter(s => s.bookingDate >= this.filters.startDate)
+        filtered = filtered.filter(
+          (s) => s.bookingDate >= this.filters.startDate
+        )
       }
       if (this.filters.endDate) {
-        filtered = filtered.filter(s => s.bookingDate <= this.filters.endDate)
+        filtered = filtered.filter((s) => s.bookingDate <= this.filters.endDate)
       }
       if (this.filters.method) {
-        filtered = filtered.filter(s => s.method === this.filters.method)
+        filtered = filtered.filter((s) => s.method === this.filters.method)
       }
       if (this.filters.accountNo) {
-        filtered = filtered.filter(s => s.bankAccountId === this.filters.accountNo)
+        filtered = filtered.filter(
+          (s) => s.bankAccountId === this.filters.accountNo
+        )
       }
       if (this.filters.ministryId) {
-        filtered = filtered.filter(s => s.ministryId === this.filters.ministryId)
+        filtered = filtered.filter(
+          (s) => s.ministryId === this.filters.ministryId
+        )
       }
       if (this.filters.chartAccountId) {
-        filtered = filtered.filter(s => s.chartAccountId === this.filters.chartAccountId)
+        filtered = filtered.filter(
+          (s) => s.chartAccountId === this.filters.chartAccountId
+        )
       }
 
       this.filteredSettlements = filtered
@@ -1073,7 +1064,9 @@ export default {
 
       this.summaryStats = {
         totalLAK: { amount: totalLAKAmount, count: totalCount },
-        currencies: Array.from(currencyStats.values()).sort((a, b) => b.lakEquivalent - a.lakEquivalent),
+        currencies: Array.from(currencyStats.values()).sort(
+          (a, b) => b.lakEquivalent - a.lakEquivalent
+        ),
       }
     },
 
@@ -1148,7 +1141,16 @@ export default {
     },
 
     convertToCSV(data) {
-      const headers = ['ID', 'Date', 'Method', 'Requester', 'Amount', 'Currency', 'Ministry', 'Chart Account']
+      const headers = [
+        'ID',
+        'Date',
+        'Method',
+        'Requester',
+        'Amount',
+        'Currency',
+        'Ministry',
+        'Chart Account',
+      ]
       const csvContent = [
         headers.join(','),
         ...data.map((row) => {

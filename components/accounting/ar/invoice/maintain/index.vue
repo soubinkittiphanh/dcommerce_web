@@ -98,27 +98,37 @@
                 </div>
                 <div class="form-group">
                   <label for="jobBatchId" class="required">ແບັດຈັອບ</label>
-                  <select
+                  <v-autocomplete
                     id="jobBatchId"
                     v-model="form.jobBatchId"
-                    class="form-control"
-                    :class="{ 'is-invalid': errors.jobBatchId }"
+                    :items="jobBatches"
+                    item-value="id"
+                    item-text="runningNo"
+                    :filter="jobBatchFilter"
+                    :error="!!errors.jobBatchId"
+                    :error-messages="errors.jobBatchId"
+                    dense
+                    outlined
+                    clearable
+                    hide-details="auto"
+                    placeholder="ເລືອກແບັດຈັອບ"
                     @change="onBatchJobChange"
                   >
-                    <option value="">ເລືອກແບັດຈັອບ</option>
-                    <option
-                      v-for="jobBatch in jobBatches"
-                      :key="jobBatch.id"
-                      :value="jobBatch.id"
-                    >
-                      {{ jobBatch.runningNo }} ({{
-                        jobBatch.totalPositions || jobBatch.mou.jobTitle
+                    <template v-slot:item="{ item }">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item.runningNo }} ({{
+                            item.totalPositions || item.mou?.jobTitle
+                          }})
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <template v-slot:selection="{ item }">
+                      {{ item.runningNo }} ({{
+                        item.totalPositions || item.mou?.jobTitle
                       }})
-                    </option>
-                  </select>
-                  <div v-if="errors.jobBatchId" class="invalid-feedback">
-                    {{ errors.jobBatchId }}
-                  </div>
+                    </template>
+                  </v-autocomplete>
                 </div>
                 <div class="form-group">
                   <label for="status">ສະຖານະ</label>
@@ -169,21 +179,33 @@
                 </div>
                 <div class="form-group">
                   <label for="currencyId">ສະກຸນເງິນ</label>
-                  <select
+                  <v-autocomplete
                     id="currencyId"
                     v-model="form.currencyId"
-                    class="form-control"
+                    :items="currencies"
+                    item-value="id"
+                    item-text="name"
+                    :filter="currencyFilter"
+                    :error="!!errors.currencyId"
+                    :error-messages="errors.currencyId"
+                    dense
+                    outlined
+                    clearable
+                    hide-details="auto"
+                    placeholder="ເລືອກສະກຸນເງິນ"
                     @change="onCurrencyChange"
                   >
-                    <option value="">ເລືອກສະກຸນເງິນ</option>
-                    <option
-                      v-for="currency in currencies"
-                      :key="currency.id"
-                      :value="currency.id"
-                    >
-                      {{ currency.name }} ({{ currency.code }})
-                    </option>
-                  </select>
+                    <template v-slot:item="{ item }">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item.name }} ({{ item.code }})
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <template v-slot:selection="{ item }">
+                      {{ item.name }} ({{ item.code }})
+                    </template>
+                  </v-autocomplete>
                 </div>
                 <div class="form-group">
                   <label for="exchangeRate">ອັດຕາແລກປ່ຽນ</label>
@@ -667,6 +689,27 @@ export default {
   },
 
   methods: {
+    async requestSequence() {
+      try {
+        const { data } = await this.$axios.get('/api/ar-invoices/sequence')
+
+        if (data.success) {
+          // Assign the generated invoice number to your form
+          this.form.invoiceNumber = data.data.invoiceNumber
+
+          // Optional: Show success message
+          this.$message.success(
+            `Invoice number generated: ${data.data.invoiceNumber}`
+          )
+
+          return data.data.invoiceNumber
+        }
+      } catch (error) {
+        console.error('Error getting invoice sequence:', error)
+        this.$message.error('Failed to generate invoice number')
+        throw error
+      }
+    },
     updateSelectedVendor() {
       if (this.form.agencyId && this.agencies.length > 0) {
         this.selectedVendor = this.agencies.find(
@@ -736,6 +779,7 @@ export default {
 
         // Initialize with one empty line item
         this.lineItems = [this.createEmptyLine()]
+        this.requestSequence()
       }
 
       this.updateSelectedCustomer()

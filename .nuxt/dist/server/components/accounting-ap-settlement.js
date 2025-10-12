@@ -5,7 +5,7 @@ exports.modules = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(URL) {/* harmony import */ var _components_accounting_ap_settlement_audit_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(558);
+/* WEBPACK VAR INJECTION */(function(URL) {/* harmony import */ var _components_accounting_ap_settlement_audit_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(555);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   name: 'SettlementAuditDialog',
@@ -389,7 +389,7 @@ exports.modules = {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(544);
+var content = __webpack_require__(541);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -401,13 +401,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 525:
+/***/ 522:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(613);
+var content = __webpack_require__(604);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -419,13 +419,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 526:
+/***/ 523:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(615);
+var content = __webpack_require__(606);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -437,7 +437,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 543:
+/***/ 540:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -449,7 +449,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 544:
+/***/ 541:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -464,7 +464,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 558:
+/***/ 555:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -818,7 +818,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(543)
+  var style0 = __webpack_require__(540)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -840,19 +840,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 612:
+/***/ 603:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_084231f4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(525);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_084231f4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(522);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_084231f4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_084231f4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_084231f4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_084231f4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 613:
+/***/ 604:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -867,19 +867,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 614:
+/***/ 605:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4664dd31_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(526);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4664dd31_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(523);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4664dd31_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4664dd31_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4664dd31_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4664dd31_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 615:
+/***/ 606:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -894,25 +894,25 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 616:
+/***/ 607:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(692);
+var content = __webpack_require__(680);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("0b300936", content, true, context)
+  add("c79b8fe0", content, true, context)
 };
 
 /***/ }),
 
-/***/ 643:
+/***/ 631:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1304,7 +1304,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(614)
+  var style0 = __webpack_require__(605)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1326,7 +1326,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 645:
+/***/ 633:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1371,7 +1371,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(612)
+  var style0 = __webpack_require__(603)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1393,26 +1393,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 691:
+/***/ 679:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_91378fe4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(616);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_91378fe4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_91378fe4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_91378fe4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_91378fe4_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c19e2ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(607);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c19e2ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c19e2ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c19e2ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c19e2ec_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 692:
+/***/ 680:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".form-control[data-v-91378fe4]{border:1px solid #ddd;border-radius:4px;font-size:12px;height:32px;padding:6px 8px;transition:border-color .2s ease;width:100%}.form-control[data-v-91378fe4]:focus{border-color:#17a2b8;box-shadow:0 0 0 2px rgba(23,162,184,.1);outline:none}.form-control[data-v-91378fe4]:disabled{background-color:#f8f9fa;color:#6c757d}.form-control.is-invalid[data-v-91378fe4]{border-color:#e74c3c}.form-control-xs[data-v-91378fe4]{font-size:11px;height:28px;padding:4px 6px}select.form-control[data-v-91378fe4],select.form-control-xs[data-v-91378fe4]{-webkit-appearance:auto;-moz-appearance:auto;appearance:auto;background-color:#fff;cursor:pointer}select.form-control-xs[data-v-91378fe4]:disabled,select.form-control[data-v-91378fe4]:disabled{background-color:#e9ecef;cursor:not-allowed;opacity:.7}select.form-control-xs optgroup[data-v-91378fe4]{background-color:#f8f9fa;color:#495057;font-style:normal;font-weight:600}select.form-control-xs option[data-v-91378fe4]{font-size:11px;padding:4px 8px}.form-control-xs[data-v-91378fe4]:focus,select.form-control-xs[data-v-91378fe4]:focus{border-color:#17a2b8;box-shadow:0 0 0 2px rgba(23,162,184,.15);outline:none;z-index:2}.is-invalid[data-v-91378fe4]{background-image:none}.is-invalid[data-v-91378fe4],.is-invalid[data-v-91378fe4]:focus{border-color:#dc3545!important}.is-invalid[data-v-91378fe4]:focus{box-shadow:0 0 0 2px rgba(220,53,69,.25)}.invalid-feedback[data-v-91378fe4]{color:#e74c3c;display:block;font-size:10px;margin-top:2px;width:100%}.text-danger[data-v-91378fe4]{color:#dc3545!important;display:block;font-size:10px;margin-top:2px}.text-truncate[data-v-91378fe4]{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;white-space:nowrap}.text-right[data-v-91378fe4]{text-align:right!important}.text-center[data-v-91378fe4]{text-align:center!important}.required[data-v-91378fe4]{color:#e74c3c;font-weight:700}.modal-overlay[data-v-91378fe4]{align-items:center;background-color:rgba(0,0,0,.7);justify-content:center;left:0;padding:0;position:fixed;top:0;z-index:1000}.modal-overlay[data-v-91378fe4],.settlement-dialog[data-v-91378fe4]{display:flex;height:100vh;width:100vw}.settlement-dialog[data-v-91378fe4]{background:#fff;flex-direction:column;overflow:hidden}.dialog-header[data-v-91378fe4]{align-items:center;background:linear-gradient(135deg,#01532b,#337555);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;min-height:50px;padding:12px 20px}.dialog-header h4[data-v-91378fe4]{font-size:16px;font-weight:600;margin:0}.header-actions[data-v-91378fe4]{gap:8px}.audit-btn[data-v-91378fe4],.header-actions[data-v-91378fe4]{align-items:center;display:flex}.audit-btn[data-v-91378fe4]{background:hsla(0,0%,100%,.2);border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:12px;gap:4px;padding:6px 10px;transition:all .2s ease}.audit-btn[data-v-91378fe4]:hover{background:hsla(0,0%,100%,.3)}.audit-text[data-v-91378fe4]{font-size:11px}.close-btn[data-v-91378fe4]{background:none;border:none;border-radius:50%;color:#fff;cursor:pointer;font-size:16px;padding:4px;transition:all .2s ease}.close-btn[data-v-91378fe4]:hover{background:hsla(0,0%,100%,.2)}.dialog-body[data-v-91378fe4]{flex:1;overflow-y:auto;padding:0}.form-section[data-v-91378fe4]{background:#fafafa;border-bottom:1px solid #e9ecef;margin:0;padding:15px}.section-title[data-v-91378fe4]{align-items:center;border-bottom:1px solid #17a2b8;color:#333;display:flex;font-size:14px;font-weight:600;gap:6px;margin-bottom:12px;padding-bottom:4px}.section-title i[data-v-91378fe4]{color:#17a2b8;font-size:13px}.section-header[data-v-91378fe4]{gap:10px;justify-content:space-between;margin-bottom:12px}.section-actions[data-v-91378fe4],.section-header[data-v-91378fe4]{align-items:center;display:flex;flex-wrap:wrap}.section-actions[data-v-91378fe4]{gap:8px}.allocation-info[data-v-91378fe4]{display:flex;font-size:11px;gap:12px}.info-item[data-v-91378fe4]{background:#fff;border:1px solid #ddd;border-radius:4px;padding:4px 8px}.form-grid[data-v-91378fe4]{grid-gap:10px;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.span-2[data-v-91378fe4]{grid-column:span 2}.form-group[data-v-91378fe4]{margin-bottom:0}.form-group label[data-v-91378fe4]{color:#333;display:block;font-size:12px;font-weight:500;margin-bottom:3px}.type-badge[data-v-91378fe4]{border-radius:3px;display:inline-block;font-size:10px;font-weight:600;padding:3px 8px;text-transform:uppercase;white-space:nowrap}.type-badge.invoice[data-v-91378fe4]{background:#e3f2fd;border:1px solid #90caf9;color:#1976d2}.type-badge.manual[data-v-91378fe4]{background:#fff3e0;border:1px solid #ffb74d;color:#f57c00}.type-badge.mou[data-v-91378fe4]{background:#e8f5e9;border:1px solid #81c784;color:#2e7d32}.no-invoices[data-v-91378fe4]{background:#fff;border:2px dashed #ddd;border-radius:6px;color:#666;padding:30px 20px;text-align:center}.no-invoices i[data-v-91378fe4]{font-size:32px;margin-bottom:10px;opacity:.5}.no-invoices p[data-v-91378fe4]{font-size:14px;font-weight:600;margin:8px 0 15px}.action-buttons[data-v-91378fe4]{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.settlement-lines[data-v-91378fe4]{background:#fff;border:1px solid #e9ecef;border-radius:6px;overflow:hidden}.table-responsive[data-v-91378fe4]{-webkit-overflow-scrolling:touch;overflow-x:auto;width:100%}.table[data-v-91378fe4]{border-collapse:collapse;font-size:11px;margin:0;width:100%}.table th[data-v-91378fe4]{background:#f8f9fa;border-bottom:2px solid #dee2e6;font-size:11px;font-weight:600;padding:8px 4px;text-align:center;white-space:nowrap}.table td[data-v-91378fe4],.table th[data-v-91378fe4]{vertical-align:middle}.table td[data-v-91378fe4]{border-top:1px solid #dee2e6;padding:6px 4px}.table td input.form-control-xs[data-v-91378fe4],.table td select.form-control-xs[data-v-91378fe4]{min-width:80px;width:100%}.table td[data-v-91378fe4]:nth-child(5),.table th[data-v-91378fe4]:nth-child(5){min-width:200px}.line-number[data-v-91378fe4]{color:#666;font-size:10px;font-weight:600;text-align:center}.allocation-summary[data-v-91378fe4]{background:#f8f9fa;border-top:2px solid #dee2e6;padding:10px 15px}.totals-inline[data-v-91378fe4]{flex-wrap:wrap;font-size:12px;font-weight:600;gap:10px;justify-content:flex-end}.total-item[data-v-91378fe4],.totals-inline[data-v-91378fe4]{align-items:center;display:flex}.total-item[data-v-91378fe4]{gap:6px}.total-item strong[data-v-91378fe4]{color:#28a745;font-size:14px}.btn[data-v-91378fe4]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:12px;font-weight:500;gap:4px;padding:6px 12px;transition:all .2s ease;white-space:nowrap}.btn-primary[data-v-91378fe4]{background:#007bff;color:#fff}.btn-primary[data-v-91378fe4]:hover:not(:disabled){background:#0056b3}.btn-secondary[data-v-91378fe4]{background:#6c757d;color:#fff}.btn-secondary[data-v-91378fe4]:hover:not(:disabled){background:#545b62}.btn-success[data-v-91378fe4]{background:#28a745;color:#fff}.btn-success[data-v-91378fe4]:hover:not(:disabled){background:#218838}.btn-info[data-v-91378fe4]{background:#17a2b8;color:#fff}.btn-info[data-v-91378fe4]:hover:not(:disabled){background:#138496}.btn-danger[data-v-91378fe4]{background:#dc3545;color:#fff}.btn-danger[data-v-91378fe4]:hover:not(:disabled){background:#c82333}.btn-sm[data-v-91378fe4]{font-size:11px;padding:4px 8px}.btn-xs[data-v-91378fe4]{align-items:center;border-radius:50%;display:flex;font-size:10px;height:24px;justify-content:center;padding:0;width:24px}.btn[data-v-91378fe4]:hover:not(:disabled){box-shadow:0 2px 4px rgba(0,0,0,.1);opacity:.95;transform:translateY(-1px)}.btn[data-v-91378fe4]:disabled{cursor:not-allowed;opacity:.6;transform:none}.dialog-footer[data-v-91378fe4]{background:#f8f9fa;border-top:1px solid #e9ecef;min-height:56px;padding:12px 20px}.footer-actions[data-v-91378fe4]{display:flex;gap:8px;justify-content:flex-end}@media (max-width:768px){.form-grid[data-v-91378fe4]{grid-template-columns:1fr}.span-2[data-v-91378fe4]{grid-column:span 1}.section-header[data-v-91378fe4]{align-items:flex-start;flex-direction:column}.section-actions[data-v-91378fe4]{width:100%}.allocation-info[data-v-91378fe4]{flex-direction:column;gap:6px;width:100%}.totals-inline[data-v-91378fe4]{align-items:flex-start;gap:6px}.footer-actions[data-v-91378fe4],.totals-inline[data-v-91378fe4]{flex-direction:column}.footer-actions .btn[data-v-91378fe4]{justify-content:center;width:100%}.action-buttons[data-v-91378fe4]{flex-direction:column}.action-buttons .btn[data-v-91378fe4]{width:100%}.table-responsive[data-v-91378fe4]{border:1px solid #dee2e6;border-radius:4px}.table[data-v-91378fe4]{min-width:900px}.table td[data-v-91378fe4]:nth-child(5),.table th[data-v-91378fe4]:nth-child(5){min-width:180px}}@media (max-width:480px){.dialog-header[data-v-91378fe4]{padding:10px 15px}.dialog-header h4[data-v-91378fe4]{font-size:14px}.header-actions[data-v-91378fe4]{gap:6px}.audit-text[data-v-91378fe4]{display:none}.form-section[data-v-91378fe4]{padding:12px}.dialog-footer[data-v-91378fe4]{padding:10px 15px}.table td[data-v-91378fe4]:nth-child(5),.table th[data-v-91378fe4]:nth-child(5){min-width:150px}select.form-control-xs option[data-v-91378fe4]{font-size:10px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".form-control[data-v-7c19e2ec]{border:1px solid #ddd;border-radius:4px;font-size:12px;height:32px;padding:6px 8px;transition:border-color .2s ease;width:100%}.form-control[data-v-7c19e2ec]:focus{border-color:#17a2b8;box-shadow:0 0 0 2px rgba(23,162,184,.1);outline:none}.form-control[data-v-7c19e2ec]:disabled{background-color:#f8f9fa;color:#6c757d}.form-control.is-invalid[data-v-7c19e2ec]{border-color:#e74c3c}.form-control-xs[data-v-7c19e2ec]{font-size:11px;height:28px;padding:4px 6px}select.form-control[data-v-7c19e2ec],select.form-control-xs[data-v-7c19e2ec]{-webkit-appearance:auto;-moz-appearance:auto;appearance:auto;background-color:#fff;cursor:pointer}select.form-control-xs[data-v-7c19e2ec]:disabled,select.form-control[data-v-7c19e2ec]:disabled{background-color:#e9ecef;cursor:not-allowed;opacity:.7}select.form-control-xs optgroup[data-v-7c19e2ec]{background-color:#f8f9fa;color:#495057;font-style:normal;font-weight:600}select.form-control-xs option[data-v-7c19e2ec]{font-size:11px;padding:4px 8px}.form-control-xs[data-v-7c19e2ec]:focus,select.form-control-xs[data-v-7c19e2ec]:focus{border-color:#17a2b8;box-shadow:0 0 0 2px rgba(23,162,184,.15);outline:none;z-index:2}.is-invalid[data-v-7c19e2ec]{background-image:none}.is-invalid[data-v-7c19e2ec],.is-invalid[data-v-7c19e2ec]:focus{border-color:#dc3545!important}.is-invalid[data-v-7c19e2ec]:focus{box-shadow:0 0 0 2px rgba(220,53,69,.25)}.invalid-feedback[data-v-7c19e2ec]{color:#e74c3c;display:block;font-size:10px;margin-top:2px;width:100%}.text-danger[data-v-7c19e2ec]{color:#dc3545!important;display:block;font-size:10px;margin-top:2px}.text-truncate[data-v-7c19e2ec]{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;white-space:nowrap}.text-right[data-v-7c19e2ec]{text-align:right!important}.text-center[data-v-7c19e2ec]{text-align:center!important}.required[data-v-7c19e2ec]{color:#e74c3c;font-weight:700}.modal-overlay[data-v-7c19e2ec]{align-items:center;background-color:rgba(0,0,0,.7);justify-content:center;left:0;padding:0;position:fixed;top:0;z-index:1000}.modal-overlay[data-v-7c19e2ec],.settlement-dialog[data-v-7c19e2ec]{display:flex;height:100vh;width:100vw}.settlement-dialog[data-v-7c19e2ec]{background:#fff;flex-direction:column;overflow:hidden}.dialog-header[data-v-7c19e2ec]{align-items:center;background:linear-gradient(135deg,#01532b,#337555);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;min-height:50px;padding:12px 20px}.dialog-header h4[data-v-7c19e2ec]{font-size:16px;font-weight:600;margin:0}.header-actions[data-v-7c19e2ec]{gap:8px}.audit-btn[data-v-7c19e2ec],.header-actions[data-v-7c19e2ec]{align-items:center;display:flex}.audit-btn[data-v-7c19e2ec]{background:hsla(0,0%,100%,.2);border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:12px;gap:4px;padding:6px 10px;transition:all .2s ease}.audit-btn[data-v-7c19e2ec]:hover{background:hsla(0,0%,100%,.3)}.audit-text[data-v-7c19e2ec]{font-size:11px}.close-btn[data-v-7c19e2ec]{background:none;border:none;border-radius:50%;color:#fff;cursor:pointer;font-size:16px;padding:4px;transition:all .2s ease}.close-btn[data-v-7c19e2ec]:hover{background:hsla(0,0%,100%,.2)}.dialog-body[data-v-7c19e2ec]{flex:1;overflow-y:auto;padding:0}.form-section[data-v-7c19e2ec]{background:#fafafa;border-bottom:1px solid #e9ecef;margin:0;padding:15px}.section-title[data-v-7c19e2ec]{align-items:center;border-bottom:1px solid #17a2b8;color:#333;display:flex;font-size:14px;font-weight:600;gap:6px;margin-bottom:12px;padding-bottom:4px}.section-title i[data-v-7c19e2ec]{color:#17a2b8;font-size:13px}.section-header[data-v-7c19e2ec]{gap:10px;justify-content:space-between;margin-bottom:12px}.section-actions[data-v-7c19e2ec],.section-header[data-v-7c19e2ec]{align-items:center;display:flex;flex-wrap:wrap}.section-actions[data-v-7c19e2ec]{gap:8px}.allocation-info[data-v-7c19e2ec]{display:flex;font-size:11px;gap:12px}.info-item[data-v-7c19e2ec]{background:#fff;border:1px solid #ddd;border-radius:4px;padding:4px 8px}.form-grid[data-v-7c19e2ec]{grid-gap:10px;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.span-2[data-v-7c19e2ec]{grid-column:span 2}.form-group[data-v-7c19e2ec]{margin-bottom:0}.form-group label[data-v-7c19e2ec]{color:#333;display:block;font-size:12px;font-weight:500;margin-bottom:3px}.type-badge[data-v-7c19e2ec]{border-radius:3px;display:inline-block;font-size:10px;font-weight:600;padding:3px 8px;text-transform:uppercase;white-space:nowrap}.type-badge.invoice[data-v-7c19e2ec]{background:#e3f2fd;border:1px solid #90caf9;color:#1976d2}.type-badge.manual[data-v-7c19e2ec]{background:#fff3e0;border:1px solid #ffb74d;color:#f57c00}.type-badge.mou[data-v-7c19e2ec]{background:#e8f5e9;border:1px solid #81c784;color:#2e7d32}.no-invoices[data-v-7c19e2ec]{background:#fff;border:2px dashed #ddd;border-radius:6px;color:#666;padding:30px 20px;text-align:center}.no-invoices i[data-v-7c19e2ec]{font-size:32px;margin-bottom:10px;opacity:.5}.no-invoices p[data-v-7c19e2ec]{font-size:14px;font-weight:600;margin:8px 0 15px}.action-buttons[data-v-7c19e2ec]{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.settlement-lines[data-v-7c19e2ec]{background:#fff;border:1px solid #e9ecef;border-radius:6px;overflow:hidden}.table-responsive[data-v-7c19e2ec]{-webkit-overflow-scrolling:touch;overflow-x:auto;width:100%}.table[data-v-7c19e2ec]{border-collapse:collapse;font-size:11px;margin:0;width:100%}.table th[data-v-7c19e2ec]{background:#f8f9fa;border-bottom:2px solid #dee2e6;font-size:11px;font-weight:600;padding:8px 4px;text-align:center;white-space:nowrap}.table td[data-v-7c19e2ec],.table th[data-v-7c19e2ec]{vertical-align:middle}.table td[data-v-7c19e2ec]{border-top:1px solid #dee2e6;padding:6px 4px}.table td input.form-control-xs[data-v-7c19e2ec],.table td select.form-control-xs[data-v-7c19e2ec]{min-width:80px;width:100%}.table td[data-v-7c19e2ec]:nth-child(5),.table th[data-v-7c19e2ec]:nth-child(5){min-width:200px}.line-number[data-v-7c19e2ec]{color:#666;font-size:10px;font-weight:600;text-align:center}.allocation-summary[data-v-7c19e2ec]{background:#f8f9fa;border-top:2px solid #dee2e6;padding:10px 15px}.totals-inline[data-v-7c19e2ec]{flex-wrap:wrap;font-size:12px;font-weight:600;gap:10px;justify-content:flex-end}.total-item[data-v-7c19e2ec],.totals-inline[data-v-7c19e2ec]{align-items:center;display:flex}.total-item[data-v-7c19e2ec]{gap:6px}.total-item strong[data-v-7c19e2ec]{color:#28a745;font-size:14px}.btn[data-v-7c19e2ec]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:inline-flex;font-size:12px;font-weight:500;gap:4px;padding:6px 12px;transition:all .2s ease;white-space:nowrap}.btn-primary[data-v-7c19e2ec]{background:#007bff;color:#fff}.btn-primary[data-v-7c19e2ec]:hover:not(:disabled){background:#0056b3}.btn-secondary[data-v-7c19e2ec]{background:#6c757d;color:#fff}.btn-secondary[data-v-7c19e2ec]:hover:not(:disabled){background:#545b62}.btn-success[data-v-7c19e2ec]{background:#28a745;color:#fff}.btn-success[data-v-7c19e2ec]:hover:not(:disabled){background:#218838}.btn-info[data-v-7c19e2ec]{background:#17a2b8;color:#fff}.btn-info[data-v-7c19e2ec]:hover:not(:disabled){background:#138496}.btn-danger[data-v-7c19e2ec]{background:#dc3545;color:#fff}.btn-danger[data-v-7c19e2ec]:hover:not(:disabled){background:#c82333}.btn-sm[data-v-7c19e2ec]{font-size:11px;padding:4px 8px}.btn-xs[data-v-7c19e2ec]{align-items:center;border-radius:50%;display:flex;font-size:10px;height:24px;justify-content:center;padding:0;width:24px}.btn[data-v-7c19e2ec]:hover:not(:disabled){box-shadow:0 2px 4px rgba(0,0,0,.1);opacity:.95;transform:translateY(-1px)}.btn[data-v-7c19e2ec]:disabled{cursor:not-allowed;opacity:.6;transform:none}.dialog-footer[data-v-7c19e2ec]{background:#f8f9fa;border-top:1px solid #e9ecef;min-height:56px;padding:12px 20px}.footer-actions[data-v-7c19e2ec]{display:flex;gap:8px;justify-content:flex-end}@media (max-width:768px){.form-grid[data-v-7c19e2ec]{grid-template-columns:1fr}.span-2[data-v-7c19e2ec]{grid-column:span 1}.section-header[data-v-7c19e2ec]{align-items:flex-start;flex-direction:column}.section-actions[data-v-7c19e2ec]{width:100%}.allocation-info[data-v-7c19e2ec]{flex-direction:column;gap:6px;width:100%}.totals-inline[data-v-7c19e2ec]{align-items:flex-start;gap:6px}.footer-actions[data-v-7c19e2ec],.totals-inline[data-v-7c19e2ec]{flex-direction:column}.footer-actions .btn[data-v-7c19e2ec]{justify-content:center;width:100%}.action-buttons[data-v-7c19e2ec]{flex-direction:column}.action-buttons .btn[data-v-7c19e2ec]{width:100%}.table-responsive[data-v-7c19e2ec]{border:1px solid #dee2e6;border-radius:4px}.table[data-v-7c19e2ec]{min-width:900px}.table td[data-v-7c19e2ec]:nth-child(5),.table th[data-v-7c19e2ec]:nth-child(5){min-width:180px}}@media (max-width:480px){.dialog-header[data-v-7c19e2ec]{padding:10px 15px}.dialog-header h4[data-v-7c19e2ec]{font-size:14px}.header-actions[data-v-7c19e2ec]{gap:6px}.audit-text[data-v-7c19e2ec]{display:none}.form-section[data-v-7c19e2ec]{padding:12px}.dialog-footer[data-v-7c19e2ec]{padding:10px 15px}.table td[data-v-7c19e2ec]:nth-child(5),.table th[data-v-7c19e2ec]:nth-child(5){min-width:150px}select.form-control-xs option[data-v-7c19e2ec]{font-size:10px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1420,7 +1420,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 888:
+/***/ 879:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1466,7 +1466,7 @@ var VSpacer = __webpack_require__(388);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/settlement/index.vue?vue&type=template&id=91378fe4&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/settlement/index.vue?vue&type=template&id=7c19e2ec&scoped=true&
 
 
 
@@ -1484,7 +1484,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var settlementvue_type_template_id_91378fe4_scoped_true_render = function render() {
+var settlementvue_type_template_id_7c19e2ec_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _vm.visible ? _c('div', {
@@ -1495,153 +1495,166 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         return _vm.handleOverlayClick.apply(null, arguments);
       }
     }
-  }, [_vm._ssrNode("<div class=\"settlement-dialog\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<div class=\"dialog-header\" data-v-91378fe4><h4 data-v-91378fe4>" + _vm._ssrEscape(_vm._s(_vm.isEditMode ? 'ແກ້ໄຂການຊຳລະ' : 'ສ້າງການຊຳລະໃໝ່')) + "</h4> <div class=\"header-actions\" data-v-91378fe4>" + (_vm.isEditMode ? "<button type=\"button\" title=\"ເບິ່ງປະຫວັດການດຳເນີນງານ\" class=\"audit-btn\" data-v-91378fe4><i class=\"fas fa-history\" data-v-91378fe4></i> <span class=\"audit-text\" data-v-91378fe4>ປະຫວັດ</span></button>" : "<!---->") + " <button class=\"close-btn\" data-v-91378fe4><i class=\"fas fa-times\" data-v-91378fe4></i></button></div></div> "), _vm._ssrNode("<div class=\"dialog-body\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<form data-v-91378fe4>", "</form>", [_vm._ssrNode("<div class=\"form-section\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<h5 class=\"section-title\" data-v-91378fe4><i class=\"fas fa-credit-card\" data-v-91378fe4></i>\n            ຂໍ້ມູນການຊຳລະ\n          </h5> "), _vm._ssrNode("<div class=\"form-grid\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-91378fe4><label data-v-91378fe4>ວັນທີຊຳລະ <span class=\"required\" data-v-91378fe4>*</span></label> <input type=\"date\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.settlementDate) + _vm._ssrClass("form-control", {
+  }, [_vm._ssrNode("<div class=\"settlement-dialog\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<div class=\"dialog-header\" data-v-7c19e2ec><h4 data-v-7c19e2ec>" + _vm._ssrEscape(_vm._s(_vm.isEditMode ? 'ແກ້ໄຂການຊຳລະ' : 'ສ້າງການຊຳລະໃໝ່')) + "</h4> <div class=\"header-actions\" data-v-7c19e2ec>" + (_vm.isEditMode ? "<button type=\"button\" title=\"ເບິ່ງປະຫວັດການດຳເນີນງານ\" class=\"audit-btn\" data-v-7c19e2ec><i class=\"fas fa-history\" data-v-7c19e2ec></i> <span class=\"audit-text\" data-v-7c19e2ec>ປະຫວັດ</span></button>" : "<!---->") + " <button class=\"close-btn\" data-v-7c19e2ec><i class=\"fas fa-times\" data-v-7c19e2ec></i></button></div></div> "), _vm._ssrNode("<div class=\"dialog-body\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<form data-v-7c19e2ec>", "</form>", [_vm._ssrNode("<div class=\"form-section\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<h5 class=\"section-title\" data-v-7c19e2ec><i class=\"fas fa-credit-card\" data-v-7c19e2ec></i>\n              ຂໍ້ມູນການຊຳລະ\n            </h5> "), _vm._ssrNode("<div class=\"form-grid\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-7c19e2ec><label data-v-7c19e2ec>ວັນທີຊຳລະ <span class=\"required\" data-v-7c19e2ec>*</span></label> <input type=\"date\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.settlementDate) + _vm._ssrClass("form-control", {
     'is-invalid': _vm.errors.settlementDate
-  }) + " data-v-91378fe4> " + (_vm.errors.settlementDate ? "<div class=\"invalid-feedback\" data-v-91378fe4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.settlementDate) + "\n              ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<label data-v-91378fe4>ວິທີການຊຳລະ <span class=\"required\" data-v-91378fe4>*</span></label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
+  }) + " data-v-7c19e2ec> " + (_vm.errors.settlementDate ? "<div class=\"invalid-feedback\" data-v-7c19e2ec>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.settlementDate) + "\n                ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<label for=\"paymentMethodId\" class=\"required\" data-v-7c19e2ec>ວິທີການຊຳລະ</label> "), _c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "id": "paymentMethodId",
+      "items": _vm.paymentMethods,
+      "item-value": "id",
+      "item-text": "payment_name",
+      "error": !!_vm.errors.paymentMethodId,
+      "error-messages": _vm.errors.paymentMethodId,
+      "dense": "",
+      "outlined": "",
+      "clearable": "",
+      "hide-details": "auto",
+      "placeholder": "ເລືອກວິທີການຊຳລະ"
+    },
+    scopedSlots: _vm._u([{
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                        " + _vm._s(item.payment_name) + "\n                      ")])], 1)];
+      }
+    }, {
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n                    " + _vm._s(item.payment_name) + "\n                  ")];
+      }
+    }], null, false, 3737812520),
+    model: {
       value: _vm.form.paymentMethodId,
-      expression: "form.paymentMethodId"
-    }],
-    staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.paymentMethodId
-    },
-    attrs: {
-      "required": ""
-    },
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "paymentMethodId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກວິທີການຊຳລະ")]), _vm._v(" "), _vm._l(_vm.paymentMethods, function (method) {
-    return _c('option', {
-      key: method.id,
-      domProps: {
-        "value": method.id
-      }
-    }, [_vm._v("\n                  " + _vm._s(method.payment_name) + "\n                ")]);
-  })], 2), _vm._ssrNode(" " + (_vm.errors.paymentMethodId ? "<div class=\"invalid-feedback\" data-v-91378fe4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.paymentMethodId) + "\n              ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" data-v-91378fe4>ສະກຸນເງິນ <span class=\"required\" data-v-91378fe4>*</span></label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.currencyId,
-      expression: "form.currencyId"
-    }],
-    staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.currencyId
-    },
-    attrs: {
-      "id": "currencyId"
-    },
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "currencyId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }, _vm.onCurrencyChange]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກສະກຸນເງິນ")]), _vm._v(" "), _vm._l(_vm.currencies, function (currency) {
-    return _c('option', {
-      key: currency.id,
-      domProps: {
-        "value": currency.id
-      }
-    }, [_vm._v("\n                  " + _vm._s(currency.name) + " (" + _vm._s(currency.code) + ")\n                ")]);
-  })], 2), _vm._ssrNode(" " + (_vm.errors.currencyId ? "<div class=\"invalid-feedback\" data-v-91378fe4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.currencyId) + "\n              ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-91378fe4><label for=\"exchangeRate\" class=\"required\" data-v-91378fe4>\n                ອັດຕາແລກປ່ຽນ\n                " + (_vm.selectedCurrency ? "<span class=\"currency-info\" data-v-91378fe4>" + _vm._ssrEscape("\n                  (" + _vm._s(_vm.selectedCurrency.code) + " ຕໍ່ LAK)\n                ") + "</span>" : "<!---->") + "</label> <input id=\"exchangeRate\" type=\"number\" step=\"0.0001\" min=\"0\" placeholder=\"1.0000\"" + _vm._ssrAttr("value", _vm.form.exchangeRate) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.exchangeRate
-  }) + " data-v-91378fe4> " + (_vm.errors.exchangeRate ? "<div class=\"invalid-feedback\" data-v-91378fe4>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.exchangeRate) + "\n              ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<label data-v-91378fe4>ບັນຊີທະນາຄານ</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.bankAccountId,
-      expression: "form.bankAccountId"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "bankAccountId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກບັນຊີທະນາຄານ")]), _vm._v(" "), _vm._l(_vm.bankAccounts, function (account) {
-    return _c('option', {
-      key: account.id,
-      domProps: {
-        "value": account.id
-      }
-    }, [_vm._v("\n                  " + _vm._s(account.accountNumber) + " - " + _vm._s(account.bankName) + "\n                ")]);
-  })], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-91378fe4><label data-v-91378fe4>ອ້າງອີງ</label> <input type=\"text\" maxlength=\"100\" placeholder=\"ຫມາຍເລກອ້າງອີງ\"" + _vm._ssrAttr("value", _vm.form.reference) + " class=\"form-control\" data-v-91378fe4></div> <div class=\"form-group span-2\" data-v-91378fe4><label data-v-91378fe4>ຄຳອະທິບາຍ</label> <textarea rows=\"2\" placeholder=\"ຄຳອະທິບາຍການຊຳລະ\" class=\"form-control\" data-v-91378fe4>" + _vm._ssrEscape(_vm._s(_vm.form.description)) + "</textarea></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<div class=\"section-header\" data-v-91378fe4><h5 class=\"section-title\" data-v-91378fe4><i class=\"fas fa-list\" data-v-91378fe4></i>\n              ລາຍການຈັດສັນ\n            </h5> <div class=\"section-actions\" data-v-91378fe4><button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " class=\"btn btn-info btn-sm\" data-v-91378fe4><i class=\"fas fa-file-contract\" data-v-91378fe4></i> ເພີ່ມຈາກ MOU\n              </button> <button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " class=\"btn btn-success btn-sm\" data-v-91378fe4><i class=\"fas fa-plus\" data-v-91378fe4></i> ເພີ່ມລາຍການ\n              </button> <button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " class=\"btn btn-primary btn-sm\" data-v-91378fe4><i class=\"fas fa-file-invoice\" data-v-91378fe4></i> ເລືອກຈາກໃບແຈ້ງໜີ້\n              </button> <div class=\"allocation-info\" data-v-91378fe4><span class=\"info-item\" data-v-91378fe4>\n                  ຈັດສັນ:\n                  <strong data-v-91378fe4>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.totalAllocated))) + "</strong></span></div></div></div> "), _vm.settlementLines.length === 0 ? _vm._ssrNode("<div class=\"no-invoices\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<i class=\"fas fa-clipboard-list\" data-v-91378fe4></i> <p data-v-91378fe4>ຍັງບໍ່ມີລາຍການຈັດສັນ</p> <div class=\"action-buttons\" data-v-91378fe4><button type=\"button\" class=\"btn btn-info btn-sm\" data-v-91378fe4><i class=\"fas fa-file-contract\" data-v-91378fe4></i> ເພີ່ມຈາກ MOU\n              </button> <button type=\"button\" class=\"btn btn-success btn-sm\" data-v-91378fe4><i class=\"fas fa-plus-circle\" data-v-91378fe4></i> ເພີ່ມລາຍການດ້ວຍມື\n              </button> <button type=\"button\" class=\"btn btn-primary btn-sm\" data-v-91378fe4><i class=\"fas fa-file-invoice\" data-v-91378fe4></i> ເລືອກຈາກໃບແຈ້ງໜີ້\n              </button></div>")], 2) : _vm._ssrNode("<div class=\"settlement-lines\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<div class=\"table-responsive\" data-v-91378fe4>", "</div>", [_vm._ssrNode("<table class=\"table\" data-v-91378fe4>", "</table>", [_vm._ssrNode("<thead data-v-91378fe4><tr data-v-91378fe4><th style=\"width: 20px\" data-v-91378fe4>#</th> <th data-v-91378fe4>ປະເພດ</th> <th data-v-91378fe4>ເລກທີໃບແຈ້ງໜີ້</th> <th data-v-91378fe4>ຕົວແທນ</th> <th data-v-91378fe4>ລະຫັດການເງິນ <span class=\"required\" data-v-91378fe4>*</span></th> <th data-v-91378fe4>ຄຳອະທິບາຍ</th> <th data-v-91378fe4>DR</th> <th data-v-91378fe4>CR</th> <th class=\"text-right\" data-v-91378fe4>ຈຳນວນເງິນ</th> <th class=\"text-center\" style=\"width: 40px\" data-v-91378fe4>ລຶບ</th></tr></thead> "), _vm._ssrNode("<tbody data-v-91378fe4>", "</tbody>", _vm._l(_vm.settlementLines, function (line, index) {
-    var _line$agency, _line$agency2;
-    return _vm._ssrNode("<tr data-v-91378fe4>", "</tr>", [_vm._ssrNode("<td class=\"line-number\" data-v-91378fe4>" + _vm._ssrEscape(_vm._s(index + 1)) + "</td> <td data-v-91378fe4><span" + _vm._ssrClass(null, ['type-badge', line.type]) + " data-v-91378fe4>" + _vm._ssrEscape("\n                        " + _vm._s(line.type === 'invoice' ? 'ໃບແຈ້ງໜີ້' : line.type === 'mou' ? 'MOU' : 'ດ້ວຍມື') + "\n                      ") + "</span></td> <td data-v-91378fe4>" + (line.type === 'manual' ? "<input type=\"text\" placeholder=\"ເລກທີໃບແຈ້ງໜີ້\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + _vm._ssrAttr("value", line.invoiceNumber) + " class=\"form-control form-control-xs\" data-v-91378fe4>" : "<span" + _vm._ssrAttr("title", line.invoiceNumber) + " class=\"text-truncate\" data-v-91378fe4>" + _vm._ssrEscape("\n                        " + _vm._s(line.invoiceNumber || '-') + "\n                      ") + "</span>") + "</td> "), _vm._ssrNode("<td data-v-91378fe4>", "</td>", [line.type === 'manual' ? _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: line.agencyId,
-        expression: "line.agencyId"
-      }],
-      staticClass: "form-control form-control-xs",
-      attrs: {
-        "disabled": !_vm.canModifyAllocations
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "paymentMethodId", $$v);
       },
-      on: {
-        "change": function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(line, "agencyId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }
+      expression: "form.paymentMethodId"
+    }
+  })], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" class=\"required\" data-v-7c19e2ec>ສະກຸນເງິນ</label> "), _c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "id": "currencyId",
+      "items": _vm.currencies,
+      "item-value": "id",
+      "item-text": "name",
+      "filter": _vm.currencyFilter,
+      "error": !!_vm.errors.currencyId,
+      "error-messages": _vm.errors.currencyId,
+      "dense": "",
+      "outlined": "",
+      "clearable": "",
+      "hide-details": "auto",
+      "placeholder": "ເລືອກສະກຸນເງິນ"
+    },
+    on: {
+      "change": _vm.onCurrencyChange
+    },
+    scopedSlots: _vm._u([{
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n          " + _vm._s(item.name) + " (" + _vm._s(item.code) + ")\n        ")])], 1)];
       }
-    }, [_c('option', {
+    }, {
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n      " + _vm._s(item.name) + " (" + _vm._s(item.code) + ")\n    ")];
+      }
+    }], null, false, 2953067560),
+    model: {
+      value: _vm.form.currencyId,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "currencyId", $$v);
+      },
+      expression: "form.currencyId"
+    }
+  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-7c19e2ec><label for=\"exchangeRate\" class=\"required\" data-v-7c19e2ec>\n                  ອັດຕາແລກປ່ຽນ\n                  " + (_vm.selectedCurrency ? "<span class=\"currency-info\" data-v-7c19e2ec>" + _vm._ssrEscape("\n                    (" + _vm._s(_vm.selectedCurrency.code) + " ຕໍ່ LAK)\n                  ") + "</span>" : "<!---->") + "</label> <input id=\"exchangeRate\" type=\"number\" step=\"0.0001\" min=\"0\" placeholder=\"1.0000\"" + _vm._ssrAttr("value", _vm.form.exchangeRate) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.exchangeRate
+  }) + " data-v-7c19e2ec> " + (_vm.errors.exchangeRate ? "<div class=\"invalid-feedback\" data-v-7c19e2ec>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.exchangeRate) + "\n                ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<label for=\"bankAccountId\" data-v-7c19e2ec>ບັນຊີທະນາຄານ</label> "), _c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "id": "bankAccountId",
+      "items": _vm.bankAccounts,
+      "item-value": "id",
+      "item-text": "accountNumber",
+      "filter": _vm.bankAccountFilter,
+      "error": !!_vm.errors.bankAccountId,
+      "error-messages": _vm.errors.bankAccountId,
+      "dense": "",
+      "outlined": "",
+      "clearable": "",
+      "hide-details": "auto",
+      "placeholder": "ເລືອກບັນຊີທະນາຄານ"
+    },
+    scopedSlots: _vm._u([{
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                        " + _vm._s(item.accountNumber) + " - " + _vm._s(item.bankName) + "\n                      ")])], 1)];
+      }
+    }, {
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n                    " + _vm._s(item.accountNumber) + " - " + _vm._s(item.bankName) + "\n                  ")];
+      }
+    }], null, false, 850728872),
+    model: {
+      value: _vm.form.bankAccountId,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "bankAccountId", $$v);
+      },
+      expression: "form.bankAccountId"
+    }
+  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-7c19e2ec><label data-v-7c19e2ec>ອ້າງອີງ</label> <input type=\"text\" maxlength=\"100\" placeholder=\"ຫມາຍເລກອ້າງອີງ\"" + _vm._ssrAttr("value", _vm.form.reference) + " class=\"form-control\" data-v-7c19e2ec></div> <div class=\"form-group span-2\" data-v-7c19e2ec><label data-v-7c19e2ec>ຄຳອະທິບາຍ</label> <textarea rows=\"2\" placeholder=\"ຄຳອະທິບາຍການຊຳລະ\" class=\"form-control\" data-v-7c19e2ec>" + _vm._ssrEscape(_vm._s(_vm.form.description)) + "</textarea></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<div class=\"section-header\" data-v-7c19e2ec><h5 class=\"section-title\" data-v-7c19e2ec><i class=\"fas fa-list\" data-v-7c19e2ec></i>\n                ລາຍການຈັດສັນ\n              </h5> <div class=\"section-actions\" data-v-7c19e2ec><button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " class=\"btn btn-info btn-sm\" data-v-7c19e2ec><i class=\"fas fa-file-contract\" data-v-7c19e2ec></i> ເພີ່ມຈາກ MOU\n                </button> <button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " class=\"btn btn-success btn-sm\" data-v-7c19e2ec><i class=\"fas fa-plus\" data-v-7c19e2ec></i> ເພີ່ມລາຍການ\n                </button> <button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " class=\"btn btn-primary btn-sm\" data-v-7c19e2ec><i class=\"fas fa-file-invoice\" data-v-7c19e2ec></i> ເລືອກຈາກໃບແຈ້ງໜີ້\n                </button> <div class=\"allocation-info\" data-v-7c19e2ec><span class=\"info-item\" data-v-7c19e2ec>\n                    ຈັດສັນ:\n                    <strong data-v-7c19e2ec>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.totalAllocated))) + "</strong></span></div></div></div> "), _vm.settlementLines.length === 0 ? _vm._ssrNode("<div class=\"no-invoices\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<i class=\"fas fa-clipboard-list\" data-v-7c19e2ec></i> <p data-v-7c19e2ec>ຍັງບໍ່ມີລາຍການຈັດສັນ</p> <div class=\"action-buttons\" data-v-7c19e2ec><button type=\"button\" class=\"btn btn-info btn-sm\" data-v-7c19e2ec><i class=\"fas fa-file-contract\" data-v-7c19e2ec></i> ເພີ່ມຈາກ MOU\n                </button> <button type=\"button\" class=\"btn btn-success btn-sm\" data-v-7c19e2ec><i class=\"fas fa-plus-circle\" data-v-7c19e2ec></i> ເພີ່ມລາຍການດ້ວຍມື\n                </button> <button type=\"button\" class=\"btn btn-primary btn-sm\" data-v-7c19e2ec><i class=\"fas fa-file-invoice\" data-v-7c19e2ec></i> ເລືອກຈາກໃບແຈ້ງໜີ້\n                </button></div>")], 2) : _vm._ssrNode("<div class=\"settlement-lines\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<div class=\"table-responsive\" data-v-7c19e2ec>", "</div>", [_vm._ssrNode("<table class=\"table\" data-v-7c19e2ec>", "</table>", [_vm._ssrNode("<thead data-v-7c19e2ec><tr data-v-7c19e2ec><th style=\"width: 20px\" data-v-7c19e2ec>#</th> <th data-v-7c19e2ec>ປະເພດ</th> <th data-v-7c19e2ec>ເລກທີໃບແຈ້ງໜີ້</th> <th data-v-7c19e2ec>ຕົວແທນ</th> <th data-v-7c19e2ec>ລະຫັດການເງິນ <span class=\"required\" data-v-7c19e2ec>*</span></th> <th data-v-7c19e2ec>ຄຳອະທິບາຍ</th> <th data-v-7c19e2ec>DR</th> <th data-v-7c19e2ec>CR</th> <th class=\"text-right\" data-v-7c19e2ec>ຈຳນວນເງິນ</th> <th class=\"text-center\" style=\"width: 40px\" data-v-7c19e2ec>ລຶບ</th></tr></thead> "), _vm._ssrNode("<tbody data-v-7c19e2ec>", "</tbody>", _vm._l(_vm.settlementLines, function (line, index) {
+    var _line$agency, _line$agency2;
+    return _vm._ssrNode("<tr data-v-7c19e2ec>", "</tr>", [_vm._ssrNode("<td class=\"line-number\" data-v-7c19e2ec>" + _vm._ssrEscape(_vm._s(index + 1)) + "</td> <td data-v-7c19e2ec><span" + _vm._ssrClass(null, ['type-badge', line.type]) + " data-v-7c19e2ec>" + _vm._ssrEscape("\n                          " + _vm._s(line.type === 'invoice' ? 'ໃບແຈ້ງໜີ້' : line.type === 'mou' ? 'MOU' : 'ດ້ວຍມື') + "\n                        ") + "</span></td> <td data-v-7c19e2ec>" + (line.type === 'manual' ? "<input type=\"text\" placeholder=\"ເລກທີໃບແຈ້ງໜີ້\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + _vm._ssrAttr("value", line.invoiceNumber) + " class=\"form-control form-control-xs\" data-v-7c19e2ec>" : "<span" + _vm._ssrAttr("title", line.invoiceNumber) + " class=\"text-truncate\" data-v-7c19e2ec>" + _vm._ssrEscape("\n                          " + _vm._s(line.invoiceNumber || '-') + "\n                        ") + "</span>") + "</td> "), _vm._ssrNode("<td data-v-7c19e2ec>", "</td>", [line.type === 'manual' ? _c(VAutocomplete["a" /* default */], {
+      staticClass: "table-autocomplete",
       attrs: {
-        "value": ""
-      }
-    }, [_vm._v("ເລືອກຕົວແທນ")]), _vm._v(" "), _vm._l(_vm.agencies, function (agency) {
-      return _c('option', {
-        key: agency.id,
-        domProps: {
-          "value": agency.id
+        "items": _vm.agencies,
+        "item-value": "id",
+        "item-text": "agencyName",
+        "filter": _vm.agencyFilterForTable,
+        "disabled": !_vm.canModifyAllocations,
+        "dense": "",
+        "outlined": "",
+        "hide-details": "",
+        "placeholder": "ເລືອກຕົວແທນ"
+      },
+      scopedSlots: _vm._u([{
+        key: "item",
+        fn: function ({
+          item
+        }) {
+          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                                " + _vm._s(item.agencyName) + " - " + _vm._s(item.agencyCode) + "\n                              ")])], 1)];
         }
-      }, [_vm._v("\n                          " + _vm._s(agency.agencyName) + " - " + _vm._s(agency.agencyCode) + "\n                        ")]);
-    })], 2) : _c('span', {
+      }, {
+        key: "selection",
+        fn: function ({
+          item
+        }) {
+          return [_vm._v("\n                            " + _vm._s(item.agencyName) + " - " + _vm._s(item.agencyCode) + "\n                          ")];
+        }
+      }], null, true),
+      model: {
+        value: line.agencyId,
+        callback: function ($$v) {
+          _vm.$set(line, "agencyId", $$v);
+        },
+        expression: "line.agencyId"
+      }
+    }) : _c('span', {
       staticClass: "text-truncate",
       attrs: {
         "title": line.agencyName || ((_line$agency = line.agency) === null || _line$agency === void 0 ? void 0 : _line$agency.agencyName)
       }
-    }, [_vm._v("\n                        " + _vm._s(line.agencyName || ((_line$agency2 = line.agency) === null || _line$agency2 === void 0 ? void 0 : _line$agency2.agencyName) || '-') + "\n                      ")])]), _vm._ssrNode(" "), _vm._ssrNode("<td data-v-91378fe4>", "</td>", [_c(VAutocomplete["a" /* default */], {
+    }, [_vm._v("\n                          " + _vm._s(line.agencyName || ((_line$agency2 = line.agency) === null || _line$agency2 === void 0 ? void 0 : _line$agency2.agencyName) || '-') + "\n                        ")])], 1), _vm._ssrNode(" "), _vm._ssrNode("<td data-v-7c19e2ec>", "</td>", [_c(VAutocomplete["a" /* default */], {
       staticClass: "mt-0",
       attrs: {
         "items": _vm.transactionCodes.filter(t => t.type === 'EXPENSE' && t.isActive),
@@ -1661,14 +1674,14 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         fn: function ({
           item
         }) {
-          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                              " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                            ")])], 1)];
+          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                                " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                              ")])], 1)];
         }
       }, {
         key: "selection",
         fn: function ({
           item
         }) {
-          return [_vm._v("\n                          " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                        ")];
+          return [_vm._v("\n                            " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                          ")];
         }
       }], null, true),
       model: {
@@ -1678,7 +1691,7 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         },
         expression: "line.txnId"
       }
-    }), _vm._ssrNode(" " + (!line.txnId && _vm.errors.settlementLines ? "<small class=\"text-danger d-block mt-1\" data-v-91378fe4>\n                        ກະລຸນາເລືອກລະຫັດການເງິນ\n                      </small>" : "<!---->"))], 2), _vm._ssrNode(" <td data-v-91378fe4><input type=\"text\" placeholder=\"ຄຳອະທິບາຍ\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + _vm._ssrAttr("value", line.description) + " class=\"form-control form-control-xs\" data-v-91378fe4></td> "), _vm._ssrNode("<td data-v-91378fe4>", "</td>", [_c(VAutocomplete["a" /* default */], {
+    }), _vm._ssrNode(" " + (!line.txnId && _vm.errors.settlementLines ? "<small class=\"text-danger d-block mt-1\" data-v-7c19e2ec>\n                          ກະລຸນາເລືອກລະຫັດການເງິນ\n                        </small>" : "<!---->"))], 2), _vm._ssrNode(" <td data-v-7c19e2ec><input type=\"text\" placeholder=\"ຄຳອະທິບາຍ\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + _vm._ssrAttr("value", line.description) + " class=\"form-control form-control-xs\" data-v-7c19e2ec></td> "), _vm._ssrNode("<td data-v-7c19e2ec>", "</td>", [_c(VAutocomplete["a" /* default */], {
       staticClass: "mt-0",
       attrs: {
         "items": _vm.glAccounts,
@@ -1696,14 +1709,14 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         fn: function ({
           item
         }) {
-          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                              " + _vm._s(item.accountNumber) + " -\n                              " + _vm._s(item.accountName) + "\n                            ")])], 1)];
+          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                                " + _vm._s(item.accountNumber) + " -\n                                " + _vm._s(item.accountName) + "\n                              ")])], 1)];
         }
       }, {
         key: "selection",
         fn: function ({
           item
         }) {
-          return [_vm._v("\n                          " + _vm._s(item.accountNumber) + " - " + _vm._s(item.accountName) + "\n                        ")];
+          return [_vm._v("\n                            " + _vm._s(item.accountNumber) + " - " + _vm._s(item.accountName) + "\n                          ")];
         }
       }], null, true),
       model: {
@@ -1713,7 +1726,7 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         },
         expression: "line.DRglAccountId"
       }
-    }), _vm._ssrNode(" " + (_vm.errors[`line_${index}_DRglAccountId`] ? "<small class=\"text-danger d-block mt-1\" data-v-91378fe4>" + _vm._ssrEscape("\n                        " + _vm._s(_vm.errors[`line_${index}_DRglAccountId`]) + "\n                      ") + "</small>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<td data-v-91378fe4>", "</td>", [_c(VAutocomplete["a" /* default */], {
+    }), _vm._ssrNode(" " + (_vm.errors[`line_${index}_DRglAccountId`] ? "<small class=\"text-danger d-block mt-1\" data-v-7c19e2ec>" + _vm._ssrEscape("\n                          " + _vm._s(_vm.errors[`line_${index}_DRglAccountId`]) + "\n                        ") + "</small>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<td data-v-7c19e2ec>", "</td>", [_c(VAutocomplete["a" /* default */], {
       staticClass: "mt-0",
       attrs: {
         "items": _vm.glAccounts,
@@ -1731,14 +1744,14 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         fn: function ({
           item
         }) {
-          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                              " + _vm._s(item.accountNumber) + " -\n                              " + _vm._s(item.accountName) + "\n                            ")])], 1)];
+          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                                " + _vm._s(item.accountNumber) + " -\n                                " + _vm._s(item.accountName) + "\n                              ")])], 1)];
         }
       }, {
         key: "selection",
         fn: function ({
           item
         }) {
-          return [_vm._v("\n                          " + _vm._s(item.accountNumber) + " - " + _vm._s(item.accountName) + "\n                        ")];
+          return [_vm._v("\n                            " + _vm._s(item.accountNumber) + " - " + _vm._s(item.accountName) + "\n                          ")];
         }
       }], null, true),
       model: {
@@ -1748,8 +1761,8 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
         },
         expression: "line.CRglAccountId"
       }
-    }), _vm._ssrNode(" " + (_vm.errors[`line_${index}_CRglAccountId`] ? "<small class=\"text-danger d-block mt-1\" data-v-91378fe4>" + _vm._ssrEscape("\n                        " + _vm._s(_vm.errors[`line_${index}_CRglAccountId`]) + "\n                      ") + "</small>" : "<!---->"))], 2), _vm._ssrNode(" <td data-v-91378fe4><input type=\"number\" step=\"0.01\" min=\"0\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + _vm._ssrAttr("value", line.amount) + " class=\"form-control form-control-xs text-right\" data-v-91378fe4></td> <td class=\"text-center\" data-v-91378fe4><button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " title=\"ລຶບລາຍການ\" class=\"btn btn-xs btn-danger\" data-v-91378fe4><i class=\"fas fa-trash\" data-v-91378fe4></i></button></td>")], 2);
-  }), 0)], 2)]), _vm._ssrNode(" <div class=\"allocation-summary\" data-v-91378fe4><div class=\"totals-inline\" data-v-91378fe4><span class=\"total-item\" data-v-91378fe4>\n                  ລວມຈຳນວນເງິນຊຳລະ:\n                  <strong data-v-91378fe4>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.totalAllocated))) + "</strong></span></div></div>")], 2)], 2), _vm._ssrNode(" " + (_vm.showApprovalSection ? "<div class=\"form-section\" data-v-91378fe4><h5 class=\"section-title\" data-v-91378fe4><i class=\"fas fa-check-circle\" data-v-91378fe4></i>\n            ການອະນຸມັດ\n          </h5> <div class=\"form-grid\" data-v-91378fe4><div class=\"form-group\" data-v-91378fe4><label data-v-91378fe4>ຜູ້ອະນຸມັດ</label> <input type=\"text\" disabled=\"disabled\"" + _vm._ssrAttr("value", _vm.checkerName) + " class=\"form-control\" data-v-91378fe4></div> <div class=\"form-group\" data-v-91378fe4><label data-v-91378fe4>ໝາຍເຫດການອະນຸມັດ</label> <textarea rows=\"2\" placeholder=\"ໝາຍເຫດການອະນຸມັດ\"" + _vm._ssrAttr("disabled", !_vm.canApprove) + " class=\"form-control\" data-v-91378fe4>" + _vm._ssrEscape(_vm._s(_vm.form.approvalNote)) + "</textarea></div></div></div>" : "<!---->"))], 2)]), _vm._ssrNode(" <div class=\"dialog-footer\" data-v-91378fe4><div class=\"footer-actions\" data-v-91378fe4><button type=\"button\" class=\"btn btn-secondary\" data-v-91378fe4><i class=\"fas fa-times\" data-v-91378fe4></i> ຍົກເລີກ\n        </button> " + (_vm.canApprove && _vm.form.status === 'pending' ? "<button type=\"button\"" + _vm._ssrAttr("disabled", _vm.isSubmitting) + " class=\"btn btn-success\" data-v-91378fe4><i class=\"fas fa-check\" data-v-91378fe4></i> ອະນຸມັດ\n        </button>" : "<!---->") + " " + (_vm.canComplete && ['pending', 'approved'].includes(_vm.form.status) ? "<button type=\"button\"" + _vm._ssrAttr("disabled", _vm.isSubmitting) + " class=\"btn btn-info\" data-v-91378fe4><i class=\"fas fa-check-circle\" data-v-91378fe4></i> ສຳເລັດ\n        </button>" : "<!---->") + " <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.isSubmitting || !_vm.canModify) + " class=\"btn btn-primary\" data-v-91378fe4><i class=\"fas fa-save\" data-v-91378fe4></i>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isSubmitting ? 'ກຳລັງບັນທຶກ...' : _vm.isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div></div>")], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    }), _vm._ssrNode(" " + (_vm.errors[`line_${index}_CRglAccountId`] ? "<small class=\"text-danger d-block mt-1\" data-v-7c19e2ec>" + _vm._ssrEscape("\n                          " + _vm._s(_vm.errors[`line_${index}_CRglAccountId`]) + "\n                        ") + "</small>" : "<!---->"))], 2), _vm._ssrNode(" <td data-v-7c19e2ec><input type=\"number\" step=\"0.01\" min=\"0\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + _vm._ssrAttr("value", line.amount) + " class=\"form-control form-control-xs text-right\" data-v-7c19e2ec></td> <td class=\"text-center\" data-v-7c19e2ec><button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.canModifyAllocations) + " title=\"ລຶບລາຍການ\" class=\"btn btn-xs btn-danger\" data-v-7c19e2ec><i class=\"fas fa-trash\" data-v-7c19e2ec></i></button></td>")], 2);
+  }), 0)], 2)]), _vm._ssrNode(" <div class=\"allocation-summary\" data-v-7c19e2ec><div class=\"totals-inline\" data-v-7c19e2ec><span class=\"total-item\" data-v-7c19e2ec>\n                    ລວມຈຳນວນເງິນຊຳລະ:\n                    <strong data-v-7c19e2ec>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.totalAllocated))) + "</strong></span></div></div>")], 2)], 2), _vm._ssrNode(" " + (_vm.showApprovalSection ? "<div class=\"form-section\" data-v-7c19e2ec><h5 class=\"section-title\" data-v-7c19e2ec><i class=\"fas fa-check-circle\" data-v-7c19e2ec></i>\n              ການອະນຸມັດ\n            </h5> <div class=\"form-grid\" data-v-7c19e2ec><div class=\"form-group\" data-v-7c19e2ec><label data-v-7c19e2ec>ຜູ້ອະນຸມັດ</label> <input type=\"text\" disabled=\"disabled\"" + _vm._ssrAttr("value", _vm.checkerName) + " class=\"form-control\" data-v-7c19e2ec></div> <div class=\"form-group\" data-v-7c19e2ec><label data-v-7c19e2ec>ໝາຍເຫດການອະນຸມັດ</label> <textarea rows=\"2\" placeholder=\"ໝາຍເຫດການອະນຸມັດ\"" + _vm._ssrAttr("disabled", !_vm.canApprove) + " class=\"form-control\" data-v-7c19e2ec>" + _vm._ssrEscape(_vm._s(_vm.form.approvalNote)) + "</textarea></div></div></div>" : "<!---->"))], 2)]), _vm._ssrNode(" <div class=\"dialog-footer\" data-v-7c19e2ec><div class=\"footer-actions\" data-v-7c19e2ec><button type=\"button\" class=\"btn btn-secondary\" data-v-7c19e2ec><i class=\"fas fa-times\" data-v-7c19e2ec></i> ຍົກເລີກ\n          </button> " + (_vm.canApprove && _vm.form.status === 'pending' ? "<button type=\"button\"" + _vm._ssrAttr("disabled", _vm.isSubmitting) + " class=\"btn btn-success\" data-v-7c19e2ec><i class=\"fas fa-check\" data-v-7c19e2ec></i> ອະນຸມັດ\n          </button>" : "<!---->") + " " + (_vm.canComplete && ['pending', 'approved'].includes(_vm.form.status) ? "<button type=\"button\"" + _vm._ssrAttr("disabled", _vm.isSubmitting) + " class=\"btn btn-info\" data-v-7c19e2ec><i class=\"fas fa-check-circle\" data-v-7c19e2ec></i> ສຳເລັດ\n          </button>" : "<!---->") + " <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.isSubmitting || !_vm.canModify) + " class=\"btn btn-primary\" data-v-7c19e2ec><i class=\"fas fa-save\" data-v-7c19e2ec></i>" + _vm._ssrEscape("\n            " + _vm._s(_vm.isSubmitting ? 'ກຳລັງບັນທຶກ...' : _vm.isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n          ") + "</button></div></div>")], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "900px",
       "persistent": "",
@@ -1846,14 +1859,14 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
       fn: function ({
         item
       }) {
-        return [_vm._v("\n            " + _vm._s(_vm.getAgencyName(item)) + "\n          ")];
+        return [_vm._v("\n              " + _vm._s(_vm.getAgencyName(item)) + "\n            ")];
       }
     }, {
       key: "item.dueDate",
       fn: function ({
         item
       }) {
-        return [_vm._v("\n            " + _vm._s(_vm.formatDate(item.dueDate)) + "\n          ")];
+        return [_vm._v("\n              " + _vm._s(_vm.formatDate(item.dueDate)) + "\n            ")];
       }
     }, {
       key: "item.outstandingAmount",
@@ -1862,9 +1875,9 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
       }) {
         return [_c('span', {
           staticClass: "font-weight-bold"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.outstandingAmount)) + "\n            ")])];
+        }, [_vm._v("\n                " + _vm._s(_vm.formatCurrency(item.outstandingAmount)) + "\n              ")])];
       }
-    }], null, false, 2481259708),
+    }], null, false, 773250364),
     model: {
       value: _vm.tempSelectedInvoices,
       callback: function ($$v) {
@@ -1887,7 +1900,7 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
     on: {
       "click": _vm.confirmInvoiceSelection
     }
-  }, [_vm._v("\n          ຢືນຢັນການເລືອກ (" + _vm._s(_vm.tempSelectedInvoices.length) + ")\n        ")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("\n            ຢືນຢັນການເລືອກ (" + _vm._s(_vm.tempSelectedInvoices.length) + ")\n          ")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "1200px",
       "persistent": "",
@@ -1938,7 +1951,7 @@ var settlementvue_type_template_id_91378fe4_scoped_true_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/accounting/ap/settlement/index.vue?vue&type=template&id=91378fe4&scoped=true&
+// CONCATENATED MODULE: ./components/accounting/ap/settlement/index.vue?vue&type=template&id=7c19e2ec&scoped=true&
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(92);
@@ -1980,10 +1993,10 @@ var esnext_map_some_js_ = __webpack_require__(103);
 var esnext_map_update_js_ = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./components/accounting/ap/settlement/audit/index.vue + 3 modules
-var audit = __webpack_require__(645);
+var audit = __webpack_require__(633);
 
 // EXTERNAL MODULE: ./components/accounting/ap/settlement/browsemou/index.vue + 4 modules
-var browsemou = __webpack_require__(643);
+var browsemou = __webpack_require__(631);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/settlement/index.vue?vue&type=script&lang=js&
 
@@ -2610,7 +2623,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(691)
+  var style0 = __webpack_require__(679)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2619,11 +2632,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   ap_settlementvue_type_script_lang_js_,
-  settlementvue_type_template_id_91378fe4_scoped_true_render,
+  settlementvue_type_template_id_7c19e2ec_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "91378fe4",
+  "7c19e2ec",
   "6a236dc5"
   
 )

@@ -1,5 +1,5 @@
 <template>
-  <div class="settlement-container">
+  <div>
     <!-- Compact Header -->
     <v-card class="header-card" flat>
       <v-card-text class="py-3">
@@ -246,28 +246,14 @@
           >ລາຍການ ({{ filteredSettlements.length }})</span
         >
         <v-spacer />
-        <div class="table-controls">
-          <v-select
-            v-model="pagination.perPage"
-            :items="perPageOptions"
-            label="ແຖວ"
-            dense
-            outlined
-            hide-details
-            style="max-width: 70px"
-            @input="updatePagination"
-          />
-        </div>
       </v-card-title>
 
       <v-data-table
         :headers="compactHeaders"
         :items="paginatedSettlements"
-        :page.sync="pagination.currentPage"
-        :items-per-page="pagination.perPage"
+        :items-per-page="25"
         class="compact-table"
         dense
-        hide-default-footer
       >
         <!-- ID Column -->
         <template #item.id="{ item }">
@@ -355,48 +341,6 @@
         </template>
       </v-data-table>
 
-      <!-- Custom Compact Pagination -->
-      <div class="compact-pagination">
-        <div class="pagination-info">
-          {{ paginationInfo.start }}-{{ paginationInfo.end }} ຈາກ
-          {{ paginationInfo.total }}
-        </div>
-        <div class="pagination-controls">
-          <v-btn
-            icon
-            small
-            :disabled="pagination.currentPage === 1"
-            @click="previousPage"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-
-          <div class="page-numbers">
-            <v-btn
-              v-for="page in visiblePages"
-              :key="page"
-              :color="page === pagination.currentPage ? 'primary' : ''"
-              :outlined="page !== pagination.currentPage"
-              x-small
-              min-width="30"
-              @click="goToPage(page)"
-              v-if="page !== '...'"
-            >
-              {{ page }}
-            </v-btn>
-            <span v-else class="page-ellipsis">...</span>
-          </div>
-
-          <v-btn
-            icon
-            small
-            :disabled="pagination.currentPage === totalPages"
-            @click="nextPage"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </div>
-      </div>
     </v-card>
 
     <!-- Dialogs (keeping existing structure) -->
@@ -527,8 +471,7 @@ export default {
       return [
         { text: 'ID', value: 'id', width: '80px', sortable: true },
         { text: 'ວັນທີ', value: 'bookingDate', width: '90px', sortable: true },
-        { text: 'ວິທີ', value: 'method', width: '80px', sortable: true },
-        { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
+        { text: 'ການຊຳລະ', value: 'method', width: '80px', sortable: true },
         { text: 'ຈຳນວນ', value: 'amount', width: '120px', sortable: true },
         { text: 'ກົມ', value: 'ministry', width: '70px', sortable: false },
         {
@@ -537,7 +480,8 @@ export default {
           width: '70px',
           sortable: false,
         },
-        { text: '', value: 'actions', width: '90px', sortable: false },
+         { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
+        { text: 'ຄຳສັ່ງ', value: 'actions', width: '90px', sortable: false },
       ]
     },
 

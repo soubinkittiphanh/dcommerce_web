@@ -1,18 +1,24 @@
 <template>
-  <div class="money-advance-container">
+  <div>
     <!-- Compact Header -->
     <v-card class="header-card" flat>
       <v-card-text class="py-3">
         <div class="header-content">
           <h1 class="header-title">ອອກລາຍຈ່າຍ ເງິນສົດ</h1>
           <div class="header-actions">
-            <v-btn color="secondary" small outlined @click="openAuditReports">
-              <v-icon left small>mdi-chart-line</v-icon>
-              ລາຍງານ
-            </v-btn>
             <v-btn color="primary" small @click="openDialog()">
               <v-icon left small>mdi-plus</v-icon>
               ລົງລາຍຈ່າຍ
+            </v-btn>
+            <v-btn
+              color="secondary"
+              small
+              outlined
+              @click="exportData"
+              :disabled="loading || advances.length === 0"
+            >
+              <v-icon left small>mdi-download</v-icon>
+              Export
             </v-btn>
           </div>
         </div>
@@ -167,20 +173,18 @@
 
           <!-- Search and Actions -->
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <div class="filter-actions">
-              <v-text-field
-                v-model="searchTerm"
-                label="ຄົ້ນຫາ"
-                dense
-                outlined
-                clearable
-                hide-details="auto"
-                prepend-inner-icon="mdi-magnify"
-                @input="debounceSearch"
-                style="margin-bottom: 4px"
-              />
-            </div>
+            <v-text-field
+              v-model="searchTerm"
+              label="ຄົ້ນຫາ"
+              dense
+              outlined
+              clearable
+              hide-details="auto"
+              prepend-inner-icon="mdi-magnify"
+              @input="debounceSearch"
+            />
           </v-col>
+          
           <v-col cols="12" sm="6" md="2" class="px-1">
             <div class="action-buttons">
               <v-btn
@@ -205,29 +209,14 @@
       <v-card-title class="py-2 px-3">
         <span class="table-title">ລາຍການ ({{ advances.length }})</span>
         <v-spacer />
-        <div class="table-controls">
-          <v-select
-            v-model="pagination.itemsPerPage"
-            :items="perPageOptions"
-            label="ແຖວ"
-            dense
-            outlined
-            hide-details
-            style="max-width: 70px"
-            @input="changePage(1)"
-          />
-        </div>
       </v-card-title>
 
       <v-data-table
         :headers="compactHeaders"
         :items="advances"
-        :page.sync="pagination.currentPage"
-        :items-per-page="pagination.itemsPerPage"
-        :server-items-length="pagination.totalItems"
+        :items-per-page="25"
         class="compact-table"
         dense
-        hide-default-footer
         :loading="loading"
         loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
       >
@@ -236,46 +225,37 @@
           <span class="id-text">{{ item.id }}</span>
         </template>
 
-        <!-- Maker Column -->
-        <template #item.maker="{ item }">
-          <span class="maker-name">{{
-            item.maker ? item.maker.cus_name : 'N/A'
-          }}</span>
-        </template>
-
         <!-- Ministry Column -->
         <template #item.ministry="{ item }">
           <div v-if="item.ministry" class="ministry-compact">
             <v-chip color="info" x-small outlined>
-              {{ item.ministry.ministryCode || item.ministry.name }}
+              {{ `${item.ministry.ministryCode} - ${item.ministry.ministryName}` }}
             </v-chip>
           </div>
           <span v-else class="no-data">-</span>
         </template>
 
-        <!--Paid Amount Column -->
+        <!-- Paid Amount Column -->
         <template #item.amount="{ item }">
           <div class="amount-column">
-            <span class="amount-value">{{
-              formatCurrency(item.amount, item.currency.code)
-            }}</span>
-            <span v-if="item.currency" class="currency-code">{{
-              item.currency.code
-            }}</span>
+            <span class="amount-value">
+              {{ formatCurrency(item.amount, item.currency.code) }}
+            </span>
+            <span v-if="item.currency" class="currency-code">
+              {{ item.currency.code }}
+            </span>
           </div>
         </template>
+
         <!-- Settle Amount Column -->
         <template #item.settleLine="{ item }">
           <div class="amount-column">
-            <span class="amount-value">{{
-              formatCurrency(
-                getSettleAmount(item.settlementLine || 0),
-                item.currency.code
-              )
-            }}</span>
-            <span v-if="item.currency" class="currency-code">{{
-              item.currency.code
-            }}</span>
+            <span class="amount-value">
+              {{ formatCurrency(getSettleAmount(item.settlementLine || []), item.currency.code) }}
+            </span>
+            <span v-if="item.currency" class="currency-code">
+              {{ item.currency.code }}
+            </span>
           </div>
         </template>
 
@@ -290,9 +270,7 @@
         <template #item.bankAccount="{ item }">
           <div v-if="item.bankAccount" class="bank-compact">
             <div class="bank-name">{{ item.bankAccount.bankName }}</div>
-            <div class="account-number">
-              {{ item.bankAccount.accountNumber }}
-            </div>
+            <div class="account-number">{{ item.bankAccount.accountNumber }}</div>
           </div>
           <span v-else class="no-data">-</span>
         </template>
@@ -304,21 +282,9 @@
           </v-chip>
         </template>
 
-        <!-- Due Date Column -->
-        <template #item.dueDate="{ item }">
-          <span
-            class="date-compact"
-            :class="{ overdue: isOverdue(item.dueDate) }"
-          >
-            {{ formatCompactDate(item.dueDate) }}
-          </span>
-        </template>
-
         <!-- Booking Date Column -->
         <template #item.bookingDate="{ item }">
-          <span class="date-compact">{{
-            formatCompactDate(item.bookingDate)
-          }}</span>
+          <span class="date-compact">{{ formatCompactDate(item.bookingDate) }}</span>
         </template>
 
         <!-- Actions Column -->
@@ -367,47 +333,6 @@
           </div>
         </template>
       </v-data-table>
-
-      <!-- Custom Compact Pagination -->
-      <div class="compact-pagination">
-        <div class="pagination-info">
-          {{ paginationInfo.start }}-{{ paginationInfo.end }} ຈາກ
-          {{ pagination.totalItems }}
-        </div>
-        <div class="pagination-controls">
-          <v-btn
-            icon
-            small
-            :disabled="pagination.currentPage === 1"
-            @click="changePage(pagination.currentPage - 1)"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-
-          <div class="page-numbers">
-            <v-btn
-              v-for="page in paginationPages"
-              :key="page"
-              :color="page === pagination.currentPage ? 'primary' : ''"
-              :outlined="page !== pagination.currentPage"
-              x-small
-              min-width="30"
-              @click="changePage(page)"
-            >
-              {{ page }}
-            </v-btn>
-          </div>
-
-          <v-btn
-            icon
-            small
-            :disabled="pagination.currentPage === pagination.totalPages"
-            @click="changePage(pagination.currentPage + 1)"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </div>
-      </div>
     </v-card>
 
     <!-- No Data Message -->
@@ -415,15 +340,13 @@
       <v-card-text class="text-center py-8">
         <v-icon size="64" color="grey lighten-2">mdi-inbox</v-icon>
         <div class="mt-3 text-h6 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
-        <div class="grey--text">
-          ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ
-        </div>
+        <div class="grey--text">ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ</div>
       </v-card-text>
     </v-card>
 
-    <!-- Dialog Components (keeping existing structure) -->
+    <!-- Dialog Components -->
     <money-advance-dialog
-      :key="randomKeyMaintenanceDialog"
+      :key="dialogKey"
       :show="showDialog"
       :is-edit="isEdit"
       :form-data="form"
@@ -434,9 +357,7 @@
       :form-loading="formLoading"
       :saving="saving"
       @close="closeDialog"
-      @print="
-        printAdvanceDetails(advances.find((advance) => advance.id == form.id))
-      "
+      @print="printAdvanceDetails(advances.find((advance) => advance.id == form.id))"
       @save="saveAdvance"
       @currency-changed="updateSelectedCurrency"
       @bank-account-changed="updateSelectedBankAccount"
@@ -451,45 +372,9 @@
       :status-labels="statusLabels"
       @close="closeDetailDialog"
       @print="printAdvanceDetails"
-      @download="downloadAdvanceDetails"
-      @retry-load="retryLoadDetails"
       @edit="handleEditFromDetail"
       @approve="handleApproveFromDetail"
       @create-settlement="handleCreateSettlement"
-    />
-
-    <audit-trail-dialog
-      v-if="selectedRecordForAudit && selectedRecordForAudit.id"
-      :show="showAuditDialog"
-      :record-id="selectedRecordForAudit.id"
-      :record-data="selectedRecordForAudit"
-      :can-restore="canRestoreRecord"
-      @close="closeAuditDialog"
-      @compare="handleVersionComparison"
-      @restore="handleVersionRestore"
-      @view-full-changes="handleViewFullChanges"
-      @success="showToast"
-      @error="(msg) => showToast(msg, 'error')"
-    />
-
-    <version-comparison-dialog
-      v-if="selectedRecordForComparison && selectedRecordForComparison.id"
-      :show="showComparisonDialog"
-      :record-id="selectedRecordForComparison.id"
-      :record-data="selectedRecordForComparison"
-      :initial-comparison="comparisonData"
-      :can-restore="canRestoreRecord"
-      @close="closeComparisonDialog"
-      @restore="handleVersionRestore"
-      @success="showToast"
-      @error="(msg) => showToast(msg, 'error')"
-    />
-
-    <audit-reports-dialog
-      :show="showAuditReportsDialog"
-      @close="closeAuditReportsDialog"
-      @success="showToast"
-      @error="(msg) => showToast(msg, 'error')"
     />
 
     <VoucherPrintComponent
@@ -520,15 +405,12 @@
 </template>
 
 <script>
-// Import all the existing components
 import MoneyAdvanceDialog from '~/components/MA/paymentDialog'
 import MoneyAdvanceDetailDialog from '~/components/MA/paymentDetailDialog'
 import VoucherPrintComponent from '~/components/MA/paymentVoucher'
-import AuditTrailDialog from '~/components/MA/paymentAuditDialog'
-import VersionComparisonDialog from '~/components/MA/paymentCompareDialog'
-import AuditReportsDialog from '~/components/MA/paymentAuditReportDialog'
 import SettlementDialog from '~/components/MA/settlementDialog'
-import { swalSuccess, swalError2, swalConfirm } from '~/common'
+import { swalConfirm } from '~/common'
+import * as XLSX from 'xlsx'
 
 export default {
   name: 'MoneyAdvanceManagement',
@@ -537,11 +419,9 @@ export default {
     MoneyAdvanceDialog,
     MoneyAdvanceDetailDialog,
     VoucherPrintComponent,
-    AuditTrailDialog,
-    VersionComparisonDialog,
-    AuditReportsDialog,
     SettlementDialog,
   },
+
   middleware: 'auths',
 
   data() {
@@ -554,8 +434,7 @@ export default {
       formattedFromDate: null,
       formattedToDate: null,
 
-      // Filter and search state
-      statusFilter: '',
+      // Search state
       searchTerm: '',
       searchTimeout: null,
 
@@ -582,17 +461,8 @@ export default {
         amounts: { total: 0, pending: 0 },
       },
 
-      // Pagination
-      pagination: {
-        currentPage: 1,
-        totalPages: 1,
-        totalItems: 0,
-        itemsPerPage: 25,
-      },
-
       // Filters
       filters: {
-        status: '',
         makerId: '',
         ministryId: '',
         fromDate: '',
@@ -607,26 +477,19 @@ export default {
 
       // Dialog states
       showDialog: false,
-      randomKeyMaintenanceDialog: 1,
+      dialogKey: 1,
       showDetailDialog: false,
       showPrintVoucher: false,
       showSettlementDialog: false,
-      showAuditDialog: false,
-      showComparisonDialog: false,
-      showAuditReportsDialog: false,
 
       // Selected data
       selectedAdvance: null,
       advanceDetails: null,
       settlementData: null,
       selectedAdvanceForSettlement: null,
-      selectedRecordForAudit: null,
-      selectedRecordForComparison: null,
-      comparisonData: null,
 
       // Form state
       isEdit: false,
-      canRestoreRecord: false,
       form: {
         id: null,
         amount: '',
@@ -645,6 +508,7 @@ export default {
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
+        exchangeRate: 1,
       },
     }
   },
@@ -654,39 +518,17 @@ export default {
       return this.$auth.user || ''
     },
 
-    // Compact table headers
     compactHeaders() {
       return [
         { text: 'ID', value: 'id', width: '60px', sortable: true },
-        { text: 'ຜູ້ລົງ', value: 'maker', width: '100px', sortable: true },
+        { text: 'ວັນທີ', value: 'bookingDate', width: '80px', sortable: true },
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
         { text: 'ຈຳນວນ ຈ່າຍ', value: 'amount', width: '100px', sortable: true },
-        {
-          text: 'ຈຳນວນ ຮັບ',
-          value: 'settleLine',
-          width: '100px',
-          sortable: true,
-        },
+        { text: 'ຈຳນວນ ຮັບ', value: 'settleLine', width: '100px', sortable: true },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
-        {
-          text: 'ບັນຊີ',
-          value: 'bankAccount',
-          width: '120px',
-          sortable: false,
-        },
+        { text: 'ບັນຊີ', value: 'bankAccount', width: '120px', sortable: false },
         { text: 'ສະຖານະ', value: 'status', width: '80px', sortable: true },
-        { text: 'ຄົບກຳໜົດ', value: 'dueDate', width: '80px', sortable: true },
-        { text: 'ວັນທີ', value: 'bookingDate', width: '80px', sortable: true },
         { text: '', value: 'actions', width: '120px', sortable: false },
-      ]
-    },
-
-    // Filter options
-    statusOptions() {
-      return [
-        { text: 'ຄ້າງອະນຸມັດ', value: 'pending' },
-        { text: 'ອະນຸມັດແລ້ວ', value: 'approved' },
-        { text: 'ຊຳລະແລ້ວ', value: 'settled' },
       ]
     },
 
@@ -709,55 +551,95 @@ export default {
         })),
       ]
     },
-
-    perPageOptions() {
-      return [10, 25, 50, 100]
-    },
-
-    paginationPages() {
-      const pages = []
-      const start = Math.max(1, this.pagination.currentPage - 2)
-      const end = Math.min(
-        this.pagination.totalPages,
-        this.pagination.currentPage + 2
-      )
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i)
-      }
-      return pages
-    },
-
-    paginationInfo() {
-      const start =
-        (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1
-      const end = Math.min(
-        start + this.pagination.itemsPerPage - 1,
-        this.pagination.totalItems
-      )
-      return {
-        start: this.pagination.totalItems > 0 ? start : 0,
-        end,
-        total: this.pagination.totalItems,
-      }
-    },
   },
 
   async mounted() {
     await this.loadInitialData()
-    this.canRestoreRecord = this.checkRestorePermissions()
   },
 
   methods: {
-    getSettleAmount(settlements) {
-      let total = settlements.reduce((total, item) => {
-        return total + item.amount
-      }, 0)
-      return total
+    // Excel Export Function
+    exportData() {
+      try {
+        // Prepare data for export
+        const exportData = this.advances.map((item, index) => ({
+          'ລຳດັບ': index + 1,
+          'ID': item.id,
+          'ວັນທີ': this.formatDate(item.bookingDate),
+          'ກະຊວງ/ກົມ': item.ministry ? `${item.ministry.ministryCode} - ${item.ministry.ministryName}` : '-',
+          'ຈຳນວນເງິນຈ່າຍ': item.amount,
+          'ສະກຸນເງິນ': item.currency?.code || '',
+          'ຈຳນວນເງິນຮັບ': this.getSettleAmount(item.settlementLine || []),
+          'ຈຸດປະສົງ': item.purpose || '',
+          'ທະນາຄານ': item.bankAccount?.bankName || '-',
+          'ເລກບັນຊີ': item.bankAccount?.accountNumber || '-',
+          'ສະຖານະ': this.getStatusInLao(item.status),
+          'ຊື່ຜູ້ຮັບ': item.receiveName || '-',
+          'ເລກບັດປະຈຳຕົວ': item.receiveIDNO || '-',
+          'ເລກອ້າງອີງພາຍນອກ': item.externalRefNo || '-',
+          'ເລກເຊັກ': item.chequeNo || '-',
+          'ໝາຍເຫດ': item.note || '-',
+        }))
+
+        // Create worksheet
+        const ws = XLSX.utils.json_to_sheet(exportData)
+
+        // Set column widths
+        const colWidths = [
+          { wch: 8 },  // ລຳດັບ
+          { wch: 8 },  // ID
+          { wch: 12 }, // ວັນທີ
+          { wch: 30 }, // ກະຊວງ/ກົມ
+          { wch: 15 }, // ຈຳນວນເງິນຈ່າຍ
+          { wch: 10 }, // ສະກຸນເງິນ
+          { wch: 15 }, // ຈຳນວນເງິນຮັບ
+          { wch: 30 }, // ຈຸດປະສົງ
+          { wch: 20 }, // ທະນາຄານ
+          { wch: 20 }, // ເລກບັນຊີ
+          { wch: 12 }, // ສະຖານະ
+          { wch: 20 }, // ຊື່ຜູ້ຮັບ
+          { wch: 18 }, // ເລກບັດປະຈຳຕົວ
+          { wch: 20 }, // ເລກອ້າງອີງພາຍນອກ
+          { wch: 15 }, // ເລກເຊັກ
+          { wch: 30 }, // ໝາຍເຫດ
+        ]
+        ws['!cols'] = colWidths
+
+        // Create workbook
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'ລາຍຈ່າຍເງິນສົດ')
+
+        // Add summary sheet
+        const summaryData = [
+          { 'ລາຍການ': 'ທັງໝົດ', 'ຈຳນວນ': this.dashboard.counts.total },
+          { 'ລາຍການ': 'ຊຳລະແລ້ວ', 'ຈຳນວນ': this.dashboard.counts.settled },
+          { 'ລາຍການ': 'ລວມຍອດທັງໝົດ', 'ຈຳນວນ': this.dashboard.amounts.total },
+        ]
+        const wsSummary = XLSX.utils.json_to_sheet(summaryData)
+        XLSX.utils.book_append_sheet(wb, wsSummary, 'ສະຫຼຸບ')
+
+        // Generate filename with date
+        const date = new Date().toISOString().split('T')[0]
+        const filename = `cash-payment-${date}.xlsx`
+
+        // Write file
+        XLSX.writeFile(wb, filename)
+
+        this.showToast('ສົ່ງອອກຂໍ້ມູນສຳເລັດ', 'success')
+      } catch (error) {
+        console.error('Export error:', error)
+        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກຂໍ້ມູນ', 'error')
+      }
     },
-    // Date formatting and handling methods
+
+    getSettleAmount(settlements) {
+      if (!Array.isArray(settlements)) return 0
+      return settlements.reduce((total, item) => total + (item.amount || 0), 0)
+    },
+
+    // Date formatting methods
     formatDate(date) {
-      if (!date) return null
+      if (!date) return '-'
       const d = new Date(date)
       const day = String(d.getDate()).padStart(2, '0')
       const month = String(d.getMonth() + 1).padStart(2, '0')
@@ -821,19 +703,7 @@ export default {
       return this.statusLabels[status] || status.toUpperCase()
     },
 
-    isOverdue(dueDate) {
-      if (!dueDate) return false
-      return new Date(dueDate) < new Date()
-    },
-
-    checkRestorePermissions() {
-      return (
-        this.user?.role === 'admin' ||
-        this.user?.permissions?.includes('restore_records')
-      )
-    },
-
-    // Data loading methods (keeping existing logic)
+    // Data loading methods
     async loadInitialData() {
       await Promise.all([
         this.fetchData(),
@@ -849,26 +719,14 @@ export default {
     async fetchData() {
       this.loading = true
       try {
-        const params = {
-          page: this.pagination.currentPage,
-          limit: this.pagination.itemsPerPage,
-          ...this.filters,
-        }
-
-        if (this.statusFilter) {
-          params.status = this.statusFilter
-        }
+        const params = { ...this.filters }
 
         if (this.searchTerm) {
           params.search = this.searchTerm
         }
 
-        const { data } = await this.$axios.get('/api/money-advances', {
-          params,
-        })
-
-        this.advances = data.data.advances
-        this.pagination = data.data.pagination
+        const { data } = await this.$axios.get('/api/money-advances', { params })
+        this.advances = data.data.advances || []
       } catch (error) {
         this.showToast('Error fetching money advances', 'error')
         console.error(error)
@@ -879,16 +737,8 @@ export default {
 
     async fetchDashboard() {
       try {
-        const params = {}
-        if (this.filters.makerId) params.makerId = this.filters.makerId
-        if (this.filters.ministryId) params.ministryId = this.filters.ministryId
-        if (this.filters.fromDate) params.fromDate = this.filters.fromDate
-        if (this.filters.toDate) params.toDate = this.filters.toDate
-        params.method = 'cash'
-        const { data } = await this.$axios.get(
-          '/api/money-advances/dashboard',
-          { params }
-        )
+        const params = { ...this.filters, method: 'cash' }
+        const { data } = await this.$axios.get('/api/money-advances/dashboard', { params })
         this.dashboard = data.data
       } catch (error) {
         console.error('Error fetching dashboard:', error)
@@ -898,65 +748,38 @@ export default {
     async fetchUsers() {
       try {
         const { data } = await this.$axios.get('/api/user/find')
-        if (data && data.data) {
-          this.users = Array.isArray(data.data) ? data.data : []
-        } else if (Array.isArray(data)) {
-          this.users = data
-        } else {
-          this.users = []
-        }
+        this.users = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
       } catch (error) {
         console.error('Error fetching users:', error)
         this.users = []
-        this.showToast('Failed to load users', 'error')
       }
     },
 
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')
-        if (data && data.data) {
-          this.currencies = Array.isArray(data.data) ? data.data : []
-        } else if (Array.isArray(data)) {
-          this.currencies = data
-        } else {
-          this.currencies = []
-        }
+        this.currencies = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
       } catch (error) {
         console.error('Error fetching currencies:', error)
         this.currencies = []
-        this.showToast('Failed to load currencies', 'error')
       }
     },
 
     async fetchMinistry() {
       try {
         const response = await this.$axios.get('/api/ministries')
-        if (response.data && response.data.success) {
-          this.ministries = response.data.data || []
-        } else {
-          this.ministries = []
-        }
+        this.ministries = response.data?.data || []
       } catch (error) {
         console.error('Error fetching ministries:', error)
         this.ministries = []
-        this.showToast('Failed to load ministries', 'error')
       }
     },
 
     async fetchBankAccounts() {
       try {
         const { data } = await this.$axios.get('/api/bank_account/find')
-        if (data && data.data) {
-          this.bankAccounts = Array.isArray(data.data) ? data.data : []
-        } else if (Array.isArray(data)) {
-          this.bankAccounts = data
-        } else {
-          this.bankAccounts = []
-        }
-        this.bankAccounts = this.bankAccounts.filter(
-          (account) => account.isActive
-        )
+        const accounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
+        this.bankAccounts = accounts.filter(account => account.isActive)
       } catch (error) {
         console.error('Error fetching bank accounts:', error)
         this.bankAccounts = []
@@ -966,46 +789,29 @@ export default {
     async fetchChartAccounts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
-        if (data && data.data) {
-          this.chartAccounts = Array.isArray(data.data) ? data.data : []
-        } else if (Array.isArray(data)) {
-          this.chartAccounts = data
-        } else {
-          this.chartAccounts = []
-        }
+        this.chartAccounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
       } catch (error) {
         console.error('Error fetching chart accounts:', error)
         this.chartAccounts = []
       }
     },
 
-    // Filter and search methods
-    onFilterChange() {
-      this.filters.status = this.statusFilter
-      this.pagination.currentPage = 1
-      this.fetchData()
-      this.fetchDashboard()
-    },
-
+    // Filter methods
     applyFilters() {
-      this.pagination.currentPage = 1
       this.fetchData()
       this.fetchDashboard()
     },
 
     resetFilters() {
       this.filters = {
-        status: '',
         makerId: '',
         ministryId: '',
         fromDate: '',
         toDate: '',
       }
       this.searchTerm = ''
-      this.statusFilter = ''
       this.clearFromDate()
       this.clearToDate()
-      this.pagination.currentPage = 1
       this.fetchData()
       this.fetchDashboard()
     },
@@ -1013,37 +819,19 @@ export default {
     debounceSearch() {
       clearTimeout(this.searchTimeout)
       this.searchTimeout = setTimeout(() => {
-        this.pagination.currentPage = 1
         this.fetchData()
       }, 500)
     },
 
-    // Keep all existing dialog and CRUD methods
+    // Dialog methods
     async openDialog(advance = null) {
       this.isEdit = !!advance
       this.showDialog = true
-      this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
-        Math.random() * 1000
-      )}`
+      this.dialogKey = Date.now()
 
-      if (
-        this.users.length === 0 ||
-        this.currencies.length === 0 ||
-        this.ministries.length === 0
-      ) {
+      if (!this.users.length || !this.currencies.length || !this.ministries.length) {
         this.formLoading = true
-        await Promise.all([
-          this.users.length === 0 ? this.fetchUsers() : Promise.resolve(),
-          this.currencies.length === 0
-            ? this.fetchCurrencies()
-            : Promise.resolve(),
-          this.ministries.length === 0
-            ? this.fetchMinistry()
-            : Promise.resolve(),
-          this.bankAccounts.length === 0
-            ? this.fetchBankAccounts()
-            : Promise.resolve(),
-        ])
+        await this.loadInitialData()
         this.formLoading = false
       }
 
@@ -1060,8 +848,7 @@ export default {
           bankAccountId: advance.bankAccountId || '',
           ministryId: advance.ministryId || '',
           bookingDate: advance.bookingDate || '',
-          externalBookingDate: advance.externalBookingDate || '',
-          exchangeRate: advance.exchangeRate || '',
+          exchangeRate: advance.exchangeRate || 1,
           reason: '',
           externalRef: advance.externalRef || '',
           externalRefNo: advance.externalRefNo || '',
@@ -1071,9 +858,8 @@ export default {
         }
       } else {
         this.resetForm()
-        if (this.currencies.length > 0) {
-          const defaultCurrency =
-            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+        if (this.currencies.length) {
+          const defaultCurrency = this.currencies.find(c => c.code === 'USD') || this.currencies[0]
           this.form.currencyId = defaultCurrency.id
         }
       }
@@ -1113,27 +899,20 @@ export default {
       this.saving = true
       try {
         const auditContext = {
-          reason:
-            formData.reason ||
-            (this.isEdit ? 'Updated record' : 'Created new record'),
+          reason: formData.reason || (this.isEdit ? 'Updated record' : 'Created new record'),
           userId: this.user?.id,
         }
 
         if (this.isEdit && formData.id) {
           formData.updateUserId = this.user.id
-          await this.$axios.put(`/api/money-advances/${formData.id}`, {
-            ...formData,
-            ...auditContext,
-          })
+          await this.$axios.put(`/api/money-advances/${formData.id}`, { ...formData, ...auditContext })
           this.showToast('Money advance updated successfully', 'success')
         } else {
-          const response = await this.$axios.post('/api/money-advances', {
-            ...formData,
-            ...auditContext,
-          })
-
+          const response = await this.$axios.post('/api/money-advances', { ...formData, ...auditContext })
           const newRecord = response.data.data
+
           this.form = {
+            ...this.form,
             id: newRecord.id,
             amount: newRecord.amount,
             method: newRecord.method || 'cash',
@@ -1145,20 +924,12 @@ export default {
             bankAccountId: newRecord.bankAccountId || '',
             ministryId: newRecord.ministryId || '',
             bookingDate: newRecord.bookingDate || '',
-            exchangeRate: newRecord.exchangeRate || '',
-            reason: '',
-            externalRef: newRecord.externalRef || '',
-            externalRefNo: newRecord.externalRefNo || '',
-            chequeNo: newRecord.chequeNo || '',
-            receiveName: newRecord.receiveName || '',
-            receiveIDNO: newRecord.receiveIDNO || '',
+            exchangeRate: newRecord.exchangeRate || 1,
           }
 
           this.isEdit = true
           this.$nextTick(() => {
-            this.randomKeyMaintenanceDialog = `dialog-${Date.now()}-${Math.floor(
-              Math.random() * 1000
-            )}`
+            this.dialogKey = Date.now()
           })
 
           this.showToast('Money advance created successfully', 'success')
@@ -1167,8 +938,7 @@ export default {
         await this.fetchData()
         await this.fetchDashboard()
       } catch (error) {
-        const message =
-          error.response?.data?.message || 'Error saving money advance'
+        const message = error.response?.data?.message || 'Error saving money advance'
         this.showToast(message, 'error')
         console.error('Save error:', error)
       } finally {
@@ -1181,9 +951,7 @@ export default {
         const result = await swalConfirm(
           this.$swal,
           'ຢືນຢັນ ການອະນຸມັດ',
-          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(
-            advance.amount
-          )}?`,
+          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(advance.amount, advance.currency?.code)}?`,
           'question',
           'ບໍ່',
           'ຕົກລົງ'
@@ -1204,16 +972,13 @@ export default {
       }
     },
 
-    // Keep all other existing methods (viewDetails, createSettlement, etc.)
     async viewDetails(advance) {
       this.selectedAdvance = advance
       this.showDetailDialog = true
 
       try {
         this.detailLoading = true
-        const { data } = await this.$axios.get(
-          `/api/money-advances/${advance.id}`
-        )
+        const { data } = await this.$axios.get(`/api/money-advances/${advance.id}`)
         this.advanceDetails = data.data
       } catch (error) {
         console.error('Error fetching advance details:', error)
@@ -1245,9 +1010,7 @@ export default {
           method: '',
           settlementDate: settlementDate,
           bookingDate: settlementDate,
-          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${
-            advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'
-          }`,
+          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'}`,
           moneyAdvanceId: advance.id,
           linkToAdvance: 'true',
         }
@@ -1274,30 +1037,23 @@ export default {
 
         const completeSettlementData = {
           ...settlementData,
-          bookingDate:
-            settlementData.bookingDate || settlementData.settlementDate,
+          bookingDate: settlementData.bookingDate || settlementData.settlementDate,
           ...auditContext,
         }
 
-        const response = await this.$axios.post(
-          '/api/settlements',
-          completeSettlementData
-        )
+        const response = await this.$axios.post('/api/settlements', completeSettlementData)
 
-        if (response.data && response.data.success) {
+        if (response.data?.success) {
           this.showToast('Settlement created successfully', 'success')
           this.closeSettlementDialog()
           await this.fetchData()
           await this.fetchDashboard()
         } else {
-          throw new Error(
-            response.data?.message || 'Failed to create settlement'
-          )
+          throw new Error(response.data?.message || 'Failed to create settlement')
         }
       } catch (error) {
         console.error('Error saving settlement:', error)
-        const message =
-          error.response?.data?.message || 'Error creating settlement'
+        const message = error.response?.data?.message || 'Error creating settlement'
         this.showToast(message, 'error')
       }
     },
@@ -1317,106 +1073,6 @@ export default {
       }, 100)
     },
 
-    // Audit methods (keeping existing)
-    viewAuditTrail(advance) {
-      this.selectedRecordForAudit = advance
-      this.showAuditDialog = true
-    },
-
-    closeAuditDialog() {
-      this.showAuditDialog = false
-      setTimeout(() => {
-        this.selectedRecordForAudit = null
-      }, 300)
-    },
-
-    handleVersionComparison(comparisonData) {
-      this.selectedRecordForComparison = this.selectedRecordForAudit
-      this.comparisonData = comparisonData
-      this.showAuditDialog = false
-      this.showComparisonDialog = true
-    },
-
-    closeComparisonDialog() {
-      this.showComparisonDialog = false
-      setTimeout(() => {
-        this.selectedRecordForComparison = null
-        this.comparisonData = null
-      }, 300)
-    },
-
-    async handleVersionRestore(versionData) {
-      try {
-        const result = await swalConfirm(
-          this.$swal,
-          'ຢືນຢັນການກັບຄືນ',
-          `ທ່ານແນ່ໃຈທີ່ຈະກັບຄືນໄປຫາເວີຊັ່ນນີ້ບໍ່?`,
-          'question',
-          'ຍົກເລີກ',
-          'ກັບຄືນ'
-        )
-
-        if (result.isConfirmed) {
-          const recordId =
-            this.selectedRecordForAudit?.id ||
-            this.selectedRecordForComparison?.id
-
-          const { data } = await this.$axios.post(
-            `/api/money-advances/${recordId}/restore`,
-            {
-              targetVersion: versionData.version,
-              reason: 'Restored via audit trail',
-            }
-          )
-
-          if (data.success) {
-            this.showToast('ກັບຄືນເວີຊັ່ນສຳເລັດ', 'success')
-            this.closeAuditDialog()
-            this.closeComparisonDialog()
-            await this.fetchData()
-          } else {
-            throw new Error(data.message || 'Restore failed')
-          }
-        }
-      } catch (error) {
-        console.error('Error restoring version:', error)
-        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການກັບຄືນ', 'error')
-      }
-    },
-
-    handleViewFullChanges(auditEntry) {
-      console.log('View full changes for:', auditEntry)
-      this.showToast('ຟັງຊັ່ນນີ້ຈະຖືກພັດທະນາໃນອະນາຄົດ', 'info')
-    },
-
-    openAuditReports() {
-      this.showAuditReportsDialog = true
-    },
-
-    closeAuditReportsDialog() {
-      this.showAuditReportsDialog = false
-    },
-
-    // Detail dialog handlers
-    downloadAdvanceDetails() {
-      const details = this.formatAdvanceForDownload()
-      const blob = new Blob([details], { type: 'text/plain' })
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `money-advance-${this.advanceDetails.id}.txt`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      window.URL.revokeObjectURL(url)
-    },
-
-    retryLoadDetails() {
-      if (this.selectedAdvance) {
-        this.viewDetails(this.selectedAdvance)
-      }
-    },
-
     handleEditFromDetail(advance) {
       this.closeDetailDialog()
       this.openDialog(advance)
@@ -1432,50 +1088,6 @@ export default {
       this.createSettlement(advance)
     },
 
-    formatAdvanceForDownload() {
-      const advance = this.advanceDetails
-      return `
-MONEY ADVANCE DETAILS
-=====================
-
-ID: ${advance.id}
-Maker: ${advance.maker?.cus_name || 'N/A'}
-Ministry: ${advance.ministry?.name || 'N/A'}
-Amount: ${this.formatCurrency(advance.amount)} ${advance.currency?.code || ''}
-Purpose: ${advance.purpose || 'N/A'}
-Status: ${advance.status.toUpperCase()}
-Due Date: ${this.formatDate(advance.dueDate)}
-Created Date: ${this.formatDate(advance.createdAt)}
-Updated Date: ${this.formatDate(advance.updatedAt)}
-
-${
-  advance.bankAccount
-    ? `Bank Account: ${advance.bankAccount.bankName} - ${advance.bankAccount.accountNumber}`
-    : 'No Bank Account'
-}
-
-Notes: ${advance.note || 'No notes provided'}
-
-${advance.checker ? `Checker: ${advance.checker.cus_name}` : ''}
-${
-  advance.approvedAt
-    ? `Approved At: ${this.formatDate(advance.approvedAt)}`
-    : ''
-}
-${advance.settledAt ? `Settled At: ${this.formatDate(advance.settledAt)}` : ''}
-
-Generated on: ${new Date().toLocaleString()}
-      `.trim()
-    },
-
-    // Pagination
-    changePage(page) {
-      if (page >= 1 && page <= this.pagination.totalPages) {
-        this.pagination.currentPage = page
-        this.fetchData()
-      }
-    },
-
     // Update methods for form dialog
     updateSelectedCurrency(currencyId) {
       console.log('Currency changed to:', currencyId)
@@ -1489,14 +1101,6 @@ Generated on: ${new Date().toLocaleString()}
       console.log('Ministry changed to:', ministryId)
     },
 
-    // Utility methods
-    // formatCurrency(amount) {
-    //   return new Intl.NumberFormat('en-US', {
-    //     style: 'currency',
-    //     currency: 'USD',
-    //   }).format(amount || 0)
-    // },
-
     formatCurrency(amount, currencyCode = 'LAK') {
       try {
         return new Intl.NumberFormat('en-US', {
@@ -1506,7 +1110,7 @@ Generated on: ${new Date().toLocaleString()}
           maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
         }).format(amount || 0)
       } catch (error) {
-        return `${this.formatNumber(amount)} ${currencyCode}`
+        return `${amount || 0} ${currencyCode}`
       }
     },
 
