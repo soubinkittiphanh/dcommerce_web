@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid class="invoice-summary-container">
+  <!-- <v-container fluid class="invoice-summary-container"> -->
+  <div>
     <!-- Header Section -->
     <v-row>
       <v-col cols="12">
@@ -36,8 +37,8 @@
               </v-col>
               <v-col cols="12" md="3">
                 <v-select
-                  v-model="filters.customerId"
-                  :items="customers"
+                  v-model="filters.agencyId"
+                  :items="agencies"
                   item-text="name"
                   item-value="id"
                   label="ລູກຄ້າ"
@@ -102,10 +103,7 @@
             :headers="headers"
             :items="paginatedInvoices"
             :loading="loading"
-            :items-per-page.sync="pagination.perPage"
-            :page.sync="pagination.currentPage"
-            :server-items-length="filteredInvoices.length"
-            hide-default-footer
+            :items-per-page="10"
             class="elevation-0"
             loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
             no-data-text="ບໍ່ມີຂໍ້ມູນ"
@@ -114,7 +112,11 @@
             <template v-slot:item.invoiceNumber="{ item }">
               <div>
                 <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
-                <div v-if="item.description" class="text-caption grey--text text-truncate" style="max-width: 200px;">
+                <div
+                  v-if="item.description"
+                  class="text-caption grey--text text-truncate"
+                  style="max-width: 200px"
+                >
                   {{ item.description }}
                 </div>
               </div>
@@ -122,7 +124,9 @@
 
             <!-- Invoice Date -->
             <template v-slot:item.invoiceDate="{ item }">
-              <span class="text-caption">{{ formatDate(item.invoiceDate) }}</span>
+              <span class="text-caption">{{
+                formatDate(item.invoiceDate)
+              }}</span>
             </template>
 
             <!-- Customer -->
@@ -141,11 +145,14 @@
 
             <!-- Due Date -->
             <template v-slot:item.dueDate="{ item }">
-              <span 
+              <span
                 class="text-caption"
                 :class="{
-                  'error--text font-weight-bold': getDueDateClass(item.dueDate, item.status) === 'overdue-date',
-                  'warning--text font-weight-medium': getDueDateClass(item.dueDate, item.status) === 'due-soon'
+                  'error--text font-weight-bold':
+                    getDueDateClass(item.dueDate, item.status) ===
+                    'overdue-date',
+                  'warning--text font-weight-medium':
+                    getDueDateClass(item.dueDate, item.status) === 'due-soon',
                 }"
               >
                 {{ formatDate(item.dueDate) }}
@@ -155,10 +162,14 @@
             <!-- Total Amount -->
             <template v-slot:item.totalAmount="{ item }">
               <div class="text-right">
-                <div class="font-weight-bold">{{ formatCurrency(item.totalAmount) }}</div>
+                <div class="font-weight-bold">
+                  {{ formatCurrency(item.totalAmount) }}
+                </div>
                 <div class="text-caption grey--text">
                   Net: {{ formatCurrency(item.netAmount) }}
-                  <span v-if="item.taxAmount > 0"> | Tax: {{ formatCurrency(item.taxAmount) }}</span>
+                  <span v-if="item.taxAmount > 0">
+                    | Tax: {{ formatCurrency(item.taxAmount) }}</span
+                  >
                 </div>
               </div>
             </template>
@@ -200,10 +211,7 @@
                     <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
                   </v-list-item>
 
-                  <v-list-item
-                    @click="editInvoice(item)"
-                    :disabled="item.status === 'paid'"
-                  >
+                  <v-list-item @click="editInvoice(item)">
                     <v-list-item-icon>
                       <v-icon small color="warning">mdi-pencil</v-icon>
                     </v-list-item-icon>
@@ -213,36 +221,6 @@
               </v-menu>
             </template>
           </v-data-table>
-
-          <!-- Custom Pagination -->
-          <v-card-text class="pa-3">
-            <v-row align="center" justify="space-between">
-              <v-col cols="12" md="6">
-                <div class="text-caption grey--text">
-                  ສະແດງ {{ paginationInfo.start }} ເຖິງ {{ paginationInfo.end }} ຈາກ {{ paginationInfo.total }} ລາຍການ
-                </div>
-              </v-col>
-              <v-col cols="12" md="6" class="d-flex justify-end align-center">
-                <v-select
-                  v-model="pagination.perPage"
-                  :items="[10, 25, 50, 100]"
-                  label="ຈຳນວນຕໍ່ໜ້າ"
-                  dense
-                  outlined
-                  hide-details
-                  style="max-width: 100px;"
-                  class="mr-3"
-                  @change="updatePagination"
-                />
-                <v-pagination
-                  v-model="pagination.currentPage"
-                  :length="totalPages"
-                  :total-visible="7"
-                  circle
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -250,9 +228,10 @@
     <!-- Invoice Maintain Dialog -->
     <client-only>
       <InvoiceHeaderMaintain
+        :gl-accounts="glAccounts"
         :visible="showEditDialog"
         :invoice="selectedInvoice"
-        :customers="customers"
+        :agencies="agencies"
         :jobBatches="jobBatches"
         :currencies="currencies"
         @close="closeEditDialog"
@@ -268,7 +247,8 @@
         @close="closeViewDialog"
       />
     </client-only>
-  </v-container>
+  </div>
+  <!-- </v-container> -->
 </template>
 
 <script>
@@ -284,19 +264,21 @@ export default {
 
   data() {
     return {
+      glAccounts: [],
       showEditDialog: false,
       showViewDialog: false,
       selectedInvoice: null,
       invoices: [],
       filteredInvoices: [],
       customers: [],
+      agencies: [],
       jobBatches: [],
       currencies: [],
       loading: false,
 
       filters: {
         search: '',
-        customerId: '',
+        agencyId: '',
         dateFrom: '',
         dateTo: '',
       },
@@ -312,14 +294,47 @@ export default {
       },
 
       headers: [
-        { text: 'ເລກທີໃບແຈ້ງໜີ້', value: 'invoiceNumber', sortable: true, width: '200px' },
-        { text: 'ວັນທີແຈ້ງໜີ້', value: 'invoiceDate', sortable: true, width: '120px' },
+        {
+          text: 'ເລກທີໃບແຈ້ງໜີ້',
+          value: 'invoiceNumber',
+          sortable: true,
+          width: '200px',
+        },
+        {
+          text: 'ວັນທີແຈ້ງໜີ້',
+          value: 'invoiceDate',
+          sortable: true,
+          width: '120px',
+        },
         { text: 'ລູກຄ້າ', value: 'customer', sortable: false, width: '200px' },
-        { text: 'ວັນທີຄົບກຳນົດ', value: 'dueDate', sortable: true, width: '120px' },
-        { text: 'ຍອດລວມ', value: 'totalAmount', sortable: true, align: 'end', width: '180px' },
-        { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px', align: 'center' },
+        {
+          text: 'ວັນທີຄົບກຳນົດ',
+          value: 'dueDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ຍອດລວມ',
+          value: 'totalAmount',
+          sortable: true,
+          align: 'end',
+          width: '180px',
+        },
+        {
+          text: 'ສະຖານະ',
+          value: 'status',
+          sortable: true,
+          width: '120px',
+          align: 'center',
+        },
         { text: 'ຜູ້ສ້າງ', value: 'maker', sortable: false, width: '150px' },
-        { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, width: '80px', align: 'center' },
+        {
+          text: 'ຟັງຊັ່ນ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+          align: 'center',
+        },
       ],
     }
   },
@@ -340,7 +355,8 @@ export default {
     },
 
     paginationInfo() {
-      const start = (this.pagination.currentPage - 1) * this.pagination.perPage + 1
+      const start =
+        (this.pagination.currentPage - 1) * this.pagination.perPage + 1
       const end = Math.min(
         start + this.pagination.perPage - 1,
         this.filteredInvoices.length
@@ -356,16 +372,26 @@ export default {
   mounted() {
     this.fetchInvoices()
     this.fetchCustomers()
+    this.fetchAgencies()
     this.fetchJobBatches()
     this.fetchCurrencies()
+    this.fetchAccountCharts()
   },
 
   methods: {
+    async fetchAccountCharts() {
+      try {
+        const { data } = await this.$axios.get('/api/accountChart/find')
+        this.glAccounts = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async fetchInvoices() {
       this.loading = true
       try {
         const { data } = await this.$axios.get('/api/ar-invoices', {
-          params: { page: 1, limit: 1000 }
+          params: { page: 1, limit: 1000 },
         })
 
         if (data && data.success) {
@@ -391,11 +417,27 @@ export default {
         console.error(error)
       }
     },
+    async fetchAgencies() {
+      this.loadingAgencies = true
+      try {
+        const response = await this.$axios.$get('/api/agency')
+        if (response.success && response.data && response.data.agencies) {
+          this.agencies = response.data.agencies
+        } else if (response.success && Array.isArray(response.data)) {
+          this.agencies = response.data
+        }
+      } catch (error) {
+        console.error('Error fetching agencies:', error)
+        this.$toast?.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ')
+      } finally {
+        this.loadingAgencies = false
+      }
+    },
 
     async fetchJobBatches() {
       try {
         const { data } = await this.$axios.get('/api/batch-job', {
-          params: { include: 'mou' }
+          params: { include: 'mou' },
         })
         this.jobBatches = data.data.jobBatches || []
       } catch (error) {
@@ -479,15 +521,21 @@ export default {
         )
       }
 
-      if (this.filters.customerId) {
-        filtered = filtered.filter((inv) => inv.customerId == this.filters.customerId)
+      if (this.filters.agencyId) {
+        filtered = filtered.filter(
+          (inv) => inv.customerId == this.filters.agencyId
+        )
       }
 
       if (this.filters.dateFrom || this.filters.dateTo) {
         filtered = filtered.filter((inv) => {
           const invoiceDate = new Date(inv.invoiceDate)
-          const dateFrom = this.filters.dateFrom ? new Date(this.filters.dateFrom) : null
-          const dateTo = this.filters.dateTo ? new Date(this.filters.dateTo) : null
+          const dateFrom = this.filters.dateFrom
+            ? new Date(this.filters.dateFrom)
+            : null
+          const dateTo = this.filters.dateTo
+            ? new Date(this.filters.dateTo)
+            : null
 
           if (dateFrom && invoiceDate < dateFrom) return false
           if (dateTo && invoiceDate > dateTo) return false
@@ -519,7 +567,14 @@ export default {
     },
 
     convertToCSV(data) {
-      const headers = ['Invoice Number', 'Invoice Date', 'Due Date', 'Customer', 'Total Amount', 'Status']
+      const headers = [
+        'Invoice Number',
+        'Invoice Date',
+        'Due Date',
+        'Customer',
+        'Total Amount',
+        'Status',
+      ]
       const csvContent = [
         headers.join(','),
         ...data.map((row) =>
@@ -588,7 +643,8 @@ export default {
       const due = new Date(dueDate)
 
       if (due < today) return 'overdue-date'
-      if (due <= new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)) return 'due-soon'
+      if (due <= new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000))
+        return 'due-soon'
       return ''
     },
   },

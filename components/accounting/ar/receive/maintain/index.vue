@@ -1,3 +1,5 @@
+
+<!-- Replace your entire template section with this -->
 <template>
   <div>
     <!-- Main Receipt Modal -->
@@ -20,292 +22,263 @@
             <p>ກຳລັງໂຫຼດຂໍ້ມູນ...</p>
           </div>
 
-          <!-- Tabbed Interface -->
+          <!-- Single Form View -->
           <div v-else class="receipt-form">
-            <!-- Tab Navigation -->
-            <div class="tab-navigation">
-              <button
-                type="button"
-                :class="['tab-btn', { active: activeTab === 'header' }]"
-                @click="activeTab = 'header'"
-              >
-                <i class="fas fa-file-alt"></i>
-                ຂໍ້ມູນການຮັບຊຳລະ
-              </button>
-              <button
-                type="button"
-                :class="['tab-btn', { active: activeTab === 'allocations' }]"
-                @click="activeTab = 'allocations'"
-              >
-                <i class="fas fa-list"></i>
-                ການແບ່ງປັນຊຳລະ
-                <span v-if="allocationLines.length > 0" class="line-count">{{
-                  allocationLines.length
-                }}</span>
-              </button>
-            </div>
+            <form @submit.prevent="handleSubmit">
+              <!-- Receipt Information Section -->
+              <div class="form-section">
+                <h5 class="section-title">
+                  <i class="fas fa-info-circle"></i>
+                  ຂໍ້ມູນການຮັບຊຳລະ
+                </h5>
 
-            <!-- Receipt Header Tab -->
-            <div v-show="activeTab === 'header'" class="tab-content">
-              <form @submit.prevent="handleSubmit">
-                <!-- Compact Form Layout -->
-                <div class="form-container">
-                  <!-- Row 1: Basic Info -->
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="receiptNumber" class="required">ເລກທີໃບຮັບ</label>
-                      <input
-                        id="receiptNumber"
-                        v-model="form.receiptNumber"
-                        type="text"
-                        class="form-control"
-                        :class="{ 'is-invalid': errors.receiptNumber }"
-                        placeholder="RCP-2025-001"
-                        :readonly="isEdit"
-                      />
-                      <div v-if="errors.receiptNumber" class="invalid-feedback">
-                        {{ errors.receiptNumber }}
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="paymentMethod" class="required">ວິທີຈ່າຍ</label>
-                      <select
-                        id="paymentMethod"
-                        v-model="form.paymentMethod"
-                        class="form-control"
-                        :class="{ 'is-invalid': errors.paymentMethod }"
-                      >
-                        <option value="cash">ເງິນສົດ</option>
-                        <option value="check">ເຊັກ</option>
-                        <option value="bank_transfer">ໂອນເງິນທະນາຄານ</option>
-                        <option value="credit_card">ບັດເຄຣດິດ</option>
-                        <option value="other">ອື່ນໆ</option>
-                      </select>
-                      <div v-if="errors.paymentMethod" class="invalid-feedback">
-                        {{ errors.paymentMethod }}
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="referenceNumber">ເລກອ້າງອີງ</label>
-                      <input
-                        id="referenceNumber"
-                        v-model="form.referenceNumber"
-                        type="text"
-                        class="form-control"
-                        placeholder="ເລກອ້າງອີງ..."
-                      />
+                <!-- Row 1: Basic Info -->
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="receiptNumber" class="required"
+                      >ເລກທີໃບຮັບ</label
+                    >
+                    <input
+                      id="receiptNumber"
+                      v-model="form.receiptNumber"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.receiptNumber }"
+                      placeholder="RCP-2025-001"
+                      :readonly="isEdit"
+                    />
+                    <div v-if="errors.receiptNumber" class="invalid-feedback">
+                      {{ errors.receiptNumber }}
                     </div>
                   </div>
-
-                  <!-- Row 2: Invoice Selection -->
-                  <div class="form-row">
-                    <div class="form-group full-width">
-                      <label for="invoiceHeaderId" class="required">ໃບແຈ້ງໜີ້</label>
-                      <div class="invoice-selector">
-                        <select
-                          id="invoiceHeaderId"
-                          v-model="form.invoiceHeaderId"
-                          class="form-control"
-                          :class="{ 'is-invalid': errors.invoiceHeaderId }"
-                          @change="onInvoiceChange"
-                        >
-                          <option value="">ເລືອກໃບແຈ້ງໜີ້</option>
-                          <option
-                            v-for="invoice in invoices"
-                            :key="invoice.id"
-                            :value="invoice.id"
-                          >
-                            {{ invoice.invoiceNumber }} - {{
-                              invoice.customer ? invoice.customer.name : 'N/A'
-                            }} ({{ formatCurrency(invoice.totalAmount) }})
-                          </option>
-                        </select>
-                        <button
-                          type="button"
-                          class="btn btn-outline-primary btn-compact"
-                          @click="openInvoiceBrowser"
-                          title="ເລືອກໃບແຈ້ງໜີ້"
-                        >
-                          <i class="fas fa-search"></i>
-                          ຄົ້ນຫາ
-                        </button>
-                      </div>
-                      <div v-if="errors.invoiceHeaderId" class="invalid-feedback">
-                        {{ errors.invoiceHeaderId }}
-                      </div>
+                  <div class="form-group">
+                    <label>ວິທີການຊຳລະ <span class="required">*</span></label>
+                    <select
+                      v-model="form.paymentId"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.paymentId }"
+                      required
+                    >
+                      <option value="">ເລືອກວິທີການຊຳລະ</option>
+                      <option
+                        v-for="method in paymentMethods"
+                        :key="method.id"
+                        :value="method.id"
+                      >
+                        {{ method.payment_name }}
+                      </option>
+                    </select>
+                    <div v-if="errors.paymentId" class="invalid-feedback">
+                      {{ errors.paymentId }}
                     </div>
                   </div>
-
-                  <!-- Row 3: Dates and Amount -->
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="bookingDate" class="required">ວັນທີບັນທຶກ</label>
-                      <input
-                        id="bookingDate"
-                        v-model="form.bookingDate"
-                        type="date"
-                        class="form-control"
-                        :class="{ 'is-invalid': errors.bookingDate }"
-                      />
-                      <div v-if="errors.bookingDate" class="invalid-feedback">
-                        {{ errors.bookingDate }}
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="receivedDate" class="required">ວັນທີຮັບເງິນ</label>
-                      <input
-                        id="receivedDate"
-                        v-model="form.receivedDate"
-                        type="date"
-                        class="form-control"
-                        :class="{ 'is-invalid': errors.receivedDate }"
-                      />
-                      <div v-if="errors.receivedDate" class="invalid-feedback">
-                        {{ errors.receivedDate }}
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="totalReceivedAmount" class="auto-calculated">
-                        <i class="fas fa-calculator"></i>
-                        ຍອດເງິນທີ່ຮັບ
-                      </label>
-                      <input
-                        id="totalReceivedAmount"
-                        v-model="form.totalReceivedAmount"
-                        type="number"
-                        step="0.01"
-                        class="form-control auto-calculated-field"
-                        :class="{ 'is-invalid': errors.totalReceivedAmount }"
-                        readonly
-                        disabled
-                      />
-                      <small class="form-text text-muted">
-                        <i class="fas fa-info-circle"></i>
-                        ຄຳນວນອັດຕະໂນມັດ
-                      </small>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputterId">ຜູ້ບັນທຶກ</label>
-                      <select
-                        id="inputterId"
-                        v-model="form.inputterId"
-                        class="form-control"
-                        disabled
+                  <div class="form-group">
+                    <label for="currencyId">ສະກຸນເງິນ</label>
+                    <select
+                      id="currencyId"
+                      v-model="form.currencyId"
+                      class="form-control"
+                      @change="onCurrencyChange"
+                    >
+                      <option value="">ເລືອກສະກຸນເງິນ</option>
+                      <option
+                        v-for="currency in currencies"
+                        :key="currency.id"
+                        :value="currency.id"
                       >
-                        <option value="">ເລືອກຜູ້ບັນທຶກ</option>
+                        {{ currency.name }} ({{ currency.code }})
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exchangeRate">ອັດຕາແລກປ່ຽນ</label>
+                    <input
+                      id="exchangeRate"
+                      v-model="form.exchangeRate"
+                      type="number"
+                      step="0.0001"
+                      min="0"
+                      class="form-control"
+                      placeholder="1.0000"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="referenceNumber">ເລກອ້າງອີງ</label>
+                    <input
+                      id="referenceNumber"
+                      v-model="form.referenceNumber"
+                      type="text"
+                      class="form-control"
+                      placeholder="ເລກອ້າງອີງ..."
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="invoiceHeaderId">ໃບແຈ້ງໜີ້ (ທາງເລືອກ)</label>
+                    <div class="invoice-selector">
+                      <select
+                        id="invoiceHeaderId"
+                        v-model="form.invoiceHeaderId"
+                        class="form-control"
+                        @change="onInvoiceChange"
+                      >
+                        <option value="">ເລືອກໃບແຈ້ງໜີ້ (ຖ້າມີ)</option>
                         <option
-                          v-for="user in users"
-                          :key="user.id"
-                          :value="user.id"
+                          v-for="invoice in invoices"
+                          :key="invoice.id"
+                          :value="invoice.id"
                         >
-                          {{ user.cus_name }} - {{ user.cus_email }}
+                          {{ invoice.invoiceNumber }} -
+                          {{ invoice.customer ? invoice.customer.name : 'N/A' }}
+                          ({{ formatCurrency(invoice.totalAmount) }})
                         </option>
                       </select>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm"
+                        @click="openInvoiceBrowser"
+                        title="ເລືອກໃບແຈ້ງໜີ້"
+                      >
+                        <i class="fas fa-search"></i>
+                        ຄົ້ນຫາ
+                      </button>
+                    </div>
+                    <small class="form-text text-muted">
+                      <i class="fas fa-info-circle"></i>
+                      ເລືອກໃບແຈ້ງໜີ້ເພື່ອໂຫຼດລາຍການອັດຕະໂນມັດ
+                    </small>
+                  </div>
+                </div>
+
+                <!-- Row 3: Dates and Amount -->
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="bookingDate" class="required"
+                      >ວັນທີບັນທຶກ</label
+                    >
+                    <input
+                      id="bookingDate"
+                      v-model="form.bookingDate"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.bookingDate }"
+                    />
+                    <div v-if="errors.bookingDate" class="invalid-feedback">
+                      {{ errors.bookingDate }}
                     </div>
                   </div>
-
-                  <!-- Row 4: Notes and Reason -->
-                  <div class="form-row">
-                    <div class="form-group full-width">
-                      <label for="notes">ໝາຍເຫດ</label>
-                      <textarea
-                        id="notes"
-                        v-model="form.notes"
-                        class="form-control textarea-compact"
-                        rows="2"
-                        placeholder="ໝາຍເຫດກ່ຽວກັບການຮັບຊຳລະ..."
-                      ></textarea>
+                  <div class="form-group">
+                    <label for="receivedDate" class="required"
+                      >ວັນທີຮັບເງິນ</label
+                    >
+                    <input
+                      id="receivedDate"
+                      v-model="form.receivedDate"
+                      type="date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.receivedDate }"
+                    />
+                    <div v-if="errors.receivedDate" class="invalid-feedback">
+                      {{ errors.receivedDate }}
                     </div>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="totalReceivedAmount" class="auto-calculated">
+                      <i class="fas fa-calculator"></i>
+                      ຍອດເງິນທີ່ຮັບ
+                    </label>
+                    <input
+                      id="totalReceivedAmount"
+                      v-model="form.totalReceivedAmount"
+                      type="number"
+                      step="0.01"
+                      class="form-control auto-calculated-field"
+                      :class="{ 'is-invalid': errors.totalReceivedAmount }"
+                      readonly
+                      disabled
+                    />
+                    <small class="form-text text-muted">
+                      <i class="fas fa-info-circle"></i>
+                      ຄຳນວນອັດຕະໂນມັດ
+                    </small>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputterId">ຜູ້ບັນທຶກ</label>
+                    <select
+                      id="inputterId"
+                      v-model="form.inputterId"
+                      class="form-control"
+                      disabled
+                    >
+                      <option value="">ເລືອກຜູ້ບັນທຶກ</option>
+                      <option
+                        v-for="user in users"
+                        :key="user.id"
+                        :value="user.id"
+                      >
+                        {{ user.cus_name }} - {{ user.cus_email }}
+                      </option>
+                    </select>
+                  </div> -->
+
+                  <div class="form-group">
+                    <label for="notes">ໝາຍເຫດ</label>
+                    <textarea
+                      id="notes"
+                      v-model="form.notes"
+                      class="form-control textarea-compact"
+                      rows="2"
+                      placeholder="ໝາຍເຫດກ່ຽວກັບການຮັບຊຳລະ..."
+                    ></textarea>
                   </div>
 
                   <!-- Reason field for audit trail (only show when editing) -->
-                  <div v-if="isEdit" class="form-row">
-                    <div class="form-group full-width">
-                      <label for="reason" class="required">ເຫດຜົນຂອງການແກ້ໄຂ</label>
-                      <input
-                        id="reason"
-                        v-model="form.reason"
-                        type="text"
-                        class="form-control"
-                        :class="{ 'is-invalid': errors.reason }"
-                        placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
-                      />
-                      <div v-if="errors.reason" class="invalid-feedback">
-                        {{ errors.reason }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Compact Total Amount Display -->
-                  <div class="amount-summary">
-                    <div class="totals-compact">
-                      <div class="total-item">
-                        <span>ຍອດທີ່ຮັບ:</span>
-                        <span class="amount received">{{ formatCurrency(form.totalReceivedAmount) }}</span>
-                      </div>
-                      <div class="total-item">
-                        <span>ລວມການແບ່ງປັນ:</span>
-                        <span class="amount allocated">{{ formatCurrency(calculatedAllocatedTotal) }}</span>
-                      </div>
-                      <div class="total-item success-balance">
-                        <span>ສະຖານະ:</span>
-                        <span class="amount balance balanced">
-                          <i class="fas fa-check-circle"></i>
-                          ສົມດຸນ
-                        </span>
-                      </div>
-                    </div>
-                    <div class="balance-info">
-                      <i class="fas fa-lightbulb"></i>
-                      <span>ກະລຸນາໄປທີ່ແຖບ "ການແບ່ງປັນຊຳລະ" ເພື່ອໃສ່ຍອດແບ່ງປັນ</span>
+                  <div v-if="isEdit" class="form-group">
+                    <label for="reason" class="required"
+                      >ເຫດຜົນຂອງການແກ້ໄຂ</label
+                    >
+                    <input
+                      id="reason"
+                      v-model="form.reason"
+                      type="text"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.reason }"
+                      placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
+                    />
+                    <div v-if="errors.reason" class="invalid-feedback">
+                      {{ errors.reason }}
                     </div>
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
 
-            <!-- Payment Allocation Tab -->
-            <div v-show="activeTab === 'allocations'" class="tab-content">
-              <div class="allocation-section">
-                <!-- Compact Allocation Header -->
-                <div class="allocation-header">
-                  <div class="allocation-info">
-                    <span v-if="selectedInvoice" class="invoice-info">
-                      <strong>{{ selectedInvoice.invoiceNumber }}</strong> -
-                      {{ selectedInvoice.customer ? selectedInvoice.customer.name : 'N/A' }}
-                    </span>
-                    <span v-if="allocationLines.length > 0" class="allocation-count-info">
-                      {{ allocationLines.length }} ລາຍການ
-                    </span>
-                  </div>
-                </div>
-
-                <!-- No Invoice Selected State -->
-                <div v-if="!selectedInvoice" class="no-invoice-state">
-                  <div class="empty-content">
-                    <i class="fas fa-file-invoice"></i>
-                    <h4>ກະລຸນາເລືອກໃບແຈ້ງໜີ້ກ່ອນ</h4>
-                    <p>ເພື່ອເຮັດການແບ່ງປັນການຮັບຊຳລະ ກະລຸນາເລືອກໃບແຈ້ງໜີ້ໃນແຖບຂໍ້ມູນການຮັບຊຳລະກ່ອນ</p>
-                    <button type="button" class="btn btn-primary" @click="activeTab = 'header'">
-                      <i class="fas fa-arrow-left"></i>
-                      ກັບໄປເລືອກໃບແຈ້ງໜີ້
+              <!-- Payment Allocation Section -->
+              <div class="form-section">
+                <div class="section-header">
+                  <h5 class="section-title">
+                    <i class="fas fa-list"></i>
+                    ການແບ່ງປັນຊຳລະ
+                    <span
+                      v-if="allocationLines.length > 0"
+                      class="line-count"
+                      >{{ allocationLines.length }}</span
+                    >
+                  </h5>
+                  <div class="action-buttons">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm"
+                      @click="addManualLine"
+                    >
+                      <i class="fas fa-plus"></i>
+                      ເພີ່ມລາຍການ
                     </button>
-                  </div>
-                </div>
-
-                <!-- Invoice Lines Display -->
-                <div v-else-if="allocationLines.length > 0" class="allocation-table-container">
-                  <div class="allocation-notice">
-                    <i class="fas fa-info-circle"></i>
-                    <span>ລາຍການດ້ານລຸ່ມແມ່ນມາຈາກໃບແຈ້ງໜີ້ທີ່ເລືອກ - ກະລຸນາໃສ່ຍອດແບ່ງປັນ</span>
-                  </div>
-
-                  <!-- Quick Allocation Actions at Top -->
-                  <div class="quick-allocation-actions">
-                    <div class="quick-actions-left">
+                    <div
+                      v-if="selectedInvoice && hasInvoiceLines"
+                      class="quick-allocation-actions"
+                    >
                       <button
                         type="button"
-                        class="btn btn-outline-primary btn-compact"
+                        class="btn btn-outline-primary btn-xs"
                         @click="allocateFullAmount"
                         title="ແບ່ງປັນຍອດເຕັມ"
                       >
@@ -314,7 +287,7 @@
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-success btn-compact"
+                        class="btn btn-outline-success btn-xs"
                         @click="allocateEqually"
                         title="ແບ່ງເທົ່າກັນ"
                       >
@@ -323,7 +296,7 @@
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-info btn-compact"
+                        class="btn btn-outline-info btn-xs"
                         @click="allocateProportionally"
                         title="ແບ່ງຕາມອັດຕາສ່ວນ"
                       >
@@ -332,19 +305,47 @@
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-warning btn-compact"
+                        class="btn btn-outline-warning btn-xs"
                         @click="clearAllAllocations"
                       >
                         <i class="fas fa-eraser"></i>
                         ລົບລ້າງ
                       </button>
                     </div>
-                    <div class="quick-actions-right">
-                      <span class="allocation-helper">
-                        <i class="fas fa-lightbulb"></i>
-                        ໃຊ້ປຸ່ມດ້ານຊ້າຍເພື່ອແບ່ງປັນອັດຕະໂນມັດ
-                      </span>
-                    </div>
+                  </div>
+                </div>
+
+                <!-- Empty State -->
+                <div
+                  v-if="allocationLines.length === 0"
+                  class="no-invoice-state"
+                >
+                  <div class="empty-content">
+                    <i class="fas fa-list"></i>
+                    <h4>ຍັງບໍ່ມີລາຍການແບ່ງປັນ</h4>
+                    <p>
+                      ເລືອກໃບແຈ້ງໜີ້ເພື່ອໂຫຼດລາຍການອັດຕະໂນມັດ ຫຼື
+                      ເພີ່ມລາຍການດ້ວຍຕົນເອງ
+                    </p>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      @click="addManualLine"
+                    >
+                      <i class="fas fa-plus-circle"></i>
+                      ເພີ່ມລາຍການທຳອິດ
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Allocation Lines Display -->
+                <div v-else class="allocation-table-container">
+                  <div class="allocation-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <span
+                      >ໃສ່ຍອດແບ່ງປັນສຳລັບແຕ່ລະລາຍການ (ລາຍການຈາກໃບແຈ້ງໜີ້ ຫຼື
+                      ລາຍການທີ່ເພີ່ມເອງ)</span
+                    >
                   </div>
 
                   <div class="allocation-table">
@@ -352,37 +353,84 @@
                       <thead>
                         <tr>
                           <th style="width: 30px">#</th>
-                          <th style="width: 250px">ລາຍການໃບແຈ້ງໜີ້</th>
-                          <th style="width: 80px">ຍອດໃບແຈ້ງ</th>
-                          <th style="width: 90px">ຍອດແບ່ງປັນ *</th>
-                          <th style="width: 90px">ວັນທີແບ່ງປັນ *</th>
-                          <th style="width: 80px">ຍອດຄົງເຫຼືອ</th>
-                          <th style="width: 120px">ໝາຍເຫດ</th>
+                          <th style="width: 200px">ລາຍລະອຽດ *</th>
+                          <th style="width: 80px">ຍອດອ້າງອີງ</th>
+                          <th style="width: 90px">ຍອດຊຳລະ *</th>
+                          <!-- <th style="width: 90px">ວັນທີແບ່ງປັນ *</th> -->
+                          <!-- <th style="width: 120px">ໝາຍເຫດ</th> -->
+                          <th>ລະຫັດການເງິນ <span class="required">*</span></th>
+                          <th>DR</th>
+                          <th>CR</th>
+                          <th style="width: 50px">ລຶບ</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr
                           v-for="(allocation, index) in allocationLines"
-                          :key="allocation.invoiceLineId"
+                          :key="allocation.tempId"
                           class="allocation-row"
                         >
-                          <td class="line-number">{{ allocation.lineNumber }}</td>
+                          <td class="line-number">{{ index + 1 }}</td>
                           <td>
-                            <div class="invoice-line-display">
+                            <!-- If from invoice line -->
+                            <div
+                              v-if="allocation.invoiceLine"
+                              class="invoice-line-display"
+                            >
                               <div class="line-description">
-                                <strong>{{ allocation.invoiceLine.description }}</strong>
+                                <strong>{{
+                                  allocation.invoiceLine.description || 'N/A'
+                                }}</strong>
                               </div>
                               <div class="line-details">
-                                ຈຳນວນ: {{ formatNumber(allocation.invoiceLine.quantity) }} ×
-                                {{ formatCurrency(allocation.invoiceLine.unitPrice) }}
-                                <span v-if="allocation.invoiceLine.taxRate > 0">
+                                ຈຳນວນ:
+                                {{
+                                  formatNumber(
+                                    allocation.invoiceLine.quantity || 0
+                                  )
+                                }}
+                                ×
+                                {{
+                                  formatCurrency(
+                                    allocation.invoiceLine.unitPrice || 0
+                                  )
+                                }}
+                                <span
+                                  v-if="
+                                    (allocation.invoiceLine.taxRate || 0) > 0
+                                  "
+                                >
                                   + ພາສີ {{ allocation.invoiceLine.taxRate }}%
                                 </span>
                               </div>
                             </div>
+                            <!-- Manual entry -->
+                            <div v-else>
+                              <input
+                                v-model="allocation.description"
+                                type="text"
+                                class="form-control form-control-xs"
+                                :class="{
+                                  'is-invalid':
+                                    errors[`allocation_${index}_description`],
+                                }"
+                                placeholder="ລາຍລະອຽດການແບ່ງປັນ..."
+                              />
+                              <div
+                                v-if="errors[`allocation_${index}_description`]"
+                                class="invalid-feedback"
+                              >
+                                {{ errors[`allocation_${index}_description`] }}
+                              </div>
+                            </div>
                           </td>
                           <td class="invoice-line-total">
-                            {{ formatCurrency(allocation.invoiceLine.lineTotal) }}
+                            <span v-if="allocation.invoiceLine">
+                              {{
+                                formatCurrency(allocation.invoiceLine.lineTotal)
+                              }}
+                            </span>
+                            <span v-else class="text-muted">-</span>
                           </td>
                           <td>
                             <input
@@ -390,90 +438,200 @@
                               type="number"
                               step="0.01"
                               min="0"
-                              :max="allocation.invoiceLine.lineTotal"
+                              :max="
+                                allocation.invoiceLine &&
+                                allocation.invoiceLine.lineTotal
+                                  ? allocation.invoiceLine.lineTotal
+                                  : ''
+                              "
                               class="form-control form-control-xs"
-                              :class="{ 'is-invalid': errors[`allocation_${index}_allocatedAmount`] }"
+                              :class="{
+                                'is-invalid':
+                                  errors[`allocation_${index}_allocatedAmount`],
+                              }"
                               @blur="validateAllocation(allocation, index)"
                               placeholder="0.00"
                             />
                             <div
-                              v-if="errors[`allocation_${index}_allocatedAmount`]"
+                              v-if="
+                                errors[`allocation_${index}_allocatedAmount`]
+                              "
                               class="invalid-feedback"
                             >
-                              {{ errors[`allocation_${index}_allocatedAmount`] }}
+                              {{
+                                errors[`allocation_${index}_allocatedAmount`]
+                              }}
                             </div>
                           </td>
-                          <td>
+                          <!-- <td>
                             <input
                               v-model="allocation.allocationDate"
                               type="date"
                               class="form-control form-control-xs"
-                              :class="{ 'is-invalid': errors[`allocation_${index}_allocationDate`] }"
-                            />
-                          </td>
-                          <td class="remaining-amount">
-                            <span
                               :class="{
-                                'over-allocated': isOverAllocated(allocation),
-                                'fully-allocated': isFullyAllocated(allocation),
+                                'is-invalid':
+                                  errors[`allocation_${index}_allocationDate`],
                               }"
-                            >
-                              {{ formatCurrency(getRemainingAmount(allocation)) }}
-                            </span>
-                          </td>
-                          <td>
+                            />
+                          </td> -->
+                          <!-- <td>
                             <input
                               v-model="allocation.notes"
                               type="text"
                               class="form-control form-control-xs"
                               placeholder="ໝາຍເຫດ..."
                             />
+                          </td> -->
+                          <td>
+                            <v-autocomplete
+                              v-model="allocation.txnId"
+                              :items="
+                                transactionCodes.filter(
+                                  (t) => t.type === 'INCOME' && t.isActive
+                                )
+                              "
+                              item-value="id"
+                              item-text="code"
+                              :label="
+                                loadingTransactionCodes
+                                  ? 'ກຳລັງໂຫຼດ...'
+                                  : 'ເລືອກລະຫັດການເງິນ'
+                              "
+                              :loading="loadingTransactionCodes"
+                              :disabled="loadingTransactionCodes"
+                              :error="
+                                !allocation.txnId && errors.settlementLines
+                              "
+                              dense
+                              outlined
+                              clearable
+                              hide-details="auto"
+                              class="mt-0"
+                            >
+                              <template v-slot:item="{ item }">
+                                <v-list-item-content>
+                                  <v-list-item-title>
+                                    {{ item.code }} - {{ item.description }}
+                                  </v-list-item-title>
+                                </v-list-item-content>
+                              </template>
+                              <template v-slot:selection="{ item }">
+                                {{ item.code }} - {{ item.description }}
+                              </template>
+                            </v-autocomplete>
+                            <small
+                              v-if="!allocation.txnId && errors.settlementLines"
+                              class="text-danger d-block"
+                            >
+                              ກະລຸນາເລືອກລະຫັດການເງິນ
+                            </small>
+                          </td>
+
+                          <td>
+                            <v-autocomplete
+                              v-model="allocation.DRglAccountId"
+                              :items="glAccounts"
+                              item-value="id"
+                              item-text="accountNumber"
+                              label="DR Account"
+                              :error="!!errors[`line_${index}_DRglAccountId`]"
+                              dense
+                              outlined
+                              clearable
+                              hide-details="auto"
+                              class="mt-0"
+                            >
+                              <template v-slot:item="{ item }">
+                                <v-list-item-content>
+                                  <v-list-item-title>
+                                    {{ item.accountNumber }} -
+                                    {{ item.accountName }}
+                                  </v-list-item-title>
+                                </v-list-item-content>
+                              </template>
+                              <template v-slot:selection="{ item }">
+                                {{ item.accountNumber }} -
+                                {{ item.accountName }}
+                              </template>
+                            </v-autocomplete>
+                          </td>
+
+                          <td>
+                            <v-autocomplete
+                              v-model="allocation.CRglAccountId"
+                              :items="glAccounts"
+                              item-value="id"
+                              item-text="accountNumber"
+                              label="CR Account"
+                              :error="!!errors[`line_${index}_CRglAccountId`]"
+                              dense
+                              outlined
+                              clearable
+                              hide-details="auto"
+                              class="mt-0"
+                            >
+                              <template v-slot:item="{ item }">
+                                <v-list-item-content>
+                                  <v-list-item-title>
+                                    {{ item.accountNumber }} -
+                                    {{ item.accountName }}
+                                  </v-list-item-title>
+                                </v-list-item-content>
+                              </template>
+                              <template v-slot:selection="{ item }">
+                                {{ item.accountNumber }} -
+                                {{ item.accountName }}
+                              </template>
+                            </v-autocomplete>
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-xs btn-danger"
+                              @click="removeLine(index)"
+                              title="ລຶບລາຍການ"
+                            >
+                              <i class="fas fa-trash"></i>
+                            </button>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-
-                  <!-- Compact Allocation Summary -->
-                  <div class="allocation-summary">
-                    <div class="totals-compact">
-                      <div class="total-item">
-                        <span>ຍອດໃບແຈ້ງໜີ້:</span>
-                        <span class="amount">{{ formatCurrency(selectedInvoice.totalAmount) }}</span>
-                      </div>
-                      <div class="total-item">
-                        <span>ຍອດທີ່ຮັບ:</span>
-                        <span class="amount received">{{ formatCurrency(form.totalReceivedAmount) }}</span>
-                      </div>
-                      <div class="total-item">
-                        <span>ລວມການແບ່ງປັນ:</span>
-                        <span class="amount allocated">{{ formatCurrency(calculatedAllocatedTotal) }}</span>
-                      </div>
-                      <div class="total-item success-balance">
-                        <span>ສະຖານະ:</span>
-                        <span class="amount balance balanced">
-                          <i class="fas fa-check-circle"></i>
-                          ສົມດຸນ
-                        </span>
-                      </div>
-                    </div>
-                    <div class="balance-info">
-                      <i class="fas fa-info-circle"></i>
-                      <span>ຍອດທີ່ຮັບຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກລວມຍອດການແບ່ງປັນທັງໝົດ</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- No Invoice Lines State -->
-                <div v-else class="no-lines-state">
-                  <div class="empty-content">
-                    <i class="fas fa-list"></i>
-                    <h4>ໃບແຈ້ງໜີ້ນີ້ບໍ່ມີລາຍການ</h4>
-                    <p>ໃບແຈ້ງໜີ້ທີ່ເລືອກບໍ່ມີລາຍການສິນຄ້າ/ການບໍລິການ</p>
-                  </div>
                 </div>
               </div>
-            </div>
+
+              <!-- Total Amount Display -->
+              <div class="amount-summary">
+                <div class="totals-compact">
+                  <div class="total-item">
+                    <span>ຍອດທີ່ຮັບ:</span>
+                    <span class="amount received">{{
+                      formatCurrency(form.totalReceivedAmount)
+                    }}</span>
+                  </div>
+                  <div class="total-item">
+                    <span>ລວມການແບ່ງປັນ:</span>
+                    <span class="amount allocated">{{
+                      formatCurrency(calculatedAllocatedTotal)
+                    }}</span>
+                  </div>
+                  <div class="total-item success-balance">
+                    <span>ສະຖານະ:</span>
+                    <span class="amount balance balanced">
+                      <i class="fas fa-check-circle"></i>
+                      ສົມດຸນ
+                    </span>
+                  </div>
+                </div>
+                <div class="balance-info">
+                  <i class="fas fa-info-circle"></i>
+                  <span
+                    >ຍອດທີ່ຮັບຈະຖືກຄຳນວນອັດຕະໂນມັດຈາກລວມຍອດການແບ່ງປັນທັງໝົດ</span
+                  >
+                </div>
+              </div>
+            </form>
           </div>
         </div>
 
@@ -503,15 +661,23 @@
       </div>
     </div>
 
-    <!-- Invoice Browser Modal -->
-    <div v-if="showInvoiceBrowser" class="modal-overlay" @click="closeInvoiceBrowser">
+    <!-- Invoice Browser Modal (unchanged) -->
+    <div
+      v-if="showInvoiceBrowser"
+      class="modal-overlay"
+      @click="closeInvoiceBrowser"
+    >
       <div class="invoice-browser-dialog" @click.stop>
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fas fa-search"></i>
             ເລືອກໃບແຈ້ງໜີ້
           </h4>
-          <button type="button" class="close-button" @click="closeInvoiceBrowser">
+          <button
+            type="button"
+            class="close-button"
+            @click="closeInvoiceBrowser"
+          >
             <i class="fas fa-times"></i>
           </button>
         </div>
@@ -537,7 +703,10 @@
           </div>
 
           <!-- Compact Invoice List -->
-          <div v-else-if="searchFilteredInvoices.length > 0" class="invoice-list">
+          <div
+            v-else-if="searchFilteredInvoices.length > 0"
+            class="invoice-list"
+          >
             <div class="invoice-table-container">
               <table class="table table-compact">
                 <thead>
@@ -557,22 +726,32 @@
                     :key="invoice.id"
                     class="invoice-row"
                   >
-                    <td><strong>{{ invoice.invoiceNumber }}</strong></td>
+                    <td>
+                      <strong>{{ invoice.invoiceNumber }}</strong>
+                    </td>
                     <td>
                       <div class="customer-info">
                         <div class="customer-name">
                           {{ invoice.customer ? invoice.customer.name : 'N/A' }}
                         </div>
-                        <div v-if="invoice.customer && invoice.customer.email" class="customer-email">
+                        <div
+                          v-if="invoice.customer && invoice.customer.email"
+                          class="customer-email"
+                        >
                           {{ invoice.customer.email }}
                         </div>
                       </div>
                     </td>
                     <td>{{ formatDate(invoice.invoiceDate) }}</td>
                     <td>{{ formatDate(invoice.dueDate) }}</td>
-                    <td class="amount-cell">{{ formatCurrency(invoice.totalAmount) }}</td>
+                    <td class="amount-cell">
+                      {{ formatCurrency(invoice.totalAmount) }}
+                    </td>
                     <td>
-                      <span class="status-badge" :class="`status-${invoice.status}`">
+                      <span
+                        class="status-badge"
+                        :class="`status-${invoice.status}`"
+                      >
                         {{ getStatusLabel(invoice.status) }}
                       </span>
                     </td>
@@ -584,7 +763,11 @@
                         :disabled="invoice.id === form.invoiceHeaderId"
                       >
                         <i class="fas fa-check"></i>
-                        {{ invoice.id === form.invoiceHeaderId ? 'ເລືອກແລ້ວ' : 'ເລືອກ' }}
+                        {{
+                          invoice.id === form.invoiceHeaderId
+                            ? 'ເລືອກແລ້ວ'
+                            : 'ເລືອກ'
+                        }}
                       </button>
                     </td>
                   </tr>
@@ -597,11 +780,14 @@
           <div v-else class="no-results-state">
             <div class="empty-content">
               <i class="fas fa-file-invoice"></i>
-              <h4>{{ invoiceSearchQuery ? 'ບໍ່ພົບໃບແຈ້ງໜີ້' : 'ບໍ່ມີໃບແຈ້ງໜີ້' }}</h4>
+              <h4>
+                {{ invoiceSearchQuery ? 'ບໍ່ພົບໃບແຈ້ງໜີ້' : 'ບໍ່ມີໃບແຈ້ງໜີ້' }}
+              </h4>
               <p>
-                {{ invoiceSearchQuery
-                  ? `ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ຕົງກັບ "${invoiceSearchQuery}"`
-                  : 'ບໍ່ມີໃບແຈ້ງໜີ້ທີ່ສາມາດເລືອກໄດ້'
+                {{
+                  invoiceSearchQuery
+                    ? `ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ຕົງກັບ "${invoiceSearchQuery}"`
+                    : 'ບໍ່ມີໃບແຈ້ງໜີ້ທີ່ສາມາດເລືອກໄດ້'
                 }}
               </p>
             </div>
@@ -615,7 +801,11 @@
             </span>
           </div>
           <div class="footer-actions">
-            <button type="button" class="btn btn-secondary btn-compact" @click="closeInvoiceBrowser">
+            <button
+              type="button"
+              class="btn btn-secondary btn-compact"
+              @click="closeInvoiceBrowser"
+            >
               <i class="fas fa-times"></i>
               ປິດ
             </button>
@@ -626,10 +816,12 @@
   </div>
 </template>
 
+
 <script>
 export default {
   name: 'ReceiveHeaderMaintain',
   props: {
+    glAccounts: { type: Array, default: () => [] },
     visible: {
       type: Boolean,
       default: false,
@@ -638,6 +830,7 @@ export default {
       type: Object,
       default: null,
     },
+    currencies: { type: Array, default: () => [] },
     invoices: {
       type: Array,
       default: () => [],
@@ -650,6 +843,10 @@ export default {
 
   data() {
     return {
+       selectedCurrency: null,
+      paymentMethods: [],
+      transactionCodes: [], // Add this
+      loadingTransactionCodes: false, // Add this
       activeTab: 'header',
       formLoading: false,
       saving: false,
@@ -670,8 +867,10 @@ export default {
         bookingDate: '',
         receivedDate: '',
         invoiceHeaderId: '',
+        currencyId: '',
+        exchangeRate: 1.0,
         totalReceivedAmount: 0.0,
-        paymentMethod: 'cash',
+        paymentId: null,
         referenceNumber: '',
         notes: '',
         inputterId: '',
@@ -705,23 +904,30 @@ export default {
       return this.selectedInvoice ? this.selectedInvoice.invoiceLines || [] : []
     },
 
+    // ADD THIS NEW COMPUTED PROPERTY
+    hasInvoiceLines() {
+      return this.allocationLines.some((line) => line.invoiceLine !== null)
+    },
+
+    // UPDATED isFormValid to support manual lines
     isFormValid() {
       const hasValidHeader =
         this.form.receiptNumber &&
         this.form.bookingDate &&
         this.form.receivedDate &&
-        this.form.invoiceHeaderId &&
-        this.form.paymentMethod &&
+        this.form.paymentId &&
         (!this.isEdit || this.form.reason)
 
       const hasValidAllocations =
         this.allocationLines.length > 0 &&
-        this.allocationLines.some(
-          (allocation) =>
-            allocation.invoiceLineId &&
-            (parseFloat(allocation.allocatedAmount) || 0) > 0 &&
-            allocation.allocationDate
-        ) &&
+        this.allocationLines.some((allocation) => {
+          const hasDescription =
+            allocation.invoiceLine || allocation.description
+          const hasValidAmount =
+            (parseFloat(allocation.allocatedAmount) || 0) > 0
+          const hasDate = allocation.allocationDate
+          return hasDescription && hasValidAmount && hasDate
+        }) &&
         (parseFloat(this.form.totalReceivedAmount) || 0) > 0
 
       return hasValidHeader && hasValidAllocations
@@ -742,6 +948,10 @@ export default {
             invoice.description.toLowerCase().includes(query))
       )
     },
+  },
+  async mounted() {
+    await this.loadTransactionCodes() // Add this
+    await this.loadPaymentMethods() // Add this
   },
 
   watch: {
@@ -790,12 +1000,96 @@ export default {
   },
 
   methods: {
+     onCurrencyChange() {
+      if (this.form.currencyId && this.currencies.length > 0) {
+        this.selectedCurrency = this.currencies.find(
+          (c) => c.id === this.form.currencyId
+        )
+        // Update the exchange rate based on
+        console.info(`Currency structure ${JSON.stringify(this.currencies)}`)
+        this.form.exchangeRate = this.currencies.find(
+          (c) => c.id === this.form.currencyId
+        ).rate
+      } else {
+        this.selectedCurrency = null
+      }
+    },
+    async loadPaymentMethods() {
+      try {
+        const { data } = await this.$axios.get('/api/paymentMethod/find')
+        this.paymentMethods = data || []
+      } catch (error) {
+        console.error('Error loading payment methods:', error)
+        this.paymentMethods = []
+      }
+    },
+    async loadTransactionCodes() {
+      this.loadingTransactionCodes = true
+      try {
+        const { data } = await this.$axios.get('/api/transaction-codes', {
+          params: {
+            includeInactive: false,
+            type: 'EXPENSE', // Filter only EXPENSE types for payments
+          },
+        })
+        this.transactionCodes = data || []
+      } catch (error) {
+        console.error('Error loading transaction codes:', error)
+        this.$toast?.error('ໂຫລດລະຫັດການເງິນບໍ່ສຳເລັດ')
+        this.transactionCodes = []
+      } finally {
+        this.loadingTransactionCodes = false
+      }
+    },
+    getTransactionCodeLabel(txnId) {
+      const txn = this.transactionCodes.find((t) => t.id === txnId)
+      return txn ? `${txn.code} - ${txn.description}` : ''
+    },
+    addManualLine() {
+      const newLine = {
+        tempId: this.nextTempId++,
+        lineNumber: this.allocationLines.length + 1,
+        invoiceLineId: null, // No invoice line reference for manual entries
+        invoiceLine: null, // No invoice line data
+        description: '', // User will fill this
+        allocatedAmount: 0,
+        DRglAccountId: null,
+        CRglAccountId: null,
+        txnId: null, // Add this
+        allocationDate:
+          this.form.receivedDate || new Date().toISOString().split('T')[0],
+        notes: '',
+        isManual: true, // Flag to indicate manual entry
+      }
+
+      this.allocationLines.push(newLine)
+      console.log('✅ Added manual line:', newLine)
+    },
+
+    removeLine(index) {
+      if (confirm('ທ່ານຕ້ອງການລຶບລາຍການນີ້ບໍ່?')) {
+        this.allocationLines.splice(index, 1)
+
+        // Renumber lines
+        this.allocationLines.forEach((line, idx) => {
+          line.lineNumber = idx + 1
+        })
+
+        // Clear errors for this line
+        this.clearFieldError(`allocation_${index}_description`)
+        this.clearFieldError(`allocation_${index}_allocatedAmount`)
+        this.clearFieldError(`allocation_${index}_allocationDate`)
+
+        console.log('🗑️ Removed line at index:', index)
+      }
+    },
+
     // Enhanced updateSelectedInvoice method with better debugging
     async updateSelectedInvoice() {
       console.log('🔍 updateSelectedInvoice called')
       console.log('📝 Current form.invoiceHeaderId:', this.form.invoiceHeaderId)
       console.log('📋 Available invoices:', this.invoices.length)
-      
+
       // Clear previous selection
       this.selectedInvoice = null
 
@@ -812,15 +1106,15 @@ export default {
       console.log('🔍 Looking for invoice ID:', invoiceId)
 
       // Find the selected invoice
-      this.selectedInvoice = this.invoices.find(
-        (inv) => {
-          console.log('🔍 Comparing:', inv.id, 'with', invoiceId)
-          return inv.id === invoiceId
-        }
-      )
+      this.selectedInvoice = this.invoices.find((inv) => {
+        console.log('🔍 Comparing:', inv.id, 'with', invoiceId)
+        return inv.id === invoiceId
+      })
 
       if (!this.selectedInvoice) {
-        console.log('❌ Invoice not found in main invoices array, trying to load from API...')
+        console.log(
+          '❌ Invoice not found in main invoices array, trying to load from API...'
+        )
         await this.loadInvoiceById(invoiceId)
       }
 
@@ -830,19 +1124,35 @@ export default {
         return
       }
 
-      console.log('✅ Selected invoice found:', this.selectedInvoice.invoiceNumber)
-      console.log('📄 Invoice lines:', this.selectedInvoice.invoiceLines?.length || 0)
+      console.log(
+        '✅ Selected invoice found:',
+        this.selectedInvoice.invoiceNumber
+      )
+      console.log(
+        '📄 Invoice lines:',
+        this.selectedInvoice.invoiceLines?.length || 0
+      )
 
       // Check if invoice lines exist and load if needed
-      if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
+      if (
+        !this.selectedInvoice.invoiceLines ||
+        this.selectedInvoice.invoiceLines.length === 0
+      ) {
         console.log('🔄 Loading invoice lines...')
         await this.loadSelectedInvoiceLines()
       }
 
       // Create allocation lines for new records only
-      if (this.selectedInvoice.invoiceLines && this.selectedInvoice.invoiceLines.length > 0) {
-        console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
-        
+      if (
+        this.selectedInvoice.invoiceLines &&
+        this.selectedInvoice.invoiceLines.length > 0
+      ) {
+        console.log(
+          '✅ Creating allocation lines from',
+          this.selectedInvoice.invoiceLines.length,
+          'invoice lines'
+        )
+
         // Only auto-create allocation lines for new records
         if (!this.isEdit) {
           this.createAllocationLinesFromInvoice()
@@ -854,29 +1164,41 @@ export default {
         this.showToast('ໃບແຈ້ງໜີ້ນີ້ບໍ່ມີລາຍການສິນຄ້າ', 'warning')
       }
 
-      console.log('📊 Final allocation lines count:', this.allocationLines.length)
+      console.log(
+        '📊 Final allocation lines count:',
+        this.allocationLines.length
+      )
     },
 
     // Method to load invoice by ID if not found in main array
     async loadInvoiceById(invoiceId) {
       try {
         console.log('🔄 Loading invoice by ID:', invoiceId)
-        
-        const { data } = await this.$axios.get(`/api/ar-invoices/${invoiceId}`, {
-          params: {
-            include: ['client', 'currency', 'invoiceLines']
+
+        const { data } = await this.$axios.get(
+          `/api/ar-invoices/${invoiceId}`,
+          {
+            params: {
+              include: ['client', 'currency', 'invoiceLines'],
+            },
           }
-        })
+        )
 
         console.log('📥 API response for single invoice:', data)
 
         if (data.success && data.data) {
           this.selectedInvoice = data.data
-          console.log('✅ Invoice loaded successfully:', this.selectedInvoice.invoiceNumber)
+          console.log(
+            '✅ Invoice loaded successfully:',
+            this.selectedInvoice.invoiceNumber
+          )
         } else if (data.invoiceNumber) {
           // Handle case where response structure is different
           this.selectedInvoice = data
-          console.log('✅ Invoice loaded (alt structure):', this.selectedInvoice.invoiceNumber)
+          console.log(
+            '✅ Invoice loaded (alt structure):',
+            this.selectedInvoice.invoiceNumber
+          )
         }
       } catch (error) {
         console.error('❌ Error loading invoice by ID:', error)
@@ -892,7 +1214,10 @@ export default {
       }
 
       try {
-        console.log('🔄 Loading invoice lines for:', this.selectedInvoice.invoiceNumber)
+        console.log(
+          '🔄 Loading invoice lines for:',
+          this.selectedInvoice.invoiceNumber
+        )
 
         const { data } = await this.$axios.get(
           `/api/ar-invoice-lines/by-header/${this.selectedInvoice.id}`
@@ -911,7 +1236,6 @@ export default {
           console.warn('❓ Unexpected response structure:', data)
           this.selectedInvoice.invoiceLines = []
         }
-
       } catch (error) {
         console.error('❌ Error loading invoice lines:', error)
         this.selectedInvoice.invoiceLines = []
@@ -922,43 +1246,60 @@ export default {
     // Better allocation lines creation with debugging
     createAllocationLinesFromInvoice() {
       console.log('🔧 createAllocationLinesFromInvoice called')
-      
+
       if (!this.selectedInvoice) {
         console.log('❌ No selected invoice')
         return
       }
 
-      if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
+      if (
+        !this.selectedInvoice.invoiceLines ||
+        this.selectedInvoice.invoiceLines.length === 0
+      ) {
         console.log('❌ No invoice lines available')
         this.allocationLines = []
         return
       }
 
-      console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
+      console.log(
+        '✅ Creating allocation lines from',
+        this.selectedInvoice.invoiceLines.length,
+        'invoice lines'
+      )
 
-      this.allocationLines = this.selectedInvoice.invoiceLines.map((line, index) => {
-        const allocation = {
-          tempId: this.nextTempId++,
-          lineNumber: index + 1,
-          invoiceLineId: line.id,
-          invoiceLine: line, // Store the full line object for display
-          allocatedAmount: 0, // Default to 0, user will fill this
-          allocationDate: this.form.receivedDate || new Date().toISOString().split('T')[0],
-          notes: '',
+      this.allocationLines = this.selectedInvoice.invoiceLines.map(
+        (line, index) => {
+          const allocation = {
+            tempId: this.nextTempId++,
+            lineNumber: index + 1,
+            invoiceLineId: line.id,
+            invoiceLine: line, // Store the full line object for display
+            allocatedAmount: 0, // Default to 0, user will fill this
+            DRglAccountId: null,
+            CRglAccountId: null,
+            txnId: null, // Add this
+            allocationDate:
+              this.form.receivedDate || new Date().toISOString().split('T')[0],
+            notes: '',
+          }
+
+          console.log(`📝 Created allocation ${index + 1}:`, {
+            lineNumber: allocation.lineNumber,
+            invoiceLineId: allocation.invoiceLineId,
+            description: line.description,
+            lineTotal: line.lineTotal,
+          })
+
+          return allocation
         }
+      )
 
-        console.log(`📝 Created allocation ${index + 1}:`, {
-          lineNumber: allocation.lineNumber,
-          invoiceLineId: allocation.invoiceLineId,
-          description: line.description,
-          lineTotal: line.lineTotal
-        })
+      console.log(
+        '🎉 Successfully created',
+        this.allocationLines.length,
+        'allocation lines'
+      )
 
-        return allocation
-      })
-
-      console.log('🎉 Successfully created', this.allocationLines.length, 'allocation lines')
-      
       // Force reactivity update
       this.$forceUpdate()
     },
@@ -968,7 +1309,7 @@ export default {
       console.log('🔄 onInvoiceChange triggered')
       await this.updateSelectedInvoice()
       this.clearFieldError('invoiceHeaderId')
-      
+
       // Switch to allocations tab if lines were created
       if (this.allocationLines.length > 0) {
         console.log('🔄 Switching to allocations tab')
@@ -988,29 +1329,45 @@ export default {
       try {
         const { data } = await this.$axios.get('/api/ar-invoices', {
           params: {
-            status: ['draft', 'sent'], 
+            status: ['draft', 'sent'],
             include: ['client', 'currency', 'invoiceLines'], // Include all needed data
-            limit: 100 // Increase limit to see more invoices
+            limit: 100, // Increase limit to see more invoices
           },
         })
 
         console.log('📥 Invoice browser API response:', data)
 
         // Handle the nested structure in your data
-        if (data.success && data.data && data.data.invoices && Array.isArray(data.data.invoices)) {
+        if (
+          data.success &&
+          data.data &&
+          data.data.invoices &&
+          Array.isArray(data.data.invoices)
+        ) {
           this.filteredInvoices = data.data.invoices
-          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices for browser')
+          console.log(
+            '✅ Loaded',
+            this.filteredInvoices.length,
+            'invoices for browser'
+          )
         } else if (data.success && data.data && Array.isArray(data.data)) {
           this.filteredInvoices = data.data
-          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices (alt structure)')
+          console.log(
+            '✅ Loaded',
+            this.filteredInvoices.length,
+            'invoices (alt structure)'
+          )
         } else if (Array.isArray(data)) {
           this.filteredInvoices = data
-          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices (direct array)')
+          console.log(
+            '✅ Loaded',
+            this.filteredInvoices.length,
+            'invoices (direct array)'
+          )
         } else {
           console.warn('❓ Unexpected response structure:', data)
           this.filteredInvoices = []
         }
-
       } catch (error) {
         console.error('❌ Error loading invoices for browser:', error)
         this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
@@ -1028,7 +1385,9 @@ export default {
       this.form.invoiceHeaderId = invoice.id
 
       // Add the invoice to main invoices array if not present
-      const existingIndex = this.invoices.findIndex(inv => inv.id === invoice.id)
+      const existingIndex = this.invoices.findIndex(
+        (inv) => inv.id === invoice.id
+      )
       if (existingIndex === -1) {
         console.log('➕ Adding invoice to main array')
         this.invoices.push(invoice)
@@ -1060,7 +1419,9 @@ export default {
             : '',
           invoiceHeaderId: this.receipt.invoiceHeaderId,
           totalReceivedAmount: this.receipt.totalReceivedAmount || 0.0,
-          paymentMethod: this.receipt.paymentMethod || 'cash',
+          paymentId: this.receipt.paymentId || null,
+          currencyId: this.receipt.currencyId || null,
+          exchangeRate: this.receipt.exchangeRate || 1,
           referenceNumber: this.receipt.referenceNumber || '',
           notes: this.receipt.notes || '',
           inputterId: this.receipt.inputterId || '',
@@ -1079,7 +1440,7 @@ export default {
 
         // Initialize with empty allocation lines
         this.allocationLines = []
-        
+
         // Set default user
         if (this.user && this.user.id) {
           this.form.inputterId = this.user.id
@@ -1168,30 +1529,44 @@ export default {
     },
 
     getRemainingAmount(allocation) {
-      if (!allocation.invoiceLine) return 0
+      if (!allocation.invoiceLine) return 0 // No remaining amount for manual lines
       const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
       const allocated = parseFloat(allocation.allocatedAmount) || 0
       return lineTotal - allocated
     },
-
     isFullyAllocated(allocation) {
+      if (!allocation.invoiceLine) return false // Manual lines don't have full allocation concept
       return this.getRemainingAmount(allocation) === 0
     },
-
     isOverAllocated(allocation) {
+      if (!allocation.invoiceLine) return false // Manual lines can't be over-allocated
       return this.getRemainingAmount(allocation) < 0
     },
 
     validateAllocation(allocation, index) {
-      const amount = parseFloat(allocation.allocatedAmount) || 0
-      const maxAllowed = parseFloat(allocation.invoiceLine.lineTotal) || 0
+      // Only validate max amount for invoice lines
+      if (allocation.invoiceLine) {
+        const amount = parseFloat(allocation.allocatedAmount) || 0
+        const maxAllowed = parseFloat(allocation.invoiceLine.lineTotal) || 0
 
-      if (amount > maxAllowed) {
-        this.errors[
-          `allocation_${index}_allocatedAmount`
-        ] = `ຈຳນວນເກີນກວ່າທີ່ເຫຼືອ (ສູງສຸດ: ${this.formatCurrency(maxAllowed)})`
+        if (amount > maxAllowed) {
+          this.errors[
+            `allocation_${index}_allocatedAmount`
+          ] = `ຈຳນວນເກີນກວ່າທີ່ເຫຼືອ (ສູງສຸດ: ${this.formatCurrency(
+            maxAllowed
+          )})`
+        } else {
+          this.clearFieldError(`allocation_${index}_allocatedAmount`)
+        }
       } else {
-        this.clearFieldError(`allocation_${index}_allocatedAmount`)
+        // For manual lines, just ensure amount is positive
+        const amount = parseFloat(allocation.allocatedAmount) || 0
+        if (amount <= 0) {
+          this.errors[`allocation_${index}_allocatedAmount`] =
+            'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
+        } else {
+          this.clearFieldError(`allocation_${index}_allocatedAmount`)
+        }
       }
     },
 
@@ -1203,10 +1578,6 @@ export default {
         this.errors.receiptNumber = 'ກະລຸນາໃສ່ເລກທີໃບຮັບ'
       }
 
-      if (!this.form.invoiceHeaderId) {
-        this.errors.invoiceHeaderId = 'ກະລຸນາເລືອກໃບແຈ້ງໜີ້'
-      }
-
       if (!this.form.bookingDate) {
         this.errors.bookingDate = 'ກະລຸນາໃສ່ວັນທີບັນທຶກ'
       }
@@ -1215,8 +1586,8 @@ export default {
         this.errors.receivedDate = 'ກະລຸນາໃສ່ວັນທີຮັບເງິນ'
       }
 
-      if (!this.form.paymentMethod) {
-        this.errors.paymentMethod = 'ກະລຸນາເລືອກວິທີຈ່າຍ'
+      if (!this.form.paymentId) {
+        this.errors.paymentId = 'ກະລຸນາເລືອກວິທີຈ່າຍ'
       }
 
       // Date validation
@@ -1239,9 +1610,9 @@ export default {
         for (let i = 0; i < this.allocationLines.length; i++) {
           const allocation = this.allocationLines[i]
 
-          if (!allocation.invoiceLineId) {
-            this.errors[`allocation_${i}_invoiceLineId`] =
-              'ກະລຸນາເລືອກລາຍການໃບແຈ້ງໜີ້'
+          // Validate description for manual entries
+          if (!allocation.invoiceLine && !allocation.description) {
+            this.errors[`allocation_${i}_description`] = 'ກະລຸນາໃສ່ລາຍລະອຽດ'
           }
 
           const allocatedAmount = parseFloat(allocation.allocatedAmount) || 0
@@ -1259,7 +1630,8 @@ export default {
               'ກະລຸນາໃສ່ວັນທີແບ່ງປັນ'
           }
 
-          if (this.isOverAllocated(allocation)) {
+          // Only validate over-allocation for invoice lines
+          if (allocation.invoiceLine && this.isOverAllocated(allocation)) {
             this.errors[`allocation_${i}_allocatedAmount`] =
               'ຍອດແບ່ງປັນເກີນກວ່າທີ່ເຫຼືອ'
           }
@@ -1293,13 +1665,7 @@ export default {
 
     handleSubmit() {
       if (!this.validateForm()) {
-        if (
-          Object.keys(this.errors).some((key) => key.startsWith('allocation_'))
-        ) {
-          this.activeTab = 'allocations'
-        } else {
-          this.activeTab = 'header'
-        }
+        this.showToast('ກະລຸນາກວດສອບຂໍ້ມູນທີ່ໃສ່', 'error')
         return
       }
 
@@ -1307,9 +1673,9 @@ export default {
 
       const validAllocationLines = this.allocationLines.filter((allocation) => {
         const amount = parseFloat(allocation.allocatedAmount) || 0
-        return amount > 0 && allocation.invoiceLineId
+        return amount > 0
       })
-      
+
       if (this.isEdit) {
         this.form.updateUserId = this.user.id
       } else {
@@ -1320,18 +1686,26 @@ export default {
         ...this.form,
         totalReceivedAmount: parseFloat(this.form.totalReceivedAmount) || 0,
         allocationLines: validAllocationLines.map((allocation, index) => ({
+          id: allocation.id || null, // Include id if editing existing line
           tempId: allocation.tempId,
           lineNumber: index + 1,
-          invoiceLineId: allocation.invoiceLineId,
+          invoiceLineId: allocation.invoiceLineId || null, // null for manual entries
+          description: allocation.invoiceLine
+            ? allocation.invoiceLine.description
+            : allocation.description, // Use manual description if no invoice line
           allocatedAmount: parseFloat(allocation.allocatedAmount) || 0,
           allocationDate: allocation.allocationDate,
+          DRglAccountId: allocation.DRglAccountId || null,
+          CRglAccountId: allocation.CRglAccountId || null,
+          txnId: allocation.txnId || null, // Add this
           notes: allocation.notes || '',
+          isManual: !allocation.invoiceLineId, // Flag manual entries
         })),
       }
 
+      console.log('💾 Submitting form data:', formData)
       this.$emit('save', formData)
     },
-
     handleOverlayClick() {
       if (!this.saving) {
         this.handleClose()
@@ -1350,7 +1724,9 @@ export default {
         receivedDate: '',
         invoiceHeaderId: '',
         totalReceivedAmount: 0.0,
-        paymentMethod: 'cash',
+        paymentId: null,
+        currencyId: null,
+        exchangeRate: 1,
         referenceNumber: '',
         notes: '',
         inputterId: this.user?.id || '',
@@ -1410,7 +1786,6 @@ export default {
   },
 }
 </script>
-
 <style scoped>
 /* Maximized dialog with compact components */
 .modal-overlay {
@@ -1424,12 +1799,12 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1050;
-  padding: 10px;
+  padding: 0px;
 }
 
 .enhanced-dialog {
   background: white;
-  border-radius: 8px;
+  border-radius: 0px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 98vw;
@@ -1459,7 +1834,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
   min-height: 50px;
 }
@@ -1490,7 +1865,7 @@ export default {
 
 .modal-body {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -1515,75 +1890,64 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .receipt-form {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
-/* Compact Tab Navigation */
-.tab-navigation {
+/* Form Sections */
+.form-section {
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header {
   display: flex;
-  border-bottom: 1px solid #e9ecef;
-  background: #f8f9fa;
-  min-height: 45px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.tab-btn {
-  flex: 1;
-  padding: 8px 15px;
-  border: none;
-  background: none;
-  cursor: pointer;
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.section-title i {
+  color: #28a745;
   font-size: 13px;
-  font-weight: 500;
-  color: #666;
-  transition: all 0.2s;
-  position: relative;
-}
-
-.tab-btn:hover {
-  background: rgba(40, 167, 69, 0.1);
-  color: #28a745;
-}
-
-.tab-btn.active {
-  background: white;
-  color: #28a745;
-  border-bottom: 2px solid #28a745;
 }
 
 .line-count {
   background: #28a745;
   color: white;
   border-radius: 10px;
-  padding: 1px 6px;
+  padding: 2px 8px;
   font-size: 11px;
-  min-width: 18px;
+  min-width: 20px;
   text-align: center;
-}
-
-/* Tab Content */
-.tab-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0;
+  margin-left: 4px;
 }
 
 /* Compact Form Layout */
-.form-container {
-  padding: 15px;
-}
-
 .form-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1691,127 +2055,41 @@ export default {
   flex: 1;
 }
 
-/* Compact Amount Summary */
-.amount-summary,
-.allocation-summary {
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
-  border-left: 3px solid #28a745;
-  margin-top: 15px;
-}
-
-.totals-compact {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 8px;
-}
-
-.total-item {
+/* Quick Allocation Actions */
+.quick-allocation-actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
-  font-size: 12px;
-}
-
-.total-item.success-balance {
-  background: #d4edda;
-  border-radius: 4px;
-  padding: 6px 8px;
-  grid-column: 1 / -1;
-}
-
-.total-item .amount {
-  font-weight: 600;
-  color: #333;
-}
-
-.total-item .amount.received {
-  color: #28a745;
-}
-
-.total-item .amount.allocated {
-  color: #007bff;
-}
-
-.amount.balanced {
-  color: #155724 !important;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.balance-info {
-  display: flex;
-  align-items: center;
   gap: 6px;
-  margin-top: 10px;
-  padding: 8px;
-  background: #e7f3ff;
-  border: 1px solid #bee5eb;
-  border-radius: 4px;
-  color: #0c5460;
-  font-size: 12px;
-}
-
-/* Compact Allocation Section */
-.allocation-section {
-  padding: 15px;
-}
-
-.allocation-header {
-  margin-bottom: 15px;
-}
-
-.allocation-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   flex-wrap: wrap;
 }
 
-.invoice-info {
-  color: #666;
-  font-size: 13px;
-}
-
-.allocation-count-info {
-  background: #e9ecef;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  color: #666;
-  font-weight: 500;
-}
-
+/* Empty States */
 .no-invoice-state,
 .no-lines-state,
 .no-results-state {
   text-align: center;
-  padding: 40px 15px;
+  padding: 30px 20px;
   background: #f8f9fa;
   border-radius: 6px;
-  border: 1px dashed #dee2e6;
+  border: 2px dashed #dee2e6;
+  margin-top: 12px;
 }
 
 .empty-content i {
-  font-size: 36px;
+  font-size: 40px;
   color: #dee2e6;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .empty-content h4 {
   color: #666;
   margin-bottom: 8px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .empty-content p {
   color: #999;
-  margin-bottom: 20px;
-  font-size: 14px;
+  margin-bottom: 15px;
+  font-size: 13px;
 }
 
 .allocation-notice {
@@ -1827,37 +2105,15 @@ export default {
   color: #495057;
 }
 
-/* Quick Allocation Actions */
-.quick-allocation-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #e9ecef;
-  margin-bottom: 15px;
-}
-
-.quick-actions-left {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.allocation-helper {
-  font-size: 11px;
-  color: #666;
-  font-style: italic;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
+/* Allocation Table */
 .allocation-table-container,
 .invoice-table-container {
   border: 1px solid #e9ecef;
   border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 15px;
+  margin-top: 12px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .allocation-table .table,
@@ -1879,6 +2135,9 @@ export default {
   padding: 6px 4px;
   font-size: 11px;
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .allocation-table .table td,
@@ -1943,7 +2202,71 @@ export default {
   background-color: rgba(40, 167, 69, 0.05);
 }
 
-/* Compact Search Section */
+/* Compact Amount Summary */
+.amount-summary {
+  background: #f8f9fa;
+  padding: 12px 20px;
+  border-radius: 0;
+  border-top: 2px solid #28a745;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.totals-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.total-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 12px;
+}
+
+.total-item.success-balance {
+  background: #d4edda;
+  border-radius: 4px;
+  padding: 6px 8px;
+  grid-column: 1 / -1;
+}
+
+.total-item .amount {
+  font-weight: 600;
+  color: #333;
+}
+
+.total-item .amount.received {
+  color: #28a745;
+}
+
+.total-item .amount.allocated {
+  color: #007bff;
+}
+
+.amount.balanced {
+  color: #155724 !important;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.balance-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px;
+  background: #e7f3ff;
+  border: 1px solid #bee5eb;
+  border-radius: 4px;
+  color: #0c5460;
+  font-size: 12px;
+}
+
+/* Search Section */
 .search-section {
   padding: 15px;
   border-bottom: 1px solid #e9ecef;
@@ -1973,7 +2296,7 @@ export default {
 .invoice-list {
   flex: 1;
   overflow-y: auto;
-  max-height: 400px;
+  padding: 15px;
 }
 
 .customer-info {
@@ -2006,11 +2329,26 @@ export default {
   text-transform: uppercase;
 }
 
-.status-draft { background: #ffeaa7; color: #fdcb6e; }
-.status-sent { background: #74b9ff; color: #0984e3; }
-.status-paid { background: #00b894; color: #00a085; }
-.status-overdue { background: #ff7675; color: #d63031; }
-.status-cancelled { background: #636e72; color: #2d3436; }
+.status-draft {
+  background: #ffeaa7;
+  color: #fdcb6e;
+}
+.status-sent {
+  background: #74b9ff;
+  color: #0984e3;
+}
+.status-paid {
+  background: #00b894;
+  color: #00a085;
+}
+.status-overdue {
+  background: #ff7675;
+  color: #d63031;
+}
+.status-cancelled {
+  background: #636e72;
+  color: #2d3436;
+}
 
 /* Button Styles */
 .btn {
@@ -2031,17 +2369,44 @@ export default {
   font-size: 12px;
 }
 
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
 .btn-xs {
   padding: 3px 8px;
   font-size: 10px;
 }
 
-.btn-primary { background: #28a745; color: white; }
-.btn-secondary { background: #6c757d; color: white; }
-.btn-outline-primary { background: white; color: #007bff; border: 1px solid #007bff; }
-.btn-outline-success { background: white; color: #28a745; border: 1px solid #28a745; }
-.btn-outline-info { background: white; color: #17a2b8; border: 1px solid #17a2b8; }
-.btn-outline-warning { background: white; color: #ffc107; border: 1px solid #ffc107; }
+.btn-primary {
+  background: #28a745;
+  color: white;
+}
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+.btn-outline-primary {
+  background: white;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+.btn-outline-success {
+  background: white;
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+.btn-outline-info {
+  background: white;
+  color: #17a2b8;
+  border: 1px solid #17a2b8;
+}
+.btn-outline-warning {
+  background: white;
+  color: #ffc107;
+  border: 1px solid #ffc107;
+}
 
 .btn:hover:not(:disabled) {
   opacity: 0.9;
@@ -2102,14 +2467,15 @@ export default {
     grid-template-columns: 1fr;
   }
 
-  .allocation-header {
+  .section-header {
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 8px;
   }
 
-  .allocation-info {
-    flex-direction: column;
-    gap: 8px;
+  .quick-allocation-actions {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .allocation-table-container,
@@ -2136,11 +2502,6 @@ export default {
     gap: 8px;
   }
 
-  .quick-allocation-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
   .search-input-group {
     max-width: 100%;
   }
@@ -2155,30 +2516,25 @@ export default {
     font-size: 14px;
   }
 
-  .form-container {
-    padding: 10px;
+  .form-section {
+    padding: 12px 15px;
   }
 
-  .allocation-section {
-    padding: 10px;
+  .amount-summary {
+    padding: 10px 15px;
   }
 
   .modal-footer {
     padding: 8px 10px;
   }
 
-  .tab-btn {
-    font-size: 11px;
-    padding: 6px 8px;
-  }
-
-  .quick-actions-left {
+  .quick-allocation-actions {
     flex-direction: column;
     width: 100%;
     gap: 6px;
   }
 
-  .quick-actions-left .btn {
+  .quick-allocation-actions .btn {
     width: 100%;
     justify-content: center;
   }

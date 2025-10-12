@@ -1,3 +1,7 @@
+
+
+
+
 <template>
   <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
     <div class="enhanced-dialog" @click.stop>
@@ -18,334 +22,216 @@
           <p>ກຳລັງໂຫຼດຂໍ້ມູນ...</p>
         </div>
 
-        <!-- Tabbed Interface -->
+        <!-- Single Form View -->
         <div v-else class="invoice-form">
-          <!-- Tab Navigation -->
-          <div class="tab-navigation">
-            <button
-              type="button"
-              :class="['tab-btn', { active: activeTab === 'header' }]"
-              @click="activeTab = 'header'"
-            >
-              <i class="fas fa-file-alt"></i>
-              ຂໍ້ມູນໃບແຈ້ງໜີ້
-            </button>
-            <button
-              type="button"
-              :class="['tab-btn', { active: activeTab === 'lines' }]"
-              @click="activeTab = 'lines'"
-            >
-              <i class="fas fa-list"></i>
-              ລາຍການສິນຄ້າ
-              <span v-if="lineItems.length > 0" class="line-count">{{
-                lineItems.length
-              }}</span>
-            </button>
-          </div>
-
-          <!-- Invoice Header Tab -->
-          <div v-show="activeTab === 'header'" class="tab-content">
-            <form @submit.prevent="handleSubmit">
-              <!-- Basic Information Section -->
-              <div class="form-section">
-                <h5 class="section-title">
-                  <i class="fas fa-info-circle"></i>
-                  ຂໍ້ມູນພື້ນຖານ
-                </h5>
-                <div class="form-grid">
-                  <div class="form-group">
-                    <label for="invoiceDate" class="required"
-                      >ວັນທີໃບແຈ້ງໜີ້</label
-                    >
-                    <input
-                      id="invoiceDate"
-                      v-model="form.invoiceDate"
-                      type="date"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.invoiceDate }"
-                      @change="calculateDueDate"
-                    />
-                    <div v-if="errors.invoiceDate" class="invalid-feedback">
-                      {{ errors.invoiceDate }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="dueDate" class="required">ວັນທີຄົບກຳນົດ</label>
-                    <input
-                      id="dueDate"
-                      v-model="form.dueDate"
-                      type="date"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.dueDate }"
-                    />
-                    <div v-if="errors.dueDate" class="invalid-feedback">
-                      {{ errors.dueDate }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="invoiceNumber" class="required"
-                      >ເລກທີໃບແຈ້ງໜີ້</label
-                    >
-                    <input
-                      id="invoiceNumber"
-                      v-model="form.invoiceNumber"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.invoiceNumber }"
-                      placeholder="ເຊັ່ນ: INV-2025-001"
-                      :readonly="isEdit"
-                    />
-                    <div v-if="errors.invoiceNumber" class="invalid-feedback">
-                      {{ errors.invoiceNumber }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="vendorInvoiceNumber" class="required"
-                      >ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label
-                    >
-                    <input
-                      id="vendorInvoiceNumber"
-                      v-model="form.vendorInvoiceNumber"
-                      type="text"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.vendorInvoiceNumber }"
-                      placeholder="ເລກທີໃບແຈ້ງໜີ້ຂອງຜູ້ຂາຍ"
-                    />
-                    <div
-                      v-if="errors.vendorInvoiceNumber"
-                      class="invalid-feedback"
-                    >
-                      {{ errors.vendorInvoiceNumber }}
-                    </div>
-                  </div>
-                  <!-- FIX: Agency/Vendor selection -->
-                  <div class="form-group">
-                    <label for="agencyId" class="required">ຕົວແທນ/ຜູ້ຂາຍ</label>
-                    <select
-                      id="agencyId"
-                      v-model="form.agencyId"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.agencyId }"
-                      @change="onVendorChange"
-                    >
-                      <option value="">ເລືອກຕົວແທນ</option>
-                      <option
-                        v-for="agency in agencies"
-                        :key="agency.id"
-                        :value="agency.id"
-                      >
-                        {{ agency.name || agency.agencyName }}
-                        ({{ agency.code || agency.agencyCode }})
-                      </option>
-                    </select>
-                    <div v-if="errors.agencyId" class="invalid-feedback">
-                      {{ errors.agencyId }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="currencyId" class="required">ສະກຸນເງິນ</label>
-                    <select
-                      id="currencyId"
-                      v-model="form.currencyId"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.currencyId }"
-                      @change="onCurrencyChange"
-                    >
-                      <option value="">ເລືອກສະກຸນເງິນ</option>
-                      <option
-                        v-for="currency in currencies"
-                        :key="currency.id"
-                        :value="currency.id"
-                      >
-                        {{ currency.name }} ({{ currency.code }})
-                      </option>
-                    </select>
-                    <div v-if="errors.currencyId" class="invalid-feedback">
-                      {{ errors.currencyId }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exchangeRate" class="required">
-                      ອັດຕາແລກປ່ຽນ
-                      <span v-if="selectedCurrency" class="currency-info">
-                        ({{ selectedCurrency.code }} ຕໍ່ LAK)
-                      </span>
-                    </label>
-                    <input
-                      id="exchangeRate"
-                      v-model="form.exchangeRate"
-                      type="number"
-                      step="0.0001"
-                      min="0"
-                      class="form-control"
-                      :class="{ 'is-invalid': errors.exchangeRate }"
-                      placeholder="1.0000"
-                      @blur="calculateExchangeAmounts"
-                    />
-                    <div v-if="errors.exchangeRate" class="invalid-feedback">
-                      {{ errors.exchangeRate }}
-                    </div>
-                  </div>
-
-                  <div class="form-group span-2">
-                    <label for="description">ຄຳອະທິບາຍ</label>
-                    <textarea
-                      id="description"
-                      v-model="form.description"
-                      class="form-control"
-                      rows="2"
-                      placeholder="ລາຍລະອຽດກ່ຽວກັບໃບແຈ້ງໜີ້..."
-                    ></textarea>
-                  </div>
-                </div>
-
-                <!-- Exchange Rate Display -->
-                <div
-                  v-if="selectedCurrency && form.exchangeRate"
-                  class="exchange-display"
-                >
-                  <div class="exchange-amount">
-                    <span class="foreign-amount">
-                      {{
-                        formatCurrency(
-                          calculatedTotal,
-                          selectedCurrency?.code || 'USD'
-                        )
-                      }}
-                    </span>
-                    <i class="fas fa-arrow-right exchange-arrow"></i>
-                    <span class="local-amount">
-                      {{
-                        formatCurrency(
-                          calculatedTotal * parseFloat(form.exchangeRate || 1),
-                          'LAK'
-                        )
-                      }}
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Reason field for edit -->
-                <div v-if="isEdit" class="form-group">
-                  <label for="reason" class="required">ເຫດຜົນຂອງການແກ້ໄຂ</label>
+          <form @submit.prevent="handleSubmit">
+            <!-- Basic Information Section -->
+            <div class="form-section">
+              <h5 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                ຂໍ້ມູນພື້ນຖານ
+              </h5>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="invoiceDate" class="required"
+                    >ວັນທີໃບແຈ້ງໜີ້</label
+                  >
                   <input
-                    id="reason"
-                    v-model="form.reason"
+                    id="invoiceDate"
+                    v-model="form.invoiceDate"
+                    type="date"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.invoiceDate }"
+                    @change="calculateDueDate"
+                  />
+                  <div v-if="errors.invoiceDate" class="invalid-feedback">
+                    {{ errors.invoiceDate }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="invoiceNumber" class="required"
+                    >ເລກທີໃບແຈ້ງໜີ້</label
+                  >
+                  <input
+                    id="invoiceNumber"
+                    v-model="form.invoiceNumber"
                     type="text"
                     class="form-control"
-                    :class="{ 'is-invalid': errors.reason }"
-                    placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
+                    :class="{ 'is-invalid': errors.invoiceNumber }"
+                    placeholder="ເຊັ່ນ: INV-2025-001"
+                    :readonly="isEdit"
                   />
-                  <div v-if="errors.reason" class="invalid-feedback">
-                    {{ errors.reason }}
+                  <div v-if="errors.invoiceNumber" class="invalid-feedback">
+                    {{ errors.invoiceNumber }}
                   </div>
+                </div>
+                <div class="form-group">
+                  <label for="vendorInvoiceNumber">ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label>
+                  <input
+                    id="vendorInvoiceNumber"
+                    v-model="form.vendorInvoiceNumber"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.vendorInvoiceNumber }"
+                    placeholder="ເລກທີໃບແຈ້ງໜີ້ຂອງຜູ້ຂາຍ"
+                  />
+                  <div
+                    v-if="errors.vendorInvoiceNumber"
+                    class="invalid-feedback"
+                  >
+                    {{ errors.vendorInvoiceNumber }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="agencyId" class="required">ຕົວແທນ/ຜູ້ຂາຍ</label>
+                  <select
+                    id="agencyId"
+                    v-model="form.agencyId"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.agencyId }"
+                    @change="onVendorChange"
+                  >
+                    <option value="">ເລືອກຕົວແທນ</option>
+                    <option
+                      v-for="agency in agencies"
+                      :key="agency.id"
+                      :value="agency.id"
+                    >
+                      {{ agency.name || agency.agencyName }}
+                      ({{ agency.code || agency.agencyCode }})
+                    </option>
+                  </select>
+                  <div v-if="errors.agencyId" class="invalid-feedback">
+                    {{ errors.agencyId }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="currencyId" class="required">ສະກຸນເງິນ</label>
+                  <select
+                    id="currencyId"
+                    v-model="form.currencyId"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.currencyId }"
+                    @change="onCurrencyChange"
+                  >
+                    <option value="">ເລືອກສະກຸນເງິນ</option>
+                    <option
+                      v-for="currency in currencies"
+                      :key="currency.id"
+                      :value="currency.id"
+                    >
+                      {{ currency.name }} ({{ currency.code }})
+                    </option>
+                  </select>
+                  <div v-if="errors.currencyId" class="invalid-feedback">
+                    {{ errors.currencyId }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="exchangeRate" class="required">
+                    ອັດຕາແລກປ່ຽນ
+                    <span v-if="selectedCurrency" class="currency-info">
+                      ({{ selectedCurrency.code }} ຕໍ່ LAK)
+                    </span>
+                  </label>
+                  <input
+                    id="exchangeRate"
+                    v-model="form.exchangeRate"
+                    type="number"
+                    step="0.0001"
+                    min="0"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.exchangeRate }"
+                    placeholder="1.0000"
+                    @blur="calculateExchangeAmounts"
+                  />
+                  <div v-if="errors.exchangeRate" class="invalid-feedback">
+                    {{ errors.exchangeRate }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="dueDate" class="required">ວັນທີຄົບກຳນົດ</label>
+                  <input
+                    id="dueDate"
+                    v-model="form.dueDate"
+                    type="date"
+                    class="form-control"
+                    :class="{ 'is-invalid': errors.dueDate }"
+                  />
+                  <div v-if="errors.dueDate" class="invalid-feedback">
+                    {{ errors.dueDate }}
+                  </div>
+                </div>
+                <div class="form-group span-2">
+                  <label for="description">ຄຳອະທິບາຍ</label>
+                  <textarea
+                    id="description"
+                    v-model="form.description"
+                    class="form-control"
+                    rows="2"
+                    placeholder="ລາຍລະອຽດກ່ຽວກັບໃບແຈ້ງໜີ້..."
+                  ></textarea>
                 </div>
               </div>
 
-              <!-- Total Amount Display -->
-              <div class="amount-summary">
-                <div class="totals-grid">
-                  <div class="total-item">
-                    <span>ລວມຍ່ອຍ:</span>
-                    <span class="amount">{{
-                      formatCurrency(calculatedSubtotal, selectedCurrency?.code)
-                    }}</span>
-                  </div>
-                  <div class="total-item">
-                    <span>ສ່ວນຫຼຸດ:</span>
-                    <span class="amount discount"
-                      >-{{
-                        formatCurrency(
-                          calculatedDiscount,
-                          selectedCurrency?.code
-                        )
-                      }}</span
-                    >
-                  </div>
-                  <div class="total-item">
-                    <span>ພາສີ:</span>
-                    <span class="amount"
-                      >+{{
-                        formatCurrency(calculatedTax, selectedCurrency?.code)
-                      }}</span
-                    >
-                  </div>
-                  <div class="total-item grand-total">
-                    <span>ລວມທັງໝົດ:</span>
-                    <span class="amount">{{
-                      formatCurrency(calculatedTotal, selectedCurrency?.code)
-                    }}</span>
-                  </div>
-                  <div
-                    v-if="
-                      selectedCurrency &&
-                      selectedCurrency.code !== 'LAK' &&
-                      form.exchangeRate
-                    "
-                    class="total-item local-currency"
-                  >
-                    <span>ລວມເປັນ LAK:</span>
-                    <span class="amount local">{{
+              <!-- Exchange Rate Display -->
+              <div
+                v-if="selectedCurrency && form.exchangeRate"
+                class="exchange-display"
+              >
+                <div class="exchange-amount">
+                  <span class="foreign-amount">
+                    {{
+                      formatCurrency(
+                        calculatedTotal,
+                        selectedCurrency?.code || 'USD'
+                      )
+                    }}
+                  </span>
+                  <i class="fas fa-arrow-right exchange-arrow"></i>
+                  <span class="local-amount">
+                    {{
                       formatCurrency(
                         calculatedTotal * parseFloat(form.exchangeRate || 1),
                         'LAK'
                       )
-                    }}</span>
-                  </div>
+                    }}
+                  </span>
                 </div>
               </div>
 
-              <!-- Compact Audit Trail -->
-              <div v-if="isEdit" class="audit-trail-compact">
-                <div class="audit-header">
-                  <h5>ປະຫວັດການດຳເນີນງານ</h5>
-                  <button
-                    type="button"
-                    class="btn-view-audit"
-                    @click="openAuditDialog"
-                  >
-                    <i class="fas fa-external-link-alt"></i>
-                    ເບິ່ງລະອຽດ
-                  </button>
-                </div>
-                <div class="audit-summary">
-                  <div class="audit-item">
-                    <i class="fas fa-user-edit"></i>
-                    <span
-                      >ສ້າງໂດຍ: {{ auditTrail.makerName }} ({{
-                        auditTrail.createdDate
-                      }})</span
-                    >
-                  </div>
-                  <div class="audit-item">
-                    <i class="fas fa-user-check"></i>
-                    <span>{{
-                      auditTrail.isChecked
-                        ? `ອະນຸມັດໂດຍ: ${auditTrail.checkerName}`
-                        : 'ລໍຖ້າການອະນຸມັດ'
-                    }}</span>
-                  </div>
-                  <div class="status-badge-container">
-                    <span
-                      :class="['status-badge', `status-${auditTrail.status}`]"
-                    >
-                      {{ getStatusText(auditTrail.status) }}
-                    </span>
-                  </div>
+              <!-- Reason field for edit -->
+              <div v-if="isEdit" class="form-group">
+                <label for="reason" class="required">ເຫດຜົນຂອງການແກ້ໄຂ</label>
+                <input
+                  id="reason"
+                  v-model="form.reason"
+                  type="text"
+                  class="form-control"
+                  :class="{ 'is-invalid': errors.reason }"
+                  placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
+                />
+                <div v-if="errors.reason" class="invalid-feedback">
+                  {{ errors.reason }}
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
 
-          <!-- Line Items Tab -->
-          <div v-show="activeTab === 'lines'" class="tab-content">
-            <div class="line-items-section">
-              <!-- Compact Add Line Header -->
-              <div class="add-line-header">
+            <!-- Line Items Section -->
+            <div class="form-section">
+              <div class="section-header">
+                <h5 class="section-title">
+                  <i class="fas fa-list"></i>
+                  ລາຍການສິນຄ້າ
+                  <span v-if="lineItems.length > 0" class="line-count">{{
+                    lineItems.length
+                  }}</span>
+                </h5>
                 <div class="add-line-actions">
                   <button
                     type="button"
-                    class="btn btn-primary btn-add-line"
+                    class="btn btn-primary btn-sm"
                     @click="addNewLine"
                   >
                     <i class="fas fa-plus"></i>
@@ -353,21 +239,18 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn-secondary btn-sm"
+                    class="btn btn-secondary btn-xs"
                     @click="addMultipleLines(3)"
                   >
                     +3
                   </button>
                   <button
                     type="button"
-                    class="btn btn-secondary btn-sm"
+                    class="btn btn-secondary btn-xs"
                     @click="addMultipleLines(5)"
                   >
                     +5
                   </button>
-                  <span class="line-count-info"
-                    >{{ lineItems.length }} ລາຍການ</span
-                  >
                 </div>
               </div>
 
@@ -387,7 +270,7 @@
                 </div>
               </div>
 
-              <!-- Compact Line Items Table -->
+              <!-- Line Items Table -->
               <div v-else class="line-items-table-container">
                 <div class="line-items-table">
                   <table class="table">
@@ -400,7 +283,7 @@
                         <th style="width: 100px">DR Account *</th>
                         <th style="width: 100px">CR Account *</th>
                         <th style="width: 50px">ຫຼຸດ%</th>
-                        <th style="width: 50px">ພາສີ%</th>
+                        <!-- <th style="width: 50px">ພາສີ%</th> -->
                         <th style="width: 80px">ລວມ</th>
                         <th style="width: 40px">ລຶບ</th>
                       </tr>
@@ -451,44 +334,71 @@
                           />
                         </td>
                         <td>
-                          <select
+                          <v-autocomplete
                             v-model="line.DRglAccountId"
-                            class="form-control form-control-xs"
-                            :class="{
-                              'is-invalid':
-                                errors[`line_${index}_DRglAccountId`],
-                            }"
+                            :items="glAccounts"
+                            item-value="id"
+                            item-text="accountNumber"
+                            label="DR Account"
+                            :error="!!errors[`line_${index}_DRglAccountId`]"
+                            dense
+                            outlined
+                            clearable
+                            hide-details="auto"
+                            class="mt-0"
                           >
-                            <option value="">DR Account</option>
-                            <option
-                              v-for="account in glAccounts"
-                              :key="account.id"
-                              :value="account.id"
-                            >
-                              {{ account.accountNumber }} -
-                              {{ account.accountName }}
-                            </option>
-                          </select>
+                            <template v-slot:item="{ item }">
+                              <v-list-item-content>
+                                <v-list-item-title>
+                                  {{ item.accountNumber }} -
+                                  {{ item.accountName }}
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </template>
+                            <template v-slot:selection="{ item }">
+                              {{ item.accountNumber }} - {{ item.accountName }}
+                            </template>
+                          </v-autocomplete>
+                          <small
+                            v-if="errors[`line_${index}_DRglAccountId`]"
+                            class="text-danger d-block mt-1"
+                          >
+                            {{ errors[`line_${index}_DRglAccountId`] }}
+                          </small>
                         </td>
+
                         <td>
-                          <select
+                          <v-autocomplete
                             v-model="line.CRglAccountId"
-                            class="form-control form-control-xs"
-                            :class="{
-                              'is-invalid':
-                                errors[`line_${index}_CRglAccountId`],
-                            }"
+                            :items="glAccounts"
+                            item-value="id"
+                            item-text="accountNumber"
+                            label="CR Account"
+                            :error="!!errors[`line_${index}_CRglAccountId`]"
+                            dense
+                            outlined
+                            clearable
+                            hide-details="auto"
+                            class="mt-0"
                           >
-                            <option value="">CR Account</option>
-                            <option
-                              v-for="account in glAccounts"
-                              :key="account.id"
-                              :value="account.id"
-                            >
-                              {{ account.accountNumber }} -
-                              {{ account.accountName }}
-                            </option>
-                          </select>
+                            <template v-slot:item="{ item }">
+                              <v-list-item-content>
+                                <v-list-item-title>
+                                  {{ item.accountNumber }} -
+                                  {{ item.accountName }}
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </template>
+                            <template v-slot:selection="{ item }">
+                              {{ item.accountNumber }} - {{ item.accountName }}
+                            </template>
+                          </v-autocomplete>
+                          <small
+                            v-if="errors[`line_${index}_CRglAccountId`]"
+                            class="text-danger d-block mt-1"
+                          >
+                            {{ errors[`line_${index}_CRglAccountId`] }}
+                          </small>
                         </td>
                         <td>
                           <input
@@ -501,17 +411,7 @@
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
-                        <td>
-                          <input
-                            v-model="line.taxRate"
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            max="100"
-                            class="form-control form-control-xs"
-                            @blur="calculateLineTotal(line)"
-                          />
-                        </td>
+                
                         <td class="line-total">
                           {{
                             formatCurrency(
@@ -534,65 +434,99 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
 
-                <!-- Compact Totals Summary -->
-                <div class="line-totals-summary">
-                  <div class="totals-inline">
-                    <span class="total-item">
-                      ລວມຍ່ອຍ:
-                      <strong>{{
-                        formatCurrency(
-                          calculatedSubtotal,
-                          selectedCurrency?.code
-                        )
-                      }}</strong>
-                    </span>
-                    <span class="total-item">
-                      ສ່ວນຫຼຸດ:
-                      <strong class="discount"
-                        >-{{
-                          formatCurrency(
-                            calculatedDiscount,
-                            selectedCurrency?.code
-                          )
-                        }}</strong
-                      >
-                    </span>
-                    <span class="total-item">
-                      ພາສີ:
-                      <strong
-                        >+{{
-                          formatCurrency(calculatedTax, selectedCurrency?.code)
-                        }}</strong
-                      >
-                    </span>
-                    <span class="total-item grand-total">
-                      ລວມທັງໝົດ:
-                      <strong>{{
-                        formatCurrency(calculatedTotal, selectedCurrency?.code)
-                      }}</strong>
-                    </span>
-                    <span
-                      v-if="
-                        selectedCurrency &&
-                        selectedCurrency.code !== 'LAK' &&
-                        form.exchangeRate
-                      "
-                      class="total-item local-currency"
-                    >
-                      LAK:
-                      <strong>{{
-                        formatCurrency(
-                          calculatedTotal * parseFloat(form.exchangeRate || 1),
-                          'LAK'
-                        )
-                      }}</strong>
-                    </span>
-                  </div>
+            <!-- Total Amount Display -->
+            <div class="amount-summary">
+              <div class="totals-grid">
+                <div class="total-item">
+                  <span>ລວມຍ່ອຍ:</span>
+                  <span class="amount">{{
+                    formatCurrency(calculatedSubtotal, selectedCurrency?.code)
+                  }}</span>
+                </div>
+                <div class="total-item">
+                  <span>ສ່ວນຫຼຸດ:</span>
+                  <span class="amount discount"
+                    >-{{
+                      formatCurrency(calculatedDiscount, selectedCurrency?.code)
+                    }}</span
+                  >
+                </div>
+                <div class="total-item">
+                  <span>ພາສີ:</span>
+                  <span class="amount"
+                    >+{{
+                      formatCurrency(calculatedTax, selectedCurrency?.code)
+                    }}</span
+                  >
+                </div>
+                <div class="total-item grand-total">
+                  <span>ລວມທັງໝົດ:</span>
+                  <span class="amount">{{
+                    formatCurrency(calculatedTotal, selectedCurrency?.code)
+                  }}</span>
+                </div>
+                <div
+                  v-if="
+                    selectedCurrency &&
+                    selectedCurrency.code !== 'LAK' &&
+                    form.exchangeRate
+                  "
+                  class="total-item local-currency"
+                >
+                  <span>ລວມເປັນ LAK:</span>
+                  <span class="amount local">{{
+                    formatCurrency(
+                      calculatedTotal * parseFloat(form.exchangeRate || 1),
+                      'LAK'
+                    )
+                  }}</span>
                 </div>
               </div>
             </div>
-          </div>
+
+            <!-- Compact Audit Trail -->
+            <div v-if="isEdit" class="audit-trail-compact">
+              <div class="audit-header">
+                <h5>ປະຫວັດການດຳເນີນງານ</h5>
+                <button
+                  type="button"
+                  class="btn-view-audit"
+                  @click="openAuditDialog"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  ເບິ່ງລະອຽດ
+                </button>
+              </div>
+              <div class="audit-summary">
+                <div class="audit-item">
+                  <i class="fas fa-user-edit"></i>
+                  <span
+                    >ສ້າງໂດຍ: {{ auditTrail.makerName }} ({{
+                      auditTrail.createdDate
+                    }})</span
+                  >
+                </div>
+                <div class="audit-item">
+                  <i class="fas fa-user-check"></i>
+                  <span>{{
+                    auditTrail.isChecked
+                      ? `ອະນຸມັດໂດຍ: ${auditTrail.checkerName}`
+                      : 'ລໍຖ້າການອະນຸມັດ'
+                  }}</span>
+                </div>
+                <div class="status-badge-container">
+                  <span
+                    :class="['status-badge', `status-${auditTrail.status}`]"
+                  >
+                    {{ getStatusText(auditTrail.status) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -648,7 +582,6 @@ export default {
   emits: ['close', 'save'],
   data() {
     return {
-      activeTab: 'header',
       formLoading: false,
       saving: false,
       errors: {},
@@ -661,9 +594,9 @@ export default {
         id: null,
         invoiceNumber: '',
         vendorInvoiceNumber: '',
-        vendorId: '',
+        vendorId: null,
         agencyId: '',
-        invoiceDate: '',
+        invoiceDate: new Date().toISOString().split('T')[0], // Set today's date
         dueDate: '',
         description: '',
         totalAmount: '',
@@ -683,47 +616,21 @@ export default {
       if (!this.invoice) {
         return {
           makerName: this.user?.cus_name || this.user?.name || 'ຜູ້ໃຊ້ປະຈຸບັນ',
-          makerPosition: 'ພະນັກງານບັນຊີ',
-          makerEmail: this.user?.cus_email || this.user?.email || '',
           createdDate: new Date().toISOString().split('T')[0],
-          createdTime: new Date().toLocaleTimeString('en-GB'),
           isChecked: false,
-          isApproved: false,
           checkerName: null,
-          checkerPosition: null,
-          checkerEmail: null,
-          checkedDate: null,
-          checkedTime: null,
-          checkerComment: null,
+          status: 'draft',
         }
       }
       const maker = this.invoice.maker || {}
       const checker = this.invoice.checker || null
       const createdAt = new Date(this.invoice.createdAt)
-      const approvedAt = this.invoice.approvedAt
-        ? new Date(this.invoice.approvedAt)
-        : null
-
       return {
         makerName: maker.cus_name || 'ບໍ່ມີຂໍ້ມູນ',
-        makerPosition: maker.position || 'ພະນັກງານບັນຊີ',
-        makerEmail: maker.cus_email || '',
-        makerId: maker.cus_id || maker.id,
         createdDate: createdAt.toISOString().split('T')[0],
-        createdTime: createdAt.toLocaleTimeString('en-GB'),
-        createdDateTime: this.invoice.createdAt,
         checkerName: checker?.cus_name || null,
-        checkerPosition: checker?.position || 'ຫົວໜ້າຝ່າຍບັນຊີ',
-        checkerEmail: checker?.cus_email || null,
-        checkerId: checker?.cus_id || checker?.id || null,
-        checkedDate: approvedAt ? approvedAt.toISOString().split('T')[0] : null,
-        checkedTime: approvedAt ? approvedAt.toLocaleTimeString('en-GB') : null,
-        checkedDateTime: this.invoice.approvedAt,
         isChecked: !!this.invoice.checkerId && !!this.invoice.approvedAt,
-        isApproved: this.invoice.status === 'approved',
-        checkerComment: this.invoice.checkerComment || null,
         status: this.invoice.status || 'draft',
-        version: this.invoice.version || 1,
       }
     },
     calculatedSubtotal() {
@@ -754,7 +661,6 @@ export default {
     isFormValid() {
       const hasValidHeader =
         this.form.invoiceNumber &&
-        this.form.vendorInvoiceNumber &&
         this.form.agencyId &&
         this.form.invoiceDate &&
         this.form.dueDate &&
@@ -786,17 +692,9 @@ export default {
       },
       immediate: true,
     },
-    invoice: {
-      handler() {
-        if (this.visible) {
-          this.initializeDialog()
-        }
-      },
-    },
   },
   methods: {
     async initializeDialog() {
-      this.activeTab = 'header'
       this.clearErrors()
       if (this.invoice) {
         this.form = {
@@ -810,7 +708,7 @@ export default {
             : '',
           dueDate: this.invoice.dueDate
             ? this.invoice.dueDate.split('T')[0]
-            : '',
+            : new Date().toISOString().split('T')[0],
           description: this.invoice.description || '',
           totalAmount: this.invoice.totalAmount,
           exchangeRate: this.invoice.exchangeRate || 1.0,
@@ -842,7 +740,6 @@ export default {
       this.selectedVendor = null
       this.selectedCurrency = null
       this.clearErrors()
-      this.activeTab = 'header'
       this.formLoading = false
       this.saving = false
       this.auditDialogVisible = false
@@ -854,9 +751,7 @@ export default {
         )
         this.lineItems = data.data || [this.createEmptyLine()]
         this.lineItems.forEach((line) => {
-          if (!line.tempId) {
-            line.tempId = this.nextTempId++
-          }
+          if (!line.tempId) line.tempId = this.nextTempId++
           this.calculateLineTotal(line)
         })
       } catch (error) {
@@ -865,9 +760,7 @@ export default {
       }
     },
     openAuditDialog() {
-      if (this.form.id) {
-        this.auditDialogVisible = true
-      }
+      if (this.form.id) this.auditDialogVisible = true
     },
     closeAuditDialog() {
       this.auditDialogVisible = false
@@ -963,8 +856,6 @@ export default {
     onCurrencyChange() {
       this.updateSelectedCurrency()
       this.clearFieldError('currencyId')
-
-      // FIX: Find currency and set exchange rate
       const selectedCurrency = this.currencies.find(
         (c) => c.id === this.form.currencyId
       )
@@ -977,25 +868,21 @@ export default {
       if (this.form.invoiceDate && this.selectedVendor) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(invoiceDate)
-
-        // FIX: Check for paymentTerms in agency object
         const paymentTerms =
           this.selectedVendor.paymentTerms ||
           this.selectedVendor.payment_terms ||
-          30 // Default to 30 days
-
+          30
         dueDate.setDate(dueDate.getDate() + parseInt(paymentTerms))
         this.form.dueDate = dueDate.toISOString().split('T')[0]
       }
     },
     validateForm() {
       this.errors = {}
-
       if (!this.form.invoiceNumber)
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
-      if (!this.form.vendorInvoiceNumber)
-        this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
-      if (!this.form.agencyId) this.errors.agencyId = 'ກະລຸນາເລືອກຕົວແທນ' // Updated error message
+      // if (!this.form.vendorInvoiceNumber)
+      //   this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
+      if (!this.form.agencyId) this.errors.agencyId = 'ກະລຸນາເລືອກຕົວແທນ'
       if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
       if (!this.form.exchangeRate)
         this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ'
@@ -1004,7 +891,6 @@ export default {
       if (!this.form.invoiceDate)
         this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້'
       if (!this.form.dueDate) this.errors.dueDate = 'ກະລຸນາໃສ່ວັນທີຄົບກຳນົດ'
-
       if (this.form.invoiceDate && this.form.dueDate) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(this.form.dueDate)
@@ -1012,7 +898,6 @@ export default {
           this.errors.dueDate = 'ວັນທີຄົບກຳນົດຕ້ອງຫຼັງຈາກວັນທີໃບແຈ້ງໜີ້'
         }
       }
-
       if (this.lineItems.length === 0) {
         this.errors.lineItems = 'ກະລຸນາເພີ່ມລາຍການສິນຄ້າຢ່າງໜ້ອຍ 1 ລາຍການ'
       } else {
@@ -1030,13 +915,10 @@ export default {
             this.errors[`line_${i}_CRglAccountId`] = 'ກະລຸນາເລືອກ CR Account'
         }
       }
-
       if (this.isEdit && !this.form.reason)
         this.errors.reason = 'ກະລຸນາລະບຸເຫດຜົນຂອງການແກ້ໄຂ'
-
       return Object.keys(this.errors).length === 0
     },
-
     clearErrors() {
       this.errors = {}
     },
@@ -1046,14 +928,7 @@ export default {
       }
     },
     handleSubmit() {
-      if (!this.validateForm()) {
-        if (Object.keys(this.errors).some((key) => key.startsWith('line_'))) {
-          this.activeTab = 'lines'
-        } else {
-          this.activeTab = 'header'
-        }
-        return
-      }
+      if (!this.validateForm()) return
       this.saving = true
       const formData = {
         ...this.form,
@@ -1072,9 +947,7 @@ export default {
       this.$emit('save', formData)
     },
     handleOverlayClick() {
-      if (!this.saving) {
-        this.handleClose()
-      }
+      if (!this.saving) this.handleClose()
     },
     handleClose() {
       this.$emit('close')
@@ -1084,9 +957,9 @@ export default {
         id: null,
         invoiceNumber: '',
         vendorInvoiceNumber: '',
-        vendorId: '',
+        vendorId: null,
         agencyId: '',
-        invoiceDate: '',
+        invoiceDate: new Date().toISOString().split('T')[0], // Add this
         dueDate: '',
         description: '',
         totalAmount: '',
@@ -1124,7 +997,6 @@ export default {
   },
 }
 </script>
-
 <style scoped>
 /* Full Screen Layout */
 .modal-overlay {
@@ -1189,7 +1061,7 @@ export default {
 /* Compact Body */
 .modal-body {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -1226,77 +1098,29 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-/* Compact Tab Navigation */
-.tab-navigation {
-  display: flex;
-  border-bottom: 1px solid #e9ecef;
-  background: #f8f9fa;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 10px 15px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #666;
-  transition: all 0.2s;
-  min-height: 44px;
-}
-
-.tab-btn:hover {
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea;
-}
-
-.tab-btn.active {
-  background: white;
-  color: #667eea;
-  border-bottom: 2px solid #667eea;
-}
-
-.line-count {
-  background: #667eea;
-  color: white;
-  border-radius: 10px;
-  padding: 1px 6px;
-  font-size: 11px;
-  min-width: 18px;
-  text-align: center;
-}
-
-/* Tab Content */
-.tab-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0;
 }
 
 /* Compact Form Sections */
 .form-section {
-  padding: 15px;
+  padding: 15px 20px;
   border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .section-title {
   font-size: 14px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 12px;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #e9ecef;
 }
 
 .section-title i {
@@ -1304,11 +1128,29 @@ export default {
   font-size: 13px;
 }
 
+.line-count {
+  background: #667eea;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 11px;
+  min-width: 20px;
+  text-align: center;
+  margin-left: 4px;
+}
+
+.add-line-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* Compact Grid Layout */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 12px;
+  margin-top: 12px;
 }
 
 .span-2 {
@@ -1380,7 +1222,7 @@ export default {
   border: 1px solid #e9ecef;
   border-radius: 4px;
   padding: 8px;
-  margin: 10px 0;
+  margin-top: 10px;
 }
 
 .exchange-amount {
@@ -1395,21 +1237,103 @@ export default {
 .foreign-amount {
   color: #667eea;
 }
+
 .exchange-arrow {
   color: #28a745;
   font-size: 10px;
 }
+
 .local-amount {
   color: #28a745;
+}
+
+/* Line Items */
+.empty-line-state {
+  text-align: center;
+  padding: 30px 20px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 2px dashed #dee2e6;
+  margin-top: 12px;
+}
+
+.empty-content i {
+  font-size: 40px;
+  color: #dee2e6;
+  margin-bottom: 12px;
+}
+
+.empty-content h4 {
+  color: #666;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+/* Compact Table */
+.line-items-table-container {
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.line-items-table .table {
+  margin: 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 11px;
+}
+
+.line-items-table .table th {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: 600;
+  padding: 6px 4px;
+  font-size: 10px;
+  text-align: center;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.line-items-table .table td {
+  padding: 4px;
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+
+.line-number {
+  text-align: center;
+  font-weight: 600;
+  color: #666;
+  font-size: 10px;
+}
+
+.line-total {
+  font-weight: 600;
+  text-align: right;
+  color: #333;
+  font-size: 10px;
+}
+
+.line-row {
+  transition: background-color 0.2s;
+}
+
+.line-row:hover {
+  background-color: rgba(102, 126, 234, 0.05);
 }
 
 /* Compact Amount Summary */
 .amount-summary {
   background: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
-  border-left: 3px solid #667eea;
-  margin: 10px 15px;
+  padding: 12px 20px;
+  border-radius: 0;
+  border-top: 2px solid #667eea;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .totals-grid {
@@ -1439,9 +1363,11 @@ export default {
   font-weight: 600;
   color: #333;
 }
+
 .total-item .amount.discount {
   color: #e67e22;
 }
+
 .total-item .amount.local {
   color: #28a745;
 }
@@ -1449,10 +1375,9 @@ export default {
 /* Compact Audit Trail */
 .audit-trail-compact {
   background: #f8f9fa;
-  border-radius: 6px;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #e9ecef;
+  border-radius: 0;
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .audit-header {
@@ -1521,34 +1446,18 @@ export default {
   background: #e9ecef;
   color: #6c757d;
 }
+
 .status-badge.status-pending {
   background: #fff3cd;
   color: #856404;
 }
+
 .status-badge.status-approved {
   background: #d1ecf1;
   color: #0c5460;
 }
 
-/* Compact Line Items */
-.line-items-section {
-  padding: 15px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.add-line-header {
-  margin-bottom: 15px;
-}
-
-.add-line-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
+/* Buttons */
 .btn {
   padding: 6px 12px;
   border: none;
@@ -1566,10 +1475,12 @@ export default {
   background: #007bff;
   color: white;
 }
+
 .btn-secondary {
   background: #6c757d;
   color: white;
 }
+
 .btn-danger {
   background: #dc3545;
   color: white;
@@ -1586,14 +1497,9 @@ export default {
   transform: none;
 }
 
-.btn-add-line {
-  font-size: 13px;
-  padding: 8px 16px;
-}
-
 .btn-sm {
-  padding: 4px 8px;
-  font-size: 10px;
+  padding: 5px 10px;
+  font-size: 11px;
 }
 
 .btn-xs {
@@ -1605,127 +1511,6 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 10px;
-}
-
-.line-count-info {
-  background: #e9ecef;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 10px;
-  color: #666;
-  font-weight: 500;
-}
-
-.empty-line-state {
-  text-align: center;
-  padding: 40px 20px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border: 2px dashed #dee2e6;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.empty-content i {
-  font-size: 48px;
-  color: #dee2e6;
-  margin-bottom: 15px;
-}
-
-.empty-content h4 {
-  color: #666;
-  margin-bottom: 8px;
-  font-size: 16px;
-}
-
-/* Compact Table */
-.line-items-table-container {
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  overflow: hidden;
-  flex: 1;
-  overflow-y: auto;
-}
-
-.line-items-table .table {
-  margin: 0;
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 11px;
-}
-
-.line-items-table .table th {
-  background: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-  font-weight: 600;
-  padding: 6px 4px;
-  font-size: 10px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.line-items-table .table td {
-  padding: 4px;
-  vertical-align: middle;
-  border-top: 1px solid #dee2e6;
-}
-
-.line-number {
-  text-align: center;
-  font-weight: 600;
-  color: #666;
-  font-size: 10px;
-}
-
-.line-total {
-  font-weight: 600;
-  text-align: right;
-  color: #333;
-  font-size: 10px;
-}
-
-.line-row {
-  transition: background-color 0.2s;
-}
-
-.line-row:hover {
-  background-color: rgba(102, 126, 234, 0.05);
-}
-
-/* Compact Totals Summary */
-.line-totals-summary {
-  background: #f8f9fa;
-  padding: 10px;
-  border-radius: 6px;
-  border-left: 3px solid #667eea;
-  margin-top: 10px;
-}
-
-.totals-inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-}
-
-.totals-inline .total-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.totals-inline .total-item.grand-total {
-  font-weight: 700;
-  font-size: 12px;
-  color: #333;
-}
-
-.totals-inline .total-item strong.discount {
-  color: #e67e22;
 }
 
 /* Compact Footer */
@@ -1756,15 +1541,15 @@ export default {
     grid-template-columns: 1fr;
   }
 
-  .totals-inline {
+  .section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
 
   .add-line-actions {
-    flex-direction: column;
-    align-items: flex-start;
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .line-items-table-container {
@@ -1795,11 +1580,15 @@ export default {
   }
 
   .form-section {
-    padding: 12px;
+    padding: 12px 15px;
   }
 
-  .line-items-section {
-    padding: 12px;
+  .amount-summary {
+    padding: 10px 15px;
+  }
+
+  .audit-trail-compact {
+    padding: 10px 15px;
   }
 
   .modal-footer {

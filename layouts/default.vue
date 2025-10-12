@@ -343,19 +343,11 @@ export default {
   font-family: 'noto sans lao';
 }
 
-/* Fix potential scrolling issues */
-.v-application {
-  overflow: auto !important;
-}
+
 
 .v-main {
   overflow-y: auto !important;
   height: 100vh !important;
-}
-
-.v-container {
-  min-height: calc(100vh - 64px);
-  padding-bottom: 60px; /* Account for footer */
 }
 
 /* Ensure proper page flow */

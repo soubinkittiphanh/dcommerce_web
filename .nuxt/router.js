@@ -88,6 +88,7 @@ const _f00a79be = () => interopDefault(import('../pages/admin/shipping/index.vue
 const _e5b9f3a4 = () => interopDefault(import('../pages/admin/tax/index.vue' /* webpackChunkName: "pages/admin/tax/index" */))
 const _3b0e4e6f = () => interopDefault(import('../pages/admin/terminal/index.vue' /* webpackChunkName: "pages/admin/terminal/index" */))
 const _f3186e02 = () => interopDefault(import('../pages/admin/ticket/index.vue' /* webpackChunkName: "pages/admin/ticket/index" */))
+const _558cfc21 = () => interopDefault(import('../pages/admin/transaction_code/index.vue' /* webpackChunkName: "pages/admin/transaction_code/index" */))
 const _a4e295c4 = () => interopDefault(import('../pages/admin/transfer/index.vue' /* webpackChunkName: "pages/admin/transfer/index" */))
 const _04c3b4d1 = () => interopDefault(import('../pages/admin/tutorial/index.vue' /* webpackChunkName: "pages/admin/tutorial/index" */))
 const _6d29e62d = () => interopDefault(import('../pages/admin/txn/index.vue' /* webpackChunkName: "pages/admin/txn/index" */))
@@ -500,6 +501,10 @@ export const routerOptions = {
     path: "/admin/ticket",
     component: _f3186e02,
     name: "admin-ticket"
+  }, {
+    path: "/admin/transaction_code",
+    component: _558cfc21,
+    name: "admin-transaction_code"
   }, {
     path: "/admin/transfer",
     component: _a4e295c4,

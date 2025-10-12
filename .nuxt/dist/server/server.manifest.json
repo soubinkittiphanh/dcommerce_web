@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "289.js": "289.js",
+    "291.js": "291.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -19,6 +19,7 @@
     "components/accounting-ar-receive-maintain.js": "components/accounting-ar-receive-maintain.js",
     "components/accounting-ar-receive-view.js": "components/accounting-ar-receive-view.js",
     "components/accounting-g-l-form.js": "components/accounting-g-l-form.js",
+    "components/accounting-transaction.js": "components/accounting-transaction.js",
     "components/all-product.js": "components/all-product.js",
     "components/applicants-applicant-dialog.js": "components/applicants-applicant-dialog.js",
     "components/applicants-applicant-view-dialog.js": "components/applicants-applicant-view-dialog.js",
@@ -254,6 +255,7 @@
     "pages/admin/tax/index.js": "pages/admin/tax/index.js",
     "pages/admin/terminal/index.js": "pages/admin/terminal/index.js",
     "pages/admin/ticket/index.js": "pages/admin/ticket/index.js",
+    "pages/admin/transaction_code/index.js": "pages/admin/transaction_code/index.js",
     "pages/admin/transfer/index.js": "pages/admin/transfer/index.js",
     "pages/admin/tutorial/index.js": "pages/admin/tutorial/index.js",
     "pages/admin/txn/index.js": "pages/admin/txn/index.js",
@@ -293,7 +295,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "289.js": "289.js.map",
+    "291.js": "291.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -311,6 +313,7 @@
     "components/accounting-ar-receive-maintain.js": "components/accounting-ar-receive-maintain.js.map",
     "components/accounting-ar-receive-view.js": "components/accounting-ar-receive-view.js.map",
     "components/accounting-g-l-form.js": "components/accounting-g-l-form.js.map",
+    "components/accounting-transaction.js": "components/accounting-transaction.js.map",
     "components/all-product.js": "components/all-product.js.map",
     "components/applicants-applicant-dialog.js": "components/applicants-applicant-dialog.js.map",
     "components/applicants-applicant-view-dialog.js": "components/applicants-applicant-view-dialog.js.map",
@@ -546,6 +549,7 @@
     "pages/admin/tax/index.js": "pages/admin/tax/index.js.map",
     "pages/admin/terminal/index.js": "pages/admin/terminal/index.js.map",
     "pages/admin/ticket/index.js": "pages/admin/ticket/index.js.map",
+    "pages/admin/transaction_code/index.js": "pages/admin/transaction_code/index.js.map",
     "pages/admin/transfer/index.js": "pages/admin/transfer/index.js.map",
     "pages/admin/tutorial/index.js": "pages/admin/tutorial/index.js.map",
     "pages/admin/txn/index.js": "pages/admin/txn/index.js.map",

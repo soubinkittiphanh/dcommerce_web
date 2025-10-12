@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="ap-invoice-container">
+  <div>
     <!-- Header Section -->
     <v-row>
       <v-col cols="12">
@@ -143,9 +143,15 @@
             <!-- Vendor -->
             <template v-slot:item.vendor="{ item }">
               <div v-if="item.agency">
-                <div class="font-weight-medium">{{ item.agency.agencyName }}</div>
-                <div v-if="item.agency.agencyCode" class="text-caption grey--text">
-                  {{item.agency?.agencyType }} - {{ item.agency?.agencyName || 'N/A' }}
+                <div class="font-weight-medium">
+                  {{ item.agency.agencyName }}
+                </div>
+                <div
+                  v-if="item.agency.agencyCode"
+                  class="text-caption grey--text"
+                >
+                  {{ item.agency?.agencyType }} -
+                  {{ item.agency?.agencyName || 'N/A' }}
                 </div>
               </div>
               <span v-else class="grey--text text-caption">ບໍ່ໄດ້ລະບຸ</span>
@@ -153,14 +159,19 @@
 
             <!-- Invoice Date -->
             <template v-slot:item.invoiceDate="{ item }">
-              <span class="text-caption">{{ formatDate(item.invoiceDate) }}</span>
+              <span class="text-caption">{{
+                formatDate(item.invoiceDate)
+              }}</span>
             </template>
 
             <!-- Due Date -->
             <template v-slot:item.dueDate="{ item }">
-              <span 
+              <span
                 class="text-caption"
-                :class="{ 'error--text font-weight-bold': isOverdue(item.dueDate) && item.status !== 'paid' }"
+                :class="{
+                  'error--text font-weight-bold':
+                    isOverdue(item.dueDate) && item.status !== 'paid',
+                }"
               >
                 {{ formatDate(item.dueDate) }}
               </span>
@@ -169,7 +180,9 @@
             <!-- Total Amount -->
             <template v-slot:item.totalAmount="{ item }">
               <div class="text-right">
-                <div class="font-weight-bold">{{ formatCurrency(item.totalAmount) }}</div>
+                <div class="font-weight-bold">
+                  {{ formatCurrency(item.totalAmount) }}
+                </div>
                 <div v-if="item.currency" class="text-caption grey--text">
                   {{ item.currency.code }}
                 </div>
@@ -288,8 +301,12 @@
         </v-card-title>
 
         <v-card-text class="pa-4">
-          <v-progress-linear v-if="detailLoading" indeterminate color="primary" />
-          
+          <v-progress-linear
+            v-if="detailLoading"
+            indeterminate
+            color="primary"
+          />
+
           <div v-else-if="invoiceDetails">
             <v-simple-table dense>
               <tbody>
@@ -303,7 +320,10 @@
                 </tr>
                 <tr>
                   <td class="font-weight-bold">ຜູ້ຂາຍ:</td>
-                  <td>{{invoiceDetails.agency?.agencyType }} - {{ invoiceDetails.agency?.agencyName || 'N/A' }}</td>
+                  <td>
+                    {{ invoiceDetails.agency?.agencyType }} -
+                    {{ invoiceDetails.agency?.agencyName || 'N/A' }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">ວັນທີໃບແຈ້ງໜີ້:</td>
@@ -315,12 +335,18 @@
                 </tr>
                 <tr>
                   <td class="font-weight-bold">ຈຳນວນເງິນລວມ:</td>
-                  <td class="font-weight-bold">{{ formatCurrency(invoiceDetails.totalAmount) }}</td>
+                  <td class="font-weight-bold">
+                    {{ formatCurrency(invoiceDetails.totalAmount) }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">ສະຖານະ:</td>
                   <td>
-                    <v-chip x-small :color="getStatusColor(invoiceDetails.status)" text-color="white">
+                    <v-chip
+                      x-small
+                      :color="getStatusColor(invoiceDetails.status)"
+                      text-color="white"
+                    >
                       {{ getStatusInLao(invoiceDetails.status) }}
                     </v-chip>
                   </td>
@@ -339,7 +365,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -403,17 +429,77 @@ export default {
       searchTimeout: null,
 
       headers: [
-        { text: 'ເລກທີໃບແຈ້ງໜີ້', value: 'invoiceNumber', sortable: true, width: '150px' },
-        { text: 'ເລກທີຜູ້ຂາຍ', value: 'vendorInvoiceNumber', sortable: false, width: '120px' },
-        { text: 'ຜູ້ຂາຍ / Agency', value: 'vendor', sortable: false, width: '180px' },
-        { text: 'ວັນທີໃບແຈ້ງໜີ້', value: 'invoiceDate', sortable: true, width: '120px' },
-        { text: 'ວັນທີຄົບກຳນົດ', value: 'dueDate', sortable: true, width: '120px' },
-        { text: 'ຈຳນວນເງິນລວມ', value: 'totalAmount', sortable: true, align: 'end', width: '130px' },
-        { text: 'ຈຳນວນທີ່ຈ່າຍແລ້ວ', value: 'paidAmount', sortable: true, align: 'end', width: '130px' },
-        { text: 'ຍອດຄ້າງຈ່າຍ', value: 'outstandingAmount', sortable: false, align: 'end', width: '130px' },
-        { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px', align: 'center' },
-        { text: 'ຜູ້ລົງບັນຊີ', value: 'maker', sortable: false, width: '120px' },
-        { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, width: '80px', align: 'center' },
+        {
+          text: 'ເລກທີໃບແຈ້ງໜີ້',
+          value: 'invoiceNumber',
+          sortable: true,
+          width: '150px',
+        },
+        {
+          text: 'ເລກທີຜູ້ຂາຍ',
+          value: 'vendorInvoiceNumber',
+          sortable: false,
+          width: '120px',
+        },
+        {
+          text: 'ຜູ້ຂາຍ / Agency',
+          value: 'vendor',
+          sortable: false,
+          width: '180px',
+        },
+        {
+          text: 'ວັນທີໃບແຈ້ງໜີ້',
+          value: 'invoiceDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ວັນທີຄົບກຳນົດ',
+          value: 'dueDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ຈຳນວນເງິນລວມ',
+          value: 'totalAmount',
+          sortable: true,
+          align: 'end',
+          width: '130px',
+        },
+        {
+          text: 'ຈຳນວນທີ່ຈ່າຍແລ້ວ',
+          value: 'paidAmount',
+          sortable: true,
+          align: 'end',
+          width: '130px',
+        },
+        {
+          text: 'ຍອດຄ້າງຈ່າຍ',
+          value: 'outstandingAmount',
+          sortable: false,
+          align: 'end',
+          width: '130px',
+        },
+        {
+          text: 'ສະຖານະ',
+          value: 'status',
+          sortable: true,
+          width: '120px',
+          align: 'center',
+        },
+        {
+          text: 'ຜູ້ລົງບັນຊີ',
+          value: 'maker',
+          sortable: false,
+          width: '120px',
+        },
+        {
+          text: 'ຟັງຊັ່ນ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+          align: 'center',
+        },
       ],
     }
   },
@@ -456,7 +542,10 @@ export default {
     },
 
     getOutstandingAmount(invoice) {
-      return parseFloat(invoice.totalAmount || 0) - parseFloat(invoice.paidAmount || 0)
+      return (
+        parseFloat(invoice.totalAmount || 0) -
+        parseFloat(invoice.paidAmount || 0)
+      )
     },
 
     isOverdue(dueDate) {
@@ -573,15 +662,23 @@ export default {
     async saveInvoice(formData) {
       try {
         const auditContext = {
-          reason: formData.reason || (formData.id ? 'Updated invoice' : 'Created new invoice'),
+          reason:
+            formData.reason ||
+            (formData.id ? 'Updated invoice' : 'Created new invoice'),
           userId: this.user?.id,
         }
 
         if (formData.id) {
-          await this.$axios.put(`/api/ap-invoices/${formData.id}`, { ...formData, ...auditContext })
+          await this.$axios.put(`/api/ap-invoices/${formData.id}`, {
+            ...formData,
+            ...auditContext,
+          })
           this.$toast.success('ອັບເດດສຳເລັດ')
         } else {
-          await this.$axios.post('/api/ap-invoices', { ...formData, ...auditContext })
+          await this.$axios.post('/api/ap-invoices', {
+            ...formData,
+            ...auditContext,
+          })
           this.$toast.success('ສ້າງສຳເລັດ')
         }
 

@@ -46,21 +46,30 @@
               </div>
 
               <div class="form-group">
-                <label>ຈຳນວນເງິນຊຳລະ <span class="required">*</span></label>
-                <input
-                  :value="formatCurrency(totalAllocated)"
-                  type="text"
+                <label>ວິທີການຊຳລະ <span class="required">*</span></label>
+                <select
+                  v-model="form.paymentMethodId"
                   class="form-control"
-                  disabled
-                  readonly
-                />
-                <small class="text-muted"
-                  >Auto-calculated from settlement lines</small
+                  :class="{ 'is-invalid': errors.paymentMethodId }"
+                  required
                 >
+                  <option value="">ເລືອກວິທີການຊຳລະ</option>
+                  <option
+                    v-for="method in paymentMethods"
+                    :key="method.id"
+                    :value="method.id"
+                  >
+                    {{ method.payment_name }}
+                  </option>
+                </select>
+                <div v-if="errors.paymentMethodId" class="invalid-feedback">
+                  {{ errors.paymentMethodId }}
+                </div>
               </div>
-
               <div class="form-group">
-                <label for="currencyId" class="required">ສະກຸນເງິນ</label>
+                <label for="currencyId"
+                  >ສະກຸນເງິນ <span class="required">*</span></label
+                >
                 <select
                   id="currencyId"
                   v-model="form.currencyId"
@@ -81,26 +90,26 @@
                   {{ errors.currencyId }}
                 </div>
               </div>
-
               <div class="form-group">
-                <label>ວິທີການຊຳລະ <span class="required">*</span></label>
-                <select
-                  v-model="form.paymentMethodId"
+                <label for="exchangeRate" class="required">
+                  ອັດຕາແລກປ່ຽນ
+                  <span v-if="selectedCurrency" class="currency-info">
+                    ({{ selectedCurrency.code }} ຕໍ່ LAK)
+                  </span>
+                </label>
+                <input
+                  id="exchangeRate"
+                  v-model="form.exchangeRate"
+                  type="number"
+                  step="0.0001"
+                  min="0"
                   class="form-control"
-                  :class="{ 'is-invalid': errors.paymentMethodId }"
-                  required
-                >
-                  <option value="">ເລືອກວິທີການຊຳລະ</option>
-                  <option
-                    v-for="method in paymentMethods"
-                    :key="method.id"
-                    :value="method.id"
-                  >
-                    {{ method.payment_name }}
-                  </option>
-                </select>
-                <div v-if="errors.paymentMethodId" class="invalid-feedback">
-                  {{ errors.paymentMethodId }}
+                  :class="{ 'is-invalid': errors.exchangeRate }"
+                  placeholder="1.0000"
+                  @blur="calculateExchangeAmounts"
+                />
+                <div v-if="errors.exchangeRate" class="invalid-feedback">
+                  {{ errors.exchangeRate }}
                 </div>
               </div>
 
@@ -213,103 +222,248 @@
 
             <!-- Settlement Lines Table -->
             <div v-else class="settlement-lines">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 30px">#</th>
-                    <th style="width: 100px">ປະເພດ</th>
-                    <th style="width: 120px">ເລກທີໃບແຈ້ງໜີ້</th>
-                    <th style="width: 150px">ຕົວແທນ</th>
-                    <th>ຄຳອະທິບາຍ</th>
-                    <th style="width: 80px">ຈຳນວນເງິນ</th>
-                    <th style="width: 40px">ລຶບ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(line, index) in settlementLines"
-                    :key="line.tempId"
-                  >
-                    <td class="line-number">{{ index + 1 }}</td>
-                    <td>
-                      <span :class="['type-badge', line.type]">
-                        {{
-                          line.type === 'invoice'
-                            ? 'ໃບແຈ້ງໜີ້'
-                            : line.type === 'mou'
-                            ? 'MOU'
-                            : 'ດ້ວຍມື'
-                        }}
-                      </span>
-                    </td>
-                    <td>
-                      <input
-                        v-if="line.type === 'manual'"
-                        v-model="line.invoiceNumber"
-                        type="text"
-                        class="form-control form-control-xs"
-                        placeholder="ເລກທີໃບແຈ້ງໜີ້"
-                        :disabled="!canModifyAllocations"
-                      />
-                      <span v-else>{{ line.invoiceNumber || '-' }}</span>
-                    </td>
-                    <td>
-                      <select
-                        v-if="line.type === 'manual'"
-                        v-model="line.agencyId"
-                        class="form-control form-control-xs"
-                        :disabled="!canModifyAllocations"
-                      >
-                        <option value="">ເລືອກຕົວແທນ</option>
-                        <option
-                          v-for="agency in agencies"
-                          :key="agency.id"
-                          :value="agency.id"
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 20px">#</th>
+                      <th>ປະເພດ</th>
+                      <th>ເລກທີໃບແຈ້ງໜີ້</th>
+                      <th>ຕົວແທນ</th>
+                      <th>ລະຫັດການເງິນ <span class="required">*</span></th>
+                      <th>ຄຳອະທິບາຍ</th>
+                      <th>DR</th>
+                      <th>CR</th>
+                      <th class="text-right">ຈຳນວນເງິນ</th>
+                      <th style="width: 40px" class="text-center">ລຶບ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(line, index) in settlementLines"
+                      :key="line.tempId"
+                    >
+                      <!-- Line Number -->
+                      <td class="line-number">{{ index + 1 }}</td>
+
+                      <!-- Type Badge -->
+                      <td>
+                        <span :class="['type-badge', line.type]">
+                          {{
+                            line.type === 'invoice'
+                              ? 'ໃບແຈ້ງໜີ້'
+                              : line.type === 'mou'
+                              ? 'MOU'
+                              : 'ດ້ວຍມື'
+                          }}
+                        </span>
+                      </td>
+
+                      <!-- Invoice Number -->
+                      <td>
+                        <input
+                          v-if="line.type === 'manual'"
+                          v-model="line.invoiceNumber"
+                          type="text"
+                          class="form-control form-control-xs"
+                          placeholder="ເລກທີໃບແຈ້ງໜີ້"
+                          :disabled="!canModifyAllocations"
+                        />
+                        <span
+                          v-else
+                          class="text-truncate"
+                          :title="line.invoiceNumber"
                         >
-                          {{ agency.agencyName }} - {{ agency.agencyCode }} -
-                          {{ agency.agencyType }}
-                        </option>
-                      </select>
-                      <span v-else>{{ line.agencyType || '-' }}</span>
-                    </td>
-                    <td>
-                      <input
-                        v-model="line.description"
-                        type="text"
-                        class="form-control form-control-xs"
-                        placeholder="ຄຳອະທິບາຍ"
-                        :disabled="!canModifyAllocations"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        v-model.number="line.amount"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        class="form-control form-control-xs"
-                        :disabled="!canModifyAllocations"
-                        @input="$forceUpdate()"
-                      />
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        @click="removeLine(index)"
-                        class="btn btn-xs btn-danger"
-                        :disabled="!canModifyAllocations"
-                      >
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                          {{ line.invoiceNumber || '-' }}
+                        </span>
+                      </td>
+
+                      <!-- Agency -->
+                      <td>
+                        <select
+                          v-if="line.type === 'manual'"
+                          v-model="line.agencyId"
+                          class="form-control form-control-xs"
+                          :disabled="!canModifyAllocations"
+                        >
+                          <option value="">ເລືອກຕົວແທນ</option>
+                          <option
+                            v-for="agency in agencies"
+                            :key="agency.id"
+                            :value="agency.id"
+                          >
+                            {{ agency.agencyName }} - {{ agency.agencyCode }}
+                          </option>
+                        </select>
+                        <span
+                          v-else
+                          class="text-truncate"
+                          :title="line.agencyName || line.agency?.agencyName"
+                        >
+                          {{
+                            line.agencyName || line.agency?.agencyName || '-'
+                          }}
+                        </span>
+                      </td>
+
+                      <!-- Transaction Code Dropdown -->
+                      <td>
+                        <v-autocomplete
+                          v-model="line.txnId"
+                          :items="
+                            transactionCodes.filter(
+                              (t) => t.type === 'EXPENSE' && t.isActive
+                            )
+                          "
+                          item-value="id"
+                          item-text="code"
+                          :label="
+                            loadingTransactionCodes
+                              ? 'ກຳລັງໂຫຼດ...'
+                              : 'ເລືອກລະຫັດການເງິນ'
+                          "
+                          :loading="loadingTransactionCodes"
+                          :disabled="
+                            !canModifyAllocations || loadingTransactionCodes
+                          "
+                          :error="!line.txnId && errors.settlementLines"
+                          dense
+                          outlined
+                          clearable
+                          hide-details="auto"
+                          class="mt-0"
+                        >
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                {{ item.code }} - {{ item.description }}
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </template>
+                          <template v-slot:selection="{ item }">
+                            {{ item.code }} - {{ item.description }}
+                          </template>
+                        </v-autocomplete>
+                        <small
+                          v-if="!line.txnId && errors.settlementLines"
+                          class="text-danger d-block mt-1"
+                        >
+                          ກະລຸນາເລືອກລະຫັດການເງິນ
+                        </small>
+                      </td>
+
+                      <!-- Description -->
+                      <td>
+                        <input
+                          v-model="line.description"
+                          type="text"
+                          class="form-control form-control-xs"
+                          placeholder="ຄຳອະທິບາຍ"
+                          :disabled="!canModifyAllocations"
+                        />
+                      </td>
+                      <td>
+                        <v-autocomplete
+                          v-model="line.DRglAccountId"
+                          :items="glAccounts"
+                          item-value="id"
+                          item-text="accountNumber"
+                          label="DR Account"
+                          :error="!!errors[`line_${index}_DRglAccountId`]"
+                          dense
+                          outlined
+                          clearable
+                          hide-details="auto"
+                          class="mt-0"
+                        >
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                {{ item.accountNumber }} -
+                                {{ item.accountName }}
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </template>
+                          <template v-slot:selection="{ item }">
+                            {{ item.accountNumber }} - {{ item.accountName }}
+                          </template>
+                        </v-autocomplete>
+                        <small
+                          v-if="errors[`line_${index}_DRglAccountId`]"
+                          class="text-danger d-block mt-1"
+                        >
+                          {{ errors[`line_${index}_DRglAccountId`] }}
+                        </small>
+                      </td>
+
+                      <td>
+                        <v-autocomplete
+                          v-model="line.CRglAccountId"
+                          :items="glAccounts"
+                          item-value="id"
+                          item-text="accountNumber"
+                          label="CR Account"
+                          :error="!!errors[`line_${index}_CRglAccountId`]"
+                          dense
+                          outlined
+                          clearable
+                          hide-details="auto"
+                          class="mt-0"
+                        >
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                {{ item.accountNumber }} -
+                                {{ item.accountName }}
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </template>
+                          <template v-slot:selection="{ item }">
+                            {{ item.accountNumber }} - {{ item.accountName }}
+                          </template>
+                        </v-autocomplete>
+                        <small
+                          v-if="errors[`line_${index}_CRglAccountId`]"
+                          class="text-danger d-block mt-1"
+                        >
+                          {{ errors[`line_${index}_CRglAccountId`] }}
+                        </small>
+                      </td>
+
+                      <!-- Amount -->
+                      <td>
+                        <input
+                          v-model.number="line.amount"
+                          type="number"
+                          step="0.01"
+                          min="0"
+                          class="form-control form-control-xs text-right"
+                          :disabled="!canModifyAllocations"
+                          @input="$forceUpdate()"
+                        />
+                      </td>
+
+                      <!-- Delete Button -->
+                      <td class="text-center">
+                        <button
+                          type="button"
+                          @click="removeLine(index)"
+                          class="btn btn-xs btn-danger"
+                          :disabled="!canModifyAllocations"
+                          title="ລຶບລາຍການ"
+                        >
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
               <div class="allocation-summary">
                 <div class="totals-inline">
                   <span class="total-item">
-                    ລວມຈັດສັນ:
+                    ລວມຈຳນວນເງິນຊຳລະ:
                     <strong>{{ formatCurrency(totalAllocated) }}</strong>
                   </span>
                 </div>
@@ -515,6 +669,7 @@ export default {
   },
 
   props: {
+    glAccounts: { type: Array, default: () => [] },
     currencies: { type: Array, default: () => [] },
     visible: { type: Boolean, default: false },
     settlement: { type: Object, default: null },
@@ -523,11 +678,14 @@ export default {
 
   data() {
     return {
+      transactionCodes: [], // Add this
+      loadingTransactionCodes: false, // Add this
       form: {
         id: null,
         settlementDate: new Date().toISOString().split('T')[0],
         currencyId: null,
         paymentMethodId: '',
+        exchangeRate: 1.0,
         bankAccountId: '',
         reference: '',
         description: '',
@@ -536,6 +694,7 @@ export default {
         checkerId: null,
         approvalNote: '',
       },
+      selectedCurrency: null,
       settlementLines: [],
       tempSelectedInvoices: [],
       paymentMethods: [],
@@ -670,16 +829,51 @@ export default {
 
   async mounted() {
     await this.loadReferenceData()
+    await this.loadTransactionCodes() // Add this
   },
 
   methods: {
+    calculateExchangeAmounts() {
+      this.clearFieldError('exchangeRate')
+    },
+    async loadTransactionCodes() {
+      this.loadingTransactionCodes = true
+      try {
+        const { data } = await this.$axios.get('/api/transaction-codes', {
+          params: {
+            includeInactive: false,
+            type: 'EXPENSE', // Filter only EXPENSE types for payments
+          },
+        })
+        this.transactionCodes = data || []
+      } catch (error) {
+        console.error('Error loading transaction codes:', error)
+        this.$toast?.error('ໂຫລດລະຫັດການເງິນບໍ່ສຳເລັດ')
+        this.transactionCodes = []
+      } finally {
+        this.loadingTransactionCodes = false
+      }
+    },
     getAgencyName(invoice) {
       const agency = invoice.agency || invoice.vendor
       return agency?.name || agency?.agencyName || 'N/A'
     },
 
-    onCurrencyChange() {},
-
+    onCurrencyChange() {
+      console.info(`Currency changing...`)
+      this.clearFieldError('currencyId')
+      const selectedCurrency = this.currencies.find(
+        (c) => c.id === this.form.currencyId
+      )
+      if (selectedCurrency) {
+        this.form.exchangeRate = selectedCurrency.rate || 1.0
+      }
+    },
+    clearFieldError(field) {
+      if (this.errors[field]) {
+        this.$delete(this.errors, field)
+      }
+    },
     async initializeDialog() {
       // Load reference data first
       await this.loadReferenceData()
@@ -753,6 +947,7 @@ export default {
           ? Number(settlement.paymentMethodId)
           : '',
         currencyId: settlement.currencyId ? Number(settlement.currencyId) : '',
+        exchangeRate: settlement.exchangeRate || 1.0,
         bankAccountId: settlement.bankAccountId
           ? Number(settlement.bankAccountId)
           : '',
@@ -797,14 +992,18 @@ export default {
 
             return {
               tempId: this.lineIdCounter++,
-              type: invoiceId ? 'invoice' : 'manual',
+              type: allocation.type,
+              agency: allocation.agency,
               invoiceId: invoiceId,
               invoiceNumber: invoiceNumber,
               agencyId: allocation.agencyId || agency?.id || null,
               agencyName: agencyName,
               applicantId: allocation.applicantId || null,
+              DRglAccountId: allocation.DRglAccountId || null,
+              CRglAccountId: allocation.CRglAccountId || null,
               description: allocation.description || '',
               amount: parseFloat(allocation.amount || 0),
+              txnId: allocation.txnId || null, // Add this
             }
           }
         )
@@ -817,6 +1016,7 @@ export default {
         settlementDate: new Date().toISOString().split('T')[0],
         currencyId: '',
         paymentMethodId: '',
+        exchangeRate: 1.0,
         bankAccountId: '',
         reference: '',
         description: '',
@@ -837,9 +1037,13 @@ export default {
         invoiceId: null,
         invoiceNumber: '',
         agencyId: '',
+        applicantId: null,
+        DRglAccountId: null,
+        CRglAccountId: null,
         agencyName: '',
         description: '',
         amount: 0,
+        txnId: null, // Add this
       })
     },
 
@@ -891,9 +1095,13 @@ export default {
           invoiceId: null,
           invoiceNumber: invoiceData.invoiceNumber || '',
           agencyId: invoiceData.agencyId || null,
+          applicantId: line.applicantId || null,
+          DRglAccountId: null,
+          CRglAccountId: null,
           agencyName: `${invoiceData.agencyName} (${invoiceData.agencyCode})`,
           description,
           amount: parseFloat(line.amount || 0),
+          txnId: null, // Add this
         })
       })
 
@@ -943,6 +1151,7 @@ export default {
             agencyName: agency?.name || agency?.agencyName || '',
             description: '',
             amount: parseFloat(invoice.outstandingAmount || 0),
+            txnId: null, // Add this
           })
         }
       })
@@ -959,16 +1168,57 @@ export default {
 
     validateForm() {
       this.errors = {}
-      if (!this.form.settlementDate)
+
+      // Basic validations
+      if (!this.form.settlementDate) {
         this.errors.settlementDate = 'ກະລຸນາເລືອກວັນທີຊຳລະ'
-      if (this.totalAllocated <= 0)
+      }
+
+      if (this.totalAllocated <= 0) {
         this.errors.paymentAmount = 'ກະລຸນາເພີ່ມລາຍການຈັດສັນ'
-      if (!this.form.paymentMethodId)
+      }
+
+      if (!this.form.paymentMethodId) {
         this.errors.paymentMethodId = 'ກະລຸນາເລືອກວິທີການຊຳລະ'
-      if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
-      if (this.form.reference?.length > 100)
+      }
+
+      if (!this.form.currencyId) {
+        this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
+      }
+
+      if (this.form.reference?.length > 100) {
         this.errors.reference = 'ຫມາຍເລກອ້າງອີງຍາວເກີນ 100 ຕົວອັກສອນ'
-      return Object.keys(this.errors).length === 0
+      }
+
+      // Validate settlement lines
+      let hasLineErrors = false
+      this.settlementLines.forEach((line, index) => {
+        // Check if transaction code is selected
+        if (!line.txnId) {
+          hasLineErrors = true
+          this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກລະຫັດການເງິນ`)
+        }
+
+        // Check if amount is valid
+        if (!line.amount || line.amount <= 0) {
+          hasLineErrors = true
+          this.$toast?.error(
+            `ລາຍການທີ ${index + 1}: ກະລຸນາໃສ່ຈຳນວນເງິນທີ່ຖືກຕ້ອງ`
+          )
+        }
+
+        // For manual entries, check if agency is selected
+        if (line.type === 'manual' && !line.agencyId) {
+          hasLineErrors = true
+          this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກຕົວແທນ`)
+        }
+      })
+
+      if (hasLineErrors) {
+        this.errors.settlementLines = 'ກະລຸນາກວດສອບລາຍການຈັດສັນໃຫ້ຄົບຖ້ວນ'
+      }
+
+      return Object.keys(this.errors).length === 0 && !hasLineErrors
     },
 
     async submitForm() {
@@ -981,13 +1231,18 @@ export default {
           paymentAmount: this.totalAllocated,
           baseAmount: this.totalAllocated,
           makerId: this.form.makerId || this.user.id,
+          exchangeRate: parseFloat(this.form.exchangeRate) || 1.0,
           settlementLines: this.settlementLines.map((line) => ({
             type: line.type,
             invoiceId: line.invoiceId,
             invoiceNumber: line.invoiceNumber,
             agencyId: line.agencyId,
+            applicantId: line.applicantId,
+            DRglAccountId: line.DRglAccountId || null,
+            CRglAccountId: line.CRglAccountId || null,
             description: line.description,
             amount: parseFloat(line.amount || 0),
+            txnId: line.txnId, // Add this
           })),
         }
         this.$emit('save', formData)
@@ -996,6 +1251,10 @@ export default {
       } finally {
         this.isSubmitting = false
       }
+    },
+    getTransactionCodeLabel(txnId) {
+      const txn = this.transactionCodes.find((t) => t.id === txnId)
+      return txn ? `${txn.code} - ${txn.description}` : ''
     },
 
     async approveSettlement() {
@@ -1050,10 +1309,137 @@ export default {
 }
 </script>
 
-
-<!-- Keep existing styles -->
 <style scoped>
-/* Full Screen Layout */
+/* ===================================== */
+/* TRANSACTION CODE & FORM CONTROLS */
+/* ===================================== */
+
+/* Base form control styles */
+.form-control {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: border-color 0.2s ease;
+  height: 32px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #17a2b8;
+  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.1);
+}
+
+.form-control:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.form-control.is-invalid {
+  border-color: #e74c3c;
+}
+
+/* Extra small form controls */
+.form-control-xs {
+  padding: 4px 6px;
+  font-size: 11px;
+  height: 28px;
+}
+
+/* Select dropdown specific styles */
+select.form-control,
+select.form-control-xs {
+  appearance: auto;
+  background-color: white;
+  cursor: pointer;
+}
+
+select.form-control:disabled,
+select.form-control-xs:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Optgroup styling */
+select.form-control-xs optgroup {
+  font-weight: 600;
+  font-style: normal;
+  color: #495057;
+  background-color: #f8f9fa;
+}
+
+select.form-control-xs option {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+/* Focus states for form controls */
+.form-control-xs:focus,
+select.form-control-xs:focus {
+  border-color: #17a2b8;
+  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.15);
+  outline: none;
+  z-index: 2;
+}
+
+/* Validation states */
+.is-invalid {
+  border-color: #dc3545 !important;
+  background-image: none;
+}
+
+.is-invalid:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 2px;
+  font-size: 10px;
+  color: #e74c3c;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+  font-size: 10px;
+  margin-top: 2px;
+  display: block;
+}
+
+/* ===================================== */
+/* TEXT UTILITIES */
+/* ===================================== */
+
+.text-truncate {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.required {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* ===================================== */
+/* MODAL & DIALOG LAYOUT */
+/* ===================================== */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1077,7 +1463,10 @@ export default {
   overflow: hidden;
 }
 
-/* Compact Header */
+/* ===================================== */
+/* HEADER */
+/* ===================================== */
+
 .dialog-header {
   padding: 12px 20px;
   border-bottom: 1px solid #e9ecef;
@@ -1138,7 +1527,10 @@ export default {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Compact Body */
+/* ===================================== */
+/* BODY & FORM SECTIONS */
+/* ===================================== */
+
 .dialog-body {
   flex: 1;
   overflow-y: auto;
@@ -1198,7 +1590,10 @@ export default {
   border: 1px solid #ddd;
 }
 
-/* Compact Grid Layout */
+/* ===================================== */
+/* FORM GRID */
+/* ===================================== */
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1221,75 +1616,42 @@ export default {
   font-size: 12px;
 }
 
-.required {
-  color: #e74c3c;
-}
+/* ===================================== */
+/* TYPE BADGES */
+/* ===================================== */
 
-/* Compact Form Controls */
-.form-control {
-  width: 100%;
-  padding: 6px 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 12px;
-  transition: border-color 0.2s ease;
-  height: 32px;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: #17a2b8;
-  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.1);
-}
-
-.form-control:disabled {
-  background-color: #f8f9fa;
-  color: #6c757d;
-}
-
-.form-control.is-invalid {
-  border-color: #e74c3c;
-}
-
-.form-control-xs {
-  padding: 4px 6px;
-  font-size: 11px;
-  height: 28px;
-}
-
-.invalid-feedback {
-  display: block;
-  width: 100%;
-  margin-top: 2px;
-  font-size: 10px;
-  color: #e74c3c;
-}
-
-/* Type Badge */
 .type-badge {
-  padding: 2px 6px;
+  display: inline-block;
+  padding: 3px 8px;
   border-radius: 3px;
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .type-badge.invoice {
   background: #e3f2fd;
   color: #1976d2;
+  border: 1px solid #90caf9;
 }
 
 .type-badge.manual {
   background: #fff3e0;
   color: #f57c00;
+  border: 1px solid #ffb74d;
 }
 
 .type-badge.mou {
   background: #e8f5e9;
   color: #2e7d32;
+  border: 1px solid #81c784;
 }
 
-/* Compact No Lines State */
+/* ===================================== */
+/* EMPTY STATE */
+/* ===================================== */
+
 .no-invoices {
   text-align: center;
   padding: 30px 20px;
@@ -1318,12 +1680,21 @@ export default {
   flex-wrap: wrap;
 }
 
-/* Compact Settlement Lines Table */
+/* ===================================== */
+/* SETTLEMENT LINES TABLE */
+/* ===================================== */
+
 .settlement-lines {
   background: white;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid #e9ecef;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
@@ -1335,18 +1706,32 @@ export default {
 
 .table th {
   background: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 2px solid #dee2e6;
   font-weight: 600;
-  padding: 6px 4px;
-  font-size: 10px;
+  padding: 8px 4px;
+  font-size: 11px;
   white-space: nowrap;
   text-align: center;
+  vertical-align: middle;
 }
 
 .table td {
-  padding: 4px;
+  padding: 6px 4px;
   vertical-align: middle;
   border-top: 1px solid #dee2e6;
+}
+
+/* Better table cell input/select sizing */
+.table td input.form-control-xs,
+.table td select.form-control-xs {
+  width: 100%;
+  min-width: 80px;
+}
+
+/* Transaction code column (5th column) */
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  min-width: 200px;
 }
 
 .line-number {
@@ -1356,24 +1741,22 @@ export default {
   font-size: 10px;
 }
 
-.amount-cell {
-  text-align: right;
-  font-weight: 500;
-  font-size: 10px;
-}
+/* ===================================== */
+/* ALLOCATION SUMMARY */
+/* ===================================== */
 
-/* Compact Allocation Summary */
 .allocation-summary {
   background: #f8f9fa;
-  padding: 10px;
-  border-top: 1px solid #dee2e6;
+  padding: 10px 15px;
+  border-top: 2px solid #dee2e6;
 }
 
 .totals-inline {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 600;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -1381,10 +1764,18 @@ export default {
 .total-item {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-/* Compact Buttons */
+.total-item strong {
+  color: #28a745;
+  font-size: 14px;
+}
+
+/* ===================================== */
+/* BUTTONS */
+/* ===================================== */
+
 .btn {
   padding: 6px 12px;
   border: none;
@@ -1403,21 +1794,45 @@ export default {
   background: #007bff;
   color: white;
 }
+
+.btn-primary:hover:not(:disabled) {
+  background: #0056b3;
+}
+
 .btn-secondary {
   background: #6c757d;
   color: white;
 }
+
+.btn-secondary:hover:not(:disabled) {
+  background: #545b62;
+}
+
 .btn-success {
   background: #28a745;
   color: white;
 }
+
+.btn-success:hover:not(:disabled) {
+  background: #218838;
+}
+
 .btn-info {
   background: #17a2b8;
   color: white;
 }
+
+.btn-info:hover:not(:disabled) {
+  background: #138496;
+}
+
 .btn-danger {
   background: #dc3545;
   color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c82333;
 }
 
 .btn-sm {
@@ -1437,8 +1852,9 @@ export default {
 }
 
 .btn:hover:not(:disabled) {
-  opacity: 0.9;
+  opacity: 0.95;
   transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn:disabled {
@@ -1447,7 +1863,10 @@ export default {
   transform: none;
 }
 
-/* Compact Footer */
+/* ===================================== */
+/* FOOTER */
+/* ===================================== */
+
 .dialog-footer {
   padding: 12px 20px;
   border-top: 1px solid #e9ecef;
@@ -1461,100 +1880,10 @@ export default {
   gap: 8px;
 }
 
-/* Compact Invoice Selector Modal */
-.invoice-selector-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1100;
-  padding: 20px;
-}
+/* ===================================== */
+/* RESPONSIVE DESIGN */
+/* ===================================== */
 
-.invoice-selector-modal {
-  background: white;
-  border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 800px;
-  max-height: 80vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-header {
-  padding: 12px 15px;
-  border-bottom: 1px solid #e9ecef;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f8f9fa;
-}
-
-.modal-header h5 {
-  margin: 0;
-  color: #333;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.modal-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 15px;
-}
-
-.invoice-filters {
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #f8f9fa;
-  border-radius: 4px;
-}
-
-.filter-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.invoice-list {
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid #e9ecef;
-  border-radius: 4px;
-}
-
-.table-hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
-.selected-row {
-  background-color: rgba(23, 162, 184, 0.1) !important;
-}
-
-.no-data {
-  text-align: center;
-  padding: 30px 20px;
-  color: #666;
-  font-size: 13px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 12px 15px;
-  border-top: 1px solid #e9ecef;
-  background: #f8f9fa;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
@@ -1570,8 +1899,6 @@ export default {
   }
 
   .section-actions {
-    flex-direction: column;
-    align-items: flex-start;
     width: 100%;
   }
 
@@ -1596,28 +1923,26 @@ export default {
     justify-content: center;
   }
 
-  .invoice-selector-modal {
-    max-width: 95vw;
-  }
-
-  .filter-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .invoice-list {
-    overflow-x: auto;
-  }
-
-  .table {
-    min-width: 600px;
-  }
-
   .action-buttons {
     flex-direction: column;
   }
 
   .action-buttons .btn {
     width: 100%;
+  }
+
+  .table-responsive {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+  }
+
+  .table {
+    min-width: 900px;
+  }
+
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    min-width: 180px;
   }
 }
 
@@ -1638,16 +1963,21 @@ export default {
     display: none;
   }
 
-  .dialog-body {
-    padding: 0;
-  }
-
   .form-section {
     padding: 12px;
   }
 
   .dialog-footer {
     padding: 10px 15px;
+  }
+
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    min-width: 150px;
+  }
+
+  select.form-control-xs option {
+    font-size: 10px;
   }
 }
 </style>

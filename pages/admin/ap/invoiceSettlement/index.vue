@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="ap-settlement-container">
+  <div>
     <!-- Header Section -->
     <v-row>
       <v-col cols="12">
@@ -239,6 +239,7 @@
       :visible="showDialog"
       :currencies="currencies"
       :settlement="selectedSettlement"
+      :gl-accounts="glAccounts"
       :outstanding-invoices="outstandingInvoices"
       :user="user"
       @close="closeDialog"
@@ -437,7 +438,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -450,6 +451,7 @@ export default {
 
   data() {
     return {
+      glAccounts: [],
       currencies: [],
       statusFilter: '',
       statusOptions: [
@@ -594,9 +596,18 @@ export default {
 
   created() {
     this.getOutstandingInvoices(false)
+    this.fetchAccountCharts()
   },
 
   methods: {
+    async fetchAccountCharts() {
+      try {
+        const { data } = await this.$axios.get('/api/accountChart/find')
+        this.glAccounts = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
     getStatusInLao(status) {
       if (!status) return 'N/A'
       return this.statusLabels[status] || status.toUpperCase()

@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div>
         <div>
             <v-dialog v-model="dialog" persistent width="1024">
                 <ap-payment :is-edit="isEdit" :payment-head-id="selectedId" @close="triggerDialog" :key="apFormKey"

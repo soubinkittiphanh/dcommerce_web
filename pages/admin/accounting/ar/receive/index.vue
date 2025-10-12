@@ -1,6 +1,7 @@
 <template>
-  <v-container fluid class="receive-summary-container">
-    <!-- Header Section -->
+  <!-- <v-container fluid class="receive-summary-container"> -->
+  <!-- Header Section -->
+  <div>
     <v-row>
       <v-col cols="12">
         <v-card>
@@ -98,12 +99,9 @@
 
           <v-data-table
             :headers="headers"
-            :items="paginatedReceipts"
+            :items="filteredReceipts"
             :loading="loading"
-            :items-per-page.sync="pagination.perPage"
-            :page.sync="pagination.currentPage"
-            :server-items-length="filteredReceipts.length"
-            hide-default-footer
+            :items-per-page="10"
             class="elevation-0"
             loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
             no-data-text="ບໍ່ມີຂໍ້ມູນ"
@@ -112,7 +110,11 @@
             <template v-slot:item.receiptNumber="{ item }">
               <div>
                 <div class="font-weight-bold">{{ item.receiptNumber }}</div>
-                <div v-if="item.notes" class="text-caption grey--text text-truncate" style="max-width: 150px;">
+                <div
+                  v-if="item.notes"
+                  class="text-caption grey--text text-truncate"
+                  style="max-width: 150px"
+                >
                   {{ item.notes }}
                 </div>
               </div>
@@ -120,12 +122,16 @@
 
             <!-- Booking Date -->
             <template v-slot:item.bookingDate="{ item }">
-              <span class="text-caption">{{ formatDate(item.bookingDate) }}</span>
+              <span class="text-caption">{{
+                formatDate(item.bookingDate)
+              }}</span>
             </template>
 
             <!-- Received Date -->
             <template v-slot:item.receivedDate="{ item }">
-              <span class="text-caption">{{ formatDate(item.receivedDate) }}</span>
+              <span class="text-caption">{{
+                formatDate(item.receivedDate)
+              }}</span>
             </template>
 
             <!-- Invoice -->
@@ -135,7 +141,10 @@
                   <v-icon x-small class="mr-1">mdi-file-invoice</v-icon>
                   {{ item.invoiceHeader.invoiceNumber }}
                 </div>
-                <div v-if="item.invoiceHeader.customer" class="text-caption grey--text">
+                <div
+                  v-if="item.invoiceHeader.customer"
+                  class="text-caption grey--text"
+                >
                   {{ item.invoiceHeader.customer.name }}
                 </div>
               </div>
@@ -145,8 +154,13 @@
             <!-- Total Received Amount -->
             <template v-slot:item.totalReceivedAmount="{ item }">
               <div class="text-right">
-                <div class="font-weight-bold">{{ formatCurrency(item.totalReceivedAmount) }}</div>
-                <div v-if="item.receiveLines?.length > 0" class="text-caption grey--text">
+                <div class="font-weight-bold">
+                  {{ formatCurrency(item.totalReceivedAmount) }}
+                </div>
+                <div
+                  v-if="item.receiveLines?.length > 0"
+                  class="text-caption grey--text"
+                >
                   {{ item.receiveLines.length }} ການແບ່ງປັນ
                 </div>
               </div>
@@ -165,7 +179,10 @@
 
             <!-- Reference Number -->
             <template v-slot:item.referenceNumber="{ item }">
-              <span class="text-caption font-weight-medium" style="font-family: monospace;">
+              <span
+                class="text-caption font-weight-medium"
+                style="font-family: monospace"
+              >
                 {{ item.referenceNumber || '-' }}
               </span>
             </template>
@@ -173,7 +190,9 @@
             <!-- Inputter -->
             <template v-slot:item.inputter="{ item }">
               <div class="text-caption">
-                <div>{{ item.inputter?.username || item.maker?.username || 'N/A' }}</div>
+                <div>
+                  {{ item.inputter?.username || item.maker?.username || 'N/A' }}
+                </div>
                 <div v-if="item.createdAt" class="grey--text">
                   {{ formatDate(item.createdAt) }}
                 </div>
@@ -213,36 +232,6 @@
               </v-menu>
             </template>
           </v-data-table>
-
-          <!-- Custom Pagination -->
-          <v-card-text class="pa-3">
-            <v-row align="center" justify="space-between">
-              <v-col cols="12" md="6">
-                <div class="text-caption grey--text">
-                  ສະແດງ {{ paginationInfo.start }} ເຖິງ {{ paginationInfo.end }} ຈາກ {{ paginationInfo.total }} ລາຍການ
-                </div>
-              </v-col>
-              <v-col cols="12" md="6" class="d-flex justify-end align-center">
-                <v-select
-                  v-model="pagination.perPage"
-                  :items="[10, 25, 50, 100]"
-                  label="ຈຳນວນຕໍ່ໜ້າ"
-                  dense
-                  outlined
-                  hide-details
-                  style="max-width: 100px;"
-                  class="mr-3"
-                  @change="updatePagination"
-                />
-                <v-pagination
-                  v-model="pagination.currentPage"
-                  :length="totalPages"
-                  :total-visible="7"
-                  circle
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -252,7 +241,9 @@
       <ReceiveHeaderMaintain
         :visible="showEditDialog"
         :receipt="selectedReceipt"
+        :gl-accounts="glAccounts"
         :invoices="invoices"
+        :currencies="currencies"
         :users="users"
         @close="closeEditDialog"
         @save="onReceiptSave"
@@ -267,7 +258,8 @@
         @close="closeViewDialog"
       />
     </client-only>
-  </v-container>
+  </div>
+  <!-- </v-container> -->
 </template>
 
 <script>
@@ -283,6 +275,8 @@ export default {
 
   data() {
     return {
+      currencies: [],
+      glAccounts: [],
       showEditDialog: false,
       showViewDialog: false,
       selectedReceipt: null,
@@ -318,15 +312,63 @@ export default {
       ],
 
       headers: [
-        { text: 'ເລກທີໃບຮັບ', value: 'receiptNumber', sortable: true, width: '180px' },
-        { text: 'ວັນທີບັນທຶກ', value: 'bookingDate', sortable: true, width: '120px' },
-        { text: 'ວັນທີຮັບເງິນ', value: 'receivedDate', sortable: true, width: '120px' },
-        { text: 'ໃບແຈ້ງໜີ້', value: 'invoice', sortable: false, width: '200px' },
-        { text: 'ຍອດເງິນ', value: 'totalReceivedAmount', sortable: true, align: 'end', width: '150px' },
-        { text: 'ວິທີຈ່າຍ', value: 'paymentMethod', sortable: true, width: '130px', align: 'center' },
-        { text: 'ເລກອ້າງອີງ', value: 'referenceNumber', sortable: false, width: '120px' },
-        { text: 'ຜູ້ບັນທຶກ', value: 'inputter', sortable: false, width: '150px' },
-        { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, width: '80px', align: 'center' },
+        {
+          text: 'ເລກທີໃບຮັບ',
+          value: 'receiptNumber',
+          sortable: true,
+          width: '180px',
+        },
+        {
+          text: 'ວັນທີບັນທຶກ',
+          value: 'bookingDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ວັນທີຮັບເງິນ',
+          value: 'receivedDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ໃບແຈ້ງໜີ້',
+          value: 'invoice',
+          sortable: false,
+          width: '200px',
+        },
+        {
+          text: 'ຍອດເງິນ',
+          value: 'totalReceivedAmount',
+          sortable: true,
+          align: 'end',
+          width: '150px',
+        },
+        {
+          text: 'ວິທີຈ່າຍ',
+          value: 'paymentMethod',
+          sortable: true,
+          width: '130px',
+          align: 'center',
+        },
+        {
+          text: 'ເລກອ້າງອີງ',
+          value: 'referenceNumber',
+          sortable: false,
+          width: '120px',
+        },
+        {
+          text: 'ຜູ້ບັນທຶກ',
+          value: 'inputter',
+          sortable: false,
+          width: '150px',
+        },
+        {
+          text: 'ຟັງຊັ່ນ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+          align: 'center',
+        },
       ],
     }
   },
@@ -347,7 +389,8 @@ export default {
     },
 
     paginationInfo() {
-      const start = (this.pagination.currentPage - 1) * this.pagination.perPage + 1
+      const start =
+        (this.pagination.currentPage - 1) * this.pagination.perPage + 1
       const end = Math.min(
         start + this.pagination.perPage - 1,
         this.filteredReceipts.length
@@ -364,14 +407,32 @@ export default {
     this.fetchReceipts()
     this.fetchInvoices()
     this.fetchUsers()
+    this.fetchAccountCharts()
+    this.fetchCurrencies()
   },
 
   methods: {
+    async fetchCurrencies() {
+      try {
+        const { data } = await this.$axios.get('/api/currency/find')
+        this.currencies = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async fetchAccountCharts() {
+      try {
+        const { data } = await this.$axios.get('/api/accountChart/find')
+        this.glAccounts = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async fetchReceipts() {
       this.loading = true
       try {
         const { data } = await this.$axios.get('/api/ar-receive-headers', {
-          params: { page: 1, limit: 1000 }
+          params: { page: 1, limit: 1000 },
         })
 
         if (data?.success) {
@@ -449,7 +510,10 @@ export default {
             receiptData
           )
         } else {
-          response = await this.$axios.post('/api/ar-receive-headers', receiptData)
+          response = await this.$axios.post(
+            '/api/ar-receive-headers',
+            receiptData
+          )
         }
 
         if (response.data?.success) {
@@ -481,14 +545,20 @@ export default {
       }
 
       if (this.filters.paymentMethod) {
-        filtered = filtered.filter((r) => r.paymentMethod === this.filters.paymentMethod)
+        filtered = filtered.filter(
+          (r) => r.paymentMethod === this.filters.paymentMethod
+        )
       }
 
       if (this.filters.bookingDateFrom || this.filters.bookingDateTo) {
         filtered = filtered.filter((r) => {
           const bookingDate = new Date(r.bookingDate)
-          const dateFrom = this.filters.bookingDateFrom ? new Date(this.filters.bookingDateFrom) : null
-          const dateTo = this.filters.bookingDateTo ? new Date(this.filters.bookingDateTo) : null
+          const dateFrom = this.filters.bookingDateFrom
+            ? new Date(this.filters.bookingDateFrom)
+            : null
+          const dateTo = this.filters.bookingDateTo
+            ? new Date(this.filters.bookingDateTo)
+            : null
 
           if (dateFrom && bookingDate < dateFrom) return false
           if (dateTo && bookingDate > dateTo) return false
@@ -520,7 +590,15 @@ export default {
     },
 
     convertToCSV(data) {
-      const headers = ['Receipt Number', 'Booking Date', 'Received Date', 'Invoice', 'Amount', 'Payment Method', 'Reference']
+      const headers = [
+        'Receipt Number',
+        'Booking Date',
+        'Received Date',
+        'Invoice',
+        'Amount',
+        'Payment Method',
+        'Reference',
+      ]
       const csvContent = [
         headers.join(','),
         ...data.map((row) =>

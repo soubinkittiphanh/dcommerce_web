@@ -588,6 +588,13 @@
     "_name": "_f3186e02"
   },
   {
+    "name": "admin-transaction_code",
+    "path": "/admin/transaction_code",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/transaction_code/index.vue",
+    "chunkName": "pages/admin/transaction_code/index",
+    "_name": "_558cfc21"
+  },
+  {
     "name": "admin-transfer",
     "path": "/admin/transfer",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/transfer/index.vue",
