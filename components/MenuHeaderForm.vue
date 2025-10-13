@@ -52,6 +52,7 @@
                 label="ເມນູຍ່ອຍ*"
                 v-model="menuLineSelected"
                 item-value="id"
+                item-text = 'name'
               >
                 <template v-slot:selection="{ item }">
                   {{ item.name }} (ID: {{ item.id }}) (: {{ item.llname }})

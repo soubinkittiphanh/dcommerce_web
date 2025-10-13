@@ -727,7 +727,7 @@ export default {
         currencyId: null,
         paymentMethodId: '',
         exchangeRate: 1.0,
-        bankAccountId: '',
+        bankAccountId: null,
         reference: '',
         description: '',
         status: 'draft',
@@ -991,7 +991,7 @@ export default {
         exchangeRate: settlement.exchangeRate || 1.0,
         bankAccountId: settlement.bankAccountId
           ? Number(settlement.bankAccountId)
-          : '',
+          : null,
         reference: settlement.reference || '',
         description: settlement.description || '',
         status: settlement.status || 'draft',
@@ -1058,7 +1058,7 @@ export default {
         currencyId: '',
         paymentMethodId: '',
         exchangeRate: 1.0,
-        bankAccountId: '',
+        bankAccountId: null,
         reference: '',
         description: '',
         status: 'draft',

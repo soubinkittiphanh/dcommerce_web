@@ -175,7 +175,29 @@
             {{ truncateText(item.address, 20) }}
           </div>
         </template> -->
+<!-- Deposit Amount Column -->
+<template v-slot:item.depositAmount="{ item }">
+  <div class="contact-details">
+    <v-icon small left>mdi-cash</v-icon>
+    {{ formatCurrency(item.depositAmount) }}
+  </div>
+</template>
 
+<!-- Refund Status Column -->
+<template v-slot:item.isRefund="{ item }">
+  <v-chip
+    small
+    :color="item.isRefund ? 'success' : 'warning'"
+    text-color="white"
+    @click="toggleRefund(item)"
+    style="cursor: pointer"
+  >
+    <v-icon left small>
+      {{ item.isRefund ? 'mdi-cash-refund' : 'mdi-cash-clock' }}
+    </v-icon>
+    {{ item.isRefund ? 'ຄືນແລ້ວ' : 'ຍັງບໍ່ຄືນ' }}
+  </v-chip>
+</template>
         <!-- Passport Column -->
         <template v-slot:item.passportAvailability="{ item }">
           <v-chip
@@ -194,11 +216,15 @@
           </v-chip>
         </template>
 
-         <!-- Passport Column -->
+        <!-- Passport Column -->
         <template v-slot:item.passportRecieve="{ item }">
           <v-chip
             small
-            :color="item.passportRecieve === true || item.passportRecieve === 'true' ? 'success' : 'error'"
+            :color="
+              item.passportRecieve === true || item.passportRecieve === 'true'
+                ? 'success'
+                : 'error'
+            "
             text-color="white"
           >
             <v-icon left small>
@@ -208,7 +234,11 @@
                   : 'mdi-close-circle'
               }}
             </v-icon>
-            {{ item.passportRecieve === true || item.passportRecieve === 'true' ? 'ຮັບ' : 'ຍັງບໍ່ຮັບ' }}
+            {{
+              item.passportRecieve === true || item.passportRecieve === 'true'
+                ? 'ຮັບ'
+                : 'ຍັງບໍ່ຮັບ'
+            }}
           </v-chip>
         </template>
 
@@ -270,7 +300,6 @@ export default {
       headers: [
         { text: 'ID', value: 'id', sortable: true },
         { text: 'ຊື່ຜູ້ສະໝັກ', value: 'name', sortable: true },
-        // { text: 'Job Batch', value: 'jobBatch', sortable: false },
         { text: 'ເພດ', value: 'gender', sortable: true },
         { text: 'ອາຍຸ', value: 'age', sortable: true },
         { text: 'ຕິດຕໍ່', value: 'phone', sortable: false },
@@ -286,9 +315,11 @@ export default {
           sortable: false,
         },
         { text: 'ຕົວແທນສັນຫາ', value: 'agency', sortable: false },
+        { text: 'ມັດຈຳ', value: 'depositAmount', sortable: true },
+        { text: 'ຄືນມັດຈຳ', value: 'isRefund', sortable: true },
         { text: 'ໜັງສືເດີນທາງ', value: 'passportAvailability', sortable: true },
-        { text: 'ສະຖານະ', value: 'status', sortable: true },
         { text: 'ຮັບພາດສະປອດແລ້ວ', value: 'passportRecieve', sortable: true },
+        { text: 'ສະຖານະ', value: 'status', sortable: true },
         { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, align: 'center' },
       ],
       genderOptions: [
@@ -325,6 +356,39 @@ export default {
   },
 
   methods: {
+    formatCurrency(amount) {
+    if (!amount) return '0 ກີບ'
+    return new Intl.NumberFormat('lo-LA').format(amount) + ' ກີບ'
+  },
+
+  async toggleRefund(applicant) {
+    try {
+      const newRefundStatus = !applicant.isRefund
+      const confirmMessage = newRefundStatus
+        ? 'ຢືນຢັນການຄືນມັດຈຳ?'
+        : 'ຍົກເລີກການຄືນມັດຈຳ?'
+
+      if (!confirm(confirmMessage)) return
+
+      this.loading = true
+      const response = await this.$axios.put(
+        `/api/applicants/${applicant.id}`,
+        { isRefund: newRefundStatus }
+      )
+
+      if (response.data?.success) {
+        applicant.isRefund = newRefundStatus
+        this.$toast?.success(
+          newRefundStatus ? 'ຄືນມັດຈຳສຳເລັດ' : 'ຍົກເລີກການຄືນມັດຈຳແລ້ວ'
+        )
+      }
+    } catch (error) {
+      console.error('Error toggling refund:', error)
+      this.$toast?.error('ການດຳເນີນການບໍ່ສຳເລັດ')
+    } finally {
+      this.loading = false
+    }
+  },
     async loadJobBatches() {
       try {
         const { data } = await this.$axios.get('/api/batch-job')

@@ -2734,7 +2734,7 @@ var VSpacer = __webpack_require__(388);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MenuHeaderForm.vue?vue&type=template&id=dd80bef8&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MenuHeaderForm.vue?vue&type=template&id=3dec80e1&
 
 
 
@@ -2752,7 +2752,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var MenuHeaderFormvue_type_template_id_dd80bef8_render = function render() {
+var MenuHeaderFormvue_type_template_id_3dec80e1_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2882,7 +2882,8 @@ var MenuHeaderFormvue_type_template_id_dd80bef8_render = function render() {
     attrs: {
       "items": _vm.menuLineList,
       "label": "ເມນູຍ່ອຍ*",
-      "item-value": "id"
+      "item-value": "id",
+      "item-text": "name"
     },
     scopedSlots: _vm._u([{
       key: "selection",
@@ -2978,7 +2979,7 @@ var MenuHeaderFormvue_type_template_id_dd80bef8_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/MenuHeaderForm.vue?vue&type=template&id=dd80bef8&
+// CONCATENATED MODULE: ./components/MenuHeaderForm.vue?vue&type=template&id=3dec80e1&
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -3114,7 +3115,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_MenuHeaderFormvue_type_script_lang_js_,
-  MenuHeaderFormvue_type_template_id_dd80bef8_render,
+  MenuHeaderFormvue_type_template_id_3dec80e1_render,
   staticRenderFns,
   false,
   null,

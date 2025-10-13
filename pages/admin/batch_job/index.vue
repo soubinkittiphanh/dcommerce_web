@@ -128,14 +128,14 @@
             no-data-text="ບໍ່ມີຂໍ້ມູນ"
           >
             <!-- Running Number -->
-            <template v-slot:item.runningNo="{ item }">
-              <div class="d-flex align-center">
-                <v-icon x-small color="grey" class="mr-1">mdi-numeric</v-icon>
-                <v-chip x-small color="grey lighten-1" text-color="white">
-                  {{ item.runningNo }}
-                </v-chip>
-              </div>
-            </template>
+   <template v-slot:item.runningNo="{ item }">
+  <div class="d-flex align-center">
+    <v-icon small color="primary" class="mr-2">mdi-numeric</v-icon>
+    <v-chip small color="primary" text-color="white" class="font-weight-bold">
+      {{ item.runningNo }}
+    </v-chip>
+  </div>
+</template>
 
             <!-- MOU Information -->
             <template v-slot:item.mou="{ item }">
@@ -247,6 +247,25 @@
                   :class="{ 'error--text': isOverdue(item.batchEndDate) }"
                 >
                   {{ formatDate(item.batchEndDate) }}
+                </span>
+                <span v-else class="text-caption grey--text">ບໍ່ມີ</span>
+              </div>
+            </template>
+            <template v-slot:item.batchDeliveryDate="{ item }">
+              <div class="d-flex align-center">
+                <v-icon
+                  x-small
+                  :color="isOverdue(item.batchDeliveryDate) ? 'error' : 'warning'"
+                  class="mr-1"
+                >
+                  mdi-calendar-end
+                </v-icon>
+                <span
+                  v-if="item.batchDeliveryDate"
+                  class="text-caption"
+                  :class="{ 'error--text': isOverdue(item.batchDeliveryDate) }"
+                >
+                  {{ formatDate(item.batchDeliveryDate) }}
                 </span>
                 <span v-else class="text-caption grey--text">ບໍ່ມີ</span>
               </div>
@@ -431,6 +450,12 @@ export default {
         {
           text: 'ວັນສິ້ນສຸດ',
           value: 'batchEndDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ວັນທີຈັດສົ່ງແຮງງານ',
+          value: 'batchDeliveryDate',
           sortable: true,
           width: '120px',
         },

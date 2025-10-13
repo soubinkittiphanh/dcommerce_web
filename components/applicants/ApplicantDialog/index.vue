@@ -62,7 +62,12 @@
                   </div>
                   <div class="summary-row">
                     <strong>ວຽກທີ່ສະໝັກ:</strong>
-                    <span>{{ selectedBatch.mou.jobTitle || 0 }} ຄົນ</span>
+                    <span
+                      >{{ selectedBatch.mou.jobTitle || '-' }} ({{
+                        selectedBatch.mou.numberOfWorkers || 0
+                      }}
+                      ຄົນ)</span
+                    >
                   </div>
                   <div class="summary-row" v-if="selectedBatch.mou">
                     <strong>ສະຖານທີ່ເຮັດວຽກ:</strong>
@@ -307,6 +312,12 @@
                     :loading="loadingCurrencies"
                   />
                 </div>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" v-model="formData.isRefund" />
+                    <i class="fas fa-hand-holding-usd"></i> ຄືນມັດຈຳ
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -513,6 +524,7 @@ export default {
         phone: '',
         emergencyContactNo: '',
         depositAmount: '',
+        isRefund: false,
         address: '',
         village: '',
         city: '',
@@ -651,6 +663,7 @@ export default {
           city: a.city || '',
           district: a.district || '',
           depositAmount: a.depositAmount || 0,
+          isRefund: a.isRefund || false,
           passportAvailability: a.passportAvailability || false,
           passportRecieve: a.passportRecieve || false,
           passportNo: a.passportNo || '',
@@ -1013,7 +1026,7 @@ export default {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
@@ -1123,6 +1136,9 @@ export default {
 }
 
 @media (max-width: 1024px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .split-layout {
     grid-template-columns: 1fr;
   }
