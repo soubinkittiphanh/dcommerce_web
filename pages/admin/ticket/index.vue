@@ -1,7 +1,7 @@
 <template>
-  <div class="tickets-listing-container">
+  <div>
     <!-- Header -->
-    <div class="page-header">
+    <v-row>
       <h1>Tickets Management</h1>
       <div class="header-actions">
         <div class="search-filter">
@@ -42,7 +42,7 @@
           <span class="refresh-icon">↻</span> Refresh
         </button>
       </div>
-    </div>
+    </v-row>
 
     <!-- Stats Summary -->
     <div class="stats-summary">
@@ -1068,6 +1068,7 @@ export default {
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 20px;
+  padding-right: 20px;
   border-bottom: 2px solid #e9ecef;
 }
 
