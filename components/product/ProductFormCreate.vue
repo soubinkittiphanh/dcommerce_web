@@ -217,6 +217,15 @@
               />
             </v-col>
             <v-col cols="3">
+              <v-switch
+                v-model.number="formData.validateStockOnSale"
+                label="ກວດສຕັອກກ່ອນຂາຍ"
+                dense
+                hide-details
+                color="success"
+              />
+            </v-col>
+            <v-col cols="3">
               <v-btn
                 small
                 color="primary"
@@ -405,6 +414,7 @@ export default {
         saleCurrencyId: 1,
         costCurrencyId: 1,
         isActive: true,
+        validateStockOnSale: true,
         vendorName:'',
       },
       companyList: [],

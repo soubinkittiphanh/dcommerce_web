@@ -1,7 +1,7 @@
-exports.ids = [33];
+exports.ids = [36];
 exports.modules = {
 
-/***/ 1297:
+/***/ 1327:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,10 +9,10 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendar.js + 16 modules
-var VCalendar = __webpack_require__(851);
+var VCalendar = __webpack_require__(876);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(386);
+var VContainer = __webpack_require__(389);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/calendar/MyCalendar.vue?vue&type=template&id=1770570a&
 
@@ -122,7 +122,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 400:
+/***/ 403:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -143,7 +143,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 401:
+/***/ 404:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -196,7 +196,7 @@ function isLeapYear(year) {
 
 /***/ }),
 
-/***/ 405:
+/***/ 408:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -255,7 +255,7 @@ function isLeapYear(year) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(401);
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(404);
 
 const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
@@ -653,13 +653,13 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 513:
+/***/ 517:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(571);
+var content = __webpack_require__(580);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -667,13 +667,13 @@ __webpack_require__(5).default("44d02f7c", content, true)
 
 /***/ }),
 
-/***/ 569:
+/***/ 578:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(570);
+var content = __webpack_require__(579);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -681,7 +681,7 @@ __webpack_require__(5).default("6bd7c8b4", content, true)
 
 /***/ }),
 
-/***/ 570:
+/***/ 579:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -696,7 +696,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 571:
+/***/ 580:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -711,13 +711,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 572:
+/***/ 581:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(573);
+var content = __webpack_require__(582);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -725,7 +725,7 @@ __webpack_require__(5).default("2f91f78c", content, true)
 
 /***/ }),
 
-/***/ 573:
+/***/ 582:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -740,13 +740,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 574:
+/***/ 583:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(575);
+var content = __webpack_require__(584);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -754,7 +754,7 @@ __webpack_require__(5).default("b9d8c43c", content, true)
 
 /***/ }),
 
-/***/ 575:
+/***/ 584:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -769,13 +769,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 851:
+/***/ 876:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/mixins/calendar-with-events.sass
-var calendar_with_events = __webpack_require__(569);
+var calendar_with_events = __webpack_require__(578);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/ripple/index.js
 var ripple = __webpack_require__(17);
@@ -787,7 +787,7 @@ var mixins = __webpack_require__(2);
 var colorable = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(400);
+var localable = __webpack_require__(403);
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(1);
@@ -875,7 +875,7 @@ var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 var themeable = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var util_timestamp = __webpack_require__(405);
+var util_timestamp = __webpack_require__(408);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/mixins/times.js
 
@@ -2058,7 +2058,7 @@ const MINUTES_IN_DAY = 1440;
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarWeekly.sass
-var VCalendarWeekly = __webpack_require__(513);
+var VCalendarWeekly = __webpack_require__(517);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(20);
@@ -2067,7 +2067,7 @@ var VBtn = __webpack_require__(20);
 var helpers = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(401);
+var dateTimeUtils = __webpack_require__(404);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendarWeekly.js
 // Styles
@@ -2284,7 +2284,7 @@ var dateTimeUtils = __webpack_require__(401);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarDaily.sass
-var VCalendarDaily = __webpack_require__(572);
+var VCalendarDaily = __webpack_require__(581);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/mixins/calendar-with-intervals.js
 // Mixins
@@ -2659,7 +2659,7 @@ var VCalendarDaily = __webpack_require__(572);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarCategory.sass
-var VCalendarCategory = __webpack_require__(574);
+var VCalendarCategory = __webpack_require__(583);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/parser.js
 function parsedCategoryText(category, categoryText) {

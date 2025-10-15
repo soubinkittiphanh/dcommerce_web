@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>STOCK MANAGEMENT</h1>
+    <h1>ລາຍການ ສະຕັອກສິນຄ້າ</h1>
     <v-dialog v-model="dialogMessage" max-width="300px">
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
@@ -12,6 +12,78 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
+
+    <!-- Summary Cards -->
+    <v-row class="mb-4">
+      <v-col cols="12" sm="6" md="3">
+        <v-card class="pa-4" color="success" dark>
+          <v-card-title class="text-h6">ພ້ອມໃຊ້</v-card-title>
+          <v-card-text>
+            <div class="text-h4">{{ summaryStats.available }}</div>
+            <div class="text-caption">{{ summaryStats.availablePercent }}% ຂອງທັງຫມົດ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
+        <v-card class="pa-4" color="warning" dark>
+          <v-card-title class="text-h6">ໃຊ້ງານແລ້ວ</v-card-title>
+          <v-card-text>
+            <div class="text-h4">{{ summaryStats.used }}</div>
+            <div class="text-caption">{{ summaryStats.usedPercent }}% ຂອງທັງຫມົດ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
+        <v-card class="pa-4" color="error" dark>
+          <v-card-title class="text-h6">ຖືກລົບ</v-card-title>
+          <v-card-text>
+            <div class="text-h4">{{ summaryStats.deleted }}</div>
+            <div class="text-caption">{{ summaryStats.deletedPercent }}% ຂອງທັງຫມົດ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6" md="3">
+        <v-card class="pa-4" color="primary" dark>
+          <v-card-title class="text-h6">ມູນຄ່າລວມ</v-card-title>
+          <v-card-text>
+            <div class="text-h4">{{ formatNumber(summaryStats.totalCost) }}</div>
+            <div class="text-caption">ກີບ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Cost Analysis Cards -->
+    <v-row class="mb-4">
+      <v-col cols="12" md="4">
+        <v-card class="pa-4">
+          <v-card-title class="text-subtitle-1">ມູນຄ່າສິນຄ້າພ້ອມໃຊ້</v-card-title>
+          <v-card-text>
+            <div class="text-h5 success--text">{{ formatNumber(summaryStats.availableCost) }}</div>
+            <div class="text-caption">ກີບ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-card class="pa-4">
+          <v-card-title class="text-subtitle-1">ມູນຄ່າສິນຄ້າໃຊ້ງານແລ້ວ</v-card-title>
+          <v-card-text>
+            <div class="text-h5 warning--text">{{ formatNumber(summaryStats.usedCost) }}</div>
+            <div class="text-caption">ກີບ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-card class="pa-4">
+          <v-card-title class="text-subtitle-1">ມູນຄ່າສິນຄ້າຖືກລົບ</v-card-title>
+          <v-card-text>
+            <div class="text-h5 error--text">{{ formatNumber(summaryStats.deletedCost) }}</div>
+            <div class="text-caption">ກີບ</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
     <v-card>
       <v-card-title>
         <v-row>
@@ -80,9 +152,6 @@
               single-line
               hide-detailsx
             />
-            <!-- <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary" rounded>
-                <span class="mdi mdi-microsoft-excel"></span>Generate excel file
-              </v-btn> -->
             <v-text-field
               v-model="userId"
               append-icon="mdi-magnify"
@@ -90,50 +159,86 @@
               single-line
               hide-detailsx
             />
-            <v-btn
-              @click="fetchData"
-              class="primary"
-              size="large"
-              variant="outlined"
-              rounded
-            >
-              ດຶງລາຍງານ
-            </v-btn>
+            <v-row>
+              <v-col>
+                <v-btn
+                  @click="fetchData"
+                  class="primary"
+                  size="large"
+                  variant="outlined"
+                  rounded
+                  block
+                >
+                  <v-icon left>mdi-reload</v-icon>
+                  ດຶງລາຍງານ
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn
+                  @click="exportToExcel"
+                  class="success"
+                  size="large"
+                  variant="outlined"
+                  rounded
+                  block
+                >
+                  <v-icon left>mdi-microsoft-excel</v-icon>
+                  Export
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="statusFilter"
+              :items="statusOptions"
+              label="ກັ່ນຕອງສະຖານະ"
+              @change="applyFilters"
+              clearable
+            ></v-select>
           </v-col>
         </v-row>
       </v-card-title>
       <v-data-table
-        v-if="loaddata"
+        v-if="filteredData"
         :headers="headers"
         :search="search"
-        :items="loaddata"
+        :items="filteredData"
+        :items-per-page="15"
+        class="elevation-1"
       >
-      <template v-slot:[`item.cost`]="{ item }">
-          {{ formatNumber(item.cost) }}
+        <template v-slot:[`item.cost`]="{ item }">
+          <span class="font-weight-bold">{{ formatNumber(item.cost) }}</span>
+        </template>
+        <template v-slot:[`item.status`]="{ item }">
+          <v-chip
+            :color="getStatusColor(item.status)"
+            dark
+            small
+          >
+            {{ item.status }}
+          </v-chip>
         </template>
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title
-              >ສິນຄ້າທັງຫມົດ: {{ loaddata.length }}</v-toolbar-title
-            >
+            <v-toolbar-title>
+              ສິນຄ້າທັງຫມົດ: {{ filteredData.length }} 
+              <span v-if="statusFilter" class="text-caption">
+                (ກັ່ນຕອງ: {{ statusFilter }})
+              </span>
+            </v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <!-- <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              @click="
-                dialogForm = true
-                isedit = false
-              "
-            >
-              ສ້າງໃຫມ່
-            </v-btn> -->
           </v-toolbar>
         </template>
         <template v-slot:[`item.function`]="{ item }">
-          <v-btn v-if="item.status === 'ພ້ອມໃຊ້'" @click="delCard(item)">
-            <i class="fas fa-trash"></i>
+          <v-btn
+            v-if="item.status === 'ພ້ອມໃຊ້'"
+            @click="delCard(item)"
+            color="error"
+            small
+          >
+            <v-icon small>mdi-delete</v-icon>
           </v-btn>
         </template>
       </v-data-table>
@@ -146,9 +251,7 @@ import { getFormatNum } from '~/common'
 export default {
   middleware: 'auths',
   validate(data) {
-    // this.formData.pro_id = data.params.id
     console.log('MIXIN ID: ' + data.params.id)
-    console.log('PRO DEFUALT ID: ' + this.pro_id)
     return /^\d+$/.test(data.params.id)
   },
   watch: {
@@ -167,6 +270,10 @@ export default {
       this.dateFormatted2 = this.formatDate(this.date2)
       this.fetchData()
     },
+    loaddata() {
+      this.calculateSummaryStats()
+      this.applyFilters()
+    }
   },
   data() {
     return {
@@ -179,28 +286,43 @@ export default {
       userId: '',
       selectedStockProductId: '',
       loaddata: [],
+      filteredData: [],
       carddata: [],
       cardType: [],
       content: null,
       selectedCardType: '',
       search: '',
+      statusFilter: null,
+      statusOptions: ['ພ້ອມໃຊ້', 'ໃຊ້ງານແລ້ວ', 'ຖືກລົບ'],
+      summaryStats: {
+        available: 0,
+        used: 0,
+        deleted: 0,
+        totalCost: 0,
+        availableCost: 0,
+        usedCost: 0,
+        deletedCost: 0,
+        availablePercent: 0,
+        usedPercent: 0,
+        deletedPercent: 0
+      },
       menu1: false,
       menu2: false,
       headers: [
-        { text: 'id', align: 'center', value: 'card_id' },
+        { text: 'ID', align: 'center', value: 'card_id', width: '80px' },
         { text: 'ລະຫັດສິນຄ້າ', align: 'center', value: 'pro_id' },
-        // { text: 'card sequence', align: 'center', value: 'card_number' },
         { text: 'ຕົ້ນທຶນ', align: 'center', value: 'cost' },
         { text: 'ວັນທີ', align: 'center', value: 'input_date_time' },
         { text: 'Admin', align: 'center', value: 'inputter' },
         { text: 'ສະຖານະ', align: 'center', value: 'status' },
         { text: 'ຜູ້ລົບ', align: 'center', value: 'updater' },
-        { text: 'ເລລາລົບ', align: 'center', value: 'update_time' },
+        { text: 'ເວລາລົບ', align: 'center', value: 'update_time' },
         {
           text: 'ລົບ',
-          align: 'end',
+          align: 'center',
           value: 'function',
           sortable: false,
+          width: '100px'
         },
       ],
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -234,19 +356,61 @@ export default {
     formatNumber(value) {
       return getFormatNum(value)
     },
+    getStatusColor(status) {
+      switch(status) {
+        case 'ພ້ອມໃຊ້': return 'success'
+        case 'ໃຊ້ງານແລ້ວ': return 'warning'
+        case 'ຖືກລົບ': return 'error'
+        default: return 'grey'
+      }
+    },
+    calculateSummaryStats() {
+      const total = this.loaddata.length
+      const available = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').length
+      const used = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').length
+      const deleted = this.loaddata.filter(item => item.status === 'ຖືກລົບ').length
+
+      const totalCost = this.loaddata.reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
+      const availableCost = this.loaddata
+        .filter(item => item.status === 'ພ້ອມໃຊ້')
+        .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
+      const usedCost = this.loaddata
+        .filter(item => item.status === 'ໃຊ້ງານແລ້ວ')
+        .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
+      const deletedCost = this.loaddata
+        .filter(item => item.status === 'ຖືກລົບ')
+        .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
+
+      this.summaryStats = {
+        available,
+        used,
+        deleted,
+        totalCost,
+        availableCost,
+        usedCost,
+        deletedCost,
+        availablePercent: total > 0 ? ((available / total) * 100).toFixed(1) : 0,
+        usedPercent: total > 0 ? ((used / total) * 100).toFixed(1) : 0,
+        deletedPercent: total > 0 ? ((deleted / total) * 100).toFixed(1) : 0
+      }
+    },
+    applyFilters() {
+      if (this.statusFilter) {
+        this.filteredData = this.loaddata.filter(item => item.status === this.statusFilter)
+      } else {
+        this.filteredData = this.loaddata
+      }
+    },
     async fetchData() {
       this.isloading = true
       const prodId = this.$route.params.id
       console.log('product_id: ' + prodId)
       await this.$axios
         .get(
-          `card_f/?pro_id=${prodId}&fDate=
-            ${this.date} 
-            &tDate=${this.date2}&userId=${this.userId}`
+          `card_f/?pro_id=${prodId}&fDate=${this.date}&tDate=${this.date2}&userId=${this.userId}`
         )
         .then((res) => {
           this.loaddata = res.data.map((el) => {
-            console.log(el.id)
             return {
               card_id: el.id,
               pro_id: el.product_id,
@@ -265,6 +429,8 @@ export default {
               function: el.id,
             }
           })
+          this.calculateSummaryStats()
+          this.applyFilters()
         })
         .catch((er) => {
           this.message = er
@@ -272,18 +438,6 @@ export default {
         })
       this.isloading = false
     },
-    // formatDate(date) {
-    //   if (!date) return null
-
-    //   const [year, month, day] = date.split('-')
-    //   return `${month}/${day}/${year}`
-    // },
-    // parseDate(date) {
-    //   if (!date) return null
-
-    //   const [month, day, year] = date.split('/')
-    //   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    // },
     formatDate(date) {
       if (!date) return null
       console.log('DATE FORMAT METHOD1: ' + date)
@@ -298,15 +452,26 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
     exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(this.activeOrderHeaderList);
-      const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-      this.$xlsx.writeFile(workbook, 'data.xlsx');
+      const exportData = this.filteredData.map(item => ({
+        'ID': item.card_id,
+        'ລະຫັດສິນຄ້າ': item.pro_id,
+        'ຕົ້ນທຶນ': item.cost,
+        'ວັນທີ': item.input_date_time,
+        'Admin': item.inputter,
+        'ສະຖານະ': item.status,
+        'ຜູ້ລົບ': item.updater,
+        'ເວລາລົບ': item.update_time
+      }))
+      
+      const worksheet = this.$xlsx.utils.json_to_sheet(exportData)
+      const workbook = this.$xlsx.utils.book_new()
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Stock Report')
+      this.$xlsx.writeFile(workbook, `stock_report_${this.date}_to_${this.date2}.xlsx`)
     },
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date)
       const year = date.getFullYear()
-      const month = `${date.getMonth() + 1}`.padStart(2, '0') // Months are 0-indexed
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
       const day = `${date.getDate()}`.padStart(2, '0')
       return `${year}-${month}-${day}`
     },
@@ -331,3 +496,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.text-h4 {
+  font-weight: bold;
+}
+</style>

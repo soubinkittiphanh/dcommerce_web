@@ -1,0 +1,480 @@
+<template>
+  <div
+    class="ticket-card"
+    :class="{ urgent: isUrgent }"
+    @click="$emit('click', ticket)"
+  >
+    <!-- Card Header -->
+    <div class="card-header">
+      <div class="ticket-number">
+        <span class="ticket-id">#{{ ticket.ticketNumber || ticket.id }}</span>
+        <span class="ticket-time">{{ formatTime(ticket.createdAt) }}</span>
+      </div>
+      <div class="ticket-badges">
+        <span :class="['status-badge', `status-${ticket.status}`]">
+          {{ formatStatus(ticket.status) }}
+        </span>
+        <span :class="['payment-badge', `payment-${ticket.paymentStatus}`]">
+          {{ formatPaymentStatus(ticket.paymentStatus) }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Customer & Table Info -->
+    <div class="card-info">
+      <div class="info-row">
+        <span class="info-label">Customer:</span>
+        <span class="info-value">{{ ticket.client?.name || 'Walk-in' }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Table:</span>
+        <span class="info-value">{{
+          ticket.table?.number || ticket.table?.name || 'N/A'
+        }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Items:</span>
+        <span class="info-value"
+          >{{ ticket.ticketLines?.length || 0 }} items</span
+        >
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="card-summary">
+      <div class="summary-total">
+        <span class="total-label">Total:</span>
+        <span class="total-amount">{{ formatPrice(ticket.total) }}</span>
+      </div>
+      <div v-if="ticket.notes" class="ticket-notes-preview">
+        <span class="notes-icon">📝</span>
+        <span class="notes-text">{{ truncateNotes(ticket.notes) }}</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card-actions" @click.stop>
+      <button
+        v-if="ticket.status === 'pending'"
+        @click="$emit('update-status', ticket.id, 'preparing')"
+        class="action-btn btn-preparing"
+      >
+        Start Prep
+      </button>
+      <button
+        v-if="ticket.status === 'preparing'"
+        @click="$emit('update-status', ticket.id, 'ready')"
+        class="action-btn btn-ready"
+      >
+        Mark Ready
+      </button>
+      <button
+        v-if="ticket.status === 'ready'"
+        @click="$emit('update-status', ticket.id, 'served')"
+        class="action-btn btn-served"
+      >
+        Mark Served
+      </button>
+      <button
+        v-if="ticket.status === 'served' && ticket.paymentStatus === 'pending'"
+        @click="$emit('process-payment', ticket.id)"
+        class="action-btn btn-payment"
+      >
+        Process Payment
+      </button>
+      <button @click="$emit('print', ticket)" class="action-btn btn-print">
+        Print
+      </button>
+      <button @click="$emit('update-status', ticket.id,'cancel')" class="action-btn btn-served">
+        Cancel
+      </button>
+    </div>
+
+    <!-- Urgency Indicator -->
+    <div v-if="isUrgent" class="urgency-indicator">
+      <span class="urgency-icon">⚠️</span>
+      <span class="urgency-text">{{ urgencyReason }}</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'TicketCard',
+
+  props: {
+    ticket: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  computed: {
+    isUrgent() {
+      const now = new Date()
+      const createdAt = new Date(this.ticket.createdAt)
+      const minutesAgo = (now - createdAt) / (1000 * 60)
+
+      return (
+        (this.ticket.status === 'preparing' && minutesAgo > 15) ||
+        (this.ticket.status === 'ready' && minutesAgo > 5)
+      )
+    },
+
+    urgencyReason() {
+      const now = new Date()
+      const createdAt = new Date(this.ticket.createdAt)
+      const minutesAgo = Math.floor((now - createdAt) / (1000 * 60))
+
+      if (this.ticket.status === 'preparing') {
+        return `Preparing for ${minutesAgo} minutes`
+      } else if (this.ticket.status === 'ready') {
+        return `Ready for ${minutesAgo} minutes`
+      }
+      return ''
+    },
+  },
+
+  methods: {
+    formatTime(date) {
+      if (!date) return 'N/A'
+      return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    },
+
+    formatPrice(amount) {
+      const formattedNumber = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(Math.round(amount || 0))
+
+      return `${formattedNumber} ₭`
+    },
+
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'Pending',
+        preparing: 'Preparing',
+        ready: 'Ready',
+        served: 'Served',
+        paid: 'Paid',
+      }
+      return statusMap[status] || status
+    },
+
+    formatPaymentStatus(status) {
+      const statusMap = {
+        pending: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refunded',
+      }
+      return statusMap[status] || status
+    },
+
+    truncateNotes(notes) {
+      if (!notes) return ''
+      return notes.length > 50 ? notes.substring(0, 50) + '...' : notes
+    },
+  },
+}
+</script>
+
+<style scoped>
+.ticket-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ticket-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: #4299e1;
+}
+
+.ticket-card.urgent {
+  border-color: #ed8936;
+  background: #fffaf0;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.ticket-number {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ticket-id {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.ticket-time {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 500;
+}
+
+.ticket-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+/* Status Badges */
+.status-badge,
+.payment-badge {
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fef5e7;
+  color: #b7791f;
+}
+.status-preparing {
+  background: #ebf8ff;
+  color: #2c5282;
+}
+.status-ready {
+  background: #f0fff4;
+  color: #22543d;
+}
+.status-served {
+  background: #edf2f7;
+  color: #2d3748;
+}
+.status-paid {
+  background: #f0fff4;
+  color: #22543d;
+}
+.status-cancel {
+  background: #fff5f5;
+  color: #c53030;
+}
+.payment-pending {
+  background: #fef5e7;
+  color: #b7791f;
+}
+.payment-paid {
+  background: #f0fff4;
+  color: #22543d;
+}
+.payment-refunded {
+  background: #fff5f5;
+  color: #c53030;
+}
+.payment-cancel {
+  background: #fff5f5;
+  color: #c53030;
+}
+
+/* Card Info */
+.card-info {
+  margin-bottom: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  color: #718096;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Card Summary */
+.card-summary {
+  margin-bottom: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.total-label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 15px;
+}
+
+.total-amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: #38a169;
+}
+
+.ticket-notes-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #718096;
+  padding: 8px;
+  background: #f7fafc;
+  border-radius: 6px;
+}
+
+.notes-icon {
+  font-size: 16px;
+}
+
+.notes-text {
+  font-style: italic;
+  flex: 1;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-preparing {
+  background: #4299e1;
+  color: white;
+}
+.btn-preparing:hover {
+  background: #3182ce;
+}
+
+.btn-ready {
+  background: #48bb78;
+  color: white;
+}
+.btn-ready:hover {
+  background: #38a169;
+}
+
+.btn-served {
+  background: #9f7aea;
+  color: white;
+}
+.btn-served:hover {
+  background: #805ad5;
+}
+
+.btn-payment {
+  background: #ed8936;
+  color: white;
+}
+.btn-payment:hover {
+  background: #dd6b20;
+}
+
+.btn-print {
+  background: #718096;
+  color: white;
+}
+.btn-print:hover {
+  background: #4a5568;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Urgency Indicator */
+.urgency-indicator {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ed8936;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(237, 137, 54, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.urgency-icon {
+  font-size: 14px;
+}
+
+.urgency-text {
+  font-size: 11px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ticket-card {
+    padding: 16px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
+</style>

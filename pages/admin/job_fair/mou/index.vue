@@ -199,7 +199,7 @@
               <div class="d-flex align-center">
                 <v-icon x-small color="teal" class="mr-1">mdi-cash</v-icon>
                 <span class="text-caption font-weight-medium">
-                  {{ formatCurrency(item.invoiceStatistics.outstandingAmount, item.currency?.code) }}
+                  {{ formatCurrency(item.pmCharge-item.invoiceStatistics.totalReceivedAmount, item.currency?.code) }}
                 </span>
               </div>
             </template>

@@ -1,0 +1,178 @@
+exports.ids = [132];
+exports.modules = {
+
+/***/ 608:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(690);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("51ad18dc", content, true, context)
+};
+
+/***/ }),
+
+/***/ 689:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TicketCard_vue_vue_type_style_index_0_id_36443d43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(608);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TicketCard_vue_vue_type_style_index_0_id_36443d43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TicketCard_vue_vue_type_style_index_0_id_36443d43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TicketCard_vue_vue_type_style_index_0_id_36443d43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TicketCard_vue_vue_type_style_index_0_id_36443d43_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 690:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".ticket-card[data-v-36443d43]{background:#fff;border:2px solid #e2e8f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);cursor:pointer;padding:20px;position:relative;transition:all .3s ease}.ticket-card[data-v-36443d43]:hover{border-color:#4299e1;box-shadow:0 8px 24px rgba(0,0,0,.15);transform:translateY(-4px)}.ticket-card.urgent[data-v-36443d43]{background:#fffaf0;border-color:#ed8936}.card-header[data-v-36443d43]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:16px}.ticket-number[data-v-36443d43]{display:flex;flex-direction:column;gap:4px}.ticket-id[data-v-36443d43]{color:#1a202c;font-size:20px;font-weight:700}.ticket-time[data-v-36443d43]{color:#718096;font-size:12px;font-weight:500}.ticket-badges[data-v-36443d43]{align-items:flex-end;display:flex;flex-direction:column;gap:6px}.payment-badge[data-v-36443d43],.status-badge[data-v-36443d43]{border-radius:16px;font-size:11px;font-weight:700;letter-spacing:.5px;padding:5px 10px;text-transform:uppercase;white-space:nowrap}.status-pending[data-v-36443d43]{background:#fef5e7;color:#b7791f}.status-preparing[data-v-36443d43]{background:#ebf8ff;color:#2c5282}.status-ready[data-v-36443d43]{background:#f0fff4;color:#22543d}.status-served[data-v-36443d43]{background:#edf2f7;color:#2d3748}.status-paid[data-v-36443d43]{background:#f0fff4;color:#22543d}.status-cancel[data-v-36443d43]{background:#fff5f5;color:#c53030}.payment-pending[data-v-36443d43]{background:#fef5e7;color:#b7791f}.payment-paid[data-v-36443d43]{background:#f0fff4;color:#22543d}.payment-cancel[data-v-36443d43],.payment-refunded[data-v-36443d43]{background:#fff5f5;color:#c53030}.card-info[data-v-36443d43]{margin-bottom:16px}.info-row[data-v-36443d43]{align-items:center;display:flex;justify-content:space-between;margin-bottom:10px}.info-row[data-v-36443d43]:last-child{margin-bottom:0}.info-label[data-v-36443d43]{color:#718096;font-size:14px;font-weight:500}.info-value[data-v-36443d43]{color:#2d3748;font-size:14px;font-weight:600}.card-summary[data-v-36443d43]{border-top:1px solid #e2e8f0;margin-bottom:16px;padding-top:16px}.summary-total[data-v-36443d43]{align-items:center;display:flex;justify-content:space-between;margin-bottom:12px}.total-label[data-v-36443d43]{color:#4a5568;font-size:15px;font-weight:600}.total-amount[data-v-36443d43]{color:#38a169;font-size:22px;font-weight:700}.ticket-notes-preview[data-v-36443d43]{align-items:center;background:#f7fafc;border-radius:6px;color:#718096;display:flex;font-size:13px;gap:6px;padding:8px}.notes-icon[data-v-36443d43]{font-size:16px}.notes-text[data-v-36443d43]{flex:1;font-style:italic}.card-actions[data-v-36443d43]{display:flex;flex-wrap:wrap;gap:8px}.action-btn[data-v-36443d43]{border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;padding:8px 14px;transition:all .2s;white-space:nowrap}.btn-preparing[data-v-36443d43]{background:#4299e1;color:#fff}.btn-preparing[data-v-36443d43]:hover{background:#3182ce}.btn-ready[data-v-36443d43]{background:#48bb78;color:#fff}.btn-ready[data-v-36443d43]:hover{background:#38a169}.btn-served[data-v-36443d43]{background:#9f7aea;color:#fff}.btn-served[data-v-36443d43]:hover{background:#805ad5}.btn-payment[data-v-36443d43]{background:#ed8936;color:#fff}.btn-payment[data-v-36443d43]:hover{background:#dd6b20}.btn-print[data-v-36443d43]{background:#718096;color:#fff}.btn-print[data-v-36443d43]:hover{background:#4a5568}.action-btn[data-v-36443d43]:hover{box-shadow:0 2px 8px rgba(0,0,0,.15);transform:translateY(-1px)}.urgency-indicator[data-v-36443d43]{align-items:center;animation:pulse-36443d43 2s infinite;background:#ed8936;border-radius:16px;box-shadow:0 2px 8px rgba(237,137,54,.4);color:#fff;display:flex;font-size:11px;font-weight:700;gap:4px;padding:6px 12px;position:absolute;right:-8px;top:-8px}@keyframes pulse-36443d43{0%,to{transform:scale(1)}50%{transform:scale(1.05)}}.urgency-icon[data-v-36443d43]{font-size:14px}.urgency-text[data-v-36443d43]{font-size:11px}@media (max-width:768px){.ticket-card[data-v-36443d43]{padding:16px}.card-actions[data-v-36443d43]{flex-direction:column}.action-btn[data-v-36443d43]{width:100%}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 897:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketCard.vue?vue&type=template&id=36443d43&scoped=true&
+var render = function render() {
+  var _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2, _vm$ticket$ticketLine;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "ticket-card",
+    class: {
+      urgent: _vm.isUrgent
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('click', _vm.ticket);
+      }
+    }
+  }, [_vm._ssrNode("<div class=\"card-header\" data-v-36443d43><div class=\"ticket-number\" data-v-36443d43><span class=\"ticket-id\" data-v-36443d43>" + _vm._ssrEscape("#" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id)) + "</span> <span class=\"ticket-time\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(_vm.formatTime(_vm.ticket.createdAt))) + "</span></div> <div class=\"ticket-badges\" data-v-36443d43><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.ticket.status}`]) + " data-v-36443d43>" + _vm._ssrEscape("\n        " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n      ") + "</span> <span" + _vm._ssrClass(null, ['payment-badge', `payment-${_vm.ticket.paymentStatus}`]) + " data-v-36443d43>" + _vm._ssrEscape("\n        " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n      ") + "</span></div></div> <div class=\"card-info\" data-v-36443d43><div class=\"info-row\" data-v-36443d43><span class=\"info-label\" data-v-36443d43>Customer:</span> <span class=\"info-value\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in')) + "</span></div> <div class=\"info-row\" data-v-36443d43><span class=\"info-label\" data-v-36443d43>Table:</span> <span class=\"info-value\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'N/A')) + "</span></div> <div class=\"info-row\" data-v-36443d43><span class=\"info-label\" data-v-36443d43>Items:</span> <span class=\"info-value\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(((_vm$ticket$ticketLine = _vm.ticket.ticketLines) === null || _vm$ticket$ticketLine === void 0 ? void 0 : _vm$ticket$ticketLine.length) || 0) + " items") + "</span></div></div> <div class=\"card-summary\" data-v-36443d43><div class=\"summary-total\" data-v-36443d43><span class=\"total-label\" data-v-36443d43>Total:</span> <span class=\"total-amount\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.total))) + "</span></div> " + (_vm.ticket.notes ? "<div class=\"ticket-notes-preview\" data-v-36443d43><span class=\"notes-icon\" data-v-36443d43>📝</span> <span class=\"notes-text\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(_vm.truncateNotes(_vm.ticket.notes))) + "</span></div>" : "<!---->") + "</div> <div class=\"card-actions\" data-v-36443d43>" + (_vm.ticket.status === 'pending' ? "<button class=\"action-btn btn-preparing\" data-v-36443d43>\n      Start Prep\n    </button>" : "<!---->") + " " + (_vm.ticket.status === 'preparing' ? "<button class=\"action-btn btn-ready\" data-v-36443d43>\n      Mark Ready\n    </button>" : "<!---->") + " " + (_vm.ticket.status === 'ready' ? "<button class=\"action-btn btn-served\" data-v-36443d43>\n      Mark Served\n    </button>" : "<!---->") + " " + (_vm.ticket.status === 'served' && _vm.ticket.paymentStatus === 'pending' ? "<button class=\"action-btn btn-payment\" data-v-36443d43>\n      Process Payment\n    </button>" : "<!---->") + " <button class=\"action-btn btn-print\" data-v-36443d43>\n      Print\n    </button> <button class=\"action-btn btn-served\" data-v-36443d43>\n      Cancel\n    </button></div> " + (_vm.isUrgent ? "<div class=\"urgency-indicator\" data-v-36443d43><span class=\"urgency-icon\" data-v-36443d43>⚠️</span> <span class=\"urgency-text\" data-v-36443d43>" + _vm._ssrEscape(_vm._s(_vm.urgencyReason)) + "</span></div>" : "<!---->"))]);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/tickets/TicketCard.vue?vue&type=template&id=36443d43&scoped=true&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketCard.vue?vue&type=script&lang=js&
+/* harmony default export */ var TicketCardvue_type_script_lang_js_ = ({
+  name: 'TicketCard',
+  props: {
+    ticket: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    isUrgent() {
+      const now = new Date();
+      const createdAt = new Date(this.ticket.createdAt);
+      const minutesAgo = (now - createdAt) / (1000 * 60);
+      return this.ticket.status === 'preparing' && minutesAgo > 15 || this.ticket.status === 'ready' && minutesAgo > 5;
+    },
+    urgencyReason() {
+      const now = new Date();
+      const createdAt = new Date(this.ticket.createdAt);
+      const minutesAgo = Math.floor((now - createdAt) / (1000 * 60));
+      if (this.ticket.status === 'preparing') {
+        return `Preparing for ${minutesAgo} minutes`;
+      } else if (this.ticket.status === 'ready') {
+        return `Ready for ${minutesAgo} minutes`;
+      }
+      return '';
+    }
+  },
+  methods: {
+    formatTime(date) {
+      if (!date) return 'N/A';
+      return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    },
+    formatPrice(amount) {
+      const formattedNumber = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(Math.round(amount || 0));
+      return `${formattedNumber} ₭`;
+    },
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'Pending',
+        preparing: 'Preparing',
+        ready: 'Ready',
+        served: 'Served',
+        paid: 'Paid'
+      };
+      return statusMap[status] || status;
+    },
+    formatPaymentStatus(status) {
+      const statusMap = {
+        pending: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refunded'
+      };
+      return statusMap[status] || status;
+    },
+    truncateNotes(notes) {
+      if (!notes) return '';
+      return notes.length > 50 ? notes.substring(0, 50) + '...' : notes;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/tickets/TicketCard.vue?vue&type=script&lang=js&
+ /* harmony default export */ var tickets_TicketCardvue_type_script_lang_js_ = (TicketCardvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/tickets/TicketCard.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(689)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  tickets_TicketCardvue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "36443d43",
+  "e0a22c12"
+  
+)
+
+/* harmony default export */ var TicketCard = __webpack_exports__["default"] = (component.exports);
+
+/***/ })
+
+};;
+//# sourceMappingURL=tickets-ticket-card.js.map

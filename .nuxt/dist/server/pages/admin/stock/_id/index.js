@@ -1,7 +1,34 @@
-exports.ids = [250,48];
+exports.ids = [256,51];
 exports.modules = {
 
-/***/ 1281:
+/***/ 1128:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(849);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1129:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".text-h4[data-v-50f54aff]{font-weight:700}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1311:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17,29 +44,38 @@ var VCard = __webpack_require__(121);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(6);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(125);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(390);
+var VCol = __webpack_require__(393);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(398);
+var VDataTable = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(439);
+var VDatePicker = __webpack_require__(442);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(347);
+var VDialog = __webpack_require__(350);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(389);
+var VRow = __webpack_require__(392);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(388);
+var VSpacer = __webpack_require__(391);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
@@ -50,7 +86,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(136);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=template&id=6d8f3084&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=template&id=50f54aff&scoped=true&
 
 
 
@@ -66,12 +102,16 @@ var components_VToolbar = __webpack_require__(136);
 
 
 
-var _idvue_type_template_id_6d8f3084_render = function render() {
+
+
+
+
+var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-center"
-  }, [_vm._ssrNode("<h1>STOCK MANAGEMENT</h1> "), _c(VDialog["a" /* default */], {
+  }, [_vm._ssrNode("<h1 data-v-50f54aff>ລາຍການ ສະຕັອກສິນຄ້າ</h1> "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "300px"
     },
@@ -125,7 +165,122 @@ var _idvue_type_template_id_6d8f3084_render = function render() {
       },
       expression: "isloading"
     }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "color": "success",
+      "dark": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6"
+  }, [_vm._v("ພ້ອມໃຊ້")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h4"
+  }, [_vm._v(_vm._s(_vm.summaryStats.available))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v(_vm._s(_vm.summaryStats.availablePercent) + "% ຂອງທັງຫມົດ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "color": "warning",
+      "dark": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6"
+  }, [_vm._v("ໃຊ້ງານແລ້ວ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h4"
+  }, [_vm._v(_vm._s(_vm.summaryStats.used))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v(_vm._s(_vm.summaryStats.usedPercent) + "% ຂອງທັງຫມົດ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "color": "error",
+      "dark": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6"
+  }, [_vm._v("ຖືກລົບ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h4"
+  }, [_vm._v(_vm._s(_vm.summaryStats.deleted))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v(_vm._s(_vm.summaryStats.deletedPercent) + "% ຂອງທັງຫມົດ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "color": "primary",
+      "dark": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6"
+  }, [_vm._v("ມູນຄ່າລວມ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h4"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.totalCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ກີບ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "4"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("ມູນຄ່າສິນຄ້າພ້ອມໃຊ້")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h5 success--text"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.availableCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "4"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("ມູນຄ່າສິນຄ້າໃຊ້ງານແລ້ວ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h5 warning--text"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.usedCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "4"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("ມູນຄ່າສິນຄ້າຖືກລົບ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h5 error--text"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.deletedCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ກີບ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "lg": "5"
@@ -283,28 +438,86 @@ var _idvue_type_template_id_6d8f3084_render = function render() {
       },
       expression: "userId"
     }
-  }), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c(VBtn["a" /* default */], {
     staticClass: "primary",
     attrs: {
       "size": "large",
       "variant": "outlined",
-      "rounded": ""
+      "rounded": "",
+      "block": ""
     },
     on: {
       "click": _vm.fetchData
     }
-  }, [_vm._v("\n            ດຶງລາຍງານ\n          ")])], 1)], 1)], 1), _vm._v(" "), _vm.loaddata ? _c(VDataTable["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-reload")]), _vm._v("\n                ດຶງລາຍງານ\n              ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], [_c(VBtn["a" /* default */], {
+    staticClass: "success",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": "",
+      "block": ""
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-microsoft-excel")]), _vm._v("\n                Export\n              ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "lg": "2"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.statusOptions,
+      "label": "ກັ່ນຕອງສະຖານະ",
+      "clearable": ""
+    },
+    on: {
+      "change": _vm.applyFilters
+    },
+    model: {
+      value: _vm.statusFilter,
+      callback: function ($$v) {
+        _vm.statusFilter = $$v;
+      },
+      expression: "statusFilter"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _vm.filteredData ? _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1",
     attrs: {
       "headers": _vm.headers,
       "search": _vm.search,
-      "items": _vm.loaddata
+      "items": _vm.filteredData,
+      "items-per-page": 15
     },
     scopedSlots: _vm._u([{
       key: `item.cost`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n        " + _vm._s(_vm.formatNumber(item.cost)) + "\n      ")];
+        return [_c('span', {
+          staticClass: "font-weight-bold"
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.cost)))])];
+      }
+    }, {
+      key: `item.status`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getStatusColor(item.status),
+            "dark": "",
+            "small": ""
+          }
+        }, [_vm._v("\n          " + _vm._s(item.status) + "\n        ")])];
       }
     }, {
       key: "top",
@@ -313,7 +526,9 @@ var _idvue_type_template_id_6d8f3084_render = function render() {
           attrs: {
             "flat": ""
           }
-        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("ສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.loaddata.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
+        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("\n            ສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filteredData.length) + " \n            "), _vm.statusFilter ? _c('span', {
+          staticClass: "text-caption"
+        }, [_vm._v("\n              (ກັ່ນຕອງ: " + _vm._s(_vm.statusFilter) + ")\n            ")]) : _vm._e()]), _vm._v(" "), _c(VDivider["a" /* default */], {
           staticClass: "mx-4",
           attrs: {
             "inset": "",
@@ -328,21 +543,27 @@ var _idvue_type_template_id_6d8f3084_render = function render() {
         item
       }) {
         return [item.status === 'ພ້ອມໃຊ້' ? _c(VBtn["a" /* default */], {
+          attrs: {
+            "color": "error",
+            "small": ""
+          },
           on: {
             "click": function ($event) {
               return _vm.delCard(item);
             }
           }
-        }, [_c('i', {
-          staticClass: "fas fa-trash"
-        })]) : _vm._e()];
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": ""
+          }
+        }, [_vm._v("mdi-delete")])], 1) : _vm._e()];
       }
     }], null, true)
   }) : _vm._e()], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/stock/_id/index.vue?vue&type=template&id=6d8f3084&
+// CONCATENATED MODULE: ./pages/admin/stock/_id/index.vue?vue&type=template&id=50f54aff&scoped=true&
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -352,9 +573,7 @@ var common = __webpack_require__(11);
 /* harmony default export */ var _idvue_type_script_lang_js_ = ({
   middleware: 'auths',
   validate(data) {
-    // this.formData.pro_id = data.params.id
     console.log('MIXIN ID: ' + data.params.id);
-    console.log('PRO DEFUALT ID: ' + this.pro_id);
     return /^\d+$/.test(data.params.id);
   },
   watch: {
@@ -372,6 +591,10 @@ var common = __webpack_require__(11);
     date2(val) {
       this.dateFormatted2 = this.formatDate(this.date2);
       this.fetchData();
+    },
+    loaddata() {
+      this.calculateSummaryStats();
+      this.applyFilters();
     }
   },
   data() {
@@ -385,24 +608,38 @@ var common = __webpack_require__(11);
       userId: '',
       selectedStockProductId: '',
       loaddata: [],
+      filteredData: [],
       carddata: [],
       cardType: [],
       content: null,
       selectedCardType: '',
       search: '',
+      statusFilter: null,
+      statusOptions: ['ພ້ອມໃຊ້', 'ໃຊ້ງານແລ້ວ', 'ຖືກລົບ'],
+      summaryStats: {
+        available: 0,
+        used: 0,
+        deleted: 0,
+        totalCost: 0,
+        availableCost: 0,
+        usedCost: 0,
+        deletedCost: 0,
+        availablePercent: 0,
+        usedPercent: 0,
+        deletedPercent: 0
+      },
       menu1: false,
       menu2: false,
       headers: [{
-        text: 'id',
+        text: 'ID',
         align: 'center',
-        value: 'card_id'
+        value: 'card_id',
+        width: '80px'
       }, {
         text: 'ລະຫັດສິນຄ້າ',
         align: 'center',
         value: 'pro_id'
-      },
-      // { text: 'card sequence', align: 'center', value: 'card_number' },
-      {
+      }, {
         text: 'ຕົ້ນທຶນ',
         align: 'center',
         value: 'cost'
@@ -423,14 +660,15 @@ var common = __webpack_require__(11);
         align: 'center',
         value: 'updater'
       }, {
-        text: 'ເລລາລົບ',
+        text: 'ເວລາລົບ',
         align: 'center',
         value: 'update_time'
       }, {
         text: 'ລົບ',
-        align: 'end',
+        align: 'center',
         value: 'function',
-        sortable: false
+        sortable: false,
+        width: '100px'
       }],
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
@@ -450,15 +688,53 @@ var common = __webpack_require__(11);
     formatNumber(value) {
       return Object(common["e" /* getFormatNum */])(value);
     },
+    getStatusColor(status) {
+      switch (status) {
+        case 'ພ້ອມໃຊ້':
+          return 'success';
+        case 'ໃຊ້ງານແລ້ວ':
+          return 'warning';
+        case 'ຖືກລົບ':
+          return 'error';
+        default:
+          return 'grey';
+      }
+    },
+    calculateSummaryStats() {
+      const total = this.loaddata.length;
+      const available = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').length;
+      const used = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').length;
+      const deleted = this.loaddata.filter(item => item.status === 'ຖືກລົບ').length;
+      const totalCost = this.loaddata.reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
+      const availableCost = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
+      const usedCost = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
+      const deletedCost = this.loaddata.filter(item => item.status === 'ຖືກລົບ').reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
+      this.summaryStats = {
+        available,
+        used,
+        deleted,
+        totalCost,
+        availableCost,
+        usedCost,
+        deletedCost,
+        availablePercent: total > 0 ? (available / total * 100).toFixed(1) : 0,
+        usedPercent: total > 0 ? (used / total * 100).toFixed(1) : 0,
+        deletedPercent: total > 0 ? (deleted / total * 100).toFixed(1) : 0
+      };
+    },
+    applyFilters() {
+      if (this.statusFilter) {
+        this.filteredData = this.loaddata.filter(item => item.status === this.statusFilter);
+      } else {
+        this.filteredData = this.loaddata;
+      }
+    },
     async fetchData() {
       this.isloading = true;
       const prodId = this.$route.params.id;
       console.log('product_id: ' + prodId);
-      await this.$axios.get(`card_f/?pro_id=${prodId}&fDate=
-            ${this.date} 
-            &tDate=${this.date2}&userId=${this.userId}`).then(res => {
+      await this.$axios.get(`card_f/?pro_id=${prodId}&fDate=${this.date}&tDate=${this.date2}&userId=${this.userId}`).then(res => {
         this.loaddata = res.data.map(el => {
-          console.log(el.id);
           return {
             card_id: el.id,
             pro_id: el.product_id,
@@ -472,24 +748,14 @@ var common = __webpack_require__(11);
             function: el.id
           };
         });
+        this.calculateSummaryStats();
+        this.applyFilters();
       }).catch(er => {
         this.message = er;
         console.log('Error: ' + er);
       });
       this.isloading = false;
     },
-    // formatDate(date) {
-    //   if (!date) return null
-
-    //   const [year, month, day] = date.split('-')
-    //   return `${month}/${day}/${year}`
-    // },
-    // parseDate(date) {
-    //   if (!date) return null
-
-    //   const [month, day, year] = date.split('/')
-    //   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    // },
     formatDate(date) {
       if (!date) return null;
       console.log('DATE FORMAT METHOD1: ' + date);
@@ -504,15 +770,25 @@ var common = __webpack_require__(11);
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
     exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(this.activeOrderHeaderList);
+      const exportData = this.filteredData.map(item => ({
+        'ID': item.card_id,
+        'ລະຫັດສິນຄ້າ': item.pro_id,
+        'ຕົ້ນທຶນ': item.cost,
+        'ວັນທີ': item.input_date_time,
+        'Admin': item.inputter,
+        'ສະຖານະ': item.status,
+        'ຜູ້ລົບ': item.updater,
+        'ເວລາລົບ': item.update_time
+      }));
+      const worksheet = this.$xlsx.utils.json_to_sheet(exportData);
       const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-      this.$xlsx.writeFile(workbook, 'data.xlsx');
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Stock Report');
+      this.$xlsx.writeFile(workbook, `stock_report_${this.date}_to_${this.date2}.xlsx`);
     },
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date);
       const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
+      const month = `${date.getMonth() + 1}`.padStart(2, '0');
       const day = `${date.getDate()}`.padStart(2, '0');
       return `${year}-${month}-${day}`;
     },
@@ -545,17 +821,22 @@ var componentNormalizer = __webpack_require__(10);
 
 
 
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(1128)
+if (style0.__inject__) style0.__inject__(context)
 
+}
 
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
   stock_idvue_type_script_lang_js_,
-  _idvue_type_template_id_6d8f3084_render,
+  _idvue_type_template_id_50f54aff_scoped_true_render,
   staticRenderFns,
   false,
-  null,
-  null,
+  injectStyles,
+  "50f54aff",
   "54c0b213"
   
 )
@@ -563,12 +844,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(422).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(425).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
 
-/***/ 400:
+/***/ 403:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -589,7 +870,7 @@ installComponents(component, {DialogClassicMessage: __webpack_require__(422).def
 
 /***/ }),
 
-/***/ 401:
+/***/ 404:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -642,7 +923,7 @@ function isLeapYear(year) {
 
 /***/ }),
 
-/***/ 405:
+/***/ 408:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -701,7 +982,7 @@ function isLeapYear(year) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(401);
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(404);
 
 const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
@@ -1099,13 +1380,13 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 410:
+/***/ 413:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(411);
+var content = __webpack_require__(414);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1113,7 +1394,7 @@ __webpack_require__(5).default("265ccd52", content, true)
 
 /***/ }),
 
-/***/ 411:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1128,13 +1409,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 412:
+/***/ 415:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(413);
+var content = __webpack_require__(416);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1142,7 +1423,7 @@ __webpack_require__(5).default("ec842454", content, true)
 
 /***/ }),
 
-/***/ 413:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1157,13 +1438,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 414:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(415);
+var content = __webpack_require__(418);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1171,7 +1452,7 @@ __webpack_require__(5).default("075924a4", content, true)
 
 /***/ }),
 
-/***/ 415:
+/***/ 418:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1186,13 +1467,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 416:
+/***/ 419:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(417);
+var content = __webpack_require__(420);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1200,7 +1481,7 @@ __webpack_require__(5).default("0f7d136a", content, true)
 
 /***/ }),
 
-/***/ 417:
+/***/ 420:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1215,13 +1496,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 418:
+/***/ 421:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(419);
+var content = __webpack_require__(422);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1229,7 +1510,7 @@ __webpack_require__(5).default("4dc2915a", content, true)
 
 /***/ }),
 
-/***/ 419:
+/***/ 422:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1244,7 +1525,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 422:
+/***/ 425:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1264,7 +1545,7 @@ var components_VCard = __webpack_require__(6);
 var VDivider = __webpack_require__(120);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(388);
+var VSpacer = __webpack_require__(391);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DialogClassicMessage.vue?vue&type=template&id=3accbb34&
 
@@ -1336,13 +1617,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 439:
+/***/ 442:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
-var VDatePickerTitle = __webpack_require__(412);
+var VDatePickerTitle = __webpack_require__(415);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/index.js
 var VIcon = __webpack_require__(12);
@@ -1465,13 +1746,13 @@ var helpers = __webpack_require__(0);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerHeader.sass
-var VDatePickerHeader = __webpack_require__(414);
+var VDatePickerHeader = __webpack_require__(417);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(400);
+var localable = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
 var themeable = __webpack_require__(7);
@@ -1661,7 +1942,7 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTable.sass
-var VDatePickerTable = __webpack_require__(416);
+var VDatePickerTable = __webpack_require__(419);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
 var touch = __webpack_require__(135);
@@ -1910,7 +2191,7 @@ var mergeData = __webpack_require__(14);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(401);
+var dateTimeUtils = __webpack_require__(404);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerDateTable.js
 // Mixins
@@ -2079,7 +2360,7 @@ var dateTimeUtils = __webpack_require__(401);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerYears.sass
-var VDatePickerYears = __webpack_require__(418);
+var VDatePickerYears = __webpack_require__(421);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
  // Mixins
@@ -2163,7 +2444,7 @@ var VDatePickerYears = __webpack_require__(418);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VPicker/VPicker.sass
-var VPicker = __webpack_require__(410);
+var VPicker = __webpack_require__(413);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
 var VCard = __webpack_require__(166);
@@ -2324,7 +2605,7 @@ var elevatable = __webpack_require__(75);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var timestamp = __webpack_require__(405);
+var timestamp = __webpack_require__(408);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
 var console = __webpack_require__(3);
@@ -2803,6 +3084,24 @@ var console = __webpack_require__(3);
     return this.genPicker('v-picker--date');
   }
 }));
+
+/***/ }),
+
+/***/ 849:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1129);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("4e524106", content, true, context)
+};
 
 /***/ })
 

@@ -8,7 +8,7 @@
       dark
       v-model="drawer"
       fixed
-      color="#01532B"
+      color="#A12F8D"
       app
     >
       <v-layout column align-center>
@@ -22,7 +22,7 @@
       </v-layout>
       <v-list>
         <!-- Home -->
-        <v-list-item to="/admin" router exact>
+        <v-list-item to="/admin/job_fair/mou" router exact>
           <v-list-item-action>
             <v-icon color="white">mdi mdi-home-circle-outline</v-icon>
           </v-list-item-action>
@@ -58,7 +58,7 @@
             :to="item.path"
             router
             exact
-            :style="{ 'background-color': '#337555' }"
+            :style="{ 'background-color': '#8D2FA1' }"
           >
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>
@@ -105,7 +105,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              color="#01532B"
+              color="#A12F8D"
               rounded
               variant="text"
               @click="switchTerminal"
@@ -115,7 +115,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-container fluid>
+      <v-container fluid class="pb-16">
         <Nuxt />
       </v-container>
     </v-main>
@@ -132,7 +132,7 @@
       
       <v-chip
         v-if="currentTerminal"
-        class="ma-2"
+        class="ma-0"
         color="warning"
         variant="outlined"
         @click="terminalDialog = true"

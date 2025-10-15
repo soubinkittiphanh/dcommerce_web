@@ -1,7 +1,7 @@
-exports.ids = [49];
+exports.ids = [52];
 exports.modules = {
 
-/***/ 1298:
+/***/ 1328:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,7 +9,7 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBottomSheet/VBottomSheet.js
-var VBottomSheet = __webpack_require__(447);
+var VBottomSheet = __webpack_require__(450);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
@@ -110,13 +110,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 424:
+/***/ 427:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(425);
+var content = __webpack_require__(428);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -124,7 +124,7 @@ __webpack_require__(5).default("73bba828", content, true)
 
 /***/ }),
 
-/***/ 425:
+/***/ 428:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -139,13 +139,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 447:
+/***/ 450:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(424);
+/* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(427);
 /* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VDialog_VDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(347);
+/* harmony import */ var _VDialog_VDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(350);
  // Extensions
 
 

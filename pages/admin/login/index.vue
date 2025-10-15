@@ -12,8 +12,6 @@
             <v-radio-group v-model="terminalSelected" column>
               <v-radio v-for="terminal in findAllTerminal" :key="terminal.id"
                 :label="terminal.name + ' - ' + terminal.description" :value="terminal.id"></v-radio>
-              <!-- <v-radio label="Bahrain" value="bahrain"></v-radio>
-                        <v-radio label="Bangladesh" value="bangladesh"></v-radio> -->
             </v-radio-group>
           </v-card-text>
           <v-divider></v-divider>
@@ -28,13 +26,14 @@
         <div class="pa-16">
           <v-row>
             <v-col cols="12">
-              <p class="text-center"
-                style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
-                DCOMMERCE </p>
-              <!-- <p class="text-center"
-                style="color: #01532B; font-weight:900;font-family: Arial, Helvetica, sans-serif; font-size: xx-large;">
-                ລະບົບລາຍຮັບ ແລະ ລາຍຈ່າຍ </p> -->
-              <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2>
+              <div class="text-center mb-4">
+                <img 
+                src="~/assets/image/Dcommerce-Logo-PM-login.jpg" 
+                  alt="DCOMMERCE Logo" 
+                  class="logo-image"
+                />
+              </div>
+              <h2 class="text-center" style="color: #A12F8D;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2>
             </v-col>
           </v-row>
           <v-card-text>
@@ -48,7 +47,7 @@
               </v-text-field>
               <v-text-field v-model="login.mem_pwd" label="ລະຫັດຜ່ານ" type="password" name="password"
                 prepend-inner-icon="mdi-lock" class="rounded-10 my-text-center" outlined></v-text-field>
-              <v-btn class="rounded-0 my-text-center" color="#01532B" x-large block dark @click.prevent="userLogin"
+              <v-btn class="rounded-0 my-text-center" color="#A12F8D" x-large block dark @click.prevent="userLogin"
                 type="submit">
                 ເຂົ້າສູ່ລະບົບ
                 <v-icon> mdi mdi-login</v-icon>
@@ -95,10 +94,7 @@ export default {
       this.setSelectedTerminal(this.terminalSelected)
       const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId'])
       this.setSelectedLocation(location)
-      //********** refresh component so the data will be update fresh **********//
-      this.$router.push('/admin') // Main screen for minimart business
-      // this.$router.push('/admin/moneyAdvance') // Main screen for YOTHA 
-      // this.$router.push('/admin/orders') // Main screen for shipping bussiness
+      this.$router.push('/admin/job_fair/mou')
       this.terminalDialog = false
     },
     async userLogin() {
@@ -116,8 +112,7 @@ export default {
         if (response.data.accessToken) {
           console.log(`LOGIN COMPLETED`);
           this.initData()
-          this.terminalDialog = true // Disable for THIS PROJECT  | POS: True, MWT: False
-          // this.switchTerminal() // Auto select for this project only // Comment this line for POS
+          this.switchTerminal()
         } else {
           console.log('No token')
           swalError2(this.$swal, 'Error', 'ໄອດີ ຫລື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ')
@@ -129,7 +124,6 @@ export default {
       this.isLoading = false
     },
     initData() {
-        // Call the method directly
         this.initiateData(
           this.$axios
         );
@@ -149,6 +143,14 @@ h2 {
   text-align: center;
 }
 
+.logo-image {
+  max-width: 300px;
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -156,14 +158,6 @@ h2 {
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  /* background: #EFF2F9; */
   background: #CCDDD5;
-  /* color: red; */
-
 }
-
-/* *:not(h1) { */
-/* CSS styles here */
-/* font-family: 'noto sans lao'; */
-/* } */
 </style>

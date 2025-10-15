@@ -11,7 +11,7 @@
       <div class="waiting-animation">
         <v-progress-circular 
           indeterminate 
-          color="#01532B" 
+          color="#A12F8D" 
           size="64" 
           width="4"
           class="mb-4"
@@ -128,7 +128,7 @@
             <v-progress-circular 
               v-if="!paymentComplete"
               indeterminate 
-              color="#01532B" 
+              color="#A12F8D" 
               size="20"
               class="mr-2"
             ></v-progress-circular>
@@ -468,11 +468,11 @@ export default {
 }
 
 .dcommerce-green {
-  background-color: #01532B !important;
+  background-color: #A12F8D !important;
 }
 
 .dcommerce-green-text {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 /* Welcome Screen */
@@ -493,7 +493,7 @@ export default {
 .store-name {
   font-size: 3rem;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   margin: 1rem 0;
   letter-spacing: -1px;
 }
@@ -506,7 +506,7 @@ export default {
 
 .status-text {
   font-size: 1.2rem;
-  color: #01532B;
+  color: #A12F8D;
   font-weight: 500;
   margin: 0.5rem 0;
 }
@@ -548,7 +548,7 @@ export default {
 
 .order-header {
   padding: 1.5rem;
-  background: #01532B;
+  background: #A12F8D;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -611,7 +611,7 @@ export default {
 
 .item-quantity {
   font-weight: 600;
-  color: #01532B;
+  color: #A12F8D;
   margin: 0 1rem;
   min-width: 40px;
   text-align: center;
@@ -619,7 +619,7 @@ export default {
 
 .item-price {
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   font-size: 1rem;
   min-width: 80px;
   text-align: right;
@@ -648,9 +648,9 @@ export default {
   justify-content: space-between;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   padding-top: 0.75rem;
-  border-top: 2px solid #01532B;
+  border-top: 2px solid #A12F8D;
   margin-top: 0.75rem;
 }
 
@@ -674,7 +674,7 @@ export default {
 .payment-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   margin: 0;
 }
 
@@ -696,7 +696,7 @@ export default {
 .amount-value {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   line-height: 1;
 }
 
@@ -715,7 +715,7 @@ export default {
   padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
-  border: 3px solid #01532B;
+  border: 3px solid #A12F8D;
 }
 
 .qr-code-image {
@@ -745,7 +745,7 @@ export default {
 }
 
 .step-icon {
-  color: #01532B !important;
+  color: #A12F8D !important;
   margin-bottom: 0.5rem;
 }
 

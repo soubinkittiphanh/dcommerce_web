@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title class="primary white--text py-3">
         <v-icon class="mr-2" color="white">mdi-office-building</v-icon>
-        {{ isEditMode ? 'ແກ້ໄຂບໍລິສັດ' : 'ເພີ່ມບໍລິສັດ' }}
+        {{ isEditMode ? `ແກ້ໄຂ ${category}` : `ເພີ່ມ ${category}` }}
         <v-spacer></v-spacer>
         <v-btn icon dark @click="closeDialog">
           <v-icon>mdi-close</v-icon>
@@ -18,7 +18,7 @@
               <v-col cols="12" md="8">
                 <v-text-field
                   v-model="formData.agencyName"
-                  label="ຊື່ບໍລິສັດ *"
+                  :label="category"
                   :rules="nameRules"
                   outlined
                   dense
@@ -119,10 +119,19 @@
 
             <!-- Row 4: Address -->
             <v-row dense>
-              <v-col cols="12">
+              <v-col cols="6">
                 <v-text-field
                   v-model="formData.address"
                   label="ທີ່ຢູ່"
+                  outlined
+                  dense
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="formData.bankAccount"
+                  label="ເລກບັນຊີ"
                   outlined
                   dense
                   hide-details="auto"
@@ -308,6 +317,7 @@
 export default {
   name: 'AgencyDialog',
   props: {
+    // formLabel:'Agency',
     visible: {
       type: Boolean,
       default: false,
@@ -340,6 +350,7 @@ export default {
         city: '',
         district: '',
         address: '',
+        bankAccount: '',
         registrationNumber: '',
         registrationDate: '',
         licenseNumber: '',

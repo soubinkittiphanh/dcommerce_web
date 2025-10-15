@@ -76,35 +76,34 @@
                 </v-autocomplete>
               </div>
               <div class="form-group">
-  <label for="currencyId" class="required">ສະກຸນເງິນ</label>
-  <v-autocomplete
-    id="currencyId"
-    v-model="form.currencyId"
-    :items="currencies"
-    item-value="id"
-    item-text="name"
-    :filter="currencyFilter"
-    :error="!!errors.currencyId"
-    :error-messages="errors.currencyId"
-    dense
-    outlined
-    clearable
-    hide-details="auto"
-    placeholder="ເລືອກສະກຸນເງິນ"
-    @change="onCurrencyChange"
-  >
-    <template v-slot:item="{ item }">
-      <v-list-item-content>
-        <v-list-item-title>
-          {{ item.name }} ({{ item.code }})
-        </v-list-item-title>
-      </v-list-item-content>
-    </template>
-    <template v-slot:selection="{ item }">
-      {{ item.name }} ({{ item.code }})
-    </template>
-  </v-autocomplete>
-</div>
+                <label for="currencyId" class="required">ສະກຸນເງິນ</label>
+                <v-autocomplete
+                  id="currencyId"
+                  v-model="form.currencyId"
+                  :items="currencies"
+                  item-value="id"
+                  item-text="name"
+                  :error="!!errors.currencyId"
+                  :error-messages="errors.currencyId"
+                  dense
+                  outlined
+                  clearable
+                  hide-details="auto"
+                  placeholder="ເລືອກສະກຸນເງິນ"
+                  @change="onCurrencyChange"
+                >
+                  <template v-slot:item="{ item }">
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ item.name }} ({{ item.code }})
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+                  <template v-slot:selection="{ item }">
+                    {{ item.name }} ({{ item.code }})
+                  </template>
+                </v-autocomplete>
+              </div>
               <div class="form-group">
                 <label for="exchangeRate" class="required">
                   ອັດຕາແລກປ່ຽນ
@@ -136,7 +135,6 @@
                   :items="bankAccounts"
                   item-value="id"
                   item-text="accountNumber"
-                  :filter="bankAccountFilter"
                   :error="!!errors.bankAccountId"
                   :error-messages="errors.bankAccountId"
                   dense
@@ -578,6 +576,15 @@
               isSubmitting ? 'ກຳລັງບັນທຶກ...' : isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ'
             }}
           </button>
+          <!-- Add Print Button -->
+          <button
+            v-if="isEditMode"
+            type="button"
+            @click="printSettlement(settlement)"
+            class="btn btn-info"
+          >
+            <i class="fas fa-print"></i> ພິມໃບສຳຄັນ
+          </button>
         </div>
       </div>
     </div>
@@ -694,19 +701,29 @@
       :settlement-info="settlementInfoForAudit"
       @close="closeAuditDialog"
     />
+    <payment-voucher-printer
+      :visible="showVoucherPrinter"
+      :voucher-data="selectedSettlement"
+      :payment-methods="paymentMethods"
+      :bank-accounts="bankAccounts"
+      :transaction-codes="transactionCodes"
+      :gl-accounts="glAccounts"
+      @close="showVoucherPrinter = false"
+    />
   </div>
 </template>
 
 <script>
 import SettlementAuditDialog from '~/components/accounting/ap/settlement/audit'
 import BrowseMouInvoiceDialog from '~/components/accounting/ap/settlement/browsemou'
-
+import PaymentVoucherPrinter from '~/components/accounting/ap/settlement/voucher'
 export default {
   name: 'SettlementDialog',
 
   components: {
     SettlementAuditDialog,
     BrowseMouInvoiceDialog,
+    PaymentVoucherPrinter,
   },
 
   props: {
@@ -719,6 +736,8 @@ export default {
 
   data() {
     return {
+      showVoucherPrinter: false,
+      selectedSettlement: null,
       transactionCodes: [], // Add this
       loadingTransactionCodes: false, // Add this
       form: {
@@ -874,6 +893,57 @@ export default {
   },
 
   methods: {
+    printSettlement() {
+      // Validation
+      if (!this.isEditMode) {
+        this.$toast?.warning('ກະລຸນາບັນທຶກການຊຳລະກ່ອນພິມ')
+        return
+      }
+
+      if (!this.settlementLines || this.settlementLines.length === 0) {
+        this.$toast?.warning('ບໍ່ມີລາຍການສຳລັບພິມ')
+        return
+      }
+
+      // Build complete data structure
+      const settlementData = {
+        id: this.form.id,
+        settlementDate: this.form.settlementDate,
+        paymentMethodId: this.form.paymentMethodId,
+        currencyId: this.form.currencyId,
+        exchangeRate: this.form.exchangeRate,
+        bankAccountId: this.form.bankAccountId,
+        reference: this.form.reference || '-',
+        description: this.form.description || '',
+        status: this.form.status,
+        createdAt: this.settlement?.createdAt || new Date().toISOString(),
+        approvedDate: this.settlement?.approvedDate || null,
+        settlementLines: this.settlementLines.map((line) => ({
+          invoiceNumber: line.invoiceNumber || '-',
+          agencyName: line.agencyName || line.agency?.agencyName || '-',
+          description: line.description || '',
+          amount: parseFloat(line.amount || 0),
+          txnId: line.txnId,
+          DRglAccountId: line.DRglAccountId,
+          CRglAccountId: line.CRglAccountId,
+          agency: line.agency || { agencyName: line.agencyName },
+        })),
+        maker: {
+          cus_name: this.makerName,
+        },
+        checker: {
+          cus_name: this.checkerName,
+        },
+      }
+
+      // Set data first, then open dialog
+      this.selectedSettlement = settlementData
+
+      // Use nextTick to ensure data is set before dialog opens
+      this.$nextTick(() => {
+        this.showVoucherPrinter = true
+      })
+    },
     calculateExchangeAmounts() {
       this.clearFieldError('exchangeRate')
     },
@@ -1514,7 +1584,7 @@ select.form-control-xs:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
+  background: linear-gradient(135deg, #A12F8D 0%, #8D2FA1 100%);
   color: white;
   min-height: 50px;
 }

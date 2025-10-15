@@ -1,7 +1,7 @@
-exports.ids = [282];
+exports.ids = [288];
 exports.modules = {
 
-/***/ 1257:
+/***/ 1287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18,10 +18,10 @@ var VCard = __webpack_require__(121);
 var components_VCard = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(390);
+var VCol = __webpack_require__(393);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(389);
+var VRow = __webpack_require__(392);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);

@@ -12,7 +12,7 @@
       </v-col>
       <v-col cols="12" md="4" class="text-right">
         <v-btn
-          color="#01532B"
+          color="#A12F8D"
           large
           outlined
           @click="refreshData"
@@ -27,7 +27,7 @@
     <!-- Summary Cards -->
     <v-row class="mb-6">
       <v-col cols="12" sm="6" md="3">
-        <v-card color="#01532B" dark class="text-center summary-card" elevation="3">
+        <v-card color="#A12F8D" dark class="text-center summary-card" elevation="3">
           <v-card-text class="pb-2">
             <v-icon size="40" class="mb-2">mdi-file-document-multiple</v-icon>
             <div class="text-h4 font-weight-bold">
@@ -75,10 +75,10 @@
     <!-- Data Table -->
     <v-card elevation="2" class="data-table-card">
       <v-card-title class="banking-primary--text data-table-header">
-        <v-icon color="#01532B" class="mr-2">mdi-table</v-icon>
+        <v-icon color="#A12F8D" class="mr-2">mdi-table</v-icon>
         ລາຍຮັບ
         <v-spacer></v-spacer>
-        <v-chip color="#01532B" outlined>
+        <v-chip color="#A12F8D" outlined>
           {{ pagination.totalItems }} Total Records
         </v-chip>
       </v-card-title>
@@ -130,7 +130,7 @@
         <!-- Date formatting -->
         <template v-slot:item.bookingDate="{ item }">
           <v-chip small color="#F3F4F6" class="date-chip">
-            <v-icon left small color="#01532B">mdi-calendar</v-icon>
+            <v-icon left small color="#A12F8D">mdi-calendar</v-icon>
             {{ formatDate(item.bookingDate) }}
           </v-chip>
         </template>
@@ -162,7 +162,7 @@
         <!-- Proceeder info -->
         <template v-slot:item.proceeder="{ item }">
           <div v-if="item.proceeder" class="d-flex align-center">
-            <v-avatar size="24" class="mr-2" color="#01532B">
+            <v-avatar size="24" class="mr-2" color="#A12F8D">
               <span class="white--text text-caption">
                 {{
                   getInitials(
@@ -186,7 +186,7 @@
         <!-- Money Advance info -->
         <template v-slot:item.moneyAdvance="{ item }">
           <div v-if="item.moneyAdvance">
-            <v-chip x-small color="#01532B" class="mb-1" dark>
+            <v-chip x-small color="#A12F8D" class="mb-1" dark>
               #{{ item.moneyAdvance.id }}
             </v-chip>
             <br />
@@ -228,7 +228,7 @@
                 <v-btn
                   icon
                   x-small
-                  color="#01532B"
+                  color="#A12F8D"
                   @click="viewSettlement(item)"
                   v-bind="attrs"
                   v-on="on"
@@ -280,7 +280,7 @@
                   :rules="[rules.required]"
                   outlined
                   required
-                  color="#01532B"
+                  color="#A12F8D"
                 ></v-text-field>
               </v-col>
 
@@ -294,7 +294,7 @@
                   :rules="[rules.required, rules.positiveNumber]"
                   outlined
                   required
-                  color="#01532B"
+                  color="#A12F8D"
                 ></v-text-field>
               </v-col>
 
@@ -307,7 +307,7 @@
                   :rules="[rules.required]"
                   outlined
                   required
-                  color="#01532B"
+                  color="#A12F8D"
                 ></v-select>
               </v-col>
 
@@ -320,7 +320,7 @@
                   prepend-icon="mdi-swap-horizontal"
                   placeholder="1.0000"
                   outlined
-                  color="#01532B"
+                  color="#A12F8D"
                 ></v-text-field>
               </v-col>
 
@@ -332,7 +332,7 @@
                   rows="3"
                   outlined
                   no-resize
-                  color="#01532B"
+                  color="#A12F8D"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -344,7 +344,7 @@
               <v-col cols="12" md="6">
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#01532B">mdi-calendar</v-icon>
+                    <v-icon color="#A12F8D">mdi-calendar</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title class="font-weight-bold"
@@ -403,7 +403,7 @@
               <v-col cols="12" md="6">
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#01532B">mdi-swap-horizontal</v-icon>
+                    <v-icon color="#A12F8D">mdi-swap-horizontal</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title class="font-weight-bold"
@@ -444,7 +444,7 @@
           </v-btn>
           <v-btn
             v-if="dialogMode !== 'view'"
-            color="#01532B"
+            color="#A12F8D"
             :loading="saving"
             :disabled="!formValid"
             @click="saveSettlement"
@@ -1057,7 +1057,7 @@ export default {
 
     getMethodColor(method) {
       const colors = {
-        cash: '#01532B',
+        cash: '#A12F8D',
         bank_transfer: '#059669',
         deduction: '#F59E0B',
       }
@@ -1076,7 +1076,7 @@ export default {
     getStatusColor(status) {
       const colors = {
         approved: '#059669',
-        settled: '#01532B',
+        settled: '#A12F8D',
         pending: '#F59E0B',
         rejected: '#DC2626',
       }
@@ -1122,7 +1122,7 @@ export default {
 <style scoped>
 /* All the existing CSS styles remain the same */
 .banking-primary--text {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .banking-success--text {
@@ -1140,7 +1140,7 @@ export default {
 }
 
 .report-card {
-  border-left: 4px solid #01532B;
+  border-left: 4px solid #A12F8D;
 }
 
 .report-header {
@@ -1153,7 +1153,7 @@ export default {
 }
 
 .banking-table-header {
-  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
+  background: linear-gradient(135deg, #A12F8D 0%, #0D4F3C 100%) !important;
 }
 
 .banking-table-header th {
@@ -1186,17 +1186,17 @@ export default {
 
 .banking-table-footer {
   background: linear-gradient(90deg, rgba(1, 83, 43, 0.1) 0%, rgba(1, 83, 43, 0.15) 100%) !important;
-  border-top: 2px solid #01532B !important;
+  border-top: 2px solid #A12F8D !important;
 }
 
 .banking-table-footer td {
   background: transparent !important;
   font-weight: bold !important;
-  border-top: 2px solid #01532B !important;
+  border-top: 2px solid #A12F8D !important;
 }
 
 .data-table-card {
-  border-left: 4px solid #01532B;
+  border-left: 4px solid #A12F8D;
 }
 
 .data-table-header {
@@ -1214,12 +1214,12 @@ export default {
 }
 
 .banking-divider {
-  border-color: #01532B !important;
+  border-color: #A12F8D !important;
   border-width: 2px !important;
 }
 
 .dialog-header {
-  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
+  background: linear-gradient(135deg, #A12F8D 0%, #0D4F3C 100%) !important;
   color: white !important;
   font-weight: 600;
 }
@@ -1236,27 +1236,27 @@ export default {
 
 /* Form styling */
 .v-text-field >>> .v-input__control .v-input__slot:before {
-  border-color: #01532B !important;
+  border-color: #A12F8D !important;
 }
 
 .v-text-field >>> .v-label {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .v-select >>> .v-input__control .v-input__slot:before {
-  border-color: #01532B !important;
+  border-color: #A12F8D !important;
 }
 
 .v-select >>> .v-label {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .v-textarea >>> .v-input__control .v-input__slot:before {
-  border-color: #01532B !important;
+  border-color: #A12F8D !important;
 }
 
 .v-textarea >>> .v-label {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 /* Responsive Design */

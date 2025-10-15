@@ -7,16 +7,7 @@
           {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່' }}
         </h4>
         <!-- Audit History Button (only show in edit mode) -->
-        <button
-          v-if="isEdit"
-          @click="openAuditDialog"
-          class="audit-btn"
-          type="button"
-          :title="'ເບິ່ງປະຫວັດການດຳເນີນງານ'"
-        >
-          <i class="fas fa-history"></i>
-          <span class="audit-text">ປະຫວັດ</span>
-        </button>
+
         <button type="button" class="close-button" @click="handleClose">
           <i class="fas fa-times"></i>
         </button>
@@ -501,6 +492,17 @@
             <i v-else class="fas fa-save"></i>
             {{ saving ? 'ກຳລັງບັນທຶກ...' : isEdit ? 'ອັບເດດ' : 'ບັນທຶກ' }}
           </button>
+          <!-- Print Button (only show in edit mode) -->
+          <button
+            v-if="isEdit"
+            @click="printInvoice"
+            class="btn btn-primary btn-compact"
+            type="button"
+            title="ພິມໃບແຈ້ງໜີ້"
+          >
+            <i class="fas fa-print"></i>
+            <span class="audit-text">ພິມ</span>
+          </button>
         </div>
       </div>
     </div>
@@ -512,17 +514,28 @@
       :invoice-info="invoiceInfoForAudit"
       @close="closeAuditDialog"
     />
+
+    <!-- AR Invoice Printer -->
+    <a-r-invoice-printer
+      :visible="showInvoicePrinter"
+      :invoice-data="selectedInvoice"
+      :agencies="agencies"
+      :currencies="currencies"
+      @close="showInvoicePrinter = false"
+    />
   </div>
 </template>
 
 
 <script>
 import InvoiceAuditDialog from '~/components/accounting/ar/invoice/audit'
+import ARInvoicePrinter from '~/components/accounting/ar/invoice/voucher'
 
 export default {
   name: 'InvoiceHeaderMaintain',
   components: {
     InvoiceAuditDialog,
+    ARInvoicePrinter,
   },
   props: {
     glAccounts: { type: Array, default: () => [] },
@@ -551,7 +564,6 @@ export default {
       default: () => [],
     },
     preselectedBatchId: {
-      // ADD THIS PROP
       type: Number,
       default: null,
     },
@@ -561,6 +573,8 @@ export default {
     return {
       selectedVendor: null,
       showAuditDialog: false,
+      showInvoicePrinter: false,
+      selectedInvoice: null,
       activeTab: 'header',
       formLoading: false,
       saving: false,
@@ -689,19 +703,57 @@ export default {
   },
 
   methods: {
+    // Print Invoice Method
+    printInvoice() {
+      if (!this.isEdit) {
+        this.$toast?.warning('ກະລຸນາບັນທຶກໃບແຈ້ງໜີ້ກ່ອນພິມ')
+        return
+      }
+
+      if (this.lineItems.length === 0) {
+        this.$toast?.warning('ບໍ່ມີລາຍການສຳລັບພິມ')
+        return
+      }
+
+      // Prepare complete invoice data
+      const invoiceData = {
+        id: this.form.id,
+        invoiceNumber: this.form.invoiceNumber,
+        invoiceDate: this.form.invoiceDate,
+        dueDate: this.form.dueDate,
+        agencyId: this.form.agencyId,
+        jobBatchId: this.form.jobBatchId,
+        currencyId: this.form.currencyId,
+        exchangeRate: this.form.exchangeRate,
+        status: this.form.status,
+        description: this.form.description || '',
+        lineItems: this.lineItems.map((line) => ({
+          description: line.description || '-',
+          quantity: parseFloat(line.quantity) || 0,
+          unitPrice: parseFloat(line.unitPrice) || 0,
+          taxAmount: parseFloat(line.taxAmount) || 0,
+          lineTotal: parseFloat(line.lineTotal) || 0,
+        })),
+      }
+
+      // Set data first, then open dialog
+      this.selectedInvoice = invoiceData
+
+      // Use nextTick to ensure data is set before dialog opens
+      this.$nextTick(() => {
+        this.showInvoicePrinter = true
+      })
+    },
+
     async requestSequence() {
       try {
         const { data } = await this.$axios.get('/api/ar-invoices/sequence')
 
         if (data.success) {
-          // Assign the generated invoice number to your form
           this.form.invoiceNumber = data.data.invoiceNumber
-
-          // Optional: Show success message
           this.$message.success(
             `Invoice number generated: ${data.data.invoiceNumber}`
           )
-
           return data.data.invoiceNumber
         }
       } catch (error) {
@@ -710,6 +762,7 @@ export default {
         throw error
       }
     },
+
     updateSelectedVendor() {
       if (this.form.agencyId && this.agencies.length > 0) {
         this.selectedVendor = this.agencies.find(
@@ -719,11 +772,13 @@ export default {
         this.selectedVendor = null
       }
     },
+
     onVendorChange() {
       this.updateSelectedVendor()
       this.calculateDueDate()
       this.clearFieldError('agencyId')
     },
+
     openAuditDialog() {
       console.warn(`Opening dialog`)
       this.showAuditDialog = true
@@ -732,6 +787,7 @@ export default {
     closeAuditDialog() {
       this.showAuditDialog = false
     },
+
     async initializeDialog() {
       this.activeTab = 'header'
       this.clearErrors()
@@ -762,14 +818,11 @@ export default {
       } else {
         this.resetForm()
 
-        // Set default date to today
         this.form.invoiceDate = new Date().toISOString().split('T')[0]
-        // Set default due date to 30 days from today
         const dueDate = new Date()
         dueDate.setDate(dueDate.getDate() + 30)
         this.form.dueDate = dueDate.toISOString().split('T')[0]
 
-        // Initialize with default currency
         if (this.currencies.length > 0) {
           const defaultCurrency =
             this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
@@ -777,7 +830,6 @@ export default {
           this.selectedCurrency = defaultCurrency
         }
 
-        // Initialize with one empty line item
         this.lineItems = [this.createEmptyLine()]
         this.requestSequence()
       }
@@ -791,6 +843,7 @@ export default {
       this.lineItems = []
       this.selectedCustomer = null
       this.selectedCurrency = null
+      this.selectedInvoice = null
       this.clearErrors()
       this.activeTab = 'header'
       this.formLoading = false
@@ -879,8 +932,6 @@ export default {
         this.selectedCurrency = this.currencies.find(
           (c) => c.id === this.form.currencyId
         )
-        // Update the exchange rate based on
-        console.info(`Currency structure ${JSON.stringify(this.currencies)}`)
         this.form.exchangeRate = this.currencies.find(
           (c) => c.id === this.form.currencyId
         ).rate
@@ -894,6 +945,7 @@ export default {
       this.calculateDueDate()
       this.clearFieldError('agencyId')
     },
+
     onBatchJobChange() {
       this.clearFieldError('jobBatchId')
 
@@ -901,7 +953,6 @@ export default {
         return
       }
 
-      // Find the selected job batch
       const selectedBatch = this.jobBatches.find(
         (batch) => batch.id === this.form.jobBatchId
       )
@@ -910,7 +961,6 @@ export default {
         return
       }
 
-      // Clear existing line items or ask user confirmation if lines exist
       if (
         this.lineItems.length > 0 &&
         this.lineItems.some((line) => line.description)
@@ -923,10 +973,8 @@ export default {
         }
       }
 
-      // Clear existing lines
       this.lineItems = []
 
-      // Get MOU data from the job batch
       const mou = selectedBatch.mou
 
       if (!mou) {
@@ -935,22 +983,18 @@ export default {
         return
       }
 
-      // Calculate unit price: pmCharge / numberOfWorkers
       const pmCharge = parseFloat(mou.pmCharge) || 0
-      const numberOfWorkers = parseFloat(mou.numberOfWorkers) || 1 // Prevent division by zero
+      const numberOfWorkers = parseFloat(mou.numberOfWorkers) || 1
       const unitPrice =
         numberOfWorkers > 0 ? pmCharge / numberOfWorkers : pmCharge
 
-      // Get quantity from job batch totalPositions
       const quantity = parseFloat(selectedBatch.totalPositions) || 0
 
-      // Set currency from MOU if available
       if (mou.currencyId) {
         this.form.currencyId = mou.currencyId
         this.updateSelectedCurrency()
       }
 
-      // Add line for recruitment service
       const recruitmentLine = {
         tempId: this.nextTempId++,
         lineNumber: 1,
@@ -961,17 +1005,15 @@ export default {
         unitPrice: unitPrice,
         DRglAccountId: null,
         CRglAccountId: null,
-        taxRate: 0, // Adjust if you have tax rate in your data
+        taxRate: 0,
         taxAmount: 0,
         lineTotal: 0,
       }
       this.calculateLineTotal(recruitmentLine)
       this.lineItems.push(recruitmentLine)
 
-      // Update line numbers
       this.updateLineNumbers()
 
-      // Show success message with calculation details
       this.showToast(
         `ເພີ່ມລາຍການຈາກ Job Batch ${
           selectedBatch.runningNo
@@ -979,7 +1021,6 @@ export default {
         'success'
       )
 
-      // Switch to lines tab to show the populated items
       this.activeTab = 'lines'
     },
 
@@ -1002,7 +1043,6 @@ export default {
     validateForm() {
       this.errors = {}
 
-      // Header validation
       if (!this.form.invoiceNumber) {
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
       }
@@ -1015,7 +1055,6 @@ export default {
         this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້'
       }
 
-      // Date validation
       if (this.form.invoiceDate && this.form.dueDate) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(this.form.dueDate)
@@ -1025,7 +1064,6 @@ export default {
         }
       }
 
-      // Line items validation
       if (this.lineItems.length === 0) {
         this.errors.lineItems = 'ກະລຸນາເພີ່ມລາຍການສິນຄ້າຢ່າງໜ້ອຍ 1 ລາຍການ'
       } else {
@@ -1062,7 +1100,6 @@ export default {
 
     handleSubmit() {
       if (!this.validateForm()) {
-        // Switch to appropriate tab if there are errors
         if (Object.keys(this.errors).some((key) => key.startsWith('line_'))) {
           this.activeTab = 'lines'
         } else {
@@ -1138,9 +1175,29 @@ export default {
         }
       }
     },
+
+    // Add missing filter methods if not present
+    jobBatchFilter(item, queryText) {
+      const searchText = queryText.toLowerCase()
+      return (
+        item.runningNo.toLowerCase().includes(searchText) ||
+        (item.mou?.jobTitle &&
+          item.mou.jobTitle.toLowerCase().includes(searchText))
+      )
+    },
+
+    currencyFilter(item, queryText) {
+      const searchText = queryText.toLowerCase()
+      return (
+        item.name.toLowerCase().includes(searchText) ||
+        item.code.toLowerCase().includes(searchText)
+      )
+    },
   },
 }
 </script>
+
+
 <style scoped>
 /* Maximized dialog with compact components */
 .modal-overlay {
@@ -1176,7 +1233,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
+  background: linear-gradient(135deg, #A12F8D 0%, #8D2FA1 100%);
   color: white;
   min-height: 50px;
 }

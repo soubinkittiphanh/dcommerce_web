@@ -2,8 +2,22 @@
 <!-- Replace your entire template section with this -->
 <template>
   <div>
+   
     <!-- Main Receipt Modal -->
     <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
+      <!-- Print Dialog - MUST be at the TOP level, separate from main modal -->
+    <client-only>
+      <ARReceivePrinter
+        :visible="showPrintDialog"
+        :receipt-data="selectedReceiptForPrint"
+        :payment-methods="paymentMethods"
+        :currencies="currencies"
+        :transaction-codes="transactionCodes"
+        :gl-accounts="glAccounts"
+        :invoices="invoices"
+        @close="closePrintDialog"
+      />
+    </client-only>
       <div class="enhanced-dialog" @click.stop>
         <div class="modal-header">
           <h4 class="modal-title">
@@ -74,7 +88,6 @@
                       :items="paymentMethods"
                       item-value="id"
                       item-text="payment_name"
-                      :filter="paymentMethodFilter"
                       :error="!!errors.paymentId"
                       :error-messages="errors.paymentId"
                       dense
@@ -103,7 +116,6 @@
                       :items="currencies"
                       item-value="id"
                       item-text="name"
-                      :filter="currencyFilter"
                       :error="!!errors.currencyId"
                       :error-messages="errors.currencyId"
                       dense
@@ -175,7 +187,6 @@
                         :items="invoices"
                         item-value="id"
                         item-text="invoiceNumber"
-                        :filter="invoiceFilter"
                         dense
                         outlined
                         clearable
@@ -692,6 +703,17 @@
               <i v-else class="fas fa-save"></i>
               {{ saving ? 'ກຳລັງບັນທຶກ...' : isEdit ? 'ອັບເດດ' : 'ບັນທຶກ' }}
             </button>
+            <!-- Add Print Button (only show in edit mode) -->
+            <button
+              v-if="isEdit"
+              @click="printReceipt"
+              class="audit-btn"
+              type="button"
+              title="ພິມໃບຮັບເງິນ"
+            >
+              <i class="fas fa-print"></i>
+              <span class="audit-text">ພິມ</span>
+            </button>
           </div>
         </div>
       </div>
@@ -854,8 +876,13 @@
 
 
 <script>
+import ARReceivePrinter from '~/components/accounting/ar/receive/voucher'
+
 export default {
   name: 'ReceiveHeaderMaintain',
+  components: {
+    ARReceivePrinter, // Add this
+  },
   props: {
     glAccounts: { type: Array, default: () => [] },
     visible: {
@@ -879,6 +906,8 @@ export default {
 
   data() {
     return {
+      showPrintDialog: false, // Add this if missing
+      selectedReceiptForPrint: null, // Add this if missing
       selectedCurrency: null,
       paymentMethods: [],
       transactionCodes: [], // Add this
@@ -988,7 +1017,6 @@ export default {
   async mounted() {
     await this.loadTransactionCodes() // Add this
     await this.loadPaymentMethods() // Add this
-    
   },
 
   watch: {
@@ -1037,9 +1065,68 @@ export default {
   },
 
   methods: {
+    closePrintDialog() {
+      this.showPrintDialog = false
+      this.selectedReceiptForPrint = null
+    },
+    printReceipt() {
+      console.log('🖨️ Print button clicked')
+      
+      if (!this.isEdit) {
+        this.showToast('ກະລຸນາບັນທຶກການຮັບຊຳລະກ່ອນພິມ', 'warning')
+        return
+      }
+
+      if (this.allocationLines.length === 0) {
+        this.showToast('ບໍ່ມີລາຍການສຳລັບພິມ', 'warning')
+        return
+      }
+
+      console.log('📝 Preparing receipt data...')
+
+      // Prepare complete receipt data
+      const receiptData = {
+        id: this.form.id,
+        receiptNumber: this.form.receiptNumber,
+        bookingDate: this.form.bookingDate,
+        receivedDate: this.form.receivedDate,
+        invoiceHeaderId: this.form.invoiceHeaderId,
+        paymentId: this.form.paymentId,
+        currencyId: this.form.currencyId,
+        exchangeRate: this.form.exchangeRate,
+        totalReceivedAmount: this.form.totalReceivedAmount,
+        referenceNumber: this.form.referenceNumber || '',
+        notes: this.form.notes || '',
+        allocationLines: this.allocationLines.map((line) => ({
+          description: line.description || line.invoiceLine?.description || '-',
+          allocatedAmount: parseFloat(line.allocatedAmount) || 0,
+          allocationDate: line.allocationDate,
+          txnId: line.txnId,
+          DRglAccountId: line.DRglAccountId,
+          CRglAccountId: line.CRglAccountId,
+          notes: line.notes || '',
+        })),
+        inputter: {
+          cus_name: this.user?.cus_name || this.user?.username || '-',
+        },
+      }
+
+      console.log('📊 Receipt data prepared:', receiptData)
+
+      // Set data and open dialog
+      this.selectedReceiptForPrint = receiptData
+      
+      this.$nextTick(() => {
+        console.log('🚀 Opening print dialog...')
+        this.showPrintDialog = true
+        console.log('✅ showPrintDialog set to:', this.showPrintDialog)
+      })
+    },
     async requestSequence() {
       try {
-        const { data } = await this.$axios.get('/api/ar-receive-headers/sequence')
+        const { data } = await this.$axios.get(
+          '/api/ar-receive-headers/sequence'
+        )
 
         if (data.success) {
           // Assign the generated invoice number to your form
@@ -1503,22 +1590,24 @@ export default {
         if (this.user && this.user.id) {
           this.form.inputterId = this.user.id
         }
-       this.requestSequence()
+        this.requestSequence()
       }
     },
-
-    resetDialog() {
+resetDialog() {
       this.resetForm()
       this.allocationLines = []
       this.selectedInvoice = null
+      this.selectedReceiptForPrint = null // Update this
       this.clearErrors()
       this.activeTab = 'header'
       this.formLoading = false
       this.saving = false
       this.showInvoiceBrowser = false
+      this.showPrintDialog = false // Update this
       this.filteredInvoices = []
       this.invoiceSearchQuery = ''
     },
+
 
     async loadAllocationLines(receiptId) {
       try {
@@ -1893,7 +1982,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
+  background: linear-gradient(135deg, #a12f8d 0%, #8d2fa1 100%);
   color: white;
   min-height: 50px;
 }

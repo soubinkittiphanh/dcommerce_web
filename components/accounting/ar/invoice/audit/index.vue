@@ -641,7 +641,7 @@ export default {
 }
 
 .invoice-audit-dialog-header {
-background: linear-gradient(135deg, #01532b 0%, #337555 100%);
+background: linear-gradient(135deg, #A12F8D 0%, #8D2FA1 100%);
   color: white;
   padding: 20px;
   display: flex;

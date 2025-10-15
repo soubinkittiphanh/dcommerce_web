@@ -205,6 +205,17 @@
                 }}</span>
               </div>
             </template>
+            <!-- Total Positions -->
+            <template v-slot:item.principalAmount="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-icon x-small color="success" class="mr-1"
+                  >mdi-cash-multiple</v-icon
+                >
+                <span class="text-caption font-weight-bold">{{
+                  formatNumber(item.principalAmount || 0)
+                }}</span>
+              </div>
+            </template>
 
             <!-- Applicants Count -->
             <template v-slot:item.applicantCount="{ item }">
@@ -363,6 +374,7 @@
 import JobBatchDialog from '~/components/job_fair/job_batch'
 import { debounce } from 'lodash'
 import InvoiceHeaderMaintain from '~/components/accounting/ar/invoice/maintain'
+import { swalSuccess, swalError2, ticketHtml, getFormatNum } from '~/common'
 export default {
   name: 'JobBatchList',
   components: {
@@ -428,6 +440,13 @@ export default {
         { text: 'ໜ້າວຽກ', value: 'jobTitle', sortable: false, width: '150px' },
         { text: 'ສະຖານະ', value: 'status', sortable: true, width: '120px' },
         {
+          text: 'ມູນຄ່າແບັດຈັອບ',
+          value: 'principalAmount',
+          sortable: true,
+          width: '100px',
+          align: 'center',
+        },
+        {
           text: 'ເປີດຮັບ',
           value: 'totalPositions',
           sortable: true,
@@ -473,6 +492,7 @@ export default {
         { text: 'ສຳເລັດ', value: 'completed' },
         { text: 'ຍົກເລີກ', value: 'cancelled' },
         { text: 'ລໍຖ້າ', value: 'on_hold' },
+        { text: 'ເດີນທາງແລ້ວ', value: 'submit' },
       ],
     }
   },
@@ -725,13 +745,16 @@ export default {
       }
       return icons[status] || 'mdi-help-circle'
     },
-
+    formatNumber(val) {
+      return getFormatNum(val)
+    },
     formatStatus(status) {
       const labels = {
         draft: 'ລໍຖ້າ',
         active: 'ດຳເນີນການ',
         completed: 'ສຳເລັດ',
         settled: 'ຊຳລະແລ້ວ',
+        submit: 'ເດີນທາງແລ້ວ',
       }
       return labels[status] || status
     },

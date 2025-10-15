@@ -258,6 +258,19 @@
         @close="closeViewDialog"
       />
     </client-only>
+    <!-- Add this Print Voucher Dialog -->
+    <client-only>
+      <ARReceivePrinter
+        :visible="showPrintDialog"
+        :receipt-data="selectedReceiptForPrint"
+        :payment-methods="paymentMethods"
+        :currencies="currencies"
+        :transaction-codes="transactionCodes"
+        :gl-accounts="glAccounts"
+        :invoices="invoices"
+        @close="closePrintDialog"
+      />
+    </client-only>
   </div>
   <!-- </v-container> -->
 </template>
@@ -265,16 +278,31 @@
 <script>
 import ReceiveHeaderMaintain from '~/components/accounting/ar/receive/maintain'
 import ReceiveHeaderView from '~/components/accounting/ar/receive/view'
-
+import ARReceivePrinter from '~/components/accounting/ar/receive/voucher' // Add this import
 export default {
   name: 'ReceiveHeaderSummary',
   components: {
+    ARReceivePrinter,
     ReceiveHeaderMaintain,
     ReceiveHeaderView,
   },
 
   data() {
     return {
+      currencies: [],
+      glAccounts: [],
+      showEditDialog: false,
+      showViewDialog: false,
+      showPrintDialog: false, // Add this
+      selectedReceipt: null,
+      selectedReceiptForPrint: null, // Add this
+      receipts: [],
+      filteredReceipts: [],
+      invoices: [],
+      users: [],
+      loading: false,
+      paymentMethods: [], // Add this
+      transactionCodes: [], // Add this
       currencies: [],
       glAccounts: [],
       showEditDialog: false,
@@ -409,9 +437,28 @@ export default {
     this.fetchUsers()
     this.fetchAccountCharts()
     this.fetchCurrencies()
+    this.fetchPaymentMethods() // Add this
+    this.fetchTransactionCodes() // Add this
   },
 
   methods: {
+    async fetchPaymentMethods() {
+      try {
+        const { data } = await this.$axios.get('/api/payment/find')
+        this.paymentMethods = data || []
+      } catch (error) {
+        console.error('Error fetching payment methods:', error)
+      }
+    },
+
+    async fetchTransactionCodes() {
+      try {
+        const { data } = await this.$axios.get('/api/transaction-codes')
+        this.transactionCodes = data?.data || []
+      } catch (error) {
+        console.error('Error fetching transaction codes:', error)
+      }
+    },
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')
@@ -485,8 +532,27 @@ export default {
       this.showViewDialog = true
     },
 
-    printReceipt(receipt) {
-      this.$toast.info('ພິມໃບຮັບ: ' + receipt.receiptNumber)
+    async printReceipt(receipt) {
+      try {
+        // Fetch full receipt details with all relations
+        const { data } = await this.$axios.get(
+          `/api/ar-receive-headers/${receipt.id}`
+        )
+
+        if (data?.success) {
+          this.selectedReceiptForPrint = data.data
+          this.showPrintDialog = true
+        } else {
+          this.$toast.error('ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໃບຮັບໄດ້')
+        }
+      } catch (error) {
+        console.error('Error loading receipt for print:', error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
+      }
+    },
+    closePrintDialog() {
+      this.showPrintDialog = false
+      this.selectedReceiptForPrint = null
     },
 
     closeEditDialog() {

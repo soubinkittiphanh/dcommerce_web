@@ -9,6 +9,18 @@
             <v-icon left color="white">mdi-table-furniture</v-icon>
             Table Management
             <v-spacer></v-spacer>
+
+            <!-- ADD THIS BUTTON HERE -->
+            <v-btn
+              color="accent"
+              class="mr-3"
+              @click="createTicketWithoutTable"
+              elevation="2"
+            >
+              <v-icon left>mdi-plus-circle</v-icon>
+              Create Ticket (No Table)
+            </v-btn>
+            <!-- END OF NEW BUTTON -->
             <v-chip color="success" text-color="white" class="mr-2">
               <v-icon left small>mdi-check-circle</v-icon>
               ໂຕະວ່າງ: {{ availableTables }}
@@ -311,6 +323,18 @@
                   <v-icon left>mdi-account-plus</v-icon>
                   Seat Customer
                 </v-btn>
+                <v-btn
+                  @click="seatCustomer(true)"
+                  color="primary"
+                  block
+                  large
+                  class="mb-2"
+                  :disabled="!customerName"
+                  :loading="actionLoading"
+                >
+                  <v-icon left>mdi-account-plus</v-icon>
+                  Seat Customer & Add item
+                </v-btn>
               </div>
 
               <!-- Occupied Table Actions -->
@@ -358,16 +382,33 @@
 
               <!-- Cleaning Table Actions -->
               <div v-else-if="selectedTable.status === 'cleaning'">
-                <v-btn
-                  @click="markTableClean"
-                  color="success"
-                  block
-                  large
-                  :loading="actionLoading"
-                >
-                  <v-icon left>mdi-check-circle</v-icon>
-                  Mark Clean & Available
-                </v-btn>
+                <v-row dense>
+                  <v-col cols="12" sm="6">
+                    <v-btn
+                      @click="markTableClean"
+                      color="success"
+                      block
+                      large
+                      :loading="actionLoading"
+                    >
+                      <v-icon left>mdi-check-circle</v-icon>
+                      Mark Clean
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-btn
+                      @click="seatCustomer(true)"
+                      color="primary"
+                      block
+                      large
+                      :disabled="!customerName"
+                      :loading="actionLoading"
+                    >
+                      <v-icon left>mdi-account-plus</v-icon>
+                      Seat Customer
+                    </v-btn>
+                  </v-col>
+                </v-row>
               </div>
 
               <!-- Reserved Table Actions -->
@@ -468,26 +509,42 @@
       @close="closePrintDialog"
       @printed="onPrintSuccess"
     />
-
     <!-- POS Dialog -->
     <v-dialog v-model="showPOSDialog" fullscreen>
       <v-card>
         <v-toolbar color="primary" dark>
           <v-toolbar-title>
             <v-icon left>mdi-cash-register</v-icon>
-            POS - Table {{ selectedTable ? selectedTable.number : '' }}
+            POS -
+            {{
+              selectedTable
+                ? selectedTable.isVirtualTable
+                  ? 'Walk-in (No Table)'
+                  : `Table ${selectedTable.number}`
+                : ''
+            }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-chip
+            v-if="selectedTable?.isVirtualTable"
+            color="accent"
+            class="mr-3"
+          >
+            <v-icon left small>mdi-walk</v-icon>
+            No Table Assignment
+          </v-chip>
           <v-btn icon @click="closePOS">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
         <v-card-text class="pa-0">
           <CafePOSScreen
-            @reload-data="loadTableTicketData(selectedTable.id)"
+            @reload-data="handlePOSReload"
             @reload-table="fetchTables"
             :tableId="selectedTable ? selectedTable.id : null"
-            :key="`pos-${selectedTable?.id}`"
+            :ticketId="noTableTicketId"
+            :isWalkIn="selectedTable?.isVirtualTable"
+            :key="`pos-${selectedTable?.id || noTableTicketId}`"
             v-if="selectedTable && showPOSDialog"
           />
         </v-card-text>
@@ -527,6 +584,8 @@ export default {
   name: 'OperationsTableScreen',
   data() {
     return {
+      isCreatingTicketWithoutTable: false,
+      noTableTicketId: null,
       showPrintConfirmDialog: false,
       // Print related
       showCustomerPrint: false,
@@ -578,6 +637,109 @@ export default {
     this.fetchTables()
   },
   methods: {
+    /**
+     * Handle reload from POS - works for both table and no-table tickets
+     */
+    handlePOSReload() {
+      if (this.selectedTable?.isVirtualTable) {
+        // For no-table tickets, just reload the ticket data
+        this.loadNoTableTicketData(this.noTableTicketId)
+      } else if (this.selectedTable?.id) {
+        // For table tickets, reload table data
+        this.loadTableTicketData(this.selectedTable.id)
+      }
+    },
+
+    /**
+     * Load ticket data for no-table tickets
+     */
+    async loadNoTableTicketData(ticketId) {
+      try {
+        const response = await this.$axios.get(`api/ticket/${ticketId}`)
+        const ticket = response.data.data || response.data
+
+        if (this.selectedTable?.isVirtualTable) {
+          this.selectedTable.currentTotal = ticket.total || 0
+          this.selectedTable.currentOrderId = ticket.id
+          this.selectedTable.orderStatus = ticket.status
+
+          // Load ticket lines
+          try {
+            const linesResponse = await this.$axios.get(
+              `api/ticketLine/ticket/${ticket.id}`
+            )
+            const lines = linesResponse.data.data || linesResponse.data || []
+            this.selectedTable.order = lines
+            this.selectedTable.itemCount = lines.reduce(
+              (sum, line) => sum + line.quantity,
+              0
+            )
+          } catch (linesError) {
+            console.log('Could not fetch ticket lines:', linesError)
+            this.selectedTable.itemCount = 0
+          }
+        }
+      } catch (error) {
+        console.error('Error loading no-table ticket data:', error)
+      }
+    },
+    async createTicketWithoutTable() {
+      try {
+        this.actionLoading = true
+
+        // Create a ticket with no table
+        const ticketPayload = {
+          tableId: null, // No table assignment
+          clientId: null,
+          paymentId: null,
+          status: 'pending',
+          paymentStatus: 'pending',
+          notes: 'Walk-in customer - No table assigned',
+          ticketLines: [],
+        }
+
+        const response = await this.$axios.post('api/ticket', ticketPayload)
+        const newTicket = response.data.data || response.data
+
+        this.noTableTicketId = newTicket.id
+        this.isCreatingTicketWithoutTable = true
+
+        this.showMessage(
+          'Ticket created successfully! Add items to the order.',
+          'success',
+          'mdi-check-circle'
+        )
+
+        // Open POS with the new ticket
+        this.openPOSForNoTableTicket(newTicket.id)
+      } catch (error) {
+        console.error('Error creating ticket without table:', error)
+        this.showMessage(
+          'Failed to create ticket. Please try again.',
+          'error',
+          'mdi-alert'
+        )
+      } finally {
+        this.actionLoading = false
+      }
+    },
+    openPOSForNoTableTicket(ticketId) {
+      // Create a temporary "virtual table" object for POS
+      this.selectedTable = {
+        id: null,
+        number: 'Walk-in',
+        name: 'No Table',
+        status: 'occupied',
+        currentOrderId: ticketId,
+        isVirtualTable: true, // Flag to identify it's not a real table
+        customerName: 'Walk-in Customer',
+        currentTotal: 0,
+        order: [],
+        itemCount: 0,
+      }
+
+      this.showPOSDialog = true
+    },
     // Handle print confirmation response
     handlePrintConfirmation(shouldPrint) {
       this.showPrintConfirmDialog = false
@@ -868,7 +1030,7 @@ export default {
     },
 
     // Customer seating methods
-    async seatCustomer() {
+    async seatCustomer(addItem = false) {
       if (!this.customerName.trim()) {
         this.showMessage('Please enter a customer name', 'warning', 'mdi-alert')
         return
@@ -899,6 +1061,9 @@ export default {
         this.customerName = ''
         this.partySize = 1
         this.fetchTables()
+        if (addItem) {
+          this.openPOS()
+        }
       } catch (error) {
         console.error('Error seating customer:', error)
         if (error.response?.status === 400) {
@@ -1049,13 +1214,26 @@ export default {
 
     // POS methods
     openPOS() {
+      if (!this.selectedTable?.id && !this.isCreatingTicketWithoutTable) {
+        this.showMessage('Please select a table first', 'warning', 'mdi-alert')
+        return
+      }
       this.showPOSDialog = true
     },
 
     closePOS() {
       this.showPOSDialog = false
-    },
 
+      // If it was a no-table ticket, clear the virtual table
+      if (this.selectedTable?.isVirtualTable) {
+        this.isCreatingTicketWithoutTable = false
+        this.noTableTicketId = null
+        this.selectedTable = null
+      }
+
+      // Refresh tables in case real table status changed
+      this.fetchTables()
+    },
     // Utility methods
     showMessage(message, color = 'success', icon = 'mdi-check-circle') {
       this.snackbar = {

@@ -131,6 +131,18 @@
                   prepend-inner-icon="mdi-account-multiple"
                 />
               </v-col>
+              <!-- Total Amount principal -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model.number="formData.principalAmount"
+                  label="ມູນຄ່າແບັດຈັອບ"
+                  type="number"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-cash"
+                />
+              </v-col>
 
               <!-- Selected MOU Info Card -->
               <v-col cols="12" v-if="selectedMou">
@@ -262,6 +274,17 @@
                   no-resize
                 />
               </v-col>
+              <!-- person -->
+              <v-col cols="4" md="4">
+                <v-textarea
+                  v-model="formData.inchargePerson"
+                  label="ຜູ້ຮັບຜິດຊອບ"
+                  outlined
+                  dense
+                  rows="2"
+                  no-resize
+                />
+              </v-col>
             </v-row>
           </v-form>
         </v-container>
@@ -311,11 +334,13 @@ export default {
         runningNo: '',
         batchName: '_',
         totalPositions: 0,
+        principalAmount: 0,
         batchStartDate: null,
         batchEndDate: null,
         batchDeliveryDate: null, // Add this
         status: 'draft',
         notes: '',
+        inchargePerson: '',
       },
       rules: {
         mouId: [(v) => !!v || 'MOU selection is required'],
@@ -327,6 +352,7 @@ export default {
         { text: 'ດຳເນີນງານ', value: 'active' },
         { text: 'ສຳເລັດ', value: 'complted' },
         { text: 'ຊຳລະແລ້ວ', value: 'settled' },
+        { text: 'ເດີນທາງແລ້ວ', value: 'submit' },
       ],
     }
   },
@@ -399,6 +425,7 @@ export default {
           batchName: this.batch.batchName || '',
           runningNo: this.batch.runningNo || '',
           totalPositions: this.batch.totalPositions || 0,
+          principalAmount: this.batch.principalAmount || 0,
           // Extract date only (YYYY-MM-DD)
           batchStartDate: this.batch.batchStartDate?.split('T')[0] || null,
           batchEndDate: this.batch.batchEndDate?.split('T')[0] || null,
@@ -406,6 +433,7 @@ export default {
             this.batch.batchDeliveryDate?.split('T')[0] || null,
           status: this.batch.status || 'draft',
           notes: this.batch.notes || '',
+          inchargePerson: this.batch.inchargePerson || '',
         }
         if (this.batch.mou) {
           this.selectedMou = this.batch.mou
@@ -429,11 +457,13 @@ export default {
         batchName: '',
         runningNo: '',
         totalPositions: 0,
+        principalAmount: 0,
         batchStartDate: null,
         batchEndDate: null,
         batchDeliveryDate: null,
         status: 'draft',
         notes: '',
+        inchargePerson: '',
       }
       this.selectedMou = null
       this.nextRunningNo = null

@@ -146,7 +146,11 @@
               <v-col cols="4" md="4">
                 <v-chip class="ma-0" color="primary" label text-color="white">
                   <v-icon start>mdi-cash-lock</v-icon>
-                  ຄ້າງຊຳລະ: {{ formatCurrency(outStanding,selectedCurrency?.code) || formatCurrency(form.pmCharge,selectedCurrency?.code) }}
+                  ຄ້າງຊຳລະ:
+                  {{
+                    formatCurrency(outStanding, selectedCurrency?.code) ||
+                    formatCurrency(form.pmCharge, selectedCurrency?.code)
+                  }}
                 </v-chip>
               </v-col>
 
@@ -214,6 +218,17 @@
                   dense
                   hide-details="auto"
                   prepend-inner-icon="mdi-account"
+                />
+              </v-col>
+              <v-col cols="6" sm="3" md="2">
+                <v-select
+                  v-model="form.country"
+                  :items="countryOptions"
+                  label="ປະເທດ *"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-earth"
                 />
               </v-col>
               <v-col cols="4" sm="4" md="3">
@@ -565,6 +580,7 @@ export default {
         jobTitle: '',
         numberOfWorkers: 1,
         workerType: 'Any',
+        country: 'OTHER',
         jobStatus: 'draft',
         documents: [],
         images: [],
@@ -583,8 +599,21 @@ export default {
         { value: 'Any', text: 'ເພດໃດກໍໄດ້' },
         { value: 'Man', text: 'ຜູ້ຊາຍເທົ່ານັ້ນ' },
         { value: 'Woman', text: 'ຜູ້ຍິງເທົ່ານັ້ນ' },
-        { value: 'Spous', text: 'ຄູ່ສົມລົດ' },
+        { value: 'Single man', text: 'ຜູ້ຊາຍໂສດ' },
+        { value: 'Single woman', text: 'ຜູ້ຍິງໂສດ' },
+        { value: 'Spouse', text: 'ຄູ່ສົມລົດ' },
       ],
+
+      countryOptions: [
+        { value: 'LAO', text: 'ລາວ (Lao)' },
+        { value: 'THAI', text: 'ໄທ (Thai)' },
+        { value: 'KOREA', text: 'ເກົາຫຼີ (Korea)' },
+        { value: 'SINGAPORE', text: 'ສິງກະໂປ (Singapore)' },
+        { value: 'JAPAN', text: 'ຍີ່ປຸ່ນ (Japan)' },
+        { value: 'ISRAEL', text: 'ອິສຣາເອວ (Israel)' },
+        { value: 'OTHER', text: 'ອື່ນໆ (Other)' },
+      ],
+
       rules: {
         required: (v) => !!v || 'ຈຳເປັນຕ້ອງໃສ່ຂໍ້ມູນ',
         positiveNumber: (v) => v > 0 || 'ຕ້ອງໃຫ່ຍກວ່າ 0',
@@ -645,6 +674,7 @@ export default {
         jobTitle: '',
         numberOfWorkers: 1,
         workerType: 'Any',
+        country: 'OTHER',
         jobStatus: 'draft',
         documents: [],
         images: [],
