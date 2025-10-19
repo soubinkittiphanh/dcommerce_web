@@ -1,5 +1,90 @@
 <template>
-  <div class="tickets-page">
+  <div>
+    <!-- Cancellation Dialog -->
+    <v-dialog v-model="cancelDialog.show" max-width="500" persistent>
+      <v-card>
+        <v-card-title class="text-h6 pa-4">
+          <v-icon color="warning" class="mr-2">mdi-alert-circle</v-icon>
+          Cancel Ticket #{{ cancelDialog.ticketId }}
+        </v-card-title>
+
+        <v-card-text class="pb-0">
+          <v-alert type="warning" variant="tonal" class="mb-4">
+            ການຍົກເລີກ ticket ນີ້ບໍ່ສາມາດຍົກເລີກການດຳເນີນການໄດ້
+            <br />
+            This action cannot be undone
+          </v-alert>
+
+          <v-form ref="cancelForm" v-model="cancelDialog.valid">
+            <v-textarea
+              v-model="cancelDialog.reason"
+              label="ເຫດຜົນໃນການຍົກເລີກ / Cancellation Reason *"
+              placeholder="ກະລຸນາລະບຸເຫດຜົນໃນການຍົກເລີກ ticket..."
+              rows="4"
+              counter="500"
+              :rules="cancelDialog.reasonRules"
+              variant="outlined"
+              required
+            ></v-textarea>
+          </v-form>
+        </v-card-text>
+
+        <v-card-actions class="pa-4">
+          <v-spacer></v-spacer>
+          <v-btn
+            color="grey"
+            variant="text"
+            @click="closeCancelDialog"
+            :disabled="cancelDialog.loading"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="error"
+            variant="elevated"
+            @click="confirmCancellation"
+            :loading="cancelDialog.loading"
+            :disabled="!cancelDialog.valid"
+          >
+            <v-icon start>mdi-cancel</v-icon>
+            Confirm Cancel
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- POS Dialog -->
+    <POSDialog
+      :show="showPOSDialog"
+      :table-id="selectedTableId"
+      :ticket="selectedTicket"
+      @close="closePOSDialog"
+      @ticket-updated="handleTicketUpdated"
+      @reload-data="fetchTickets"
+    />
+
+    <!-- Notes Dialog -->
+    <NotesDialog
+      :show="showNotesDialog"
+      :notes="selectedTicketNotes"
+      :existing-notes="selectedTicket?.notes"
+      title="Edit Ticket Notes"
+      label="Ticket Notes"
+      placeholder="Enter notes for this ticket..."
+      hint="Update ticket notes"
+      :max-length="500"
+      :show-quick-notes="true"
+      :custom-quick-notes="[
+        'Canceled by customer',
+        'Kitchen issue',
+        'Payment issue',
+      ]"
+      :loading="updatingNotes"
+      @close="closeNotesDialog"
+      @save="handleSaveTicketNotes"
+      @show-message="showToast"
+    />
+
     <!-- Page Header -->
     <div class="page-header">
       <h1>Tickets Management</h1>
@@ -28,6 +113,13 @@
           <input v-model="startDate" type="date" class="date-input" />
           <input v-model="endDate" type="date" class="date-input" />
         </div>
+
+        <!-- New Ticket Button -->
+        <button @click="createNewTicket" class="btn-create">
+          <span class="icon">➕</span>
+          <span>New Ticket</span>
+        </button>
+
         <button @click="refreshTickets" class="btn-refresh">
           <span class="icon">↻</span>
           <span>Refresh</span>
@@ -77,8 +169,17 @@
     <div v-else-if="filteredTickets.length === 0" class="state-container empty">
       <div class="empty-icon">🎫</div>
       <h3>No tickets found</h3>
-      <p v-if="hasActiveFilters">Try adjusting your filters</p>
+      <p v-if="hasActiveFilters">
+        Try adjusting your filters
+        <span v-if="tickets.length > 0" class="text-grey">
+          ({{ tickets.length }} total tickets available)
+        </span>
+      </p>
       <p v-else>No tickets available at the moment</p>
+
+      <button v-if="hasActiveFilters" @click="clearFilters" class="btn-retry">
+        Clear Filters
+      </button>
     </div>
 
     <!-- Tickets Grid -->
@@ -88,6 +189,9 @@
         :key="ticket.id"
         :ticket="ticket"
         @click="viewTicketInDialog(ticket)"
+        @add-item="handleAddItem"
+        @add-notes="handleAddNotes"
+        @edit-notes="handleEditNotes"
         @update-status="updateTicketStatus"
         @process-payment="processPayment"
         @print="openPrintDialog"
@@ -125,12 +229,14 @@
       @print="openPrintDialogFromDetail"
     />
 
-    <!-- Print Dialog -->
-    <PrintDialog
-      v-if="showPrintDialog"
+    <!-- 85mm Thermal Print Dialog -->
+    <PrintTicketDialog
+      :show="showPrintDialog"
       :ticket="printTicket"
+      :restaurant-info="restaurantConfig"
       @close="closePrintDialog"
-      @print="printNow"
+      @printed="handlePrintSuccess"
+      @print-error="handlePrintError"
     />
   </div>
 </template>
@@ -138,19 +244,47 @@
 <script>
 import TicketCard from '~/components/tickets/TicketCard.vue'
 import TicketDetailDialog from '~/components/tickets/TicketDetailDialog.vue'
-import PrintDialog from '~/components/tickets/PrintDialog.vue'
+import PrintTicketDialog from '@/components/CAFE/printdialog'
+import POSDialog from '~/components/CAFE/POSDialog.vue'
+import NotesDialog from '~/components/tickets/NotesDialog.vue'
 
 export default {
   name: 'TicketsPage',
 
   components: {
+    NotesDialog,
+    POSDialog,
     TicketCard,
     TicketDetailDialog,
-    PrintDialog,
+    PrintTicketDialog,
   },
 
   data() {
     return {
+      // Restaurant config for thermal printing
+      restaurantConfig: {
+        name: 'Your Restaurant Name',
+        address: '123 Main Street<br>City, State 12345<br>Phone: (555) 123-4567',
+      },
+      
+      cancelDialog: {
+        show: false,
+        ticketId: null,
+        reason: '',
+        valid: false,
+        loading: false,
+        reasonRules: [
+          (v) => !!v || 'Cancellation reason is required',
+          (v) => (v && v.length >= 5) || 'Reason must be at least 5 characters',
+          (v) => (v && v.length <= 500) || 'Reason must be less than 500 characters',
+        ],
+      },
+      
+      searchDebounce: null,
+      showNotesDialog: false,
+      selectedTicket: null,
+      selectedTicketNotes: '',
+      updatingNotes: false,
       tickets: [],
       loading: true,
       error: null,
@@ -164,9 +298,12 @@ export default {
 
       // Dialogs
       showDialog: false,
-      selectedTicket: null,
       showPrintDialog: false,
       printTicket: null,
+
+      // POS Dialog
+      showPOSDialog: false,
+      selectedTableId: null,
 
       // Pagination
       pagination: {
@@ -181,6 +318,10 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$auth.user || ''
+    },
+
     filteredTickets() {
       let filtered = this.tickets
 
@@ -226,8 +367,7 @@ export default {
         pending: this.tickets.filter((t) => t.status === 'pending').length,
         preparing: this.tickets.filter((t) => t.status === 'preparing').length,
         ready: this.tickets.filter((t) => t.status === 'ready').length,
-        unpaid: this.tickets.filter((t) => t.paymentStatus === 'pending')
-          .length,
+        unpaid: this.tickets.filter((t) => t.paymentStatus === 'pending').length,
       }
     },
   },
@@ -235,13 +375,147 @@ export default {
   async mounted() {
     await this.fetchTickets()
     this.startAutoRefresh()
+    window.addEventListener('keydown', this.handleKeyboardShortcuts)
   },
 
   beforeDestroy() {
     this.stopAutoRefresh()
+    window.removeEventListener('keydown', this.handleKeyboardShortcuts)
+    if (this.searchDebounce) {
+      clearTimeout(this.searchDebounce)
+    }
+  },
+
+  watch: {
+    searchQuery: {
+      handler() {
+        clearTimeout(this.searchDebounce)
+        this.searchDebounce = setTimeout(() => {
+          console.log('Search updated:', this.searchQuery)
+        }, 300)
+      },
+    },
   },
 
   methods: {
+    clearFilters() {
+      this.searchQuery = ''
+      this.statusFilter = ''
+      this.paymentFilter = ''
+      this.startDate = ''
+      this.endDate = ''
+      this.showToast('Filters cleared', 'info')
+    },
+
+    handleKeyboardShortcuts(event) {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'r') {
+        event.preventDefault()
+        this.refreshTickets()
+      }
+
+      if ((event.ctrlKey || event.metaKey) && event.key === 'n') {
+        event.preventDefault()
+        this.createNewTicket()
+      }
+    },
+
+    handleAddNotes(ticket) {
+      console.log('Add notes to ticket:', ticket.id)
+      this.openTicketNotes(ticket)
+    },
+
+    handleEditNotes(ticket) {
+      console.log('Edit notes for ticket:', ticket.id)
+      this.openTicketNotes(ticket)
+    },
+
+    openTicketNotes(ticket) {
+      this.selectedTicket = ticket
+      this.selectedTicketNotes = ticket.notes || ''
+      this.showNotesDialog = true
+    },
+
+    closeNotesDialog() {
+      this.showNotesDialog = false
+      this.selectedTicket = null
+      this.selectedTicketNotes = ''
+    },
+
+    async handleSaveTicketNotes(notes) {
+      if (!this.selectedTicket) return
+
+      this.updatingNotes = true
+      try {
+        await this.$axios.patch(`/api/ticket/${this.selectedTicket.id}/notes`, {
+          notes: notes,
+        })
+
+        this.selectedTicket.notes = notes
+        const ticket = this.tickets.find((t) => t.id === this.selectedTicket.id)
+        if (ticket) {
+          ticket.notes = notes
+        }
+
+        this.showToast('Notes updated successfully', 'success')
+        this.closeNotesDialog()
+      } catch (error) {
+        console.error('Error updating notes:', error)
+        this.showToast('Failed to update notes', 'error')
+      } finally {
+        this.updatingNotes = false
+      }
+    },
+
+    showToast(message, type = 'success') {
+      if (this.$toast) {
+        this.$toast[type](message)
+      } else {
+        console.log(`[${type.toUpperCase()}] ${message}`)
+      }
+    },
+
+    createNewTicket() {
+      console.log('Creating new ticket...')
+      this.selectedTableId = 'walk-in'
+      this.selectedTicket = null
+      this.showPOSDialog = true
+
+      if (this.$toast) {
+        this.$toast.info('Creating new walk-in ticket')
+      }
+    },
+
+    handleAddItem({ ticketId, tableId, ticket }) {
+      console.log('Add item clicked:', { ticketId, tableId, ticket })
+      this.selectedTableId = tableId || 'walk-in'
+      this.selectedTicket = ticket
+      this.showPOSDialog = true
+    },
+
+    closePOSDialog() {
+      this.showPOSDialog = false
+      this.selectedTableId = null
+      this.selectedTicket = null
+    },
+
+    handleTicketUpdated(updatedTicket) {
+      console.log('Ticket updated:', updatedTicket)
+
+      const index = this.tickets.findIndex((t) => t.id === updatedTicket.id)
+      if (index !== -1) {
+        this.$set(this.tickets, index, updatedTicket)
+      } else {
+        this.tickets.unshift(updatedTicket)
+      }
+
+      this.closePOSDialog()
+      this.fetchTickets()
+
+      if (this.$toast) {
+        this.$toast.success('Ticket saved successfully')
+      }
+    },
+
     async fetchTickets() {
       this.loading = true
       this.error = null
@@ -261,10 +535,8 @@ export default {
 
         const response = await this.$axios.get('/api/ticket/find', { params })
 
-        this.tickets =
-          response.data.tickets || response.data.data || response.data || []
+        this.tickets = response.data.tickets || response.data.data || response.data || []
 
-        // Update pagination
         const paginationData = response.data.pagination || response.data
         this.pagination = {
           ...this.pagination,
@@ -285,7 +557,9 @@ export default {
 
     async refreshTickets() {
       await this.fetchTickets()
-      this.$toast?.success('Tickets refreshed')
+      if (this.$toast) {
+        this.$toast.success('Tickets refreshed')
+      }
     },
 
     async changePage(page) {
@@ -297,37 +571,89 @@ export default {
 
     async updateTicketStatus(ticketId, newStatus) {
       try {
-        let cancelReason = null
+        console.info(
+          `USER DET ${JSON.stringify(this.user)} - ${this.user.userGroup.ticketCancel}`
+        )
 
-        // If status is cancel, prompt for reason
+        if (newStatus === 'cancel' && !this.user.userGroup.ticketCancel) {
+          if (this.$toast) {
+            this.$toast.error(
+              'ທ່ານບໍ່ມີສິດອະນຸຍາດໃຫ້ຍົກເລີກ Ticket / You are not allowed to cancel tickets'
+            )
+          }
+          return
+        }
+
         if (newStatus === 'cancel') {
-          cancelReason = prompt('Please enter the reason for cancellation:')
-
-          // If user clicks cancel or enters empty reason, abort
-          if (!cancelReason || cancelReason.trim() === '') {
-            this.$toast?.warning('Cancellation reason is required')
-            return
-          }
+          this.showCancelDialog(ticketId)
+          return
         }
 
-        await this.$axios.patch(`/api/ticket/${ticketId}/status`, {
-          status: newStatus,
-          cancelReason: cancelReason,
-        })
-
-        const ticket = this.tickets.find((t) => t.id === ticketId)
-        if (ticket) {
-          ticket.status = newStatus
-          ticket.updateTimestamp = new Date()
-          if (cancelReason) {
-            ticket.cancelReason = cancelReason
-          }
-        }
-
-        this.$toast?.success(`Ticket #${ticketId} updated successfully`)
+        await this.performStatusUpdate(ticketId, newStatus, null)
       } catch (error) {
         console.error('Error updating status:', error)
-        this.$toast?.error('Failed to update ticket status')
+        if (this.$toast) {
+          this.$toast.error('Failed to update ticket status')
+        }
+      }
+    },
+
+    showCancelDialog(ticketId) {
+      this.cancelDialog.ticketId = ticketId
+      this.cancelDialog.reason = ''
+      this.cancelDialog.show = true
+      this.cancelDialog.loading = false
+    },
+
+    closeCancelDialog() {
+      this.cancelDialog.show = false
+      this.cancelDialog.ticketId = null
+      this.cancelDialog.reason = ''
+      this.cancelDialog.loading = false
+    },
+
+    async confirmCancellation() {
+      if (!this.$refs.cancelForm.validate()) {
+        return
+      }
+
+      this.cancelDialog.loading = true
+
+      try {
+        await this.performStatusUpdate(
+          this.cancelDialog.ticketId,
+          'cancel',
+          this.cancelDialog.reason.trim()
+        )
+        this.closeCancelDialog()
+      } catch (error) {
+        console.error('Error canceling ticket:', error)
+        if (this.$toast) {
+          this.$toast.error('Failed to cancel ticket')
+        }
+      } finally {
+        this.cancelDialog.loading = false
+      }
+    },
+
+    async performStatusUpdate(ticketId, newStatus, cancelReason = null) {
+      await this.$axios.patch(`/api/ticket/${ticketId}/status`, {
+        status: newStatus,
+        cancelReason: cancelReason,
+      })
+
+      const ticket = this.tickets.find((t) => t.id === ticketId)
+      if (ticket) {
+        ticket.status = newStatus
+        ticket.updateTimestamp = new Date()
+        if (cancelReason) {
+          ticket.cancelReason = cancelReason
+        }
+      }
+
+      if (this.$toast) {
+        const action = newStatus === 'cancel' ? 'cancelled' : 'updated'
+        this.$toast.success(`Ticket #${ticketId} ${action} successfully`)
       }
     },
 
@@ -349,12 +675,9 @@ export default {
       if (!this.selectedTicket) return
 
       try {
-        await this.$axios.patch(
-          `/api/ticket/${this.selectedTicket.id}/status`,
-          {
-            status: newStatus,
-          }
-        )
+        await this.$axios.patch(`/api/ticket/${this.selectedTicket.id}/status`, {
+          status: newStatus,
+        })
 
         this.selectedTicket.status = newStatus
         this.selectedTicket.updateTimestamp = new Date()
@@ -365,10 +688,14 @@ export default {
           ticket.updateTimestamp = new Date()
         }
 
-        this.$toast?.success('Ticket updated successfully')
+        if (this.$toast) {
+          this.$toast.success('Ticket updated successfully')
+        }
       } catch (error) {
         console.error('Error updating status:', error)
-        this.$toast?.error('Failed to update ticket status')
+        if (this.$toast) {
+          this.$toast.error('Failed to update ticket status')
+        }
       }
     },
 
@@ -379,78 +706,47 @@ export default {
       }
     },
 
+    // 85mm Thermal Print Dialog methods
     openPrintDialog(ticket) {
+      console.log('Opening 85mm thermal print dialog for ticket:', ticket.id)
       this.printTicket = ticket
       this.showPrintDialog = true
     },
 
     openPrintDialogFromDetail() {
       if (this.selectedTicket) {
+        console.log(
+          'Opening 85mm thermal print dialog from detail for ticket:',
+          this.selectedTicket.id
+        )
         this.printTicket = this.selectedTicket
         this.showPrintDialog = true
       }
     },
 
     closePrintDialog() {
+      console.log('Closing 85mm thermal print dialog')
       this.showPrintDialog = false
       this.printTicket = null
     },
 
-    printNow() {
-      const printContent = document.querySelector('.print-preview')?.innerHTML
-      if (!printContent) return
-
-      const printWindow = window.open('', '_blank')
-      printWindow.document.write(this.getPrintHTML(printContent))
-      printWindow.document.close()
-      printWindow.focus()
-
-      setTimeout(() => {
-        printWindow.print()
-        printWindow.close()
-      }, 250)
-
+    // Handle successful 85mm thermal print
+    handlePrintSuccess(ticket) {
+      console.log('85mm thermal print completed successfully for ticket:', ticket.id)
       this.closePrintDialog()
+
+      if (this.$toast) {
+        this.$toast.success(`Ticket #${ticket.id} printed successfully on 85mm thermal printer`)
+      }
     },
 
-    getPrintHTML(content) {
-      return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Ticket #${this.printTicket?.id}</title>
-          <style>
-            ${this.getPrintStyles()}
-          </style>
-        </head>
-        <body>${content}</body>
-        </html>
-      `
-    },
+    // Handle 85mm thermal print error
+    handlePrintError(error) {
+      console.error('85mm thermal print error:', error)
 
-    getPrintStyles() {
-      return `
-        body {
-          font-family: 'Courier New', monospace;
-          font-size: 12px;
-          line-height: 1.4;
-          margin: 0;
-          padding: 20px;
-          color: #000;
-        }
-        .print-header { text-align: center; margin-bottom: 20px; }
-        .restaurant-name { font-size: 18px; font-weight: bold; margin: 0 0 8px 0; }
-        .restaurant-address { font-size: 11px; margin: 0; line-height: 1.3; }
-        .detail-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
-        .detail-label { font-weight: bold; }
-        .print-divider { border-top: 1px dashed #000; margin: 15px 0; }
-        .section-title { font-size: 14px; font-weight: bold; margin: 0 0 10px 0; text-align: center; }
-        .item-main { display: flex; justify-content: space-between; font-weight: bold; }
-        .item-details { display: flex; justify-content: space-between; font-size: 11px; margin-left: 10px; }
-        .summary-line { display: flex; justify-content: space-between; margin-bottom: 3px; }
-        .total-line { font-weight: bold; font-size: 14px; border-top: 1px solid #000; padding-top: 5px; margin-top: 8px; }
-        @media print { body { margin: 0; padding: 10px; } }
-      `
+      if (this.$toast) {
+        this.$toast.error('Failed to print ticket on thermal printer')
+      }
     },
 
     startAutoRefresh() {
@@ -476,7 +772,6 @@ export default {
   margin: 0 auto;
 }
 
-/* Page Header */
 .page-header {
   margin-bottom: 32px;
 }
@@ -490,7 +785,7 @@ export default {
 
 .header-actions {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: flex-start;
   flex-wrap: wrap;
 }
@@ -530,6 +825,31 @@ export default {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
+.btn-create {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-create:hover {
+  background: #38a169;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.btn-create .icon {
+  font-size: 18px;
+}
+
 .btn-refresh {
   display: flex;
   align-items: center;
@@ -542,6 +862,7 @@ export default {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .btn-refresh:hover {
@@ -553,7 +874,6 @@ export default {
   font-size: 18px;
 }
 
-/* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -603,7 +923,6 @@ export default {
   letter-spacing: 0.5px;
 }
 
-/* State Container */
 .state-container {
   text-align: center;
   padding: 80px 20px;
@@ -670,7 +989,6 @@ export default {
   background: #3182ce;
 }
 
-/* Tickets Grid */
 .tickets-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -678,7 +996,6 @@ export default {
   margin-bottom: 32px;
 }
 
-/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -715,7 +1032,10 @@ export default {
   font-weight: 500;
 }
 
-/* Responsive */
+.text-grey {
+  color: #718096;
+}
+
 @media (max-width: 768px) {
   .tickets-page {
     padding: 16px;
@@ -736,8 +1056,10 @@ export default {
   .search-input,
   .filter-select,
   .date-input,
+  .btn-create,
   .btn-refresh {
     width: 100%;
+    justify-content: center;
   }
 
   .stats-grid {

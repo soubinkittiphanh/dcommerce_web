@@ -7,6 +7,13 @@
     "_name": "_42c0a0dc"
   },
   {
+    "name": "e-menu",
+    "path": "/e-menu",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/e-menu/index.vue",
+    "chunkName": "pages/e-menu/index",
+    "_name": "_ad2f2d8c"
+  },
+  {
     "name": "fashion",
     "path": "/fashion",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/index.vue",
@@ -784,6 +791,13 @@
     "_name": "_56d2fabe"
   },
   {
+    "name": "admin-cafe-promotion",
+    "path": "/admin/cafe/promotion",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafe/promotion/index.vue",
+    "chunkName": "pages/admin/cafe/promotion/index",
+    "_name": "_16e21664"
+  },
+  {
     "name": "admin-cafeTable-customer",
     "path": "/admin/cafeTable/customer",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafeTable/customer.vue",
@@ -852,6 +866,20 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/product/productlist.vue",
     "chunkName": "pages/admin/product/productlist",
     "_name": "_38fd842d"
+  },
+  {
+    "name": "admin-settings-system",
+    "path": "/admin/settings/system",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/system.vue",
+    "chunkName": "pages/admin/settings/system",
+    "_name": "_228e3c4a"
+  },
+  {
+    "name": "admin-settings-userRole",
+    "path": "/admin/settings/userRole",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/userRole.vue",
+    "chunkName": "pages/admin/settings/userRole",
+    "_name": "_4e54f48d"
   },
   {
     "name": "admin-web_category-test",

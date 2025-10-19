@@ -26,14 +26,15 @@
         <div class="pa-16">
           <v-row>
             <v-col cols="12">
-              <div class="text-center mb-4">
+              <!-- <div class="text-center mb-4">
                 <img 
                 src="~/assets/image/Dcommerce-Logo-PM-login.jpg" 
                   alt="DCOMMERCE Logo" 
                   class="logo-image"
                 />
-              </div>
-              <h2 class="text-center" style="color: #A12F8D;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2>
+              </div> -->
+              <!-- <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2> -->
+              <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ</h2>
             </v-col>
           </v-row>
           <v-card-text>
@@ -47,7 +48,7 @@
               </v-text-field>
               <v-text-field v-model="login.mem_pwd" label="ລະຫັດຜ່ານ" type="password" name="password"
                 prepend-inner-icon="mdi-lock" class="rounded-10 my-text-center" outlined></v-text-field>
-              <v-btn class="rounded-0 my-text-center" color="#A12F8D" x-large block dark @click.prevent="userLogin"
+              <v-btn class="rounded-0 my-text-center" color="#01532B" x-large block dark @click.prevent="userLogin"
                 type="submit">
                 ເຂົ້າສູ່ລະບົບ
                 <v-icon> mdi mdi-login</v-icon>
@@ -94,7 +95,7 @@ export default {
       this.setSelectedTerminal(this.terminalSelected)
       const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId'])
       this.setSelectedLocation(location)
-      this.$router.push('/admin/job_fair/mou')
+      this.$router.push('/admin/ticket')
       this.terminalDialog = false
     },
     async userLogin() {

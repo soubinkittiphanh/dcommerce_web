@@ -1982,7 +1982,7 @@ resetDialog() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #a12f8d 0%, #8d2fa1 100%);
+  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
   color: white;
   min-height: 50px;
 }

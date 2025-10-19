@@ -1,7 +1,7 @@
-exports.ids = [172,32,33,34,35];
+exports.ids = [180,32,34,35,36,137];
 exports.modules = {
 
-/***/ 1207:
+/***/ 1249:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51,13 +51,13 @@ var components_VList = __webpack_require__(9);
 var VMenu = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(90);
+var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(392);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__(585);
+var VSnackbar = __webpack_require__(559);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(391);
@@ -834,10 +834,10 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/cafeTable/index.vue?vue&type=template&id=69ea0f59&scoped=true&
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(628);
+var printdialog = __webpack_require__(517);
 
 // EXTERNAL MODULE: ./components/CAFE/paymentDialogFront/index.vue + 4 modules
-var paymentDialogFront = __webpack_require__(629);
+var paymentDialogFront = __webpack_require__(531);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/cafeTable/index.vue?vue&type=script&lang=js&
 
@@ -1464,7 +1464,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(941)
+  var style0 = __webpack_require__(970)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1485,7 +1485,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var cafeTable = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CafePOSScreen: __webpack_require__(890).default})
+installComponents(component, {CafePOSScreen: __webpack_require__(580).default})
 
 
 /***/ }),
@@ -1519,7 +1519,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 429:
+/***/ 426:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1620,13 +1620,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 435:
+/***/ 434:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(436);
+var content = __webpack_require__(435);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1634,7 +1634,7 @@ __webpack_require__(5).default("1c8f4490", content, true)
 
 /***/ }),
 
-/***/ 436:
+/***/ 435:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1649,18 +1649,18 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 461:
+/***/ 456:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(435);
+/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(434);
 /* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 /* harmony import */ var _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
 /* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7);
-/* harmony import */ var _mixins_transitionable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(139);
+/* harmony import */ var _mixins_transitionable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(138);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
 /* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(3);
 // Styles
@@ -1864,13 +1864,470 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 495:
+/***/ 472:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(496);
+var content = __webpack_require__(473);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("d67becdc", content, true)
+
+/***/ }),
+
+/***/ 473:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-slide-group{display:flex}.v-slide-group:not(.v-slide-group--has-affixes)>.v-slide-group__next,.v-slide-group:not(.v-slide-group--has-affixes)>.v-slide-group__prev{display:none}.v-slide-group.v-item-group>.v-slide-group__next,.v-slide-group.v-item-group>.v-slide-group__prev{cursor:pointer}.v-slide-item{display:inline-flex;flex:0 1 auto}.v-slide-group__next,.v-slide-group__prev{align-items:center;display:flex;flex:0 1 52px;justify-content:center;min-width:52px}.v-slide-group__content{display:flex;flex:1 0 auto;position:relative;transition:.3s cubic-bezier(.25,.8,.5,1);white-space:nowrap}.v-slide-group__wrapper{contain:content;display:flex;flex:1 1 auto;overflow:hidden}.v-slide-group__next--disabled,.v-slide-group__prev--disabled{pointer-events:none}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 475:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export calculateUpdatedOffset */
+/* unused harmony export calculateCenteredOffset */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(472);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
+/* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
+/* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54);
+/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(52);
+/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(134);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
+// Styles
+ // Components
+
+
+ // Extensions
+
+ // Mixins
+
+ // Directives
+
+
+ // Utilities
+
+
+
+function bias(val) {
+  const c = 0.501;
+  const x = Math.abs(val);
+  return Math.sign(val) * (x / ((1 / c - 2) * (1 - x) + 1));
+}
+function calculateUpdatedOffset(selectedElement, widths, rtl, currentScrollOffset) {
+  const clientWidth = selectedElement.clientWidth;
+  const offsetLeft = rtl ? widths.content - selectedElement.offsetLeft - clientWidth : selectedElement.offsetLeft;
+  if (rtl) {
+    currentScrollOffset = -currentScrollOffset;
+  }
+  const totalWidth = widths.wrapper + currentScrollOffset;
+  const itemOffset = clientWidth + offsetLeft;
+  const additionalOffset = clientWidth * 0.4;
+  if (offsetLeft <= currentScrollOffset) {
+    currentScrollOffset = Math.max(offsetLeft - additionalOffset, 0);
+  } else if (totalWidth <= itemOffset) {
+    currentScrollOffset = Math.min(currentScrollOffset - (totalWidth - itemOffset - additionalOffset), widths.content - widths.wrapper);
+  }
+  return rtl ? -currentScrollOffset : currentScrollOffset;
+}
+function calculateCenteredOffset(selectedElement, widths, rtl) {
+  const {
+    offsetLeft,
+    clientWidth
+  } = selectedElement;
+  if (rtl) {
+    const offsetCentered = widths.content - offsetLeft - clientWidth / 2 - widths.wrapper / 2;
+    return -Math.min(widths.content - widths.wrapper, Math.max(0, offsetCentered));
+  } else {
+    const offsetCentered = offsetLeft + clientWidth / 2 - widths.wrapper / 2;
+    return Math.min(widths.content - widths.wrapper, Math.max(0, offsetCentered));
+  }
+}
+const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__[/* BaseItemGroup */ "a"], _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).extend({
+  name: 'base-slide-group',
+  directives: {
+    Resize: _directives_resize__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"],
+    Touch: _directives_touch__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]
+  },
+  props: {
+    activeClass: {
+      type: String,
+      default: 'v-slide-item--active'
+    },
+    centerActive: Boolean,
+    nextIcon: {
+      type: String,
+      default: '$next'
+    },
+    prevIcon: {
+      type: String,
+      default: '$prev'
+    },
+    showArrows: {
+      type: [Boolean, String],
+      validator: v => typeof v === 'boolean' || ['always', 'desktop', 'mobile'].includes(v)
+    }
+  },
+  data: () => ({
+    isOverflowing: false,
+    resizeTimeout: 0,
+    startX: 0,
+    isSwipingHorizontal: false,
+    isSwiping: false,
+    scrollOffset: 0,
+    widths: {
+      content: 0,
+      wrapper: 0
+    }
+  }),
+  computed: {
+    canTouch() {
+      return typeof window !== 'undefined';
+    },
+    __cachedNext() {
+      return this.genTransition('next');
+    },
+    __cachedPrev() {
+      return this.genTransition('prev');
+    },
+    classes() {
+      return {
+        ..._VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__[/* BaseItemGroup */ "a"].options.computed.classes.call(this),
+        'v-slide-group': true,
+        'v-slide-group--has-affixes': this.hasAffixes,
+        'v-slide-group--is-overflowing': this.isOverflowing
+      };
+    },
+    hasAffixes() {
+      switch (this.showArrows) {
+        // Always show arrows on desktop & mobile
+        case 'always':
+          return true;
+        // Always show arrows on desktop
+
+        case 'desktop':
+          return !this.isMobile;
+        // Show arrows on mobile when overflowing.
+        // This matches the default 2.2 behavior
+
+        case true:
+          return this.isOverflowing || Math.abs(this.scrollOffset) > 0;
+        // Always show on mobile
+
+        case 'mobile':
+          return this.isMobile || this.isOverflowing || Math.abs(this.scrollOffset) > 0;
+        // https://material.io/components/tabs#scrollable-tabs
+        // Always show arrows when
+        // overflowed on desktop
+
+        default:
+          return !this.isMobile && (this.isOverflowing || Math.abs(this.scrollOffset) > 0);
+      }
+    },
+    hasNext() {
+      if (!this.hasAffixes) return false;
+      const {
+        content,
+        wrapper
+      } = this.widths; // Check one scroll ahead to know the width of right-most item
+
+      return content > Math.abs(this.scrollOffset) + wrapper;
+    },
+    hasPrev() {
+      return this.hasAffixes && this.scrollOffset !== 0;
+    }
+  },
+  watch: {
+    internalValue: 'setWidths',
+    // When overflow changes, the arrows alter
+    // the widths of the content and wrapper
+    // and need to be recalculated
+    isOverflowing: 'setWidths',
+    scrollOffset(val) {
+      if (this.$vuetify.rtl) val = -val;
+      let scroll = val <= 0 ? bias(-val) : val > this.widths.content - this.widths.wrapper ? -(this.widths.content - this.widths.wrapper) + bias(this.widths.content - this.widths.wrapper - val) : -val;
+      if (this.$vuetify.rtl) scroll = -scroll;
+      this.$refs.content.style.transform = `translateX(${scroll}px)`;
+    }
+  },
+  mounted() {
+    if (typeof ResizeObserver !== 'undefined') {
+      const obs = new ResizeObserver(() => {
+        this.onResize();
+      });
+      obs.observe(this.$el);
+      obs.observe(this.$refs.content);
+      this.$on('hook:destroyed', () => {
+        obs.disconnect();
+      });
+    } else {
+      let itemsLength = 0;
+      this.$on('hook:beforeUpdate', () => {
+        var _a;
+        itemsLength = (((_a = this.$refs.content) === null || _a === void 0 ? void 0 : _a.children) || []).length;
+      });
+      this.$on('hook:updated', () => {
+        var _a;
+        if (itemsLength === (((_a = this.$refs.content) === null || _a === void 0 ? void 0 : _a.children) || []).length) return;
+        this.setWidths();
+      });
+    }
+  },
+  methods: {
+    onScroll() {
+      this.$refs.wrapper.scrollLeft = 0;
+    },
+    onFocusin(e) {
+      if (!this.isOverflowing) return; // Focused element is likely to be the root of an item, so a
+      // breadth-first search will probably find it in the first iteration
+
+      for (const el of Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* composedPath */ "g"])(e)) {
+        for (const vm of this.items) {
+          if (vm.$el === el) {
+            this.scrollOffset = calculateUpdatedOffset(vm.$el, this.widths, this.$vuetify.rtl, this.scrollOffset);
+            return;
+          }
+        }
+      }
+    },
+    // Always generate next for scrollable hint
+    genNext() {
+      const slot = this.$scopedSlots.next ? this.$scopedSlots.next({}) : this.$slots.next || this.__cachedNext;
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__next',
+        class: {
+          'v-slide-group__next--disabled': !this.hasNext
+        },
+        on: {
+          click: () => this.onAffixClick('next')
+        },
+        key: 'next'
+      }, [slot]);
+    },
+    genContent() {
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__content',
+        ref: 'content',
+        on: {
+          focusin: this.onFocusin
+        }
+      }, this.$slots.default);
+    },
+    genData() {
+      return {
+        class: this.classes,
+        directives: [{
+          name: 'resize',
+          value: this.onResize
+        }]
+      };
+    },
+    genIcon(location) {
+      let icon = location;
+      if (this.$vuetify.rtl && location === 'prev') {
+        icon = 'next';
+      } else if (this.$vuetify.rtl && location === 'next') {
+        icon = 'prev';
+      }
+      const upperLocation = `${location[0].toUpperCase()}${location.slice(1)}`;
+      const hasAffix = this[`has${upperLocation}`];
+      if (!this.showArrows && !hasAffix) return null;
+      return this.$createElement(_VIcon__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
+        props: {
+          disabled: !hasAffix
+        }
+      }, this[`${icon}Icon`]);
+    },
+    // Always generate prev for scrollable hint
+    genPrev() {
+      const slot = this.$scopedSlots.prev ? this.$scopedSlots.prev({}) : this.$slots.prev || this.__cachedPrev;
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__prev',
+        class: {
+          'v-slide-group__prev--disabled': !this.hasPrev
+        },
+        on: {
+          click: () => this.onAffixClick('prev')
+        },
+        key: 'prev'
+      }, [slot]);
+    },
+    genTransition(location) {
+      return this.$createElement(_transitions__WEBPACK_IMPORTED_MODULE_2__[/* VFadeTransition */ "d"], [this.genIcon(location)]);
+    },
+    genWrapper() {
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__wrapper',
+        directives: [{
+          name: 'touch',
+          value: {
+            start: e => this.overflowCheck(e, this.onTouchStart),
+            move: e => this.overflowCheck(e, this.onTouchMove),
+            end: e => this.overflowCheck(e, this.onTouchEnd)
+          }
+        }],
+        ref: 'wrapper',
+        on: {
+          scroll: this.onScroll
+        }
+      }, [this.genContent()]);
+    },
+    calculateNewOffset(direction, widths, rtl, currentScrollOffset) {
+      const sign = rtl ? -1 : 1;
+      const newAbosluteOffset = sign * currentScrollOffset + (direction === 'prev' ? -1 : 1) * widths.wrapper;
+      return sign * Math.max(Math.min(newAbosluteOffset, widths.content - widths.wrapper), 0);
+    },
+    onAffixClick(location) {
+      this.$emit(`click:${location}`);
+      this.scrollTo(location);
+    },
+    onResize() {
+      /* istanbul ignore next */
+      if (this._isDestroyed) return;
+      this.setWidths();
+    },
+    onTouchStart(e) {
+      const {
+        content
+      } = this.$refs;
+      this.startX = this.scrollOffset + e.touchstartX;
+      content.style.setProperty('transition', 'none');
+      content.style.setProperty('willChange', 'transform');
+    },
+    onTouchMove(e) {
+      if (!this.canTouch) return;
+      if (!this.isSwiping) {
+        // only calculate disableSwipeHorizontal during the first onTouchMove invoke
+        // in order to ensure disableSwipeHorizontal value is consistent between onTouchStart and onTouchEnd
+        const diffX = e.touchmoveX - e.touchstartX;
+        const diffY = e.touchmoveY - e.touchstartY;
+        this.isSwipingHorizontal = Math.abs(diffX) > Math.abs(diffY);
+        this.isSwiping = true;
+      }
+      if (this.isSwipingHorizontal) {
+        // sliding horizontally
+        this.scrollOffset = this.startX - e.touchmoveX; // temporarily disable window vertical scrolling
+
+        document.documentElement.style.overflowY = 'hidden';
+      }
+    },
+    onTouchEnd() {
+      if (!this.canTouch) return;
+      const {
+        content,
+        wrapper
+      } = this.$refs;
+      const maxScrollOffset = content.clientWidth - wrapper.clientWidth;
+      content.style.setProperty('transition', null);
+      content.style.setProperty('willChange', null);
+      if (this.$vuetify.rtl) {
+        /* istanbul ignore else */
+        if (this.scrollOffset > 0 || !this.isOverflowing) {
+          this.scrollOffset = 0;
+        } else if (this.scrollOffset <= -maxScrollOffset) {
+          this.scrollOffset = -maxScrollOffset;
+        }
+      } else {
+        /* istanbul ignore else */
+        if (this.scrollOffset < 0 || !this.isOverflowing) {
+          this.scrollOffset = 0;
+        } else if (this.scrollOffset >= maxScrollOffset) {
+          this.scrollOffset = maxScrollOffset;
+        }
+      }
+      this.isSwiping = false; // rollback whole page scrolling to default
+
+      document.documentElement.style.removeProperty('overflow-y');
+    },
+    overflowCheck(e, fn) {
+      e.stopPropagation();
+      this.isOverflowing && fn(e);
+    },
+    scrollIntoView
+    /* istanbul ignore next */() {
+      if (!this.selectedItem && this.items.length) {
+        const lastItemPosition = this.items[this.items.length - 1].$el.getBoundingClientRect();
+        const wrapperPosition = this.$refs.wrapper.getBoundingClientRect();
+        if (this.$vuetify.rtl && wrapperPosition.right < lastItemPosition.right || !this.$vuetify.rtl && wrapperPosition.left > lastItemPosition.left) {
+          this.scrollTo('prev');
+        }
+      }
+      if (!this.selectedItem) {
+        return;
+      }
+      if (this.selectedIndex === 0 || !this.centerActive && !this.isOverflowing) {
+        this.scrollOffset = 0;
+      } else if (this.centerActive) {
+        this.scrollOffset = calculateCenteredOffset(this.selectedItem.$el, this.widths, this.$vuetify.rtl);
+      } else if (this.isOverflowing) {
+        this.scrollOffset = calculateUpdatedOffset(this.selectedItem.$el, this.widths, this.$vuetify.rtl, this.scrollOffset);
+      }
+    },
+    scrollTo
+    /* istanbul ignore next */(location) {
+      this.scrollOffset = this.calculateNewOffset(location, {
+        // Force reflow
+        content: this.$refs.content ? this.$refs.content.clientWidth : 0,
+        wrapper: this.$refs.wrapper ? this.$refs.wrapper.clientWidth : 0
+      }, this.$vuetify.rtl, this.scrollOffset);
+    },
+    setWidths() {
+      window.requestAnimationFrame(() => {
+        if (this._isDestroyed) return;
+        const {
+          content,
+          wrapper
+        } = this.$refs;
+        this.widths = {
+          content: content ? content.clientWidth : 0,
+          wrapper: wrapper ? wrapper.clientWidth : 0
+        }; // https://github.com/vuetifyjs/vuetify/issues/13212
+        // We add +1 to the wrappers width to prevent an issue where the `clientWidth`
+        // gets calculated wrongly by the browser if using a different zoom-level.
+
+        this.isOverflowing = this.widths.wrapper + 1 < this.widths.content;
+        this.scrollIntoView();
+      });
+    }
+  },
+  render(h) {
+    return h('div', this.genData(), [this.genPrev(), this.genWrapper(), this.genNext()]);
+  }
+});
+/* harmony default export */ __webpack_exports__["b"] = (BaseSlideGroup.extend({
+  name: 'v-slide-group',
+  provide() {
+    return {
+      slideGroup: this
+    };
+  }
+}));
+
+/***/ }),
+
+/***/ 483:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(484);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1878,7 +2335,7 @@ __webpack_require__(5).default("2f6b6adb", content, true)
 
 /***/ }),
 
-/***/ 496:
+/***/ 484:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1893,49 +2350,49 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 518:
+/***/ 488:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(587);
+var content = __webpack_require__(522);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("129a2380", content, true, context)
+  add("185a2976", content, true, context)
 };
 
 /***/ }),
 
-/***/ 519:
+/***/ 489:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(589);
+var content = __webpack_require__(524);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6b1099fa", content, true, context)
+  add("35171542", content, true, context)
 };
 
 /***/ }),
 
-/***/ 520:
+/***/ 490:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(591);
+var content = __webpack_require__(526);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1947,302 +2404,81 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 585:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(495);
-/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
-/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
-/* harmony import */ var _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
-/* harmony import */ var _mixins_positionable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(34);
-/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2);
-/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
-/* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(3);
-// Styles
- // Components
-
- // Mixins
-
-
-
-
- // Utilities
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(_VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], Object(_mixins_positionable__WEBPACK_IMPORTED_MODULE_5__[/* factory */ "b"])(['absolute', 'bottom', 'left', 'right', 'top'])
-/* @vue/component */).extend({
-  name: 'v-snackbar',
-  props: {
-    app: Boolean,
-    centered: Boolean,
-    contentClass: {
-      type: String,
-      default: ''
-    },
-    multiLine: Boolean,
-    text: Boolean,
-    timeout: {
-      type: [Number, String],
-      default: 5000
-    },
-    transition: {
-      type: [Boolean, String],
-      default: 'v-snack-transition',
-      validator: v => typeof v === 'string' || v === false
-    },
-    vertical: Boolean
-  },
-  data: () => ({
-    activeTimeout: -1
-  }),
-  computed: {
-    classes() {
-      return {
-        'v-snack--absolute': this.absolute,
-        'v-snack--active': this.isActive,
-        'v-snack--bottom': this.bottom || !this.top,
-        'v-snack--centered': this.centered,
-        'v-snack--has-background': this.hasBackground,
-        'v-snack--left': this.left,
-        'v-snack--multi-line': this.multiLine && !this.vertical,
-        'v-snack--right': this.right,
-        'v-snack--text': this.text,
-        'v-snack--top': this.top,
-        'v-snack--vertical': this.vertical
-      };
-    },
-    // Text and outlined styles both
-    // use transparent backgrounds
-    hasBackground() {
-      return !this.text && !this.outlined;
-    },
-    // Snackbar is dark by default
-    // override themeable logic.
-    isDark() {
-      return this.hasBackground ? !this.light : _mixins_themeable__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.isDark.call(this);
-    },
-    styles() {
-      if (this.absolute || !this.app) return {};
-      const {
-        bar,
-        bottom,
-        footer,
-        insetFooter,
-        left,
-        right,
-        top
-      } = this.$vuetify.application;
-      return {
-        paddingBottom: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(bottom + footer + insetFooter),
-        paddingLeft: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(left),
-        paddingRight: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(right),
-        paddingTop: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(bar + top)
-      };
-    }
-  },
-  watch: {
-    isActive: 'setTimeout',
-    timeout: 'setTimeout'
-  },
-  mounted() {
-    if (this.isActive) this.setTimeout();
-  },
-  created() {
-    /* istanbul ignore next */
-    if (this.$attrs.hasOwnProperty('auto-height')) {
-      Object(_util_console__WEBPACK_IMPORTED_MODULE_8__[/* removed */ "e"])('auto-height', this);
-    }
-    /* istanbul ignore next */
-    // eslint-disable-next-line eqeqeq
-
-    if (this.timeout == 0) {
-      Object(_util_console__WEBPACK_IMPORTED_MODULE_8__[/* deprecate */ "d"])('timeout="0"', '-1', this);
-    }
-  },
-  methods: {
-    genActions() {
-      return this.$createElement('div', {
-        staticClass: 'v-snack__action '
-      }, [Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* getSlot */ "s"])(this, 'action', {
-        attrs: {
-          class: 'v-snack__btn'
-        }
-      })]);
-    },
-    genContent() {
-      return this.$createElement('div', {
-        staticClass: 'v-snack__content',
-        class: {
-          [this.contentClass]: true
-        },
-        attrs: {
-          role: 'status',
-          'aria-live': 'polite'
-        }
-      }, [Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* getSlot */ "s"])(this)]);
-    },
-    genWrapper() {
-      const setColor = this.hasBackground ? this.setBackgroundColor : this.setTextColor;
-      const data = setColor(this.color, {
-        staticClass: 'v-snack__wrapper',
-        class: _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.classes.call(this),
-        style: _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.styles.call(this),
-        directives: [{
-          name: 'show',
-          value: this.isActive
-        }],
-        on: {
-          pointerenter: () => window.clearTimeout(this.activeTimeout),
-          pointerleave: this.setTimeout
-        }
-      });
-      return this.$createElement('div', data, [this.genContent(), this.genActions()]);
-    },
-    genTransition() {
-      return this.$createElement('transition', {
-        props: {
-          name: this.transition
-        }
-      }, [this.genWrapper()]);
-    },
-    setTimeout() {
-      window.clearTimeout(this.activeTimeout);
-      const timeout = Number(this.timeout);
-      if (!this.isActive ||
-      // TODO: remove 0 in v3
-      [0, -1].includes(timeout)) {
-        return;
-      }
-      this.activeTimeout = window.setTimeout(() => {
-        this.isActive = false;
-      }, timeout);
-    }
-  },
-  render(h) {
-    return h('div', {
-      staticClass: 'v-snack',
-      class: this.classes,
-      style: this.styles
-    }, [this.transition !== false ? this.genTransition() : this.genWrapper()]);
-  }
-}));
-
-/***/ }),
-
-/***/ 586:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(518);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02cb606c_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 587:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".dialog-overlay[data-v-02cb606c]{align-items:center;background:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.print-dialog-content[data-v-02cb606c]{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;max-width:600px;overflow-y:auto;width:100%}.print-dialog-header[data-v-02cb606c]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;padding:20px 24px}.print-dialog-header h2[data-v-02cb606c]{color:#333;font-size:20px;margin:0}.close-btn[data-v-02cb606c]{align-items:center;background:none;border:none;border-radius:50%;color:#6c757d;cursor:pointer;display:flex;font-size:28px;height:32px;justify-content:center;padding:0;transition:all .2s;width:32px}.close-btn[data-v-02cb606c]:hover{background:#e9ecef;color:#333}.print-preview[data-v-02cb606c]{background:#fff;color:#000;font-family:\"Courier New\",monospace;font-size:13px;line-height:1.4;padding:24px}.print-header[data-v-02cb606c]{margin-bottom:20px;text-align:center}.restaurant-name[data-v-02cb606c]{color:#333;font-size:24px;font-weight:700;margin:0 0 8px}.restaurant-address[data-v-02cb606c]{color:#666;font-size:14px;line-height:1.3;margin:0}.print-ticket-info[data-v-02cb606c]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:1fr 1fr;margin-bottom:15px}.detail-row[data-v-02cb606c]{display:flex;font-size:13px;justify-content:space-between;margin-bottom:4px}.detail-label[data-v-02cb606c]{color:#333;font-weight:700}.detail-value[data-v-02cb606c]{color:#000}.print-divider[data-v-02cb606c]{border-top:2px dashed #333;margin:20px 0}.print-items[data-v-02cb606c]{margin-bottom:20px}.section-title[data-v-02cb606c]{color:#333;font-size:16px;font-weight:700;margin:0 0 15px;text-align:center}.print-item[data-v-02cb606c]{border-bottom:1px dotted #ccc;margin-bottom:12px;padding-bottom:8px}.print-item[data-v-02cb606c]:last-child{border-bottom:none}.item-line[data-v-02cb606c]{margin-bottom:4px}.item-main[data-v-02cb606c]{display:flex;font-weight:700;justify-content:space-between;margin-bottom:2px}.item-name[data-v-02cb606c]{color:#333}.item-price[data-v-02cb606c]{color:#000}.item-details[data-v-02cb606c]{color:#666;display:flex;font-size:12px;justify-content:space-between;margin-left:15px}.item-total[data-v-02cb606c]{color:#000;font-weight:700}.item-notes[data-v-02cb606c]{color:#888;font-size:11px;font-style:italic;margin-left:15px;margin-top:4px}.no-items-print[data-v-02cb606c]{color:#666;font-style:italic;padding:20px;text-align:center}.print-summary[data-v-02cb606c]{margin:20px 0}.summary-line[data-v-02cb606c]{display:flex;font-size:14px;justify-content:space-between;margin-bottom:4px}.summary-label[data-v-02cb606c]{color:#333}.summary-value[data-v-02cb606c]{color:#000;font-weight:700}.total-line[data-v-02cb606c]{border-top:2px solid #333;font-size:18px;font-weight:700;margin-top:12px;padding-top:8px}.total-line .summary-label[data-v-02cb606c],.total-line .summary-value[data-v-02cb606c]{color:#000}.print-payment[data-v-02cb606c]{margin:20px 0}.payment-status[data-v-02cb606c]{display:flex;font-size:14px;font-weight:700;justify-content:space-between;margin-bottom:8px}.payment-label[data-v-02cb606c]{color:#333}.payment-value.payment-pending[data-v-02cb606c]{color:#856404}.payment-value.payment-paid[data-v-02cb606c]{color:#155724}.payment-value.payment-refunded[data-v-02cb606c]{color:#721c24}.payment-details[data-v-02cb606c]{color:#666;font-size:12px}.payment-info[data-v-02cb606c]{display:flex;flex-direction:column;gap:4px}.print-notes[data-v-02cb606c]{margin:20px 0}.print-notes h4[data-v-02cb606c]{color:#333;font-size:14px;font-weight:700;margin:0 0 8px}.print-notes p[data-v-02cb606c]{background:#f8f9fa;border-left:4px solid #ffc107;border-radius:4px;color:#000;font-size:13px;margin:0;padding:10px}.print-custom-footer[data-v-02cb606c]{color:#666;font-size:12px;margin:20px 0;text-align:center}.print-footer[data-v-02cb606c]{margin-top:30px;text-align:center}.thank-you[data-v-02cb606c]{color:#333;font-size:16px;font-weight:700;margin:15px 0 10px}.print-time[data-v-02cb606c]{color:#888;font-size:11px;margin:0}.print-dialog-actions[data-v-02cb606c]{background:#f8f9fa;border-radius:0 0 12px 12px;border-top:1px solid #e9ecef;display:flex;gap:12px;justify-content:flex-end;padding:20px 24px}.print-btn[data-v-02cb606c]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:flex;font-size:14px;font-weight:500;gap:8px;padding:12px 24px;transition:all .2s}.print-primary[data-v-02cb606c]{background:#007bff;color:#fff}.print-primary[data-v-02cb606c]:disabled{background:#6c757d;cursor:not-allowed}.print-secondary[data-v-02cb606c]{background:#6c757d;color:#fff}.print-btn[data-v-02cb606c]:hover:not(:disabled){opacity:.9;transform:translateY(-1px)}@media (max-width:768px){.print-dialog-content[data-v-02cb606c]{margin:10px;max-height:95vh}.print-preview[data-v-02cb606c]{font-size:12px;padding:16px}.print-ticket-info[data-v-02cb606c]{gap:10px;grid-template-columns:1fr}.restaurant-name[data-v-02cb606c]{font-size:20px}.section-title[data-v-02cb606c]{font-size:14px}.total-line[data-v-02cb606c]{font-size:16px}.print-dialog-actions[data-v-02cb606c]{flex-direction:column}.print-btn[data-v-02cb606c]{justify-content:center;width:100%}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 588:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b17ba0c6_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(519);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b17ba0c6_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b17ba0c6_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b17ba0c6_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b17ba0c6_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 589:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-b17ba0c6]{cursor:pointer}.payment-card[data-v-b17ba0c6]{transition:all .2s ease}.payment-card[data-v-b17ba0c6]:hover{transform:translateY(-1px)}.text-none[data-v-b17ba0c6]{text-transform:none!important}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 590:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(520);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 591:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-73f437f1]{cursor:pointer}.customer-card[data-v-73f437f1]{border:2px solid transparent;transition:all .3s ease}.customer-card[data-v-73f437f1]:hover{border-color:rgba(25,118,210,.3);transform:translateY(-1px)}.selected-customer[data-v-73f437f1]{background-color:rgba(25,118,210,.1);border-color:#1976d2!important}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 592:
+/***/ 491:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(673);
+var content = __webpack_require__(528);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6f64fd4a", content, true, context)
+  add("699c51ca", content, true, context)
 };
 
 /***/ }),
 
-/***/ 628:
+/***/ 495:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(496);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("44600667", content, true)
+
+/***/ }),
+
+/***/ 496:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-chip-group .v-chip{margin:4px 8px 4px 0}.v-chip-group .v-chip--active{color:inherit}.v-chip-group .v-chip--active.v-chip--no-color:after{opacity:.22}.v-chip-group .v-chip--active.v-chip--no-color:focus:after{opacity:.32}.v-chip-group .v-slide-group__content{padding:4px 0}.v-chip-group--column .v-slide-group__content{flex-wrap:wrap;max-width:100%;white-space:normal}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 506:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(561);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("2f012281", content, true, context)
+};
+
+/***/ }),
+
+/***/ 517:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printdialog/index.vue?vue&type=template&id=02cb606c&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printdialog/index.vue?vue&type=template&id=0dcbd5ba&scoped=true&
 var render = function render() {
-  var _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2, _vm$ticket$client2;
+  var _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2;
   var _vm = this,
     _c = _vm._self._c;
   return _vm.show ? _c('div', {
@@ -2250,15 +2486,21 @@ var render = function render() {
     on: {
       "click": _vm.closeDialog
     }
-  }, [_vm._ssrNode("<div class=\"print-dialog-content\" data-v-02cb606c><div class=\"print-dialog-header\" data-v-02cb606c><h2 data-v-02cb606c>Print Ticket</h2> <button class=\"close-btn\" data-v-02cb606c>×</button></div> " + (_vm.ticket ? "<div class=\"print-preview\" data-v-02cb606c><div class=\"print-header\" data-v-02cb606c><div class=\"restaurant-info\" data-v-02cb606c><h1 class=\"restaurant-name\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.restaurantInfo.name)) + "</h1> <p class=\"restaurant-address\" data-v-02cb606c>" + _vm._s(_vm.restaurantInfo.address) + "</p></div></div> <div class=\"print-ticket-info\" data-v-02cb606c><div class=\"ticket-details\" data-v-02cb606c><div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Ticket #:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.ticket.id)) + "</span></div> <div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Date:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.formatPrintDate(_vm.ticket.createdAt))) + "</span></div> <div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Time:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.formatPrintTime(_vm.ticket.createdAt))) + "</span></div> <div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Status:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.formatStatus(_vm.ticket.status))) + "</span></div></div> <div class=\"customer-table-info\" data-v-02cb606c><div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Customer:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in Customer')) + "</span></div> <div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Table:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'N/A')) + "</span></div> " + ((_vm$ticket$client2 = _vm.ticket.client) !== null && _vm$ticket$client2 !== void 0 && _vm$ticket$client2.phone ? "<div class=\"detail-row\" data-v-02cb606c><span class=\"detail-label\" data-v-02cb606c>Phone:</span> <span class=\"detail-value\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.ticket.client.phone)) + "</span></div>" : "<!---->") + "</div></div> <div class=\"print-divider\" data-v-02cb606c></div> <div class=\"print-items\" data-v-02cb606c><h3 class=\"section-title\" data-v-02cb606c>ORDER ITEMS</h3> " + (_vm.ticket.ticketLines && _vm.ticket.ticketLines.length > 0 ? "<div data-v-02cb606c>" + _vm._ssrList(_vm.ticket.ticketLines, function (line) {
-    return "<div class=\"print-item\" data-v-02cb606c><div class=\"item-line\" data-v-02cb606c><div class=\"item-main\" data-v-02cb606c><span class=\"item-name\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.getItemName(line))) + "</span> <span class=\"item-price\" data-v-02cb606c>" + _vm._ssrEscape("$" + _vm._s(_vm.formatPrice(line.originalTicketLinePrice))) + "</span></div> <div class=\"item-details\" data-v-02cb606c><span class=\"item-qty\" data-v-02cb606c>" + _vm._ssrEscape("Qty: " + _vm._s(line.quantity)) + "</span> <span class=\"item-total\" data-v-02cb606c>" + _vm._ssrEscape("$" + _vm._s(_vm.formatPrice(_vm.getItemTotal(line)))) + "</span></div></div> " + (line.notes ? "<div class=\"item-notes\" data-v-02cb606c>" + _vm._ssrEscape("\n              Note: " + _vm._s(line.notes) + "\n            ") + "</div>" : "<!---->") + "</div>";
-  }) + "</div>" : "<div class=\"no-items-print\" data-v-02cb606c><p data-v-02cb606c>No items in this order</p></div>") + "</div> <div class=\"print-divider\" data-v-02cb606c></div> <div class=\"print-summary\" data-v-02cb606c><div class=\"summary-line\" data-v-02cb606c><span class=\"summary-label\" data-v-02cb606c>Subtotal:</span> <span class=\"summary-value\" data-v-02cb606c>" + _vm._ssrEscape("$" + _vm._s(_vm.formatPrice(_vm.ticket.subtotal))) + "</span></div> <div class=\"summary-line\" data-v-02cb606c><span class=\"summary-label\" data-v-02cb606c>Tax:</span> <span class=\"summary-value\" data-v-02cb606c>" + _vm._ssrEscape("$" + _vm._s(_vm.formatPrice(_vm.ticket.tax))) + "</span></div> <div class=\"summary-line total-line\" data-v-02cb606c><span class=\"summary-label\" data-v-02cb606c>TOTAL:</span> <span class=\"summary-value\" data-v-02cb606c>" + _vm._ssrEscape("$" + _vm._s(_vm.formatPrice(_vm.ticket.total))) + "</span></div></div> <div class=\"print-payment\" data-v-02cb606c><div class=\"payment-status\" data-v-02cb606c><span class=\"payment-label\" data-v-02cb606c>Payment Status:</span> <span" + _vm._ssrClass("payment-value", `payment-${_vm.ticket.paymentStatus}`) + " data-v-02cb606c>" + _vm._ssrEscape("\n            " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n          ") + "</span></div> " + (_vm.ticket.payment && _vm.ticket.paymentStatus === 'paid' ? "<div class=\"payment-details\" data-v-02cb606c><div class=\"payment-info\" data-v-02cb606c><span data-v-02cb606c>" + _vm._ssrEscape("Method: " + _vm._s(_vm.ticket.payment.payment_code || 'N/A')) + "</span> " + (_vm.ticket.payment.id ? "<span data-v-02cb606c>" + _vm._ssrEscape("\n              Transaction: " + _vm._s(_vm.ticket.payment.payment_code) + "\n            ") + "</span>" : "<!---->") + "</div></div>" : "<!---->") + "</div> " + (_vm.ticket.notes ? "<div class=\"print-notes\" data-v-02cb606c><div class=\"print-divider\" data-v-02cb606c></div> <h4 data-v-02cb606c>NOTES:</h4> <p data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.ticket.notes)) + "</p></div>" : "<!---->") + " " + (_vm.customFooter ? "<div class=\"print-custom-footer\" data-v-02cb606c><div class=\"print-divider\" data-v-02cb606c></div> <div data-v-02cb606c>" + _vm._s(_vm.customFooter) + "</div></div>" : "<!---->") + " <div class=\"print-footer\" data-v-02cb606c><div class=\"print-divider\" data-v-02cb606c></div> <p class=\"thank-you\" data-v-02cb606c>" + _vm._ssrEscape(_vm._s(_vm.footerMessage)) + "</p> <p class=\"print-time\" data-v-02cb606c>" + _vm._ssrEscape("\n          Printed: " + _vm._s(_vm.formatPrintDateTime(new Date())) + "\n        ") + "</p></div></div>" : "<!---->") + " <div class=\"print-dialog-actions\" data-v-02cb606c><button" + _vm._ssrAttr("disabled", _vm.printing) + " class=\"print-btn print-primary\" data-v-02cb606c>" + (_vm.printing ? "<span data-v-02cb606c>Printing...</span>" : "<span data-v-02cb606c>🖨️ Print</span>") + "</button> <button class=\"print-btn print-secondary\" data-v-02cb606c>\n        Cancel\n      </button></div></div>")]) : _vm._e();
+  }, [_vm._ssrNode("<div class=\"print-dialog-content\" data-v-0dcbd5ba><div class=\"print-dialog-header\" data-v-0dcbd5ba><h2 data-v-0dcbd5ba>Print Ticket</h2> <button class=\"close-btn\" data-v-0dcbd5ba>×</button></div> " + (_vm.ticket ? "<div class=\"print-preview\" data-v-0dcbd5ba><div class=\"print-header\" data-v-0dcbd5ba><div class=\"restaurant-info\" data-v-0dcbd5ba><h1 class=\"restaurant-name\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.companyInfo.name)) + "</h1> <div class=\"restaurant-address\" data-v-0dcbd5ba>" + _vm._s(_vm.companyInfo.address) + "</div> " + (_vm.companyInfo.tel || _vm.companyInfo.email ? "<div class=\"contact-line\" data-v-0dcbd5ba>" + _vm._ssrEscape("\n            " + _vm._s(_vm.companyInfo.tel)) + (_vm.companyInfo.tel && _vm.companyInfo.email ? "<span data-v-0dcbd5ba> | </span>" : "<!---->") + _vm._ssrEscape(_vm._s(_vm.companyInfo.email) + "\n          ") + "</div>" : "<!---->") + "</div></div> <div class=\"print-ticket-info\" data-v-0dcbd5ba><div class=\"ticket-basic\" data-v-0dcbd5ba><div class=\"detail-row\" data-v-0dcbd5ba><span class=\"detail-label\" data-v-0dcbd5ba>#:</span> <span class=\"detail-value\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.ticket.ticketNumber || _vm.ticket.id)) + "</span></div> <div class=\"detail-row\" data-v-0dcbd5ba><span class=\"detail-label\" data-v-0dcbd5ba>Date:</span> <span class=\"detail-value\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrintDate(_vm.ticket.createdAt))) + "</span></div> <div class=\"detail-row\" data-v-0dcbd5ba><span class=\"detail-label\" data-v-0dcbd5ba>Time:</span> <span class=\"detail-value\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrintTime(_vm.ticket.createdAt))) + "</span></div></div> <div class=\"customer-basic\" data-v-0dcbd5ba><div class=\"detail-row\" data-v-0dcbd5ba><span class=\"detail-label\" data-v-0dcbd5ba>Customer:</span> <span class=\"detail-value\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in')) + "</span></div> <div class=\"detail-row\" data-v-0dcbd5ba><span class=\"detail-label\" data-v-0dcbd5ba>Table:</span> <span class=\"detail-value\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || '-')) + "</span></div> <div class=\"detail-row\" data-v-0dcbd5ba><span class=\"detail-label\" data-v-0dcbd5ba>Status:</span> <span class=\"detail-value\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatStatus(_vm.ticket.status))) + "</span></div></div></div> <div class=\"print-divider\" data-v-0dcbd5ba></div> <div class=\"print-items\" data-v-0dcbd5ba><div class=\"section-title\" data-v-0dcbd5ba>ITEMS</div> " + (_vm.ticket.ticketLines && _vm.ticket.ticketLines.length > 0 ? "<div data-v-0dcbd5ba>" + _vm._ssrList(_vm.ticket.ticketLines, function (line) {
+    return "<div class=\"print-item\" data-v-0dcbd5ba><div class=\"item-main\" data-v-0dcbd5ba><span class=\"item-name\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.getItemName(line))) + "</span> <span class=\"item-price\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.getItemTotal(line)))) + "</span></div> <div class=\"item-details\" data-v-0dcbd5ba><span class=\"item-qty\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(line.quantity) + "x" + _vm._s(_vm.formatPrice(line.unitPrice || line.pro_price))) + "</span></div> " + (line.is_promotion_item && line.promotion_note ? "<div class=\"item-promotion\" data-v-0dcbd5ba><span data-v-0dcbd5ba>" + _vm._ssrEscape("🏷️" + _vm._s(line.promotion_note)) + "</span> " + (line.discount_amount > 0 ? "<span data-v-0dcbd5ba>" + _vm._ssrEscape("-" + _vm._s(_vm.formatPrice(line.discount_amount))) + "</span>" : "<!---->") + "</div>" : "<!---->") + " " + (line.notes ? "<div class=\"item-notes\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(line.notes)) + "</div>" : "<!---->") + "</div>";
+  }) + "</div>" : "<div class=\"no-items-print\" data-v-0dcbd5ba><p data-v-0dcbd5ba>No items in this order</p></div>") + "</div> <div class=\"print-divider\" data-v-0dcbd5ba></div> <div class=\"print-summary\" data-v-0dcbd5ba><div class=\"summary-line\" data-v-0dcbd5ba><span data-v-0dcbd5ba>Subtotal:</span> <span data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.subtotal))) + "</span></div> " + (_vm.hasPromotionDiscount ? "<div class=\"summary-line promotion-line\" data-v-0dcbd5ba><span data-v-0dcbd5ba>Discount:</span> <span data-v-0dcbd5ba>" + _vm._ssrEscape("-" + _vm._s(_vm.formatPrice(_vm.ticket.promotionDiscount || 0))) + "</span></div>" : "<!---->") + " <div class=\"summary-line\" data-v-0dcbd5ba><span data-v-0dcbd5ba>Tax:</span> <span data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.tax))) + "</span></div> <div class=\"summary-line total-line\" data-v-0dcbd5ba><span data-v-0dcbd5ba>TOTAL:</span> <span data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.total))) + "</span></div></div> " + (_vm.appliedPromotions.length > 0 ? "<div class=\"print-promotions\" data-v-0dcbd5ba><div class=\"print-divider\" data-v-0dcbd5ba></div> <h4 data-v-0dcbd5ba>PROMOTIONS:</h4> " + _vm._ssrList(_vm.appliedPromotions, function (promo) {
+    return "<div class=\"promotion-info\" data-v-0dcbd5ba><div class=\"promotion-row\" data-v-0dcbd5ba><span class=\"promotion-title\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(promo.promotionName)) + "</span> <span class=\"promotion-save\" data-v-0dcbd5ba>" + _vm._ssrEscape("-" + _vm._s(_vm.formatPrice(promo.discountAmount))) + "</span></div></div>";
+  }) + "</div>" : "<!---->") + " <div class=\"print-payment\" data-v-0dcbd5ba><div class=\"payment-status\" data-v-0dcbd5ba><span data-v-0dcbd5ba>Payment:</span> <span" + _vm._ssrClass("payment-value", `payment-${_vm.ticket.paymentStatus}`) + " data-v-0dcbd5ba>" + _vm._ssrEscape("\n            " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n          ") + "</span></div></div> " + (_vm.ticket.notes ? "<div class=\"print-notes\" data-v-0dcbd5ba><div class=\"print-divider\" data-v-0dcbd5ba></div> <h4 data-v-0dcbd5ba>NOTES:</h4> <p data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.ticket.notes)) + "</p></div>" : "<!---->") + " <div class=\"print-footer\" data-v-0dcbd5ba><div class=\"print-divider\" data-v-0dcbd5ba></div> <p class=\"thank-you\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.footerMessage)) + "</p> <p class=\"print-time\" data-v-0dcbd5ba>" + _vm._ssrEscape(_vm._s(_vm.formatPrintDateTime(new Date()))) + "</p></div></div>" : "<!---->") + " <div class=\"print-dialog-actions\" data-v-0dcbd5ba><button" + _vm._ssrAttr("disabled", _vm.printing) + " class=\"print-btn print-primary\" data-v-0dcbd5ba>" + (_vm.printing ? "<span data-v-0dcbd5ba>Printing...</span>" : "<span data-v-0dcbd5ba>🖨️ Print</span>") + "</button> <button class=\"print-btn print-secondary\" data-v-0dcbd5ba>\n        Cancel\n      </button></div></div>")]) : _vm._e();
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CAFE/printdialog/index.vue?vue&type=template&id=02cb606c&scoped=true&
+// CONCATENATED MODULE: ./components/CAFE/printdialog/index.vue?vue&type=template&id=0dcbd5ba&scoped=true&
+
+// EXTERNAL MODULE: external "vuex"
+var external_vuex_ = __webpack_require__(13);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printdialog/index.vue?vue&type=script&lang=js&
+
 /* harmony default export */ var printdialogvue_type_script_lang_js_ = ({
   name: 'PrintTicketDialog',
   props: {
@@ -2269,13 +2511,6 @@ var staticRenderFns = [];
     ticket: {
       type: Object,
       default: null
-    },
-    restaurantInfo: {
-      type: Object,
-      default: () => ({
-        name: 'Restaurant Name',
-        address: '123 Main Street<br>City, State 12345<br>Phone: (555) 123-4567'
-      })
     },
     footerMessage: {
       type: String,
@@ -2295,21 +2530,92 @@ var staticRenderFns = [];
       printing: false
     };
   },
+  computed: {
+    hasPromotionDiscount() {
+      return this.ticket && (this.ticket.promotionDiscount > 0 || this.appliedPromotions.length > 0);
+    },
+    appliedPromotions() {
+      if (!this.ticket) return [];
+      if (this.ticket.appliedPromotions) {
+        try {
+          if (typeof this.ticket.appliedPromotions === 'string') {
+            return JSON.parse(this.ticket.appliedPromotions);
+          }
+          return this.ticket.appliedPromotions;
+        } catch (error) {
+          console.error('Error parsing applied promotions:', error);
+        }
+      }
+      return [];
+    },
+    ...Object(external_vuex_["mapGetters"])({
+      searchKeyword: 'searchKeyword',
+      currenctSelectedCategoryId: 'currenctSelectedCategoryId',
+      currentSelectedLocation: 'currentSelectedLocation',
+      findAllCurrency: 'findAllCurrency',
+      findAllTerminal: 'findAllTerminal',
+      findSelectedTerminal: 'findSelectedTerminal'
+    }),
+    currentTerminal() {
+      return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
+    },
+    companyInfo() {
+      var _this$currentTerminal, _this$currentTerminal2;
+      const company = (_this$currentTerminal = this.currentTerminal) === null || _this$currentTerminal === void 0 ? void 0 : (_this$currentTerminal2 = _this$currentTerminal.location) === null || _this$currentTerminal2 === void 0 ? void 0 : _this$currentTerminal2.company;
+      if (!company) {
+        return {
+          name: 'Restaurant Name',
+          address: '123 Main Street<br>City, State 12345',
+          tel: '',
+          email: '',
+          bank: '',
+          accountName: '',
+          accounts: '',
+          remark: ''
+        };
+      }
+      let formattedAddress = '';
+      if (company.address) formattedAddress += company.address;
+      if (company.village) formattedAddress += `<br>${company.village}`;
+      if (company.district) formattedAddress += `, ${company.district}`;
+      if (company.province) formattedAddress += `, ${company.province}`;
+      return {
+        name: company.name || 'Restaurant Name',
+        address: formattedAddress || company.address || '',
+        tel: company.tel || '',
+        email: company.email || '',
+        bank: company.bank || '',
+        accountName: company.accountName || '',
+        accounts: company.accounts || '',
+        remark: company.remark || ''
+      };
+    }
+  },
   methods: {
+    getAfterPromotionsAmount() {
+      if (!this.ticket) return 0;
+      const subtotal = parseFloat(this.ticket.subtotal || 0);
+      const discount = parseFloat(this.ticket.promotionDiscount || 0);
+      return Math.max(0, subtotal - discount);
+    },
     closeDialog() {
       this.$emit('close');
     },
+    // Optimized for 85mm thermal printer
     async printNow() {
       if (!this.ticket) return;
       this.printing = true;
       try {
         const printContent = document.querySelector('.print-preview').innerHTML;
-        const printWindow = window.open('', '_blank');
+        // Smaller window size for 85mm thermal printer
+        const printWindow = window.open('', '_blank', 'width=250,height=500');
         printWindow.document.write(`
           <!DOCTYPE html>
           <html>
           <head>
             <title>Ticket #${this.ticket.id}</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=85mm">
             <style>
               ${this.getPrintStyles()}
             </style>
@@ -2322,210 +2628,352 @@ var staticRenderFns = [];
         printWindow.document.close();
         printWindow.focus();
 
-        // Wait a moment for content to load, then print
+        // Faster printing for thermal printers
         setTimeout(() => {
           printWindow.print();
           printWindow.close();
           this.printing = false;
           this.$emit('printed', this.ticket);
           this.closeDialog();
-        }, 250);
+        }, 50);
       } catch (error) {
         console.error('Print error:', error);
         this.printing = false;
         this.$emit('print-error', error);
       }
     },
+    // Compact date format for thermal printer
+    formatPrintDate(date) {
+      if (!date) return 'N/A';
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit'
+      });
+    },
+    // 24-hour time format for thermal printer
+    formatPrintTime(date) {
+      if (!date) return 'N/A';
+      return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+    },
+    // Compact datetime for footer
+    formatPrintDateTime(date) {
+      if (!date) return 'N/A';
+      const d = new Date(date);
+      return `${d.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit'
+      })} ${d.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })}`;
+    },
+    // Compact price formatting for thermal printer
+    formatPrice(amount, includeCurrency = true) {
+      const rounded = Math.round(amount || 0);
+      const formatted = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(rounded);
+      return includeCurrency ? `${formatted}₭` : formatted;
+    },
+    // Shorter status names for thermal printer
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'Pending',
+        preparing: 'Prep',
+        ready: 'Ready',
+        served: 'Served',
+        paid: 'Paid',
+        cancel: 'Cancel'
+      };
+      return statusMap[status] || status;
+    },
+    // Shorter payment status for thermal printer
+    formatPaymentStatus(status) {
+      const statusMap = {
+        pending: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refund'
+      };
+      return statusMap[status] || status;
+    },
+    getItemTotal(line) {
+      return line.totalPrice || line.total || line.subtotal || line.quantity * (line.unitPrice || line.pro_price || 0);
+    },
+    // Truncate item names if too long for 85mm
+    getItemName(line) {
+      var _line$product, _line$product2;
+      let name = line.pro_name || ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.name) || line.pro_desc || 'Unknown Item';
+
+      // Truncate long names for 85mm thermal printer
+      if (name.length > 20) {
+        name = name.substring(0, 17) + '...';
+      }
+      return name;
+    },
+    // 85mm thermal printer optimized styles
     getPrintStyles() {
       return `
         body {
           font-family: 'Courier New', monospace;
-          font-size: 12px;
-          line-height: 1.4;
+          font-size: 8px;
+          line-height: 1.0;
           margin: 0;
-          padding: 20px;
+          padding: 2px 4px;
           color: #000;
+          width: 85mm;
+          max-width: 85mm;
+          overflow-wrap: break-word;
         }
+        
+        /* Header optimized for 85mm */
         .print-header {
           text-align: center;
-          margin-bottom: 20px;
+          margin-bottom: 4px;
         }
         .restaurant-name {
-          font-size: 18px;
+          font-size: 10px;
           font-weight: bold;
-          margin: 0 0 8px 0;
+          margin: 0 0 1px 0;
         }
         .restaurant-address {
-          font-size: 11px;
+          font-size: 7px;
           margin: 0;
-          line-height: 1.3;
+          line-height: 1.0;
         }
+        .contact-line {
+          font-size: 6px;
+          margin: 1px 0 0 0;
+          color: #666;
+        }
+        
+        /* Ticket info for 85mm width */
         .print-ticket-info {
-          margin-bottom: 15px;
+          margin-bottom: 3px;
+          font-size: 7px;
+        }
+        .ticket-basic, .customer-basic {
+          margin-bottom: 2px;
         }
         .detail-row {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 3px;
+          margin-bottom: 0px;
+          font-size: 7px;
         }
         .detail-label {
           font-weight: bold;
+          width: 35%;
         }
+        .detail-value {
+          width: 65%;
+          text-align: right;
+        }
+        
+        /* Compact divider */
         .print-divider {
           border-top: 1px dashed #000;
-          margin: 15px 0;
+          margin: 2px 0;
         }
+        
+        /* Items section for 85mm */
         .section-title {
-          font-size: 14px;
+          font-size: 8px;
           font-weight: bold;
-          margin: 0 0 10px 0;
+          margin: 0 0 2px 0;
           text-align: center;
         }
         .print-item {
-          margin-bottom: 8px;
-        }
-        .item-line {
           margin-bottom: 2px;
+          font-size: 7px;
         }
         .item-main {
           display: flex;
           justify-content: space-between;
           font-weight: bold;
+          margin-bottom: 0px;
+        }
+        .item-name {
+          width: 70%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .item-price {
+          width: 30%;
+          text-align: right;
         }
         .item-details {
           display: flex;
           justify-content: space-between;
-          font-size: 11px;
-          margin-left: 10px;
-        }
-        .item-notes {
-          font-size: 10px;
-          font-style: italic;
-          margin-left: 10px;
+          font-size: 6px;
+          margin-left: 4px;
           color: #666;
         }
+        .item-qty {
+          font-size: 6px;
+        }
+        
+        /* Promotions for 85mm */
+        .item-promotion {
+          display: flex;
+          justify-content: space-between;
+          font-size: 6px;
+          margin-left: 4px;
+          color: #28a745;
+          font-style: italic;
+        }
+        .item-notes {
+          font-size: 6px;
+          font-style: italic;
+          margin-left: 4px;
+          color: #666;
+          word-wrap: break-word;
+        }
+        
+        /* Summary optimized for 85mm */
         .print-summary {
-          margin: 15px 0;
+          margin: 3px 0;
+          font-size: 7px;
         }
         .summary-line {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 3px;
+          margin-bottom: 0px;
+        }
+        .promotion-line {
+          color: #28a745;
+          font-weight: bold;
         }
         .total-line {
           font-weight: bold;
-          font-size: 14px;
+          font-size: 9px;
           border-top: 1px solid #000;
-          padding-top: 5px;
-          margin-top: 8px;
+          padding-top: 1px;
+          margin-top: 2px;
         }
+        
+        /* Payment status */
         .print-payment {
-          margin: 15px 0;
+          margin: 3px 0;
+          font-size: 7px;
         }
         .payment-status {
           display: flex;
           justify-content: space-between;
           font-weight: bold;
         }
-        .payment-details {
-          font-size: 11px;
-          margin-top: 5px;
-        }
-        .payment-info {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
+        
+        /* Notes section */
         .print-notes {
-          margin: 15px 0;
+          margin: 3px 0;
+          font-size: 6px;
         }
         .print-notes h4 {
-          font-size: 12px;
-          margin: 0 0 5px 0;
+          font-size: 7px;
+          margin: 0 0 1px 0;
         }
         .print-notes p {
           margin: 0;
-          font-size: 11px;
+          word-wrap: break-word;
         }
-        .print-custom-footer {
-          margin: 15px 0;
+        
+        /* Promotions section */
+        .print-promotions {
+          margin: 3px 0;
+          font-size: 6px;
+        }
+        .print-promotions h4 {
+          font-size: 7px;
+          margin: 0 0 2px 0;
           text-align: center;
+          color: #28a745;
         }
+        .promotion-info {
+          margin-bottom: 2px;
+        }
+        .promotion-row {
+          display: flex;
+          justify-content: space-between;
+          font-weight: bold;
+          color: #28a745;
+        }
+        .promotion-desc {
+          font-size: 6px;
+          color: #666;
+          font-style: italic;
+          word-wrap: break-word;
+        }
+        
+        /* Footer for 85mm */
         .print-footer {
           text-align: center;
-          margin-top: 20px;
+          margin-top: 4px;
+          font-size: 6px;
         }
         .thank-you {
           font-weight: bold;
-          margin: 10px 0 5px 0;
+          font-size: 7px;
+          margin: 2px 0 1px 0;
         }
         .print-time {
-          font-size: 10px;
+          font-size: 6px;
           margin: 0;
           color: #666;
         }
+        
+        /* Status colors */
         .payment-pending { color: #856404; }
         .payment-paid { color: #155724; }
         .payment-refunded { color: #721c24; }
+        
+        /* Hide sections to save space on 85mm */
+        .print-company-footer,
+        .print-custom-footer,
+        .company-remark {
+          display: none;
+        }
+        
         .no-items-print {
           text-align: center;
-          padding: 20px;
+          padding: 4px;
           color: #666;
           font-style: italic;
+          font-size: 6px;
         }
+        
+        /* Thermal printer specific */
         @media print {
-          body { margin: 0; padding: 10px; }
+          body { 
+            margin: 0; 
+            padding: 1px 2px; 
+            font-size: 7px;
+            width: 85mm;
+            max-width: 85mm;
+          }
+          .print-divider {
+            margin: 1px 0;
+          }
+          .restaurant-name {
+            font-size: 9px;
+          }
+          .total-line {
+            font-size: 8px;
+          }
+        }
+        
+        /* Ensure no content overflows 85mm width */
+        * {
+          max-width: 100%;
+          box-sizing: border-box;
         }
       `;
-    },
-    formatPrintDate(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleDateString();
-    },
-    formatPrintTime(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    },
-    formatPrintDateTime(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleString();
-    },
-    formatPrice(amount, includeCurrency = true) {
-      const formattedNumber = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(Math.round(amount || 0));
-      return includeCurrency ? `${formattedNumber} ₭` : formattedNumber;
-    },
-    formatStatus(status) {
-      const statusMap = {
-        pending: 'Pending',
-        preparing: 'Preparing',
-        ready: 'Ready',
-        served: 'Served',
-        paid: 'Paid'
-      };
-      return statusMap[status] || status;
-    },
-    formatPaymentStatus(status) {
-      const statusMap = {
-        pending: 'Unpaid',
-        paid: 'Paid',
-        refunded: 'Refunded'
-      };
-      return statusMap[status] || status;
-    },
-    getItemName(line) {
-      console.info(`Line detail ${JSON.stringify(line)}`);
-      // Handle different possible structures
-      return line.pro_name || line.pro_desc || 'Unknown Item';
-    },
-    getItemTotal(line) {
-      // Handle different possible structures
-      return line.total || line.totalPrice || line.subtotal || line.quantity * line.originalTicketLinePrice || 0;
     }
   }
 });
@@ -2540,7 +2988,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(586)
+  var style0 = __webpack_require__(521)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2553,7 +3001,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "02cb606c",
+  "0dcbd5ba",
   "02b6a379"
   
 )
@@ -2562,7 +3010,115 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 629:
+/***/ 521:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0dcbd5ba_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0dcbd5ba_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0dcbd5ba_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0dcbd5ba_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0dcbd5ba_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 522:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".dialog-overlay[data-v-0dcbd5ba]{align-items:center;background:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.print-dialog-content[data-v-0dcbd5ba]{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;max-width:600px;overflow-y:auto;width:100%}.print-dialog-header[data-v-0dcbd5ba]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;padding:20px 24px}.print-dialog-header h2[data-v-0dcbd5ba]{color:#333;font-size:20px;margin:0}.close-btn[data-v-0dcbd5ba]{align-items:center;background:none;border:none;border-radius:50%;color:#6c757d;cursor:pointer;display:flex;font-size:28px;height:32px;justify-content:center;padding:0;transition:all .2s;width:32px}.close-btn[data-v-0dcbd5ba]:hover{background:#e9ecef;color:#333}.print-preview[data-v-0dcbd5ba]{background:#fff;color:#000;font-family:\"Courier New\",monospace;font-size:13px;line-height:1.4;padding:24px}.print-header[data-v-0dcbd5ba]{margin-bottom:20px;text-align:center}.restaurant-name[data-v-0dcbd5ba]{color:#333;font-size:24px;font-weight:700;margin:0 0 8px}.restaurant-address[data-v-0dcbd5ba]{color:#666;font-size:14px;line-height:1.3;margin:0 0 4px}.contact-line[data-v-0dcbd5ba]{color:#666;font-size:12px;margin:2px 0}.print-ticket-info[data-v-0dcbd5ba]{grid-gap:20px;display:grid;gap:20px;grid-template-columns:1fr 1fr;margin-bottom:15px}.detail-row[data-v-0dcbd5ba]{display:flex;font-size:13px;justify-content:space-between;margin-bottom:4px}.detail-label[data-v-0dcbd5ba]{color:#333;font-weight:700}.detail-value[data-v-0dcbd5ba]{color:#000}.print-divider[data-v-0dcbd5ba]{border-top:2px dashed #333;margin:20px 0}.print-items[data-v-0dcbd5ba]{margin-bottom:20px}.section-title[data-v-0dcbd5ba]{color:#333;font-size:16px;font-weight:700;margin:0 0 15px;text-align:center}.print-item[data-v-0dcbd5ba]{border-bottom:1px dotted #ccc;margin-bottom:12px;padding-bottom:8px}.print-item[data-v-0dcbd5ba]:last-child{border-bottom:none}.item-main[data-v-0dcbd5ba]{display:flex;font-weight:700;justify-content:space-between;margin-bottom:2px}.item-name[data-v-0dcbd5ba]{color:#333}.item-price[data-v-0dcbd5ba]{color:#000}.item-details[data-v-0dcbd5ba]{color:#666;display:flex;font-size:12px;justify-content:space-between;margin-left:15px}.item-promotion[data-v-0dcbd5ba]{color:#28a745;display:flex;justify-content:space-between}.item-notes[data-v-0dcbd5ba],.item-promotion[data-v-0dcbd5ba]{font-size:11px;font-style:italic;margin-left:15px;margin-top:4px}.item-notes[data-v-0dcbd5ba]{color:#888}.no-items-print[data-v-0dcbd5ba]{color:#666;font-style:italic;padding:20px;text-align:center}.print-summary[data-v-0dcbd5ba]{margin:20px 0}.summary-line[data-v-0dcbd5ba]{display:flex;font-size:14px;justify-content:space-between;margin-bottom:4px}.promotion-line[data-v-0dcbd5ba]{color:#28a745!important;font-weight:700}.total-line[data-v-0dcbd5ba]{border-top:2px solid #333;font-size:18px;font-weight:700;margin-top:12px;padding-top:8px}.print-promotions[data-v-0dcbd5ba]{background:rgba(40,167,69,.05);border:1px dashed #28a745;border-radius:4px;margin:20px 0;padding:10px}.print-promotions h4[data-v-0dcbd5ba]{color:#28a745;font-size:14px;font-weight:700;margin:0 0 10px;text-align:center}.promotion-info[data-v-0dcbd5ba]{margin-bottom:8px}.promotion-row[data-v-0dcbd5ba]{color:#28a745;display:flex;font-weight:700;justify-content:space-between;margin-bottom:2px}.print-payment[data-v-0dcbd5ba]{margin:20px 0}.payment-status[data-v-0dcbd5ba]{display:flex;font-size:14px;font-weight:700;justify-content:space-between;margin-bottom:8px}.payment-value.payment-pending[data-v-0dcbd5ba]{color:#856404}.payment-value.payment-paid[data-v-0dcbd5ba]{color:#155724}.payment-value.payment-refunded[data-v-0dcbd5ba]{color:#721c24}.print-notes[data-v-0dcbd5ba]{margin:20px 0}.print-notes h4[data-v-0dcbd5ba]{color:#333;font-size:14px;font-weight:700;margin:0 0 8px}.print-notes p[data-v-0dcbd5ba]{background:#f8f9fa;border-left:4px solid #ffc107;border-radius:4px;color:#000;font-size:13px;margin:0;padding:10px}.print-footer[data-v-0dcbd5ba]{margin-top:30px;text-align:center}.thank-you[data-v-0dcbd5ba]{color:#333;font-size:16px;font-weight:700;margin:15px 0 10px}.print-time[data-v-0dcbd5ba]{color:#888;font-size:11px;margin:0}.print-dialog-actions[data-v-0dcbd5ba]{background:#f8f9fa;border-radius:0 0 12px 12px;border-top:1px solid #e9ecef;display:flex;gap:12px;justify-content:flex-end;padding:20px 24px}.print-btn[data-v-0dcbd5ba]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:flex;font-size:14px;font-weight:500;gap:8px;padding:12px 24px;transition:all .2s}.print-primary[data-v-0dcbd5ba]{background:#007bff;color:#fff}.print-primary[data-v-0dcbd5ba]:disabled{background:#6c757d;cursor:not-allowed}.print-secondary[data-v-0dcbd5ba]{background:#6c757d;color:#fff}.print-btn[data-v-0dcbd5ba]:hover:not(:disabled){opacity:.9;transform:translateY(-1px)}@media (max-width:768px){.print-dialog-content[data-v-0dcbd5ba]{margin:10px;max-height:95vh}.print-preview[data-v-0dcbd5ba]{font-size:12px;padding:16px}.print-ticket-info[data-v-0dcbd5ba]{gap:10px;grid-template-columns:1fr}.restaurant-name[data-v-0dcbd5ba]{font-size:20px}.section-title[data-v-0dcbd5ba]{font-size:14px}.total-line[data-v-0dcbd5ba]{font-size:16px}.print-dialog-actions[data-v-0dcbd5ba]{flex-direction:column}.print-btn[data-v-0dcbd5ba]{justify-content:center;width:100%}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 523:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5e2fe58e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(489);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5e2fe58e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5e2fe58e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5e2fe58e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5e2fe58e_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 524:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-5e2fe58e]{cursor:pointer}.payment-card[data-v-5e2fe58e]{transition:all .2s ease}.payment-card[data-v-5e2fe58e]:hover{transform:translateY(-1px)}.text-none[data-v-5e2fe58e]{text-transform:none!important}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 525:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(490);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_73f437f1_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 526:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-73f437f1]{cursor:pointer}.customer-card[data-v-73f437f1]{border:2px solid transparent;transition:all .3s ease}.customer-card[data-v-73f437f1]:hover{border-color:rgba(25,118,210,.3);transform:translateY(-1px)}.selected-customer[data-v-73f437f1]{background-color:rgba(25,118,210,.1);border-color:#1976d2!important}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 527:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotesDialog_vue_vue_type_style_index_0_id_ccdaad86_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(491);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotesDialog_vue_vue_type_style_index_0_id_ccdaad86_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotesDialog_vue_vue_type_style_index_0_id_ccdaad86_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotesDialog_vue_vue_type_style_index_0_id_ccdaad86_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotesDialog_vue_vue_type_style_index_0_id_ccdaad86_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 528:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-ccdaad86]{cursor:pointer}.cursor-pointer[data-v-ccdaad86]:hover{opacity:.8}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 531:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2570,7 +3126,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(461);
+var VAlert = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(124);
@@ -2591,7 +3147,7 @@ var VDialog = __webpack_require__(350);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(90);
+var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(392);
@@ -2599,7 +3155,7 @@ var VRow = __webpack_require__(392);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(391);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=b17ba0c6&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=5e2fe58e&scoped=true&
 
 
 
@@ -2613,7 +3169,7 @@ var VSpacer = __webpack_require__(391);
 
 
 
-var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = function render() {
+var paymentDialogFrontvue_type_template_id_5e2fe58e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -2666,7 +3222,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
   }, [_c(VBtn["a" /* default */], {
     staticClass: "text-none",
     staticStyle: {
-      "background-color": "#A12F8D !important",
+      "background-color": "#01532B !important",
       "color": "white !important"
     },
     attrs: {
@@ -2808,7 +3364,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
   }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
     staticClass: "white--text py-2",
     staticStyle: {
-      "background-color": "#A12F8D !important"
+      "background-color": "#01532B !important"
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
@@ -2838,7 +3394,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-2 mb-3",
     staticStyle: {
-      "border-color": "#A12F8D !important"
+      "border-color": "#01532B !important"
     },
     attrs: {
       "outlined": ""
@@ -2874,7 +3430,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
     }
   }, [_c(VBtn["a" /* default */], {
     staticStyle: {
-      "color": "#A12F8D !important"
+      "color": "#01532B !important"
     },
     attrs: {
       "small": "",
@@ -2893,7 +3449,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
     }
   }, [_c(VBtn["a" /* default */], {
     staticStyle: {
-      "color": "#A12F8D !important"
+      "color": "#01532B !important"
     },
     attrs: {
       "small": "",
@@ -2912,7 +3468,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
     }
   }, [_c(VBtn["a" /* default */], {
     staticStyle: {
-      "color": "#A12F8D !important"
+      "color": "#01532B !important"
     },
     attrs: {
       "small": "",
@@ -2929,7 +3485,7 @@ var paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=b17ba0c6&scoped=true&
+// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=5e2fe58e&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=script&lang=js&
 /* harmony default export */ var paymentDialogFrontvue_type_script_lang_js_ = ({
@@ -3140,7 +3696,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(588)
+  var style0 = __webpack_require__(523)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -3149,11 +3705,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   CAFE_paymentDialogFrontvue_type_script_lang_js_,
-  paymentDialogFrontvue_type_template_id_b17ba0c6_scoped_true_render,
+  paymentDialogFrontvue_type_template_id_5e2fe58e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "b17ba0c6",
+  "5e2fe58e",
   "07a78cad"
   
 )
@@ -3162,7 +3718,385 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 641:
+/***/ 532:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
+var VAlert = __webpack_require__(456);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(124);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(121);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(125);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
+var VChipGroup = __webpack_require__(578);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(350);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(391);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
+var VTextarea = __webpack_require__(426);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/NotesDialog.vue?vue&type=template&id=ccdaad86&scoped=true&
+
+
+
+
+
+
+
+
+
+
+
+
+
+var NotesDialogvue_type_template_id_ccdaad86_scoped_true_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "600",
+      "persistent": ""
+    },
+    model: {
+      value: _vm.internalShow,
+      callback: function ($$v) {
+        _vm.internalShow = $$v;
+      },
+      expression: "internalShow"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "bg-primary text-white"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_vm._v("mdi-note-text")]), _vm._v("\n      " + _vm._s(_vm.title) + "\n    ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pt-4"
+  }, [_c(VTextarea["a" /* default */], {
+    attrs: {
+      "label": _vm.label,
+      "placeholder": _vm.placeholder,
+      "variant": "outlined",
+      "rows": "5",
+      "counter": "",
+      "maxlength": _vm.maxLength,
+      "hint": _vm.hint,
+      "persistent-hint": "",
+      "auto-grow": ""
+    },
+    on: {
+      "keydown": [function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        if (!$event.ctrlKey) return null;
+        return _vm.saveNotes.apply(null, arguments);
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        if (!$event.metaKey) return null;
+        return _vm.saveNotes.apply(null, arguments);
+      }]
+    },
+    scopedSlots: _vm._u([{
+      key: "prepend",
+      fn: function () {
+        return [_c(VIcon["a" /* default */], {
+          attrs: {
+            "color": "primary"
+          }
+        }, [_vm._v("mdi-pencil")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.internalNotes,
+      callback: function ($$v) {
+        _vm.internalNotes = $$v;
+      },
+      expression: "internalNotes"
+    }
+  }), _vm._v(" "), _vm.showQuickNotes ? _c('div', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "text-subtitle-2 mb-2 font-weight-medium"
+  }, [_vm._v("\n          Quick Notes:\n        ")]), _vm._v(" "), _c(VChipGroup["a" /* default */], {
+    attrs: {
+      "column": ""
+    }
+  }, _vm._l(_vm.quickNotesList, function (quickNote) {
+    return _c(VChip["a" /* default */], {
+      key: quickNote,
+      staticClass: "cursor-pointer",
+      attrs: {
+        "color": "primary",
+        "variant": "outlined",
+        "size": "small"
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.addQuickNote(quickNote);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      staticClass: "mr-1",
+      attrs: {
+        "size": "small"
+      }
+    }, [_vm._v("mdi-plus-circle-outline")]), _vm._v("\n            " + _vm._s(quickNote) + "\n          ")], 1);
+  }), 1)], 1) : _vm._e(), _vm._v(" "), _vm.customQuickNotes && _vm.customQuickNotes.length > 0 ? _c('div', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "text-subtitle-2 mb-2 font-weight-medium"
+  }, [_vm._v("\n          Custom Notes:\n        ")]), _vm._v(" "), _c(VChipGroup["a" /* default */], {
+    attrs: {
+      "column": ""
+    }
+  }, _vm._l(_vm.customQuickNotes, function (note) {
+    return _c(VChip["a" /* default */], {
+      key: note,
+      staticClass: "cursor-pointer",
+      attrs: {
+        "color": "secondary",
+        "variant": "outlined",
+        "size": "small"
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.addQuickNote(note);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      staticClass: "mr-1",
+      attrs: {
+        "size": "small"
+      }
+    }, [_vm._v("mdi-star-outline")]), _vm._v("\n            " + _vm._s(note) + "\n          ")], 1);
+  }), 1)], 1) : _vm._e(), _vm._v(" "), _vm.existingNotes && _vm.existingNotes !== _vm.internalNotes ? _c(VAlert["a" /* default */], {
+    staticClass: "mt-3",
+    attrs: {
+      "type": "info",
+      "variant": "tonal",
+      "density": "compact"
+    }
+  }, [_c('div', {
+    staticClass: "text-subtitle-2 font-weight-medium mb-1"
+  }, [_vm._v("\n          Previous Notes:\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "text-body-2"
+  }, [_vm._v(_vm._s(_vm.existingNotes))])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "text-caption text-grey mt-2"
+  }, [_vm._v("\n        " + _vm._s(_vm.internalNotes ? _vm.internalNotes.length : 0) + " / " + _vm._s(_vm.maxLength) + " characters\n        "), _vm.internalNotes && _vm.internalNotes.length > _vm.maxLength * 0.8 ? _c('span', {
+    staticClass: "warning--text"
+  }, [_vm._v("\n          (" + _vm._s(_vm.maxLength - _vm.internalNotes.length) + " remaining)\n        ")]) : _vm._e()])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+    staticClass: "px-4 pb-4"
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "grey",
+      "variant": "text",
+      "disabled": _vm.loading
+    },
+    on: {
+      "click": _vm.closeDialog
+    }
+  }, [_vm._v("\n        Cancel\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.internalNotes ? _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "error",
+      "variant": "text",
+      "disabled": _vm.loading
+    },
+    on: {
+      "click": _vm.clearNotes
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
+    attrs: {
+      "size": "small"
+    }
+  }, [_vm._v("mdi-delete")]), _vm._v("\n        Clear\n      ")], 1) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "variant": "elevated",
+      "disabled": !_vm.internalNotes || _vm.internalNotes.trim() === '',
+      "loading": _vm.loading
+    },
+    on: {
+      "click": _vm.saveNotes
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
+    attrs: {
+      "size": "small"
+    }
+  }, [_vm._v("mdi-content-save")]), _vm._v("\n        Save Notes\n      ")], 1)], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/tickets/NotesDialog.vue?vue&type=template&id=ccdaad86&scoped=true&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/NotesDialog.vue?vue&type=script&lang=js&
+/* harmony default export */ var NotesDialogvue_type_script_lang_js_ = ({
+  name: 'NotesDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    notes: {
+      type: String,
+      default: ''
+    },
+    existingNotes: {
+      type: String,
+      default: null
+    },
+    title: {
+      type: String,
+      default: 'Add Notes'
+    },
+    label: {
+      type: String,
+      default: 'Notes'
+    },
+    placeholder: {
+      type: String,
+      default: 'Enter notes here...'
+    },
+    hint: {
+      type: String,
+      default: 'These notes will be saved'
+    },
+    maxLength: {
+      type: Number,
+      default: 500
+    },
+    showQuickNotes: {
+      type: Boolean,
+      default: true
+    },
+    quickNotes: {
+      type: Array,
+      default: () => ['No ice', 'Extra spicy', 'Less sugar', 'Allergic to nuts', 'Take away', 'Urgent order', 'VIP customer', 'No MSG']
+    },
+    customQuickNotes: {
+      type: Array,
+      default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      internalNotes: ''
+    };
+  },
+  computed: {
+    internalShow: {
+      get() {
+        return this.show;
+      },
+      set(value) {
+        if (!value) {
+          this.$emit('close');
+        }
+      }
+    },
+    quickNotesList() {
+      return this.quickNotes;
+    }
+  },
+  watch: {
+    show(newVal) {
+      if (newVal) {
+        // Load notes when dialog opens
+        this.internalNotes = this.notes || '';
+      }
+    },
+    notes(newVal) {
+      this.internalNotes = newVal || '';
+    }
+  },
+  methods: {
+    addQuickNote(note) {
+      if (this.internalNotes && !this.internalNotes.includes(note)) {
+        // Add with separator if there's existing content
+        const separator = this.internalNotes.trim().endsWith('.') || this.internalNotes.trim().endsWith(';') ? ' ' : '; ';
+        this.internalNotes = this.internalNotes.trim() + separator + note;
+      } else if (!this.internalNotes) {
+        this.internalNotes = note;
+      }
+    },
+    clearNotes() {
+      this.internalNotes = '';
+      this.$emit('update:notes', '');
+    },
+    saveNotes() {
+      const trimmedNotes = this.internalNotes.trim();
+      if (!trimmedNotes) {
+        this.$emit('show-message', 'Please enter some notes', 'warning', 'mdi-alert');
+        return;
+      }
+      this.$emit('save', trimmedNotes);
+      this.$emit('update:notes', trimmedNotes);
+    },
+    closeDialog() {
+      this.$emit('close');
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/tickets/NotesDialog.vue?vue&type=script&lang=js&
+ /* harmony default export */ var tickets_NotesDialogvue_type_script_lang_js_ = (NotesDialogvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/tickets/NotesDialog.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(527)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  tickets_NotesDialogvue_type_script_lang_js_,
+  NotesDialogvue_type_template_id_ccdaad86_scoped_true_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "ccdaad86",
+  "700d9cbe"
+  
+)
+
+/* harmony default export */ var NotesDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 548:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3194,7 +4128,7 @@ var VForm = __webpack_require__(394);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(90);
+var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(392);
@@ -3209,7 +4143,7 @@ var VSpacer = __webpack_require__(391);
 var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(429);
+var VTextarea = __webpack_require__(426);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=template&id=73f437f1&scoped=true&
 
@@ -3774,7 +4708,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(590)
+  var style0 = __webpack_require__(525)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -3796,26 +4730,213 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 672:
+/***/ 559:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(483);
+/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+/* harmony import */ var _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
+/* harmony import */ var _mixins_positionable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(34);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
+/* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(3);
+// Styles
+ // Components
+
+ // Mixins
+
+
+
+
+ // Utilities
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(_VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], _mixins_toggleable__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], Object(_mixins_positionable__WEBPACK_IMPORTED_MODULE_5__[/* factory */ "b"])(['absolute', 'bottom', 'left', 'right', 'top'])
+/* @vue/component */).extend({
+  name: 'v-snackbar',
+  props: {
+    app: Boolean,
+    centered: Boolean,
+    contentClass: {
+      type: String,
+      default: ''
+    },
+    multiLine: Boolean,
+    text: Boolean,
+    timeout: {
+      type: [Number, String],
+      default: 5000
+    },
+    transition: {
+      type: [Boolean, String],
+      default: 'v-snack-transition',
+      validator: v => typeof v === 'string' || v === false
+    },
+    vertical: Boolean
+  },
+  data: () => ({
+    activeTimeout: -1
+  }),
+  computed: {
+    classes() {
+      return {
+        'v-snack--absolute': this.absolute,
+        'v-snack--active': this.isActive,
+        'v-snack--bottom': this.bottom || !this.top,
+        'v-snack--centered': this.centered,
+        'v-snack--has-background': this.hasBackground,
+        'v-snack--left': this.left,
+        'v-snack--multi-line': this.multiLine && !this.vertical,
+        'v-snack--right': this.right,
+        'v-snack--text': this.text,
+        'v-snack--top': this.top,
+        'v-snack--vertical': this.vertical
+      };
+    },
+    // Text and outlined styles both
+    // use transparent backgrounds
+    hasBackground() {
+      return !this.text && !this.outlined;
+    },
+    // Snackbar is dark by default
+    // override themeable logic.
+    isDark() {
+      return this.hasBackground ? !this.light : _mixins_themeable__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.isDark.call(this);
+    },
+    styles() {
+      if (this.absolute || !this.app) return {};
+      const {
+        bar,
+        bottom,
+        footer,
+        insetFooter,
+        left,
+        right,
+        top
+      } = this.$vuetify.application;
+      return {
+        paddingBottom: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(bottom + footer + insetFooter),
+        paddingLeft: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(left),
+        paddingRight: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(right),
+        paddingTop: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* convertToUnit */ "h"])(bar + top)
+      };
+    }
+  },
+  watch: {
+    isActive: 'setTimeout',
+    timeout: 'setTimeout'
+  },
+  mounted() {
+    if (this.isActive) this.setTimeout();
+  },
+  created() {
+    /* istanbul ignore next */
+    if (this.$attrs.hasOwnProperty('auto-height')) {
+      Object(_util_console__WEBPACK_IMPORTED_MODULE_8__[/* removed */ "e"])('auto-height', this);
+    }
+    /* istanbul ignore next */
+    // eslint-disable-next-line eqeqeq
+
+    if (this.timeout == 0) {
+      Object(_util_console__WEBPACK_IMPORTED_MODULE_8__[/* deprecate */ "d"])('timeout="0"', '-1', this);
+    }
+  },
+  methods: {
+    genActions() {
+      return this.$createElement('div', {
+        staticClass: 'v-snack__action '
+      }, [Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* getSlot */ "s"])(this, 'action', {
+        attrs: {
+          class: 'v-snack__btn'
+        }
+      })]);
+    },
+    genContent() {
+      return this.$createElement('div', {
+        staticClass: 'v-snack__content',
+        class: {
+          [this.contentClass]: true
+        },
+        attrs: {
+          role: 'status',
+          'aria-live': 'polite'
+        }
+      }, [Object(_util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* getSlot */ "s"])(this)]);
+    },
+    genWrapper() {
+      const setColor = this.hasBackground ? this.setBackgroundColor : this.setTextColor;
+      const data = setColor(this.color, {
+        staticClass: 'v-snack__wrapper',
+        class: _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.classes.call(this),
+        style: _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.styles.call(this),
+        directives: [{
+          name: 'show',
+          value: this.isActive
+        }],
+        on: {
+          pointerenter: () => window.clearTimeout(this.activeTimeout),
+          pointerleave: this.setTimeout
+        }
+      });
+      return this.$createElement('div', data, [this.genContent(), this.genActions()]);
+    },
+    genTransition() {
+      return this.$createElement('transition', {
+        props: {
+          name: this.transition
+        }
+      }, [this.genWrapper()]);
+    },
+    setTimeout() {
+      window.clearTimeout(this.activeTimeout);
+      const timeout = Number(this.timeout);
+      if (!this.isActive ||
+      // TODO: remove 0 in v3
+      [0, -1].includes(timeout)) {
+        return;
+      }
+      this.activeTimeout = window.setTimeout(() => {
+        this.isActive = false;
+      }, timeout);
+    }
+  },
+  render(h) {
+    return h('div', {
+      staticClass: 'v-snack',
+      class: this.classes,
+      style: this.styles
+    }, [this.transition !== false ? this.genTransition() : this.genWrapper()]);
+  }
+}));
+
+/***/ }),
+
+/***/ 560:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(592);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1bdc38ea_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0b717b0a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(506);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0b717b0a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0b717b0a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0b717b0a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0b717b0a_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 673:
+/***/ 561:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-1bdc38ea]{cursor:pointer}.w-100[data-v-1bdc38ea]{width:100%}.product-card[data-v-1bdc38ea]:hover:not(.product-disabled){transform:translateY(-2px);transition:transform .2s ease}.product-disabled[data-v-1bdc38ea]{cursor:not-allowed!important;opacity:.6}.product-disabled[data-v-1bdc38ea]:hover{transform:none!important}.ticket-line-item[data-v-1bdc38ea]{background-color:rgba(33,150,243,.05);border-left:3px solid #2196f3}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".promotion-eligible[data-v-0b717b0a]{border:2px solid #4caf50!important}.promotion-badge[data-v-0b717b0a]{background:#4caf50;border-radius:50%;padding:4px;position:absolute;right:8px;top:8px}.cursor-pointer[data-v-0b717b0a]{cursor:pointer}.w-100[data-v-0b717b0a]{width:100%}.product-card[data-v-0b717b0a]:hover:not(.product-disabled){transform:translateY(-2px);transition:transform .2s ease}.product-disabled[data-v-0b717b0a]{cursor:not-allowed!important;opacity:.6}.product-disabled[data-v-0b717b0a]:hover{transform:none!important}.ticket-line-item[data-v-0b717b0a]{background-color:rgba(33,150,243,.05);border-left:3px solid #2196f3}.line-clamp-1[data-v-0b717b0a]{-webkit-line-clamp:1;-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden}.v-expansion-panel-header[data-v-0b717b0a]{min-height:36px!important;padding:8px 12px!important}.v-expansion-panel-content__wrap[data-v-0b717b0a]{padding:8px 12px 12px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -3823,33 +4944,67 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 758:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 578:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+"use strict";
+/* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(495);
+/* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(475);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+// Styles
+ // Extensions
 
-// load the styles
-var content = __webpack_require__(942);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("4a7e8879", content, true, context)
-};
+ // Mixins
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(_VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseSlideGroup */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).extend({
+  name: 'v-chip-group',
+  provide() {
+    return {
+      chipGroup: this
+    };
+  },
+  props: {
+    column: Boolean
+  },
+  computed: {
+    classes() {
+      return {
+        ..._VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseSlideGroup */ "a"].options.computed.classes.call(this),
+        'v-chip-group': true,
+        'v-chip-group--column': this.column
+      };
+    }
+  },
+  watch: {
+    column(val) {
+      if (val) this.scrollOffset = 0;
+      this.$nextTick(this.onResize);
+    }
+  },
+  methods: {
+    genData() {
+      return this.setTextColor(this.color, {
+        ..._VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseSlideGroup */ "a"].options.methods.genData.call(this)
+      });
+    }
+  }
+}));
 
 /***/ }),
 
-/***/ 890:
+/***/ 580:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(461);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
 var VAutocomplete = __webpack_require__(395);
@@ -3878,17 +5033,29 @@ var VDialog = __webpack_require__(350);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(120);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
+var VExpansionPanel = __webpack_require__(398);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelContent.js
+var VExpansionPanelContent = __webpack_require__(400);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelHeader.js
+var VExpansionPanelHeader = __webpack_require__(399);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
+var VExpansionPanels = __webpack_require__(397);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(90);
+var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(392);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__(585);
+var VSnackbar = __webpack_require__(559);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(391);
@@ -3896,7 +5063,7 @@ var VSpacer = __webpack_require__(391);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=template&id=1bdc38ea&scoped=true&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=template&id=0b717b0a&scoped=true&
 
 
 
@@ -3916,7 +5083,11 @@ var VTextField = __webpack_require__(36);
 
 
 
-var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function render() {
+
+
+
+var CafePOSScreenvue_type_template_id_0b717b0a_scoped_true_render = function render() {
+  var _vm$currentTicket, _vm$currentTicket2, _vm$currentTicket3, _vm$currentTicket4;
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], {
@@ -3933,6 +5104,25 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
     on: {
       "close": _vm.closePrintDialog,
       "printed": _vm.onPrintSuccess
+    }
+  }), _vm._v(" "), _c('NotesDialog', {
+    attrs: {
+      "show": _vm.showNotesDialog,
+      "notes": _vm.orderNotes,
+      "existing-notes": (_vm$currentTicket = _vm.currentTicket) === null || _vm$currentTicket === void 0 ? void 0 : _vm$currentTicket.notes,
+      "title": "Add Notes to Order",
+      "label": "Order Notes",
+      "placeholder": "Enter any special instructions or notes for this order...",
+      "hint": "These notes will be saved with the ticket",
+      "max-length": 500,
+      "show-quick-notes": true,
+      "quick-notes": _vm.quickNotes,
+      "loading": _vm.savingNotes
+    },
+    on: {
+      "close": _vm.closeNotesDialog,
+      "save": _vm.handleSaveNotes,
+      "show-message": _vm.showMessage
     }
   }), _vm._v(" "), _c('PaymentDialog', {
     attrs: {
@@ -4049,30 +5239,38 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
   }, [_c(components_VCard["d" /* VCardTitle */], {
     staticClass: "primary white--text"
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
-      "left": "",
       "color": "white"
     }
-  }, [_vm._v("mdi-storefront")]), _vm._v("\n          Product Menu\n          "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.tableId ? _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-storefront")]), _vm._v("\n          Product Menu\n          "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.tableId && _vm.tableId !== 'walk-in' ? _c(VChip["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "accent",
-      "text-color": "white"
+      "color": "accent"
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
-      "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-table-furniture")]), _vm._v("\n            Table " + _vm._s(_vm.tableId) + "\n          ")], 1) : _vm._e(), _vm._v(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-table-furniture")]), _vm._v("\n            Table " + _vm._s(_vm.displayTableId) + "\n          ")], 1) : _vm.isWalkIn ? _c(VChip["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "white",
-      "text-color": "primary"
+      "color": "orange"
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
-      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-walk")]), _vm._v("\n            Walk-in\n          ")], 1) : _vm._e(), _vm._v(" "), _c(VChip["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
+    attrs: {
       "small": ""
     }
   }, [_vm._v("mdi-package-variant")]), _vm._v("\n            " + _vm._s(_vm.filteredProducts.length) + " items\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
@@ -4085,9 +5283,7 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
       "click": _vm.fetchProducts
     }
   }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
+    staticClass: "mr-2"
   }, [_vm._v("mdi-refresh")]), _vm._v("\n            Refresh\n          ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-3"
   }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
@@ -4098,8 +5294,8 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
     attrs: {
       "prepend-inner-icon": "mdi-magnify",
       "label": "Search products...",
-      "variant": "outlined",
-      "density": "compact",
+      "outlined": "",
+      "dense": "",
       "clearable": "",
       "hide-details": ""
     },
@@ -4117,11 +5313,11 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
       "items": _vm.categoryOptions,
-      "item-text": "title",
-      "item-value": "value",
+      "item-text": "categ_name",
+      "item-value": "categ_id",
       "label": "Filter by Category",
-      "variant": "outlined",
-      "density": "compact",
+      "outlined": "",
+      "dense": "",
       "clearable": "",
       "hide-details": ""
     },
@@ -4161,25 +5357,32 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
     }, [_c(VCard["a" /* default */], {
       staticClass: "text-center pa-4 cursor-pointer product-card",
       class: {
-        'product-disabled': !product.isActive || product.stock_count <= 0
+        'product-disabled': (!product.isActive || product.stock_count <= 0) && product.validateStockOnSale,
+        'promotion-eligible': _vm.isProductInPromotion(product)
       },
       attrs: {
         "elevation": "2",
         "hover": "",
         "height": "160",
-        "disabled": !product.isActive || product.stock_count <= 0
+        "disabled": (!product.isActive || product.stock_count <= 0) && product.validateStockOnSale
       },
       on: {
         "click": function ($event) {
           return _vm.addToCart(product);
         }
       }
-    }, [_c(components_VCard["d" /* VCardTitle */], {
+    }, [_vm.isProductInPromotion(product) ? _c(VIcon["a" /* default */], {
+      staticClass: "promotion-badge",
+      attrs: {
+        "color": "success",
+        "small": ""
+      }
+    }, [_vm._v("\n                  mdi-tag\n                ")]) : _vm._e(), _vm._v(" "), _c(components_VCard["d" /* VCardTitle */], {
       staticClass: "justify-center text-subtitle-1 pa-1",
       staticStyle: {
         "line-height": "1.2"
       }
-    }, [_vm._v("\n                  " + _vm._s(product.pro_name) + "\n                ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    }, [_vm._v("\n                " + _vm._s(product.pro_name) + " " + _vm._s(product.validateStockOnSale) + "\n                ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
       staticClass: "pa-2"
     }, [_c('div', {
       staticClass: "text-h5 primary--text font-weight-bold mb-2"
@@ -4247,40 +5450,63 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
       "elevation": "2"
     }
   }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "secondary white--text"
+    staticClass: "secondary white--text py-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
       "left": "",
-      "color": "white"
+      "color": "white",
+      "small": ""
     }
-  }, [_vm._v("mdi-shopping")]), _vm._v("\n          Current Order\n          "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-shopping")]), _vm._v(" "), _c('span', {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("Order")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
       "color": "white",
       "text-color": "secondary",
-      "small": ""
+      "x-small": ""
     }
   }, [_vm._v("\n            " + _vm._s(_vm.getTotalItems()) + " items\n          ")]), _vm._v(" "), _vm.currentTicket ? _c(VChip["a" /* default */], {
-    staticClass: "ml-2",
     attrs: {
       "color": _vm.getTicketStatusColor(_vm.currentTicket.status),
       "text-color": "white",
-      "small": ""
+      "x-small": ""
     }
-  }, [_vm._v("\n            " + _vm._s(_vm.currentTicket.status.toUpperCase()) + "\n          ")]) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-3 bg-grey-lighten-5"
+  }, [_vm._v("\n            " + _vm._s(_vm.currentTicket.status.toUpperCase()) + "\n          ")]) : _vm._e()], 1), _vm._v(" "), _c(VExpansionPanels["a" /* default */], {
+    staticClass: "mb-0",
+    attrs: {
+      "flat": "",
+      "tile": "",
+      "accordion": ""
+    }
+  }, [_c(VExpansionPanel["a" /* default */], [_c(VExpansionPanelHeader["a" /* default */], {
+    staticClass: "py-1 px-3"
   }, [_c('div', {
-    staticClass: "d-flex justify-space-between align-center mb-2"
-  }, [_c('div', {
-    staticClass: "text-subtitle-2 font-weight-bold"
+    staticClass: "d-flex align-center"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-1",
+    staticClass: "mr-2",
     attrs: {
       "small": ""
     }
-  }, [_vm._v("mdi-account")]), _vm._v("\n              Customer Information\n            ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-account")]), _vm._v(" "), _c('span', {
+    staticClass: "caption"
+  }, [_vm._v("\n                  " + _vm._s(_vm.selectedCustomer ? _vm.selectedCustomer.name : 'Walk-in Customer') + "\n                ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.orderNotes || (_vm$currentTicket2 = _vm.currentTicket) !== null && _vm$currentTicket2 !== void 0 && _vm$currentTicket2.notes ? _c(VIcon["a" /* default */], {
+    attrs: {
+      "small": "",
+      "color": "primary"
+    }
+  }, [_vm._v("\n                  mdi-note-text\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c(VExpansionPanelContent["a" /* default */], {
+    staticClass: "pa-2"
+  }, [_c('div', {
+    staticClass: "mb-2"
+  }, [_c('div', {
+    staticClass: "d-flex justify-space-between align-center mb-1"
+  }, [_c('span', {
+    staticClass: "caption font-weight-bold"
+  }, [_vm._v("Customer:")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
-      "small": "",
+      "x-small": "",
       "outlined": ""
     },
     on: {
@@ -4288,66 +5514,59 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
         _vm.showCustomerDialog = true;
       }
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v(_vm._s(_vm.selectedCustomer ? 'mdi-account-edit' : 'mdi-account-plus'))]), _vm._v("\n              " + _vm._s(_vm.selectedCustomer ? 'Change' : 'Select') + "\n            ")], 1)], 1), _vm._v(" "), _vm.selectedCustomer ? _c(VCard["a" /* default */], {
-    staticClass: "pa-2",
-    attrs: {
-      "outlined": ""
-    }
-  }, [_c('div', {
-    staticClass: "d-flex justify-space-between align-center"
-  }, [_c('div', [_c('div', {
-    staticClass: "font-weight-medium"
-  }, [_vm._v("\n                  " + _vm._s(_vm.selectedCustomer.name) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption grey--text"
-  }, [_vm._v("\n                  " + _vm._s(_vm.selectedCustomer.company || 'No company') + "\n                ")]), _vm._v(" "), _vm.selectedCustomer.telephone ? _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.selectedCustomer ? 'Change' : 'Select') + "\n                  ")])], 1), _vm._v(" "), _vm.selectedCustomer ? _c('div', {
     staticClass: "caption"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "x-small": ""
-    }
-  }, [_vm._v("mdi-phone")]), _vm._v("\n                  " + _vm._s(_vm.selectedCustomer.telephone) + "\n                ")], 1) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "text-right"
-  }, [_c(VChip["a" /* default */], {
+  }, [_vm._v("\n                  " + _vm._s(_vm.selectedCustomer.company || 'No company') + "\n                  "), _c(VChip["a" /* default */], {
+    staticClass: "ml-1",
     attrs: {
       "color": _vm.getGradeColor(_vm.selectedCustomer.grade),
       "text-color": "white",
       "x-small": ""
     }
-  }, [_vm._v("\n                  Grade " + _vm._s(_vm.selectedCustomer.grade) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "caption mt-1"
-  }, [_vm._v("\n                  Credit: " + _vm._s(_vm.selectedCustomer.credit) + " days\n                ")])], 1)])]) : _c(VAlert["a" /* default */], {
-    attrs: {
-      "type": "info",
-      "dense": "",
-      "outlined": ""
-    }
-  }, [_vm._v("\n            No customer selected - Walk-in customer\n          ")])], 1), _vm._v(" "), _vm.currentTicket ? _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-2 bg-grey-lighten-4"
+  }, [_vm._v("\n                    Grade " + _vm._s(_vm.selectedCustomer.grade) + "\n                  ")])], 1) : _c('div', {
+    staticClass: "caption grey--text"
+  }, [_vm._v("\n                  No customer selected\n                ")])]), _vm._v(" "), _vm.orderNotes || (_vm$currentTicket3 = _vm.currentTicket) !== null && _vm$currentTicket3 !== void 0 && _vm$currentTicket3.notes ? _c('div', {
+    staticClass: "mb-2"
   }, [_c('div', {
-    staticClass: "caption"
-  }, [_c('strong', [_vm._v("Ticket #" + _vm._s(_vm.currentTicket.id))]), _vm._v(" "), _c('span', {
-    staticClass: "ml-2"
-  }, [_vm._v(_vm._s(_vm.formatDateTime(_vm.currentTicket.createdAt)))])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "flex-grow-1",
+    staticClass: "d-flex align-center justify-space-between"
+  }, [_c('span', {
+    staticClass: "caption font-weight-bold"
+  }, [_vm._v("Notes:")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "icon": "",
+      "x-small": ""
+    },
+    on: {
+      "click": _vm.openNotesDialog
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "x-small": ""
+    }
+  }, [_vm._v("mdi-pencil")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "caption",
+    staticStyle: {
+      "max-height": "30px",
+      "overflow": "hidden"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.orderNotes || ((_vm$currentTicket4 = _vm.currentTicket) === null || _vm$currentTicket4 === void 0 ? void 0 : _vm$currentTicket4.notes)) + "\n                ")])]) : _vm._e(), _vm._v(" "), _vm.currentTicket ? _c('div', {
+    staticClass: "caption grey--text"
+  }, [_vm._v("\n                Ticket #" + _vm._s(_vm.currentTicket.id) + " -\n                " + _vm._s(_vm.formatDateTime(_vm.currentTicket.createdAt)) + "\n              ")]) : _vm._e()])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "flex-grow-1 px-3 py-2",
     staticStyle: {
       "overflow-y": "auto",
-      "padding": "16px"
+      "min-height": "200px"
     }
   }, [_vm.cart.length === 0 ? _c('div', {
-    staticClass: "text-center mt-8"
+    staticClass: "text-center py-8"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "mb-4",
+    staticClass: "mb-2",
     attrs: {
-      "size": "64",
+      "size": "48",
       "color": "grey lighten-2"
     }
-  }, [_vm._v("\n              mdi-shopping-outline\n            ")]), _vm._v(" "), _c('p', {
-    staticClass: "grey--text"
+  }, [_vm._v("mdi-shopping-outline")]), _vm._v(" "), _c('p', {
+    staticClass: "grey--text caption"
   }, [_vm._v("No items in cart")]), _vm._v(" "), _c('p', {
     staticClass: "grey--text caption"
   }, [_vm._v("Add items from the menu")])], 1) : _c('div', _vm._l(_vm.cart, function (item) {
@@ -4358,32 +5577,28 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
         'ticket-line-item': item.isFromTicketLine
       },
       attrs: {
-        "outlined": ""
+        "outlined": "",
+        "elevation": "0"
       }
     }, [_c('div', {
-      staticClass: "d-flex justify-space-between align-center mb-2"
-    }, [_c('div', [_c('div', {
-      staticClass: "font-weight-medium"
+      staticClass: "d-flex justify-space-between align-center mb-1"
+    }, [_c('div', {
+      staticClass: "flex-grow-1 mr-2"
+    }, [_c('div', {
+      staticClass: "text-subtitle-2 font-weight-medium line-clamp-1"
     }, [_vm._v("\n                    " + _vm._s(_vm.getProductName(item.pro_id)) + "\n                  ")]), _vm._v(" "), _c('div', {
       staticClass: "caption grey--text"
-    }, [_vm._v("\n                    ID: " + _vm._s(item.pro_id) + " | " + _vm._s(item.categ_name) + "\n                  ")]), _vm._v(" "), item.isFromTicketLine ? _c('div', {
+    }, [_vm._v("\n                    " + _vm._s(item.categ_name) + " •\n                    " + _vm._s(_vm.formatPrice(item.pro_price)) + "/each\n                  ")]), _vm._v(" "), item.isFromTicketLine ? _c('div', {
       staticClass: "caption info--text"
     }, [_c(VIcon["a" /* default */], {
       attrs: {
         "x-small": "",
         "color": "info"
       }
-    }, [_vm._v("mdi-history")]), _vm._v("\n                    Saved item (" + _vm._s(_vm.formatPrice(item.pro_price)) + " each)\n                  ")], 1) : _vm._e(), _vm._v(" "), item.isFromTicketLine && _vm.getCurrentProductPrice(item.pro_id) !== item.pro_price ? _c('div', {
-      staticClass: "caption warning--text"
-    }, [_c(VIcon["a" /* default */], {
-      attrs: {
-        "x-small": "",
-        "color": "warning"
-      }
-    }, [_vm._v("mdi-alert")]), _vm._v("\n                    Current price:\n                    " + _vm._s(_vm.formatPrice(_vm.getCurrentProductPrice(item.pro_id))) + "\n                  ")], 1) : _vm._e()]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    }, [_vm._v("mdi-history")]), _vm._v("\n                    Saved item\n                  ")], 1) : _vm._e()]), _vm._v(" "), _c(VBtn["a" /* default */], {
       attrs: {
         "icon": "",
-        "small": "",
+        "x-small": "",
         "color": "error"
       },
       on: {
@@ -4393,7 +5608,7 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
       }
     }, [_c(VIcon["a" /* default */], {
       attrs: {
-        "small": ""
+        "x-small": ""
       }
     }, [_vm._v("mdi-delete")])], 1)], 1), _vm._v(" "), _c('div', {
       staticClass: "d-flex justify-space-between align-center"
@@ -4410,8 +5625,12 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
           return _vm.updateQuantity(item.id, -1);
         }
       }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-minus")])], 1), _vm._v(" "), _c('span', {
-      staticClass: "mx-3 font-weight-bold"
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "x-small": ""
+      }
+    }, [_vm._v("mdi-minus")])], 1), _vm._v(" "), _c('span', {
+      staticClass: "mx-2 font-weight-bold"
     }, [_vm._v(_vm._s(item.quantity))]), _vm._v(" "), _c(VBtn["a" /* default */], {
       attrs: {
         "icon": "",
@@ -4424,7 +5643,11 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
           return _vm.updateQuantity(item.id, 1);
         }
       }
-    }, [_c(VIcon["a" /* default */], [_vm._v("mdi-plus")])], 1)], 1), _vm._v(" "), _c('div', {
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "x-small": ""
+      }
+    }, [_vm._v("mdi-plus")])], 1)], 1), _vm._v(" "), _c('div', {
       staticClass: "font-weight-bold primary--text"
     }, [_vm._v("\n                  " + _vm._s(_vm.formatPrice(item.pro_price * item.quantity)) + "\n                ")])]), _vm._v(" "), item.quantity >= item.stock_count ? _c('div', {
       staticClass: "caption error--text mt-1"
@@ -4437,43 +5660,82 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
       }
     }, [_vm._v("mdi-alert")]), _vm._v("\n                Product is currently inactive\n              ")], 1) : _vm._e()]);
   }), 1)]), _vm._v(" "), _c('div', {
-    staticClass: "pa-4"
+    staticClass: "pa-3"
   }, [_vm.cart.length > 0 ? _c(VCard["a" /* default */], {
-    staticClass: "mb-3 pa-3 w-100",
+    staticClass: "pa-2",
     attrs: {
-      "outlined": ""
+      "outlined": "",
+      "elevation": "0"
     }
   }, [_c('div', {
-    staticClass: "d-flex justify-space-between mb-1"
-  }, [_c('span', [_vm._v("Subtotal:")]), _vm._v(" "), _c('span', {
-    staticClass: "font-weight-medium"
-  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.getTotalPrice())))])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex justify-space-between mb-1"
-  }, [_c('span', [_vm._v("Tax (8.5%):")]), _vm._v(" "), _c('span', {
-    staticClass: "font-weight-medium"
-  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.getTotalPrice() * 0.085)))])]), _vm._v(" "), _c(VDivider["a" /* default */], {
-    staticClass: "my-2"
+    staticClass: "d-flex justify-space-between caption mb-1"
+  }, [_c('span', [_vm._v("Subtotal:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.formatPrice(_vm.getTotalPrice())))])]), _vm._v(" "), _vm.appliedPromotions.length > 0 ? _c('div', _vm._l(_vm.appliedPromotions, function (applied, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "d-flex justify-space-between caption success--text"
+    }, [_c('span', [_vm._v(_vm._s(applied.promotion.name) + ":")]), _vm._v(" "), _c('span', [_vm._v("-" + _vm._s(_vm.formatPrice(applied.discount.amount)))])]);
+  }), 0) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "d-flex justify-space-between caption mb-1"
+  }, [_c('span', [_vm._v("After Promotions:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.formatPrice(_vm.getTotalAfterPromotions())))])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex justify-space-between caption mb-2"
+  }, [_c('span', [_vm._v("Tax (8.5%):")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.formatPrice(_vm.getTotalAfterPromotions() * 0.085)))])]), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "mb-2"
   }), _vm._v(" "), _c('div', {
-    staticClass: "d-flex justify-space-between text-h6 font-weight-bold"
+    staticClass: "d-flex justify-space-between text-subtitle-1 font-weight-bold"
   }, [_c('span', [_vm._v("Total:")]), _vm._v(" "), _c('span', {
     staticClass: "primary--text"
-  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.getTotalPrice() * 1.085)))])])], 1) : _vm._e(), _vm._v(" "), _vm.cart.length > 0 ? _c('div', [_c(VBtn["a" /* default */], {
-    staticClass: "mb-2",
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.getFinalTotal())))])])], 1) : _vm._e(), _vm._v(" "), _vm.cart.length > 0 ? _c('div', {
+    staticClass: "mt-2"
+  }, [_c(VRow["a" /* default */], {
+    staticClass: "mb-1",
+    attrs: {
+      "dense": "",
+      "no-gutters": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "pr-1",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "orange",
+      "block": "",
+      "small": "",
+      "outlined": ""
+    },
+    on: {
+      "click": _vm.openNotesDialog
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-note-plus")]), _vm._v("\n                  Notes\n                ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "pl-1",
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VBtn["a" /* default */], {
     attrs: {
       "color": "info",
       "block": "",
+      "small": "",
       "loading": _vm.savingTicket
     },
     on: {
       "click": _vm.saveTicket
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
-      "left": ""
+      "small": ""
     }
-  }, [_vm._v("mdi-content-save")]), _vm._v("\n              " + _vm._s(_vm.currentTicket ? 'Update Ticket' : 'Save Ticket') + "\n            ")], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mb-2",
+  }, [_vm._v("mdi-content-save")]), _vm._v("\n                  Save\n                ")], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-1",
     attrs: {
+      "dense": "",
       "no-gutters": ""
     }
   }, [_c(VCol["a" /* default */], {
@@ -4485,15 +5747,15 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
     attrs: {
       "color": "primary",
       "block": "",
-      "large": "",
       "disabled": !_vm.currentTicket
     },
     on: {
       "click": _vm.processPayment
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
-      "left": ""
+      "small": ""
     }
   }, [_vm._v("mdi-credit-card")]), _vm._v("\n                  Payment\n                ")], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "pl-1",
@@ -4504,53 +5766,54 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
     attrs: {
       "color": "green",
       "block": "",
-      "large": "",
       "disabled": !_vm.currentTicket
     },
     on: {
       "click": _vm.printCustomerReceipt
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
-      "left": ""
+      "small": ""
     }
-  }, [_vm._v("mdi-printer")]), _vm._v("\n                  Print Ticket\n                ")], 1)], 1)], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mb-2",
+  }, [_vm._v("mdi-printer")]), _vm._v("\n                  Print\n                ")], 1)], 1)], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "grey",
       "block": "",
-      "large": ""
+      "small": ""
     },
     on: {
       "click": _vm.clearCart
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
     attrs: {
-      "left": ""
+      "small": ""
     }
   }, [_vm._v("mdi-cart-remove")]), _vm._v("\n              Clear Cart\n            ")], 1)], 1) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c(VSnackbar["a" /* default */], {
     attrs: {
       "color": _vm.snackbar.color,
       "timeout": _vm.snackbar.timeout,
-      "location": "top right",
-      "variant": "elevated"
+      "top": "",
+      "right": ""
     },
     scopedSlots: _vm._u([{
-      key: "actions",
-      fn: function () {
-        return [_c(VBtn["a" /* default */], {
+      key: "action",
+      fn: function ({
+        attrs
+      }) {
+        return [_c(VBtn["a" /* default */], _vm._b({
           attrs: {
             "color": "white",
-            "variant": "text"
+            "text": ""
           },
           on: {
             "click": function ($event) {
               _vm.snackbar.show = false;
             }
           }
-        }, [_vm._v("\n        Close\n      ")])];
-      },
-      proxy: true
+        }, 'v-btn', attrs, false), [_vm._v("\n        Close\n      ")])];
+      }
     }]),
     model: {
       value: _vm.snackbar.show,
@@ -4567,23 +5830,80 @@ var CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CafePOSScreen/index.vue?vue&type=template&id=1bdc38ea&scoped=true&
+// CONCATENATED MODULE: ./components/CafePOSScreen/index.vue?vue&type=template&id=0b717b0a&scoped=true&
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
+var esnext_map_delete_all_js_ = __webpack_require__(92);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.every.js"
+var esnext_map_every_js_ = __webpack_require__(93);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.filter.js"
+var esnext_map_filter_js_ = __webpack_require__(94);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.find.js"
+var esnext_map_find_js_ = __webpack_require__(95);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.find-key.js"
+var esnext_map_find_key_js_ = __webpack_require__(96);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.includes.js"
+var esnext_map_includes_js_ = __webpack_require__(97);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.key-of.js"
+var esnext_map_key_of_js_ = __webpack_require__(98);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.map-keys.js"
+var esnext_map_map_keys_js_ = __webpack_require__(99);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.map-values.js"
+var esnext_map_map_values_js_ = __webpack_require__(100);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.merge.js"
+var esnext_map_merge_js_ = __webpack_require__(101);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.reduce.js"
+var esnext_map_reduce_js_ = __webpack_require__(102);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.some.js"
+var esnext_map_some_js_ = __webpack_require__(103);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.update.js"
+var esnext_map_update_js_ = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(628);
+var printdialog = __webpack_require__(517);
 
 // EXTERNAL MODULE: ./components/CAFE/paymentDialogFront/index.vue + 4 modules
-var paymentDialogFront = __webpack_require__(629);
+var paymentDialogFront = __webpack_require__(531);
 
 // EXTERNAL MODULE: ./components/CAFE/customerDialog/index.vue + 4 modules
-var customerDialog = __webpack_require__(641);
+var customerDialog = __webpack_require__(548);
+
+// EXTERNAL MODULE: ./components/tickets/NotesDialog.vue + 4 modules
+var NotesDialog = __webpack_require__(532);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=script&lang=js&
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* harmony default export */ var CafePOSScreenvue_type_script_lang_js_ = ({
   components: {
+    NotesDialog: NotesDialog["default"],
     PrintTicketDialog: printdialog["default"],
     PaymentDialog: paymentDialogFront["default"],
     CustomerDialog: customerDialog["default"]
@@ -4592,11 +5912,28 @@ var customerDialog = __webpack_require__(641);
   props: {
     tableId: {
       type: [String, Number],
-      required: true
+      required: false,
+      default: null
+    },
+    existingTicket: {
+      type: Object,
+      default: null
+    },
+    dialogMode: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
+      promotions: [],
+      appliedPromotions: [],
+      loadingPromotions: false,
+      // Notes related data
+      showNotesDialog: false,
+      orderNotes: '',
+      savingNotes: false,
+      quickNotes: ['No ice', 'Extra spicy', 'Less sugar', 'Allergic to nuts', 'Take away', 'Urgent order', 'VIP customer', 'No MSG'],
       // Restaurant configuration
       restaurantConfig: {
         name: 'Your Restaurant Name',
@@ -4615,16 +5952,7 @@ var customerDialog = __webpack_require__(641);
       // Search and filters
       searchQuery: '',
       categoryFilter: '',
-      categoryOptions: [{
-        title: 'All Categories',
-        value: ''
-      }, {
-        title: 'Engine Oils',
-        value: 49
-      }, {
-        title: 'Car Care',
-        value: 50
-      }],
+      categoryOptions: [],
       // Payment dialog
       showPaymentDialog: false,
       paymentAmount: 0,
@@ -4649,6 +5977,12 @@ var customerDialog = __webpack_require__(641);
     };
   },
   computed: {
+    isWalkIn() {
+      return !this.tableId || this.tableId === 'walk-in';
+    },
+    displayTableId() {
+      return this.isWalkIn ? 'Walk-in' : this.tableId;
+    },
     filteredProducts() {
       let filtered = this.products;
 
@@ -4670,19 +6004,30 @@ var customerDialog = __webpack_require__(641);
       return filtered.sort((a, b) => a.pro_name.localeCompare(b.pro_name));
     }
   },
-  mounted() {
-    this.fetchProducts();
-    this.fetchCustomers();
-    this.loadExistingTicket();
+  async mounted() {
+    await this.fetchProducts();
+    await this.loadCategory();
+    await this.fetchCustomers();
+    await this.fetchPromotions();
+
+    // Load existing or provided ticket after products are loaded
+    if (this.existingTicket) {
+      await this.loadProvidedTicket();
+    } else {
+      await this.loadExistingTicket();
+    }
   },
   watch: {
-    // Auto-save cart changes
     cart: {
       handler() {
-        if (this.currentTicket && this.cart.length > 0) {
+        // Apply promotions whenever cart changes
+        this.applyPromotions();
+
+        // Auto-save logic
+        if (!this.dialogMode && this.currentTicket && this.cart.length > 0) {
           clearTimeout(this.autoSaveTimeout);
           this.autoSaveTimeout = setTimeout(() => {
-            this.saveTicket(true); // Silent save
+            this.saveTicket(true);
           }, 2000);
         }
       },
@@ -4690,12 +6035,274 @@ var customerDialog = __webpack_require__(641);
     }
   },
   methods: {
+    async loadCategory() {
+      this.isloading = true;
+      this.categoryOptions = [];
+      await this.$axios.get('/api/category/find').then(res => {
+        for (const iterator of res.data) {
+          this.categoryOptions.push(iterator);
+        }
+      }).catch(er => {
+        swalError2(this.$swal, 'Error', er);
+      });
+      this.isloading = false;
+    },
+    // Promotion Methods
+    isProductInPromotion(product) {
+      return this.promotions.some(promotion => {
+        var _conditions$applicabl, _conditions$applicabl2, _conditions$applicabl3, _conditions$applicabl4;
+        if (!promotion.is_active) return false;
+        const conditions = promotion.conditions;
+        if (!conditions) return false;
+
+        // Check if product is in applicable categories or products
+        const inCategories = (_conditions$applicabl = conditions.applicable_categories) === null || _conditions$applicabl === void 0 ? void 0 : _conditions$applicabl.includes(product.pro_category);
+        const inProducts = (_conditions$applicabl2 = conditions.applicable_products) === null || _conditions$applicabl2 === void 0 ? void 0 : _conditions$applicabl2.includes(product.id);
+        const noRestrictions = !((_conditions$applicabl3 = conditions.applicable_categories) !== null && _conditions$applicabl3 !== void 0 && _conditions$applicabl3.length) && !((_conditions$applicabl4 = conditions.applicable_products) !== null && _conditions$applicabl4 !== void 0 && _conditions$applicabl4.length);
+        return inCategories || inProducts || noRestrictions;
+      });
+    },
+    getTotalAfterPromotions() {
+      const subtotal = this.getTotalPrice();
+      const totalDiscount = this.appliedPromotions.reduce((sum, applied) => sum + applied.discount.amount, 0);
+      return Math.max(0, subtotal - totalDiscount);
+    },
+    getFinalTotal() {
+      const afterPromotions = this.getTotalAfterPromotions();
+      return afterPromotions * 1.085; // Including 8.5% tax
+    },
+
+    getTotalPromotionDiscount() {
+      return this.appliedPromotions.reduce((sum, applied) => sum + applied.discount.amount, 0);
+    },
+    calculateApplicablePromotions() {
+      const applicablePromotions = [];
+      const now = new Date();
+      for (const promotion of this.promotions) {
+        // Check if promotion is active and within date range
+        if (!promotion.is_active) continue;
+        if (new Date(promotion.start_date) > now) continue;
+        if (new Date(promotion.end_date) < now) continue;
+        if (promotion.max_uses && promotion.current_uses >= promotion.max_uses) continue;
+
+        // Check if promotion applies to current cart
+        if (this.isPromotionApplicable(promotion)) {
+          applicablePromotions.push(promotion);
+        }
+      }
+
+      // Sort by priority (higher first)
+      return applicablePromotions.sort((a, b) => (b.priority || 1) - (a.priority || 1));
+    },
+    isPromotionApplicable(promotion) {
+      const conditions = promotion.conditions;
+      if (!conditions) return false;
+
+      // Check if cart has applicable products/categories
+      const applicableItems = this.cart.filter(item => {
+        // Check categories
+        if (conditions.applicable_categories && conditions.applicable_categories.length > 0) {
+          const product = this.products.find(p => p.id === item.id);
+          if (product && conditions.applicable_categories.includes(product.pro_category)) {
+            return true;
+          }
+        }
+
+        // Check specific products
+        if (conditions.applicable_products && conditions.applicable_products.length > 0) {
+          if (conditions.applicable_products.includes(item.id)) {
+            return true;
+          }
+        }
+
+        // If no specific restrictions, apply to all
+        if ((!conditions.applicable_categories || conditions.applicable_categories.length === 0) && (!conditions.applicable_products || conditions.applicable_products.length === 0)) {
+          return true;
+        }
+        return false;
+      });
+      if (applicableItems.length === 0) return false;
+
+      // Check type-specific conditions
+      switch (promotion.type) {
+        case 'buy_x_get_y':
+          const totalQuantity = applicableItems.reduce((sum, item) => sum + item.quantity, 0);
+          return totalQuantity >= (conditions.buy_quantity || 0);
+        case 'percentage':
+        case 'fixed_amount':
+          if (conditions.minimum_order) {
+            const applicableTotal = applicableItems.reduce((sum, item) => sum + item.pro_price * item.quantity, 0);
+            return applicableTotal >= conditions.minimum_order;
+          }
+          return true;
+        default:
+          return true;
+      }
+    },
+    applyPromotions() {
+      const applicablePromotions = this.calculateApplicablePromotions();
+      this.appliedPromotions = [];
+      for (const promotion of applicablePromotions) {
+        const discount = this.calculatePromotionDiscount(promotion);
+        if (discount.amount > 0) {
+          this.appliedPromotions.push({
+            promotion: promotion,
+            discount: discount
+          });
+        }
+      }
+    },
+    calculatePromotionDiscount(promotion) {
+      const applicableItems = this.getApplicableItems(promotion);
+      switch (promotion.type) {
+        case 'buy_x_get_y':
+          return this.calculateBuyXGetYDiscount(promotion, applicableItems);
+        case 'percentage':
+          return this.calculatePercentageDiscount(promotion, applicableItems);
+        case 'fixed_amount':
+          return this.calculateFixedAmountDiscount(promotion, applicableItems);
+        default:
+          return {
+            amount: 0,
+            description: '',
+            items: []
+          };
+      }
+    },
+    getApplicableItems(promotion) {
+      const conditions = promotion.conditions;
+      return this.cart.filter(item => {
+        if (conditions.applicable_categories && conditions.applicable_categories.length > 0) {
+          const product = this.products.find(p => p.id === item.id);
+          if (product && conditions.applicable_categories.includes(product.pro_category)) {
+            return true;
+          }
+        }
+        if (conditions.applicable_products && conditions.applicable_products.length > 0) {
+          if (conditions.applicable_products.includes(item.id)) {
+            return true;
+          }
+        }
+        if ((!conditions.applicable_categories || conditions.applicable_categories.length === 0) && (!conditions.applicable_products || conditions.applicable_products.length === 0)) {
+          return true;
+        }
+        return false;
+      });
+    },
+    calculateBuyXGetYDiscount(promotion, applicableItems) {
+      const conditions = promotion.conditions;
+      const buyQty = conditions.buy_quantity || 0;
+      const getQty = conditions.get_quantity || 0;
+      const totalQuantity = applicableItems.reduce((sum, item) => sum + item.quantity, 0);
+      const eligibleSets = Math.floor(totalQuantity / buyQty);
+      if (eligibleSets === 0) return {
+        amount: 0,
+        description: '',
+        items: []
+      };
+      let freeItems = eligibleSets * getQty;
+      if (conditions.max_free_items && freeItems > conditions.max_free_items) {
+        freeItems = conditions.max_free_items;
+      }
+
+      // Calculate discount based on cheapest applicable items
+      const itemPrices = applicableItems.flatMap(item => Array(item.quantity).fill(item.pro_price)).sort((a, b) => a - b);
+      const discountAmount = itemPrices.slice(0, freeItems).reduce((sum, price) => sum + price, 0);
+      return {
+        amount: discountAmount,
+        description: `Buy ${buyQty} Get ${getQty} Free`,
+        items: applicableItems,
+        freeItems: freeItems
+      };
+    },
+    calculatePercentageDiscount(promotion, applicableItems) {
+      const conditions = promotion.conditions;
+      const percentage = (conditions.discount_percentage || 0) / 100;
+      const subtotal = applicableItems.reduce((sum, item) => sum + item.pro_price * item.quantity, 0);
+      let discountAmount = subtotal * percentage;
+      if (conditions.max_discount_amount && discountAmount > conditions.max_discount_amount) {
+        discountAmount = conditions.max_discount_amount;
+      }
+      return {
+        amount: discountAmount,
+        description: `${conditions.discount_percentage}% off`,
+        items: applicableItems
+      };
+    },
+    calculateFixedAmountDiscount(promotion, applicableItems) {
+      const conditions = promotion.conditions;
+      const discountAmount = conditions.discount_amount || 0;
+      return {
+        amount: discountAmount,
+        description: `${discountAmount} ₭ off`,
+        // FIX: Use your currency symbol instead of $
+        items: applicableItems
+      };
+    },
+    async fetchPromotions() {
+      this.loadingPromotions = true;
+      try {
+        const response = await this.$axios.get('/api/promotions');
+
+        // Filter for active promotions client-side
+        const allPromotions = response.data.data || response.data || [];
+        this.promotions = allPromotions.filter(promotion => {
+          const now = new Date();
+          return promotion.is_active && new Date(promotion.start_date) <= now && new Date(promotion.end_date) >= now;
+        });
+        console.log('Active promotions loaded:', this.promotions.length);
+      } catch (error) {
+        console.error('Error fetching promotions:', error);
+        this.promotions = [];
+      } finally {
+        this.loadingPromotions = false;
+      }
+    },
+    // Notes Dialog Methods
+    openNotesDialog() {
+      var _this$currentTicket;
+      this.orderNotes = ((_this$currentTicket = this.currentTicket) === null || _this$currentTicket === void 0 ? void 0 : _this$currentTicket.notes) || this.orderNotes || '';
+      this.showNotesDialog = true;
+    },
+    closeNotesDialog() {
+      this.showNotesDialog = false;
+    },
+    async handleSaveNotes(notes) {
+      this.orderNotes = notes;
+      if (this.currentTicket) {
+        this.savingNotes = true;
+        try {
+          await this.saveTicket(false);
+          this.closeNotesDialog();
+        } catch (error) {
+          console.error('Error saving notes:', error);
+        } finally {
+          this.savingNotes = false;
+        }
+      } else {
+        this.closeNotesDialog();
+        this.showMessage('Notes will be saved with the ticket', 'info', 'mdi-information');
+      }
+    },
+    async loadProvidedTicket() {
+      try {
+        console.log('Loading provided ticket:', this.existingTicket);
+        this.currentTicket = this.existingTicket;
+        this.orderNotes = this.currentTicket.notes || '';
+        if (this.currentTicket.clientId) {
+          await this.loadTicketCustomer(this.currentTicket.clientId);
+        }
+        await this.loadTicketLines();
+        this.showMessage('Ticket loaded successfully', 'success', 'mdi-check');
+      } catch (error) {
+        console.error('Error loading provided ticket:', error);
+        this.showMessage('Failed to load ticket', 'error', 'mdi-alert');
+      }
+    },
     getProductName(productId) {
       try {
-        const product = this.filteredProducts.find(el => el.id === parseInt(productId));
-        console.info(`PRODUCT ${this.filteredProducts.length}`);
-        console.info(`PRODUCT ${JSON.stringify(this.filteredProducts)}`);
-        console.info(`PRODUCT ${JSON.stringify(product)}`);
+        // FIX: Search in products array instead of filteredProducts
+        const product = this.products.find(el => el.id === parseInt(productId));
         return (product === null || product === void 0 ? void 0 : product.pro_name) || `Product ${productId}`;
       } catch (error) {
         console.error('Error getting product name:', error);
@@ -4734,6 +6341,7 @@ var customerDialog = __webpack_require__(641);
           receiveUnitId: product.receiveUnitId,
           stockUnitId: product.stockUnitId,
           pro_category: product.pro_category,
+          validateStockOnSale: product.validateStockOnSale === 1,
           saleCurrencyId: product.saleCurrencyId,
           costCurrencyId: product.costCurrencyId,
           createdAt: product.createdAt,
@@ -4777,6 +6385,10 @@ var customerDialog = __webpack_require__(641);
     },
     // Ticket management methods
     async loadExistingTicket() {
+      if (this.isWalkIn) {
+        console.log('Walk-in mode - no existing ticket to load');
+        return;
+      }
       try {
         const response = await this.$axios.get(`api/ticket/table/${this.tableId}/pending`);
         if (response.data && response.data.length > 0) {
@@ -4784,7 +6396,7 @@ var customerDialog = __webpack_require__(641);
           if (this.currentTicket.clientId) {
             await this.loadTicketCustomer(this.currentTicket.clientId);
           }
-          this.loadTicketLines();
+          await this.loadTicketLines();
         }
       } catch (error) {
         console.log('No existing ticket found or error:', error);
@@ -4823,6 +6435,9 @@ var customerDialog = __webpack_require__(641);
           };
         }).filter(item => item.pro_name);
         console.info(`Loaded ${this.cart.length} items from ticket lines`);
+
+        // Apply promotions after loading cart
+        this.applyPromotions();
       } catch (error) {
         console.error('Error loading ticket lines:', error);
         this.showMessage('Failed to load saved ticket items', 'error', 'mdi-alert');
@@ -4833,49 +6448,130 @@ var customerDialog = __webpack_require__(641);
         if (!silent) this.showMessage('Cart is empty', 'warning', 'mdi-alert');
         return;
       }
-      if (!this.tableId) {
-        console.error('Table ID is missing:', this.tableId);
-        if (!silent) this.showMessage('Table ID is missing. Please check the table selection.', 'error', 'mdi-alert');
-        return;
-      }
       this.savingTicket = true;
       try {
         const subtotal = this.getTotalPrice();
-        const tax = subtotal * 0.085;
-        const total = subtotal + tax;
+        const promotionDiscount = this.getTotalPromotionDiscount();
+        const afterPromotions = subtotal - promotionDiscount;
+        const tax = afterPromotions * 0.085;
+        const total = afterPromotions + tax;
+
+        // Create a map of products affected by promotions
+        const promotionItemsMap = new Map();
+
+        // Calculate which items are affected by each promotion
+        this.appliedPromotions.forEach(applied => {
+          const promotion = applied.promotion;
+          const discount = applied.discount;
+
+          // Get items affected by this promotion
+          const affectedItems = this.getApplicableItems(promotion);
+
+          // For "Buy X Get Y" promotions, mark free items
+          if (promotion.type === 'buy_x_get_y' && discount.freeItems > 0) {
+            // Sort items by price (cheapest first for free items)
+            const sortedItems = affectedItems.flatMap(item => Array(item.quantity).fill({
+              id: item.id,
+              price: item.pro_price
+            })).sort((a, b) => a.price - b.price);
+
+            // Mark the cheapest items as free
+            for (let i = 0; i < discount.freeItems && i < sortedItems.length; i++) {
+              const itemId = sortedItems[i].id;
+              const currentData = promotionItemsMap.get(itemId) || {
+                promotionId: promotion.id,
+                is_promotion_item: false,
+                discount_amount: 0,
+                promotion_note: ''
+              };
+              currentData.is_promotion_item = true;
+              currentData.discount_amount += sortedItems[i].price;
+              currentData.promotion_note = discount.description;
+              promotionItemsMap.set(itemId, currentData);
+            }
+          } else {
+            // For percentage and fixed amount discounts
+            affectedItems.forEach(item => {
+              const itemSubtotal = item.pro_price * item.quantity;
+              const itemDiscountRatio = itemSubtotal / this.getApplicableItemsTotal(promotion);
+              const itemDiscount = discount.amount * itemDiscountRatio;
+              const currentData = promotionItemsMap.get(item.id) || {
+                promotionId: promotion.id,
+                is_promotion_item: false,
+                discount_amount: 0,
+                promotion_note: ''
+              };
+              if (itemDiscount > 0) {
+                currentData.is_promotion_item = true;
+                currentData.discount_amount += itemDiscount;
+                currentData.promotion_note = discount.description;
+              }
+              promotionItemsMap.set(item.id, currentData);
+            });
+          }
+        });
         const ticketData = {
-          tableId: parseInt(this.tableId),
+          tableId: this.tableId && this.tableId !== 'walk-in' ? parseInt(this.tableId) : null,
           clientId: this.selectedCustomer ? this.selectedCustomer.id : null,
           status: 'pending',
           subtotal: parseFloat(subtotal.toFixed(2)),
+          promotionDiscount: parseFloat(promotionDiscount.toFixed(2)),
           tax: parseFloat(tax.toFixed(2)),
           total: parseFloat(total.toFixed(2)),
           paymentStatus: 'pending',
-          customerNotes: this.selectedCustomer ? `Customer: ${this.selectedCustomer.name}` : 'Walk-in customer',
-          ticketLines: this.cart.map(item => ({
-            id: item.ticketLineId || undefined,
-            productId: item.id,
-            quantity: item.quantity,
-            unitPrice: parseFloat(item.pro_price),
-            totalPrice: parseFloat((item.pro_price * item.quantity).toFixed(2)),
-            status: 'ordered'
-          }))
+          notes: this.orderNotes || (this.selectedCustomer ? `Customer: ${this.selectedCustomer.name}` : 'Walk-in customer'),
+          appliedPromotions: this.appliedPromotions.map(applied => ({
+            promotionId: applied.promotion.id,
+            promotionName: applied.promotion.name,
+            discountAmount: applied.discount.amount,
+            description: applied.discount.description
+          })),
+          // UPDATED: Include promotion data in ticket lines
+          ticketLines: this.cart.map(item => {
+            const promotionData = promotionItemsMap.get(item.id);
+            return {
+              id: item.ticketLineId || undefined,
+              productId: item.id,
+              quantity: item.quantity,
+              unitPrice: parseFloat(item.pro_price),
+              totalPrice: parseFloat((item.pro_price * item.quantity).toFixed(2)),
+              status: 'ordered',
+              // Add promotion fields
+              promotionId: (promotionData === null || promotionData === void 0 ? void 0 : promotionData.promotionId) || null,
+              is_promotion_item: (promotionData === null || promotionData === void 0 ? void 0 : promotionData.is_promotion_item) || false,
+              original_price: promotionData !== null && promotionData !== void 0 && promotionData.is_promotion_item ? item.pro_price : null,
+              discount_amount: (promotionData === null || promotionData === void 0 ? void 0 : promotionData.discount_amount) || 0,
+              promotion_note: (promotionData === null || promotionData === void 0 ? void 0 : promotionData.promotion_note) || null
+            };
+          })
         };
-        console.log('Saving ticket with data:', ticketData);
         let response;
         if (this.currentTicket) {
           response = await this.$axios.put(`api/ticket/${this.currentTicket.id}`, ticketData);
-          this.$emit('reload-data');
-          if (!silent) this.showMessage('Ticket updated successfully!', 'success', 'mdi-content-save');
+          this.currentTicket = response.data.data || response.data;
+          this.$emit('ticket-updated', this.currentTicket);
+          if (!this.dialogMode) {
+            this.$emit('reload-data');
+          }
+          if (!silent) {
+            this.showMessage('Ticket updated successfully!', 'success', 'mdi-content-save');
+          }
         } else {
           response = await this.$axios.post('api/ticket/', ticketData);
           this.currentTicket = response.data.data || response.data;
-          this.$emit('reload-data');
-          if (!silent) this.showMessage('Ticket saved successfully!', 'success', 'mdi-content-save');
+          this.$emit('ticket-updated', this.currentTicket);
+          if (!this.dialogMode) {
+            this.$emit('reload-data');
+          }
+          if (!silent) {
+            this.showMessage('Ticket saved successfully!', 'success', 'mdi-content-save');
+          }
         }
       } catch (error) {
         console.error('Error saving ticket:', error);
-        if (!silent) this.showMessage('Failed to save ticket. Please try again.', 'error', 'mdi-alert');
+        if (!silent) {
+          this.showMessage('Failed to save ticket. Please try again.', 'error', 'mdi-alert');
+        }
       } finally {
         this.savingTicket = false;
       }
@@ -4887,7 +6583,7 @@ var customerDialog = __webpack_require__(641);
         this.showMessage('Product is not active', 'warning', 'mdi-alert');
         return;
       }
-      if (product.stock_count <= 0) {
+      if (product.stock_count <= 0 && product.validateStockOnSale) {
         this.showMessage('Product is out of stock', 'warning', 'mdi-alert');
         return;
       }
@@ -4914,7 +6610,9 @@ var customerDialog = __webpack_require__(641);
           isFromTicketLine: false
         });
       }
+      // Note: applyPromotions() is called via watcher
     },
+
     updateQuantity(itemId, change) {
       const item = this.cart.find(i => i.id === itemId);
       if (!item) return;
@@ -4928,7 +6626,9 @@ var customerDialog = __webpack_require__(641);
         return;
       }
       item.quantity = newQuantity;
+      // Note: applyPromotions() is called via watcher
     },
+
     removeFromCart(itemId) {
       const itemIndex = this.cart.findIndex(item => item.id === itemId);
       if (itemIndex > -1) {
@@ -4936,7 +6636,9 @@ var customerDialog = __webpack_require__(641);
         this.cart.splice(itemIndex, 1);
         this.showMessage(`${item.pro_name} removed from cart`, 'info', 'mdi-information');
       }
+      // Note: applyPromotions() is called via watcher
     },
+
     clearCart() {
       if (this.cart.length === 0) {
         this.showMessage('Cart is already empty', 'info', 'mdi-information');
@@ -4947,6 +6649,8 @@ var customerDialog = __webpack_require__(641);
       this.cart = [];
       this.currentTicket = null;
       this.selectedCustomer = null;
+      this.appliedPromotions = []; // FIX: Clear applied promotions too
+
       this.showMessage(`Cart cleared - ${itemCount} items (${this.formatPrice(totalAmount)}) removed`, 'info', 'mdi-cart-remove');
     },
     // Payment methods
@@ -4965,7 +6669,7 @@ var customerDialog = __webpack_require__(641);
       }
     },
     async processPayment() {
-      const total = this.getTotalPrice() * 1.085 || 0;
+      const total = this.getFinalTotal() || 0;
       if (total <= 0) {
         this.showMessage('No amount to process', 'warning', 'mdi-alert');
         return;
@@ -4977,19 +6681,20 @@ var customerDialog = __webpack_require__(641);
     async handlePaymentConfirm(selectedPaymentMethod) {
       this.actionLoading = true;
       try {
-        if (this.currentTicket.id) {
+        var _this$currentTicket2;
+        if ((_this$currentTicket2 = this.currentTicket) !== null && _this$currentTicket2 !== void 0 && _this$currentTicket2.id) {
           await this.$axios.patch(`/api/ticket/${this.currentTicket.id}/payment-status`, {
             paymentStatus: 'paid',
             paymentId: selectedPaymentMethod.id
           });
         }
-
-        // Close payment dialog first
         this.closePaymentDialog();
-
-        // Show print confirmation dialog
         this.showPrintConfirmDialog = true;
-        await this.updateTableStatus('cleaning');
+        if (!this.isWalkIn) {
+          await this.updateTableStatus('cleaning');
+        }
+        this.$emit('ticket-updated', this.currentTicket);
+        this.$emit('reload-data');
       } catch (error) {
         console.error('Payment processing error:', error);
         this.showMessage('Failed to process payment', 'error', 'mdi-alert');
@@ -4997,18 +6702,13 @@ var customerDialog = __webpack_require__(641);
         this.actionLoading = false;
       }
     },
-    // Print confirmation handler
     handlePrintConfirmation(shouldPrint) {
       this.showPrintConfirmDialog = false;
       if (shouldPrint) {
-        // Execute print ticket function
         this.printCustomerReceipt();
       } else {
-        // Just show success message if user skipped printing
         this.showMessage(`Payment of ${this.formatPrice(this.paymentAmount)} processed successfully`, 'success', 'mdi-check-circle');
       }
-
-      // Reset payment amount
       this.paymentAmount = 0;
     },
     closePaymentDialog() {
@@ -5016,15 +6716,24 @@ var customerDialog = __webpack_require__(641);
       this.paymentAmount = 0;
     },
     async updateTableStatus(status) {
-      const payload = {
-        status,
-        timeOccupied: status === 'occupied' ? new Date() : null,
-        currentOrderId: status === 'occupied' ? this.currentTicket.id : null
-      };
-      await this.$axios.patch(`api/tables/${this.tableId}/status`, payload);
-      await this.loadExistingTicket();
-      this.$emit('reload-data');
-      this.$emit('reload-table');
+      if (this.isWalkIn) {
+        console.log('Walk-in ticket - skipping table status update');
+        return;
+      }
+      try {
+        var _this$currentTicket3;
+        const payload = {
+          status,
+          timeOccupied: status === 'occupied' ? new Date() : null,
+          currentOrderId: status === 'occupied' ? (_this$currentTicket3 = this.currentTicket) === null || _this$currentTicket3 === void 0 ? void 0 : _this$currentTicket3.id : null
+        };
+        await this.$axios.patch(`api/tables/${this.tableId}/status`, payload);
+        await this.loadExistingTicket();
+        this.$emit('reload-data');
+        this.$emit('reload-table');
+      } catch (error) {
+        console.error('Error updating table status:', error);
+      }
     },
     // Customer management methods
     handleCustomerSelected(customer) {
@@ -5057,7 +6766,6 @@ var customerDialog = __webpack_require__(641);
       this.showCustomerDialog = false;
     },
     // Print methods
-    // Updated printCustomerReceipt method - using same data model as loadExistingTicket/loadTicketLines
     async printCustomerReceipt() {
       console.log('Print button clicked');
       if (!this.currentTicket) {
@@ -5065,15 +6773,9 @@ var customerDialog = __webpack_require__(641);
         return;
       }
       try {
-        // Show loading state
         this.loading = true;
-
-        // Fetch the latest ticket data from the server using same pattern as loadExistingTicket
-        console.log('Fetching latest ticket data before printing...');
         const ticketResponse = await this.$axios.get(`api/ticket/${this.currentTicket.id}`);
         const latestTicket = ticketResponse.data.data || ticketResponse.data;
-
-        // Fetch customer data if exists - same pattern as loadTicketCustomer
         let customerData = null;
         if (latestTicket.clientId) {
           try {
@@ -5084,12 +6786,8 @@ var customerDialog = __webpack_require__(641);
             customerData = this.selectedCustomer;
           }
         }
-
-        // Fetch the latest ticket lines using EXACT same logic as loadTicketLines
         const ticketLinesResponse = await this.$axios.get(`api/ticketLine/ticket/${latestTicket.id}`);
         const ticketLines = ticketLinesResponse.data.data || ticketLinesResponse.data;
-
-        // Map ticket lines using EXACT same mapping as loadTicketLines
         const mappedTicketLines = ticketLines.map(line => {
           var _line$product2;
           const product = this.products.find(p => p.id === line.productId);
@@ -5108,60 +6806,61 @@ var customerDialog = __webpack_require__(641);
             originalTicketLinePrice: line.unitPrice
           };
         }).filter(item => item.pro_name);
-
-        // Build the complete ticket object for printing with same structure
         const ticketForPrint = {
           ...latestTicket,
           client: customerData,
-          table: {
+          table: this.isWalkIn ? {
+            id: null,
+            number: null,
+            name: 'Walk-in'
+          } : {
             id: this.tableId,
             number: this.tableId,
             name: `Table ${this.tableId}`
           },
-          // Use the mapped ticket lines with same structure as cart
           ticketLines: mappedTicketLines
         };
 
-        // If totals are missing, calculate them
-        if (!ticketForPrint.subtotal) {
+        // FIX: Use promotion-adjusted calculations for printing
+        if (!ticketForPrint.subtotal || !ticketForPrint.promotionDiscount) {
           const subtotal = mappedTicketLines.reduce((total, item) => {
             return total + parseFloat(item.pro_price) * item.quantity;
           }, 0);
-          ticketForPrint.subtotal = subtotal;
-          ticketForPrint.tax = subtotal * 0.085;
-          ticketForPrint.total = subtotal + subtotal * 0.085;
+
+          // If promotion data is missing, recalculate
+          if (!ticketForPrint.promotionDiscount) {
+            const promotionDiscount = this.getTotalPromotionDiscount();
+            ticketForPrint.promotionDiscount = promotionDiscount;
+            ticketForPrint.subtotal = subtotal;
+            ticketForPrint.tax = (subtotal - promotionDiscount) * 0.085;
+            ticketForPrint.total = (subtotal - promotionDiscount) * 1.085;
+          }
         }
-        console.log(`Updated ticket for print: ${JSON.stringify(ticketForPrint)} }`);
-        console.log('Ticket lines count:', mappedTicketLines.length);
-
-        // Update the current ticket with latest data
+        console.log('Updated ticket for print:', ticketForPrint);
         this.currentTicket = latestTicket;
-
-        // Set the ticket for printing
         this.selectedTicket = ticketForPrint;
         this.showCustomerPrint = true;
       } catch (error) {
         console.error('Error fetching latest ticket data for printing:', error);
         this.showMessage('Failed to load latest ticket data. Using current data for printing.', 'warning', 'mdi-alert');
-
-        // Fallback to existing logic if API call fails
         const ticketForPrint = {
           ...this.currentTicket,
           client: this.selectedCustomer || null,
-          table: {
+          table: this.isWalkIn ? {
+            id: null,
+            number: null,
+            name: 'Walk-in'
+          } : {
             id: this.tableId,
             number: this.tableId,
             name: `Table ${this.tableId}`
           },
-          ticketLines: this.cart // Use existing cart data as fallback
+          ticketLines: this.cart,
+          subtotal: this.getTotalPrice(),
+          promotionDiscount: this.getTotalPromotionDiscount(),
+          tax: this.getTotalAfterPromotions() * 0.085,
+          total: this.getFinalTotal()
         };
-
-        // Ensure totals exist for fallback
-        if (!ticketForPrint.subtotal) {
-          ticketForPrint.subtotal = this.getTotalPrice();
-          ticketForPrint.tax = this.getTotalPrice() * 0.085;
-          ticketForPrint.total = this.getTotalPrice() * 1.085;
-        }
         this.selectedTicket = ticketForPrint;
         this.showCustomerPrint = true;
       } finally {
@@ -5259,7 +6958,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(672)
+  var style0 = __webpack_require__(560)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -5268,11 +6967,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_CafePOSScreenvue_type_script_lang_js_,
-  CafePOSScreenvue_type_template_id_1bdc38ea_scoped_true_render,
+  CafePOSScreenvue_type_template_id_0b717b0a_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "1bdc38ea",
+  "0b717b0a",
   "79b8fefa"
   
 )
@@ -5281,19 +6980,37 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 941:
+/***/ 778:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(971);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("4a7e8879", content, true, context)
+};
+
+/***/ }),
+
+/***/ 970:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_69ea0f59_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(758);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_69ea0f59_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(778);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_69ea0f59_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_69ea0f59_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_69ea0f59_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_69ea0f59_prod_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 942:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports

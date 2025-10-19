@@ -131,7 +131,7 @@ export default {
                 theme: {
                     monochrome: {
                         enabled: true,
-                        color: '#A12F8D',
+                        color: '#01532B',
                     }
                 },
                 chart: {
@@ -257,7 +257,7 @@ export default {
                     console.log("Data ", res.data[0]);
                     for (const iterator of res.data) {
                         // this.barOptionsForDailyStat.colors.push(this.getRandomColor) // ******* Original
-                        this.barOptionsForDailyStat.colors.push('#A12F8D') // ******* Original
+                        this.barOptionsForDailyStat.colors.push('#01532B') // ******* Original
 
                         this.barSeriesForDailyStat[0].data.push(iterator.total_sale)
                         this.barOptionsForDailyStat.xaxis.categories.push(iterator.txn_date_short)

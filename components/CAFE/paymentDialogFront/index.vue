@@ -21,7 +21,7 @@
               <v-btn
                 block
                 @click="showQROnCustomerScreen"
-                style="background-color: #A12F8D !important; color: white !important;"
+                style="background-color: #01532B !important; color: white !important;"
                 class="text-none"
               >
                 <v-icon left size="20">mdi-monitor-multiple</v-icon>
@@ -116,7 +116,7 @@
     <!-- Minimal QR Dialog -->
     <v-dialog v-model="showQRDialog" max-width="400" persistent>
       <v-card>
-        <v-card-title style="background-color: #A12F8D !important;" class="white--text py-2">
+        <v-card-title style="background-color: #01532B !important;" class="white--text py-2">
           <v-icon left color="white" size="20">mdi-qrcode</v-icon>
           QR Payment
           <v-spacer></v-spacer>
@@ -128,7 +128,7 @@
 
         <v-card-text class="pa-4 text-center">
           <!-- QR Code -->
-          <v-card outlined class="pa-2 mb-3" style="border-color: #A12F8D !important;">
+          <v-card outlined class="pa-2 mb-3" style="border-color: #01532B !important;">
             <img
               :src="qrCodeUrl"
               alt="QR Payment Code"
@@ -146,17 +146,17 @@
           <!-- Action Buttons -->
           <v-row dense>
             <v-col cols="4">
-              <v-btn small text @click="downloadQR" style="color: #A12F8D !important;">
+              <v-btn small text @click="downloadQR" style="color: #01532B !important;">
                 <v-icon small>mdi-download</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn small text @click="shareQR" style="color: #A12F8D !important;">
+              <v-btn small text @click="shareQR" style="color: #01532B !important;">
                 <v-icon small>mdi-share</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn small text @click="copyQRString" style="color: #A12F8D !important;">
+              <v-btn small text @click="copyQRString" style="color: #01532B !important;">
                 <v-icon small>{{ copied ? 'mdi-check' : 'mdi-content-copy' }}</v-icon>
               </v-btn>
             </v-col>

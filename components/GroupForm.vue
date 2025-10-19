@@ -1,4 +1,3 @@
-
 <template>
     <div class="text-center">
         <v-dialog v-model="isloading" hide-overlay persistent width="300">
@@ -25,8 +24,11 @@
                     </v-btn>
                     <v-checkbox v-model.number="form.isActive" label="Is Active"></v-checkbox>
                 </v-form>
+                
+                
+
                 <div>
-                    <v-row justify="center" align="center">
+                    <v-row justify="center" align="center" class="mt-4">
                         <v-divider></v-divider>
                         <div class="mx-2">ສິດທິ ອານຸຍາດໃນການນຳໃຊ້</div>
                         <v-divider></v-divider>
@@ -36,6 +38,37 @@
                             variant="outlined" @click="removeAuthority(menu)">
                             {{ menu.code }} - {{ menu.llname }}
                         </v-chip>
+                    </v-row>
+                </div>
+                <!-- Ticket Permissions Section -->
+                <div>
+                    <v-row justify="center" align="center" class="mt-4">
+                        <v-divider></v-divider>
+                        <div class="mx-2">ສິດທິການຈັດການ Ticket</div>
+                        <v-divider></v-divider>
+                    </v-row>
+                    <v-row no-gutters class="mt-2">
+                        <v-col cols="12">
+                            <v-switch
+                                v-model="form.ticketCancel"
+                                :label="form.ticketCancel ? 'ອະນຸຍາດໃຫ້ຍົກເລີກ Ticket' : 'ບໍ່ອະນຸຍາດໃຫ້ຍົກເລີກ Ticket'"
+                                color="primary"
+                                hide-details
+                                inset
+                            >
+                                <template v-slot:prepend>
+                                    <v-icon :color="form.ticketCancel ? 'success' : 'error'">
+                                        {{ form.ticketCancel ? 'mdi-ticket-confirmation' : 'mdi-ticket-outline' }}
+                                    </v-icon>
+                                </template>
+                            </v-switch>
+                            <div class="text-caption text-grey mt-1 ml-10">
+                                {{ form.ticketCancel ? 
+                                    'ກຸ່ມນີ້ສາມາດຍົກເລີກ ticket ໄດ້' : 
+                                    'ກຸ່ມນີ້ບໍ່ສາມາດຍົກເລີກ ticket ໄດ້' 
+                                }}
+                            </div>
+                        </v-col>
                     </v-row>
                 </div>
                 <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
@@ -75,7 +108,8 @@ export default {
                 code: '',
                 name: '',
                 menuHeaders: [],
-                isActive: true
+                isActive: true,
+                ticketCancel: false // Add this new field
             },
             authorityList: [],
             authoritySelected: 1,
@@ -86,9 +120,6 @@ export default {
             ],
         };
     },
-    // mounted() {
-    //     this.loadEntry();
-    // },
     async created() {
         this.loadEntry();
         this.loadAuthority();
@@ -112,11 +143,9 @@ export default {
                 console.log(`ADD TERMINAL ${authority}`)
                 if (!authority) this.form.menuHeaders.push(newAuthority)
             }
-            // this.record.terminals.splice(idx, 1);
         },
         async commitRecord() {
             if (this.$refs.form.validate() && !this.isloading) {
-                // Implement form submission logic here
                 this.isloading = true
                 let api = this.isCreate ? 'api/group/create' : `api/group/update/${this.recordId}`
                 console.log("API => ", api);
@@ -139,18 +168,20 @@ export default {
                 }
                 this.isloading = false
             }
-
         },
         async loadEntry() {
             console.log(`===> Update form record load`);
             if (this.recordId && !this.isCreate) {
                 await this.$axios.get(`api/group/find/${this.recordId}`).then(response => {
                     this.form = response.data
+                    // Ensure ticketCancel has a default value if not present in response
+                    if (this.form.ticketCancel === undefined) {
+                        this.form.ticketCancel = false
+                    }
                 }).catch(error => {
                     console.log("Cannot fetch data " + error);
                 })
             }
-
         },
         async loadAuthority() {
             if (this.isloading) return
@@ -158,7 +189,6 @@ export default {
             await this.$axios
                 .get(`api/menuHeader/find`)
                 .then((res) => {
-                    // ****** Clear Old Data
                     this.authorityList = res.data
                     this.authoritySelected = this.authorityList[0]['id']
                 })

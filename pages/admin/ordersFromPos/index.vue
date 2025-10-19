@@ -209,12 +209,14 @@
           :search="search"
           :items="activeOrderHeaderList"
         >
+          <!-- FIXED: Added null check for item.client -->
           <template v-slot:[`item.bookingDate`]="{ item }">
             {{ item.bookingDate.split('T')[0] }}
             <!-- <v-chip class="ma-2" color="red" text-color="white"> -->
             <h6
               :style="{
                 color:
+                  item.client &&
                   countDay(item.bookingDate.split('T')[0]) > item.client.credit
                     ? 'red'
                     : 'green',
@@ -224,33 +226,43 @@
             </h6>
             <!-- </v-chip> -->
           </template>
+
+          <!-- FIXED: Added null check for item.client -->
           <template v-slot:[`item.client.credit`]="{ item }">
-            <v-chip
-              v-if="
-                new Date(
+            <template v-if="item.client">
+              <v-chip
+                v-if="
+                  new Date(
+                    dueDate(item.bookingDate, item.client.credit)
+                      .toISOString()
+                      .split('T')[0]
+                  ) < new Date()
+                "
+                class="ma-2"
+                color="red"
+                text-color="white"
+              >
+                {{
                   dueDate(item.bookingDate, item.client.credit)
                     .toISOString()
                     .split('T')[0]
-                ) < new Date()
-              "
-              class="ma-2"
-              color="red"
-              text-color="white"
-            >
-              {{
-                dueDate(item.bookingDate, item.client.credit)
-                  .toISOString()
-                  .split('T')[0]
-              }}
-            </v-chip>
-            <v-chip v-else class="ma-2" color="green" text-color="white">
-              {{
-                dueDate(item.bookingDate, item.client.credit)
-                  .toISOString()
-                  .split('T')[0]
-              }}
-            </v-chip>
+                }}
+              </v-chip>
+              <v-chip v-else class="ma-2" color="green" text-color="white">
+                {{
+                  dueDate(item.bookingDate, item.client.credit)
+                    .toISOString()
+                    .split('T')[0]
+                }}
+              </v-chip>
+            </template>
+            <template v-else>
+              <v-chip class="ma-2" color="grey" text-color="white">
+                N/A
+              </v-chip>
+            </template>
           </template>
+
           <template v-slot:[`item.dynamic_customer`]="{ item }">
             <!-- <v-chip class="ma-2" :color="item.dynamic_customer ? 'green' : 'red'" text-color="black">
             {{ item.dynamic_customer ? item.dynamic_customer.name : '' }}
@@ -262,18 +274,23 @@
               <!-- {{ item.dynamic_customer ? item.dynamic_customer.name : '' }} -->
             </v-avatar>
           </template>
+
           <template v-slot:[`item.discount`]="{ item }">
             {{ numberWithCommas(item.discount) }}
           </template>
+
           <template v-slot:[`item.total`]="{ item }">
             {{ numberWithCommas(item.total + item.discount) }}
           </template>
+
           <template v-slot:[`item.grandTotal`]="{ item }">
             {{ numberWithCommas(item.total) }}
           </template>
+
           <template v-slot:[`item.createdAt`]="{ item }">
             {{ item.createdAt.split('.')[0] }}
           </template>
+
           <template v-slot:[`item.id`]="{ item }">
             <v-btn
               color="primary"
@@ -286,6 +303,7 @@
               <i class="fa-regular fa-pen-to-square"></i>
             </v-btn>
           </template>
+
           <template v-slot:[`item.cancel`]="{ item }">
             <v-btn
               color="blue darken-1"
@@ -298,12 +316,21 @@
               <i class="fas fa-sync"></i>
             </v-btn>
           </template>
+
+          <!-- FIXED: Added null check for client.telephone -->
           <template v-slot:[`item.cusTel`]="{ item }">
-            <v-btn color="blue darken-1" text @click="whatsappLink(item)">
-              {{ item.cusTel }}
+            <v-btn
+              v-if="item.client && item.client.telephone"
+              color="blue darken-1"
+              text
+              @click="whatsappLink(item)"
+            >
+              {{ item.client.telephone }}
               <a :href="whatsappContactLink" target="_blank">Whatsapp</a>
             </v-btn>
+            <span v-else class="text-grey">N/A</span>
           </template>
+
           <template v-slot:[`item.print`]="{ item }">
             <!-- TODO: TICKET PRINT -->
             <v-btn @click="printDefaultTicket(item)" text color="primary">
@@ -388,8 +415,8 @@ export default {
         {
           text: 'ເບີໂທ',
           align: 'center',
-          value: 'client.telephone',
-          sortable: true,
+          value: 'cusTel', // Changed from 'client.telephone' to custom value
+          sortable: false, // Changed to false since we're using custom template
         },
         {
           text: 'ຊຳລະດ້ວຍ',
@@ -427,12 +454,6 @@ export default {
           value: 'grandTotal',
           sortable: false,
         },
-        // {
-        //   text: 'ລວມ',
-        //   align: 'end',
-        //   value: 'total',
-        //   sortable: false,
-        // },
         {
           text: 'ຜູ້ລົງທຸລະກຳ',
           align: 'end',
@@ -708,11 +729,33 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     whatsappLink(item) {
-      const tel = item.cusTel.trim()
+      // FIXED: Added null checks for client and telephone
+      if (!item.client || !item.client.telephone) {
+        console.warn(
+          'No client or telephone number available for WhatsApp link'
+        )
+        return
+      }
+
+      const tel = item.client.telephone.trim()
       const completeTel = tel.substring(tel.length - 8)
       this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent(
         'ສະບາຍດີ ລູກຄ້າ '
       )}`
+    },
+    // Add helper method to get client name safely
+    getClientName(item) {
+      return item.client ? item.client.name : 'Walk-in Customer'
+    },
+
+    // Add helper method to get client ID safely
+    getClientId(item) {
+      return item.client ? item.client.id : 'N/A'
+    },
+
+    // Add helper method to get client telephone safely
+    getClientTelephone(item) {
+      return item.client ? item.client.telephone : null
     },
     getFormatNum(val) {
       return new Intl.NumberFormat().format(val)

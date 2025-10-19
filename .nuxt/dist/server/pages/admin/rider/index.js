@@ -1,7 +1,7 @@
-exports.ids = [248,124,147];
+exports.ids = [256,126,154];
 exports.modules = {
 
-/***/ 1258:
+/***/ 1300:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -244,7 +244,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/rider/index.vue?vue&type=template&id=5a424308&
 
 // EXTERNAL MODULE: ./components/RiderForm.vue + 4 modules
-var RiderForm = __webpack_require__(633);
+var RiderForm = __webpack_require__(649);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/rider/index.vue?vue&type=script&lang=js&
 
@@ -364,7 +364,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var rider = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {RiderForm: __webpack_require__(633).default,YoutubePlayer: __webpack_require__(426).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {RiderForm: __webpack_require__(649).default,YoutubePlayer: __webpack_require__(427).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
@@ -398,7 +398,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 426:
+/***/ 427:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -606,7 +606,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 633:
+/***/ 649:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -771,7 +771,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/RiderForm.vue?vue&type=template&id=2aed98dc&
 
 // EXTERNAL MODULE: ./util/myUtil.js
-var myUtil = __webpack_require__(138);
+var myUtil = __webpack_require__(139);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/RiderForm.vue?vue&type=script&lang=js&
 

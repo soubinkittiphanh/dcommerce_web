@@ -9,8 +9,25 @@
       @printed="onPrintSuccess"
     />
 
+    <!-- Notes Dialog Component -->
+    <NotesDialog
+      :show="showNotesDialog"
+      :notes="orderNotes"
+      :existing-notes="currentTicket?.notes"
+      title="Add Notes to Order"
+      label="Order Notes"
+      placeholder="Enter any special instructions or notes for this order..."
+      hint="These notes will be saved with the ticket"
+      :max-length="500"
+      :show-quick-notes="true"
+      :quick-notes="quickNotes"
+      :loading="savingNotes"
+      @close="closeNotesDialog"
+      @save="handleSaveNotes"
+      @show-message="showMessage"
+    />
+
     <!-- Payment Dialog -->
-    <!-- Replace your current PaymentDialog section with this -->
     <PaymentDialog
       :show="showPaymentDialog"
       :table-number="tableId"
@@ -91,25 +108,28 @@
         <!-- Header with Search and Filters -->
         <v-card class="ma-0 rounded-0">
           <v-card-title class="primary white--text">
-            <v-icon left color="white">mdi-storefront</v-icon>
+            <v-icon class="mr-2" color="white">mdi-storefront</v-icon>
             Product Menu
             <v-spacer></v-spacer>
             <!-- Table Info Display -->
             <v-chip
               color="accent"
-              text-color="white"
               class="mr-2"
-              v-if="tableId"
+              v-if="tableId && tableId !== 'walk-in'"
             >
-              <v-icon left small>mdi-table-furniture</v-icon>
-              Table {{ tableId }}
+              <v-icon class="mr-1" small>mdi-table-furniture</v-icon>
+              Table {{ displayTableId }}
             </v-chip>
-            <v-chip color="white" text-color="primary" class="mr-2">
-              <v-icon left small>mdi-package-variant</v-icon>
+            <v-chip v-else-if="isWalkIn" color="orange" class="mr-2">
+              <v-icon class="mr-1" small>mdi-walk</v-icon>
+              Walk-in
+            </v-chip>
+            <v-chip color="white" class="mr-2">
+              <v-icon class="mr-1" small>mdi-package-variant</v-icon>
               {{ filteredProducts.length }} items
             </v-chip>
             <v-btn color="white" text @click="fetchProducts" :loading="loading">
-              <v-icon left>mdi-refresh</v-icon>
+              <v-icon class="mr-2">mdi-refresh</v-icon>
               Refresh
             </v-btn>
           </v-card-title>
@@ -122,8 +142,8 @@
                   v-model="searchQuery"
                   prepend-inner-icon="mdi-magnify"
                   label="Search products..."
-                  variant="outlined"
-                  density="compact"
+                  outlined
+                  dense
                   clearable
                   hide-details
                 />
@@ -132,11 +152,11 @@
                 <v-autocomplete
                   v-model="categoryFilter"
                   :items="categoryOptions"
-                  item-text="title"
-                  item-value="value"
+                  item-text="categ_name"
+                  item-value="categ_id"
                   label="Filter by Category"
-                  variant="outlined"
-                  density="compact"
+                  outlined
+                  dense
                   clearable
                   hide-details
                 />
@@ -180,18 +200,33 @@
                   hover
                   class="text-center pa-4 cursor-pointer product-card"
                   height="160"
-                  :disabled="!product.isActive || product.stock_count <= 0"
+                  :disabled="
+                    (!product.isActive || product.stock_count <= 0) &&
+                    product.validateStockOnSale 
+                  "
                   :class="{
                     'product-disabled':
-                      !product.isActive || product.stock_count <= 0,
+                      (!product.isActive || product.stock_count <= 0) && product.validateStockOnSale ,
+                    'promotion-eligible': isProductInPromotion(product),
                   }"
                 >
+                  <!-- Promotion indicator -->
+                  <v-icon
+                    v-if="isProductInPromotion(product)"
+                    color="success"
+                    class="promotion-badge"
+                    small
+                  >
+                    mdi-tag
+                  </v-icon>
+
                   <v-card-title
                     class="justify-center text-subtitle-1 pa-1"
                     style="line-height: 1.2"
                   >
-                    {{ product.pro_name }}
+                  {{ product.pro_name }} {{ product.validateStockOnSale }}
                   </v-card-title>
+
                   <v-card-text class="pa-2">
                     <div class="text-h5 primary--text font-weight-bold mb-2">
                       {{ formatPrice(product.pro_price) }}
@@ -244,7 +279,7 @@
         </v-card>
       </v-col>
 
-      <!-- Right Panel - Cart -->
+      <!-- Right Panel - Cart (REORGANIZED) -->
       <v-col
         cols="4"
         class="d-flex flex-column"
@@ -255,148 +290,158 @@
           elevation="2"
           style="overflow: hidden"
         >
-          <!-- Cart Header -->
-          <v-card-title class="secondary white--text">
-            <v-icon left color="white">mdi-shopping</v-icon>
-            Current Order
+          <!-- Compact Cart Header -->
+          <v-card-title class="secondary white--text py-2">
+            <v-icon left color="white" small>mdi-shopping</v-icon>
+            <span class="text-subtitle-1">Order</span>
             <v-spacer></v-spacer>
-            <v-chip color="white" text-color="secondary" small>
+            <v-chip color="white" text-color="secondary" x-small class="mr-1">
               {{ getTotalItems() }} items
             </v-chip>
-            <!-- Ticket Status -->
             <v-chip
               v-if="currentTicket"
               :color="getTicketStatusColor(currentTicket.status)"
               text-color="white"
-              small
-              class="ml-2"
+              x-small
             >
               {{ currentTicket.status.toUpperCase() }}
             </v-chip>
           </v-card-title>
 
-          <!-- Customer Info Section -->
-          <v-card-text class="pa-3 bg-grey-lighten-5">
-            <div class="d-flex justify-space-between align-center mb-2">
-              <div class="text-subtitle-2 font-weight-bold">
-                <v-icon small class="mr-1">mdi-account</v-icon>
-                Customer Information
-              </div>
-              <v-btn
-                @click="showCustomerDialog = true"
-                color="primary"
-                small
-                outlined
-              >
-                <v-icon left small>{{
-                  selectedCustomer ? 'mdi-account-edit' : 'mdi-account-plus'
-                }}</v-icon>
-                {{ selectedCustomer ? 'Change' : 'Select' }}
-              </v-btn>
-            </div>
-
-            <v-card v-if="selectedCustomer" outlined class="pa-2">
-              <div class="d-flex justify-space-between align-center">
-                <div>
-                  <div class="font-weight-medium">
-                    {{ selectedCustomer.name }}
-                  </div>
-                  <div class="caption grey--text">
-                    {{ selectedCustomer.company || 'No company' }}
-                  </div>
-                  <div class="caption" v-if="selectedCustomer.telephone">
-                    <v-icon x-small>mdi-phone</v-icon>
-                    {{ selectedCustomer.telephone }}
-                  </div>
-                </div>
-                <div class="text-right">
-                  <v-chip
-                    :color="getGradeColor(selectedCustomer.grade)"
-                    text-color="white"
-                    x-small
+          <!-- Compact Customer & Table Info (Collapsible) -->
+          <v-expansion-panels flat tile accordion class="mb-0">
+            <v-expansion-panel>
+              <v-expansion-panel-header class="py-1 px-3">
+                <div class="d-flex align-center">
+                  <v-icon small class="mr-2">mdi-account</v-icon>
+                  <span class="caption">
+                    {{
+                      selectedCustomer
+                        ? selectedCustomer.name
+                        : 'Walk-in Customer'
+                    }}
+                  </span>
+                  <v-spacer></v-spacer>
+                  <v-icon
+                    small
+                    color="primary"
+                    v-if="orderNotes || currentTicket?.notes"
                   >
-                    Grade {{ selectedCustomer.grade }}
-                  </v-chip>
-                  <div class="caption mt-1">
-                    Credit: {{ selectedCustomer.credit }} days
+                    mdi-note-text
+                  </v-icon>
+                </div>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="pa-2">
+                <!-- Customer Info (Condensed) -->
+                <div class="mb-2">
+                  <div class="d-flex justify-space-between align-center mb-1">
+                    <span class="caption font-weight-bold">Customer:</span>
+                    <v-btn
+                      @click="showCustomerDialog = true"
+                      color="primary"
+                      x-small
+                      outlined
+                    >
+                      {{ selectedCustomer ? 'Change' : 'Select' }}
+                    </v-btn>
+                  </div>
+
+                  <div v-if="selectedCustomer" class="caption">
+                    {{ selectedCustomer.company || 'No company' }}
+                    <v-chip
+                      :color="getGradeColor(selectedCustomer.grade)"
+                      text-color="white"
+                      x-small
+                      class="ml-1"
+                    >
+                      Grade {{ selectedCustomer.grade }}
+                    </v-chip>
+                  </div>
+                  <div v-else class="caption grey--text">
+                    No customer selected
                   </div>
                 </div>
-              </div>
-            </v-card>
 
-            <v-alert v-else type="info" dense outlined>
-              No customer selected - Walk-in customer
-            </v-alert>
-          </v-card-text>
+                <!-- Notes (Condensed) -->
+                <div v-if="orderNotes || currentTicket?.notes" class="mb-2">
+                  <div class="d-flex align-center justify-space-between">
+                    <span class="caption font-weight-bold">Notes:</span>
+                    <v-btn icon x-small @click="openNotesDialog">
+                      <v-icon x-small>mdi-pencil</v-icon>
+                    </v-btn>
+                  </div>
+                  <div
+                    class="caption"
+                    style="max-height: 30px; overflow: hidden"
+                  >
+                    {{ orderNotes || currentTicket?.notes }}
+                  </div>
+                </div>
 
-          <!-- Ticket Info -->
-          <v-card-text v-if="currentTicket" class="pa-2 bg-grey-lighten-4">
-            <div class="caption">
-              <strong>Ticket #{{ currentTicket.id }}</strong>
-              <span class="ml-2">{{
-                formatDateTime(currentTicket.createdAt)
-              }}</span>
-            </div>
-          </v-card-text>
+                <!-- Ticket Info (Condensed) -->
+                <div v-if="currentTicket" class="caption grey--text">
+                  Ticket #{{ currentTicket.id }} -
+                  {{ formatDateTime(currentTicket.createdAt) }}
+                </div>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
 
-          <!-- Scrollable Cart Items Section -->
-          <div class="flex-grow-1" style="overflow-y: auto; padding: 16px">
-            <div v-if="cart.length === 0" class="text-center mt-8">
-              <v-icon size="64" color="grey lighten-2" class="mb-4">
-                mdi-shopping-outline
-              </v-icon>
-              <p class="grey--text">No items in cart</p>
+          <!-- MAIN CART ITEMS SECTION - Now gets most of the space -->
+          <div
+            class="flex-grow-1 px-3 py-2"
+            style="overflow-y: auto; min-height: 200px"
+          >
+            <div v-if="cart.length === 0" class="text-center py-8">
+              <v-icon size="48" color="grey lighten-2" class="mb-2"
+                >mdi-shopping-outline</v-icon
+              >
+              <p class="grey--text caption">No items in cart</p>
               <p class="grey--text caption">Add items from the menu</p>
             </div>
 
-            <!-- Cart Items -->
+            <!-- Cart Items (More Compact) -->
             <div v-else>
               <v-card
                 v-for="item in cart"
                 :key="item.id"
                 class="mb-2 pa-2"
                 outlined
+                elevation="0"
                 :class="{ 'ticket-line-item': item.isFromTicketLine }"
               >
-                <div class="d-flex justify-space-between align-center mb-2">
-                  <div>
-                    <div class="font-weight-medium">
+                <!-- Product Name & Controls in one row -->
+                <div class="d-flex justify-space-between align-center mb-1">
+                  <div class="flex-grow-1 mr-2">
+                    <div
+                      class="text-subtitle-2 font-weight-medium line-clamp-1"
+                    >
                       {{ getProductName(item.pro_id) }}
                     </div>
                     <div class="caption grey--text">
-                      ID: {{ item.pro_id }} | {{ item.categ_name }}
+                      {{ item.categ_name }} •
+                      {{ formatPrice(item.pro_price) }}/each
                     </div>
-                    <!-- Show price indicator for ticket line items -->
+                    <!-- Show indicators for ticket line items -->
                     <div
                       v-if="item.isFromTicketLine"
                       class="caption info--text"
                     >
                       <v-icon x-small color="info">mdi-history</v-icon>
-                      Saved item ({{ formatPrice(item.pro_price) }} each)
-                    </div>
-                    <!-- Show current price comparison for ticket line items -->
-                    <div
-                      v-if="
-                        item.isFromTicketLine &&
-                        getCurrentProductPrice(item.pro_id) !== item.pro_price
-                      "
-                      class="caption warning--text"
-                    >
-                      <v-icon x-small color="warning">mdi-alert</v-icon>
-                      Current price:
-                      {{ formatPrice(getCurrentProductPrice(item.pro_id)) }}
+                      Saved item
                     </div>
                   </div>
                   <v-btn
                     @click="removeFromCart(item.id)"
                     icon
-                    small
+                    x-small
                     color="error"
                   >
-                    <v-icon small>mdi-delete</v-icon>
+                    <v-icon x-small>mdi-delete</v-icon>
                   </v-btn>
                 </div>
 
+                <!-- Quantity Controls & Total -->
                 <div class="d-flex justify-space-between align-center">
                   <div class="d-flex align-center">
                     <v-btn
@@ -405,9 +450,9 @@
                       x-small
                       color="grey"
                     >
-                      <v-icon>mdi-minus</v-icon>
+                      <v-icon x-small>mdi-minus</v-icon>
                     </v-btn>
-                    <span class="mx-3 font-weight-bold">{{
+                    <span class="mx-2 font-weight-bold">{{
                       item.quantity
                     }}</span>
                     <v-btn
@@ -417,7 +462,7 @@
                       color="grey"
                       :disabled="item.quantity >= item.stock_count"
                     >
-                      <v-icon>mdi-plus</v-icon>
+                      <v-icon x-small>mdi-plus</v-icon>
                     </v-btn>
                   </div>
                   <div class="font-weight-bold primary--text">
@@ -425,15 +470,13 @@
                   </div>
                 </div>
 
-                <!-- Stock warning -->
+                <!-- Warnings (Compact) -->
                 <div
                   v-if="item.quantity >= item.stock_count"
                   class="caption error--text mt-1"
                 >
                   Max stock reached
                 </div>
-
-                <!-- Inactive product warning -->
                 <div
                   v-if="item.isFromTicketLine && !item.isActive"
                   class="caption warning--text mt-1"
@@ -445,80 +488,108 @@
             </div>
           </div>
 
-          <!-- Cart Summary and Actions -->
-          <div class="pa-4">
-            <v-card v-if="cart.length > 0" class="mb-3 pa-3 w-100" outlined>
-              <div class="d-flex justify-space-between mb-1">
+          <!-- Compact Cart Summary -->
+          <div class="pa-3">
+            <v-card v-if="cart.length > 0" class="pa-2" outlined elevation="0">
+              <!-- Summary rows (more compact) -->
+              <div class="d-flex justify-space-between caption mb-1">
                 <span>Subtotal:</span>
-                <span class="font-weight-medium">{{
-                  formatPrice(getTotalPrice())
-                }}</span>
+                <span>{{ formatPrice(getTotalPrice()) }}</span>
               </div>
-              <div class="d-flex justify-space-between mb-1">
+
+              <!-- Promotions (compact) -->
+              <div v-if="appliedPromotions.length > 0">
+                <div
+                  v-for="(applied, index) in appliedPromotions"
+                  :key="index"
+                  class="d-flex justify-space-between caption success--text"
+                >
+                  <span>{{ applied.promotion.name }}:</span>
+                  <span>-{{ formatPrice(applied.discount.amount) }}</span>
+                </div>
+              </div>
+
+              <div class="d-flex justify-space-between caption mb-1">
+                <span>After Promotions:</span>
+                <span>{{ formatPrice(getTotalAfterPromotions()) }}</span>
+              </div>
+
+              <div class="d-flex justify-space-between caption mb-2">
                 <span>Tax (8.5%):</span>
-                <span class="font-weight-medium">{{
-                  formatPrice(getTotalPrice() * 0.085)
+                <span>{{
+                  formatPrice(getTotalAfterPromotions() * 0.085)
                 }}</span>
               </div>
-              <v-divider class="my-2"></v-divider>
+
+              <v-divider class="mb-2"></v-divider>
               <div
-                class="d-flex justify-space-between text-h6 font-weight-bold"
+                class="d-flex justify-space-between text-subtitle-1 font-weight-bold"
               >
                 <span>Total:</span>
                 <span class="primary--text">{{
-                  formatPrice(getTotalPrice() * 1.085)
+                  formatPrice(getFinalTotal())
                 }}</span>
               </div>
             </v-card>
 
-            <!-- Action Buttons -->
-            <div v-if="cart.length > 0">
-              <!-- Save Ticket Button -->
-              <v-btn
-                @click="saveTicket"
-                color="info"
-                block
-                class="mb-2"
-                :loading="savingTicket"
-              >
-                <v-icon left>mdi-content-save</v-icon>
-                {{ currentTicket ? 'Update Ticket' : 'Save Ticket' }}
-              </v-btn>
+            <!-- Compact Action Buttons -->
+            <div v-if="cart.length > 0" class="mt-2">
+              <!-- Single row with 4 compact buttons -->
+              <v-row dense no-gutters class="mb-1">
+                <v-col cols="6" class="pr-1">
+                  <v-btn
+                    @click="openNotesDialog"
+                    color="orange"
+                    block
+                    small
+                    outlined
+                  >
+                    <v-icon small class="mr-1">mdi-note-plus</v-icon>
+                    Notes
+                  </v-btn>
+                </v-col>
+                <v-col cols="6" class="pl-1">
+                  <v-btn
+                    @click="saveTicket"
+                    color="info"
+                    block
+                    small
+                    :loading="savingTicket"
+                  >
+                    <v-icon small class="mr-1">mdi-content-save</v-icon>
+                    Save
+                  </v-btn>
+                </v-col>
+              </v-row>
 
-              <!-- Payment and Print Buttons Row -->
-              <v-row class="mb-2" no-gutters>
-                <!-- Payment Button -->
+              <v-row dense no-gutters class="mb-1">
                 <v-col cols="6" class="pr-1">
                   <v-btn
                     @click="processPayment"
                     color="primary"
                     block
-                    large
                     :disabled="!currentTicket"
                   >
-                    <v-icon left>mdi-credit-card</v-icon>
+                    <v-icon small class="mr-1">mdi-credit-card</v-icon>
                     Payment
                   </v-btn>
                 </v-col>
-
-                <!-- Print Button -->
                 <v-col cols="6" class="pl-1">
                   <v-btn
                     @click="printCustomerReceipt"
                     color="green"
                     block
-                    large
                     :disabled="!currentTicket"
                   >
-                    <v-icon left>mdi-printer</v-icon>
-                    Print Ticket
+                    <v-icon small class="mr-1">mdi-printer</v-icon>
+                    Print
                   </v-btn>
                 </v-col>
               </v-row>
 
-              <!-- Clear Cart Button -->
-              <v-btn @click="clearCart" color="grey" block large class="mb-2">
-                <v-icon left>mdi-cart-remove</v-icon>
+              <!-- Clear button (full width, compact) -->
+              <v-btn @click="clearCart" color="grey" block small>
+                <v-icon small class="mr-1">mdi-cart-remove</v-icon>
                 Clear Cart
               </v-btn>
             </div>
@@ -532,29 +603,30 @@
       v-model="snackbar.show"
       :color="snackbar.color"
       :timeout="snackbar.timeout"
-      location="top right"
-      variant="elevated"
+      top
+      right
     >
       <div class="d-flex align-center">
         <v-icon class="mr-2">{{ snackbar.icon }}</v-icon>
         {{ snackbar.message }}
       </div>
-      <template v-slot:actions>
-        <v-btn color="white" variant="text" @click="snackbar.show = false">
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar.show = false">
           Close
         </v-btn>
       </template>
     </v-snackbar>
   </v-container>
 </template>
-
 <script>
 import PrintTicketDialog from '@/components/CAFE/printdialog'
 import PaymentDialog from '@/components/CAFE/paymentDialogFront'
 import CustomerDialog from '@/components/CAFE/customerDialog'
+import NotesDialog from '~/components/tickets/NotesDialog.vue'
 
 export default {
   components: {
+    NotesDialog,
     PrintTicketDialog,
     PaymentDialog,
     CustomerDialog,
@@ -563,11 +635,39 @@ export default {
   props: {
     tableId: {
       type: [String, Number],
-      required: true,
+      required: false,
+      default: null,
+    },
+    existingTicket: {
+      type: Object,
+      default: null,
+    },
+    dialogMode: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
     return {
+      promotions: [],
+      appliedPromotions: [],
+      loadingPromotions: false,
+
+      // Notes related data
+      showNotesDialog: false,
+      orderNotes: '',
+      savingNotes: false,
+      quickNotes: [
+        'No ice',
+        'Extra spicy',
+        'Less sugar',
+        'Allergic to nuts',
+        'Take away',
+        'Urgent order',
+        'VIP customer',
+        'No MSG',
+      ],
+
       // Restaurant configuration
       restaurantConfig: {
         name: 'Your Restaurant Name',
@@ -591,9 +691,6 @@ export default {
       searchQuery: '',
       categoryFilter: '',
       categoryOptions: [
-        { title: 'All Categories', value: '' },
-        { title: 'Engine Oils', value: 49 },
-        { title: 'Car Care', value: 50 },
       ],
 
       // Payment dialog
@@ -624,6 +721,14 @@ export default {
   },
 
   computed: {
+    isWalkIn() {
+      return !this.tableId || this.tableId === 'walk-in'
+    },
+
+    displayTableId() {
+      return this.isWalkIn ? 'Walk-in' : this.tableId
+    },
+
     filteredProducts() {
       let filtered = this.products
 
@@ -651,20 +756,31 @@ export default {
     },
   },
 
-  mounted() {
-    this.fetchProducts()
-    this.fetchCustomers()
-    this.loadExistingTicket()
+  async mounted() {
+    await this.fetchProducts()
+    await this.loadCategory()
+    await this.fetchCustomers()
+    await this.fetchPromotions()
+
+    // Load existing or provided ticket after products are loaded
+    if (this.existingTicket) {
+      await this.loadProvidedTicket()
+    } else {
+      await this.loadExistingTicket()
+    }
   },
 
   watch: {
-    // Auto-save cart changes
     cart: {
       handler() {
-        if (this.currentTicket && this.cart.length > 0) {
+        // Apply promotions whenever cart changes
+        this.applyPromotions()
+
+        // Auto-save logic
+        if (!this.dialogMode && this.currentTicket && this.cart.length > 0) {
           clearTimeout(this.autoSaveTimeout)
           this.autoSaveTimeout = setTimeout(() => {
-            this.saveTicket(true) // Silent save
+            this.saveTicket(true)
           }, 2000)
         }
       },
@@ -673,22 +789,384 @@ export default {
   },
 
   methods: {
+    async loadCategory() {
+      this.isloading = true
+      this.categoryOptions = []
+      await this.$axios
+        .get('/api/category/find')
+        .then((res) => {
+          for (const iterator of res.data) {
+            this.categoryOptions.push(iterator)
+          }
+        })
+        .catch((er) => {
+          swalError2(this.$swal, 'Error', er)
+        })
+      this.isloading = false
+    },
+    // Promotion Methods
+    isProductInPromotion(product) {
+      return this.promotions.some((promotion) => {
+        if (!promotion.is_active) return false
+        const conditions = promotion.conditions
+        if (!conditions) return false
+
+        // Check if product is in applicable categories or products
+        const inCategories = conditions.applicable_categories?.includes(
+          product.pro_category
+        )
+        const inProducts = conditions.applicable_products?.includes(product.id)
+        const noRestrictions =
+          !conditions.applicable_categories?.length &&
+          !conditions.applicable_products?.length
+
+        return inCategories || inProducts || noRestrictions
+      })
+    },
+
+    getTotalAfterPromotions() {
+      const subtotal = this.getTotalPrice()
+      const totalDiscount = this.appliedPromotions.reduce(
+        (sum, applied) => sum + applied.discount.amount,
+        0
+      )
+      return Math.max(0, subtotal - totalDiscount)
+    },
+
+    getFinalTotal() {
+      const afterPromotions = this.getTotalAfterPromotions()
+      return afterPromotions * 1.085 // Including 8.5% tax
+    },
+
+    getTotalPromotionDiscount() {
+      return this.appliedPromotions.reduce(
+        (sum, applied) => sum + applied.discount.amount,
+        0
+      )
+    },
+
+    calculateApplicablePromotions() {
+      const applicablePromotions = []
+      const now = new Date()
+
+      for (const promotion of this.promotions) {
+        // Check if promotion is active and within date range
+        if (!promotion.is_active) continue
+        if (new Date(promotion.start_date) > now) continue
+        if (new Date(promotion.end_date) < now) continue
+        if (promotion.max_uses && promotion.current_uses >= promotion.max_uses)
+          continue
+
+        // Check if promotion applies to current cart
+        if (this.isPromotionApplicable(promotion)) {
+          applicablePromotions.push(promotion)
+        }
+      }
+
+      // Sort by priority (higher first)
+      return applicablePromotions.sort(
+        (a, b) => (b.priority || 1) - (a.priority || 1)
+      )
+    },
+
+    isPromotionApplicable(promotion) {
+      const conditions = promotion.conditions
+      if (!conditions) return false
+
+      // Check if cart has applicable products/categories
+      const applicableItems = this.cart.filter((item) => {
+        // Check categories
+        if (
+          conditions.applicable_categories &&
+          conditions.applicable_categories.length > 0
+        ) {
+          const product = this.products.find((p) => p.id === item.id)
+          if (
+            product &&
+            conditions.applicable_categories.includes(product.pro_category)
+          ) {
+            return true
+          }
+        }
+
+        // Check specific products
+        if (
+          conditions.applicable_products &&
+          conditions.applicable_products.length > 0
+        ) {
+          if (conditions.applicable_products.includes(item.id)) {
+            return true
+          }
+        }
+
+        // If no specific restrictions, apply to all
+        if (
+          (!conditions.applicable_categories ||
+            conditions.applicable_categories.length === 0) &&
+          (!conditions.applicable_products ||
+            conditions.applicable_products.length === 0)
+        ) {
+          return true
+        }
+
+        return false
+      })
+
+      if (applicableItems.length === 0) return false
+
+      // Check type-specific conditions
+      switch (promotion.type) {
+        case 'buy_x_get_y':
+          const totalQuantity = applicableItems.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+          )
+          return totalQuantity >= (conditions.buy_quantity || 0)
+
+        case 'percentage':
+        case 'fixed_amount':
+          if (conditions.minimum_order) {
+            const applicableTotal = applicableItems.reduce(
+              (sum, item) => sum + item.pro_price * item.quantity,
+              0
+            )
+            return applicableTotal >= conditions.minimum_order
+          }
+          return true
+
+        default:
+          return true
+      }
+    },
+
+    applyPromotions() {
+      const applicablePromotions = this.calculateApplicablePromotions()
+      this.appliedPromotions = []
+
+      for (const promotion of applicablePromotions) {
+        const discount = this.calculatePromotionDiscount(promotion)
+        if (discount.amount > 0) {
+          this.appliedPromotions.push({
+            promotion: promotion,
+            discount: discount,
+          })
+        }
+      }
+    },
+
+    calculatePromotionDiscount(promotion) {
+      const applicableItems = this.getApplicableItems(promotion)
+
+      switch (promotion.type) {
+        case 'buy_x_get_y':
+          return this.calculateBuyXGetYDiscount(promotion, applicableItems)
+        case 'percentage':
+          return this.calculatePercentageDiscount(promotion, applicableItems)
+        case 'fixed_amount':
+          return this.calculateFixedAmountDiscount(promotion, applicableItems)
+        default:
+          return { amount: 0, description: '', items: [] }
+      }
+    },
+
+    getApplicableItems(promotion) {
+      const conditions = promotion.conditions
+      return this.cart.filter((item) => {
+        if (
+          conditions.applicable_categories &&
+          conditions.applicable_categories.length > 0
+        ) {
+          const product = this.products.find((p) => p.id === item.id)
+          if (
+            product &&
+            conditions.applicable_categories.includes(product.pro_category)
+          ) {
+            return true
+          }
+        }
+
+        if (
+          conditions.applicable_products &&
+          conditions.applicable_products.length > 0
+        ) {
+          if (conditions.applicable_products.includes(item.id)) {
+            return true
+          }
+        }
+
+        if (
+          (!conditions.applicable_categories ||
+            conditions.applicable_categories.length === 0) &&
+          (!conditions.applicable_products ||
+            conditions.applicable_products.length === 0)
+        ) {
+          return true
+        }
+
+        return false
+      })
+    },
+
+    calculateBuyXGetYDiscount(promotion, applicableItems) {
+      const conditions = promotion.conditions
+      const buyQty = conditions.buy_quantity || 0
+      const getQty = conditions.get_quantity || 0
+
+      const totalQuantity = applicableItems.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      )
+      const eligibleSets = Math.floor(totalQuantity / buyQty)
+
+      if (eligibleSets === 0) return { amount: 0, description: '', items: [] }
+
+      let freeItems = eligibleSets * getQty
+      if (conditions.max_free_items && freeItems > conditions.max_free_items) {
+        freeItems = conditions.max_free_items
+      }
+
+      // Calculate discount based on cheapest applicable items
+      const itemPrices = applicableItems
+        .flatMap((item) => Array(item.quantity).fill(item.pro_price))
+        .sort((a, b) => a - b)
+
+      const discountAmount = itemPrices
+        .slice(0, freeItems)
+        .reduce((sum, price) => sum + price, 0)
+
+      return {
+        amount: discountAmount,
+        description: `Buy ${buyQty} Get ${getQty} Free`,
+        items: applicableItems,
+        freeItems: freeItems,
+      }
+    },
+
+    calculatePercentageDiscount(promotion, applicableItems) {
+      const conditions = promotion.conditions
+      const percentage = (conditions.discount_percentage || 0) / 100
+
+      const subtotal = applicableItems.reduce(
+        (sum, item) => sum + item.pro_price * item.quantity,
+        0
+      )
+
+      let discountAmount = subtotal * percentage
+
+      if (
+        conditions.max_discount_amount &&
+        discountAmount > conditions.max_discount_amount
+      ) {
+        discountAmount = conditions.max_discount_amount
+      }
+
+      return {
+        amount: discountAmount,
+        description: `${conditions.discount_percentage}% off`,
+        items: applicableItems,
+      }
+    },
+
+    calculateFixedAmountDiscount(promotion, applicableItems) {
+      const conditions = promotion.conditions
+      const discountAmount = conditions.discount_amount || 0
+
+      return {
+        amount: discountAmount,
+        description: `${discountAmount} ₭ off`, // FIX: Use your currency symbol instead of $
+        items: applicableItems,
+      }
+    },
+
+    async fetchPromotions() {
+      this.loadingPromotions = true
+      try {
+        const response = await this.$axios.get('/api/promotions')
+
+        // Filter for active promotions client-side
+        const allPromotions = response.data.data || response.data || []
+        this.promotions = allPromotions.filter((promotion) => {
+          const now = new Date()
+          return (
+            promotion.is_active &&
+            new Date(promotion.start_date) <= now &&
+            new Date(promotion.end_date) >= now
+          )
+        })
+
+        console.log('Active promotions loaded:', this.promotions.length)
+      } catch (error) {
+        console.error('Error fetching promotions:', error)
+        this.promotions = []
+      } finally {
+        this.loadingPromotions = false
+      }
+    },
+
+    // Notes Dialog Methods
+    openNotesDialog() {
+      this.orderNotes = this.currentTicket?.notes || this.orderNotes || ''
+      this.showNotesDialog = true
+    },
+
+    closeNotesDialog() {
+      this.showNotesDialog = false
+    },
+
+    async handleSaveNotes(notes) {
+      this.orderNotes = notes
+
+      if (this.currentTicket) {
+        this.savingNotes = true
+        try {
+          await this.saveTicket(false)
+          this.closeNotesDialog()
+        } catch (error) {
+          console.error('Error saving notes:', error)
+        } finally {
+          this.savingNotes = false
+        }
+      } else {
+        this.closeNotesDialog()
+        this.showMessage(
+          'Notes will be saved with the ticket',
+          'info',
+          'mdi-information'
+        )
+      }
+    },
+
+    async loadProvidedTicket() {
+      try {
+        console.log('Loading provided ticket:', this.existingTicket)
+        this.currentTicket = this.existingTicket
+        this.orderNotes = this.currentTicket.notes || ''
+
+        if (this.currentTicket.clientId) {
+          await this.loadTicketCustomer(this.currentTicket.clientId)
+        }
+
+        await this.loadTicketLines()
+        this.showMessage('Ticket loaded successfully', 'success', 'mdi-check')
+      } catch (error) {
+        console.error('Error loading provided ticket:', error)
+        this.showMessage('Failed to load ticket', 'error', 'mdi-alert')
+      }
+    },
+
     getProductName(productId) {
       try {
-        const product = this.filteredProducts.find(
+        // FIX: Search in products array instead of filteredProducts
+        const product = this.products.find(
           (el) => el.id === parseInt(productId)
         )
-
-        console.info(`PRODUCT ${this.filteredProducts.length}`)
-        console.info(`PRODUCT ${JSON.stringify(this.filteredProducts)}`)
-        console.info(`PRODUCT ${JSON.stringify(product)}`)
-
         return product?.pro_name || `Product ${productId}`
       } catch (error) {
         console.error('Error getting product name:', error)
         return `Product ${productId}`
       }
     },
+
     // Core data fetching methods
     async fetchProducts() {
       this.loading = true
@@ -723,6 +1201,7 @@ export default {
           receiveUnitId: product.receiveUnitId,
           stockUnitId: product.stockUnitId,
           pro_category: product.pro_category,
+          validateStockOnSale: product.validateStockOnSale ===1,
           saleCurrencyId: product.saleCurrencyId,
           costCurrencyId: product.costCurrencyId,
           createdAt: product.createdAt,
@@ -777,6 +1256,11 @@ export default {
 
     // Ticket management methods
     async loadExistingTicket() {
+      if (this.isWalkIn) {
+        console.log('Walk-in mode - no existing ticket to load')
+        return
+      }
+
       try {
         const response = await this.$axios.get(
           `api/ticket/table/${this.tableId}/pending`
@@ -788,7 +1272,7 @@ export default {
             await this.loadTicketCustomer(this.currentTicket.clientId)
           }
 
-          this.loadTicketLines()
+          await this.loadTicketLines()
         }
       } catch (error) {
         console.log('No existing ticket found or error:', error)
@@ -839,6 +1323,9 @@ export default {
           .filter((item) => item.pro_name)
 
         console.info(`Loaded ${this.cart.length} items from ticket lines`)
+
+        // Apply promotions after loading cart
+        this.applyPromotions()
       } catch (error) {
         console.error('Error loading ticket lines:', error)
         this.showMessage(
@@ -855,46 +1342,131 @@ export default {
         return
       }
 
-      if (!this.tableId) {
-        console.error('Table ID is missing:', this.tableId)
-        if (!silent)
-          this.showMessage(
-            'Table ID is missing. Please check the table selection.',
-            'error',
-            'mdi-alert'
-          )
-        return
-      }
-
       this.savingTicket = true
 
       try {
         const subtotal = this.getTotalPrice()
-        const tax = subtotal * 0.085
-        const total = subtotal + tax
+        const promotionDiscount = this.getTotalPromotionDiscount()
+        const afterPromotions = subtotal - promotionDiscount
+        const tax = afterPromotions * 0.085
+        const total = afterPromotions + tax
+
+        // Create a map of products affected by promotions
+        const promotionItemsMap = new Map()
+
+        // Calculate which items are affected by each promotion
+        this.appliedPromotions.forEach((applied) => {
+          const promotion = applied.promotion
+          const discount = applied.discount
+
+          // Get items affected by this promotion
+          const affectedItems = this.getApplicableItems(promotion)
+
+          // For "Buy X Get Y" promotions, mark free items
+          if (promotion.type === 'buy_x_get_y' && discount.freeItems > 0) {
+            // Sort items by price (cheapest first for free items)
+            const sortedItems = affectedItems
+              .flatMap((item) =>
+                Array(item.quantity).fill({
+                  id: item.id,
+                  price: item.pro_price,
+                })
+              )
+              .sort((a, b) => a.price - b.price)
+
+            // Mark the cheapest items as free
+            for (
+              let i = 0;
+              i < discount.freeItems && i < sortedItems.length;
+              i++
+            ) {
+              const itemId = sortedItems[i].id
+              const currentData = promotionItemsMap.get(itemId) || {
+                promotionId: promotion.id,
+                is_promotion_item: false,
+                discount_amount: 0,
+                promotion_note: '',
+              }
+
+              currentData.is_promotion_item = true
+              currentData.discount_amount += sortedItems[i].price
+              currentData.promotion_note = discount.description
+
+              promotionItemsMap.set(itemId, currentData)
+            }
+          } else {
+            // For percentage and fixed amount discounts
+            affectedItems.forEach((item) => {
+              const itemSubtotal = item.pro_price * item.quantity
+              const itemDiscountRatio =
+                itemSubtotal / this.getApplicableItemsTotal(promotion)
+              const itemDiscount = discount.amount * itemDiscountRatio
+
+              const currentData = promotionItemsMap.get(item.id) || {
+                promotionId: promotion.id,
+                is_promotion_item: false,
+                discount_amount: 0,
+                promotion_note: '',
+              }
+
+              if (itemDiscount > 0) {
+                currentData.is_promotion_item = true
+                currentData.discount_amount += itemDiscount
+                currentData.promotion_note = discount.description
+              }
+
+              promotionItemsMap.set(item.id, currentData)
+            })
+          }
+        })
 
         const ticketData = {
-          tableId: parseInt(this.tableId),
+          tableId:
+            this.tableId && this.tableId !== 'walk-in'
+              ? parseInt(this.tableId)
+              : null,
           clientId: this.selectedCustomer ? this.selectedCustomer.id : null,
           status: 'pending',
           subtotal: parseFloat(subtotal.toFixed(2)),
+          promotionDiscount: parseFloat(promotionDiscount.toFixed(2)),
           tax: parseFloat(tax.toFixed(2)),
           total: parseFloat(total.toFixed(2)),
           paymentStatus: 'pending',
-          customerNotes: this.selectedCustomer
-            ? `Customer: ${this.selectedCustomer.name}`
-            : 'Walk-in customer',
-          ticketLines: this.cart.map((item) => ({
-            id: item.ticketLineId || undefined,
-            productId: item.id,
-            quantity: item.quantity,
-            unitPrice: parseFloat(item.pro_price),
-            totalPrice: parseFloat((item.pro_price * item.quantity).toFixed(2)),
-            status: 'ordered',
+          notes:
+            this.orderNotes ||
+            (this.selectedCustomer
+              ? `Customer: ${this.selectedCustomer.name}`
+              : 'Walk-in customer'),
+          appliedPromotions: this.appliedPromotions.map((applied) => ({
+            promotionId: applied.promotion.id,
+            promotionName: applied.promotion.name,
+            discountAmount: applied.discount.amount,
+            description: applied.discount.description,
           })),
-        }
+          // UPDATED: Include promotion data in ticket lines
+          ticketLines: this.cart.map((item) => {
+            const promotionData = promotionItemsMap.get(item.id)
 
-        console.log('Saving ticket with data:', ticketData)
+            return {
+              id: item.ticketLineId || undefined,
+              productId: item.id,
+              quantity: item.quantity,
+              unitPrice: parseFloat(item.pro_price),
+              totalPrice: parseFloat(
+                (item.pro_price * item.quantity).toFixed(2)
+              ),
+              status: 'ordered',
+              // Add promotion fields
+              promotionId: promotionData?.promotionId || null,
+              is_promotion_item: promotionData?.is_promotion_item || false,
+              original_price: promotionData?.is_promotion_item
+                ? item.pro_price
+                : null,
+              discount_amount: promotionData?.discount_amount || 0,
+              promotion_note: promotionData?.promotion_note || null,
+            }
+          }),
+        }
 
         let response
         if (this.currentTicket) {
@@ -902,32 +1474,46 @@ export default {
             `api/ticket/${this.currentTicket.id}`,
             ticketData
           )
-          this.$emit('reload-data')
-          if (!silent)
+          this.currentTicket = response.data.data || response.data
+          this.$emit('ticket-updated', this.currentTicket)
+
+          if (!this.dialogMode) {
+            this.$emit('reload-data')
+          }
+
+          if (!silent) {
             this.showMessage(
               'Ticket updated successfully!',
               'success',
               'mdi-content-save'
             )
+          }
         } else {
           response = await this.$axios.post('api/ticket/', ticketData)
           this.currentTicket = response.data.data || response.data
-          this.$emit('reload-data')
-          if (!silent)
+          this.$emit('ticket-updated', this.currentTicket)
+
+          if (!this.dialogMode) {
+            this.$emit('reload-data')
+          }
+
+          if (!silent) {
             this.showMessage(
               'Ticket saved successfully!',
               'success',
               'mdi-content-save'
             )
+          }
         }
       } catch (error) {
         console.error('Error saving ticket:', error)
-        if (!silent)
+        if (!silent) {
           this.showMessage(
             'Failed to save ticket. Please try again.',
             'error',
             'mdi-alert'
           )
+        }
       } finally {
         this.savingTicket = false
       }
@@ -942,7 +1528,7 @@ export default {
         return
       }
 
-      if (product.stock_count <= 0) {
+      if (product.stock_count <= 0 && product.validateStockOnSale) {
         this.showMessage('Product is out of stock', 'warning', 'mdi-alert')
         return
       }
@@ -971,6 +1557,7 @@ export default {
           isFromTicketLine: false,
         })
       }
+      // Note: applyPromotions() is called via watcher
     },
 
     updateQuantity(itemId, change) {
@@ -990,6 +1577,7 @@ export default {
       }
 
       item.quantity = newQuantity
+      // Note: applyPromotions() is called via watcher
     },
 
     removeFromCart(itemId) {
@@ -1003,6 +1591,7 @@ export default {
           'mdi-information'
         )
       }
+      // Note: applyPromotions() is called via watcher
     },
 
     clearCart() {
@@ -1017,6 +1606,7 @@ export default {
       this.cart = []
       this.currentTicket = null
       this.selectedCustomer = null
+      this.appliedPromotions = [] // FIX: Clear applied promotions too
 
       this.showMessage(
         `Cart cleared - ${itemCount} items (${this.formatPrice(
@@ -1045,7 +1635,7 @@ export default {
     },
 
     async processPayment() {
-      const total = this.getTotalPrice() * 1.085 || 0
+      const total = this.getFinalTotal() || 0
 
       if (total <= 0) {
         this.showMessage('No amount to process', 'warning', 'mdi-alert')
@@ -1061,7 +1651,7 @@ export default {
       this.actionLoading = true
 
       try {
-        if (this.currentTicket.id) {
+        if (this.currentTicket?.id) {
           await this.$axios.patch(
             `/api/ticket/${this.currentTicket.id}/payment-status`,
             {
@@ -1071,13 +1661,15 @@ export default {
           )
         }
 
-        // Close payment dialog first
         this.closePaymentDialog()
-
-        // Show print confirmation dialog
         this.showPrintConfirmDialog = true
 
-        await this.updateTableStatus('cleaning')
+        if (!this.isWalkIn) {
+          await this.updateTableStatus('cleaning')
+        }
+
+        this.$emit('ticket-updated', this.currentTicket)
+        this.$emit('reload-data')
       } catch (error) {
         console.error('Payment processing error:', error)
         this.showMessage('Failed to process payment', 'error', 'mdi-alert')
@@ -1086,15 +1678,12 @@ export default {
       }
     },
 
-    // Print confirmation handler
     handlePrintConfirmation(shouldPrint) {
       this.showPrintConfirmDialog = false
 
       if (shouldPrint) {
-        // Execute print ticket function
         this.printCustomerReceipt()
       } else {
-        // Just show success message if user skipped printing
         this.showMessage(
           `Payment of ${this.formatPrice(
             this.paymentAmount
@@ -1104,7 +1693,6 @@ export default {
         )
       }
 
-      // Reset payment amount
       this.paymentAmount = 0
     },
 
@@ -1114,16 +1702,25 @@ export default {
     },
 
     async updateTableStatus(status) {
-      const payload = {
-        status,
-        timeOccupied: status === 'occupied' ? new Date() : null,
-        currentOrderId: status === 'occupied' ? this.currentTicket.id : null,
+      if (this.isWalkIn) {
+        console.log('Walk-in ticket - skipping table status update')
+        return
       }
 
-      await this.$axios.patch(`api/tables/${this.tableId}/status`, payload)
-      await this.loadExistingTicket()
-      this.$emit('reload-data')
-      this.$emit('reload-table')
+      try {
+        const payload = {
+          status,
+          timeOccupied: status === 'occupied' ? new Date() : null,
+          currentOrderId: status === 'occupied' ? this.currentTicket?.id : null,
+        }
+
+        await this.$axios.patch(`api/tables/${this.tableId}/status`, payload)
+        await this.loadExistingTicket()
+        this.$emit('reload-data')
+        this.$emit('reload-table')
+      } catch (error) {
+        console.error('Error updating table status:', error)
+      }
     },
 
     // Customer management methods
@@ -1181,7 +1778,6 @@ export default {
     },
 
     // Print methods
-    // Updated printCustomerReceipt method - using same data model as loadExistingTicket/loadTicketLines
     async printCustomerReceipt() {
       console.log('Print button clicked')
 
@@ -1195,17 +1791,13 @@ export default {
       }
 
       try {
-        // Show loading state
         this.loading = true
 
-        // Fetch the latest ticket data from the server using same pattern as loadExistingTicket
-        console.log('Fetching latest ticket data before printing...')
         const ticketResponse = await this.$axios.get(
           `api/ticket/${this.currentTicket.id}`
         )
         const latestTicket = ticketResponse.data.data || ticketResponse.data
 
-        // Fetch customer data if exists - same pattern as loadTicketCustomer
         let customerData = null
         if (latestTicket.clientId) {
           try {
@@ -1219,14 +1811,12 @@ export default {
           }
         }
 
-        // Fetch the latest ticket lines using EXACT same logic as loadTicketLines
         const ticketLinesResponse = await this.$axios.get(
           `api/ticketLine/ticket/${latestTicket.id}`
         )
         const ticketLines =
           ticketLinesResponse.data.data || ticketLinesResponse.data
 
-        // Map ticket lines using EXACT same mapping as loadTicketLines
         const mappedTicketLines = ticketLines
           .map((line) => {
             const product = this.products.find((p) => p.id === line.productId)
@@ -1250,38 +1840,37 @@ export default {
           })
           .filter((item) => item.pro_name)
 
-        // Build the complete ticket object for printing with same structure
         const ticketForPrint = {
           ...latestTicket,
           client: customerData,
-          table: {
-            id: this.tableId,
-            number: this.tableId,
-            name: `Table ${this.tableId}`,
-          },
-          // Use the mapped ticket lines with same structure as cart
+          table: this.isWalkIn
+            ? { id: null, number: null, name: 'Walk-in' }
+            : {
+                id: this.tableId,
+                number: this.tableId,
+                name: `Table ${this.tableId}`,
+              },
           ticketLines: mappedTicketLines,
         }
 
-        // If totals are missing, calculate them
-        if (!ticketForPrint.subtotal) {
+        // FIX: Use promotion-adjusted calculations for printing
+        if (!ticketForPrint.subtotal || !ticketForPrint.promotionDiscount) {
           const subtotal = mappedTicketLines.reduce((total, item) => {
             return total + parseFloat(item.pro_price) * item.quantity
           }, 0)
-          ticketForPrint.subtotal = subtotal
-          ticketForPrint.tax = subtotal * 0.085
-          ticketForPrint.total = subtotal + subtotal * 0.085
+
+          // If promotion data is missing, recalculate
+          if (!ticketForPrint.promotionDiscount) {
+            const promotionDiscount = this.getTotalPromotionDiscount()
+            ticketForPrint.promotionDiscount = promotionDiscount
+            ticketForPrint.subtotal = subtotal
+            ticketForPrint.tax = (subtotal - promotionDiscount) * 0.085
+            ticketForPrint.total = (subtotal - promotionDiscount) * 1.085
+          }
         }
 
-        console.log(
-          `Updated ticket for print: ${JSON.stringify(ticketForPrint)} }`
-        )
-        console.log('Ticket lines count:', mappedTicketLines.length)
-
-        // Update the current ticket with latest data
+        console.log('Updated ticket for print:', ticketForPrint)
         this.currentTicket = latestTicket
-
-        // Set the ticket for printing
         this.selectedTicket = ticketForPrint
         this.showCustomerPrint = true
       } catch (error) {
@@ -1292,23 +1881,21 @@ export default {
           'mdi-alert'
         )
 
-        // Fallback to existing logic if API call fails
         const ticketForPrint = {
           ...this.currentTicket,
           client: this.selectedCustomer || null,
-          table: {
-            id: this.tableId,
-            number: this.tableId,
-            name: `Table ${this.tableId}`,
-          },
-          ticketLines: this.cart, // Use existing cart data as fallback
-        }
-
-        // Ensure totals exist for fallback
-        if (!ticketForPrint.subtotal) {
-          ticketForPrint.subtotal = this.getTotalPrice()
-          ticketForPrint.tax = this.getTotalPrice() * 0.085
-          ticketForPrint.total = this.getTotalPrice() * 1.085
+          table: this.isWalkIn
+            ? { id: null, number: null, name: 'Walk-in' }
+            : {
+                id: this.tableId,
+                number: this.tableId,
+                name: `Table ${this.tableId}`,
+              },
+          ticketLines: this.cart,
+          subtotal: this.getTotalPrice(),
+          promotionDiscount: this.getTotalPromotionDiscount(),
+          tax: this.getTotalAfterPromotions() * 0.085,
+          total: this.getFinalTotal(),
         }
 
         this.selectedTicket = ticketForPrint
@@ -1412,8 +1999,20 @@ export default {
   },
 }
 </script>
-
 <style scoped>
+.promotion-eligible {
+  border: 2px solid #4caf50 !important;
+}
+
+.promotion-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #4caf50;
+  border-radius: 50%;
+  padding: 4px;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1439,5 +2038,23 @@ export default {
 .ticket-line-item {
   background-color: rgba(33, 150, 243, 0.05);
   border-left: 3px solid #2196f3;
+}
+
+/* New utility classes */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Make expansion panels more compact */
+.v-expansion-panel-header {
+  min-height: 36px !important;
+  padding: 8px 12px !important;
+}
+
+.v-expansion-panel-content__wrap {
+  padding: 8px 12px 12px !important;
 }
 </style>

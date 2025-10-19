@@ -8,7 +8,7 @@
       dark
       v-model="drawer"
       fixed
-      color="#A12F8D"
+      color="#01532B"
       app
     >
       <v-layout column align-center>
@@ -22,7 +22,7 @@
       </v-layout>
       <v-list>
         <!-- Home -->
-        <v-list-item to="/admin/job_fair/mou" router exact>
+        <v-list-item to="/admin/ticket" router exact>
           <v-list-item-action>
             <v-icon color="white">mdi mdi-home-circle-outline</v-icon>
           </v-list-item-action>
@@ -58,7 +58,7 @@
             :to="item.path"
             router
             exact
-            :style="{ 'background-color': '#8D2FA1' }"
+            :style="{ 'background-color': '#337555' }"
           >
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>
@@ -105,7 +105,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              color="#A12F8D"
+              color="#01532B"
               rounded
               variant="text"
               @click="switchTerminal"

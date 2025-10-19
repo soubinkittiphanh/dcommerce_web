@@ -11,7 +11,7 @@
       <!-- Header -->
       <v-card-title class="primary white--text py-3">
         <v-icon left color="white">mdi-printer</v-icon>
-        <span>ໃບສຳຄັນຈ່າຍ - Payment Voucher</span>
+        <span>ໃບຄຳສັ່ງຈ່າຍ - Payment Voucher</span>
         <v-spacer></v-spacer>
         <v-btn icon dark @click="$emit('close')">
           <v-icon>mdi-close</v-icon>
@@ -44,7 +44,7 @@
               <div class="header-right">
                 <div class="voucher-title">
                   <h3>PAYMENT VOUCHER</h3>
-                  <h4>ໃບສຳຄັນຈ່າຍ</h4>
+                  <h4>ໃບຄຳສັ່ງຈ່າຍ</h4>
                 </div>
               </div>
             </div>
@@ -372,7 +372,7 @@ export default {
             }
             .voucher-header { 
               margin-bottom: 20px; 
-              border-bottom: 2px solid #a12f8d; 
+              border-bottom: 2px solid #01532B; 
               padding-bottom: 15px; 
             }
             .header-flex {
@@ -401,7 +401,7 @@ export default {
               margin: 0 0 5px 0; 
               font-size: 22px; 
               font-weight: bold;
-              color: #a12f8d;
+              color: #01532B;
             }
             .company-address, .company-contact { 
               margin: 3px 0; 
@@ -460,7 +460,7 @@ export default {
               margin: 15px 0; 
               padding: 10px; 
               background-color: #f9f9f9; 
-              border-left: 3px solid #a12f8d; 
+              border-left: 3px solid #01532B; 
             }
             .voucher-description { 
               margin: 15px 0; 
@@ -519,7 +519,7 @@ export default {
 
 .voucher-header {
   margin-bottom: 30px;
-  border-bottom: 3px solid #a12f8d;
+  border-bottom: 3px solid #01532B;
   padding-bottom: 15px;
 }
 
@@ -555,7 +555,7 @@ export default {
   margin: 0 0 8px 0;
   font-size: 24px;
   font-weight: bold;
-  color: #a12f8d;
+  color: #01532B;
 }
 
 .company-address,
@@ -616,7 +616,7 @@ export default {
 }
 
 .voucher-table th {
-  background-color: #a12f8d;
+  background-color: #01532B;
   color: white;
   font-weight: 600;
   text-align: left;
@@ -644,7 +644,7 @@ export default {
   margin: 20px 0;
   padding: 15px;
   background-color: #f0f4ff;
-  border-left: 4px solid #a12f8d;
+  border-left: 4px solid #01532B;
   font-size: 14px;
 }
 

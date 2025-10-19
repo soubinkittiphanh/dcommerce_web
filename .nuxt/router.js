@@ -5,6 +5,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _42c0a0dc = () => interopDefault(import('../pages/admin/index.vue' /* webpackChunkName: "pages/admin/index" */))
+const _ad2f2d8c = () => interopDefault(import('../pages/e-menu/index.vue' /* webpackChunkName: "pages/e-menu/index" */))
 const _98a37e8a = () => interopDefault(import('../pages/fashion/index.vue' /* webpackChunkName: "pages/fashion/index" */))
 const _1447cf5c = () => interopDefault(import('../pages/home/index.vue' /* webpackChunkName: "pages/home/index" */))
 const _a8b5a7d6 = () => interopDefault(import('../pages/index.bk.vue' /* webpackChunkName: "pages/index.bk" */))
@@ -116,6 +117,7 @@ const _4d058200 = () => interopDefault(import('../pages/admin/ap/invoice/index.v
 const _1b1605c9 = () => interopDefault(import('../pages/admin/ap/invoiceSettlement/index.vue' /* webpackChunkName: "pages/admin/ap/invoiceSettlement/index" */))
 const _103d8bf0 = () => interopDefault(import('../pages/admin/applicants/index-1.vue' /* webpackChunkName: "pages/admin/applicants/index-1" */))
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
+const _16e21664 = () => interopDefault(import('../pages/admin/cafe/promotion/index.vue' /* webpackChunkName: "pages/admin/cafe/promotion/index" */))
 const _324d246c = () => interopDefault(import('../pages/admin/cafeTable/customer.vue' /* webpackChunkName: "pages/admin/cafeTable/customer" */))
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
@@ -126,6 +128,8 @@ const _4031d773 = () => interopDefault(import('../pages/admin/job_fair/login/ind
 const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index.vue' /* webpackChunkName: "pages/admin/job_fair/mou/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
+const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
+const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
 const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/receive/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/receive/index" */))
@@ -169,6 +173,10 @@ export const routerOptions = {
     path: "/admin",
     component: _42c0a0dc,
     name: "admin"
+  }, {
+    path: "/e-menu",
+    component: _ad2f2d8c,
+    name: "e-menu"
   }, {
     path: "/fashion",
     component: _98a37e8a,
@@ -614,6 +622,10 @@ export const routerOptions = {
     component: _56d2fabe,
     name: "admin-barcodePrint-gianttTime"
   }, {
+    path: "/admin/cafe/promotion",
+    component: _16e21664,
+    name: "admin-cafe-promotion"
+  }, {
     path: "/admin/cafeTable/customer",
     component: _324d246c,
     name: "admin-cafeTable-customer"
@@ -653,6 +665,14 @@ export const routerOptions = {
     path: "/admin/product/productlist",
     component: _38fd842d,
     name: "admin-product-productlist"
+  }, {
+    path: "/admin/settings/system",
+    component: _228e3c4a,
+    name: "admin-settings-system"
+  }, {
+    path: "/admin/settings/userRole",
+    component: _4e54f48d,
+    name: "admin-settings-userRole"
   }, {
     path: "/admin/web_category/test",
     component: _4183d918,

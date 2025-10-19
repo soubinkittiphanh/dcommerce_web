@@ -1,7 +1,7 @@
-exports.ids = [220,104,106,147];
+exports.ids = [228,105,107,154];
 exports.modules = {
 
-/***/ 1246:
+/***/ 1288:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -508,10 +508,10 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ordersIn/index.vue?vue&type=template&id=775c3694&
 
 // EXTERNAL MODULE: ./components/OrderForm.vue + 4 modules
-var OrderForm = __webpack_require__(488);
+var OrderForm = __webpack_require__(499);
 
 // EXTERNAL MODULE: ./components/OrderStatusForm.vue + 4 modules
-var OrderStatusForm = __webpack_require__(489);
+var OrderStatusForm = __webpack_require__(500);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(13);
@@ -888,7 +888,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ordersIn = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {OrderForm: __webpack_require__(488).default,OrderStatusForm: __webpack_require__(489).default,YoutubePlayer: __webpack_require__(426).default,LoadingIndicator: __webpack_require__(86).default})
+installComponents(component, {OrderForm: __webpack_require__(499).default,OrderStatusForm: __webpack_require__(500).default,YoutubePlayer: __webpack_require__(427).default,LoadingIndicator: __webpack_require__(86).default})
 
 
 /***/ }),
@@ -1598,7 +1598,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 426:
+/***/ 427:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2134,7 +2134,7 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
 var VDatePickerTable = __webpack_require__(419);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
-var touch = __webpack_require__(135);
+var touch = __webpack_require__(134);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/eventHelpers.js
 function createItemTypeNativeListeners(instance, itemTypeSuffix, value) {
@@ -3276,7 +3276,7 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 488:
+/***/ 499:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4072,7 +4072,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(86).default}
 
 /***/ }),
 
-/***/ 489:
+/***/ 500:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
