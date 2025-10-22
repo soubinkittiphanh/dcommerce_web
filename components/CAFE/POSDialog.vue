@@ -14,7 +14,7 @@
         <v-spacer></v-spacer>
         <v-chip v-if="ticket" color="white" text-color="primary" class="mr-2">
           <v-icon left small>mdi-ticket</v-icon>
-          Ticket #{{ ticket.id }}
+          Ticket #{{ ticket.id }} 
         </v-chip>
         <v-chip v-if="hasTable" color="accent" text-color="white" class="mr-2">
           <v-icon left small>mdi-table-furniture</v-icon>
@@ -96,6 +96,9 @@ export default {
       const table = this.hasTable ? `Table ${this.tableDisplay}` : 'Walk-in'
       return `Add Items - ${table} - ${customer}`
     }
+  },
+  mounted(){
+    console.info(` from POS DIALOG ${JSON.stringify(this.ticket)}`)
   },
 
   methods: {

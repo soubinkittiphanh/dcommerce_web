@@ -3,16 +3,18 @@
     <!-- Welcome Screen (when no QR is showing) -->
     <div v-if="!showQR" class="welcome-screen">
       <div class="logo-section">
-        <v-icon size="120" class="dcommerce-green-text mb-4">mdi-storefront</v-icon>
+        <v-icon size="120" class="dcommerce-green-text mb-4"
+          >mdi-storefront</v-icon
+        >
         <h1 class="store-name">DCOMMERCE CAFE</h1>
         <p class="welcome-text">Customer Display</p>
         <p class="status-text">Ready for QR Payment</p>
       </div>
       <div class="waiting-animation">
-        <v-progress-circular 
-          indeterminate 
-          color="#01532B" 
-          size="64" 
+        <v-progress-circular
+          indeterminate
+          color="#01532B"
+          size="64"
           width="4"
           class="mb-4"
         ></v-progress-circular>
@@ -36,8 +38,8 @@
           <!-- Order Items -->
           <div class="order-items">
             <div v-if="orderItems.length > 0" class="items-list">
-              <div 
-                v-for="(item, index) in orderItems" 
+              <div
+                v-for="(item, index) in orderItems"
                 :key="index"
                 class="order-item"
               >
@@ -51,10 +53,12 @@
                 <div class="item-price">{{ formatPrice(item.totalPrice) }}</div>
               </div>
             </div>
-            
+
             <!-- No items fallback -->
             <div v-else class="no-items">
-              <v-icon size="48" color="grey lighten-2" class="mb-2">mdi-cart-outline</v-icon>
+              <v-icon size="48" color="grey lighten-2" class="mb-2"
+                >mdi-cart-outline</v-icon
+              >
               <p class="grey--text">Loading order details...</p>
             </div>
           </div>
@@ -71,7 +75,9 @@
             </div>
             <div class="summary-line" v-if="orderSummary.discount > 0">
               <span>Discount:</span>
-              <span class="discount">-{{ formatPrice(orderSummary.discount) }}</span>
+              <span class="discount"
+                >-{{ formatPrice(orderSummary.discount) }}</span
+              >
             </div>
             <div class="summary-total">
               <span>Total:</span>
@@ -96,8 +102,8 @@
           <!-- QR Code -->
           <div class="qr-container">
             <div class="qr-wrapper">
-              <img 
-                :src="qrCodeUrl" 
+              <img
+                :src="qrCodeUrl"
                 alt="Payment QR Code"
                 class="qr-code-image"
                 @error="onQRError"
@@ -125,23 +131,37 @@
 
           <!-- Payment Status -->
           <div class="payment-status">
-            <v-progress-circular 
+            <v-progress-circular
               v-if="!paymentComplete"
-              indeterminate 
-              color="#01532B" 
+              indeterminate
+              color="#01532B"
               size="20"
               class="mr-2"
             ></v-progress-circular>
-            <v-icon v-else color="success" size="20" class="mr-2">mdi-check-circle</v-icon>
-            <span class="status-text" :class="paymentComplete ? 'success--text' : 'dcommerce-green-text'">
-              {{ paymentComplete ? 'Payment Received!' : 'Waiting for payment...' }}
+            <v-icon v-else color="success" size="20" class="mr-2"
+              >mdi-check-circle</v-icon
+            >
+            <span
+              class="status-text"
+              :class="
+                paymentComplete ? 'success--text' : 'dcommerce-green-text'
+              "
+            >
+              {{
+                paymentComplete ? 'Payment Received!' : 'Waiting for payment...'
+              }}
             </span>
           </div>
 
           <!-- Timer -->
-          <div class="timer-display" v-if="timeRemaining > 0 && !paymentComplete">
+          <div
+            class="timer-display"
+            v-if="timeRemaining > 0 && !paymentComplete"
+          >
             <v-icon small class="mr-1">mdi-timer-outline</v-icon>
-            <span class="timer-text">Expires in: {{ formatTime(timeRemaining) }}</span>
+            <span class="timer-text"
+              >Expires in: {{ formatTime(timeRemaining) }}</span
+            >
           </div>
         </div>
       </div>
@@ -150,12 +170,14 @@
     <!-- Payment Success Overlay -->
     <v-overlay v-if="paymentComplete" class="success-overlay">
       <div class="success-content">
-        <v-icon size="100" color="white" class="mb-4 success-icon">mdi-check-circle</v-icon>
+        <v-icon size="100" color="white" class="mb-4 success-icon"
+          >mdi-check-circle</v-icon
+        >
         <h2 class="success-title">Payment Successful!</h2>
         <div class="success-amount">{{ formatPrice(qrData.amount) }}</div>
         <p class="success-message">Thank you for your payment</p>
         <p class="success-submessage">Please keep your receipt</p>
-        
+
         <div class="success-timer mt-4">
           <v-progress-linear
             :value="successProgress"
@@ -164,7 +186,9 @@
             height="4"
             rounded
           ></v-progress-linear>
-          <p class="caption mt-2">Screen will reset in {{ Math.ceil(successTimeRemaining / 1000) }}s</p>
+          <p class="caption mt-2">
+            Screen will reset in {{ Math.ceil(successTimeRemaining / 1000) }}s
+          </p>
         </div>
       </div>
     </v-overlay>
@@ -175,7 +199,7 @@
 export default {
   name: 'CustomerScreen',
   layout: 'empty',
-  
+
   data() {
     return {
       showQR: false,
@@ -185,13 +209,13 @@ export default {
         qrString: '',
         timestamp: null,
         orderItems: [], // Add order items to QR data
-        orderSummary: {}
+        orderSummary: {},
       },
       paymentComplete: false,
       timeRemaining: 300,
       timer: null,
       showCloseButton: process.env.NODE_ENV === 'development',
-      
+
       successTimeRemaining: 5000,
       successProgress: 0,
       successTimer: null,
@@ -202,30 +226,32 @@ export default {
         subtotal: 0,
         tax: 0,
         taxRate: 8.5,
-        discount: 0
-      }
+        discount: 0,
+      },
     }
   },
-  
+
   computed: {
     qrCodeUrl() {
       if (!this.qrData.qrString) return ''
-      const encodedString = encodeURIComponent(this.qrData.qrString.replace(/\s/g, ''))
+      const encodedString = encodeURIComponent(
+        this.qrData.qrString.replace(/\s/g, '')
+      )
       return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedString}&format=png&margin=15&color=01532B&bgcolor=ffffff`
-    }
+    },
   },
-  
+
   mounted() {
     this.setupCommunication()
     this.checkForExistingQR()
   },
-  
+
   beforeDestroy() {
     this.cleanup()
   },
-  
+
   methods: {
-     getProductName(productId) {
+    getProductName(productId) {
       try {
         const product = this.filteredProducts.find(
           (el) => el.id === parseInt(productId)
@@ -245,7 +271,7 @@ export default {
       window.addEventListener('storage', this.handleStorageChange)
       this.checkForExistingQR()
     },
-    
+
     handleStorageChange(event) {
       if (event.key === 'customerDisplay') {
         const data = event.newValue
@@ -259,7 +285,7 @@ export default {
         }
       }
     },
-    
+
     checkForExistingQR() {
       const customerDisplayData = localStorage.getItem('customerDisplay')
       if (customerDisplayData) {
@@ -271,10 +297,10 @@ export default {
         }
       }
     },
-    
+
     handleDisplayMessage(message) {
       console.log('Customer screen received message:', message)
-      
+
       if (message.type === 'SHOW_QR_PAYMENT') {
         this.displayQR(message.data)
       } else if (message.type === 'HIDE_QR_PAYMENT') {
@@ -283,33 +309,128 @@ export default {
         this.showPaymentSuccess()
       }
     },
-    
+
     async displayQR(data) {
       console.log('Displaying QR for:', data)
-      
+
       this.qrData = {
         ...data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       }
-      
+
       // Load order details if table number is provided
-      if (data.tableNumber) {
+      if (data.ticketId) {
+        console.info(`TICKET ID ${data.ticketId}`)
+        await this.loadOrderDetailsByTicketId(data.ticketId)
+      } else if (data.tableNumber) {
         await this.loadOrderDetails(data.tableNumber)
       }
-      
+
       this.showQR = true
       this.paymentComplete = false
       this.startTimer()
+    },
+    async loadOrderDetailsByTicketId(ticketId) {
+      try {
+        console.log('Loading order details for ticket ID:', ticketId)
+
+        // 1️⃣ Get ticket info by ID
+        const ticketResponse = await this.$axios.get(`/api/ticket/${ticketId}`)
+        const currentTicket = ticketResponse.data.data || ticketResponse.data
+
+        if (!currentTicket) {
+          console.warn('No ticket found for ID:', ticketId)
+          this.orderItems = []
+          this.orderSummary = {
+            subtotal: 0,
+            tax: 0,
+            taxRate: 0,
+            discount: 0,
+            total: 0,
+          }
+          return
+        }
+
+        // 2️⃣ Get ticket lines
+        const ticketLinesResponse = await this.$axios.get(
+          `/api/ticketLine/ticket/${ticketId}`
+        )
+        const ticketLines =
+          ticketLinesResponse.data.data || ticketLinesResponse.data || []
+
+        // 3️⃣ Fetch product list (for mapping)
+        let products = []
+        try {
+          const productsResponse = await this.$axios.get('/api/product/find')
+          const productData =
+            productsResponse.data.data || productsResponse.data
+          products = productData.map((p) => ({
+            id: p.id,
+            name: p.pro_name,
+            description: p.pro_desc || '',
+            category: p.categ_name || 'General',
+            price: p.pro_price || 0,
+          }))
+        } catch (error) {
+          console.warn('Could not fetch products for mapping:', error)
+        }
+
+        // 4️⃣ Map ticket lines to display items
+        this.orderItems = ticketLines.map((line) => {
+          const product = products.find((p) => p.id === line.productId)
+          return {
+            id: line.id,
+            name: product?.name || `Product ${line.productId}`,
+            description: product?.description || line.specialInstructions || '',
+            category: product?.category || 'General',
+            quantity: line.quantity,
+            unitPrice: line.unitPrice,
+            totalPrice: line.totalPrice || line.unitPrice * line.quantity,
+            status: line.status,
+          }
+        })
+
+        // 5️⃣ Set order summary
+        const subtotal = currentTicket.subtotal || 0
+        const tax = currentTicket.tax || currentTicket.taxAmount || 0
+        const total = currentTicket.total || subtotal + tax
+
+        this.orderSummary = {
+          subtotal,
+          tax,
+          taxRate: subtotal > 0 ? ((tax / subtotal) * 100).toFixed(2) : 0,
+          discount: currentTicket.discount || 0,
+          total,
+        }
+
+        console.log('Order details loaded successfully:', {
+          ticket: currentTicket.id,
+          items: this.orderItems.length,
+          summary: this.orderSummary,
+        })
+      } catch (error) {
+        console.error('Error loading order details by ticket ID:', error)
+        this.orderItems = []
+        this.orderSummary = {
+          subtotal: 0,
+          tax: 0,
+          taxRate: 0,
+          discount: 0,
+          total: 0,
+        }
+      }
     },
 
     async loadOrderDetails(tableNumber) {
       try {
         console.log('Loading order details for table:', tableNumber)
-        
+
         // Get pending tickets for the table
-        const ticketResponse = await this.$axios.get(`/api/ticket/table/${tableNumber}/pending`)
+        const ticketResponse = await this.$axios.get(
+          `/api/ticket/table/${tableNumber}/pending`
+        )
         const tickets = ticketResponse.data || []
-        
+
         if (tickets.length === 0) {
           console.log('No pending tickets found for table:', tableNumber)
           this.orderItems = []
@@ -324,13 +445,14 @@ export default {
         let products = []
         try {
           const productsResponse = await this.$axios.get('/api/product/find')
-          const productData = productsResponse.data.data || productsResponse.data
-          products = productData.map(product => ({
+          const productData =
+            productsResponse.data.data || productsResponse.data
+          products = productData.map((product) => ({
             id: product.id,
             name: product.pro_name,
             description: product.pro_desc || '',
             category: product.categ_name || 'General',
-            price: product.pro_price || 0
+            price: product.pro_price || 0,
           }))
           console.log('Products loaded for mapping:', products.length)
         } catch (error) {
@@ -339,34 +461,43 @@ export default {
 
         // Process ticket lines into order items
         const ticketLines = currentTicket.ticketLines || []
-        this.orderItems = ticketLines.map(line => {
-          const product = products.find(p => p.id === line.productId)
-          console.log(` [LINE] ${JSON.stringify(products)} `)
-          console.log(` LINE ${JSON.stringify(line)} `)
-          console.log(` product ${JSON.stringify(product)} `)
-          return {
-            id: line.id,
-            name: product?.name || `Product ${line.productId}`,
-            description: product?.description || line.specialInstructions || '',
-            quantity: line.quantity,
-            unitPrice: line.unitPrice,
-            totalPrice: line.totalPrice,
-            status: line.status
-          }
-        }).filter(item => item.name !== `Product ${item.productId}`) // Filter out items without product names
+        this.orderItems = ticketLines
+          .map((line) => {
+            const product = products.find((p) => p.id === line.productId)
+            console.log(` [LINE] ${JSON.stringify(products)} `)
+            console.log(` LINE ${JSON.stringify(line)} `)
+            console.log(` product ${JSON.stringify(product)} `)
+            return {
+              id: line.id,
+              name: product?.name || `Product ${line.productId}`,
+              description:
+                product?.description || line.specialInstructions || '',
+              quantity: line.quantity,
+              unitPrice: line.unitPrice,
+              totalPrice: line.totalPrice,
+              status: line.status,
+            }
+          })
+          .filter((item) => item.name !== `Product ${item.productId}`) // Filter out items without product names
 
         // Set order summary from ticket data
         this.orderSummary = {
           subtotal: currentTicket.subtotal || 0,
           tax: currentTicket.tax || 0,
-          taxRate: currentTicket.subtotal > 0 ? ((currentTicket.tax || 0) / currentTicket.subtotal * 100).toFixed(1) : 0,
+          taxRate:
+            currentTicket.subtotal > 0
+              ? (
+                  ((currentTicket.tax || 0) / currentTicket.subtotal) *
+                  100
+                ).toFixed(1)
+              : 0,
           discount: 0, // Add discount calculation if available in your ticket model
-          total: currentTicket.total || 0
+          total: currentTicket.total || 0,
         }
-        
+
         console.log('Order details loaded:', {
           items: this.orderItems.length,
-          summary: this.orderSummary
+          summary: this.orderSummary,
         })
       } catch (error) {
         console.error('Error loading order details:', error)
@@ -375,7 +506,7 @@ export default {
         this.orderSummary = { subtotal: 0, tax: 0, taxRate: 0, discount: 0 }
       }
     },
-    
+
     hideQR() {
       console.log('Hiding QR display')
       this.showQR = false
@@ -385,14 +516,14 @@ export default {
       this.stopSuccessTimer()
       localStorage.removeItem('customerDisplay')
     },
-    
+
     showPaymentSuccess() {
       console.log('Showing payment success')
       this.paymentComplete = true
       this.stopTimer()
       this.startSuccessTimer()
     },
-    
+
     startTimer() {
       this.timeRemaining = 300
       this.timer = setInterval(() => {
@@ -402,41 +533,41 @@ export default {
         }
       }, 1000)
     },
-    
+
     stopTimer() {
       if (this.timer) {
         clearInterval(this.timer)
         this.timer = null
       }
     },
-    
+
     startSuccessTimer() {
       this.successTimeRemaining = 5000
       this.successProgress = 0
-      
+
       this.successTimer = setInterval(() => {
         this.successTimeRemaining -= 100
         this.successProgress = ((5000 - this.successTimeRemaining) / 5000) * 100
-        
+
         if (this.successTimeRemaining <= 0) {
           this.hideQR()
         }
       }, 100)
     },
-    
+
     stopSuccessTimer() {
       if (this.successTimer) {
         clearInterval(this.successTimer)
         this.successTimer = null
       }
     },
-    
+
     cleanup() {
       window.removeEventListener('storage', this.handleStorageChange)
       this.stopTimer()
       this.stopSuccessTimer()
     },
-    
+
     formatPrice(amount) {
       if (!amount) return '0 ₭'
       const formattedNumber = new Intl.NumberFormat('en-US', {
@@ -445,17 +576,17 @@ export default {
       }).format(Math.round(amount))
       return `${formattedNumber} ₭`
     },
-    
+
     formatTime(seconds) {
       const mins = Math.floor(seconds / 60)
       const secs = seconds % 60
       return `${mins}:${secs.toString().padStart(2, '0')}`
     },
-    
+
     onQRError() {
       console.error('Failed to load QR code image')
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -468,11 +599,11 @@ export default {
 }
 
 .dcommerce-green {
-  background-color: #01532B !important;
+  background-color: #01532b !important;
 }
 
 .dcommerce-green-text {
-  color: #01532B !important;
+  color: #01532b !important;
 }
 
 /* Welcome Screen */
@@ -493,7 +624,7 @@ export default {
 .store-name {
   font-size: 3rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   margin: 1rem 0;
   letter-spacing: -1px;
 }
@@ -506,7 +637,7 @@ export default {
 
 .status-text {
   font-size: 1.2rem;
-  color: #01532B;
+  color: #01532b;
   font-weight: 500;
   margin: 0.5rem 0;
 }
@@ -548,7 +679,7 @@ export default {
 
 .order-header {
   padding: 1.5rem;
-  background: #01532B;
+  background: #01532b;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -611,7 +742,7 @@ export default {
 
 .item-quantity {
   font-weight: 600;
-  color: #01532B;
+  color: #01532b;
   margin: 0 1rem;
   min-width: 40px;
   text-align: center;
@@ -619,7 +750,7 @@ export default {
 
 .item-price {
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   font-size: 1rem;
   min-width: 80px;
   text-align: right;
@@ -648,9 +779,9 @@ export default {
   justify-content: space-between;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   padding-top: 0.75rem;
-  border-top: 2px solid #01532B;
+  border-top: 2px solid #01532b;
   margin-top: 0.75rem;
 }
 
@@ -674,7 +805,7 @@ export default {
 .payment-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   margin: 0;
 }
 
@@ -696,7 +827,7 @@ export default {
 .amount-value {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   line-height: 1;
 }
 
@@ -715,7 +846,7 @@ export default {
   padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
-  border: 3px solid #01532B;
+  border: 3px solid #01532b;
 }
 
 .qr-code-image {
@@ -745,7 +876,7 @@ export default {
 }
 
 .step-icon {
-  color: #01532B !important;
+  color: #01532b !important;
   margin-bottom: 0.5rem;
 }
 
@@ -786,9 +917,17 @@ export default {
 }
 
 @keyframes successPulse {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .success-title {
@@ -824,11 +963,11 @@ export default {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .order-section {
     max-height: 40vh;
   }
-  
+
   .qr-code-image {
     width: 200px;
     height: 200px;
@@ -839,15 +978,15 @@ export default {
   .qr-payment-screen {
     padding: 1rem;
   }
-  
+
   .order-item {
     padding: 0.75rem;
   }
-  
+
   .item-name {
     font-size: 0.9rem;
   }
-  
+
   .amount-value {
     font-size: 2rem;
   }

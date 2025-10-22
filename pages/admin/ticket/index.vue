@@ -86,44 +86,86 @@
     />
 
     <!-- Page Header -->
+    <!-- Updated Page Header with improved filter layout -->
     <div class="page-header">
       <h1>Tickets Management</h1>
-      <div class="header-actions">
-        <div class="filters-group">
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Search tickets..."
-            class="search-input"
-          />
-          <select v-model="statusFilter" class="filter-select">
-            <option value="">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="preparing">Preparing</option>
-            <option value="ready">Ready</option>
-            <option value="served">Served</option>
-            <option value="paid">Paid</option>
-          </select>
-          <select v-model="paymentFilter" class="filter-select">
-            <option value="">All Payments</option>
-            <option value="pending">Payment Pending</option>
-            <option value="paid">Paid</option>
-            <option value="refunded">Refunded</option>
-          </select>
-          <input v-model="startDate" type="date" class="date-input" />
-          <input v-model="endDate" type="date" class="date-input" />
+
+      <!-- Filters Section -->
+      <div class="filters-container">
+        <!-- Search Row -->
+        <div class="filter-row">
+          <div class="search-group">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search tickets by ID, customer name, or table..."
+              class="search-input"
+            />
+          </div>
         </div>
 
-        <!-- New Ticket Button -->
-        <button @click="createNewTicket" class="btn-create">
-          <span class="icon">➕</span>
-          <span>New Ticket</span>
-        </button>
+        <!-- Filters Row -->
+        <div class="filter-row">
+          <div class="filters-group">
+            <div class="filter-item">
+              <label class="filter-label">Status</label>
+              <select v-model="statusFilter" class="filter-select">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="preparing">Preparing</option>
+                <option value="ready">Ready</option>
+                <option value="served">Served</option>
+                <option value="paid">Paid</option>
+              </select>
+            </div>
 
-        <button @click="refreshTickets" class="btn-refresh">
-          <span class="icon">↻</span>
-          <span>Refresh</span>
-        </button>
+            <div class="filter-item">
+              <label class="filter-label">Payment</label>
+              <select v-model="paymentFilter" class="filter-select">
+                <option value="">All Payments</option>
+                <option value="pending">Payment Pending</option>
+                <option value="paid">Paid</option>
+                <option value="refunded">Refunded</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label class="filter-label">From Date</label>
+              <input v-model="startDate" type="date" class="date-input" />
+            </div>
+
+            <div class="filter-item">
+              <label class="filter-label">To Date</label>
+              <input v-model="endDate" type="date" class="date-input" />
+            </div>
+
+            <div class="filter-actions">
+              <button
+                @click="clearFilters"
+                class="btn-clear"
+                v-if="hasActiveFilters"
+              >
+                <span class="icon">✖</span>
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons Row -->
+        <div class="action-row">
+          <div class="action-buttons">
+            <button @click="createNewTicket" class="btn-create">
+              <span class="icon">➕</span>
+              <span>New Ticket</span>
+            </button>
+
+            <button @click="refreshTickets" class="btn-refresh">
+              <span class="icon">↻</span>
+              <span>Refresh</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -260,13 +302,20 @@ export default {
   },
 
   data() {
+    const today = new Date()
+    const yesterday = new Date(today)
+    yesterday.setDate(today.getDate() - 1)
+
+    const todayString = today.toISOString().split('T')[0]
+    const yesterdayString = yesterday.toISOString().split('T')[0]
     return {
       // Restaurant config for thermal printing
       restaurantConfig: {
         name: 'Your Restaurant Name',
-        address: '123 Main Street<br>City, State 12345<br>Phone: (555) 123-4567',
+        address:
+          '123 Main Street<br>City, State 12345<br>Phone: (555) 123-4567',
       },
-      
+
       cancelDialog: {
         show: false,
         ticketId: null,
@@ -276,10 +325,11 @@ export default {
         reasonRules: [
           (v) => !!v || 'Cancellation reason is required',
           (v) => (v && v.length >= 5) || 'Reason must be at least 5 characters',
-          (v) => (v && v.length <= 500) || 'Reason must be less than 500 characters',
+          (v) =>
+            (v && v.length <= 500) || 'Reason must be less than 500 characters',
         ],
       },
-      
+
       searchDebounce: null,
       showNotesDialog: false,
       selectedTicket: null,
@@ -293,8 +343,8 @@ export default {
       searchQuery: '',
       statusFilter: '',
       paymentFilter: '',
-      startDate: '',
-      endDate: '',
+      startDate: yesterdayString, // Default to yesterday
+      endDate: todayString, // Default to today
 
       // Dialogs
       showDialog: false,
@@ -330,6 +380,8 @@ export default {
         filtered = filtered.filter(
           (ticket) =>
             ticket.id.toString().includes(query) ||
+            ticket.ticketNumber.toString().includes(query) ||
+            ticket.notes.toString().includes(query) ||
             ticket.client?.name?.toLowerCase().includes(query) ||
             ticket.table?.number?.toString().includes(query) ||
             ticket.table?.name?.toLowerCase().includes(query)
@@ -367,7 +419,8 @@ export default {
         pending: this.tickets.filter((t) => t.status === 'pending').length,
         preparing: this.tickets.filter((t) => t.status === 'preparing').length,
         ready: this.tickets.filter((t) => t.status === 'ready').length,
-        unpaid: this.tickets.filter((t) => t.paymentStatus === 'pending').length,
+        unpaid: this.tickets.filter((t) => t.paymentStatus === 'pending')
+          .length,
       }
     },
   },
@@ -398,12 +451,22 @@ export default {
   },
 
   methods: {
+    getTodayDate() {
+      return new Date().toISOString().split('T')[0]
+    },
+
+    // Helper method to get yesterday's date
+    getYesterdayDate() {
+      const yesterday = new Date()
+      yesterday.setDate(yesterday.getDate() - 1)
+      return yesterday.toISOString().split('T')[0]
+    },
     clearFilters() {
       this.searchQuery = ''
       this.statusFilter = ''
       this.paymentFilter = ''
-      this.startDate = ''
-      this.endDate = ''
+      this.startDate = this.getYesterdayDate() // Reset to yesterday
+      this.endDate = this.getTodayDate() // Reset to today
       this.showToast('Filters cleared', 'info')
     },
 
@@ -508,7 +571,7 @@ export default {
         this.tickets.unshift(updatedTicket)
       }
 
-      this.closePOSDialog()
+      // this.closePOSDialog()
       this.fetchTickets()
 
       if (this.$toast) {
@@ -535,7 +598,8 @@ export default {
 
         const response = await this.$axios.get('/api/ticket/find', { params })
 
-        this.tickets = response.data.tickets || response.data.data || response.data || []
+        this.tickets =
+          response.data.tickets || response.data.data || response.data || []
 
         const paginationData = response.data.pagination || response.data
         this.pagination = {
@@ -572,7 +636,9 @@ export default {
     async updateTicketStatus(ticketId, newStatus) {
       try {
         console.info(
-          `USER DET ${JSON.stringify(this.user)} - ${this.user.userGroup.ticketCancel}`
+          `USER DET ${JSON.stringify(this.user)} - ${
+            this.user.userGroup.ticketCancel
+          }`
         )
 
         if (newStatus === 'cancel' && !this.user.userGroup.ticketCancel) {
@@ -675,9 +741,12 @@ export default {
       if (!this.selectedTicket) return
 
       try {
-        await this.$axios.patch(`/api/ticket/${this.selectedTicket.id}/status`, {
-          status: newStatus,
-        })
+        await this.$axios.patch(
+          `/api/ticket/${this.selectedTicket.id}/status`,
+          {
+            status: newStatus,
+          }
+        )
 
         this.selectedTicket.status = newStatus
         this.selectedTicket.updateTimestamp = new Date()
@@ -732,11 +801,16 @@ export default {
 
     // Handle successful 85mm thermal print
     handlePrintSuccess(ticket) {
-      console.log('85mm thermal print completed successfully for ticket:', ticket.id)
+      console.log(
+        '85mm thermal print completed successfully for ticket:',
+        ticket.id
+      )
       this.closePrintDialog()
 
       if (this.$toast) {
-        this.$toast.success(`Ticket #${ticket.id} printed successfully on 85mm thermal printer`)
+        this.$toast.success(
+          `Ticket #${ticket.id} printed successfully on 85mm thermal printer`
+        )
       }
     },
 
@@ -766,12 +840,14 @@ export default {
 </script>
 
 <style scoped>
+/* Complete CSS for Tickets Page with Improved Filter Section */
 .tickets-page {
   padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+/* Page Header Styles */
 .page-header {
   margin-bottom: 32px;
 }
@@ -780,44 +856,81 @@ export default {
   font-size: 28px;
   font-weight: 700;
   color: #1a202c;
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
 }
 
-.header-actions {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  flex-wrap: wrap;
+/* Filter Container */
+.filters-container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
 }
 
-.filters-group {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  flex: 1;
+.filter-row {
+  margin-bottom: 20px;
 }
 
-.search-input,
-.filter-select,
-.date-input {
-  padding: 10px 14px;
+.filter-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Search Section */
+.search-group {
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.2s;
+  background-color: #f7fafc;
 }
 
-.search-input {
-  min-width: 250px;
-  flex: 1;
+.search-input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  background-color: white;
+}
+
+/* Filters Grid */
+.filters-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .filter-select,
 .date-input {
-  min-width: 150px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+  background-color: white;
+  min-height: 42px;
 }
 
-.search-input:focus,
 .filter-select:focus,
 .date-input:focus {
   outline: none;
@@ -825,11 +938,57 @@ export default {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
+.filter-actions {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.btn-clear {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #fed7d7;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  min-height: 42px;
+}
+
+.btn-clear:hover {
+  background: #feb2b2;
+  transform: translateY(-1px);
+}
+
+.btn-clear .icon {
+  font-size: 12px;
+}
+
+/* Action Buttons Row */
+.action-row {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
 .btn-create {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   background: #48bb78;
   color: white;
   border: none;
@@ -854,7 +1013,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   background: #4299e1;
   color: white;
   border: none;
@@ -874,6 +1033,7 @@ export default {
   font-size: 18px;
 }
 
+/* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -923,6 +1083,7 @@ export default {
   letter-spacing: 0.5px;
 }
 
+/* State Containers */
 .state-container {
   text-align: center;
   padding: 80px 20px;
@@ -989,6 +1150,7 @@ export default {
   background: #3182ce;
 }
 
+/* Tickets Grid */
 .tickets-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -996,6 +1158,7 @@ export default {
   margin-bottom: 32px;
 }
 
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -1036,6 +1199,17 @@ export default {
   color: #718096;
 }
 
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filters-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .tickets-page {
     padding: 16px;
@@ -1045,17 +1219,20 @@ export default {
     font-size: 24px;
   }
 
-  .header-actions {
-    flex-direction: column;
+  .filters-container {
+    padding: 16px;
   }
 
   .filters-group {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
     width: 100%;
   }
 
-  .search-input,
-  .filter-select,
-  .date-input,
   .btn-create,
   .btn-refresh {
     width: 100%;
@@ -1070,6 +1247,22 @@ export default {
   .tickets-grid {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination-btn {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 }
 </style>

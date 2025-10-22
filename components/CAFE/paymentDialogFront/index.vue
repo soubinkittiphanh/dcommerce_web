@@ -6,10 +6,16 @@
         <!-- Compact Header -->
         <v-card-title class="primary white--text py-2">
           <v-icon left color="white" size="20">mdi-credit-card</v-icon>
-          Payment - Table {{ tableNumber }}
+          Payment - Table {{ tableNumber }} Ticket - ID {{ ticketId }}
           <v-spacer></v-spacer>
           <div class="text-h6 font-weight-bold">{{ formatPrice(amount) }}</div>
-          <v-btn icon color="white" @click="closeDialog" :disabled="actionLoading" class="ml-2">
+          <v-btn
+            icon
+            color="white"
+            @click="closeDialog"
+            :disabled="actionLoading"
+            class="ml-2"
+          >
             <v-icon size="20">mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -21,7 +27,10 @@
               <v-btn
                 block
                 @click="showQROnCustomerScreen"
-                style="background-color: #01532B !important; color: white !important;"
+                style="
+                  background-color: #01532b !important;
+                  color: white !important;
+                "
                 class="text-none"
               >
                 <v-icon left size="20">mdi-monitor-multiple</v-icon>
@@ -43,10 +52,14 @@
 
           <!-- Payment Methods -->
           <div v-if="paymentLoading" class="text-center py-2">
-            <v-progress-circular size="32" color="primary" indeterminate></v-progress-circular>
+            <v-progress-circular
+              size="32"
+              color="primary"
+              indeterminate
+            ></v-progress-circular>
             <div class="caption mt-1">Loading...</div>
           </div>
-          
+
           <div v-else>
             <div class="subtitle-2 mb-2">
               <v-icon left size="18">mdi-wallet</v-icon>
@@ -62,17 +75,27 @@
               >
                 <v-card
                   @click="selectedPaymentMethod = payment"
-                  :color="selectedPaymentMethod?.id === payment.id ? getPaymentColor(payment.payment_code) : ''"
+                  :color="
+                    selectedPaymentMethod?.id === payment.id
+                      ? getPaymentColor(payment.payment_code)
+                      : ''
+                  "
                   :class="[
                     'payment-card cursor-pointer text-center',
-                    selectedPaymentMethod?.id === payment.id ? 'white--text elevation-3' : 'elevation-1'
+                    selectedPaymentMethod?.id === payment.id
+                      ? 'white--text elevation-3'
+                      : 'elevation-1',
                   ]"
                   hover
                   height="70"
                 >
                   <v-card-text class="pa-2">
                     <v-icon
-                      :color="selectedPaymentMethod?.id === payment.id ? 'white' : getPaymentColor(payment.payment_code)"
+                      :color="
+                        selectedPaymentMethod?.id === payment.id
+                          ? 'white'
+                          : getPaymentColor(payment.payment_code)
+                      "
                       size="24"
                     >
                       {{ getPaymentIcon(payment.payment_code) }}
@@ -88,7 +111,12 @@
             <!-- No Payment Methods -->
             <v-alert v-else type="warning" dense class="ma-0">
               No payment methods available
-              <v-btn x-small color="warning" class="ml-2" @click="$emit('reload-payment-methods')">
+              <v-btn
+                x-small
+                color="warning"
+                class="ml-2"
+                @click="$emit('reload-payment-methods')"
+              >
                 Retry
               </v-btn>
             </v-alert>
@@ -97,7 +125,9 @@
 
         <!-- Compact Actions -->
         <v-card-actions class="pa-3">
-          <v-btn text @click="closeDialog" :disabled="actionLoading">Cancel</v-btn>
+          <v-btn text @click="closeDialog" :disabled="actionLoading"
+            >Cancel</v-btn
+          >
           <v-spacer></v-spacer>
           <v-btn
             color="success"
@@ -116,7 +146,10 @@
     <!-- Minimal QR Dialog -->
     <v-dialog v-model="showQRDialog" max-width="400" persistent>
       <v-card>
-        <v-card-title style="background-color: #01532B !important;" class="white--text py-2">
+        <v-card-title
+          style="background-color: #01532b !important"
+          class="white--text py-2"
+        >
           <v-icon left color="white" size="20">mdi-qrcode</v-icon>
           QR Payment
           <v-spacer></v-spacer>
@@ -128,11 +161,20 @@
 
         <v-card-text class="pa-4 text-center">
           <!-- QR Code -->
-          <v-card outlined class="pa-2 mb-3" style="border-color: #01532B !important;">
+          <v-card
+            outlined
+            class="pa-2 mb-3"
+            style="border-color: #01532b !important"
+          >
             <img
               :src="qrCodeUrl"
               alt="QR Payment Code"
-              style="width: 200px; height: 200px; display: block; margin: 0 auto;"
+              style="
+                width: 200px;
+                height: 200px;
+                display: block;
+                margin: 0 auto;
+              "
               @error="onQRError"
             />
           </v-card>
@@ -146,18 +188,35 @@
           <!-- Action Buttons -->
           <v-row dense>
             <v-col cols="4">
-              <v-btn small text @click="downloadQR" style="color: #01532B !important;">
+              <v-btn
+                small
+                text
+                @click="downloadQR"
+                style="color: #01532b !important"
+              >
                 <v-icon small>mdi-download</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn small text @click="shareQR" style="color: #01532B !important;">
+              <v-btn
+                small
+                text
+                @click="shareQR"
+                style="color: #01532b !important"
+              >
                 <v-icon small>mdi-share</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn small text @click="copyQRString" style="color: #01532B !important;">
-                <v-icon small>{{ copied ? 'mdi-check' : 'mdi-content-copy' }}</v-icon>
+              <v-btn
+                small
+                text
+                @click="copyQRString"
+                style="color: #01532b !important"
+              >
+                <v-icon small>{{
+                  copied ? 'mdi-check' : 'mdi-content-copy'
+                }}</v-icon>
               </v-btn>
             </v-col>
           </v-row>
@@ -173,84 +232,121 @@ export default {
   props: {
     show: { type: Boolean, default: false },
     amount: { type: Number, default: 0 },
+    ticketId: { type: Number, default: 0 },
     tableNumber: { type: [String, Number], default: '' },
     paymentMethods: { type: Array, default: () => [] },
     paymentLoading: { type: Boolean, default: false },
     actionLoading: { type: Boolean, default: false },
   },
-  
+
   data() {
     return {
+      qrRefreshInterval: null, // store interval id so we can clear later
       selectedPaymentMethod: null,
       showQRDialog: false,
       copied: false,
-      qrString: '00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405100005802LA5907KHAMMAO6260011713a321asS321as2250302120713te rminal000010812test remarks63041c9f',
+      qrString:
+        '00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405100005802LA5907KHAMMAO6260011713a321asS321as2250302120713te rminal000010812test remarks63041c9f',
     }
   },
-  
+  mounted() {
+    this.showQROnCustomerScreen()
+
+    // Then auto-refresh every 5 seconds (5000 ms)
+    // this.qrRefreshInterval = setInterval(() => {
+    //   this.showQROnCustomerScreen()
+    // }, 5000)
+  },
+  beforeDestroy() {
+    // Prevent memory leaks when leaving page/component
+    if (this.qrRefreshInterval) {
+      clearInterval(this.qrRefreshInterval)
+    }
+  },
   computed: {
     showDialog: {
-      get() { return this.show },
-      set(value) { if (!value) this.closeDialog() }
+      get() {
+        return this.show
+      },
+      set(value) {
+        if (!value) this.closeDialog()
+      },
     },
-    
+
     qrCodeUrl() {
-      const encodedString = encodeURIComponent(this.currentQRString.replace(/\s/g, ''))
+      const encodedString = encodeURIComponent(
+        this.currentQRString.replace(/\s/g, '')
+      )
       return `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodedString}&format=png&margin=10&color=01532B&bgcolor=ffffff`
     },
-    
+
     currentQRString() {
       return this.generateQRString()
-    }
+    },
   },
-  
+
   watch: {
     show(newVal) {
       if (!newVal) this.resetComponent()
     },
   },
-  
+
   methods: {
     showQROnCustomerScreen() {
       const qrData = {
         amount: this.amount,
         tableNumber: this.tableNumber,
+        ticketId: this.ticketId,
         qrString: this.generateQRString(),
-        timestamp: Date.now()
+        timestamp: Date.now(),
       }
-      
-      localStorage.setItem('customerDisplay', JSON.stringify({
-        type: 'SHOW_QR_PAYMENT',
-        data: qrData
-      }))
-      
+
+      localStorage.setItem(
+        'customerDisplay',
+        JSON.stringify({
+          type: 'SHOW_QR_PAYMENT',
+          data: qrData,
+        })
+      )
+
       window.dispatchEvent(new Event('storage'))
-      this.$emit('show-message', `QR displayed on customer screen`, 'success', 'mdi-qrcode')
+      this.$emit(
+        'show-message',
+        `QR displayed on customer screen`,
+        'success',
+        'mdi-qrcode'
+      )
     },
 
     hideQRFromCustomerScreen() {
-      localStorage.setItem('customerDisplay', JSON.stringify({
-        type: 'HIDE_QR_PAYMENT',
-        timestamp: Date.now()
-      }))
+      localStorage.setItem(
+        'customerDisplay',
+        JSON.stringify({
+          type: 'HIDE_QR_PAYMENT',
+          timestamp: Date.now(),
+        })
+      )
       window.dispatchEvent(new Event('storage'))
     },
 
     showPaymentSuccessOnCustomerScreen() {
-      localStorage.setItem('customerDisplay', JSON.stringify({
-        type: 'PAYMENT_SUCCESS',
-        data: { amount: this.amount, tableNumber: this.tableNumber },
-        timestamp: Date.now()
-      }))
+      localStorage.setItem(
+        'customerDisplay',
+        JSON.stringify({
+          type: 'PAYMENT_SUCCESS',
+          data: { amount: this.amount, tableNumber: this.tableNumber },
+          timestamp: Date.now(),
+        })
+      )
       window.dispatchEvent(new Event('storage'))
     },
 
     generateQRString() {
       if (!this.amount || !this.tableNumber) return this.qrString
-      
+
       const amountStr = Math.round(this.amount).toString().padStart(6, '0')
       const tableStr = this.tableNumber.toString().padStart(6, '0')
-      
+
       return `00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405${amountStr}05802LA5907KHAMMAO6260011713a321asS321as2250302120713terminal${tableStr}0812Table ${this.tableNumber} payment63041c9f`
     },
 
@@ -268,10 +364,15 @@ export default {
 
     confirmPayment() {
       if (!this.selectedPaymentMethod) {
-        this.$emit('show-message', 'Please select a payment method', 'warning', 'mdi-alert')
+        this.$emit(
+          'show-message',
+          'Please select a payment method',
+          'warning',
+          'mdi-alert'
+        )
         return
       }
-      
+
       this.showPaymentSuccessOnCustomerScreen()
       this.$emit('confirm-payment', this.selectedPaymentMethod)
     },
@@ -279,7 +380,7 @@ export default {
     async copyQRString() {
       try {
         const stringToCopy = this.currentQRString
-        
+
         if (navigator.clipboard) {
           await navigator.clipboard.writeText(stringToCopy)
         } else {
@@ -292,7 +393,9 @@ export default {
         }
 
         this.copied = true
-        setTimeout(() => { this.copied = false }, 2000)
+        setTimeout(() => {
+          this.copied = false
+        }, 2000)
       } catch (err) {
         console.error('Failed to copy QR string:', err)
       }
@@ -309,14 +412,21 @@ export default {
 
     shareQR() {
       if (navigator.share) {
-        navigator.share({
-          title: `Payment QR - Table ${this.tableNumber}`,
-          text: `Payment QR Code for ${this.formatPrice(this.amount)}`,
-          url: this.qrCodeUrl,
-        }).catch((err) => console.log('Error sharing:', err))
+        navigator
+          .share({
+            title: `Payment QR - Table ${this.tableNumber}`,
+            text: `Payment QR Code for ${this.formatPrice(this.amount)}`,
+            url: this.qrCodeUrl,
+          })
+          .catch((err) => console.log('Error sharing:', err))
       } else {
         this.copyQRString()
-        this.$emit('show-message', 'QR code details copied!', 'success', 'mdi-check')
+        this.$emit(
+          'show-message',
+          'QR code details copied!',
+          'success',
+          'mdi-check'
+        )
       }
     },
 
@@ -360,10 +470,10 @@ export default {
       return colors[paymentCode] || 'primary'
     },
   },
-  
+
   beforeDestroy() {
     this.hideQRFromCustomerScreen()
-  }
+  },
 }
 </script>
 

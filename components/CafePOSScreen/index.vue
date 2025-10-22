@@ -31,6 +31,7 @@
     <PaymentDialog
       :show="showPaymentDialog"
       :table-number="tableId"
+      :ticket-id="existingTicket?.id || null"
       :amount="paymentAmount"
       :payment-methods="paymentList"
       :payment-loading="paymentLoading"
@@ -202,11 +203,12 @@
                   height="160"
                   :disabled="
                     (!product.isActive || product.stock_count <= 0) &&
-                    product.validateStockOnSale 
+                    product.validateStockOnSale
                   "
                   :class="{
                     'product-disabled':
-                      (!product.isActive || product.stock_count <= 0) && product.validateStockOnSale ,
+                      (!product.isActive || product.stock_count <= 0) &&
+                      product.validateStockOnSale,
                     'promotion-eligible': isProductInPromotion(product),
                   }"
                 >
@@ -224,7 +226,7 @@
                     class="justify-center text-subtitle-1 pa-1"
                     style="line-height: 1.2"
                   >
-                  {{ product.pro_name }} {{ product.validateStockOnSale }}
+                    {{ product.pro_name }} {{ product.validateStockOnSale }}
                   </v-card-title>
 
                   <v-card-text class="pa-2">
@@ -460,7 +462,7 @@
                       icon
                       x-small
                       color="grey"
-                      :disabled="item.quantity >= item.stock_count"
+                      :disabled="(item.quantity >= item.stock_count) && item.validateStockOnSale"
                     >
                       <v-icon x-small>mdi-plus</v-icon>
                     </v-btn>
@@ -472,7 +474,7 @@
 
                 <!-- Warnings (Compact) -->
                 <div
-                  v-if="item.quantity >= item.stock_count"
+                  v-if="item.quantity >= item.stock_count && item.validateStockOnSale"
                   class="caption error--text mt-1"
                 >
                   Max stock reached
@@ -491,13 +493,23 @@
           <!-- Compact Cart Summary -->
           <div class="pa-3">
             <v-card v-if="cart.length > 0" class="pa-2" outlined elevation="0">
-              <!-- Summary rows (more compact) -->
+              <!-- CORRECTED: Show proper breakdown for tax-inclusive products -->
+
+              <!-- For tax-inclusive products, show the original price -->
               <div class="d-flex justify-space-between caption mb-1">
-                <span>Subtotal:</span>
+                <span>Total (with tax):</span>
                 <span>{{ formatPrice(getTotalPrice()) }}</span>
               </div>
 
-              <!-- Promotions (compact) -->
+              <!-- Show base amount (price without tax) -->
+              <div
+                class="d-flex justify-space-between caption mb-1 text--secondary"
+              >
+                <span>Base amount:</span>
+                <span>{{ formatPrice(getBaseAmount) }}</span>
+              </div>
+
+              <!-- Promotions (applied to base amount) -->
               <div v-if="appliedPromotions.length > 0">
                 <div
                   v-for="(applied, index) in appliedPromotions"
@@ -509,32 +521,46 @@
                 </div>
               </div>
 
-              <div class="d-flex justify-space-between caption mb-1">
-                <span>After Promotions:</span>
-                <span>{{ formatPrice(getTotalAfterPromotions()) }}</span>
+              <!-- <div class="d-flex justify-space-between caption mb-1">
+                <span>Base after promotions:</span>
+                <span>{{ formatPrice(getBaseAfterPromotions) }}</span>
+              </div> -->
+
+              <!-- Tax breakdown showing actual tax amounts -->
+              <div v-if="getTaxBreakdown().length > 0">
+                <div
+                  v-for="taxItem in getTaxBreakdown()"
+                  :key="taxItem.code"
+                  class="d-flex justify-space-between caption mb-1"
+                >
+                  <span
+                    >{{ taxItem.name }} ({{ (taxItem.rate * 100).toFixed(2) }}%
+                    {{ taxItem.type }}):</span
+                  >
+                  <span>{{ formatPrice(taxItem.taxAmount) }}</span>
+                </div>
               </div>
 
-              <div class="d-flex justify-space-between caption mb-2">
-                <span>Tax (8.5%):</span>
-                <span>{{
-                  formatPrice(getTotalAfterPromotions() * 0.085)
-                }}</span>
-              </div>
+              <!-- Total tax amount -->
+              <!-- <div class="d-flex justify-space-between caption mb-2">
+                <span>Total Tax:</span>
+                <span>{{ formatPrice(calculatedTax) }}</span>
+              </div> -->
 
               <v-divider class="mb-2"></v-divider>
+
               <div
                 class="d-flex justify-space-between text-subtitle-1 font-weight-bold"
               >
-                <span>Total:</span>
+                <span>Final Total:</span>
                 <span class="primary--text">{{
-                  formatPrice(getFinalTotal())
+                  formatPrice(getFinalTotal)
                 }}</span>
               </div>
             </v-card>
 
-            <!-- Compact Action Buttons -->
+            <!-- Action buttons remain the same -->
             <div v-if="cart.length > 0" class="mt-2">
-              <!-- Single row with 4 compact buttons -->
               <v-row dense no-gutters class="mb-1">
                 <v-col cols="6" class="pr-1">
                   <v-btn
@@ -561,7 +587,6 @@
                   </v-btn>
                 </v-col>
               </v-row>
-
               <v-row dense no-gutters class="mb-1">
                 <v-col cols="6" class="pr-1">
                   <v-btn
@@ -586,8 +611,6 @@
                   </v-btn>
                 </v-col>
               </v-row>
-
-              <!-- Clear button (full width, compact) -->
               <v-btn @click="clearCart" color="grey" block small>
                 <v-icon small class="mr-1">mdi-cart-remove</v-icon>
                 Clear Cart
@@ -623,7 +646,7 @@ import PrintTicketDialog from '@/components/CAFE/printdialog'
 import PaymentDialog from '@/components/CAFE/paymentDialogFront'
 import CustomerDialog from '@/components/CAFE/customerDialog'
 import NotesDialog from '~/components/tickets/NotesDialog.vue'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     NotesDialog,
@@ -649,6 +672,8 @@ export default {
   },
   data() {
     return {
+      taxes: [], // Add taxes array to store tax configurations
+      defaultTax: null, // Store default tax configuration
       promotions: [],
       appliedPromotions: [],
       loadingPromotions: false,
@@ -690,8 +715,7 @@ export default {
       // Search and filters
       searchQuery: '',
       categoryFilter: '',
-      categoryOptions: [
-      ],
+      categoryOptions: [],
 
       // Payment dialog
       showPaymentDialog: false,
@@ -721,6 +745,101 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['findAllTerminal', 'findSelectedTerminal','currentSelectedLocation', 'findAllLocation']),
+    getFinalTotal() {
+      const baseAfterPromotions = this.getBaseAfterPromotions
+      const tax = this.calculatedTax
+      return baseAfterPromotions + tax
+    },
+
+    getBaseAmount() {
+      if (!this.cart.length || !this.taxes.length) {
+        return this.getTotalPrice()
+      }
+
+      let totalBaseAmount = 0
+
+      this.cart.forEach((item) => {
+        const product = this.products.find((p) => p.id === item.id)
+        const tax = this.getProductTax(product)
+        const itemTotal = item.pro_price * item.quantity
+
+        if (tax && tax.isActive && tax.taxType === 'INC') {
+          // For tax inclusive: base = total / (1 + tax_rate)
+          const baseAmount = itemTotal / (1 + parseFloat(tax.rate))
+          totalBaseAmount += baseAmount
+        } else {
+          // For tax exclusive or no tax: base = total
+          totalBaseAmount += itemTotal
+        }
+      })
+
+      return totalBaseAmount
+    },
+    getBaseAfterPromotions() {
+      const baseAmount = this.getBaseAmount
+      const promotionDiscount = this.getTotalPromotionDiscount()
+      return Math.max(0, baseAmount - promotionDiscount)
+    },
+
+    calculatedTax() {
+      if (!this.cart.length || !this.taxes.length) return 0
+
+      const baseAfterPromotions = this.getBaseAfterPromotions
+      let totalTax = 0
+
+      // Group items by their tax configuration
+      const taxGroups = new Map()
+
+      this.cart.forEach((item) => {
+        const product = this.products.find((p) => p.id === item.id)
+        const tax = this.getProductTax(product)
+
+        if (tax && tax.isActive) {
+          const taxKey = tax.id
+          const itemTotal = item.pro_price * item.quantity
+
+          let itemBaseAmount
+          if (tax.taxType === 'INC') {
+            // For tax inclusive: extract base amount
+            itemBaseAmount = itemTotal / (1 + parseFloat(tax.rate))
+          } else {
+            // For tax exclusive: item total is the base amount
+            itemBaseAmount = itemTotal
+          }
+
+          if (!taxGroups.has(taxKey)) {
+            taxGroups.set(taxKey, {
+              tax: tax,
+              baseAmount: 0,
+              items: [],
+            })
+          }
+
+          const group = taxGroups.get(taxKey)
+          group.baseAmount += itemBaseAmount
+          group.items.push(item)
+        }
+      })
+
+      // Calculate tax for each group based on base amounts
+      taxGroups.forEach((group) => {
+        const { tax, baseAmount } = group
+
+        // Apply proportional discount to this tax group's base amount
+        const totalBaseAmount = this.getBaseAmount
+        const promotionDiscount = this.getTotalPromotionDiscount()
+        const discountRatio = promotionDiscount / totalBaseAmount
+        const adjustedBaseAmount = baseAmount * (1 - discountRatio)
+
+        // Calculate tax on the adjusted base amount
+        const taxAmount = adjustedBaseAmount * parseFloat(tax.rate)
+        totalTax += taxAmount
+      })
+
+      return totalTax
+    },
+
     isWalkIn() {
       return !this.tableId || this.tableId === 'walk-in'
     },
@@ -761,9 +880,13 @@ export default {
     await this.loadCategory()
     await this.fetchCustomers()
     await this.fetchPromotions()
+    await this.fetchTaxes() // Add tax fetching
 
-    // Load existing or provided ticket after products are loaded
+    // Load existing or provided ticket after all data is loaded
     if (this.existingTicket) {
+      console.info(
+        `LOAD PROVIDEDTICKETD ${JSON.stringify(this.existingTicket)}`
+      )
       await this.loadProvidedTicket()
     } else {
       await this.loadExistingTicket()
@@ -789,6 +912,144 @@ export default {
   },
 
   methods: {
+    async fetchTaxes() {
+      try {
+        const response = await this.$axios.get('/api/tax/active')
+        console.log('Taxes response:', response.data)
+
+        const taxData = response.data.data || response.data
+
+        this.taxes = taxData.filter((tax) => {
+          // Additional client-side filtering if needed
+          const now = new Date()
+          const effectiveFrom = new Date(tax.effectiveFrom)
+          const effectiveTo = tax.effectiveTo ? new Date(tax.effectiveTo) : null
+
+          return (
+            tax.isActive &&
+            effectiveFrom <= now &&
+            (!effectiveTo || effectiveTo >= now)
+          )
+        })
+
+        // Find default tax
+        this.defaultTax =
+          this.taxes.find((tax) => tax.isDefault) || this.taxes[0] || null
+
+        console.log(
+          `Loaded ${this.taxes.length} active taxes, default:`,
+          this.defaultTax?.name
+        )
+      } catch (error) {
+        console.error('Error fetching taxes:', error)
+        this.showMessage(
+          'Failed to load tax configurations',
+          'error',
+          'mdi-alert'
+        )
+        this.taxes = []
+        this.defaultTax = null
+      }
+    },
+
+    // NEW: Get tax configuration for a product
+    getProductTax(product) {
+      if (!product || !this.taxes.length) {
+        return this.defaultTax
+      }
+
+      // If product has a specific tax ID, use that
+      if (product.taxId) {
+        const productTax = this.taxes.find((tax) => tax.id === product.taxId)
+        if (productTax) {
+          return productTax
+        }
+      }
+
+      // Fall back to default tax
+      return this.defaultTax
+    },
+
+    // NEW: Calculate tax amount based on tax configuration
+    calculateTaxAmount(subtotal, tax) {
+      if (!tax || !tax.isActive) {
+        return 0
+      }
+
+      const taxRate = parseFloat(tax.rate)
+
+      if (tax.taxType === 'INC') {
+        // Tax inclusive - extract tax from the total
+        // If price includes tax: tax = (subtotal * rate) / (1 + rate)
+        return (subtotal * taxRate) / (1 + taxRate)
+      } else {
+        // Tax exclusive - add tax to the subtotal
+        // If tax is added to price: tax = subtotal * rate
+        return subtotal * taxRate
+      }
+    },
+
+    // NEW: Get tax breakdown for display
+    getTaxBreakdown() {
+      if (!this.cart.length || !this.taxes.length) return []
+
+      const breakdown = []
+      const taxGroups = new Map()
+      const totalBaseAmount = this.getBaseAmount
+      const promotionDiscount = this.getTotalPromotionDiscount()
+      const discountRatio = promotionDiscount / totalBaseAmount
+
+      this.cart.forEach((item) => {
+        const product = this.products.find((p) => p.id === item.id)
+        const tax = this.getProductTax(product)
+
+        if (tax && tax.isActive) {
+          const taxKey = tax.id
+          const itemTotal = item.pro_price * item.quantity
+
+          let itemBaseAmount
+          if (tax.taxType === 'INC') {
+            // For tax inclusive: extract base amount
+            itemBaseAmount = itemTotal / (1 + parseFloat(tax.rate))
+          } else {
+            // For tax exclusive: item total is the base amount
+            itemBaseAmount = itemTotal
+          }
+
+          if (!taxGroups.has(taxKey)) {
+            taxGroups.set(taxKey, {
+              tax: tax,
+              baseAmount: 0,
+              items: [],
+            })
+          }
+
+          const group = taxGroups.get(taxKey)
+          group.baseAmount += itemBaseAmount
+          group.items.push(item)
+        }
+      })
+
+      taxGroups.forEach((group) => {
+        const { tax, baseAmount } = group
+
+        // Apply proportional discount
+        const adjustedBaseAmount = baseAmount * (1 - discountRatio)
+        const taxAmount = adjustedBaseAmount * parseFloat(tax.rate)
+
+        breakdown.push({
+          name: tax.name,
+          code: tax.code,
+          rate: tax.rate,
+          type: tax.taxType,
+          baseAmount: adjustedBaseAmount,
+          taxAmount: taxAmount,
+          itemCount: group.items.length,
+        })
+      })
+
+      return breakdown
+    },
     async loadCategory() {
       this.isloading = true
       this.categoryOptions = []
@@ -831,11 +1092,6 @@ export default {
         0
       )
       return Math.max(0, subtotal - totalDiscount)
-    },
-
-    getFinalTotal() {
-      const afterPromotions = this.getTotalAfterPromotions()
-      return afterPromotions * 1.085 // Including 8.5% tax
     },
 
     getTotalPromotionDiscount() {
@@ -1171,9 +1427,14 @@ export default {
     async fetchProducts() {
       this.loading = true
       try {
-        const response = await this.$axios.get('product_f/1')
+        // Include tax in the query - note the locationId should be dynamic
+        const locationId = this.currentSelectedLocation['id'] || 1 // Use your actual location logic
+        const response = await this.$axios.get(
+          `product_f/${locationId}?include=tax`
+        )
         console.log('Products response:', response.data)
 
+        // Handle both old and new response formats
         const productData = response.data.data || response.data
 
         this.products = productData.map((product) => ({
@@ -1201,9 +1462,11 @@ export default {
           receiveUnitId: product.receiveUnitId,
           stockUnitId: product.stockUnitId,
           pro_category: product.pro_category,
-          validateStockOnSale: product.validateStockOnSale ===1,
+          validateStockOnSale: product.validateStockOnSale === 1,
           saleCurrencyId: product.saleCurrencyId,
           costCurrencyId: product.costCurrencyId,
+          taxId: product.taxId, // Include tax ID
+          tax: product.tax, // Include tax object if populated
           createdAt: product.createdAt,
           updatedAt: product.updatedAt,
         }))
@@ -1348,8 +1611,13 @@ export default {
         const subtotal = this.getTotalPrice()
         const promotionDiscount = this.getTotalPromotionDiscount()
         const afterPromotions = subtotal - promotionDiscount
-        const tax = afterPromotions * 0.085
-        const total = afterPromotions + tax
+
+        // Use dynamic tax calculation
+        const tax = this.calculatedTax
+        const total = afterPromotions
+
+        // Get tax breakdown for detailed storage
+        const taxBreakdown = this.getTaxBreakdown()
 
         // Create a map of products affected by promotions
         const promotionItemsMap = new Map()
@@ -1364,7 +1632,6 @@ export default {
 
           // For "Buy X Get Y" promotions, mark free items
           if (promotion.type === 'buy_x_get_y' && discount.freeItems > 0) {
-            // Sort items by price (cheapest first for free items)
             const sortedItems = affectedItems
               .flatMap((item) =>
                 Array(item.quantity).fill({
@@ -1374,7 +1641,6 @@ export default {
               )
               .sort((a, b) => a.price - b.price)
 
-            // Mark the cheapest items as free
             for (
               let i = 0;
               i < discount.freeItems && i < sortedItems.length;
@@ -1427,9 +1693,10 @@ export default {
               : null,
           clientId: this.selectedCustomer ? this.selectedCustomer.id : null,
           status: 'pending',
-          subtotal: parseFloat(subtotal.toFixed(2)),
+          subtotal: parseFloat(subtotal.toFixed(2) - tax.toFixed(2)),
           promotionDiscount: parseFloat(promotionDiscount.toFixed(2)),
           tax: parseFloat(tax.toFixed(2)),
+          taxType: this.defaultTax.taxType || null,
           total: parseFloat(total.toFixed(2)),
           paymentStatus: 'pending',
           notes:
@@ -1437,15 +1704,18 @@ export default {
             (this.selectedCustomer
               ? `Customer: ${this.selectedCustomer.name}`
               : 'Walk-in customer'),
+          // Store tax breakdown for reporting
+          taxBreakdown: taxBreakdown,
           appliedPromotions: this.appliedPromotions.map((applied) => ({
             promotionId: applied.promotion.id,
             promotionName: applied.promotion.name,
             discountAmount: applied.discount.amount,
             description: applied.discount.description,
           })),
-          // UPDATED: Include promotion data in ticket lines
           ticketLines: this.cart.map((item) => {
             const promotionData = promotionItemsMap.get(item.id)
+            const product = this.products.find((p) => p.id === item.id)
+            const productTax = this.getProductTax(product)
 
             return {
               id: item.ticketLineId || undefined,
@@ -1456,6 +1726,10 @@ export default {
                 (item.pro_price * item.quantity).toFixed(2)
               ),
               status: 'ordered',
+              // Add tax information to line items
+              taxId: productTax?.id || null,
+              taxRate: productTax?.rate || 0,
+              taxType: productTax?.taxType || 'INC',
               // Add promotion fields
               promotionId: promotionData?.promotionId || null,
               is_promotion_item: promotionData?.is_promotion_item || false,
@@ -1480,13 +1754,16 @@ export default {
           if (!this.dialogMode) {
             this.$emit('reload-data')
           }
-
+          console.info(`SILENT ${silent}`)
           if (!silent) {
             this.showMessage(
               'Ticket updated successfully!',
               'success',
               'mdi-content-save'
             )
+            if (this.$toast) {
+              this.$toast.success('Ticket saved successfully')
+            }
           }
         } else {
           response = await this.$axios.post('api/ticket/', ticketData)
@@ -1519,6 +1796,13 @@ export default {
       }
     },
 
+    getApplicableItemsTotal(promotion) {
+      const applicableItems = this.getApplicableItems(promotion)
+      return applicableItems.reduce(
+        (sum, item) => sum + item.pro_price * item.quantity,
+        0
+      )
+    },
     // Cart management methods
     addToCart(product) {
       console.log('Adding product to cart:', product)
@@ -1536,13 +1820,14 @@ export default {
       const existingItem = this.cart.find((item) => item.id === product.id)
 
       if (existingItem) {
-        if (existingItem.quantity < product.stock_count) {
+        console.info(`STOCK VALIDATION REQUEIRE ${product.validateStockOnSale}`)
+        if ((existingItem.quantity < product.stock_count) || !product.validateStockOnSale) {
           existingItem.quantity += 1
           if (!existingItem.isFromTicketLine) {
             existingItem.pro_price = parseFloat(product.pro_price)
           }
         } else {
-          this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
+          this.showMessage('Maximum stock reached BBB', 'warning', 'mdi-alert')
         }
       } else {
         this.cart.push({
@@ -1553,6 +1838,7 @@ export default {
           categ_name: product.categ_name,
           stock_count: product.stock_count,
           isActive: product.isActive,
+          validateStockOnSale: product.validateStockOnSale,
           quantity: 1,
           isFromTicketLine: false,
         })
@@ -1571,8 +1857,8 @@ export default {
         return
       }
 
-      if (newQuantity > item.stock_count) {
-        this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
+      if ((newQuantity > item.stock_count) && item.validateStockOnSale) {
+        this.showMessage('Maximum stock reached AAA', 'warning', 'mdi-alert')
         return
       }
 
@@ -1635,7 +1921,7 @@ export default {
     },
 
     async processPayment() {
-      const total = this.getFinalTotal() || 0
+      const total = this.getFinalTotal || 0
 
       if (total <= 0) {
         this.showMessage('No amount to process', 'warning', 'mdi-alert')
@@ -1864,8 +2150,8 @@ export default {
             const promotionDiscount = this.getTotalPromotionDiscount()
             ticketForPrint.promotionDiscount = promotionDiscount
             ticketForPrint.subtotal = subtotal
-            ticketForPrint.tax = (subtotal - promotionDiscount) * 0.085
-            ticketForPrint.total = (subtotal - promotionDiscount) * 1.085
+            // ticketForPrint.tax = (subtotal - promotionDiscount) * 0.085
+            // ticketForPrint.total = (subtotal - promotionDiscount) * 1.085
           }
         }
 
@@ -1895,7 +2181,7 @@ export default {
           subtotal: this.getTotalPrice(),
           promotionDiscount: this.getTotalPromotionDiscount(),
           tax: this.getTotalAfterPromotions() * 0.085,
-          total: this.getFinalTotal(),
+          total: this.getFinalTotal,
         }
 
         this.selectedTicket = ticketForPrint
@@ -1939,6 +2225,11 @@ export default {
 
     getTotalItems() {
       return this.cart.reduce((total, item) => total + item.quantity, 0)
+    },
+    formatTaxDisplay(tax) {
+      if (!tax) return 'No Tax'
+      const percentage = (parseFloat(tax.rate) * 100).toFixed(2)
+      return `${tax.name} (${percentage}% ${tax.taxType})`
     },
 
     formatPrice(amount, includeCurrency = true) {

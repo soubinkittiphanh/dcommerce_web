@@ -398,6 +398,19 @@
             />
           </v-col>
 
+          <!-- NEW: Tax Type Field -->
+          <v-col cols="12">
+            <v-select
+              v-model="formData.taxType"
+              :items="taxTypeOptions"
+              label="Tax Type *"
+              :rules="[rules.required]"
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
           <v-col cols="6">
             <v-menu
               ref="effectiveFromMenu"
@@ -485,8 +498,8 @@
             />
           </v-col>
 
-          <!-- Compact Preview -->
-          <v-col cols="12" v-if="formData.rate">
+          <!-- Enhanced Preview with Tax Type -->
+          <v-col cols="12" v-if="formData.rate && formData.taxType">
             <v-alert
               dense
               outlined
@@ -494,9 +507,9 @@
               class="mb-0"
             >
               <div class="d-flex justify-space-between align-center">
-                <span><strong>{{ displayPercentage }}</strong></span>
+                <span><strong>{{ displayPercentage }} ({{ getTaxTypeLabel(formData.taxType) }})</strong></span>
                 <span class="text-caption">
-                  ₭100 → Tax: ₭{{ calculateExampleTax(100, formData.rate) }} | Total: ₭{{ calculateExampleTotal(100, formData.rate) }}
+                  ₭100 → Tax: ₭{{ calculateExampleTax(100, formData.rate, formData.taxType) }} | Total: ₭{{ calculateExampleTotal(100, formData.rate, formData.taxType) }}
                 </span>
               </div>
             </v-alert>
@@ -591,6 +604,11 @@ export default {
 
   data() {
     return {
+      // NEW: Tax type options
+      taxTypeOptions: [
+        { text: 'Inclusive (INC)', value: 'INC' },
+        { text: 'Exclusive (EXC)', value: 'EXC' },
+      ],
       // Table and data
       taxRates: [],
       loading: true,
@@ -629,6 +647,7 @@ export default {
         name: '',
         code: '',
         rate: '',
+        taxType: 'INC', // Default to INC (Inclusive)
         description: '',
         effectiveFrom: new Date().toISOString().split('T')[0],
         effectiveTo: '',
@@ -675,6 +694,7 @@ export default {
         { text: 'Name', value: 'name', sortable: true },
         { text: 'Code', value: 'code', sortable: true },
         { text: 'Rate', value: 'displayRate', sortable: false },
+        { text: 'taxType', value: 'taxType', sortable: false },
         { text: 'Status', value: 'isActive', sortable: true },
         { text: 'Effective Period', value: 'effectiveFrom', sortable: true },
         { text: 'Valid', value: 'isValidForDate', sortable: false },
@@ -738,7 +758,7 @@ export default {
           return true
         },
       }
-    }
+    },
   },
 
   async mounted() {
@@ -808,7 +828,11 @@ export default {
     async refreshData() {
       this.loading = true
       await Promise.all([this.loadTaxRates(), this.loadStatistics()])
-      this.showNotification('Data refreshed successfully', 'success', 'mdi-refresh')
+      this.showNotification(
+        'Data refreshed successfully',
+        'success',
+        'mdi-refresh'
+      )
     },
 
     // Dialog methods
@@ -819,21 +843,21 @@ export default {
     },
 
     editTaxRate(taxRate) {
-      this.editingTaxRate = taxRate
-      this.formData = {
-        name: taxRate.name,
-        code: taxRate.code,
-        rate: taxRate.rate,
-        description: taxRate.description || '',
-        effectiveFrom: taxRate.effectiveFrom,
-        // ✅ Convert null to empty string for form display
-        effectiveTo: taxRate.effectiveTo || '',
-        isActive: taxRate.isActive,
-        isDefault: taxRate.isDefault,
-      }
-      this.updateDisplayRate()
-      this.showTaxDialog = true
-    },
+    this.editingTaxRate = taxRate
+    this.formData = {
+      name: taxRate.name,
+      code: taxRate.code,
+      rate: taxRate.rate,
+      taxType: taxRate.taxType || 'INC', // Default to INC if not set
+      description: taxRate.description || '',
+      effectiveFrom: taxRate.effectiveFrom,
+      effectiveTo: taxRate.effectiveTo || '',
+      isActive: taxRate.isActive,
+      isDefault: taxRate.isDefault,
+    }
+    this.updateDisplayRate()
+    this.showTaxDialog = true
+  },
 
     closeTaxDialog() {
       this.showTaxDialog = false
@@ -842,83 +866,90 @@ export default {
     },
 
     resetForm() {
-      this.formData = {
-        name: '',
-        code: '',
-        rate: '',
-        description: '',
-        effectiveFrom: new Date().toISOString().split('T')[0],
-        effectiveTo: '', // This will be converted to null when saving
-        isActive: true,
-        isDefault: false,
-      }
-      this.displayPercentage = '0.00%'
-      this.formValid = false
-      if (this.$refs.taxForm) {
-        this.$refs.taxForm.resetValidation()
-      }
-    },
+    this.formData = {
+      name: '',
+      code: '',
+      rate: '',
+      taxType: 'INC', // Default to INC
+      description: '',
+      effectiveFrom: new Date().toISOString().split('T')[0],
+      effectiveTo: '',
+      isActive: true,
+      isDefault: false,
+    }
+    this.displayPercentage = '0.00%'
+    this.formValid = false
+    if (this.$refs.taxForm) {
+      this.$refs.taxForm.resetValidation()
+    }
+  },
+
 
     // CRUD operations
     async saveTaxRate() {
-      if (!this.$refs.taxForm.validate()) {
-        this.showNotification('Please fix validation errors', 'error', 'mdi-alert')
-        return
+    if (!this.$refs.taxForm.validate()) {
+      this.showNotification('Please fix validation errors', 'error', 'mdi-alert')
+      return
+    }
+
+    this.saving = true
+
+    try {
+      const taxData = {
+        name: this.formData.name.trim(),
+        code: this.formData.code.toUpperCase().trim(),
+        rate: parseFloat(this.formData.rate),
+        taxType: this.formData.taxType, // NEW: Include taxType
+        description: this.formData.description ? this.formData.description.trim() : null,
+        isActive: this.formData.isActive,
+        isDefault: this.formData.isDefault,
+        effectiveFrom: this.formData.effectiveFrom,
+        effectiveTo:
+          this.formData.effectiveTo && this.formData.effectiveTo.trim() !== ''
+            ? this.formData.effectiveTo
+            : null,
       }
 
-      this.saving = true
+      console.log('Sending tax data:', taxData)
 
-      try {
-        // ✅ Prepare tax data with proper date handling
-        const taxData = {
-          name: this.formData.name.trim(),
-          code: this.formData.code.toUpperCase().trim(),
-          rate: parseFloat(this.formData.rate),
-          description: this.formData.description ? this.formData.description.trim() : null,
-          isActive: this.formData.isActive,
-          isDefault: this.formData.isDefault,
-          effectiveFrom: this.formData.effectiveFrom,
-          // ✅ IMPORTANT: Send null instead of empty string for effectiveTo
-          effectiveTo:
-            this.formData.effectiveTo && this.formData.effectiveTo.trim() !== ''
-              ? this.formData.effectiveTo
-              : null,
-        }
-
-        console.log('Sending tax data:', taxData) // Debug log
-
-        let response
-        if (this.editingTaxRate) {
-          response = await this.$axios.put(`/api/tax/${this.editingTaxRate.id}`, taxData)
-          this.showNotification('Tax rate updated successfully', 'success', 'mdi-check')
-        } else {
-          response = await this.$axios.post('/api/tax', taxData)
-          this.showNotification('Tax rate created successfully', 'success', 'mdi-check')
-        }
-
-        this.closeTaxDialog()
-        await this.loadTaxRates()
-        await this.loadStatistics()
-      } catch (error) {
-        console.error('Error saving tax rate:', error)
-        console.error('Error response:', error.response?.data) // More detailed logging
-
-        if (error.response?.data?.errors) {
-          const errorMessages = error.response.data.errors
-            .map((err) => `${err.field}: ${err.message}`)
-            .join('\n')
-          this.showNotification(`Validation Error:\n${errorMessages}`, 'error', 'mdi-alert')
-        } else {
-          this.showNotification(
-            error.response?.data?.message || 'Failed to save tax rate',
-            'error',
-            'mdi-alert'
-          )
-        }
-      } finally {
-        this.saving = false
+      let response
+      if (this.editingTaxRate) {
+        response = await this.$axios.put(`/api/tax/${this.editingTaxRate.id}`, taxData)
+        this.showNotification('Tax rate updated successfully', 'success', 'mdi-check')
+      } else {
+        response = await this.$axios.post('/api/tax', taxData)
+        this.showNotification('Tax rate created successfully', 'success', 'mdi-check')
       }
-    },
+
+      this.closeTaxDialog()
+      await this.loadTaxRates()
+      await this.loadStatistics()
+    } catch (error) {
+      console.error('Error saving tax rate:', error)
+      console.error('Error response:', error.response?.data)
+
+      if (error.response?.data?.errors) {
+        const errorMessages = error.response.data.errors
+          .map((err) => `${err.field}: ${err.message}`)
+          .join('\n')
+        this.showNotification(`Validation Error:\n${errorMessages}`, 'error', 'mdi-alert')
+      } else {
+        this.showNotification(
+          error.response?.data?.message || 'Failed to save tax rate',
+          'error',
+          'mdi-alert'
+        )
+      }
+    } finally {
+      this.saving = false
+    }
+  },
+
+ // NEW: Get tax type display label
+  getTaxTypeLabel(taxType) {
+    const option = this.taxTypeOptions.find(opt => opt.value === taxType)
+    return option ? option.text : taxType
+  },
 
     async setDefaultRate(taxRate) {
       this.confirmDialog = {
@@ -1066,15 +1097,33 @@ export default {
       this.displayPercentage = (rate * 100).toFixed(2) + '%'
     },
 
-    calculateExampleTax(amount, rate) {
-      const taxAmount = amount * parseFloat(rate)
+    calculateExampleTax(amount, rate, taxType) {
+    const rateNum = parseFloat(rate) || 0
+    
+    if (taxType === 'INC') {
+      // Inclusive: tax is part of the amount
+      // Tax = Amount - (Amount / (1 + rate))
+      const taxAmount = amount - (amount / (1 + rateNum))
       return taxAmount.toFixed(2)
-    },
+    } else {
+      // Exclusive: tax is added to the amount
+      const taxAmount = amount * rateNum
+      return taxAmount.toFixed(2)
+    }
+  },
 
-    calculateExampleTotal(amount, rate) {
-      const taxAmount = amount * parseFloat(rate)
+    calculateExampleTotal(amount, rate, taxType) {
+    const rateNum = parseFloat(rate) || 0
+    
+    if (taxType === 'INC') {
+      // Inclusive: total is the same as original amount
+      return amount.toFixed(2)
+    } else {
+      // Exclusive: total = amount + tax
+      const taxAmount = amount * rateNum
       return (amount + taxAmount).toFixed(2)
-    },
+    }
+  },
 
     formatDate(date) {
       if (!date) return 'N/A'

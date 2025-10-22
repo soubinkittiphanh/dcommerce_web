@@ -7,7 +7,7 @@
       </div>
 
       <div class="print-preview" v-if="ticket">
-        <!-- ULTRA COMPACT HEADER for 85mm -->
+        <!-- COMPACT HEADER for 54mm -->
         <div class="print-header">
           <div class="restaurant-info">
             <h1 class="restaurant-name">{{ companyInfo.name }}</h1>
@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <!-- ULTRA COMPACT TICKET INFO for 85mm -->
+        <!-- COMPACT TICKET INFO for 54mm -->
         <div class="print-ticket-info">
           <div class="ticket-basic">
             <div class="detail-row">
@@ -53,7 +53,7 @@
 
         <div class="print-divider"></div>
 
-        <!-- ULTRA COMPACT ITEMS for 85mm -->
+        <!-- COMPACT ITEMS for 54mm -->
         <div class="print-items">
           <div class="section-title">ITEMS</div>
           <div v-if="ticket.ticketLines && ticket.ticketLines.length > 0">
@@ -66,13 +66,13 @@
                 <span class="item-qty">{{ line.quantity }}x{{ formatPrice(line.unitPrice || line.pro_price) }}</span>
               </div>
               
-              <!-- Ultra compact promotion -->
+              <!-- Compact promotion -->
               <div v-if="line.is_promotion_item && line.promotion_note" class="item-promotion">
                 <span>🏷️{{ line.promotion_note }}</span>
                 <span v-if="line.discount_amount > 0">-{{ formatPrice(line.discount_amount) }}</span>
               </div>
               
-              <!-- Ultra compact notes -->
+              <!-- Compact notes -->
               <div v-if="line.notes" class="item-notes">{{ line.notes }}</div>
             </div>
           </div>
@@ -83,25 +83,54 @@
 
         <div class="print-divider"></div>
 
-        <!-- ULTRA COMPACT SUMMARY for 85mm -->
+        <!-- CORRECTED SUMMARY for tax-inclusive pricing -->
         <div class="print-summary">
+          <!-- Show total with tax (original price) -->
           <div class="summary-line">
-            <span>Subtotal:</span>
-            <span>{{ formatPrice(ticket.subtotal) }}</span>
+            <span>Total (with tax):</span>
+            <span>{{ formatPrice(getTicketTotalWithTax()) }}</span>
           </div>
           
+          <!-- Show base amount (extracted from tax-inclusive price) -->
+<!--            
+          <div class="summary-line" style="color: #666; font-size: 9px;">
+            <span>Base amount:</span>
+            <span>{{ formatPrice(getTicketBaseAmount()) }}</span>
+          </div> -->
+          
+          <!-- Show promotions if any -->
           <div v-if="hasPromotionDiscount" class="summary-line promotion-line">
             <span>Discount:</span>
             <span>-{{ formatPrice(ticket.promotionDiscount || 0) }}</span>
           </div>
           
+          <!-- Show base after promotions -->
+          <!-- <div class="summary-line" style="color: #666; font-size: 9px;">
+            <span>Base after promotions:</span>
+            <span>{{ formatPrice(getTicketBaseAfterPromotions()) }}</span>
+          </div>
+           -->
+          <!-- Show tax breakdown -->
+          <div v-if="getTicketTaxBreakdown().length > 0">
+            <div
+              v-for="taxItem in getTicketTaxBreakdown()"
+              :key="taxItem.code"
+              class="summary-line"
+              style="font-size: 9px;"
+            >
+              <span>{{ taxItem.name }} ({{ (taxItem.rate * 100).toFixed(1) }}% {{ taxItem.type }}):</span>
+              <span>{{ formatPrice(taxItem.taxAmount) }}</span>
+            </div>
+          </div>
+          
+          <!-- Total tax amount -->
           <div class="summary-line">
-            <span>Tax:</span>
-            <span>{{ formatPrice(ticket.tax) }}</span>
+            <span>Total Tax:</span>
+            <span>{{ formatPrice(ticket.tax || 0) }}</span>
           </div>
           
           <div class="summary-line total-line">
-            <span>TOTAL:</span>
+            <span>FINAL TOTAL:</span>
             <span>{{ formatPrice(ticket.total) }}</span>
           </div>
         </div>
@@ -118,7 +147,7 @@
           </div>
         </div>
 
-        <!-- ULTRA COMPACT PAYMENT for 85mm -->
+        <!-- COMPACT PAYMENT for 54mm -->
         <div class="print-payment">
           <div class="payment-status">
             <span>Payment:</span>
@@ -271,6 +300,96 @@ export default {
   },
 
   methods: {
+    // ... existing methods ...
+
+    // ADDED: Methods for tax-inclusive print calculations
+    getTicketTotalWithTax() {
+      if (!this.ticket || !this.ticket.ticketLines) return 0
+      
+      return this.ticket.ticketLines.reduce((total, line) => {
+        return total + (line.quantity * (line.unitPrice || line.pro_price || 0))
+      }, 0)
+    },
+
+    getTicketBaseAmount() {
+      if (!this.ticket || !this.ticket.ticketLines) return 0
+      
+      return this.ticket.ticketLines.reduce((total, line) => {
+        const itemTotal = line.quantity * (line.unitPrice || line.pro_price || 0)
+        
+        // If line has tax information and it's inclusive
+        if (line.taxRate && line.taxType === 'INC') {
+          // Extract base amount: base = total / (1 + tax_rate)
+          return total + (itemTotal / (1 + parseFloat(line.taxRate)))
+        } else {
+          // For tax exclusive or no tax: base = total
+          return total + itemTotal
+        }
+      }, 0)
+    },
+
+    getTicketBaseAfterPromotions() {
+      const baseAmount = this.getTicketBaseAmount()
+      const promotionDiscount = this.ticket.promotionDiscount || 0
+      return Math.max(0, baseAmount - promotionDiscount)
+    },
+
+    getTicketTaxBreakdown() {
+      if (!this.ticket || !this.ticket.ticketLines) return []
+      
+      const taxGroups = new Map()
+      const totalBaseAmount = this.getTicketBaseAmount()
+      const promotionDiscount = this.ticket.promotionDiscount || 0
+      const discountRatio = totalBaseAmount > 0 ? promotionDiscount / totalBaseAmount : 0
+
+      this.ticket.ticketLines.forEach(line => {
+        if (line.taxRate && line.taxRate > 0) {
+          const taxKey = line.taxId || 'default'
+          const itemTotal = line.quantity * (line.unitPrice || line.pro_price || 0)
+          
+          let itemBaseAmount
+          if (line.taxType === 'INC') {
+            // For tax inclusive: extract base amount
+            itemBaseAmount = itemTotal / (1 + parseFloat(line.taxRate))
+          } else {
+            // For tax exclusive: item total is the base amount
+            itemBaseAmount = itemTotal
+          }
+          
+          if (!taxGroups.has(taxKey)) {
+            taxGroups.set(taxKey, {
+              name: `Tax ${(parseFloat(line.taxRate) * 100).toFixed(1)}%`,
+              code: line.taxId || 'TAX',
+              rate: parseFloat(line.taxRate),
+              type: line.taxType || 'INC',
+              baseAmount: 0
+            })
+          }
+          
+          const group = taxGroups.get(taxKey)
+          group.baseAmount += itemBaseAmount
+        }
+      })
+
+      const breakdown = []
+      taxGroups.forEach(group => {
+        // Apply proportional discount
+        const adjustedBaseAmount = group.baseAmount * (1 - discountRatio)
+        const taxAmount = adjustedBaseAmount * group.rate
+        
+        breakdown.push({
+          name: group.name,
+          code: group.code,
+          rate: group.rate,
+          type: group.type,
+          baseAmount: adjustedBaseAmount,
+          taxAmount: taxAmount
+        })
+      })
+
+      return breakdown
+    },
+
     getAfterPromotionsAmount() {
       if (!this.ticket) return 0
       const subtotal = parseFloat(this.ticket.subtotal || 0)
@@ -282,7 +401,7 @@ export default {
       this.$emit('close')
     },
 
-    // Optimized for 85mm thermal printer
+    // Optimized for 54mm thermal printer - let printer handle width
     async printNow() {
       if (!this.ticket) return
 
@@ -290,8 +409,8 @@ export default {
 
       try {
         const printContent = document.querySelector('.print-preview').innerHTML
-        // Smaller window size for 85mm thermal printer
-        const printWindow = window.open('', '_blank', 'width=250,height=500')
+        // Remove specific width constraints - let printer handle it
+        const printWindow = window.open('', '_blank')
 
         printWindow.document.write(`
           <!DOCTYPE html>
@@ -299,7 +418,6 @@ export default {
           <head>
             <title>Ticket #${this.ticket.id}</title>
             <meta charset="utf-8">
-            <meta name="viewport" content="width=85mm">
             <style>
               ${this.getPrintStyles()}
             </style>
@@ -313,14 +431,14 @@ export default {
         printWindow.document.close()
         printWindow.focus()
 
-        // Faster printing for thermal printers
+        // Standard printing delay
         setTimeout(() => {
           printWindow.print()
           printWindow.close()
           this.printing = false
           this.$emit('printed', this.ticket)
           this.closeDialog()
-        }, 50)
+        }, 100)
       } catch (error) {
         console.error('Print error:', error)
         this.printing = false
@@ -405,7 +523,7 @@ export default {
       )
     },
 
-    // Truncate item names if too long for 85mm
+    // Truncate item names for 54mm
     getItemName(line) {
       let name = line.pro_name ||
         line.product?.pro_name ||
@@ -413,143 +531,132 @@ export default {
         line.pro_desc ||
         'Unknown Item'
       
-      // Truncate long names for 85mm thermal printer
-      if (name.length > 20) {
-        name = name.substring(0, 17) + '...'
+      // Truncate for 54mm thermal printer
+      if (name.length > 15) {
+        name = name.substring(0, 12) + '...'
       }
       
       return name
     },
 
-    // 85mm thermal printer optimized styles
+    // 54mm thermal printer optimized styles - READABLE FONTS
     getPrintStyles() {
       return `
         body {
           font-family: 'Courier New', monospace;
-          font-size: 8px;
-          line-height: 1.0;
+          font-size: 12px;
+          line-height: 1.2;
           margin: 0;
-          padding: 2px 4px;
+          padding: 4px;
           color: #000;
-          width: 85mm;
-          max-width: 85mm;
           overflow-wrap: break-word;
         }
         
-        /* Header optimized for 85mm */
+        /* Header for 54mm */
         .print-header {
           text-align: center;
-          margin-bottom: 4px;
+          margin-bottom: 8px;
         }
         .restaurant-name {
-          font-size: 10px;
+          font-size: 14px;
           font-weight: bold;
-          margin: 0 0 1px 0;
+          margin: 0 0 4px 0;
         }
         .restaurant-address {
-          font-size: 7px;
-          margin: 0;
-          line-height: 1.0;
+          font-size: 10px;
+          margin: 0 0 2px 0;
+          line-height: 1.2;
         }
         .contact-line {
-          font-size: 6px;
-          margin: 1px 0 0 0;
+          font-size: 9px;
+          margin: 2px 0;
           color: #666;
         }
         
-        /* Ticket info for 85mm width */
+        /* Ticket info for 54mm */
         .print-ticket-info {
-          margin-bottom: 3px;
-          font-size: 7px;
-        }
-        .ticket-basic, .customer-basic {
-          margin-bottom: 2px;
+          margin-bottom: 6px;
+          font-size: 10px;
         }
         .detail-row {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 0px;
-          font-size: 7px;
+          margin-bottom: 2px;
+          font-size: 10px;
         }
         .detail-label {
           font-weight: bold;
-          width: 35%;
         }
         .detail-value {
-          width: 65%;
           text-align: right;
         }
         
-        /* Compact divider */
+        /* Divider */
         .print-divider {
           border-top: 1px dashed #000;
-          margin: 2px 0;
+          margin: 6px 0;
         }
         
-        /* Items section for 85mm */
+        /* Items section for 54mm */
         .section-title {
-          font-size: 8px;
+          font-size: 12px;
           font-weight: bold;
-          margin: 0 0 2px 0;
+          margin: 0 0 6px 0;
           text-align: center;
         }
         .print-item {
-          margin-bottom: 2px;
-          font-size: 7px;
+          margin-bottom: 6px;
+          font-size: 10px;
         }
         .item-main {
           display: flex;
           justify-content: space-between;
           font-weight: bold;
-          margin-bottom: 0px;
+          margin-bottom: 2px;
         }
         .item-name {
-          width: 70%;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          flex: 1;
+          word-wrap: break-word;
         }
         .item-price {
-          width: 30%;
+          margin-left: 8px;
           text-align: right;
         }
         .item-details {
           display: flex;
-          justify-content: space-between;
-          font-size: 6px;
-          margin-left: 4px;
+          justify-content: flex-start;
+          font-size: 9px;
+          margin-left: 8px;
           color: #666;
         }
-        .item-qty {
-          font-size: 6px;
-        }
         
-        /* Promotions for 85mm */
+        /* Promotions for 54mm */
         .item-promotion {
-          display: flex;
-          justify-content: space-between;
-          font-size: 6px;
-          margin-left: 4px;
+          display: block;
+          font-size: 9px;
+          margin-left: 8px;
           color: #28a745;
           font-style: italic;
+          margin-top: 2px;
         }
         .item-notes {
-          font-size: 6px;
+          font-size: 9px;
           font-style: italic;
-          margin-left: 4px;
+          margin-left: 8px;
           color: #666;
           word-wrap: break-word;
+          margin-top: 2px;
         }
         
-        /* Summary optimized for 85mm */
+        /* Summary for 54mm */
         .print-summary {
-          margin: 3px 0;
-          font-size: 7px;
+          margin: 8px 0;
+          font-size: 10px;
         }
         .summary-line {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 0px;
+          margin-bottom: 2px;
         }
         .promotion-line {
           color: #28a745;
@@ -557,16 +664,16 @@ export default {
         }
         .total-line {
           font-weight: bold;
-          font-size: 9px;
+          font-size: 12px;
           border-top: 1px solid #000;
-          padding-top: 1px;
-          margin-top: 2px;
+          padding-top: 4px;
+          margin-top: 4px;
         }
         
         /* Payment status */
         .print-payment {
-          margin: 3px 0;
-          font-size: 7px;
+          margin: 8px 0;
+          font-size: 10px;
         }
         .payment-status {
           display: flex;
@@ -576,12 +683,12 @@ export default {
         
         /* Notes section */
         .print-notes {
-          margin: 3px 0;
-          font-size: 6px;
+          margin: 8px 0;
+          font-size: 9px;
         }
         .print-notes h4 {
-          font-size: 7px;
-          margin: 0 0 1px 0;
+          font-size: 10px;
+          margin: 0 0 4px 0;
         }
         .print-notes p {
           margin: 0;
@@ -590,17 +697,17 @@ export default {
         
         /* Promotions section */
         .print-promotions {
-          margin: 3px 0;
-          font-size: 6px;
+          margin: 8px 0;
+          font-size: 9px;
         }
         .print-promotions h4 {
-          font-size: 7px;
-          margin: 0 0 2px 0;
+          font-size: 10px;
+          margin: 0 0 4px 0;
           text-align: center;
           color: #28a745;
         }
         .promotion-info {
-          margin-bottom: 2px;
+          margin-bottom: 4px;
         }
         .promotion-row {
           display: flex;
@@ -608,26 +715,20 @@ export default {
           font-weight: bold;
           color: #28a745;
         }
-        .promotion-desc {
-          font-size: 6px;
-          color: #666;
-          font-style: italic;
-          word-wrap: break-word;
-        }
         
-        /* Footer for 85mm */
+        /* Footer */
         .print-footer {
           text-align: center;
-          margin-top: 4px;
-          font-size: 6px;
+          margin-top: 8px;
+          font-size: 9px;
         }
         .thank-you {
           font-weight: bold;
-          font-size: 7px;
-          margin: 2px 0 1px 0;
+          font-size: 10px;
+          margin: 4px 0 2px 0;
         }
         .print-time {
-          font-size: 6px;
+          font-size: 8px;
           margin: 0;
           color: #666;
         }
@@ -637,44 +738,34 @@ export default {
         .payment-paid { color: #155724; }
         .payment-refunded { color: #721c24; }
         
-        /* Hide sections to save space on 85mm */
-        .print-company-footer,
-        .print-custom-footer,
-        .company-remark {
-          display: none;
-        }
-        
         .no-items-print {
           text-align: center;
-          padding: 4px;
+          padding: 8px;
           color: #666;
           font-style: italic;
-          font-size: 6px;
+          font-size: 9px;
         }
         
-        /* Thermal printer specific */
+        /* Print media query - let printer handle width */
         @media print {
           body { 
             margin: 0; 
-            padding: 1px 2px; 
-            font-size: 7px;
-            width: 85mm;
-            max-width: 85mm;
+            padding: 2px;
+            font-size: 11px;
           }
           .print-divider {
-            margin: 1px 0;
+            margin: 4px 0;
           }
           .restaurant-name {
-            font-size: 9px;
+            font-size: 13px;
           }
           .total-line {
-            font-size: 8px;
+            font-size: 11px;
           }
         }
         
-        /* Ensure no content overflows 85mm width */
+        /* Let content flow naturally */
         * {
-          max-width: 100%;
           box-sizing: border-box;
         }
       `
@@ -684,7 +775,7 @@ export default {
 </script>
 
 <style scoped>
-/* Dialog Overlay */
+/* Keep your existing scoped styles - they're for the dialog, not the print */
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -699,7 +790,6 @@ export default {
   padding: 20px;
 }
 
-/* Print Dialog Content */
 .print-dialog-content {
   background: white;
   border-radius: 12px;
@@ -756,14 +846,14 @@ export default {
   color: #000;
 }
 
-/* Print Header */
+/* Dialog Preview Styles (Better for viewing in browser) */
 .print-header {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .restaurant-name {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   margin: 0 0 8px 0;
   color: #333;
@@ -778,11 +868,11 @@ export default {
 
 .contact-line {
   font-size: 12px;
-  margin: 2px 0;
+  margin: 4px 0;
   color: #666;
 }
 
-/* Ticket Info */
+/* Ticket Info for Dialog */
 .print-ticket-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -806,13 +896,13 @@ export default {
   color: #000;
 }
 
-/* Divider */
+/* Divider for Dialog */
 .print-divider {
   border-top: 2px dashed #333;
   margin: 20px 0;
 }
 
-/* Items Section */
+/* Items Section for Dialog */
 .print-items {
   margin-bottom: 20px;
 }
@@ -883,7 +973,7 @@ export default {
   font-style: italic;
 }
 
-/* Summary */
+/* Summary for Dialog */
 .print-summary {
   margin: 20px 0;
 }
@@ -908,7 +998,7 @@ export default {
   margin-top: 12px;
 }
 
-/* Promotions */
+/* Promotions for Dialog */
 .print-promotions {
   margin: 20px 0;
   padding: 10px;
@@ -937,7 +1027,7 @@ export default {
   margin-bottom: 2px;
 }
 
-/* Payment */
+/* Payment for Dialog */
 .print-payment {
   margin: 20px 0;
 }
@@ -960,7 +1050,7 @@ export default {
   color: #721c24;
 }
 
-/* Notes */
+/* Notes for Dialog */
 .print-notes {
   margin: 20px 0;
 }
@@ -982,7 +1072,7 @@ export default {
   border-left: 4px solid #ffc107;
 }
 
-/* Footer */
+/* Footer for Dialog */
 .print-footer {
   text-align: center;
   margin-top: 30px;
@@ -1001,7 +1091,6 @@ export default {
   color: #888;
 }
 
-/* Print Dialog Actions */
 .print-dialog-actions {
   padding: 20px 24px;
   border-top: 1px solid #e9ecef;
@@ -1043,44 +1132,5 @@ export default {
 .print-btn:hover:not(:disabled) {
   opacity: 0.9;
   transform: translateY(-1px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .print-dialog-content {
-    max-height: 95vh;
-    margin: 10px;
-  }
-
-  .print-preview {
-    padding: 16px;
-    font-size: 12px;
-  }
-
-  .print-ticket-info {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .restaurant-name {
-    font-size: 20px;
-  }
-
-  .section-title {
-    font-size: 14px;
-  }
-
-  .total-line {
-    font-size: 16px;
-  }
-
-  .print-dialog-actions {
-    flex-direction: column;
-  }
-
-  .print-btn {
-    width: 100%;
-    justify-content: center;
-  }
 }
 </style>
