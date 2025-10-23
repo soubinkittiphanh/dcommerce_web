@@ -8,15 +8,24 @@
         <v-card>
           <v-card-title>ເລືອກ Terminal </v-card-title>
           <v-divider></v-divider>
-          <v-card-text style="height: 300px;">
+          <v-card-text style="height: 300px">
             <v-radio-group v-model="terminalSelected" column>
-              <v-radio v-for="terminal in findAllTerminal" :key="terminal.id"
-                :label="terminal.name + ' - ' + terminal.description" :value="terminal.id"></v-radio>
+              <v-radio
+                v-for="terminal in findAllTerminal"
+                :key="terminal.id"
+                :label="terminal.name + ' - ' + terminal.description"
+                :value="terminal.id"
+              ></v-radio>
             </v-radio-group>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn color="primary" rounded variant="text" @click="switchTerminal">
+            <v-btn
+              color="primary"
+              rounded
+              variant="text"
+              @click="switchTerminal"
+            >
               ເລືອກ
             </v-btn>
           </v-card-actions>
@@ -34,22 +43,40 @@
                 />
               </div> -->
               <!-- <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່ລະບົບການຂາຍ </h2> -->
-              <h2 class="text-center" style="color: #01532B;">ຍິນດີຕ້ອນຮັບ</h2>
+              <h2 class="text-center" style="color: #01532b">ຍິນດີຕ້ອນຮັບ</h2>
             </v-col>
           </v-row>
           <v-card-text>
             <notification v-if="errorMessage" :message="errorMessage" />
-            <v-card-title class="my-text-center">
-              ເຂົ້າສູ່ລະບົບ
-            </v-card-title>
+            <v-card-title class="my-text-center"> ເຂົ້າສູ່ລະບົບ </v-card-title>
             <v-form>
-              <v-text-field v-model="login.mem_id" label="ກະລຸນາ ໃສ່ໄອດີ" name="email"
-                prepend-inner-icon="mdi-account-tie-hat" class="rounded-10 my-text-center" outlined>
+              <v-text-field
+                v-model="login.mem_id"
+                label="ກະລຸນາ ໃສ່ໄອດີ"
+                name="email"
+                prepend-inner-icon="mdi-account-tie-hat"
+                class="rounded-10 my-text-center"
+                outlined
+              >
               </v-text-field>
-              <v-text-field v-model="login.mem_pwd" label="ລະຫັດຜ່ານ" type="password" name="password"
-                prepend-inner-icon="mdi-lock" class="rounded-10 my-text-center" outlined></v-text-field>
-              <v-btn class="rounded-0 my-text-center" color="#01532B" x-large block dark @click.prevent="userLogin"
-                type="submit">
+              <v-text-field
+                v-model="login.mem_pwd"
+                label="ລະຫັດຜ່ານ"
+                type="password"
+                name="password"
+                prepend-inner-icon="mdi-lock"
+                class="rounded-10 my-text-center"
+                outlined
+              ></v-text-field>
+              <v-btn
+                class="rounded-0 my-text-center"
+                color="#01532B"
+                x-large
+                block
+                dark
+                @click.prevent="userLogin"
+                type="submit"
+              >
                 ເຂົ້າສູ່ລະບົບ
                 <v-icon> mdi mdi-login</v-icon>
               </v-btn>
@@ -65,7 +92,7 @@ import Notification from '../../../components/Notification.vue'
 import { swalError2 } from '~/common'
 import { mapActions, mapGetters } from 'vuex'
 export default {
-  layout: "login",
+  layout: 'login',
   data() {
     return {
       terminalDialog: false,
@@ -78,8 +105,8 @@ export default {
       timer: null,
       login: {
         mem_id: '',
-        mem_pwd: ''
-      }
+        mem_pwd: '',
+      },
     }
   },
 
@@ -87,34 +114,54 @@ export default {
     Notification,
   },
   computed: {
-    ...mapGetters(['findSelectedTerminal', 'findAllTerminal', 'findAllLocation']),
+    ...mapGetters([
+      'findSelectedTerminal',
+      'findAllTerminal',
+      'findAllLocation',
+    ]),
   },
   methods: {
-    ...mapActions(['initiateData', 'setSelectedTerminal', 'setSelectedLocation']),
+    ...mapActions([
+      'initiateData',
+      'setSelectedTerminal',
+      'setSelectedLocation',
+    ]),
     switchTerminal() {
       this.setSelectedTerminal(this.terminalSelected)
-      const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId'])
+      const location = this.findAllLocation.find(
+        (el) =>
+          el.id ==
+          this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
+            'locationId'
+          ]
+      )
       this.setSelectedLocation(location)
-      // this.$router.push('/admin/ticket')
-      this.$router.push('/admin/moneyAdvance')
-      // this.terminalDialog = false
+      this.$router.push('/admin/ticket')
+      // this.$router.push('/admin/moneyAdvance')
+      this.terminalDialog = false
     },
     async userLogin() {
-      if(this.isLoading) return
+      if (this.isLoading) return
       try {
         this.isLoading = true
         this.errorMessage = ''
-        const response = await this.$auth.loginWith('local', { data: this.login })
+        const response = await this.$auth.loginWith('local', {
+          data: this.login,
+        })
 
         if (response.status !== 200) {
           this.isLoading = false
-          return swalError2(this.$swal, 'Error', 'ບໍ່ສາມາດ ລັອກອິນ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ')
-
+          return swalError2(
+            this.$swal,
+            'Error',
+            'ບໍ່ສາມາດ ລັອກອິນ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ'
+          )
         }
         if (response.data.accessToken) {
-          console.log(`LOGIN COMPLETED`);
+          console.log(`LOGIN COMPLETED`)
           this.initData()
-          this.switchTerminal()
+          // this.switchTerminal()
+          this.terminalDialog = true
         } else {
           console.log('No token')
           swalError2(this.$swal, 'Error', 'ໄອດີ ຫລື ລະຫັດຜ່ານ ບໍ່ຖືກຕ້ອງ')
@@ -126,11 +173,8 @@ export default {
       this.isLoading = false
     },
     initData() {
-        this.initiateData(
-          this.$axios
-        );
+      this.initiateData(this.$axios)
     },
-
   },
 }
 </script>
@@ -160,6 +204,6 @@ h2 {
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: #CCDDD5;
+  background: #ccddd5;
 }
 </style>
