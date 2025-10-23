@@ -1,48 +1,23 @@
 <template>
   <v-container fluid class="pa-0 fill-height">
     <!-- Print Dialog -->
-    <PrintTicketDialog
-      :show="showCustomerPrint"
-      :ticket="selectedTicket"
-      :restaurant-info="restaurantConfig"
-      @close="closePrintDialog"
-      @printed="onPrintSuccess"
-    />
+    <PrintTicketDialog :show="showCustomerPrint" :ticket="selectedTicket" :restaurant-info="restaurantConfig"
+      @close="closePrintDialog" @printed="onPrintSuccess" />
 
     <!-- Notes Dialog Component -->
-    <NotesDialog
-      :show="showNotesDialog"
-      :notes="orderNotes"
-      :existing-notes="currentTicket?.notes"
-      title="Add Notes to Order"
-      label="Order Notes"
+    <NotesDialog :show="showNotesDialog" :notes="orderNotes" :existing-notes="currentTicket?.notes"
+      title="Add Notes to Order" label="Order Notes"
       placeholder="Enter any special instructions or notes for this order..."
-      hint="These notes will be saved with the ticket"
-      :max-length="500"
-      :show-quick-notes="true"
-      :quick-notes="quickNotes"
-      :loading="savingNotes"
-      @close="closeNotesDialog"
-      @save="handleSaveNotes"
-      @show-message="showMessage"
-    />
+      hint="These notes will be saved with the ticket" :max-length="500" :show-quick-notes="true"
+      :quick-notes="quickNotes" :loading="savingNotes" @close="closeNotesDialog" @save="handleSaveNotes"
+      @show-message="showMessage" />
 
     <!-- Payment Dialog -->
-    <PaymentDialog
-      :show="showPaymentDialog"
-      :table-number="tableId"
-      :ticket-id="existingTicket?.id || null"
-      :amount="paymentAmount"
-      :payment-methods="paymentList"
-      :payment-loading="paymentLoading"
-      :action-loading="actionLoading"
-      :enable-q-r="true"
-      :show-q-r-details="false"
-      @close="closePaymentDialog"
-      @confirm-payment="handlePaymentConfirm"
-      @reload-payment-methods="loadPaymentMethods"
-      @show-message="showMessage"
-    />
+    <PaymentDialog :show="showPaymentDialog" :table-number="tableId" :ticket-id="existingTicket?.id || null"
+      :amount="paymentAmount" :payment-methods="paymentList" :payment-loading="paymentLoading"
+      :action-loading="actionLoading" :enable-q-r="true" :show-q-r-details="false" @close="closePaymentDialog"
+      @confirm-payment="handlePaymentConfirm" @reload-payment-methods="loadPaymentMethods"
+      @show-message="showMessage" />
 
     <!-- Print Confirmation Dialog -->
     <v-dialog v-model="showPrintConfirmDialog" max-width="400" persistent>
@@ -53,9 +28,7 @@
         </v-card-title>
 
         <v-card-text class="text-center py-4">
-          <v-icon size="64" color="success" class="mb-3"
-            >mdi-credit-card-check</v-icon
-          >
+          <v-icon size="64" color="success" class="mb-3">mdi-credit-card-check</v-icon>
           <div class="text-h6 mb-2">
             Payment has been processed successfully
           </div>
@@ -68,20 +41,11 @@
         </v-card-text>
 
         <v-card-actions class="justify-center pb-4">
-          <v-btn
-            color="grey"
-            text
-            @click="handlePrintConfirmation(false)"
-            class="mr-2"
-          >
+          <v-btn color="grey" text @click="handlePrintConfirmation(false)" class="mr-2">
             <v-icon left>mdi-close</v-icon>
             No, Skip
           </v-btn>
-          <v-btn
-            color="primary"
-            @click="handlePrintConfirmation(true)"
-            class="ml-2"
-          >
+          <v-btn color="primary" @click="handlePrintConfirmation(true)" class="ml-2">
             <v-icon left>mdi-printer</v-icon>
             Yes, Print Receipt
           </v-btn>
@@ -90,17 +54,9 @@
     </v-dialog>
 
     <!-- Customer Dialog -->
-    <CustomerDialog
-      :show="showCustomerDialog"
-      :customers="customers"
-      :selected-customer="selectedCustomer"
-      :loading-customers="loadingCustomers"
-      @close="closeCustomerDialog"
-      @customer-selected="handleCustomerSelected"
-      @walk-in-selected="handleWalkInSelected"
-      @save-customer="handleSaveCustomer"
-      @show-message="showMessage"
-    />
+    <CustomerDialog :show="showCustomerDialog" :customers="customers" :selected-customer="selectedCustomer"
+      :loading-customers="loadingCustomers" @close="closeCustomerDialog" @customer-selected="handleCustomerSelected"
+      @walk-in-selected="handleWalkInSelected" @save-customer="handleSaveCustomer" @show-message="showMessage" />
 
     <!-- Main Content -->
     <v-row no-gutters style="height: 100vh">
@@ -113,11 +69,7 @@
             Product Menu
             <v-spacer></v-spacer>
             <!-- Table Info Display -->
-            <v-chip
-              color="accent"
-              class="mr-2"
-              v-if="tableId && tableId !== 'walk-in'"
-            >
+            <v-chip color="accent" class="mr-2" v-if="tableId && tableId !== 'walk-in'">
               <v-icon class="mr-1" small>mdi-table-furniture</v-icon>
               Table {{ displayTableId }}
             </v-chip>
@@ -139,93 +91,45 @@
           <v-card-text class="pa-3">
             <v-row>
               <v-col cols="6">
-                <v-text-field
-                  v-model="searchQuery"
-                  prepend-inner-icon="mdi-magnify"
-                  label="Search products..."
-                  outlined
-                  dense
-                  clearable
-                  hide-details
-                />
+                <v-text-field v-model="searchQuery" prepend-inner-icon="mdi-magnify" label="Search products..." outlined
+                  dense clearable hide-details />
               </v-col>
               <v-col cols="3">
-                <v-autocomplete
-                  v-model="categoryFilter"
-                  :items="categoryOptions"
-                  item-text="categ_name"
-                  item-value="categ_id"
-                  label="Filter by Category"
-                  outlined
-                  dense
-                  clearable
-                  hide-details
-                />
+                <v-autocomplete v-model="categoryFilter" :items="categoryOptions" item-text="categ_name"
+                  item-value="categ_id" label="Filter by Category" outlined dense clearable hide-details />
               </v-col>
             </v-row>
           </v-card-text>
         </v-card>
 
         <!-- Loading State -->
-        <v-card
-          v-if="loading"
-          class="flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center"
-        >
+        <v-card v-if="loading" class="flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center">
           <div class="text-center">
-            <v-progress-circular
-              size="64"
-              color="primary"
-              indeterminate
-            ></v-progress-circular>
+            <v-progress-circular size="64" color="primary" indeterminate></v-progress-circular>
             <p class="mt-4 text-h6">Loading products...</p>
           </div>
         </v-card>
 
         <!-- Menu Items Grid -->
-        <v-card
-          v-else
-          class="flex-grow-1 ma-0 rounded-0"
-          style="overflow-y: auto"
-        >
+        <v-card v-else class="flex-grow-1 ma-0 rounded-0" style="overflow-y: auto">
           <v-card-text class="pa-4">
             <v-row v-if="filteredProducts.length > 0">
-              <v-col
-                v-for="product in filteredProducts"
-                :key="product.id"
-                cols="4"
-                class="pa-2"
-              >
-                <v-card
-                  @click="addToCart(product)"
-                  elevation="2"
-                  hover
-                  class="text-center pa-4 cursor-pointer product-card"
-                  height="160"
-                  :disabled="
-                    (!product.isActive || product.stock_count <= 0) &&
+              <v-col v-for="product in filteredProducts" :key="product.id" cols="4" class="pa-2">
+                <v-card @click="addToCart(product)" elevation="2" hover
+                  class="text-center pa-4 cursor-pointer product-card" height="160" :disabled="(!product.isActive || product.stock_count <= 0) &&
                     product.validateStockOnSale
-                  "
-                  :class="{
+                    " :class="{
                     'product-disabled':
                       (!product.isActive || product.stock_count <= 0) &&
                       product.validateStockOnSale,
                     'promotion-eligible': isProductInPromotion(product),
-                  }"
-                >
+                  }">
                   <!-- Promotion indicator -->
-                  <v-icon
-                    v-if="isProductInPromotion(product)"
-                    color="success"
-                    class="promotion-badge"
-                    small
-                  >
+                  <v-icon v-if="isProductInPromotion(product)" color="success" class="promotion-badge" small>
                     mdi-tag
                   </v-icon>
 
-                  <v-card-title
-                    class="justify-center text-subtitle-1 pa-1"
-                    style="line-height: 1.2"
-                  >
+                  <v-card-title class="justify-center text-subtitle-1 pa-1" style="line-height: 1.2">
                     {{ product.pro_name }} {{ product.validateStockOnSale }}
                   </v-card-title>
 
@@ -234,32 +138,17 @@
                       {{ formatPrice(product.pro_price) }}
                     </div>
                     <div class="d-flex justify-space-between align-center">
-                      <v-chip
-                        :color="getCategoryColor(product.categ_name)"
-                        text-color="white"
-                        x-small
-                      >
+                      <v-chip :color="getCategoryColor(product.categ_name)" text-color="white" x-small>
                         {{ product.categ_name }}
                       </v-chip>
-                      <v-chip
-                        :color="getStockColor(product.stock_count)"
-                        text-color="white"
-                        x-small
-                      >
+                      <v-chip :color="getStockColor(product.stock_count)" text-color="white" x-small>
                         {{ product.stock_count }} left
                       </v-chip>
                     </div>
-                    <div
-                      v-if="product.pro_desc"
-                      class="caption mt-2 grey--text"
-                      style="height: 32px; overflow: hidden"
-                    >
+                    <div v-if="product.pro_desc" class="caption mt-2 grey--text" style="height: 32px; overflow: hidden">
                       {{ product.pro_desc }}
                     </div>
-                    <div
-                      v-if="!product.isActive"
-                      class="caption mt-1 error--text font-weight-bold"
-                    >
+                    <div v-if="!product.isActive" class="caption mt-1 error--text font-weight-bold">
                       INACTIVE
                     </div>
                   </v-card-text>
@@ -282,16 +171,8 @@
       </v-col>
 
       <!-- Right Panel - Cart (REORGANIZED) -->
-      <v-col
-        cols="4"
-        class="d-flex flex-column"
-        style="max-height: 100vh; overflow: hidden"
-      >
-        <v-card
-          class="flex-grow-1 ma-0 rounded-0 d-flex flex-column"
-          elevation="2"
-          style="overflow: hidden"
-        >
+      <v-col cols="4" class="d-flex flex-column" style="max-height: 100vh; overflow: hidden">
+        <v-card class="flex-grow-1 ma-0 rounded-0 d-flex flex-column" elevation="2" style="overflow: hidden">
           <!-- Compact Cart Header -->
           <v-card-title class="secondary white--text py-2">
             <v-icon left color="white" small>mdi-shopping</v-icon>
@@ -300,12 +181,7 @@
             <v-chip color="white" text-color="secondary" x-small class="mr-1">
               {{ getTotalItems() }} items
             </v-chip>
-            <v-chip
-              v-if="currentTicket"
-              :color="getTicketStatusColor(currentTicket.status)"
-              text-color="white"
-              x-small
-            >
+            <v-chip v-if="currentTicket" :color="getTicketStatusColor(currentTicket.status)" text-color="white" x-small>
               {{ currentTicket.status.toUpperCase() }}
             </v-chip>
           </v-card-title>
@@ -324,11 +200,7 @@
                     }}
                   </span>
                   <v-spacer></v-spacer>
-                  <v-icon
-                    small
-                    color="primary"
-                    v-if="orderNotes || currentTicket?.notes"
-                  >
+                  <v-icon small color="primary" v-if="orderNotes || currentTicket?.notes">
                     mdi-note-text
                   </v-icon>
                 </div>
@@ -338,24 +210,14 @@
                 <div class="mb-2">
                   <div class="d-flex justify-space-between align-center mb-1">
                     <span class="caption font-weight-bold">Customer:</span>
-                    <v-btn
-                      @click="showCustomerDialog = true"
-                      color="primary"
-                      x-small
-                      outlined
-                    >
+                    <v-btn @click="showCustomerDialog = true" color="primary" x-small outlined>
                       {{ selectedCustomer ? 'Change' : 'Select' }}
                     </v-btn>
                   </div>
 
                   <div v-if="selectedCustomer" class="caption">
                     {{ selectedCustomer.company || 'No company' }}
-                    <v-chip
-                      :color="getGradeColor(selectedCustomer.grade)"
-                      text-color="white"
-                      x-small
-                      class="ml-1"
-                    >
+                    <v-chip :color="getGradeColor(selectedCustomer.grade)" text-color="white" x-small class="ml-1">
                       Grade {{ selectedCustomer.grade }}
                     </v-chip>
                   </div>
@@ -372,10 +234,7 @@
                       <v-icon x-small>mdi-pencil</v-icon>
                     </v-btn>
                   </div>
-                  <div
-                    class="caption"
-                    style="max-height: 30px; overflow: hidden"
-                  >
+                  <div class="caption" style="max-height: 30px; overflow: hidden">
                     {{ orderNotes || currentTicket?.notes }}
                   </div>
                 </div>
@@ -390,34 +249,21 @@
           </v-expansion-panels>
 
           <!-- MAIN CART ITEMS SECTION - Now gets most of the space -->
-          <div
-            class="flex-grow-1 px-3 py-2"
-            style="overflow-y: auto; min-height: 200px"
-          >
+          <div class="flex-grow-1 px-3 py-2" style="overflow-y: auto; min-height: 200px">
             <div v-if="cart.length === 0" class="text-center py-8">
-              <v-icon size="48" color="grey lighten-2" class="mb-2"
-                >mdi-shopping-outline</v-icon
-              >
+              <v-icon size="48" color="grey lighten-2" class="mb-2">mdi-shopping-outline</v-icon>
               <p class="grey--text caption">No items in cart</p>
               <p class="grey--text caption">Add items from the menu</p>
             </div>
 
             <!-- Cart Items (More Compact) -->
             <div v-else>
-              <v-card
-                v-for="item in cart"
-                :key="item.id"
-                class="mb-2 pa-2"
-                outlined
-                elevation="0"
-                :class="{ 'ticket-line-item': item.isFromTicketLine }"
-              >
+              <v-card v-for="item in cart" :key="item.id" class="mb-2 pa-2" outlined elevation="0"
+                :class="{ 'ticket-line-item': item.isFromTicketLine }">
                 <!-- Product Name & Controls in one row -->
                 <div class="d-flex justify-space-between align-center mb-1">
                   <div class="flex-grow-1 mr-2">
-                    <div
-                      class="text-subtitle-2 font-weight-medium line-clamp-1"
-                    >
+                    <div class="text-subtitle-2 font-weight-medium line-clamp-1">
                       {{ getProductName(item.pro_id) }}
                     </div>
                     <div class="caption grey--text">
@@ -425,20 +271,12 @@
                       {{ formatPrice(item.pro_price) }}/each
                     </div>
                     <!-- Show indicators for ticket line items -->
-                    <div
-                      v-if="item.isFromTicketLine"
-                      class="caption info--text"
-                    >
+                    <div v-if="item.isFromTicketLine" class="caption info--text">
                       <v-icon x-small color="info">mdi-history</v-icon>
                       Saved item
                     </div>
                   </div>
-                  <v-btn
-                    @click="removeFromCart(item.id)"
-                    icon
-                    x-small
-                    color="error"
-                  >
+                  <v-btn @click="removeFromCart(item.id)" icon x-small color="error">
                     <v-icon x-small>mdi-delete</v-icon>
                   </v-btn>
                 </div>
@@ -446,24 +284,14 @@
                 <!-- Quantity Controls & Total -->
                 <div class="d-flex justify-space-between align-center">
                   <div class="d-flex align-center">
-                    <v-btn
-                      @click="updateQuantity(item.id, -1)"
-                      icon
-                      x-small
-                      color="grey"
-                    >
+                    <v-btn @click="updateQuantity(item.id, -1)" icon x-small color="grey">
                       <v-icon x-small>mdi-minus</v-icon>
                     </v-btn>
                     <span class="mx-2 font-weight-bold">{{
                       item.quantity
                     }}</span>
-                    <v-btn
-                      @click="updateQuantity(item.id, 1)"
-                      icon
-                      x-small
-                      color="grey"
-                      :disabled="(item.quantity >= item.stock_count) && item.validateStockOnSale"
-                    >
+                    <v-btn @click="updateQuantity(item.id, 1)" icon x-small color="grey"
+                      :disabled="(item.quantity >= item.stock_count) && item.validateStockOnSale">
                       <v-icon x-small>mdi-plus</v-icon>
                     </v-btn>
                   </div>
@@ -473,16 +301,11 @@
                 </div>
 
                 <!-- Warnings (Compact) -->
-                <div
-                  v-if="item.quantity >= item.stock_count && item.validateStockOnSale"
-                  class="caption error--text mt-1"
-                >
+                <div v-if="item.quantity >= item.stock_count && item.validateStockOnSale"
+                  class="caption error--text mt-1">
                   Max stock reached
                 </div>
-                <div
-                  v-if="item.isFromTicketLine && !item.isActive"
-                  class="caption warning--text mt-1"
-                >
+                <div v-if="item.isFromTicketLine && !item.isActive" class="caption warning--text mt-1">
                   <v-icon x-small color="warning">mdi-alert</v-icon>
                   Product is currently inactive
                 </div>
@@ -502,20 +325,15 @@
               </div>
 
               <!-- Show base amount (price without tax) -->
-              <div
-                class="d-flex justify-space-between caption mb-1 text--secondary"
-              >
+              <div class="d-flex justify-space-between caption mb-1 text--secondary">
                 <span>Base amount:</span>
                 <span>{{ formatPrice(getBaseAmount) }}</span>
               </div>
 
               <!-- Promotions (applied to base amount) -->
               <div v-if="appliedPromotions.length > 0">
-                <div
-                  v-for="(applied, index) in appliedPromotions"
-                  :key="index"
-                  class="d-flex justify-space-between caption success--text"
-                >
+                <div v-for="(applied, index) in appliedPromotions" :key="index"
+                  class="d-flex justify-space-between caption success--text">
                   <span>{{ applied.promotion.name }}:</span>
                   <span>-{{ formatPrice(applied.discount.amount) }}</span>
                 </div>
@@ -528,15 +346,10 @@
 
               <!-- Tax breakdown showing actual tax amounts -->
               <div v-if="getTaxBreakdown().length > 0">
-                <div
-                  v-for="taxItem in getTaxBreakdown()"
-                  :key="taxItem.code"
-                  class="d-flex justify-space-between caption mb-1"
-                >
-                  <span
-                    >{{ taxItem.name }} ({{ (taxItem.rate * 100).toFixed(2) }}%
-                    {{ taxItem.type }}):</span
-                  >
+                <div v-for="taxItem in getTaxBreakdown()" :key="taxItem.code"
+                  class="d-flex justify-space-between caption mb-1">
+                  <span>{{ taxItem.name }} ({{ (taxItem.rate * 100).toFixed(2) }}%
+                    {{ taxItem.type }}):</span>
                   <span>{{ formatPrice(taxItem.taxAmount) }}</span>
                 </div>
               </div>
@@ -549,9 +362,7 @@
 
               <v-divider class="mb-2"></v-divider>
 
-              <div
-                class="d-flex justify-space-between text-subtitle-1 font-weight-bold"
-              >
+              <div class="d-flex justify-space-between text-subtitle-1 font-weight-bold">
                 <span>Final Total:</span>
                 <span class="primary--text">{{
                   formatPrice(getFinalTotal)
@@ -563,25 +374,13 @@
             <div v-if="cart.length > 0" class="mt-2">
               <v-row dense no-gutters class="mb-1">
                 <v-col cols="6" class="pr-1">
-                  <v-btn
-                    @click="openNotesDialog"
-                    color="orange"
-                    block
-                    small
-                    outlined
-                  >
+                  <v-btn @click="openNotesDialog" color="orange" block small outlined>
                     <v-icon small class="mr-1">mdi-note-plus</v-icon>
                     Notes
                   </v-btn>
                 </v-col>
                 <v-col cols="6" class="pl-1">
-                  <v-btn
-                    @click="saveTicket"
-                    color="info"
-                    block
-                    small
-                    :loading="savingTicket"
-                  >
+                  <v-btn @click="saveTicket" color="info" block small :loading="savingTicket">
                     <v-icon small class="mr-1">mdi-content-save</v-icon>
                     Save
                   </v-btn>
@@ -589,23 +388,13 @@
               </v-row>
               <v-row dense no-gutters class="mb-1">
                 <v-col cols="6" class="pr-1">
-                  <v-btn
-                    @click="processPayment"
-                    color="primary"
-                    block
-                    :disabled="!currentTicket"
-                  >
+                  <v-btn @click="processPayment" color="primary" block :disabled="!currentTicket">
                     <v-icon small class="mr-1">mdi-credit-card</v-icon>
                     Payment
                   </v-btn>
                 </v-col>
                 <v-col cols="6" class="pl-1">
-                  <v-btn
-                    @click="printCustomerReceipt"
-                    color="green"
-                    block
-                    :disabled="!currentTicket"
-                  >
+                  <v-btn @click="printCustomerReceipt" color="green" block :disabled="!currentTicket">
                     <v-icon small class="mr-1">mdi-printer</v-icon>
                     Print
                   </v-btn>
@@ -622,13 +411,7 @@
     </v-row>
 
     <!-- Snackbar for Messages -->
-    <v-snackbar
-      v-model="snackbar.show"
-      :color="snackbar.color"
-      :timeout="snackbar.timeout"
-      top
-      right
-    >
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" :timeout="snackbar.timeout" top right>
       <div class="d-flex align-center">
         <v-icon class="mr-2">{{ snackbar.icon }}</v-icon>
         {{ snackbar.message }}
@@ -745,7 +528,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['findAllTerminal', 'findSelectedTerminal','currentSelectedLocation', 'findAllLocation']),
+    ...mapGetters(['findAllTerminal', 'findSelectedTerminal', 'currentSelectedLocation', 'findAllLocation']),
     getFinalTotal() {
       const baseAfterPromotions = this.getBaseAfterPromotions
       const tax = this.calculatedTax
@@ -1427,16 +1210,24 @@ export default {
     async fetchProducts() {
       this.loading = true
       try {
-        // Include tax in the query - note the locationId should be dynamic
-        const locationId = this.currentSelectedLocation['id'] || 1 // Use your actual location logic
+        // Get locationId and companyId from current selected location
+        const locationId = this.currentSelectedLocation['id'] || 1
+        const companyId = this.currentSelectedLocation['companyId'] // Optional - can be undefined
+
+        // Build the query string
+        let queryString = '?include=tax'
+        if (companyId) {
+          queryString += `&companyId=${companyId}`
+        }
+
         const response = await this.$axios.get(
-          `product_f/${locationId}?include=tax`
+          `product_f/${locationId}${queryString}`
         )
+
         console.log('Products response:', response.data)
 
         // Handle both old and new response formats
         const productData = response.data.data || response.data
-
         this.products = productData.map((product) => ({
           id: product.id,
           pro_id: product.pro_id,
@@ -2132,10 +1923,10 @@ export default {
           table: this.isWalkIn
             ? { id: null, number: null, name: 'Walk-in' }
             : {
-                id: this.tableId,
-                number: this.tableId,
-                name: `Table ${this.tableId}`,
-              },
+              id: this.tableId,
+              number: this.tableId,
+              name: `Table ${this.tableId}`,
+            },
           ticketLines: mappedTicketLines,
         }
 
@@ -2173,10 +1964,10 @@ export default {
           table: this.isWalkIn
             ? { id: null, number: null, name: 'Walk-in' }
             : {
-                id: this.tableId,
-                number: this.tableId,
-                name: `Table ${this.tableId}`,
-              },
+              id: this.tableId,
+              number: this.tableId,
+              name: `Table ${this.tableId}`,
+            },
           ticketLines: this.cart,
           subtotal: this.getTotalPrice(),
           promotionDiscount: this.getTotalPromotionDiscount(),
