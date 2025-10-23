@@ -27,7 +27,7 @@
               <!-- Left Side - Logo -->
               <div class="header-left">
                 <img
-                  :src="require('@/assets/image/Dcommerce-Logo-PM-login.jpg')"
+                  :src="require('@/assets/image/MPWT/PWT.png')"
                   alt="Company Logo"
                   class="company-logo"
                 />

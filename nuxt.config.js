@@ -136,25 +136,30 @@ export default {
   // nuxt.config.js
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // Add Chart.js transpilation
-    transpile: ['lucide-vue-next', 'chart.js'],
-    terser: {
-      parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
-    },
-    extend(config, { isDev, isClient }) {
-      // Suppress SES warnings in development
-      if (isDev && isClient) {
-        config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
-      }
-
-      // For Chart.js compatibility with Nuxt 2/Webpack 4
-      if (isClient) {
-        config.node = {
-          fs: 'empty'
-        }
+  // Add Chart.js transpilation + gantt package
+  transpile: ['lucide-vue-next', 'chart.js', 'gantt-schedule-timeline-calendar'],
+  terser: {
+    parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
+  },
+  extend(config, { isDev, isClient }) {
+    // Suppress SES warnings in development
+    if (isDev && isClient) {
+      config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
+    }
+    // For Chart.js compatibility with Nuxt 2/Webpack 4
+    if (isClient) {
+      config.node = {
+        fs: 'empty'
       }
     }
-  },
+    // Handle ES modules for gantt package
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto'
+    })
+  }
+},
 
   // Add this to suppress console warnings
   render: {

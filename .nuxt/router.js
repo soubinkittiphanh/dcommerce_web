@@ -146,6 +146,7 @@ const _614d3d46 = () => interopDefault(import('../pages/admin/report/MA/mixin/ex
 const _0eb07144 = () => interopDefault(import('../pages/admin/report/MA/settlement/bankAccount/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/bankAccount/index" */))
 const _7e071c50 = () => interopDefault(import('../pages/admin/report/MA/settlement/chartAccount/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/chartAccount/index" */))
 const _226939a8 = () => interopDefault(import('../pages/admin/report/MA/settlement/ministry/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/ministry/index" */))
+const _4600e75c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _30dc45ce = () => interopDefault(import('../pages/admin/PDFInvoice/_id/index.vue' /* webpackChunkName: "pages/admin/PDFInvoice/_id/index" */))
 const _70237d99 = () => interopDefault(import('../pages/admin/PDFInvoiceSummary/_id/index.vue' /* webpackChunkName: "pages/admin/PDFInvoiceSummary/_id/index" */))
 const _a3d2a890 = () => interopDefault(import('../pages/admin/PDFQuotation/_id/index.vue' /* webpackChunkName: "pages/admin/PDFQuotation/_id/index" */))
@@ -156,7 +157,6 @@ const _ce81df78 = () => interopDefault(import('../pages/admin/stock/_id/index.vu
 const _2b15649c = () => interopDefault(import('../pages/admin/web_product/_id/index.vue' /* webpackChunkName: "pages/admin/web_product/_id/index" */))
 const _1abec91d = () => interopDefault(import('../pages/product/_id/index.vue' /* webpackChunkName: "pages/product/_id/index" */))
 const _7214c6ef = () => interopDefault(import('../pages/product/_id/product-details.vue' /* webpackChunkName: "pages/product/_id/product-details" */))
-const _4600e75c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -738,6 +738,10 @@ export const routerOptions = {
     component: _226939a8,
     name: "admin-report-MA-settlement-ministry"
   }, {
+    path: "/",
+    component: _4600e75c,
+    name: "index"
+  }, {
     path: "/admin/PDFInvoice/:id",
     component: _30dc45ce,
     name: "admin-PDFInvoice-id"
@@ -777,10 +781,6 @@ export const routerOptions = {
     path: "/product/:id/product-details",
     component: _7214c6ef,
     name: "product-id-product-details"
-  }, {
-    path: "/",
-    component: _4600e75c,
-    name: "index"
   }],
 
   fallback: false

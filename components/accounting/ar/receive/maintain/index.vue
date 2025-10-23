@@ -2,22 +2,21 @@
 <!-- Replace your entire template section with this -->
 <template>
   <div>
-   
     <!-- Main Receipt Modal -->
     <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
       <!-- Print Dialog - MUST be at the TOP level, separate from main modal -->
-    <client-only>
-      <ARReceivePrinter
-        :visible="showPrintDialog"
-        :receipt-data="selectedReceiptForPrint"
-        :payment-methods="paymentMethods"
-        :currencies="currencies"
-        :transaction-codes="transactionCodes"
-        :gl-accounts="glAccounts"
-        :invoices="invoices"
-        @close="closePrintDialog"
-      />
-    </client-only>
+      <client-only>
+        <ARReceivePrinter
+          :visible="showPrintDialog"
+          :receipt-data="selectedReceiptForPrint"
+          :payment-methods="paymentMethods"
+          :currencies="currencies"
+          :transaction-codes="transactionCodes"
+          :gl-accounts="glAccounts"
+          :invoices="invoices"
+          @close="closePrintDialog"
+        />
+      </client-only>
       <div class="enhanced-dialog" @click.stop>
         <div class="modal-header">
           <h4 class="modal-title">
@@ -406,8 +405,8 @@
                           <!-- <th style="width: 90px">ວັນທີແບ່ງປັນ *</th> -->
                           <!-- <th style="width: 120px">ໝາຍເຫດ</th> -->
                           <th>ລະຫັດການເງິນ <span class="required">*</span></th>
-                          <th>DR</th>
-                          <th>CR</th>
+                          <!-- <th>DR</th>
+                          <th>CR</th> -->
                           <th style="width: 50px">ລຶບ</th>
                         </tr>
                       </thead>
@@ -574,7 +573,7 @@
                             </small>
                           </td>
 
-                          <td>
+                          <!-- <td>
                             <v-autocomplete
                               v-model="allocation.DRglAccountId"
                               :items="glAccounts"
@@ -630,7 +629,7 @@
                                 {{ item.accountName }}
                               </template>
                             </v-autocomplete>
-                          </td>
+                          </td> -->
                           <td>
                             <button
                               type="button"
@@ -1071,7 +1070,7 @@ export default {
     },
     printReceipt() {
       console.log('🖨️ Print button clicked')
-      
+
       if (!this.isEdit) {
         this.showToast('ກະລຸນາບັນທຶກການຮັບຊຳລະກ່ອນພິມ', 'warning')
         return
@@ -1115,7 +1114,7 @@ export default {
 
       // Set data and open dialog
       this.selectedReceiptForPrint = receiptData
-      
+
       this.$nextTick(() => {
         console.log('🚀 Opening print dialog...')
         this.showPrintDialog = true
@@ -1593,7 +1592,7 @@ export default {
         this.requestSequence()
       }
     },
-resetDialog() {
+    resetDialog() {
       this.resetForm()
       this.allocationLines = []
       this.selectedInvoice = null
@@ -1607,7 +1606,6 @@ resetDialog() {
       this.filteredInvoices = []
       this.invoiceSearchQuery = ''
     },
-
 
     async loadAllocationLines(receiptId) {
       try {
@@ -1982,7 +1980,7 @@ resetDialog() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
   min-height: 50px;
 }

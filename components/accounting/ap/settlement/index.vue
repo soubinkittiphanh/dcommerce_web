@@ -258,7 +258,7 @@
                       <th style="width: 20px">#</th>
                       <th>ປະເພດ</th>
                       <th>ເລກທີໃບແຈ້ງໜີ້</th>
-                      <th>ຕົວແທນ</th>
+                      <th>{{ formLabel.vendor }}</th>
                       <th>ລະຫັດການເງິນ <span class="required">*</span></th>
                       <th>ຄຳອະທິບາຍ</th>
                       <th>DR</th>
@@ -320,7 +320,7 @@
                           dense
                           outlined
                           hide-details
-                          placeholder="ເລືອກຕົວແທນ"
+                          :placeholder="formLabel.vendor"
                           class="table-autocomplete"
                         >
                           <template v-slot:item="{ item }">
@@ -740,6 +740,10 @@ export default {
       selectedSettlement: null,
       transactionCodes: [], // Add this
       loadingTransactionCodes: false, // Add this
+      formLabel: {
+        vendor: 'ເລືອກກະຊວງ', //'ເລືອກຕົວແທນ',
+        model: '',
+      },
       form: {
         id: null,
         settlementDate: new Date().toISOString().split('T')[0],
@@ -1321,7 +1325,7 @@ export default {
         // For manual entries, check if agency is selected
         if (line.type === 'manual' && !line.agencyId) {
           hasLineErrors = true
-          this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກຕົວແທນ`)
+          this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກ${this.formLabel.vendor}`)
         }
       })
 
@@ -1584,7 +1588,7 @@ select.form-control-xs:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
   min-height: 50px;
 }

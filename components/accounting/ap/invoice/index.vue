@@ -67,7 +67,8 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="agencyId" class="required">ຟົວແທນ/ຜູ້ຂາຍ</label>
+                  <label for="agencyId" class="required">ກະຊວງ</label>
+                  <!-- <label for="agencyId" class="required">ຟົວແທນ/ຜູ້ຂາຍ</label> -->
                   <v-autocomplete
                     id="agencyId"
                     v-model="form.agencyId"
@@ -80,7 +81,7 @@
                     outlined
                     clearable
                     hide-details="auto"
-                    placeholder="ເລືອກຕົວແທນ"
+                    :placeholder="formLabel.vendor"
                     @change="onVendorChange"
                   >
                     <template v-slot:item="{ item }">
@@ -296,11 +297,12 @@
                       <tr>
                         <th style="width: 30px">#</th>
                         <th style="width: 140px">ລາຍລະອຽດ *</th>
+                        <th style="width: 140px">ລະຫັດການເງິນ</th>
                         <th style="width: 60px">ຈຳນວນ *</th>
                         <th style="width: 70px">ລາຄາ *</th>
-                        <th style="width: 100px">DR Account *</th>
-                        <th style="width: 100px">CR Account *</th>
-                        <th style="width: 50px">ຫຼຸດ%</th>
+                        <!-- <th style="width: 100px">DR Account *</th>
+                        <th style="width: 100px">CR Account *</th> -->
+                        <!-- <th style="width: 50px">ຫຼຸດ%</th> -->
                         <!-- <th style="width: 50px">ພາສີ%</th> -->
                         <th style="width: 80px">ລວມ</th>
                         <th style="width: 40px">ລຶບ</th>
@@ -324,6 +326,48 @@
                             placeholder="ລາຍລະອຽດ..."
                             @blur="calculateLineTotal(line)"
                           />
+                        </td>
+                        <td>
+                          <v-autocomplete
+                            v-model="line.txnId"
+                            :items="
+                              transactionCodes.filter(
+                                (t) => t.type === 'EXPENSE' && t.isActive
+                              )
+                            "
+                            item-value="id"
+                            item-text="code"
+                            :label="
+                              loadingTransactionCodes
+                                ? 'ກຳລັງໂຫຼດ...'
+                                : 'ເລືອກລະຫັດການເງິນ'
+                            "
+                            :loading="loadingTransactionCodes"
+                            :disabled="loadingTransactionCodes"
+                            :error="!line.txnId && errors.settlementLines"
+                            dense
+                            outlined
+                            clearable
+                            hide-details="auto"
+                            class="mt-0"
+                          >
+                            <template v-slot:item="{ item }">
+                              <v-list-item-content>
+                                <v-list-item-title>
+                                  {{ item.code }} - {{ item.description }}
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </template>
+                            <template v-slot:selection="{ item }">
+                              {{ item.code }} - {{ item.description }}
+                            </template>
+                          </v-autocomplete>
+                          <small
+                            v-if="!line.txnId && errors.settlementLines"
+                            class="text-danger d-block mt-1"
+                          >
+                            ກະລຸນາເລືອກລະຫັດການເງິນ
+                          </small>
                         </td>
                         <td>
                           <input
@@ -351,7 +395,7 @@
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
-                        <td>
+                        <!-- <td>
                           <v-autocomplete
                             v-model="line.DRglAccountId"
                             :items="glAccounts"
@@ -417,8 +461,8 @@
                           >
                             {{ errors[`line_${index}_CRglAccountId`] }}
                           </small>
-                        </td>
-                        <td>
+                        </td> -->
+                        <!-- <td>
                           <input
                             v-model="line.discountRate"
                             type="number"
@@ -428,7 +472,7 @@
                             class="form-control form-control-xs"
                             @blur="calculateLineTotal(line)"
                           />
-                        </td>
+                        </td> -->
 
                         <td class="line-total">
                           {{
@@ -598,8 +642,17 @@ export default {
     user: { type: Object, default: null },
   },
   emits: ['close', 'save'],
+  async mounted() {
+    await this.loadTransactionCodes() // Add this
+  },
   data() {
     return {
+      transactionCodes: [],
+          loadingTransactionCodes: false, // Add this
+      formLabel: {
+        vendor: 'ເລືອກກະຊວງ', //'ເລືອກຕົວແທນ',
+        model: '',
+      },
       formLoading: false,
       saving: false,
       errors: {},
@@ -710,6 +763,28 @@ export default {
     },
   },
   methods: {
+    async loadTransactionCodes() {
+      this.loadingTransactionCodes = true
+      try {
+        const { data } = await this.$axios.get('/api/transaction-codes', {
+          params: {
+            includeInactive: false,
+            type: 'EXPENSE', // Filter only EXPENSE types for payments
+          },
+        })
+        this.transactionCodes = data || []
+      } catch (error) {
+        console.error('Error loading transaction codes:', error)
+        this.$toast?.error('ໂຫລດລະຫັດການເງິນບໍ່ສຳເລັດ')
+        this.transactionCodes = []
+      } finally {
+        this.loadingTransactionCodes = false
+      }
+    },
+    getTransactionCodeLabel(txnId) {
+      const txn = this.transactionCodes.find((t) => t.id === txnId)
+      return txn ? `${txn.code} - ${txn.description}` : ''
+    },
     async requestSequence() {
       try {
         const { data } = await this.$axios.get('/api/ap-invoices/sequence')
@@ -821,6 +896,7 @@ export default {
         unitPrice: 0,
         DRglAccountId: null,
         CRglAccountId: null,
+        txnId: null,
         discountRate: 0,
         discountAmount: 0,
         taxRate: 0,
@@ -920,7 +996,8 @@ export default {
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
       // if (!this.form.vendorInvoiceNumber)
       //   this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
-      if (!this.form.agencyId) this.errors.agencyId = 'ກະລຸນາເລືອກຕົວແທນ'
+      if (!this.form.agencyId)
+        this.errors.agencyId = `ກະລຸນາເລືອກ${this.formLabel.vendor}`
       if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
       if (!this.form.exchangeRate)
         this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ'
@@ -1068,7 +1145,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
   min-height: 50px;
 }

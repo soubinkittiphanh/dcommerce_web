@@ -28,7 +28,7 @@
             <v-col cols="12">
               <!-- <div class="text-center mb-4">
                 <img 
-                src="~/assets/image/Dcommerce-Logo-PM-login.jpg" 
+                src="~/assets/image/MPWT/PWT.png" 
                   alt="DCOMMERCE Logo" 
                   class="logo-image"
                 />
@@ -95,8 +95,9 @@ export default {
       this.setSelectedTerminal(this.terminalSelected)
       const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId'])
       this.setSelectedLocation(location)
-      this.$router.push('/admin/ticket')
-      this.terminalDialog = false
+      // this.$router.push('/admin/ticket')
+      this.$router.push('/admin/moneyAdvance')
+      // this.terminalDialog = false
     },
     async userLogin() {
       if(this.isLoading) return

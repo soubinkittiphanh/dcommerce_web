@@ -124,6 +124,7 @@ async function createApp(ssrContext, config = {}) {
       },
 
       err: null,
+      errPageReady: false,
       dateErr: null,
       error (err) {
         err = err || null
@@ -135,6 +136,7 @@ async function createApp(ssrContext, config = {}) {
         }
         nuxt.dateErr = Date.now()
         nuxt.err = err
+        nuxt.errPageReady = false
         // Used in src/server.js
         if (ssrContext) {
           ssrContext.nuxt.error = err
