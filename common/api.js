@@ -113,7 +113,7 @@ export const mainCompanyInfo = (store) => {
   //   companyLogo: 'TAIPHUAN.png',
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
-  // }
+  // }//
   const info = {
     name: 'PM',
     tel: '020 2383 8999',
