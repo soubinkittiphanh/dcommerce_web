@@ -1278,31 +1278,28 @@ export default {
 
 <style scoped>
 /* Maximized dialog with compact components */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1050;
-  padding: 10px;
+  padding: 0;
 }
 
 .enhanced-dialog {
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 98vw;
-  height: 95vh;
-  max-height: 95vh;
-  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .modal-header {
@@ -1718,16 +1715,6 @@ export default {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .enhanced-dialog {
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-  }
-
-  .modal-overlay {
-    padding: 0;
-  }
 
   .form-row {
     grid-template-columns: 1fr;

@@ -3,10 +3,36 @@
     <!-- Welcome Screen (when no QR is showing) -->
     <div v-if="!showQR" class="welcome-screen">
       <div class="logo-section">
-        <v-icon size="120" class="dcommerce-green-text mb-4"
-          >mdi-storefront</v-icon
-        >
-        <h1 class="store-name">DCOMMERCE CAFE</h1>
+        <!-- Dynamic Company Logo Section -->
+        <div class="company-logo-container mb-4">
+          <!-- Loading State -->
+          <div v-if="companyLogo.loading" class="logo-loading-container">
+            <v-progress-circular
+              indeterminate
+              size="32"
+              color="#01532B"
+            ></v-progress-circular>
+            <p class="mt-2 text-caption grey--text">ກຳລັງໂຫຼດໂລໂກ້...</p>
+          </div>
+          <!-- Company Logo -->
+          <img 
+            v-else-if="logoUrl"
+            :src="logoUrl" 
+            alt="Company Logo" 
+            class="company-logo-image"
+            @error="onLogoError"
+          />
+          <!-- Fallback Icon -->
+          <v-icon 
+            v-else
+            size="120" 
+            class="dcommerce-green-text mb-4"
+          >
+            mdi-storefront
+          </v-icon>
+        </div>
+        
+        <h1 class="store-name">{{ storeName }}</h1>
         <p class="welcome-text">Customer Display</p>
         <p class="status-text">Ready for QR Payment</p>
       </div>
@@ -19,6 +45,19 @@
           class="mb-4"
         ></v-progress-circular>
         <p class="waiting-text">Waiting for payment request...</p>
+      </div>
+      
+      <!-- Powered by DCOMMERCE Section for Welcome Screen -->
+      <div class="powered-by-welcome">
+        <div class="powered-by-container-welcome">
+          <span class="powered-by-text-welcome">Powered by</span>
+          <img 
+            :src="dcommerceLogoUrl" 
+            alt="DCOMMERCE Logo" 
+            class="dcommerce-logo-welcome"
+          />
+          <span class="dcommerce-text-welcome">DCOMMERCE</span>
+        </div>
       </div>
     </div>
 
@@ -165,6 +204,19 @@
           </div>
         </div>
       </div>
+      
+      <!-- Powered by DCOMMERCE Section for QR Screen -->
+      <div class="powered-by-qr">
+        <div class="powered-by-container-qr">
+          <span class="powered-by-text-qr">Powered by</span>
+          <img 
+            :src="dcommerceLogoUrl" 
+            alt="DCOMMERCE Logo" 
+            class="dcommerce-logo-qr"
+          />
+          <span class="dcommerce-text-qr">DCOMMERCE</span>
+        </div>
+      </div>
     </div>
 
     <!-- Payment Success Overlay -->
@@ -228,6 +280,14 @@ export default {
         taxRate: 8.5,
         discount: 0,
       },
+      
+      // Company logo management
+      companyLogo: {
+        url: null,
+        company: null,
+        loading: false,
+        error: false
+      }
     }
   },
 
@@ -239,11 +299,40 @@ export default {
       )
       return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedString}&format=png&margin=15&color=01532B&bgcolor=ffffff`
     },
+    
+    // Dynamic logo URL with fallback
+    logoUrl() {
+      if (this.companyLogo.url) {
+        return this.companyLogo.url
+      }
+      // Return null to show fallback icon
+      return null
+    },
+
+    // DCOMMERCE logo URL
+    dcommerceLogoUrl() {
+      try {
+        return require('~/assets/image/Dcommerce-Logo_DC.png')
+      } catch {
+        // Fallback to a default or online logo
+        return '/static/images/dcommerce-logo.png'
+      }
+    },
+
+    // Store name based on company data
+    storeName() {
+      if (this.companyLogo.company?.name) {
+        return this.companyLogo.company.name
+      }
+      return 'DCOMMERCE CAFE'
+    }
   },
 
   mounted() {
     this.setupCommunication()
     this.checkForExistingQR()
+    // Load company logo when component mounts
+    this.loadCompanyLogo()
   },
 
   beforeDestroy() {
@@ -251,6 +340,43 @@ export default {
   },
 
   methods: {
+    // Load first company with logo
+    async loadCompanyLogo() {
+      this.companyLogo.loading = true
+      this.companyLogo.error = false
+      
+      try {
+        // Get companies with active status
+        const response = await this.$axios.get('/api/public/company/findAll')
+        
+        const companies = Array.isArray(response.data) ? response.data : []
+        
+        // Find first company with profile image
+        const companyWithImage = companies.find(company => 
+          company.profile_image_path && company.isActive
+        )
+        
+        if (companyWithImage) {
+          this.companyLogo.company = companyWithImage
+          const baseUrl = this.$axios.defaults.baseURL || ''
+          this.companyLogo.url = `${baseUrl}/${companyWithImage.profile_image_path}`
+        }
+        
+      } catch (error) {
+        console.error('Error loading company logo:', error)
+        this.companyLogo.error = true
+      } finally {
+        this.companyLogo.loading = false
+      }
+    },
+
+    // Handle logo loading error
+    onLogoError() {
+      console.warn('Company logo failed to load')
+      this.companyLogo.url = null
+      this.companyLogo.error = true
+    },
+
     getProductName(productId) {
       try {
         const product = this.filteredProducts.find(
@@ -974,6 +1100,131 @@ export default {
   }
 }
 
+/* Company Logo Styles */
+.company-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.company-logo-image {
+  max-width: 200px;
+  width: 60%;
+  height: auto;
+  max-height: 120px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: opacity 0.3s ease;
+}
+
+.logo-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 200px;
+  margin: 0 auto;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+/* Powered by DCOMMERCE - Welcome Screen */
+.powered-by-welcome {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.powered-by-container-welcome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+}
+
+.powered-by-text-welcome {
+  font-size: 12px;
+  color: #6c757d;
+  font-weight: 400;
+  font-family: 'noto sans lao', sans-serif;
+}
+
+.dcommerce-logo-welcome {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+
+.dcommerce-text-welcome {
+  font-size: 14px;
+  font-weight: 700;
+  color: #01532B;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Powered by DCOMMERCE - QR Screen */
+.powered-by-qr {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.powered-by-container-qr {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  backdrop-filter: blur(8px);
+}
+
+.powered-by-text-qr {
+  font-size: 10px;
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.dcommerce-logo-qr {
+  height: 16px;
+  width: auto;
+  object-fit: contain;
+}
+
+.dcommerce-text-qr {
+  font-size: 12px;
+  font-weight: 700;
+  color: #01532B;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Hover effects */
+.powered-by-container-welcome:hover .dcommerce-text-welcome,
+.powered-by-container-qr:hover .dcommerce-text-qr {
+  color: #0056b3;
+  transition: color 0.3s ease;
+}
+
+.powered-by-container-welcome:hover .dcommerce-logo-welcome,
+.powered-by-container-qr:hover .dcommerce-logo-qr {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
 @media (max-width: 768px) {
   .qr-payment-screen {
     padding: 1rem;
@@ -989,6 +1240,28 @@ export default {
 
   .amount-value {
     font-size: 2rem;
+  }
+
+  .company-logo-image {
+    max-width: 150px;
+    width: 50%;
+  }
+
+  .powered-by-welcome {
+    bottom: 20px;
+  }
+
+  .powered-by-container-welcome {
+    padding: 8px 16px;
+  }
+
+  .powered-by-qr {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .powered-by-container-qr {
+    padding: 6px 12px;
   }
 }
 </style>

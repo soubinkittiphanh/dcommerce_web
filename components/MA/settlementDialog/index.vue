@@ -115,7 +115,7 @@
               </div>
 
               <!-- Row 3: External Reference -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-hashtag"></i>
                   ອີງຕາມ
@@ -135,7 +135,7 @@
               </div>
 
               <!-- Row 4: External Reference Number -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-hashtag"></i>
                   ເລກອ້າງອິງພາຍນອກ
@@ -274,7 +274,7 @@
               </div>
 
               <!-- Row 9: Ministry -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-building"></i>
                   ສັງກັດຢູ່ (ກະຊວງ)
@@ -368,7 +368,7 @@
               </div>
 
               <!-- Row 12: Chart Account -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-chart-line"></i>
                   ບັນຊີລວມ
@@ -825,6 +825,9 @@ export default {
   },
 
   computed: {
+    isBankTransfer() {
+      return 'bank_transfer' == this.formData.method
+    },
     isEditMode() {
       return (
         (this.settlement && this.settlement.id) ||
@@ -907,16 +910,8 @@ export default {
     },
 
     filteredBankAccounts() {
-      if (!this.selectedCurrency || !this.bankAccounts.length) {
-        return this.bankAccounts.filter((account) => account.isActive !== false)
-      }
-
-      const currencyCode =
-        this.selectedCurrency.code || this.selectedCurrency.currencyCode
       const filtered = this.bankAccounts.filter(
-        (account) =>
-          (account.currency === currencyCode || !account.currency) &&
-          account.isActive !== false
+        (account) => account.isActive !== false
       )
 
       return filtered.length > 0
@@ -2070,29 +2065,21 @@ export default {
   backdrop-filter: blur(4px);
   animation: fadeIn 0.3s ease-out;
 }
-
 .enhanced-dialog {
   background: white;
-  border-radius: 12px;
-  max-width: 95vw;
-  width: 95%;
-  max-height: 95vh;
-  height: 95vh;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.3s ease-out;
-  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
-
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
   border-bottom: 1px solid #e9ecef;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532B;
   color: white;
   flex-shrink: 0;
 }
@@ -2536,7 +2523,7 @@ export default {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532B;
   color: white;
 }
 
@@ -2660,12 +2647,6 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .enhanced-dialog {
-    width: 98%;
-    margin: 1vh auto;
-    max-height: 98vh;
-    height: 98vh;
-  }
 
   .form-grid.compact {
     grid-template-columns: repeat(2, 1fr);

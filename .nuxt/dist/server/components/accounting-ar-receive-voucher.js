@@ -1,44 +1,158 @@
 exports.ids = [20];
 exports.modules = {
 
-/***/ 546:
+/***/ 497:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// mixins/companyLogoMixin.js
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data() {
+    return {
+      companyLogo: {
+        url: null,
+        company: null,
+        loading: false,
+        error: null,
+        fallbackUrl: null
+      }
+    };
+  },
+  computed: {
+    // Get the final logo URL (with fallback)
+    finalLogoUrl() {
+      return this.companyLogo.url || this.companyLogo.fallbackUrl || this.getDefaultLogo();
+    },
+    // Check if logo is available
+    hasCompanyLogo() {
+      return !!this.companyLogo.url;
+    },
+    // Get company name from logo data
+    logoCompanyName() {
+      var _this$companyLogo$com;
+      return ((_this$companyLogo$com = this.companyLogo.company) === null || _this$companyLogo$com === void 0 ? void 0 : _this$companyLogo$com.name) || 'Company Name';
+    }
+  },
+  methods: {
+    // Load first company logo
+    async loadFirstCompanyLogo() {
+      this.companyLogo.loading = true;
+      this.companyLogo.error = null;
+      try {
+        const response = await this.$axios.get('/api/company/findAll', {
+          params: {
+            isActive: true
+          }
+        });
+        const companies = Array.isArray(response.data) ? response.data : [];
+        const companyWithImage = companies.find(company => company.profile_image_path && company.isActive);
+        if (companyWithImage) {
+          this.companyLogo.company = companyWithImage;
+          this.companyLogo.url = this.buildImageUrl(companyWithImage.profile_image_path);
+        }
+        this.companyLogo.fallbackUrl = this.getDefaultLogo();
+      } catch (error) {
+        console.error('Error loading company logo:', error);
+        this.companyLogo.error = error.message;
+        this.companyLogo.fallbackUrl = this.getDefaultLogo();
+      } finally {
+        this.companyLogo.loading = false;
+      }
+    },
+    // Load specific company logo
+    async loadCompanyLogo(companyId) {
+      this.companyLogo.loading = true;
+      this.companyLogo.error = null;
+      try {
+        const response = await this.$axios.get(`/api/company/find/${companyId}`);
+        const company = response.data;
+        this.companyLogo.company = company;
+        if (company.profile_image_path) {
+          this.companyLogo.url = this.buildImageUrl(company.profile_image_path);
+        } else {
+          this.companyLogo.url = null;
+        }
+        this.companyLogo.fallbackUrl = this.getDefaultLogo();
+      } catch (error) {
+        console.error('Error loading specific company logo:', error);
+        this.companyLogo.error = error.message;
+        this.companyLogo.fallbackUrl = this.getDefaultLogo();
+      } finally {
+        this.companyLogo.loading = false;
+      }
+    },
+    // Build image URL
+    buildImageUrl(imagePath) {
+      if (!imagePath) return null;
+      const baseUrl = this.$axios.defaults.baseURL || '';
+      return `${baseUrl}/${imagePath}`;
+    },
+    // Get default/fallback logo
+    getDefaultLogo() {
+      try {
+        return __webpack_require__(140);
+      } catch {
+        return '/static/images/default-logo.png';
+      }
+    },
+    // Handle logo load error
+    onLogoError() {
+      console.warn('Company logo failed to load');
+      this.companyLogo.url = null;
+    },
+    // Reset logo data
+    resetCompanyLogo() {
+      this.companyLogo = {
+        url: null,
+        company: null,
+        loading: false,
+        error: null,
+        fallbackUrl: null
+      };
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 547:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(643);
+var content = __webpack_require__(647);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("7f65ac52", content, true, context)
+  add("ef73fef8", content, true, context)
 };
 
 /***/ }),
 
-/***/ 642:
+/***/ 646:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0780b7ae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(546);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0780b7ae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0780b7ae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0780b7ae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0780b7ae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_30b7183e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(547);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_30b7183e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_30b7183e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_30b7183e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_30b7183e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 643:
+/***/ 647:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".receipt-container[data-v-0780b7ae]{background:#fff;margin:0 auto;max-width:900px;padding:40px}.receipt-header[data-v-0780b7ae]{border-bottom:3px solid #01532b;margin-bottom:30px;padding-bottom:15px}.header-flex[data-v-0780b7ae]{align-items:center;display:flex;gap:20px;justify-content:space-between}.header-left[data-v-0780b7ae]{flex-shrink:0}.header-center[data-v-0780b7ae]{flex:1;text-align:left}.header-right[data-v-0780b7ae]{flex-shrink:0;text-align:right}.company-logo[data-v-0780b7ae]{display:block;height:auto;-o-object-fit:contain;object-fit:contain;width:120px}.company-name[data-v-0780b7ae]{color:#01532b;font-size:24px;font-weight:700;margin:0 0 8px}.company-address[data-v-0780b7ae],.company-contact[data-v-0780b7ae]{color:#666;font-size:13px;margin:5px 0}.receipt-title h3[data-v-0780b7ae]{color:#333;font-size:20px;margin:0 0 5px}.receipt-title h4[data-v-0780b7ae]{color:#666;font-size:16px;margin:0}.receipt-info-grid[data-v-0780b7ae]{display:grid;grid-template-columns:1fr 1fr;grid-gap:30px;background-color:#f9f9f9;border-radius:4px;gap:30px;margin:25px 0;padding:20px}.info-section h5[data-v-0780b7ae]{border-bottom:1px solid #ddd;color:#333;font-size:14px;font-weight:600;margin:0 0 10px;padding-bottom:5px}.info-row[data-v-0780b7ae]{display:flex;font-size:12px;padding:5px 0}.label[data-v-0780b7ae]{color:#333;font-weight:600;min-width:120px}.value[data-v-0780b7ae]{color:#666}.receipt-table[data-v-0780b7ae]{border-collapse:collapse;font-size:13px;margin:25px 0;width:100%}.receipt-table td[data-v-0780b7ae],.receipt-table th[data-v-0780b7ae]{border:1px solid #ddd;padding:10px}.receipt-table th[data-v-0780b7ae]{background-color:#01532b;color:#fff;font-weight:600;text-align:left}.receipt-table tbody tr[data-v-0780b7ae]:nth-child(2n){background-color:#f9f9f9}.receipt-table .text-center[data-v-0780b7ae]{text-align:center}.receipt-table .text-right[data-v-0780b7ae]{text-align:right}.total-row td[data-v-0780b7ae]{background-color:#e8f5e9;font-size:14px;font-weight:700}.amount-words[data-v-0780b7ae]{background-color:#f0f4ff;border-left:4px solid #01532b;font-size:14px;margin:20px 0;padding:15px}.receipt-notes[data-v-0780b7ae]{background-color:#fff9e6;border-radius:4px;font-size:13px;margin:20px 0;padding:15px}.signature-section[data-v-0780b7ae]{display:flex;gap:40px;justify-content:space-between;margin-top:60px}.signature-box[data-v-0780b7ae]{flex:1;text-align:center}.signature-line[data-v-0780b7ae]{border-top:2px solid #333;margin:80px 10px 15px}.signature-label[data-v-0780b7ae]{color:#333;font-size:13px;font-weight:600;margin:8px 0}.signature-name[data-v-0780b7ae]{font-size:14px;font-weight:500;margin:5px 0}.signature-date[data-v-0780b7ae]{color:#666;font-size:12px}@media print{.receipt-container[data-v-0780b7ae]{padding:20px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".receipt-container[data-v-30b7183e]{background:#fff;margin:0 auto;max-width:900px;padding:40px}.receipt-header[data-v-30b7183e]{border-bottom:3px solid #01532b;margin-bottom:30px;padding-bottom:15px}.header-flex[data-v-30b7183e]{align-items:center;display:flex;gap:20px;justify-content:space-between}.header-left[data-v-30b7183e]{flex-shrink:0}.header-center[data-v-30b7183e]{flex:1;text-align:left}.header-right[data-v-30b7183e]{flex-shrink:0;text-align:right}.logo-placeholder[data-v-30b7183e]{align-items:center;border:2px dashed #ddd;border-radius:4px;display:flex;height:100px;justify-content:center;width:120px}.company-logo[data-v-30b7183e]{border-radius:4px;display:block;height:auto;max-height:100px;-o-object-fit:contain;object-fit:contain;width:120px}.company-name[data-v-30b7183e]{color:#01532b;font-size:24px;font-weight:700;margin:0 0 8px}.company-address[data-v-30b7183e],.company-contact[data-v-30b7183e]{color:#666;font-size:13px;margin:5px 0}.receipt-title h3[data-v-30b7183e]{color:#333;font-size:20px;margin:0 0 5px}.receipt-title h4[data-v-30b7183e]{color:#666;font-size:16px;margin:0}.receipt-info-grid[data-v-30b7183e]{display:grid;grid-template-columns:1fr 1fr;grid-gap:30px;background-color:#f9f9f9;border-radius:4px;gap:30px;margin:25px 0;padding:20px}.info-section h5[data-v-30b7183e]{border-bottom:1px solid #ddd;color:#333;font-size:14px;font-weight:600;margin:0 0 10px;padding-bottom:5px}.info-row[data-v-30b7183e]{display:flex;font-size:12px;padding:5px 0}.label[data-v-30b7183e]{color:#333;font-weight:600;min-width:120px}.value[data-v-30b7183e]{color:#666}.receipt-table[data-v-30b7183e]{border-collapse:collapse;font-size:13px;margin:25px 0;width:100%}.receipt-table td[data-v-30b7183e],.receipt-table th[data-v-30b7183e]{border:1px solid #ddd;padding:10px}.receipt-table th[data-v-30b7183e]{background-color:#01532b;color:#fff;font-weight:600;text-align:left}.receipt-table tbody tr[data-v-30b7183e]:nth-child(2n){background-color:#f9f9f9}.receipt-table .text-center[data-v-30b7183e]{text-align:center}.receipt-table .text-right[data-v-30b7183e]{text-align:right}.total-row td[data-v-30b7183e]{background-color:#e8f5e9;font-size:14px;font-weight:700}.amount-words[data-v-30b7183e]{background-color:#f0f4ff;border-left:4px solid #01532b;font-size:14px;margin:20px 0;padding:15px}.receipt-notes[data-v-30b7183e]{background-color:#fff9e6;border-radius:4px;font-size:13px;margin:20px 0;padding:15px}.signature-section[data-v-30b7183e]{display:flex;gap:40px;justify-content:space-between;margin-top:60px}.signature-box[data-v-30b7183e]{flex:1;text-align:center}.signature-line[data-v-30b7183e]{border-top:2px solid #333;margin:80px 10px 15px}.signature-label[data-v-30b7183e]{color:#333;font-size:13px;font-weight:600;margin:8px 0}.signature-name[data-v-30b7183e]{font-size:14px;font-weight:500;margin:5px 0}.signature-date[data-v-30b7183e]{color:#666;font-size:12px}@media print{.receipt-container[data-v-30b7183e]{padding:20px}.company-logo[data-v-30b7183e]{max-height:80px;width:100px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -46,7 +160,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 651:
+/***/ 656:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54,10 +168,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(124);
+var VBtn = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(121);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(6);
@@ -74,7 +188,7 @@ var VProgressCircular = __webpack_require__(91);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(391);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ar/receive/voucher/index.vue?vue&type=template&id=0780b7ae&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ar/receive/voucher/index.vue?vue&type=template&id=30b7183e&scoped=true
 
 
 
@@ -85,7 +199,7 @@ var VSpacer = __webpack_require__(391);
 
 
 
-var vouchervue_type_template_id_0780b7ae_scoped_true_render = function render() {
+var vouchervue_type_template_id_30b7183e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VDialog["a" /* default */], {
@@ -137,11 +251,22 @@ var vouchervue_type_template_id_0780b7ae_scoped_true_render = function render() 
     staticClass: "header-flex"
   }, [_c('div', {
     staticClass: "header-left"
-  }, [_c('img', {
+  }, [_vm.companyLogo.loading ? _c('div', {
+    staticClass: "logo-placeholder"
+  }, [_c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "indeterminate": "",
+      "size": "24",
+      "color": "primary"
+    }
+  })], 1) : _c('img', {
     staticClass: "company-logo",
     attrs: {
-      "src": __webpack_require__(167),
+      "src": _vm.finalLogoUrl,
       "alt": "Company Logo"
+    },
+    on: {
+      "error": _vm.onLogoError
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "header-center"
@@ -361,15 +486,20 @@ var vouchervue_type_template_id_0780b7ae_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/accounting/ar/receive/voucher/index.vue?vue&type=template&id=0780b7ae&scoped=true
+// CONCATENATED MODULE: ./components/accounting/ar/receive/voucher/index.vue?vue&type=template&id=30b7183e&scoped=true
 
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(37);
 
+// EXTERNAL MODULE: ./mixins/companyLogoMixin.js
+var companyLogoMixin = __webpack_require__(497);
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ar/receive/voucher/index.vue?vue&type=script&lang=js
 
+
 /* harmony default export */ var vouchervue_type_script_lang_js = ({
-  name: 'ARReceivePrinter',
+  name: 'ARReceivePrinterWithLogo',
+  mixins: [companyLogoMixin["a" /* default */]],
   props: {
     visible: {
       type: Boolean,
@@ -419,7 +549,7 @@ var api = __webpack_require__(37);
       return this.receiptData || {};
     },
     safeAllocationLines() {
-      return this.safeReceiptData.allocationLines || [];
+      return this.safeReceiptData.allocationLines || this.safeReceiptData.receiveLines || [];
     },
     // Company information
     companyName() {
@@ -455,118 +585,140 @@ var api = __webpack_require__(37);
       return (invoice === null || invoice === void 0 ? void 0 : invoice.invoiceNumber) || '-';
     },
     totalAmount() {
-      return this.safeAllocationLines.reduce((sum, line) => sum + (parseFloat(line.allocatedAmount) || 0), 0);
+      return this.safeAllocationLines.reduce((sum, line) => {
+        return sum + (parseFloat(line.allocatedAmount) || 0);
+      }, 0);
     },
     amountInWords() {
-      if (this.totalAmount === 0) return 'Zero Only';
-      return `${this.formatCurrency(this.totalAmount)} Only`;
+      return this.numberToWords(this.totalAmount) + ' Only';
+    }
+  },
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        // Load the first company logo when dialog opens
+        this.loadFirstCompanyLogo();
+      }
     }
   },
   methods: {
+    getPaymentMethodName(paymentId) {
+      if (!paymentId) return '-';
+      const method = this.paymentMethods.find(m => m.id === paymentId);
+      return (method === null || method === void 0 ? void 0 : method.name) || (method === null || method === void 0 ? void 0 : method.methodName) || '-';
+    },
+    getTransactionCode(txnId) {
+      if (!txnId) return '-';
+      const txn = this.transactionCodes.find(t => t.id === txnId);
+      return (txn === null || txn === void 0 ? void 0 : txn.code) || (txn === null || txn === void 0 ? void 0 : txn.transactionCode) || '-';
+    },
+    getGLAccount(accountId) {
+      if (!accountId) return '-';
+      const account = this.glAccounts.find(a => a.id === accountId);
+      return (account === null || account === void 0 ? void 0 : account.accountCode) || (account === null || account === void 0 ? void 0 : account.code) || '-';
+    },
     formatDate(date) {
       if (!date) return '-';
       try {
-        return new Date(date).toLocaleDateString('en-GB');
-      } catch (e) {
+        return new Date(date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+      } catch {
         return '-';
       }
     },
-    formatCurrency(amount) {
-      if (!amount && amount !== 0) return '0.00';
-      return new Intl.NumberFormat('en-US', {
+    formatNumber(value) {
+      if (!value && value !== 0) return '0';
+      return parseFloat(value).toLocaleString();
+    },
+    formatCurrency(value) {
+      if (!value && value !== 0) return '$0.00';
+      return `$${parseFloat(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      }).format(amount);
+      })}`;
     },
-    formatNumber(num) {
-      if (!num && num !== 0) return '1.0000';
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 4,
-        maximumFractionDigits: 4
-      }).format(num);
-    },
-    getPaymentMethodName(id) {
-      if (!id) return '-';
-      const method = this.paymentMethods.find(m => m.id === id);
-      return (method === null || method === void 0 ? void 0 : method.payment_name) || '-';
-    },
-    getTransactionCode(id) {
-      if (!id) return '-';
-      const txn = this.transactionCodes.find(t => t.id === id);
-      return txn ? `${txn.code}` : '-';
-    },
-    getGLAccount(id) {
-      if (!id) return '-';
-      const account = this.glAccounts.find(a => a.id === id);
-      return (account === null || account === void 0 ? void 0 : account.accountNumber) || '-';
+    numberToWords(num) {
+      // Simplified number to words conversion
+      if (num === 0) return 'Zero';
+      if (num < 1000) return `${Math.floor(num)} Dollars`;
+      if (num < 1000000) return `${Math.floor(num / 1000)} Thousand Dollars`;
+      return `${Math.floor(num / 1000000)} Million Dollars`;
     },
     printReceipt() {
-      if (!this.hasValidData) {
-        var _this$$toast;
-        (_this$$toast = this.$toast) === null || _this$$toast === void 0 ? void 0 : _this$$toast.error('ບໍ່ມີຂໍ້ມູນສຳລັບພິມ');
-        return;
-      }
       const printContent = document.getElementById('receipt-print-area');
       if (!printContent) {
-        var _this$$toast2;
-        (_this$$toast2 = this.$toast) === null || _this$$toast2 === void 0 ? void 0 : _this$$toast2.error('ບໍ່ພົບເນື້ອຫາສຳລັບພິມ');
+        this.$toast.error('Print content not found');
         return;
       }
-      const printWindow = window.open('', '', 'height=600,width=800');
-      printWindow.document.write('<html><head><title>Payment Receipt</title>');
+      const printWindow = window.open('', '_blank');
       printWindow.document.write(`
-        <style>
-          @media print {
-            body { 
+        <html>
+        <head>
+          <title>Payment Receipt - ${this.safeReceiptData.receiptNumber}</title>
+          <style>
+            * { 
               margin: 0; 
-              padding: 20px; 
+              padding: 0; 
+              box-sizing: border-box; 
+            }
+            body { 
               font-family: Arial, sans-serif; 
+              line-height: 1.4; 
+              color: #333; 
             }
             .receipt-container { 
-              max-width: 100%; 
+              background: white; 
+              padding: 20px; 
+              max-width: 900px; 
+              margin: 0 auto; 
             }
             .receipt-header { 
               margin-bottom: 20px; 
-              border-bottom: 2px solid #01532B; 
+              border-bottom: 3px solid #01532B; 
               padding-bottom: 15px; 
             }
-            .header-flex {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 20px;
+            .header-flex { 
+              display: flex; 
+              align-items: center; 
+              justify-content: space-between; 
+              gap: 20px; 
             }
-            .header-left {
-              flex-shrink: 0;
+            .header-left { 
+              flex-shrink: 0; 
             }
-            .header-center {
-              flex: 1;
-              text-align: left;
+            .header-center { 
+              flex: 1; 
+              text-align: left; 
             }
-            .header-right {
-              flex-shrink: 0;
-              text-align: right;
+            .header-right { 
+              flex-shrink: 0; 
+              text-align: right; 
             }
-            .company-logo {
-              width: 100px;
-              height: auto;
-              object-fit: contain;
+            .company-logo { 
+              width: 100px; 
+              height: auto; 
+              object-fit: contain; 
+              display: block; 
+              max-height: 80px; 
             }
             .company-name { 
-              margin: 0 0 5px 0; 
-              font-size: 22px; 
-              font-weight: bold;
-              color: #01532B;
+              margin: 0 0 8px 0; 
+              font-size: 20px; 
+              font-weight: bold; 
+              color: #01532B; 
             }
             .company-address, .company-contact { 
               margin: 3px 0; 
-              font-size: 11px;
-              color: #666;
+              font-size: 11px; 
+              color: #666; 
             }
             .receipt-title h3 { 
               margin: 0 0 5px 0; 
-              font-size: 18px;
-              color: #333;
+              font-size: 18px; 
+              color: #333; 
             }
             .receipt-title h4 { 
               margin: 0; 
@@ -680,7 +832,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(642)
+  var style0 = __webpack_require__(646)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -689,11 +841,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   receive_vouchervue_type_script_lang_js,
-  vouchervue_type_template_id_0780b7ae_scoped_true_render,
+  vouchervue_type_template_id_30b7183e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "0780b7ae",
+  "30b7183e",
   "6700ed7e"
   
 )

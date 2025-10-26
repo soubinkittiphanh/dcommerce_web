@@ -226,18 +226,16 @@
     </v-row>
 
     <!-- Invoice Maintain Dialog -->
-    <client-only>
-      <InvoiceHeaderMaintain
-        :gl-accounts="glAccounts"
-        :visible="showEditDialog"
-        :invoice="selectedInvoice"
-        :agencies="agencies"
-        :jobBatches="jobBatches"
-        :currencies="currencies"
-        @close="closeEditDialog"
-        @save="onInvoiceSave"
-      />
-    </client-only>
+    <InvoiceHeaderMaintain
+      :gl-accounts="glAccounts"
+      :visible="showEditDialog"
+      :invoice="selectedInvoice"
+      :agencies="agencies"
+      :jobBatches="jobBatches"
+      :currencies="currencies"
+      @close="closeEditDialog"
+      @save="onInvoiceSave"
+    />
 
     <!-- Invoice View Dialog -->
     <client-only>

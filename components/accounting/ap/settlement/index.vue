@@ -350,7 +350,7 @@
                           v-model="line.txnId"
                           :items="
                             transactionCodes.filter(
-                              (t) => t.type === 'EXPENSE' && t.isActive
+                              (t) => (t.type === 'EXPENSE' || t.type!='1') && t.isActive 
                             )
                           "
                           item-value="id"

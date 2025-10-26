@@ -13,16 +13,30 @@
     >
       <v-layout column align-center>
         <v-flex class="shadow mt-4 mb-4">
+          <!-- Dynamic Company Logo Section -->
+          <div v-if="companyLogo.loading" class="logo-loading-container">
+            <v-progress-circular
+              indeterminate
+              size="24"
+              color="white"
+            ></v-progress-circular>
+            <p class="mt-2 text-caption white--text">ກຳລັງໂຫຼດ...</p>
+          </div>
+          
+          <!-- Company Logo -->
           <v-img
-            v-if="companyData && companyData.dcLogo"
-            :src="require(`~/assets/image/${companyData.dcLogo}`)"
-            style="max-height: 1400px"
+            v-else
+            :src="finalLogoUrl"
+            style="max-height: 140px; max-width: 200px;"
+            contain
+            @error="onLogoError"
           />
         </v-flex>
       </v-layout>
+      
       <v-list>
         <!-- Home -->
-        <v-list-item to="/admin/ticket" router exact>
+        <v-list-item :to="homePage" router exact>
           <v-list-item-action>
             <v-icon color="white">mdi mdi-home-circle-outline</v-icon>
           </v-list-item-action>
@@ -33,7 +47,7 @@
             />
           </v-list-item-content>
         </v-list-item>
-        
+
         <!-- Group A -->
         <v-divider></v-divider>
         <v-list-group
@@ -53,7 +67,7 @@
 
           <!-- Group A menu items -->
           <v-list-item
-            v-for="(item, i) in (menu.menuLines || [])"
+            v-for="(item, i) in menu.menuLines || []"
             :key="i"
             :to="item.path"
             router
@@ -119,17 +133,17 @@
         <Nuxt />
       </v-container>
     </v-main>
-    
+
     <v-footer app>
       <v-spacer></v-spacer>
       <span v-if="user">
-        &copy;{{ new Date().getFullYear() }} Dcommerce: V.R23.0.5 user:
+        &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R23.0.5 user:
         {{ user.cus_name }} id: {{ user.id }}
       </span>
       <span v-else>
-        &copy;{{ new Date().getFullYear() }} Dcommerce: V.R23.0.5
+        &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R23.0.5
       </span>
-      
+
       <v-chip
         v-if="currentTerminal"
         class="ma-0"
@@ -150,6 +164,7 @@ import { hostName, mainCompanyInfo } from '~/common/api'
 export default {
   data() {
     return {
+      spfList: [],
       intervalId: null,
       terminalDialog: false,
       terminalSelected: 1,
@@ -164,6 +179,13 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
       dataLoaded: false,
+      // Company logo management
+      companyLogo: {
+        url: null,
+        company: null,
+        loading: false,
+        error: false
+      }
     }
   },
 
@@ -180,11 +202,13 @@ export default {
     try {
       await this.checkAllInitData()
       await this.loadMenu()
+      await this.fetchSPFItems()
+      await this.loadCompanyLogo() // Load company logo
       this.dataLoaded = true
     } catch (error) {
       console.error('Error in mounted:', error)
     }
-    
+
     window.addEventListener('beforeunload', this.clearInterval)
   },
 
@@ -194,6 +218,16 @@ export default {
   },
 
   computed: {
+    homePage() {
+      const homePage = this.spfList.find((spf) => spf.code === 'HOME')
+      if (homePage?.value) {
+        return homePage.value;
+      } else {
+        // Fallback route
+        return '/admin'
+      }
+    },
+
     ...mapGetters([
       'findSelectedTerminal',
       'findAllTerminal',
@@ -214,6 +248,40 @@ export default {
       }
     },
 
+    // Dynamic logo URL with fallback
+    finalLogoUrl() {
+      if (this.companyLogo.url) {
+        return this.companyLogo.url
+      }
+      
+      // Try using the company data logo
+      if (this.companyData?.dcLogo) {
+        try {
+          return require(`~/assets/image/${this.companyData.dcLogo}`)
+        } catch (error) {
+          console.warn('Static company logo not found:', this.companyData.dcLogo)
+        }
+      }
+      
+      // Final fallback
+      try {
+        return require('~/assets/image/MPWT/PWT.png')
+      } catch {
+        return '/static/images/default-logo.png'
+      }
+    },
+
+    // Company display name for footer
+    companyDisplayName() {
+      if (this.companyLogo.company?.name) {
+        return this.companyLogo.company.name
+      }
+      if (this.companyData?.name) {
+        return this.companyData.name
+      }
+      return 'Dcommerce'
+    },
+
     safeTerminals() {
       return Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
     },
@@ -226,15 +294,21 @@ export default {
       if (!this.safeTerminals.length || !this.findSelectedTerminal) {
         return null
       }
-      
-      return this.safeTerminals.find(
-        (el) => el && el.id == this.findSelectedTerminal
-      ) || null
+
+      return (
+        this.safeTerminals.find(
+          (el) => el && el.id == this.findSelectedTerminal
+        ) || null
+      )
     },
   },
 
   methods: {
-    ...mapActions(['initiateData', 'setSelectedTerminal', 'setSelectedLocation']),
+    ...mapActions([
+      'initiateData',
+      'setSelectedTerminal',
+      'setSelectedLocation',
+    ]),
 
     async initializeApp() {
       // Set default terminal if available
@@ -243,13 +317,55 @@ export default {
       }
     },
 
-    isGranted(code) {
-      if (!this.user || !this.user.userGroup || !this.user.userGroup.authorities) {
-        return false
-      }
+    // Load company logo from API
+    async loadCompanyLogo() {
+      this.companyLogo.loading = true
+      this.companyLogo.error = false
       
       try {
-        const grantedCodes = this.user.userGroup.authorities.map((el) => el.code)
+        // Get companies with active status using your public API
+        const response = await this.$axios.get('/api/public/company/findAll')
+        const companies = Array.isArray(response.data) ? response.data : []
+        
+        // Find first company with profile image
+        const companyWithImage = companies.find(company => 
+          company.profile_image_path && company.isActive
+        )
+        
+        if (companyWithImage) {
+          this.companyLogo.company = companyWithImage
+          const baseUrl = this.$axios.defaults.baseURL || ''
+          this.companyLogo.url = `${baseUrl}/${companyWithImage.profile_image_path}`
+        }
+        
+      } catch (error) {
+        console.error('Error loading company logo:', error)
+        this.companyLogo.error = true
+      } finally {
+        this.companyLogo.loading = false
+      }
+    },
+
+    // Handle logo loading error
+    onLogoError() {
+      console.warn('Company logo failed to load, using fallback')
+      this.companyLogo.url = null
+      this.companyLogo.error = true
+    },
+
+    isGranted(code) {
+      if (
+        !this.user ||
+        !this.user.userGroup ||
+        !this.user.userGroup.authorities
+      ) {
+        return false
+      }
+
+      try {
+        const grantedCodes = this.user.userGroup.authorities.map(
+          (el) => el.code
+        )
         return grantedCodes.includes(code)
       } catch (error) {
         console.error('Error checking permissions:', error)
@@ -266,9 +382,11 @@ export default {
 
     async checkAllInitData() {
       console.info(
-        `...loading ${this.safeTerminals.length}... ${new Date().toLocaleTimeString()}`
+        `...loading ${
+          this.safeTerminals.length
+        }... ${new Date().toLocaleTimeString()}`
       )
-      
+
       if (this.safeTerminals.length === 0) {
         console.error('Data missing, need to reload')
         await this.initData()
@@ -287,6 +405,19 @@ export default {
       }
     },
 
+    async fetchSPFItems() {
+      try {
+        this.loading = true
+        const response = await this.$axios.get('/api/spf/find')
+        console.info(`SPF RES ${JSON.stringify(response)}`)
+        this.spfList = response.data.data
+      } catch (error) {
+        this.$toast.error('Error fetching SPF data: ' + error.message)
+      } finally {
+        this.loading = false
+      }
+    },
+
     async loadMenu() {
       if (!this.user || !this.user.userGroup || !this.user.userGroup.id) {
         console.warn('User or userGroup data is not available')
@@ -298,9 +429,10 @@ export default {
         const response = await this.$axios.get(
           `api/group/find/${this.user.userGroup.id}`
         )
-        this.myMenu = response.data && response.data.menuHeaders 
-          ? response.data.menuHeaders 
-          : []
+        this.myMenu =
+          response.data && response.data.menuHeaders
+            ? response.data.menuHeaders
+            : []
       } catch (error) {
         console.error('Error loading menu:', error)
         this.myMenu = []
@@ -319,7 +451,7 @@ export default {
           (el) => el.id == this.terminalSelected
         )
 
-        if (selectedTerminal && selectedTerminal.locationId) {
+        if (selectedTerminal?.locationId) {
           const location = this.findAllLocation.find(
             (el) => el.id == selectedTerminal.locationId
           )
@@ -343,16 +475,35 @@ export default {
   font-family: 'noto sans lao';
 }
 
-
-
 .v-main {
   overflow-y: auto !important;
   height: 100vh !important;
 }
 
 /* Ensure proper page flow */
-html, body {
+html,
+body {
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* Logo loading container */
+.logo-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 180px;
+  margin: 0 auto;
+  border: 2px dashed rgba(255,255,255,0.3);
+  border-radius: 8px;
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Improve logo display */
+.v-image {
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
 }
 </style>

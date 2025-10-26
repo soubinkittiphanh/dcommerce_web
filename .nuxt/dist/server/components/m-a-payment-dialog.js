@@ -1,4 +1,4 @@
-exports.ids = [83,84];
+exports.ids = [85,86];
 exports.modules = {
 
 /***/ 403:
@@ -22,7 +22,7 @@ exports.modules = {
 
 /***/ }),
 
-/***/ 404:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -134,7 +134,7 @@ function isLeapYear(year) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(404);
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(406);
 
 const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
@@ -1005,7 +1005,7 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
 var VDatePickerTable = __webpack_require__(419);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
-var touch = __webpack_require__(134);
+var touch = __webpack_require__(136);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/eventHelpers.js
 function createItemTypeNativeListeners(instance, itemTypeSuffix, value) {
@@ -1251,7 +1251,7 @@ var mergeData = __webpack_require__(15);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(404);
+var dateTimeUtils = __webpack_require__(406);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerDateTable.js
 // Mixins
@@ -1507,7 +1507,7 @@ var VDatePickerYears = __webpack_require__(421);
 var VPicker = __webpack_require__(413);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(166);
+var VCard = __webpack_require__(167);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
 var elevatable = __webpack_require__(75);
@@ -2146,13 +2146,13 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 507:
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(564);
+var content = __webpack_require__(566);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2164,25 +2164,25 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 538:
+/***/ 539:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(614);
+var content = __webpack_require__(618);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("1ac44977", content, true, context)
+  add("182860af", content, true, context)
 };
 
 /***/ }),
 
-/***/ 550:
+/***/ 551:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2218,7 +2218,7 @@ var paymentVouchervue_type_template_id_3d1eb6e0_scoped_true_render = function re
   }, [_c('img', {
     staticClass: "voucher-logo",
     attrs: {
-      "src": __webpack_require__(167),
+      "src": __webpack_require__(140),
       "alt": "Ministry Logo"
     }
   }), _vm._v(" "), _c('div', {
@@ -2998,7 +2998,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(563)
+  var style0 = __webpack_require__(565)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -3020,19 +3020,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 563:
+/***/ 565:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3d1eb6e0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(507);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3d1eb6e0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(508);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3d1eb6e0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3d1eb6e0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3d1eb6e0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3d1eb6e0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 564:
+/***/ 566:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -3047,26 +3047,26 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 613:
+/***/ 617:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0024d5f2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(538);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0024d5f2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0024d5f2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0024d5f2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0024d5f2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e42de04_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(539);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e42de04_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e42de04_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e42de04_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e42de04_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 614:
+/***/ 618:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".compact-date-field[data-v-0024d5f2]{font-size:12px!important}.compact-date-field .v-input__control[data-v-0024d5f2],.compact-date-field .v-input__slot[data-v-0024d5f2]{max-height:32px!important;min-height:32px!important}.compact-date-field .v-input__slot[data-v-0024d5f2]{align-items:center!important;padding:0 8px!important}.compact-date-field .v-text-field__details[data-v-0024d5f2]{display:none!important}.compact-date-field .v-input__icon--prepend-inner[data-v-0024d5f2]{align-self:center!important;margin-right:6px!important;margin-top:0!important}.compact-date-field .v-input__icon--append[data-v-0024d5f2]{align-self:center!important;margin-left:6px!important;margin-top:0!important}.compact-date-field .v-text-field__slot[data-v-0024d5f2]{align-items:center!important;max-height:30px!important;min-height:30px!important}.compact-date-field input[data-v-0024d5f2]{font-size:12px!important;height:30px!important;line-height:1.2!important;margin:0!important;padding:0!important}.compact-date-field .v-text-field--outlined .v-input__control .v-input__slot[data-v-0024d5f2],.compact-date-field.v-text-field--outlined .v-input__control .v-input__slot[data-v-0024d5f2]{background:#fafafa!important;border:1px solid #e5e7eb!important;border-radius:4px!important}.compact-date-field .v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-0024d5f2],.compact-date-field.v-input--is-focused .v-input__slot[data-v-0024d5f2]{background:#fff!important;border-color:#667eea!important;box-shadow:0 0 0 2px rgba(102,126,234,.1)!important}.compact-date-field .v-text-field--outlined.v-input--is-disabled .v-input__control .v-input__slot[data-v-0024d5f2],.compact-date-field.v-input--is-disabled .v-input__slot[data-v-0024d5f2]{background-color:#f3f4f6!important;border-color:#d1d5db!important;opacity:.6!important}.compact-date-field .v-text-field--outlined fieldset[data-v-0024d5f2]{border:none!important}.compact-date-field .v-text-field--outlined .v-text-field__details[data-v-0024d5f2]{display:none!important}.v-menu__content[data-v-0024d5f2]{border-radius:8px!important;box-shadow:0 8px 32px rgba(0,0,0,.12)!important;overflow:hidden!important}.v-date-picker[data-v-0024d5f2]{box-shadow:none!important}.modal-header-right[data-v-0024d5f2]{align-items:center;display:flex;gap:15px}.voucher-number[data-v-0024d5f2]{color:#fff;font-size:14px;font-weight:600;opacity:.9}.modal-overlay[data-v-0024d5f2]{align-items:center;animation:fadeIn-0024d5f2 .3s ease-out;backdrop-filter:blur(4px);background:rgba(0,0,0,.6);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}@keyframes fadeIn-0024d5f2{0%{opacity:0}to{opacity:1}}.enhanced-dialog[data-v-0024d5f2]{animation:slideIn-0024d5f2 .3s ease-out;background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:98vh;max-width:95vw;overflow:hidden;width:95%}@keyframes slideIn-0024d5f2{0%{opacity:0;transform:translateY(-50px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-0024d5f2]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;padding:16px 18px}.modal-title-section[data-v-0024d5f2]{align-items:center;display:flex;gap:12px}.modal-icon[data-v-0024d5f2]{font-size:18px;opacity:.9}.modal-title[data-v-0024d5f2]{font-size:18px;font-weight:600;margin:0}.close-btn[data-v-0024d5f2]{background:none;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:16px;opacity:.8;padding:6px;transition:opacity .2s}.close-btn[data-v-0024d5f2]:hover{background:hsla(0,0%,100%,.1);opacity:1}.modal-body[data-v-0024d5f2]{max-height:calc(98vh - 120px);overflow-y:auto;padding:16px 18px}.form-loading[data-v-0024d5f2]{align-items:center;color:#666;display:flex;justify-content:center;padding:40px}.spinner-small[data-v-0024d5f2]{animation:spin-0024d5f2 1s linear infinite;border:2px solid #f3f3f3;border-radius:50%;border-top-color:#3498db;height:20px;margin-right:10px;width:20px}@keyframes spin-0024d5f2{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.form-grid[data-v-0024d5f2]{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:12px;gap:12px}.form-group[data-v-0024d5f2]{margin-bottom:0}.form-group.full-width[data-v-0024d5f2]{grid-column:1/-1}.form-group.span-2[data-v-0024d5f2]{grid-column:span 2}.form-group.span-3[data-v-0024d5f2]{grid-column:span 3}.form-label[data-v-0024d5f2]{align-items:center;color:#374151;display:flex;font-size:11px;font-weight:600;gap:6px;margin-bottom:4px}.form-label.required[data-v-0024d5f2]:after{color:#e74c3c;content:\"*\";margin-left:4px}.form-label i[data-v-0024d5f2]{color:#6b7280;font-size:11px}.form-control[data-v-0024d5f2]{background:#fafafa;border:1px solid #e5e7eb;border-radius:4px;box-sizing:border-box;font-size:12px;height:32px;padding:6px 8px;transition:all .2s ease;width:100%}.form-control[data-v-0024d5f2]:focus{background:#fff;border-color:#667eea;box-shadow:0 0 0 2px rgba(102,126,234,.1);outline:none}textarea.form-control[data-v-0024d5f2]{height:auto;min-height:60px;resize:vertical}.custom-select-wrapper[data-v-0024d5f2]{position:relative}.custom-select[data-v-0024d5f2]{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:32px}.select-icon[data-v-0024d5f2]{color:#6b7280;font-size:12px;pointer-events:none;position:absolute;right:8px;top:50%;transform:translateY(-50%)}.ministry-info[data-v-0024d5f2]{background:#f0f9ff;border:1px solid #bae6fd;border-radius:4px;margin-top:6px;padding:6px}.ministry-details[data-v-0024d5f2]{display:grid;grid-template-columns:1fr;grid-gap:3px;gap:3px}.ministry-detail-item[data-v-0024d5f2]{align-items:center;color:#075985;display:flex;font-size:10px;gap:4px}.ministry-detail-item i[data-v-0024d5f2]{color:#0ea5e9;flex-shrink:0;width:12px}.ministry-name[data-v-0024d5f2]{font-weight:600}.ministry-code[data-v-0024d5f2]{background:#e0f2fe;border-radius:2px;font-family:monospace;padding:1px 4px}.bank-account-info[data-v-0024d5f2]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:4px;margin-top:6px;padding:6px}.bank-details[data-v-0024d5f2]{display:grid;grid-template-columns:1fr;grid-gap:3px;gap:3px}.bank-detail-item[data-v-0024d5f2]{align-items:center;color:#6b7280;display:flex;font-size:10px;gap:4px}.bank-detail-item i[data-v-0024d5f2]{color:#667eea;width:12px}.form-errors[data-v-0024d5f2]{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-top:16px;padding:12px}.form-errors h6[data-v-0024d5f2]{align-items:center;color:#dc2626;display:flex;font-size:12px;gap:6px;margin:0 0 8px}.form-errors ul[data-v-0024d5f2]{color:#dc2626;font-size:11px;margin:0;padding-left:16px}.enhanced-footer[data-v-0024d5f2]{background:#f8f9fa;border-top:1px solid #e9ecef;display:flex;gap:10px;justify-content:flex-end;padding:12px 18px}.btn[data-v-0024d5f2]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:inline-flex;font-size:12px;font-weight:600;gap:6px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s ease}.btn[data-v-0024d5f2]:hover:not(:disabled){box-shadow:0 3px 8px rgba(0,0,0,.15);transform:translateY(-1px)}.btn[data-v-0024d5f2]:active:not(:disabled){transform:translateY(0)}.btn-primary[data-v-0024d5f2]{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}.btn-secondary[data-v-0024d5f2]{background:#6c757d;color:#fff}.btn[data-v-0024d5f2]:disabled{box-shadow:none!important;cursor:not-allowed;opacity:.6;transform:none!important}.fa-spin[data-v-0024d5f2]{animation:spin-0024d5f2 1s linear infinite}@media (max-width:1024px){.form-grid[data-v-0024d5f2]{grid-template-columns:repeat(2,1fr)}.form-group.span-2[data-v-0024d5f2],.form-group.span-3[data-v-0024d5f2]{grid-column:1/-1}}@media (max-width:768px){.enhanced-dialog[data-v-0024d5f2]{margin:10px;width:98%}.form-grid[data-v-0024d5f2]{grid-template-columns:1fr}.form-group.span-2[data-v-0024d5f2],.form-group.span-3[data-v-0024d5f2]{grid-column:1}.enhanced-footer[data-v-0024d5f2],.modal-body[data-v-0024d5f2],.modal-header[data-v-0024d5f2]{padding:14px 16px}.enhanced-footer[data-v-0024d5f2]{flex-direction:column-reverse}.enhanced-footer .btn[data-v-0024d5f2]{justify-content:center;width:100%}.compact-date-field .v-input__slot[data-v-0024d5f2]{padding:0 6px!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".compact-date-field[data-v-1e42de04]{font-size:12px!important}.compact-date-field .v-input__control[data-v-1e42de04],.compact-date-field .v-input__slot[data-v-1e42de04]{max-height:32px!important;min-height:32px!important}.compact-date-field .v-input__slot[data-v-1e42de04]{align-items:center!important;padding:0 8px!important}.compact-date-field .v-text-field__details[data-v-1e42de04]{display:none!important}.compact-date-field .v-input__icon--prepend-inner[data-v-1e42de04]{align-self:center!important;margin-right:6px!important;margin-top:0!important}.compact-date-field .v-input__icon--append[data-v-1e42de04]{align-self:center!important;margin-left:6px!important;margin-top:0!important}.compact-date-field .v-text-field__slot[data-v-1e42de04]{align-items:center!important;max-height:30px!important;min-height:30px!important}.compact-date-field input[data-v-1e42de04]{font-size:12px!important;height:30px!important;line-height:1.2!important;margin:0!important;padding:0!important}.compact-date-field .v-text-field--outlined .v-input__control .v-input__slot[data-v-1e42de04],.compact-date-field.v-text-field--outlined .v-input__control .v-input__slot[data-v-1e42de04]{background:#fafafa!important;border:1px solid #e5e7eb!important;border-radius:4px!important}.compact-date-field .v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-1e42de04],.compact-date-field.v-input--is-focused .v-input__slot[data-v-1e42de04]{background:#fff!important;border-color:#667eea!important;box-shadow:0 0 0 2px rgba(102,126,234,.1)!important}.compact-date-field .v-text-field--outlined.v-input--is-disabled .v-input__control .v-input__slot[data-v-1e42de04],.compact-date-field.v-input--is-disabled .v-input__slot[data-v-1e42de04]{background-color:#f3f4f6!important;border-color:#d1d5db!important;opacity:.6!important}.compact-date-field .v-text-field--outlined fieldset[data-v-1e42de04]{border:none!important}.compact-date-field .v-text-field--outlined .v-text-field__details[data-v-1e42de04]{display:none!important}.v-menu__content[data-v-1e42de04]{border-radius:8px!important;box-shadow:0 8px 32px rgba(0,0,0,.12)!important;overflow:hidden!important}.v-date-picker[data-v-1e42de04]{box-shadow:none!important}.modal-header-right[data-v-1e42de04]{align-items:center;display:flex;gap:15px}.voucher-number[data-v-1e42de04]{color:#fff;font-size:14px;font-weight:600;opacity:.9}.modal-overlay[data-v-1e42de04]{align-items:center;animation:fadeIn-1e42de04 .3s ease-out;backdrop-filter:blur(4px);background:rgba(0,0,0,.6);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}@keyframes fadeIn-1e42de04{0%{opacity:0}to{opacity:1}}.enhanced-dialog[data-v-1e42de04]{background:#fff;display:flex;flex-direction:column;height:100vh;overflow:hidden;width:100vw}@keyframes slideIn-1e42de04{0%{opacity:0;transform:translateY(-50px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-1e42de04]{align-items:center;background:#01532b;border-bottom:1px solid #e9ecef;color:#fff;display:flex;justify-content:space-between;padding:16px 18px}.modal-title-section[data-v-1e42de04]{align-items:center;display:flex;gap:12px}.modal-icon[data-v-1e42de04]{font-size:18px;opacity:.9}.modal-title[data-v-1e42de04]{font-size:18px;font-weight:600;margin:0}.close-btn[data-v-1e42de04]{background:none;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:16px;opacity:.8;padding:6px;transition:opacity .2s}.close-btn[data-v-1e42de04]:hover{background:hsla(0,0%,100%,.1);opacity:1}.modal-body[data-v-1e42de04]{max-height:calc(98vh - 120px);overflow-y:auto;padding:16px 18px}.form-loading[data-v-1e42de04]{align-items:center;color:#666;display:flex;justify-content:center;padding:40px}.spinner-small[data-v-1e42de04]{animation:spin-1e42de04 1s linear infinite;border:2px solid #f3f3f3;border-radius:50%;border-top-color:#3498db;height:20px;margin-right:10px;width:20px}@keyframes spin-1e42de04{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.form-grid[data-v-1e42de04]{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:12px;gap:12px}.form-group[data-v-1e42de04]{margin-bottom:0}.form-group.full-width[data-v-1e42de04]{grid-column:1/-1}.form-group.span-2[data-v-1e42de04]{grid-column:span 2}.form-group.span-3[data-v-1e42de04]{grid-column:span 3}.form-label[data-v-1e42de04]{align-items:center;color:#374151;display:flex;font-size:11px;font-weight:600;gap:6px;margin-bottom:4px}.form-label.required[data-v-1e42de04]:after{color:#e74c3c;content:\"*\";margin-left:4px}.form-label i[data-v-1e42de04]{color:#6b7280;font-size:11px}.form-control[data-v-1e42de04]{background:#fafafa;border:1px solid #e5e7eb;border-radius:4px;box-sizing:border-box;font-size:12px;height:32px;padding:6px 8px;transition:all .2s ease;width:100%}.form-control[data-v-1e42de04]:focus{background:#fff;border-color:#667eea;box-shadow:0 0 0 2px rgba(102,126,234,.1);outline:none}textarea.form-control[data-v-1e42de04]{height:auto;min-height:60px;resize:vertical}.custom-select-wrapper[data-v-1e42de04]{position:relative}.custom-select[data-v-1e42de04]{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:32px}.select-icon[data-v-1e42de04]{color:#6b7280;font-size:12px;pointer-events:none;position:absolute;right:8px;top:50%;transform:translateY(-50%)}.ministry-info[data-v-1e42de04]{background:#f0f9ff;border:1px solid #bae6fd;border-radius:4px;margin-top:6px;padding:6px}.ministry-details[data-v-1e42de04]{display:grid;grid-template-columns:1fr;grid-gap:3px;gap:3px}.ministry-detail-item[data-v-1e42de04]{align-items:center;color:#075985;display:flex;font-size:10px;gap:4px}.ministry-detail-item i[data-v-1e42de04]{color:#0ea5e9;flex-shrink:0;width:12px}.ministry-name[data-v-1e42de04]{font-weight:600}.ministry-code[data-v-1e42de04]{background:#e0f2fe;border-radius:2px;font-family:monospace;padding:1px 4px}.bank-account-info[data-v-1e42de04]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:4px;margin-top:6px;padding:6px}.bank-details[data-v-1e42de04]{display:grid;grid-template-columns:1fr;grid-gap:3px;gap:3px}.bank-detail-item[data-v-1e42de04]{align-items:center;color:#6b7280;display:flex;font-size:10px;gap:4px}.bank-detail-item i[data-v-1e42de04]{color:#667eea;width:12px}.form-errors[data-v-1e42de04]{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-top:16px;padding:12px}.form-errors h6[data-v-1e42de04]{align-items:center;color:#dc2626;display:flex;font-size:12px;gap:6px;margin:0 0 8px}.form-errors ul[data-v-1e42de04]{color:#dc2626;font-size:11px;margin:0;padding-left:16px}.enhanced-footer[data-v-1e42de04]{background:#f8f9fa;border-top:1px solid #e9ecef;display:flex;gap:10px;justify-content:flex-end;padding:12px 18px}.btn[data-v-1e42de04]{align-items:center;border:none;border-radius:6px;cursor:pointer;display:inline-flex;font-size:12px;font-weight:600;gap:6px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s ease}.btn[data-v-1e42de04]:hover:not(:disabled){box-shadow:0 3px 8px rgba(0,0,0,.15);transform:translateY(-1px)}.btn[data-v-1e42de04]:active:not(:disabled){transform:translateY(0)}.btn-primary[data-v-1e42de04]{background:#01532b;color:#fff}.btn-secondary[data-v-1e42de04]{background:#6c757d;color:#fff}.btn[data-v-1e42de04]:disabled{box-shadow:none!important;cursor:not-allowed;opacity:.6;transform:none!important}.fa-spin[data-v-1e42de04]{animation:spin-1e42de04 1s linear infinite}@media (max-width:1024px){.form-grid[data-v-1e42de04]{grid-template-columns:repeat(2,1fr)}.form-group.span-2[data-v-1e42de04],.form-group.span-3[data-v-1e42de04]{grid-column:1/-1}}@media (max-width:768px){.form-grid[data-v-1e42de04]{grid-template-columns:1fr}.form-group.span-2[data-v-1e42de04],.form-group.span-3[data-v-1e42de04]{grid-column:1}.enhanced-footer[data-v-1e42de04],.modal-body[data-v-1e42de04],.modal-header[data-v-1e42de04]{padding:14px 16px}.enhanced-footer[data-v-1e42de04]{flex-direction:column-reverse}.enhanced-footer .btn[data-v-1e42de04]{justify-content:center;width:100%}.compact-date-field .v-input__slot[data-v-1e42de04]{padding:0 6px!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -3074,7 +3074,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 657:
+/***/ 662:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3085,20 +3085,20 @@ __webpack_require__.r(__webpack_exports__);
 var VDatePicker = __webpack_require__(442);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
-var VMenu = __webpack_require__(126);
+var VMenu = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentDialog/index.vue?vue&type=template&id=0024d5f2&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentDialog/index.vue?vue&type=template&id=1e42de04&scoped=true
 
 
 
 
-var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function render() {
+var paymentDialogvue_type_template_id_1e42de04_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_vm.show ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<div class=\"modal-dialog enhanced-dialog\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-0024d5f2><div class=\"modal-title-section\" data-v-0024d5f2><i class=\"fas fa-money-bill-wave modal-icon\" data-v-0024d5f2></i> <h5 class=\"modal-title\" data-v-0024d5f2>" + _vm._ssrEscape("\n            " + _vm._s(_vm.isEdit ? 'ແກ້ໄຂລາຍຈ່າຍ' : 'ລົງບັນຊີລາຍຈ່າຍ') + "\n          ") + "</h5></div> <div class=\"modal-header-right\" data-v-0024d5f2><span class=\"voucher-number\" data-v-0024d5f2>" + _vm._ssrEscape("\n            ເລກທີ:\n            " + _vm._s(_vm.formData.id ? _vm.formatVoucherNumber(_vm.localForm.id) : '000000') + "\n          ") + "</span> <button class=\"close-btn\" data-v-0024d5f2><i class=\"fas fa-times\" data-v-0024d5f2></i></button></div></div> "), _vm._ssrNode("<form data-v-0024d5f2>", "</form>", [_vm._ssrNode("<div class=\"modal-body\" data-v-0024d5f2>", "</div>", [_vm.formLoading ? _vm._ssrNode("<div class=\"form-loading\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<div class=\"spinner-small\" data-v-0024d5f2></div> <p data-v-0024d5f2>Loading form data...</p>")], 2) : _vm._ssrNode("<div class=\"form-grid\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-0024d5f2><i class=\"fas fa-calendar\" data-v-0024d5f2></i>\n                ວັນທີ\n              </label> "), _c(VMenu["a" /* default */], {
+  return _c('div', [_vm.show ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<div class=\"modal-dialog enhanced-dialog\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-1e42de04><div class=\"modal-title-section\" data-v-1e42de04><i class=\"fas fa-money-bill-wave modal-icon\" data-v-1e42de04></i> <h5 class=\"modal-title\" data-v-1e42de04>" + _vm._ssrEscape("\n            " + _vm._s(_vm.isEdit ? 'ແກ້ໄຂລາຍຈ່າຍ' : 'ລົງບັນຊີລາຍຈ່າຍ') + "\n          ") + "</h5></div> <div class=\"modal-header-right\" data-v-1e42de04><span class=\"voucher-number\" data-v-1e42de04>" + _vm._ssrEscape("\n            ເລກທີ:\n            " + _vm._s(_vm.formData.id ? _vm.formatVoucherNumber(_vm.localForm.id) : '000000') + "\n          ") + "</span> <button class=\"close-btn\" data-v-1e42de04><i class=\"fas fa-times\" data-v-1e42de04></i></button></div></div> "), _vm._ssrNode("<form data-v-1e42de04>", "</form>", [_vm._ssrNode("<div class=\"modal-body\" data-v-1e42de04>", "</div>", [_vm.formLoading ? _vm._ssrNode("<div class=\"form-loading\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<div class=\"spinner-small\" data-v-1e42de04></div> <p data-v-1e42de04>Loading form data...</p>")], 2) : _vm._ssrNode("<div class=\"form-grid\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-1e42de04><i class=\"fas fa-calendar\" data-v-1e42de04></i>\n                ວັນທີ\n              </label> "), _c(VMenu["a" /* default */], {
     ref: "bookingDateMenu",
     attrs: {
       "close-on-content-click": false,
@@ -3162,7 +3162,7 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
       },
       expression: "pickerBookingDate"
     }
-  })], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-0024d5f2><i class=\"fas fa-credit-card\" data-v-0024d5f2></i>\n                ວິທີການຈ່າຍເງິນ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0024d5f2>", "</div>", [_c('select', {
+  })], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-1e42de04><i class=\"fas fa-credit-card\" data-v-1e42de04></i>\n                ວິທີການຈ່າຍເງິນ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-1e42de04>", "</div>", [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3204,7 +3204,7 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
     attrs: {
       "value": "deduction"
     }
-  }, [_vm._v("ຫັກລົບ (Deduction)")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-0024d5f2><i class=\"fas fa-chevron-down\" data-v-0024d5f2></i></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-0024d5f2><i class=\"fas fa-coins\" data-v-0024d5f2></i>\n                ສະກຸນເງິນ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0024d5f2>", "</div>", [_c('select', {
+  }, [_vm._v("ຫັກລົບ (Deduction)")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-1e42de04><i class=\"fas fa-chevron-down\" data-v-1e42de04></i></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-1e42de04><i class=\"fas fa-coins\" data-v-1e42de04></i>\n                ສະກຸນເງິນ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-1e42de04>", "</div>", [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3237,7 +3237,7 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
         "value": currency.id
       }
     }, [_vm._v("\n                    " + _vm._s(currency.code) + "\n                  ")]);
-  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-0024d5f2><i class=\"fas fa-chevron-down\" data-v-0024d5f2></i></div>")], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-0024d5f2><label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-exchange-alt\" data-v-0024d5f2></i>\n                ອັດຕາແລກປ່ຽນ\n              </label> <input type=\"number\" step=\"0.000001\" min=\"0\" placeholder=\"ອັດຕາແລກປ່ຽນ\"" + _vm._ssrAttr("value", _vm.localForm.exchangeRate) + " class=\"form-control\" data-v-0024d5f2></div> <div class=\"form-group\" data-v-0024d5f2><label class=\"form-label required\" data-v-0024d5f2><i class=\"fas fa-dollar-sign\" data-v-0024d5f2></i>\n                ຈຳນວນເງິນ\n              </label> <input type=\"number\" step=\"0.01\" min=\"0\" placeholder=\"Enter amount\" required=\"required\"" + _vm._ssrAttr("value", _vm.localForm.amount) + " class=\"form-control\" data-v-0024d5f2></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-0024d5f2><i class=\"fas fa-user\" data-v-0024d5f2></i>\n                ຜູ້ໃຊ້\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0024d5f2>", "</div>", [_c('select', {
+  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-1e42de04><i class=\"fas fa-chevron-down\" data-v-1e42de04></i></div>")], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-1e42de04><label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-exchange-alt\" data-v-1e42de04></i>\n                ອັດຕາແລກປ່ຽນ\n              </label> <input type=\"number\" step=\"0.000001\" min=\"0\" placeholder=\"ອັດຕາແລກປ່ຽນ\"" + _vm._ssrAttr("value", _vm.localForm.exchangeRate) + " class=\"form-control\" data-v-1e42de04></div> <div class=\"form-group\" data-v-1e42de04><label class=\"form-label required\" data-v-1e42de04><i class=\"fas fa-dollar-sign\" data-v-1e42de04></i>\n                ຈຳນວນເງິນ\n              </label> <input type=\"number\" step=\"0.01\" min=\"0\" placeholder=\"Enter amount\" required=\"required\"" + _vm._ssrAttr("value", _vm.localForm.amount) + " class=\"form-control\" data-v-1e42de04></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-1e42de04><i class=\"fas fa-user\" data-v-1e42de04></i>\n                ຜູ້ໃຊ້\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-1e42de04>", "</div>", [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3271,7 +3271,7 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
         "value": user.id
       }
     }, [_vm._v("\n                    " + _vm._s(user.cus_name) + "\n                  ")]);
-  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-0024d5f2><i class=\"fas fa-chevron-down\" data-v-0024d5f2></i></div>")], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-0024d5f2><label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-external-link-alt\" data-v-0024d5f2></i>\n                ອີງໃສ່ໃບສະເໜີ / ຖອນ\n              </label> <input type=\"text\" placeholder=\"ອີງໃສ່ໃບສະເໜີ / ຖອນ\" maxlength=\"100\"" + _vm._ssrAttr("value", _vm.localForm.externalRef) + " class=\"form-control\" data-v-0024d5f2></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-calendar-check\" data-v-0024d5f2></i>\n                ວັນທີອ້າງອີງພາຍນອກ\n              </label> "), _c(VMenu["a" /* default */], {
+  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-1e42de04><i class=\"fas fa-chevron-down\" data-v-1e42de04></i></div>")], 2)], 2), _vm._ssrNode(" " + (!_vm.isBankTransfer ? "<div class=\"form-group\" data-v-1e42de04><label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-external-link-alt\" data-v-1e42de04></i>\n                ອີງໃສ່ໃບສະເໜີ / ຖອນ\n              </label> <input type=\"text\" placeholder=\"ອີງໃສ່ໃບສະເໜີ / ຖອນ\" maxlength=\"100\"" + _vm._ssrAttr("value", _vm.localForm.externalRef) + " class=\"form-control\" data-v-1e42de04></div>" : "<!---->") + " "), !_vm.isBankTransfer ? _vm._ssrNode("<div class=\"form-group\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-calendar-check\" data-v-1e42de04></i>\n                ວັນທີອ້າງອີງພາຍນອກ\n              </label> "), !_vm.isBankTransfer ? _c(VMenu["a" /* default */], {
     ref: "externalBookingDateMenu",
     attrs: {
       "close-on-content-click": false,
@@ -3336,11 +3336,11 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
       },
       expression: "pickerExternalBookingDate"
     }
-  })], 1)], 2), _vm._ssrNode(" <div class=\"form-group\"" + _vm._ssrStyle(null, null, {
+  })], 1) : _vm._e()], 2) : _vm._e(), _vm._ssrNode(" " + (!_vm.isBankTransfer ? "<div class=\"form-group\"" + _vm._ssrStyle(null, null, {
     display: _vm.localForm.method === 'cheque' ? '' : 'none'
-  }) + " data-v-0024d5f2><label" + _vm._ssrClass("form-label", {
+  }) + " data-v-1e42de04><label" + _vm._ssrClass("form-label", {
     required: _vm.localForm.method === 'cheque'
-  }) + " data-v-0024d5f2><i class=\"fas fa-money-check\" data-v-0024d5f2></i>\n                ເລກເຊັກ\n              </label> <input type=\"text\" placeholder=\"ເລກເຊັກ\" maxlength=\"50\"" + _vm._ssrAttr("required", _vm.localForm.method === 'cheque') + _vm._ssrAttr("value", _vm.localForm.chequeNo) + " class=\"form-control\" data-v-0024d5f2></div> <div class=\"form-group\" data-v-0024d5f2><label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-user-circle\" data-v-0024d5f2></i>\n                ຊື່ຜູ້ຮັບ\n              </label> <input type=\"text\" placeholder=\"ຊື່ຜູ້ຮັບເງິນ\" maxlength=\"100\"" + _vm._ssrAttr("value", _vm.localForm.receiveName) + " class=\"form-control\" data-v-0024d5f2></div> <div class=\"form-group\" data-v-0024d5f2><label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-id-card\" data-v-0024d5f2></i>\n                ເລກບັດປະຈຳຕົວຜູ້ຮັບ\n              </label> <input type=\"text\" placeholder=\"ເລກບັດປະຈຳຕົວ\" maxlength=\"20\"" + _vm._ssrAttr("value", _vm.localForm.receiveIDNO) + " class=\"form-control\" data-v-0024d5f2></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-calendar-alt\" data-v-0024d5f2></i>\n                ວັນຄົບຮອບຄວນຊຳລະ\n              </label> "), _c(VMenu["a" /* default */], {
+  }) + " data-v-1e42de04><i class=\"fas fa-money-check\" data-v-1e42de04></i>\n                ເລກເຊັກ\n              </label> <input type=\"text\" placeholder=\"ເລກເຊັກ\" maxlength=\"50\"" + _vm._ssrAttr("required", _vm.localForm.method === 'cheque') + _vm._ssrAttr("value", _vm.localForm.chequeNo) + " class=\"form-control\" data-v-1e42de04></div>" : "<!---->") + " " + (!_vm.isBankTransfer ? "<div class=\"form-group\" data-v-1e42de04><label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-user-circle\" data-v-1e42de04></i>\n                ຊື່ຜູ້ຮັບ\n              </label> <input type=\"text\" placeholder=\"ຊື່ຜູ້ຮັບເງິນ\" maxlength=\"100\"" + _vm._ssrAttr("value", _vm.localForm.receiveName) + " class=\"form-control\" data-v-1e42de04></div>" : "<!---->") + " " + (!_vm.isBankTransfer ? "<div class=\"form-group\" data-v-1e42de04><label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-id-card\" data-v-1e42de04></i>\n                ເລກບັດປະຈຳຕົວຜູ້ຮັບ\n              </label> <input type=\"text\" placeholder=\"ເລກບັດປະຈຳຕົວ\" maxlength=\"20\"" + _vm._ssrAttr("value", _vm.localForm.receiveIDNO) + " class=\"form-control\" data-v-1e42de04></div>" : "<!---->") + " "), !_vm.isBankTransfer ? _vm._ssrNode("<div class=\"form-group\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-calendar-alt\" data-v-1e42de04></i>\n                ວັນຄົບຮອບຄວນຊຳລະ\n              </label> "), _c(VMenu["a" /* default */], {
     ref: "dueDateMenu",
     attrs: {
       "close-on-content-click": false,
@@ -3404,7 +3404,7 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
       },
       expression: "pickerDueDate"
     }
-  })], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group span-2\" data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-building\" data-v-0024d5f2></i>\n                ກົມ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0024d5f2>", "</div>", [_c('select', {
+  })], 1)], 2) : _vm._e(), _vm._ssrNode(" "), !_vm.isBankTransfer ? _vm._ssrNode("<div class=\"form-group span-2\" data-v-1e42de04>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-building\" data-v-1e42de04></i>\n                ກົມ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-1e42de04>", "</div>", [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3434,11 +3434,11 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
         "value": ministry.id
       }
     }, [_vm._v("\n                    " + _vm._s(ministry.ministryCode + ' ' + ministry.ministryName) + "\n                  ")]);
-  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-0024d5f2><i class=\"fas fa-chevron-down\" data-v-0024d5f2></i></div>")], 2), _vm._ssrNode(" " + (_vm.selectedMinistry ? "<div class=\"ministry-info\" data-v-0024d5f2><div class=\"ministry-details\" data-v-0024d5f2><div class=\"ministry-detail-item\" data-v-0024d5f2><i class=\"fas fa-building\" data-v-0024d5f2></i> <span class=\"ministry-name\" data-v-0024d5f2>" + _vm._ssrEscape(_vm._s(_vm.selectedMinistry.ministryName)) + "</span></div> " + (_vm.selectedMinistry.ministryCode ? "<div class=\"ministry-detail-item\" data-v-0024d5f2><i class=\"fas fa-tag\" data-v-0024d5f2></i> <span class=\"ministry-code\" data-v-0024d5f2>" + _vm._ssrEscape(_vm._s(_vm.selectedMinistry.ministryCode)) + "</span></div>" : "<!---->") + "</div></div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\"" + _vm._ssrStyle(null, null, {
+  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-1e42de04><i class=\"fas fa-chevron-down\" data-v-1e42de04></i></div>")], 2), _vm._ssrNode(" " + (_vm.selectedMinistry ? "<div class=\"ministry-info\" data-v-1e42de04><div class=\"ministry-details\" data-v-1e42de04><div class=\"ministry-detail-item\" data-v-1e42de04><i class=\"fas fa-building\" data-v-1e42de04></i> <span class=\"ministry-name\" data-v-1e42de04>" + _vm._ssrEscape(_vm._s(_vm.selectedMinistry.ministryName)) + "</span></div> " + (_vm.selectedMinistry.ministryCode ? "<div class=\"ministry-detail-item\" data-v-1e42de04><i class=\"fas fa-tag\" data-v-1e42de04></i> <span class=\"ministry-code\" data-v-1e42de04>" + _vm._ssrEscape(_vm._s(_vm.selectedMinistry.ministryCode)) + "</span></div>" : "<!---->") + "</div></div>" : "<!---->"))], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\"" + _vm._ssrStyle(null, null, {
     display: _vm.localForm.method === 'bank_transfer' ? '' : 'none'
-  }) + " data-v-0024d5f2>", "</div>", [_vm._ssrNode("<label" + _vm._ssrClass("form-label", {
+  }) + " data-v-1e42de04>", "</div>", [_vm._ssrNode("<label" + _vm._ssrClass("form-label", {
     required: _vm.localForm.method === 'bank_transfer'
-  }) + " data-v-0024d5f2><i class=\"fas fa-university\" data-v-0024d5f2></i>\n                ບັນຊີທະນາຄານ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-0024d5f2>", "</div>", [_c('select', {
+  }) + " data-v-1e42de04><i class=\"fas fa-university\" data-v-1e42de04></i>\n                ບັນຊີທະນາຄານ\n              </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-1e42de04>", "</div>", [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3471,9 +3471,9 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
         "value": account.id
       }
     }, [_vm._v("\n                    " + _vm._s(account.bankName) + " - " + _vm._s(account.accountNumber) + "\n                  ")]);
-  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-0024d5f2><i class=\"fas fa-chevron-down\" data-v-0024d5f2></i></div>")], 2), _vm._ssrNode(" " + (_vm.selectedBankAccount ? "<div class=\"bank-account-info\" data-v-0024d5f2><div class=\"bank-details\" data-v-0024d5f2><div class=\"bank-detail-item\" data-v-0024d5f2><i class=\"fas fa-building\" data-v-0024d5f2></i> <span data-v-0024d5f2>" + _vm._ssrEscape(_vm._s(_vm.selectedBankAccount.bankName)) + "</span></div> <div class=\"bank-detail-item\" data-v-0024d5f2><i class=\"fas fa-credit-card\" data-v-0024d5f2></i> <span data-v-0024d5f2>" + _vm._ssrEscape(_vm._s(_vm.selectedBankAccount.accountNumber)) + "</span></div></div></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group full-width\" data-v-0024d5f2><label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-tag\" data-v-0024d5f2></i>\n                ຈຸດປະສົງ\n              </label> <input type=\"text\" placeholder=\"ເນື້ອໃນ ການອອກລາຍຈ່າຍ\" maxlength=\"255\"" + _vm._ssrAttr("value", _vm.localForm.purpose) + " class=\"form-control\" data-v-0024d5f2></div> <div class=\"form-group full-width\" data-v-0024d5f2><label class=\"form-label\" data-v-0024d5f2><i class=\"fas fa-sticky-note\" data-v-0024d5f2></i>\n                ໂນ໊ດ\n              </label> <textarea rows=\"2\" placeholder=\"ລາຍລະອຽດເພີ່ມເຕີມ...\" maxlength=\"500\" class=\"form-control\" data-v-0024d5f2>" + _vm._ssrEscape(_vm._s(_vm.localForm.note)) + "</textarea></div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length > 0 ? "<div class=\"form-errors\" data-v-0024d5f2><h6 data-v-0024d5f2><i class=\"fas fa-exclamation-circle\" data-v-0024d5f2></i>\n              Please fix the following errors:\n            </h6> <ul data-v-0024d5f2>" + _vm._ssrList(_vm.formErrors, function (error) {
-    return "<li data-v-0024d5f2>" + _vm._ssrEscape(_vm._s(error)) + "</li>";
-  }) + "</ul></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"modal-footer enhanced-footer\" data-v-0024d5f2><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.saving) + " class=\"btn btn-secondary\" data-v-0024d5f2><i class=\"fas fa-times\" data-v-0024d5f2></i>\n            ອອກ\n          </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.saving || _vm.formLoading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-0024d5f2>" + (_vm.saving ? "<i class=\"fas fa-spinner fa-spin\" data-v-0024d5f2></i>" : "<i" + _vm._ssrClass("fas", _vm.isEdit ? 'fa-save' : 'fa-plus') + " data-v-0024d5f2></i>") + _vm._ssrEscape("\n            " + _vm._s(_vm.saving ? 'Saving...' : _vm.isEdit ? 'ບັນທຶກ ການແກ້ໄຂ' : 'ບັນທຶກ') + "\n          ") + "</button> <button title=\"Save & Print\" class=\"btn btn-sm btn-danger\" data-v-0024d5f2><i class=\"fas fa-print\" data-v-0024d5f2></i>\n            Save &amp; Print\n          </button></div>")], 2)], 2)]) : _vm._e(), _vm._ssrNode(" "), _vm.showPrintVoucher && _vm.advanceDetails ? _c('VoucherPrintComponent', {
+  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-1e42de04><i class=\"fas fa-chevron-down\" data-v-1e42de04></i></div>")], 2), _vm._ssrNode(" " + (_vm.selectedBankAccount ? "<div class=\"bank-account-info\" data-v-1e42de04><div class=\"bank-details\" data-v-1e42de04><div class=\"bank-detail-item\" data-v-1e42de04><i class=\"fas fa-building\" data-v-1e42de04></i> <span data-v-1e42de04>" + _vm._ssrEscape(_vm._s(_vm.selectedBankAccount.bankName)) + "</span></div> <div class=\"bank-detail-item\" data-v-1e42de04><i class=\"fas fa-credit-card\" data-v-1e42de04></i> <span data-v-1e42de04>" + _vm._ssrEscape(_vm._s(_vm.selectedBankAccount.accountNumber)) + "</span></div></div></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group full-width\" data-v-1e42de04><label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-tag\" data-v-1e42de04></i>\n                ຈຸດປະສົງ\n              </label> <input type=\"text\" placeholder=\"ເນື້ອໃນ ການອອກລາຍຈ່າຍ\" maxlength=\"255\"" + _vm._ssrAttr("value", _vm.localForm.purpose) + " class=\"form-control\" data-v-1e42de04></div> <div class=\"form-group full-width\" data-v-1e42de04><label class=\"form-label\" data-v-1e42de04><i class=\"fas fa-sticky-note\" data-v-1e42de04></i>\n                ໂນ໊ດ\n              </label> <textarea rows=\"2\" placeholder=\"ລາຍລະອຽດເພີ່ມເຕີມ...\" maxlength=\"500\" class=\"form-control\" data-v-1e42de04>" + _vm._ssrEscape(_vm._s(_vm.localForm.note)) + "</textarea></div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length > 0 ? "<div class=\"form-errors\" data-v-1e42de04><h6 data-v-1e42de04><i class=\"fas fa-exclamation-circle\" data-v-1e42de04></i>\n              Please fix the following errors:\n            </h6> <ul data-v-1e42de04>" + _vm._ssrList(_vm.formErrors, function (error) {
+    return "<li data-v-1e42de04>" + _vm._ssrEscape(_vm._s(error)) + "</li>";
+  }) + "</ul></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"modal-footer enhanced-footer\" data-v-1e42de04><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.saving) + " class=\"btn btn-secondary\" data-v-1e42de04><i class=\"fas fa-times\" data-v-1e42de04></i>\n            ອອກ\n          </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.saving || _vm.formLoading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-1e42de04>" + (_vm.saving ? "<i class=\"fas fa-spinner fa-spin\" data-v-1e42de04></i>" : "<i" + _vm._ssrClass("fas", _vm.isEdit ? 'fa-save' : 'fa-plus') + " data-v-1e42de04></i>") + _vm._ssrEscape("\n            " + _vm._s(_vm.saving ? 'Saving...' : _vm.isEdit ? 'ບັນທຶກ ການແກ້ໄຂ' : 'ບັນທຶກ') + "\n          ") + "</button> <button title=\"Save & Print\" class=\"btn btn-sm btn-danger\" data-v-1e42de04><i class=\"fas fa-print\" data-v-1e42de04></i>\n            Save &amp; Print\n          </button></div>")], 2)], 2)]) : _vm._e(), _vm._ssrNode(" "), _vm.showPrintVoucher && _vm.advanceDetails ? _c('VoucherPrintComponent', {
     key: _vm.advanceDetails.id,
     attrs: {
       "voucher-data": _vm.advanceDetails
@@ -3485,10 +3485,10 @@ var paymentDialogvue_type_template_id_0024d5f2_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/MA/paymentDialog/index.vue?vue&type=template&id=0024d5f2&scoped=true
+// CONCATENATED MODULE: ./components/MA/paymentDialog/index.vue?vue&type=template&id=1e42de04&scoped=true
 
 // EXTERNAL MODULE: ./components/MA/paymentVoucher/index.vue + 4 modules
-var paymentVoucher = __webpack_require__(550);
+var paymentVoucher = __webpack_require__(551);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/paymentDialog/index.vue?vue&type=script&lang=js
 
@@ -3523,7 +3523,7 @@ var paymentVoucher = __webpack_require__(550);
         method: '',
         externalRef: '',
         externalRefNo: '',
-        externalBookingDate: '',
+        externalBookingDate: null,
         // NEW FIELD
         chequeNo: '',
         receiveName: '',
@@ -3592,7 +3592,7 @@ var paymentVoucher = __webpack_require__(550);
         method: '',
         externalRef: '',
         externalRefNo: '',
-        externalBookingDate: '',
+        externalBookingDate: null,
         // NEW FIELD
         chequeNo: '',
         receiveName: '',
@@ -3602,6 +3602,9 @@ var paymentVoucher = __webpack_require__(550);
     };
   },
   computed: {
+    isBankTransfer() {
+      return 'bank_transfer' == this.localForm.method;
+    },
     user() {
       return this.$auth.user || '';
     },
@@ -4118,7 +4121,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(613)
+  var style0 = __webpack_require__(617)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -4127,11 +4130,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_paymentDialogvue_type_script_lang_js,
-  paymentDialogvue_type_template_id_0024d5f2_scoped_true_render,
+  paymentDialogvue_type_template_id_1e42de04_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "0024d5f2",
+  "1e42de04",
   "a055272e"
   
 )

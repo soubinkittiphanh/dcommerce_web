@@ -1,7 +1,34 @@
-exports.ids = [210,94,95];
+exports.ids = [214,96,97];
 exports.modules = {
 
-/***/ 1271:
+/***/ 1012:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(802);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1013:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".ministry-page[data-v-68498262]{background-color:#f8f9fa;min-height:100vh;padding:24px}.page-header[data-v-68498262]{align-items:center;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.header-content[data-v-68498262]{flex:1}.page-title[data-v-68498262]{align-items:center;color:#333;display:flex;font-size:28px;font-weight:600;gap:12px;margin:0 0 8px}.page-subtitle[data-v-68498262]{color:#666;font-size:16px;margin:0}.header-actions[data-v-68498262]{display:flex;gap:12px}.filters-section[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;padding:20px}.filter-row[data-v-68498262]{align-items:end;display:flex;flex-wrap:wrap;gap:16px}.filter-group[data-v-68498262]{display:flex;flex-direction:column;gap:8px;min-width:200px}.filter-label[data-v-68498262]{color:#555;font-size:14px;font-weight:500}.search-input-wrapper[data-v-68498262]{position:relative}.search-icon[data-v-68498262]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%)}.search-input[data-v-68498262]{border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 36px;transition:border-color .2s;width:100%}.search-input[data-v-68498262]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-select[data-v-68498262]{background:#fff;border:1px solid #ced4da;border-radius:6px;cursor:pointer;font-size:14px;padding:10px 12px;transition:border-color .2s}.filter-select[data-v-68498262]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-actions[data-v-68498262]{align-items:end;display:flex}.stats-section[data-v-68498262]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:20px;gap:20px;margin-bottom:24px}.stat-card[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);gap:16px;padding:24px}.stat-card[data-v-68498262],.stat-icon[data-v-68498262]{align-items:center;display:flex}.stat-icon[data-v-68498262]{border-radius:50%;color:#fff;font-size:20px;height:48px;justify-content:center;width:48px}.stat-icon-primary[data-v-68498262]{background-color:#007bff}.stat-icon-success[data-v-68498262]{background-color:#28a745}.stat-icon-warning[data-v-68498262]{background-color:#ffc107}.stat-icon-info[data-v-68498262]{background-color:#17a2b8}.stat-content[data-v-68498262]{flex:1}.stat-number[data-v-68498262]{color:#333;font-size:24px;font-weight:600;margin:0 0 4px}.stat-label[data-v-68498262]{color:#666;font-size:14px;margin:0}.hierarchy-section[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;overflow:hidden}.section-header[data-v-68498262]{border-bottom:1px solid #e9ecef;padding:20px}.section-title[data-v-68498262]{color:#333;font-size:18px;font-weight:600;margin:0}.hierarchy-wrapper[data-v-68498262]{padding:20px}.hierarchy-tree[data-v-68498262]{display:flex;flex-direction:column;gap:20px}.ministry-node[data-v-68498262]{border:1px solid #e9ecef;border-radius:8px;overflow:hidden}.ministry-card[data-v-68498262]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.ministry-card.type-ministry[data-v-68498262]{border-left:4px solid #007bff}.ministry-card.type-department[data-v-68498262]{border-left:4px solid #28a745}.ministry-card.type-agency[data-v-68498262]{border-left:4px solid #ffc107}.ministry-card.type-commission[data-v-68498262]{border-left:4px solid #17a2b8}.ministry-info[data-v-68498262]{flex:1}.ministry-header[data-v-68498262]{align-items:center;display:flex;gap:12px;margin-bottom:8px}.ministry-name[data-v-68498262]{color:#333;font-size:18px;font-weight:600;margin:0}.ministry-code[data-v-68498262]{background:#6c757d;border-radius:4px;color:#fff;font-size:12px;padding:2px 8px}.ministry-details[data-v-68498262]{margin-bottom:12px}.minister-name[data-v-68498262],.ministry-location[data-v-68498262]{color:#666;font-size:14px;margin:4px 0}.minister-name[data-v-68498262],.ministry-location[data-v-68498262],.ministry-meta[data-v-68498262]{align-items:center;display:flex;gap:8px}.ministry-actions[data-v-68498262]{display:flex;gap:8px}.sub-ministries[data-v-68498262]{background:#fff;padding:16px}.sub-ministry-card[data-v-68498262]{align-items:center;background:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;display:flex;justify-content:space-between;margin-bottom:8px;padding:12px 16px}.sub-ministry-card[data-v-68498262]:last-child{margin-bottom:0}.sub-ministry-info[data-v-68498262]{flex:1}.sub-ministry-header[data-v-68498262]{align-items:center;display:flex;gap:8px;margin-bottom:4px}.sub-ministry-name[data-v-68498262]{color:#333;font-size:14px;font-weight:500;margin:0}.sub-ministry-code[data-v-68498262]{background:#6c757d;border-radius:3px;color:#fff;font-family:monospace;font-size:10px;padding:1px 6px}.sub-ministry-actions[data-v-68498262]{display:flex;gap:4px}.table-section[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-68498262]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title[data-v-68498262]{color:#333;font-size:18px;font-weight:600;margin:0}.table-info[data-v-68498262]{color:#666;font-size:14px}.table-wrapper[data-v-68498262]{overflow-x:auto}.data-table[data-v-68498262]{border-collapse:collapse;width:100%}.data-table td[data-v-68498262],.data-table th[data-v-68498262]{border-bottom:1px solid #e9ecef;padding:12px;text-align:left}.data-table th[data-v-68498262]{background-color:#f8f9fa;color:#333;font-size:14px;font-weight:600}.data-table td[data-v-68498262]{color:#555;font-size:14px}.ministry-code[data-v-68498262]{align-items:center;display:flex;font-family:monospace;font-weight:500;gap:8px}.ministry-info-cell[data-v-68498262]{max-width:250px}.ministry-name-primary[data-v-68498262]{color:#333;font-weight:600;margin-bottom:4px}.ministry-name-en[data-v-68498262]{color:#666;font-size:13px;font-style:italic;margin-bottom:4px}.parent-ministry[data-v-68498262]{align-items:center;color:#007bff;display:flex;font-size:12px;gap:4px}.location-info .district[data-v-68498262]{color:#666;font-size:13px}.contact-info[data-v-68498262]{max-width:200px}.contact-item[data-v-68498262]{align-items:center;color:#666;display:flex;font-size:12px;gap:6px;margin-bottom:2px}.contact-item[data-v-68498262]:last-child{margin-bottom:0}.ministry-type-badge[data-v-68498262]{border-radius:4px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:uppercase}.type-ministry[data-v-68498262]{background-color:#e7f3ff;color:#0056b3}.type-department[data-v-68498262]{background-color:#d4edda;color:#155724}.type-agency[data-v-68498262]{background-color:#fff3cd;color:#856404}.type-commission[data-v-68498262]{background-color:#d1ecf1;color:#0c5460}.status-badge[data-v-68498262]{align-items:center;border-radius:4px;display:flex;font-size:12px;font-weight:500;gap:4px;padding:4px 8px}.status-active[data-v-68498262]{background-color:#d4edda;color:#155724}.status-inactive[data-v-68498262]{background-color:#f8d7da;color:#721c24}.status-restructured[data-v-68498262]{background-color:#fff3cd;color:#856404}.status-merged[data-v-68498262]{background-color:#d1ecf1;color:#0c5460}.action-buttons[data-v-68498262]{display:flex;gap:6px}.btn-icon[data-v-68498262]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:flex;font-size:12px;height:32px;justify-content:center;transition:all .2s;width:32px}.btn-icon-sm[data-v-68498262]{font-size:10px;height:24px;width:24px}.btn-icon[data-v-68498262]:hover{transform:translateY(-1px)}.btn-icon[data-v-68498262]:disabled{cursor:not-allowed;opacity:.5}.btn-icon-primary[data-v-68498262]{background-color:#007bff;color:#fff}.btn-icon-primary[data-v-68498262]:hover:not(:disabled){background-color:#0056b3}.btn-icon-info[data-v-68498262]{background-color:#17a2b8;color:#fff}.btn-icon-info[data-v-68498262]:hover:not(:disabled){background-color:#138496}.btn-icon-warning[data-v-68498262]{background-color:#ffc107;color:#333}.btn-icon-warning[data-v-68498262]:hover:not(:disabled){background-color:#e0a800}.btn-icon-danger[data-v-68498262]{background-color:#dc3545;color:#fff}.btn-icon-danger[data-v-68498262]:hover:not(:disabled){background-color:#c82333}.empty-state[data-v-68498262],.loading-state[data-v-68498262]{color:#666;padding:60px 20px;text-align:center}.loading-state i[data-v-68498262]{color:#007bff;font-size:32px;margin-bottom:16px}.empty-state i[data-v-68498262]{color:#ccc;font-size:64px;margin-bottom:16px}.empty-state h3[data-v-68498262]{color:#333;font-size:20px;margin:0 0 8px}.empty-state p[data-v-68498262]{font-size:16px;margin:0}.pagination-section[data-v-68498262]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-68498262]{color:#666;font-size:14px}.pagination-controls[data-v-68498262]{align-items:center;display:flex;gap:8px}.page-info[data-v-68498262]{color:#666;font-size:14px;padding:0 16px}.btn[data-v-68498262]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-68498262]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-68498262]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-68498262]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-68498262]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-68498262]:hover:not(:disabled){background-color:#545b62;border-color:#545b62}.btn-outline-secondary[data-v-68498262]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-68498262]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.ministry-page[data-v-68498262]{padding:16px}.page-header[data-v-68498262]{align-items:stretch;flex-direction:column;gap:16px}.filter-row[data-v-68498262]{flex-direction:column;gap:12px}.filter-group[data-v-68498262]{min-width:auto}.stats-section[data-v-68498262]{grid-template-columns:1fr}.ministry-card[data-v-68498262]{align-items:stretch;flex-direction:column;gap:16px}.ministry-actions[data-v-68498262]{justify-content:center}.sub-ministry-card[data-v-68498262]{align-items:stretch;flex-direction:column;gap:12px}.sub-ministry-actions[data-v-68498262]{justify-content:center}.table-wrapper[data-v-68498262]{overflow-x:scroll}.data-table[data-v-68498262]{min-width:1000px}.pagination-section[data-v-68498262]{flex-direction:column;gap:16px}}@media (max-width:480px){.page-title[data-v-68498262]{font-size:24px}.stat-card[data-v-68498262]{padding:16px}.stat-number[data-v-68498262]{font-size:20px}.ministry-card[data-v-68498262]{padding:16px}.ministry-name[data-v-68498262]{font-size:16px}.action-buttons[data-v-68498262]{flex-direction:column;gap:4px}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -166,10 +193,10 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ministry/index.vue?vue&type=template&id=68498262&scoped=true
 
 // EXTERNAL MODULE: ./components/ministry/MinistryDialog.vue + 3 modules
-var MinistryDialog = __webpack_require__(765);
+var MinistryDialog = __webpack_require__(774);
 
 // EXTERNAL MODULE: ./components/ministry/MinistryViewDialog.vue + 4 modules
-var MinistryViewDialog = __webpack_require__(760);
+var MinistryViewDialog = __webpack_require__(768);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ministry/index.vue?vue&type=script&lang=js
 
@@ -472,7 +499,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(998)
+  var style0 = __webpack_require__(1012)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -493,12 +520,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ministry = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {MinistryDialog: __webpack_require__(765).default,MinistryViewDialog: __webpack_require__(760).default})
+installComponents(component, {MinistryDialog: __webpack_require__(774).default,MinistryViewDialog: __webpack_require__(768).default})
 
 
 /***/ }),
 
-/***/ 562:
+/***/ 564:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -731,13 +758,13 @@ installComponents(component, {MinistryDialog: __webpack_require__(765).default,M
 
 /***/ }),
 
-/***/ 611:
+/***/ 615:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(696);
+var content = __webpack_require__(703);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -749,13 +776,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 612:
+/***/ 616:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(698);
+var content = __webpack_require__(705);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -767,19 +794,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 695:
+/***/ 702:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryDialog_vue_vue_type_style_index_0_id_e38c8604_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(611);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryDialog_vue_vue_type_style_index_0_id_e38c8604_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(615);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryDialog_vue_vue_type_style_index_0_id_e38c8604_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryDialog_vue_vue_type_style_index_0_id_e38c8604_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryDialog_vue_vue_type_style_index_0_id_e38c8604_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryDialog_vue_vue_type_style_index_0_id_e38c8604_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 696:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -794,19 +821,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 697:
+/***/ 704:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryViewDialog_vue_vue_type_style_index_0_id_826b5276_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(612);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryViewDialog_vue_vue_type_style_index_0_id_826b5276_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(616);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryViewDialog_vue_vue_type_style_index_0_id_826b5276_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryViewDialog_vue_vue_type_style_index_0_id_826b5276_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryViewDialog_vue_vue_type_style_index_0_id_826b5276_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MinistryViewDialog_vue_vue_type_style_index_0_id_826b5276_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 698:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -821,7 +848,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 760:
+/***/ 768:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -939,7 +966,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(697)
+  var style0 = __webpack_require__(704)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -961,7 +988,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 765:
+/***/ 774:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1203,7 +1230,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/ministry/MinistryDialog.vue?vue&type=template&id=e38c8604&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ministry/MinistryDialog.vue?vue&type=script&lang=js
-var MinistryDialogvue_type_script_lang_js = __webpack_require__(562);
+var MinistryDialogvue_type_script_lang_js = __webpack_require__(564);
 
 // CONCATENATED MODULE: ./components/ministry/MinistryDialog.vue?vue&type=script&lang=js
  /* harmony default export */ var ministry_MinistryDialogvue_type_script_lang_js = (MinistryDialogvue_type_script_lang_js["a" /* default */]); 
@@ -1216,7 +1243,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(695)
+  var style0 = __webpack_require__(702)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1238,13 +1265,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 792:
+/***/ 802:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(999);
+var content = __webpack_require__(1013);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1253,33 +1280,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("200517d2", content, true, context)
 };
-
-/***/ }),
-
-/***/ 998:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(792);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_68498262_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 999:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".ministry-page[data-v-68498262]{background-color:#f8f9fa;min-height:100vh;padding:24px}.page-header[data-v-68498262]{align-items:center;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.header-content[data-v-68498262]{flex:1}.page-title[data-v-68498262]{align-items:center;color:#333;display:flex;font-size:28px;font-weight:600;gap:12px;margin:0 0 8px}.page-subtitle[data-v-68498262]{color:#666;font-size:16px;margin:0}.header-actions[data-v-68498262]{display:flex;gap:12px}.filters-section[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;padding:20px}.filter-row[data-v-68498262]{align-items:end;display:flex;flex-wrap:wrap;gap:16px}.filter-group[data-v-68498262]{display:flex;flex-direction:column;gap:8px;min-width:200px}.filter-label[data-v-68498262]{color:#555;font-size:14px;font-weight:500}.search-input-wrapper[data-v-68498262]{position:relative}.search-icon[data-v-68498262]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%)}.search-input[data-v-68498262]{border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 36px;transition:border-color .2s;width:100%}.search-input[data-v-68498262]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-select[data-v-68498262]{background:#fff;border:1px solid #ced4da;border-radius:6px;cursor:pointer;font-size:14px;padding:10px 12px;transition:border-color .2s}.filter-select[data-v-68498262]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-actions[data-v-68498262]{align-items:end;display:flex}.stats-section[data-v-68498262]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:20px;gap:20px;margin-bottom:24px}.stat-card[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);gap:16px;padding:24px}.stat-card[data-v-68498262],.stat-icon[data-v-68498262]{align-items:center;display:flex}.stat-icon[data-v-68498262]{border-radius:50%;color:#fff;font-size:20px;height:48px;justify-content:center;width:48px}.stat-icon-primary[data-v-68498262]{background-color:#007bff}.stat-icon-success[data-v-68498262]{background-color:#28a745}.stat-icon-warning[data-v-68498262]{background-color:#ffc107}.stat-icon-info[data-v-68498262]{background-color:#17a2b8}.stat-content[data-v-68498262]{flex:1}.stat-number[data-v-68498262]{color:#333;font-size:24px;font-weight:600;margin:0 0 4px}.stat-label[data-v-68498262]{color:#666;font-size:14px;margin:0}.hierarchy-section[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;overflow:hidden}.section-header[data-v-68498262]{border-bottom:1px solid #e9ecef;padding:20px}.section-title[data-v-68498262]{color:#333;font-size:18px;font-weight:600;margin:0}.hierarchy-wrapper[data-v-68498262]{padding:20px}.hierarchy-tree[data-v-68498262]{display:flex;flex-direction:column;gap:20px}.ministry-node[data-v-68498262]{border:1px solid #e9ecef;border-radius:8px;overflow:hidden}.ministry-card[data-v-68498262]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.ministry-card.type-ministry[data-v-68498262]{border-left:4px solid #007bff}.ministry-card.type-department[data-v-68498262]{border-left:4px solid #28a745}.ministry-card.type-agency[data-v-68498262]{border-left:4px solid #ffc107}.ministry-card.type-commission[data-v-68498262]{border-left:4px solid #17a2b8}.ministry-info[data-v-68498262]{flex:1}.ministry-header[data-v-68498262]{align-items:center;display:flex;gap:12px;margin-bottom:8px}.ministry-name[data-v-68498262]{color:#333;font-size:18px;font-weight:600;margin:0}.ministry-code[data-v-68498262]{background:#6c757d;border-radius:4px;color:#fff;font-size:12px;padding:2px 8px}.ministry-details[data-v-68498262]{margin-bottom:12px}.minister-name[data-v-68498262],.ministry-location[data-v-68498262]{color:#666;font-size:14px;margin:4px 0}.minister-name[data-v-68498262],.ministry-location[data-v-68498262],.ministry-meta[data-v-68498262]{align-items:center;display:flex;gap:8px}.ministry-actions[data-v-68498262]{display:flex;gap:8px}.sub-ministries[data-v-68498262]{background:#fff;padding:16px}.sub-ministry-card[data-v-68498262]{align-items:center;background:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;display:flex;justify-content:space-between;margin-bottom:8px;padding:12px 16px}.sub-ministry-card[data-v-68498262]:last-child{margin-bottom:0}.sub-ministry-info[data-v-68498262]{flex:1}.sub-ministry-header[data-v-68498262]{align-items:center;display:flex;gap:8px;margin-bottom:4px}.sub-ministry-name[data-v-68498262]{color:#333;font-size:14px;font-weight:500;margin:0}.sub-ministry-code[data-v-68498262]{background:#6c757d;border-radius:3px;color:#fff;font-family:monospace;font-size:10px;padding:1px 6px}.sub-ministry-actions[data-v-68498262]{display:flex;gap:4px}.table-section[data-v-68498262]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-68498262]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title[data-v-68498262]{color:#333;font-size:18px;font-weight:600;margin:0}.table-info[data-v-68498262]{color:#666;font-size:14px}.table-wrapper[data-v-68498262]{overflow-x:auto}.data-table[data-v-68498262]{border-collapse:collapse;width:100%}.data-table td[data-v-68498262],.data-table th[data-v-68498262]{border-bottom:1px solid #e9ecef;padding:12px;text-align:left}.data-table th[data-v-68498262]{background-color:#f8f9fa;color:#333;font-size:14px;font-weight:600}.data-table td[data-v-68498262]{color:#555;font-size:14px}.ministry-code[data-v-68498262]{align-items:center;display:flex;font-family:monospace;font-weight:500;gap:8px}.ministry-info-cell[data-v-68498262]{max-width:250px}.ministry-name-primary[data-v-68498262]{color:#333;font-weight:600;margin-bottom:4px}.ministry-name-en[data-v-68498262]{color:#666;font-size:13px;font-style:italic;margin-bottom:4px}.parent-ministry[data-v-68498262]{align-items:center;color:#007bff;display:flex;font-size:12px;gap:4px}.location-info .district[data-v-68498262]{color:#666;font-size:13px}.contact-info[data-v-68498262]{max-width:200px}.contact-item[data-v-68498262]{align-items:center;color:#666;display:flex;font-size:12px;gap:6px;margin-bottom:2px}.contact-item[data-v-68498262]:last-child{margin-bottom:0}.ministry-type-badge[data-v-68498262]{border-radius:4px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:uppercase}.type-ministry[data-v-68498262]{background-color:#e7f3ff;color:#0056b3}.type-department[data-v-68498262]{background-color:#d4edda;color:#155724}.type-agency[data-v-68498262]{background-color:#fff3cd;color:#856404}.type-commission[data-v-68498262]{background-color:#d1ecf1;color:#0c5460}.status-badge[data-v-68498262]{align-items:center;border-radius:4px;display:flex;font-size:12px;font-weight:500;gap:4px;padding:4px 8px}.status-active[data-v-68498262]{background-color:#d4edda;color:#155724}.status-inactive[data-v-68498262]{background-color:#f8d7da;color:#721c24}.status-restructured[data-v-68498262]{background-color:#fff3cd;color:#856404}.status-merged[data-v-68498262]{background-color:#d1ecf1;color:#0c5460}.action-buttons[data-v-68498262]{display:flex;gap:6px}.btn-icon[data-v-68498262]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:flex;font-size:12px;height:32px;justify-content:center;transition:all .2s;width:32px}.btn-icon-sm[data-v-68498262]{font-size:10px;height:24px;width:24px}.btn-icon[data-v-68498262]:hover{transform:translateY(-1px)}.btn-icon[data-v-68498262]:disabled{cursor:not-allowed;opacity:.5}.btn-icon-primary[data-v-68498262]{background-color:#007bff;color:#fff}.btn-icon-primary[data-v-68498262]:hover:not(:disabled){background-color:#0056b3}.btn-icon-info[data-v-68498262]{background-color:#17a2b8;color:#fff}.btn-icon-info[data-v-68498262]:hover:not(:disabled){background-color:#138496}.btn-icon-warning[data-v-68498262]{background-color:#ffc107;color:#333}.btn-icon-warning[data-v-68498262]:hover:not(:disabled){background-color:#e0a800}.btn-icon-danger[data-v-68498262]{background-color:#dc3545;color:#fff}.btn-icon-danger[data-v-68498262]:hover:not(:disabled){background-color:#c82333}.empty-state[data-v-68498262],.loading-state[data-v-68498262]{color:#666;padding:60px 20px;text-align:center}.loading-state i[data-v-68498262]{color:#007bff;font-size:32px;margin-bottom:16px}.empty-state i[data-v-68498262]{color:#ccc;font-size:64px;margin-bottom:16px}.empty-state h3[data-v-68498262]{color:#333;font-size:20px;margin:0 0 8px}.empty-state p[data-v-68498262]{font-size:16px;margin:0}.pagination-section[data-v-68498262]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-68498262]{color:#666;font-size:14px}.pagination-controls[data-v-68498262]{align-items:center;display:flex;gap:8px}.page-info[data-v-68498262]{color:#666;font-size:14px;padding:0 16px}.btn[data-v-68498262]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-68498262]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-68498262]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-68498262]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-secondary[data-v-68498262]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-68498262]:hover:not(:disabled){background-color:#545b62;border-color:#545b62}.btn-outline-secondary[data-v-68498262]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-68498262]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.ministry-page[data-v-68498262]{padding:16px}.page-header[data-v-68498262]{align-items:stretch;flex-direction:column;gap:16px}.filter-row[data-v-68498262]{flex-direction:column;gap:12px}.filter-group[data-v-68498262]{min-width:auto}.stats-section[data-v-68498262]{grid-template-columns:1fr}.ministry-card[data-v-68498262]{align-items:stretch;flex-direction:column;gap:16px}.ministry-actions[data-v-68498262]{justify-content:center}.sub-ministry-card[data-v-68498262]{align-items:stretch;flex-direction:column;gap:12px}.sub-ministry-actions[data-v-68498262]{justify-content:center}.table-wrapper[data-v-68498262]{overflow-x:scroll}.data-table[data-v-68498262]{min-width:1000px}.pagination-section[data-v-68498262]{flex-direction:column;gap:16px}}@media (max-width:480px){.page-title[data-v-68498262]{font-size:24px}.stat-card[data-v-68498262]{padding:16px}.stat-number[data-v-68498262]{font-size:20px}.ministry-card[data-v-68498262]{padding:16px}.ministry-name[data-v-68498262]{font-size:16px}.action-buttons[data-v-68498262]{flex-direction:column;gap:4px}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
 
 /***/ })
 

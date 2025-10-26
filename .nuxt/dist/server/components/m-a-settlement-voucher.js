@@ -1,4 +1,4 @@
-exports.ids = [88];
+exports.ids = [90];
 exports.modules = {
 
 /***/ 476:
@@ -7,7 +7,7 @@ exports.modules = {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(509);
+var content = __webpack_require__(510);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -19,7 +19,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 498:
+/***/ 499:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55,7 +55,7 @@ var settlementVouchervue_type_template_id_99e2760e_scoped_true_render = function
   }, [_c('img', {
     staticClass: "voucher-logo",
     attrs: {
-      "src": __webpack_require__(167),
+      "src": __webpack_require__(140),
       "alt": "Ministry Logo"
     }
   }), _vm._v(" "), _c('div', {
@@ -801,7 +801,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(508)
+  var style0 = __webpack_require__(509)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -823,7 +823,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 508:
+/***/ 509:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -835,7 +835,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 509:
+/***/ 510:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports

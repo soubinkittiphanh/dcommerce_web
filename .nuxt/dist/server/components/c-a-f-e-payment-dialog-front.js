@@ -1,13 +1,13 @@
 exports.ids = [34];
 exports.modules = {
 
-/***/ 434:
+/***/ 430:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(435);
+var content = __webpack_require__(431);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -15,7 +15,7 @@ __webpack_require__(5).default("1c8f4490", content, true)
 
 /***/ }),
 
-/***/ 435:
+/***/ 431:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -30,11 +30,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 456:
+/***/ 453:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(434);
+/* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(430);
 /* harmony import */ var _src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VAlert_VAlert_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
@@ -251,38 +251,38 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(524);
+var content = __webpack_require__(525);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("ed825fd6", content, true, context)
+  add("268163a4", content, true, context)
 };
 
 /***/ }),
 
-/***/ 523:
+/***/ 524:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_71543d98_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(489);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_71543d98_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_71543d98_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_71543d98_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_71543d98_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21177e29_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(489);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21177e29_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21177e29_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21177e29_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21177e29_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 524:
+/***/ 525:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-71543d98]{cursor:pointer}.payment-card[data-v-71543d98]{transition:all .2s ease}.payment-card[data-v-71543d98]:hover{transform:translateY(-1px)}.text-none[data-v-71543d98]{text-transform:none!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".cursor-pointer[data-v-21177e29]{cursor:pointer}.payment-card[data-v-21177e29]{transition:all .2s ease}.payment-card[data-v-21177e29]:hover{transform:translateY(-1px)}.text-none[data-v-21177e29]{text-transform:none!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -290,7 +290,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 531:
+/***/ 532:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -298,13 +298,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(456);
+var VAlert = __webpack_require__(453);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(124);
+var VBtn = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(121);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(6);
@@ -327,7 +327,7 @@ var VRow = __webpack_require__(392);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(391);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=71543d98&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=21177e29&scoped=true
 
 
 
@@ -341,7 +341,7 @@ var VSpacer = __webpack_require__(391);
 
 
 
-var paymentDialogFrontvue_type_template_id_71543d98_scoped_true_render = function render() {
+var paymentDialogFrontvue_type_template_id_21177e29_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -657,7 +657,7 @@ var paymentDialogFrontvue_type_template_id_71543d98_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=71543d98&scoped=true
+// CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=template&id=21177e29&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/paymentDialogFront/index.vue?vue&type=script&lang=js
 /* harmony default export */ var paymentDialogFrontvue_type_script_lang_js = ({
@@ -702,20 +702,6 @@ var staticRenderFns = [];
       qrString: '00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405100005802LA5907KHAMMAO6260011713a321asS321as2250302120713te rminal000010812test remarks63041c9f'
     };
   },
-  mounted() {
-    this.showQROnCustomerScreen();
-
-    // Then auto-refresh every 5 seconds (5000 ms)
-    // this.qrRefreshInterval = setInterval(() => {
-    //   this.showQROnCustomerScreen()
-    // }, 5000)
-  },
-  beforeDestroy() {
-    // Prevent memory leaks when leaving page/component
-    if (this.qrRefreshInterval) {
-      clearInterval(this.qrRefreshInterval);
-    }
-  },
   computed: {
     showDialog: {
       get() {
@@ -734,11 +720,106 @@ var staticRenderFns = [];
     }
   },
   watch: {
-    show(newVal) {
-      if (!newVal) this.resetComponent();
+    // Watch for dialog opening/closing
+    show: {
+      handler(newVal, oldVal) {
+        if (newVal && !oldVal) {
+          // Dialog just opened
+          this.onDialogOpened();
+        } else if (!newVal && oldVal) {
+          // Dialog just closed
+          this.onDialogClosed();
+        }
+      },
+      immediate: false
+    },
+    // Also watch for changes in amount, tableNumber, or ticketId while dialog is open
+    amount: {
+      handler(newVal, oldVal) {
+        if (this.show && newVal !== oldVal) {
+          this.updateCustomerScreen();
+        }
+      }
+    },
+    tableNumber: {
+      handler(newVal, oldVal) {
+        if (this.show && newVal !== oldVal) {
+          this.updateCustomerScreen();
+        }
+      }
+    },
+    ticketId: {
+      handler(newVal, oldVal) {
+        if (this.show && newVal !== oldVal) {
+          this.updateCustomerScreen();
+        }
+      }
     }
   },
+  mounted() {
+    // Only update customer screen if dialog is already open when component mounts
+    if (this.show) {
+      this.onDialogOpened();
+    }
+  },
+  beforeDestroy() {
+    // Clean up intervals and hide QR from customer screen
+    this.cleanup();
+  },
   methods: {
+    onDialogOpened() {
+      console.log('Payment dialog opened - updating customer screen');
+
+      // Immediately show QR on customer screen
+      this.showQROnCustomerScreen();
+
+      // Optional: Set up auto-refresh interval
+      this.startAutoRefresh();
+
+      // Emit event for parent component if needed
+      this.$emit('dialog-opened');
+    },
+    onDialogClosed() {
+      console.log('Payment dialog closed - cleaning up');
+      this.cleanup();
+      this.resetComponent();
+    },
+    startAutoRefresh() {
+      // Clear any existing interval
+      if (this.qrRefreshInterval) {
+        clearInterval(this.qrRefreshInterval);
+      }
+
+      // Set up auto-refresh every 30 seconds (adjust as needed)
+      this.qrRefreshInterval = setInterval(() => {
+        if (this.show) {
+          console.log('Auto-refreshing customer screen QR');
+          this.showQROnCustomerScreen();
+        }
+      }, 30000); // 30 seconds
+    },
+    cleanup() {
+      // Clear auto-refresh interval
+      if (this.qrRefreshInterval) {
+        clearInterval(this.qrRefreshInterval);
+        this.qrRefreshInterval = null;
+      }
+
+      // Hide QR from customer screen
+      this.hideQRFromCustomerScreen();
+    },
+    updateCustomerScreen() {
+      // Debounced update to avoid too many rapid updates
+      if (this.updateTimeout) {
+        clearTimeout(this.updateTimeout);
+      }
+      this.updateTimeout = setTimeout(() => {
+        if (this.show) {
+          console.log('Updating customer screen due to data change');
+          this.showQROnCustomerScreen();
+        }
+      }, 500); // 500ms debounce
+    },
     showQROnCustomerScreen() {
       const qrData = {
         amount: this.amount,
@@ -752,7 +833,11 @@ var staticRenderFns = [];
         data: qrData
       }));
       window.dispatchEvent(new Event('storage'));
-      this.$emit('show-message', `QR displayed on customer screen`, 'success', 'mdi-qrcode');
+
+      // Only show success message if manually clicked (not auto-update)
+      if (arguments.length > 0 && arguments[0] === 'manual') {
+        this.$emit('show-message', `QR displayed on customer screen`, 'success', 'mdi-qrcode');
+      }
     },
     hideQRFromCustomerScreen() {
       localStorage.setItem('customerDisplay', JSON.stringify({
@@ -779,7 +864,7 @@ var staticRenderFns = [];
       return `00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405${amountStr}05802LA5907KHAMMAO6260011713a321asS321as2250302120713terminal${tableStr}0812Table ${this.tableNumber} payment63041c9f`;
     },
     closeDialog() {
-      this.hideQRFromCustomerScreen();
+      this.cleanup();
       this.resetComponent();
       this.$emit('close');
     },
@@ -787,6 +872,12 @@ var staticRenderFns = [];
       this.selectedPaymentMethod = null;
       this.showQRDialog = false;
       this.copied = false;
+
+      // Clear any pending timeouts
+      if (this.updateTimeout) {
+        clearTimeout(this.updateTimeout);
+        this.updateTimeout = null;
+      }
     },
     confirmPayment() {
       if (!this.selectedPaymentMethod) {
@@ -873,9 +964,6 @@ var staticRenderFns = [];
       };
       return colors[paymentCode] || 'primary';
     }
-  },
-  beforeDestroy() {
-    this.hideQRFromCustomerScreen();
   }
 });
 // CONCATENATED MODULE: ./components/CAFE/paymentDialogFront/index.vue?vue&type=script&lang=js
@@ -889,7 +977,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(523)
+  var style0 = __webpack_require__(524)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -898,11 +986,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   CAFE_paymentDialogFrontvue_type_script_lang_js,
-  paymentDialogFrontvue_type_template_id_71543d98_scoped_true_render,
+  paymentDialogFrontvue_type_template_id_21177e29_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "71543d98",
+  "21177e29",
   "07a78cad"
   
 )

@@ -1,14 +1,14 @@
 exports.ids = [22];
 exports.modules = {
 
-/***/ 501:
+/***/ 502:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/product.e130afd.jpg";
 
 /***/ }),
 
-/***/ 661:
+/***/ 666:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16,13 +16,13 @@ module.exports = __webpack_require__.p + "img/product.e130afd.jpg";
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(121);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(125);
+var VChip = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
 var VHover = __webpack_require__(396);
@@ -106,7 +106,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/all-product.vue?vue&type=template&id=10a052e7
 
 // EXTERNAL MODULE: ./assets/img/product/product.jpg
-var product = __webpack_require__(501);
+var product = __webpack_require__(502);
 
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(37);

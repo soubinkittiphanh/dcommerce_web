@@ -24,12 +24,22 @@
           <!-- Company Header -->
           <div class="invoice-header">
             <div class="header-flex">
-              <!-- Left Side - Logo -->
+              <!-- Left Side - Company Logo (Dynamic) -->
               <div class="header-left">
+                <!-- Dynamic Company Logo -->
                 <img
-                  :src="require('@/assets/image/MPWT/PWT.png')"
+                  v-if="companyLogoUrl"
+                  :src="companyLogoUrl"
                   alt="Company Logo"
                   class="company-logo"
+                  @error="onLogoError"
+                />
+                <!-- Fallback Logo -->
+                <img
+                  v-else
+                  :src="fallbackLogoUrl"
+                  alt="Company Logo"
+                  class="company-logo fallback-logo"
                 />
               </div>
 
@@ -201,8 +211,8 @@
 </template>
 
 <script>
+import { hostName, mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
 
-import { hostName, mainCompanyInfoV1,mainCompanyInfo } from '~/common/api'
 export default {
   name: 'ARInvoicePrinter',
 
@@ -226,8 +236,15 @@ export default {
     },
   },
 
+  data() {
+    return {
+      logoLoadError: false,
+      companies: [], // Store companies list
+    }
+  },
+
   computed: {
-        companyDataV1() {
+    companyDataV1() {
       console.log(
         `**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`
       )
@@ -235,6 +252,7 @@ export default {
       console.info(`Company data fetch from api V1 ${comV1}`)
       return comV1
     },
+
     hasValidData() {
       return this.invoiceData && this.invoiceData.id
     },
@@ -247,7 +265,31 @@ export default {
       return this.safeInvoiceData.lineItems || []
     },
 
-     // Company information
+    // Company Logo Logic
+    firstCompanyWithImage() {
+      return this.companies.find(company => 
+        company.profile_image_path && 
+        company.isActive
+      )
+    },
+
+    companyLogoUrl() {
+      if (this.logoLoadError) return null
+      
+      const firstCompany = this.firstCompanyWithImage
+      if (firstCompany && firstCompany.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        return `${baseUrl}/${firstCompany.profile_image_path}`
+      }
+      return null
+    },
+
+    fallbackLogoUrl() {
+      // Return your default logo
+      return require('@/assets/image/MPWT/PWT.png')
+    },
+
+    // Company information
     companyName() {
       return this.companyDataV1.name
     },
@@ -261,6 +303,7 @@ export default {
       const email = this.companyDataV1?.email || 'info@company.com'
       return `Tel: ${tel} | Email: ${email}`
     },
+
     getClientName() {
       const agencyId = this.safeInvoiceData.agencyId
       if (!agencyId) return '-'
@@ -327,116 +370,154 @@ export default {
     },
 
     amountInWords() {
-      if (this.totalAmount === 0) return 'Zero Only'
-      return `${this.formatCurrency(this.totalAmount)} Only`
+      // Implement your number-to-words conversion
+      return this.numberToWords(this.totalAmount) + ' Only'
     },
   },
 
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        this.loadCompanies()
+      }
+    }
+  },
+
   methods: {
-    formatDate(date) {
-      if (!date) return '-'
+    // Load companies to get the first one with image
+    async loadCompanies() {
       try {
-        return new Date(date).toLocaleDateString('en-GB')
-      } catch (e) {
-        return '-'
+        const response = await this.$axios.get('/api/company/findAll')
+        this.companies = Array.isArray(response.data) ? response.data : []
+        console.log('Companies loaded for invoice:', this.companies.length)
+      } catch (error) {
+        console.error('Error loading companies for invoice:', error)
+        this.companies = []
       }
     },
 
-    formatCurrency(amount) {
-      if (!amount && amount !== 0) return '0.00'
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(amount)
-    },
-
-    formatNumber(num) {
-      if (!num && num !== 0) return '0'
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(num)
+    onLogoError() {
+      console.warn('Company logo failed to load, using fallback')
+      this.logoLoadError = true
     },
 
     getStatusLabel(status) {
       const labels = {
-        draft: 'ແບບຮ່າງ',
-        sent: 'ສົ່ງແລ້ວ',
-        paid: 'ຈ່າຍແລ້ວ',
-        overdue: 'ເກີນກຳນົດ',
-        cancelled: 'ຍົກເລີກ',
+        draft: 'Draft',
+        sent: 'Sent',
+        paid: 'Paid',
+        overdue: 'Overdue',
       }
-      return labels[status] || status
+      return labels[status] || status || 'Unknown'
+    },
+
+    formatDate(date) {
+      if (!date) return '-'
+      try {
+        return new Date(date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })
+      } catch {
+        return '-'
+      }
+    },
+
+    formatNumber(value) {
+      if (!value && value !== 0) return '0'
+      return parseFloat(value).toLocaleString()
+    },
+
+    formatCurrency(value) {
+      if (!value && value !== 0) return '$0.00'
+      return `$${parseFloat(value).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`
+    },
+
+    numberToWords(num) {
+      // Simplified number to words - you can expand this
+      if (num === 0) return 'Zero'
+      if (num < 1000) return `${Math.floor(num)} Dollars`
+      if (num < 1000000) return `${Math.floor(num / 1000)} Thousand Dollars`
+      return `${Math.floor(num / 1000000)} Million Dollars`
     },
 
     printInvoice() {
-      if (!this.hasValidData) {
-        this.$toast?.error('ບໍ່ມີຂໍ້ມູນສຳລັບພິມ')
-        return
-      }
-
       const printContent = document.getElementById('invoice-print-area')
       if (!printContent) {
-        this.$toast?.error('ບໍ່ພົບເນື້ອຫາສຳລັບພິມ')
+        this.$toast.error('Print content not found')
         return
       }
 
-      const printWindow = window.open('', '', 'height=600,width=800')
-
-      printWindow.document.write('<html><head><title>Invoice</title>')
+      const printWindow = window.open('', '_blank')
       printWindow.document.write(`
-        <style>
-          @media print {
-            body { 
+        <html>
+        <head>
+          <title>Invoice - ${this.safeInvoiceData.invoiceNumber}</title>
+          <style>
+            * { 
               margin: 0; 
-              padding: 20px; 
+              padding: 0; 
+              box-sizing: border-box; 
+            }
+            body { 
               font-family: Arial, sans-serif; 
+              line-height: 1.4; 
+              color: #333; 
             }
             .invoice-container { 
-              max-width: 100%; 
+              background: white; 
+              padding: 20px; 
+              max-width: 900px; 
+              margin: 0 auto; 
             }
             .invoice-header { 
               margin-bottom: 20px; 
-              border-bottom: 2px solid #01532B; 
+              border-bottom: 3px solid #01532B; 
               padding-bottom: 15px; 
             }
-            .header-flex {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 20px;
+            .header-flex { 
+              display: flex; 
+              align-items: center; 
+              justify-content: space-between; 
+              gap: 20px; 
             }
-            .header-left {
-              flex-shrink: 0;
+            .header-left { 
+              flex-shrink: 0; 
             }
-            .header-center {
-              flex: 1;
-              text-align: left;
+            .header-center { 
+              flex: 1; 
+              text-align: left; 
             }
-            .header-right {
-              flex-shrink: 0;
-              text-align: right;
+            .header-right { 
+              flex-shrink: 0; 
+              text-align: right; 
             }
-            .company-logo {
-              width: 100px;
-              height: auto;
-              object-fit: contain;
+            .company-logo { 
+              width: 100px; 
+              height: auto; 
+              object-fit: contain; 
+              display: block; 
+              max-height: 80px; 
             }
             .company-name { 
-              margin: 0 0 5px 0; 
-              font-size: 22px; 
-              font-weight: bold;
-              color: #01532B;
+              margin: 0 0 8px 0; 
+              font-size: 20px; 
+              font-weight: bold; 
+              color: #01532B; 
             }
             .company-address, .company-contact { 
               margin: 3px 0; 
-              font-size: 11px;
-              color: #666;
+              font-size: 11px; 
+              color: #666; 
             }
             .invoice-title h3 { 
               margin: 0 0 5px 0; 
-              font-size: 18px;
-              color: #333;
+              font-size: 18px; 
+              color: #333; 
             }
             .invoice-title h4 { 
               margin: 0; 
@@ -448,26 +529,47 @@ export default {
               grid-template-columns: 1fr 1fr; 
               gap: 20px; 
               margin: 20px 0; 
+              padding: 15px; 
+              background-color: #f9f9f9; 
+              border-radius: 4px; 
             }
             .info-section h5 { 
               margin: 0 0 10px; 
-              font-size: 14px; 
-              font-weight: bold; 
+              font-size: 12px; 
+              font-weight: 600; 
+              color: #333; 
+              border-bottom: 1px solid #ddd; 
+              padding-bottom: 5px; 
+            }
+            .client-name { 
+              font-weight: 600; 
+              font-size: 12px; 
+              margin: 5px 0; 
+            }
+            .client-details { 
+              font-size: 10px; 
+              color: #666; 
+              margin: 5px 0; 
             }
             .info-row { 
+              display: flex; 
               padding: 3px 0; 
-              font-size: 12px; 
+              font-size: 10px; 
             }
             .label { 
-              font-weight: bold; 
-              margin-right: 10px; 
+              font-weight: 600; 
+              color: #333; 
+              min-width: 80px; 
+            }
+            .value { 
+              color: #666; 
             }
             .status-badge { 
               display: inline-block; 
               padding: 2px 8px; 
-              border-radius: 3px; 
-              font-size: 11px; 
-              font-weight: bold; 
+              border-radius: 10px; 
+              font-size: 9px; 
+              font-weight: 600; 
             }
             .status-badge.paid { 
               background: #d4edda; 
@@ -601,6 +703,12 @@ export default {
   height: auto;
   object-fit: contain;
   display: block;
+  max-height: 100px;
+  border-radius: 4px;
+}
+
+.fallback-logo {
+  opacity: 0.8;
 }
 
 .company-name {
@@ -805,6 +913,11 @@ export default {
 @media print {
   .invoice-container {
     padding: 20px;
+  }
+  
+  .company-logo {
+    width: 100px;
+    max-height: 80px;
   }
 }
 </style>

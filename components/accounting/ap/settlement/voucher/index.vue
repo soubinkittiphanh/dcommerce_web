@@ -24,12 +24,23 @@
           <!-- Company Header -->
           <div class="voucher-header">
             <div class="header-flex">
-              <!-- Left Side - Logo -->
+              <!-- Left Side - Dynamic Company Logo -->
               <div class="header-left">
+                <!-- Loading State -->
+                <div v-if="companyLogo.loading" class="logo-placeholder">
+                  <v-progress-circular
+                    indeterminate
+                    size="24"
+                    color="primary"
+                  ></v-progress-circular>
+                </div>
+                <!-- Company Logo -->
                 <img
-                  :src="require('@/assets/image/MPWT/PWT.png')"
+                  v-else
+                  :src="finalLogoUrl"
                   alt="Company Logo"
                   class="company-logo"
+                  @error="onLogoError"
                 />
               </div>
 
@@ -200,8 +211,12 @@
 
 <script>
 import { hostName, mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
+import companyLogoMixin from '~/mixins/companyLogoMixin'
+
 export default {
-  name: 'PaymentVoucherPrinter',
+  name: 'PaymentVoucherPrinterWithLogo',
+  
+  mixins: [companyLogoMixin],
 
   props: {
     visible: {
@@ -240,6 +255,7 @@ export default {
       console.info(`Company data fetch from api V1 ${comV1}`)
       return comV1
     },
+
     // Check if we have valid data
     hasValidData() {
       return this.voucherData && this.voucherData.id
@@ -295,6 +311,15 @@ export default {
     },
   },
 
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        // Load the first company logo when dialog opens
+        this.loadFirstCompanyLogo()
+      }
+    }
+  },
+
   methods: {
     // Format date
     formatDate(date) {
@@ -319,61 +344,65 @@ export default {
     getPaymentMethodName(id) {
       if (!id) return '-'
       const method = this.paymentMethods.find((m) => m.id === id)
-      return method?.payment_name || '-'
+      return method?.name || method?.methodName || '-'
     },
 
     // Get bank account info
     getBankAccountInfo(id) {
       if (!id) return '-'
       const account = this.bankAccounts.find((a) => a.id === id)
-      return account ? `${account.accountNumber} - ${account.bankName}` : '-'
+      if (!account) return '-'
+      return `${account.bankName || ''} - ${account.accountNumber || ''}`
     },
 
     // Get transaction code
     getTransactionCode(id) {
       if (!id) return '-'
       const txn = this.transactionCodes.find((t) => t.id === id)
-      return txn?.code || '-'
+      return txn?.code || txn?.transactionCode || '-'
     },
 
     // Get GL account
     getGLAccount(id) {
       if (!id) return '-'
       const account = this.glAccounts.find((a) => a.id === id)
-      return account?.accountNumber || '-'
+      return account?.code || account?.accountCode || '-'
     },
 
     // Print voucher
     printVoucher() {
-      if (!this.hasValidData) {
-        this.$toast?.error('ບໍ່ມີຂໍ້ມູນສຳລັບພິມ')
-        return
-      }
-
       const printContent = document.getElementById('voucher-print-area')
       if (!printContent) {
-        this.$toast?.error('ບໍ່ພົບເນື້ອຫາສຳລັບພິມ')
+        this.$toast.error('Print content not found')
         return
       }
 
-      const printWindow = window.open('', '', 'height=600,width=800')
-
-      printWindow.document.write('<html><head><title>Payment Voucher</title>')
+      const printWindow = window.open('', '_blank')
       printWindow.document.write(`
-        <style>
-          @media print {
-            body { 
-              margin: 0; 
-              padding: 20px; 
-              font-family: Arial, sans-serif; 
+        <html>
+        <head>
+          <title>Payment Voucher - ${this.safeVoucherData.reference}</title>
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
             }
-            .voucher-container { 
-              max-width: 100%; 
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.4;
+              color: #333;
             }
-            .voucher-header { 
-              margin-bottom: 20px; 
-              border-bottom: 2px solid #01532B; 
-              padding-bottom: 15px; 
+            .voucher-container {
+              background: white;
+              padding: 20px;
+              max-width: 900px;
+              margin: 0 auto;
+            }
+            .voucher-header {
+              margin-bottom: 20px;
+              border-bottom: 3px solid #01532B;
+              padding-bottom: 15px;
             }
             .header-flex {
               display: flex;
@@ -396,6 +425,7 @@ export default {
               width: 100px;
               height: auto;
               object-fit: contain;
+              max-height: 80px;
             }
             .company-name { 
               margin: 0 0 5px 0; 
@@ -544,11 +574,23 @@ export default {
   text-align: right;
 }
 
+.logo-placeholder {
+  width: 120px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+}
+
 .company-logo {
   width: 120px;
   height: auto;
   object-fit: contain;
   display: block;
+  max-height: 100px;
+  border-radius: 4px;
 }
 
 .company-name {
@@ -694,6 +736,11 @@ export default {
 @media print {
   .voucher-container {
     padding: 20px;
+  }
+  
+  .company-logo {
+    width: 100px;
+    max-height: 80px;
   }
 }
 </style>

@@ -24,12 +24,23 @@
           <!-- Company Header -->
           <div class="receipt-header">
             <div class="header-flex">
-              <!-- Left Side - Logo -->
+              <!-- Left Side - Dynamic Company Logo -->
               <div class="header-left">
+                <!-- Loading State -->
+                <div v-if="companyLogo.loading" class="logo-placeholder">
+                  <v-progress-circular
+                    indeterminate
+                    size="24"
+                    color="primary"
+                  ></v-progress-circular>
+                </div>
+                <!-- Company Logo -->
                 <img
-                  :src="require('@/assets/image/MPWT/PWT.png')"
+                  v-else
+                  :src="finalLogoUrl"
                   alt="Company Logo"
                   class="company-logo"
+                  @error="onLogoError"
                 />
               </div>
 
@@ -197,10 +208,13 @@
 </template>
 
 <script>
+import { hostName, mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
+import companyLogoMixin from '~/mixins/companyLogoMixin'
 
-import { hostName, mainCompanyInfoV1,mainCompanyInfo } from '~/common/api'
 export default {
-  name: 'ARReceivePrinter',
+  name: 'ARReceivePrinterWithLogo',
+  
+  mixins: [companyLogoMixin],
   
   props: {
     visible: {
@@ -239,7 +253,7 @@ export default {
   },
   
   computed: {
-            companyDataV1() {
+    companyDataV1() {
       console.log(
         `**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`
       )
@@ -247,6 +261,7 @@ export default {
       console.info(`Company data fetch from api V1 ${comV1}`)
       return comV1
     },
+
     hasValidData() {
       return this.receiptData && this.receiptData.id
     },
@@ -256,10 +271,10 @@ export default {
     },
     
     safeAllocationLines() {
-      return this.safeReceiptData.allocationLines || []
+      return this.safeReceiptData.allocationLines || this.safeReceiptData.receiveLines || []
     },
     
- // Company information
+    // Company information
     companyName() {
       return this.companyDataV1.name
     },
@@ -303,130 +318,151 @@ export default {
     },
     
     totalAmount() {
-      return this.safeAllocationLines.reduce(
-        (sum, line) => sum + (parseFloat(line.allocatedAmount) || 0),
-        0
-      )
+      return this.safeAllocationLines.reduce((sum, line) => {
+        return sum + (parseFloat(line.allocatedAmount) || 0)
+      }, 0)
     },
     
     amountInWords() {
-      if (this.totalAmount === 0) return 'Zero Only'
-      return `${this.formatCurrency(this.totalAmount)} Only`
+      return this.numberToWords(this.totalAmount) + ' Only'
+    }
+  },
+
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        // Load the first company logo when dialog opens
+        this.loadFirstCompanyLogo()
+      }
     }
   },
   
   methods: {
+    getPaymentMethodName(paymentId) {
+      if (!paymentId) return '-'
+      const method = this.paymentMethods.find(m => m.id === paymentId)
+      return method?.name || method?.methodName || '-'
+    },
+    
+    getTransactionCode(txnId) {
+      if (!txnId) return '-'
+      const txn = this.transactionCodes.find(t => t.id === txnId)
+      return txn?.code || txn?.transactionCode || '-'
+    },
+    
+    getGLAccount(accountId) {
+      if (!accountId) return '-'
+      const account = this.glAccounts.find(a => a.id === accountId)
+      return account?.accountCode || account?.code || '-'
+    },
+    
     formatDate(date) {
       if (!date) return '-'
       try {
-        return new Date(date).toLocaleDateString('en-GB')
-      } catch (e) {
+        return new Date(date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short', 
+          day: 'numeric'
+        })
+      } catch {
         return '-'
       }
     },
     
-    formatCurrency(amount) {
-      if (!amount && amount !== 0) return '0.00'
-      return new Intl.NumberFormat('en-US', {
+    formatNumber(value) {
+      if (!value && value !== 0) return '0'
+      return parseFloat(value).toLocaleString()
+    },
+    
+    formatCurrency(value) {
+      if (!value && value !== 0) return '$0.00'
+      return `$${parseFloat(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      }).format(amount)
+      })}`
     },
     
-    formatNumber(num) {
-      if (!num && num !== 0) return '1.0000'
-      return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 4,
-        maximumFractionDigits: 4
-      }).format(num)
-    },
-    
-    getPaymentMethodName(id) {
-      if (!id) return '-'
-      const method = this.paymentMethods.find(m => m.id === id)
-      return method?.payment_name || '-'
-    },
-    
-    getTransactionCode(id) {
-      if (!id) return '-'
-      const txn = this.transactionCodes.find(t => t.id === id)
-      return txn ? `${txn.code}` : '-'
-    },
-    
-    getGLAccount(id) {
-      if (!id) return '-'
-      const account = this.glAccounts.find(a => a.id === id)
-      return account?.accountNumber || '-'
+    numberToWords(num) {
+      // Simplified number to words conversion
+      if (num === 0) return 'Zero'
+      if (num < 1000) return `${Math.floor(num)} Dollars`
+      if (num < 1000000) return `${Math.floor(num / 1000)} Thousand Dollars`
+      return `${Math.floor(num / 1000000)} Million Dollars`
     },
     
     printReceipt() {
-      if (!this.hasValidData) {
-        this.$toast?.error('ບໍ່ມີຂໍ້ມູນສຳລັບພິມ')
-        return
-      }
-      
       const printContent = document.getElementById('receipt-print-area')
       if (!printContent) {
-        this.$toast?.error('ບໍ່ພົບເນື້ອຫາສຳລັບພິມ')
+        this.$toast.error('Print content not found')
         return
       }
       
-      const printWindow = window.open('', '', 'height=600,width=800')
-      
-      printWindow.document.write('<html><head><title>Payment Receipt</title>')
+      const printWindow = window.open('', '_blank')
       printWindow.document.write(`
-        <style>
-          @media print {
-            body { 
+        <html>
+        <head>
+          <title>Payment Receipt - ${this.safeReceiptData.receiptNumber}</title>
+          <style>
+            * { 
               margin: 0; 
-              padding: 20px; 
+              padding: 0; 
+              box-sizing: border-box; 
+            }
+            body { 
               font-family: Arial, sans-serif; 
+              line-height: 1.4; 
+              color: #333; 
             }
             .receipt-container { 
-              max-width: 100%; 
+              background: white; 
+              padding: 20px; 
+              max-width: 900px; 
+              margin: 0 auto; 
             }
             .receipt-header { 
               margin-bottom: 20px; 
-              border-bottom: 2px solid #01532B; 
+              border-bottom: 3px solid #01532B; 
               padding-bottom: 15px; 
             }
-            .header-flex {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 20px;
+            .header-flex { 
+              display: flex; 
+              align-items: center; 
+              justify-content: space-between; 
+              gap: 20px; 
             }
-            .header-left {
-              flex-shrink: 0;
+            .header-left { 
+              flex-shrink: 0; 
             }
-            .header-center {
-              flex: 1;
-              text-align: left;
+            .header-center { 
+              flex: 1; 
+              text-align: left; 
             }
-            .header-right {
-              flex-shrink: 0;
-              text-align: right;
+            .header-right { 
+              flex-shrink: 0; 
+              text-align: right; 
             }
-            .company-logo {
-              width: 100px;
-              height: auto;
-              object-fit: contain;
+            .company-logo { 
+              width: 100px; 
+              height: auto; 
+              object-fit: contain; 
+              display: block; 
+              max-height: 80px; 
             }
             .company-name { 
-              margin: 0 0 5px 0; 
-              font-size: 22px; 
-              font-weight: bold;
-              color: #01532B;
+              margin: 0 0 8px 0; 
+              font-size: 20px; 
+              font-weight: bold; 
+              color: #01532B; 
             }
             .company-address, .company-contact { 
               margin: 3px 0; 
-              font-size: 11px;
-              color: #666;
+              font-size: 11px; 
+              color: #666; 
             }
             .receipt-title h3 { 
               margin: 0 0 5px 0; 
-              font-size: 18px;
-              color: #333;
+              font-size: 18px; 
+              color: #333; 
             }
             .receipt-title h4 { 
               margin: 0; 
@@ -567,11 +603,23 @@ export default {
   text-align: right;
 }
 
+.logo-placeholder {
+  width: 120px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+}
+
 .company-logo {
   width: 120px;
   height: auto;
   object-fit: contain;
   display: block;
+  max-height: 100px;
+  border-radius: 4px;
 }
 
 .company-name {
@@ -727,6 +775,11 @@ export default {
 @media print {
   .receipt-container {
     padding: 20px;
+  }
+  
+  .company-logo {
+    width: 100px;
+    max-height: 80px;
   }
 }
 </style>

@@ -170,7 +170,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="dueDate" class="required">ວັນທີຄົບກຳນົດ</label>
+                  <label for="dueDate">ວັນທີຄົບກຳນົດ</label>
                   <input
                     id="dueDate"
                     v-model="form.dueDate"
@@ -1007,7 +1007,7 @@ export default {
         this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0'
       if (!this.form.invoiceDate)
         this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້'
-      if (!this.form.dueDate) this.errors.dueDate = 'ກະລຸນາໃສ່ວັນທີຄົບກຳນົດ'
+      // if (!this.form.dueDate) this.errors.dueDate = 'ກະລຸນາໃສ່ວັນທີຄົບກຳນົດ'
       if (this.form.invoiceDate && this.form.dueDate) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(this.form.dueDate)

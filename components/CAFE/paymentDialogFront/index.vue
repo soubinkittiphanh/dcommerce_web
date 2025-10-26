@@ -249,20 +249,7 @@ export default {
         '00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405100005802LA5907KHAMMAO6260011713a321asS321as2250302120713te rminal000010812test remarks63041c9f',
     }
   },
-  mounted() {
-    this.showQROnCustomerScreen()
-
-    // Then auto-refresh every 5 seconds (5000 ms)
-    // this.qrRefreshInterval = setInterval(() => {
-    //   this.showQROnCustomerScreen()
-    // }, 5000)
-  },
-  beforeDestroy() {
-    // Prevent memory leaks when leaving page/component
-    if (this.qrRefreshInterval) {
-      clearInterval(this.qrRefreshInterval)
-    }
-  },
+  
   computed: {
     showDialog: {
       get() {
@@ -286,12 +273,118 @@ export default {
   },
 
   watch: {
-    show(newVal) {
-      if (!newVal) this.resetComponent()
+    // Watch for dialog opening/closing
+    show: {
+      handler(newVal, oldVal) {
+        if (newVal && !oldVal) {
+          // Dialog just opened
+          this.onDialogOpened()
+        } else if (!newVal && oldVal) {
+          // Dialog just closed
+          this.onDialogClosed()
+        }
+      },
+      immediate: false
     },
+
+    // Also watch for changes in amount, tableNumber, or ticketId while dialog is open
+    amount: {
+      handler(newVal, oldVal) {
+        if (this.show && newVal !== oldVal) {
+          this.updateCustomerScreen()
+        }
+      }
+    },
+
+    tableNumber: {
+      handler(newVal, oldVal) {
+        if (this.show && newVal !== oldVal) {
+          this.updateCustomerScreen()
+        }
+      }
+    },
+
+    ticketId: {
+      handler(newVal, oldVal) {
+        if (this.show && newVal !== oldVal) {
+          this.updateCustomerScreen()
+        }
+      }
+    }
+  },
+
+  mounted() {
+    // Only update customer screen if dialog is already open when component mounts
+    if (this.show) {
+      this.onDialogOpened()
+    }
+  },
+
+  beforeDestroy() {
+    // Clean up intervals and hide QR from customer screen
+    this.cleanup()
   },
 
   methods: {
+    onDialogOpened() {
+      console.log('Payment dialog opened - updating customer screen')
+      
+      // Immediately show QR on customer screen
+      this.showQROnCustomerScreen()
+      
+      // Optional: Set up auto-refresh interval
+      this.startAutoRefresh()
+      
+      // Emit event for parent component if needed
+      this.$emit('dialog-opened')
+    },
+
+    onDialogClosed() {
+      console.log('Payment dialog closed - cleaning up')
+      this.cleanup()
+      this.resetComponent()
+    },
+
+    startAutoRefresh() {
+      // Clear any existing interval
+      if (this.qrRefreshInterval) {
+        clearInterval(this.qrRefreshInterval)
+      }
+      
+      // Set up auto-refresh every 30 seconds (adjust as needed)
+      this.qrRefreshInterval = setInterval(() => {
+        if (this.show) {
+          console.log('Auto-refreshing customer screen QR')
+          this.showQROnCustomerScreen()
+        }
+      }, 30000) // 30 seconds
+    },
+
+    cleanup() {
+      // Clear auto-refresh interval
+      if (this.qrRefreshInterval) {
+        clearInterval(this.qrRefreshInterval)
+        this.qrRefreshInterval = null
+      }
+      
+      // Hide QR from customer screen
+      this.hideQRFromCustomerScreen()
+    },
+
+    updateCustomerScreen() {
+      // Debounced update to avoid too many rapid updates
+      if (this.updateTimeout) {
+        clearTimeout(this.updateTimeout)
+      }
+      
+      this.updateTimeout = setTimeout(() => {
+        if (this.show) {
+          console.log('Updating customer screen due to data change')
+          this.showQROnCustomerScreen()
+        }
+      }, 500) // 500ms debounce
+    },
+
     showQROnCustomerScreen() {
       const qrData = {
         amount: this.amount,
@@ -310,12 +403,16 @@ export default {
       )
 
       window.dispatchEvent(new Event('storage'))
-      this.$emit(
-        'show-message',
-        `QR displayed on customer screen`,
-        'success',
-        'mdi-qrcode'
-      )
+      
+      // Only show success message if manually clicked (not auto-update)
+      if (arguments.length > 0 && arguments[0] === 'manual') {
+        this.$emit(
+          'show-message',
+          `QR displayed on customer screen`,
+          'success',
+          'mdi-qrcode'
+        )
+      }
     },
 
     hideQRFromCustomerScreen() {
@@ -351,7 +448,7 @@ export default {
     },
 
     closeDialog() {
-      this.hideQRFromCustomerScreen()
+      this.cleanup()
       this.resetComponent()
       this.$emit('close')
     },
@@ -360,6 +457,12 @@ export default {
       this.selectedPaymentMethod = null
       this.showQRDialog = false
       this.copied = false
+      
+      // Clear any pending timeouts
+      if (this.updateTimeout) {
+        clearTimeout(this.updateTimeout)
+        this.updateTimeout = null
+      }
     },
 
     confirmPayment() {
@@ -469,10 +572,6 @@ export default {
       }
       return colors[paymentCode] || 'primary'
     },
-  },
-
-  beforeDestroy() {
-    this.hideQRFromCustomerScreen()
   },
 }
 </script>

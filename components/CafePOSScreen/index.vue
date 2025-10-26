@@ -13,7 +13,7 @@
       @show-message="showMessage" />
 
     <!-- Payment Dialog -->
-    <PaymentDialog :show="showPaymentDialog" :table-number="tableId" :ticket-id="existingTicket?.id || null"
+    <PaymentDialog :show="showPaymentDialog" :table-number="tableId" :ticket-id="existingTicket?.id || currentTicket?.id || null"
       :amount="paymentAmount" :payment-methods="paymentList" :payment-loading="paymentLoading"
       :action-loading="actionLoading" :enable-q-r="true" :show-q-r-details="false" @close="closePaymentDialog"
       @confirm-payment="handlePaymentConfirm" @reload-payment-methods="loadPaymentMethods"

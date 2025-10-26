@@ -186,7 +186,7 @@
               </div>
 
               <!-- Third Row: External Reference Fields -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-external-link-alt"></i>
                   ອີງໃສ່ໃບສະເໜີ / ຖອນ
@@ -201,7 +201,7 @@
               </div>
 
               <!-- NEW: External Booking Date Field -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-calendar-check"></i>
                   ວັນທີອ້າງອີງພາຍນອກ
@@ -216,6 +216,7 @@
                   max-width="290px"
                   min-width="auto"
                   :disabled="formLoading || saving"
+                  v-if="!isBankTransfer"
                 >
                   <template #activator="{ on, attrs }">
                     <v-text-field
@@ -243,7 +244,7 @@
                 </v-menu>
               </div>
 
-              <div class="form-group" v-show="localForm.method === 'cheque'">
+              <div class="form-group" v-show="localForm.method === 'cheque'" v-if="!isBankTransfer">
                 <label
                   class="form-label"
                   :class="{ required: localForm.method === 'cheque' }"
@@ -262,7 +263,7 @@
               </div>
 
               <!-- Fourth Row: Receiver Information -->
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-user-circle"></i>
                   ຊື່ຜູ້ຮັບ
@@ -276,7 +277,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-id-card"></i>
                   ເລກບັດປະຈຳຕົວຜູ້ຮັບ
@@ -290,7 +291,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-calendar-alt"></i>
                   ວັນຄົບຮອບຄວນຊຳລະ
@@ -332,7 +333,7 @@
               </div>
 
               <!-- Fifth Row: Ministry and Bank Account -->
-              <div class="form-group span-2">
+              <div class="form-group span-2" v-if="!isBankTransfer">
                 <label class="form-label">
                   <i class="fas fa-building"></i>
                   ກົມ
@@ -540,7 +541,7 @@ export default {
         method: '',
         externalRef: '',
         externalRefNo: '',
-        externalBookingDate: '', // NEW FIELD
+        externalBookingDate: null, // NEW FIELD
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
@@ -606,7 +607,7 @@ export default {
         method: '',
         externalRef: '',
         externalRefNo: '',
-        externalBookingDate: '', // NEW FIELD
+        externalBookingDate: null, // NEW FIELD
         chequeNo: '',
         receiveName: '',
         receiveIDNO: '',
@@ -616,6 +617,9 @@ export default {
   },
 
   computed: {
+    isBankTransfer() {
+      return 'bank_transfer' == this.localForm.method
+    },
     user() {
       return this.$auth.user || ''
     },
@@ -759,7 +763,9 @@ export default {
   },
 
   mounted() {
-    console.info(`🔧 Component mounted, initializing form... ${this.paymentMethod}`)
+    console.info(
+      `🔧 Component mounted, initializing form... ${this.paymentMethod}`
+    )
     this.initForm()
   },
 
@@ -951,13 +957,13 @@ export default {
       } else {
         console.info('🔧 New mode - using defaults')
         this.localForm = this.getDefaultForm()
-        console.info(`POPERTY PAYMEN ${this.paymentMethod}`);
+        console.info(`POPERTY PAYMEN ${this.paymentMethod}`)
         // Set date picker values for new advance
         const todayDate = this.today
         this.localForm.bookingDate = todayDate
         this.pickerBookingDate = todayDate
         this.formattedBookingDate = this.formatDateForDisplay(todayDate)
-        this.localForm.method = this.paymentMethod;
+        this.localForm.method = this.paymentMethod
         // Due date and external booking date are optional, so leave them empty
         this.localForm.dueDate = ''
         this.pickerDueDate = null
@@ -1043,7 +1049,7 @@ export default {
       this.formattedBookingDate = this.formatDateForDisplay(todayDate)
       this.pickerDueDate = null
       this.formattedDueDate = null
-      
+
       // NEW: Reset external booking date
       this.pickerExternalBookingDate = null
       this.formattedExternalBookingDate = null
@@ -1264,7 +1270,9 @@ export default {
 
       // NEW: Format external booking date for API
       if (formData.externalBookingDate) {
-        formData.externalBookingDate = this.formatDateForAPI(formData.externalBookingDate)
+        formData.externalBookingDate = this.formatDateForAPI(
+          formData.externalBookingDate
+        )
       }
 
       // Clean up empty fields
@@ -1462,16 +1470,13 @@ export default {
     opacity: 1;
   }
 }
-
 .enhanced-dialog {
   background: white;
-  border-radius: 12px;
-  max-width: 95vw;
-  width: 95%;
-  max-height: 98vh;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.3s ease-out;
 }
 
 @keyframes slideIn {
@@ -1491,7 +1496,7 @@ export default {
   align-items: center;
   padding: 16px 18px;
   border-bottom: 1px solid #e9ecef;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532B;
   color: white;
 }
 
@@ -1774,7 +1779,7 @@ textarea.form-control {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #01532B;
   color: white;
 }
 
@@ -1806,10 +1811,6 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
-  .enhanced-dialog {
-    width: 98%;
-    margin: 10px;
-  }
 
   .form-grid {
     grid-template-columns: 1fr;

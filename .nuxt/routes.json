@@ -574,6 +574,13 @@
     "_name": "_f00a79be"
   },
   {
+    "name": "admin-spf",
+    "path": "/admin/spf",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/spf/index.vue",
+    "chunkName": "pages/admin/spf/index",
+    "_name": "_cc17c2a8"
+  },
+  {
     "name": "admin-tax",
     "path": "/admin/tax",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/tax/index.vue",
