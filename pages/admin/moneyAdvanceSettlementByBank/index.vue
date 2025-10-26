@@ -146,7 +146,7 @@
               <v-btn
                 color="primary"
                 small
-                @click="applyFilters"
+                @click="fetchSettlements"
                 :loading="loading"
               >
                 <v-icon small>mdi-magnify</v-icon>
@@ -158,33 +158,6 @@
             </div>
           </v-col>
         </v-row>
-
-        <!-- Expandable Chart Account Filter -->
-        <v-expand-transition>
-          <v-row v-if="showAdvancedFilter" no-gutters class="mt-2">
-            <v-col cols="12" md="6" class="px-1">
-              <v-select
-                v-model="filters.chartAccountId"
-                :items="chartAccountOptions"
-                label="ບັນຊີລວມ"
-                dense
-                outlined
-                clearable
-                hide-details="auto"
-              />
-            </v-col>
-          </v-row>
-        </v-expand-transition>
-
-        <!-- Toggle Advanced Filter -->
-        <div class="text-center mt-1">
-          <v-btn x-small text @click="showAdvancedFilter = !showAdvancedFilter">
-            {{ showAdvancedFilter ? 'ປິດຕົວກອງເພີ່ມເຕີມ' : 'ເພີ່ມຕົວກອງ' }}
-            <v-icon small>{{
-              showAdvancedFilter ? 'mdi-chevron-up' : 'mdi-chevron-down'
-            }}</v-icon>
-          </v-btn>
-        </div>
       </v-card-text>
     </v-card>
     <!-- Compact Summary Cards -->
@@ -243,14 +216,14 @@
     <v-card class="table-card" flat>
       <v-card-title class="py-2 px-3">
         <span class="table-title"
-          >ລາຍການ ({{ filteredSettlements.length }})</span
+          >ລາຍການ ({{ settlements.length }})</span
         >
         <v-spacer />
       </v-card-title>
 
       <v-data-table
         :headers="compactHeaders"
-        :items="paginatedSettlements"
+        :items="settlements"
         :items-per-page="25"
         class="compact-table"
         dense
@@ -258,7 +231,7 @@
         <!-- ID Column -->
         <template #item.id="{ item }">
           <div class="id-column">
-            <span class="id-main">{{ item.id }}</span>
+            <span class="id-main">{{ formatVoucherNumber(item.id) }}</span>
             <span v-if="item.moneyAdvanceId" class="id-sub"
               >({{ item.moneyAdvanceId }})</span
             >
@@ -433,12 +406,11 @@ export default {
 
       // Filters (updated for new date handling)
       filters: {
-        startDate: '',
-        endDate: '',
+        fromDate: '',
+        toDate: '',
         method: 'bank_transfer',
         accountNo: '',
         ministryId: '',
-        chartAccountId: '',
         search: '',
       },
 
@@ -588,6 +560,16 @@ export default {
   },
 
   mounted() {
+    const today = new Date()
+
+    // First day of current month
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
+
+    // Last day of current month
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+
+    this.setStartDate(firstDay)
+    this.setEndDate(lastDay)
     this.initializeData()
   },
 
@@ -601,31 +583,33 @@ export default {
       const year = d.getFullYear()
       return `${day}/${month}/${year}`
     },
-
+    formatVoucherNumber(id) {
+      return String(id).padStart(6, '0')
+    },
     setStartDate(val) {
       this.formattedStartDate = this.formatDate(val)
       this.pickerStartDate = val
-      this.filters.startDate = val
-      this.startDateMenu = false
+      this.filters.fromDate = val
+      this.fromDateMenu = false
     },
 
     setEndDate(val) {
       this.formattedEndDate = this.formatDate(val)
       this.pickerEndDate = val
-      this.filters.endDate = val
-      this.endDateMenu = false
+      this.filters.toDate = val
+      this.toDateMenu = false
     },
 
     clearStartDate() {
       this.formattedStartDate = null
       this.pickerStartDate = null
-      this.filters.startDate = ''
+      this.filters.fromDate = ''
     },
 
     clearEndDate() {
       this.formattedEndDate = null
       this.pickerEndDate = null
-      this.filters.endDate = ''
+      this.filters.toDate = ''
     },
 
     formatCompactDate(date) {
@@ -758,8 +742,10 @@ export default {
 
     async fetchSettlements() {
       this.loading = true
+      this.applyFilters();
       const params = {
         method: 'bank_transfer',
+        ...this.filters
       }
       try {
         const response = await this.$axios.get('/api/settlements', { params })
@@ -793,6 +779,8 @@ export default {
               notes: settlement.notes,
             })
           )
+          console.info(`TOTLE SETTLEMENT ${this.settlements.length}`)
+          this.applyFilters();
         } else {
           this.settlements = []
         }
@@ -977,13 +965,13 @@ export default {
     applyFilters() {
       let filtered = [...this.settlements]
 
-      if (this.filters.startDate) {
+      if (this.filters.fromDate) {
         filtered = filtered.filter(
-          (s) => s.bookingDate >= this.filters.startDate
+          (s) => s.bookingDate >= this.filters.fromDate
         )
       }
-      if (this.filters.endDate) {
-        filtered = filtered.filter((s) => s.bookingDate <= this.filters.endDate)
+      if (this.filters.toDate) {
+        filtered = filtered.filter((s) => s.bookingDate <= this.filters.toDate)
       }
       if (this.filters.method) {
         filtered = filtered.filter((s) => s.method === this.filters.method)
@@ -998,11 +986,7 @@ export default {
           (s) => s.ministryId === this.filters.ministryId
         )
       }
-      if (this.filters.chartAccountId) {
-        filtered = filtered.filter(
-          (s) => s.chartAccountId === this.filters.chartAccountId
-        )
-      }
+
 
       this.filteredSettlements = filtered
       this.sortData()

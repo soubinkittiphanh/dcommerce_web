@@ -257,6 +257,7 @@
     <!-- Agency Dialog -->
     <v-dialog v-model="showDialog" max-width="900px" persistent>
       <AgencyDialog
+        :key="agencyDialogKey"
         category="Broker"
         :visible="showDialog"
         :agency="selectedAgency"
@@ -316,6 +317,7 @@ export default {
     return {
       loading: false,
       agencies: [],
+      agencyDialogKey: 1,
       filteredAgencies: [],
       showDialog: false,
       showViewDialog: false,
@@ -391,7 +393,12 @@ export default {
       this.loading = true
       try {
         const { data } = await this.$axios.get('/api/agency', {
-          params: { page: 1, limit: 1000, isActive: true,agencyType: 'Broker' },
+          params: {
+            page: 1,
+            limit: 1000,
+            isActive: true,
+            agencyType: 'Broker',
+          },
         })
 
         this.agencies = data?.success ? data.data.agencies || [] : []
@@ -406,12 +413,17 @@ export default {
 
     openCreateDialog() {
       this.selectedAgency = null
+      this.agencyDialogKey++
       this.showDialog = true
     },
 
     editAgency(agency) {
-      this.selectedAgency = agency
-      this.showDialog = true
+      console.info(`AGENCY EMPLOYEE ${JSON.stringify(agency)}`)
+      this.selectedAgency = { ...agency } // Create a copy to ensure reactivity
+      this.agencyDialogKey++ // Force component re-render
+      this.$nextTick(() => {
+        this.showDialog = true
+      })
     },
 
     viewAgency(agency) {

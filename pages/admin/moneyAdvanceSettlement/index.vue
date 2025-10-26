@@ -113,7 +113,7 @@
           <!-- Account Filter -->
           <v-col cols="12" sm="6" md="2" class="px-1">
             <v-select
-              v-model="filters.accountNo"
+              v-model="filters.bankAccountId"
               :items="accountOptions"
               label="ບັນຊີ"
               dense
@@ -129,7 +129,7 @@
               <v-btn
                 color="primary"
                 small
-                @click="applyFilters"
+                @click="fetchSettlements"
                 :loading="loading"
               >
                 <v-icon small>mdi-magnify</v-icon>
@@ -143,7 +143,7 @@
 
         <!-- Secondary Filters (Collapsible) -->
         <v-expand-transition>
-          <v-row v-if="showAdvancedFilters" no-gutters class="mt-2">
+          <v-row no-gutters class="mt-2">
             <v-col cols="12" sm="6" md="3" class="px-1">
               <v-select
                 v-model="filters.ministryId"
@@ -155,35 +155,10 @@
                 hide-details
               />
             </v-col>
-            <v-col cols="12" sm="6" md="3" class="px-1">
-              <v-select
-                v-model="filters.chartAccountId"
-                :items="chartAccountOptions"
-                label="ບັນຊີລວມ"
-                dense
-                outlined
-                clearable
-                hide-details
-              />
-            </v-col>
           </v-row>
         </v-expand-transition>
 
         <!-- Advanced Filter Toggle -->
-        <div class="text-center mt-2">
-          <v-btn
-            x-small
-            text
-            @click="showAdvancedFilters = !showAdvancedFilters"
-          >
-            {{
-              showAdvancedFilters ? 'ປິດຕົວກອງເພີ່ມເຕີມ' : 'ເປີດຕົວກອງເພີ່ມເຕີມ'
-            }}
-            <v-icon small>{{
-              showAdvancedFilters ? 'mdi-chevron-up' : 'mdi-chevron-down'
-            }}</v-icon>
-          </v-btn>
-        </div>
       </v-card-text>
     </v-card>
 
@@ -247,7 +222,6 @@
           >ລາຍການ ({{ filteredSettlements.length }})</span
         >
         <v-spacer />
-        
       </v-card-title>
 
       <v-data-table
@@ -260,7 +234,7 @@
         <!-- ID Column -->
         <template #item.id="{ item }">
           <div class="id-cell">
-            {{ item.id }}
+            {{ formatVoucherNumber(item.id) }}
             <span v-if="item.moneyAdvanceId" class="advance-id"
               >({{ item.moneyAdvanceId }})</span
             >
@@ -381,9 +355,9 @@
 </template>
 
 <script>
+import VoucherPrintComponent from '~/components/MA/settlementVoucher'
 import SettlementDialog from '~/components/MA/settlementDialog'
 import SettlementViewDialog from '~/components/MA/settlementViewDialog'
-import VoucherPrintComponent from '~/components/MA/settlementVoucher'
 
 export default {
   name: 'SettlementSummary',
@@ -432,9 +406,8 @@ export default {
         startDate: '',
         endDate: '',
         method: '',
-        accountNo: '',
+        bankAccountId: '',
         ministryId: '',
-        chartAccountId: '',
         search: '',
       },
 
@@ -461,7 +434,30 @@ export default {
     user() {
       return this.$auth.user || ''
     },
+    filterParams() {
+      const params = {}
+      console.info(`${JSON.stringify(this.filters)}`)
+      if (this.filters.startDate) {
+        params.fromDate = this.filters.startDate
+      }
+      if (this.filters.endDate) {
+        params.toDate = this.filters.endDate
+      }
+      if (this.filters.bankAccountId) {
+        params.bankAccountId = this.filters.bankAccountId
+      }
+      if (this.filters.ministryId) {
+        params.ministryId = this.filters.ministryId
+      }
+      if (this.filters.method) {
+        params.method = this.filters.method
+      }
+      if (this.searchTerm) {
+        params.search = this.searchTerm
+      }
 
+      return params
+    },
     // Table headers for compact design
     tableHeaders() {
       return [
@@ -476,7 +472,7 @@ export default {
           width: '80px',
           sortable: false,
         },
-         { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
+        { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
         { text: 'ຈັດການ', value: 'actions', width: '100px', sortable: false },
       ]
     },
@@ -581,6 +577,16 @@ export default {
   },
 
   mounted() {
+    const today = new Date()
+
+    // First day of current month
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
+
+    // Last day of current month
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+
+    this.setStartDate(firstDay)
+    this.setEndDate(lastDay)
     this.initializeData()
   },
 
@@ -744,11 +750,20 @@ export default {
         this.showToast('Failed to load chart accounts', 'error')
       }
     },
-
+    formatVoucherNumber(id) {
+      return String(id).padStart(6, '0')
+    },
     async fetchSettlements() {
+      
+      const params = {
+        page: 1,
+        limit: 1000,
+        ...this.filterParams,
+      }
       this.loading = true
       try {
-        const response = await this.$axios.get('/api/settlements')
+        this.filteredSettlements = []
+        const response = await this.$axios.get('/api/settlements', { params })
         if (
           response.data &&
           response.data.success &&
@@ -779,6 +794,8 @@ export default {
               notes: settlement.notes,
             })
           )
+          console.info(`TOTAL ROWS ${this.settlements.length}`)
+          this.applyFilters()
         } else {
           this.settlements = []
         }
@@ -962,31 +979,17 @@ export default {
     // Keep all your existing filter, sort, pagination methods
     applyFilters() {
       let filtered = [...this.settlements]
-
-      if (this.filters.startDate) {
-        filtered = filtered.filter(
-          (s) => s.bookingDate >= this.filters.startDate
-        )
-      }
-      if (this.filters.endDate) {
-        filtered = filtered.filter((s) => s.bookingDate <= this.filters.endDate)
-      }
       if (this.filters.method) {
         filtered = filtered.filter((s) => s.method === this.filters.method)
       }
-      if (this.filters.accountNo) {
+      if (this.filters.bankAccountId) {
         filtered = filtered.filter(
-          (s) => s.bankAccountId === this.filters.accountNo
+          (s) => s.bankAccountId === this.filters.bankAccountId
         )
       }
       if (this.filters.ministryId) {
         filtered = filtered.filter(
           (s) => s.ministryId === this.filters.ministryId
-        )
-      }
-      if (this.filters.chartAccountId) {
-        filtered = filtered.filter(
-          (s) => s.chartAccountId === this.filters.chartAccountId
         )
       }
 
@@ -1001,7 +1004,7 @@ export default {
         startDate: '',
         endDate: '',
         method: '',
-        accountNo: '',
+        bankAccountId: '',
         ministryId: '',
         chartAccountId: '',
         search: '',

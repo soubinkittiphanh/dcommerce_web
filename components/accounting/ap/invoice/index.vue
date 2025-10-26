@@ -332,7 +332,7 @@
                             v-model="line.txnId"
                             :items="
                               transactionCodes.filter(
-                                (t) => t.type === 'EXPENSE' && t.isActive
+                                (t) => t.type !== 'ALL' && t.isActive
                               )
                             "
                             item-value="id"
@@ -769,6 +769,7 @@ export default {
         const { data } = await this.$axios.get('/api/transaction-codes', {
           params: {
             includeInactive: false,
+            // type: 'EXPENSE', // Filter only EXPENSE types for payments
             type: 'EXPENSE', // Filter only EXPENSE types for payments
           },
         })
@@ -843,6 +844,7 @@ export default {
         }
         this.lineItems = [this.createEmptyLine()]
         this.requestSequence()
+        this.loadTransactionCodes()
       }
       this.updateSelectedVendor()
       this.updateSelectedCurrency()

@@ -89,7 +89,7 @@
             >
               <template #activator="{ on, attrs }">
                 <v-text-field
-                  v-model="formattedFromDate"
+                  v-model="formattedStartDate"
                   label="ວັນທີ່ເລີ່ມຕົ້ນ"
                   hint="DD/MM/YYYY"
                   dense
@@ -122,7 +122,7 @@
             >
               <template #activator="{ on, attrs }">
                 <v-text-field
-                  v-model="formattedToDate"
+                  v-model="formattedEndDate"
                   label="ວັນທີ່ສິ້ນສຸດ"
                   hint="DD/MM/YYYY"
                   dense
@@ -184,7 +184,7 @@
               @input="debounceSearch"
             />
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="2" class="px-1">
             <div class="action-buttons">
               <v-btn
@@ -258,7 +258,12 @@
         <template #item.settleLine="{ item }">
           <div class="amount-column">
             <span class="amount-value">
-              {{ formatCurrency(getSettleAmount(item.settlementLine || []), item.currency.code) }}
+              {{
+                formatCurrency(
+                  getSettleAmount(item.settlementLine || []),
+                  item.currency.code
+                )
+              }}
             </span>
             <span v-if="item.currency" class="currency-code">
               {{ item.currency.code }}
@@ -277,7 +282,9 @@
         <template #item.bankAccount="{ item }">
           <div v-if="item.bankAccount" class="bank-compact">
             <div class="bank-name">{{ item.bankAccount.bankName }}</div>
-            <div class="account-number">{{ item.bankAccount.accountNumber }}</div>
+            <div class="account-number">
+              {{ item.bankAccount.accountNumber }}
+            </div>
           </div>
           <span v-else class="no-data">-</span>
         </template>
@@ -291,7 +298,9 @@
 
         <!-- Booking Date Column -->
         <template #item.bookingDate="{ item }">
-          <span class="date-compact">{{ formatCompactDate(item.bookingDate) }}</span>
+          <span class="date-compact">{{
+            formatCompactDate(item.bookingDate)
+          }}</span>
         </template>
 
         <!-- Actions Column -->
@@ -347,7 +356,9 @@
       <v-card-text class="text-center py-8">
         <v-icon size="64" color="grey lighten-2">mdi-inbox</v-icon>
         <div class="mt-3 text-h6 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
-        <div class="grey--text">ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ</div>
+        <div class="grey--text">
+          ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ
+        </div>
       </v-card-text>
     </v-card>
 
@@ -365,7 +376,9 @@
       :form-loading="formLoading"
       :saving="saving"
       @close="closeDialog"
-      @print="printAdvanceDetails(advances.find((advance) => advance.id == form.id))"
+      @print="
+        printAdvanceDetails(advances.find((advance) => advance.id == form.id))
+      "
       @save="saveAdvance"
       @currency-changed="updateSelectedCurrency"
       @bank-account-changed="updateSelectedBankAccount"
@@ -439,8 +452,8 @@ export default {
       toDateMenu: false,
       pickerFromDate: null,
       pickerToDate: null,
-      formattedFromDate: null,
-      formattedToDate: null,
+      formattedStartDate: null,
+      formattedEndDate: null,
 
       // Search state
       searchTerm: '',
@@ -532,9 +545,19 @@ export default {
         { text: 'ວັນທີ', value: 'bookingDate', width: '80px', sortable: true },
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
         { text: 'ຈຳນວນ ຈ່າຍ', value: 'amount', width: '100px', sortable: true },
-        { text: 'ຈຳນວນ ຮັບ', value: 'settleLine', width: '100px', sortable: true },
+        {
+          text: 'ຈຳນວນ ຮັບ',
+          value: 'settleLine',
+          width: '100px',
+          sortable: true,
+        },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
-        { text: 'ບັນຊີ', value: 'bankAccount', width: '120px', sortable: false },
+        {
+          text: 'ບັນຊີ',
+          value: 'bankAccount',
+          width: '120px',
+          sortable: false,
+        },
         { text: 'ສະຖານະ', value: 'status', width: '80px', sortable: true },
         { text: 'ຜູ້ລົງ', value: 'maker', width: '100px', sortable: true },
         { text: '', value: 'actions', width: '120px', sortable: false },
@@ -563,34 +586,59 @@ export default {
   },
 
   async mounted() {
+    const today = new Date()
+
+    // First day of current month
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
+
+    // Last day of current month
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+
+    this.setStartDate(firstDay)
+    this.setEndDate(lastDay)
     await this.loadInitialData()
   },
 
   methods: {
     // Excel Export Function
+    setStartDate(val) {
+      this.formattedStartDate = this.formatDate(val)
+      this.pickerStartDate = val
+      this.filters.fromDate = val
+      this.startDateMenu = false
+    },
+
+    setEndDate(val) {
+      this.formattedEndDate = this.formatDate(val)
+      this.pickerEndDate = val
+      this.filters.toDate = val
+      this.endDateMenu = false
+    },
     exportData() {
       try {
         // Prepare data for export
         const exportData = this.advances.map((item, index) => ({
-          'ລຳດັບ': index + 1,
-          'ID': item.id,
-          'ວັນທີ': this.formatDate(item.bookingDate),
-          'ຜູ້ລົງ': item.maker?.cus_name || '-',
-          'ກະຊວງ/ກົມ': item.ministry 
-            ? `${item.ministry.ministryCode || ''} - ${item.ministry.name || item.ministry.ministryName || ''}`
+          ລຳດັບ: index + 1,
+          ID: item.id,
+          ວັນທີ: this.formatDate(item.bookingDate),
+          ຜູ້ລົງ: item.maker?.cus_name || '-',
+          'ກະຊວງ/ກົມ': item.ministry
+            ? `${item.ministry.ministryCode || ''} - ${
+                item.ministry.name || item.ministry.ministryName || ''
+              }`
             : '-',
-          'ຈຳນວນເງິນຈ່າຍ': item.amount,
-          'ສະກຸນເງິນ': item.currency?.code || '',
-          'ຈຳນວນເງິນຮັບ': this.getSettleAmount(item.settlementLine || []),
-          'ຈຸດປະສົງ': item.purpose || '',
-          'ທະນາຄານ': item.bankAccount?.bankName || '-',
-          'ເລກບັນຊີ': item.bankAccount?.accountNumber || '-',
-          'ສະຖານະ': this.getStatusInLao(item.status),
-          'ຊື່ຜູ້ຮັບ': item.receiveName || '-',
-          'ເລກບັດປະຈຳຕົວ': item.receiveIDNO || '-',
-          'ເລກອ້າງອີງພາຍນອກ': item.externalRefNo || '-',
-          'ເລກເຊັກ': item.chequeNo || '-',
-          'ໝາຍເຫດ': item.note || '-',
+          ຈຳນວນເງິນຈ່າຍ: item.amount,
+          ສະກຸນເງິນ: item.currency?.code || '',
+          ຈຳນວນເງິນຮັບ: this.getSettleAmount(item.settlementLine || []),
+          ຈຸດປະສົງ: item.purpose || '',
+          ທະນາຄານ: item.bankAccount?.bankName || '-',
+          ເລກບັນຊີ: item.bankAccount?.accountNumber || '-',
+          ສະຖານະ: this.getStatusInLao(item.status),
+          ຊື່ຜູ້ຮັບ: item.receiveName || '-',
+          ເລກບັດປະຈຳຕົວ: item.receiveIDNO || '-',
+          ເລກອ້າງອີງພາຍນອກ: item.externalRefNo || '-',
+          ເລກເຊັກ: item.chequeNo || '-',
+          ໝາຍເຫດ: item.note || '-',
         }))
 
         // Create worksheet
@@ -598,8 +646,8 @@ export default {
 
         // Set column widths
         const colWidths = [
-          { wch: 8 },  // ລຳດັບ
-          { wch: 8 },  // ID
+          { wch: 8 }, // ລຳດັບ
+          { wch: 8 }, // ID
           { wch: 12 }, // ວັນທີ
           { wch: 20 }, // ຜູ້ລົງ
           { wch: 30 }, // ກະຊວງ/ກົມ
@@ -624,9 +672,9 @@ export default {
 
         // Add summary sheet
         const summaryData = [
-          { 'ລາຍການ': 'ທັງໝົດ', 'ຈຳນວນ': this.dashboard.counts.total },
-          { 'ລາຍການ': 'ຊຳລະແລ້ວ', 'ຈຳນວນ': this.dashboard.counts.settled },
-          { 'ລາຍການ': 'ລວມຍອດທັງໝົດ', 'ຈຳນວນ': this.dashboard.amounts.total },
+          { ລາຍການ: 'ທັງໝົດ', ຈຳນວນ: this.dashboard.counts.total },
+          { ລາຍການ: 'ຊຳລະແລ້ວ', ຈຳນວນ: this.dashboard.counts.settled },
+          { ລາຍການ: 'ລວມຍອດທັງໝົດ', ຈຳນວນ: this.dashboard.amounts.total },
         ]
         const wsSummary = XLSX.utils.json_to_sheet(summaryData)
         XLSX.utils.book_append_sheet(wb, wsSummary, 'ສະຫຼຸບ')
@@ -661,27 +709,27 @@ export default {
     },
 
     setFromDate(val) {
-      this.formattedFromDate = this.formatDate(val)
+      this.formattedStartDate = this.formatDate(val)
       this.pickerFromDate = val
       this.filters.fromDate = val
       this.fromDateMenu = false
     },
 
     setToDate(val) {
-      this.formattedToDate = this.formatDate(val)
+      this.formattedEndDate = this.formatDate(val)
       this.pickerToDate = val
       this.filters.toDate = val
       this.toDateMenu = false
     },
 
     clearFromDate() {
-      this.formattedFromDate = null
+      this.formattedStartDate = null
       this.pickerFromDate = null
       this.filters.fromDate = ''
     },
 
     clearToDate() {
-      this.formattedToDate = null
+      this.formattedEndDate = null
       this.pickerToDate = null
       this.filters.toDate = ''
     },
@@ -741,7 +789,9 @@ export default {
           params.search = this.searchTerm
         }
 
-        const { data } = await this.$axios.get('/api/money-advances', { params })
+        const { data } = await this.$axios.get('/api/money-advances', {
+          params,
+        })
         this.advances = data.data.advances || []
       } catch (error) {
         this.showToast('Error fetching money advances', 'error')
@@ -754,7 +804,10 @@ export default {
     async fetchDashboard() {
       try {
         const params = { ...this.filters, method: 'bank_transfer' }
-        const { data } = await this.$axios.get('/api/money-advances/dashboard', { params })
+        const { data } = await this.$axios.get(
+          '/api/money-advances/dashboard',
+          { params }
+        )
         this.dashboard = data.data
       } catch (error) {
         console.error('Error fetching dashboard:', error)
@@ -764,7 +817,11 @@ export default {
     async fetchUsers() {
       try {
         const { data } = await this.$axios.get('/api/user/find')
-        this.users = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
+        this.users = Array.isArray(data.data)
+          ? data.data
+          : Array.isArray(data)
+          ? data
+          : []
       } catch (error) {
         console.error('Error fetching users:', error)
         this.users = []
@@ -774,7 +831,11 @@ export default {
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')
-        this.currencies = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
+        this.currencies = Array.isArray(data.data)
+          ? data.data
+          : Array.isArray(data)
+          ? data
+          : []
       } catch (error) {
         console.error('Error fetching currencies:', error)
         this.currencies = []
@@ -794,8 +855,12 @@ export default {
     async fetchBankAccounts() {
       try {
         const { data } = await this.$axios.get('/api/bank_account/find')
-        const accounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
-        this.bankAccounts = accounts.filter(account => account.isActive)
+        const accounts = Array.isArray(data.data)
+          ? data.data
+          : Array.isArray(data)
+          ? data
+          : []
+        this.bankAccounts = accounts.filter((account) => account.isActive)
       } catch (error) {
         console.error('Error fetching bank accounts:', error)
         this.bankAccounts = []
@@ -805,7 +870,11 @@ export default {
     async fetchChartAccounts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
-        this.chartAccounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
+        this.chartAccounts = Array.isArray(data.data)
+          ? data.data
+          : Array.isArray(data)
+          ? data
+          : []
       } catch (error) {
         console.error('Error fetching chart accounts:', error)
         this.chartAccounts = []
@@ -845,7 +914,11 @@ export default {
       this.showDialog = true
       this.dialogKey = Date.now()
 
-      if (!this.users.length || !this.currencies.length || !this.ministries.length) {
+      if (
+        !this.users.length ||
+        !this.currencies.length ||
+        !this.ministries.length
+      ) {
         this.formLoading = true
         await this.loadInitialData()
         this.formLoading = false
@@ -875,7 +948,8 @@ export default {
       } else {
         this.resetForm()
         if (this.currencies.length) {
-          const defaultCurrency = this.currencies.find(c => c.code === 'USD') || this.currencies[0]
+          const defaultCurrency =
+            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
           this.form.currencyId = defaultCurrency.id
         }
       }
@@ -915,16 +989,24 @@ export default {
       this.saving = true
       try {
         const auditContext = {
-          reason: formData.reason || (this.isEdit ? 'Updated record' : 'Created new record'),
+          reason:
+            formData.reason ||
+            (this.isEdit ? 'Updated record' : 'Created new record'),
           userId: this.user?.id,
         }
 
         if (this.isEdit && formData.id) {
           formData.updateUserId = this.user.id
-          await this.$axios.put(`/api/money-advances/${formData.id}`, { ...formData, ...auditContext })
+          await this.$axios.put(`/api/money-advances/${formData.id}`, {
+            ...formData,
+            ...auditContext,
+          })
           this.showToast('Money advance updated successfully', 'success')
         } else {
-          const response = await this.$axios.post('/api/money-advances', { ...formData, ...auditContext })
+          const response = await this.$axios.post('/api/money-advances', {
+            ...formData,
+            ...auditContext,
+          })
           const newRecord = response.data.data
 
           this.form = {
@@ -954,7 +1036,8 @@ export default {
         await this.fetchData()
         await this.fetchDashboard()
       } catch (error) {
-        const message = error.response?.data?.message || 'Error saving money advance'
+        const message =
+          error.response?.data?.message || 'Error saving money advance'
         this.showToast(message, 'error')
         console.error('Save error:', error)
       } finally {
@@ -967,7 +1050,10 @@ export default {
         const result = await swalConfirm(
           this.$swal,
           'ຢືນຢັນ ການອະນຸມັດ',
-          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(advance.amount, advance.currency?.code)}?`,
+          `ທ່ານແນ່ໃຈທີ່ຈະອະນຸມັດລາຍການນີ້ແມ່ນບໍ່ ${this.formatCurrency(
+            advance.amount,
+            advance.currency?.code
+          )}?`,
           'question',
           'ບໍ່',
           'ຕົກລົງ'
@@ -994,7 +1080,9 @@ export default {
 
       try {
         this.detailLoading = true
-        const { data } = await this.$axios.get(`/api/money-advances/${advance.id}`)
+        const { data } = await this.$axios.get(
+          `/api/money-advances/${advance.id}`
+        )
         this.advanceDetails = data.data
       } catch (error) {
         console.error('Error fetching advance details:', error)
@@ -1026,7 +1114,9 @@ export default {
           method: '',
           settlementDate: settlementDate,
           bookingDate: settlementDate,
-          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'}`,
+          notes: `ຊຳລະຄືນ ຈາກ ລາຍຈ່າຍເລກທີ #${advance.id} - ${
+            advance.purpose || 'ບໍ່ໄດ້ລະບຸເນື້ອໃນ'
+          }`,
           moneyAdvanceId: advance.id,
           linkToAdvance: 'true',
         }
@@ -1053,11 +1143,15 @@ export default {
 
         const completeSettlementData = {
           ...settlementData,
-          bookingDate: settlementData.bookingDate || settlementData.settlementDate,
+          bookingDate:
+            settlementData.bookingDate || settlementData.settlementDate,
           ...auditContext,
         }
 
-        const response = await this.$axios.post('/api/settlements', completeSettlementData)
+        const response = await this.$axios.post(
+          '/api/settlements',
+          completeSettlementData
+        )
 
         if (response.data?.success) {
           this.showToast('Settlement created successfully', 'success')
@@ -1065,11 +1159,14 @@ export default {
           await this.fetchData()
           await this.fetchDashboard()
         } else {
-          throw new Error(response.data?.message || 'Failed to create settlement')
+          throw new Error(
+            response.data?.message || 'Failed to create settlement'
+          )
         }
       } catch (error) {
         console.error('Error saving settlement:', error)
-        const message = error.response?.data?.message || 'Error creating settlement'
+        const message =
+          error.response?.data?.message || 'Error creating settlement'
         this.showToast(message, 'error')
       }
     },

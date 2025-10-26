@@ -222,7 +222,7 @@
       >
         <!-- ID Column -->
         <template #item.id="{ item }">
-          <span class="id-text">{{ item.id }}</span>
+          <span class="id-text">{{ formatVoucherNumber(item.id) }}</span>
         </template>
 
         <!-- Ministry Column -->
@@ -403,7 +403,6 @@
     </v-overlay>
   </div>
 </template>
-
 <script>
 import MoneyAdvanceDialog from '~/components/MA/paymentDialog'
 import MoneyAdvanceDetailDialog from '~/components/MA/paymentDetailDialog'
@@ -431,8 +430,6 @@ export default {
       toDateMenu: false,
       pickerFromDate: null,
       pickerToDate: null,
-      formattedFromDate: null,
-      formattedToDate: null,
 
       // Search state
       searchTerm: '',
@@ -514,8 +511,50 @@ export default {
   },
 
   computed: {
+    // Formatted dates for display
+    formattedFromDate: {
+      get() {
+        return this.formatDisplayDate(this.pickerFromDate)
+      },
+      set(value) {
+        this.pickerFromDate = value
+      }
+    },
+
+    formattedToDate: {
+      get() {
+        return this.formatDisplayDate(this.pickerToDate)
+      },
+      set(value) {
+        this.pickerToDate = value
+      }
+    },
+
+    // Filter parameters for API calls
+    filterParams() {
+      const params = {}
+
+      if (this.filters.fromDate) {
+        params.fromDate = this.filters.fromDate
+      }
+      if (this.filters.toDate) {
+        params.toDate = this.filters.toDate
+      }
+      if (this.filters.makerId) {
+        params.makerId = this.filters.makerId
+      }
+      if (this.filters.ministryId) {
+        params.ministryId = this.filters.ministryId
+      }
+      if (this.searchTerm) {
+        params.search = this.searchTerm
+      }
+
+      return params
+    },
+
     user() {
-      return this.$auth.user || ''
+      return this.$auth.user || {}
     },
 
     compactHeaders() {
@@ -536,7 +575,7 @@ export default {
       return [
         { text: 'ທຸກຜູ້ໃຊ້', value: '' },
         ...this.users.map((user) => ({
-          text: user.cus_name,
+          text: user.cus_name || user.name,
           value: user.id,
         })),
       ]
@@ -558,9 +597,248 @@ export default {
   },
 
   methods: {
+    // Initialize default filters and load data
+    async loadInitialData() {
+      try {
+        // Set default date range to current month
+        this.initializeDefaultDateFilters()
+
+        // Load all required data in parallel
+        await Promise.all([
+          this.fetchUsers(),
+          this.fetchMinistries(),
+          this.fetchCurrencies(),
+          this.fetchBankAccounts(),
+        ])
+
+        // Fetch filtered data and dashboard
+        await this.fetchData()
+        await this.fetchDashboard()
+      } catch (error) {
+        console.error('Error loading initial data:', error)
+        this.showToast('Error loading initial data', 'error')
+      }
+    },
+
+    // Date helper methods
+    getStartOfCurrentMonth() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      const firstDay = new Date(year, month, 1)
+      return firstDay.toISOString().split('T')[0]
+    },
+
+    getEndOfCurrentMonth() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      const lastDay = new Date(year, month + 1, 0)
+      return lastDay.toISOString().split('T')[0]
+    },
+
+    initializeDefaultDateFilters() {
+      const fromDate = this.getStartOfCurrentMonth()
+      const toDate = this.getEndOfCurrentMonth()
+
+      this.filters.fromDate = fromDate
+      this.filters.toDate = toDate
+      this.pickerFromDate = fromDate
+      this.pickerToDate = toDate
+
+      console.log('Default date filters initialized:', { fromDate, toDate })
+    },
+    formatVoucherNumber(id) {
+      return String(id).padStart(6, '0')
+    },
+
+    // Text utility methods
+    truncateText(text, maxLength = 50) {
+      if (!text) return '-'
+      if (text.length <= maxLength) return text
+      return text.substring(0, maxLength) + '...'
+    },
+
+    capitalize(str) {
+      if (!str) return ''
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+
+    // Format date for display (DD/MM/YYYY)
+    formatDisplayDate(dateString) {
+      if (!dateString) return ''
+      try {
+        const date = new Date(dateString)
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+        return `${day}/${month}/${year}`
+      } catch (error) {
+        return dateString
+      }
+    },
+
+    // Date picker handlers
+    setFromDate(val) {
+      this.pickerFromDate = val
+      this.filters.fromDate = val
+      this.fromDateMenu = false
+      this.fetchData() // Auto-fetch when date changes
+    },
+
+    setToDate(val) {
+      this.pickerToDate = val
+      this.filters.toDate = val
+      this.toDateMenu = false
+      this.fetchData() // Auto-fetch when date changes
+    },
+
+    clearFromDate() {
+      this.pickerFromDate = null
+      this.filters.fromDate = ''
+      this.fetchData()
+    },
+
+    clearToDate() {
+      this.pickerToDate = null
+      this.filters.toDate = ''
+      this.fetchData()
+    },
+
+    // Filter methods
+    applyFilters() {
+      this.fetchData()
+    },
+
+    resetFilters() {
+      // Reset to current month defaults
+      this.initializeDefaultDateFilters()
+      this.filters.makerId = ''
+      this.filters.ministryId = ''
+      this.searchTerm = ''
+      this.fetchData()
+    },
+
+    // Debounced search
+    debounceSearch() {
+      if (this.searchTimeout) {
+        clearTimeout(this.searchTimeout)
+      }
+      this.searchTimeout = setTimeout(() => {
+        this.fetchData()
+      }, 500)
+    },
+
+    // Data fetching methods
+    async fetchData() {
+      if (this.loading) return
+
+      this.loading = true
+      try {
+        const params = {
+          page: 1,
+          limit: 1000,
+          ...this.filterParams
+        }
+
+        console.log('Fetching data with params:', params)
+
+        const response = await this.$axios.get('/api/money-advances', { params })
+        const { data } = response
+
+        if (data?.success) {
+          this.advances = data.data?.advances || []
+        } else {
+          this.advances = []
+          this.showToast('Failed to fetch data', 'error')
+        }
+      } catch (error) {
+        console.error('Error fetching advances:', error)
+        this.advances = []
+        this.showToast('Error loading data', 'error')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchDashboard() {
+      try {
+        const params = this.filterParams
+        const response = await this.$axios.get('/api/money-advances/dashboard', { params })
+        const { data } = response
+
+        if (data?.success) {
+          this.dashboard = data.data || this.dashboard
+        }
+      } catch (error) {
+        console.error('Error fetching dashboard:', error)
+        // Don't show error toast for dashboard as it's not critical
+      }
+    },
+
+    async fetchUsers() {
+      try {
+        const response = await this.$axios.get('/api/user/find')
+        const { data } = response
+        this.users = data || []
+      } catch (error) {
+        console.error('Error fetching users:', error)
+        this.users = []
+      }
+    },
+
+    async fetchMinistries() {
+      try {
+        const response = await this.$axios.get('/api/ministries')
+        const { data } = response
+        this.ministries = data?.success ? data.data || [] : []
+      } catch (error) {
+        console.error('Error fetching ministries:', error)
+        this.ministries = []
+      }
+    },
+
+    async fetchCurrencies() {
+      try {
+        const response = await this.$axios.get('/api/currency/find')
+        const { data } = response
+        this.currencies = data || [] 
+      } catch (error) {
+        console.error('Error fetching currencies:', error)
+        this.currencies = []
+      }
+    },
+
+    async fetchBankAccounts() {
+      try {
+        const response = await this.$axios.get('/api/bank_account/find')
+        const { data } = response
+        this.bankAccounts = data?.success ? data.data?.bankAccounts || [] : []
+      } catch (error) {
+        console.error('Error fetching bank accounts:', error)
+        this.bankAccounts = []
+      }
+    },
+
+    // Utility methods
+    getStatusInLao(status) {
+      return this.statusLabels[status] || status
+    },
+
+    // Number formatting
+    formatNumber(number) {
+      if (!number) return '0'
+      return new Intl.NumberFormat('en-US').format(number)
+    },
+
     // Excel Export Function
     exportData() {
       try {
+        if (!this.advances || this.advances.length === 0) {
+          this.showToast('ບໍ່ມີຂໍ້ມູນສຳລັບສົ່ງອອກ', 'warning')
+          return
+        }
+
         // Prepare data for export
         const exportData = this.advances.map((item, index) => ({
           'ລຳດັບ': index + 1,
@@ -634,63 +912,39 @@ export default {
 
     getSettleAmount(settlements) {
       if (!Array.isArray(settlements)) return 0
-      return settlements.reduce((total, item) => total + (item.amount || 0), 0)
+      return settlements.reduce((total, item) => total + (parseFloat(item.amount) || 0), 0)
     },
 
     // Date formatting methods
     formatDate(date) {
       if (!date) return '-'
-      const d = new Date(date)
-      const day = String(d.getDate()).padStart(2, '0')
-      const month = String(d.getMonth() + 1).padStart(2, '0')
-      const year = d.getFullYear()
-      return `${day}/${month}/${year}`
-    },
-
-    setFromDate(val) {
-      this.formattedFromDate = this.formatDate(val)
-      this.pickerFromDate = val
-      this.filters.fromDate = val
-      this.fromDateMenu = false
-    },
-
-    setToDate(val) {
-      this.formattedToDate = this.formatDate(val)
-      this.pickerToDate = val
-      this.filters.toDate = val
-      this.toDateMenu = false
-    },
-
-    clearFromDate() {
-      this.formattedFromDate = null
-      this.pickerFromDate = null
-      this.filters.fromDate = ''
-    },
-
-    clearToDate() {
-      this.formattedToDate = null
-      this.pickerToDate = null
-      this.filters.toDate = ''
+      try {
+        const d = new Date(date)
+        const day = String(d.getDate()).padStart(2, '0')
+        const month = String(d.getMonth() + 1).padStart(2, '0')
+        const year = d.getFullYear()
+        return `${day}/${month}/${year}`
+      } catch (error) {
+        return date
+      }
     },
 
     formatCompactDate(date) {
       if (!date) return '-'
-      return new Date(date).toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-      })
+      try {
+        return new Date(date).toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+        })
+      } catch (error) {
+        return '-'
+      }
     },
 
-    // Utility methods
-    truncateText(text, length = 20) {
-      if (!text) return 'N/A'
-      return text.length > length ? text.substring(0, length) + '...' : text
-    },
-
+    // Status formatting
     getStatusColor(status) {
       const colors = {
-        pending: 'warning',
+        pending: 'orange',
         approved: 'success',
         settled: 'info',
         rejected: 'error',
@@ -699,147 +953,26 @@ export default {
       return colors[status] || 'grey'
     },
 
-    getStatusInLao(status) {
-      return this.statusLabels[status] || status.toUpperCase()
-    },
-
-    // Data loading methods
-    async loadInitialData() {
-      await Promise.all([
-        this.fetchData(),
-        this.fetchDashboard(),
-        this.fetchUsers(),
-        this.fetchCurrencies(),
-        this.fetchMinistry(),
-        this.fetchBankAccounts(),
-        this.fetchChartAccounts(),
-      ])
-    },
-
-    async fetchData() {
-      this.loading = true
-      try {
-        const params = { ...this.filters }
-
-        if (this.searchTerm) {
-          params.search = this.searchTerm
-        }
-
-        const { data } = await this.$axios.get('/api/money-advances', { params })
-        this.advances = data.data.advances || []
-      } catch (error) {
-        this.showToast('Error fetching money advances', 'error')
-        console.error(error)
-      } finally {
-        this.loading = false
+    getStatusIcon(status) {
+      const icons = {
+        pending: 'mdi-clock-outline',
+        approved: 'mdi-check-circle-outline',
+        settled: 'mdi-cash-check',
+        rejected: 'mdi-close-circle-outline',
+        cancelled: 'mdi-cancel',
       }
-    },
-
-    async fetchDashboard() {
-      try {
-        const params = { ...this.filters, method: 'cash' }
-        const { data } = await this.$axios.get('/api/money-advances/dashboard', { params })
-        this.dashboard = data.data
-      } catch (error) {
-        console.error('Error fetching dashboard:', error)
-      }
-    },
-
-    async fetchUsers() {
-      try {
-        const { data } = await this.$axios.get('/api/user/find')
-        this.users = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
-      } catch (error) {
-        console.error('Error fetching users:', error)
-        this.users = []
-      }
-    },
-
-    async fetchCurrencies() {
-      try {
-        const { data } = await this.$axios.get('/api/currency/find')
-        this.currencies = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
-      } catch (error) {
-        console.error('Error fetching currencies:', error)
-        this.currencies = []
-      }
-    },
-
-    async fetchMinistry() {
-      try {
-        const response = await this.$axios.get('/api/ministries')
-        this.ministries = response.data?.data || []
-      } catch (error) {
-        console.error('Error fetching ministries:', error)
-        this.ministries = []
-      }
-    },
-
-    async fetchBankAccounts() {
-      try {
-        const { data } = await this.$axios.get('/api/bank_account/find')
-        const accounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
-        this.bankAccounts = accounts.filter(account => account.isActive)
-      } catch (error) {
-        console.error('Error fetching bank accounts:', error)
-        this.bankAccounts = []
-      }
-    },
-
-    async fetchChartAccounts() {
-      try {
-        const { data } = await this.$axios.get('/api/accountChart/find')
-        this.chartAccounts = Array.isArray(data.data) ? data.data : Array.isArray(data) ? data : []
-      } catch (error) {
-        console.error('Error fetching chart accounts:', error)
-        this.chartAccounts = []
-      }
-    },
-
-    // Filter methods
-    applyFilters() {
-      this.fetchData()
-      this.fetchDashboard()
-    },
-
-    resetFilters() {
-      this.filters = {
-        makerId: '',
-        ministryId: '',
-        fromDate: '',
-        toDate: '',
-      }
-      this.searchTerm = ''
-      this.clearFromDate()
-      this.clearToDate()
-      this.fetchData()
-      this.fetchDashboard()
-    },
-
-    debounceSearch() {
-      clearTimeout(this.searchTimeout)
-      this.searchTimeout = setTimeout(() => {
-        this.fetchData()
-      }, 500)
+      return icons[status] || 'mdi-help-circle-outline'
     },
 
     // Dialog methods
-    async openDialog(advance = null) {
+    openDialog(advance = null) {
       this.isEdit = !!advance
-      this.showDialog = true
-      this.dialogKey = Date.now()
-
-      if (!this.users.length || !this.currencies.length || !this.ministries.length) {
-        this.formLoading = true
-        await this.loadInitialData()
-        this.formLoading = false
-      }
-
       if (advance) {
+        // Edit mode - populate form with advance data
         this.form = {
           id: advance.id,
           amount: advance.amount,
-          method: advance.method,
+          method: advance.method || 'cash',
           purpose: advance.purpose || '',
           note: advance.note || '',
           makerId: advance.makerId,
@@ -847,22 +980,27 @@ export default {
           dueDate: advance.dueDate ? advance.dueDate.split('T')[0] : '',
           bankAccountId: advance.bankAccountId || '',
           ministryId: advance.ministryId || '',
-          bookingDate: advance.bookingDate || '',
-          exchangeRate: advance.exchangeRate || 1,
+          bookingDate: advance.bookingDate ? advance.bookingDate.split('T')[0] : '',
           reason: '',
           externalRef: advance.externalRef || '',
           externalRefNo: advance.externalRefNo || '',
           chequeNo: advance.chequeNo || '',
           receiveName: advance.receiveName || '',
           receiveIDNO: advance.receiveIDNO || '',
+          exchangeRate: advance.exchangeRate || 1,
         }
       } else {
+        // Create mode - reset form
         this.resetForm()
         if (this.currencies.length) {
           const defaultCurrency = this.currencies.find(c => c.code === 'USD') || this.currencies[0]
-          this.form.currencyId = defaultCurrency.id
+          if (defaultCurrency) {
+            this.form.currencyId = defaultCurrency.id
+          }
         }
       }
+      this.dialogKey++
+      this.showDialog = true
     },
 
     closeDialog() {
@@ -877,7 +1015,7 @@ export default {
         amount: '',
         purpose: '',
         note: '',
-        makerId: this.user.id,
+        makerId: this.user.id || '',
         currencyId: '',
         dueDate: '',
         bankAccountId: '',
@@ -1103,12 +1241,13 @@ export default {
 
     formatCurrency(amount, currencyCode = 'LAK') {
       try {
+        if (!amount) return '0'
         return new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: currencyCode,
           minimumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
           maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
-        }).format(amount || 0)
+        }).format(amount)
       } catch (error) {
         return `${amount || 0} ${currencyCode}`
       }

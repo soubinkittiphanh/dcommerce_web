@@ -11,9 +11,9 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
   // const baseURL = 'http://150.95.31.23:8021' //  *** carcare sokpaluang
   // const baseURL = 'http://150.95.31.23:8022' //  *** PM Jobfair
-  const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
+  // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
-  // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
+  const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
 }
@@ -102,20 +102,8 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  const info = {
-    name: 'ໄທພວນ',
-    tel: '020 2383 8999',
-    whatsapp: '+8562002023838999',
-    imageUrl: '',
-    imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'TAIPHUAN.png',
-    companyLogo: 'TAIPHUAN.png',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }
   // const info = {
-  //   name: 'PM',
+  //   name: 'ໄທພວນ',
   //   tel: '020 2383 8999',
   //   whatsapp: '+8562002023838999',
   //   imageUrl: '',
@@ -123,8 +111,20 @@ export const mainCompanyInfo = (store) => {
   //   address: '3 ແຍກອາໄພ່ LPB',
   //   ticketLogo: 'TAIPHUAN.png',
   //   companyLogo: 'TAIPHUAN.png',
-  //   dcLogo: 'Dcommerce-Logo-PM-1.png',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  // return info;
+  const info = {
+    name: 'PM',
+    tel: '020 2383 8999',
+    whatsapp: '+8562002023838999',
+    imageUrl: '',
+    imageName: '',
+    address: '3 ແຍກອາໄພ່ LPB',
+    ticketLogo: 'TAIPHUAN.png',
+    companyLogo: 'TAIPHUAN.png',
+    dcLogo: 'Dcommerce-Logo-PM-1.png',
+    env: ''
+  }
+  return info;
 }

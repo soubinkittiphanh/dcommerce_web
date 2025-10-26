@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(794);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4b38046a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_185c814c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(794);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_185c814c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_185c814c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_185c814c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_185c814c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-container[data-v-4b38046a]{background-color:#fafafa;min-height:100vh;padding:8px}.header-card[data-v-4b38046a]{border:1px solid #e2e8f0;margin-bottom:8px}.header-content[data-v-4b38046a]{align-items:center;display:flex;justify-content:space-between}.header-title[data-v-4b38046a]{color:#1a202c;font-size:18px;font-weight:600;margin:0}.header-actions[data-v-4b38046a]{display:flex;gap:8px}.summary-grid[data-v-4b38046a]{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));grid-gap:8px;gap:8px}.summary-card[data-v-4b38046a]{border:1px solid #e2e8f0;transition:transform .2s}.summary-card[data-v-4b38046a]:hover{transform:translateY(-2px)}.summary-card.total-amount[data-v-4b38046a]{background:linear-gradient(135deg,#667eea,#764ba2)!important;color:#fff}.summary-card.pending[data-v-4b38046a]{border-left:4px solid #f59e0b}.summary-card.approved[data-v-4b38046a]{border-left:4px solid #10b981}.summary-card.settled[data-v-4b38046a]{border-left:4px solid #3b82f6}.summary-layout[data-v-4b38046a]{gap:12px}.summary-icon[data-v-4b38046a],.summary-layout[data-v-4b38046a]{align-items:center;display:flex}.summary-icon[data-v-4b38046a]{background:#f3f4f6;border-radius:50%;flex-shrink:0;height:36px;justify-content:center;width:36px}.summary-icon.total[data-v-4b38046a]{background:hsla(0,0%,100%,.2)}.summary-content[data-v-4b38046a]{flex:1;min-width:0}.summary-amount[data-v-4b38046a]{color:#1a202c;font-size:16px;font-weight:700;word-break:break-word}.total-amount .summary-amount[data-v-4b38046a]{color:#fff}.summary-label[data-v-4b38046a]{color:#718096;font-size:11px;margin-top:2px}.total-amount .summary-label[data-v-4b38046a]{color:hsla(0,0%,100%,.9)}.filter-card[data-v-4b38046a]{border:1px solid #e2e8f0}.filter-row[data-v-4b38046a]{align-items:flex-end}.filter-actions[data-v-4b38046a]{flex-direction:column}.action-buttons[data-v-4b38046a],.filter-actions[data-v-4b38046a]{display:flex;gap:4px}.table-card[data-v-4b38046a]{border:1px solid #e2e8f0}.table-title[data-v-4b38046a]{font-size:14px;font-weight:600}.table-controls[data-v-4b38046a]{align-items:center;display:flex;gap:8px}.compact-table[data-v-4b38046a]{font-size:12px}.compact-table[data-v-4b38046a] th{background:#f8fafc!important;font-size:11px!important;font-weight:600!important;height:36px!important;padding:6px 8px!important}.compact-table[data-v-4b38046a] td{border-bottom:1px solid #f1f5f9!important;height:40px!important;padding:4px 8px!important}.id-text[data-v-4b38046a]{font-size:12px;font-weight:600}.maker-name[data-v-4b38046a]{color:#2d3748;font-size:11px}.ministry-compact[data-v-4b38046a]{display:flex;justify-content:center}.amount-column[data-v-4b38046a]{align-items:flex-end;display:flex;flex-direction:column;text-align:right}.amount-value[data-v-4b38046a]{color:#22c55e;font-size:12px;font-weight:600}.currency-code[data-v-4b38046a]{color:#718096;font-size:9px;text-transform:uppercase}.purpose-text[data-v-4b38046a]{color:#4a5568;font-size:11px}.bank-compact[data-v-4b38046a]{font-size:10px}.bank-name[data-v-4b38046a]{color:#2d3748;font-weight:600}.account-number[data-v-4b38046a]{color:#718096;font-family:monospace}.date-compact[data-v-4b38046a]{color:#4a5568;font-size:10px}.date-compact.overdue[data-v-4b38046a]{color:#e53e3e;font-weight:600}.action-buttons-table[data-v-4b38046a]{display:flex;gap:2px;justify-content:center}.no-data[data-v-4b38046a]{color:#a0aec0;font-size:10px;font-style:italic}.no-data-card[data-v-4b38046a]{border:1px solid #e2e8f0;margin-top:16px}.compact-pagination[data-v-4b38046a]{align-items:center;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:8px 12px}.pagination-info[data-v-4b38046a]{color:#718096;font-size:11px}.pagination-controls[data-v-4b38046a]{align-items:center;display:flex;gap:4px}.page-numbers[data-v-4b38046a]{display:flex;gap:2px;margin:0 8px}@media (max-width:960px){.header-content[data-v-4b38046a]{align-items:stretch;flex-direction:column;gap:12px}.summary-grid[data-v-4b38046a]{grid-template-columns:repeat(2,1fr)}.filter-row[data-v-4b38046a]{gap:8px}.action-buttons-table[data-v-4b38046a]{flex-direction:column;gap:1px}}@media (max-width:600px){.money-advance-container[data-v-4b38046a]{padding:4px}.summary-grid[data-v-4b38046a]{grid-template-columns:1fr}.compact-pagination[data-v-4b38046a]{align-items:stretch;text-align:center}.compact-pagination[data-v-4b38046a],.summary-layout[data-v-4b38046a],.table-controls[data-v-4b38046a]{flex-direction:column;gap:8px}.summary-layout[data-v-4b38046a]{text-align:center}.summary-icon[data-v-4b38046a]{margin:0 auto}}.v-card[data-v-4b38046a]{box-shadow:0 1px 3px rgba(0,0,0,.1)!important}.v-btn--small[data-v-4b38046a]{height:28px!important;min-width:60px!important}.v-btn--x-small[data-v-4b38046a]{height:24px!important;min-width:24px!important}.v-chip--x-small[data-v-4b38046a]{font-size:10px!important;height:18px!important;padding:0 6px!important}.v-select--dense .v-input__control[data-v-4b38046a],.v-text-field--dense .v-input__control[data-v-4b38046a]{min-height:32px!important}.v-text-field--dense .v-input__details[data-v-4b38046a]{min-height:14px!important;padding-top:2px!important}.v-text-field--dense .v-messages[data-v-4b38046a]{font-size:10px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".money-advance-container[data-v-185c814c]{background-color:#fafafa;min-height:100vh;padding:8px}.header-card[data-v-185c814c]{border:1px solid #e2e8f0;margin-bottom:8px}.header-content[data-v-185c814c]{align-items:center;display:flex;justify-content:space-between}.header-title[data-v-185c814c]{color:#1a202c;font-size:18px;font-weight:600;margin:0}.header-actions[data-v-185c814c]{display:flex;gap:8px}.summary-grid[data-v-185c814c]{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));grid-gap:8px;gap:8px}.summary-card[data-v-185c814c]{border:1px solid #e2e8f0;transition:transform .2s}.summary-card[data-v-185c814c]:hover{transform:translateY(-2px)}.summary-card.total-amount[data-v-185c814c]{background:linear-gradient(135deg,#667eea,#764ba2)!important;color:#fff}.summary-card.pending[data-v-185c814c]{border-left:4px solid #f59e0b}.summary-card.approved[data-v-185c814c]{border-left:4px solid #10b981}.summary-card.settled[data-v-185c814c]{border-left:4px solid #3b82f6}.summary-layout[data-v-185c814c]{gap:12px}.summary-icon[data-v-185c814c],.summary-layout[data-v-185c814c]{align-items:center;display:flex}.summary-icon[data-v-185c814c]{background:#f3f4f6;border-radius:50%;flex-shrink:0;height:36px;justify-content:center;width:36px}.summary-icon.total[data-v-185c814c]{background:hsla(0,0%,100%,.2)}.summary-content[data-v-185c814c]{flex:1;min-width:0}.summary-amount[data-v-185c814c]{color:#1a202c;font-size:16px;font-weight:700;word-break:break-word}.total-amount .summary-amount[data-v-185c814c]{color:#fff}.summary-label[data-v-185c814c]{color:#718096;font-size:11px;margin-top:2px}.total-amount .summary-label[data-v-185c814c]{color:hsla(0,0%,100%,.9)}.filter-card[data-v-185c814c]{border:1px solid #e2e8f0}.filter-row[data-v-185c814c]{align-items:flex-end}.filter-actions[data-v-185c814c]{flex-direction:column}.action-buttons[data-v-185c814c],.filter-actions[data-v-185c814c]{display:flex;gap:4px}.table-card[data-v-185c814c]{border:1px solid #e2e8f0}.table-title[data-v-185c814c]{font-size:14px;font-weight:600}.table-controls[data-v-185c814c]{align-items:center;display:flex;gap:8px}.compact-table[data-v-185c814c]{font-size:12px}.compact-table[data-v-185c814c] th{background:#f8fafc!important;font-size:11px!important;font-weight:600!important;height:36px!important;padding:6px 8px!important}.compact-table[data-v-185c814c] td{border-bottom:1px solid #f1f5f9!important;height:40px!important;padding:4px 8px!important}.id-text[data-v-185c814c]{font-size:12px;font-weight:600}.maker-name[data-v-185c814c]{color:#2d3748;font-size:11px}.ministry-compact[data-v-185c814c]{display:flex;justify-content:center}.amount-column[data-v-185c814c]{align-items:flex-end;display:flex;flex-direction:column;text-align:right}.amount-value[data-v-185c814c]{color:#22c55e;font-size:12px;font-weight:600}.currency-code[data-v-185c814c]{color:#718096;font-size:9px;text-transform:uppercase}.purpose-text[data-v-185c814c]{color:#4a5568;font-size:11px}.bank-compact[data-v-185c814c]{font-size:10px}.bank-name[data-v-185c814c]{color:#2d3748;font-weight:600}.account-number[data-v-185c814c]{color:#718096;font-family:monospace}.date-compact[data-v-185c814c]{color:#4a5568;font-size:10px}.date-compact.overdue[data-v-185c814c]{color:#e53e3e;font-weight:600}.action-buttons-table[data-v-185c814c]{display:flex;gap:2px;justify-content:center}.no-data[data-v-185c814c]{color:#a0aec0;font-size:10px;font-style:italic}.no-data-card[data-v-185c814c]{border:1px solid #e2e8f0;margin-top:16px}.compact-pagination[data-v-185c814c]{align-items:center;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:8px 12px}.pagination-info[data-v-185c814c]{color:#718096;font-size:11px}.pagination-controls[data-v-185c814c]{align-items:center;display:flex;gap:4px}.page-numbers[data-v-185c814c]{display:flex;gap:2px;margin:0 8px}@media (max-width:960px){.header-content[data-v-185c814c]{align-items:stretch;flex-direction:column;gap:12px}.summary-grid[data-v-185c814c]{grid-template-columns:repeat(2,1fr)}.filter-row[data-v-185c814c]{gap:8px}.action-buttons-table[data-v-185c814c]{flex-direction:column;gap:1px}}@media (max-width:600px){.money-advance-container[data-v-185c814c]{padding:4px}.summary-grid[data-v-185c814c]{grid-template-columns:1fr}.compact-pagination[data-v-185c814c]{align-items:stretch;text-align:center}.compact-pagination[data-v-185c814c],.summary-layout[data-v-185c814c],.table-controls[data-v-185c814c]{flex-direction:column;gap:8px}.summary-layout[data-v-185c814c]{text-align:center}.summary-icon[data-v-185c814c]{margin:0 auto}}.v-card[data-v-185c814c]{box-shadow:0 1px 3px rgba(0,0,0,.1)!important}.v-btn--small[data-v-185c814c]{height:28px!important;min-width:60px!important}.v-btn--x-small[data-v-185c814c]{height:24px!important;min-width:24px!important}.v-chip--x-small[data-v-185c814c]{font-size:10px!important;height:18px!important;padding:0 6px!important}.v-select--dense .v-input__control[data-v-185c814c],.v-text-field--dense .v-input__control[data-v-185c814c]{min-height:32px!important}.v-text-field--dense .v-input__details[data-v-185c814c]{min-height:14px!important;padding-top:2px!important}.v-text-field--dense .v-messages[data-v-185c814c]{font-size:10px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -80,7 +80,7 @@ var VSpacer = __webpack_require__(391);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=4b38046a&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=185c814c&scoped=true
 
 
 
@@ -98,7 +98,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = function render() {
+var moneyAdvanceByBankvue_type_template_id_185c814c_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VCard["a" /* default */], {
@@ -144,7 +144,7 @@ var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = functio
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-download")]), _vm._v("\n            Export\n          ")], 1)], 1)])])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"summary-grid mb-2\" data-v-4b38046a>", "</div>", [_c(VCard["a" /* default */], {
+  }, [_vm._v("mdi-download")]), _vm._v("\n            Export\n          ")], 1)], 1)])])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"summary-grid mb-2\" data-v-185c814c>", "</div>", [_c(VCard["a" /* default */], {
     staticClass: "summary-card"
   }, [_c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-3"
@@ -247,11 +247,11 @@ var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = functio
             "click:clear": _vm.clearFromDate
           },
           model: {
-            value: _vm.formattedFromDate,
+            value: _vm.formattedStartDate,
             callback: function ($$v) {
-              _vm.formattedFromDate = $$v;
+              _vm.formattedStartDate = $$v;
             },
-            expression: "formattedFromDate"
+            expression: "formattedStartDate"
           }
         }, 'v-text-field', attrs, false), on))];
       }
@@ -313,11 +313,11 @@ var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = functio
             "click:clear": _vm.clearToDate
           },
           model: {
-            value: _vm.formattedToDate,
+            value: _vm.formattedEndDate,
             callback: function ($$v) {
-              _vm.formattedToDate = $$v;
+              _vm.formattedEndDate = $$v;
             },
-            expression: "formattedToDate"
+            expression: "formattedEndDate"
           }
         }, 'v-text-field', attrs, false), on))];
       }
@@ -559,7 +559,7 @@ var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = functio
           staticClass: "bank-name"
         }, [_vm._v(_vm._s(item.bankAccount.bankName))]), _vm._v(" "), _c('div', {
           staticClass: "account-number"
-        }, [_vm._v(_vm._s(item.bankAccount.accountNumber))])]) : _c('span', {
+        }, [_vm._v("\n            " + _vm._s(item.bankAccount.accountNumber) + "\n          ")])]) : _c('span', {
           staticClass: "no-data"
         }, [_vm._v("-")])];
       }
@@ -689,7 +689,7 @@ var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = functio
     staticClass: "mt-3 text-h6 grey--text"
   }, [_vm._v("ບໍ່ມີຂໍ້ມູນ")]), _vm._v(" "), _c('div', {
     staticClass: "grey--text"
-  }, [_vm._v("ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ")])], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _c('money-advance-dialog', {
+  }, [_vm._v("\n        ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ\n      ")])], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _c('money-advance-dialog', {
     key: _vm.dialogKey,
     attrs: {
       "show": _vm.showDialog,
@@ -765,7 +765,7 @@ var moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=4b38046a&scoped=true
+// CONCATENATED MODULE: ./pages/admin/moneyAdvanceByBank/index.vue?vue&type=template&id=185c814c&scoped=true
 
 // EXTERNAL MODULE: ./components/MA/paymentDialog/index.vue + 4 modules
 var paymentDialog = __webpack_require__(657);
@@ -808,8 +808,8 @@ var external_xlsx_ = __webpack_require__(371);
       toDateMenu: false,
       pickerFromDate: null,
       pickerToDate: null,
-      formattedFromDate: null,
-      formattedToDate: null,
+      formattedStartDate: null,
+      formattedEndDate: null,
       // Search state
       searchTerm: '',
       searchTimeout: null,
@@ -965,33 +965,54 @@ var external_xlsx_ = __webpack_require__(371);
     }
   },
   async mounted() {
+    const today = new Date();
+
+    // First day of current month
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    // Last day of current month
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    this.setStartDate(firstDay);
+    this.setEndDate(lastDay);
     await this.loadInitialData();
   },
   methods: {
     // Excel Export Function
+    setStartDate(val) {
+      this.formattedStartDate = this.formatDate(val);
+      this.pickerStartDate = val;
+      this.filters.fromDate = val;
+      this.startDateMenu = false;
+    },
+    setEndDate(val) {
+      this.formattedEndDate = this.formatDate(val);
+      this.pickerEndDate = val;
+      this.filters.toDate = val;
+      this.endDateMenu = false;
+    },
     exportData() {
       try {
         // Prepare data for export
         const exportData = this.advances.map((item, index) => {
           var _item$maker, _item$currency, _item$bankAccount, _item$bankAccount2;
           return {
-            'ລຳດັບ': index + 1,
-            'ID': item.id,
-            'ວັນທີ': this.formatDate(item.bookingDate),
-            'ຜູ້ລົງ': ((_item$maker = item.maker) === null || _item$maker === void 0 ? void 0 : _item$maker.cus_name) || '-',
+            ລຳດັບ: index + 1,
+            ID: item.id,
+            ວັນທີ: this.formatDate(item.bookingDate),
+            ຜູ້ລົງ: ((_item$maker = item.maker) === null || _item$maker === void 0 ? void 0 : _item$maker.cus_name) || '-',
             'ກະຊວງ/ກົມ': item.ministry ? `${item.ministry.ministryCode || ''} - ${item.ministry.name || item.ministry.ministryName || ''}` : '-',
-            'ຈຳນວນເງິນຈ່າຍ': item.amount,
-            'ສະກຸນເງິນ': ((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code) || '',
-            'ຈຳນວນເງິນຮັບ': this.getSettleAmount(item.settlementLine || []),
-            'ຈຸດປະສົງ': item.purpose || '',
-            'ທະນາຄານ': ((_item$bankAccount = item.bankAccount) === null || _item$bankAccount === void 0 ? void 0 : _item$bankAccount.bankName) || '-',
-            'ເລກບັນຊີ': ((_item$bankAccount2 = item.bankAccount) === null || _item$bankAccount2 === void 0 ? void 0 : _item$bankAccount2.accountNumber) || '-',
-            'ສະຖານະ': this.getStatusInLao(item.status),
-            'ຊື່ຜູ້ຮັບ': item.receiveName || '-',
-            'ເລກບັດປະຈຳຕົວ': item.receiveIDNO || '-',
-            'ເລກອ້າງອີງພາຍນອກ': item.externalRefNo || '-',
-            'ເລກເຊັກ': item.chequeNo || '-',
-            'ໝາຍເຫດ': item.note || '-'
+            ຈຳນວນເງິນຈ່າຍ: item.amount,
+            ສະກຸນເງິນ: ((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code) || '',
+            ຈຳນວນເງິນຮັບ: this.getSettleAmount(item.settlementLine || []),
+            ຈຸດປະສົງ: item.purpose || '',
+            ທະນາຄານ: ((_item$bankAccount = item.bankAccount) === null || _item$bankAccount === void 0 ? void 0 : _item$bankAccount.bankName) || '-',
+            ເລກບັນຊີ: ((_item$bankAccount2 = item.bankAccount) === null || _item$bankAccount2 === void 0 ? void 0 : _item$bankAccount2.accountNumber) || '-',
+            ສະຖານະ: this.getStatusInLao(item.status),
+            ຊື່ຜູ້ຮັບ: item.receiveName || '-',
+            ເລກບັດປະຈຳຕົວ: item.receiveIDNO || '-',
+            ເລກອ້າງອີງພາຍນອກ: item.externalRefNo || '-',
+            ເລກເຊັກ: item.chequeNo || '-',
+            ໝາຍເຫດ: item.note || '-'
           };
         });
 
@@ -1075,14 +1096,14 @@ var external_xlsx_ = __webpack_require__(371);
 
         // Add summary sheet
         const summaryData = [{
-          'ລາຍການ': 'ທັງໝົດ',
-          'ຈຳນວນ': this.dashboard.counts.total
+          ລາຍການ: 'ທັງໝົດ',
+          ຈຳນວນ: this.dashboard.counts.total
         }, {
-          'ລາຍການ': 'ຊຳລະແລ້ວ',
-          'ຈຳນວນ': this.dashboard.counts.settled
+          ລາຍການ: 'ຊຳລະແລ້ວ',
+          ຈຳນວນ: this.dashboard.counts.settled
         }, {
-          'ລາຍການ': 'ລວມຍອດທັງໝົດ',
-          'ຈຳນວນ': this.dashboard.amounts.total
+          ລາຍການ: 'ລວມຍອດທັງໝົດ',
+          ຈຳນວນ: this.dashboard.amounts.total
         }];
         const wsSummary = external_xlsx_["utils"].json_to_sheet(summaryData);
         external_xlsx_["utils"].book_append_sheet(wb, wsSummary, 'ສະຫຼຸບ');
@@ -1113,24 +1134,24 @@ var external_xlsx_ = __webpack_require__(371);
       return `${day}/${month}/${year}`;
     },
     setFromDate(val) {
-      this.formattedFromDate = this.formatDate(val);
+      this.formattedStartDate = this.formatDate(val);
       this.pickerFromDate = val;
       this.filters.fromDate = val;
       this.fromDateMenu = false;
     },
     setToDate(val) {
-      this.formattedToDate = this.formatDate(val);
+      this.formattedEndDate = this.formatDate(val);
       this.pickerToDate = val;
       this.filters.toDate = val;
       this.toDateMenu = false;
     },
     clearFromDate() {
-      this.formattedFromDate = null;
+      this.formattedStartDate = null;
       this.pickerFromDate = null;
       this.filters.fromDate = '';
     },
     clearToDate() {
-      this.formattedToDate = null;
+      this.formattedEndDate = null;
       this.pickerToDate = null;
       this.filters.toDate = '';
     },
@@ -1582,11 +1603,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_moneyAdvanceByBankvue_type_script_lang_js,
-  moneyAdvanceByBankvue_type_template_id_4b38046a_scoped_true_render,
+  moneyAdvanceByBankvue_type_template_id_185c814c_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "4b38046a",
+  "185c814c",
   "59e89739"
   
 )
@@ -8203,7 +8224,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("496136a8", content, true, context)
+  add("e575fe26", content, true, context)
 };
 
 /***/ })

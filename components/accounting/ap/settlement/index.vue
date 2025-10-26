@@ -315,7 +315,6 @@
                           :items="agencies"
                           item-value="id"
                           item-text="agencyName"
-                          :filter="agencyFilterForTable"
                           :disabled="!canModifyAllocations"
                           dense
                           outlined

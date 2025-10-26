@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9c86cc42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(797);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9c86cc42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9c86cc42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9c86cc42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9c86cc42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bb26eec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(797);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bb26eec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bb26eec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bb26eec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5bb26eec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".summary-section[data-v-9c86cc42]{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));grid-gap:8px;gap:8px;margin-bottom:8px}.settlement-container[data-v-9c86cc42]{background-color:#fafafa;min-height:100vh;padding:8px}.header-card[data-v-9c86cc42]{border:1px solid #e2e8f0;margin-bottom:8px}.header-content[data-v-9c86cc42]{align-items:center;display:flex;justify-content:space-between}.header-title[data-v-9c86cc42]{color:#1a202c;font-size:18px;font-weight:600;margin:0}.header-actions[data-v-9c86cc42]{display:flex;gap:8px}.filter-card[data-v-9c86cc42]{border:1px solid #e2e8f0}.filter-row[data-v-9c86cc42]{align-items:flex-end}.filter-actions[data-v-9c86cc42]{display:flex;gap:8px;justify-content:flex-end}.summary-grid[data-v-9c86cc42]{display:grid;grid-template-columns:2fr repeat(auto-fit,minmax(180px,1fr));grid-gap:8px;gap:8px}.summary-card[data-v-9c86cc42]{border:1px solid #e2e8f0}.total-card[data-v-9c86cc42]{background:linear-gradient(135deg,#667eea,#764ba2)!important}.summary-layout[data-v-9c86cc42]{align-items:center;display:flex;gap:12px}.currency-icon[data-v-9c86cc42],.summary-icon[data-v-9c86cc42]{align-items:center;background:hsla(0,0%,100%,.2);border-radius:50%;display:flex;flex-shrink:0;height:36px;justify-content:center;width:36px}.currency-icon[data-v-9c86cc42]{background:#f0f9ff}.summary-content[data-v-9c86cc42]{flex:1;min-width:0}.summary-amount[data-v-9c86cc42]{color:#fff;font-size:14px;font-weight:700;word-break:break-word}.currency-card .summary-amount[data-v-9c86cc42]{color:#1a202c}.summary-label[data-v-9c86cc42]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:2px}.currency-card .summary-label[data-v-9c86cc42]{color:#718096}.lak-equivalent[data-v-9c86cc42]{color:#a0aec0;font-size:10px;font-style:italic;margin-top:1px}.table-card[data-v-9c86cc42]{border:1px solid #e2e8f0}.table-title[data-v-9c86cc42]{font-size:14px;font-weight:600}.table-controls[data-v-9c86cc42]{align-items:center;display:flex;gap:8px}.compact-table[data-v-9c86cc42]{font-size:12px}.compact-table[data-v-9c86cc42] th{background:#f8fafc!important;font-size:11px!important;font-weight:600!important;height:36px!important;padding:6px 8px!important}.compact-table[data-v-9c86cc42] td{border-bottom:1px solid #f1f5f9!important;height:40px!important;padding:4px 8px!important}.id-column[data-v-9c86cc42]{display:flex;flex-direction:column}.id-main[data-v-9c86cc42]{font-size:12px;font-weight:600}.id-sub[data-v-9c86cc42]{color:#718096;font-size:10px}.date-compact[data-v-9c86cc42]{color:#4a5568;font-size:11px}.requester-name[data-v-9c86cc42]{color:#2d3748;font-size:11px}.amount-column[data-v-9c86cc42]{align-items:flex-end;display:flex;flex-direction:column;text-align:right}.amount-value[data-v-9c86cc42]{color:#22c55e;font-size:12px;font-weight:600}.currency-code[data-v-9c86cc42]{color:#718096;font-size:9px;text-transform:uppercase}.action-buttons[data-v-9c86cc42]{display:flex;gap:2px}.no-data[data-v-9c86cc42]{color:#a0aec0;font-size:10px;font-style:italic}.compact-pagination[data-v-9c86cc42]{align-items:center;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:8px 12px}.pagination-info[data-v-9c86cc42]{color:#718096;font-size:11px}.pagination-controls[data-v-9c86cc42]{align-items:center;display:flex;gap:4px}.page-numbers[data-v-9c86cc42]{display:flex;gap:2px;margin:0 8px}.page-ellipsis[data-v-9c86cc42]{color:#a0aec0;font-size:11px;padding:4px}@media (max-width:960px){.header-content[data-v-9c86cc42]{align-items:stretch;flex-direction:column;gap:12px}.summary-grid[data-v-9c86cc42]{grid-template-columns:1fr}.filter-row[data-v-9c86cc42]{gap:8px}.pagination-controls[data-v-9c86cc42]{flex-wrap:wrap}.action-buttons[data-v-9c86cc42]{flex-direction:column;gap:1px}}@media (max-width:600px){.settlement-container[data-v-9c86cc42]{padding:4px}.compact-pagination[data-v-9c86cc42]{align-items:stretch;text-align:center}.compact-pagination[data-v-9c86cc42],.summary-layout[data-v-9c86cc42],.table-controls[data-v-9c86cc42]{flex-direction:column;gap:8px}.summary-layout[data-v-9c86cc42]{text-align:center}.currency-icon[data-v-9c86cc42],.summary-icon[data-v-9c86cc42]{margin:0 auto}}.v-card[data-v-9c86cc42]{box-shadow:0 1px 3px rgba(0,0,0,.1)!important}.v-btn--small[data-v-9c86cc42]{height:28px!important;min-width:60px!important}.v-btn--x-small[data-v-9c86cc42]{height:24px!important;min-width:24px!important}.v-chip--x-small[data-v-9c86cc42]{font-size:10px!important;height:18px!important;padding:0 6px!important}.v-select--dense .v-input__control[data-v-9c86cc42],.v-text-field--dense .v-input__control[data-v-9c86cc42]{min-height:32px!important}.v-text-field--dense .v-input__details[data-v-9c86cc42]{min-height:14px!important;padding-top:2px!important}.v-text-field--dense .v-messages[data-v-9c86cc42]{font-size:10px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".summary-section[data-v-5bb26eec]{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));grid-gap:8px;gap:8px;margin-bottom:8px}.settlement-container[data-v-5bb26eec]{background-color:#fafafa;min-height:100vh;padding:8px}.header-card[data-v-5bb26eec]{border:1px solid #e2e8f0;margin-bottom:8px}.header-content[data-v-5bb26eec]{align-items:center;display:flex;justify-content:space-between}.header-title[data-v-5bb26eec]{color:#1a202c;font-size:18px;font-weight:600;margin:0}.header-actions[data-v-5bb26eec]{display:flex;gap:8px}.filter-card[data-v-5bb26eec]{border:1px solid #e2e8f0}.filter-row[data-v-5bb26eec]{align-items:flex-end}.filter-actions[data-v-5bb26eec]{display:flex;gap:8px;justify-content:flex-end}.summary-grid[data-v-5bb26eec]{display:grid;grid-template-columns:2fr repeat(auto-fit,minmax(180px,1fr));grid-gap:8px;gap:8px}.summary-card[data-v-5bb26eec]{border:1px solid #e2e8f0}.total-card[data-v-5bb26eec]{background:linear-gradient(135deg,#667eea,#764ba2)!important}.summary-layout[data-v-5bb26eec]{align-items:center;display:flex;gap:12px}.currency-icon[data-v-5bb26eec],.summary-icon[data-v-5bb26eec]{align-items:center;background:hsla(0,0%,100%,.2);border-radius:50%;display:flex;flex-shrink:0;height:36px;justify-content:center;width:36px}.currency-icon[data-v-5bb26eec]{background:#f0f9ff}.summary-content[data-v-5bb26eec]{flex:1;min-width:0}.summary-amount[data-v-5bb26eec]{color:#fff;font-size:14px;font-weight:700;word-break:break-word}.currency-card .summary-amount[data-v-5bb26eec]{color:#1a202c}.summary-label[data-v-5bb26eec]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:2px}.currency-card .summary-label[data-v-5bb26eec]{color:#718096}.lak-equivalent[data-v-5bb26eec]{color:#a0aec0;font-size:10px;font-style:italic;margin-top:1px}.table-card[data-v-5bb26eec]{border:1px solid #e2e8f0}.table-title[data-v-5bb26eec]{font-size:14px;font-weight:600}.table-controls[data-v-5bb26eec]{align-items:center;display:flex;gap:8px}.compact-table[data-v-5bb26eec]{font-size:12px}.compact-table[data-v-5bb26eec] th{background:#f8fafc!important;font-size:11px!important;font-weight:600!important;height:36px!important;padding:6px 8px!important}.compact-table[data-v-5bb26eec] td{border-bottom:1px solid #f1f5f9!important;height:40px!important;padding:4px 8px!important}.id-column[data-v-5bb26eec]{display:flex;flex-direction:column}.id-main[data-v-5bb26eec]{font-size:12px;font-weight:600}.id-sub[data-v-5bb26eec]{color:#718096;font-size:10px}.date-compact[data-v-5bb26eec]{color:#4a5568;font-size:11px}.requester-name[data-v-5bb26eec]{color:#2d3748;font-size:11px}.amount-column[data-v-5bb26eec]{align-items:flex-end;display:flex;flex-direction:column;text-align:right}.amount-value[data-v-5bb26eec]{color:#22c55e;font-size:12px;font-weight:600}.currency-code[data-v-5bb26eec]{color:#718096;font-size:9px;text-transform:uppercase}.action-buttons[data-v-5bb26eec]{display:flex;gap:2px}.no-data[data-v-5bb26eec]{color:#a0aec0;font-size:10px;font-style:italic}.compact-pagination[data-v-5bb26eec]{align-items:center;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:8px 12px}.pagination-info[data-v-5bb26eec]{color:#718096;font-size:11px}.pagination-controls[data-v-5bb26eec]{align-items:center;display:flex;gap:4px}.page-numbers[data-v-5bb26eec]{display:flex;gap:2px;margin:0 8px}.page-ellipsis[data-v-5bb26eec]{color:#a0aec0;font-size:11px;padding:4px}@media (max-width:960px){.header-content[data-v-5bb26eec]{align-items:stretch;flex-direction:column;gap:12px}.summary-grid[data-v-5bb26eec]{grid-template-columns:1fr}.filter-row[data-v-5bb26eec]{gap:8px}.pagination-controls[data-v-5bb26eec]{flex-wrap:wrap}.action-buttons[data-v-5bb26eec]{flex-direction:column;gap:1px}}@media (max-width:600px){.settlement-container[data-v-5bb26eec]{padding:4px}.compact-pagination[data-v-5bb26eec]{align-items:stretch;text-align:center}.compact-pagination[data-v-5bb26eec],.summary-layout[data-v-5bb26eec],.table-controls[data-v-5bb26eec]{flex-direction:column;gap:8px}.summary-layout[data-v-5bb26eec]{text-align:center}.currency-icon[data-v-5bb26eec],.summary-icon[data-v-5bb26eec]{margin:0 auto}}.v-card[data-v-5bb26eec]{box-shadow:0 1px 3px rgba(0,0,0,.1)!important}.v-btn--small[data-v-5bb26eec]{height:28px!important;min-width:60px!important}.v-btn--x-small[data-v-5bb26eec]{height:24px!important;min-width:24px!important}.v-chip--x-small[data-v-5bb26eec]{font-size:10px!important;height:18px!important;padding:0 6px!important}.v-select--dense .v-input__control[data-v-5bb26eec],.v-text-field--dense .v-input__control[data-v-5bb26eec]{min-height:32px!important}.v-text-field--dense .v-input__details[data-v-5bb26eec]{min-height:14px!important;padding-top:2px!important}.v-text-field--dense .v-messages[data-v-5bb26eec]{font-size:10px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -56,9 +56,6 @@ var VDataTable = __webpack_require__(401);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
 var VDatePicker = __webpack_require__(442);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/transitions/index.js + 2 modules
-var transitions = __webpack_require__(26);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
@@ -83,7 +80,7 @@ var VSpacer = __webpack_require__(391);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceSettlementByBank/index.vue?vue&type=template&id=9c86cc42&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceSettlementByBank/index.vue?vue&type=template&id=5bb26eec&scoped=true
 
 
 
@@ -101,8 +98,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-
-var moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render = function render() {
+var moneyAdvanceSettlementByBankvue_type_template_id_5bb26eec_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VCard["a" /* default */], {
@@ -377,7 +373,7 @@ var moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render
       "loading": _vm.loading
     },
     on: {
-      "click": _vm.applyFilters
+      "click": _vm.fetchSettlements
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
@@ -396,50 +392,7 @@ var moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render
     attrs: {
       "small": ""
     }
-  }, [_vm._v("mdi-refresh")])], 1)], 1)])], 1), _vm._v(" "), _c(transitions["a" /* VExpandTransition */], [_vm.showAdvancedFilter ? _c(VRow["a" /* default */], {
-    staticClass: "mt-2",
-    attrs: {
-      "no-gutters": ""
-    }
-  }, [_c(VCol["a" /* default */], {
-    staticClass: "px-1",
-    attrs: {
-      "cols": "12",
-      "md": "6"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.chartAccountOptions,
-      "label": "ບັນຊີລວມ",
-      "dense": "",
-      "outlined": "",
-      "clearable": "",
-      "hide-details": "auto"
-    },
-    model: {
-      value: _vm.filters.chartAccountId,
-      callback: function ($$v) {
-        _vm.$set(_vm.filters, "chartAccountId", $$v);
-      },
-      expression: "filters.chartAccountId"
-    }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "text-center mt-1"
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "x-small": "",
-      "text": ""
-    },
-    on: {
-      "click": function ($event) {
-        _vm.showAdvancedFilter = !_vm.showAdvancedFilter;
-      }
-    }
-  }, [_vm._v("\n          " + _vm._s(_vm.showAdvancedFilter ? 'ປິດຕົວກອງເພີ່ມເຕີມ' : 'ເພີ່ມຕົວກອງ') + "\n          "), _c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v(_vm._s(_vm.showAdvancedFilter ? 'mdi-chevron-up' : 'mdi-chevron-down'))])], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"summary-section\" data-v-9c86cc42>", "</div>", [_c(VCard["a" /* default */], {
+  }, [_vm._v("mdi-refresh")])], 1)], 1)])], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"summary-section\" data-v-5bb26eec>", "</div>", [_c(VCard["a" /* default */], {
     staticClass: "summary-card total-card",
     attrs: {
       "dark": ""
@@ -488,11 +441,11 @@ var moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render
     staticClass: "py-2 px-3"
   }, [_c('span', {
     staticClass: "table-title"
-  }, [_vm._v("ລາຍການ (" + _vm._s(_vm.filteredSettlements.length) + ")")]), _vm._v(" "), _c(VSpacer["a" /* default */])], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
+  }, [_vm._v("ລາຍການ (" + _vm._s(_vm.settlements.length) + ")")]), _vm._v(" "), _c(VSpacer["a" /* default */])], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
     staticClass: "compact-table",
     attrs: {
       "headers": _vm.compactHeaders,
-      "items": _vm.paginatedSettlements,
+      "items": _vm.settlements,
       "items-per-page": 25,
       "dense": ""
     },
@@ -505,7 +458,7 @@ var moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render
           staticClass: "id-column"
         }, [_c('span', {
           staticClass: "id-main"
-        }, [_vm._v(_vm._s(item.id))]), _vm._v(" "), item.moneyAdvanceId ? _c('span', {
+        }, [_vm._v(_vm._s(_vm.formatVoucherNumber(item.id)))]), _vm._v(" "), item.moneyAdvanceId ? _c('span', {
           staticClass: "id-sub"
         }, [_vm._v("(" + _vm._s(item.moneyAdvanceId) + ")")]) : _vm._e()])];
       }
@@ -687,7 +640,7 @@ var moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/moneyAdvanceSettlementByBank/index.vue?vue&type=template&id=9c86cc42&scoped=true
+// CONCATENATED MODULE: ./pages/admin/moneyAdvanceSettlementByBank/index.vue?vue&type=template&id=5bb26eec&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(92);
@@ -793,12 +746,11 @@ var settlementVoucher = __webpack_require__(498);
       settlementDetail: null,
       // Filters (updated for new date handling)
       filters: {
-        startDate: '',
-        endDate: '',
+        fromDate: '',
+        toDate: '',
         method: 'bank_transfer',
         accountNo: '',
         ministryId: '',
-        chartAccountId: '',
         search: ''
       },
       // Sorting and pagination
@@ -961,6 +913,15 @@ var settlementVoucher = __webpack_require__(498);
     }
   },
   mounted() {
+    const today = new Date();
+
+    // First day of current month
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    // Last day of current month
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    this.setStartDate(firstDay);
+    this.setEndDate(lastDay);
     this.initializeData();
   },
   methods: {
@@ -973,27 +934,30 @@ var settlementVoucher = __webpack_require__(498);
       const year = d.getFullYear();
       return `${day}/${month}/${year}`;
     },
+    formatVoucherNumber(id) {
+      return String(id).padStart(6, '0');
+    },
     setStartDate(val) {
       this.formattedStartDate = this.formatDate(val);
       this.pickerStartDate = val;
-      this.filters.startDate = val;
-      this.startDateMenu = false;
+      this.filters.fromDate = val;
+      this.fromDateMenu = false;
     },
     setEndDate(val) {
       this.formattedEndDate = this.formatDate(val);
       this.pickerEndDate = val;
-      this.filters.endDate = val;
-      this.endDateMenu = false;
+      this.filters.toDate = val;
+      this.toDateMenu = false;
     },
     clearStartDate() {
       this.formattedStartDate = null;
       this.pickerStartDate = null;
-      this.filters.startDate = '';
+      this.filters.fromDate = '';
     },
     clearEndDate() {
       this.formattedEndDate = null;
       this.pickerEndDate = null;
-      this.filters.endDate = '';
+      this.filters.toDate = '';
     },
     formatCompactDate(date) {
       return new Date(date).toLocaleDateString('en-GB', {
@@ -1113,8 +1077,10 @@ var settlementVoucher = __webpack_require__(498);
     },
     async fetchSettlements() {
       this.loading = true;
+      this.applyFilters();
       const params = {
-        method: 'bank_transfer'
+        method: 'bank_transfer',
+        ...this.filters
       };
       try {
         const response = await this.$axios.get('/api/settlements', {
@@ -1146,6 +1112,8 @@ var settlementVoucher = __webpack_require__(498);
               notes: settlement.notes
             };
           });
+          console.info(`TOTLE SETTLEMENT ${this.settlements.length}`);
+          this.applyFilters();
         } else {
           this.settlements = [];
         }
@@ -1321,11 +1289,11 @@ var settlementVoucher = __webpack_require__(498);
     // Filter and pagination methods (keeping existing logic)
     applyFilters() {
       let filtered = [...this.settlements];
-      if (this.filters.startDate) {
-        filtered = filtered.filter(s => s.bookingDate >= this.filters.startDate);
+      if (this.filters.fromDate) {
+        filtered = filtered.filter(s => s.bookingDate >= this.filters.fromDate);
       }
-      if (this.filters.endDate) {
-        filtered = filtered.filter(s => s.bookingDate <= this.filters.endDate);
+      if (this.filters.toDate) {
+        filtered = filtered.filter(s => s.bookingDate <= this.filters.toDate);
       }
       if (this.filters.method) {
         filtered = filtered.filter(s => s.method === this.filters.method);
@@ -1335,9 +1303,6 @@ var settlementVoucher = __webpack_require__(498);
       }
       if (this.filters.ministryId) {
         filtered = filtered.filter(s => s.ministryId === this.filters.ministryId);
-      }
-      if (this.filters.chartAccountId) {
-        filtered = filtered.filter(s => s.chartAccountId === this.filters.chartAccountId);
       }
       this.filteredSettlements = filtered;
       this.sortData();
@@ -1507,11 +1472,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_moneyAdvanceSettlementByBankvue_type_script_lang_js,
-  moneyAdvanceSettlementByBankvue_type_template_id_9c86cc42_scoped_true_render,
+  moneyAdvanceSettlementByBankvue_type_template_id_5bb26eec_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "9c86cc42",
+  "5bb26eec",
   "72954e7c"
   
 )
@@ -6077,7 +6042,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5f5b684d", content, true, context)
+  add("4b7e38ee", content, true, context)
 };
 
 /***/ })

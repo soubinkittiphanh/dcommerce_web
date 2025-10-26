@@ -5557,9 +5557,9 @@ const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
   // const baseURL = 'http://150.95.31.23:8021' //  *** carcare sokpaluang
   // const baseURL = 'http://150.95.31.23:8022' //  *** PM Jobfair
-  const baseURL = 'http://150.95.31.23:8023'; //  *** BEST COFFEE
+  // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
-  // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
+  const baseURL = 'http://150.95.31.23:8918'; //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   return baseURL;
 };
@@ -5642,20 +5642,8 @@ const mainCompanyInfo = store => {
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  const info = {
-    name: 'ໄທພວນ',
-    tel: '020 2383 8999',
-    whatsapp: '+8562002023838999',
-    imageUrl: '',
-    imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'TAIPHUAN.png',
-    companyLogo: 'TAIPHUAN.png',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  };
   // const info = {
-  //   name: 'PM',
+  //   name: 'ໄທພວນ',
   //   tel: '020 2383 8999',
   //   whatsapp: '+8562002023838999',
   //   imageUrl: '',
@@ -5663,10 +5651,22 @@ const mainCompanyInfo = store => {
   //   address: '3 ແຍກອາໄພ່ LPB',
   //   ticketLogo: 'TAIPHUAN.png',
   //   companyLogo: 'TAIPHUAN.png',
-  //   dcLogo: 'Dcommerce-Logo-PM-1.png',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  // return info;
+  const info = {
+    name: 'PM',
+    tel: '020 2383 8999',
+    whatsapp: '+8562002023838999',
+    imageUrl: '',
+    imageName: '',
+    address: '3 ແຍກອາໄພ່ LPB',
+    ticketLogo: 'TAIPHUAN.png',
+    companyLogo: 'TAIPHUAN.png',
+    dcLogo: 'Dcommerce-Logo-PM-1.png',
+    env: ''
+  };
+  return info;
 };
 
 /***/ }),
@@ -18118,17 +18118,17 @@ __webpack_require__.d(components_namespaceObject, "AccountingApPayment", functio
 __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", function() { return AccountingArReceivable; });
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
 __webpack_require__.d(components_namespaceObject, "CalendarMyCalendar", function() { return CalendarMyCalendar; });
+__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
 __webpack_require__.d(components_namespaceObject, "CardCampaignCard", function() { return CardCampaignCard; });
 __webpack_require__.d(components_namespaceObject, "CardForm", function() { return CardForm; });
-__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
 __webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
 __webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
-__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardGrouping", function() { return DashboardCardGrouping; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardOnTop", function() { return DashboardCardOnTop; });
+__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
 __webpack_require__.d(components_namespaceObject, "Menu", function() { return Menu; });
-__webpack_require__.d(components_namespaceObject, "MinStockCard", function() { return MinStockCard; });
 __webpack_require__.d(components_namespaceObject, "MenuOverview", function() { return MenuOverview; });
+__webpack_require__.d(components_namespaceObject, "MinStockCard", function() { return MinStockCard; });
 __webpack_require__.d(components_namespaceObject, "MinistryDialog", function() { return MinistryDialog; });
 __webpack_require__.d(components_namespaceObject, "MinistryViewDialog", function() { return MinistryViewDialog; });
 __webpack_require__.d(components_namespaceObject, "PaymentCard", function() { return PaymentCard; });
@@ -18139,13 +18139,13 @@ __webpack_require__.d(components_namespaceObject, "ProductItem", function() { re
 __webpack_require__.d(components_namespaceObject, "ProductCardPos", function() { return ProductCardPos; });
 __webpack_require__.d(components_namespaceObject, "ProductForm", function() { return ProductForm; });
 __webpack_require__.d(components_namespaceObject, "ProductFormCreate", function() { return ProductFormCreate; });
+__webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
 __webpack_require__.d(components_namespaceObject, "Quotation", function() { return Quotation; });
-__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { return RolesRoleCard; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
 __webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
+__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
 __webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
-__webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsNotesDialog", function() { return TicketsNotesDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsPrintDialog", function() { return TicketsPrintDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketCard", function() { return TicketsTicketCard; });
@@ -18155,10 +18155,8 @@ __webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function
 __webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
 __webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditDialog", function() { return MAPaymentAuditDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentDetailDialog", function() { return MAPaymentDetailDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditReportDialog", function() { return MAPaymentAuditReportDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentCompareDialog", function() { return MAPaymentCompareDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsBankAccountInfo", function() { return MAPaymentComponentsBankAccountInfo; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsDateField", function() { return MAPaymentComponentsDateField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsDialogFooter", function() { return MAPaymentComponentsDialogFooter; });
@@ -18170,11 +18168,14 @@ __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsMinistryIn
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsSelectField", function() { return MAPaymentComponentsSelectField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsTextareaField", function() { return MAPaymentComponentsTextareaField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsValidationErrors", function() { return MAPaymentComponentsValidationErrors; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentDetailDialog", function() { return MAPaymentDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
 __webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
+__webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
@@ -18191,21 +18192,20 @@ __webpack_require__.d(components_namespaceObject, "AccountingApSettlement", func
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyMaintain", function() { return JobFairAgencyMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyView", function() { return JobFairAgencyView; });
 __webpack_require__.d(components_namespaceObject, "JobFairMouMaintain", function() { return JobFairMouMaintain; });
+__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAudit", function() { return AccountingApInvoiceAudit; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit", function() { return AccountingApSettlementAudit; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAudit", function() { return AccountingArInvoiceAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAudit", function() { return AccountingApInvoiceAudit; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit", function() { return AccountingApSettlementAudit; });
-__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(1);
@@ -24161,17 +24161,17 @@ const AccountingApPayment = () => __webpack_require__.e(/* import() | components
 const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 909)).then(c => wrapFunctional(c.default || c));
 const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 915)).then(c => wrapFunctional(c.default || c));
 const CalendarMyCalendar = () => __webpack_require__.e(/* import() | components/calendar-my-calendar */ 37).then(__webpack_require__.bind(null, 1371)).then(c => wrapFunctional(c.default || c));
+const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 38).then(__webpack_require__.bind(null, 751)).then(c => wrapFunctional(c.default || c));
 const CardCampaignCard = () => __webpack_require__.e(/* import() | components/card-campaign-card */ 40).then(__webpack_require__.bind(null, 905)).then(c => wrapFunctional(c.default || c));
 const CardForm = () => __webpack_require__.e(/* import() | components/card-form */ 42).then(__webpack_require__.bind(null, 583)).then(c => wrapFunctional(c.default || c));
-const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 53).then(__webpack_require__.bind(null, 1372)).then(c => wrapFunctional(c.default || c));
 const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 47).then(__webpack_require__.bind(null, 753)).then(c => wrapFunctional(c.default || c));
 const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 89)).then(c => wrapFunctional(c.default || c));
-const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 38).then(__webpack_require__.bind(null, 751)).then(c => wrapFunctional(c.default || c));
 const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 48).then(__webpack_require__.bind(null, 904)).then(c => wrapFunctional(c.default || c));
 const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 49).then(__webpack_require__.bind(null, 903)).then(c => wrapFunctional(c.default || c));
+const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 53).then(__webpack_require__.bind(null, 1372)).then(c => wrapFunctional(c.default || c));
 const Menu = () => __webpack_require__.e(/* import() | components/menu */ 89).then(__webpack_require__.bind(null, 906)).then(c => wrapFunctional(c.default || c));
-const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 93).then(__webpack_require__.bind(null, 748)).then(c => wrapFunctional(c.default || c));
 const MenuOverview = () => __webpack_require__.e(/* import() | components/menu-overview */ 92).then(__webpack_require__.bind(null, 749)).then(c => wrapFunctional(c.default || c));
+const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 93).then(__webpack_require__.bind(null, 748)).then(c => wrapFunctional(c.default || c));
 const MinistryDialog = () => __webpack_require__.e(/* import() | components/ministry-dialog */ 94).then(__webpack_require__.bind(null, 765)).then(c => wrapFunctional(c.default || c));
 const MinistryViewDialog = () => __webpack_require__.e(/* import() | components/ministry-view-dialog */ 95).then(__webpack_require__.bind(null, 760)).then(c => wrapFunctional(c.default || c));
 const PaymentCard = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 347)).then(c => wrapFunctional(c.default || c));
@@ -24182,13 +24182,13 @@ const ProductItem = () => __webpack_require__.e(/* import() | components/product
 const ProductCardPos = () => __webpack_require__.e(/* import() | components/product-card-pos */ 118).then(__webpack_require__.bind(null, 928)).then(c => wrapFunctional(c.default || c));
 const ProductForm = () => __webpack_require__.e(/* import() | components/product-form */ 119).then(__webpack_require__.bind(null, 463)).then(c => wrapFunctional(c.default || c));
 const ProductFormCreate = () => __webpack_require__.e(/* import() | components/product-form-create */ 120).then(__webpack_require__.bind(null, 462)).then(c => wrapFunctional(c.default || c));
+const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 122).then(__webpack_require__.bind(null, 932)).then(c => wrapFunctional(c.default || c));
 const Quotation = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 108)).then(c => wrapFunctional(c.default || c));
-const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 131).then(__webpack_require__.bind(null, 1376)).then(c => wrapFunctional(c.default || c));
 const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 128).then(__webpack_require__.bind(null, 933)).then(c => wrapFunctional(c.default || c));
 const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 129).then(__webpack_require__.bind(null, 934)).then(c => wrapFunctional(c.default || c));
 const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 130).then(__webpack_require__.bind(null, 936)).then(c => wrapFunctional(c.default || c));
+const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 131).then(__webpack_require__.bind(null, 1376)).then(c => wrapFunctional(c.default || c));
 const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 133).then(__webpack_require__.bind(null, 935)).then(c => wrapFunctional(c.default || c));
-const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 122).then(__webpack_require__.bind(null, 932)).then(c => wrapFunctional(c.default || c));
 const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 137).then(__webpack_require__.bind(null, 532)).then(c => wrapFunctional(c.default || c));
 const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 138).then(__webpack_require__.bind(null, 1377)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketCard = () => __webpack_require__.e(/* import() | components/tickets-ticket-card */ 139).then(__webpack_require__.bind(null, 920)).then(c => wrapFunctional(c.default || c));
@@ -24198,10 +24198,8 @@ const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/
 const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 531)).then(c => wrapFunctional(c.default || c));
 const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 35).then(__webpack_require__.bind(null, 517)).then(c => wrapFunctional(c.default || c));
 const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 68).then(__webpack_require__.bind(null, 1378)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 82).then(__webpack_require__.bind(null, 658)).then(c => wrapFunctional(c.default || c));
 const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 69).then(__webpack_require__.bind(null, 1379)).then(c => wrapFunctional(c.default || c));
 const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 70).then(__webpack_require__.bind(null, 1380)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 83).then(__webpack_require__.bind(null, 657)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsBankAccountInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-bank-account-info */ 71).then(__webpack_require__.bind(null, 1381)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsDateField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-date-field */ 72).then(__webpack_require__.bind(null, 1382)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsDialogFooter = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-footer */ 73).then(__webpack_require__.bind(null, 1383)).then(c => wrapFunctional(c.default || c));
@@ -24213,11 +24211,14 @@ const MAPaymentComponentsMinistryInfo = () => __webpack_require__.e(/* import() 
 const MAPaymentComponentsSelectField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-select-field */ 79).then(__webpack_require__.bind(null, 1389)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsTextareaField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-textarea-field */ 80).then(__webpack_require__.bind(null, 1390)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsValidationErrors = () => __webpack_require__.e(/* import() | components/m-a-payment-components-validation-errors */ 81).then(__webpack_require__.bind(null, 1391)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 82).then(__webpack_require__.bind(null, 658)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 83).then(__webpack_require__.bind(null, 657)).then(c => wrapFunctional(c.default || c));
 const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 84).then(__webpack_require__.bind(null, 550)).then(c => wrapFunctional(c.default || c));
 const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 85).then(__webpack_require__.bind(null, 919)).then(c => wrapFunctional(c.default || c));
 const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 86).then(__webpack_require__.bind(null, 551)).then(c => wrapFunctional(c.default || c));
-const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 88).then(__webpack_require__.bind(null, 498)).then(c => wrapFunctional(c.default || c));
 const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 87).then(__webpack_require__.bind(null, 659)).then(c => wrapFunctional(c.default || c));
+const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 88).then(__webpack_require__.bind(null, 498)).then(c => wrapFunctional(c.default || c));
+const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1221)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 655)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1392)).then(c => wrapFunctional(c.default || c));
 const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1393)).then(c => wrapFunctional(c.default || c));
@@ -24234,21 +24235,20 @@ const AccountingApSettlement = () => __webpack_require__.e(/* import() | compone
 const JobFairAgencyMaintain = () => __webpack_require__.e(/* import() | components/job-fair-agency-maintain */ 62).then(__webpack_require__.bind(null, 587)).then(c => wrapFunctional(c.default || c));
 const JobFairAgencyView = () => __webpack_require__.e(/* import() | components/job-fair-agency-view */ 63).then(__webpack_require__.bind(null, 588)).then(c => wrapFunctional(c.default || c));
 const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 65).then(__webpack_require__.bind(null, 941)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 665)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 666)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 663)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 664)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 589)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 656)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 937)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 938)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 939)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 665)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 666)).then(c => wrapFunctional(c.default || c));
-const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1221)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 663)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 579)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 547)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 664)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 939)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 938)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 651)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 585)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 586)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 651)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 547)).then(c => wrapFunctional(c.default || c));
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
@@ -24461,7 +24461,7 @@ const setupProgress = axios => {
   // runtimeConfig
   const runtimeConfig = ctx.$config && ctx.$config.axios || {};
   // baseURL
-  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8023';
+  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8918';
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!

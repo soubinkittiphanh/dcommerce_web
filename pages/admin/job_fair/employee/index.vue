@@ -258,6 +258,7 @@
     <v-dialog v-model="showDialog" max-width="900px" persistent>
       <AgencyDialog
         category="Employee"
+        :key="agencyDialogKey"
         :visible="showDialog"
         :agency="selectedAgency"
         @close="closeDialog"
@@ -317,6 +318,7 @@ export default {
       loading: false,
       agencies: [],
       filteredAgencies: [],
+      agencyDialogKey:1,
       showDialog: false,
       showViewDialog: false,
       selectedAgency: null,
@@ -406,13 +408,18 @@ export default {
 
     openCreateDialog() {
       this.selectedAgency = null
+      this.agencyDialogKey++
       this.showDialog = true
     },
-
-    editAgency(agency) {
-      this.selectedAgency = agency
-      this.showDialog = true
-    },
+// Replace your editAgency method with this:
+editAgency(agency) {
+  console.info(`AGENCY EMPLOYEE ${JSON.stringify(agency)}`)
+  this.selectedAgency = { ...agency } // Create a copy to ensure reactivity
+  this.agencyDialogKey++ // Force component re-render
+  this.$nextTick(() => {
+    this.showDialog = true
+  })
+},
 
     viewAgency(agency) {
       this.selectedAgency = agency
