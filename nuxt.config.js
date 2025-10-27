@@ -121,10 +121,10 @@ export default {
       themes: {
         light: {
           // primary: '#-01532B' '#-337555', //DCOMMERCE green
-          primary: '#01532B', //JOB FAIRE green
-          secondary: '#337555', 
-          // primary: '#-A12F8D', //JOB FAIRE green
-          // secondary: '#-8D2FA1', 
+          // primary: '#-01532B', //JOB FAIRE green
+          // secondary: '#-337555', 
+          primary: '#A12F8D', //JOB FAIRE PINK
+          secondary: '#8D2FA1', 
           lightprimary: '#80a995',
           danger: '#D00505',
         },

@@ -2079,7 +2079,7 @@ export default {
   align-items: center;
   padding: 16px 24px;
   border-bottom: 1px solid #e9ecef;
-  background: #01532B;
+  background: #A12F8D;
   color: white;
   flex-shrink: 0;
 }
@@ -2523,7 +2523,7 @@ export default {
 }
 
 .btn-primary {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
 }
 

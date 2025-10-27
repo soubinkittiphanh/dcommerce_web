@@ -759,7 +759,7 @@ export default {
 .form-header {
   padding: 16px 20px;
   border-bottom: 1px solid #e5e7eb;
-  background: #01532B;
+  background: #A12F8D;
   color: white;
   flex-shrink: 0;
 }
@@ -804,7 +804,7 @@ export default {
 }
 .step.active {
   background: rgba(1, 83, 43, 0.1);
-  color: #01532B;
+  color: #A12F8D;
 }
 .step.completed {
   color: #059669;
@@ -825,7 +825,7 @@ export default {
   font-weight: 600;
 }
 .step.active .step-number {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
 }
 .step.completed .step-number {
@@ -885,7 +885,7 @@ export default {
   background: #f9fafb;
 }
 .photo-upload:hover {
-  border-color: #01532B;
+  border-color: #A12F8D;
   background: #f0fdf4;
 }
 .photo-upload img {
@@ -943,7 +943,7 @@ export default {
   background: #f9fafb;
 }
 .photo-upload-small:hover {
-  border-color: #01532B;
+  border-color: #A12F8D;
   background: #f0fdf4;
 }
 .photo-upload-small img {
@@ -1131,7 +1131,7 @@ export default {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #01532B;
+  border-color: #A12F8D;
   box-shadow: 0 0 0 3px rgba(1, 83, 43, 0.1);
 }
 .form-group input.error,
@@ -1185,7 +1185,7 @@ export default {
   cursor: not-allowed;
 }
 .btn.primary {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
 }
 .btn.primary:hover:not(:disabled) {
@@ -1200,11 +1200,11 @@ export default {
 }
 .btn.outline {
   background: transparent;
-  border: 2px solid #01532B;
-  color: #01532B;
+  border: 2px solid #A12F8D;
+  color: #A12F8D;
 }
 .btn.outline:hover:not(:disabled) {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
 }
 

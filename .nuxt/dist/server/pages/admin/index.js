@@ -35,7 +35,7 @@ var VRadioGroup = __webpack_require__(387);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(392);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/index.vue?vue&type=template&id=44814de5
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/index.vue?vue&type=template&id=1e02b5a6
 
 
 
@@ -48,7 +48,7 @@ var VRow = __webpack_require__(392);
 
 
 
-var adminvue_type_template_id_44814de5_render = function render() {
+var adminvue_type_template_id_1e02b5a6_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -237,7 +237,7 @@ var adminvue_type_template_id_44814de5_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/index.vue?vue&type=template&id=44814de5
+// CONCATENATED MODULE: ./pages/admin/index.vue?vue&type=template&id=1e02b5a6
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -467,7 +467,7 @@ var external_echarts_ = __webpack_require__(373);
         // theme: {
         //     monochrome: {
         //         enabled: true,
-        //         color: '#01532B',
+        //         color: '#A12F8D',
         //     }
         // },
         chart: {
@@ -866,7 +866,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_adminvue_type_script_lang_js,
-  adminvue_type_template_id_44814de5_render,
+  adminvue_type_template_id_1e02b5a6_render,
   staticRenderFns,
   false,
   null,

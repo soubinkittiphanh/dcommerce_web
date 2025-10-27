@@ -572,7 +572,7 @@
                   }}</span>
                 </template>
                 <template v-slot:item.method="{ item }">
-                  <v-chip small color="#01532B" text-color="white">
+                  <v-chip small color="#A12F8D" text-color="white">
                     {{ item.method }}
                   </v-chip>
                 </template>
@@ -1041,13 +1041,13 @@ export default {
 
     getCurrencyColor(currencyCode) {
       const colors = {
-        USD: '#01532B',
-        LAK: '#01532B',
+        USD: '#A12F8D',
+        LAK: '#A12F8D',
         THB: '#228B22',
         EUR: '#006400',
         CNY: '#666',
       }
-      return colors[currencyCode] || '#01532B'
+      return colors[currencyCode] || '#A12F8D'
     },
 
     getStatusColor(status) {
@@ -1102,7 +1102,7 @@ export default {
   align-items: center;
   margin-bottom: 24px;
   padding: 24px;
-  background: #01532B;
+  background: #A12F8D;
   color: white;
   border-radius: 8px;
 }
@@ -1125,7 +1125,7 @@ export default {
 }
 
 .custom-btn {
-  color: #01532B !important;
+  color: #A12F8D !important;
   border: 1px solid white !important;
   font-weight: 500 !important;
   text-transform: none !important;
@@ -1133,7 +1133,7 @@ export default {
 
 .custom-btn:hover {
   background-color: white !important;
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .filter-card {
@@ -1142,13 +1142,13 @@ export default {
 }
 
 .filter-title {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
   font-weight: 600;
 }
 
 .custom-primary-bg {
-  background-color: #01532B !important;
+  background-color: #A12F8D !important;
 }
 
 .custom-secondary-btn {
@@ -1160,8 +1160,8 @@ export default {
 
 .date-range-alert {
   background-color: rgba(1, 83, 43, 0.1) !important;
-  border-color: #01532B !important;
-  color: #01532B !important;
+  border-color: #A12F8D !important;
+  color: #A12F8D !important;
 }
 
 .summary-cards {
@@ -1214,7 +1214,7 @@ export default {
 .settlement-card,
 .outstanding-card,
 .records-card {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
 }
 
@@ -1224,7 +1224,7 @@ export default {
 }
 
 .table-title {
-  background: #01532B;
+  background: #A12F8D;
   color: white;
   font-weight: 600;
 }
@@ -1234,7 +1234,7 @@ export default {
 }
 
 .report-table >>> thead th {
-  background-color: #01532B !important;
+  background-color: #A12F8D !important;
   color: white !important;
   font-weight: 600 !important;
   border-bottom: none !important;
@@ -1252,7 +1252,7 @@ export default {
 .ministry-name {
   font-weight: 600;
   font-size: 14px;
-  color: #01532B;
+  color: #A12F8D;
 }
 
 .ministry-code {
@@ -1287,7 +1287,7 @@ export default {
 }
 
 .lcy-amount {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .outstanding-amount {
@@ -1306,7 +1306,7 @@ export default {
 }
 
 .custom-action-btn {
-  background-color: #01532B !important;
+  background-color: #A12F8D !important;
   color: white !important;
   font-weight: 600 !important;
   text-transform: none !important;
@@ -1315,7 +1315,7 @@ export default {
 }
 
 .dialog-header {
-  background: #01532B !important;
+  background: #A12F8D !important;
   color: white !important;
   font-weight: 600 !important;
 }
@@ -1325,13 +1325,13 @@ export default {
 }
 
 .section-title {
-  color: #01532B;
+  color: #A12F8D;
   font-weight: 700;
   font-size: 18px;
 }
 
 .custom-divider {
-  border-color: #01532B !important;
+  border-color: #A12F8D !important;
   opacity: 0.3 !important;
 }
 
@@ -1340,14 +1340,14 @@ export default {
   padding: 16px;
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-radius: 12px;
-  border-left: 4px solid #01532B;
+  border-left: 4px solid #A12F8D;
   transition: all 0.3s ease;
 }
 
 .detail-stat strong {
   display: block;
   margin-bottom: 12px;
-  color: #01532B;
+  color: #A12F8D;
   font-size: 15px;
   font-weight: 700;
 }
@@ -1371,7 +1371,7 @@ export default {
   font-family: 'Courier New', monospace;
   font-size: 13px;
   font-weight: 500;
-  color: #01532B;
+  color: #A12F8D;
 }
 
 /* NEW GROUPED VIEW STYLES */
@@ -1395,7 +1395,7 @@ export default {
 
 /* Ministry header styles */
 .ministry-header-row {
-  background: linear-gradient(135deg, #01532B, #0a6633) !important;
+  background: linear-gradient(135deg, #A12F8D, #0a6633) !important;
 }
 
 .ministry-header-cell {
@@ -1426,14 +1426,14 @@ export default {
 
 .currency-header-cell {
   padding: 12px 16px !important;
-  border-left: 4px solid #01532B !important;
+  border-left: 4px solid #A12F8D !important;
 }
 
 .currency-header-content {
   display: flex;
   align-items: center;
   font-weight: 600;
-  color: #01532B;
+  color: #A12F8D;
   font-size: 14px;
 }
 
@@ -1447,20 +1447,20 @@ export default {
   padding: 8px 16px !important;
   font-weight: 600 !important;
   font-style: italic;
-  color: #01532B;
+  color: #A12F8D;
 }
 
 /* Ministry subtotal styles */
 .ministry-subtotal-row {
   background: rgba(1, 83, 43, 0.15) !important;
-  border-top: 2px solid #01532B !important;
-  border-bottom: 2px solid #01532B !important;
+  border-top: 2px solid #A12F8D !important;
+  border-bottom: 2px solid #A12F8D !important;
 }
 
 .ministry-subtotal-row td {
   padding: 12px 16px !important;
   font-weight: 700 !important;
-  color: #01532B;
+  color: #A12F8D;
 }
 
 .ministry-total-label {
@@ -1476,7 +1476,7 @@ export default {
 
 .subtotal-label {
   font-weight: 600;
-  color: #01532B;
+  color: #A12F8D;
   text-align: left;
   padding-left: 24px !important;
 }

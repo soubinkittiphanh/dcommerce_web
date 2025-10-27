@@ -570,7 +570,7 @@ export default {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+background: linear-gradient(135deg, #A12F8D 0%, #337555 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -933,7 +933,7 @@ background: linear-gradient(135deg, #01532B 0%, #337555 100%);
 }
 
 .btn-primary {
-background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+background: linear-gradient(135deg, #A12F8D 0%, #337555 100%);
   color: white;
 }
 

@@ -57,7 +57,7 @@
                 />
               </div>
               
-              <h2 class="text-center" style="color: #01532b">{{ welcomeText }}</h2>
+              <h2 class="text-center" style="color: #A12F8D">{{ welcomeText }}</h2>
             </v-col>
           </v-row>
           <v-card-text>
@@ -83,7 +83,7 @@
               ></v-text-field>
               <v-btn
                 class="rounded-0 my-text-center"
-                color="#01532B"
+                color="#A12F8D"
                 x-large
                 block
                 dark
@@ -417,7 +417,7 @@ h2 {
 .dcommerce-text {
   font-size: 14px;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }
@@ -458,7 +458,7 @@ h2 {
 .dcommerce-text-footer {
   font-size: 12px;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }

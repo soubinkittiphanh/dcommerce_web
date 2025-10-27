@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_46a7d809_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(876);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_46a7d809_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_46a7d809_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_46a7d809_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_46a7d809_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05de4da0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(876);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05de4da0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05de4da0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05de4da0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05de4da0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".chart-account-settlement-report[data-v-46a7d809]{padding:0}.report-header[data-v-46a7d809]{align-items:center;border-radius:8px;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-46a7d809]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-46a7d809]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-46a7d809]{display:flex;gap:16px}.custom-btn[data-v-46a7d809]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-46a7d809]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-46a7d809]{background:#fff;border-radius:8px}.filter-title[data-v-46a7d809]{background:#01532b;color:#fff;font-weight:600}.custom-primary-bg[data-v-46a7d809]{background-color:#01532b!important}.custom-secondary-btn[data-v-46a7d809]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-46a7d809]:hover{background-color:#5a6268!important}.chart-account-selection .account-name[data-v-46a7d809]{color:#01532b;font-weight:600}.chart-account-item .account-name[data-v-46a7d809]{color:#333;font-weight:600}.chart-account-item .account-details[data-v-46a7d809]{color:#666;font-size:12px}.summary-cards[data-v-46a7d809]{margin-bottom:24px}.summary-card[data-v-46a7d809]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-46a7d809]:hover{transform:translateY(-2px)}.summary-content[data-v-46a7d809]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-46a7d809]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-46a7d809]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-46a7d809]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-46a7d809]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-46a7d809]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.amount-card[data-v-46a7d809],.lak-card[data-v-46a7d809],.settlement-card[data-v-46a7d809],.total-accounts-card[data-v-46a7d809]{background:#01532b;color:#fff}.currency-breakdown[data-v-46a7d809]{margin-bottom:24px}.currency-title[data-v-46a7d809]{background:#01532b;color:#fff;font-weight:600}.currency-card[data-v-46a7d809]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;height:100%;padding:16px;text-align:center;transition:all .3s ease}.currency-card[data-v-46a7d809]:hover{border-color:#01532b;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-header[data-v-46a7d809]{align-items:center;display:flex;justify-content:space-between;margin-bottom:12px}.currency-flag[data-v-46a7d809]{font-size:24px}.currency-stats[data-v-46a7d809]{text-align:center}.original-amount[data-v-46a7d809]{color:#01532b;font-family:monospace;font-size:18px;font-weight:700;margin-bottom:4px}.lak-equivalent[data-v-46a7d809]{color:#228b22;font-family:monospace;font-size:14px;font-weight:600;margin-bottom:8px}.settlement-count[data-v-46a7d809]{color:#666;font-size:12px;margin-bottom:4px}.percentage[data-v-46a7d809]{color:#999;font-size:11px}.accounting-table[data-v-46a7d809]{background:#fff}.accounting-table-header[data-v-46a7d809],.accounting-table-header th[data-v-46a7d809]{background-color:#01532b!important}.accounting-table-header th[data-v-46a7d809]{border-bottom:none!important;color:#fff!important;padding:12px 8px!important}.accounting-row-even[data-v-46a7d809]{background-color:#f8f9fa}.accounting-row-special[data-v-46a7d809]{background-color:#fff3cd;font-style:italic}.accounting-table-footer[data-v-46a7d809]{background-color:#e9ecef!important;font-weight:700}.accounting-table-footer td[data-v-46a7d809]{background-color:#e9ecef!important;border-top:2px solid #01532b!important;padding:12px 8px!important}.accounting-divider[data-v-46a7d809]{border-color:#01532b!important;opacity:.3!important}.accounting-primary--text[data-v-46a7d809]{color:#01532b!important}.accounting-success--text[data-v-46a7d809]{color:#28a745!important}.report-card[data-v-46a7d809]{border-radius:12px}.report-header[data-v-46a7d809]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-46a7d809] .v-icon,.search-field[data-v-46a7d809] input{color:#fff!important}.search-field[data-v-46a7d809] .v-label{color:hsla(0,0%,100%,.7)!important}.search-field[data-v-46a7d809] .v-input__control{border-color:hsla(0,0%,100%,.3)!important}.dialog-header[data-v-46a7d809]{background:#01532b!important;font-weight:600!important}.close-btn[data-v-46a7d809],.dialog-header[data-v-46a7d809]{color:#fff!important}.section-title[data-v-46a7d809]{color:#01532b;font-size:18px;font-weight:600;margin:0}.custom-divider[data-v-46a7d809]{border-color:#01532b!important;opacity:.3!important}.detail-stat[data-v-46a7d809]{align-items:center;background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;display:flex;height:100%;padding:16px;transition:all .3s ease}.detail-stat[data-v-46a7d809]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.stat-icon[data-v-46a7d809]{color:#01532b;font-size:24px;margin-right:12px}.stat-info strong[data-v-46a7d809]{color:#01532b;display:block;font-size:12px;font-weight:700;margin-bottom:4px}.stat-number[data-v-46a7d809]{color:#333;font-family:monospace;font-size:16px;font-weight:600;margin:0}.method-card[data-v-46a7d809]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.method-card[data-v-46a7d809]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.method-header[data-v-46a7d809]{margin-bottom:12px}.method-count[data-v-46a7d809]{color:#666;font-size:14px;margin-bottom:4px}.method-amount[data-v-46a7d809]{color:#01532b;font-family:monospace;font-size:18px;font-weight:600}.settlement-table[data-v-46a7d809]{background:#fff}.settlement-table[data-v-46a7d809] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.settlement-table[data-v-46a7d809] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-46a7d809]{color:#01532b;font-family:monospace;font-size:13px}.amount-breakdown[data-v-46a7d809]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-46a7d809]{font-family:monospace;font-size:13px;font-weight:600}.exchange-rate-cell[data-v-46a7d809]{text-align:center}.exchange-rate-cell .default-rate[data-v-46a7d809]{color:#999;font-style:italic}.lak-amount-cell[data-v-46a7d809]{text-align:center}.lak-amount[data-v-46a7d809]{color:#228b22;font-family:monospace;font-size:13px;font-weight:600}.user-info .user-name[data-v-46a7d809]{font-weight:500}.advance-info .advance-status[data-v-46a7d809]{color:#666;font-size:10px;margin-top:2px}.no-advance[data-v-46a7d809]{color:#999;font-style:italic}.text-center[data-v-46a7d809]{text-align:center}.py-8[data-v-46a7d809]{padding:64px 0}.mt-4[data-v-46a7d809]{margin-top:16px}.mt-3[data-v-46a7d809]{margin-top:12px}.mt-2[data-v-46a7d809]{margin-top:8px}.mb-4[data-v-46a7d809]{margin-bottom:24px}.mb-3[data-v-46a7d809]{margin-bottom:12px}.my-3[data-v-46a7d809]{margin:12px 0}.pa-4[data-v-46a7d809]{padding:24px}@media print{.action-buttons[data-v-46a7d809],.filter-card[data-v-46a7d809],.v-btn[data-v-46a7d809]{display:none!important}.summary-cards[data-v-46a7d809]{page-break-inside:avoid}.report-header[data-v-46a7d809]{background:#01532b!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-46a7d809]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-46a7d809]{font-size:24px}.action-buttons[data-v-46a7d809]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-46a7d809]{flex-direction:column;padding:12px;text-align:center}.summary-icon[data-v-46a7d809]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details h2[data-v-46a7d809]{font-size:20px}.detail-stat[data-v-46a7d809]{flex-direction:column;text-align:center}.stat-icon[data-v-46a7d809]{margin-bottom:8px;margin-right:0}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".chart-account-settlement-report[data-v-05de4da0]{padding:0}.report-header[data-v-05de4da0]{align-items:center;border-radius:8px;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-05de4da0]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-05de4da0]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-05de4da0]{display:flex;gap:16px}.custom-btn[data-v-05de4da0]{border:1px solid #fff!important;color:#a12f8d!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-05de4da0]:hover{background-color:#fff!important;color:#a12f8d!important}.filter-card[data-v-05de4da0]{background:#fff;border-radius:8px}.filter-title[data-v-05de4da0]{background:#a12f8d;color:#fff;font-weight:600}.custom-primary-bg[data-v-05de4da0]{background-color:#a12f8d!important}.custom-secondary-btn[data-v-05de4da0]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-05de4da0]:hover{background-color:#5a6268!important}.chart-account-selection .account-name[data-v-05de4da0]{color:#a12f8d;font-weight:600}.chart-account-item .account-name[data-v-05de4da0]{color:#333;font-weight:600}.chart-account-item .account-details[data-v-05de4da0]{color:#666;font-size:12px}.summary-cards[data-v-05de4da0]{margin-bottom:24px}.summary-card[data-v-05de4da0]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-05de4da0]:hover{transform:translateY(-2px)}.summary-content[data-v-05de4da0]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-05de4da0]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-05de4da0]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-05de4da0]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-05de4da0]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-05de4da0]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.amount-card[data-v-05de4da0],.lak-card[data-v-05de4da0],.settlement-card[data-v-05de4da0],.total-accounts-card[data-v-05de4da0]{background:#a12f8d;color:#fff}.currency-breakdown[data-v-05de4da0]{margin-bottom:24px}.currency-title[data-v-05de4da0]{background:#a12f8d;color:#fff;font-weight:600}.currency-card[data-v-05de4da0]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;height:100%;padding:16px;text-align:center;transition:all .3s ease}.currency-card[data-v-05de4da0]:hover{border-color:#a12f8d;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-header[data-v-05de4da0]{align-items:center;display:flex;justify-content:space-between;margin-bottom:12px}.currency-flag[data-v-05de4da0]{font-size:24px}.currency-stats[data-v-05de4da0]{text-align:center}.original-amount[data-v-05de4da0]{color:#a12f8d;font-family:monospace;font-size:18px;font-weight:700;margin-bottom:4px}.lak-equivalent[data-v-05de4da0]{color:#228b22;font-family:monospace;font-size:14px;font-weight:600;margin-bottom:8px}.settlement-count[data-v-05de4da0]{color:#666;font-size:12px;margin-bottom:4px}.percentage[data-v-05de4da0]{color:#999;font-size:11px}.accounting-table[data-v-05de4da0]{background:#fff}.accounting-table-header[data-v-05de4da0],.accounting-table-header th[data-v-05de4da0]{background-color:#a12f8d!important}.accounting-table-header th[data-v-05de4da0]{border-bottom:none!important;color:#fff!important;padding:12px 8px!important}.accounting-row-even[data-v-05de4da0]{background-color:#f8f9fa}.accounting-row-special[data-v-05de4da0]{background-color:#fff3cd;font-style:italic}.accounting-table-footer[data-v-05de4da0]{background-color:#e9ecef!important;font-weight:700}.accounting-table-footer td[data-v-05de4da0]{background-color:#e9ecef!important;border-top:2px solid #a12f8d!important;padding:12px 8px!important}.accounting-divider[data-v-05de4da0]{border-color:#a12f8d!important;opacity:.3!important}.accounting-primary--text[data-v-05de4da0]{color:#a12f8d!important}.accounting-success--text[data-v-05de4da0]{color:#28a745!important}.report-card[data-v-05de4da0]{border-radius:12px}.report-header[data-v-05de4da0]{background:#a12f8d;color:#fff;font-weight:600}.search-field[data-v-05de4da0] .v-icon,.search-field[data-v-05de4da0] input{color:#fff!important}.search-field[data-v-05de4da0] .v-label{color:hsla(0,0%,100%,.7)!important}.search-field[data-v-05de4da0] .v-input__control{border-color:hsla(0,0%,100%,.3)!important}.dialog-header[data-v-05de4da0]{background:#a12f8d!important;font-weight:600!important}.close-btn[data-v-05de4da0],.dialog-header[data-v-05de4da0]{color:#fff!important}.section-title[data-v-05de4da0]{color:#a12f8d;font-size:18px;font-weight:600;margin:0}.custom-divider[data-v-05de4da0]{border-color:#a12f8d!important;opacity:.3!important}.detail-stat[data-v-05de4da0]{align-items:center;background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #a12f8d;border-radius:12px;display:flex;height:100%;padding:16px;transition:all .3s ease}.detail-stat[data-v-05de4da0]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.stat-icon[data-v-05de4da0]{color:#a12f8d;font-size:24px;margin-right:12px}.stat-info strong[data-v-05de4da0]{color:#a12f8d;display:block;font-size:12px;font-weight:700;margin-bottom:4px}.stat-number[data-v-05de4da0]{color:#333;font-family:monospace;font-size:16px;font-weight:600;margin:0}.method-card[data-v-05de4da0]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #a12f8d;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.method-card[data-v-05de4da0]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.method-header[data-v-05de4da0]{margin-bottom:12px}.method-count[data-v-05de4da0]{color:#666;font-size:14px;margin-bottom:4px}.method-amount[data-v-05de4da0]{color:#a12f8d;font-family:monospace;font-size:18px;font-weight:600}.settlement-table[data-v-05de4da0]{background:#fff}.settlement-table[data-v-05de4da0] thead th{background-color:#a12f8d!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.settlement-table[data-v-05de4da0] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-05de4da0]{color:#a12f8d;font-family:monospace;font-size:13px}.amount-breakdown[data-v-05de4da0]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-05de4da0]{font-family:monospace;font-size:13px;font-weight:600}.exchange-rate-cell[data-v-05de4da0]{text-align:center}.exchange-rate-cell .default-rate[data-v-05de4da0]{color:#999;font-style:italic}.lak-amount-cell[data-v-05de4da0]{text-align:center}.lak-amount[data-v-05de4da0]{color:#228b22;font-family:monospace;font-size:13px;font-weight:600}.user-info .user-name[data-v-05de4da0]{font-weight:500}.advance-info .advance-status[data-v-05de4da0]{color:#666;font-size:10px;margin-top:2px}.no-advance[data-v-05de4da0]{color:#999;font-style:italic}.text-center[data-v-05de4da0]{text-align:center}.py-8[data-v-05de4da0]{padding:64px 0}.mt-4[data-v-05de4da0]{margin-top:16px}.mt-3[data-v-05de4da0]{margin-top:12px}.mt-2[data-v-05de4da0]{margin-top:8px}.mb-4[data-v-05de4da0]{margin-bottom:24px}.mb-3[data-v-05de4da0]{margin-bottom:12px}.my-3[data-v-05de4da0]{margin:12px 0}.pa-4[data-v-05de4da0]{padding:24px}@media print{.action-buttons[data-v-05de4da0],.filter-card[data-v-05de4da0],.v-btn[data-v-05de4da0]{display:none!important}.summary-cards[data-v-05de4da0]{page-break-inside:avoid}.report-header[data-v-05de4da0]{background:#a12f8d!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-05de4da0]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-05de4da0]{font-size:24px}.action-buttons[data-v-05de4da0]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-05de4da0]{flex-direction:column;padding:12px;text-align:center}.summary-icon[data-v-05de4da0]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details h2[data-v-05de4da0]{font-size:20px}.detail-stat[data-v-05de4da0]{flex-direction:column;text-align:center}.stat-icon[data-v-05de4da0]{margin-bottom:8px;margin-right:0}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -80,7 +80,7 @@ var VSpacer = __webpack_require__(391);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/chartAccount/index.vue?vue&type=template&id=46a7d809&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/chartAccount/index.vue?vue&type=template&id=05de4da0&scoped=true
 
 
 
@@ -98,12 +98,12 @@ var VTextField = __webpack_require__(36);
 
 
 
-var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function render() {
+var chartAccountvue_type_template_id_05de4da0_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "chart-account-settlement-report"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-46a7d809>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-46a7d809><h1 class=\"page-title\" data-v-46a7d809><i class=\"fas fa-chart-pie\" data-v-46a7d809></i>\n        ລາຍງານຊຳລະຕາມບັນຊີຄ່າໃຊ້ຈ່າຍ\n      </h1> <p class=\"page-subtitle\" data-v-46a7d809>Chart Account Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-46a7d809>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-05de4da0>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-05de4da0><h1 class=\"page-title\" data-v-05de4da0><i class=\"fas fa-chart-pie\" data-v-05de4da0></i>\n        ລາຍງານຊຳລະຕາມບັນຊີຄ່າໃຊ້ຈ່າຍ\n      </h1> <p class=\"page-subtitle\" data-v-05de4da0>Chart Account Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-05de4da0>", "</div>", [_c(VBtn["a" /* default */], {
     staticClass: "custom-btn export-btn",
     attrs: {
       "loading": _vm.exporting
@@ -440,13 +440,13 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
     }, [_vm._v("\n                    " + _vm._s(currency.count) + " ການຊຳລະ\n                  ")]), _vm._v(" "), _c('div', {
       staticClass: "percentage"
     }, [_vm._v("\n                    " + _vm._s(Math.round(currency.lakEquivalent / _vm.totalLakAmount * 100)) + "% ຂອງທັງໝົດ\n                  ")])])])]);
-  }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"text-center py-8\" data-v-46a7d809>", "</div>", [_c(VProgressCircular["a" /* default */], {
+  }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"text-center py-8\" data-v-05de4da0>", "</div>", [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "#01532B",
+      "color": "#A12F8D",
       "size": "64"
     }
-  }), _vm._ssrNode(" <p class=\"mt-4 text-gray-600\" data-v-46a7d809>\n      ກຳລັງໂຫລດຂໍ້ມູນ... Loading chart account reports...\n    </p>")], 2) : _vm._e(), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+  }), _vm._ssrNode(" <p class=\"mt-4 text-gray-600\" data-v-05de4da0>\n      ກຳລັງໂຫລດຂໍ້ມູນ... Loading chart account reports...\n    </p>")], 2) : _vm._e(), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -462,7 +462,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "#01532B"
+      "color": "#A12F8D"
     }
   }, [_vm._v("mdi-chart-pie")]), _vm._v(" "), _c('span', {
     staticClass: "text-subtitle-1 font-weight-medium"
@@ -508,7 +508,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
       "icon": "",
       "small": "",
       "loading": _vm.loading,
-      "color": "#01532B"
+      "color": "#A12F8D"
     },
     on: {
       "click": _vm.loadDashboardData
@@ -526,7 +526,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
   }, [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
-      "color": "#01532B"
+      "color": "#A12F8D"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "mt-2 text-caption"
@@ -625,7 +625,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
             staticClass: "white--text",
             attrs: {
               "x-small": "",
-              "color": "#01532B"
+              "color": "#A12F8D"
             },
             on: {
               "click": function ($event) {
@@ -649,7 +649,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
         }, [_c(VChip["a" /* default */], {
           attrs: {
             "x-small": "",
-            "color": "#01532B",
+            "color": "#A12F8D",
             "text-color": "white"
           }
         }, [_vm._v("\n                      " + _vm._s(_vm.totalSettlementsCount) + "\n                    ")])], 1), _vm._v(" "), _vm._l(_vm.currencyList, function (currency) {
@@ -909,7 +909,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
           staticClass: "advance-info"
         }, [_c(VChip["a" /* default */], {
           attrs: {
-            "color": "#01532B",
+            "color": "#A12F8D",
             "text-color": "white",
             "small": ""
           }
@@ -927,7 +927,7 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
         return [_c(VBtn["a" /* default */], {
           attrs: {
             "small": "",
-            "color": "#01532B"
+            "color": "#A12F8D"
           },
           on: {
             "click": function ($event) {
@@ -938,12 +938,12 @@ var chartAccountvue_type_template_id_46a7d809_scoped_true_render = function rend
           staticClass: "fas fa-eye"
         }), _vm._v("\n                  ເບິ່ງ\n                ")])];
       }
-    }], null, false, 3682692414)
+    }], null, false, 1522176478)
   })], 1)], 1)], 1)], 1) : _vm._e()], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/chartAccount/index.vue?vue&type=template&id=46a7d809&scoped=true
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/chartAccount/index.vue?vue&type=template&id=05de4da0&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/chartAccount/index.vue?vue&type=script&lang=js
 var chartAccountvue_type_script_lang_js = __webpack_require__(752);
@@ -968,11 +968,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   settlement_chartAccountvue_type_script_lang_js,
-  chartAccountvue_type_template_id_46a7d809_scoped_true_render,
+  chartAccountvue_type_template_id_05de4da0_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "46a7d809",
+  "05de4da0",
   "0d7956a7"
   
 )
@@ -1273,7 +1273,7 @@ var component = Object(componentNormalizer["a" /* default */])(
     },
     getCurrencyColor(currencyCode) {
       const colors = {
-        LAK: '#01532B',
+        LAK: '#A12F8D',
         USD: '#228B22',
         THB: '#32CD32',
         CNY: '#006400',
@@ -1282,11 +1282,11 @@ var component = Object(componentNormalizer["a" /* default */])(
         GBP: '#66CDAA',
         KRW: '#20B2AA'
       };
-      return colors[currencyCode] || '#01532B';
+      return colors[currencyCode] || '#A12F8D';
     },
     getAccountTypeColor(accountType) {
       const colors = {
-        Asset: '#01532B',
+        Asset: '#A12F8D',
         Liability: '#DC3545',
         Equity: '#6610F2',
         Revenue: '#198754',
@@ -1294,7 +1294,7 @@ var component = Object(componentNormalizer["a" /* default */])(
         Income: '#20C997',
         Cost: '#E83E8C'
       };
-      return colors[accountType] || '#01532B';
+      return colors[accountType] || '#A12F8D';
     },
     getCurrencyFlag(currencyCode) {
       const flags = {
@@ -1694,11 +1694,11 @@ var component = Object(componentNormalizer["a" /* default */])(
     },
     getMethodColor(method) {
       const colors = {
-        cash: '#01532B',
+        cash: '#A12F8D',
         bank_transfer: '#228B22',
         deduction: '#32CD32'
       };
-      return colors[method] || '#01532B';
+      return colors[method] || '#A12F8D';
     }
   }
 });
@@ -1719,7 +1719,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("59a2e0e0", content, true, context)
+  add("ce55e5c0", content, true, context)
 };
 
 /***/ })

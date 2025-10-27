@@ -1693,7 +1693,7 @@ const confirmSwal = (swal, message, callbackFunc) => {
     title: 'ກະລຸນາຢືນຢັນ',
     text: message,
     confirmButtonText: 'ຢືນຢັນ',
-    confirmButtonColor: '#01532B',
+    confirmButtonColor: '#A12F8D',
     showCancelButton: true,
     cancelButtonText: 'ອອກ',
     cancelButtonColor: '#D00505'
@@ -5556,8 +5556,8 @@ const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
   // const baseURL = 'http://150.95.31.23:8021' //  *** carcare sokpaluang
-  // const baseURL = 'http://150.95.31.23:8022' //  *** PM Jobfair
-  const baseURL = 'http://150.95.31.23:8023'; //  *** BEST COFFEE
+  const baseURL = 'http://150.95.31.23:8022'; //  *** PM Jobfair
+  // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
@@ -9647,17 +9647,17 @@ var components_VCard = __webpack_require__(6);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 var VProgressLinear = __webpack_require__(123);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/LoadingIndicator.vue?vue&type=template&id=b85bb006
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/LoadingIndicator.vue?vue&type=template&id=933a32c8
 
 
 
 
-var LoadingIndicatorvue_type_template_id_b85bb006_render = function render() {
+var LoadingIndicatorvue_type_template_id_933a32c8_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VCard["a" /* default */], {
     attrs: {
-      "color": "#01532B",
+      "color": "#A12F8D",
       "dark": ""
     }
   }, [_c(components_VCard["c" /* VCardText */], [_vm._v("\n    ກະລຸນາລໍຖ້າ...\n    "), _c(VProgressLinear["a" /* default */], {
@@ -9670,7 +9670,7 @@ var LoadingIndicatorvue_type_template_id_b85bb006_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/LoadingIndicator.vue?vue&type=template&id=b85bb006
+// CONCATENATED MODULE: ./components/LoadingIndicator.vue?vue&type=template&id=933a32c8
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(10);
@@ -9684,7 +9684,7 @@ var script = {}
 
 var component = Object(componentNormalizer["a" /* default */])(
   script,
-  LoadingIndicatorvue_type_template_id_b85bb006_render,
+  LoadingIndicatorvue_type_template_id_933a32c8_render,
   staticRenderFns,
   false,
   null,
@@ -13983,7 +13983,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("2a83a28e", content, true, context)
+  add("2ab814e0", content, true, context)
 };
 
 /***/ }),
@@ -14070,7 +14070,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5469ae0b", content, true, context)
+  add("9c2f13be", content, true, context)
 };
 
 /***/ }),
@@ -14602,7 +14602,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("7a94cf2a", content, true, context)
+  add("35acb3d3", content, true, context)
 };
 
 /***/ }),
@@ -16106,9 +16106,9 @@ module.exports = __webpack_require__.p + "img/company_logo_phaivanh.666645f.jpeg
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_e04ac010_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(148);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_e04ac010_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_e04ac010_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_e04ac010_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_e04ac010_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_90b07ad0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(148);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_90b07ad0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_90b07ad0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_90b07ad0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_default_vue_vue_type_style_index_0_id_90b07ad0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -16119,7 +16119,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-e04ac010]{font-family:\"noto sans lao\"}.v-main[data-v-e04ac010]{height:100vh!important;overflow-y:auto!important}body[data-v-e04ac010],html[data-v-e04ac010]{overflow-x:hidden;overflow-y:auto}.logo-loading-container[data-v-e04ac010]{align-items:center;background-color:hsla(0,0%,100%,.1);border:2px dashed hsla(0,0%,100%,.3);border-radius:8px;display:flex;flex-direction:column;height:120px;justify-content:center;margin:0 auto;width:180px}.v-image[data-v-e04ac010]{border-radius:8px;transition:opacity .3s ease}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-90b07ad0]{font-family:\"noto sans lao\"}.v-main[data-v-90b07ad0]{height:100vh!important;overflow-y:auto!important}body[data-v-90b07ad0],html[data-v-90b07ad0]{overflow-x:hidden;overflow-y:auto}.logo-loading-container[data-v-90b07ad0]{align-items:center;background-color:hsla(0,0%,100%,.1);border:2px dashed hsla(0,0%,100%,.3);border-radius:8px;display:flex;flex-direction:column;height:120px;justify-content:center;margin:0 auto;width:180px}.v-image[data-v-90b07ad0]{border-radius:8px;transition:opacity .3s ease}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -16355,9 +16355,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_6a526743_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(154);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_6a526743_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_6a526743_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_6a526743_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_6a526743_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_3113a4fe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(154);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_3113a4fe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_3113a4fe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_3113a4fe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_style_index_0_id_3113a4fe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -16368,7 +16368,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-6a526743]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.menu-layout[data-v-6a526743]{background:linear-gradient(135deg,#01532b,#337555);min-height:100vh;padding-bottom:80px;position:relative}.top-nav[data-v-6a526743]{animation:slideDown-6a526743 .5s ease-out;backdrop-filter:blur(10px);background:hsla(0,0%,100%,.95);box-shadow:0 2px 20px rgba(0,0,0,.1);left:0;position:fixed;right:0;top:0;z-index:100}@keyframes slideDown-6a526743{0%{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}.nav-content[data-v-6a526743]{justify-content:space-between;margin:0 auto;max-width:1400px;padding:1rem 1.5rem}.logo-section[data-v-6a526743],.nav-content[data-v-6a526743]{align-items:center;display:flex}.logo-section[data-v-6a526743]{gap:.75rem}.logo-icon[data-v-6a526743]{animation:bounce-6a526743 2s infinite;font-size:2rem}@keyframes bounce-6a526743{0%,20%,50%,80%,to{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}.restaurant-name[data-v-6a526743]{background:linear-gradient(135deg,#01532b,#337555);-webkit-background-clip:text;color:#1f2937;font-size:1.5rem;font-weight:700;-webkit-text-fill-color:transparent;background-clip:text}.nav-actions[data-v-6a526743]{display:flex;gap:.75rem}.nav-btn[data-v-6a526743]{align-items:center;background:rgba(99,102,241,.1);border:none;border-radius:50%;cursor:pointer;display:flex;height:44px;justify-content:center;position:relative;transition:all .3s ease;width:44px}.nav-btn[data-v-6a526743]:hover{background:rgba(99,102,241,.2);transform:scale(1.1)}.cart-btn[data-v-6a526743]{background:linear-gradient(135deg,#6366f1,#8b5cf6)}.cart-btn span[data-v-6a526743]:first-child{filter:brightness(0) invert(1)}.cart-badge[data-v-6a526743]{animation:pulse-6a526743 2s infinite;background:#ef4444;border-radius:10px;color:#fff;font-size:.7rem;font-weight:700;min-width:20px;padding:.2rem .4rem;position:absolute;right:-5px;text-align:center;top:-5px}@keyframes pulse-6a526743{0%,to{transform:scale(1)}50%{transform:scale(1.1)}}.menu-content[data-v-6a526743]{min-height:100vh;padding-bottom:100px;padding-top:80px}.bottom-nav[data-v-6a526743]{align-items:center;animation:slideUp-6a526743 .5s ease-out;backdrop-filter:blur(10px);background:hsla(0,0%,100%,.95);bottom:0;box-shadow:0 -2px 20px rgba(0,0,0,.1);display:flex;justify-content:space-around;left:0;padding:.75rem .5rem;position:fixed;right:0;z-index:100}@keyframes slideUp-6a526743{0%{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}.bottom-nav-btn[data-v-6a526743]{align-items:center;background:none;border:none;border-radius:12px;cursor:pointer;display:flex;flex:1;flex-direction:column;gap:.25rem;max-width:80px;padding:.5rem 1rem;transition:all .3s ease}.bottom-nav-btn[data-v-6a526743]:hover{background:rgba(99,102,241,.1);transform:translateY(-2px)}.bottom-nav-btn.active[data-v-6a526743]{background:rgba(99,102,241,.15)}.fab-btn[data-v-6a526743]{background:linear-gradient(135deg,#10b981,#059669);border-radius:50%;box-shadow:0 8px 25px rgba(16,185,129,.3);flex:initial;height:60px;max-width:none;position:relative;top:-20px;width:60px}.fab-btn[data-v-6a526743]:hover{box-shadow:0 12px 35px rgba(16,185,129,.4);transform:translateY(-5px) scale(1.05)}.fab-btn .nav-icon[data-v-6a526743]{filter:brightness(0) invert(1);font-size:1.8rem}.fab-btn .nav-label[data-v-6a526743]{display:none}.nav-icon[data-v-6a526743]{font-size:1.5rem;transition:all .3s ease}.bottom-nav-btn:hover .nav-icon[data-v-6a526743]{transform:scale(1.2)}.nav-label[data-v-6a526743]{color:#6b7280;font-size:.7rem;font-weight:500;transition:all .3s ease}.bottom-nav-btn:hover .nav-label[data-v-6a526743]{color:#6366f1}@media (max-width:768px){.nav-content[data-v-6a526743]{padding:.75rem 1rem}.restaurant-name[data-v-6a526743]{font-size:1.2rem}.logo-icon[data-v-6a526743]{font-size:1.5rem}.menu-content[data-v-6a526743]{padding-top:70px}.bottom-nav-btn[data-v-6a526743]{padding:.5rem .25rem}.nav-label[data-v-6a526743]{font-size:.65rem}}@media (max-width:480px){.nav-content[data-v-6a526743]{padding:.5rem .75rem}.restaurant-name[data-v-6a526743]{font-size:1rem}.nav-btn[data-v-6a526743]{height:40px;width:40px}.fab-btn[data-v-6a526743]{height:56px;top:-18px;width:56px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-3113a4fe]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.menu-layout[data-v-3113a4fe]{background:linear-gradient(135deg,#a12f8d,#337555);min-height:100vh;padding-bottom:80px;position:relative}.top-nav[data-v-3113a4fe]{animation:slideDown-3113a4fe .5s ease-out;backdrop-filter:blur(10px);background:hsla(0,0%,100%,.95);box-shadow:0 2px 20px rgba(0,0,0,.1);left:0;position:fixed;right:0;top:0;z-index:100}@keyframes slideDown-3113a4fe{0%{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}.nav-content[data-v-3113a4fe]{justify-content:space-between;margin:0 auto;max-width:1400px;padding:1rem 1.5rem}.logo-section[data-v-3113a4fe],.nav-content[data-v-3113a4fe]{align-items:center;display:flex}.logo-section[data-v-3113a4fe]{gap:.75rem}.logo-icon[data-v-3113a4fe]{animation:bounce-3113a4fe 2s infinite;font-size:2rem}@keyframes bounce-3113a4fe{0%,20%,50%,80%,to{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}.restaurant-name[data-v-3113a4fe]{background:linear-gradient(135deg,#a12f8d,#337555);-webkit-background-clip:text;color:#1f2937;font-size:1.5rem;font-weight:700;-webkit-text-fill-color:transparent;background-clip:text}.nav-actions[data-v-3113a4fe]{display:flex;gap:.75rem}.nav-btn[data-v-3113a4fe]{align-items:center;background:rgba(99,102,241,.1);border:none;border-radius:50%;cursor:pointer;display:flex;height:44px;justify-content:center;position:relative;transition:all .3s ease;width:44px}.nav-btn[data-v-3113a4fe]:hover{background:rgba(99,102,241,.2);transform:scale(1.1)}.cart-btn[data-v-3113a4fe]{background:linear-gradient(135deg,#6366f1,#8b5cf6)}.cart-btn span[data-v-3113a4fe]:first-child{filter:brightness(0) invert(1)}.cart-badge[data-v-3113a4fe]{animation:pulse-3113a4fe 2s infinite;background:#ef4444;border-radius:10px;color:#fff;font-size:.7rem;font-weight:700;min-width:20px;padding:.2rem .4rem;position:absolute;right:-5px;text-align:center;top:-5px}@keyframes pulse-3113a4fe{0%,to{transform:scale(1)}50%{transform:scale(1.1)}}.menu-content[data-v-3113a4fe]{min-height:100vh;padding-bottom:100px;padding-top:80px}.bottom-nav[data-v-3113a4fe]{align-items:center;animation:slideUp-3113a4fe .5s ease-out;backdrop-filter:blur(10px);background:hsla(0,0%,100%,.95);bottom:0;box-shadow:0 -2px 20px rgba(0,0,0,.1);display:flex;justify-content:space-around;left:0;padding:.75rem .5rem;position:fixed;right:0;z-index:100}@keyframes slideUp-3113a4fe{0%{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}.bottom-nav-btn[data-v-3113a4fe]{align-items:center;background:none;border:none;border-radius:12px;cursor:pointer;display:flex;flex:1;flex-direction:column;gap:.25rem;max-width:80px;padding:.5rem 1rem;transition:all .3s ease}.bottom-nav-btn[data-v-3113a4fe]:hover{background:rgba(99,102,241,.1);transform:translateY(-2px)}.bottom-nav-btn.active[data-v-3113a4fe]{background:rgba(99,102,241,.15)}.fab-btn[data-v-3113a4fe]{background:linear-gradient(135deg,#10b981,#059669);border-radius:50%;box-shadow:0 8px 25px rgba(16,185,129,.3);flex:initial;height:60px;max-width:none;position:relative;top:-20px;width:60px}.fab-btn[data-v-3113a4fe]:hover{box-shadow:0 12px 35px rgba(16,185,129,.4);transform:translateY(-5px) scale(1.05)}.fab-btn .nav-icon[data-v-3113a4fe]{filter:brightness(0) invert(1);font-size:1.8rem}.fab-btn .nav-label[data-v-3113a4fe]{display:none}.nav-icon[data-v-3113a4fe]{font-size:1.5rem;transition:all .3s ease}.bottom-nav-btn:hover .nav-icon[data-v-3113a4fe]{transform:scale(1.2)}.nav-label[data-v-3113a4fe]{color:#6b7280;font-size:.7rem;font-weight:500;transition:all .3s ease}.bottom-nav-btn:hover .nav-label[data-v-3113a4fe]{color:#6366f1}@media (max-width:768px){.nav-content[data-v-3113a4fe]{padding:.75rem 1rem}.restaurant-name[data-v-3113a4fe]{font-size:1.2rem}.logo-icon[data-v-3113a4fe]{font-size:1.5rem}.menu-content[data-v-3113a4fe]{padding-top:70px}.bottom-nav-btn[data-v-3113a4fe]{padding:.5rem .25rem}.nav-label[data-v-3113a4fe]{font-size:.65rem}}@media (max-width:480px){.nav-content[data-v-3113a4fe]{padding:.5rem .75rem}.restaurant-name[data-v-3113a4fe]{font-size:1rem}.nav-btn[data-v-3113a4fe]{height:40px;width:40px}.fab-btn[data-v-3113a4fe]{height:56px;top:-18px;width:56px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -16749,9 +16749,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_251e7eea_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(159);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_251e7eea_prod_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_251e7eea_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_251e7eea_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_251e7eea_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_d0626de8_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(159);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_d0626de8_prod_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_d0626de8_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_d0626de8_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_web_vue_vue_type_style_index_0_id_d0626de8_prod_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -18117,27 +18117,27 @@ __webpack_require__.d(components_namespaceObject, "OrderSumaryCardV2", function(
 __webpack_require__.d(components_namespaceObject, "SimplifiedCompanyForm", function() { return SimplifiedCompanyForm; });
 __webpack_require__.d(components_namespaceObject, "Slider", function() { return Slider; });
 __webpack_require__.d(components_namespaceObject, "UnitForm", function() { return UnitForm; });
-__webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
 __webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
+__webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
 __webpack_require__.d(components_namespaceObject, "AccountingApPayment", function() { return AccountingApPayment; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", function() { return AccountingArReceivable; });
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
 __webpack_require__.d(components_namespaceObject, "CalendarMyCalendar", function() { return CalendarMyCalendar; });
-__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
 __webpack_require__.d(components_namespaceObject, "CardCampaignCard", function() { return CardCampaignCard; });
 __webpack_require__.d(components_namespaceObject, "CardForm", function() { return CardForm; });
-__webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
-__webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
+__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
+__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardGrouping", function() { return DashboardCardGrouping; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardOnTop", function() { return DashboardCardOnTop; });
-__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
+__webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
+__webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
 __webpack_require__.d(components_namespaceObject, "Menu", function() { return Menu; });
 __webpack_require__.d(components_namespaceObject, "MenuOverview", function() { return MenuOverview; });
 __webpack_require__.d(components_namespaceObject, "MinStockCard", function() { return MinStockCard; });
 __webpack_require__.d(components_namespaceObject, "MinistryDialog", function() { return MinistryDialog; });
 __webpack_require__.d(components_namespaceObject, "MinistryViewDialog", function() { return MinistryViewDialog; });
-__webpack_require__.d(components_namespaceObject, "PaymentCard", function() { return PaymentCard; });
 __webpack_require__.d(components_namespaceObject, "PaymentQr", function() { return PaymentQr; });
+__webpack_require__.d(components_namespaceObject, "PaymentCard", function() { return PaymentCard; });
 __webpack_require__.d(components_namespaceObject, "PoForm", function() { return PoForm; });
 __webpack_require__.d(components_namespaceObject, "PosCateogoryList", function() { return PosCateogoryList; });
 __webpack_require__.d(components_namespaceObject, "ProductItem", function() { return ProductItem; });
@@ -18150,15 +18150,21 @@ __webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { 
 __webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
 __webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
 __webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
+__webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
+__webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
+__webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
+__webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
 __webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsNotesDialog", function() { return TicketsNotesDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsPrintDialog", function() { return TicketsPrintDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketCard", function() { return TicketsTicketCard; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketDetailDialog", function() { return TicketsTicketDetailDialog; });
-__webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
-__webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
-__webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
-__webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
+__webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
+__webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
+__webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
+__webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
+__webpack_require__.d(components_namespaceObject, "BenefitMaintain", function() { return BenefitMaintain; });
+__webpack_require__.d(components_namespaceObject, "BenefitView", function() { return BenefitView; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditDialog", function() { return MAPaymentAuditDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditReportDialog", function() { return MAPaymentAuditReportDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentCompareDialog", function() { return MAPaymentCompareDialog; });
@@ -18173,23 +18179,17 @@ __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsMinistryIn
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsSelectField", function() { return MAPaymentComponentsSelectField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsTextareaField", function() { return MAPaymentComponentsTextareaField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsValidationErrors", function() { return MAPaymentComponentsValidationErrors; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentDetailDialog", function() { return MAPaymentDetailDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
-__webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
-__webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
-__webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
-__webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
-__webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
-__webpack_require__.d(components_namespaceObject, "BenefitMaintain", function() { return BenefitMaintain; });
-__webpack_require__.d(components_namespaceObject, "BenefitView", function() { return BenefitView; });
-__webpack_require__.d(components_namespaceObject, "JobAdvertiseMaintain", function() { return JobAdvertiseMaintain; });
-__webpack_require__.d(components_namespaceObject, "JobAdvertiseStatusUpdate", function() { return JobAdvertiseStatusUpdate; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentDetailDialog", function() { return MAPaymentDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
+__webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
+__webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseView", function() { return JobAdvertiseView; });
+__webpack_require__.d(components_namespaceObject, "JobAdvertiseMaintain", function() { return JobAdvertiseMaintain; });
+__webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
+__webpack_require__.d(components_namespaceObject, "JobAdvertiseStatusUpdate", function() { return JobAdvertiseStatusUpdate; });
 __webpack_require__.d(components_namespaceObject, "JobFairJobBatch", function() { return JobFairJobBatch; });
 __webpack_require__.d(components_namespaceObject, "PosDialogsQuantityUpdateDialog", function() { return PosDialogsQuantityUpdateDialog; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoice", function() { return AccountingApInvoice; });
@@ -18199,18 +18199,18 @@ __webpack_require__.d(components_namespaceObject, "JobFairAgencyView", function(
 __webpack_require__.d(components_namespaceObject, "JobFairMouMaintain", function() { return JobFairMouMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAudit", function() { return AccountingApInvoiceAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit", function() { return AccountingApSettlementAudit; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAudit", function() { return AccountingArInvoiceAudit; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(1);
@@ -20317,7 +20317,7 @@ var VRadioGroup = __webpack_require__(387);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(391);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/default.vue?vue&type=template&id=e04ac010&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/default.vue?vue&type=template&id=90b07ad0&scoped=true
 
 
 
@@ -20346,7 +20346,7 @@ var VSpacer = __webpack_require__(391);
 
 
 
-var defaultvue_type_template_id_e04ac010_scoped_true_render = function render() {
+var defaultvue_type_template_id_90b07ad0_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
@@ -20360,7 +20360,7 @@ var defaultvue_type_template_id_e04ac010_scoped_true_render = function render() 
       "clipped": _vm.clipped,
       "dark": "",
       "fixed": "",
-      "color": "#01532B",
+      "color": "#A12F8D",
       "app": ""
     },
     model: {
@@ -20522,7 +20522,7 @@ var defaultvue_type_template_id_e04ac010_scoped_true_render = function render() 
     });
   }), 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
     attrs: {
-      "color": "#01532B",
+      "color": "#A12F8D",
       "rounded": "",
       "variant": "text"
     },
@@ -20551,9 +20551,9 @@ var defaultvue_type_template_id_e04ac010_scoped_true_render = function render() 
     }
   }, [_vm._v("\n      " + _vm._s(_vm.currentTerminal.name) + "\n    ")]) : _vm._e()], 1)], 1);
 };
-var defaultvue_type_template_id_e04ac010_scoped_true_staticRenderFns = [];
+var defaultvue_type_template_id_90b07ad0_scoped_true_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/default.vue?vue&type=template&id=e04ac010&scoped=true
+// CONCATENATED MODULE: ./layouts/default.vue?vue&type=template&id=90b07ad0&scoped=true
 
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(37);
@@ -20818,11 +20818,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var default_component = Object(componentNormalizer["a" /* default */])(
   layouts_defaultvue_type_script_lang_js,
-  defaultvue_type_template_id_e04ac010_scoped_true_render,
-  defaultvue_type_template_id_e04ac010_scoped_true_staticRenderFns,
+  defaultvue_type_template_id_90b07ad0_scoped_true_render,
+  defaultvue_type_template_id_90b07ad0_scoped_true_staticRenderFns,
   false,
   default_injectStyles,
-  "e04ac010",
+  "90b07ad0",
   "36f38b15"
   
 )
@@ -21663,12 +21663,12 @@ var login_component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var login = (login_component.exports);
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/menu.vue?vue&type=template&id=6a526743&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/menu.vue?vue&type=template&id=3113a4fe&scoped=true
 
 
 
 
-var menuvue_type_template_id_6a526743_scoped_true_render = function render() {
+var menuvue_type_template_id_3113a4fe_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
@@ -21753,9 +21753,9 @@ var menuvue_type_template_id_6a526743_scoped_true_render = function render() {
     staticClass: "nav-label"
   }, [_vm._v("Profile")])])])], 1)], 1);
 };
-var menuvue_type_template_id_6a526743_scoped_true_staticRenderFns = [];
+var menuvue_type_template_id_3113a4fe_scoped_true_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/menu.vue?vue&type=template&id=6a526743&scoped=true
+// CONCATENATED MODULE: ./layouts/menu.vue?vue&type=template&id=3113a4fe&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/menu.vue?vue&type=script&lang=js
 /* harmony default export */ var menuvue_type_script_lang_js = ({
@@ -21812,11 +21812,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var menu_component = Object(componentNormalizer["a" /* default */])(
   layouts_menuvue_type_script_lang_js,
-  menuvue_type_template_id_6a526743_scoped_true_render,
-  menuvue_type_template_id_6a526743_scoped_true_staticRenderFns,
+  menuvue_type_template_id_3113a4fe_scoped_true_render,
+  menuvue_type_template_id_3113a4fe_scoped_true_staticRenderFns,
   false,
   menu_injectStyles,
-  "6a526743",
+  "3113a4fe",
   "f41f618a"
   
 )
@@ -23745,7 +23745,7 @@ var products_component = Object(componentNormalizer["a" /* default */])(
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(137);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/web.vue?vue&type=template&id=251e7eea
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/web.vue?vue&type=template&id=d0626de8
 
 
 
@@ -23755,7 +23755,7 @@ var components_VToolbar = __webpack_require__(137);
 
 
 
-var webvue_type_template_id_251e7eea_render = function render() {
+var webvue_type_template_id_d0626de8_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
@@ -23812,9 +23812,9 @@ var webvue_type_template_id_251e7eea_render = function render() {
     }
   }, [_c('Nuxt')], 1), _vm._v(" "), _c('Footer')], 1);
 };
-var webvue_type_template_id_251e7eea_staticRenderFns = [];
+var webvue_type_template_id_d0626de8_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/web.vue?vue&type=template&id=251e7eea
+// CONCATENATED MODULE: ./layouts/web.vue?vue&type=template&id=d0626de8
 
 // EXTERNAL MODULE: ./components/footer.vue + 4 modules
 var footer = __webpack_require__(130);
@@ -23901,8 +23901,8 @@ if (style0.__inject__) style0.__inject__(context)
 
 var web_component = Object(componentNormalizer["a" /* default */])(
   layouts_webvue_type_script_lang_js,
-  webvue_type_template_id_251e7eea_render,
-  webvue_type_template_id_251e7eea_staticRenderFns,
+  webvue_type_template_id_d0626de8_render,
+  webvue_type_template_id_d0626de8_staticRenderFns,
   false,
   web_injectStyles,
   null,
@@ -24282,27 +24282,27 @@ const OrderSumaryCardV2 = () => __webpack_require__.e(/* import() | components/o
 const SimplifiedCompanyForm = () => __webpack_require__.e(/* import() | components/simplified-company-form */ 137).then(__webpack_require__.bind(null, 1393)).then(c => wrapFunctional(c.default || c));
 const Slider = () => __webpack_require__.e(/* import() | components/slider */ 138).then(__webpack_require__.bind(null, 954)).then(c => wrapFunctional(c.default || c));
 const UnitForm = () => __webpack_require__.e(/* import() | components/unit-form */ 150).then(__webpack_require__.bind(null, 770)).then(c => wrapFunctional(c.default || c));
-const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 936)).then(c => wrapFunctional(c.default || c));
 const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 36).then(__webpack_require__.bind(null, 583)).then(c => wrapFunctional(c.default || c));
+const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 936)).then(c => wrapFunctional(c.default || c));
 const AccountingApPayment = () => __webpack_require__.e(/* import() | components/accounting-ap-payment */ 6).then(__webpack_require__.bind(null, 921)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 922)).then(c => wrapFunctional(c.default || c));
 const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 928)).then(c => wrapFunctional(c.default || c));
 const CalendarMyCalendar = () => __webpack_require__.e(/* import() | components/calendar-my-calendar */ 37).then(__webpack_require__.bind(null, 1394)).then(c => wrapFunctional(c.default || c));
-const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 38).then(__webpack_require__.bind(null, 760)).then(c => wrapFunctional(c.default || c));
 const CardCampaignCard = () => __webpack_require__.e(/* import() | components/card-campaign-card */ 40).then(__webpack_require__.bind(null, 918)).then(c => wrapFunctional(c.default || c));
 const CardForm = () => __webpack_require__.e(/* import() | components/card-form */ 42).then(__webpack_require__.bind(null, 586)).then(c => wrapFunctional(c.default || c));
-const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 47).then(__webpack_require__.bind(null, 762)).then(c => wrapFunctional(c.default || c));
-const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 90)).then(c => wrapFunctional(c.default || c));
+const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 38).then(__webpack_require__.bind(null, 760)).then(c => wrapFunctional(c.default || c));
+const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 53).then(__webpack_require__.bind(null, 1395)).then(c => wrapFunctional(c.default || c));
 const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 48).then(__webpack_require__.bind(null, 917)).then(c => wrapFunctional(c.default || c));
 const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 49).then(__webpack_require__.bind(null, 916)).then(c => wrapFunctional(c.default || c));
-const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 53).then(__webpack_require__.bind(null, 1395)).then(c => wrapFunctional(c.default || c));
+const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 47).then(__webpack_require__.bind(null, 762)).then(c => wrapFunctional(c.default || c));
+const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 90)).then(c => wrapFunctional(c.default || c));
 const Menu = () => __webpack_require__.e(/* import() | components/menu */ 91).then(__webpack_require__.bind(null, 919)).then(c => wrapFunctional(c.default || c));
 const MenuOverview = () => __webpack_require__.e(/* import() | components/menu-overview */ 94).then(__webpack_require__.bind(null, 758)).then(c => wrapFunctional(c.default || c));
 const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 95).then(__webpack_require__.bind(null, 757)).then(c => wrapFunctional(c.default || c));
 const MinistryDialog = () => __webpack_require__.e(/* import() | components/ministry-dialog */ 96).then(__webpack_require__.bind(null, 774)).then(c => wrapFunctional(c.default || c));
 const MinistryViewDialog = () => __webpack_require__.e(/* import() | components/ministry-view-dialog */ 97).then(__webpack_require__.bind(null, 768)).then(c => wrapFunctional(c.default || c));
-const PaymentCard = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 347)).then(c => wrapFunctional(c.default || c));
 const PaymentQr = () => __webpack_require__.e(/* import() | components/payment-qr */ 114).then(__webpack_require__.bind(null, 1396)).then(c => wrapFunctional(c.default || c));
+const PaymentCard = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 347)).then(c => wrapFunctional(c.default || c));
 const PoForm = () => __webpack_require__.e(/* import() | components/po-form */ 115).then(__webpack_require__.bind(null, 550)).then(c => wrapFunctional(c.default || c));
 const PosCateogoryList = () => __webpack_require__.e(/* import() | components/pos-cateogory-list */ 116).then(__webpack_require__.bind(null, 1397)).then(c => wrapFunctional(c.default || c));
 const ProductItem = () => __webpack_require__.e(/* import() | components/product-item */ 123).then(__webpack_require__.bind(null, 1398)).then(c => wrapFunctional(c.default || c));
@@ -24315,46 +24315,46 @@ const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles
 const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 131).then(__webpack_require__.bind(null, 948)).then(c => wrapFunctional(c.default || c));
 const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 132).then(__webpack_require__.bind(null, 950)).then(c => wrapFunctional(c.default || c));
 const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 133).then(__webpack_require__.bind(null, 1399)).then(c => wrapFunctional(c.default || c));
+const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 145).then(__webpack_require__.bind(null, 945)).then(c => wrapFunctional(c.default || c));
+const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 549)).then(c => wrapFunctional(c.default || c));
+const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 532)).then(c => wrapFunctional(c.default || c));
+const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 35).then(__webpack_require__.bind(null, 518)).then(c => wrapFunctional(c.default || c));
 const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 135).then(__webpack_require__.bind(null, 949)).then(c => wrapFunctional(c.default || c));
 const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 141).then(__webpack_require__.bind(null, 533)).then(c => wrapFunctional(c.default || c));
 const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 142).then(__webpack_require__.bind(null, 1400)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketCard = () => __webpack_require__.e(/* import() | components/tickets-ticket-card */ 143).then(__webpack_require__.bind(null, 934)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketDetailDialog = () => __webpack_require__.e(/* import() | components/tickets-ticket-detail-dialog */ 144).then(__webpack_require__.bind(null, 935)).then(c => wrapFunctional(c.default || c));
-const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 145).then(__webpack_require__.bind(null, 945)).then(c => wrapFunctional(c.default || c));
-const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 549)).then(c => wrapFunctional(c.default || c));
-const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 532)).then(c => wrapFunctional(c.default || c));
-const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 35).then(__webpack_require__.bind(null, 518)).then(c => wrapFunctional(c.default || c));
-const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 70).then(__webpack_require__.bind(null, 1401)).then(c => wrapFunctional(c.default || c));
-const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 71).then(__webpack_require__.bind(null, 1402)).then(c => wrapFunctional(c.default || c));
-const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 72).then(__webpack_require__.bind(null, 1403)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsBankAccountInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-bank-account-info */ 73).then(__webpack_require__.bind(null, 1404)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsDateField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-date-field */ 74).then(__webpack_require__.bind(null, 1405)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsDialogFooter = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-footer */ 75).then(__webpack_require__.bind(null, 1406)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsDialogHeader = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-header */ 76).then(__webpack_require__.bind(null, 1407)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsFormSection = () => __webpack_require__.e(/* import() | components/m-a-payment-components-form-section */ 77).then(__webpack_require__.bind(null, 1408)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsInputField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-input-field */ 78).then(__webpack_require__.bind(null, 1409)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsLoadingState = () => __webpack_require__.e(/* import() | components/m-a-payment-components-loading-state */ 79).then(__webpack_require__.bind(null, 1410)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsMinistryInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-ministry-info */ 80).then(__webpack_require__.bind(null, 1411)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsSelectField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-select-field */ 81).then(__webpack_require__.bind(null, 1412)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsTextareaField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-textarea-field */ 82).then(__webpack_require__.bind(null, 1413)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsValidationErrors = () => __webpack_require__.e(/* import() | components/m-a-payment-components-validation-errors */ 83).then(__webpack_require__.bind(null, 1414)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 84).then(__webpack_require__.bind(null, 663)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 85).then(__webpack_require__.bind(null, 662)).then(c => wrapFunctional(c.default || c));
-const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 86).then(__webpack_require__.bind(null, 551)).then(c => wrapFunctional(c.default || c));
-const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 87).then(__webpack_require__.bind(null, 932)).then(c => wrapFunctional(c.default || c));
-const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 88).then(__webpack_require__.bind(null, 552)).then(c => wrapFunctional(c.default || c));
-const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 89).then(__webpack_require__.bind(null, 664)).then(c => wrapFunctional(c.default || c));
-const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 90).then(__webpack_require__.bind(null, 499)).then(c => wrapFunctional(c.default || c));
-const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1241)).then(c => wrapFunctional(c.default || c));
-const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1415)).then(c => wrapFunctional(c.default || c));
-const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 660)).then(c => wrapFunctional(c.default || c));
-const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1416)).then(c => wrapFunctional(c.default || c));
 const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 923)).then(c => wrapFunctional(c.default || c));
+const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 660)).then(c => wrapFunctional(c.default || c));
+const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1401)).then(c => wrapFunctional(c.default || c));
+const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1402)).then(c => wrapFunctional(c.default || c));
 const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 925)).then(c => wrapFunctional(c.default || c));
 const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 926)).then(c => wrapFunctional(c.default || c));
-const JobAdvertiseMaintain = () => __webpack_require__.e(/* import() | components/job-advertise-maintain */ 61).then(__webpack_require__.bind(null, 929)).then(c => wrapFunctional(c.default || c));
-const JobAdvertiseStatusUpdate = () => __webpack_require__.e(/* import() | components/job-advertise-status-update */ 62).then(__webpack_require__.bind(null, 931)).then(c => wrapFunctional(c.default || c));
+const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 70).then(__webpack_require__.bind(null, 1403)).then(c => wrapFunctional(c.default || c));
+const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 71).then(__webpack_require__.bind(null, 1404)).then(c => wrapFunctional(c.default || c));
+const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 72).then(__webpack_require__.bind(null, 1405)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsBankAccountInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-bank-account-info */ 73).then(__webpack_require__.bind(null, 1406)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsDateField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-date-field */ 74).then(__webpack_require__.bind(null, 1407)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsDialogFooter = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-footer */ 75).then(__webpack_require__.bind(null, 1408)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsDialogHeader = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-header */ 76).then(__webpack_require__.bind(null, 1409)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsFormSection = () => __webpack_require__.e(/* import() | components/m-a-payment-components-form-section */ 77).then(__webpack_require__.bind(null, 1410)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsInputField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-input-field */ 78).then(__webpack_require__.bind(null, 1411)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsLoadingState = () => __webpack_require__.e(/* import() | components/m-a-payment-components-loading-state */ 79).then(__webpack_require__.bind(null, 1412)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsMinistryInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-ministry-info */ 80).then(__webpack_require__.bind(null, 1413)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsSelectField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-select-field */ 81).then(__webpack_require__.bind(null, 1414)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsTextareaField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-textarea-field */ 82).then(__webpack_require__.bind(null, 1415)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsValidationErrors = () => __webpack_require__.e(/* import() | components/m-a-payment-components-validation-errors */ 83).then(__webpack_require__.bind(null, 1416)).then(c => wrapFunctional(c.default || c));
+const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1241)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 84).then(__webpack_require__.bind(null, 663)).then(c => wrapFunctional(c.default || c));
+const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 86).then(__webpack_require__.bind(null, 551)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 85).then(__webpack_require__.bind(null, 662)).then(c => wrapFunctional(c.default || c));
+const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 87).then(__webpack_require__.bind(null, 932)).then(c => wrapFunctional(c.default || c));
+const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 90).then(__webpack_require__.bind(null, 499)).then(c => wrapFunctional(c.default || c));
+const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 89).then(__webpack_require__.bind(null, 664)).then(c => wrapFunctional(c.default || c));
 const JobAdvertiseView = () => __webpack_require__.e(/* import() | components/job-advertise-view */ 63).then(__webpack_require__.bind(null, 930)).then(c => wrapFunctional(c.default || c));
+const JobAdvertiseMaintain = () => __webpack_require__.e(/* import() | components/job-advertise-maintain */ 61).then(__webpack_require__.bind(null, 929)).then(c => wrapFunctional(c.default || c));
+const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 88).then(__webpack_require__.bind(null, 552)).then(c => wrapFunctional(c.default || c));
+const JobAdvertiseStatusUpdate = () => __webpack_require__.e(/* import() | components/job-advertise-status-update */ 62).then(__webpack_require__.bind(null, 931)).then(c => wrapFunctional(c.default || c));
 const JobFairJobBatch = () => __webpack_require__.e(/* import() | components/job-fair-job-batch */ 66).then(__webpack_require__.bind(null, 924)).then(c => wrapFunctional(c.default || c));
 const PosDialogsQuantityUpdateDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-quantity-update-dialog */ 117).then(__webpack_require__.bind(null, 1417)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoice = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice */ 3).then(__webpack_require__.bind(null, 943)).then(c => wrapFunctional(c.default || c));
@@ -24364,18 +24364,18 @@ const JobFairAgencyView = () => __webpack_require__.e(/* import() | components/j
 const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 67).then(__webpack_require__.bind(null, 955)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 670)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 671)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 668)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 669)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 592)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 951)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 661)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 582)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 951)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 952)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 953)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 668)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 588)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 656)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 589)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 548)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 656)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 582)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 669)).then(c => wrapFunctional(c.default || c));
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
@@ -24418,8 +24418,8 @@ var framework = __webpack_require__(70);
   "theme": {
     "themes": {
       "light": {
-        "primary": "#01532B",
-        "secondary": "#337555",
+        "primary": "#A12F8D",
+        "secondary": "#8D2FA1",
         "lightprimary": "#80a995",
         "danger": "#D00505"
       }
@@ -24588,7 +24588,7 @@ const setupProgress = axios => {
   // runtimeConfig
   const runtimeConfig = ctx.$config && ctx.$config.axios || {};
   // baseURL
-  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8023';
+  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8022';
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!
