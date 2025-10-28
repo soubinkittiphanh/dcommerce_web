@@ -72,7 +72,7 @@
             :to="item.path"
             router
             exact
-            :style="{ 'background-color': '#337555' }"
+            :style="{ 'background-color': '#8D2FA1' }"
           >
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>

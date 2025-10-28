@@ -41,10 +41,7 @@
         @reload="rebuildStock"
       ></card-form>
     </v-dialog>
-    <v-dialog
-      v-model="editProductForm"
-
-    >
+    <v-dialog v-model="editProductForm" fullscreen persistent scrollable transition="dialog-bottom-transition">
       <product-form
         :key="productFormKey"
         @close-dialog="editProductForm = false"
@@ -53,10 +50,7 @@
         :isEdit="editProductForm"
       ></product-form>
     </v-dialog>
-    <v-dialog
-      v-model="productFormCreate"
-
-    >
+    <v-dialog v-model="productFormCreate" fullscreen persistent scrollable transition="dialog-bottom-transition">
       <product-form-create
         @close-dialog="productFormCreate = false"
         @refresh="fetchData"
