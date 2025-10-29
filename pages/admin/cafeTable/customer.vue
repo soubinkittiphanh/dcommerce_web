@@ -885,8 +885,8 @@ export default {
 }
 
 .payment-method-logo {
-  width: 48px;
-  height: 48px;
+  width: 248px;
+  height: 248px;
   object-fit: contain;
   margin-bottom: 8px;
   border-radius: 8px;
@@ -1560,8 +1560,8 @@ export default {
   }
 
   .payment-method-logo {
-    width: 40px;
-    height: 40px;
+    width: 240px;
+    height: 240px;
   }
 
   .payment-method-name {
