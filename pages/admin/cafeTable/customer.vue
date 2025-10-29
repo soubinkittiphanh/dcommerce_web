@@ -31,7 +31,33 @@
         <h1 class="store-name">{{ storeName }}</h1>
         <p class="welcome-text">Customer Display</p>
         <p class="status-text">Ready for QR Payment</p>
+
+        <!-- QR Payment Methods Preview -->
+        <div class="payment-methods-preview">
+          <p class="payment-methods-title">Accepted Payment Methods</p>
+          <div class="payment-methods-container">
+            <div class="payment-method-item">
+              <img
+                :src="bflQrImage"
+                alt="BFL Mobile Banking"
+                class="payment-method-logo"
+                @error="onPaymentMethodError"
+              />
+              <span class="payment-method-name">BFL Mobile</span>
+            </div>
+            <div class="payment-method-item">
+              <img
+                :src="bcelQrImage"
+                alt="BCEL Mobile Banking"
+                class="payment-method-logo"
+                @error="onPaymentMethodError"
+              />
+              <span class="payment-method-name">BCEL Mobile</span>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="waiting-animation">
         <v-progress-circular
           indeterminate
@@ -125,6 +151,8 @@
         <div class="payment-section">
           <div class="payment-header">
             <h2 class="payment-title">Scan to Pay</h2>
+
+            <!-- QR Payment Methods -->
           </div>
 
           <!-- Amount Display -->
@@ -135,7 +163,7 @@
           </div>
 
           <!-- QR Code -->
-          <div class="qr-container">
+          <!-- <div class="qr-container">
             <div class="qr-wrapper">
               <img
                 :src="qrCodeUrl"
@@ -144,7 +172,24 @@
                 @error="onQRError"
               />
             </div>
+          </div> -->
+          <div class="qr-container">
+            <div class="qr-wrapper">
+              <img
+                :src="bflQrImage"
+                alt="BFL Mobile Banking"
+                class="qr-payment-method-logo"
+                @error="onPaymentMethodError"
+              />
+              <img
+                :src="bcelQrImage"
+                alt="BCEL Mobile Banking"
+                class="qr-payment-method-logo"
+                @error="onPaymentMethodError"
+              />
+            </div>
           </div>
+
 
           <!-- Instructions -->
           <div class="qr-instructions">
@@ -242,7 +287,6 @@
     </v-overlay>
   </div>
 </template>
-
 <script>
 export default {
   name: 'CustomerScreen',
@@ -250,6 +294,8 @@ export default {
 
   data() {
     return {
+      bflQrImage: require('~/assets/image/qr_code/BFL_QR.jpeg'),
+      bcelQrImage: require('~/assets/image/qr_code/BCEL_QR.jpeg'),
       showQR: false,
       qrData: {
         amount: 0,
@@ -324,11 +370,12 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     this.setupCommunication()
     this.checkForExistingQR()
     // Load company logo when component mounts
-    this.loadCompanyLogo()
+    // this.loadCompanyLogo()
+    await this.loadQrPaymentImages()
   },
 
   beforeDestroy() {
@@ -336,35 +383,48 @@ export default {
   },
 
   methods: {
-    // Load first company with logo
-    async loadCompanyLogo() {
-      this.companyLogo.loading = true
-      this.companyLogo.error = false
-
+    async loadQrPaymentImages() {
       try {
-        // Get companies with active status
-        const response = await this.$axios.get('/api/public/company/findAll')
+        // Option 1: Using dynamic imports (recommended for Nuxt.js)
+        const bflModule = await import('~/assets/image/qr_code/BFL_QR.jpeg')
+        const bcelModule = await import('~/assets/image/qr_code/BCEL_QR.jpeg')
 
-        const companies = Array.isArray(response.data) ? response.data : []
-
-        // Find first company with profile image
-        const companyWithImage = companies.find(
-          (company) => company.profile_image_path && company.isActive
-        )
-
-        if (companyWithImage) {
-          this.companyLogo.company = companyWithImage
-          const baseUrl = this.$axios.defaults.baseURL || ''
-          this.companyLogo.url = `${baseUrl}/${companyWithImage.profile_image_path}`
-        }
+        this.bflQrImage = bflModule.default
+        this.bcelQrImage = bcelModule.default
       } catch (error) {
-        console.error('Error loading company logo:', error)
-        this.companyLogo.error = true
-      } finally {
-        this.companyLogo.loading = false
+        console.warn('Failed to load QR payment images:', error)
+
+        // Fallback to static paths
+        this.bflQrImage = '/assets/image/qr_code/BFL_QR.jpeg'
+        this.bcelQrImage = '/assets/image/qr_code/BCEL_QR.jpeg'
       }
     },
 
+    onPaymentMethodError(event) {
+      console.warn('Payment method image failed to load:', event.target.src)
+
+      // Hide the broken image
+      event.target.style.display = 'none'
+
+      // Show the parent container with a fallback icon or text
+      const parentItem = event.target.closest(
+        '.payment-method-item, .qr-payment-method'
+      )
+      if (parentItem) {
+        const nameSpan = parentItem.querySelector(
+          '.payment-method-name, .qr-payment-method-text'
+        )
+        if (nameSpan) {
+          nameSpan.style.marginTop = '0'
+          // Add a fallback icon if needed
+          const fallbackIcon = document.createElement('div')
+          fallbackIcon.innerHTML = '💳'
+          fallbackIcon.style.fontSize = '24px'
+          fallbackIcon.style.marginBottom = '8px'
+          event.target.parentNode.insertBefore(fallbackIcon, event.target)
+        }
+      }
+    },
     // Handle logo loading error
     onLogoError() {
       console.warn('Company logo failed to load')
@@ -712,6 +772,10 @@ export default {
 </script>
 
 <style scoped>
+/* ========================================
+   🎨 BASE STYLES
+   ======================================== */
+
 .customer-display-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -720,14 +784,17 @@ export default {
 }
 
 .dcommerce-green {
-  background-color: #01532B !important;
+  background-color: #01532b !important;
 }
 
 .dcommerce-green-text {
-  color: #01532B !important;
+  color: #01532b !important;
 }
 
-/* Welcome Screen */
+/* ========================================
+   🏠 WELCOME SCREEN STYLES
+   ======================================== */
+
 .welcome-screen {
   height: 100vh;
   display: flex;
@@ -745,7 +812,7 @@ export default {
 .store-name {
   font-size: 3rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   margin: 1rem 0;
   letter-spacing: -1px;
 }
@@ -758,7 +825,7 @@ export default {
 
 .status-text {
   font-size: 1.2rem;
-  color: #01532B;
+  color: #01532b;
   font-weight: 500;
   margin: 0.5rem 0;
 }
@@ -775,7 +842,67 @@ export default {
   margin: 0;
 }
 
-/* QR Payment Screen Layout */
+/* ========================================
+   🏦 PAYMENT METHODS PREVIEW (WELCOME SCREEN)
+   ======================================== */
+
+.payment-methods-preview {
+  margin-top: 32px;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.payment-methods-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #01532b;
+  margin-bottom: 16px;
+}
+
+.payment-methods-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.payment-method-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 100px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.payment-method-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.payment-method-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+.payment-method-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+}
+
+/* ========================================
+   💳 QR PAYMENT SCREEN LAYOUT
+   ======================================== */
+
 .qr-payment-screen {
   height: 100vh;
   padding: 1.5rem;
@@ -787,7 +914,10 @@ export default {
   gap: 2rem;
 }
 
-/* Left Side - Order Details */
+/* ========================================
+   📋 LEFT SIDE - ORDER DETAILS
+   ======================================== */
+
 .order-section {
   flex: 1;
   background: white;
@@ -800,7 +930,7 @@ export default {
 
 .order-header {
   padding: 1.5rem;
-  background: #01532B;
+  background: #01532b;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -863,7 +993,7 @@ export default {
 
 .item-quantity {
   font-weight: 600;
-  color: #01532B;
+  color: #01532b;
   margin: 0 1rem;
   min-width: 40px;
   text-align: center;
@@ -871,7 +1001,7 @@ export default {
 
 .item-price {
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   font-size: 1rem;
   min-width: 80px;
   text-align: right;
@@ -900,9 +1030,9 @@ export default {
   justify-content: space-between;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   padding-top: 0.75rem;
-  border-top: 2px solid #01532B;
+  border-top: 2px solid #01532b;
   margin-top: 0.75rem;
 }
 
@@ -910,7 +1040,10 @@ export default {
   color: #dc3545;
 }
 
-/* Right Side - QR Payment */
+/* ========================================
+   💰 RIGHT SIDE - QR PAYMENT
+   ======================================== */
+
 .payment-section {
   flex: 1;
   display: flex;
@@ -926,9 +1059,67 @@ export default {
 .payment-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   margin: 0;
 }
+
+/* ========================================
+   🏦 QR PAYMENT METHODS (QR SCREEN)
+   ======================================== */
+
+.qr-payment-methods {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.payment-methods-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.qr-payment-methods-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.qr-payment-method {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(1, 83, 43, 0.05);
+  border: 1px solid rgba(1, 83, 43, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  animation: slideInDown 0.3s ease-out;
+}
+
+.qr-payment-method:hover {
+  background: rgba(1, 83, 43, 0.1);
+  border-color: rgba(1, 83, 43, 0.2);
+  transform: translateY(-1px);
+}
+
+.qr-payment-method-logo {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.qr-payment-method-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #01532b;
+}
+
+/* ========================================
+   💵 AMOUNT DISPLAY
+   ======================================== */
 
 .amount-display {
   background: white;
@@ -948,7 +1139,7 @@ export default {
 .amount-value {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   line-height: 1;
 }
 
@@ -957,6 +1148,10 @@ export default {
   color: #6c757d;
   margin-top: 0.5rem;
 }
+
+/* ========================================
+   📱 QR CODE SECTION
+   ======================================== */
 
 .qr-container {
   margin-bottom: 1.5rem;
@@ -967,7 +1162,7 @@ export default {
   padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
-  border: 3px solid #01532B;
+  border: 3px solid #01532b;
 }
 
 .qr-code-image {
@@ -975,6 +1170,10 @@ export default {
   height: 240px;
   display: block;
 }
+
+/* ========================================
+   📝 INSTRUCTIONS & STATUS
+   ======================================== */
 
 .qr-instructions {
   margin-bottom: 1.5rem;
@@ -997,7 +1196,7 @@ export default {
 }
 
 .step-icon {
-  color: #01532B !important;
+  color: #01532b !important;
   margin-bottom: 0.5rem;
 }
 
@@ -1021,7 +1220,10 @@ export default {
   font-weight: 500;
 }
 
-/* Success Screen */
+/* ========================================
+   ✅ SUCCESS SCREEN
+   ======================================== */
+
 .success-overlay {
   background: rgba(40, 167, 69, 0.95) !important;
 }
@@ -1078,24 +1280,10 @@ export default {
   margin: 0 auto;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .payment-layout {
-    flex-direction: column;
-    gap: 1rem;
-  }
+/* ========================================
+   🏢 COMPANY LOGO STYLES
+   ======================================== */
 
-  .order-section {
-    max-height: 40vh;
-  }
-
-  .qr-code-image {
-    width: 200px;
-    height: 200px;
-  }
-}
-
-/* Company Logo Styles */
 .company-logo-container {
   display: flex;
   justify-content: center;
@@ -1106,7 +1294,6 @@ export default {
   max-width: 200px;
   width: 60%;
   height: auto;
-  /* max-height: 120px; */
   display: block;
   margin: 0 auto;
   border-radius: 8px;
@@ -1127,7 +1314,10 @@ export default {
   background-color: #fafafa;
 }
 
-/* Powered by DCOMMERCE - Welcome Screen */
+/* ========================================
+   🔥 POWERED BY DCOMMERCE - WELCOME SCREEN
+   ======================================== */
+
 .powered-by-welcome {
   position: absolute;
   bottom: 30px;
@@ -1163,12 +1353,15 @@ export default {
 .dcommerce-text-welcome {
   font-size: 14px;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }
 
-/* Powered by DCOMMERCE - QR Screen */
+/* ========================================
+   🔥 POWERED BY DCOMMERCE - QR SCREEN
+   ======================================== */
+
 .powered-by-qr {
   position: absolute;
   bottom: 20px;
@@ -1202,12 +1395,50 @@ export default {
 .dcommerce-text-qr {
   font-size: 12px;
   font-weight: 700;
-  color: #01532B;
+  color: #01532b;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }
 
-/* Hover effects */
+/* ========================================
+   🎭 ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   🎨 HOVER EFFECTS
+   ======================================== */
+
 .powered-by-container-welcome:hover .dcommerce-text-welcome,
 .powered-by-container-qr:hover .dcommerce-text-qr {
   color: #0056b3;
@@ -1218,6 +1449,70 @@ export default {
 .powered-by-container-qr:hover .dcommerce-logo-qr {
   transform: scale(1.05);
   transition: transform 0.3s ease;
+}
+
+/* ========================================
+   🔧 ERROR HANDLING FOR PAYMENT METHOD IMAGES
+   ======================================== */
+
+.payment-method-logo[src=''],
+.qr-payment-method-logo[src=''] {
+  display: none;
+}
+
+/* ========================================
+   🌟 ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+.payment-method-item:focus,
+.qr-payment-method:focus {
+  outline: 2px solid #01532b;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .payment-method-item {
+    border: 2px solid #000;
+  }
+
+  .qr-payment-method {
+    border: 2px solid #01532b;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .payment-method-item:hover,
+  .qr-payment-method:hover {
+    transform: none;
+  }
+
+  .payment-methods-preview,
+  .payment-method-item,
+  .qr-payment-method {
+    animation: none;
+  }
+}
+
+/* ========================================
+   📱 RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .payment-layout {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .order-section {
+    max-height: 40vh;
+  }
+
+  .qr-code-image {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1252,6 +1547,60 @@ export default {
 
   .powered-by-container-qr {
     padding: 6px 12px;
+  }
+
+  /* Payment methods responsive */
+  .payment-methods-container {
+    gap: 16px;
+  }
+
+  .payment-method-item {
+    min-width: 80px;
+    padding: 8px;
+  }
+
+  .payment-method-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .payment-method-name {
+    font-size: 11px;
+  }
+
+  .qr-payment-methods-container {
+    gap: 12px;
+  }
+
+  .qr-payment-method {
+    padding: 6px 10px;
+  }
+
+  .qr-payment-method-logo {
+    width: 240px;
+    height: 240px;
+  }
+
+  .qr-payment-method-text {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-methods-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .payment-method-item {
+    width: 120px;
+  }
+
+  .qr-payment-methods-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
   }
 }
 </style>
