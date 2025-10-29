@@ -451,7 +451,7 @@ export const confirmSwal = (swal, message, callbackFunc) => {
     title: 'ກະລຸນາຢືນຢັນ',
     text: message,
     confirmButtonText: 'ຢືນຢັນ',
-    confirmButtonColor: '#A12F8D',
+    confirmButtonColor: '#01532B',
     showCancelButton: true,
     cancelButtonText: 'ອອກ',
     cancelButtonColor: '#D00505',

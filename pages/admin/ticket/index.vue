@@ -640,14 +640,38 @@ export default {
             this.user.userGroup.ticketCancel
           }`
         )
+        console.info(
+          `Ticket ID ${ticketId} thicket ${JSON.stringify(
+            this.filteredTickets[0]
+          )}`
+        )
+        // CORRECTED VERSION 1: Safe and clear logic
+        const currentTicket = this.filteredTickets.find(
+          (ticket) => ticket.id == ticketId
+        )
 
-        if (newStatus === 'cancel' && !this.user.userGroup.ticketCancel) {
+        // Check if ticket exists
+        if (!currentTicket) {
+          if (this.$toast) {
+            this.$toast.error('Ticket not found / ບໍ່ພົບ Ticket')
+          }
+          return
+        }
+
+        const currentTicketStatus = currentTicket.status
+
+        // Check cancellation permission for paid tickets
+        if (
+          newStatus === 'cancel' &&
+          currentTicketStatus === 'paid' &&
+          !this.user.userGroup.ticketCancel
+        ) {
           if (this.$toast) {
             this.$toast.error(
               'ທ່ານບໍ່ມີສິດອະນຸຍາດໃຫ້ຍົກເລີກ Ticket / You are not allowed to cancel tickets'
             )
           }
-          return
+          return // ✅ FIXED: This return was missing proper placement
         }
 
         if (newStatus === 'cancel') {

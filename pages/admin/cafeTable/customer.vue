@@ -10,28 +10,24 @@
             <v-progress-circular
               indeterminate
               size="32"
-              color="#A12F8D"
+              color="#01532B"
             ></v-progress-circular>
             <p class="mt-2 text-caption grey--text">ກຳລັງໂຫຼດໂລໂກ້...</p>
           </div>
           <!-- Company Logo -->
-          <img 
+          <img
             v-else-if="logoUrl"
-            :src="logoUrl" 
-            alt="Company Logo" 
+            :src="logoUrl"
+            alt="Company Logo"
             class="company-logo-image"
             @error="onLogoError"
           />
           <!-- Fallback Icon -->
-          <v-icon 
-            v-else
-            size="120" 
-            class="dcommerce-green-text mb-4"
-          >
+          <v-icon v-else size="120" class="dcommerce-green-text mb-4">
             mdi-storefront
           </v-icon>
         </div>
-        
+
         <h1 class="store-name">{{ storeName }}</h1>
         <p class="welcome-text">Customer Display</p>
         <p class="status-text">Ready for QR Payment</p>
@@ -39,21 +35,21 @@
       <div class="waiting-animation">
         <v-progress-circular
           indeterminate
-          color="#A12F8D"
+          color="#01532B"
           size="64"
           width="4"
           class="mb-4"
         ></v-progress-circular>
         <p class="waiting-text">Waiting for payment request...</p>
       </div>
-      
+
       <!-- Powered by DCOMMERCE Section for Welcome Screen -->
       <div class="powered-by-welcome">
         <div class="powered-by-container-welcome">
           <span class="powered-by-text-welcome">Powered by</span>
-          <img 
-            :src="dcommerceLogoUrl" 
-            alt="DCOMMERCE Logo" 
+          <img
+            :src="dcommerceLogoUrl"
+            alt="DCOMMERCE Logo"
             class="dcommerce-logo-welcome"
           />
           <span class="dcommerce-text-welcome">DCOMMERCE</span>
@@ -173,7 +169,7 @@
             <v-progress-circular
               v-if="!paymentComplete"
               indeterminate
-              color="#A12F8D"
+              color="#01532B"
               size="20"
               class="mr-2"
             ></v-progress-circular>
@@ -204,14 +200,14 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Powered by DCOMMERCE Section for QR Screen -->
       <div class="powered-by-qr">
         <div class="powered-by-container-qr">
           <span class="powered-by-text-qr">Powered by</span>
-          <img 
-            :src="dcommerceLogoUrl" 
-            alt="DCOMMERCE Logo" 
+          <img
+            :src="dcommerceLogoUrl"
+            alt="DCOMMERCE Logo"
             class="dcommerce-logo-qr"
           />
           <span class="dcommerce-text-qr">DCOMMERCE</span>
@@ -280,14 +276,14 @@ export default {
         taxRate: 8.5,
         discount: 0,
       },
-      
+
       // Company logo management
       companyLogo: {
         url: null,
         company: null,
         loading: false,
-        error: false
-      }
+        error: false,
+      },
     }
   },
 
@@ -299,7 +295,7 @@ export default {
       )
       return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedString}&format=png&margin=15&color=01532B&bgcolor=ffffff`
     },
-    
+
     // Dynamic logo URL with fallback
     logoUrl() {
       if (this.companyLogo.url) {
@@ -325,7 +321,7 @@ export default {
         return this.companyLogo.company.name
       }
       return 'DCOMMERCE CAFE'
-    }
+    },
   },
 
   mounted() {
@@ -344,24 +340,23 @@ export default {
     async loadCompanyLogo() {
       this.companyLogo.loading = true
       this.companyLogo.error = false
-      
+
       try {
         // Get companies with active status
         const response = await this.$axios.get('/api/public/company/findAll')
-        
+
         const companies = Array.isArray(response.data) ? response.data : []
-        
+
         // Find first company with profile image
-        const companyWithImage = companies.find(company => 
-          company.profile_image_path && company.isActive
+        const companyWithImage = companies.find(
+          (company) => company.profile_image_path && company.isActive
         )
-        
+
         if (companyWithImage) {
           this.companyLogo.company = companyWithImage
           const baseUrl = this.$axios.defaults.baseURL || ''
           this.companyLogo.url = `${baseUrl}/${companyWithImage.profile_image_path}`
         }
-        
       } catch (error) {
         console.error('Error loading company logo:', error)
         this.companyLogo.error = true
@@ -725,11 +720,11 @@ export default {
 }
 
 .dcommerce-green {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .dcommerce-green-text {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 /* Welcome Screen */
@@ -750,7 +745,7 @@ export default {
 .store-name {
   font-size: 3rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   margin: 1rem 0;
   letter-spacing: -1px;
 }
@@ -763,7 +758,7 @@ export default {
 
 .status-text {
   font-size: 1.2rem;
-  color: #A12F8D;
+  color: #01532B;
   font-weight: 500;
   margin: 0.5rem 0;
 }
@@ -805,7 +800,7 @@ export default {
 
 .order-header {
   padding: 1.5rem;
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -868,7 +863,7 @@ export default {
 
 .item-quantity {
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
   margin: 0 1rem;
   min-width: 40px;
   text-align: center;
@@ -876,7 +871,7 @@ export default {
 
 .item-price {
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   font-size: 1rem;
   min-width: 80px;
   text-align: right;
@@ -905,9 +900,9 @@ export default {
   justify-content: space-between;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   padding-top: 0.75rem;
-  border-top: 2px solid #A12F8D;
+  border-top: 2px solid #01532B;
   margin-top: 0.75rem;
 }
 
@@ -931,7 +926,7 @@ export default {
 .payment-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   margin: 0;
 }
 
@@ -953,7 +948,7 @@ export default {
 .amount-value {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   line-height: 1;
 }
 
@@ -972,7 +967,7 @@ export default {
   padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
-  border: 3px solid #A12F8D;
+  border: 3px solid #01532B;
 }
 
 .qr-code-image {
@@ -1002,7 +997,7 @@ export default {
 }
 
 .step-icon {
-  color: #A12F8D !important;
+  color: #01532B !important;
   margin-bottom: 0.5rem;
 }
 
@@ -1111,11 +1106,11 @@ export default {
   max-width: 200px;
   width: 60%;
   height: auto;
-  max-height: 120px;
+  /* max-height: 120px; */
   display: block;
   margin: 0 auto;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: opacity 0.3s ease;
 }
 
@@ -1148,7 +1143,7 @@ export default {
   background: rgba(255, 255, 255, 0.95);
   padding: 12px 20px;
   border-radius: 25px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
 }
 
@@ -1168,7 +1163,7 @@ export default {
 .dcommerce-text-welcome {
   font-size: 14px;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }
@@ -1188,7 +1183,7 @@ export default {
   background: rgba(255, 255, 255, 0.9);
   padding: 8px 16px;
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8px);
 }
 
@@ -1207,7 +1202,7 @@ export default {
 .dcommerce-text-qr {
   font-size: 12px;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
 }
@@ -1240,11 +1235,6 @@ export default {
 
   .amount-value {
     font-size: 2rem;
-  }
-
-  .company-logo-image {
-    max-width: 150px;
-    width: 50%;
   }
 
   .powered-by-welcome {

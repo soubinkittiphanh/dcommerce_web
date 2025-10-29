@@ -28,7 +28,7 @@
                 block
                 @click="showQROnCustomerScreen"
                 style="
-                  background-color: #A12F8D !important;
+                  background-color: #01532B !important;
                   color: white !important;
                 "
                 class="text-none"
@@ -147,7 +147,7 @@
     <v-dialog v-model="showQRDialog" max-width="400" persistent>
       <v-card>
         <v-card-title
-          style="background-color: #A12F8D !important"
+          style="background-color: #01532B !important"
           class="white--text py-2"
         >
           <v-icon left color="white" size="20">mdi-qrcode</v-icon>
@@ -164,7 +164,7 @@
           <v-card
             outlined
             class="pa-2 mb-3"
-            style="border-color: #A12F8D !important"
+            style="border-color: #01532B !important"
           >
             <img
               :src="qrCodeUrl"
@@ -192,7 +192,7 @@
                 small
                 text
                 @click="downloadQR"
-                style="color: #A12F8D !important"
+                style="color: #01532B !important"
               >
                 <v-icon small>mdi-download</v-icon>
               </v-btn>
@@ -202,7 +202,7 @@
                 small
                 text
                 @click="shareQR"
-                style="color: #A12F8D !important"
+                style="color: #01532B !important"
               >
                 <v-icon small>mdi-share</v-icon>
               </v-btn>
@@ -212,7 +212,7 @@
                 small
                 text
                 @click="copyQRString"
-                style="color: #A12F8D !important"
+                style="color: #01532B !important"
               >
                 <v-icon small>{{
                   copied ? 'mdi-check' : 'mdi-content-copy'

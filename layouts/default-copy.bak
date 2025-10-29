@@ -8,7 +8,7 @@
       dark
       v-model="drawer"
       fixed
-      color="#A12F8D"
+      color="#01532B"
       app
     >
       <v-layout column align-center>
@@ -104,7 +104,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              color="#A12F8D"
+              color="#01532B"
               rounded
               variant="text"
               @click="switchTerminal"

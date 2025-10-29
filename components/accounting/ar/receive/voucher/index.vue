@@ -421,7 +421,7 @@ export default {
             }
             .receipt-header { 
               margin-bottom: 20px; 
-              border-bottom: 3px solid #A12F8D; 
+              border-bottom: 3px solid #01532B; 
               padding-bottom: 15px; 
             }
             .header-flex { 
@@ -452,7 +452,7 @@ export default {
               margin: 0 0 8px 0; 
               font-size: 20px; 
               font-weight: bold; 
-              color: #A12F8D; 
+              color: #01532B; 
             }
             .company-address, .company-contact { 
               margin: 3px 0; 
@@ -519,7 +519,7 @@ export default {
               margin: 15px 0; 
               padding: 10px; 
               background-color: #f9f9f9; 
-              border-left: 3px solid #A12F8D; 
+              border-left: 3px solid #01532B; 
             }
             .receipt-notes { 
               margin: 15px 0; 
@@ -578,7 +578,7 @@ export default {
 
 .receipt-header {
   margin-bottom: 30px;
-  border-bottom: 3px solid #A12F8D;
+  border-bottom: 3px solid #01532B;
   padding-bottom: 15px;
 }
 
@@ -626,7 +626,7 @@ export default {
   margin: 0 0 8px 0;
   font-size: 24px;
   font-weight: bold;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .company-address,
@@ -697,7 +697,7 @@ export default {
 }
 
 .receipt-table th {
-  background-color: #A12F8D;
+  background-color: #01532B;
   color: white;
   font-weight: 600;
   text-align: left;
@@ -725,7 +725,7 @@ export default {
   margin: 20px 0;
   padding: 15px;
   background-color: #f0f4ff;
-  border-left: 4px solid #A12F8D;
+  border-left: 4px solid #01532B;
   font-size: 14px;
 }
 

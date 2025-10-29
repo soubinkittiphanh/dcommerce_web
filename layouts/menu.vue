@@ -94,7 +94,7 @@ export default {
 }
 
 .menu-layout {
-  background: linear-gradient(135deg, #A12F8D 0%, #337555 100%);
+  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
   min-height: 100vh;
   padding-bottom: 80px;
   position: relative;
@@ -160,7 +160,7 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
   color: #1f2937;
-  background: linear-gradient(135deg, #A12F8D, #337555);
+  background: linear-gradient(135deg, #01532B, #337555);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

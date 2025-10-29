@@ -215,11 +215,11 @@
   "UnitForm": {
     "description": "Auto imported from components/unitForm.vue"
   },
-  "CafePOSScreen": {
-    "description": "Auto imported from components/CafePOSScreen/index.vue"
-  },
   "CAFEPOSDialog": {
     "description": "Auto imported from components/CAFE/POSDialog.vue"
+  },
+  "CafePOSScreen": {
+    "description": "Auto imported from components/CafePOSScreen/index.vue"
   },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
@@ -275,11 +275,11 @@
   "PaymentCard": {
     "description": "Auto imported from components/paymentCard/index.vue"
   },
-  "PoForm": {
-    "description": "Auto imported from components/po/PoForm.vue"
-  },
   "PaymentQr": {
     "description": "Auto imported from components/payment_qr/index.vue"
+  },
+  "PoForm": {
+    "description": "Auto imported from components/po/PoForm.vue"
   },
   "PosCateogoryList": {
     "description": "Auto imported from components/pos/CateogoryList.vue"
@@ -407,12 +407,6 @@
   "AccountingTransaction": {
     "description": "Auto imported from components/accounting/transaction/index.vue"
   },
-  "BenefitView": {
-    "description": "Auto imported from components/benefit/view/index.vue"
-  },
-  "BenefitMaintain": {
-    "description": "Auto imported from components/benefit/maintain/index.vue"
-  },
   "ApplicantsApplicantDialog": {
     "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
   },
@@ -425,20 +419,26 @@
   "BankBankAccount": {
     "description": "Auto imported from components/bank/bankAccount/index.vue"
   },
+  "BenefitMaintain": {
+    "description": "Auto imported from components/benefit/maintain/index.vue"
+  },
+  "BenefitView": {
+    "description": "Auto imported from components/benefit/view/index.vue"
+  },
   "JobAdvertiseMaintain": {
     "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
-  },
-  "JobAdvertiseView": {
-    "description": "Auto imported from components/jobAdvertise/view/index.vue"
   },
   "JobAdvertiseStatusUpdate": {
     "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
   },
-  "PosDialogsQuantityUpdateDialog": {
-    "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
+  "JobAdvertiseView": {
+    "description": "Auto imported from components/jobAdvertise/view/index.vue"
   },
   "JobFairJobBatch": {
     "description": "Auto imported from components/job_fair/job_batch/index.vue"
+  },
+  "PosDialogsQuantityUpdateDialog": {
+    "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
   },
   "AccountingApInvoice": {
     "description": "Auto imported from components/accounting/ap/invoice/index.vue"

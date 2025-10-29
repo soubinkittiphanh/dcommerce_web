@@ -257,7 +257,7 @@
                   class="d-flex justify-space-between mb-2"
                 >
                   <div>
-                    <div class="font-weight-medium">{{ item.name }}</div>
+                    <div class="font-weight-medium">{{ item.product.pro_name }}</div>
                     <div class="text-caption grey--text">
                       Qty: {{ item.quantity }}
                     </div>
