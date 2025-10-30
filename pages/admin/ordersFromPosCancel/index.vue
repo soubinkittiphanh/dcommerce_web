@@ -90,22 +90,32 @@
 
       <!-- ************* DATA TABLE ************* -->
       <v-data-table v-if="quotationList" :headers="headers" :search="search" :items="quotationList">
+        <!-- UPDATED: Safe booking date template -->
         <template v-slot:[`item.bookingDate`]="{ item }">
-          {{ item.bookingDate.split('T')[0] }}
-          <!-- <v-chip class="ma-2" color="red" text-color="white"> -->
-          <h6 :style="{ 'color': countDay(item.bookingDate.split('T')[0]) > item.client.credit ? 'red' : 'green' }">
-            {{ countDay(item.bookingDate.split('T')[0]) }}
-          </h6>
-          <!-- </v-chip> -->
+          <div class="d-flex flex-column">
+            <div class="text-subtitle-2">{{ formatBookingDate(item.bookingDate) }}</div>
+            <v-chip :color="getBookingStatusChip(item).color" small text-color="white">
+              <v-icon left small>{{ getBookingStatusChip(item).icon }}</v-icon>
+              {{ getBookingStatusChip(item).text }}
+            </v-chip>
+          </div>
         </template>
+
+        <!-- UPDATED: Safe client credit template -->
         <template v-slot:[`item.client.credit`]="{ item }">
-          <v-chip v-if="new Date(dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date()"
-            class="ma-2" color="red" text-color="white">
-            {{ dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0] }}
-          </v-chip>
-          <v-chip v-else class="ma-2" color="green" text-color="white">
-            {{ dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0] }}
-          </v-chip>
+          <div class="text-center">
+            <div v-if="hasValidClient(item)" class="mb-1">
+              <div class="caption">{{ getClientName(item) }}</div>
+              <div class="caption">Credit: {{ getClientCredit(item) }} days</div>
+            </div>
+            <div v-else class="mb-1">
+              <div class="caption grey--text">{{ getNoClientText(item) }}</div>
+            </div>
+            <v-chip :color="getDueDateChip(item).color" small text-color="white">
+              <v-icon left small>{{ getDueDateChip(item).icon }}</v-icon>
+              {{ getDueDateChip(item).text }}
+            </v-chip>
+          </div>
         </template>
 
         <template v-slot:[`item.discount`]="{ item }">
@@ -355,6 +365,7 @@ export default {
   },
 
   methods: {
+    // ===== EXISTING METHODS =====
     countDay(startDate) {
       return dayCount(startDate)
     },
@@ -431,26 +442,249 @@ export default {
         })
       this.isloading = false
     },
-        formatDate(date) {
-            if (!date) return null
-            console.log("DATE FORMAT METHOD1: " + date);
-            const formattedDate = this.formatDateToISO(date);
-            const [year, month, day] = formattedDate.split('-')
-            return `${month}/${day}/${year}`
-        },
-        parseDate(date) {
-            console.log("DATE PARSE METHOD1: " + date);
-            if (!date) return null
-            const [month, day, year] = date.split('/')
-            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-        },
-        formatDateToISO(date) {
-            if (!(date instanceof Date)) date = new Date(date);
-            const year = date.getFullYear();
-            const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
-            const day = `${date.getDate()}`.padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        },
+    formatDate(date) {
+      if (!date) return null
+      console.log("DATE FORMAT METHOD1: " + date);
+      const formattedDate = this.formatDateToISO(date);
+      const [year, month, day] = formattedDate.split('-')
+      return `${month}/${day}/${year}`
+    },
+    parseDate(date) {
+      console.log("DATE PARSE METHOD1: " + date);
+      if (!date) return null
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+    formatDateToISO(date) {
+      if (!(date instanceof Date)) date = new Date(date);
+      const year = date.getFullYear();
+      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
+      const day = `${date.getDate()}`.padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    },
+
+    // ===== NEW SAFE CLIENT HANDLING METHODS =====
+    
+    // Check if item has valid client data
+    hasValidClient(item) {
+      return item && 
+             item.client && 
+             typeof item.client === 'object' && 
+             item.client.credit !== undefined && 
+             item.client.credit !== null
+    },
+
+    // Get client credit with default fallback
+    getClientCredit(item) {
+      if (!this.hasValidClient(item)) {
+        return 0 // Default credit days
+      }
+      return parseInt(item.client.credit) || 0
+    },
+
+    // Get client name safely
+    getClientName(item) {
+      if (!item.client) {
+        return 'Walk-in Customer'
+      }
+      return item.client.name || 'Unnamed Client'
+    },
+
+    // Get message for items without client
+    getNoClientText(item) {
+      if (!item.client) {
+        return 'Walk-in Customer'
+      } else if (typeof item.client.credit === 'undefined') {
+        return 'No Credit Info'
+      }
+      return 'Unknown Client'
+    },
+
+    // Format booking date safely
+    formatBookingDate(bookingDate) {
+      if (!bookingDate) return 'Invalid Date'
+      try {
+        return bookingDate.split('T')[0]
+      } catch (error) {
+        console.warn('Error formatting booking date:', error)
+        return 'Invalid Date'
+      }
+    },
+
+    // Get booking status chip with comprehensive logic
+    getBookingStatusChip(item) {
+      if (!item.bookingDate) {
+        return { color: 'grey', icon: 'mdi-calendar-remove', text: 'No Date' }
+      }
+
+      const dayCount = this.countDay(item.bookingDate.split('T')[0])
+      
+      if (!this.hasValidClient(item)) {
+        return { 
+          color: 'grey', 
+          icon: 'mdi-account-off', 
+          text: `${dayCount} days - No Client` 
+        }
+      }
+      
+      const creditDays = this.getClientCredit(item)
+      
+      if (dayCount > creditDays + 7) {
+        return { 
+          color: 'red', 
+          icon: 'mdi-alert-circle', 
+          text: `${dayCount} days - Overdue` 
+        }
+      } else if (dayCount > creditDays) {
+        return { 
+          color: 'orange', 
+          icon: 'mdi-clock-alert', 
+          text: `${dayCount} days - Past Due` 
+        }
+      } else if (dayCount > creditDays - 3) {
+        return { 
+          color: 'yellow', 
+          icon: 'mdi-clock', 
+          text: `${dayCount} days - Due Soon` 
+        }
+      } else {
+        return { 
+          color: 'green', 
+          icon: 'mdi-check-circle', 
+          text: `${dayCount} days - OK` 
+        }
+      }
+    },
+
+    // Get due date chip with comprehensive status
+    getDueDateChip(item) {
+      if (!this.hasValidClient(item)) {
+        return { 
+          color: 'grey', 
+          icon: 'mdi-calendar-remove', 
+          text: 'No Due Date' 
+        }
+      }
+      
+      try {
+        const dueDate = this.dueDate(item.bookingDate, this.getClientCredit(item))
+        const dueDateStr = dueDate.toISOString().split('T')[0]
+        const today = new Date()
+        const dueDateOnly = new Date(dueDateStr)
+        const todayOnly = new Date(today.toISOString().split('T')[0])
+        
+        const daysDifference = Math.ceil((dueDateOnly - todayOnly) / (1000 * 60 * 60 * 24))
+        
+        if (daysDifference < 0) {
+          return {
+            color: 'red',
+            icon: 'mdi-calendar-alert',
+            text: `${Math.abs(daysDifference)} days overdue`
+          }
+        } else if (daysDifference === 0) {
+          return {
+            color: 'orange',
+            icon: 'mdi-calendar-today',
+            text: 'Due today'
+          }
+        } else if (daysDifference <= 3) {
+          return {
+            color: 'yellow',
+            icon: 'mdi-calendar-clock',
+            text: `Due in ${daysDifference} days`
+          }
+        } else {
+          return {
+            color: 'green',
+            icon: 'mdi-calendar-check',
+            text: dueDateStr
+          }
+        }
+      } catch (error) {
+        console.warn('Error calculating due date:', error)
+        return { 
+          color: 'grey', 
+          icon: 'mdi-calendar-remove', 
+          text: 'Invalid Date' 
+        }
+      }
+    },
+
+    // Safe wrapper for countDay method
+    safeCountDay(bookingDate) {
+      try {
+        if (!bookingDate) return 0
+        return this.countDay(bookingDate.split('T')[0])
+      } catch (error) {
+        console.warn('Error counting days:', error)
+        return 0
+      }
+    },
+
+    // Safe wrapper for dueDate method
+    safeDueDate(bookingDate, credit) {
+      try {
+        if (!bookingDate || credit === undefined) return new Date()
+        return this.dueDate(bookingDate, credit)
+      } catch (error) {
+        console.warn('Error calculating due date:', error)
+        return new Date() // Return today as fallback
+      }
+    },
+
+    // Validate client data and return detailed validation info
+    validateClientData(item) {
+      const validation = {
+        hasClient: false,
+        hasCredit: false,
+        hasValidCredit: false,
+        creditValue: 0,
+        errors: []
+      }
+      
+      if (!item) {
+        validation.errors.push('Item is null or undefined')
+        return validation
+      }
+      
+      if (!item.client) {
+        validation.errors.push('Client is null or undefined')
+        return validation
+      }
+      
+      validation.hasClient = true
+      
+      if (item.client.credit === undefined || item.client.credit === null) {
+        validation.errors.push('Client credit is null or undefined')
+        return validation
+      }
+      
+      validation.hasCredit = true
+      
+      const creditValue = parseInt(item.client.credit)
+      if (isNaN(creditValue) || creditValue < 0) {
+        validation.errors.push('Client credit is not a valid positive number')
+        return validation
+      }
+      
+      validation.hasValidCredit = true
+      validation.creditValue = creditValue
+      
+      return validation
+    },
+
+    // Get comprehensive client display information
+    getClientDisplayInfo(item) {
+      const validation = this.validateClientData(item)
+      
+      return {
+        name: validation.hasClient ? (item.client.name || 'Unnamed Client') : 'Walk-in Customer',
+        credit: validation.hasValidCredit ? validation.creditValue : 0,
+        status: validation.hasValidCredit ? 'Valid' : 'Invalid',
+        errors: validation.errors,
+        color: validation.hasValidCredit ? 'primary' : 'grey'
+      }
+    }
   },
 }
 </script>
@@ -463,5 +697,29 @@ export default {
 
 table {
   border: 1px solid black;
+}
+
+/* Enhanced styles for status chips */
+.v-chip.v-size--small {
+  font-size: 0.75rem;
+}
+
+.v-chip .v-icon {
+  margin-right: 4px;
+}
+
+/* Better spacing for client info */
+.caption {
+  line-height: 1.2;
+  font-size: 0.75rem;
+}
+
+/* Status colors for different states */
+.booking-status-chip {
+  transition: all 0.3s ease;
+}
+
+.booking-status-chip:hover {
+  transform: scale(1.05);
 }
 </style>

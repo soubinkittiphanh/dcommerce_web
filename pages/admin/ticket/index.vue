@@ -306,7 +306,7 @@ export default {
 
   computed: {
     user() {
-      return this.$auth.user || ''
+      return this.$auth.user || null
     },
 
     filteredTickets() {
@@ -693,6 +693,7 @@ export default {
       await this.$axios.patch(`/api/ticket/${ticketId}/status`, {
         status: newStatus,
         cancelReason: cancelReason,
+        updateUserId: this.user.id,
       })
 
       const ticket = this.tickets.find((t) => t.id === ticketId)

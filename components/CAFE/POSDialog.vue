@@ -14,7 +14,7 @@
         <v-spacer></v-spacer>
         <v-chip v-if="ticket" color="white" text-color="primary" class="mr-2">
           <v-icon left small>mdi-ticket</v-icon>
-          Ticket #{{ ticket.id }} 
+          Ticket #{{ticket.ticketNumber || ticket.id }} 
         </v-chip>
         <v-chip v-if="hasTable" color="accent" text-color="white" class="mr-2">
           <v-icon left small>mdi-table-furniture</v-icon>

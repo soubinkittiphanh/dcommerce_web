@@ -44,6 +44,154 @@
       @show-message="showMessage"
     />
 
+    <!-- ✅ NEW: Price Override Dialog -->
+    <v-dialog v-model="showPriceOverrideDialog" max-width="500" persistent>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-cash-edit</v-icon>
+          Price Selection & Override
+        </v-card-title>
+
+        <v-card-text class="pt-4">
+          <!-- Product Info -->
+          <v-alert color="info" text dense class="mb-3">
+            <div class="font-weight-bold">{{ selectedProduct?.pro_name }}</div>
+            <div class="caption">
+              Base Price: {{ formatPrice(selectedProduct?.pro_price) }}
+            </div>
+          </v-alert>
+
+          <!-- Price List Selection -->
+          <v-select
+            v-if="getProductPriceLists(selectedProduct).length > 0"
+            v-model="selectedPriceListId"
+            :items="getPriceListOptions(selectedProduct)"
+            item-text="label"
+            item-value="id"
+            label="Select Price Grade"
+            outlined
+            dense
+            clearable
+            @change="onPriceListSelection"
+            class="mb-3"
+          >
+            <template v-slot:prepend-inner>
+              <v-icon color="primary">mdi-tag-multiple</v-icon>
+            </template>
+            <template v-slot:item="{ item }">
+              <div
+                class="d-flex justify-space-between align-center"
+                style="width: 100%"
+              >
+                <span>
+                  <v-chip
+                    x-small
+                    :color="getGradeColor(item.grade)"
+                    class="mr-2"
+                  >
+                    {{ item.grade }}
+                  </v-chip>
+                  {{ item.label }}
+                </span>
+                <span class="font-weight-bold primary--text">
+                  {{ formatPrice(item.price) }}
+                </span>
+              </div>
+            </template>
+          </v-select>
+
+          <!-- Current Effective Price Display -->
+          <div
+            class="text-center mb-3 pa-3"
+            style="background: #f5f5f5; border-radius: 8px"
+          >
+            <div class="caption grey--text">Current Price</div>
+            <div class="text-h5 primary--text font-weight-bold">
+              {{ formatPrice(effectivePriceInDialog) }}
+            </div>
+            <div v-if="selectedPriceListId" class="caption success--text">
+              <v-icon x-small color="success">mdi-tag</v-icon>
+              Price list applied
+            </div>
+          </div>
+
+          <v-divider class="my-3"></v-divider>
+
+          <!-- Custom Price Override -->
+          <div class="text-subtitle-2 mb-2">
+            <v-icon small class="mr-1">mdi-pencil</v-icon>
+            Or Enter Custom Price
+          </div>
+
+          <v-text-field
+            v-model.number="customPriceInput"
+            label="Custom Price"
+            type="number"
+            step="100"
+            min="0"
+            outlined
+            dense
+            suffix="₭"
+            :rules="[
+              (v) =>
+                v === null || v === '' || v >= 0 || 'Price must be positive',
+            ]"
+          >
+            <template v-slot:prepend-inner>
+              <v-icon color="primary">mdi-cash</v-icon>
+            </template>
+          </v-text-field>
+
+          <!-- Price Difference Alert -->
+          <v-alert
+            v-if="
+              customPriceInput &&
+              customPriceInput !== selectedProduct?.pro_price
+            "
+            type="info"
+            dense
+            text
+            class="mb-3"
+          >
+            Difference from base:
+            <strong>{{
+              formatPriceDifference(
+                customPriceInput - selectedProduct?.pro_price
+              )
+            }}</strong>
+          </v-alert>
+
+          <!-- Override Reason -->
+          <v-textarea
+            v-if="customPriceInput || selectedPriceListId"
+            v-model="priceOverrideReason"
+            label="Reason (optional)"
+            outlined
+            dense
+            rows="2"
+            counter="200"
+            placeholder="Enter reason for price change..."
+          >
+            <template v-slot:prepend-inner>
+              <v-icon color="primary">mdi-note-text</v-icon>
+            </template>
+          </v-textarea>
+        </v-card-text>
+
+        <v-card-actions class="px-4 pb-4">
+          <v-spacer></v-spacer>
+          <v-btn text @click="closePriceOverrideDialog"> Cancel </v-btn>
+          <v-btn
+            color="primary"
+            @click="applyPriceSelection"
+            :disabled="!isValidPriceSelection"
+          >
+            <v-icon left small>mdi-check</v-icon>
+            Apply & Add to Cart
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <!-- Print Confirmation Dialog -->
     <v-dialog v-model="showPrintConfirmDialog" max-width="400" persistent>
       <v-card>
@@ -189,11 +337,11 @@
                 class="pa-2"
               >
                 <v-card
-                  @click="addToCart(product)"
                   elevation="2"
                   hover
                   class="text-center pa-4 cursor-pointer product-card"
-                  height="160"
+                  height="auto"
+                  min-height="180"
                   :disabled="
                     (!product.isActive || product.stock_count <= 0) &&
                     product.validateStockOnSale
@@ -215,18 +363,41 @@
                     mdi-tag
                   </v-icon>
 
+                  <!-- ✅ Price List Badge (if available) -->
+                  <v-chip
+                    v-if="hasAvailablePriceLists(product)"
+                    x-small
+                    color="purple"
+                    text-color="white"
+                    class="price-list-badge"
+                  >
+                    <v-icon x-small left>mdi-tag-multiple</v-icon>
+                    {{ getProductPriceLists(product).length }} prices
+                  </v-chip>
+
                   <v-card-title
                     class="justify-center text-subtitle-1 pa-1"
                     style="line-height: 1.2"
                   >
-                    {{ product.pro_name }} {{ product.validateStockOnSale }}
+                    {{ product.pro_name }}
                   </v-card-title>
 
                   <v-card-text class="pa-2">
-                    <div class="text-h5 primary--text font-weight-bold mb-2">
-                      {{ formatPrice(product.pro_price) }}
+                    <!-- ✅ Enhanced Price Display -->
+                    <div class="price-section mb-2">
+                      <div class="text-h5 primary--text font-weight-bold">
+                        {{ formatPrice(product.pro_price) }}
+                      </div>
+                      <!-- Show price range if price lists available -->
+                      <div
+                        v-if="hasAvailablePriceLists(product)"
+                        class="caption grey--text"
+                      >
+                        {{ getPriceRangeText(product) }}
+                      </div>
                     </div>
-                    <div class="d-flex justify-space-between align-center">
+
+                    <div class="d-flex justify-space-between align-center mb-2">
                       <v-chip
                         :color="getCategoryColor(product.categ_name)"
                         text-color="white"
@@ -242,13 +413,40 @@
                         {{ product.stock_count }} left
                       </v-chip>
                     </div>
-                    <div
-                      v-if="product.pro_desc"
-                      class="caption mt-2 grey--text"
-                      style="height: 32px; overflow: hidden"
-                    >
-                      {{ product.pro_desc }}
+
+                    <!-- ✅ Action Buttons -->
+                    <div class="d-flex gap-1 mt-2">
+                      <!-- Quick Add Button -->
+                      <v-btn
+                        @click.stop="addToCart(product)"
+                        color="primary"
+                        small
+                        block
+                        :disabled="
+                          (!product.isActive || product.stock_count <= 0) &&
+                          product.validateStockOnSale
+                        "
+                      >
+                        <v-icon small left>mdi-cart-plus</v-icon>
+                        Add
+                      </v-btn>
+
+                      <!-- ✅ Price Selection Button (if price lists available) -->
+                      <v-btn
+                        v-if="hasAvailablePriceLists(product)"
+                        @click.stop="openPriceSelector(product)"
+                        color="purple"
+                        small
+                        icon
+                        :disabled="
+                          (!product.isActive || product.stock_count <= 0) &&
+                          product.validateStockOnSale
+                        "
+                      >
+                        <v-icon small>mdi-tag-multiple</v-icon>
+                      </v-btn>
                     </div>
+
                     <div
                       v-if="!product.isActive"
                       class="caption mt-1 error--text font-weight-bold"
@@ -280,7 +478,7 @@
           <!-- Cart Header (FIXED) -->
           <v-card-title class="cart-header accent white--text">
             <v-icon class="mr-2" color="white">mdi-cart</v-icon>
-            Order Cart
+            Order Cart {{ selectedCustomer?.grade || '' }}
             <v-spacer></v-spacer>
             <v-chip color="white" class="accent--text">
               {{ cart.length }} items
@@ -288,6 +486,7 @@
           </v-card-title>
 
           <!-- Customer Section (FIXED) -->
+
           <div class="customer-section">
             <v-row dense align="center">
               <v-col>
@@ -595,6 +794,11 @@ export default {
   },
   data() {
     return {
+      showPriceOverrideDialog: false,
+      selectedProduct: null,
+      selectedPriceListId: null,
+      customPriceInput: null,
+      priceOverrideReason: '',
       taxes: [], // Add taxes array to store tax configurations
       defaultTax: null, // Store default tax configuration
       promotions: [],
@@ -674,12 +878,57 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
+    user() {
+      return this.$auth.user || null
+    },
     getFinalTotal() {
       const baseAfterPromotions = this.getBaseAfterPromotions
       const tax = this.calculatedTax
       return baseAfterPromotions + tax
     },
+    // ✅ NEW: Effective price in dialog
+    effectivePriceInDialog() {
+      if (!this.selectedProduct) return 0
 
+      // Custom price takes precedence
+      if (this.customPriceInput !== null && this.customPriceInput !== '') {
+        return this.customPriceInput
+      }
+
+      // Price list selected
+      if (this.selectedPriceListId) {
+        const priceList = this.getProductPriceLists(this.selectedProduct).find(
+          (pl) => pl.id === this.selectedPriceListId
+        )
+
+        if (priceList) {
+          return this.calculatePriceListAmount(
+            priceList,
+            this.selectedProduct.pro_price
+          )
+        }
+      }
+
+      // Default to base price
+      return this.selectedProduct.pro_price
+    },
+
+    // ✅ NEW: Check if price selection is valid
+    isValidPriceSelection() {
+      if (!this.selectedProduct) return false
+
+      // Allow if price list is selected or custom price is entered
+      if (
+        this.selectedPriceListId ||
+        (this.customPriceInput !== null &&
+          this.customPriceInput !== '' &&
+          this.customPriceInput >= 0)
+      ) {
+        return true
+      }
+
+      return false
+    },
     getBaseAmount() {
       if (!this.cart.length || !this.taxes.length) {
         return this.getTotalPrice()
@@ -840,33 +1089,32 @@ export default {
   },
 
   methods: {
+    formatPriceDifference(diff) {
+      const sign = diff >= 0 ? '+' : ''
+      return sign + this.formatPrice(Math.abs(diff))
+    },
+
     openCustomerDialog() {
       this.showCustomerDialog = true
     },
+
     async fetchTaxes() {
       try {
         const response = await this.$axios.get('/api/tax/active')
         console.log('Taxes response:', response.data)
-
         const taxData = response.data.data || response.data
-
         this.taxes = taxData.filter((tax) => {
-          // Additional client-side filtering if needed
           const now = new Date()
           const effectiveFrom = new Date(tax.effectiveFrom)
           const effectiveTo = tax.effectiveTo ? new Date(tax.effectiveTo) : null
-
           return (
             tax.isActive &&
             effectiveFrom <= now &&
             (!effectiveTo || effectiveTo >= now)
           )
         })
-
-        // Find default tax
         this.defaultTax =
           this.taxes.find((tax) => tax.isDefault) || this.taxes[0] || null
-
         console.log(
           `Loaded ${this.taxes.length} active taxes, default:`,
           this.defaultTax?.name
@@ -883,47 +1131,33 @@ export default {
       }
     },
 
-    // NEW: Get tax configuration for a product
     getProductTax(product) {
       if (!product || !this.taxes.length) {
         return this.defaultTax
       }
-
-      // If product has a specific tax ID, use that
       if (product.taxId) {
         const productTax = this.taxes.find((tax) => tax.id === product.taxId)
         if (productTax) {
           return productTax
         }
       }
-
-      // Fall back to default tax
       return this.defaultTax
     },
 
-    // NEW: Calculate tax amount based on tax configuration
     calculateTaxAmount(subtotal, tax) {
       if (!tax || !tax.isActive) {
         return 0
       }
-
       const taxRate = parseFloat(tax.rate)
-
       if (tax.taxType === 'INC') {
-        // Tax inclusive - extract tax from the total
-        // If price includes tax: tax = (subtotal * rate) / (1 + rate)
         return (subtotal * taxRate) / (1 + taxRate)
       } else {
-        // Tax exclusive - add tax to the subtotal
-        // If tax is added to price: tax = subtotal * rate
         return subtotal * taxRate
       }
     },
 
-    // NEW: Get tax breakdown for display
     getTaxBreakdown() {
       if (!this.cart.length || !this.taxes.length) return []
-
       const breakdown = []
       const taxGroups = new Map()
       const totalBaseAmount = this.getBaseAmount
@@ -933,20 +1167,15 @@ export default {
       this.cart.forEach((item) => {
         const product = this.products.find((p) => p.id === item.id)
         const tax = this.getProductTax(product)
-
         if (tax && tax.isActive) {
           const taxKey = tax.id
           const itemTotal = item.pro_price * item.quantity
-
           let itemBaseAmount
           if (tax.taxType === 'INC') {
-            // For tax inclusive: extract base amount
             itemBaseAmount = itemTotal / (1 + parseFloat(tax.rate))
           } else {
-            // For tax exclusive: item total is the base amount
             itemBaseAmount = itemTotal
           }
-
           if (!taxGroups.has(taxKey)) {
             taxGroups.set(taxKey, {
               tax: tax,
@@ -954,7 +1183,6 @@ export default {
               items: [],
             })
           }
-
           const group = taxGroups.get(taxKey)
           group.baseAmount += itemBaseAmount
           group.items.push(item)
@@ -963,11 +1191,8 @@ export default {
 
       taxGroups.forEach((group) => {
         const { tax, baseAmount } = group
-
-        // Apply proportional discount
         const adjustedBaseAmount = baseAmount * (1 - discountRatio)
         const taxAmount = adjustedBaseAmount * parseFloat(tax.rate)
-
         breakdown.push({
           name: tax.name,
           code: tax.code,
@@ -978,9 +1203,9 @@ export default {
           itemCount: group.items.length,
         })
       })
-
       return breakdown
     },
+
     async loadCategory() {
       this.isloading = true
       this.categoryOptions = []
@@ -992,18 +1217,17 @@ export default {
           }
         })
         .catch((er) => {
-          swalError2(this.$swal, 'Error', er)
+          console.error('Error loading categories:', er)
+          this.showMessage('Failed to load categories', 'error', 'mdi-alert')
         })
       this.isloading = false
     },
-    // Promotion Methods
+
     isProductInPromotion(product) {
       return this.promotions.some((promotion) => {
         if (!promotion.is_active) return false
         const conditions = promotion.conditions
         if (!conditions) return false
-
-        // Check if product is in applicable categories or products
         const inCategories = conditions.applicable_categories?.includes(
           product.pro_category
         )
@@ -1011,7 +1235,6 @@ export default {
         const noRestrictions =
           !conditions.applicable_categories?.length &&
           !conditions.applicable_products?.length
-
         return inCategories || inProducts || noRestrictions
       })
     },
@@ -1035,22 +1258,16 @@ export default {
     calculateApplicablePromotions() {
       const applicablePromotions = []
       const now = new Date()
-
       for (const promotion of this.promotions) {
-        // Check if promotion is active and within date range
         if (!promotion.is_active) continue
         if (new Date(promotion.start_date) > now) continue
         if (new Date(promotion.end_date) < now) continue
         if (promotion.max_uses && promotion.current_uses >= promotion.max_uses)
           continue
-
-        // Check if promotion applies to current cart
         if (this.isPromotionApplicable(promotion)) {
           applicablePromotions.push(promotion)
         }
       }
-
-      // Sort by priority (higher first)
       return applicablePromotions.sort(
         (a, b) => (b.priority || 1) - (a.priority || 1)
       )
@@ -1059,10 +1276,7 @@ export default {
     isPromotionApplicable(promotion) {
       const conditions = promotion.conditions
       if (!conditions) return false
-
-      // Check if cart has applicable products/categories
       const applicableItems = this.cart.filter((item) => {
-        // Check categories
         if (
           conditions.applicable_categories &&
           conditions.applicable_categories.length > 0
@@ -1075,8 +1289,6 @@ export default {
             return true
           }
         }
-
-        // Check specific products
         if (
           conditions.applicable_products &&
           conditions.applicable_products.length > 0
@@ -1085,8 +1297,6 @@ export default {
             return true
           }
         }
-
-        // If no specific restrictions, apply to all
         if (
           (!conditions.applicable_categories ||
             conditions.applicable_categories.length === 0) &&
@@ -1095,13 +1305,9 @@ export default {
         ) {
           return true
         }
-
         return false
       })
-
       if (applicableItems.length === 0) return false
-
-      // Check type-specific conditions
       switch (promotion.type) {
         case 'buy_x_get_y':
           const totalQuantity = applicableItems.reduce(
@@ -1109,7 +1315,6 @@ export default {
             0
           )
           return totalQuantity >= (conditions.buy_quantity || 0)
-
         case 'percentage':
         case 'fixed_amount':
           if (conditions.minimum_order) {
@@ -1120,7 +1325,6 @@ export default {
             return applicableTotal >= conditions.minimum_order
           }
           return true
-
         default:
           return true
       }
@@ -1129,7 +1333,6 @@ export default {
     applyPromotions() {
       const applicablePromotions = this.calculateApplicablePromotions()
       this.appliedPromotions = []
-
       for (const promotion of applicablePromotions) {
         const discount = this.calculatePromotionDiscount(promotion)
         if (discount.amount > 0) {
@@ -1143,7 +1346,6 @@ export default {
 
     calculatePromotionDiscount(promotion) {
       const applicableItems = this.getApplicableItems(promotion)
-
       switch (promotion.type) {
         case 'buy_x_get_y':
           return this.calculateBuyXGetYDiscount(promotion, applicableItems)
@@ -1171,7 +1373,6 @@ export default {
             return true
           }
         }
-
         if (
           conditions.applicable_products &&
           conditions.applicable_products.length > 0
@@ -1180,7 +1381,6 @@ export default {
             return true
           }
         }
-
         if (
           (!conditions.applicable_categories ||
             conditions.applicable_categories.length === 0) &&
@@ -1189,7 +1389,6 @@ export default {
         ) {
           return true
         }
-
         return false
       })
     },
@@ -1198,29 +1397,22 @@ export default {
       const conditions = promotion.conditions
       const buyQty = conditions.buy_quantity || 0
       const getQty = conditions.get_quantity || 0
-
       const totalQuantity = applicableItems.reduce(
         (sum, item) => sum + item.quantity,
         0
       )
       const eligibleSets = Math.floor(totalQuantity / buyQty)
-
       if (eligibleSets === 0) return { amount: 0, description: '', items: [] }
-
       let freeItems = eligibleSets * getQty
       if (conditions.max_free_items && freeItems > conditions.max_free_items) {
         freeItems = conditions.max_free_items
       }
-
-      // Calculate discount based on cheapest applicable items
       const itemPrices = applicableItems
         .flatMap((item) => Array(item.quantity).fill(item.pro_price))
         .sort((a, b) => a - b)
-
       const discountAmount = itemPrices
         .slice(0, freeItems)
         .reduce((sum, price) => sum + price, 0)
-
       return {
         amount: discountAmount,
         description: `Buy ${buyQty} Get ${getQty} Free`,
@@ -1232,21 +1424,17 @@ export default {
     calculatePercentageDiscount(promotion, applicableItems) {
       const conditions = promotion.conditions
       const percentage = (conditions.discount_percentage || 0) / 100
-
       const subtotal = applicableItems.reduce(
         (sum, item) => sum + item.pro_price * item.quantity,
         0
       )
-
       let discountAmount = subtotal * percentage
-
       if (
         conditions.max_discount_amount &&
         discountAmount > conditions.max_discount_amount
       ) {
         discountAmount = conditions.max_discount_amount
       }
-
       return {
         amount: discountAmount,
         description: `${conditions.discount_percentage}% off`,
@@ -1257,10 +1445,9 @@ export default {
     calculateFixedAmountDiscount(promotion, applicableItems) {
       const conditions = promotion.conditions
       const discountAmount = conditions.discount_amount || 0
-
       return {
         amount: discountAmount,
-        description: `${discountAmount} ₭ off`, // FIX: Use your currency symbol instead of $
+        description: `${discountAmount} ₭ off`,
         items: applicableItems,
       }
     },
@@ -1269,8 +1456,6 @@ export default {
       this.loadingPromotions = true
       try {
         const response = await this.$axios.get('/api/promotions')
-
-        // Filter for active promotions client-side
         const allPromotions = response.data.data || response.data || []
         this.promotions = allPromotions.filter((promotion) => {
           const now = new Date()
@@ -1280,7 +1465,6 @@ export default {
             new Date(promotion.end_date) >= now
           )
         })
-
         console.log('Active promotions loaded:', this.promotions.length)
       } catch (error) {
         console.error('Error fetching promotions:', error)
@@ -1290,7 +1474,6 @@ export default {
       }
     },
 
-    // Notes Dialog Methods
     openNotesDialog() {
       this.orderNotes = this.currentTicket?.notes || this.orderNotes || ''
       this.showNotesDialog = true
@@ -1302,7 +1485,6 @@ export default {
 
     async handleSaveNotes(notes) {
       this.orderNotes = notes
-
       if (this.currentTicket) {
         this.savingNotes = true
         try {
@@ -1328,11 +1510,9 @@ export default {
         console.log('Loading provided ticket:', this.existingTicket)
         this.currentTicket = this.existingTicket
         this.orderNotes = this.currentTicket.notes || ''
-
         if (this.currentTicket.clientId) {
           await this.loadTicketCustomer(this.currentTicket.clientId)
         }
-
         await this.loadTicketLines()
         this.showMessage('Ticket loaded successfully', 'success', 'mdi-check')
       } catch (error) {
@@ -1343,7 +1523,6 @@ export default {
 
     getProductName(productId) {
       try {
-        // FIX: Search in products array instead of filteredProducts
         const product = this.products.find(
           (el) => el.id === parseInt(productId)
         )
@@ -1354,16 +1533,15 @@ export default {
       }
     },
 
-    // Core data fetching methods
+    // ✅ FIXED: Include price lists in query
     async fetchProducts() {
       this.loading = true
       try {
-        // Get locationId and companyId from current selected location
         const locationId = this.currentSelectedLocation['id'] || 1
-        const companyId = this.currentSelectedLocation['companyId'] // Optional - can be undefined
+        const companyId = this.currentSelectedLocation['companyId']
 
-        // Build the query string
-        let queryString = '?include=tax'
+        // ✅ Include priceList in query
+        let queryString = '?include=tax,priceList'
         if (companyId) {
           queryString += `&companyId=${companyId}`
         }
@@ -1373,9 +1551,8 @@ export default {
         )
 
         console.log('Products response:', response.data)
-
-        // Handle both old and new response formats
         const productData = response.data.data || response.data
+
         this.products = productData.map((product) => ({
           id: product.id,
           pro_id: product.pro_id,
@@ -1404,12 +1581,20 @@ export default {
           validateStockOnSale: product.validateStockOnSale === 1,
           saleCurrencyId: product.saleCurrencyId,
           costCurrencyId: product.costCurrencyId,
-          taxId: product.taxId, // Include tax ID
-          tax: product.tax, // Include tax object if populated
+          taxId: product.taxId,
+          tax: product.tax,
+          // ✅ ADD: Price list data
+          priceLists: Array.isArray(product.priceLists)
+            ? product.priceLists
+            : [],
+          priceList: product.priceList || null,
           createdAt: product.createdAt,
           updatedAt: product.updatedAt,
         }))
 
+        console.log(
+          `✅ Loaded ${this.products.length} products with price lists`
+        )
         this.showMessage(
           `Loaded ${this.products.length} products successfully!`
         )
@@ -1430,7 +1615,6 @@ export default {
       try {
         const response = await this.$axios.get('api/client/find')
         console.log('Customers response:', response.data)
-
         const customerData = response.data.data || response.data
         this.customers = customerData.map((customer) => ({
           id: customer.id,
@@ -1446,7 +1630,6 @@ export default {
           createdAt: customer.createdAt,
           updatedAt: customer.updatedAt,
         }))
-
         console.log(`Loaded ${this.customers.length} customers`)
       } catch (error) {
         console.error('Error fetching customers:', error)
@@ -1456,24 +1639,20 @@ export default {
       }
     },
 
-    // Ticket management methods
     async loadExistingTicket() {
       if (this.isWalkIn) {
         console.log('Walk-in mode - no existing ticket to load')
         return
       }
-
       try {
         const response = await this.$axios.get(
           `api/ticket/table/${this.tableId}/pending`
         )
         if (response.data && response.data.length > 0) {
           this.currentTicket = response.data[0]
-
           if (this.currentTicket.clientId) {
             await this.loadTicketCustomer(this.currentTicket.clientId)
           }
-
           await this.loadTicketLines()
         }
       } catch (error) {
@@ -1493,17 +1672,14 @@ export default {
 
     async loadTicketLines() {
       if (!this.currentTicket) return
-
       try {
         const response = await this.$axios.get(
           `api/ticketLine/ticket/${this.currentTicket.id}`
         )
         const ticketLines = response.data.data || response.data
-
         this.cart = ticketLines
           .map((line) => {
             const product = this.products.find((p) => p.id === line.productId)
-
             return {
               id: line.productId,
               pro_id: line.productId,
@@ -1523,10 +1699,7 @@ export default {
             }
           })
           .filter((item) => item.pro_name)
-
         console.info(`Loaded ${this.cart.length} items from ticket lines`)
-
-        // Apply promotions after loading cart
         this.applyPromotions()
       } catch (error) {
         console.error('Error loading ticket lines:', error)
@@ -1543,33 +1716,21 @@ export default {
         if (!silent) this.showMessage('Cart is empty', 'warning', 'mdi-alert')
         return
       }
-
       this.savingTicket = true
-
       try {
         const subtotal = this.getTotalPrice()
         const promotionDiscount = this.getTotalPromotionDiscount()
         const afterPromotions = subtotal - promotionDiscount
-
-        // Use dynamic tax calculation
         const tax = this.calculatedTax
         const total = afterPromotions
-
-        // Get tax breakdown for detailed storage
         const taxBreakdown = this.getTaxBreakdown()
-
-        // Create a map of products affected by promotions
         const promotionItemsMap = new Map()
 
-        // Calculate which items are affected by each promotion
         this.appliedPromotions.forEach((applied) => {
           const promotion = applied.promotion
           const discount = applied.discount
-
-          // Get items affected by this promotion
           const affectedItems = this.getApplicableItems(promotion)
 
-          // For "Buy X Get Y" promotions, mark free items
           if (promotion.type === 'buy_x_get_y' && discount.freeItems > 0) {
             const sortedItems = affectedItems
               .flatMap((item) =>
@@ -1579,7 +1740,6 @@ export default {
                 })
               )
               .sort((a, b) => a.price - b.price)
-
             for (
               let i = 0;
               i < discount.freeItems && i < sortedItems.length;
@@ -1592,40 +1752,34 @@ export default {
                 discount_amount: 0,
                 promotion_note: '',
               }
-
               currentData.is_promotion_item = true
               currentData.discount_amount += sortedItems[i].price
               currentData.promotion_note = discount.description
-
               promotionItemsMap.set(itemId, currentData)
             }
           } else {
-            // For percentage and fixed amount discounts
             affectedItems.forEach((item) => {
               const itemSubtotal = item.pro_price * item.quantity
               const itemDiscountRatio =
                 itemSubtotal / this.getApplicableItemsTotal(promotion)
               const itemDiscount = discount.amount * itemDiscountRatio
-
               const currentData = promotionItemsMap.get(item.id) || {
                 promotionId: promotion.id,
                 is_promotion_item: false,
                 discount_amount: 0,
                 promotion_note: '',
               }
-
               if (itemDiscount > 0) {
                 currentData.is_promotion_item = true
                 currentData.discount_amount += itemDiscount
                 currentData.promotion_note = discount.description
               }
-
               promotionItemsMap.set(item.id, currentData)
             })
           }
         })
 
-        const ticketData = {
+        let ticketData = {
           tableId:
             this.tableId && this.tableId !== 'walk-in'
               ? parseInt(this.tableId)
@@ -1635,7 +1789,7 @@ export default {
           subtotal: parseFloat(subtotal.toFixed(2) - tax.toFixed(2)),
           promotionDiscount: parseFloat(promotionDiscount.toFixed(2)),
           tax: parseFloat(tax.toFixed(2)),
-          taxType: this.defaultTax.taxType || null,
+          taxType: this.defaultTax?.taxType || null,
           total: parseFloat(total.toFixed(2)),
           paymentStatus: 'pending',
           notes:
@@ -1643,7 +1797,6 @@ export default {
             (this.selectedCustomer
               ? `Customer: ${this.selectedCustomer.name}`
               : 'Walk-in customer'),
-          // Store tax breakdown for reporting
           taxBreakdown: taxBreakdown,
           appliedPromotions: this.appliedPromotions.map((applied) => ({
             promotionId: applied.promotion.id,
@@ -1655,7 +1808,6 @@ export default {
             const promotionData = promotionItemsMap.get(item.id)
             const product = this.products.find((p) => p.id === item.id)
             const productTax = this.getProductTax(product)
-
             return {
               id: item.ticketLineId || undefined,
               productId: item.id,
@@ -1665,11 +1817,9 @@ export default {
                 (item.pro_price * item.quantity).toFixed(2)
               ),
               status: 'ordered',
-              // Add tax information to line items
               taxId: productTax?.id || null,
               taxRate: productTax?.rate || 0,
               taxType: productTax?.taxType || 'INC',
-              // Add promotion fields
               promotionId: promotionData?.promotionId || null,
               is_promotion_item: promotionData?.is_promotion_item || false,
               original_price: promotionData?.is_promotion_item
@@ -1677,23 +1827,27 @@ export default {
                 : null,
               discount_amount: promotionData?.discount_amount || 0,
               promotion_note: promotionData?.promotion_note || null,
+              // ✅ ADD: Price override fields
+              priceListId: item.priceListId || null,
+              priceOverridden: item.priceOverridden || false,
+              priceOverrideReason: item.priceOverrideReason || null,
             }
           }),
         }
 
         let response
         if (this.currentTicket) {
+         
+          ticketData.updateUserId = this.user.id
           response = await this.$axios.put(
             `api/ticket/${this.currentTicket.id}`,
             ticketData
           )
           this.currentTicket = response.data.data || response.data
           this.$emit('ticket-updated', this.currentTicket)
-
           if (!this.dialogMode) {
             this.$emit('reload-data')
           }
-          console.info(`SILENT ${silent}`)
           if (!silent) {
             this.showMessage(
               'Ticket updated successfully!',
@@ -1705,14 +1859,13 @@ export default {
             }
           }
         } else {
+          ticketData.createUserId = this.user.id
           response = await this.$axios.post('api/ticket/', ticketData)
           this.currentTicket = response.data.data || response.data
           this.$emit('ticket-updated', this.currentTicket)
-
           if (!this.dialogMode) {
             this.$emit('reload-data')
           }
-
           if (!silent) {
             this.showMessage(
               'Ticket saved successfully!',
@@ -1742,7 +1895,8 @@ export default {
         0
       )
     },
-    // Cart management methods
+
+    // ✅ FIXED: Improved stock validation logic
     addToCart(product) {
       console.log('Adding product to cart:', product)
 
@@ -1759,17 +1913,19 @@ export default {
       const existingItem = this.cart.find((item) => item.id === product.id)
 
       if (existingItem) {
-        console.info(`STOCK VALIDATION REQUEIRE ${product.validateStockOnSale}`)
-        if (
-          existingItem.quantity < product.stock_count ||
-          !product.validateStockOnSale
-        ) {
+        // ✅ FIX: Cleaner stock validation logic
+        const canAddMore =
+          !product.validateStockOnSale ||
+          existingItem.quantity < product.stock_count
+
+        if (canAddMore) {
           existingItem.quantity += 1
-          if (!existingItem.isFromTicketLine) {
+          // Only update price if not from ticket line and not overridden
+          if (!existingItem.isFromTicketLine && !existingItem.priceOverridden) {
             existingItem.pro_price = parseFloat(product.pro_price)
           }
         } else {
-          this.showMessage('Maximum stock reached BBB', 'warning', 'mdi-alert')
+          this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
         }
       } else {
         this.cart.push({
@@ -1783,9 +1939,182 @@ export default {
           validateStockOnSale: product.validateStockOnSale,
           quantity: 1,
           isFromTicketLine: false,
+          priceOverridden: false,
+          originalPrice: parseFloat(product.pro_price),
         })
       }
-      // Note: applyPromotions() is called via watcher
+    },
+
+    // ✅ Price override methods
+    applyPriceSelection() {
+      if (!this.selectedProduct) return
+
+      const effectivePrice = this.effectivePriceInDialog
+
+      if (!this.selectedProduct.isActive) {
+        this.showMessage('Product is not active', 'warning', 'mdi-alert')
+        return
+      }
+
+      if (
+        this.selectedProduct.stock_count <= 0 &&
+        this.selectedProduct.validateStockOnSale
+      ) {
+        this.showMessage('Product is out of stock', 'warning', 'mdi-alert')
+        return
+      }
+
+      const existingItem = this.cart.find(
+        (item) => item.id === this.selectedProduct.id
+      )
+
+      if (existingItem) {
+        const canAddMore =
+          !this.selectedProduct.validateStockOnSale ||
+          existingItem.quantity < this.selectedProduct.stock_count
+
+        if (canAddMore) {
+          existingItem.quantity += 1
+          // Update price if custom or price list applied
+          if (this.customPriceInput || this.selectedPriceListId) {
+            existingItem.pro_price = effectivePrice
+            existingItem.priceOverridden = true
+            existingItem.priceListId = this.selectedPriceListId
+            existingItem.priceOverrideReason = this.priceOverrideReason || null
+          }
+        } else {
+          this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
+          return
+        }
+      } else {
+        this.cart.push({
+          id: this.selectedProduct.id,
+          pro_id: this.selectedProduct.id,
+          pro_name: this.selectedProduct.pro_name,
+          pro_price: effectivePrice,
+          categ_name: this.selectedProduct.categ_name,
+          stock_count: this.selectedProduct.stock_count,
+          isActive: this.selectedProduct.isActive,
+          validateStockOnSale: this.selectedProduct.validateStockOnSale,
+          quantity: 1,
+          isFromTicketLine: false,
+          priceOverridden: !!(
+            this.customPriceInput || this.selectedPriceListId
+          ),
+          priceListId: this.selectedPriceListId,
+          originalPrice: this.selectedProduct.pro_price,
+          priceOverrideReason: this.priceOverrideReason || null,
+        })
+      }
+
+      this.showMessage(
+        `${this.selectedProduct.pro_name} added with ${this.formatPrice(
+          effectivePrice
+        )}`,
+        'success',
+        'mdi-cart-plus'
+      )
+
+      this.closePriceOverrideDialog()
+    },
+
+    onPriceListSelection() {
+      this.customPriceInput = null
+    },
+
+    closePriceOverrideDialog() {
+      this.showPriceOverrideDialog = false
+      this.selectedProduct = null
+      this.selectedPriceListId = null
+      this.customPriceInput = null
+      this.priceOverrideReason = ''
+    },
+
+    hasAvailablePriceLists(product) {
+      console.info(`PRODUCT DET: ${JSON.stringify(product)}`)
+      return this.getProductPriceLists(product).length > 0
+    },
+
+    getProductPriceLists(product) {
+      if (!product) return []
+
+      if (Array.isArray(product.priceLists)) {
+        return product.priceLists.filter((pl) => pl.isActive)
+      }
+
+      if (product.priceList && product.priceList.isActive) {
+        return [product.priceList]
+      }
+
+      return []
+    },
+
+    // ✅ FIXED: Include base price option
+    getPriceListOptions(product) {
+      if (!product) return []
+
+      const options = []
+      const priceLists = this.getProductPriceLists(product)
+
+      // Always show base price as first option
+      options.push({
+        id: null,
+        label: 'Base Price',
+        grade: 'BASE',
+        price: product.pro_price,
+        type: 'Price',
+        amount: product.pro_price,
+      })
+
+      // Add all price list options
+      priceLists.forEach((pl) => {
+        options.push({
+          id: pl.id,
+          label: `${pl.grade} - ${pl.name}`,
+          grade: pl.grade,
+          price: this.calculatePriceListAmount(pl, product.pro_price),
+          type: pl.type,
+          amount: pl.amount,
+        })
+      })
+
+      return options
+    },
+
+    calculatePriceListAmount(priceList, basePrice) {
+      if (!priceList) return basePrice
+
+      if (priceList.type === 'Price') {
+        return priceList.amount
+      } else if (priceList.type === 'Percent') {
+        return basePrice * (1 + priceList.amount / 100)
+      }
+
+      return basePrice
+    },
+
+    getPriceRangeText(product) {
+      const priceLists = this.getProductPriceLists(product)
+      if (priceLists.length === 0) return ''
+
+      const prices = priceLists.map((pl) =>
+        this.calculatePriceListAmount(pl, product.pro_price)
+      )
+
+      const minPrice = Math.min(...prices, product.pro_price)
+      const maxPrice = Math.max(...prices, product.pro_price)
+
+      if (minPrice === maxPrice) return ''
+
+      return `${this.formatPrice(minPrice)} - ${this.formatPrice(maxPrice)}`
+    },
+
+    openPriceSelector(product) {
+      this.selectedProduct = product
+      this.selectedPriceListId = null
+      this.customPriceInput = null
+      this.priceOverrideReason = ''
+      this.showPriceOverrideDialog = true
     },
 
     updateQuantity(itemId, change) {
@@ -1793,19 +2122,17 @@ export default {
       if (!item) return
 
       const newQuantity = item.quantity + change
-
       if (newQuantity <= 0) {
         this.removeFromCart(itemId)
         return
       }
 
       if (newQuantity > item.stock_count && item.validateStockOnSale) {
-        this.showMessage('Maximum stock reached AAA', 'warning', 'mdi-alert')
+        this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
         return
       }
 
       item.quantity = newQuantity
-      // Note: applyPromotions() is called via watcher
     },
 
     removeFromCart(itemId) {
@@ -1819,7 +2146,6 @@ export default {
           'mdi-information'
         )
       }
-      // Note: applyPromotions() is called via watcher
     },
 
     clearCart() {
@@ -1827,15 +2153,12 @@ export default {
         this.showMessage('Cart is already empty', 'info', 'mdi-information')
         return
       }
-
       const itemCount = this.getTotalItems()
       const totalAmount = this.getTotalPrice()
-
       this.cart = []
       this.currentTicket = null
       this.selectedCustomer = null
-      this.appliedPromotions = [] // FIX: Clear applied promotions too
-
+      this.appliedPromotions = []
       this.showMessage(
         `Cart cleared - ${itemCount} items (${this.formatPrice(
           totalAmount
@@ -1845,11 +2168,9 @@ export default {
       )
     },
 
-    // Payment methods
     async loadPaymentMethods() {
       this.paymentLoading = true
       this.paymentList = []
-
       try {
         const response = await this.$axios.get('/api/paymentMethod/find')
         this.paymentList = response.data.filter((payment) => payment.isActive)
@@ -1864,12 +2185,10 @@ export default {
 
     async processPayment() {
       const total = this.getFinalTotal || 0
-
       if (total <= 0) {
         this.showMessage('No amount to process', 'warning', 'mdi-alert')
         return
       }
-
       this.paymentAmount = total
       await this.loadPaymentMethods()
       this.showPaymentDialog = true
@@ -1877,7 +2196,6 @@ export default {
 
     async handlePaymentConfirm(selectedPaymentMethod) {
       this.actionLoading = true
-
       try {
         if (this.currentTicket?.id) {
           await this.$axios.patch(
@@ -1888,14 +2206,11 @@ export default {
             }
           )
         }
-
         this.closePaymentDialog()
         this.showPrintConfirmDialog = true
-
         if (!this.isWalkIn) {
           await this.updateTableStatus('cleaning')
         }
-
         this.$emit('ticket-updated', this.currentTicket)
         this.$emit('reload-data')
       } catch (error) {
@@ -1908,7 +2223,6 @@ export default {
 
     handlePrintConfirmation(shouldPrint) {
       this.showPrintConfirmDialog = false
-
       if (shouldPrint) {
         this.printCustomerReceipt()
       } else {
@@ -1920,7 +2234,6 @@ export default {
           'mdi-check-circle'
         )
       }
-
       this.paymentAmount = 0
     },
 
@@ -1934,14 +2247,12 @@ export default {
         console.log('Walk-in ticket - skipping table status update')
         return
       }
-
       try {
         const payload = {
           status,
           timeOccupied: status === 'occupied' ? new Date() : null,
           currentOrderId: status === 'occupied' ? this.currentTicket?.id : null,
         }
-
         await this.$axios.patch(`api/tables/${this.tableId}/status`, payload)
         await this.loadExistingTicket()
         this.$emit('reload-data')
@@ -1951,7 +2262,6 @@ export default {
       }
     },
 
-    // Customer management methods
     handleCustomerSelected(customer) {
       this.selectedCustomer = customer
       this.showMessage(
@@ -1973,11 +2283,9 @@ export default {
           'api/client/create',
           customerData
         )
-
         const savedCustomer = response.data.data || response.data
         this.customers.unshift(savedCustomer)
         this.selectedCustomer = savedCustomer
-
         this.showMessage(
           `Customer ${savedCustomer.name} created successfully!`,
           'success',
@@ -2005,10 +2313,8 @@ export default {
       this.showCustomerDialog = false
     },
 
-    // Print methods
     async printCustomerReceipt() {
       console.log('Print button clicked')
-
       if (!this.currentTicket) {
         this.showMessage(
           'Please save the ticket first before printing',
@@ -2017,15 +2323,12 @@ export default {
         )
         return
       }
-
       try {
         this.loading = true
-
         const ticketResponse = await this.$axios.get(
           `api/ticket/${this.currentTicket.id}`
         )
         const latestTicket = ticketResponse.data.data || ticketResponse.data
-
         let customerData = null
         if (latestTicket.clientId) {
           try {
@@ -2038,13 +2341,11 @@ export default {
             customerData = this.selectedCustomer
           }
         }
-
         const ticketLinesResponse = await this.$axios.get(
           `api/ticketLine/ticket/${latestTicket.id}`
         )
         const ticketLines =
           ticketLinesResponse.data.data || ticketLinesResponse.data
-
         const mappedTicketLines = ticketLines
           .map((line) => {
             const product = this.products.find((p) => p.id === line.productId)
@@ -2067,7 +2368,6 @@ export default {
             }
           })
           .filter((item) => item.pro_name)
-
         const ticketForPrint = {
           ...latestTicket,
           client: customerData,
@@ -2080,23 +2380,16 @@ export default {
               },
           ticketLines: mappedTicketLines,
         }
-
-        // FIX: Use promotion-adjusted calculations for printing
         if (!ticketForPrint.subtotal || !ticketForPrint.promotionDiscount) {
           const subtotal = mappedTicketLines.reduce((total, item) => {
             return total + parseFloat(item.pro_price) * item.quantity
           }, 0)
-
-          // If promotion data is missing, recalculate
           if (!ticketForPrint.promotionDiscount) {
             const promotionDiscount = this.getTotalPromotionDiscount()
             ticketForPrint.promotionDiscount = promotionDiscount
             ticketForPrint.subtotal = subtotal
-            // ticketForPrint.tax = (subtotal - promotionDiscount) * 0.085
-            // ticketForPrint.total = (subtotal - promotionDiscount) * 1.085
           }
         }
-
         console.log('Updated ticket for print:', ticketForPrint)
         this.currentTicket = latestTicket
         this.selectedTicket = ticketForPrint
@@ -2108,7 +2401,6 @@ export default {
           'warning',
           'mdi-alert'
         )
-
         const ticketForPrint = {
           ...this.currentTicket,
           client: this.selectedCustomer || null,
@@ -2125,7 +2417,6 @@ export default {
           tax: this.getTotalAfterPromotions() * 0.085,
           total: this.getFinalTotal,
         }
-
         this.selectedTicket = ticketForPrint
         this.showCustomerPrint = true
       } finally {
@@ -2143,7 +2434,6 @@ export default {
       this.showMessage('Ticket printed successfully!', 'success', 'mdi-printer')
     },
 
-    // Utility methods
     showMessage(message, color = 'success', icon = 'mdi-check-circle') {
       this.snackbar = {
         show: true,
@@ -2168,6 +2458,7 @@ export default {
     getTotalItems() {
       return this.cart.reduce((total, item) => total + item.quantity, 0)
     },
+
     formatTaxDisplay(tax) {
       if (!tax) return 'No Tax'
       const percentage = (parseFloat(tax.rate) * 100).toFixed(2)
@@ -2179,7 +2470,6 @@ export default {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       }).format(Math.round(amount || 0))
-
       return includeCurrency ? `${formattedNumber} ₭` : formattedNumber
     },
 
@@ -2220,6 +2510,7 @@ export default {
         D: 'orange',
         E: 'deep-orange',
         F: 'error',
+        BASE: 'grey',
       }
       return colors[grade] || 'grey'
     },
@@ -2236,6 +2527,33 @@ export default {
 /* ========================================
    🔧 MAIN LAYOUT FIXES
    ======================================== */
+
+/* ✅ NEW: Price list badge */
+.price-list-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+}
+
+/* ✅ NEW: Adjust promotion badge position */
+.promotion-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+}
+
+/* ✅ NEW: Price section styling */
+.price-section {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* ✅ NEW: Button gap */
+.gap-1 {
+  gap: 4px;
+}
 
 /* Main container */
 .pos-main-container {
@@ -2339,7 +2657,8 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  min-height: 0; /* Important for flex child to scroll */
+  min-height: 0;
+  /* Important for flex child to scroll */
 }
 
 /* Cart empty state */

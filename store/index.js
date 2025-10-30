@@ -756,10 +756,12 @@ const fetchData = async (url, action, dispatch, axios, errorMessage) => {
 }
 
 const initProduct = async (dispatch, axios) => {
+    console.info(`fetch product initize`)
     try {
         // Default to location ID 1 if no location is selected
         const response = await axios.get('product_f/1')
-        await dispatch('initProduct', response.data)
+        console.info(`fetch product initize response ${JSON.stringify(response.data)}`)
+        await dispatch('initProduct', response.data.data)
     } catch (error) {
         console.error(`Product initialization failed: ${error.message || error}`)
         await dispatch('addError', `Product initialization failed: ${error.message || error}`)

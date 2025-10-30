@@ -189,7 +189,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="warning" rounded variant="text" @click="toggleDialog">
-                    Close
+                    Close {{ this.productList.length }}
                 </v-btn>
                 <v-btn :disabled="!transaction.isActive || !updateAllow" color="primary" rounded variant="text"
                     @click="postTransaction">
