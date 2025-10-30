@@ -46,15 +46,35 @@
         <span class="total-label">Total:</span>
         <span class="total-amount">{{ formatPrice(ticket.total) }}</span>
       </div>
-      <div v-if="ticket.notes" class="ticket-notes-preview">
+      
+      <!-- ✅ Notes Preview Section -->
+      <div v-if="ticket.notes" class="ticket-notes-preview" @click.stop>
         <span class="notes-icon">📝</span>
         <span class="notes-text">{{ truncateNotes(ticket.notes) }}</span>
+        <button 
+          @click="$emit('edit-notes', ticket)" 
+          class="notes-edit-btn"
+          title="Edit notes"
+        >
+          ✏️
+        </button>
+      </div>
+      
+      <!-- ✅ Add Notes Button (when no notes exist) -->
+      <div v-else class="ticket-notes-empty" @click.stop>
+        <button 
+          @click="$emit('add-notes', ticket)" 
+          class="add-notes-btn"
+        >
+          <span class="btn-icon">📝</span>
+          <span>Add Notes</span>
+        </button>
       </div>
     </div>
 
     <!-- Quick Actions -->
     <div class="card-actions" @click.stop>
-      <button
+      <!-- <button
         v-if="ticket.status === 'pending'"
         @click="$emit('update-status', ticket.id, 'preparing')"
         class="action-btn btn-preparing"
@@ -67,7 +87,7 @@
         class="action-btn btn-ready"
       >
         Mark Ready
-      </button>
+      </button> -->
       <button
         v-if="ticket.status === 'ready'"
         @click="$emit('update-status', ticket.id, 'served')"
@@ -82,12 +102,23 @@
       >
         Process Payment
       </button>
+      
+      <!-- ✅ Notes Button in Actions -->
+      <button
+        @click="ticket.notes ? $emit('edit-notes', ticket) : $emit('add-notes', ticket)"
+        class="action-btn btn-notes"
+        :class="{ 'has-notes': ticket.notes }"
+      >
+        <span class="btn-icon">📝</span>
+        {{ ticket.notes ? 'Edit Notes' : 'Add Notes' }}
+      </button>
+      
       <button @click="$emit('print', ticket)" class="action-btn btn-print">
         Print
       </button>
-      <button
+      <button v-if="ticket.status!=='cancel'"
         @click="$emit('update-status', ticket.id, 'cancel')"
-        class="action-btn btn-served"
+        class="action-btn btn-cancel"
       >
         Cancel
       </button>
@@ -149,13 +180,13 @@ export default {
 
   methods: {
     handleAddItem() {
-      // Emit event to parent with ticket details
       this.$emit('add-item', {
         ticketId: this.ticket.id,
         tableId: this.ticket.tableId || this.ticket.table?.id || null,
         ticket: this.ticket
       })
     },
+
     formatTime(date) {
       if (!date) return 'N/A'
       return new Date(date).toLocaleTimeString([], {
@@ -180,6 +211,7 @@ export default {
         ready: 'Ready',
         served: 'Served',
         paid: 'Paid',
+        cancel: 'Cancelled',
       }
       return statusMap[status] || status
     },
@@ -195,14 +227,13 @@ export default {
 
     truncateNotes(notes) {
       if (!notes) return ''
-      return notes.length > 50 ? notes.substring(0, 50) + '...' : notes
+      return notes.length > 60 ? notes.substring(0, 60) + '...' : notes
     },
   },
 }
 </script>
 
 <style scoped>
-
 .btn-add-item {
   background: #805ad5;
   color: white;
@@ -221,9 +252,111 @@ export default {
   opacity: 0.6;
 }
 
+/* ✅ Notes Styles */
+.btn-notes {
+  background: #f6ad55;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-notes:hover {
+  background: #ed8936;
+}
+
+.btn-notes.has-notes {
+  background: #dd6b20;
+}
+
+.btn-notes.has-notes:hover {
+  background: #c05621;
+}
+
+.ticket-notes-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #718096;
+  padding: 10px 12px;
+  background: #fffaf0;
+  border: 1px solid #f6ad55;
+  border-radius: 8px;
+  margin-top: 12px;
+  position: relative;
+}
+
+.notes-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.notes-text {
+  font-style: italic;
+  flex: 1;
+  color: #2d3748;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.notes-edit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.notes-edit-btn:hover {
+  background: rgba(237, 137, 54, 0.1);
+  transform: scale(1.1);
+}
+
+.ticket-notes-empty {
+  margin-top: 12px;
+}
+
+.add-notes-btn {
+  width: 100%;
+  padding: 10px 12px;
+  background: #fff;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  color: #718096;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.add-notes-btn:hover {
+  border-color: #f6ad55;
+  background: #fffaf0;
+  color: #ed8936;
+}
+
 .btn-icon {
   font-size: 14px;
 }
+
+.btn-cancel {
+  background: #fc8181;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #f56565;
+}
+
+/* Rest of existing styles */
 .ticket-card {
   background: white;
   border-radius: 12px;
@@ -327,10 +460,6 @@ export default {
   background: #fff5f5;
   color: #c53030;
 }
-.payment-cancel {
-  background: #fff5f5;
-  color: #c53030;
-}
 
 /* Card Info */
 .card-info {
@@ -386,26 +515,6 @@ export default {
   color: #38a169;
 }
 
-.ticket-notes-preview {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: #718096;
-  padding: 8px;
-  background: #f7fafc;
-  border-radius: 6px;
-}
-
-.notes-icon {
-  font-size: 16px;
-}
-
-.notes-text {
-  font-style: italic;
-  flex: 1;
-}
-
 /* Card Actions */
 .card-actions {
   display: flex;
@@ -422,6 +531,9 @@ export default {
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .btn-preparing {
@@ -517,6 +629,7 @@ export default {
 
   .action-btn {
     width: 100%;
+    justify-content: center;
   }
 }
 </style>

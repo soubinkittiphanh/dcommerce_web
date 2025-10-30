@@ -19,7 +19,6 @@
         </span>
       </div>
     </div>
-
     <!-- Customer & Table Info -->
     <div class="card-info">
       <div class="info-row">
@@ -39,7 +38,6 @@
         >
       </div>
     </div>
-
     <!-- Order Summary -->
     <div class="card-summary">
       <div class="summary-total">
@@ -71,23 +69,8 @@
         </button>
       </div>
     </div>
-
     <!-- Quick Actions -->
     <div class="card-actions" @click.stop>
-      <!-- <button
-        v-if="ticket.status === 'pending'"
-        @click="$emit('update-status', ticket.id, 'preparing')"
-        class="action-btn btn-preparing"
-      >
-        Start Prep
-      </button>
-      <button
-        v-if="ticket.status === 'preparing'"
-        @click="$emit('update-status', ticket.id, 'ready')"
-        class="action-btn btn-ready"
-      >
-        Mark Ready
-      </button> -->
       <button
         v-if="ticket.status === 'ready'"
         @click="$emit('update-status', ticket.id, 'served')"
@@ -113,9 +96,22 @@
         {{ ticket.notes ? 'Edit Notes' : 'Add Notes' }}
       </button>
       
+      <!-- ✅ NEW: Print Bar Button -->
+      <button 
+        @click="$emit('print-bar', ticket)" 
+        class="action-btn btn-print-bar"
+        title="Print Bar/Kitchen Ticket"
+      >
+        <span class="btn-icon">🍹</span>
+        Print Bar
+      </button>
+      
+      <!-- Existing Print Button -->
       <button @click="$emit('print', ticket)" class="action-btn btn-print">
+        <span class="btn-icon">🖨️</span>
         Print
       </button>
+      
       <button v-if="ticket.status!=='cancel'"
         @click="$emit('update-status', ticket.id, 'cancel')"
         class="action-btn btn-cancel"
@@ -132,7 +128,6 @@
         Add Item
       </button>
     </div>
-
     <!-- Urgency Indicator -->
     <div v-if="isUrgent" class="urgency-indicator">
       <span class="urgency-icon">⚠️</span>
@@ -144,31 +139,26 @@
 <script>
 export default {
   name: 'TicketCard',
-
   props: {
     ticket: {
       type: Object,
       required: true,
     },
   },
-
   computed: {
     isUrgent() {
       const now = new Date()
       const createdAt = new Date(this.ticket.createdAt)
       const minutesAgo = (now - createdAt) / (1000 * 60)
-
       return (
         (this.ticket.status === 'preparing' && minutesAgo > 15) ||
         (this.ticket.status === 'ready' && minutesAgo > 5)
       )
     },
-
     urgencyReason() {
       const now = new Date()
       const createdAt = new Date(this.ticket.createdAt)
       const minutesAgo = Math.floor((now - createdAt) / (1000 * 60))
-
       if (this.ticket.status === 'preparing') {
         return `Preparing for ${minutesAgo} minutes`
       } else if (this.ticket.status === 'ready') {
@@ -177,7 +167,6 @@ export default {
       return ''
     },
   },
-
   methods: {
     handleAddItem() {
       this.$emit('add-item', {
@@ -186,7 +175,6 @@ export default {
         ticket: this.ticket
       })
     },
-
     formatTime(date) {
       if (!date) return 'N/A'
       return new Date(date).toLocaleTimeString([], {
@@ -194,16 +182,13 @@ export default {
         minute: '2-digit',
       })
     },
-
     formatPrice(amount) {
       const formattedNumber = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       }).format(Math.round(amount || 0))
-
       return `${formattedNumber} ₭`
     },
-
     formatStatus(status) {
       const statusMap = {
         pending: 'Pending',
@@ -215,7 +200,6 @@ export default {
       }
       return statusMap[status] || status
     },
-
     formatPaymentStatus(status) {
       const statusMap = {
         pending: 'Unpaid',
@@ -224,7 +208,6 @@ export default {
       }
       return statusMap[status] || status
     },
-
     truncateNotes(notes) {
       if (!notes) return ''
       return notes.length > 60 ? notes.substring(0, 60) + '...' : notes
@@ -241,11 +224,9 @@ export default {
   align-items: center;
   gap: 6px;
 }
-
 .btn-add-item:hover:not(:disabled) {
   background: #6b46c1;
 }
-
 .btn-add-item:disabled {
   background: #cbd5e0;
   cursor: not-allowed;
@@ -260,17 +241,32 @@ export default {
   align-items: center;
   gap: 6px;
 }
-
 .btn-notes:hover {
   background: #ed8936;
 }
-
 .btn-notes.has-notes {
   background: #dd6b20;
 }
-
 .btn-notes.has-notes:hover {
   background: #c05621;
+}
+
+/* ✅ NEW: Print Bar Button Styles */
+.btn-print-bar {
+  background: #38b2ac;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.btn-print-bar:hover {
+  background: #319795;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 178, 172, 0.3);
+}
+.btn-print-bar .btn-icon {
+  font-size: 16px;
 }
 
 .ticket-notes-preview {
@@ -286,12 +282,10 @@ export default {
   margin-top: 12px;
   position: relative;
 }
-
 .notes-icon {
   font-size: 18px;
   flex-shrink: 0;
 }
-
 .notes-text {
   font-style: italic;
   flex: 1;
@@ -299,7 +293,6 @@ export default {
   font-size: 12px;
   line-height: 1.4;
 }
-
 .notes-edit-btn {
   background: transparent;
   border: none;
@@ -310,16 +303,13 @@ export default {
   transition: all 0.2s;
   flex-shrink: 0;
 }
-
 .notes-edit-btn:hover {
   background: rgba(237, 137, 54, 0.1);
   transform: scale(1.1);
 }
-
 .ticket-notes-empty {
   margin-top: 12px;
 }
-
 .add-notes-btn {
   width: 100%;
   padding: 10px 12px;
@@ -336,22 +326,18 @@ export default {
   justify-content: center;
   gap: 6px;
 }
-
 .add-notes-btn:hover {
   border-color: #f6ad55;
   background: #fffaf0;
   color: #ed8936;
 }
-
 .btn-icon {
   font-size: 14px;
 }
-
 .btn-cancel {
   background: #fc8181;
   color: white;
 }
-
 .btn-cancel:hover {
   background: #f56565;
 }
@@ -367,13 +353,11 @@ export default {
   transition: all 0.3s ease;
   position: relative;
 }
-
 .ticket-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   border-color: #4299e1;
 }
-
 .ticket-card.urgent {
   border-color: #ed8936;
   background: #fffaf0;
@@ -386,25 +370,21 @@ export default {
   align-items: flex-start;
   margin-bottom: 16px;
 }
-
 .ticket-number {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
 .ticket-id {
   font-size: 20px;
   font-weight: 700;
   color: #1a202c;
 }
-
 .ticket-time {
   font-size: 12px;
   color: #718096;
   font-weight: 500;
 }
-
 .ticket-badges {
   display: flex;
   flex-direction: column;
@@ -423,7 +403,6 @@ export default {
   letter-spacing: 0.5px;
   white-space: nowrap;
 }
-
 .status-pending {
   background: #fef5e7;
   color: #b7791f;
@@ -465,24 +444,20 @@ export default {
 .card-info {
   margin-bottom: 16px;
 }
-
 .info-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
   align-items: center;
 }
-
 .info-row:last-child {
   margin-bottom: 0;
 }
-
 .info-label {
   color: #718096;
   font-size: 14px;
   font-weight: 500;
 }
-
 .info-value {
   color: #2d3748;
   font-weight: 600;
@@ -495,20 +470,17 @@ export default {
   padding-top: 16px;
   border-top: 1px solid #e2e8f0;
 }
-
 .summary-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
 }
-
 .total-label {
   font-weight: 600;
   color: #4a5568;
   font-size: 15px;
 }
-
 .total-amount {
   font-size: 22px;
   font-weight: 700;
@@ -521,7 +493,6 @@ export default {
   gap: 8px;
   flex-wrap: wrap;
 }
-
 .action-btn {
   padding: 8px 14px;
   border: none;
@@ -535,7 +506,6 @@ export default {
   align-items: center;
   gap: 4px;
 }
-
 .btn-preparing {
   background: #4299e1;
   color: white;
@@ -543,7 +513,6 @@ export default {
 .btn-preparing:hover {
   background: #3182ce;
 }
-
 .btn-ready {
   background: #48bb78;
   color: white;
@@ -551,7 +520,6 @@ export default {
 .btn-ready:hover {
   background: #38a169;
 }
-
 .btn-served {
   background: #9f7aea;
   color: white;
@@ -559,7 +527,6 @@ export default {
 .btn-served:hover {
   background: #805ad5;
 }
-
 .btn-payment {
   background: #ed8936;
   color: white;
@@ -567,7 +534,6 @@ export default {
 .btn-payment:hover {
   background: #dd6b20;
 }
-
 .btn-print {
   background: #718096;
   color: white;
@@ -575,7 +541,6 @@ export default {
 .btn-print:hover {
   background: #4a5568;
 }
-
 .action-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -598,7 +563,6 @@ export default {
   box-shadow: 0 2px 8px rgba(237, 137, 54, 0.4);
   animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
   0%,
   100% {
@@ -608,11 +572,9 @@ export default {
     transform: scale(1.05);
   }
 }
-
 .urgency-icon {
   font-size: 14px;
 }
-
 .urgency-text {
   font-size: 11px;
 }
@@ -622,11 +584,9 @@ export default {
   .ticket-card {
     padding: 16px;
   }
-
   .card-actions {
     flex-direction: column;
   }
-
   .action-btn {
     width: 100%;
     justify-content: center;

@@ -16,36 +16,19 @@
           </v-alert>
 
           <v-form ref="cancelForm" v-model="cancelDialog.valid">
-            <v-textarea
-              v-model="cancelDialog.reason"
-              label="ເຫດຜົນໃນການຍົກເລີກ / Cancellation Reason *"
-              placeholder="ກະລຸນາລະບຸເຫດຜົນໃນການຍົກເລີກ ticket..."
-              rows="4"
-              counter="500"
-              :rules="cancelDialog.reasonRules"
-              variant="outlined"
-              required
-            ></v-textarea>
+            <v-textarea v-model="cancelDialog.reason" label="ເຫດຜົນໃນການຍົກເລີກ / Cancellation Reason *"
+              placeholder="ກະລຸນາລະບຸເຫດຜົນໃນການຍົກເລີກ ticket..." rows="4" counter="500"
+              :rules="cancelDialog.reasonRules" variant="outlined" required></v-textarea>
           </v-form>
         </v-card-text>
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn
-            color="grey"
-            variant="text"
-            @click="closeCancelDialog"
-            :disabled="cancelDialog.loading"
-          >
+          <v-btn color="grey" variant="text" @click="closeCancelDialog" :disabled="cancelDialog.loading">
             Cancel
           </v-btn>
-          <v-btn
-            color="error"
-            variant="elevated"
-            @click="confirmCancellation"
-            :loading="cancelDialog.loading"
-            :disabled="!cancelDialog.valid"
-          >
+          <v-btn color="error" variant="elevated" @click="confirmCancellation" :loading="cancelDialog.loading"
+            :disabled="!cancelDialog.valid">
             <v-icon start>mdi-cancel</v-icon>
             Confirm Cancel
           </v-btn>
@@ -54,36 +37,17 @@
     </v-dialog>
 
     <!-- POS Dialog -->
-    <POSDialog
-      :show="showPOSDialog"
-      :table-id="selectedTableId"
-      :ticket="selectedTicket"
-      @close="closePOSDialog"
-      @ticket-updated="handleTicketUpdated"
-      @reload-data="fetchTickets"
-    />
+    <POSDialog :show="showPOSDialog" :table-id="selectedTableId" :ticket="selectedTicket" @close="closePOSDialog"
+      @ticket-updated="handleTicketUpdated" @reload-data="fetchTickets" />
 
     <!-- Notes Dialog -->
-    <NotesDialog
-      :show="showNotesDialog"
-      :notes="selectedTicketNotes"
-      :existing-notes="selectedTicket?.notes"
-      title="Edit Ticket Notes"
-      label="Ticket Notes"
-      placeholder="Enter notes for this ticket..."
-      hint="Update ticket notes"
-      :max-length="500"
-      :show-quick-notes="true"
-      :custom-quick-notes="[
+    <NotesDialog :show="showNotesDialog" :notes="selectedTicketNotes" :existing-notes="selectedTicket?.notes"
+      title="Edit Ticket Notes" label="Ticket Notes" placeholder="Enter notes for this ticket..."
+      hint="Update ticket notes" :max-length="500" :show-quick-notes="true" :custom-quick-notes="[
         'Canceled by customer',
         'Kitchen issue',
         'Payment issue',
-      ]"
-      :loading="updatingNotes"
-      @close="closeNotesDialog"
-      @save="handleSaveTicketNotes"
-      @show-message="showToast"
-    />
+      ]" :loading="updatingNotes" @close="closeNotesDialog" @save="handleSaveTicketNotes" @show-message="showToast" />
 
     <!-- Page Header -->
     <!-- Updated Page Header with improved filter layout -->
@@ -95,12 +59,8 @@
         <!-- Search Row -->
         <div class="filter-row">
           <div class="search-group">
-            <input
-              v-model="searchQuery"
-              type="text"
-              placeholder="Search tickets by ID, customer name, or table..."
-              class="search-input"
-            />
+            <input v-model="searchQuery" type="text" placeholder="Search tickets by ID, customer name, or table..."
+              class="search-input" />
           </div>
         </div>
 
@@ -140,11 +100,7 @@
             </div>
 
             <div class="filter-actions">
-              <button
-                @click="clearFilters"
-                class="btn-clear"
-                v-if="hasActiveFilters"
-              >
+              <button @click="clearFilters" class="btn-clear" v-if="hasActiveFilters">
                 <span class="icon">✖</span>
                 Clear
               </button>
@@ -226,60 +182,38 @@
 
     <!-- Tickets Grid -->
     <div v-else class="tickets-grid">
-      <TicketCard
-        v-for="ticket in filteredTickets"
-        :key="ticket.id"
-        :ticket="ticket"
-        @click="viewTicketInDialog(ticket)"
-        @add-item="handleAddItem"
-        @add-notes="handleAddNotes"
-        @edit-notes="handleEditNotes"
-        @update-status="updateTicketStatus"
-        @process-payment="processPayment"
-        @print="openPrintDialog"
-      />
+      <TicketCard v-for="ticket in filteredTickets" :key="ticket.id" :ticket="ticket"
+        @click="viewTicketInDialog(ticket)" @add-item="handleAddItem" @add-notes="handleAddNotes"
+        @edit-notes="handleEditNotes" @update-status="updateTicketStatus" @process-payment="processPayment"
+        @print="openPrintDialog" @print-bar="handlePrintBar" />
     </div>
 
     <!-- Pagination -->
     <div v-if="pagination.totalPages > 1" class="pagination">
-      <button
-        @click="changePage(pagination.currentPage - 1)"
-        :disabled="pagination.currentPage === 1"
-        class="pagination-btn"
-      >
+      <button @click="changePage(pagination.currentPage - 1)" :disabled="pagination.currentPage === 1"
+        class="pagination-btn">
         ← Previous
       </button>
       <span class="pagination-info">
         Page {{ pagination.currentPage }} of {{ pagination.totalPages }}
       </span>
-      <button
-        @click="changePage(pagination.currentPage + 1)"
-        :disabled="pagination.currentPage === pagination.totalPages"
-        class="pagination-btn"
-      >
+      <button @click="changePage(pagination.currentPage + 1)"
+        :disabled="pagination.currentPage === pagination.totalPages" class="pagination-btn">
         Next →
       </button>
     </div>
 
     <!-- Ticket Detail Dialog -->
-    <TicketDetailDialog
-      v-if="showDialog"
-      :ticket="selectedTicket"
-      @close="closeDialog"
-      @update-status="updateTicketStatusFromDialog"
-      @process-payment="processPaymentFromDialog"
-      @print="openPrintDialogFromDetail"
-    />
+    <TicketDetailDialog v-if="showDialog" :ticket="selectedTicket" @close="closeDialog"
+      @update-status="updateTicketStatusFromDialog" @process-payment="processPaymentFromDialog"
+      @print="openPrintDialogFromDetail" />
 
     <!-- 85mm Thermal Print Dialog -->
-    <PrintTicketDialog
-      :show="showPrintDialog"
-      :ticket="printTicket"
-      :restaurant-info="restaurantConfig"
-      @close="closePrintDialog"
-      @printed="handlePrintSuccess"
-      @print-error="handlePrintError"
-    />
+    <PrintTicketDialog :show="showPrintDialog" :ticket="printTicket" :restaurant-info="restaurantConfig"
+      @close="closePrintDialog" @printed="handlePrintSuccess" @print-error="handlePrintError" />
+    <!-- ✅ NEW: Bar Ticket Dialog -->
+    <print-bar-ticket-dialog :show="showBarTicketDialog" :ticket="selectedBarTicket" station-name="BAR/KITCHEN"
+      @close="showBarTicketDialog = false" @printed="onBarTicketPrinted" />
   </div>
 </template>
 
@@ -289,6 +223,7 @@ import TicketDetailDialog from '~/components/tickets/TicketDetailDialog.vue'
 import PrintTicketDialog from '@/components/CAFE/printdialog'
 import POSDialog from '~/components/CAFE/POSDialog.vue'
 import NotesDialog from '~/components/tickets/NotesDialog.vue'
+import PrintBarTicketDialog from '~/components/CAFE/printBarDialog'
 
 export default {
   name: 'TicketsPage',
@@ -299,6 +234,7 @@ export default {
     TicketCard,
     TicketDetailDialog,
     PrintTicketDialog,
+    PrintBarTicketDialog
   },
 
   data() {
@@ -315,7 +251,8 @@ export default {
         address:
           '123 Main Street<br>City, State 12345<br>Phone: (555) 123-4567',
       },
-
+      showBarTicketDialog: false,
+      selectedBarTicket: null,
       cancelDialog: {
         show: false,
         ticketId: null,
@@ -451,6 +388,22 @@ export default {
   },
 
   methods: {
+    handlePrintBar(ticket) {
+      console.log('Opening bar ticket print dialog for:', ticket.id)
+      this.selectedBarTicket = ticket
+      this.showBarTicketDialog = true
+    },
+    onBarTicketPrinted(ticket) {
+      console.log('Bar ticket printed successfully:', ticket.id)
+      if (this.$toast) {
+        this.$toast.success(`Bar ticket #${ticket.id} printed successfully`)
+      }
+      // Optionally update ticket status to 'preparing'
+      // this.updateTicketStatus(ticket.id, 'preparing')
+      if (ticket.status === 'pending') {
+        this.updateTicketStatus(ticket.id, 'preparing')
+      }
+    },
     getTodayDate() {
       return new Date().toISOString().split('T')[0]
     },
@@ -469,7 +422,18 @@ export default {
       this.endDate = this.getTodayDate() // Reset to today
       this.showToast('Filters cleared', 'info')
     },
+    // Optional: Add keyboard shortcut for bar ticket printing
+    handleKeyboardShortcuts(event) {
+      // ... existing shortcuts ...
 
+      // Ctrl/Cmd + B = Print Bar Ticket
+      if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
+        event.preventDefault()
+        if (this.selectedTicket) {
+          this.handlePrintBar(this.selectedTicket)
+        }
+      }
+    },
     handleKeyboardShortcuts(event) {
       if ((event.ctrlKey || event.metaKey) && event.key === 'r') {
         event.preventDefault()
@@ -636,8 +600,7 @@ export default {
     async updateTicketStatus(ticketId, newStatus) {
       try {
         console.info(
-          `USER DET ${JSON.stringify(this.user)} - ${
-            this.user.userGroup.ticketCancel
+          `USER DET ${JSON.stringify(this.user)} - ${this.user.userGroup.ticketCancel
           }`
         )
         console.info(
@@ -1082,12 +1045,15 @@ export default {
 .stat-card.stat-pending {
   border-left-color: #ed8936;
 }
+
 .stat-card.stat-preparing {
   border-left-color: #4299e1;
 }
+
 .stat-card.stat-ready {
   border-left-color: #48bb78;
 }
+
 .stat-card.stat-unpaid {
   border-left-color: #f56565;
 }
