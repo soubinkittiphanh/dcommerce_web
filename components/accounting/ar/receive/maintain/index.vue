@@ -400,8 +400,8 @@
                         <tr>
                           <th style="width: 30px">#</th>
                           <th style="width: 200px">ລາຍລະອຽດ *</th>
-                          <th style="width: 80px">ຍອດອ້າງອີງ</th>
-                          <th style="width: 90px">ຍອດຊຳລະ *</th>
+                          <th >ຍອດອ້າງອີງ</th>
+                          <th >ຍອດຊຳລະ *</th>
                           <!-- <th style="width: 90px">ວັນທີແບ່ງປັນ *</th> -->
                           <!-- <th style="width: 120px">ໝາຍເຫດ</th> -->
                           <th>ລະຫັດການເງິນ <span class="required">*</span></th>
@@ -873,44 +873,31 @@
   </div>
 </template>
 
-
 <script>
 import ARReceivePrinter from '~/components/accounting/ar/receive/voucher'
 
 export default {
   name: 'ReceiveHeaderMaintain',
   components: {
-    ARReceivePrinter, // Add this
+    ARReceivePrinter,
   },
   props: {
     glAccounts: { type: Array, default: () => [] },
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-    receipt: {
-      type: Object,
-      default: null,
-    },
+    visible: { type: Boolean, default: false },
+    receipt: { type: Object, default: null },
     currencies: { type: Array, default: () => [] },
-    invoices: {
-      type: Array,
-      default: () => [],
-    },
-    users: {
-      type: Array,
-      default: () => [],
-    },
+    invoices: { type: Array, default: () => [] },
+    users: { type: Array, default: () => [] },
   },
 
   data() {
     return {
-      showPrintDialog: false, // Add this if missing
-      selectedReceiptForPrint: null, // Add this if missing
+      showPrintDialog: false,
+      selectedReceiptForPrint: null,
       selectedCurrency: null,
       paymentMethods: [],
-      transactionCodes: [], // Add this
-      loadingTransactionCodes: false, // Add this
+      transactionCodes: [],
+      loadingTransactionCodes: false,
       activeTab: 'header',
       formLoading: false,
       saving: false,
@@ -947,9 +934,11 @@ export default {
     isEdit() {
       return !!(this.receipt && this.receipt.id)
     },
+    
     user() {
       return this.$auth.user || {}
     },
+    
     calculatedAllocatedTotal() {
       return this.allocationLines.reduce((sum, allocation) => {
         return sum + (parseFloat(allocation.allocatedAmount) || 0)
@@ -968,12 +957,10 @@ export default {
       return this.selectedInvoice ? this.selectedInvoice.invoiceLines || [] : []
     },
 
-    // ADD THIS NEW COMPUTED PROPERTY
     hasInvoiceLines() {
       return this.allocationLines.some((line) => line.invoiceLine !== null)
     },
 
-    // UPDATED isFormValid to support manual lines
     isFormValid() {
       const hasValidHeader =
         this.form.receiptNumber &&
@@ -985,10 +972,8 @@ export default {
       const hasValidAllocations =
         this.allocationLines.length > 0 &&
         this.allocationLines.some((allocation) => {
-          const hasDescription =
-            allocation.invoiceLine || allocation.description
-          const hasValidAmount =
-            (parseFloat(allocation.allocatedAmount) || 0) > 0
+          const hasDescription = allocation.invoiceLine || allocation.description
+          const hasValidAmount = (parseFloat(allocation.allocatedAmount) || 0) > 0
           const hasDate = allocation.allocationDate
           return hasDescription && hasValidAmount && hasDate
         }) &&
@@ -1006,16 +991,21 @@ export default {
       return this.filteredInvoices.filter(
         (invoice) =>
           invoice.invoiceNumber.toLowerCase().includes(query) ||
-          (invoice.client &&
-            invoice.client.name.toLowerCase().includes(query)) ||
-          (invoice.description &&
-            invoice.description.toLowerCase().includes(query))
+          (invoice.client && invoice.client.name.toLowerCase().includes(query)) ||
+          (invoice.agency && invoice.agency.agencyName.toLowerCase().includes(query)) ||
+          (invoice.description && invoice.description.toLowerCase().includes(query))
       )
     },
+
+    // NEW: Get allocation summary
+    allocationSummary() {
+      return this.getAllocationSummary()
+    },
   },
+
   async mounted() {
-    await this.loadTransactionCodes() // Add this
-    await this.loadPaymentMethods() // Add this
+    await this.loadTransactionCodes()
+    await this.loadPaymentMethods()
   },
 
   watch: {
@@ -1051,10 +1041,7 @@ export default {
       handler(newDate) {
         if (newDate && this.allocationLines.length > 0) {
           this.allocationLines.forEach((allocation) => {
-            if (
-              !allocation.allocationDate ||
-              allocation.allocationDate === ''
-            ) {
+            if (!allocation.allocationDate || allocation.allocationDate === '') {
               allocation.allocationDate = newDate
             }
           })
@@ -1064,10 +1051,14 @@ export default {
   },
 
   methods: {
+    // =====================================================
+    // PRINT AND VOUCHER METHODS
+    // =====================================================
     closePrintDialog() {
       this.showPrintDialog = false
       this.selectedReceiptForPrint = null
     },
+
     printReceipt() {
       console.log('🖨️ Print button clicked')
 
@@ -1083,7 +1074,6 @@ export default {
 
       console.log('📝 Preparing receipt data...')
 
-      // Prepare complete receipt data
       const receiptData = {
         id: this.form.id,
         receiptNumber: this.form.receiptNumber,
@@ -1100,11 +1090,17 @@ export default {
           description: line.description || line.invoiceLine?.description || '-',
           allocatedAmount: parseFloat(line.allocatedAmount) || 0,
           allocationDate: line.allocationDate,
+          quantity: line.quantity || null,
+          unitPrice: line.unitPrice || null,
+          lineTotal: line.lineTotal || null,
           txnId: line.txnId,
           DRglAccountId: line.DRglAccountId,
           CRglAccountId: line.CRglAccountId,
           notes: line.notes || '',
+          isFromInvoice: line.isFromInvoice || false,
+          invoiceLineNumber: line.invoiceLine?.lineNumber || null,
         })),
+        selectedInvoice: this.selectedInvoice,
         inputter: {
           cus_name: this.user?.cus_name || this.user?.username || '-',
         },
@@ -1112,52 +1108,32 @@ export default {
 
       console.log('📊 Receipt data prepared:', receiptData)
 
-      // Set data and open dialog
       this.selectedReceiptForPrint = receiptData
-
       this.$nextTick(() => {
         console.log('🚀 Opening print dialog...')
         this.showPrintDialog = true
-        console.log('✅ showPrintDialog set to:', this.showPrintDialog)
       })
     },
+
+    // =====================================================
+    // SEQUENCE AND REFERENCE DATA LOADING
+    // =====================================================
     async requestSequence() {
       try {
-        const { data } = await this.$axios.get(
-          '/api/ar-receive-headers/sequence'
-        )
+        const { data } = await this.$axios.get('/api/ar-receive-headers/sequence')
 
         if (data.success) {
-          // Assign the generated invoice number to your form
           this.form.receiptNumber = data.data.invoiceNumber
-
-          // Optional: Show success message
-          this.$message.success(
-            `Invoice number generated: ${data.data.invoiceNumber}`
-          )
-
+          this.$message?.success(`Receipt number generated: ${data.data.invoiceNumber}`)
           return data.data.invoiceNumber
         }
       } catch (error) {
-        console.error('Error getting invoice sequence:', error)
-        this.$message.error('Failed to generate invoice number')
+        console.error('Error getting receipt sequence:', error)
+        this.$message?.error('Failed to generate receipt number')
         throw error
       }
     },
-    onCurrencyChange() {
-      if (this.form.currencyId && this.currencies.length > 0) {
-        this.selectedCurrency = this.currencies.find(
-          (c) => c.id === this.form.currencyId
-        )
-        // Update the exchange rate based on
-        console.info(`Currency structure ${JSON.stringify(this.currencies)}`)
-        this.form.exchangeRate = this.currencies.find(
-          (c) => c.id === this.form.currencyId
-        ).rate
-      } else {
-        this.selectedCurrency = null
-      }
-    },
+
     async loadPaymentMethods() {
       try {
         const { data } = await this.$axios.get('/api/paymentMethod/find')
@@ -1167,13 +1143,14 @@ export default {
         this.paymentMethods = []
       }
     },
+
     async loadTransactionCodes() {
       this.loadingTransactionCodes = true
       try {
         const { data } = await this.$axios.get('/api/transaction-codes', {
           params: {
             includeInactive: false,
-            type: 'EXPENSE', // Filter only EXPENSE types for payments
+            type: 'INCOME', // Changed to INCOME for AR receive
           },
         })
         this.transactionCodes = data || []
@@ -1185,25 +1162,378 @@ export default {
         this.loadingTransactionCodes = false
       }
     },
-    getTransactionCodeLabel(txnId) {
-      const txn = this.transactionCodes.find((t) => t.id === txnId)
-      return txn ? `${txn.code} - ${txn.description}` : ''
+
+    // =====================================================
+    // CURRENCY HANDLING
+    // =====================================================
+    onCurrencyChange() {
+      if (this.form.currencyId && this.currencies.length > 0) {
+        this.selectedCurrency = this.currencies.find((c) => c.id === this.form.currencyId)
+        console.info(`Currency structure ${JSON.stringify(this.currencies)}`)
+        
+        if (this.selectedCurrency) {
+          this.form.exchangeRate = this.selectedCurrency.rate || 1.0
+          console.log('✅ Currency updated:', this.selectedCurrency.code, 'Rate:', this.form.exchangeRate)
+        }
+      } else {
+        this.selectedCurrency = null
+        this.form.exchangeRate = 1.0
+      }
     },
+
+    // =====================================================
+    // ENHANCED INVOICE SELECTION AND POPULATION
+    // =====================================================
+    async updateSelectedInvoice() {
+      console.info('🔍 updateSelectedInvoice called')
+      console.log('📝 Current form.invoiceHeaderId:', this.form.invoiceHeaderId)
+      console.log('📋 Available invoices:', this.invoices.length)
+
+      // Clear previous selection
+      this.selectedInvoice = null
+
+      if (!this.form.invoiceHeaderId) {
+        console.log('❌ No invoice selected')
+        if (!this.isEdit) {
+          this.allocationLines = []
+          this.clearInvoiceRelatedFields()
+        }
+        return
+      }
+
+      // Better ID comparison handling both string and number
+      const invoiceId = parseInt(this.form.invoiceHeaderId)
+      console.log('🔍 Looking for invoice ID:', invoiceId)
+
+      // Find the selected invoice
+      this.selectedInvoice = this.invoices.find((inv) => {
+        console.log('🔍 Comparing:', inv.id, 'with', invoiceId)
+        return inv.id === invoiceId
+      })
+
+      if (!this.selectedInvoice) {
+        console.log('❌ Invoice not found in main invoices array, trying to load from API...')
+        await this.loadInvoiceById(invoiceId)
+      }
+
+      if (!this.selectedInvoice) {
+        console.log('❌ Could not find or load selected invoice')
+        this.showToast('ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ເລືອກ', 'error')
+        return
+      }
+
+      console.log('✅ Selected invoice found:', this.selectedInvoice.invoiceNumber)
+      console.log('📄 Invoice details:', {
+        id: this.selectedInvoice.id,
+        invoiceNumber: this.selectedInvoice.invoiceNumber,
+        totalAmount: this.selectedInvoice.totalAmount,
+        currencyId: this.selectedInvoice.currencyId,
+        agencyId: this.selectedInvoice.agencyId,
+        lineCount: this.selectedInvoice.invoiceLines?.length || 0
+      })
+
+      // POPULATE HEADER DETAILS FROM SELECTED INVOICE
+      await this.populateHeaderFromInvoice()
+
+      // Check if invoice lines exist and load if needed
+      if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
+        console.log('🔄 Loading invoice lines...')
+        await this.loadSelectedInvoiceLines()
+      }
+
+      // CREATE ALLOCATION LINES FROM INVOICE LINES
+      if (this.selectedInvoice.invoiceLines && this.selectedInvoice.invoiceLines.length > 0) {
+        console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
+        console.info(`SELECTED INVOICE DETAILS: ${JSON.stringify(this.selectedInvoice)}`)
+
+        // Only auto-create allocation lines for new records
+        if (!this.isEdit) {
+          this.createAllocationLinesFromInvoice()
+        } else {
+          console.log('ℹ️ Edit mode - not auto-creating allocation lines')
+        }
+      } else {
+        console.log('❌ No invoice lines available')
+        this.showToast('ໃບແຈ້ງໜີ້ນີ້ບໍ່ມີລາຍການສິນຄ້າ', 'warning')
+      }
+
+      console.log('📊 Final allocation lines count:', this.allocationLines.length)
+    },
+
+    // NEW METHOD: Populate header details from selected invoice
+    async populateHeaderFromInvoice() {
+      if (!this.selectedInvoice) {
+        console.log('❌ No selected invoice to populate header from')
+        return
+      }
+
+      console.log('🔄 Populating header details from invoice...')
+
+      try {
+        // Set currency from invoice
+        if (this.selectedInvoice.currencyId) {
+          console.log('💱 Setting currency from invoice:', this.selectedInvoice.currencyId)
+          this.form.currencyId = this.selectedInvoice.currencyId
+          
+          // Find and set the selected currency
+          this.selectedCurrency = this.currencies.find(c => c.id === this.selectedInvoice.currencyId)
+          
+          if (this.selectedCurrency) {
+            console.log('✅ Currency found:', this.selectedCurrency.code, 'Rate:', this.selectedCurrency.rate)
+            this.form.exchangeRate = this.selectedCurrency.rate || 1.0
+          } else {
+            console.log('⚠️ Currency not found in currencies list')
+            // Try to use rate from invoice if available
+            this.form.exchangeRate = this.selectedInvoice.exchangeRate || 1.0
+          }
+        }
+
+        // Set reference number based on invoice number
+        if (!this.form.referenceNumber && this.selectedInvoice.invoiceNumber) {
+          this.form.referenceNumber = `REF-${this.selectedInvoice.invoiceNumber}`
+        }
+
+        // Set notes with invoice details
+        if (!this.form.notes) {
+          const agency = this.selectedInvoice.agency
+          const client = this.selectedInvoice.client
+          const customerInfo = agency ? 
+            `${agency.agencyName} (${agency.agencyCode})` : 
+            client ? `${client.name}` : 'Unknown Customer'
+          
+          this.form.notes = `Payment for ${this.selectedInvoice.invoiceNumber} - ${customerInfo}`
+          
+          if (this.selectedInvoice.description) {
+            this.form.notes += ` - ${this.selectedInvoice.description}`
+          }
+        }
+
+        console.log('✅ Header populated successfully:', {
+          currencyId: this.form.currencyId,
+          exchangeRate: this.form.exchangeRate,
+          referenceNumber: this.form.referenceNumber,
+          notes: this.form.notes
+        })
+
+        // Trigger currency change event to update related fields
+        this.onCurrencyChange()
+
+      } catch (error) {
+        console.error('❌ Error populating header from invoice:', error)
+        this.showToast('ມີປັນຫາໃນການໂຫຼດຂໍ້ມູນຈາກໃບແຈ້ງໜີ້', 'error')
+      }
+    },
+
+    // ENHANCED: Better allocation lines creation with full invoice line data
+    createAllocationLinesFromInvoice() {
+      console.log('🔧 createAllocationLinesFromInvoice called')
+
+      if (!this.selectedInvoice) {
+        console.log('❌ No selected invoice')
+        return
+      }
+
+      if (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0) {
+        console.log('❌ No invoice lines available')
+        this.allocationLines = []
+        return
+      }
+
+      console.log('✅ Creating allocation lines from', this.selectedInvoice.invoiceLines.length, 'invoice lines')
+
+      this.allocationLines = this.selectedInvoice.invoiceLines.map((line, index) => {
+        const allocation = {
+          tempId: this.nextTempId++,
+          lineNumber: index + 1,
+          invoiceLineId: line.id,
+          invoiceLine: line, // Store the full line object for display
+          
+          // Enhanced line details
+          description: line.description || `Line ${line.lineNumber}`,
+          quantity: line.quantity || 1,
+          unitPrice: line.unitPrice || 0,
+          lineTotal: line.lineTotal || 0,
+          
+          // Start with the full line amount as suggested allocation
+          allocatedAmount: line.lineTotal || 0,
+          
+          // GL Account information from invoice line
+          DRglAccountId: line.DRglAccountId || null,
+          CRglAccountId: line.CRglAccountId || null,
+          txnId: line.txnId || null,
+          
+          // Tax information
+          taxRate: line.taxRate || 0,
+          taxAmount: line.taxAmount || 0,
+          
+          // Dates
+          allocationDate: this.form.receivedDate || new Date().toISOString().split('T')[0],
+          
+          // Notes with line details
+          notes: `Invoice Line ${line.lineNumber}: ${line.description}${line.quantity > 1 ? ` (${line.quantity} × ${line.unitPrice})` : ''}`,
+          
+          // Additional flags
+          isManual: false,
+          isFromInvoice: true,
+          
+          // Store invoice reference for context
+          invoiceNumber: this.selectedInvoice.invoiceNumber,
+          invoiceId: this.selectedInvoice.id,
+        }
+
+        console.log(`📝 Created allocation ${index + 1}:`, {
+          lineNumber: allocation.lineNumber,
+          invoiceLineId: allocation.invoiceLineId,
+          description: allocation.description,
+          lineTotal: allocation.lineTotal,
+          allocatedAmount: allocation.allocatedAmount,
+          txnId: allocation.txnId
+        })
+
+        return allocation
+      })
+
+      console.log('🎉 Successfully created', this.allocationLines.length, 'allocation lines')
+      console.log('💰 Total suggested allocation:', this.calculatedAllocatedTotal)
+
+      // Force reactivity update
+      this.$forceUpdate()
+    },
+
+    // ENHANCED: Better invoice loading with complete data
+    async loadInvoiceById(invoiceId) {
+      try {
+        console.log('🔄 Loading invoice by ID:', invoiceId)
+
+        const { data } = await this.$axios.get(`/api/ar-invoices/${invoiceId}`, {
+          params: {
+            include: ['client', 'agency', 'currency', 'invoiceLines', 'maker', 'updateUser'],
+          },
+        })
+
+        console.log('📥 API response for single invoice:', data)
+
+        if (data.success && data.data) {
+          this.selectedInvoice = data.data
+          console.log('✅ Invoice loaded successfully:', this.selectedInvoice.invoiceNumber)
+        } else if (data.invoiceNumber) {
+          this.selectedInvoice = data
+          console.log('✅ Invoice loaded (alt structure):', this.selectedInvoice.invoiceNumber)
+        }
+
+        // Ensure invoice lines are properly structured
+        if (this.selectedInvoice && (!this.selectedInvoice.invoiceLines || this.selectedInvoice.invoiceLines.length === 0)) {
+          console.log('🔄 Invoice lines missing, loading separately...')
+          await this.loadSelectedInvoiceLines()
+        }
+
+      } catch (error) {
+        console.error('❌ Error loading invoice by ID:', error)
+        this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
+      }
+    },
+
+    // ENHANCED: Better invoice lines loading with validation
+    async loadSelectedInvoiceLines() {
+      if (!this.selectedInvoice) {
+        console.log('❌ No selected invoice to load lines for')
+        return
+      }
+
+      try {
+        console.log('🔄 Loading invoice lines for:', this.selectedInvoice.invoiceNumber)
+
+        const { data } = await this.$axios.get(`/api/ar-invoice-lines/by-header/${this.selectedInvoice.id}`)
+
+        console.log('📥 Invoice lines API response:', data)
+
+        // Handle different possible response structures
+        if (data.success && data.data && Array.isArray(data.data)) {
+          this.selectedInvoice.invoiceLines = data.data
+          console.log('✅ Invoice lines loaded:', data.data.length)
+        } else if (Array.isArray(data)) {
+          this.selectedInvoice.invoiceLines = data
+          console.log('✅ Invoice lines loaded (alt structure):', data.length)
+        } else {
+          console.warn('❓ Unexpected response structure:', data)
+          this.selectedInvoice.invoiceLines = []
+        }
+
+        // Log detailed line information
+        if (this.selectedInvoice.invoiceLines && this.selectedInvoice.invoiceLines.length > 0) {
+          console.log('📄 Invoice lines details:')
+          this.selectedInvoice.invoiceLines.forEach((line, index) => {
+            console.log(`  Line ${index + 1}:`, {
+              id: line.id,
+              lineNumber: line.lineNumber,
+              description: line.description,
+              quantity: line.quantity,
+              unitPrice: line.unitPrice,
+              lineTotal: line.lineTotal,
+              txnId: line.txnId,
+              DRglAccountId: line.DRglAccountId,
+              CRglAccountId: line.CRglAccountId
+            })
+          })
+        }
+
+      } catch (error) {
+        console.error('❌ Error loading invoice lines:', error)
+        this.selectedInvoice.invoiceLines = []
+        this.showToast('ມີປັນຫາໃນການໂຫຼດລາຍການໃບແຈ້ງໜີ້', 'error')
+      }
+    },
+
+    // NEW METHOD: Clear invoice-related fields when no invoice selected
+    clearInvoiceRelatedFields() {
+      console.log('🧹 Clearing invoice-related fields')
+      this.form.referenceNumber = ''
+      this.form.notes = ''
+      console.log('✅ Invoice-related fields cleared')
+    },
+
+    // ENHANCED: Better invoice change handler with error handling
+    async onInvoiceChange() {
+      console.log('🔄 onInvoiceChange triggered')
+      
+      try {
+        await this.updateSelectedInvoice()
+        this.clearFieldError('invoiceHeaderId')
+
+        // Switch to allocations tab if lines were created
+        if (this.allocationLines.length > 0) {
+          console.log('🔄 Switching to allocations tab')
+          this.$nextTick(() => {
+            this.activeTab = 'allocations'
+          })
+        }
+      } catch (error) {
+        console.error('❌ Error in onInvoiceChange:', error)
+        this.showToast('ມີປັນຫາໃນການປ່ຽນໃບແຈ້ງໜີ້', 'error')
+      }
+    },
+
+    // =====================================================
+    // LINE MANAGEMENT METHODS
+    // =====================================================
     addManualLine() {
       const newLine = {
         tempId: this.nextTempId++,
         lineNumber: this.allocationLines.length + 1,
-        invoiceLineId: null, // No invoice line reference for manual entries
-        invoiceLine: null, // No invoice line data
-        description: '', // User will fill this
+        invoiceLineId: null,
+        invoiceLine: null,
+        description: '',
         allocatedAmount: 0,
+        quantity: null,
+        unitPrice: null,
+        lineTotal: null,
         DRglAccountId: null,
         CRglAccountId: null,
-        txnId: null, // Add this
-        allocationDate:
-          this.form.receivedDate || new Date().toISOString().split('T')[0],
+        txnId: null,
+        allocationDate: this.form.receivedDate || new Date().toISOString().split('T')[0],
         notes: '',
-        isManual: true, // Flag to indicate manual entry
+        isManual: true,
+        isFromInvoice: false,
       }
 
       this.allocationLines.push(newLine)
@@ -1228,242 +1558,105 @@ export default {
       }
     },
 
-    // Enhanced updateSelectedInvoice method with better debugging
-    async updateSelectedInvoice() {
-      console.log('🔍 updateSelectedInvoice called')
-      console.log('📝 Current form.invoiceHeaderId:', this.form.invoiceHeaderId)
-      console.log('📋 Available invoices:', this.invoices.length)
+    // =====================================================
+    // ALLOCATION HELPER METHODS
+    // =====================================================
+    allocateFullAmount() {
+      this.allocateFullAmountFromInvoice()
+    },
 
-      // Clear previous selection
-      this.selectedInvoice = null
+    allocateFullAmountFromInvoice() {
+      if (this.allocationLines.length === 0 || !this.selectedInvoice) return
 
-      if (!this.form.invoiceHeaderId) {
-        console.log('❌ No invoice selected')
-        if (!this.isEdit) {
-          this.allocationLines = []
+      console.log('💰 Allocating full amounts from invoice lines')
+
+      this.allocationLines.forEach((allocation) => {
+        if (allocation.invoiceLine && allocation.invoiceLine.lineTotal) {
+          const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
+          allocation.allocatedAmount = lineTotal
+          console.log(`  Line ${allocation.lineNumber}: ${lineTotal}`)
         }
-        return
-      }
-
-      // Better ID comparison handling both string and number
-      const invoiceId = parseInt(this.form.invoiceHeaderId)
-      console.log('🔍 Looking for invoice ID:', invoiceId)
-
-      // Find the selected invoice
-      this.selectedInvoice = this.invoices.find((inv) => {
-        console.log('🔍 Comparing:', inv.id, 'with', invoiceId)
-        return inv.id === invoiceId
       })
 
-      if (!this.selectedInvoice) {
-        console.log(
-          '❌ Invoice not found in main invoices array, trying to load from API...'
-        )
-        await this.loadInvoiceById(invoiceId)
-      }
+      console.log('✅ Full allocation completed. Total:', this.calculatedAllocatedTotal)
+    },
 
-      if (!this.selectedInvoice) {
-        console.log('❌ Could not find or load selected invoice')
-        this.showToast('ບໍ່ພົບໃບແຈ້ງໜີ້ທີ່ເລືອກ', 'error')
+    allocateEqually() {
+      if (this.allocationLines.length === 0) return
+
+      const totalToAllocate = this.selectedInvoice ? 
+        parseFloat(this.selectedInvoice.totalAmount) || 0 : 
+        this.calculatedAllocatedTotal || 1000 // Default amount if no invoice
+
+      const amountPerLine = totalToAllocate / this.allocationLines.length
+
+      this.allocationLines.forEach((allocation) => {
+        allocation.allocatedAmount = amountPerLine.toFixed(2)
+      })
+    },
+
+    allocateProportionally() {
+      this.allocateFullAmountFromInvoice() // Same as full allocation for AR
+    },
+
+    clearAllAllocations() {
+      this.allocationLines.forEach((allocation) => {
+        allocation.allocatedAmount = 0
+      })
+    },
+
+    // =====================================================
+    // VALIDATION METHODS
+    // =====================================================
+    getRemainingAmount(allocation) {
+      if (!allocation.invoiceLine) return 0
+      const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
+      const allocated = parseFloat(allocation.allocatedAmount) || 0
+      return lineTotal - allocated
+    },
+
+    isFullyAllocated(allocation) {
+      if (!allocation.invoiceLine) return false
+      return this.getRemainingAmount(allocation) === 0
+    },
+
+    isOverAllocated(allocation) {
+      if (!allocation.invoiceLine) return false
+      return this.getRemainingAmount(allocation) < 0
+    },
+
+    validateAllocation(allocation, index) {
+      this.validateAllocationAgainstInvoice(allocation, index)
+    },
+
+    validateAllocationAgainstInvoice(allocation, index) {
+      if (!allocation.invoiceLine) {
+        // For manual lines, just ensure amount is positive
+        const amount = parseFloat(allocation.allocatedAmount) || 0
+        if (amount <= 0) {
+          this.errors[`allocation_${index}_allocatedAmount`] = 'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
+        } else {
+          this.clearFieldError(`allocation_${index}_allocatedAmount`)
+        }
         return
       }
 
-      console.log(
-        '✅ Selected invoice found:',
-        this.selectedInvoice.invoiceNumber
-      )
-      console.log(
-        '📄 Invoice lines:',
-        this.selectedInvoice.invoiceLines?.length || 0
-      )
+      // For invoice lines, validate against line total
+      const amount = parseFloat(allocation.allocatedAmount) || 0
+      const maxAllowed = parseFloat(allocation.invoiceLine.lineTotal) || 0
 
-      // Check if invoice lines exist and load if needed
-      if (
-        !this.selectedInvoice.invoiceLines ||
-        this.selectedInvoice.invoiceLines.length === 0
-      ) {
-        console.log('🔄 Loading invoice lines...')
-        await this.loadSelectedInvoiceLines()
-      }
-
-      // Create allocation lines for new records only
-      if (
-        this.selectedInvoice.invoiceLines &&
-        this.selectedInvoice.invoiceLines.length > 0
-      ) {
-        console.log(
-          '✅ Creating allocation lines from',
-          this.selectedInvoice.invoiceLines.length,
-          'invoice lines'
-        )
-
-        // Only auto-create allocation lines for new records
-        if (!this.isEdit) {
-          this.createAllocationLinesFromInvoice()
-        } else {
-          console.log('ℹ️ Edit mode - not auto-creating allocation lines')
-        }
+      if (amount > maxAllowed) {
+        this.errors[`allocation_${index}_allocatedAmount`] = `ຈຳນວນເກີນກວ່າທີ່ເຫຼືອ (ສູງສຸດ: ${this.formatCurrency(maxAllowed)})`
+      } else if (amount <= 0) {
+        this.errors[`allocation_${index}_allocatedAmount`] = 'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
       } else {
-        console.log('❌ No invoice lines available')
-        this.showToast('ໃບແຈ້ງໜີ້ນີ້ບໍ່ມີລາຍການສິນຄ້າ', 'warning')
-      }
-
-      console.log(
-        '📊 Final allocation lines count:',
-        this.allocationLines.length
-      )
-    },
-
-    // Method to load invoice by ID if not found in main array
-    async loadInvoiceById(invoiceId) {
-      try {
-        console.log('🔄 Loading invoice by ID:', invoiceId)
-
-        const { data } = await this.$axios.get(
-          `/api/ar-invoices/${invoiceId}`,
-          {
-            params: {
-              include: ['client', 'currency', 'invoiceLines'],
-            },
-          }
-        )
-
-        console.log('📥 API response for single invoice:', data)
-
-        if (data.success && data.data) {
-          this.selectedInvoice = data.data
-          console.log(
-            '✅ Invoice loaded successfully:',
-            this.selectedInvoice.invoiceNumber
-          )
-        } else if (data.invoiceNumber) {
-          // Handle case where response structure is different
-          this.selectedInvoice = data
-          console.log(
-            '✅ Invoice loaded (alt structure):',
-            this.selectedInvoice.invoiceNumber
-          )
-        }
-      } catch (error) {
-        console.error('❌ Error loading invoice by ID:', error)
-        this.showToast('ມີປັນຫາໃນການໂຫຼດໃບແຈ້ງໜີ້', 'error')
+        this.clearFieldError(`allocation_${index}_allocatedAmount`)
       }
     },
 
-    // Better invoice lines loading with debugging
-    async loadSelectedInvoiceLines() {
-      if (!this.selectedInvoice) {
-        console.log('❌ No selected invoice to load lines for')
-        return
-      }
-
-      try {
-        console.log(
-          '🔄 Loading invoice lines for:',
-          this.selectedInvoice.invoiceNumber
-        )
-
-        const { data } = await this.$axios.get(
-          `/api/ar-invoice-lines/by-header/${this.selectedInvoice.id}`
-        )
-
-        console.log('📥 Invoice lines API response:', data)
-
-        // Handle different possible response structures
-        if (data.success && data.data && Array.isArray(data.data)) {
-          this.selectedInvoice.invoiceLines = data.data
-          console.log('✅ Invoice lines loaded:', data.data.length)
-        } else if (Array.isArray(data)) {
-          this.selectedInvoice.invoiceLines = data
-          console.log('✅ Invoice lines loaded (alt structure):', data.length)
-        } else {
-          console.warn('❓ Unexpected response structure:', data)
-          this.selectedInvoice.invoiceLines = []
-        }
-      } catch (error) {
-        console.error('❌ Error loading invoice lines:', error)
-        this.selectedInvoice.invoiceLines = []
-        this.showToast('ມີປັນຫາໃນການໂຫຼດລາຍການໃບແຈ້ງໜີ້', 'error')
-      }
-    },
-
-    // Better allocation lines creation with debugging
-    createAllocationLinesFromInvoice() {
-      console.log('🔧 createAllocationLinesFromInvoice called')
-
-      if (!this.selectedInvoice) {
-        console.log('❌ No selected invoice')
-        return
-      }
-
-      if (
-        !this.selectedInvoice.invoiceLines ||
-        this.selectedInvoice.invoiceLines.length === 0
-      ) {
-        console.log('❌ No invoice lines available')
-        this.allocationLines = []
-        return
-      }
-
-      console.log(
-        '✅ Creating allocation lines from',
-        this.selectedInvoice.invoiceLines.length,
-        'invoice lines'
-      )
-
-      this.allocationLines = this.selectedInvoice.invoiceLines.map(
-        (line, index) => {
-          const allocation = {
-            tempId: this.nextTempId++,
-            lineNumber: index + 1,
-            invoiceLineId: line.id,
-            invoiceLine: line, // Store the full line object for display
-            allocatedAmount: 0, // Default to 0, user will fill this
-            DRglAccountId: null,
-            CRglAccountId: null,
-            txnId: null, // Add this
-            allocationDate:
-              this.form.receivedDate || new Date().toISOString().split('T')[0],
-            notes: '',
-          }
-
-          console.log(`📝 Created allocation ${index + 1}:`, {
-            lineNumber: allocation.lineNumber,
-            invoiceLineId: allocation.invoiceLineId,
-            description: line.description,
-            lineTotal: line.lineTotal,
-          })
-
-          return allocation
-        }
-      )
-
-      console.log(
-        '🎉 Successfully created',
-        this.allocationLines.length,
-        'allocation lines'
-      )
-
-      // Force reactivity update
-      this.$forceUpdate()
-    },
-
-    // Better invoice change handler
-    async onInvoiceChange() {
-      console.log('🔄 onInvoiceChange triggered')
-      await this.updateSelectedInvoice()
-      this.clearFieldError('invoiceHeaderId')
-
-      // Switch to allocations tab if lines were created
-      if (this.allocationLines.length > 0) {
-        console.log('🔄 Switching to allocations tab')
-        this.$nextTick(() => {
-          this.activeTab = 'allocations'
-        })
-      }
-    },
-
-    // Better invoice browser with full data loading
+    // =====================================================
+    // INVOICE BROWSER METHODS
+    // =====================================================
     async openInvoiceBrowser() {
       console.log('🔄 Opening invoice browser')
       this.showInvoiceBrowser = true
@@ -1474,40 +1667,22 @@ export default {
         const { data } = await this.$axios.get('/api/ar-invoices', {
           params: {
             status: ['draft', 'sent'],
-            include: ['client', 'currency', 'invoiceLines'], // Include all needed data
-            limit: 100, // Increase limit to see more invoices
+            include: ['client', 'agency', 'currency', 'invoiceLines'],
+            limit: 100,
           },
         })
 
         console.log('📥 Invoice browser API response:', data)
 
-        // Handle the nested structure in your data
-        if (
-          data.success &&
-          data.data &&
-          data.data.invoices &&
-          Array.isArray(data.data.invoices)
-        ) {
+        if (data.success && data.data && data.data.invoices && Array.isArray(data.data.invoices)) {
           this.filteredInvoices = data.data.invoices
-          console.log(
-            '✅ Loaded',
-            this.filteredInvoices.length,
-            'invoices for browser'
-          )
+          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices for browser')
         } else if (data.success && data.data && Array.isArray(data.data)) {
           this.filteredInvoices = data.data
-          console.log(
-            '✅ Loaded',
-            this.filteredInvoices.length,
-            'invoices (alt structure)'
-          )
+          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices (alt structure)')
         } else if (Array.isArray(data)) {
           this.filteredInvoices = data
-          console.log(
-            '✅ Loaded',
-            this.filteredInvoices.length,
-            'invoices (direct array)'
-          )
+          console.log('✅ Loaded', this.filteredInvoices.length, 'invoices (direct array)')
         } else {
           console.warn('❓ Unexpected response structure:', data)
           this.filteredInvoices = []
@@ -1521,17 +1696,12 @@ export default {
       }
     },
 
-    // Better invoice selection from browser
     async selectInvoiceFromBrowser(invoice) {
       console.log('🎯 Selecting invoice from browser:', invoice.invoiceNumber)
 
-      // Set the form value
       this.form.invoiceHeaderId = invoice.id
 
-      // Add the invoice to main invoices array if not present
-      const existingIndex = this.invoices.findIndex(
-        (inv) => inv.id === invoice.id
-      )
+      const existingIndex = this.invoices.findIndex((inv) => inv.id === invoice.id)
       if (existingIndex === -1) {
         console.log('➕ Adding invoice to main array')
         this.invoices.push(invoice)
@@ -1540,13 +1710,20 @@ export default {
         this.invoices[existingIndex] = invoice
       }
 
-      // Close browser and trigger change
       this.closeInvoiceBrowser()
       await this.onInvoiceChange()
       this.clearFieldError('invoiceHeaderId')
     },
 
-    // Rest of your existing methods remain the same...
+    closeInvoiceBrowser() {
+      this.showInvoiceBrowser = false
+      this.filteredInvoices = []
+      this.invoiceSearchQuery = ''
+    },
+
+    // =====================================================
+    // FORM LIFECYCLE METHODS
+    // =====================================================
     async initializeDialog() {
       this.activeTab = 'header'
       this.clearErrors()
@@ -1555,12 +1732,8 @@ export default {
         this.form = {
           id: this.receipt.id,
           receiptNumber: this.receipt.receiptNumber,
-          bookingDate: this.receipt.bookingDate
-            ? this.receipt.bookingDate.split('T')[0]
-            : '',
-          receivedDate: this.receipt.receivedDate
-            ? this.receipt.receivedDate.split('T')[0]
-            : '',
+          bookingDate: this.receipt.bookingDate ? this.receipt.bookingDate.split('T')[0] : '',
+          receivedDate: this.receipt.receivedDate ? this.receipt.receivedDate.split('T')[0] : '',
           invoiceHeaderId: this.receipt.invoiceHeaderId,
           totalReceivedAmount: this.receipt.totalReceivedAmount || 0.0,
           paymentId: this.receipt.paymentId || null,
@@ -1577,41 +1750,37 @@ export default {
       } else {
         this.resetForm()
 
-        // Set default dates to today
         const today = new Date().toISOString().split('T')[0]
         this.form.bookingDate = today
         this.form.receivedDate = today
 
-        // Initialize with empty allocation lines
         this.allocationLines = []
 
-        // Set default user
         if (this.user && this.user.id) {
           this.form.inputterId = this.user.id
         }
         this.requestSequence()
       }
     },
+
     resetDialog() {
       this.resetForm()
       this.allocationLines = []
       this.selectedInvoice = null
-      this.selectedReceiptForPrint = null // Update this
+      this.selectedReceiptForPrint = null
       this.clearErrors()
       this.activeTab = 'header'
       this.formLoading = false
       this.saving = false
       this.showInvoiceBrowser = false
-      this.showPrintDialog = false // Update this
+      this.showPrintDialog = false
       this.filteredInvoices = []
       this.invoiceSearchQuery = ''
     },
 
     async loadAllocationLines(receiptId) {
       try {
-        const { data } = await this.$axios.get(
-          `/api/ar-receive-lines/by-header/${receiptId}`
-        )
+        const { data } = await this.$axios.get(`/api/ar-receive-lines/by-header/${receiptId}`)
         this.allocationLines = data.data || []
 
         this.allocationLines.forEach((allocation) => {
@@ -1628,94 +1797,9 @@ export default {
       }
     },
 
-    closeInvoiceBrowser() {
-      this.showInvoiceBrowser = false
-      this.filteredInvoices = []
-      this.invoiceSearchQuery = ''
-    },
-
-    // Allocation Helper Methods
-    allocateFullAmount() {
-      if (this.allocationLines.length === 0 || !this.selectedInvoice) return
-
-      this.allocationLines.forEach((allocation) => {
-        if (allocation.invoiceLine) {
-          const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
-          allocation.allocatedAmount = lineTotal.toFixed(2)
-        }
-      })
-    },
-
-    allocateEqually() {
-      if (this.allocationLines.length === 0 || !this.selectedInvoice) return
-
-      const totalInvoice = parseFloat(this.selectedInvoice.totalAmount) || 0
-      const amountPerLine = totalInvoice / this.allocationLines.length
-
-      this.allocationLines.forEach((allocation) => {
-        allocation.allocatedAmount = amountPerLine.toFixed(2)
-      })
-    },
-
-    allocateProportionally() {
-      if (this.allocationLines.length === 0 || !this.selectedInvoice) return
-
-      this.allocationLines.forEach((allocation) => {
-        if (allocation.invoiceLine) {
-          const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
-          allocation.allocatedAmount = lineTotal.toFixed(2)
-        }
-      })
-    },
-
-    clearAllAllocations() {
-      this.allocationLines.forEach((allocation) => {
-        allocation.allocatedAmount = 0
-      })
-    },
-
-    getRemainingAmount(allocation) {
-      if (!allocation.invoiceLine) return 0 // No remaining amount for manual lines
-      const lineTotal = parseFloat(allocation.invoiceLine.lineTotal) || 0
-      const allocated = parseFloat(allocation.allocatedAmount) || 0
-      return lineTotal - allocated
-    },
-    isFullyAllocated(allocation) {
-      if (!allocation.invoiceLine) return false // Manual lines don't have full allocation concept
-      return this.getRemainingAmount(allocation) === 0
-    },
-    isOverAllocated(allocation) {
-      if (!allocation.invoiceLine) return false // Manual lines can't be over-allocated
-      return this.getRemainingAmount(allocation) < 0
-    },
-
-    validateAllocation(allocation, index) {
-      // Only validate max amount for invoice lines
-      if (allocation.invoiceLine) {
-        const amount = parseFloat(allocation.allocatedAmount) || 0
-        const maxAllowed = parseFloat(allocation.invoiceLine.lineTotal) || 0
-
-        if (amount > maxAllowed) {
-          this.errors[
-            `allocation_${index}_allocatedAmount`
-          ] = `ຈຳນວນເກີນກວ່າທີ່ເຫຼືອ (ສູງສຸດ: ${this.formatCurrency(
-            maxAllowed
-          )})`
-        } else {
-          this.clearFieldError(`allocation_${index}_allocatedAmount`)
-        }
-      } else {
-        // For manual lines, just ensure amount is positive
-        const amount = parseFloat(allocation.allocatedAmount) || 0
-        if (amount <= 0) {
-          this.errors[`allocation_${index}_allocatedAmount`] =
-            'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
-        } else {
-          this.clearFieldError(`allocation_${index}_allocatedAmount`)
-        }
-      }
-    },
-
+    // =====================================================
+    // VALIDATION AND SUBMISSION
+    // =====================================================
     validateForm() {
       this.errors = {}
 
@@ -1756,7 +1840,6 @@ export default {
         for (let i = 0; i < this.allocationLines.length; i++) {
           const allocation = this.allocationLines[i]
 
-          // Validate description for manual entries
           if (!allocation.invoiceLine && !allocation.description) {
             this.errors[`allocation_${i}_description`] = 'ກະລຸນາໃສ່ລາຍລະອຽດ'
           }
@@ -1764,22 +1847,18 @@ export default {
           const allocatedAmount = parseFloat(allocation.allocatedAmount) || 0
 
           if (allocatedAmount <= 0) {
-            this.errors[`allocation_${i}_allocatedAmount`] =
-              'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
+            this.errors[`allocation_${i}_allocatedAmount`] = 'ຍອດແບ່ງປັນຕ້ອງຫຼາຍກວ່າ 0'
           } else {
             hasValidAllocation = true
             totalAllocated += allocatedAmount
           }
 
           if (!allocation.allocationDate) {
-            this.errors[`allocation_${i}_allocationDate`] =
-              'ກະລຸນາໃສ່ວັນທີແບ່ງປັນ'
+            this.errors[`allocation_${i}_allocationDate`] = 'ກະລຸນາໃສ່ວັນທີແບ່ງປັນ'
           }
 
-          // Only validate over-allocation for invoice lines
           if (allocation.invoiceLine && this.isOverAllocated(allocation)) {
-            this.errors[`allocation_${i}_allocatedAmount`] =
-              'ຍອດແບ່ງປັນເກີນກວ່າທີ່ເຫຼືອ'
+            this.errors[`allocation_${i}_allocatedAmount`] = 'ຍອດແບ່ງປັນເກີນກວ່າທີ່ເຫຼືອ'
           }
         }
 
@@ -1797,16 +1876,6 @@ export default {
       }
 
       return Object.keys(this.errors).length === 0
-    },
-
-    clearErrors() {
-      this.errors = {}
-    },
-
-    clearFieldError(field) {
-      if (this.errors[field]) {
-        this.$delete(this.errors, field)
-      }
     },
 
     handleSubmit() {
@@ -1832,26 +1901,76 @@ export default {
         ...this.form,
         totalReceivedAmount: parseFloat(this.form.totalReceivedAmount) || 0,
         allocationLines: validAllocationLines.map((allocation, index) => ({
-          id: allocation.id || null, // Include id if editing existing line
+          id: allocation.id || null,
           tempId: allocation.tempId,
           lineNumber: index + 1,
-          invoiceLineId: allocation.invoiceLineId || null, // null for manual entries
-          description: allocation.invoiceLine
-            ? allocation.invoiceLine.description
-            : allocation.description, // Use manual description if no invoice line
+          invoiceLineId: allocation.invoiceLineId || null,
+          description: allocation.invoiceLine ? allocation.invoiceLine.description : allocation.description,
           allocatedAmount: parseFloat(allocation.allocatedAmount) || 0,
           allocationDate: allocation.allocationDate,
+          quantity: allocation.quantity || null,
+          unitPrice: allocation.unitPrice || null,
+          lineTotal: allocation.lineTotal || null,
           DRglAccountId: allocation.DRglAccountId || null,
           CRglAccountId: allocation.CRglAccountId || null,
-          txnId: allocation.txnId || null, // Add this
+          txnId: allocation.txnId || null,
           notes: allocation.notes || '',
-          isManual: !allocation.invoiceLineId, // Flag manual entries
+          isManual: !allocation.invoiceLineId,
+          isFromInvoice: allocation.isFromInvoice || false,
         })),
       }
 
       console.log('💾 Submitting form data:', formData)
       this.$emit('save', formData)
     },
+
+    // =====================================================
+    // UTILITY METHODS
+    // =====================================================
+    getTransactionCodeLabel(txnId) {
+      const txn = this.transactionCodes.find((t) => t.id === txnId)
+      return txn ? `${txn.code} - ${txn.description}` : ''
+    },
+
+    getAllocationSummary() {
+      const summary = {
+        totalLines: this.allocationLines.length,
+        invoiceLines: 0,
+        manualLines: 0,
+        totalAllocated: 0,
+        totalInvoiceAmount: 0,
+        allocationPercentage: 0
+      }
+
+      this.allocationLines.forEach(allocation => {
+        const amount = parseFloat(allocation.allocatedAmount) || 0
+        summary.totalAllocated += amount
+
+        if (allocation.invoiceLine) {
+          summary.invoiceLines++
+          summary.totalInvoiceAmount += parseFloat(allocation.invoiceLine.lineTotal) || 0
+        } else {
+          summary.manualLines++
+        }
+      })
+
+      if (summary.totalInvoiceAmount > 0) {
+        summary.allocationPercentage = (summary.totalAllocated / summary.totalInvoiceAmount) * 100
+      }
+
+      return summary
+    },
+
+    clearErrors() {
+      this.errors = {}
+    },
+
+    clearFieldError(field) {
+      if (this.errors[field]) {
+        this.$delete(this.errors, field)
+      }
+    },
+
     handleOverlayClick() {
       if (!this.saving) {
         this.handleClose()
@@ -1880,11 +1999,13 @@ export default {
       }
     },
 
-    // Utility Methods
+    // =====================================================
+    // FORMATTING METHODS
+    // =====================================================
     formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: this.selectedCurrency?.code || 'USD',
       }).format(amount || 0)
     },
 

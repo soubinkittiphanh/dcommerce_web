@@ -343,6 +343,7 @@ export default {
   },
   data() {
     return {
+      loadingCurrencies:false,
       loading: false,
       agencies: [],
       currencies: [],

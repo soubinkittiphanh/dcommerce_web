@@ -261,8 +261,8 @@
                       <th>{{ formLabel.vendor }}</th>
                       <th>ລະຫັດການເງິນ <span class="required">*</span></th>
                       <th>ຄຳອະທິບາຍ</th>
-                      <th>DR</th>
-                      <th>CR</th>
+                      <!-- <th>DR</th>
+                      <th>CR</th> -->
                       <th class="text-right">ຈຳນວນເງິນ</th>
                       <th style="width: 40px" class="text-center">ລຶບ</th>
                     </tr>
@@ -400,7 +400,7 @@
                           :disabled="!canModifyAllocations"
                         />
                       </td>
-                      <td>
+                      <!-- <td>
                         <v-autocomplete
                           v-model="line.DRglAccountId"
                           :items="glAccounts"
@@ -432,9 +432,9 @@
                         >
                           {{ errors[`line_${index}_DRglAccountId`] }}
                         </small>
-                      </td>
+                      </td> -->
 
-                      <td>
+                      <!-- <td>
                         <v-autocomplete
                           v-model="line.CRglAccountId"
                           :items="glAccounts"
@@ -466,7 +466,7 @@
                         >
                           {{ errors[`line_${index}_CRglAccountId`] }}
                         </small>
-                      </td>
+                      </td> -->
 
                       <!-- Amount -->
                       <td>
@@ -711,11 +711,11 @@
     />
   </div>
 </template>
-
 <script>
 import SettlementAuditDialog from '~/components/accounting/ap/settlement/audit'
 import BrowseMouInvoiceDialog from '~/components/accounting/ap/settlement/browsemou'
 import PaymentVoucherPrinter from '~/components/accounting/ap/settlement/voucher'
+
 export default {
   name: 'SettlementDialog',
 
@@ -737,10 +737,10 @@ export default {
     return {
       showVoucherPrinter: false,
       selectedSettlement: null,
-      transactionCodes: [], // Add this
-      loadingTransactionCodes: false, // Add this
+      transactionCodes: [],
+      loadingTransactionCodes: false,
       formLabel: {
-        vendor: 'ເລືອກກະຊວງ', //'ເລືອກຕົວແທນ',
+        vendor: 'ເລືອກກະຊວງ',
         model: '',
       },
       form: {
@@ -875,6 +875,11 @@ export default {
         description: this.form.description,
       }
     },
+
+    // New computed property for settlement summary
+    settlementSummary() {
+      return this.getSettlementSummary()
+    },
   },
 
   watch: {
@@ -888,16 +893,26 @@ export default {
       },
       immediate: true,
     },
+
+    invoiceSearchTerm() {
+      this.filterInvoices()
+    },
+
+    selectedAgencyFilter() {
+      this.filterInvoices()
+    },
   },
 
   async mounted() {
     await this.loadReferenceData()
-    await this.loadTransactionCodes() // Add this
+    await this.loadTransactionCodes()
   },
 
   methods: {
+    // =====================================================
+    // PRINT AND VOUCHER METHODS
+    // =====================================================
     printSettlement() {
-      // Validation
       if (!this.isEditMode) {
         this.$toast?.warning('ກະລຸນາບັນທຶກການຊຳລະກ່ອນພິມ')
         return
@@ -908,7 +923,6 @@ export default {
         return
       }
 
-      // Build complete data structure
       const settlementData = {
         id: this.form.id,
         settlementDate: this.form.settlementDate,
@@ -923,40 +937,38 @@ export default {
         approvedDate: this.settlement?.approvedDate || null,
         settlementLines: this.settlementLines.map((line) => ({
           invoiceNumber: line.invoiceNumber || '-',
+          lineNumber: line.lineNumber || null,
           agencyName: line.agencyName || line.agency?.agencyName || '-',
           description: line.description || '',
           amount: parseFloat(line.amount || 0),
+          quantity: line.quantity || null,
+          unitPrice: line.unitPrice || null,
           txnId: line.txnId,
           DRglAccountId: line.DRglAccountId,
           CRglAccountId: line.CRglAccountId,
           agency: line.agency || { agencyName: line.agencyName },
+          lineItem: line.lineItem || null,
         })),
-        maker: {
-          cus_name: this.makerName,
-        },
-        checker: {
-          cus_name: this.checkerName,
-        },
+        maker: { cus_name: this.makerName },
+        checker: { cus_name: this.checkerName },
       }
 
-      // Set data first, then open dialog
       this.selectedSettlement = settlementData
-
-      // Use nextTick to ensure data is set before dialog opens
       this.$nextTick(() => {
         this.showVoucherPrinter = true
       })
     },
-    calculateExchangeAmounts() {
-      this.clearFieldError('exchangeRate')
-    },
+
+    // =====================================================
+    // DATA LOADING METHODS
+    // =====================================================
     async loadTransactionCodes() {
       this.loadingTransactionCodes = true
       try {
         const { data } = await this.$axios.get('/api/transaction-codes', {
           params: {
             includeInactive: false,
-            type: 'EXPENSE', // Filter only EXPENSE types for payments
+            type: 'EXPENSE',
           },
         })
         this.transactionCodes = data || []
@@ -968,37 +980,10 @@ export default {
         this.loadingTransactionCodes = false
       }
     },
-    getAgencyName(invoice) {
-      const agency = invoice.agency || invoice.vendor
-      return agency?.name || agency?.agencyName || 'N/A'
-    },
 
-      async onCurrencyChange() {
-      console.info(`Currency changing...`)
-      this.clearFieldError('currencyId')
-      
-      const selectedCurrency = this.currencies.find(
-        (c) => c.id === this.form.currencyId
-      )
-      
-      if (selectedCurrency) {
-        this.selectedCurrency = selectedCurrency
-        this.form.exchangeRate = selectedCurrency.rate || 1.0
-      }
-      
-      // Return promise for async/await
-      return Promise.resolve()
-    },
-    clearFieldError(field) {
-      if (this.errors[field]) {
-        this.$delete(this.errors, field)
-      }
-    },
     async initializeDialog() {
-      // Load reference data first
       await this.loadReferenceData()
 
-      // Then load settlement data
       if (this.settlement) {
         this.loadSettlementData(this.settlement)
       } else {
@@ -1044,7 +1029,7 @@ export default {
       this.loadingAgencies = true
       try {
         const response = await this.$axios.$get('/api/agency')
-        if (response.success && response.data && response.data.agencies) {
+        if (response.success && response.data?.agencies) {
           this.agencies = response.data.agencies
         } else if (response.success && Array.isArray(response.data)) {
           this.agencies = response.data
@@ -1057,6 +1042,9 @@ export default {
       }
     },
 
+    // =====================================================
+    // FORM MANAGEMENT METHODS
+    // =====================================================
     loadSettlementData(settlement) {
       this.form = {
         id: settlement.id,
@@ -1078,7 +1066,6 @@ export default {
         approvalNote: settlement.approvalNote || '',
       }
 
-      // Update selectedCurrency when loading settlement
       if (settlement.currencyId) {
         this.selectedCurrency = this.currencies.find(
           (c) => c.id === Number(settlement.currencyId)
@@ -1089,20 +1076,21 @@ export default {
         this.settlementLines = settlement.invoiceSettlements.map(
           (allocation) => {
             let invoice = null
+            let lineItem = null
             let agency = null
             let agencyName = ''
             let invoiceNumber = ''
             let invoiceId = null
 
-            // Check if this is an invoice-linked line
-            if (
-              allocation.invoiceLineItem &&
-              allocation.invoiceLineItem.invoice
-            ) {
-              invoice = allocation.invoiceLineItem.invoice
-              invoiceId = invoice.id
-              invoiceNumber = invoice.invoiceNumber
-              agency = invoice.agency || invoice.vendor
+            // Check if this is an invoice line item settlement
+            if (allocation.invoiceLineItem) {
+              lineItem = allocation.invoiceLineItem
+              if (lineItem.invoice) {
+                invoice = lineItem.invoice
+                invoiceId = invoice.id
+                invoiceNumber = invoice.invoiceNumber
+                agency = invoice.agency || invoice.vendor
+              }
             }
 
             // Get agency information
@@ -1119,9 +1107,12 @@ export default {
               tempId: this.lineIdCounter++,
               type: allocation.type,
               agency,
-              invoice, // Add invoice reference
+              invoice,
+              lineItem,
               invoiceId,
+              lineItemId: lineItem?.id || null,
               invoiceNumber,
+              lineNumber: lineItem?.lineNumber || null,
               agencyId: allocation.agencyId || agency?.id || null,
               agencyName,
               applicantId: allocation.applicantId || null,
@@ -1129,7 +1120,12 @@ export default {
               CRglAccountId: allocation.CRglAccountId || null,
               description: allocation.description || '',
               amount: parseFloat(allocation.amount || 0),
+              quantity: lineItem?.quantity || null,
+              unitPrice: lineItem?.unitPrice || null,
+              taxAmount: lineItem?.taxAmount || 0,
+              discountAmount: lineItem?.discountAmount || 0,
               txnId: allocation.txnId || null,
+              currencyId: invoice?.currencyId || null,
             }
           }
         )
@@ -1154,14 +1150,43 @@ export default {
       this.settlementLines = []
       this.errors = {}
       this.lineIdCounter = 1
+      this.selectedCurrency = null
     },
 
+    // =====================================================
+    // CURRENCY AND EXCHANGE RATE METHODS
+    // =====================================================
+    async onCurrencyChange() {
+      console.info('Currency changing...')
+      this.clearFieldError('currencyId')
+      
+      const selectedCurrency = this.currencies.find(
+        (c) => c.id === this.form.currencyId
+      )
+      
+      if (selectedCurrency) {
+        this.selectedCurrency = selectedCurrency
+        this.form.exchangeRate = selectedCurrency.rate || 1.0
+      }
+      
+      return Promise.resolve()
+    },
+
+    calculateExchangeAmounts() {
+      this.clearFieldError('exchangeRate')
+    },
+
+    // =====================================================
+    // SETTLEMENT LINES MANAGEMENT
+    // =====================================================
     addManualLine() {
       this.settlementLines.push({
         tempId: this.lineIdCounter++,
         type: 'manual',
         invoiceId: null,
+        lineItemId: null,
         invoiceNumber: '',
+        lineNumber: null,
         agencyId: '',
         applicantId: null,
         DRglAccountId: null,
@@ -1169,74 +1194,197 @@ export default {
         agencyName: '',
         description: '',
         amount: 0,
-        txnId: null, // Add this
+        quantity: null,
+        unitPrice: null,
+        taxAmount: 0,
+        discountAmount: 0,
+        txnId: null,
+        currencyId: this.form.currencyId,
       })
     },
 
     removeLine(index) {
       this.settlementLines.splice(index, 1)
+      this.calculateTotals()
     },
 
-    openAuditDialog() {
-      if (!this.isEditMode) {
-        this.$toast?.warning(
-          'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ້ບັນທຶກການຊຳລະ'
-        )
-        return
+    removeSettlementLine(tempId) {
+      const index = this.settlementLines.findIndex(line => line.tempId === tempId)
+      if (index > -1) {
+        this.settlementLines.splice(index, 1)
+        this.calculateTotals()
+        this.$toast?.success('ລຶບລາຍການສຳເລັດ')
       }
-      this.showAuditDialog = true
     },
 
-    closeAuditDialog() {
-      this.showAuditDialog = false
+    calculateTotals() {
+      // This will trigger the computed property recalculation
+      this.$forceUpdate()
     },
 
-    openMOUDialog() {
-      this.showMOUDialog = true
-    },
-
-    closeMOUDialog() {
-      this.showMOUDialog = false
-    },
-
-    onInvoiceGenerated(invoiceData) {
-      if (!invoiceData?.lines?.length) {
-        this.$toast?.error('No invoice lines received')
+    // =====================================================
+    // INVOICE SELECTION AND PROCESSING
+    // =====================================================
+    async confirmInvoiceSelection() {
+      if (this.tempSelectedInvoices.length === 0) {
+        this.$toast?.warning('ກະລຸນາເລືອກໃບແຈ້ງໜີ້')
         return
       }
 
-      const mouInfo = invoiceData.mouInfo || {}
-      const batchInfo = invoiceData.batchInfo || {}
+      try {
+        console.info(`SELECTED DATA ${JSON.stringify(this.tempSelectedInvoices)}`)
+        
+        // Populate header from first invoice if header is empty
+        if (this.tempSelectedInvoices.length > 0 && !this.form.currencyId) {
+          const firstInvoice = this.tempSelectedInvoices[0]
+          
+          if (firstInvoice.currencyId) {
+            this.form.currencyId = Number(firstInvoice.currencyId)
+            await this.onCurrencyChange()
+          }
+          
+          if (firstInvoice.preferredPaymentMethodId) {
+            this.form.paymentMethodId = Number(firstInvoice.preferredPaymentMethodId)
+          }
+        }
 
-      invoiceData.lines.forEach((line) => {
-        const description = `${mouInfo.jobCode || 'MOU'} | ${
-          batchInfo.runningNo || 'Batch'
-        } | ${invoiceData.agencyCode || 'Agency'} | ${line.applicantName} (${
-          line.passportNo
-        })`
+        // Process each selected invoice and its line items
+        this.tempSelectedInvoices.forEach((invoice) => {
+          const agency = invoice.agency || invoice.vendor
+          
+          // Check if invoice has line items
+          if (invoice.lineItems && invoice.lineItems.length > 0) {
+            // Create settlement lines for each invoice line item
+            invoice.lineItems.forEach((lineItem) => {
+              // Check if this line item already exists
+              const existingLine = this.settlementLines.find(
+                (line) => line.invoiceId === invoice.id && line.lineItemId === lineItem.id
+              )
+              
+              if (existingLine) {
+                this.$toast?.warning(
+                  `ໃບແຈ້ງໜີ້ ${invoice.invoiceNumber} ລາຍການ ${lineItem.lineNumber} ຖືກເພີ່ມແລ້ວ`
+                )
+                return
+              }
 
-        this.settlementLines.push({
-          tempId: this.lineIdCounter++,
-          type: 'mou',
-          invoiceId: null,
-          invoiceNumber: invoiceData.invoiceNumber || '',
-          agencyId: invoiceData.agencyId || null,
-          applicantId: line.applicantId || null,
-          DRglAccountId: null,
-          CRglAccountId: null,
-          agencyName: `${invoiceData.agencyName} (${invoiceData.agencyCode})`,
-          description,
-          amount: parseFloat(line.amount || 0),
-          txnId: null, // Add this
+              // Create settlement line for each line item
+              const newLine = {
+                tempId: this.lineIdCounter++,
+                type: 'invoice_line',
+                invoiceId: invoice.id,
+                lineItemId: lineItem.id,
+                invoiceNumber: invoice.invoiceNumber,
+                lineNumber: lineItem.lineNumber,
+                agencyId: agency?.id || null,
+                agencyName: agency?.name || agency?.agencyName || '',
+                agency,
+                description: `${invoice.invoiceNumber}-L${lineItem.lineNumber}: ${lineItem.description}`,
+                amount: parseFloat(lineItem.lineTotal || 0),
+                quantity: lineItem.quantity || 1,
+                unitPrice: lineItem.unitPrice || 0,
+                taxAmount: lineItem.taxAmount || 0,
+                discountAmount: lineItem.discountAmount || 0,
+                
+                // GL Account Information from line item
+                txnId: lineItem.txnId || invoice.defaultTxnId || null,
+                DRglAccountId: lineItem.DRglAccountId || invoice.defaultDRglAccountId || null,
+                CRglAccountId: lineItem.CRglAccountId || invoice.defaultCRglAccountId || null,
+                
+                // Additional line item details
+                note: lineItem.note || null,
+                taxRate: lineItem.taxRate || 0,
+                discountRate: lineItem.discountRate || 0,
+                
+                // Store references for later use
+                invoice,
+                lineItem,
+                
+                // Currency information
+                currencyId: invoice.currencyId,
+                currency: invoice.currency,
+              }
+              
+              this.settlementLines.push(newLine)
+            })
+          } else {
+            // Fallback: If no line items, create a single line for the invoice header
+            const existingLine = this.settlementLines.find(
+              (line) => line.invoiceId === invoice.id && !line.lineItemId
+            )
+            
+            if (existingLine) {
+              this.$toast?.warning(
+                `ໃບແຈ້ງໜີ້ ${invoice.invoiceNumber} ຖືກເພີ່ມແລ້ວ`
+              )
+              return
+            }
+
+            const newLine = {
+              tempId: this.lineIdCounter++,
+              type: 'invoice_header',
+              invoiceId: invoice.id,
+              lineItemId: null,
+              invoiceNumber: invoice.invoiceNumber,
+              lineNumber: null,
+              agencyId: agency?.id || null,
+              agencyName: agency?.name || agency?.agencyName || '',
+              agency,
+              description: invoice.description || invoice.invoiceNumber,
+              amount: parseFloat(invoice.outstandingAmount || 0),
+              quantity: null,
+              unitPrice: null,
+              taxAmount: 0,
+              discountAmount: 0,
+              
+              // GL Account Information from invoice
+              txnId: invoice.defaultTxnId || null,
+              DRglAccountId: invoice.defaultDRglAccountId || null,
+              CRglAccountId: invoice.defaultCRglAccountId || null,
+              
+              // Store invoice reference
+              invoice,
+              lineItem: null,
+              
+              // Currency information
+              currencyId: invoice.currencyId,
+              currency: invoice.currency,
+            }
+            
+            this.settlementLines.push(newLine)
+          }
         })
-      })
 
-      this.$toast?.success(
-        `Added ${invoiceData.lines.length} MOU lines to settlement`
-      )
-      this.closeMOUDialog()
+        // Calculate total lines added
+        const totalLinesAdded = this.tempSelectedInvoices.reduce((total, invoice) => {
+          return total + (invoice.lineItems?.length || 1)
+        }, 0)
+
+        // Show success message
+        this.$toast?.success(
+          `ເພີ່ມ ${totalLinesAdded} ລາຍການສຳເລັດ ຈາກ ${this.tempSelectedInvoices.length} ໃບແຈ້ງໜີ້`
+        )
+
+        // Auto-populate description if empty
+        if (!this.form.description && this.tempSelectedInvoices.length > 0) {
+          const invoiceNumbers = this.tempSelectedInvoices
+            .map((inv) => inv.invoiceNumber)
+            .join(', ')
+          this.form.description = `ຊຳລະໃບແຈ້ງໜີ້: ${invoiceNumbers}`
+        }
+
+        this.calculateTotals()
+        this.closeInvoiceSelector()
+        
+      } catch (error) {
+        console.error('Error adding invoice line items:', error)
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການເພີ່ມລາຍການໃບແຈ້ງໜີ້')
+      }
     },
 
+    // =====================================================
+    // INVOICE FILTERING AND SEARCH
+    // =====================================================
     filterInvoices() {
       let filtered = [...this.outstandingInvoices]
 
@@ -1262,86 +1410,6 @@ export default {
       this.filteredInvoices = filtered
     },
 
-    async confirmInvoiceSelection() {
-      if (this.tempSelectedInvoices.length === 0) {
-        this.$toast?.warning('ກະລຸນາເລືອກໃບແຈ້ງໜີ້')
-        return
-      }
-
-      try {
-        // Populate header from first invoice if header is empty
-        if (this.tempSelectedInvoices.length > 0 && !this.form.currencyId) {
-          const firstInvoice = this.tempSelectedInvoices[0]
-          
-          // Set currency from invoice
-          if (firstInvoice.currencyId) {
-            this.form.currencyId = Number(firstInvoice.currencyId)
-            await this.onCurrencyChange() // This will set exchange rate
-          }
-          
-          // Set payment method if available
-          if (firstInvoice.preferredPaymentMethodId) {
-            this.form.paymentMethodId = Number(firstInvoice.preferredPaymentMethodId)
-          }
-        }
-
-        // Add selected invoices to settlement lines
-        this.tempSelectedInvoices.forEach((invoice) => {
-          // Check if invoice already added
-          const existingLine = this.settlementLines.find(
-            (line) => line.invoiceId === invoice.id
-          )
-          
-          if (existingLine) {
-            this.$toast?.warning(
-              `ໃບແຈ້ງໜີ້ ${invoice.invoiceNumber} ຖືກເພີ່ມແລ້ວ`
-            )
-            return
-          }
-
-          const agency = invoice.agency || invoice.vendor
-
-          // Create settlement line with complete invoice data
-          const newLine = {
-            tempId: this.lineIdCounter++,
-            type: 'invoice',
-            invoiceId: invoice.id,
-            invoiceNumber: invoice.invoiceNumber,
-            agencyId: agency?.id || null,
-            agencyName: agency?.name || agency?.agencyName || '',
-            agency, // Store complete agency object
-            description: invoice.description || invoice.invoiceNumber,
-            amount: parseFloat(invoice.outstandingAmount || 0),
-            txnId: invoice.defaultTxnId || null, // Use default txn code from invoice if available
-            DRglAccountId: invoice.defaultDRglAccountId || null,
-            CRglAccountId: invoice.defaultCRglAccountId || null,
-            // Store invoice reference for later use
-            invoice,
-          }
-
-          this.settlementLines.push(newLine)
-        })
-
-        // Show success message
-        this.$toast?.success(
-          `ເພີ່ມ ${this.tempSelectedInvoices.length} ໃບແຈ້ງໜີ້ສຳເລັດ`
-        )
-
-        // Auto-populate description if empty
-        if (!this.form.description && this.tempSelectedInvoices.length > 0) {
-          const invoiceNumbers = this.tempSelectedInvoices
-            .map((inv) => inv.invoiceNumber)
-            .join(', ')
-          this.form.description = `ຊຳລະໃບແຈ້ງໜີ້: ${invoiceNumbers}`
-        }
-
-        this.closeInvoiceSelector()
-      } catch (error) {
-        console.error('Error adding invoices:', error)
-        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການເພີ່ມໃບແຈ້ງໜີ້')
-      }
-    },
-
     closeInvoiceSelector() {
       this.showInvoiceSelector = false
       this.tempSelectedInvoices = []
@@ -1350,6 +1418,90 @@ export default {
       this.filteredInvoices = [...this.outstandingInvoices]
     },
 
+    // =====================================================
+    // DIALOG MANAGEMENT METHODS
+    // =====================================================
+    openAuditDialog() {
+      if (!this.isEditMode) {
+        this.$toast?.warning(
+          'ບໍ່ສາມາດເບິ່ງປະຫວັດການດຳເນີນງານໄດ້ ເນື່ອງຈາກຍັງບໍ່ໄດ້ບັນທຶກການຊຳລະ'
+        )
+        return
+      }
+      this.showAuditDialog = true
+    },
+
+    closeAuditDialog() {
+      this.showAuditDialog = false
+    },
+
+    openMOUDialog() {
+      this.showMOUDialog = true
+    },
+
+    closeMOUDialog() {
+      this.showMOUDialog = false
+    },
+
+    closeDialog() {
+      this.$emit('close')
+    },
+
+    handleOverlayClick() {
+      this.closeDialog()
+    },
+
+    // =====================================================
+    // MOU INVOICE GENERATION
+    // =====================================================
+    onInvoiceGenerated(invoiceData) {
+      if (!invoiceData?.lines?.length) {
+        this.$toast?.error('No invoice lines received')
+        return
+      }
+
+      const mouInfo = invoiceData.mouInfo || {}
+      const batchInfo = invoiceData.batchInfo || {}
+
+      invoiceData.lines.forEach((line) => {
+        const description = `${mouInfo.jobCode || 'MOU'} | ${
+          batchInfo.runningNo || 'Batch'
+        } | ${invoiceData.agencyCode || 'Agency'} | ${line.applicantName} (${
+          line.passportNo
+        })`
+
+        this.settlementLines.push({
+          tempId: this.lineIdCounter++,
+          type: 'mou',
+          invoiceId: null,
+          lineItemId: null,
+          invoiceNumber: invoiceData.invoiceNumber || '',
+          lineNumber: null,
+          agencyId: invoiceData.agencyId || null,
+          applicantId: line.applicantId || null,
+          DRglAccountId: null,
+          CRglAccountId: null,
+          agencyName: `${invoiceData.agencyName} (${invoiceData.agencyCode})`,
+          description,
+          amount: parseFloat(line.amount || 0),
+          quantity: 1,
+          unitPrice: parseFloat(line.amount || 0),
+          taxAmount: 0,
+          discountAmount: 0,
+          txnId: null,
+          currencyId: this.form.currencyId,
+        })
+      })
+
+      this.$toast?.success(
+        `Added ${invoiceData.lines.length} MOU lines to settlement`
+      )
+      this.closeMOUDialog()
+    },
+
+    // =====================================================
+    // VALIDATION AND FORM SUBMISSION
+    // =====================================================
     validateForm() {
       this.errors = {}
 
@@ -1377,13 +1529,11 @@ export default {
       // Validate settlement lines
       let hasLineErrors = false
       this.settlementLines.forEach((line, index) => {
-        // Check if transaction code is selected
         if (!line.txnId) {
           hasLineErrors = true
           this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກລະຫັດການເງິນ`)
         }
 
-        // Check if amount is valid
         if (!line.amount || line.amount <= 0) {
           hasLineErrors = true
           this.$toast?.error(
@@ -1391,7 +1541,6 @@ export default {
           )
         }
 
-        // For manual entries, check if agency is selected
         if (line.type === 'manual' && !line.agencyId) {
           hasLineErrors = true
           this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກ${this.formLabel.vendor}`)
@@ -1419,28 +1568,36 @@ export default {
           settlementLines: this.settlementLines.map((line) => ({
             type: line.type,
             invoiceId: line.invoiceId,
+            lineItemId: line.lineItemId, // Include line item ID
             invoiceNumber: line.invoiceNumber,
+            lineNumber: line.lineNumber, // Include line number
             agencyId: line.agencyId,
             applicantId: line.applicantId,
             DRglAccountId: line.DRglAccountId || null,
             CRglAccountId: line.CRglAccountId || null,
             description: line.description,
             amount: parseFloat(line.amount || 0),
-            txnId: line.txnId, // Add this
+            quantity: line.quantity || null,
+            unitPrice: line.unitPrice || null,
+            taxAmount: line.taxAmount || 0,
+            discountAmount: line.discountAmount || 0,
+            txnId: line.txnId,
+            currencyId: line.currencyId || this.form.currencyId,
           })),
         }
+        
         this.$emit('save', formData)
       } catch (error) {
         console.error('Error submitting form:', error)
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ')
       } finally {
         this.isSubmitting = false
       }
     },
-    getTransactionCodeLabel(txnId) {
-      const txn = this.transactionCodes.find((t) => t.id === txnId)
-      return txn ? `${txn.code} - ${txn.description}` : ''
-    },
 
+    // =====================================================
+    // APPROVAL WORKFLOW METHODS
+    // =====================================================
     async approveSettlement() {
       if (!this.canApprove) return
       this.isSubmitting = true
@@ -1453,6 +1610,7 @@ export default {
         })
       } catch (error) {
         console.error('Error approving settlement:', error)
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການອະນຸມັດ')
       } finally {
         this.isSubmitting = false
       }
@@ -1465,29 +1623,110 @@ export default {
         this.$emit('complete', { id: this.form.id, status: 'completed' })
       } catch (error) {
         console.error('Error completing settlement:', error)
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການປິດງານ')
       } finally {
         this.isSubmitting = false
       }
     },
 
-    closeDialog() {
-      this.$emit('close')
+    // =====================================================
+    // UTILITY AND HELPER METHODS
+    // =====================================================
+    clearFieldError(field) {
+      if (this.errors[field]) {
+        this.$delete(this.errors, field)
+      }
     },
 
-    handleOverlayClick() {
-      this.closeDialog()
+    getAgencyName(invoice) {
+      const agency = invoice.agency || invoice.vendor
+      return agency?.name || agency?.agencyName || 'N/A'
     },
 
+    getTransactionCodeLabel(txnId) {
+      const txn = this.transactionCodes.find((t) => t.id === txnId)
+      return txn ? `${txn.code} - ${txn.description}` : ''
+    },
+
+    // Helper method to get settlement lines summary
+    getSettlementSummary() {
+      const summary = {
+        totalLines: this.settlementLines.length,
+        totalAmount: 0,
+        byInvoice: {},
+        byAgency: {},
+        byTxnType: {},
+        byType: {},
+      }
+      
+      this.settlementLines.forEach(line => {
+        summary.totalAmount += parseFloat(line.amount) || 0
+        
+        // Group by invoice
+        if (line.invoiceNumber) {
+          const invoiceKey = line.invoiceNumber
+          if (!summary.byInvoice[invoiceKey]) {
+            summary.byInvoice[invoiceKey] = { lines: 0, amount: 0 }
+          }
+          summary.byInvoice[invoiceKey].lines++
+          summary.byInvoice[invoiceKey].amount += parseFloat(line.amount) || 0
+        }
+        
+        // Group by agency
+        const agencyKey = line.agencyName || 'Unknown'
+        if (!summary.byAgency[agencyKey]) {
+          summary.byAgency[agencyKey] = { lines: 0, amount: 0 }
+        }
+        summary.byAgency[agencyKey].lines++
+        summary.byAgency[agencyKey].amount += parseFloat(line.amount) || 0
+        
+        // Group by transaction type
+        const txnKey = line.txnId || 'No TxnId'
+        if (!summary.byTxnType[txnKey]) {
+          summary.byTxnType[txnKey] = { lines: 0, amount: 0 }
+        }
+        summary.byTxnType[txnKey].lines++
+        summary.byTxnType[txnKey].amount += parseFloat(line.amount) || 0
+
+        // Group by settlement type
+        const typeKey = line.type || 'unknown'
+        if (!summary.byType[typeKey]) {
+          summary.byType[typeKey] = { lines: 0, amount: 0 }
+        }
+        summary.byType[typeKey].lines++
+        summary.byType[typeKey].amount += parseFloat(line.amount) || 0
+      })
+      
+      return summary
+    },
+
+    // =====================================================
+    // FORMATTING METHODS
+    // =====================================================
     formatCurrency(amount) {
+      if (!this.selectedCurrency) {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(amount || 0)
+      }
+      
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: this.selectedCurrency.code || 'USD',
       }).format(amount || 0)
     },
 
     formatDate(date) {
       if (!date) return 'N/A'
       return new Date(date).toLocaleDateString('en-GB')
+    },
+
+    formatPrice(amount) {
+      return new Intl.NumberFormat('lo-LA', {
+        style: 'currency',
+        currency: this.selectedCurrency?.code || 'LAK'
+      }).format(amount || 0)
     },
   },
 }

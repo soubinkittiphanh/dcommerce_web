@@ -299,9 +299,9 @@
                       <tr>
                         <th style="width: 20px">#</th>
                         <th>ລາຍລະອຽດ *</th>
-                        <th>ຈຳນວນ *</th>
+                        <th>ລະຫັດການເງິນ*</th>
                         <th>ລາຄາຕໍ່ຫົວ *</th>
-                        <th>ລະຫັດການເງິນ <span class="required">*</span></th>
+                        <th>ຈຳນວນ <span class="required">*</span></th>
                         <!-- <th>DR</th>
                         <th>CR</th> -->
                         <th>ລວມຕໍ່ແຖວ</th>
