@@ -973,15 +973,21 @@ export default {
       return agency?.name || agency?.agencyName || 'N/A'
     },
 
-    onCurrencyChange() {
+      async onCurrencyChange() {
       console.info(`Currency changing...`)
       this.clearFieldError('currencyId')
+      
       const selectedCurrency = this.currencies.find(
         (c) => c.id === this.form.currencyId
       )
+      
       if (selectedCurrency) {
+        this.selectedCurrency = selectedCurrency
         this.form.exchangeRate = selectedCurrency.rate || 1.0
       }
+      
+      // Return promise for async/await
+      return Promise.resolve()
     },
     clearFieldError(field) {
       if (this.errors[field]) {
@@ -1056,7 +1062,6 @@ export default {
         id: settlement.id,
         settlementDate:
           settlement.settlementDate || new Date().toISOString().split('T')[0],
-        // Convert to numbers to match option values
         paymentMethodId: settlement.paymentMethodId
           ? Number(settlement.paymentMethodId)
           : '',
@@ -1073,10 +1078,16 @@ export default {
         approvalNote: settlement.approvalNote || '',
       }
 
+      // Update selectedCurrency when loading settlement
+      if (settlement.currencyId) {
+        this.selectedCurrency = this.currencies.find(
+          (c) => c.id === Number(settlement.currencyId)
+        )
+      }
+
       if (settlement.invoiceSettlements) {
         this.settlementLines = settlement.invoiceSettlements.map(
           (allocation) => {
-            // Handle different data structures
             let invoice = null
             let agency = null
             let agencyName = ''
@@ -1094,7 +1105,7 @@ export default {
               agency = invoice.agency || invoice.vendor
             }
 
-            // Get agency information (from line level or invoice level)
+            // Get agency information
             if (allocation.agency) {
               agency = allocation.agency
               agencyName = agency.agencyName || agency.name || ''
@@ -1107,17 +1118,18 @@ export default {
             return {
               tempId: this.lineIdCounter++,
               type: allocation.type,
-              agency: allocation.agency,
-              invoiceId: invoiceId,
-              invoiceNumber: invoiceNumber,
+              agency,
+              invoice, // Add invoice reference
+              invoiceId,
+              invoiceNumber,
               agencyId: allocation.agencyId || agency?.id || null,
-              agencyName: agencyName,
+              agencyName,
               applicantId: allocation.applicantId || null,
               DRglAccountId: allocation.DRglAccountId || null,
               CRglAccountId: allocation.CRglAccountId || null,
               description: allocation.description || '',
               amount: parseFloat(allocation.amount || 0),
-              txnId: allocation.txnId || null, // Add this
+              txnId: allocation.txnId || null,
             }
           }
         )
@@ -1250,26 +1262,84 @@ export default {
       this.filteredInvoices = filtered
     },
 
-    confirmInvoiceSelection() {
-      this.tempSelectedInvoices.forEach((invoice) => {
-        if (
-          !this.settlementLines.find((line) => line.invoiceId === invoice.id)
-        ) {
+    async confirmInvoiceSelection() {
+      if (this.tempSelectedInvoices.length === 0) {
+        this.$toast?.warning('ກະລຸນາເລືອກໃບແຈ້ງໜີ້')
+        return
+      }
+
+      try {
+        // Populate header from first invoice if header is empty
+        if (this.tempSelectedInvoices.length > 0 && !this.form.currencyId) {
+          const firstInvoice = this.tempSelectedInvoices[0]
+          
+          // Set currency from invoice
+          if (firstInvoice.currencyId) {
+            this.form.currencyId = Number(firstInvoice.currencyId)
+            await this.onCurrencyChange() // This will set exchange rate
+          }
+          
+          // Set payment method if available
+          if (firstInvoice.preferredPaymentMethodId) {
+            this.form.paymentMethodId = Number(firstInvoice.preferredPaymentMethodId)
+          }
+        }
+
+        // Add selected invoices to settlement lines
+        this.tempSelectedInvoices.forEach((invoice) => {
+          // Check if invoice already added
+          const existingLine = this.settlementLines.find(
+            (line) => line.invoiceId === invoice.id
+          )
+          
+          if (existingLine) {
+            this.$toast?.warning(
+              `ໃບແຈ້ງໜີ້ ${invoice.invoiceNumber} ຖືກເພີ່ມແລ້ວ`
+            )
+            return
+          }
+
           const agency = invoice.agency || invoice.vendor
-          this.settlementLines.push({
+
+          // Create settlement line with complete invoice data
+          const newLine = {
             tempId: this.lineIdCounter++,
             type: 'invoice',
             invoiceId: invoice.id,
             invoiceNumber: invoice.invoiceNumber,
             agencyId: agency?.id || null,
             agencyName: agency?.name || agency?.agencyName || '',
-            description: '',
+            agency, // Store complete agency object
+            description: invoice.description || invoice.invoiceNumber,
             amount: parseFloat(invoice.outstandingAmount || 0),
-            txnId: null, // Add this
-          })
+            txnId: invoice.defaultTxnId || null, // Use default txn code from invoice if available
+            DRglAccountId: invoice.defaultDRglAccountId || null,
+            CRglAccountId: invoice.defaultCRglAccountId || null,
+            // Store invoice reference for later use
+            invoice,
+          }
+
+          this.settlementLines.push(newLine)
+        })
+
+        // Show success message
+        this.$toast?.success(
+          `ເພີ່ມ ${this.tempSelectedInvoices.length} ໃບແຈ້ງໜີ້ສຳເລັດ`
+        )
+
+        // Auto-populate description if empty
+        if (!this.form.description && this.tempSelectedInvoices.length > 0) {
+          const invoiceNumbers = this.tempSelectedInvoices
+            .map((inv) => inv.invoiceNumber)
+            .join(', ')
+          this.form.description = `ຊຳລະໃບແຈ້ງໜີ້: ${invoiceNumbers}`
         }
-      })
-      this.closeInvoiceSelector()
+
+        this.closeInvoiceSelector()
+      } catch (error) {
+        console.error('Error adding invoices:', error)
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການເພີ່ມໃບແຈ້ງໜີ້')
+      }
     },
 
     closeInvoiceSelector() {
