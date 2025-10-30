@@ -177,6 +177,6 @@ export default {
 }
 
 /* .product-border {
-    border: 1px solid #01532B !important;
+    border: 1px solid #A12F8D !important;
 } */
 </style>

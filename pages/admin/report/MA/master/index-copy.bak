@@ -2168,17 +2168,17 @@ export default {
   margin: 8px 0 4px 0;
   font-size: 24px;
   font-weight: 700;
-  color: #01532B;
+  color: #A12F8D;
 }
 
 /* Custom Green Color Override */
 .custom-green-header {
-  background-color: #01532B !important;
+  background-color: #A12F8D !important;
   color: white !important;
 }
 
 .custom-green-text {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .custom-green-bg-light {
@@ -2191,23 +2191,23 @@ export default {
 
 /* Override Vuetify success colors */
 .v-card-title.success--text {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .v-icon.success {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .v-progress-circular.success {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .success--text {
-  color: #01532B !important;
+  color: #A12F8D !important;
 }
 
 .success.lighten-3 {
-  background-color: #01532B !important;
+  background-color: #A12F8D !important;
 }
 
 .success.lighten-4 {
