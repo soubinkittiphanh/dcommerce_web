@@ -567,6 +567,13 @@
     "_name": "_09851be1"
   },
   {
+    "name": "admin-saleTicketReportDetailByProduct",
+    "path": "/admin/saleTicketReportDetailByProduct",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleTicketReportDetailByProduct/index.vue",
+    "chunkName": "pages/admin/saleTicketReportDetailByProduct/index",
+    "_name": "_a9d4e97a"
+  },
+  {
     "name": "admin-shipping",
     "path": "/admin/shipping",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/shipping/index.vue",

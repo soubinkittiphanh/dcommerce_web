@@ -8,7 +8,7 @@
       dark
       v-model="drawer"
       fixed
-      color="#A12F8D"
+      color="#01532B"
       app
     >
       <v-layout column align-center>
@@ -72,7 +72,7 @@
             :to="item.path"
             router
             exact
-            :style="{ 'background-color': '#8D2FA1' }"
+            :style="{ 'background-color': '#337555' }"
           >
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>
@@ -102,6 +102,7 @@
     </v-navigation-drawer>
 
     <v-main :key="mainComponentKey">
+      <!-- Terminal Selection Dialog -->
       <v-dialog v-model="terminalDialog" scrollable max-width="1200" persistent>
         <v-card>
           <v-card-title>ເລືອກ Terminal </v-card-title>
@@ -119,7 +120,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              color="#A12F8D"
+              color="#01532B"
               rounded
               variant="text"
               @click="switchTerminal"
@@ -129,6 +130,116 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <!-- Change Password Dialog -->
+      <v-dialog v-model="changePasswordDialog" max-width="500px" persistent>
+        <v-card>
+          <v-card-title class="headline" style="background-color: #01532B; color: white;">
+            <v-icon left color="white">mdi-lock-reset</v-icon>
+            ປ່ຽນລະຫັດຜ່ານ
+          </v-card-title>
+          
+          <v-form ref="passwordForm" v-model="passwordFormValid" lazy-validation>
+            <v-card-text class="pt-4">
+              <v-container>
+                <v-row>
+                  <!-- Current Password -->
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="currentPassword"
+                      :type="showCurrentPassword ? 'text' : 'password'"
+                      :append-icon="showCurrentPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append="showCurrentPassword = !showCurrentPassword"
+                      label="ລະຫັດຜ່ານປັດຈຸບັນ *"
+                      :rules="currentPasswordRules"
+                      required
+                      outlined
+                      dense
+                      :loading="passwordLoading"
+                      :disabled="passwordLoading"
+                    />
+                  </v-col>
+                  
+                  <!-- New Password -->
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="newPassword"
+                      :type="showNewPassword ? 'text' : 'password'"
+                      :append-icon="showNewPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append="showNewPassword = !showNewPassword"
+                      label="ລະຫັດຜ່ານໃໝ່ *"
+                      :rules="newPasswordRules"
+                      required
+                      outlined
+                      dense
+                      :loading="passwordLoading"
+                      :disabled="passwordLoading"
+                    />
+                  </v-col>
+                  
+                  <!-- Confirm New Password -->
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="confirmPassword"
+                      :type="showConfirmPassword ? 'text' : 'password'"
+                      :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append="showConfirmPassword = !showConfirmPassword"
+                      label="ຢືນຢັນລະຫັດຜ່ານໃໝ່ *"
+                      :rules="confirmPasswordRules"
+                      required
+                      outlined
+                      dense
+                      :loading="passwordLoading"
+                      :disabled="passwordLoading"
+                    />
+                  </v-col>
+                </v-row>
+                
+                <!-- Password Requirements -->
+                <v-alert
+                  type="info"
+                  outlined
+                  dense
+                  class="mt-2"
+                >
+                  <div class="text-caption">
+                    <strong>ຂໍ້ກຳນົດລະຫັດຜ່ານ:</strong><br>
+                    • ຢ່າງໜ້ອຍ 4 ຕົວອັກສອນ<br>
+                    • ບໍ່ຄວນໃຊ້ລະຫັດຜ່ານງ່າຍໆ ເຊັ່ນ: 1234, abcd
+                  </div>
+                </v-alert>
+              </v-container>
+            </v-card-text>
+            
+            <v-divider></v-divider>
+            
+            <v-card-actions class="pa-4">
+              <v-spacer></v-spacer>
+              
+              <v-btn
+                color="grey darken-1"
+                text
+                @click="closePasswordDialog"
+                :disabled="passwordLoading"
+              >
+                <v-icon left>mdi-close</v-icon>
+                ຍົກເລີກ
+              </v-btn>
+              
+              <v-btn
+                color="#01532B"
+                :loading="passwordLoading"
+                :disabled="!passwordFormValid || passwordLoading"
+                @click="changePassword"
+              >
+                <v-icon left>mdi-check</v-icon>
+                ປ່ຽນລະຫັດຜ່ານ
+              </v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card>
+      </v-dialog>
+
       <v-container fluid class="pb-16">
         <Nuxt />
       </v-container>
@@ -143,6 +254,19 @@
       <span v-else>
         &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R23.0.5
       </span>
+
+      <!-- Change Password Button -->
+      <v-btn
+        v-if="user"
+        small
+        text
+        color="#01532B"
+        class="ma-1"
+        @click="openPasswordDialog"
+      >
+        <v-icon small left>mdi-lock-reset</v-icon>
+        ປ່ຽນລະຫັດຜ່ານ
+      </v-btn>
 
       <v-chip
         v-if="currentTerminal"
@@ -185,7 +309,31 @@ export default {
         company: null,
         loading: false,
         error: false
-      }
+      },
+      // Password change dialog data
+      changePasswordDialog: false,
+      passwordFormValid: false,
+      passwordLoading: false,
+      showCurrentPassword: false,
+      showNewPassword: false,
+      showConfirmPassword: false,
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+      // Password validation rules
+      currentPasswordRules: [
+        v => !!v || 'ກະລຸນາໃສ່ລະຫັດຜ່ານປັດຈຸບັນ',
+        v => (v && v.length >= 1) || 'ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ'
+      ],
+      newPasswordRules: [
+        v => !!v || 'ກະລຸນາໃສ່ລະຫັດຜ່ານໃໝ່',
+        v => (v && v.length >= 4) || 'ລະຫັດຜ່ານຕ້ອງມີຢ່າງໜ້ອຍ 4 ຕົວອັກສອນ',
+        v => v !== this.currentPassword || 'ລະຫັດຜ່ານໃໝ່ຕ້ອງແຕກຕ່າງຈາກເກົ່າ'
+      ],
+      confirmPasswordRules: [
+        v => !!v || 'ກະລຸນາຢືນຢັນລະຫັດຜ່ານໃໝ່',
+        v => v === this.newPassword || 'ລະຫັດຜ່ານບໍ່ກົງກັນ'
+      ]
     }
   },
 
@@ -315,6 +463,82 @@ export default {
       // Set default terminal if available
       if (this.findSelectedTerminal) {
         this.terminalSelected = this.findSelectedTerminal
+      }
+    },
+
+    // Password dialog methods
+    openPasswordDialog() {
+      this.resetPasswordForm()
+      this.changePasswordDialog = true
+    },
+
+    closePasswordDialog() {
+      this.changePasswordDialog = false
+      this.resetPasswordForm()
+    },
+
+    resetPasswordForm() {
+      this.currentPassword = ''
+      this.newPassword = ''
+      this.confirmPassword = ''
+      this.showCurrentPassword = false
+      this.showNewPassword = false
+      this.showConfirmPassword = false
+      
+      if (this.$refs.passwordForm) {
+        this.$refs.passwordForm.resetValidation()
+      }
+    },
+
+    async changePassword() {
+      // Validate form first
+      if (!this.$refs.passwordForm.validate()) {
+        return
+      }
+      
+      this.passwordLoading = true
+      
+      try {
+        // Prepare the request payload
+        const payload = {
+          userId: this.user.id || this.user.cus_id,
+          currentPassword: this.currentPassword,
+          newPassword: this.newPassword
+        }
+        
+        // Make API call to change password
+        const response = await this.$axios.post('/api/user/change-password', payload)
+        
+        if (response.data && response.data.success) {
+          this.$toast.success('ປ່ຽນລະຫັດຜ່ານສຳເລັດແລ້ວ')
+          this.closePasswordDialog()
+          
+          // Optional: Force re-login after password change
+          // setTimeout(() => {
+          //   this.$router.push('/admin/logout')
+          // }, 2000)
+          
+        } else {
+          throw new Error(response.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນລະຫັດຜ່ານ')
+        }
+        
+      } catch (error) {
+        console.error('Password change error:', error)
+        
+        // Handle different error types
+        if (error.response?.status === 401) {
+          this.$toast.error('ລະຫັດຜ່ານປັດຈຸບັນບໍ່ຖືກຕ້ອງ')
+        } else if (error.response?.status === 400) {
+          this.$toast.error('ຂໍ້ມູນທີ່ສົ່ງມາບໍ່ຖືກຕ້ອງ')
+        } else {
+          this.$toast.error(
+            error.response?.data?.message || 
+            error.message || 
+            'ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນລະຫັດຜ່ານ'
+          )
+        }
+      } finally {
+        this.passwordLoading = false
       }
     },
 
@@ -506,5 +730,24 @@ body {
 .v-image {
   border-radius: 8px;
   transition: opacity 0.3s ease;
+}
+
+/* Password dialog specific styles */
+.v-card-title {
+  font-family: 'noto sans lao';
+  font-weight: 500;
+}
+
+.v-text-field {
+  font-family: 'noto sans lao';
+}
+
+.v-btn {
+  font-family: 'noto sans lao';
+}
+
+/* Loading overlay styles */
+.v-text-field--is-disabled {
+  opacity: 0.7;
 }
 </style>

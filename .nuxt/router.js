@@ -85,6 +85,7 @@ const _1fd61eb4 = () => interopDefault(import('../pages/admin/saleReportDetailBy
 const _512f4563 = () => interopDefault(import('../pages/admin/saleReportDetailByHeader/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByHeader/index" */))
 const _6363e6a2 = () => interopDefault(import('../pages/admin/saleReportDetailByProduct/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByProduct/index" */))
 const _09851be1 = () => interopDefault(import('../pages/admin/saleReportDetailByUser/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByUser/index" */))
+const _a9d4e97a = () => interopDefault(import('../pages/admin/saleTicketReportDetailByProduct/index.vue' /* webpackChunkName: "pages/admin/saleTicketReportDetailByProduct/index" */))
 const _f00a79be = () => interopDefault(import('../pages/admin/shipping/index.vue' /* webpackChunkName: "pages/admin/shipping/index" */))
 const _cc17c2a8 = () => interopDefault(import('../pages/admin/spf/index.vue' /* webpackChunkName: "pages/admin/spf/index" */))
 const _e5b9f3a4 = () => interopDefault(import('../pages/admin/tax/index.vue' /* webpackChunkName: "pages/admin/tax/index" */))
@@ -494,6 +495,10 @@ export const routerOptions = {
     path: "/admin/saleReportDetailByUser",
     component: _09851be1,
     name: "admin-saleReportDetailByUser"
+  }, {
+    path: "/admin/saleTicketReportDetailByProduct",
+    component: _a9d4e97a,
+    name: "admin-saleTicketReportDetailByProduct"
   }, {
     path: "/admin/shipping",
     component: _f00a79be,

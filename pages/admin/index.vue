@@ -426,7 +426,7 @@ export default {
         // theme: {
         //     monochrome: {
         //         enabled: true,
-        //         color: '#A12F8D',
+        //         color: '#01532B',
         //     }
         // },
         chart: {

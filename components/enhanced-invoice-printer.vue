@@ -414,10 +414,10 @@ export default {
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body { font-family: Arial, sans-serif; line-height: 1.4; color: #333; }
             .invoice-container { background: white; padding: 20px; max-width: 900px; margin: 0 auto; }
-            .invoice-header { margin-bottom: 20px; border-bottom: 3px solid #A12F8D; padding-bottom: 15px; }
+            .invoice-header { margin-bottom: 20px; border-bottom: 3px solid #01532B; padding-bottom: 15px; }
             .header-flex { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
             .company-logo { width: 100px; height: auto; object-fit: contain; display: block; max-height: 80px; }
-            .company-name { margin: 0 0 8px 0; font-size: 20px; font-weight: bold; color: #A12F8D; }
+            .company-name { margin: 0 0 8px 0; font-size: 20px; font-weight: bold; color: #01532B; }
             .invoice-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
             .invoice-table th, .invoice-table td { border: 1px solid #ddd; padding: 8px; font-size: 11px; }
             .invoice-table th { background-color: #f5f5f5; font-weight: bold; text-align: left; }
@@ -470,7 +470,7 @@ export default {
 
 .invoice-header {
   margin-bottom: 30px;
-  border-bottom: 3px solid #A12F8D;
+  border-bottom: 3px solid #01532B;
   padding-bottom: 15px;
 }
 
@@ -499,7 +499,7 @@ export default {
   margin: 0 0 8px 0;
   font-size: 24px;
   font-weight: bold;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .company-address,

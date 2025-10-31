@@ -344,7 +344,7 @@
         </template>
 
         <template v-slot:item.actions="{ item }">
-          <v-btn small color="#A12F8D" @click="viewDetails(item)" class="mr-2">
+          <v-btn small color="#01532B" @click="viewDetails(item)" class="mr-2">
             <i class="fas fa-eye"></i>
           </v-btn>
           <v-btn
@@ -1317,7 +1317,7 @@ export default {
             {
               data: [],
               backgroundColor: [
-                '#A12F8D',
+                '#01532B',
                 '#228B22',
                 '#32CD32',
                 '#006400',
@@ -1357,7 +1357,7 @@ export default {
             {
               label: 'ລາຍຈ່າຍລ່ວງໜ້າ',
               data: [],
-              borderColor: '#A12F8D',
+              borderColor: '#01532B',
               backgroundColor: 'rgba(1, 83, 43, 0.1)',
               tension: 0.1,
             },
@@ -1550,7 +1550,7 @@ export default {
 
     getProgressColor(percentage) {
       const percent = parseFloat(percentage || 0)
-      if (percent >= 100) return '#A12F8D'
+      if (percent >= 100) return '#01532B'
       if (percent >= 50) return '#228B22'
       return '#32CD32'
     },
@@ -1559,7 +1559,7 @@ export default {
       const colors = {
         pending: '#32CD32',
         approved: '#228B22',
-        settled: '#A12F8D',
+        settled: '#01532B',
       }
       return colors[status] || '#666'
     },
@@ -1575,11 +1575,11 @@ export default {
 
     getMethodColor(method) {
       const colors = {
-        cash: '#A12F8D',
+        cash: '#01532B',
         bank_transfer: '#228B22',
         deduction: '#32CD32',
       }
-      return colors[method] || '#A12F8D'
+      return colors[method] || '#01532B'
     },
 
     getMethodText(method) {
@@ -1606,7 +1606,7 @@ export default {
   align-items: center;
   margin-bottom: 24px;
   padding: 24px;
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   border-radius: 8px;
 }
@@ -1629,7 +1629,7 @@ export default {
 }
 
 .custom-btn {
-  color: #A12F8D !important;
+  color: #01532B !important;
   border: 1px solid white !important;
   font-weight: 500 !important;
   text-transform: none !important;
@@ -1637,7 +1637,7 @@ export default {
 
 .custom-btn:hover {
   background-color: white !important;
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 /* Filter Card */
@@ -1647,13 +1647,13 @@ export default {
 }
 
 .filter-title {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   font-weight: 600;
 }
 
 .custom-primary-btn {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
   color: white !important;
   font-weight: 500 !important;
   text-transform: none !important;
@@ -1692,9 +1692,9 @@ export default {
   margin-right: 16px;
   color: white;
 }
-/* Custom Color Theme #A12F8D */
+/* Custom Color Theme #01532B */
 .custom-primary-bg {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 .summary-details .summary-title {
   margin: 0;
@@ -1724,22 +1724,22 @@ export default {
 }
 
 .advance-card {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
 }
 
 .settlement-card {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
 }
 
 .outstanding-card {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
 }
 
 .brought-forward-card {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
 }
 
@@ -1763,7 +1763,7 @@ export default {
   font-size: 24px;
   font-weight: 700;
   margin: 0;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .stats-label {
@@ -1780,7 +1780,7 @@ export default {
 }
 
 .currency-title {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   font-weight: 600;
 }
@@ -1793,13 +1793,13 @@ export default {
 .currency-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
-  border-color: #A12F8D;
+  border-color: #01532B;
 }
 
 .currency-summary h4 {
   margin: 0 0 12px 0;
-  color: #A12F8D;
-  border-bottom: 1px solid #A12F8D;
+  color: #01532B;
+  border-bottom: 1px solid #01532B;
   padding-bottom: 8px;
   font-weight: 600;
 }
@@ -1810,18 +1810,18 @@ export default {
 }
 
 .currency-details strong {
-  color: #A12F8D;
+  color: #01532B;
 }
 
 /* Ministry Report Table */
 .ministry-table-title {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   font-weight: 600;
 }
 
 .ministry-table-header {
-  background: #A12F8D !important;
+  background: #01532B !important;
 }
 
 .ministry-table-footer {
@@ -1836,18 +1836,18 @@ export default {
 
 .custom-export-btn:hover {
   background-color: white !important;
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 /* Bank Account Report Table */
 .bank-table-title {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   font-weight: 600;
 }
 
 .bank-table-header {
-  background: #A12F8D !important;
+  background: #01532B !important;
 }
 
 .bank-table-footer {
@@ -1862,7 +1862,7 @@ export default {
 }
 
 .table-title {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   font-weight: 600;
 }
@@ -1884,7 +1884,7 @@ export default {
 }
 
 .report-table >>> thead th {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
   color: white !important;
   font-weight: 600 !important;
   border-bottom: none !important;
@@ -1898,7 +1898,7 @@ export default {
 .date-cell {
   font-family: monospace;
   font-size: 13px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .amount-cell {
@@ -1916,7 +1916,7 @@ export default {
 }
 
 .advance-amount {
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .settlement-amount {
@@ -1950,7 +1950,7 @@ export default {
 .ministry-name {
   font-weight: 600;
   font-size: 13px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .ministry-code {
@@ -1967,7 +1967,7 @@ export default {
 
 /* Dialog Styling */
 .dialog-header {
-  background: #A12F8D !important;
+  background: #01532B !important;
   color: white !important;
   font-weight: 600 !important;
 }
@@ -1982,7 +1982,7 @@ export default {
 }
 
 .detail-item strong {
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .settlement-table {
@@ -1990,7 +1990,7 @@ export default {
 }
 
 .settlement-table >>> thead th {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
   color: white !important;
   font-weight: 600 !important;
 }
@@ -2014,7 +2014,7 @@ export default {
   }
 
   .report-header {
-    background: #A12F8D !important;
+    background: #01532B !important;
     color: white !important;
     -webkit-print-color-adjust: exact;
   }
@@ -2077,7 +2077,7 @@ export default {
 }
 
 .v-dialog .v-card-text::-webkit-scrollbar-thumb {
-  background: #A12F8D;
+  background: #01532B;
   border-radius: 3px;
 }
 
