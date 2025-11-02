@@ -532,6 +532,13 @@
     "_name": "_966e82b2"
   },
   {
+    "name": "admin-saleDashBoard",
+    "path": "/admin/saleDashBoard",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleDashBoard/index.vue",
+    "chunkName": "pages/admin/saleDashBoard/index",
+    "_name": "_50aa43f0"
+  },
+  {
     "name": "admin-saleReportDetail",
     "path": "/admin/saleReportDetail",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetail/index.vue",

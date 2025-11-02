@@ -80,6 +80,7 @@ const _79f169be = () => interopDefault(import('../pages/admin/report_card/index.
 const _4c7625e2 = () => interopDefault(import('../pages/admin/reservation/index.vue' /* webpackChunkName: "pages/admin/reservation/index" */))
 const _0f005c3d = () => interopDefault(import('../pages/admin/rider/index.vue' /* webpackChunkName: "pages/admin/rider/index" */))
 const _966e82b2 = () => interopDefault(import('../pages/admin/saleCost/index.vue' /* webpackChunkName: "pages/admin/saleCost/index" */))
+const _50aa43f0 = () => interopDefault(import('../pages/admin/saleDashBoard/index.vue' /* webpackChunkName: "pages/admin/saleDashBoard/index" */))
 const _21cd947f = () => interopDefault(import('../pages/admin/saleReportDetail/index.vue' /* webpackChunkName: "pages/admin/saleReportDetail/index" */))
 const _1fd61eb4 = () => interopDefault(import('../pages/admin/saleReportDetailByCustomer/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByCustomer/index" */))
 const _512f4563 = () => interopDefault(import('../pages/admin/saleReportDetailByHeader/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByHeader/index" */))
@@ -475,6 +476,10 @@ export const routerOptions = {
     path: "/admin/saleCost",
     component: _966e82b2,
     name: "admin-saleCost"
+  }, {
+    path: "/admin/saleDashBoard",
+    component: _50aa43f0,
+    name: "admin-saleDashBoard"
   }, {
     path: "/admin/saleReportDetail",
     component: _21cd947f,

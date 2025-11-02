@@ -66,7 +66,7 @@
           </div>
         </v-col>
         
-        <v-col cols="6" class="right-section" v-if="1==0">
+        <v-col cols="6" class="right-section" >
           <!-- Slideshow Section for WiFi and Promotions -->
           <div class="slideshow-section">
             <div class="slideshow-container">

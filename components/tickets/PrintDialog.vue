@@ -23,8 +23,12 @@
         <div class="print-ticket-info">
           <div class="ticket-details">
             <div class="detail-row">
-              <span class="detail-label">Ticket #:</span>
-              <span class="detail-value">{{ ticket.ticketNumber || ticket.id }}</span>
+              <span class="detail-label"
+                >Ticket Q{{ getQueNo(ticket.ticketNumber) }} #:</span
+              >
+              <span class="detail-value">{{
+                ticket.ticketNumber || ticket.id
+              }}</span>
             </div>
             <div class="detail-row">
               <span class="detail-label">Date:</span>
@@ -40,7 +44,9 @@
             </div>
             <div class="detail-row">
               <span class="detail-label">Status:</span>
-              <span class="detail-value">{{ formatStatus(ticket.status) }}</span>
+              <span class="detail-value">{{
+                formatStatus(ticket.status)
+              }}</span>
             </div>
           </div>
 
@@ -109,7 +115,9 @@
         <div class="print-summary">
           <div class="summary-line">
             <span class="summary-label">Subtotal:</span>
-            <span class="summary-value">{{ formatPrice(ticket.subtotal) }}</span>
+            <span class="summary-value">{{
+              formatPrice(ticket.subtotal)
+            }}</span>
           </div>
           <div class="summary-line">
             <span class="summary-label">Tax:</span>
@@ -186,6 +194,12 @@ export default {
   },
 
   methods: {
+    getQueNo(ticketNumber) {
+      const parts = ticketNumber?.split('-')[0]?.split('/')
+      return parts?.length === 2
+        ? (parseInt(parts[0]) * parseInt(parts[1])).toString()
+        : ''
+    },
     formatPrintDate(date) {
       if (!date) return 'N/A'
       return new Date(date).toLocaleDateString()

@@ -7,7 +7,7 @@
     <!-- Card Header -->
     <div class="card-header">
       <div class="ticket-number">
-        <span class="ticket-id">#{{ ticket.ticketNumber || ticket.id }}</span>
+        <span class="ticket-id">Q{{ getQueNo(ticket.ticketNumber) }} #{{ ticket.ticketNumber || ticket.id }}</span>
         <span class="ticket-time">{{ formatTime(ticket.createdAt) }}</span>
       </div>
       <div class="ticket-badges">
@@ -19,7 +19,7 @@
         </span>
       </div>
     </div>
-    
+
     <!-- Customer & Table Info -->
     <div class="card-info">
       <div class="info-row">
@@ -38,24 +38,33 @@
           >{{ ticket.ticketLines?.length || 0 }} items</span
         >
       </div>
-      
+
       <!-- ✅ NEW: User Information -->
       <div v-if="ticket.createUser" class="info-row">
         <span class="info-label">Created by:</span>
-        <span class="info-value">{{ ticket.createUser?.cus_name || ticket.createUser?.name || 'N/A' }}</span>
+        <span class="info-value">{{
+          ticket.createUser?.cus_name || ticket.createUser?.name || 'N/A'
+        }}</span>
       </div>
-      
+
       <div v-if="ticket.cancelUser" class="info-row">
         <span class="info-label">Cancelled by:</span>
-        <span class="info-value text-error">{{ ticket.cancelUser?.cus_name || ticket.cancelUser?.name || 'N/A' }}</span>
+        <span class="info-value text-error">{{
+          ticket.cancelUser?.cus_name || ticket.cancelUser?.name || 'N/A'
+        }}</span>
       </div>
-      
-      <div v-if="ticket.updateUser && ticket.status !== 'pending'" class="info-row">
+
+      <div
+        v-if="ticket.updateUser && ticket.status !== 'pending'"
+        class="info-row"
+      >
         <span class="info-label">Updated by:</span>
-        <span class="info-value text-muted">{{ ticket.updateUser?.cus_name || ticket.updateUser?.name || 'N/A' }}</span>
+        <span class="info-value text-muted">{{
+          ticket.updateUser?.cus_name || ticket.updateUser?.name || 'N/A'
+        }}</span>
       </div>
     </div>
-    
+
     <!-- Order Summary -->
     <div class="card-summary">
       <div class="summary-total">
@@ -84,7 +93,7 @@
         </button>
       </div>
     </div>
-    
+
     <!-- Quick Actions -->
     <div class="card-actions" @click.stop>
       <button
@@ -150,7 +159,7 @@
         Add Item
       </button>
     </div>
-    
+
     <!-- Urgency Indicator -->
     <div v-if="isUrgent" class="urgency-indicator">
       <span class="urgency-icon">⚠️</span>
@@ -191,6 +200,12 @@ export default {
     },
   },
   methods: {
+    getQueNo(ticketNumber) {
+      const parts = ticketNumber?.split('-')[0]?.split('/')
+      return parts?.length === 2
+        ? (parseInt(parts[0]) * parseInt(parts[1])).toString()
+        : ''
+    },
     handleAddItem() {
       this.$emit('add-item', {
         ticketId: this.ticket.id,
@@ -302,16 +317,43 @@ export default {
   letter-spacing: 0.5px;
 }
 
-.status-pending { background: #fff3e0; color: #f57c00; }
-.status-preparing { background: #e3f2fd; color: #1976d2; }
-.status-ready { background: #e8f5e8; color: #388e3c; }
-.status-served { background: #f3e5f5; color: #7b1fa2; }
-.status-paid { background: #e8f5e8; color: #2e7d32; }
-.status-cancel { background: #ffebee; color: #d32f2f; }
+.status-pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+.status-preparing {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.status-ready {
+  background: #e8f5e8;
+  color: #388e3c;
+}
+.status-served {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+.status-paid {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+.status-cancel {
+  background: #ffebee;
+  color: #d32f2f;
+}
 
-.payment-pending { background: #fff3e0; color: #f57c00; }
-.payment-paid { background: #e8f5e8; color: #2e7d32; }
-.payment-refunded { background: #f3e5f5; color: #7b1fa2; }
+.payment-pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+.payment-paid {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+.payment-refunded {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
 
 .card-info {
   margin-bottom: 12px;

@@ -22,7 +22,7 @@
         <div class="print-ticket-info">
           <div class="ticket-basic">
             <div class="detail-row">
-              <span class="detail-label">#:</span>
+              <span class="detail-label">Q{{ getQueNo(ticket.ticketNumber) }} #:</span>
               <span class="detail-value">{{ ticket.ticketNumber || ticket.id }}</span>
             </div>
             <div class="detail-row">
@@ -301,7 +301,12 @@ export default {
 
   methods: {
     // ... existing methods ...
-
+    getQueNo(ticketNumber) {
+      const parts = ticketNumber?.split('-')[0]?.split('/')
+      return parts?.length === 2
+        ? (parseInt(parts[0]) * parseInt(parts[1])).toString()
+        : ''
+    },
     // ADDED: Methods for tax-inclusive print calculations
     getTicketTotalWithTax() {
       if (!this.ticket || !this.ticket.ticketLines) return 0

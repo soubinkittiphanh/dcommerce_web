@@ -22,15 +22,22 @@
           <div class="info-grid">
             <div class="info-item">
               <span class="info-label">ORDER #:</span>
-              <span class="info-value bold">{{ ticket.ticketNumber || ticket.id }}</span>
+              <span class="info-value bold"
+                >Q{{ getQueNo(ticket.ticketNumber) }}
+                {{ ticket.ticketNumber || ticket.id }}</span
+              >
             </div>
             <div class="info-item">
               <span class="info-label">TABLE:</span>
-              <span class="info-value bold">{{ ticket.table?.number || ticket.table?.name || 'Takeaway' }}</span>
+              <span class="info-value bold">{{
+                ticket.table?.number || ticket.table?.name || 'Takeaway'
+              }}</span>
             </div>
             <div class="info-item">
               <span class="info-label">TIME:</span>
-              <span class="info-value">{{ formatPrintTime(ticket.createdAt) }}</span>
+              <span class="info-value">{{
+                formatPrintTime(ticket.createdAt)
+              }}</span>
             </div>
             <div class="info-item">
               <span class="info-label">SERVER:</span>
@@ -44,25 +51,36 @@
         <!-- ITEMS TO PREPARE -->
         <div class="bar-items">
           <div class="section-title-large">ITEMS TO PREPARE</div>
-          
+
           <div v-if="filteredItems.length > 0">
-            <div v-for="(line, index) in filteredItems" :key="line.id" class="bar-item">
+            <div
+              v-for="(line, index) in filteredItems"
+              :key="line.id"
+              class="bar-item"
+            >
               <!-- Quantity Badge -->
               <div class="item-qty-badge">{{ line.quantity }}x</div>
-              
+
               <!-- Item Details -->
               <div class="item-content">
                 <div class="item-name-large">{{ getItemName(line) }}</div>
-                
+
                 <!-- Special Instructions/Notes -->
                 <div v-if="line.notes" class="item-notes-bar">
                   <span class="notes-icon">📝</span>
                   <span class="notes-text">{{ line.notes }}</span>
                 </div>
-                
+
                 <!-- Modifiers/Options -->
-                <div v-if="line.modifiers && line.modifiers.length > 0" class="item-modifiers">
-                  <div v-for="mod in line.modifiers" :key="mod.id" class="modifier-item">
+                <div
+                  v-if="line.modifiers && line.modifiers.length > 0"
+                  class="item-modifiers"
+                >
+                  <div
+                    v-for="mod in line.modifiers"
+                    :key="mod.id"
+                    class="modifier-item"
+                  >
                     + {{ mod.name }}
                   </div>
                 </div>
@@ -107,8 +125,12 @@
         <!-- FOOTER -->
         <div class="bar-footer">
           <div class="print-divider"></div>
-          <div class="footer-time">Printed: {{ formatPrintDateTime(new Date()) }}</div>
-          <div class="footer-status">Status: {{ formatStatus(ticket.status) }}</div>
+          <div class="footer-time">
+            Printed: {{ formatPrintDateTime(new Date()) }}
+          </div>
+          <div class="footer-status">
+            Status: {{ formatStatus(ticket.status) }}
+          </div>
         </div>
       </div>
 
@@ -146,7 +168,7 @@
 <script>
 export default {
   name: 'PrintBarTicketDialog',
-  
+
   props: {
     show: {
       type: Boolean,
@@ -172,24 +194,31 @@ export default {
   computed: {
     filteredItems() {
       if (!this.ticket || !this.ticket.ticketLines) return []
-      
+
       let items = this.ticket.ticketLines
-      
+
       // Filter by station type
       if (this.selectedStation !== 'all') {
-        items = items.filter(line => {
+        items = items.filter((line) => {
           const category = line.product?.category?.toLowerCase() || ''
           const productName = line.pro_name?.toLowerCase() || ''
-          
-          switch(this.selectedStation) {
+
+          switch (this.selectedStation) {
             case 'bar':
-              return category.includes('drink') || category.includes('beverage') || 
-                     productName.includes('coffee') || productName.includes('juice')
+              return (
+                category.includes('drink') ||
+                category.includes('beverage') ||
+                productName.includes('coffee') ||
+                productName.includes('juice')
+              )
             case 'kitchen':
               return category.includes('food') || category.includes('meal')
             case 'cold':
-              return category.includes('salad') || category.includes('cold') || 
-                     productName.includes('ice')
+              return (
+                category.includes('salad') ||
+                category.includes('cold') ||
+                productName.includes('ice')
+              )
             case 'hot':
               return category.includes('hot') || category.includes('grill')
             default:
@@ -197,12 +226,18 @@ export default {
           }
         })
       }
-      
+
       return items
-    }
+    },
   },
 
   methods: {
+    getQueNo(ticketNumber) {
+      const parts = ticketNumber?.split('-')[0]?.split('/')
+      return parts?.length === 2
+        ? (parseInt(parts[0]) * parseInt(parts[1])).toString()
+        : ''
+    },
     closeDialog() {
       this.$emit('close')
     },
@@ -232,17 +267,21 @@ export default {
     },
 
     getServerName() {
-      return this.ticket.server?.name || 
-             this.ticket.createdBy?.cus_name || 
-             this.ticket.createdBy?.username || 
-             'Staff'
+      return (
+        this.ticket.server?.name ||
+        this.ticket.createdBy?.cus_name ||
+        this.ticket.createdBy?.username ||
+        'Staff'
+      )
     },
 
     getItemName(line) {
-      return line.pro_name ||
+      return (
+        line.pro_name ||
         line.product?.pro_name ||
         line.product?.name ||
         'Unknown Item'
+      )
     },
 
     formatPrintTime(date) {
@@ -250,7 +289,7 @@ export default {
       return new Date(date).toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
-        hour12: false
+        hour12: false,
       })
     },
 
@@ -259,11 +298,11 @@ export default {
       const d = new Date(date)
       return `${d.toLocaleDateString('en-GB', {
         day: '2-digit',
-        month: '2-digit'
+        month: '2-digit',
       })} ${d.toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
-        hour12: false
+        hour12: false,
       })}`
     },
 
@@ -274,20 +313,20 @@ export default {
         ready: 'READY',
         served: 'SERVED',
         paid: 'COMPLETED',
-        cancel: 'CANCELLED'
+        cancel: 'CANCELLED',
       }
       return statusMap[status] || status?.toUpperCase()
     },
 
     async printNow() {
       if (!this.ticket) return
-      
+
       this.printing = true
-      
+
       try {
         const printContent = document.querySelector('.print-preview').innerHTML
         const printWindow = window.open('', '_blank')
-        
+
         printWindow.document.write(`
           <!DOCTYPE html>
           <html>
@@ -303,10 +342,10 @@ export default {
           </body>
           </html>
         `)
-        
+
         printWindow.document.close()
         printWindow.focus()
-        
+
         setTimeout(() => {
           printWindow.print()
           printWindow.close()
@@ -713,9 +752,16 @@ export default {
   font-weight: bold;
 }
 
-.priority-normal { background: #28a745; }
-.priority-high { background: #ffc107; color: #000; }
-.priority-urgent { background: #dc3545; }
+.priority-normal {
+  background: #28a745;
+}
+.priority-high {
+  background: #ffc107;
+  color: #000;
+}
+.priority-urgent {
+  background: #dc3545;
+}
 
 .bar-order-info {
   margin-bottom: 20px;
