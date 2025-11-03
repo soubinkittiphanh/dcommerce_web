@@ -145,6 +145,12 @@
             {{ item.phone }}
           </div>
         </template>
+        <template v-slot:item.employee="{ item }">
+          <div class="contact-details">
+            <v-icon small left>mdi-account</v-icon>
+            {{ item.employee.agencyName }}
+          </div>
+        </template>
         <!-- Contract Start Date Column -->
         <template v-slot:item.contractStartDate="{ item }">
           <div class="contact-details">
@@ -320,6 +326,7 @@ export default {
         { text: 'ໜັງສືເດີນທາງ', value: 'passportAvailability', sortable: true },
         { text: 'ຮັບພາດສະປອດແລ້ວ', value: 'passportRecieve', sortable: true },
         { text: 'ສະຖານະ', value: 'status', sortable: true },
+        { text: 'ຜູ້ຮັບຜິດຊອບ', value: 'employee', sortable: true },
         { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, align: 'center' },
       ],
       genderOptions: [

@@ -573,7 +573,7 @@
                             </small>
                           </td>
 
-                          <!-- <td>
+                          <td v-if="enableGL">
                             <v-autocomplete
                               v-model="allocation.DRglAccountId"
                               :items="glAccounts"
@@ -602,7 +602,7 @@
                             </v-autocomplete>
                           </td>
 
-                          <td>
+                          <td v-if="enableGL">
                             <v-autocomplete
                               v-model="allocation.CRglAccountId"
                               :items="glAccounts"
@@ -629,7 +629,7 @@
                                 {{ item.accountName }}
                               </template>
                             </v-autocomplete>
-                          </td> -->
+                          </td>
                           <td>
                             <button
                               type="button"
@@ -931,6 +931,13 @@ export default {
   },
 
   computed: {
+        enableGL() {
+      const spf = this.getSPF.find((spf) => spf.code === 'AC_AR_GL_ENABLE')
+      return spf?.value === 'Y'
+    },
+    getSPF() {
+      return this.$store.getters.findSPF
+    },
     isEdit() {
       return !!(this.receipt && this.receipt.id)
     },

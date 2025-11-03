@@ -38,7 +38,8 @@ export const state = () => ({
         riderId: 1,
         geoId: 1,
         discount: 0,
-    }
+    },
+    SPF: [],
 })
 
 // Mutations with better error handling
@@ -47,18 +48,18 @@ export const mutations = {
     SET_LOADING(state, isLoading) {
         state.isLoading = isLoading
     },
-    
+
     SET_DATA_INITIALIZED(state, initialized) {
         state.dataInitialized = initialized
     },
-    
+
     ADD_ERROR(state, error) {
         state.errors.push({
             message: error.message || error,
             timestamp: new Date().toISOString()
         })
     },
-    
+
     CLEAR_ERRORS(state) {
         state.errors = []
     },
@@ -112,6 +113,9 @@ export const mutations = {
 
     clearConfirmPaymentList(state) {
         state.listOfConfirmPaymentOrder = []
+    },
+    setSPF(state, spfList) {
+        state.SPF = [...spfList]
     },
 
     clearCustomerForm(state) {
@@ -205,14 +209,14 @@ export const mutations = {
     },
 
     addPaymentConfirmList(state, order) {
-        if (order && order.trackingNumber && 
+        if (order && order.trackingNumber &&
             !state.listOfConfirmPaymentOrder.some(item => item.trackingNumber === order.trackingNumber)) {
             state.listOfConfirmPaymentOrder.push(order)
         }
     },
 
     addStockInConfirmList(state, order) {
-        if (order && order.trackingNumber && 
+        if (order && order.trackingNumber &&
             !state.listOfConfirmStockInOrder.some(item => item.trackingNumber === order.trackingNumber)) {
             state.listOfConfirmStockInOrder.push(order)
         }
@@ -260,19 +264,19 @@ export const mutations = {
             const productId = productInfo.productId
             const price = productInfo.amount
             const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId)
-            
+
             if (productIdxFound < 0) return
 
             let newPrice = 0
             const product = state.cartOfproductSelected[productIdxFound]
-            
+
             if (productInfo.type !== 'Price') {
                 newPrice = (product.localPrice * price / 100) * product.qty
                 newPrice += product.localPrice
             } else {
                 newPrice = price * product.qty
             }
-            
+
             state.cartOfproductSelected[productIdxFound].localPrice = newPrice
         } catch (error) {
             console.error('Error updating product cart:', error)
@@ -282,7 +286,7 @@ export const mutations = {
     removeProductFromCart(state, product) {
         try {
             if (!product || !product.id) return
-            
+
             const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id)
             if (existingProduct) {
                 if (existingProduct.qty > 1) {
@@ -356,6 +360,7 @@ export const getters = {
     findAllClient: (state) => state.clientList || [],
     findAllCurrency: (state) => state.currencyList || [],
     findAllUnit: (state) => state.unitList || [],
+    findSPF: (state) => state.SPF || [],
     isAuth: (state) => state.isAuth,
     findSelectedProductDetail: (state) => state.productDetail,
     findSelectedTerminal: (state) => state.selectedTerminal,
@@ -501,6 +506,14 @@ export const actions = {
             commit("addProductToCart", product)
         } catch (error) {
             console.error('Error adding product:', error)
+            commit('ADD_ERROR', error)
+        }
+    },
+    initSPF({ commit }, spfList) {
+        try {
+            commit("setSPF", spfList)
+        } catch (error) {
+            console.error('Error adding SPF:', error)
             commit('ADD_ERROR', error)
         }
     },
@@ -688,7 +701,7 @@ export const actions = {
     async initiateData({ commit, dispatch }, axios) {
         commit('SET_LOADING', true)
         commit('CLEAR_ERRORS')
-        
+
         try {
             const initPromises = [
                 initTerminal(dispatch, axios),
@@ -696,17 +709,18 @@ export const actions = {
                 initClient(dispatch, axios),
                 initCurrency(dispatch, axios),
                 initPayment(dispatch, axios),
+                initSPF(dispatch, axios),
                 initUnit(dispatch, axios),
                 initCompanyData(dispatch, axios)
             ]
-            
+
             // Add product initialization after other data is loaded
             await Promise.allSettled(initPromises)
-            
+
             // Initialize products after locations are loaded
             await initProduct(dispatch, axios)
             await initProductPrices(dispatch, axios)
-            
+
             commit('SET_DATA_INITIALIZED', true)
         } catch (error) {
             console.error("Failed to initialize data:", error)
@@ -769,26 +783,39 @@ const initProduct = async (dispatch, axios) => {
     }
 }
 
-const initClient = (dispatch, axios) => 
+const initClient = (dispatch, axios) =>
     fetchData('api/client/find', 'initClient', dispatch, axios, 'Client initialization failed')
 
-const initPayment = (dispatch, axios) => 
+const initPayment = (dispatch, axios) =>
     fetchData('api/paymentMethod/find', 'initPayment', dispatch, axios, 'Payment initialization failed')
-
-const initProductPrices = (dispatch, axios) => 
+const initSPF = async (dispatch, axios) => {
+    try {
+        const response = await axios.get('api/SPF/find')
+        console.info(`SPF initialization response: ${JSON.stringify(response.data)}`)
+        
+        // Assuming the API returns { data: [...] } structure like your product API
+        const spfData = response.data.data || response.data
+        await dispatch('initSPF', spfData)
+    } catch (error) {
+        console.error(`SPF initialization failed: ${error.message || error}`)
+        await dispatch('addError', `SPF initialization failed: ${error.message || error}`)
+        throw error
+    }
+}
+const initProductPrices = (dispatch, axios) =>
     fetchData('api/product/find', 'initProductPrices', dispatch, axios, 'Product price initialization failed')
 
-const initCurrency = (dispatch, axios) => 
+const initCurrency = (dispatch, axios) =>
     fetchData('api/currency/find', 'initCurrency', dispatch, axios, 'Currency initialization failed')
 
-const initLocation = (dispatch, axios) => 
+const initLocation = (dispatch, axios) =>
     fetchData('api/location/find', 'initLocation', dispatch, axios, 'Location initialization failed')
 
-const initTerminal = (dispatch, axios) => 
+const initTerminal = (dispatch, axios) =>
     fetchData('api/terminal/find', 'initTerminal', dispatch, axios, 'Terminal initialization failed')
 
-const initUnit = (dispatch, axios) => 
+const initUnit = (dispatch, axios) =>
     fetchData('api/unit/find', 'initUnit', dispatch, axios, 'Unit initialization failed')
 
-const initCompanyData = (dispatch, axios) => 
+const initCompanyData = (dispatch, axios) =>
     fetchData('api/company/find', 'initCompany', dispatch, axios, 'Company initialization failed')

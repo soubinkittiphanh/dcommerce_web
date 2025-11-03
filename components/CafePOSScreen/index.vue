@@ -950,6 +950,14 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
+      currentTerminal() {
+      console.log(
+        `ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`
+      )
+      return this.findAllTerminal.find(
+        (el) => el['id'] == this.findSelectedTerminal
+      )
+    },
     user() {
       return this.$auth.user || null
     },
@@ -1932,6 +1940,7 @@ export default {
               ? parseInt(this.tableId)
               : null,
           clientId: this.selectedCustomer ? this.selectedCustomer.id : null,
+          locationId: this.currentSelectedLocation['id'] || 1,
           status: 'pending',
           subtotal: parseFloat(subtotal.toFixed(2) - tax.toFixed(2)),
           promotionDiscount: parseFloat(promotionDiscount.toFixed(2)),

@@ -192,6 +192,7 @@
                   @click="openMOUDialog"
                   class="btn btn-info btn-sm"
                   :disabled="!canModifyAllocations"
+                  v-if="enableMOUbutton"
                 >
                   <i class="fas fa-file-contract"></i> ເພີ່ມຈາກ MOU
                 </button>
@@ -229,6 +230,7 @@
                   type="button"
                   class="btn btn-info btn-sm"
                   @click="openMOUDialog"
+                  v-if="enableMOUbutton"
                 >
                   <i class="fas fa-file-contract"></i> ເພີ່ມຈາກ MOU
                 </button>
@@ -400,7 +402,7 @@
                           :disabled="!canModifyAllocations"
                         />
                       </td>
-                      <!-- <td>
+                      <td v-if="enableGL">
                         <v-autocomplete
                           v-model="line.DRglAccountId"
                           :items="glAccounts"
@@ -432,9 +434,9 @@
                         >
                           {{ errors[`line_${index}_DRglAccountId`] }}
                         </small>
-                      </td> -->
+                      </td>
 
-                      <!-- <td>
+                      <td v-if="enableGL">
                         <v-autocomplete
                           v-model="line.CRglAccountId"
                           :items="glAccounts"
@@ -466,7 +468,7 @@
                         >
                           {{ errors[`line_${index}_CRglAccountId`] }}
                         </small>
-                      </td> -->
+                      </td>
 
                       <!-- Amount -->
                       <td>
@@ -788,6 +790,17 @@ export default {
   },
 
   computed: {
+    enableMOUbutton() {
+        const spf = this.getSPF.find(spf => spf.code === 'AC_AP_MOU_FETCH');
+        return spf?.value === 'Y';
+    },
+    enableGL() {
+        const spf = this.getSPF.find(spf => spf.code === 'AC_AP_GL_ENABLE');
+        return spf?.value === 'Y';
+    },
+    getSPF(){
+      return this.$store.getters.findSPF;
+    },
     user() {
       return this.$auth.user || {}
     },

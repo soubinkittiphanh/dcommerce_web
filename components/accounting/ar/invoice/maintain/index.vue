@@ -88,7 +88,7 @@
                     {{ errors.agencyId }}
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-if="enableBatchJobbutton">
                   <label for="jobBatchId" class="required">ແບັດຈັອບ</label>
                   <v-autocomplete
                     id="jobBatchId"
@@ -395,8 +395,8 @@
                             @blur="calculateLineTotal(line)"
                           />
                         </td>
-                        
-                        <!-- <td>
+
+                        <td v-if="enableGL">
                           <v-autocomplete
                             v-model="line.DRglAccountId"
                             :items="glAccounts"
@@ -430,7 +430,7 @@
                           </small>
                         </td>
 
-                        <td>
+                        <td v-if="enableGL">
                           <v-autocomplete
                             v-model="line.CRglAccountId"
                             :items="glAccounts"
@@ -462,7 +462,7 @@
                           >
                             {{ errors[`line_${index}_CRglAccountId`] }}
                           </small>
-                        </td> -->
+                        </td>
                         <td class="line-total">
                           {{ formatCurrency(line.lineTotal || 0) }}
                         </td>
@@ -658,6 +658,17 @@ export default {
   },
 
   computed: {
+    enableBatchJobbutton() {
+      const spf = this.getSPF.find((spf) => spf.code === 'AC_AR_BATCH_JOB')
+      return spf?.value === 'Y'
+    },
+    enableGL() {
+      const spf = this.getSPF.find((spf) => spf.code === 'AC_AR_GL_ENABLE')
+      return spf?.value === 'Y'
+    },
+    getSPF() {
+      return this.$store.getters.findSPF
+    },
     isEdit() {
       return !!(this.invoice && this.invoice.id)
     },
@@ -1308,7 +1319,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #01532b 0%, #337555 100%);
   color: white;
   min-height: 50px;
 }
@@ -1715,7 +1726,6 @@ export default {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-
   .form-row {
     grid-template-columns: 1fr;
   }

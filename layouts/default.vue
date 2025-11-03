@@ -246,6 +246,7 @@
     </v-main>
 
     <v-footer app>
+      SPF {{ getSPF.length }}
       <v-spacer></v-spacer>
       <span v-if="user">
         &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R23.0.5 user:
@@ -378,6 +379,7 @@ export default {
 
     ...mapGetters([
       'findSelectedTerminal',
+      'findSPF',
       'findAllTerminal',
       'findAllLocation',
       'currentSelectedLocation',
@@ -438,7 +440,9 @@ export default {
     safeMenu() {
       return Array.isArray(this.myMenu) ? this.myMenu : []
     },
-
+    getSPF(){
+      return this.findSPF
+    },
     currentTerminal() {
       if (!this.safeTerminals.length || !this.findSelectedTerminal) {
         return null
