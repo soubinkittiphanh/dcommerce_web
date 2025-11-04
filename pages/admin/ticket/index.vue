@@ -16,19 +16,36 @@
           </v-alert>
 
           <v-form ref="cancelForm" v-model="cancelDialog.valid">
-            <v-textarea v-model="cancelDialog.reason" label="ເຫດຜົນໃນການຍົກເລີກ / Cancellation Reason *"
-              placeholder="ກະລຸນາລະບຸເຫດຜົນໃນການຍົກເລີກ ticket..." rows="4" counter="500"
-              :rules="cancelDialog.reasonRules" variant="outlined" required></v-textarea>
+            <v-textarea
+              v-model="cancelDialog.reason"
+              label="ເຫດຜົນໃນການຍົກເລີກ / Cancellation Reason *"
+              placeholder="ກະລຸນາລະບຸເຫດຜົນໃນການຍົກເລີກ ticket..."
+              rows="4"
+              counter="500"
+              :rules="cancelDialog.reasonRules"
+              variant="outlined"
+              required
+            ></v-textarea>
           </v-form>
         </v-card-text>
 
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn color="grey" variant="text" @click="closeCancelDialog" :disabled="cancelDialog.loading">
+          <v-btn
+            color="grey"
+            variant="text"
+            @click="closeCancelDialog"
+            :disabled="cancelDialog.loading"
+          >
             Cancel
           </v-btn>
-          <v-btn color="error" variant="elevated" @click="confirmCancellation" :loading="cancelDialog.loading"
-            :disabled="!cancelDialog.valid">
+          <v-btn
+            color="error"
+            variant="elevated"
+            @click="confirmCancellation"
+            :loading="cancelDialog.loading"
+            :disabled="!cancelDialog.valid"
+          >
             <v-icon start>mdi-cancel</v-icon>
             Confirm Cancel
           </v-btn>
@@ -37,17 +54,36 @@
     </v-dialog>
 
     <!-- POS Dialog -->
-    <POSDialog :show="showPOSDialog" :table-id="selectedTableId" :ticket="selectedTicket" @close="closePOSDialog"
-      @ticket-updated="handleTicketUpdated" @reload-data="fetchTickets" />
+    <POSDialog
+      :show="showPOSDialog"
+      :table-id="selectedTableId"
+      :ticket="selectedTicket"
+      @close="closePOSDialog"
+      @ticket-updated="handleTicketUpdated"
+      @reload-data="fetchTickets"
+    />
 
     <!-- Notes Dialog -->
-    <NotesDialog :show="showNotesDialog" :notes="selectedTicketNotes" :existing-notes="selectedTicket?.notes"
-      title="Edit Ticket Notes" label="Ticket Notes" placeholder="Enter notes for this ticket..."
-      hint="Update ticket notes" :max-length="500" :show-quick-notes="true" :custom-quick-notes="[
+    <NotesDialog
+      :show="showNotesDialog"
+      :notes="selectedTicketNotes"
+      :existing-notes="selectedTicket?.notes"
+      title="Edit Ticket Notes"
+      label="Ticket Notes"
+      placeholder="Enter notes for this ticket..."
+      hint="Update ticket notes"
+      :max-length="500"
+      :show-quick-notes="true"
+      :custom-quick-notes="[
         'Canceled by customer',
         'Kitchen issue',
         'Payment issue',
-      ]" :loading="updatingNotes" @close="closeNotesDialog" @save="handleSaveTicketNotes" @show-message="showToast" />
+      ]"
+      :loading="updatingNotes"
+      @close="closeNotesDialog"
+      @save="handleSaveTicketNotes"
+      @show-message="showToast"
+    />
 
     <!-- Page Header -->
     <!-- Updated Page Header with improved filter layout -->
@@ -59,8 +95,12 @@
         <!-- Search Row -->
         <div class="filter-row">
           <div class="search-group">
-            <input v-model="searchQuery" type="text" placeholder="Search tickets by ID, customer name, or table..."
-              class="search-input" />
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search tickets by ID, customer name, or table..."
+              class="search-input"
+            />
           </div>
         </div>
 
@@ -100,7 +140,11 @@
             </div>
 
             <div class="filter-actions">
-              <button @click="clearFilters" class="btn-clear" v-if="hasActiveFilters">
+              <button
+                @click="clearFilters"
+                class="btn-clear"
+                v-if="hasActiveFilters"
+              >
                 <span class="icon">✖</span>
                 Clear
               </button>
@@ -182,38 +226,69 @@
 
     <!-- Tickets Grid -->
     <div v-else class="tickets-grid">
-      <TicketCard v-for="ticket in filteredTickets" :key="ticket.id" :ticket="ticket"
-        @click="viewTicketInDialog(ticket)" @add-item="handleAddItem" @add-notes="handleAddNotes"
-        @edit-notes="handleEditNotes" @update-status="updateTicketStatus" @process-payment="processPayment"
-        @print="openPrintDialog" @print-bar="handlePrintBar" />
+      <TicketCard
+        v-for="ticket in filteredTickets"
+        :key="ticket.id"
+        :ticket="ticket"
+        @click="viewTicketInDialog(ticket)"
+        @add-item="handleAddItem"
+        @add-notes="handleAddNotes"
+        @edit-notes="handleEditNotes"
+        @update-status="updateTicketStatus"
+        @process-payment="processPayment"
+        @print="openPrintDialog"
+        @print-bar="handlePrintBar"
+      />
     </div>
 
     <!-- Pagination -->
     <div v-if="pagination.totalPages > 1" class="pagination">
-      <button @click="changePage(pagination.currentPage - 1)" :disabled="pagination.currentPage === 1"
-        class="pagination-btn">
+      <button
+        @click="changePage(pagination.currentPage - 1)"
+        :disabled="pagination.currentPage === 1"
+        class="pagination-btn"
+      >
         ← Previous
       </button>
       <span class="pagination-info">
         Page {{ pagination.currentPage }} of {{ pagination.totalPages }}
       </span>
-      <button @click="changePage(pagination.currentPage + 1)"
-        :disabled="pagination.currentPage === pagination.totalPages" class="pagination-btn">
+      <button
+        @click="changePage(pagination.currentPage + 1)"
+        :disabled="pagination.currentPage === pagination.totalPages"
+        class="pagination-btn"
+      >
         Next →
       </button>
     </div>
 
     <!-- Ticket Detail Dialog -->
-    <TicketDetailDialog v-if="showDialog" :ticket="selectedTicket" @close="closeDialog"
-      @update-status="updateTicketStatusFromDialog" @process-payment="processPaymentFromDialog"
-      @print="openPrintDialogFromDetail" />
+    <TicketDetailDialog
+      v-if="showDialog"
+      :ticket="selectedTicket"
+      @close="closeDialog"
+      @update-status="updateTicketStatusFromDialog"
+      @process-payment="processPaymentFromDialog"
+      @print="openPrintDialogFromDetail"
+    />
 
     <!-- 85mm Thermal Print Dialog -->
-    <PrintTicketDialog :show="showPrintDialog" :ticket="printTicket" :restaurant-info="restaurantConfig"
-      @close="closePrintDialog" @printed="handlePrintSuccess" @print-error="handlePrintError" />
+    <PrintTicketDialog
+      :show="showPrintDialog"
+      :ticket="printTicket"
+      :restaurant-info="restaurantConfig"
+      @close="closePrintDialog"
+      @printed="handlePrintSuccess"
+      @print-error="handlePrintError"
+    />
     <!-- ✅ NEW: Bar Ticket Dialog -->
-    <print-bar-ticket-dialog :show="showBarTicketDialog" :ticket="selectedBarTicket" station-name="BAR/KITCHEN"
-      @close="showBarTicketDialog = false" @printed="onBarTicketPrinted" />
+    <print-bar-ticket-dialog
+      :show="showBarTicketDialog"
+      :ticket="selectedBarTicket"
+      station-name="BAR/KITCHEN"
+      @close="showBarTicketDialog = false"
+      @printed="onBarTicketPrinted"
+    />
   </div>
 </template>
 
@@ -224,7 +299,7 @@ import PrintTicketDialog from '@/components/CAFE/printdialog'
 import POSDialog from '~/components/CAFE/POSDialog.vue'
 import NotesDialog from '~/components/tickets/NotesDialog.vue'
 import PrintBarTicketDialog from '~/components/CAFE/printBarDialog'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'TicketsPage',
 
@@ -234,7 +309,7 @@ export default {
     TicketCard,
     TicketDetailDialog,
     PrintTicketDialog,
-    PrintBarTicketDialog
+    PrintBarTicketDialog,
   },
 
   data() {
@@ -305,6 +380,12 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'findAllTerminal',
+      'findSelectedTerminal',
+      'currentSelectedLocation',
+      'findAllLocation',
+    ]),
     user() {
       return this.$auth.user || null
     },
@@ -553,6 +634,7 @@ export default {
           limit: this.pagination.limit,
           include: 'client,table,ticketLines',
           sort: 'createdAt:desc',
+          locationId: this.currentSelectedLocation['id'] || 1,
         }
 
         if (this.statusFilter) params.status = this.statusFilter
@@ -600,7 +682,8 @@ export default {
     async updateTicketStatus(ticketId, newStatus) {
       try {
         console.info(
-          `USER DET ${JSON.stringify(this.user)} - ${this.user.userGroup.ticketCancel
+          `USER DET ${JSON.stringify(this.user)} - ${
+            this.user.userGroup.ticketCancel
           }`
         )
         console.info(

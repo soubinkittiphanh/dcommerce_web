@@ -632,6 +632,12 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'findAllTerminal',
+      'findSelectedTerminal',
+      'currentSelectedLocation',
+      'findAllLocation',
+    ]),
     user() {
       return this.$auth.user || ''
     },
@@ -727,6 +733,7 @@ export default {
           startDate: this.date,
           endDate: this.date2,
           include: 'client,table,ticketLines,payment',
+          locationId: this.currentSelectedLocation['id'] || 1,
         }
 
         const response = await this.$axios.get('api/ticket/find', { params })
