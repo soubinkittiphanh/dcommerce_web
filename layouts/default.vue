@@ -8,7 +8,7 @@
       dark
       v-model="drawer"
       fixed
-      color="#01532B"
+      color="#A12F8D"
       app
     >
       <v-layout column align-center>
@@ -72,7 +72,7 @@
             :to="item.path"
             router
             exact
-            :style="{ 'background-color': '#337555' }"
+            :style="{ 'background-color': '#8D2FA1' }"
           >
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>
@@ -120,7 +120,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              color="#01532B"
+              color="#A12F8D"
               rounded
               variant="text"
               @click="switchTerminal"
@@ -134,7 +134,7 @@
       <!-- Change Password Dialog -->
       <v-dialog v-model="changePasswordDialog" max-width="500px" persistent>
         <v-card>
-          <v-card-title class="headline" style="background-color: #01532B; color: white;">
+          <v-card-title class="headline" style="background-color: #A12F8D; color: white;">
             <v-icon left color="white">mdi-lock-reset</v-icon>
             ປ່ຽນລະຫັດຜ່ານ
           </v-card-title>
@@ -227,7 +227,7 @@
               </v-btn>
               
               <v-btn
-                color="#01532B"
+                color="#A12F8D"
                 :loading="passwordLoading"
                 :disabled="!passwordFormValid || passwordLoading"
                 @click="changePassword"
@@ -261,7 +261,7 @@
         v-if="user"
         small
         text
-        color="#01532B"
+        color="#A12F8D"
         class="ma-1"
         @click="openPasswordDialog"
       >

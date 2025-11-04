@@ -971,7 +971,7 @@ export default {
   align-items: center;
   padding: 24px;
   border-bottom: 1px solid #e9ecef;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #A12F8D 0%, #8D2FA1 100%);
   color: white;
 }
 
@@ -1318,7 +1318,7 @@ export default {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, #A12F8D 0%, #8D2FA1 100%);
   color: white;
 }
 

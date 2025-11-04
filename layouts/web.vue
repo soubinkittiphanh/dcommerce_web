@@ -15,7 +15,7 @@
     <!-- Secondary Menu Bar -->
     <!-- <v-container>
       <div class="brands mb-4 mt-1">
-        <v-row justify="center" style="background-color: #01532B;">
+        <v-row justify="center" style="background-color: #A12F8D;">
           <v-toolbar-items class="hidden-sm-and-down">
             <v-btn v-for="item in menuList" :key="item.text" text :to="item.path" style="font-size: large; ">
               {{ item.text }}
