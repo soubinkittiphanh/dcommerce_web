@@ -126,7 +126,7 @@
         <v-card elevation="2" class="rounded-lg">
           <v-card-text class="pa-4">
             <div class="d-flex align-center">
-              <v-avatar :color="performanceStatus.color === 'custom-primary-bg' ? '#A12F8D' : performanceStatus.color" class="mr-3">
+              <v-avatar :color="performanceStatus.color === 'custom-primary-bg' ? '#01532B' : performanceStatus.color" class="mr-3">
                 <v-icon color="white">mdi-chart-line</v-icon>
               </v-avatar>
               <div>
@@ -365,7 +365,7 @@
                     <td class="text-center">
                       <v-chip 
                         color="white"
-                        text-color="#A12F8D"
+                        text-color="#01532B"
                       >
                         {{ getStatusText(achievementPercentage) }}
                       </v-chip>
@@ -657,15 +657,15 @@ export default {
     },
 
     getProgressColor(percentage) {
-      if (percentage >= 90) return '#A12F8D'
+      if (percentage >= 90) return '#01532B'
       if (percentage >= 75) return '#17a2b8'
       if (percentage >= 50) return '#ffc107'
       return '#dc3545'
     },
 
     getStatusColor(percentage) {
-      if (percentage >= 100) return '#A12F8D'
-      if (percentage >= 90) return '#A12F8D'
+      if (percentage >= 100) return '#01532B'
+      if (percentage >= 90) return '#01532B'
       if (percentage >= 75) return '#17a2b8'
       if (percentage >= 50) return '#ffc107'
       return '#dc3545'
@@ -757,21 +757,21 @@ export default {
   padding: 16px;
 }
 
-/* Custom Color Theme #A12F8D */
+/* Custom Color Theme #01532B */
 .custom-primary-bg {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .custom-primary-text {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 .custom-primary-color {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 .custom-table-header {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .custom-table-totals {
@@ -779,7 +779,7 @@ export default {
 }
 
 .custom-progress >>> .v-progress-linear__determinate {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 /* Custom styling for progress bars */
@@ -789,7 +789,7 @@ export default {
 
 /* Table styling enhancements */
 .v-simple-table >>> thead tr th {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .v-simple-table >>> tbody tr:hover {
@@ -807,7 +807,7 @@ export default {
 
 /* Performance status colors with custom theme */
 .performance-excellent {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 .performance-good {

@@ -36,7 +36,7 @@
                 large
                 @click="showQRDialog = true"
                 class="mb-2"
-                style="background-color: #A12F8D !important; border-color: #A12F8D !important;"
+                style="background-color: #01532B !important; border-color: #01532B !important;"
               >
                 <v-icon left>mdi-qrcode</v-icon>
                 Show QR Code
@@ -520,15 +520,15 @@ export default {
 <style scoped>
 /* DCOMMERCE Green Theme Styles */
 .dcommerce-green {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .dcommerce-green-text {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 .dcommerce-green-border {
-  border-color: #A12F8D !important;
+  border-color: #01532B !important;
 }
 
 .dcommerce-green-light {

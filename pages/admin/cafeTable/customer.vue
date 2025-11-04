@@ -12,7 +12,7 @@
                 <v-progress-circular
                   indeterminate
                   size="32"
-                  color="#A12F8D"
+                  color="#01532B"
                 ></v-progress-circular>
                 <p class="loading-text">ກຳລັງໂຫຼດໂລໂກ້...</p>
               </div>
@@ -383,7 +383,7 @@
               <v-progress-circular
                 v-if="!paymentComplete"
                 indeterminate
-                color="#A12F8D"
+                color="#01532B"
                 size="20"
                 width="3"
                 class="status-spinner"
@@ -1047,11 +1047,11 @@ export default {
 }
 
 .dcommerce-green {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .dcommerce-green-text {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 /* ========================================
@@ -1133,7 +1133,7 @@ export default {
 .store-name {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   margin: 1rem 0;
   letter-spacing: -1px;
   word-wrap: break-word;
@@ -1148,7 +1148,7 @@ export default {
 
 .status-text {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: #A12F8D;
+  color: #01532B;
   font-weight: 500;
   margin: 0.5rem 0;
 }
@@ -1166,7 +1166,7 @@ export default {
 .payment-methods-title {
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 500;
-  color: #A12F8D;
+  color: #01532B;
   margin-bottom: 1.5rem;
 }
 
@@ -1196,7 +1196,7 @@ export default {
 .payment-method-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  border-color: #A12F8D;
+  border-color: #01532B;
 }
 
 .left-qr {
@@ -1224,7 +1224,7 @@ export default {
 .payment-method-name {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
   text-align: center;
 }
 
@@ -1292,7 +1292,7 @@ export default {
 .slide-title {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   margin: 1rem 0;
 }
 
@@ -1304,7 +1304,7 @@ export default {
 
 /* WiFi Slide Styles */
 .wifi-slide .wifi-icon {
-  color: #A12F8D;
+  color: #01532B;
   margin-bottom: 1rem;
 }
 
@@ -1318,7 +1318,7 @@ export default {
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(1, 83, 43, 0.15);
-  border: 3px solid #A12F8D;
+  border: 3px solid #01532B;
 }
 
 .qr-code-image {
@@ -1335,7 +1335,7 @@ export default {
 .wifi-password {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
   margin: 0.5rem 0;
 }
 
@@ -1397,11 +1397,11 @@ export default {
 
 .offer-card:hover {
   transform: translateY(-2px);
-  border-color: #A12F8D;
+  border-color: #01532B;
 }
 
 .offer-discount {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
@@ -1421,7 +1421,7 @@ export default {
 .offer-price {
   font-size: 1rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 /* Slide Indicators */
@@ -1443,12 +1443,12 @@ export default {
 }
 
 .indicator.active {
-  background: #A12F8D;
+  background: #01532B;
   transform: scale(1.2);
 }
 
 .indicator:hover {
-  background: #A12F8D;
+  background: #01532B;
   transform: scale(1.1);
 }
 
@@ -1486,7 +1486,7 @@ export default {
 
 .order-header {
   padding: 1rem 1.5rem;
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -1569,7 +1569,7 @@ export default {
 
 .item-quantity {
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
   margin: 0 0.75rem;
   min-width: 35px;
   text-align: center;
@@ -1579,7 +1579,7 @@ export default {
 
 .item-price {
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   font-size: 0.9rem;
   min-width: 70px;
   text-align: right;
@@ -1616,13 +1616,13 @@ export default {
 .mini-slide-title {
   font-size: 1rem;
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
   margin: 0.5rem 0;
 }
 
 /* Mini WiFi Slide */
 .mini-wifi-slide .mini-wifi-icon {
-  color: #A12F8D;
+  color: #01532B;
   margin-bottom: 0.5rem;
 }
 
@@ -1634,7 +1634,7 @@ export default {
   width: 120px;
   height: 120px;
   border-radius: 8px;
-  border: 2px solid #A12F8D;
+  border: 2px solid #01532B;
 }
 
 .mini-wifi-name {
@@ -1689,7 +1689,7 @@ export default {
 }
 
 .mini-offer-discount {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 8px;
@@ -1739,9 +1739,9 @@ export default {
   justify-content: space-between;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   padding-top: 0.75rem;
-  border-top: 2px solid #A12F8D;
+  border-top: 2px solid #01532B;
   margin-top: 0.5rem;
 }
 
@@ -1784,7 +1784,7 @@ export default {
 .payment-title {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   margin: 0;
 }
 
@@ -1807,7 +1807,7 @@ export default {
 .amount-value {
   font-size: clamp(1.8rem, 4vw, 2.2rem);
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   line-height: 1;
   word-wrap: break-word;
 }
@@ -1833,7 +1833,7 @@ export default {
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
-  border: 3px solid #A12F8D;
+  border: 3px solid #01532B;
 }
 
 .qr-payment-methods {
@@ -1883,7 +1883,7 @@ export default {
 .qr-method-label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
   text-align: center;
 }
 
@@ -1916,7 +1916,7 @@ export default {
 }
 
 .step-icon {
-  color: #A12F8D !important;
+  color: #01532B !important;
   margin-bottom: 0.3rem;
 }
 
@@ -2070,7 +2070,7 @@ export default {
 .dcommerce-text-welcome {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.3px;
 }
@@ -2108,7 +2108,7 @@ export default {
 .dcommerce-text-qr {
   font-size: 0.7rem;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.3px;
 }
@@ -2266,7 +2266,7 @@ export default {
 .payment-method-item:focus,
 .qr-payment-method-logo:focus,
 .indicator:focus {
-  outline: 2px solid #A12F8D;
+  outline: 2px solid #01532B;
   outline-offset: 2px;
 }
 
@@ -2303,7 +2303,7 @@ export default {
 }
 
 .order-items-container::-webkit-scrollbar-thumb {
-  background: #A12F8D;
+  background: #01532B;
   border-radius: 3px;
 }
 
@@ -2313,6 +2313,6 @@ export default {
 
 .order-items-container {
   scrollbar-width: thin;
-  scrollbar-color: #A12F8D #f1f1f1;
+  scrollbar-color: #01532B #f1f1f1;
 }
 </style>

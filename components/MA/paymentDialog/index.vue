@@ -1496,7 +1496,7 @@ export default {
   align-items: center;
   padding: 16px 18px;
   border-bottom: 1px solid #e9ecef;
-  background: #A12F8D;
+  background: #01532B;
   color: white;
 }
 
@@ -1779,7 +1779,7 @@ textarea.form-control {
 }
 
 .btn-primary {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
 }
 

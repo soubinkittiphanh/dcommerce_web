@@ -36,7 +36,7 @@
       <v-card>
         <v-card-title
           class="headline"
-          style="background-color: #a12f8d; color: white"
+          style="background-color: #01532B; color: white"
         >
           <v-icon left color="white">mdi-receipt</v-icon>
           ລາຍລະອຽດບິນ: {{ selectedTicket.ticketNumber }}

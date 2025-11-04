@@ -10,11 +10,11 @@
         <p class="page-subtitle">Money Advances Report</p>
       </div>
       <div class="action-buttons">
-        <v-btn color="#A12F8D" @click="exportToExcel" :loading="exporting" dark>
+        <v-btn color="#01532B" @click="exportToExcel" :loading="exporting" dark>
           <i class="fas fa-file-excel"></i>
           Export Excel
         </v-btn>
-        <v-btn color="#A12F8D" @click="printReport" dark>
+        <v-btn color="#01532B" @click="printReport" dark>
           <i class="fas fa-print"></i>
           Print
         </v-btn>
@@ -363,7 +363,7 @@
         <template v-slot:item.actions="{ item }">
           <v-btn
             small
-            color="#A12F8D"
+            color="#01532B"
             @click="viewAdvanceDetails(item)"
             dark
           >
@@ -472,7 +472,7 @@
                   <span class="amount-cell">{{ formatCurrency(item.amount) }}</span>
                 </template>
                 <template v-slot:item.method="{ item }">
-                  <v-chip small color="#A12F8D" text-color="white">
+                  <v-chip small color="#01532B" text-color="white">
                     {{ item.method }}
                   </v-chip>
                 </template>
@@ -769,8 +769,8 @@ export default {
     
     getCurrencyColor(currencyCode) {
       const colors = {
-        'USD': '#A12F8D',
-        'LAK': '#A12F8D', 
+        'USD': '#01532B',
+        'LAK': '#01532B', 
         'THB': '#F59E0B',
         'EUR': '#8B5CF6',
         'CNY': '#EF4444'
@@ -829,7 +829,7 @@ export default {
   align-items: center;
   margin-bottom: 24px;
   padding: 20px;
-  background: linear-gradient(135deg, #A12F8D 0%, #0D4F3C 50%, #1A5D4A 100%);
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 50%, #1A5D4A 100%);
   color: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(1, 83, 43, 0.3);
@@ -858,13 +858,13 @@ export default {
 }
 
 .filter-title {
-  background: #A12F8D;
+  background: #01532B;
   color: white;
   font-weight: 600;
 }
 
 .custom-primary-bg {
-  background-color: #A12F8D !important;
+  background-color: #01532B !important;
 }
 
 .custom-secondary-btn {
@@ -882,12 +882,12 @@ export default {
 
 .date-range-alert {
   background-color: rgba(1, 83, 43, 0.1) !important;
-  border-color: #A12F8D !important;
-  color: #A12F8D !important;
+  border-color: #01532B !important;
+  color: #01532B !important;
 }
 
 .date-range-alert >>> .v-icon {
-  color: #A12F8D !important;
+  color: #01532B !important;
 }
 
 .bank-account-selection {
@@ -898,7 +898,7 @@ export default {
 .bank-account-selection .bank-name {
   font-weight: 600;
   font-size: 14px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .bank-account-selection small {
@@ -913,7 +913,7 @@ export default {
 .bank-account-item .bank-name {
   font-weight: 600;
   font-size: 14px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .bank-account-item .bank-details {
@@ -930,7 +930,7 @@ export default {
   height: 140px;
   position: relative;
   overflow: hidden;
-  border-top: 3px solid #A12F8D;
+  border-top: 3px solid #01532B;
 }
 
 .summary-content {
@@ -943,14 +943,14 @@ export default {
   font-size: 48px;
   opacity: 0.8;
   margin-right: 16px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .summary-details h3 {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .summary-details p {
@@ -963,18 +963,18 @@ export default {
   margin: 8px 0 0 0;
   font-size: 24px;
   font-weight: 700;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .summary-lcy {
   font-size: 11px;
   opacity: 0.8;
   margin-top: 4px !important;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .advance-card {
-  background: linear-gradient(135deg, #A12F8D 0%, #0D4F3C 100%);
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%);
   color: white;
 }
 
@@ -1003,14 +1003,14 @@ export default {
 
 .stats-card {
   height: 100px;
-  border-left: 4px solid #A12F8D;
+  border-left: 4px solid #01532B;
 }
 
 .stats-number {
   font-size: 24px;
   font-weight: 700;
   margin: 0;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .stats-label {
@@ -1022,12 +1022,12 @@ export default {
 
 .table-card {
   margin-bottom: 24px;
-  border-left: 4px solid #A12F8D;
+  border-left: 4px solid #01532B;
 }
 
 .table-title {
   background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
-  color: #A12F8D;
+  color: #01532B;
   font-weight: 600;
 }
 
@@ -1047,7 +1047,7 @@ export default {
 .ministry-name {
   font-weight: 600;
   font-size: 14px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .ministry-code {
@@ -1070,7 +1070,7 @@ export default {
 .bank-account-name {
   font-weight: 600;
   font-size: 14px;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .bank-account-number {
@@ -1104,7 +1104,7 @@ export default {
 }
 
 .lcy-amount {
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .settlement-amount {
@@ -1127,19 +1127,19 @@ export default {
 }
 
 .dialog-title {
-  background: linear-gradient(90deg, #A12F8D 0%, #0D4F3C 100%);
+  background: linear-gradient(90deg, #01532B 0%, #0D4F3C 100%);
   color: white;
   font-weight: 600;
 }
 
 .section-title {
-  color: #A12F8D;
+  color: #01532B;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
 .custom-divider {
-  border-color: #A12F8D !important;
+  border-color: #01532B !important;
   border-width: 2px !important;
 }
 
@@ -1154,7 +1154,7 @@ export default {
 .detail-stat strong {
   display: block;
   margin-bottom: 8px;
-  color: #A12F8D;
+  color: #01532B;
   font-size: 14px;
 }
 
@@ -1163,7 +1163,7 @@ export default {
   font-size: 18px;
   font-weight: 600;
   font-family: monospace;
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .detail-stat small {
@@ -1180,7 +1180,7 @@ export default {
 }
 
 .detail-item strong {
-  color: #A12F8D;
+  color: #01532B;
 }
 
 .detail-table {
