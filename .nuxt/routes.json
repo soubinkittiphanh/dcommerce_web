@@ -2,937 +2,1093 @@
   {
     "name": "admin",
     "path": "/admin",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/index.vue",
-    "chunkName": "pages/admin/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\index.vue",
+    "chunkName": "pages/admin/index",
+    "_name": "_91dcc936"
   },
   {
     "name": "e-menu",
     "path": "/e-menu",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/e-menu/index.vue",
-    "chunkName": "pages/e-menu/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\e-menu\\\\index.vue",
+    "chunkName": "pages/e-menu/index",
+    "_name": "_bea1864e"
   },
   {
     "name": "fashion",
     "path": "/fashion",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/index.vue",
-    "chunkName": "pages/fashion/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\index.vue",
+    "chunkName": "pages/fashion/index",
+    "_name": "_248c1a48"
   },
   {
     "name": "home",
     "path": "/home",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/home/index.vue",
-    "chunkName": "pages/home/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\home\\\\index.vue",
+    "chunkName": "pages/home/index",
+    "_name": "_9406b77e"
   },
   {
     "name": "index.bk",
     "path": "/index.bk",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/index.bk.vue",
-    "chunkName": "pages/index.bk"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\index.bk.vue",
+    "chunkName": "pages/index.bk",
+    "_name": "_2fc05327"
   },
   {
     "name": "lion72",
     "path": "/lion72",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/lion72/index.vue",
-    "chunkName": "pages/lion72/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\lion72\\\\index.vue",
+    "chunkName": "pages/lion72/index",
+    "_name": "_16628ca9"
   },
   {
     "name": "product",
     "path": "/product",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/product/index.vue",
-    "chunkName": "pages/product/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\product\\\\index.vue",
+    "chunkName": "pages/product/index",
+    "_name": "_c12b2976"
   },
   {
     "name": "product-details",
     "path": "/product-details",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/product-details.vue",
-    "chunkName": "pages/product-details"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\product-details.vue",
+    "chunkName": "pages/product-details",
+    "_name": "_81f226dc"
   },
   {
     "name": "public",
     "path": "/public",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/public/index.vue",
-    "chunkName": "pages/public/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\public\\\\index.vue",
+    "chunkName": "pages/public/index",
+    "_name": "_b2cf4212"
   },
   {
     "name": "admin-advertise",
     "path": "/admin/advertise",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/advertise/index.vue",
-    "chunkName": "pages/admin/advertise/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\advertise\\\\index.vue",
+    "chunkName": "pages/admin/advertise/index",
+    "_name": "_18bdbc88"
   },
   {
     "name": "admin-ap",
     "path": "/admin/ap",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/index.vue",
-    "chunkName": "pages/admin/ap/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ap\\\\index.vue",
+    "chunkName": "pages/admin/ap/index",
+    "_name": "_27d95ad6"
   },
   {
     "name": "admin-applicants",
     "path": "/admin/applicants",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/applicants/index.vue",
-    "chunkName": "pages/admin/applicants/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\applicants\\\\index.vue",
+    "chunkName": "pages/admin/applicants/index",
+    "_name": "_7ab3d514"
   },
   {
     "name": "admin-ar",
     "path": "/admin/ar",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ar/index.vue",
-    "chunkName": "pages/admin/ar/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ar\\\\index.vue",
+    "chunkName": "pages/admin/ar/index",
+    "_name": "_373ca594"
   },
   {
     "name": "admin-authority",
     "path": "/admin/authority",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/authority/index.vue",
-    "chunkName": "pages/admin/authority/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\authority\\\\index.vue",
+    "chunkName": "pages/admin/authority/index",
+    "_name": "_59df93ec"
   },
   {
     "name": "admin-bank",
     "path": "/admin/bank",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/bank/index.vue",
-    "chunkName": "pages/admin/bank/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\bank\\\\index.vue",
+    "chunkName": "pages/admin/bank/index",
+    "_name": "_0e84d82e"
   },
   {
     "name": "admin-bankAccount",
     "path": "/admin/bankAccount",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/bankAccount/index.vue",
-    "chunkName": "pages/admin/bankAccount/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\bankAccount\\\\index.vue",
+    "chunkName": "pages/admin/bankAccount/index",
+    "_name": "_5e269e44"
   },
   {
     "name": "admin-barcodePrint",
     "path": "/admin/barcodePrint",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/barcodePrint/index.vue",
-    "chunkName": "pages/admin/barcodePrint/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\barcodePrint\\\\index.vue",
+    "chunkName": "pages/admin/barcodePrint/index",
+    "_name": "_66e0a878"
   },
   {
     "name": "admin-batch_job",
     "path": "/admin/batch_job",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/batch_job/index.vue",
-    "chunkName": "pages/admin/batch_job/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\batch_job\\\\index.vue",
+    "chunkName": "pages/admin/batch_job/index",
+    "_name": "_4ef34ad7"
   },
   {
     "name": "admin-benefit",
     "path": "/admin/benefit",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/benefit/index.vue",
-    "chunkName": "pages/admin/benefit/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\benefit\\\\index.vue",
+    "chunkName": "pages/admin/benefit/index",
+    "_name": "_57466150"
   },
   {
     "name": "admin-booking",
     "path": "/admin/booking",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/booking/index.vue",
-    "chunkName": "pages/admin/booking/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\booking\\\\index.vue",
+    "chunkName": "pages/admin/booking/index",
+    "_name": "_3c4e2354"
   },
   {
     "name": "admin-cafeTable",
     "path": "/admin/cafeTable",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafeTable/index.vue",
-    "chunkName": "pages/admin/cafeTable/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\cafeTable\\\\index.vue",
+    "chunkName": "pages/admin/cafeTable/index",
+    "_name": "_68dd8e3e"
   },
   {
     "name": "admin-campaign",
     "path": "/admin/campaign",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/campaign/index.vue",
-    "chunkName": "pages/admin/campaign/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\campaign\\\\index.vue",
+    "chunkName": "pages/admin/campaign/index",
+    "_name": "_1fbb11d6"
   },
   {
     "name": "admin-cancel_order",
     "path": "/admin/cancel_order",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cancel_order/index.vue",
-    "chunkName": "pages/admin/cancel_order/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\cancel_order\\\\index.vue",
+    "chunkName": "pages/admin/cancel_order/index",
+    "_name": "_2bf0dfbc"
   },
   {
     "name": "admin-card",
     "path": "/admin/card",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/card/index.vue",
-    "chunkName": "pages/admin/card/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\card\\\\index.vue",
+    "chunkName": "pages/admin/card/index",
+    "_name": "_526cdad6"
   },
   {
     "name": "admin-category",
     "path": "/admin/category",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/category/index.vue",
-    "chunkName": "pages/admin/category/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\category\\\\index.vue",
+    "chunkName": "pages/admin/category/index",
+    "_name": "_6e1d9a67"
   },
   {
     "name": "admin-chartAccount",
     "path": "/admin/chartAccount",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/chartAccount/index.vue",
-    "chunkName": "pages/admin/chartAccount/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\chartAccount\\\\index.vue",
+    "chunkName": "pages/admin/chartAccount/index",
+    "_name": "_367ae654"
   },
   {
     "name": "admin-client",
     "path": "/admin/client",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/client/index.vue",
-    "chunkName": "pages/admin/client/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\client\\\\index.vue",
+    "chunkName": "pages/admin/client/index",
+    "_name": "_3e4ca43a"
   },
   {
     "name": "admin-cod_order",
     "path": "/admin/cod_order",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cod_order/index.vue",
-    "chunkName": "pages/admin/cod_order/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\cod_order\\\\index.vue",
+    "chunkName": "pages/admin/cod_order/index",
+    "_name": "_c19fa230"
   },
   {
     "name": "admin-company",
     "path": "/admin/company",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/company/index.vue",
-    "chunkName": "pages/admin/company/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\company\\\\index.vue",
+    "chunkName": "pages/admin/company/index",
+    "_name": "_201f7bb2"
   },
   {
     "name": "admin-currency",
     "path": "/admin/currency",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/currency/index.vue",
-    "chunkName": "pages/admin/currency/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\currency\\\\index.vue",
+    "chunkName": "pages/admin/currency/index",
+    "_name": "_0d55cd74"
   },
   {
     "name": "admin-customer",
     "path": "/admin/customer",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer/index.vue",
-    "chunkName": "pages/admin/customer/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\customer\\\\index.vue",
+    "chunkName": "pages/admin/customer/index",
+    "_name": "_69024b87"
   },
   {
     "name": "admin-customer_request",
     "path": "/admin/customer_request",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer_request/index.vue",
-    "chunkName": "pages/admin/customer_request/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\customer_request\\\\index.vue",
+    "chunkName": "pages/admin/customer_request/index",
+    "_name": "_199c5992"
   },
   {
     "name": "admin-generalLedger",
     "path": "/admin/generalLedger",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/generalLedger/index.vue",
-    "chunkName": "pages/admin/generalLedger/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\generalLedger\\\\index.vue",
+    "chunkName": "pages/admin/generalLedger/index",
+    "_name": "_9ced7904"
   },
   {
     "name": "admin-group",
     "path": "/admin/group",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/group/index.vue",
-    "chunkName": "pages/admin/group/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\group\\\\index.vue",
+    "chunkName": "pages/admin/group/index",
+    "_name": "_88d03ca0"
   },
   {
     "name": "admin-inventory_value",
     "path": "/admin/inventory_value",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/inventory_value/index.vue",
-    "chunkName": "pages/admin/inventory_value/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\inventory_value\\\\index.vue",
+    "chunkName": "pages/admin/inventory_value/index",
+    "_name": "_0cec847e"
   },
   {
     "name": "admin-jobAdvertise",
     "path": "/admin/jobAdvertise",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/jobAdvertise/index.vue",
-    "chunkName": "pages/admin/jobAdvertise/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\jobAdvertise\\\\index.vue",
+    "chunkName": "pages/admin/jobAdvertise/index",
+    "_name": "_60dc457b"
   },
   {
     "name": "admin-location",
     "path": "/admin/location",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/location/index.vue",
-    "chunkName": "pages/admin/location/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\location\\\\index.vue",
+    "chunkName": "pages/admin/location/index",
+    "_name": "_a766a160"
   },
   {
     "name": "admin-login",
     "path": "/admin/login",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/login/index.vue",
-    "chunkName": "pages/admin/login/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\login\\\\index.vue",
+    "chunkName": "pages/admin/login/index",
+    "_name": "_6d2ddaf4"
   },
   {
     "name": "admin-logout",
     "path": "/admin/logout",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/logout/index.vue",
-    "chunkName": "pages/admin/logout/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\logout\\\\index.vue",
+    "chunkName": "pages/admin/logout/index",
+    "_name": "_5d83451b"
   },
   {
     "name": "admin-member",
     "path": "/admin/member",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/member/index.vue",
-    "chunkName": "pages/admin/member/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\member\\\\index.vue",
+    "chunkName": "pages/admin/member/index",
+    "_name": "_ec6ff3ea"
   },
   {
     "name": "admin-menuHeader",
     "path": "/admin/menuHeader",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/menuHeader/index.vue",
-    "chunkName": "pages/admin/menuHeader/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\menuHeader\\\\index.vue",
+    "chunkName": "pages/admin/menuHeader/index",
+    "_name": "_1626f1ce"
   },
   {
     "name": "admin-menuLine",
     "path": "/admin/menuLine",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/menuLine/index.vue",
-    "chunkName": "pages/admin/menuLine/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\menuLine\\\\index.vue",
+    "chunkName": "pages/admin/menuLine/index",
+    "_name": "_b628ab5c"
   },
   {
     "name": "admin-ministry",
     "path": "/admin/ministry",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ministry/index.vue",
-    "chunkName": "pages/admin/ministry/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ministry\\\\index.vue",
+    "chunkName": "pages/admin/ministry/index",
+    "_name": "_4582a8f4"
   },
   {
     "name": "admin-minstock",
     "path": "/admin/minstock",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/minstock/index.vue",
-    "chunkName": "pages/admin/minstock/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\minstock\\\\index.vue",
+    "chunkName": "pages/admin/minstock/index",
+    "_name": "_381363a1"
   },
   {
     "name": "admin-moneyAdvance",
     "path": "/admin/moneyAdvance",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvance/index.vue",
-    "chunkName": "pages/admin/moneyAdvance/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\moneyAdvance\\\\index.vue",
+    "chunkName": "pages/admin/moneyAdvance/index",
+    "_name": "_bcc3a87a"
   },
   {
     "name": "admin-moneyAdvanceByBank",
     "path": "/admin/moneyAdvanceByBank",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceByBank/index.vue",
-    "chunkName": "pages/admin/moneyAdvanceByBank/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\moneyAdvanceByBank\\\\index.vue",
+    "chunkName": "pages/admin/moneyAdvanceByBank/index",
+    "_name": "_4dff9860"
   },
   {
     "name": "admin-moneyAdvanceDashboard",
     "path": "/admin/moneyAdvanceDashboard",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceDashboard/index.vue",
-    "chunkName": "pages/admin/moneyAdvanceDashboard/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\moneyAdvanceDashboard\\\\index.vue",
+    "chunkName": "pages/admin/moneyAdvanceDashboard/index",
+    "_name": "_76b22986"
   },
   {
     "name": "admin-moneyAdvanceSettlement",
     "path": "/admin/moneyAdvanceSettlement",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceSettlement/index.vue",
-    "chunkName": "pages/admin/moneyAdvanceSettlement/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\moneyAdvanceSettlement\\\\index.vue",
+    "chunkName": "pages/admin/moneyAdvanceSettlement/index",
+    "_name": "_816958cc"
   },
   {
     "name": "admin-moneyAdvanceSettlementByBank",
     "path": "/admin/moneyAdvanceSettlementByBank",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceSettlementByBank/index.vue",
-    "chunkName": "pages/admin/moneyAdvanceSettlementByBank/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\moneyAdvanceSettlementByBank\\\\index.vue",
+    "chunkName": "pages/admin/moneyAdvanceSettlementByBank/index",
+    "_name": "_7d604332"
   },
   {
     "name": "admin-moneyAdvanceTarget",
     "path": "/admin/moneyAdvanceTarget",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceTarget/index.vue",
-    "chunkName": "pages/admin/moneyAdvanceTarget/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\moneyAdvanceTarget\\\\index.vue",
+    "chunkName": "pages/admin/moneyAdvanceTarget/index",
+    "_name": "_663f3eb2"
   },
   {
     "name": "admin-orders",
     "path": "/admin/orders",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/orders/index.vue",
-    "chunkName": "pages/admin/orders/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\orders\\\\index.vue",
+    "chunkName": "pages/admin/orders/index",
+    "_name": "_40bfa0e0"
   },
   {
     "name": "admin-ordersAll",
     "path": "/admin/ordersAll",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersAll/index.vue",
-    "chunkName": "pages/admin/ordersAll/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersAll\\\\index.vue",
+    "chunkName": "pages/admin/ordersAll/index",
+    "_name": "_3c6a5513"
   },
   {
     "name": "admin-ordersFromAll",
     "path": "/admin/ordersFromAll",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromAll/index.vue",
-    "chunkName": "pages/admin/ordersFromAll/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromAll\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromAll/index",
+    "_name": "_1f54425d"
   },
   {
     "name": "admin-ordersFromPos",
     "path": "/admin/ordersFromPos",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromPos/index.vue",
-    "chunkName": "pages/admin/ordersFromPos/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromPos\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromPos/index",
+    "_name": "_5cb7abca"
   },
   {
     "name": "admin-ordersFromPosCancel",
     "path": "/admin/ordersFromPosCancel",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromPosCancel/index.vue",
-    "chunkName": "pages/admin/ordersFromPosCancel/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromPosCancel\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromPosCancel/index",
+    "_name": "_9a6ab620"
   },
   {
     "name": "admin-ordersFromPosCredit",
     "path": "/admin/ordersFromPosCredit",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromPosCredit/index.vue",
-    "chunkName": "pages/admin/ordersFromPosCredit/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromPosCredit\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromPosCredit/index",
+    "_name": "_5e3ab311"
   },
   {
     "name": "admin-ordersFromPosOnline",
     "path": "/admin/ordersFromPosOnline",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromPosOnline/index.vue",
-    "chunkName": "pages/admin/ordersFromPosOnline/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromPosOnline\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromPosOnline/index",
+    "_name": "_99362912"
   },
   {
     "name": "admin-ordersFromPosOnlineCOD",
     "path": "/admin/ordersFromPosOnlineCOD",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromPosOnlineCOD/index.vue",
-    "chunkName": "pages/admin/ordersFromPosOnlineCOD/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromPosOnlineCOD\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromPosOnlineCOD/index",
+    "_name": "_38af6ee5"
   },
   {
     "name": "admin-ordersFromPosSummaryByCustomer",
     "path": "/admin/ordersFromPosSummaryByCustomer",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersFromPosSummaryByCustomer/index.vue",
-    "chunkName": "pages/admin/ordersFromPosSummaryByCustomer/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersFromPosSummaryByCustomer\\\\index.vue",
+    "chunkName": "pages/admin/ordersFromPosSummaryByCustomer/index",
+    "_name": "_58f47daf"
   },
   {
     "name": "admin-ordersIn",
     "path": "/admin/ordersIn",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersIn/index.vue",
-    "chunkName": "pages/admin/ordersIn/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersIn\\\\index.vue",
+    "chunkName": "pages/admin/ordersIn/index",
+    "_name": "_1d1a360a"
   },
   {
     "name": "admin-ordersOld231101",
     "path": "/admin/ordersOld231101",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersOld231101/index.vue",
-    "chunkName": "pages/admin/ordersOld231101/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersOld231101\\\\index.vue",
+    "chunkName": "pages/admin/ordersOld231101/index",
+    "_name": "_e639512a"
   },
   {
     "name": "admin-ordersOut",
     "path": "/admin/ordersOut",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ordersOut/index.vue",
-    "chunkName": "pages/admin/ordersOut/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ordersOut\\\\index.vue",
+    "chunkName": "pages/admin/ordersOut/index",
+    "_name": "_36b3c146"
   },
   {
     "name": "admin-orderTracking",
     "path": "/admin/orderTracking",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/orderTracking/index.vue",
-    "chunkName": "pages/admin/orderTracking/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\orderTracking\\\\index.vue",
+    "chunkName": "pages/admin/orderTracking/index",
+    "_name": "_6025a34a"
   },
   {
     "name": "admin-payment",
     "path": "/admin/payment",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/payment/index.vue",
-    "chunkName": "pages/admin/payment/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\payment\\\\index.vue",
+    "chunkName": "pages/admin/payment/index",
+    "_name": "_cefe32ee"
   },
   {
     "name": "admin-pl",
     "path": "/admin/pl",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/pl/index.vue",
-    "chunkName": "pages/admin/pl/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\pl\\\\index.vue",
+    "chunkName": "pages/admin/pl/index",
+    "_name": "_02c026e9"
   },
   {
     "name": "admin-po",
     "path": "/admin/po",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/po/index.vue",
-    "chunkName": "pages/admin/po/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\po\\\\index.vue",
+    "chunkName": "pages/admin/po/index",
+    "_name": "_19d51706"
   },
   {
     "name": "admin-product",
     "path": "/admin/product",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/product/index.vue",
-    "chunkName": "pages/admin/product/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\product\\\\index.vue",
+    "chunkName": "pages/admin/product/index",
+    "_name": "_4ccae000"
   },
   {
     "name": "admin-productInuse",
     "path": "/admin/productInuse",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/productInuse.vue",
-    "chunkName": "pages/admin/productInuse"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\productInuse.vue",
+    "chunkName": "pages/admin/productInuse",
+    "_name": "_04352250"
   },
   {
     "name": "admin-quotation",
     "path": "/admin/quotation",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/quotation/index.vue",
-    "chunkName": "pages/admin/quotation/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\quotation\\\\index.vue",
+    "chunkName": "pages/admin/quotation/index",
+    "_name": "_25a56e03"
   },
   {
     "name": "admin-quotationList",
     "path": "/admin/quotationList",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/quotationList/index.vue",
-    "chunkName": "pages/admin/quotationList/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\quotationList\\\\index.vue",
+    "chunkName": "pages/admin/quotationList/index",
+    "_name": "_6b705205"
   },
   {
     "name": "admin-receiving",
     "path": "/admin/receiving",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/receiving/index.vue",
-    "chunkName": "pages/admin/receiving/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\receiving\\\\index.vue",
+    "chunkName": "pages/admin/receiving/index",
+    "_name": "_448477a2"
   },
   {
     "name": "admin-report",
     "path": "/admin/report",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/index.vue",
-    "chunkName": "pages/admin/report/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\index.vue",
+    "chunkName": "pages/admin/report/index",
+    "_name": "_620d119e"
   },
   {
     "name": "admin-report_card",
     "path": "/admin/report_card",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report_card/index.vue",
-    "chunkName": "pages/admin/report_card/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report_card\\\\index.vue",
+    "chunkName": "pages/admin/report_card/index",
+    "_name": "_49dafbb4"
   },
   {
     "name": "admin-reservation",
     "path": "/admin/reservation",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reservation/index.vue",
-    "chunkName": "pages/admin/reservation/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\reservation\\\\index.vue",
+    "chunkName": "pages/admin/reservation/index",
+    "_name": "_37103afa"
   },
   {
     "name": "admin-rider",
     "path": "/admin/rider",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/rider/index.vue",
-    "chunkName": "pages/admin/rider/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\rider\\\\index.vue",
+    "chunkName": "pages/admin/rider/index",
+    "_name": "_925e3256"
   },
   {
     "name": "admin-saleCost",
     "path": "/admin/saleCost",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleCost/index.vue",
-    "chunkName": "pages/admin/saleCost/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleCost\\\\index.vue",
+    "chunkName": "pages/admin/saleCost/index",
+    "_name": "_2eb6be1e"
   },
   {
     "name": "admin-saleDashBoard",
     "path": "/admin/saleDashBoard",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleDashBoard/index.vue",
-    "chunkName": "pages/admin/saleDashBoard/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleDashBoard\\\\index.vue",
+    "chunkName": "pages/admin/saleDashBoard/index",
+    "_name": "_4a80d882"
   },
   {
     "name": "admin-saleReportDetail",
     "path": "/admin/saleReportDetail",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetail/index.vue",
-    "chunkName": "pages/admin/saleReportDetail/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleReportDetail\\\\index.vue",
+    "chunkName": "pages/admin/saleReportDetail/index",
+    "_name": "_c46279ce"
   },
   {
     "name": "admin-saleReportDetailByCustomer",
     "path": "/admin/saleReportDetailByCustomer",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetailByCustomer/index.vue",
-    "chunkName": "pages/admin/saleReportDetailByCustomer/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleReportDetailByCustomer\\\\index.vue",
+    "chunkName": "pages/admin/saleReportDetailByCustomer/index",
+    "_name": "_dfeef878"
   },
   {
     "name": "admin-saleReportDetailByHeader",
     "path": "/admin/saleReportDetailByHeader",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetailByHeader/index.vue",
-    "chunkName": "pages/admin/saleReportDetailByHeader/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleReportDetailByHeader\\\\index.vue",
+    "chunkName": "pages/admin/saleReportDetailByHeader/index",
+    "_name": "_56aa6bb5"
   },
   {
     "name": "admin-saleReportDetailByProduct",
     "path": "/admin/saleReportDetailByProduct",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetailByProduct/index.vue",
-    "chunkName": "pages/admin/saleReportDetailByProduct/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleReportDetailByProduct\\\\index.vue",
+    "chunkName": "pages/admin/saleReportDetailByProduct/index",
+    "_name": "_5efddc23"
   },
   {
     "name": "admin-saleReportDetailByUser",
     "path": "/admin/saleReportDetailByUser",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetailByUser/index.vue",
-    "chunkName": "pages/admin/saleReportDetailByUser/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleReportDetailByUser\\\\index.vue",
+    "chunkName": "pages/admin/saleReportDetailByUser/index",
+    "_name": "_38c66492"
   },
   {
     "name": "admin-saleTicketReportDetailByProduct",
     "path": "/admin/saleTicketReportDetailByProduct",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleTicketReportDetailByProduct/index.vue",
-    "chunkName": "pages/admin/saleTicketReportDetailByProduct/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\saleTicketReportDetailByProduct\\\\index.vue",
+    "chunkName": "pages/admin/saleTicketReportDetailByProduct/index",
+    "_name": "_cfdffb62"
   },
   {
     "name": "admin-shipping",
     "path": "/admin/shipping",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/shipping/index.vue",
-    "chunkName": "pages/admin/shipping/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\shipping\\\\index.vue",
+    "chunkName": "pages/admin/shipping/index",
+    "_name": "_7bb32bb7"
   },
   {
     "name": "admin-spf",
     "path": "/admin/spf",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/spf/index.vue",
-    "chunkName": "pages/admin/spf/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\spf\\\\index.vue",
+    "chunkName": "pages/admin/spf/index",
+    "_name": "_72354186"
   },
   {
     "name": "admin-tax",
     "path": "/admin/tax",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/tax/index.vue",
-    "chunkName": "pages/admin/tax/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\tax\\\\index.vue",
+    "chunkName": "pages/admin/tax/index",
+    "_name": "_36396b78"
   },
   {
     "name": "admin-terminal",
     "path": "/admin/terminal",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/terminal/index.vue",
-    "chunkName": "pages/admin/terminal/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\terminal\\\\index.vue",
+    "chunkName": "pages/admin/terminal/index",
+    "_name": "_2b110a29"
   },
   {
     "name": "admin-ticket",
     "path": "/admin/ticket",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ticket/index.vue",
-    "chunkName": "pages/admin/ticket/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ticket\\\\index.vue",
+    "chunkName": "pages/admin/ticket/index",
+    "_name": "_7b5c6b4e"
   },
   {
     "name": "admin-transaction_code",
     "path": "/admin/transaction_code",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/transaction_code/index.vue",
-    "chunkName": "pages/admin/transaction_code/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\transaction_code\\\\index.vue",
+    "chunkName": "pages/admin/transaction_code/index",
+    "_name": "_3c076092"
   },
   {
     "name": "admin-transfer",
     "path": "/admin/transfer",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/transfer/index.vue",
-    "chunkName": "pages/admin/transfer/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\transfer\\\\index.vue",
+    "chunkName": "pages/admin/transfer/index",
+    "_name": "_089d795a"
   },
   {
     "name": "admin-tutorial",
     "path": "/admin/tutorial",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/tutorial/index.vue",
-    "chunkName": "pages/admin/tutorial/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\tutorial\\\\index.vue",
+    "chunkName": "pages/admin/tutorial/index",
+    "_name": "_cfef1ff2"
   },
   {
     "name": "admin-txn",
     "path": "/admin/txn",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/txn/index.vue",
-    "chunkName": "pages/admin/txn/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\txn\\\\index.vue",
+    "chunkName": "pages/admin/txn/index",
+    "_name": "_05b86a25"
   },
   {
     "name": "admin-txn_type",
     "path": "/admin/txn_type",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/txn_type/index.vue",
-    "chunkName": "pages/admin/txn_type/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\txn_type\\\\index.vue",
+    "chunkName": "pages/admin/txn_type/index",
+    "_name": "_7e0a4ed6"
   },
   {
     "name": "admin-unit",
     "path": "/admin/unit",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/unit/index.vue",
-    "chunkName": "pages/admin/unit/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\unit\\\\index.vue",
+    "chunkName": "pages/admin/unit/index",
+    "_name": "_8e0d38be"
   },
   {
     "name": "admin-user",
     "path": "/admin/user",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/user/index.vue",
-    "chunkName": "pages/admin/user/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\user\\\\index.vue",
+    "chunkName": "pages/admin/user/index",
+    "_name": "_58deeefa"
   },
   {
     "name": "admin-vendor",
     "path": "/admin/vendor",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/vendor/index.vue",
-    "chunkName": "pages/admin/vendor/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\vendor\\\\index.vue",
+    "chunkName": "pages/admin/vendor/index",
+    "_name": "_6313dac6"
   },
   {
     "name": "admin-walletin",
     "path": "/admin/walletin",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/walletin/index.vue",
-    "chunkName": "pages/admin/walletin/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\walletin\\\\index.vue",
+    "chunkName": "pages/admin/walletin/index",
+    "_name": "_237c2487"
   },
   {
     "name": "admin-walletout",
     "path": "/admin/walletout",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/walletout/index.vue",
-    "chunkName": "pages/admin/walletout/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\walletout\\\\index.vue",
+    "chunkName": "pages/admin/walletout/index",
+    "_name": "_45d2733a"
   },
   {
     "name": "admin-web_category",
     "path": "/admin/web_category",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_category/index.vue",
-    "chunkName": "pages/admin/web_category/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\web_category\\\\index.vue",
+    "chunkName": "pages/admin/web_category/index",
+    "_name": "_71162908"
   },
   {
     "name": "admin-web_product",
     "path": "/admin/web_product",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_product/index.vue",
-    "chunkName": "pages/admin/web_product/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\web_product\\\\index.vue",
+    "chunkName": "pages/admin/web_product/index",
+    "_name": "_578b6f6a"
   },
   {
     "name": "fashion-about-us",
     "path": "/fashion/about-us",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/about-us.vue",
-    "chunkName": "pages/fashion/about-us"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\about-us.vue",
+    "chunkName": "pages/fashion/about-us",
+    "_name": "_2ee2e2c4"
   },
   {
     "name": "fashion-all-product",
     "path": "/fashion/all-product",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/all-product.vue",
-    "chunkName": "pages/fashion/all-product"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\all-product.vue",
+    "chunkName": "pages/fashion/all-product",
+    "_name": "_dc5a7666"
   },
   {
     "name": "fashion-contact-us",
     "path": "/fashion/contact-us",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/contact-us.vue",
-    "chunkName": "pages/fashion/contact-us"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\contact-us.vue",
+    "chunkName": "pages/fashion/contact-us",
+    "_name": "_04864b51"
   },
   {
     "name": "fashion-index_20240429",
     "path": "/fashion/index_20240429",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/index_20240429.vue",
-    "chunkName": "pages/fashion/index_20240429"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\index_20240429.vue",
+    "chunkName": "pages/fashion/index_20240429",
+    "_name": "_4d815b7e"
   },
   {
     "name": "fashion-index copy",
     "path": "/fashion/index%20copy",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/index copy.vue",
-    "chunkName": "pages/fashion/index copy"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\index copy.vue",
+    "chunkName": "pages/fashion/index copy",
+    "_name": "_34c2c9e9"
   },
   {
     "name": "fashion-product-category",
     "path": "/fashion/product-category",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/product-category.vue",
-    "chunkName": "pages/fashion/product-category"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\product-category.vue",
+    "chunkName": "pages/fashion/product-category",
+    "_name": "_4a8eadfc"
   },
   {
     "name": "fashion-product-detail",
     "path": "/fashion/product-detail",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/fashion/product-detail.vue",
-    "chunkName": "pages/fashion/product-detail"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\fashion\\\\product-detail.vue",
+    "chunkName": "pages/fashion/product-detail",
+    "_name": "_14f96456"
   },
   {
     "name": "lion72-ticket",
     "path": "/lion72/ticket",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/lion72/ticket/index.vue",
-    "chunkName": "pages/lion72/ticket/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\lion72\\\\ticket\\\\index.vue",
+    "chunkName": "pages/lion72/ticket/index",
+    "_name": "_bf6190c6"
   },
   {
     "name": "pos-lottery",
     "path": "/pos/lottery",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/pos/lottery/index.vue",
-    "chunkName": "pages/pos/lottery/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\pos\\\\lottery\\\\index.vue",
+    "chunkName": "pages/pos/lottery/index",
+    "_name": "_0386716b"
   },
   {
     "name": "pos-minimart",
     "path": "/pos/minimart",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/pos/minimart/index.vue",
-    "chunkName": "pages/pos/minimart/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\pos\\\\minimart\\\\index.vue",
+    "chunkName": "pages/pos/minimart/index",
+    "_name": "_7cd4f4f3"
   },
   {
     "name": "pos-restaurant",
     "path": "/pos/restaurant",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/pos/restaurant/index.vue",
-    "chunkName": "pages/pos/restaurant/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\pos\\\\restaurant\\\\index.vue",
+    "chunkName": "pages/pos/restaurant/index",
+    "_name": "_4fa459e3"
   },
   {
     "name": "pos-ticket",
     "path": "/pos/ticket",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/pos/ticket/index.vue",
-    "chunkName": "pages/pos/ticket/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\pos\\\\ticket\\\\index.vue",
+    "chunkName": "pages/pos/ticket/index",
+    "_name": "_baf3a498"
   },
   {
     "name": "admin-ap-invoice",
     "path": "/admin/ap/invoice",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/invoice/index.vue",
-    "chunkName": "pages/admin/ap/invoice/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ap\\\\invoice\\\\index.vue",
+    "chunkName": "pages/admin/ap/invoice/index",
+    "_name": "_537c76b1"
   },
   {
     "name": "admin-ap-invoiceSettlement",
     "path": "/admin/ap/invoiceSettlement",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/invoiceSettlement/index.vue",
-    "chunkName": "pages/admin/ap/invoiceSettlement/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\ap\\\\invoiceSettlement\\\\index.vue",
+    "chunkName": "pages/admin/ap/invoiceSettlement/index",
+    "_name": "_881965f0"
   },
   {
     "name": "admin-applicants-index-1",
     "path": "/admin/applicants/index-1",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/applicants/index-1.vue",
-    "chunkName": "pages/admin/applicants/index-1"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\applicants\\\\index-1.vue",
+    "chunkName": "pages/admin/applicants/index-1",
+    "_name": "_d11c8c90"
   },
   {
     "name": "admin-barcodePrint-gianttTime",
     "path": "/admin/barcodePrint/gianttTime",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/barcodePrint/gianttTime.vue",
-    "chunkName": "pages/admin/barcodePrint/gianttTime"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\barcodePrint\\\\gianttTime.vue",
+    "chunkName": "pages/admin/barcodePrint/gianttTime",
+    "_name": "_c239c3f4"
   },
   {
     "name": "admin-cafe-promotion",
     "path": "/admin/cafe/promotion",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafe/promotion/index.vue",
-    "chunkName": "pages/admin/cafe/promotion/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\cafe\\\\promotion\\\\index.vue",
+    "chunkName": "pages/admin/cafe/promotion/index",
+    "_name": "_003f1429"
   },
   {
     "name": "admin-cafeTable-customer",
     "path": "/admin/cafeTable/customer",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafeTable/customer.vue",
-    "chunkName": "pages/admin/cafeTable/customer"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\cafeTable\\\\customer.vue",
+    "chunkName": "pages/admin/cafeTable/customer",
+    "_name": "_738d2722"
   },
   {
     "name": "admin-customer_request-topup",
     "path": "/admin/customer_request/topup",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer_request/topup.vue",
-    "chunkName": "pages/admin/customer_request/topup"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\customer_request\\\\topup.vue",
+    "chunkName": "pages/admin/customer_request/topup",
+    "_name": "_4fab5a15"
   },
   {
     "name": "admin-customer_request-withdraw",
     "path": "/admin/customer_request/withdraw",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer_request/withdraw.vue",
-    "chunkName": "pages/admin/customer_request/withdraw"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\customer_request\\\\withdraw.vue",
+    "chunkName": "pages/admin/customer_request/withdraw",
+    "_name": "_2395a8b5"
   },
   {
     "name": "admin-job_fair-agency",
     "path": "/admin/job_fair/agency",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/agency/index.vue",
-    "chunkName": "pages/admin/job_fair/agency/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\job_fair\\\\agency\\\\index.vue",
+    "chunkName": "pages/admin/job_fair/agency/index",
+    "_name": "_7fd6c25a"
   },
   {
     "name": "admin-job_fair-broker",
     "path": "/admin/job_fair/broker",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/broker/index.vue",
-    "chunkName": "pages/admin/job_fair/broker/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\job_fair\\\\broker\\\\index.vue",
+    "chunkName": "pages/admin/job_fair/broker/index",
+    "_name": "_05e87a06"
   },
   {
     "name": "admin-job_fair-employee",
     "path": "/admin/job_fair/employee",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/employee/index.vue",
-    "chunkName": "pages/admin/job_fair/employee/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\job_fair\\\\employee\\\\index.vue",
+    "chunkName": "pages/admin/job_fair/employee/index",
+    "_name": "_54e412d1"
   },
   {
     "name": "admin-job_fair-login",
     "path": "/admin/job_fair/login",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/login/index.vue",
-    "chunkName": "pages/admin/job_fair/login/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\job_fair\\\\login\\\\index.vue",
+    "chunkName": "pages/admin/job_fair/login/index",
+    "_name": "_128608ac"
   },
   {
     "name": "admin-job_fair-mou",
     "path": "/admin/job_fair/mou",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/job_fair/mou/index.vue",
-    "chunkName": "pages/admin/job_fair/mou/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\job_fair\\\\mou\\\\index.vue",
+    "chunkName": "pages/admin/job_fair/mou/index",
+    "_name": "_900f0cfc"
   },
   {
     "name": "admin-pos-table",
     "path": "/admin/pos/table",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/pos/table/index.vue",
-    "chunkName": "pages/admin/pos/table/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\pos\\\\table\\\\index.vue",
+    "chunkName": "pages/admin/pos/table/index",
+    "_name": "_4877b0aa"
   },
   {
     "name": "admin-product-productlist",
     "path": "/admin/product/productlist",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/product/productlist.vue",
-    "chunkName": "pages/admin/product/productlist"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\product\\\\productlist.vue",
+    "chunkName": "pages/admin/product/productlist",
+    "_name": "_1737b73b"
   },
   {
     "name": "admin-settings-system",
     "path": "/admin/settings/system",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/system.vue",
-    "chunkName": "pages/admin/settings/system"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\settings\\\\system.vue",
+    "chunkName": "pages/admin/settings/system",
+    "_name": "_4b2f26e2"
   },
   {
     "name": "admin-settings-userRole",
     "path": "/admin/settings/userRole",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/userRole.vue",
-    "chunkName": "pages/admin/settings/userRole"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\settings\\\\userRole.vue",
+    "chunkName": "pages/admin/settings/userRole",
+    "_name": "_0c4ca241"
   },
   {
     "name": "admin-web_category-test",
     "path": "/admin/web_category/test",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_category/test.vue",
-    "chunkName": "pages/admin/web_category/test"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\web_category\\\\test.vue",
+    "chunkName": "pages/admin/web_category/test",
+    "_name": "_16262ad8"
   },
   {
     "name": "admin-accounting-ar-invoice",
     "path": "/admin/accounting/ar/invoice",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/ar/invoice/index.vue",
-    "chunkName": "pages/admin/accounting/ar/invoice/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\accounting\\\\ar\\\\invoice\\\\index.vue",
+    "chunkName": "pages/admin/accounting/ar/invoice/index",
+    "_name": "_2b39b148"
   },
   {
     "name": "admin-accounting-ar-receive",
     "path": "/admin/accounting/ar/receive",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/ar/receive/index.vue",
-    "chunkName": "pages/admin/accounting/ar/receive/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\accounting\\\\ar\\\\receive\\\\index.vue",
+    "chunkName": "pages/admin/accounting/ar/receive/index",
+    "_name": "_9c94985c"
   },
   {
     "name": "admin-advertise-mixins-ImagePreviewMixin",
     "path": "/admin/advertise/mixins/ImagePreviewMixin",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/advertise/mixins/ImagePreviewMixin.vue",
-    "chunkName": "pages/admin/advertise/mixins/ImagePreviewMixin"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\advertise\\\\mixins\\\\ImagePreviewMixin.vue",
+    "chunkName": "pages/admin/advertise/mixins/ImagePreviewMixin",
+    "_name": "_8da97350"
   },
   {
     "name": "admin-product-mixins-ImagePreviewMixin",
     "path": "/admin/product/mixins/ImagePreviewMixin",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/product/mixins/ImagePreviewMixin.vue",
-    "chunkName": "pages/admin/product/mixins/ImagePreviewMixin"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\product\\\\mixins\\\\ImagePreviewMixin.vue",
+    "chunkName": "pages/admin/product/mixins/ImagePreviewMixin",
+    "_name": "_6e13add0"
   },
   {
     "name": "admin-report-MA-bankSummary",
     "path": "/admin/report/MA/bankSummary",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/bankSummary/index.vue",
-    "chunkName": "pages/admin/report/MA/bankSummary/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\bankSummary\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/bankSummary/index",
+    "_name": "_11eb5be6"
   },
   {
     "name": "admin-report-MA-master",
     "path": "/admin/report/MA/master",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/master/index.vue",
-    "chunkName": "pages/admin/report/MA/master/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\master\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/master/index",
+    "_name": "_54c1f7fb"
   },
   {
     "name": "admin-report-MA-ministrySummary",
     "path": "/admin/report/MA/ministrySummary",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/ministrySummary/index.vue",
-    "chunkName": "pages/admin/report/MA/ministrySummary/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\ministrySummary\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/ministrySummary/index",
+    "_name": "_65867bd0"
   },
   {
     "name": "admin-report-MA-payment",
     "path": "/admin/report/MA/payment",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/payment/index.vue",
-    "chunkName": "pages/admin/report/MA/payment/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\payment\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/payment/index",
+    "_name": "_56d8025e"
   },
   {
     "name": "admin-report-MA-settlement",
     "path": "/admin/report/MA/settlement",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/settlement/index.vue",
-    "chunkName": "pages/admin/report/MA/settlement/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\settlement\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/settlement/index",
+    "_name": "_220dd554"
   },
   {
     "name": "admin-report-MA-targetAmount",
     "path": "/admin/report/MA/targetAmount",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/targetAmount/index.vue",
-    "chunkName": "pages/admin/report/MA/targetAmount/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\targetAmount\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/targetAmount/index",
+    "_name": "_02ca0c74"
   },
   {
     "name": "admin-web_product-mixins-ImagePreviewMixin",
     "path": "/admin/web_product/mixins/ImagePreviewMixin",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_product/mixins/ImagePreviewMixin.vue",
-    "chunkName": "pages/admin/web_product/mixins/ImagePreviewMixin"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\web_product\\\\mixins\\\\ImagePreviewMixin.vue",
+    "chunkName": "pages/admin/web_product/mixins/ImagePreviewMixin",
+    "_name": "_f7115aca"
   },
   {
     "name": "admin-report-MA-mixin-excel",
     "path": "/admin/report/MA/mixin/excel",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/mixin/excel.js",
-    "chunkName": "pages/admin/report/MA/mixin/excel"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\mixin\\\\excel.js",
+    "chunkName": "pages/admin/report/MA/mixin/excel",
+    "_name": "_1a87bfd8"
   },
   {
     "name": "admin-report-MA-settlement-bankAccount",
     "path": "/admin/report/MA/settlement/bankAccount",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/settlement/bankAccount/index.vue",
-    "chunkName": "pages/admin/report/MA/settlement/bankAccount/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\settlement\\\\bankAccount\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/settlement/bankAccount/index",
+    "_name": "_5f64534f"
   },
   {
     "name": "admin-report-MA-settlement-chartAccount",
     "path": "/admin/report/MA/settlement/chartAccount",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/settlement/chartAccount/index.vue",
-    "chunkName": "pages/admin/report/MA/settlement/chartAccount/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\settlement\\\\chartAccount\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/settlement/chartAccount/index",
+    "_name": "_253f3885"
   },
   {
     "name": "admin-report-MA-settlement-ministry",
     "path": "/admin/report/MA/settlement/ministry",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/settlement/ministry/index.vue",
-    "chunkName": "pages/admin/report/MA/settlement/ministry/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\report\\\\MA\\\\settlement\\\\ministry\\\\index.vue",
+    "chunkName": "pages/admin/report/MA/settlement/ministry/index",
+    "_name": "_aaeaf296"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/index.vue",
-    "chunkName": "pages/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_2a5be300"
   },
   {
     "name": "admin-PDFInvoice-id",
     "path": "/admin/PDFInvoice/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFInvoice/_id/index.vue",
-    "chunkName": "pages/admin/PDFInvoice/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\PDFInvoice\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/PDFInvoice/_id/index",
+    "_name": "_431fe4d0"
   },
   {
     "name": "admin-PDFInvoiceSummary-id",
     "path": "/admin/PDFInvoiceSummary/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFInvoiceSummary/_id/index.vue",
-    "chunkName": "pages/admin/PDFInvoiceSummary/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\PDFInvoiceSummary\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/PDFInvoiceSummary/_id/index",
+    "_name": "_273cf396"
   },
   {
     "name": "admin-PDFQuotation-id",
     "path": "/admin/PDFQuotation/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFQuotation/_id/index.vue",
-    "chunkName": "pages/admin/PDFQuotation/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\PDFQuotation\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/PDFQuotation/_id/index",
+    "_name": "_516ecf22"
   },
   {
     "name": "admin-PDFTicket-id",
     "path": "/admin/PDFTicket/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFTicket/_id/index.vue",
-    "chunkName": "pages/admin/PDFTicket/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\PDFTicket\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/PDFTicket/_id/index",
+    "_name": "_2ffc95e9"
   },
   {
     "name": "admin-PDFTransfer-id",
     "path": "/admin/PDFTransfer/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFTransfer/_id/index.vue",
-    "chunkName": "pages/admin/PDFTransfer/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\PDFTransfer\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/PDFTransfer/_id/index",
+    "_name": "_3b6f44f0"
   },
   {
     "name": "admin-product-id",
     "path": "/admin/product/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/product/_id/index.vue",
-    "chunkName": "pages/admin/product/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\product\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/product/_id/index",
+    "_name": "_5d5085cc"
   },
   {
     "name": "admin-stock-id",
     "path": "/admin/stock/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/stock/_id/index.vue",
-    "chunkName": "pages/admin/stock/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\stock\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/stock/_id/index",
+    "_name": "_0b35ec01"
   },
   {
     "name": "admin-web_product-id",
     "path": "/admin/web_product/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_product/_id/index.vue",
-    "chunkName": "pages/admin/web_product/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\admin\\\\web_product\\\\_id\\\\index.vue",
+    "chunkName": "pages/admin/web_product/_id/index",
+    "_name": "_1dc67baf"
   },
   {
     "name": "product-id",
     "path": "/product/:id",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/product/_id/index.vue",
-    "chunkName": "pages/product/_id/index"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\product\\\\_id\\\\index.vue",
+    "chunkName": "pages/product/_id/index",
+    "_name": "_7ff724f5"
   },
   {
     "name": "product-id-product-details",
     "path": "/product/:id/product-details",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/product/_id/product-details.vue",
-    "chunkName": "pages/product/_id/product-details"
+    "component": "E:\\\\Project\\\\DC\\\\ib_dc_app\\\\pages\\\\product\\\\_id\\\\product-details.vue",
+    "chunkName": "pages/product/_id/product-details",
+    "_name": "_c4639672"
   }
 ]

@@ -1031,12 +1031,10 @@ export default {
   },
 }
 </script>
-
 <style scoped>
 /* ========================================
-   🎨 BASE STYLES - IMPROVED
+   🎨 BASE STYLES & VARIABLES
    ======================================== */
-
 .customer-display-container {
   min-height: 100vh;
   height: 100vh;
@@ -1055,9 +1053,8 @@ export default {
 }
 
 /* ========================================
-   🏠 WELCOME SCREEN - CONSISTENT LAYOUT
+   🏠 WELCOME SCREEN
    ======================================== */
-
 .welcome-screen {
   height: 100vh;
   position: relative;
@@ -1086,6 +1083,7 @@ export default {
   align-items: stretch;
 }
 
+/* Logo Section */
 .logo-section {
   width: 100%;
   max-width: 500px;
@@ -1154,9 +1152,8 @@ export default {
 }
 
 /* ========================================
-   🏦 PAYMENT METHODS - CONSISTENT POSITIONING
+   🏦 PAYMENT METHODS - SHARED BASE STYLES
    ======================================== */
-
 .payment-methods-preview {
   margin-top: 2rem;
   text-align: center;
@@ -1170,19 +1167,30 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-.payment-methods-container {
+/* Shared container styles for both welcome and QR screens */
+.payment-methods-container,
+.qr-payment-methods {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
-.payment-method-item {
+.qr-payment-methods {
+  max-width: 500px;
+}
+
+/* Shared item styles */
+.payment-method-item,
+.qr-method-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.payment-method-item {
   padding: 1.5rem;
   background: white;
   border-radius: 16px;
@@ -1199,29 +1207,63 @@ export default {
   border-color: primary;
 }
 
-.left-qr {
+.qr-method-item {
+  width: 180px;
+}
+
+/* Positioning utilities */
+.left-qr,
+.left-qr-payment {
   justify-self: flex-start;
 }
 
-.right-qr {
+.right-qr,
+.right-qr-payment {
   justify-self: flex-end;
 }
 
+/* Spacers */
 .payment-method-spacer {
   width: 60px;
   height: 1px;
   flex-shrink: 0;
 }
 
-.payment-method-logo {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-  border-radius: 8px;
+.qr-spacer {
+  width: 80px;
+  height: 1px;
+  flex-shrink: 0;
 }
 
-.payment-method-name {
+/* Shared logo/image base styles */
+.payment-method-logo,
+.qr-payment-method-logo {
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+  margin-bottom: 0.75rem;
+}
+
+.payment-method-logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.qr-payment-method-logo {
+  width: 160px;
+  height: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.qr-payment-method-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Shared label styles */
+.payment-method-name,
+.qr-method-label {
   font-size: 0.9rem;
   font-weight: 600;
   color: primary;
@@ -1231,7 +1273,6 @@ export default {
 /* ========================================
    🎭 SLIDESHOW SECTION
    ======================================== */
-
 .slideshow-section {
   flex: 1;
   display: flex;
@@ -1455,7 +1496,6 @@ export default {
 /* ========================================
    💳 QR PAYMENT SCREEN LAYOUT
    ======================================== */
-
 .qr-payment-screen {
   height: 100vh;
   padding: 1rem;
@@ -1470,9 +1510,8 @@ export default {
 }
 
 /* ========================================
-   📋 LEFT SIDE - ORDER DETAILS
+   📋 ORDER SECTION
    ======================================== */
-
 .order-section {
   flex: 1;
   background: white;
@@ -1589,7 +1628,6 @@ export default {
 /* ========================================
    🎭 MINI SLIDESHOW (No Order Items)
    ======================================== */
-
 .no-items-with-slideshow {
   text-align: center;
   padding: 1rem;
@@ -1711,6 +1749,7 @@ export default {
   margin: 0;
 }
 
+/* Order Summary */
 .order-summary {
   padding: 1rem 1.5rem;
   border-top: 2px solid #e9ecef;
@@ -1755,9 +1794,8 @@ export default {
 }
 
 /* ========================================
-   💰 RIGHT SIDE - QR PAYMENT WITH CONSISTENT POSITIONING
+   💰 PAYMENT SECTION
    ======================================== */
-
 .payment-section {
   flex: 1;
   display: flex;
@@ -1818,10 +1856,7 @@ export default {
   margin-top: 0.3rem;
 }
 
-/* ========================================
-   📱 QR CODE - CONSISTENT LEFT-RIGHT POSITIONING
-   ======================================== */
-
+/* QR Container */
 .qr-container {
   margin-bottom: 1.5rem;
   flex-shrink: 0;
@@ -1836,61 +1871,9 @@ export default {
   border: 3px solid primary;
 }
 
-.qr-payment-methods {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.qr-method-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 180px;
-}
-
-.left-qr-payment {
-  justify-self: flex-start;
-}
-
-.right-qr-payment {
-  justify-self: flex-end;
-}
-
-.qr-spacer {
-  width: 80px;
-  height: 1px;
-  flex-shrink: 0;
-}
-
-.qr-payment-method-logo {
-  width: 160px;
-  height: 160px;
-  object-fit: contain;
-  border-radius: 12px;
-  transition: transform 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 0.75rem;
-}
-
-.qr-payment-method-logo:hover {
-  transform: scale(1.05);
-}
-
-.qr-method-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: primary;
-  text-align: center;
-}
-
 /* ========================================
    📝 INSTRUCTIONS & STATUS
    ======================================== */
-
 .qr-instructions {
   margin-bottom: 1.5rem;
   flex-shrink: 0;
@@ -1965,7 +1948,6 @@ export default {
 /* ========================================
    ✅ SUCCESS SCREEN
    ======================================== */
-
 .success-overlay {
   background: rgba(40, 167, 69, 0.95) !important;
   z-index: 9999;
@@ -2033,90 +2015,98 @@ export default {
 }
 
 /* ========================================
-   🔥 POWERED BY DCOMMERCE
+   🔥 POWERED BY DCOMMERCE - CONSOLIDATED
    ======================================== */
-
-.powered-by-welcome {
+.powered-by-welcome,
+.powered-by-qr {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 1000;
 }
 
-.powered-by-container-welcome {
+.powered-by-welcome {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.powered-by-qr {
+  bottom: 15px;
+  right: 15px;
+}
+
+/* Shared container base styles */
+.powered-by-container-welcome,
+.powered-by-container-qr {
   display: flex;
   align-items: center;
   gap: 6px;
   background: rgba(255, 255, 255, 0.95);
-  padding: 8px 16px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
 }
 
-.powered-by-text-welcome {
-  font-size: 0.7rem;
-  color: #6c757d;
-  font-weight: 400;
-}
-
-.dcommerce-logo-welcome {
-  height: 16px;
-  width: auto;
-  object-fit: contain;
-}
-
-.dcommerce-text-welcome {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: primary;
-  font-family: 'Arial', sans-serif;
-  letter-spacing: 0.3px;
-}
-
-.powered-by-qr {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  z-index: 1000;
+.powered-by-container-welcome {
+  padding: 8px 16px;
 }
 
 .powered-by-container-qr {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.9);
   padding: 6px 12px;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8px);
 }
 
+/* Shared text styles */
+.powered-by-text-welcome,
 .powered-by-text-qr {
-  font-size: 0.6rem;
   color: #6c757d;
   font-weight: 400;
 }
 
+.powered-by-text-welcome {
+  font-size: 0.7rem;
+}
+
+.powered-by-text-qr {
+  font-size: 0.6rem;
+}
+
+/* Shared logo styles */
+.dcommerce-logo-welcome,
 .dcommerce-logo-qr {
-  height: 14px;
   width: auto;
   object-fit: contain;
 }
 
+.dcommerce-logo-welcome {
+  height: 16px;
+}
+
+.dcommerce-logo-qr {
+  height: 14px;
+}
+
+/* Shared dcommerce text styles */
+.dcommerce-text-welcome,
 .dcommerce-text-qr {
-  font-size: 0.7rem;
   font-weight: 700;
   color: primary;
   font-family: 'Arial', sans-serif;
   letter-spacing: 0.3px;
 }
 
+.dcommerce-text-welcome {
+  font-size: 0.8rem;
+}
+
+.dcommerce-text-qr {
+  font-size: 0.7rem;
+}
+
 /* ========================================
    🎭 ANIMATIONS
    ======================================== */
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -2138,9 +2128,8 @@ export default {
 }
 
 /* ========================================
-   📱 RESPONSIVE DESIGN
+   📱 RESPONSIVE DESIGN - CONSOLIDATED
    ======================================== */
-
 @media (max-width: 1200px) {
   .payment-layout {
     flex-direction: column;
@@ -2156,14 +2145,11 @@ export default {
     min-height: 50vh;
   }
 
-  .qr-payment-method-logo {
+  /* Consolidated logo sizes */
+  .qr-payment-method-logo,
+  .payment-method-logo {
     width: 140px;
     height: 140px;
-  }
-
-  .payment-method-logo {
-    width: 100px;
-    height: 100px;
   }
 
   .qr-code-image {
@@ -2191,34 +2177,29 @@ export default {
     gap: 0.5rem;
   }
 
-  .payment-methods-container {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .payment-method-spacer {
+  /* Hide spacers on mobile */
+  .payment-method-spacer,
+  .qr-spacer {
     display: none;
   }
 
+  /* Stack payment methods vertically */
+  .payment-methods-container,
   .qr-payment-methods {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
   }
 
-  .qr-spacer {
-    display: none;
-  }
-
+  /* Consolidated logo sizes */
   .qr-payment-method-logo {
     width: 120px;
     height: 120px;
   }
 
   .payment-method-logo {
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
   }
 
   .qr-code-image {
@@ -2238,14 +2219,15 @@ export default {
     padding: 0.5rem;
   }
 
+  /* Consolidated logo sizes for smallest screens */
   .qr-payment-method-logo {
     width: 100px;
     height: 100px;
   }
 
   .payment-method-logo {
-    width: 70px;
-    height: 70px;
+    width: 140px;
+    height: 140px;
   }
 
   .qr-code-image {
@@ -2260,9 +2242,8 @@ export default {
 }
 
 /* ========================================
-   🔧 ACCESSIBILITY & CUSTOM SCROLLBAR
+   🔧 ACCESSIBILITY & SCROLLBAR
    ======================================== */
-
 .payment-method-item:focus,
 .qr-payment-method-logo:focus,
 .indicator:focus {
@@ -2293,6 +2274,7 @@ export default {
   }
 }
 
+/* Custom Scrollbar */
 .order-items-container::-webkit-scrollbar {
   width: 6px;
 }
