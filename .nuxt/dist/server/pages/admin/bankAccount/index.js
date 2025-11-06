@@ -1,7 +1,34 @@
-exports.ids = [178,27];
+exports.ids = [179,27];
 exports.modules = {
 
-/***/ 1282:
+/***/ 1010:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(813);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1011:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".bank-account-page[data-v-b9c5925e]{background-color:#f8f9fa;min-height:100vh;padding:24px}.page-header[data-v-b9c5925e]{align-items:center;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.header-content[data-v-b9c5925e]{flex:1}.page-title[data-v-b9c5925e]{align-items:center;color:#333;display:flex;font-size:28px;font-weight:600;gap:12px;margin:0 0 8px}.page-subtitle[data-v-b9c5925e]{color:#666;font-size:16px;margin:0}.header-actions[data-v-b9c5925e]{display:flex;gap:12px}.filters-section[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;padding:20px}.filter-row[data-v-b9c5925e]{align-items:end;display:flex;flex-wrap:wrap;gap:16px}.filter-group[data-v-b9c5925e]{display:flex;flex-direction:column;gap:8px;min-width:200px}.filter-label[data-v-b9c5925e]{color:#555;font-size:14px;font-weight:500}.search-input-wrapper[data-v-b9c5925e]{position:relative}.search-icon[data-v-b9c5925e]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%)}.search-input[data-v-b9c5925e]{border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 36px;transition:border-color .2s;width:100%}.search-input[data-v-b9c5925e]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-select[data-v-b9c5925e]{background:#fff;border:1px solid #ced4da;border-radius:6px;cursor:pointer;font-size:14px;padding:10px 12px;transition:border-color .2s}.filter-select[data-v-b9c5925e]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-actions[data-v-b9c5925e]{align-items:end;display:flex}.stats-section[data-v-b9c5925e]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:20px;gap:20px;margin-bottom:24px}.stat-card[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);gap:16px;padding:24px}.stat-card[data-v-b9c5925e],.stat-icon[data-v-b9c5925e]{align-items:center;display:flex}.stat-icon[data-v-b9c5925e]{border-radius:50%;color:#fff;font-size:20px;height:48px;justify-content:center;width:48px}.stat-icon-primary[data-v-b9c5925e]{background-color:#007bff}.stat-icon-success[data-v-b9c5925e]{background-color:#28a745}.stat-icon-warning[data-v-b9c5925e]{background-color:#ffc107}.stat-icon-info[data-v-b9c5925e]{background-color:#17a2b8}.stat-content[data-v-b9c5925e]{flex:1}.stat-number[data-v-b9c5925e]{color:#333;font-size:24px;font-weight:600;margin:0 0 4px}.stat-label[data-v-b9c5925e]{color:#666;font-size:14px;margin:0}.table-section[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-b9c5925e]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title[data-v-b9c5925e]{color:#333;font-size:18px;font-weight:600;margin:0}.table-info[data-v-b9c5925e]{color:#666;font-size:14px}.table-wrapper[data-v-b9c5925e]{overflow-x:auto}.data-table[data-v-b9c5925e]{border-collapse:collapse;width:100%}.data-table td[data-v-b9c5925e],.data-table th[data-v-b9c5925e]{border-bottom:1px solid #e9ecef;padding:12px;text-align:left}.data-table th[data-v-b9c5925e]{background-color:#f8f9fa;color:#333;font-size:14px;font-weight:600}.data-table td[data-v-b9c5925e]{color:#555;font-size:14px}.account-number[data-v-b9c5925e]{align-items:center;display:flex;font-family:monospace;font-weight:500;gap:8px}.account-name[data-v-b9c5925e]{font-weight:500}.bank-info[data-v-b9c5925e]{align-items:center;display:flex;gap:8px}.account-type-badge[data-v-b9c5925e],.currency-badge[data-v-b9c5925e]{border-radius:4px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:uppercase}.type-saving[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.type-current[data-v-b9c5925e]{background-color:#d1ecf1;color:#0c5460}.type-fixed[data-v-b9c5925e]{background-color:#fff3cd;color:#856404}.currency-lak[data-v-b9c5925e]{background-color:#e7f3ff;color:#0056b3}.currency-usd[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.currency-thb[data-v-b9c5925e]{background-color:#fff3cd;color:#856404}.currency-cny[data-v-b9c5925e]{background-color:#f8d7da;color:#721c24}.status-badge[data-v-b9c5925e]{align-items:center;border-radius:4px;display:flex;font-size:12px;font-weight:500;gap:4px;padding:4px 8px}.status-active[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.status-inactive[data-v-b9c5925e]{background-color:#f8d7da;color:#721c24}.action-buttons[data-v-b9c5925e]{display:flex;gap:8px}.btn-icon[data-v-b9c5925e]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:flex;font-size:12px;height:32px;justify-content:center;transition:all .2s;width:32px}.btn-icon[data-v-b9c5925e]:hover{transform:translateY(-1px)}.btn-icon[data-v-b9c5925e]:disabled{cursor:not-allowed;opacity:.5}.btn-icon-primary[data-v-b9c5925e]{background-color:#007bff;color:#fff}.btn-icon-primary[data-v-b9c5925e]:hover:not(:disabled){background-color:#0056b3}.btn-icon-warning[data-v-b9c5925e]{background-color:#ffc107;color:#333}.btn-icon-warning[data-v-b9c5925e]:hover:not(:disabled){background-color:#e0a800}.btn-icon-danger[data-v-b9c5925e]{background-color:#dc3545;color:#fff}.btn-icon-danger[data-v-b9c5925e]:hover:not(:disabled){background-color:#c82333}.empty-state[data-v-b9c5925e],.loading-state[data-v-b9c5925e]{color:#666;padding:60px 20px;text-align:center}.loading-state i[data-v-b9c5925e]{color:#007bff;font-size:32px;margin-bottom:16px}.empty-state i[data-v-b9c5925e]{color:#ccc;font-size:64px;margin-bottom:16px}.empty-state h3[data-v-b9c5925e]{color:#333;font-size:20px;margin:0 0 8px}.empty-state p[data-v-b9c5925e]{font-size:16px;margin:0}.pagination-section[data-v-b9c5925e]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-b9c5925e]{color:#666;font-size:14px}.pagination-controls[data-v-b9c5925e]{align-items:center;display:flex;gap:8px}.page-info[data-v-b9c5925e]{color:#666;font-size:14px;padding:0 16px}.btn[data-v-b9c5925e]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-b9c5925e]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-b9c5925e]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-b9c5925e]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-b9c5925e]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-b9c5925e]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.bank-account-page[data-v-b9c5925e]{padding:16px}.page-header[data-v-b9c5925e]{align-items:stretch;flex-direction:column;gap:16px}.filter-row[data-v-b9c5925e]{flex-direction:column;gap:12px}.filter-group[data-v-b9c5925e]{min-width:auto}.stats-section[data-v-b9c5925e]{grid-template-columns:1fr}.table-wrapper[data-v-b9c5925e]{overflow-x:scroll}.data-table[data-v-b9c5925e]{min-width:800px}.pagination-section[data-v-b9c5925e]{flex-direction:column;gap:16px}}@media (max-width:480px){.page-title[data-v-b9c5925e]{font-size:24px}.stat-card[data-v-b9c5925e]{padding:16px}.stat-number[data-v-b9c5925e]{font-size:20px}.action-buttons[data-v-b9c5925e]{flex-direction:column;gap:4px}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1297:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -185,7 +212,7 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(373);
 var esnext_set_union_js_ = __webpack_require__(374);
 
 // EXTERNAL MODULE: ./components/bank/bankAccount/index.vue + 4 modules
-var bankAccount = __webpack_require__(935);
+var bankAccount = __webpack_require__(953);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/bankAccount/index.vue?vue&type=script&lang=js
 
@@ -457,7 +484,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(992)
+  var style0 = __webpack_require__(1010)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -479,13 +506,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 601:
+/***/ 605:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(691);
+var content = __webpack_require__(708);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -497,19 +524,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 690:
+/***/ 707:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(601);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(605);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 691:
+/***/ 708:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -524,13 +551,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 795:
+/***/ 813:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(993);
+var content = __webpack_require__(1011);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -542,7 +569,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 935:
+/***/ 953:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -989,7 +1016,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(690)
+  var style0 = __webpack_require__(707)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1008,33 +1035,6 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var bankAccount = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 992:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(795);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 993:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".bank-account-page[data-v-b9c5925e]{background-color:#f8f9fa;min-height:100vh;padding:24px}.page-header[data-v-b9c5925e]{align-items:center;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.header-content[data-v-b9c5925e]{flex:1}.page-title[data-v-b9c5925e]{align-items:center;color:#333;display:flex;font-size:28px;font-weight:600;gap:12px;margin:0 0 8px}.page-subtitle[data-v-b9c5925e]{color:#666;font-size:16px;margin:0}.header-actions[data-v-b9c5925e]{display:flex;gap:12px}.filters-section[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;padding:20px}.filter-row[data-v-b9c5925e]{align-items:end;display:flex;flex-wrap:wrap;gap:16px}.filter-group[data-v-b9c5925e]{display:flex;flex-direction:column;gap:8px;min-width:200px}.filter-label[data-v-b9c5925e]{color:#555;font-size:14px;font-weight:500}.search-input-wrapper[data-v-b9c5925e]{position:relative}.search-icon[data-v-b9c5925e]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%)}.search-input[data-v-b9c5925e]{border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 36px;transition:border-color .2s;width:100%}.search-input[data-v-b9c5925e]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-select[data-v-b9c5925e]{background:#fff;border:1px solid #ced4da;border-radius:6px;cursor:pointer;font-size:14px;padding:10px 12px;transition:border-color .2s}.filter-select[data-v-b9c5925e]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-actions[data-v-b9c5925e]{align-items:end;display:flex}.stats-section[data-v-b9c5925e]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:20px;gap:20px;margin-bottom:24px}.stat-card[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);gap:16px;padding:24px}.stat-card[data-v-b9c5925e],.stat-icon[data-v-b9c5925e]{align-items:center;display:flex}.stat-icon[data-v-b9c5925e]{border-radius:50%;color:#fff;font-size:20px;height:48px;justify-content:center;width:48px}.stat-icon-primary[data-v-b9c5925e]{background-color:#007bff}.stat-icon-success[data-v-b9c5925e]{background-color:#28a745}.stat-icon-warning[data-v-b9c5925e]{background-color:#ffc107}.stat-icon-info[data-v-b9c5925e]{background-color:#17a2b8}.stat-content[data-v-b9c5925e]{flex:1}.stat-number[data-v-b9c5925e]{color:#333;font-size:24px;font-weight:600;margin:0 0 4px}.stat-label[data-v-b9c5925e]{color:#666;font-size:14px;margin:0}.table-section[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-b9c5925e]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title[data-v-b9c5925e]{color:#333;font-size:18px;font-weight:600;margin:0}.table-info[data-v-b9c5925e]{color:#666;font-size:14px}.table-wrapper[data-v-b9c5925e]{overflow-x:auto}.data-table[data-v-b9c5925e]{border-collapse:collapse;width:100%}.data-table td[data-v-b9c5925e],.data-table th[data-v-b9c5925e]{border-bottom:1px solid #e9ecef;padding:12px;text-align:left}.data-table th[data-v-b9c5925e]{background-color:#f8f9fa;color:#333;font-size:14px;font-weight:600}.data-table td[data-v-b9c5925e]{color:#555;font-size:14px}.account-number[data-v-b9c5925e]{align-items:center;display:flex;font-family:monospace;font-weight:500;gap:8px}.account-name[data-v-b9c5925e]{font-weight:500}.bank-info[data-v-b9c5925e]{align-items:center;display:flex;gap:8px}.account-type-badge[data-v-b9c5925e],.currency-badge[data-v-b9c5925e]{border-radius:4px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:uppercase}.type-saving[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.type-current[data-v-b9c5925e]{background-color:#d1ecf1;color:#0c5460}.type-fixed[data-v-b9c5925e]{background-color:#fff3cd;color:#856404}.currency-lak[data-v-b9c5925e]{background-color:#e7f3ff;color:#0056b3}.currency-usd[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.currency-thb[data-v-b9c5925e]{background-color:#fff3cd;color:#856404}.currency-cny[data-v-b9c5925e]{background-color:#f8d7da;color:#721c24}.status-badge[data-v-b9c5925e]{align-items:center;border-radius:4px;display:flex;font-size:12px;font-weight:500;gap:4px;padding:4px 8px}.status-active[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.status-inactive[data-v-b9c5925e]{background-color:#f8d7da;color:#721c24}.action-buttons[data-v-b9c5925e]{display:flex;gap:8px}.btn-icon[data-v-b9c5925e]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:flex;font-size:12px;height:32px;justify-content:center;transition:all .2s;width:32px}.btn-icon[data-v-b9c5925e]:hover{transform:translateY(-1px)}.btn-icon[data-v-b9c5925e]:disabled{cursor:not-allowed;opacity:.5}.btn-icon-primary[data-v-b9c5925e]{background-color:#007bff;color:#fff}.btn-icon-primary[data-v-b9c5925e]:hover:not(:disabled){background-color:#0056b3}.btn-icon-warning[data-v-b9c5925e]{background-color:#ffc107;color:#333}.btn-icon-warning[data-v-b9c5925e]:hover:not(:disabled){background-color:#e0a800}.btn-icon-danger[data-v-b9c5925e]{background-color:#dc3545;color:#fff}.btn-icon-danger[data-v-b9c5925e]:hover:not(:disabled){background-color:#c82333}.empty-state[data-v-b9c5925e],.loading-state[data-v-b9c5925e]{color:#666;padding:60px 20px;text-align:center}.loading-state i[data-v-b9c5925e]{color:#007bff;font-size:32px;margin-bottom:16px}.empty-state i[data-v-b9c5925e]{color:#ccc;font-size:64px;margin-bottom:16px}.empty-state h3[data-v-b9c5925e]{color:#333;font-size:20px;margin:0 0 8px}.empty-state p[data-v-b9c5925e]{font-size:16px;margin:0}.pagination-section[data-v-b9c5925e]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-b9c5925e]{color:#666;font-size:14px}.pagination-controls[data-v-b9c5925e]{align-items:center;display:flex;gap:8px}.page-info[data-v-b9c5925e]{color:#666;font-size:14px;padding:0 16px}.btn[data-v-b9c5925e]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-b9c5925e]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-b9c5925e]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-b9c5925e]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-b9c5925e]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-b9c5925e]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.bank-account-page[data-v-b9c5925e]{padding:16px}.page-header[data-v-b9c5925e]{align-items:stretch;flex-direction:column;gap:16px}.filter-row[data-v-b9c5925e]{flex-direction:column;gap:12px}.filter-group[data-v-b9c5925e]{min-width:auto}.stats-section[data-v-b9c5925e]{grid-template-columns:1fr}.table-wrapper[data-v-b9c5925e]{overflow-x:scroll}.data-table[data-v-b9c5925e]{min-width:800px}.pagination-section[data-v-b9c5925e]{flex-direction:column;gap:16px}}@media (max-width:480px){.page-title[data-v-b9c5925e]{font-size:24px}.stat-card[data-v-b9c5925e]{padding:16px}.stat-number[data-v-b9c5925e]{font-size:20px}.action-buttons[data-v-b9c5925e]{flex-direction:column;gap:4px}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
 
 /***/ })
 

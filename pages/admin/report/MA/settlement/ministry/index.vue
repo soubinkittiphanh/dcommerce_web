@@ -278,7 +278,7 @@
     <div v-if="loading" class="text-center py-8">
       <v-progress-circular
         indeterminate
-        color="#01532B"
+        color="primary"
         size="64"
       ></v-progress-circular>
       <p class="mt-4 text-gray-600">
@@ -293,7 +293,7 @@
           <v-card-title
             class="ministry-primary--text py-2 px-4 d-flex align-center report-header"
           >
-            <v-icon color="#01532B" class="mr-2">mdi-building</v-icon>
+            <v-icon color="primary" class="mr-2">mdi-building</v-icon>
             <span class="text-subtitle-1 font-weight-medium">
               ລາຍງານ ຕາມກະຊວງ
             </span>
@@ -330,7 +330,7 @@
               small
               @click="loadDashboardData"
               :loading="loading"
-              color="#01532B"
+              color="primary"
             >
               <v-icon small>mdi-refresh</v-icon>
             </v-btn>
@@ -340,7 +340,7 @@
 
           <v-card-text class="pa-0">
             <div v-if="loading" class="text-center py-6">
-              <v-progress-circular indeterminate color="#01532B" />
+              <v-progress-circular indeterminate color="primary" />
               <div class="mt-2 text-caption">
                 Loading ministry report...
               </div>
@@ -463,7 +463,7 @@
                     <td class="text-center">
                       <v-btn
                         x-small
-                        color="#01532B"
+                        color="primary"
                         @click="selectMinistry(item.ministryId)"
                         class="white--text"
                       >
@@ -479,7 +479,7 @@
                       ລວມ (Total)
                     </td>
                     <td class="text-right font-weight-bold text-body-2">
-                      <v-chip x-small color="#01532B" text-color="white">
+                      <v-chip x-small color="primary" text-color="white">
                         {{ totalSettlementsCount }}
                       </v-chip>
                     </td>
@@ -709,7 +709,7 @@
 
                 <template v-slot:item.moneyAdvance="{ item }">
                   <div v-if="item.moneyAdvance" class="advance-info">
-                    <v-chip color="#01532B" text-color="white" small>
+                    <v-chip color="primary" text-color="white" small>
                       #{{ item.moneyAdvance.id }}
                     </v-chip>
                     <div class="advance-status">
@@ -720,7 +720,7 @@
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                  <v-btn small color="#01532B" @click="viewSettlement(item.id)">
+                  <v-btn small color="primary" @click="viewSettlement(item.id)">
                     <i class="fas fa-eye"></i>
                     ເບິ່ງ
                   </v-btn>
@@ -964,7 +964,7 @@ export default {
 
     getCurrencyColor(currencyCode) {
       const colors = {
-        LAK: '#01532B',
+        LAK: 'primary',
         USD: '#228B22',
         THB: '#32CD32',
         CNY: '#006400',
@@ -973,12 +973,12 @@ export default {
         GBP: '#66CDAA',
         KRW: '#20B2AA',
       }
-      return colors[currencyCode] || '#01532B'
+      return colors[currencyCode] || 'primary'
     },
 
     getMinistryTypeColor(ministryType) {
       const colors = {
-        'Government': '#01532B',
+        'Government': 'primary',
         'Ministry': '#228B22',
         'Department': '#DC3545',
         'Agency': '#6610F2',
@@ -987,7 +987,7 @@ export default {
         'Commission': '#20C997',
         'Council': '#E83E8C'
       }
-      return colors[ministryType] || '#01532B'
+      return colors[ministryType] || 'primary'
     },
 
     getCurrencyFlag(currencyCode) {
@@ -1429,11 +1429,11 @@ async exportToExcel() {
 
     getMethodColor(method) {
       const colors = {
-        cash: '#01532B',
+        cash: 'primary',
         bank_transfer: '#228B22',
         deduction: '#32CD32',
       }
-      return colors[method] || '#01532B'
+      return colors[method] || 'primary'
     },
   },
 }
@@ -1452,7 +1452,7 @@ async exportToExcel() {
   align-items: center;
   margin-bottom: 24px;
   padding: 24px;
-  background: #01532B;
+  background: primary;
   color: white;
   border-radius: 8px;
 }
@@ -1475,7 +1475,7 @@ async exportToExcel() {
 }
 
 .custom-btn {
-  color: #01532B !important;
+  color: primary !important;
   border: 1px solid white !important;
   font-weight: 500 !important;
   text-transform: none !important;
@@ -1483,7 +1483,7 @@ async exportToExcel() {
 
 .custom-btn:hover {
   background-color: white !important;
-  color: #01532B !important;
+  color: primary !important;
 }
 
 /* Filter Card */
@@ -1493,13 +1493,13 @@ async exportToExcel() {
 }
 
 .filter-title {
-  background: #01532B;
+  background: primary;
   color: white;
   font-weight: 600;
 }
 
 .custom-primary-bg {
-  background-color: #01532B !important;
+  background-color: primary !important;
 }
 
 .custom-secondary-btn {
@@ -1516,7 +1516,7 @@ async exportToExcel() {
 /* Ministry Selection */
 .ministry-selection .ministry-name {
   font-weight: 600;
-  color: #01532B;
+  color: primary;
 }
 
 .ministry-item .ministry-name {
@@ -1591,7 +1591,7 @@ async exportToExcel() {
 .settlement-card,
 .amount-card,
 .lak-card {
-  background: #01532B;
+  background: primary;
   color: white;
 }
 
@@ -1601,7 +1601,7 @@ async exportToExcel() {
 }
 
 .currency-title {
-  background: #01532B;
+  background: primary;
   color: white;
   font-weight: 600;
 }
@@ -1619,7 +1619,7 @@ async exportToExcel() {
 .currency-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
-  border-color: #01532B;
+  border-color: primary;
 }
 
 .currency-header {
@@ -1640,7 +1640,7 @@ async exportToExcel() {
 .original-amount {
   font-size: 18px;
   font-weight: 700;
-  color: #01532B;
+  color: primary;
   margin-bottom: 4px;
   font-family: monospace;
 }
@@ -1670,11 +1670,11 @@ async exportToExcel() {
 }
 
 .ministry-table-header {
-  background-color: #01532B !important;
+  background-color: primary !important;
 }
 
 .ministry-table-header th {
-  background-color: #01532B !important;
+  background-color: primary !important;
   color: white !important;
   padding: 12px 8px !important;
   border-bottom: none !important;
@@ -1696,17 +1696,17 @@ async exportToExcel() {
 
 .ministry-table-footer td {
   background-color: #e9ecef !important;
-  border-top: 2px solid #01532B !important;
+  border-top: 2px solid primary !important;
   padding: 12px 8px !important;
 }
 
 .ministry-divider {
-  border-color: #01532B !important;
+  border-color: primary !important;
   opacity: 0.3 !important;
 }
 
 .ministry-primary--text {
-  color: #01532B !important;
+  color: primary !important;
 }
 
 .ministry-success--text {
@@ -1718,7 +1718,7 @@ async exportToExcel() {
 }
 
 .report-header {
-  background: #01532B;
+  background: primary;
   color: white;
   font-weight: 600;
 }
@@ -1742,7 +1742,7 @@ async exportToExcel() {
 
 /* Dialog Styling */
 .dialog-header {
-  background: #01532B !important;
+  background: primary !important;
   color: white !important;
   font-weight: 600 !important;
 }
@@ -1755,11 +1755,11 @@ async exportToExcel() {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #01532B;
+  color: primary;
 }
 
 .custom-divider {
-  border-color: #01532B !important;
+  border-color: primary !important;
   opacity: 0.3 !important;
 }
 
@@ -1770,7 +1770,7 @@ async exportToExcel() {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-radius: 12px;
   height: 100%;
-  border-left: 4px solid #01532B;
+  border-left: 4px solid primary;
   transition: all 0.3s ease;
 }
 
@@ -1781,14 +1781,14 @@ async exportToExcel() {
 
 .stat-icon {
   font-size: 24px;
-  color: #01532B;
+  color: primary;
   margin-right: 12px;
 }
 
 .stat-info strong {
   display: block;
   font-size: 12px;
-  color: #01532B;
+  color: primary;
   margin-bottom: 4px;
   font-weight: 700;
 }
@@ -1806,7 +1806,7 @@ async exportToExcel() {
   border-radius: 12px;
   padding: 16px;
   text-align: center;
-  border-left: 4px solid #01532B;
+  border-left: 4px solid primary;
   transition: all 0.3s ease;
 }
 
@@ -1829,7 +1829,7 @@ async exportToExcel() {
   font-size: 18px;
   font-weight: 600;
   font-family: monospace;
-  color: #01532B;
+  color: primary;
 }
 
 .settlement-table {
@@ -1837,7 +1837,7 @@ async exportToExcel() {
 }
 
 .settlement-table >>> thead th {
-  background-color: #01532B !important;
+  background-color: primary !important;
   color: white !important;
   font-weight: 600 !important;
   border-bottom: none !important;
@@ -1850,7 +1850,7 @@ async exportToExcel() {
 .date-cell {
   font-family: monospace;
   font-size: 13px;
-  color: #01532B;
+  color: primary;
 }
 
 .amount-breakdown {
@@ -1950,7 +1950,7 @@ async exportToExcel() {
   }
 
   .report-header {
-    background: #01532B !important;
+    background: primary !important;
     color: white !important;
     -webkit-print-color-adjust: exact;
   }

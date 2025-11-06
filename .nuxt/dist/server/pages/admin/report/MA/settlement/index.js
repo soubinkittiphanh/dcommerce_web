@@ -1,26 +1,26 @@
-exports.ids = [256,252];
+exports.ids = [257,253];
 exports.modules = {
 
-/***/ 1179:
+/***/ 1195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(885);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ebeb1d9c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6203ccd2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(903);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6203ccd2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6203ccd2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6203ccd2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6203ccd2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1180:
+/***/ 1196:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".banking-primary--text[data-v-ebeb1d9c]{color:#01532b!important}.banking-success--text[data-v-ebeb1d9c]{color:#059669!important}.summary-card[data-v-ebeb1d9c]{border-left:4px solid transparent;transition:all .3s ease}.summary-card[data-v-ebeb1d9c]:hover{box-shadow:0 8px 25px rgba(1,83,43,.15);transform:translateY(-4px)}.report-card[data-v-ebeb1d9c]{border-left:4px solid #01532b}.report-header[data-v-ebeb1d9c]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-table[data-v-ebeb1d9c]{font-family:\"Roboto\",sans-serif}.banking-table-header[data-v-ebeb1d9c]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important}.banking-table-header th[data-v-ebeb1d9c]{background:transparent!important;border-right:1px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-size:.875rem!important;font-weight:700!important;padding:12px 8px!important}.banking-table tbody td[data-v-ebeb1d9c]{border-bottom:1px solid #e0e0e0!important;border-right:1px solid #f5f5f5!important;font-size:.8rem!important;padding:8px!important}.banking-table tbody tr[data-v-ebeb1d9c]:hover{background-color:rgba(1,83,43,.05)!important}.banking-row-even[data-v-ebeb1d9c]{background-color:#f8f9fa!important}.banking-row-special[data-v-ebeb1d9c]{background-color:#fef3c7!important}.banking-table-footer[data-v-ebeb1d9c]{background:linear-gradient(90deg,rgba(1,83,43,.1),rgba(1,83,43,.15))!important;border-top:2px solid #01532b!important}.banking-table-footer td[data-v-ebeb1d9c]{background:transparent!important;border-top:2px solid #01532b!important;font-weight:700!important}.data-table-card[data-v-ebeb1d9c]{border-left:4px solid #01532b}.data-table-header[data-v-ebeb1d9c]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-data-table[data-v-ebeb1d9c]{background:#fff}.date-chip[data-v-ebeb1d9c]{font-family:\"Roboto Mono\",monospace;font-size:.75rem}.banking-divider[data-v-ebeb1d9c]{border-color:#01532b!important;border-width:2px!important}.dialog-header[data-v-ebeb1d9c]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important;color:#fff!important;font-weight:600}.sortable[data-v-ebeb1d9c]{cursor:pointer;transition:background-color .2s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.sortable[data-v-ebeb1d9c]:hover{background-color:hsla(0,0%,100%,.1)!important}.v-text-field[data-v-ebeb1d9c] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-text-field[data-v-ebeb1d9c] .v-label{color:#01532b!important}.v-select[data-v-ebeb1d9c] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-select[data-v-ebeb1d9c] .v-label{color:#01532b!important}.v-textarea[data-v-ebeb1d9c] .v-input__control .v-input__slot:before{border-color:#01532b!important}.v-textarea[data-v-ebeb1d9c] .v-label{color:#01532b!important}@media (max-width:768px){.banking-table[data-v-ebeb1d9c]{font-size:.75rem}.banking-table tbody td[data-v-ebeb1d9c],.banking-table-header th[data-v-ebeb1d9c]{font-size:.7rem!important;padding:6px 4px!important}.report-card[data-v-ebeb1d9c],.summary-card[data-v-ebeb1d9c]{margin-bottom:16px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".banking-primary--text[data-v-6203ccd2]{color:primary!important}.banking-success--text[data-v-6203ccd2]{color:#059669!important}.summary-card[data-v-6203ccd2]{border-left:4px solid transparent;transition:all .3s ease}.summary-card[data-v-6203ccd2]:hover{box-shadow:0 8px 25px rgba(1,83,43,.15);transform:translateY(-4px)}.report-card[data-v-6203ccd2]{border-left:4px solid primary}.report-header[data-v-6203ccd2]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-table[data-v-6203ccd2]{font-family:\"Roboto\",sans-serif}.banking-table-header[data-v-6203ccd2]{background:linear-gradient(135deg,primary,#0d4f3c)!important}.banking-table-header th[data-v-6203ccd2]{background:transparent!important;border-right:1px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-size:.875rem!important;font-weight:700!important;padding:12px 8px!important}.banking-table tbody td[data-v-6203ccd2]{border-bottom:1px solid #e0e0e0!important;border-right:1px solid #f5f5f5!important;font-size:.8rem!important;padding:8px!important}.banking-table tbody tr[data-v-6203ccd2]:hover{background-color:rgba(1,83,43,.05)!important}.banking-row-even[data-v-6203ccd2]{background-color:#f8f9fa!important}.banking-row-special[data-v-6203ccd2]{background-color:#fef3c7!important}.banking-table-footer[data-v-6203ccd2]{background:linear-gradient(90deg,rgba(1,83,43,.1),rgba(1,83,43,.15))!important;border-top:2px solid primary!important}.banking-table-footer td[data-v-6203ccd2]{background:transparent!important;border-top:2px solid primary!important;font-weight:700!important}.data-table-card[data-v-6203ccd2]{border-left:4px solid primary}.data-table-header[data-v-6203ccd2]{background:linear-gradient(90deg,#f8f9fa,#e9ecef);font-weight:600}.banking-data-table[data-v-6203ccd2]{background:#fff}.date-chip[data-v-6203ccd2]{font-family:\"Roboto Mono\",monospace;font-size:.75rem}.banking-divider[data-v-6203ccd2]{border-color:primary!important;border-width:2px!important}.dialog-header[data-v-6203ccd2]{background:linear-gradient(135deg,primary,#0d4f3c)!important;color:#fff!important;font-weight:600}.sortable[data-v-6203ccd2]{cursor:pointer;transition:background-color .2s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.sortable[data-v-6203ccd2]:hover{background-color:hsla(0,0%,100%,.1)!important}.v-text-field[data-v-6203ccd2] .v-input__control .v-input__slot:before{border-color:primary!important}.v-text-field[data-v-6203ccd2] .v-label{color:primary!important}.v-select[data-v-6203ccd2] .v-input__control .v-input__slot:before{border-color:primary!important}.v-select[data-v-6203ccd2] .v-label{color:primary!important}.v-textarea[data-v-6203ccd2] .v-input__control .v-input__slot:before{border-color:primary!important}.v-textarea[data-v-6203ccd2] .v-label{color:primary!important}@media (max-width:768px){.banking-table[data-v-6203ccd2]{font-size:.75rem}.banking-table tbody td[data-v-6203ccd2],.banking-table-header th[data-v-6203ccd2]{font-size:.7rem!important;padding:6px 4px!important}.report-card[data-v-6203ccd2],.summary-card[data-v-6203ccd2]{margin-bottom:16px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1389:
+/***/ 1405:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96,11 +96,9 @@ var VTextField = __webpack_require__(36);
 var VTextarea = __webpack_require__(434);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
-var VTooltip = __webpack_require__(572);
+var VTooltip = __webpack_require__(575);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=ebeb1d9c&scoped=true
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=6203ccd2&scoped=true
 
 
 
@@ -125,7 +123,9 @@ var VTooltip = __webpack_require__(572);
 
 
 
-var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render() {
+
+
+var settlementvue_type_template_id_6203ccd2_scoped_true_render = function render() {
   var _vm$currentSettlement;
   var _vm = this,
     _c = _vm._self._c;
@@ -153,7 +153,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
     }
   }, [_c(VBtn["a" /* default */], {
     attrs: {
-      "color": "#01532B",
+      "color": "primary",
       "large": "",
       "outlined": "",
       "loading": _vm.loading
@@ -176,7 +176,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
   }, [_c(VCard["a" /* default */], {
     staticClass: "text-center summary-card",
     attrs: {
-      "color": "#01532B",
+      "color": "primary",
       "dark": "",
       "elevation": "3"
     }
@@ -273,11 +273,11 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
-      "color": "#01532B"
+      "color": "primary"
     }
   }, [_vm._v("mdi-table")]), _vm._v("\n      ລາຍຮັບ\n      "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
     attrs: {
-      "color": "#01532B",
+      "color": "primary",
       "outlined": ""
     }
   }, [_vm._v("\n        " + _vm._s(_vm.pagination.totalItems) + " Total Records\n      ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
@@ -344,7 +344,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
           attrs: {
             "left": "",
             "small": "",
-            "color": "#01532B"
+            "color": "primary"
           }
         }, [_vm._v("mdi-calendar")]), _vm._v("\n          " + _vm._s(_vm.formatDate(item.bookingDate)) + "\n        ")], 1)];
       }
@@ -389,7 +389,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
           staticClass: "mr-2",
           attrs: {
             "size": "24",
-            "color": "#01532B"
+            "color": "primary"
           }
         }, [_c('span', {
           staticClass: "white--text text-caption"
@@ -410,7 +410,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
           staticClass: "mb-1",
           attrs: {
             "x-small": "",
-            "color": "#01532B",
+            "color": "primary",
             "dark": ""
           }
         }, [_vm._v("\n            #" + _vm._s(item.moneyAdvance.id) + "\n          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c(VChip["a" /* default */], {
@@ -477,7 +477,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
                 attrs: {
                   "icon": "",
                   "x-small": "",
-                  "color": "#01532B"
+                  "color": "primary"
                 },
                 on: {
                   "click": function ($event) {
@@ -549,7 +549,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
       "rules": [_vm.rules.required],
       "outlined": "",
       "required": "",
-      "color": "#01532B"
+      "color": "primary"
     },
     model: {
       value: _vm.settlementForm.bookingDate,
@@ -572,7 +572,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
       "rules": [_vm.rules.required, _vm.rules.positiveNumber],
       "outlined": "",
       "required": "",
-      "color": "#01532B"
+      "color": "primary"
     },
     model: {
       value: _vm.settlementForm.amount,
@@ -594,7 +594,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
       "rules": [_vm.rules.required],
       "outlined": "",
       "required": "",
-      "color": "#01532B"
+      "color": "primary"
     },
     model: {
       value: _vm.settlementForm.method,
@@ -616,7 +616,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
       "prepend-icon": "mdi-swap-horizontal",
       "placeholder": "1.0000",
       "outlined": "",
-      "color": "#01532B"
+      "color": "primary"
     },
     model: {
       value: _vm.settlementForm.exchangeRate,
@@ -636,7 +636,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
       "rows": "3",
       "outlined": "",
       "no-resize": "",
-      "color": "#01532B"
+      "color": "primary"
     },
     model: {
       value: _vm.settlementForm.notes,
@@ -652,7 +652,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
     }
   }, [_c(VListItem["a" /* default */], [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "#01532B"
+      "color": "primary"
     }
   }, [_vm._v("mdi-calendar")])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
@@ -695,7 +695,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
     }
   }, [_c(VListItem["a" /* default */], [_c(VListItemIcon["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "#01532B"
+      "color": "primary"
     }
   }, [_vm._v("mdi-swap-horizontal")])], 1), _vm._v(" "), _c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], {
     staticClass: "font-weight-bold"
@@ -723,7 +723,7 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
   }, [_vm._v("\n          " + _vm._s(_vm.dialogMode === 'view' ? 'Close' : 'Cancel') + "\n        ")]), _vm._v(" "), _vm.dialogMode !== 'view' ? _c(VBtn["a" /* default */], {
     staticClass: "ml-2",
     attrs: {
-      "color": "#01532B",
+      "color": "primary",
       "loading": _vm.saving,
       "disabled": !_vm.formValid,
       "dark": ""
@@ -739,46 +739,46 @@ var settlementvue_type_template_id_ebeb1d9c_scoped_true_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=ebeb1d9c&scoped=true
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=6203ccd2&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
-var esnext_map_delete_all_js_ = __webpack_require__(93);
+var esnext_map_delete_all_js_ = __webpack_require__(94);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.every.js"
-var esnext_map_every_js_ = __webpack_require__(94);
+var esnext_map_every_js_ = __webpack_require__(95);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.filter.js"
-var esnext_map_filter_js_ = __webpack_require__(95);
+var esnext_map_filter_js_ = __webpack_require__(96);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.find.js"
-var esnext_map_find_js_ = __webpack_require__(96);
+var esnext_map_find_js_ = __webpack_require__(97);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.find-key.js"
-var esnext_map_find_key_js_ = __webpack_require__(97);
+var esnext_map_find_key_js_ = __webpack_require__(98);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.includes.js"
-var esnext_map_includes_js_ = __webpack_require__(98);
+var esnext_map_includes_js_ = __webpack_require__(99);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.key-of.js"
-var esnext_map_key_of_js_ = __webpack_require__(99);
+var esnext_map_key_of_js_ = __webpack_require__(100);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.map-keys.js"
-var esnext_map_map_keys_js_ = __webpack_require__(100);
+var esnext_map_map_keys_js_ = __webpack_require__(101);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.map-values.js"
-var esnext_map_map_values_js_ = __webpack_require__(101);
+var esnext_map_map_values_js_ = __webpack_require__(102);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.merge.js"
-var esnext_map_merge_js_ = __webpack_require__(102);
+var esnext_map_merge_js_ = __webpack_require__(103);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.reduce.js"
-var esnext_map_reduce_js_ = __webpack_require__(103);
+var esnext_map_reduce_js_ = __webpack_require__(104);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.some.js"
-var esnext_map_some_js_ = __webpack_require__(104);
+var esnext_map_some_js_ = __webpack_require__(105);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.update.js"
-var esnext_map_update_js_ = __webpack_require__(105);
+var esnext_map_update_js_ = __webpack_require__(106);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(359);
@@ -829,7 +829,7 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(373);
 var esnext_set_union_js_ = __webpack_require__(374);
 
 // EXTERNAL MODULE: ./pages/admin/report/MA/mixin/excel.js
-var excel = __webpack_require__(884);
+var excel = __webpack_require__(902);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=script&lang=js
 
@@ -1356,7 +1356,7 @@ var excel = __webpack_require__(884);
     },
     getMethodColor(method) {
       const colors = {
-        cash: '#01532B',
+        cash: 'primary',
         bank_transfer: '#059669',
         deduction: '#F59E0B'
       };
@@ -1373,7 +1373,7 @@ var excel = __webpack_require__(884);
     getStatusColor(status) {
       const colors = {
         approved: '#059669',
-        settled: '#01532B',
+        settled: 'primary',
         pending: '#F59E0B',
         rejected: '#DC2626'
       };
@@ -1417,7 +1417,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1179)
+  var style0 = __webpack_require__(1195)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1426,11 +1426,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_settlementvue_type_script_lang_js,
-  settlementvue_type_template_id_ebeb1d9c_scoped_true_render,
+  settlementvue_type_template_id_6203ccd2_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "ebeb1d9c",
+  "6203ccd2",
   "f0f67526"
   
 )
@@ -1598,7 +1598,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 572:
+/***/ 575:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1803,7 +1803,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 884:
+/***/ 902:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2030,20 +2030,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 885:
+/***/ 903:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1180);
+var content = __webpack_require__(1196);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("44c04247", content, true, context)
+  add("542b4f71", content, true, context)
 };
 
 /***/ })

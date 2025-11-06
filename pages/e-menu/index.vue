@@ -259,7 +259,7 @@ export default {
 
 /* Welcome Banner */
 .welcome-banner {
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, primary 0%, secondary 100%);
   padding: 3rem 1.5rem 2rem;
   text-align: center;
   color: white;
@@ -430,13 +430,13 @@ export default {
 }
 
 .category-tab:hover {
-  border-color: #01532B;
+  border-color: primary;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(1, 83, 43, 0.15);
 }
 
 .category-tab.active {
-  background: linear-gradient(135deg, #01532B, #337555);
+  background: linear-gradient(135deg, primary, secondary);
   color: white;
   border-color: transparent;
   box-shadow: 0 4px 15px rgba(1, 83, 43, 0.3);
@@ -534,7 +534,7 @@ export default {
 .category-badge {
   display: inline-block;
   background: linear-gradient(135deg, rgba(1, 83, 43, 0.1), rgba(51, 117, 85, 0.1));
-  color: #01532B;
+  color: primary;
   padding: 0.35rem 0.75rem;
   border-radius: 20px;
   font-size: 0.7rem;
@@ -639,7 +639,7 @@ export default {
 }
 
 .reset-btn {
-  background: linear-gradient(135deg, #01532B, #337555);
+  background: linear-gradient(135deg, primary, secondary);
   color: white;
   border: none;
   padding: 0.875rem 2rem;
@@ -736,7 +736,7 @@ export default {
 .modal-category {
   display: inline-block;
   background: linear-gradient(135deg, rgba(1, 83, 43, 0.1), rgba(51, 117, 85, 0.1));
-  color: #01532B;
+  color: primary;
   padding: 0.4rem 1rem;
   border-radius: 20px;
   font-size: 0.75rem;

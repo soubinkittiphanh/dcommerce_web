@@ -1,7 +1,7 @@
-exports.ids = [199,54];
+exports.ids = [200,55];
 exports.modules = {
 
-/***/ 1380:
+/***/ 1395:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -118,7 +118,7 @@ var withdrawvue_type_template_id_6f0b9c8e_render = function render() {
           attrs: {
             "flat": ""
           }
-        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("ແຈ້ງຖອນເງິນ " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("ແຈ້ງຖອນເງິນ " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
           staticClass: "mx-4",
           attrs: {
             "inset": "",

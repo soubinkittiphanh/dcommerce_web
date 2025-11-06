@@ -1,26 +1,26 @@
-exports.ids = [251];
+exports.ids = [252];
 exports.modules = {
 
-/***/ 1175:
+/***/ 1191:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eb0eda16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(881);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eb0eda16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eb0eda16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eb0eda16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eb0eda16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_79c61625_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(899);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_79c61625_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_79c61625_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_79c61625_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_79c61625_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1176:
+/***/ 1192:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".payment-report[data-v-eb0eda16]{padding:0}.report-header[data-v-eb0eda16]{align-items:center;background:#01532b;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-eb0eda16]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-eb0eda16]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-eb0eda16]{display:flex;gap:16px}.custom-btn[data-v-eb0eda16]{border:1px solid #fff!important;color:#01532b!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-eb0eda16]:hover{background-color:#fff!important;color:#01532b!important}.filter-card[data-v-eb0eda16]{background:#fff;border-radius:8px}.filter-title[data-v-eb0eda16]{background:#01532b;color:#fff;font-weight:600}.custom-primary-bg[data-v-eb0eda16]{background-color:#01532b!important}.custom-secondary-btn[data-v-eb0eda16]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.date-range-alert[data-v-eb0eda16]{background-color:rgba(1,83,43,.1)!important;border-color:#01532b!important;color:#01532b!important}.summary-cards[data-v-eb0eda16]{margin-bottom:24px}.summary-card[data-v-eb0eda16]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-content[data-v-eb0eda16]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-eb0eda16]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-eb0eda16]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-eb0eda16]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-eb0eda16]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.advance-card[data-v-eb0eda16],.outstanding-card[data-v-eb0eda16],.records-card[data-v-eb0eda16],.settlement-card[data-v-eb0eda16]{background:#01532b;color:#fff}.table-card[data-v-eb0eda16]{border-radius:8px;margin-bottom:24px}.table-title[data-v-eb0eda16]{background:#01532b;color:#fff;font-weight:600}.search-field[data-v-eb0eda16]{max-width:300px}.report-table[data-v-eb0eda16] thead th{background-color:#01532b!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-eb0eda16] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.ministry-cell[data-v-eb0eda16]{display:flex;flex-direction:column}.ministry-name[data-v-eb0eda16]{color:#01532b;font-size:14px;font-weight:600}.ministry-code[data-v-eb0eda16]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:\"Courier New\",monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.amount-breakdown[data-v-eb0eda16]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-eb0eda16]{font-family:\"Courier New\",monospace;font-size:14px;font-weight:700}.exchange-rate[data-v-eb0eda16]{color:#666;font-size:11px;font-style:italic;margin-top:4px}.lcy-amount[data-v-eb0eda16]{color:#01532b!important}.outstanding-amount[data-v-eb0eda16]{color:#dc3545!important}.settled-amount[data-v-eb0eda16]{color:#28a745!important}.progress-text[data-v-eb0eda16]{color:#fff;font-size:12px;font-weight:600;text-shadow:1px 1px 2px rgba(0,0,0,.5)}.custom-action-btn[data-v-eb0eda16]{background-color:#01532b!important;border-radius:8px!important;font-size:12px!important;text-transform:none!important}.custom-action-btn[data-v-eb0eda16],.dialog-header[data-v-eb0eda16]{color:#fff!important;font-weight:600!important}.dialog-header[data-v-eb0eda16]{background:#01532b!important}.close-btn[data-v-eb0eda16]{color:#fff!important}.section-title[data-v-eb0eda16]{color:#01532b;font-size:18px;font-weight:700}.custom-divider[data-v-eb0eda16]{border-color:#01532b!important;opacity:.3!important}.detail-stat[data-v-eb0eda16]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid #01532b;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.detail-stat strong[data-v-eb0eda16]{color:#01532b;display:block;font-size:15px;font-weight:700;margin-bottom:12px}.detail-stat p[data-v-eb0eda16]{font-family:\"Courier New\",monospace;font-size:20px;font-weight:700;margin:0}.detail-stat small[data-v-eb0eda16]{color:#666;display:block;font-size:12px;font-style:italic;margin-top:8px}.date-cell[data-v-eb0eda16]{color:#01532b;font-family:\"Courier New\",monospace;font-size:13px;font-weight:500}.v-btn-toggle[data-v-eb0eda16]{background:hsla(0,0%,100%,.1);border-radius:8px}.v-btn-toggle .v-btn[data-v-eb0eda16]{color:#fff!important;font-size:12px!important;min-width:80px!important}.v-btn-toggle .v-btn.v-btn--active[data-v-eb0eda16]{background:hsla(0,0%,100%,.2)!important;color:#fff!important}.ministry-header-row[data-v-eb0eda16]{background:linear-gradient(135deg,#01532b,#0a6633)!important}.ministry-header-cell[data-v-eb0eda16]{border:none!important;padding:16px!important}.ministry-header-content[data-v-eb0eda16]{align-items:center;color:#fff;display:flex;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase}.ministry-record-count[data-v-eb0eda16]{font-size:14px;font-weight:500;opacity:.9}.currency-header-row[data-v-eb0eda16]{background:rgba(1,83,43,.1)!important}.currency-header-cell[data-v-eb0eda16]{border-left:4px solid #01532b!important;padding:12px 16px!important}.currency-header-content[data-v-eb0eda16]{align-items:center;color:#01532b;display:flex;font-size:14px;font-weight:600}.currency-subtotal-row[data-v-eb0eda16]{background:rgba(1,83,43,.05)!important;border-top:1px solid rgba(1,83,43,.2)!important}.currency-subtotal-row td[data-v-eb0eda16]{color:#01532b;font-style:italic;font-weight:600!important;padding:8px 16px!important}.ministry-subtotal-row[data-v-eb0eda16]{background:rgba(1,83,43,.15)!important;border-bottom:2px solid #01532b!important;border-top:2px solid #01532b!important}.ministry-subtotal-row td[data-v-eb0eda16]{color:#01532b;font-weight:700!important;padding:12px 16px!important}.ministry-total-label[data-v-eb0eda16]{font-size:16px!important;letter-spacing:.5px;text-transform:uppercase}.ministry-total-amount[data-v-eb0eda16]{font-family:\"Courier New\",monospace;font-size:16px!important}.subtotal-label[data-v-eb0eda16]{color:#01532b;font-weight:600;padding-left:24px!important;text-align:left}.subtotal-amount[data-v-eb0eda16]{font-family:\"Courier New\",monospace;font-weight:600;text-align:right}.data-row[data-v-eb0eda16]{transition:background-color .2s ease}.data-row[data-v-eb0eda16]:hover{background-color:rgba(1,83,43,.05)!important}@media (max-width:768px){.report-header[data-v-eb0eda16]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-eb0eda16]{font-size:24px}.action-buttons[data-v-eb0eda16]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-eb0eda16]{flex-direction:column;padding:12px;text-align:center}.summary-details h2[data-v-eb0eda16]{font-size:20px}.ministry-header-content[data-v-eb0eda16]{flex-direction:column;font-size:16px;gap:8px;text-align:center}.currency-header-content[data-v-eb0eda16]{font-size:12px}.ministry-total-amount[data-v-eb0eda16],.ministry-total-label[data-v-eb0eda16],.subtotal-amount[data-v-eb0eda16],.subtotal-label[data-v-eb0eda16]{font-size:12px!important}.v-btn-toggle .v-btn[data-v-eb0eda16]{font-size:10px!important;min-width:60px!important}}@media print{.ministry-header-row[data-v-eb0eda16]{background:#f0f0f0!important;-webkit-print-color-adjust:exact}.ministry-header-content[data-v-eb0eda16]{color:#000!important}.currency-subtotal-row[data-v-eb0eda16],.ministry-subtotal-row[data-v-eb0eda16]{background:#f5f5f5!important;-webkit-print-color-adjust:exact}.v-btn-toggle[data-v-eb0eda16]{display:none!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".payment-report[data-v-79c61625]{padding:0}.report-header[data-v-79c61625]{align-items:center;background:primary;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-79c61625]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-79c61625]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-79c61625]{display:flex;gap:16px}.custom-btn[data-v-79c61625]{border:1px solid #fff!important;color:primary!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-79c61625]:hover{background-color:#fff!important;color:primary!important}.filter-card[data-v-79c61625]{background:#fff;border-radius:8px}.filter-title[data-v-79c61625]{background:primary;color:#fff;font-weight:600}.custom-primary-bg[data-v-79c61625]{background-color:primary!important}.custom-secondary-btn[data-v-79c61625]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.date-range-alert[data-v-79c61625]{background-color:rgba(1,83,43,.1)!important;border-color:primary!important;color:primary!important}.summary-cards[data-v-79c61625]{margin-bottom:24px}.summary-card[data-v-79c61625]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-content[data-v-79c61625]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-79c61625]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-79c61625]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-79c61625]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-79c61625]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.advance-card[data-v-79c61625],.outstanding-card[data-v-79c61625],.records-card[data-v-79c61625],.settlement-card[data-v-79c61625]{background:primary;color:#fff}.table-card[data-v-79c61625]{border-radius:8px;margin-bottom:24px}.table-title[data-v-79c61625]{background:primary;color:#fff;font-weight:600}.search-field[data-v-79c61625]{max-width:300px}.report-table[data-v-79c61625] thead th{background-color:primary!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.report-table[data-v-79c61625] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.ministry-cell[data-v-79c61625]{display:flex;flex-direction:column}.ministry-name[data-v-79c61625]{color:primary;font-size:14px;font-weight:600}.ministry-code[data-v-79c61625]{background:#f8f9fa;border-radius:4px;color:#666;display:inline-block;font-family:\"Courier New\",monospace;font-size:11px;margin-top:4px;padding:2px 6px;width:-moz-fit-content;width:fit-content}.amount-breakdown[data-v-79c61625]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-79c61625]{font-family:\"Courier New\",monospace;font-size:14px;font-weight:700}.exchange-rate[data-v-79c61625]{color:#666;font-size:11px;font-style:italic;margin-top:4px}.lcy-amount[data-v-79c61625]{color:primary!important}.outstanding-amount[data-v-79c61625]{color:#dc3545!important}.settled-amount[data-v-79c61625]{color:#28a745!important}.progress-text[data-v-79c61625]{color:#fff;font-size:12px;font-weight:600;text-shadow:1px 1px 2px rgba(0,0,0,.5)}.custom-action-btn[data-v-79c61625]{background-color:primary!important;border-radius:8px!important;font-size:12px!important;text-transform:none!important}.custom-action-btn[data-v-79c61625],.dialog-header[data-v-79c61625]{color:#fff!important;font-weight:600!important}.dialog-header[data-v-79c61625]{background:primary!important}.close-btn[data-v-79c61625]{color:#fff!important}.section-title[data-v-79c61625]{color:primary;font-size:18px;font-weight:700}.custom-divider[data-v-79c61625]{border-color:primary!important;opacity:.3!important}.detail-stat[data-v-79c61625]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid primary;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.detail-stat strong[data-v-79c61625]{color:primary;display:block;font-size:15px;font-weight:700;margin-bottom:12px}.detail-stat p[data-v-79c61625]{font-family:\"Courier New\",monospace;font-size:20px;font-weight:700;margin:0}.detail-stat small[data-v-79c61625]{color:#666;display:block;font-size:12px;font-style:italic;margin-top:8px}.date-cell[data-v-79c61625]{color:primary;font-family:\"Courier New\",monospace;font-size:13px;font-weight:500}.v-btn-toggle[data-v-79c61625]{background:hsla(0,0%,100%,.1);border-radius:8px}.v-btn-toggle .v-btn[data-v-79c61625]{color:#fff!important;font-size:12px!important;min-width:80px!important}.v-btn-toggle .v-btn.v-btn--active[data-v-79c61625]{background:hsla(0,0%,100%,.2)!important;color:#fff!important}.ministry-header-row[data-v-79c61625]{background:linear-gradient(135deg,primary,#0a6633)!important}.ministry-header-cell[data-v-79c61625]{border:none!important;padding:16px!important}.ministry-header-content[data-v-79c61625]{align-items:center;color:#fff;display:flex;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase}.ministry-record-count[data-v-79c61625]{font-size:14px;font-weight:500;opacity:.9}.currency-header-row[data-v-79c61625]{background:rgba(1,83,43,.1)!important}.currency-header-cell[data-v-79c61625]{border-left:4px solid primary!important;padding:12px 16px!important}.currency-header-content[data-v-79c61625]{align-items:center;color:primary;display:flex;font-size:14px;font-weight:600}.currency-subtotal-row[data-v-79c61625]{background:rgba(1,83,43,.05)!important;border-top:1px solid rgba(1,83,43,.2)!important}.currency-subtotal-row td[data-v-79c61625]{color:primary;font-style:italic;font-weight:600!important;padding:8px 16px!important}.ministry-subtotal-row[data-v-79c61625]{background:rgba(1,83,43,.15)!important;border-bottom:2px solid primary!important;border-top:2px solid primary!important}.ministry-subtotal-row td[data-v-79c61625]{color:primary;font-weight:700!important;padding:12px 16px!important}.ministry-total-label[data-v-79c61625]{font-size:16px!important;letter-spacing:.5px;text-transform:uppercase}.ministry-total-amount[data-v-79c61625]{font-family:\"Courier New\",monospace;font-size:16px!important}.subtotal-label[data-v-79c61625]{color:primary;font-weight:600;padding-left:24px!important;text-align:left}.subtotal-amount[data-v-79c61625]{font-family:\"Courier New\",monospace;font-weight:600;text-align:right}.data-row[data-v-79c61625]{transition:background-color .2s ease}.data-row[data-v-79c61625]:hover{background-color:rgba(1,83,43,.05)!important}@media (max-width:768px){.report-header[data-v-79c61625]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-79c61625]{font-size:24px}.action-buttons[data-v-79c61625]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-79c61625]{flex-direction:column;padding:12px;text-align:center}.summary-details h2[data-v-79c61625]{font-size:20px}.ministry-header-content[data-v-79c61625]{flex-direction:column;font-size:16px;gap:8px;text-align:center}.currency-header-content[data-v-79c61625]{font-size:12px}.ministry-total-amount[data-v-79c61625],.ministry-total-label[data-v-79c61625],.subtotal-amount[data-v-79c61625],.subtotal-label[data-v-79c61625]{font-size:12px!important}.v-btn-toggle .v-btn[data-v-79c61625]{font-size:10px!important;min-width:60px!important}}@media print{.ministry-header-row[data-v-79c61625]{background:#f0f0f0!important;-webkit-print-color-adjust:exact}.ministry-header-content[data-v-79c61625]{color:#000!important}.currency-subtotal-row[data-v-79c61625],.ministry-subtotal-row[data-v-79c61625]{background:#f5f5f5!important;-webkit-print-color-adjust:exact}.v-btn-toggle[data-v-79c61625]{display:none!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1445:
+/***/ 1461:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83,7 +83,7 @@ var VSpacer = __webpack_require__(401);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=eb0eda16&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=79c61625&scoped=true
 
 
 
@@ -102,13 +102,13 @@ var VTextField = __webpack_require__(36);
 
 
 
-var ministrySummaryvue_type_template_id_eb0eda16_scoped_true_render = function render() {
+var ministrySummaryvue_type_template_id_79c61625_scoped_true_render = function render() {
   var _vm$selectedPayment;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "payment-report"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-eb0eda16>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-eb0eda16><h1 class=\"page-title\" data-v-eb0eda16><i class=\"fas fa-money-bill-wave\" data-v-eb0eda16></i>\n        ລາຍງານການຈ່າຍເງິນລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-eb0eda16>Money Advance Payment Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-eb0eda16>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-79c61625>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-79c61625><h1 class=\"page-title\" data-v-79c61625><i class=\"fas fa-money-bill-wave\" data-v-79c61625></i>\n        ລາຍງານການຈ່າຍເງິນລ່ວງໜ້າ\n      </h1> <p class=\"page-subtitle\" data-v-79c61625>Money Advance Payment Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-79c61625>", "</div>", [_c(VBtn["a" /* default */], {
     staticClass: "custom-btn export-btn",
     attrs: {
       "loading": _vm.exporting
@@ -810,20 +810,20 @@ var ministrySummaryvue_type_template_id_eb0eda16_scoped_true_render = function r
         return [_c(VChip["a" /* default */], {
           attrs: {
             "small": "",
-            "color": "#01532B",
+            "color": "primary",
             "text-color": "white"
           }
         }, [_vm._v("\n                  " + _vm._s(item.method) + "\n                ")])];
       }
-    }], null, false, 1055275594)
+    }], null, false, 4147893874)
   })], 1)], 1) : _vm._e()], 1) : _vm._e()], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=eb0eda16&scoped=true
+// CONCATENATED MODULE: ./pages/admin/report/MA/ministrySummary/index.vue?vue&type=template&id=79c61625&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/ministrySummary/index.vue?vue&type=script&lang=js
-var ministrySummaryvue_type_script_lang_js = __webpack_require__(756);
+var ministrySummaryvue_type_script_lang_js = __webpack_require__(773);
 
 // CONCATENATED MODULE: ./pages/admin/report/MA/ministrySummary/index.vue?vue&type=script&lang=js
  /* harmony default export */ var MA_ministrySummaryvue_type_script_lang_js = (ministrySummaryvue_type_script_lang_js["a" /* default */]); 
@@ -836,7 +836,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1175)
+  var style0 = __webpack_require__(1191)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -845,11 +845,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_ministrySummaryvue_type_script_lang_js,
-  ministrySummaryvue_type_template_id_eb0eda16_scoped_true_render,
+  ministrySummaryvue_type_template_id_79c61625_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "eb0eda16",
+  "79c61625",
   "6e70f8f9"
   
 )
@@ -973,7 +973,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 756:
+/***/ 773:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1397,13 +1397,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
     },
     getCurrencyColor(currencyCode) {
       const colors = {
-        USD: '#01532B',
-        LAK: '#01532B',
+        USD: 'primary',
+        LAK: 'primary',
         THB: '#228B22',
         EUR: '#006400',
         CNY: '#666'
       };
-      return colors[currencyCode] || '#01532B';
+      return colors[currencyCode] || 'primary';
     },
     getStatusColor(status) {
       switch (status) {
@@ -1445,20 +1445,20 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 881:
+/***/ 899:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1176);
+var content = __webpack_require__(1192);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("021a7b08", content, true, context)
+  add("e3947c76", content, true, context)
 };
 
 /***/ })

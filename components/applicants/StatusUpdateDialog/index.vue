@@ -575,7 +575,7 @@ export default {
 }
 
 .modal-header.approve-header {
-background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+background: linear-gradient(135deg, primary 0%, secondary 100%);
 }
 
 .modal-header.reject-header {
@@ -661,7 +661,7 @@ background: linear-gradient(135deg, #01532B 0%, #337555 100%);
   width: 60px;
   height: 60px;
   border-radius: 50%;
-background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+background: linear-gradient(135deg, primary 0%, secondary 100%);
   display: flex;
   align-items: center;
   justify-content: center;

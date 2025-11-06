@@ -1,7 +1,7 @@
-exports.ids = [198,54];
+exports.ids = [199,55];
 exports.modules = {
 
-/***/ 1379:
+/***/ 1394:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -118,7 +118,7 @@ var topupvue_type_template_id_25485a6c_render = function render() {
           attrs: {
             "flat": ""
           }
-        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("ແຈ້ງເຕີມເງິນ " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("ແຈ້ງເຕີມເງິນ " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
           staticClass: "mx-4",
           attrs: {
             "inset": "",

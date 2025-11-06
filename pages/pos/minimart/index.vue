@@ -191,6 +191,6 @@ export default {
 }
 
 /* .product-border {
-    border: 1px solid #01532B !important;
+    border: 1px solid primary !important;
 } */
 </style>

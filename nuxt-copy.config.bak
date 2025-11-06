@@ -120,8 +120,8 @@ export default {
     theme: {
       themes: {
         light: {
-          primary: '#01532B', //DCOMMERCE green
-          secondary: '#337555',
+          primary: 'primary', //DCOMMERCE green
+          secondary: 'secondary',
           lightprimary: '#80a995',
           danger: '#D00505',
         },

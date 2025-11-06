@@ -1,7 +1,7 @@
-exports.ids = [236,109,111,160];
+exports.ids = [237,110,112,161];
 exports.modules = {
 
-/***/ 1328:
+/***/ 1343:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -641,7 +641,7 @@ var common = __webpack_require__(11);
       return Object(api["b" /* mainCompanyInfo */])();
     },
     companyLogo() {
-      return __webpack_require__(141)(`./${this.companyData.ticketLogo}`);
+      return __webpack_require__(142)(`./${this.companyData.ticketLogo}`);
     },
     localStatus() {
       const status = [{
@@ -4806,7 +4806,7 @@ var external_vuex_ = __webpack_require__(14);
       return Object(common_api["b" /* mainCompanyInfo */])();
     },
     companyLogo() {
-      return __webpack_require__(141)(`./${this.companyData.ticketLogo}`);
+      return __webpack_require__(142)(`./${this.companyData.ticketLogo}`);
     },
     user() {
       return this.$auth.user || '';

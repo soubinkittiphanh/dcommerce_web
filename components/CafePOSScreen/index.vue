@@ -3,6 +3,7 @@
     <!-- Print Dialog -->
     <PrintTicketDialog
       :show="showCustomerPrint"
+      :key="printDialogKey"
       :ticket="selectedTicket"
       :restaurant-info="restaurantConfig"
       @close="closePrintDialog"
@@ -866,6 +867,7 @@ export default {
   },
   data() {
     return {
+      printDialogKey:1,
       showPriceOverrideDialog: false,
       selectedProduct: null,
       selectedPriceListId: null,
@@ -2382,7 +2384,8 @@ export default {
           )
         }
         this.closePaymentDialog()
-        this.showPrintConfirmDialog = true
+        // this.showPrintConfirmDialog = true
+        this.handlePrintConfirmation(true);
         if (!this.isWalkIn) {
           await this.updateTableStatus('cleaning')
         }
@@ -2568,7 +2571,9 @@ export default {
         console.log('Updated ticket for print:', ticketForPrint)
         this.currentTicket = latestTicket
         this.selectedTicket = ticketForPrint
+        this.printDialogKey++
         this.showCustomerPrint = true
+        // this.onPrintSuccess()
       } catch (error) {
         console.error('Error fetching latest ticket data for printing:', error)
         this.showMessage(
@@ -2593,6 +2598,7 @@ export default {
           total: this.getFinalTotal,
         }
         this.selectedTicket = ticketForPrint
+        this.printDialogKey++
         this.showCustomerPrint = true
       } finally {
         this.loading = false

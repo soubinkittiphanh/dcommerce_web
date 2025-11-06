@@ -1,7 +1,7 @@
-exports.ids = [177,54];
+exports.ids = [178,55];
 exports.modules = {
 
-/***/ 1281:
+/***/ 1296:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -227,7 +227,7 @@ var bankvue_type_template_id_8befc51c_render = function render() {
           attrs: {
             "flat": ""
           }
-        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("ທະນາຄານ: " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("ທະນາຄານ: " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
           staticClass: "mx-4",
           attrs: {
             "inset": "",

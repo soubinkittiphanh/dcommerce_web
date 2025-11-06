@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#01532B" dark>
+    <v-card color="primary" dark>
       <v-card-text>
         ກະລຸນາລໍຖ້າ...
         <v-progress-linear

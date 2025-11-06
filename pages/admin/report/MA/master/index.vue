@@ -2749,7 +2749,7 @@ export default {
   align-items: center;
   margin-bottom: 24px;
   padding: 20px;
-  background: #01532B;/*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+  background: primary;/*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
   color: white;
   border-radius: 8px;
 }
@@ -2803,7 +2803,7 @@ export default {
 
 .section-title i {
   margin-right: 12px;
-  color: #01532B;
+  color: primary;
 }
 
 .summary-cards .summary-card {
@@ -2817,7 +2817,7 @@ export default {
 }
 
 .summary-icon {
-  background: #01532B; /*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+  background: primary; /*linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
   color: white;
   width: 60px;
   height: 60px;
@@ -2845,17 +2845,17 @@ export default {
   margin: 8px 0 4px 0;
   font-size: 24px;
   font-weight: 700;
-  color: #01532B;
+  color: primary;
 }
 
 /* Custom Green Color Override */
 .custom-green-header {
-  background-color: #01532B !important;
+  background-color: primary !important;
   color: white !important;
 }
 
 .custom-green-text {
-  color: #01532B !important;
+  color: primary !important;
 }
 
 .custom-green-bg-light {
@@ -2868,23 +2868,23 @@ export default {
 
 /* Override Vuetify success colors */
 .v-card-title.success--text {
-  color: #01532B !important;
+  color: primary !important;
 }
 
 .v-icon.success {
-  color: #01532B !important;
+  color: primary !important;
 }
 
 .v-progress-circular.success {
-  color: #01532B !important;
+  color: primary !important;
 }
 
 .success--text {
-  color: #01532B !important;
+  color: primary !important;
 }
 
 .success.lighten-3 {
-  background-color: #01532B !important;
+  background-color: primary !important;
 }
 
 .success.lighten-4 {

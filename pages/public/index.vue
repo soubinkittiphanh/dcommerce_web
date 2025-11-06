@@ -377,7 +377,7 @@ export default {
 <style scoped>
 .cafe-menu {
   min-height: 100vh;
-background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+background: linear-gradient(135deg, primary 0%, secondary 100%);
   position: relative;
 }
 

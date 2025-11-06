@@ -1,7 +1,7 @@
-exports.ids = [197,54];
+exports.ids = [198,55];
 exports.modules = {
 
-/***/ 1298:
+/***/ 1313:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -228,7 +228,7 @@ var customer_requestvue_type_template_id_10d1eef6_render = function render() {
           attrs: {
             "flat": ""
           }
-        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("ປະເພດຂໍ້ຄວາມ: " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("ປະເພດຂໍ້ຄວາມ: " + _vm._s(_vm.loadData.length))]), _vm._v(" "), _c(VDivider["a" /* default */], {
           staticClass: "mx-4",
           attrs: {
             "inset": "",

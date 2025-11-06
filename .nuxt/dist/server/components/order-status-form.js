@@ -1,4 +1,4 @@
-exports.ids = [111];
+exports.ids = [112];
 exports.modules = {
 
 /***/ 504:
@@ -695,7 +695,7 @@ var external_vuex_ = __webpack_require__(14);
       return Object(common_api["b" /* mainCompanyInfo */])();
     },
     companyLogo() {
-      return __webpack_require__(141)(`./${this.companyData.ticketLogo}`);
+      return __webpack_require__(142)(`./${this.companyData.ticketLogo}`);
     },
     user() {
       return this.$auth.user || '';

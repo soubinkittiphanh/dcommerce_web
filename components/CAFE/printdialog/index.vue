@@ -298,7 +298,9 @@ export default {
       }
     },
   },
-
+  mounted(){
+    this.printNow()
+  },
   methods: {
     // ... existing methods ...
     getQueNo(ticketNumber) {

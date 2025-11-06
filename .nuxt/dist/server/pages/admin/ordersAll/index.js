@@ -1,7 +1,7 @@
-exports.ids = [226,109,111,160];
+exports.ids = [227,110,112,161];
 exports.modules = {
 
-/***/ 1318:
+/***/ 1333:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4648,7 +4648,7 @@ var external_vuex_ = __webpack_require__(14);
       return Object(common_api["b" /* mainCompanyInfo */])();
     },
     companyLogo() {
-      return __webpack_require__(141)(`./${this.companyData.ticketLogo}`);
+      return __webpack_require__(142)(`./${this.companyData.ticketLogo}`);
     },
     user() {
       return this.$auth.user || '';

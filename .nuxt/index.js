@@ -17,6 +17,7 @@ import nuxt_plugin_plugin_e2278e14 from 'nuxt_plugin_plugin_e2278e14' // Source:
 import nuxt_plugin_plugin_51d09eb8 from 'nuxt_plugin_plugin_51d09eb8' // Source: ./vuetify/plugin.js (mode: 'all')
 import nuxt_plugin_toast_48781c8a from 'nuxt_plugin_toast_48781c8a' // Source: ./toast.js (mode: 'client')
 import nuxt_plugin_axios_0f93a50c from 'nuxt_plugin_axios_0f93a50c' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_vuetifytheme_33c34d63 from 'nuxt_plugin_vuetifytheme_33c34d63' // Source: ../plugins/vuetify-theme.js (mode: 'all')
 import nuxt_plugin_jspdfinvoice_24aa2464 from 'nuxt_plugin_jspdfinvoice_24aa2464' // Source: ../plugins/jspdf-invoice.js (mode: 'client')
 import nuxt_plugin_vuesweetalert2_1def2d6e from 'nuxt_plugin_vuesweetalert2_1def2d6e' // Source: ../plugins/vue-sweetalert2 (mode: 'client')
 import nuxt_plugin_apexchart_56afe430 from 'nuxt_plugin_apexchart_56afe430' // Source: ../plugins/apex-chart.js (mode: 'client')
@@ -244,6 +245,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_axios_0f93a50c === 'function') {
     await nuxt_plugin_axios_0f93a50c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuetifytheme_33c34d63 === 'function') {
+    await nuxt_plugin_vuetifytheme_33c34d63(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_jspdfinvoice_24aa2464 === 'function') {

@@ -623,7 +623,7 @@ export default {
 .form-header {
   padding: 16px 20px;
   border-bottom: 1px solid #e5e7eb;
-  background: #01532B;
+  background: primary;
   color: white;
   flex-shrink: 0;
 }
@@ -673,7 +673,7 @@ export default {
 .section-title {
   font-size: 16px;
   font-weight: 600;
-  color: #01532B;
+  color: primary;
   margin: 0 0 16px 0;
   padding-bottom: 12px;
   border-bottom: 2px solid #e5e7eb;
@@ -723,7 +723,7 @@ export default {
 }
 
 .photo-upload:hover {
-  border-color: #01532B;
+  border-color: primary;
   background: #f0fdf4;
 }
 
@@ -788,7 +788,7 @@ export default {
 }
 
 .photo-upload-small:hover {
-  border-color: #01532B;
+  border-color: primary;
   background: #f0fdf4;
 }
 
@@ -935,7 +935,7 @@ export default {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #01532B;
+  border-color: primary;
   box-shadow: 0 0 0 3px rgba(1, 83, 43, 0.1);
 }
 
@@ -991,7 +991,7 @@ export default {
 }
 
 .btn.primary {
-  background: #01532B;
+  background: primary;
   color: white;
 }
 

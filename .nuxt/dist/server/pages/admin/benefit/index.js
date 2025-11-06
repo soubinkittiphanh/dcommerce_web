@@ -1,7 +1,34 @@
-exports.ids = [182,29,30];
+exports.ids = [183,29,30];
 exports.modules = {
 
-/***/ 1285:
+/***/ 1014:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(815);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1015:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".benefit-summary-container[data-v-8446105a]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-8446105a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-8446105a]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-8446105a]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-8446105a]{display:flex;gap:12px}.filter-section[data-v-8446105a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-8446105a]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-8446105a]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-8446105a]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-8446105a]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-8446105a]{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));grid-gap:20px;gap:20px;margin-bottom:20px}.summary-card[data-v-8446105a]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-8446105a]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-benefits[data-v-8446105a]{background:linear-gradient(135deg,#8b5cf6,#a855f7);border:none;color:#fff}.summary-card.total-benefits .card-icon[data-v-8446105a]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.status-active[data-v-8446105a]{border-left:4px solid #10b981}.summary-card.status-inactive[data-v-8446105a]{border-left:4px solid #ef4444}.summary-card.type-stats[data-v-8446105a]{border-left:4px solid #f59e0b}.summary-card.value-stats[data-v-8446105a]{border-left:4px solid #3b82f6}.summary-card.job-stats[data-v-8446105a]{border-left:4px solid #6366f1}.card-icon[data-v-8446105a]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-8446105a]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.active[data-v-8446105a]{background:#d1fae5;color:#10b981}.card-icon.inactive[data-v-8446105a]{background:#fee2e2;color:#ef4444}.card-icon.types[data-v-8446105a]{background:#fef3c7;color:#f59e0b}.card-icon.value[data-v-8446105a]{background:#dbeafe;color:#3b82f6}.card-icon.jobs[data-v-8446105a]{background:#e0e7ff;color:#6366f1}.card-content[data-v-8446105a]{flex:1;min-width:0}.card-content h3[data-v-8446105a]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-8446105a]{font-size:14px;margin:0}.job-info[data-v-8446105a],.type-info[data-v-8446105a],.value-info[data-v-8446105a]{display:block;font-size:12px;margin-top:4px;opacity:.8}.table-section[data-v-8446105a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-8446105a]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-8446105a]{color:#333;margin:0}.record-count[data-v-8446105a]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-8446105a]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-8446105a]{overflow-x:auto}.data-table[data-v-8446105a]{border-collapse:collapse;width:100%}.data-table td[data-v-8446105a],.data-table th[data-v-8446105a]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-8446105a]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-8446105a]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-8446105a]:hover{background-color:#e9ecef}.data-table th i[data-v-8446105a]{margin-left:8px;opacity:.5}.benefit-name strong[data-v-8446105a]{color:#333;display:block;font-size:14px;margin-bottom:4px}.benefit-notes[data-v-8446105a]{align-items:center;color:#666;display:flex;font-size:12px;gap:4px}.benefit-notes i[data-v-8446105a]{color:#fbbf24}.type-badge[data-v-8446105a]{align-items:center;border-radius:12px;display:inline-flex;font-size:12px;font-weight:600;gap:4px;padding:4px 12px}.type-badge.salary[data-v-8446105a]{background-color:#dcfce7;color:#16a34a}.type-badge.allowance[data-v-8446105a]{background-color:#dbeafe;color:#2563eb}.type-badge.insurance[data-v-8446105a]{background-color:#f3e8ff;color:#9333ea}.type-badge.accommodation[data-v-8446105a]{background-color:#fef3c7;color:#d97706}.type-badge.transportation[data-v-8446105a]{background-color:#e0f2fe;color:#0891b2}.type-badge.other[data-v-8446105a]{background-color:#f1f5f9;color:#64748b}.description-cell[data-v-8446105a]{color:#666;font-size:12px;line-height:1.4;max-width:200px}.value-cell[data-v-8446105a]{text-align:right}.value-amount strong[data-v-8446105a]{color:#059669;font-size:14px}.no-value[data-v-8446105a]{color:#9ca3af;justify-content:flex-end}.job-link[data-v-8446105a],.no-value[data-v-8446105a]{align-items:center;display:flex;font-size:12px;gap:4px}.job-link[data-v-8446105a]{color:#3b82f6;cursor:pointer}.job-link[data-v-8446105a]:hover{-webkit-text-decoration:underline;text-decoration:underline}.no-job[data-v-8446105a]{color:#9ca3af;display:flex}.no-job[data-v-8446105a],.status-badge[data-v-8446105a]{align-items:center;font-size:12px;gap:4px}.status-badge[data-v-8446105a]{border-radius:12px;display:inline-flex;font-weight:600;padding:4px 12px}.status-badge.active[data-v-8446105a]{background-color:#d1fae5;color:#065f46}.status-badge.inactive[data-v-8446105a]{background-color:#fee2e2;color:#dc2626}.actions-cell[data-v-8446105a]{display:flex;flex-wrap:wrap;gap:4px}.pagination-container[data-v-8446105a]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-8446105a]{color:#666;font-size:14px}.pagination-controls[data-v-8446105a]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-8446105a]{color:#666;padding:6px 12px}.btn[data-v-8446105a]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-8446105a]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-8446105a]{background-color:#8b5cf6;border-color:#8b5cf6;color:#fff}.btn-primary[data-v-8446105a]:hover:not(:disabled){background-color:#7c3aed;border-color:#7c3aed}.btn-secondary[data-v-8446105a]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-8446105a]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-8446105a]{background-color:transparent;border-color:#8b5cf6;color:#8b5cf6}.btn-outline-primary[data-v-8446105a]:hover{background-color:#8b5cf6;color:#fff}.btn-outline-secondary[data-v-8446105a]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-8446105a]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-8446105a]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-8446105a]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-8446105a]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-8446105a]:hover{background-color:#28a745;color:#fff}.btn-outline-warning[data-v-8446105a]{background-color:transparent;border-color:#ffc107;color:#ffc107}.btn-outline-warning[data-v-8446105a]:hover{background-color:#ffc107;color:#212529}.btn-outline-danger[data-v-8446105a]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-8446105a]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-8446105a]{font-size:12px;padding:4px 8px}.form-control[data-v-8446105a]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-8446105a]:focus{border-color:#8b5cf6;box-shadow:0 0 0 2px rgba(139,92,246,.25);outline:none}.loading-overlay[data-v-8446105a]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-8446105a]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-8446105a]{color:#8b5cf6;font-size:32px;margin-bottom:16px}@media (max-width:768px){.benefit-summary-container[data-v-8446105a]{padding:10px}.header-content[data-v-8446105a]{align-items:flex-start}.filter-row[data-v-8446105a],.header-content[data-v-8446105a]{flex-direction:column;gap:16px}.filter-group[data-v-8446105a]{min-width:auto;width:100%}.filter-actions[data-v-8446105a]{flex-direction:row;width:100%}.summary-cards[data-v-8446105a]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-8446105a]{padding:20px}.card-icon[data-v-8446105a]{height:50px;margin-right:16px;width:50px}.card-content h3[data-v-8446105a],.card-icon[data-v-8446105a]{font-size:20px}.pagination-container[data-v-8446105a],.table-header[data-v-8446105a]{align-items:flex-start;flex-direction:column;gap:16px}.pagination-controls[data-v-8446105a]{flex-wrap:wrap}.actions-cell[data-v-8446105a]{flex-direction:column;gap:4px}}@media (max-width:576px){.summary-card[data-v-8446105a]{flex-direction:column;text-align:center}.card-icon[data-v-8446105a]{margin:0 auto 16px}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1300:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -241,10 +268,10 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(373);
 var esnext_set_union_js_ = __webpack_require__(374);
 
 // EXTERNAL MODULE: ./components/benefit/maintain/index.vue + 4 modules
-var maintain = __webpack_require__(937);
+var maintain = __webpack_require__(955);
 
 // EXTERNAL MODULE: ./components/benefit/view/index.vue + 4 modules
-var view = __webpack_require__(938);
+var view = __webpack_require__(956);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/benefit/index.vue?vue&type=script&lang=js
 
@@ -729,7 +756,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(996)
+  var style0 = __webpack_require__(1014)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -751,13 +778,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 605:
+/***/ 609:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(695);
+var content = __webpack_require__(712);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -769,13 +796,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 606:
+/***/ 610:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(697);
+var content = __webpack_require__(714);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -787,19 +814,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 694:
+/***/ 711:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(605);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(609);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 695:
+/***/ 712:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -814,19 +841,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 696:
+/***/ 713:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(606);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(610);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 697:
+/***/ 714:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -841,13 +868,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 797:
+/***/ 815:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(997);
+var content = __webpack_require__(1015);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -859,7 +886,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 937:
+/***/ 955:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1280,7 +1307,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(694)
+  var style0 = __webpack_require__(711)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1302,7 +1329,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 938:
+/***/ 956:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1432,7 +1459,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(696)
+  var style0 = __webpack_require__(713)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1451,33 +1478,6 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var view = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 996:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(797);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 997:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".benefit-summary-container[data-v-8446105a]{background-color:#f5f5f5;min-height:100vh;padding:20px}.page-header[data-v-8446105a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.header-content[data-v-8446105a]{align-items:center;display:flex;justify-content:space-between}.page-title[data-v-8446105a]{color:#333;font-size:28px;font-weight:600;margin:0}.header-actions[data-v-8446105a]{display:flex;gap:12px}.filter-section[data-v-8446105a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:20px}.filter-row[data-v-8446105a]{align-items:flex-end;display:flex;flex-wrap:wrap;gap:20px}.filter-group[data-v-8446105a]{display:flex;flex-direction:column;gap:8px;min-width:150px}.filter-group label[data-v-8446105a]{color:#555;font-size:14px;font-weight:500}.filter-actions[data-v-8446105a]{align-self:flex-end;display:flex;gap:8px}.summary-cards[data-v-8446105a]{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));grid-gap:20px;gap:20px;margin-bottom:20px}.summary-card[data-v-8446105a]{align-items:flex-start;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;padding:24px;transition:all .3s ease}.summary-card[data-v-8446105a]:hover{box-shadow:0 8px 16px rgba(0,0,0,.15);transform:translateY(-4px)}.summary-card.total-benefits[data-v-8446105a]{background:linear-gradient(135deg,#8b5cf6,#a855f7);border:none;color:#fff}.summary-card.total-benefits .card-icon[data-v-8446105a]{background:hsla(0,0%,100%,.2);color:#fff}.summary-card.status-active[data-v-8446105a]{border-left:4px solid #10b981}.summary-card.status-inactive[data-v-8446105a]{border-left:4px solid #ef4444}.summary-card.type-stats[data-v-8446105a]{border-left:4px solid #f59e0b}.summary-card.value-stats[data-v-8446105a]{border-left:4px solid #3b82f6}.summary-card.job-stats[data-v-8446105a]{border-left:4px solid #6366f1}.card-icon[data-v-8446105a]{align-items:center;border-radius:50%;display:flex;flex-shrink:0;font-size:24px;height:60px;justify-content:center;margin-right:20px;width:60px}.card-icon.total[data-v-8446105a]{background:hsla(0,0%,100%,.2);color:#fff}.card-icon.active[data-v-8446105a]{background:#d1fae5;color:#10b981}.card-icon.inactive[data-v-8446105a]{background:#fee2e2;color:#ef4444}.card-icon.types[data-v-8446105a]{background:#fef3c7;color:#f59e0b}.card-icon.value[data-v-8446105a]{background:#dbeafe;color:#3b82f6}.card-icon.jobs[data-v-8446105a]{background:#e0e7ff;color:#6366f1}.card-content[data-v-8446105a]{flex:1;min-width:0}.card-content h3[data-v-8446105a]{font-size:24px;font-weight:700;margin:0 0 8px;word-break:break-word}.card-content p[data-v-8446105a]{font-size:14px;margin:0}.job-info[data-v-8446105a],.type-info[data-v-8446105a],.value-info[data-v-8446105a]{display:block;font-size:12px;margin-top:4px;opacity:.8}.table-section[data-v-8446105a]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-8446105a]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title h3[data-v-8446105a]{color:#333;margin:0}.record-count[data-v-8446105a]{color:#666;font-size:14px;margin-left:8px}.per-page-selector[data-v-8446105a]{align-items:center;display:flex;font-size:14px;gap:8px}.table-container[data-v-8446105a]{overflow-x:auto}.data-table[data-v-8446105a]{border-collapse:collapse;width:100%}.data-table td[data-v-8446105a],.data-table th[data-v-8446105a]{border-bottom:1px solid #e9ecef;padding:12px 16px;text-align:left}.data-table th[data-v-8446105a]{background-color:#f8f9fa;color:#495057;font-weight:600}.data-table th.sortable[data-v-8446105a]{cursor:pointer;transition:background-color .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.data-table th.sortable[data-v-8446105a]:hover{background-color:#e9ecef}.data-table th i[data-v-8446105a]{margin-left:8px;opacity:.5}.benefit-name strong[data-v-8446105a]{color:#333;display:block;font-size:14px;margin-bottom:4px}.benefit-notes[data-v-8446105a]{align-items:center;color:#666;display:flex;font-size:12px;gap:4px}.benefit-notes i[data-v-8446105a]{color:#fbbf24}.type-badge[data-v-8446105a]{align-items:center;border-radius:12px;display:inline-flex;font-size:12px;font-weight:600;gap:4px;padding:4px 12px}.type-badge.salary[data-v-8446105a]{background-color:#dcfce7;color:#16a34a}.type-badge.allowance[data-v-8446105a]{background-color:#dbeafe;color:#2563eb}.type-badge.insurance[data-v-8446105a]{background-color:#f3e8ff;color:#9333ea}.type-badge.accommodation[data-v-8446105a]{background-color:#fef3c7;color:#d97706}.type-badge.transportation[data-v-8446105a]{background-color:#e0f2fe;color:#0891b2}.type-badge.other[data-v-8446105a]{background-color:#f1f5f9;color:#64748b}.description-cell[data-v-8446105a]{color:#666;font-size:12px;line-height:1.4;max-width:200px}.value-cell[data-v-8446105a]{text-align:right}.value-amount strong[data-v-8446105a]{color:#059669;font-size:14px}.no-value[data-v-8446105a]{color:#9ca3af;justify-content:flex-end}.job-link[data-v-8446105a],.no-value[data-v-8446105a]{align-items:center;display:flex;font-size:12px;gap:4px}.job-link[data-v-8446105a]{color:#3b82f6;cursor:pointer}.job-link[data-v-8446105a]:hover{-webkit-text-decoration:underline;text-decoration:underline}.no-job[data-v-8446105a]{color:#9ca3af;display:flex}.no-job[data-v-8446105a],.status-badge[data-v-8446105a]{align-items:center;font-size:12px;gap:4px}.status-badge[data-v-8446105a]{border-radius:12px;display:inline-flex;font-weight:600;padding:4px 12px}.status-badge.active[data-v-8446105a]{background-color:#d1fae5;color:#065f46}.status-badge.inactive[data-v-8446105a]{background-color:#fee2e2;color:#dc2626}.actions-cell[data-v-8446105a]{display:flex;flex-wrap:wrap;gap:4px}.pagination-container[data-v-8446105a]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-8446105a]{color:#666;font-size:14px}.pagination-controls[data-v-8446105a]{align-items:center;display:flex;gap:8px}.pagination-ellipsis[data-v-8446105a]{color:#666;padding:6px 12px}.btn[data-v-8446105a]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:8px 16px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-8446105a]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-8446105a]{background-color:#8b5cf6;border-color:#8b5cf6;color:#fff}.btn-primary[data-v-8446105a]:hover:not(:disabled){background-color:#7c3aed;border-color:#7c3aed}.btn-secondary[data-v-8446105a]{background-color:#6c757d;border-color:#6c757d;color:#fff}.btn-secondary[data-v-8446105a]:hover:not(:disabled){background-color:#5a6268;border-color:#5a6268}.btn-outline-primary[data-v-8446105a]{background-color:transparent;border-color:#8b5cf6;color:#8b5cf6}.btn-outline-primary[data-v-8446105a]:hover{background-color:#8b5cf6;color:#fff}.btn-outline-secondary[data-v-8446105a]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-8446105a]:hover{background-color:#6c757d;color:#fff}.btn-outline-info[data-v-8446105a]{background-color:transparent;border-color:#17a2b8;color:#17a2b8}.btn-outline-info[data-v-8446105a]:hover{background-color:#17a2b8;color:#fff}.btn-outline-success[data-v-8446105a]{background-color:transparent;border-color:#28a745;color:#28a745}.btn-outline-success[data-v-8446105a]:hover{background-color:#28a745;color:#fff}.btn-outline-warning[data-v-8446105a]{background-color:transparent;border-color:#ffc107;color:#ffc107}.btn-outline-warning[data-v-8446105a]:hover{background-color:#ffc107;color:#212529}.btn-outline-danger[data-v-8446105a]{background-color:transparent;border-color:#dc3545;color:#dc3545}.btn-outline-danger[data-v-8446105a]:hover{background-color:#dc3545;color:#fff}.btn-sm[data-v-8446105a]{font-size:12px;padding:4px 8px}.form-control[data-v-8446105a]{border:1px solid #ced4da;border-radius:4px;font-size:14px;padding:8px 12px;transition:border-color .2s}.form-control[data-v-8446105a]:focus{border-color:#8b5cf6;box-shadow:0 0 0 2px rgba(139,92,246,.25);outline:none}.loading-overlay[data-v-8446105a]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1000}.loading-spinner[data-v-8446105a]{background:#fff;border-radius:8px;padding:40px;text-align:center}.loading-spinner i[data-v-8446105a]{color:#8b5cf6;font-size:32px;margin-bottom:16px}@media (max-width:768px){.benefit-summary-container[data-v-8446105a]{padding:10px}.header-content[data-v-8446105a]{align-items:flex-start}.filter-row[data-v-8446105a],.header-content[data-v-8446105a]{flex-direction:column;gap:16px}.filter-group[data-v-8446105a]{min-width:auto;width:100%}.filter-actions[data-v-8446105a]{flex-direction:row;width:100%}.summary-cards[data-v-8446105a]{gap:16px;grid-template-columns:1fr}.summary-card[data-v-8446105a]{padding:20px}.card-icon[data-v-8446105a]{height:50px;margin-right:16px;width:50px}.card-content h3[data-v-8446105a],.card-icon[data-v-8446105a]{font-size:20px}.pagination-container[data-v-8446105a],.table-header[data-v-8446105a]{align-items:flex-start;flex-direction:column;gap:16px}.pagination-controls[data-v-8446105a]{flex-wrap:wrap}.actions-cell[data-v-8446105a]{flex-direction:column;gap:4px}}@media (max-width:576px){.summary-card[data-v-8446105a]{flex-direction:column;text-align:center}.card-icon[data-v-8446105a]{margin:0 auto 16px}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
 
 /***/ })
 

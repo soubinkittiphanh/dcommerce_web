@@ -585,7 +585,7 @@ export default {
 }
 
 .audit-dialog-header {
-background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+background: linear-gradient(135deg, primary 0%, secondary 100%);
   color: white;
   padding: 20px;
   display: flex;

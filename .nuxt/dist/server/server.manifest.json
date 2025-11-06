@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "317.js": "317.js",
+    "318.js": "318.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -48,6 +48,7 @@
     "components/carousel3d.js": "components/carousel3d.js",
     "components/category-form.js": "components/category-form.js",
     "components/company-form.js": "components/company-form.js",
+    "components/company-theme.js": "components/company-theme.js",
     "components/currency-form.js": "components/currency-form.js",
     "components/customer-form.js": "components/customer-form.js",
     "components/dashboard-card-grouping.js": "components/dashboard-card-grouping.js",
@@ -321,7 +322,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "317.js": "317.js.map",
+    "318.js": "318.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -368,6 +369,7 @@
     "components/carousel3d.js": "components/carousel3d.js.map",
     "components/category-form.js": "components/category-form.js.map",
     "components/company-form.js": "components/company-form.js.map",
+    "components/company-theme.js": "components/company-theme.js.map",
     "components/currency-form.js": "components/currency-form.js.map",
     "components/customer-form.js": "components/customer-form.js.map",
     "components/dashboard-card-grouping.js": "components/dashboard-card-grouping.js.map",

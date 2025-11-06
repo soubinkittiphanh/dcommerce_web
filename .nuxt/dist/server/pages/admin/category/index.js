@@ -1,7 +1,7 @@
-exports.ids = [190,45,54,160];
+exports.ids = [191,45,55,161];
 exports.modules = {
 
-/***/ 1291:
+/***/ 1306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -208,7 +208,7 @@ var categoryvue_type_template_id_473ab660_render = function render() {
           attrs: {
             "cols": "8"
           }
-        }, [_c(components_VToolbar["a" /* VToolbarTitle */], [_vm._v("ຈຳນວນ ປະເພດສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filterEntries.length))])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("ຈຳນວນ ປະເພດສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filterEntries.length))])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
           attrs: {
             "cols": "4",
             "jujustify": "end"

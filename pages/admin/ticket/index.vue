@@ -275,6 +275,7 @@
     <!-- 85mm Thermal Print Dialog -->
     <PrintTicketDialog
       :show="showPrintDialog"
+      :key="printDialogKey"
       :ticket="printTicket"
       :restaurant-info="restaurantConfig"
       @close="closePrintDialog"
@@ -361,6 +362,7 @@ export default {
       // Dialogs
       showDialog: false,
       showPrintDialog: false,
+      printDialogKey: 1,
       printTicket: null,
 
       // POS Dialog
@@ -850,6 +852,7 @@ export default {
     openPrintDialog(ticket) {
       console.log('Opening 85mm thermal print dialog for ticket:', ticket.id)
       this.printTicket = ticket
+      this.printDialogKey++
       this.showPrintDialog = true
     },
 
@@ -860,6 +863,7 @@ export default {
           this.selectedTicket.id
         )
         this.printTicket = this.selectedTicket
+        this.printDialogKey++
         this.showPrintDialog = true
       }
     },

@@ -1909,7 +1909,7 @@ select.form-control-xs:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #01532B 0%, #337555 100%);
+  background: linear-gradient(135deg, primary 0%, secondary 100%);
   color: white;
   min-height: 50px;
 }
