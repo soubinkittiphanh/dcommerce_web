@@ -3,7 +3,7 @@
     <!-- Welcome Screen (when no QR is showing) -->
     <div v-if="!showQR" class="welcome-screen">
       <v-row class="fill-height" no-gutters>
-        <v-col cols="12" class="left-section">
+        <v-col cols="12" class="left-section" >
           <div class="logo-section">
             <!-- Dynamic Company Logo Section -->
             <div class="company-logo-container">
@@ -35,12 +35,9 @@
             </div>
 
             <h1 class="store-name">{{ storeName }}</h1>
-            <p class="welcome-text">Customer Display</p>
-            <p class="status-text">Ready for QR Payment</p>
 
             <!-- QR Payment Methods Preview - CONSISTENT POSITIONING -->
-            <div class="payment-methods-preview">
-              <p class="payment-methods-title">Accepted Payment Methods</p>
+            <div class="payment-methods-preview" >
               <div class="payment-methods-container">
                 <div class="payment-method-item left-qr">
                   <img
@@ -65,8 +62,10 @@
             </div>
           </div>
         </v-col>
+
         
-        <v-col cols="6" class="right-section" >
+        
+        <v-col cols="6" class="right-section" v-if="1==0">
           <!-- Slideshow Section for WiFi and Promotions -->
           <div class="slideshow-section">
             <div class="slideshow-container">
@@ -379,7 +378,7 @@
             </div>
 
             <!-- Payment Status -->
-            <div class="payment-status">
+            <div class="payment-status" v-if="1==0">
               <v-progress-circular
                 v-if="!paymentComplete"
                 indeterminate
@@ -1031,6 +1030,8 @@ export default {
   },
 }
 </script>
+
+
 <style scoped>
 /* ========================================
    🎨 BASE STYLES & VARIABLES
@@ -1045,23 +1046,20 @@ export default {
 }
 
 .dcommerce-green {
-  background-color: primary !important;
+  background-color: var(--v-primary-base) !important;
 }
 
 .dcommerce-green-text {
-  color: primary !important;
+  color: var(--v-primary-base) !important;
 }
 
 /* ========================================
    🏠 WELCOME SCREEN
    ======================================== */
-.welcome-screen {
-  height: 100vh;
-  position: relative;
-}
-
+.welcome-screen,
 .fill-height {
   height: 100vh;
+  position: relative;
 }
 
 .left-section,
@@ -1085,8 +1083,8 @@ export default {
 
 /* Logo Section */
 .logo-section {
-  width: 100%;
-  max-width: 500px;
+  width: 50%;
+  /* max-width: 500px; */
 }
 
 .company-logo-container {
@@ -1131,7 +1129,7 @@ export default {
 .store-name {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
   margin: 1rem 0;
   letter-spacing: -1px;
   word-wrap: break-word;
@@ -1146,13 +1144,13 @@ export default {
 
 .status-text {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: primary;
+  color: var(--v-primary-base);
   font-weight: 500;
   margin: 0.5rem 0;
 }
 
 /* ========================================
-   🏦 PAYMENT METHODS - SHARED BASE STYLES
+   🏦 PAYMENT METHODS - UNIFIED
    ======================================== */
 .payment-methods-preview {
   margin-top: 2rem;
@@ -1163,26 +1161,21 @@ export default {
 .payment-methods-title {
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 500;
-  color: primary;
+  color: var(--v-primary-base);
   margin-bottom: 1.5rem;
 }
 
-/* Shared container styles for both welcome and QR screens */
+/* Unified container for both welcome and QR screens */
 .payment-methods-container,
 .qr-payment-methods {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 500px;
   margin: 0 auto;
 }
 
-.qr-payment-methods {
-  max-width: 500px;
-}
-
-/* Shared item styles */
+/* Unified item styles */
 .payment-method-item,
 .qr-method-item {
   display: flex;
@@ -1196,22 +1189,22 @@ export default {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  width: 180px;
-  height: 220px;
+  /* width: 240px;
+  height: 280px; */
   border: 2px solid rgba(1, 83, 43, 0.1);
 }
 
 .payment-method-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  border-color: primary;
+  border-color: var(--v-primary-base);
 }
 
 .qr-method-item {
-  width: 180px;
+  width: 240px;
 }
 
-/* Positioning utilities */
+/* Positioning */
 .left-qr,
 .left-qr-payment {
   justify-self: flex-start;
@@ -1224,36 +1217,31 @@ export default {
 
 /* Spacers */
 .payment-method-spacer {
-  width: 60px;
+  width: 40px;
   height: 1px;
   flex-shrink: 0;
 }
 
 .qr-spacer {
-  width: 80px;
+  width: 100px;
   height: 1px;
   flex-shrink: 0;
 }
 
-/* Shared logo/image base styles */
+/* Unified logo styles - INCREASED SIZES */
 .payment-method-logo,
 .qr-payment-method-logo {
   object-fit: contain;
   border-radius: 12px;
   transition: transform 0.2s ease;
   margin-bottom: 0.75rem;
-}
-
-.payment-method-logo {
-  width: 140px;
-  height: 140px;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  width: 280px;
+  height: 280px;
 }
 
 .qr-payment-method-logo {
-  width: 160px;
-  height: 160px;
+  width: 250px;
+  height: 250px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -1261,12 +1249,12 @@ export default {
   transform: scale(1.05);
 }
 
-/* Shared label styles */
+/* Unified label styles */
 .payment-method-name,
 .qr-method-label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: primary;
+  color: var(--v-primary-base);
   text-align: center;
 }
 
@@ -1304,17 +1292,6 @@ export default {
   animation: slideIn 0.5s ease-in-out;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .slide-content {
   background: white;
   border-radius: 20px;
@@ -1333,7 +1310,7 @@ export default {
 .slide-title {
   font-size: 1.8rem;
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
   margin: 1rem 0;
 }
 
@@ -1343,9 +1320,9 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-/* WiFi Slide Styles */
+/* WiFi Slide */
 .wifi-slide .wifi-icon {
-  color: primary;
+  color: var(--v-primary-base);
   margin-bottom: 1rem;
 }
 
@@ -1359,12 +1336,12 @@ export default {
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(1, 83, 43, 0.15);
-  border: 3px solid primary;
+  border: 3px solid var(--v-primary-base);
 }
 
 .qr-code-image {
-  width: 200px;
-  height: 200px;
+  width: 280px;
+  height: 280px;
   display: block;
 }
 
@@ -1376,11 +1353,11 @@ export default {
 .wifi-password {
   font-size: 1.1rem;
   font-weight: 600;
-  color: primary;
+  color: var(--v-primary-base);
   margin: 0.5rem 0;
 }
 
-/* Promotion Slide Styles */
+/* Promotion Slide */
 .promotion-slide .promo-icon {
   color: #e74c3c;
   margin-bottom: 1rem;
@@ -1414,7 +1391,7 @@ export default {
   font-style: italic;
 }
 
-/* Offers Slide Styles */
+/* Offers Slide */
 .offers-slide .offers-icon {
   color: #f39c12;
   margin-bottom: 1rem;
@@ -1438,11 +1415,11 @@ export default {
 
 .offer-card:hover {
   transform: translateY(-2px);
-  border-color: primary;
+  border-color: var(--v-primary-base);
 }
 
 .offer-discount {
-  background: primary;
+  background: var(--v-primary-base);
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
@@ -1462,7 +1439,7 @@ export default {
 .offer-price {
   font-size: 1rem;
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
 }
 
 /* Slide Indicators */
@@ -1484,17 +1461,17 @@ export default {
 }
 
 .indicator.active {
-  background: primary;
+  background: var(--v-primary-base);
   transform: scale(1.2);
 }
 
 .indicator:hover {
-  background: primary;
+  background: var(--v-primary-base);
   transform: scale(1.1);
 }
 
 /* ========================================
-   💳 QR PAYMENT SCREEN LAYOUT
+   💳 QR PAYMENT SCREEN
    ======================================== */
 .qr-payment-screen {
   height: 100vh;
@@ -1525,7 +1502,7 @@ export default {
 
 .order-header {
   padding: 1rem 1.5rem;
-  background: primary;
+  background: var(--v-primary-base);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -1608,7 +1585,7 @@ export default {
 
 .item-quantity {
   font-weight: 600;
-  color: primary;
+  color: var(--v-primary-base);
   margin: 0 0.75rem;
   min-width: 35px;
   text-align: center;
@@ -1618,7 +1595,7 @@ export default {
 
 .item-price {
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
   font-size: 0.9rem;
   min-width: 70px;
   text-align: right;
@@ -1626,7 +1603,7 @@ export default {
 }
 
 /* ========================================
-   🎭 MINI SLIDESHOW (No Order Items)
+   🎭 MINI SLIDESHOW
    ======================================== */
 .no-items-with-slideshow {
   text-align: center;
@@ -1654,13 +1631,12 @@ export default {
 .mini-slide-title {
   font-size: 1rem;
   font-weight: 600;
-  color: primary;
+  color: var(--v-primary-base);
   margin: 0.5rem 0;
 }
 
-/* Mini WiFi Slide */
 .mini-wifi-slide .mini-wifi-icon {
-  color: primary;
+  color: var(--v-primary-base);
   margin-bottom: 0.5rem;
 }
 
@@ -1672,7 +1648,7 @@ export default {
   width: 120px;
   height: 120px;
   border-radius: 8px;
-  border: 2px solid primary;
+  border: 2px solid var(--v-primary-base);
 }
 
 .mini-wifi-name {
@@ -1681,7 +1657,6 @@ export default {
   margin: 0.5rem 0;
 }
 
-/* Mini Promo Slide */
 .mini-promo-slide .mini-promo-icon {
   color: #e74c3c;
   margin-bottom: 0.5rem;
@@ -1704,7 +1679,6 @@ export default {
   margin: 0.5rem 0;
 }
 
-/* Mini Offers Slide */
 .mini-offers-slide .mini-offers-icon {
   color: #f39c12;
   margin-bottom: 0.5rem;
@@ -1727,7 +1701,7 @@ export default {
 }
 
 .mini-offer-discount {
-  background: primary;
+  background: var(--v-primary-base);
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 8px;
@@ -1778,9 +1752,9 @@ export default {
   justify-content: space-between;
   font-size: 1.1rem;
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
   padding-top: 0.75rem;
-  border-top: 2px solid primary;
+  border-top: 2px solid var(--v-primary-base);
   margin-top: 0.5rem;
 }
 
@@ -1822,7 +1796,7 @@ export default {
 .payment-title {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
   margin: 0;
 }
 
@@ -1845,7 +1819,7 @@ export default {
 .amount-value {
   font-size: clamp(1.8rem, 4vw, 2.2rem);
   font-weight: 700;
-  color: primary;
+  color: var(--v-primary-base);
   line-height: 1;
   word-wrap: break-word;
 }
@@ -1856,7 +1830,6 @@ export default {
   margin-top: 0.3rem;
 }
 
-/* QR Container */
 .qr-container {
   margin-bottom: 1.5rem;
   flex-shrink: 0;
@@ -1865,10 +1838,10 @@ export default {
 
 .qr-wrapper {
   background: white;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
-  border: 3px solid primary;
+  border: 3px solid var(--v-primary-base);
 }
 
 /* ========================================
@@ -1899,7 +1872,7 @@ export default {
 }
 
 .step-icon {
-  color: primary !important;
+  color: var(--v-primary-base) !important;
   margin-bottom: 0.3rem;
 }
 
@@ -1966,20 +1939,6 @@ export default {
   margin-bottom: 1rem;
 }
 
-@keyframes successPulse {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 .success-title {
   font-size: clamp(1.8rem, 4vw, 2.2rem);
   font-weight: 700;
@@ -2015,7 +1974,7 @@ export default {
 }
 
 /* ========================================
-   🔥 POWERED BY DCOMMERCE - CONSOLIDATED
+   🔥 POWERED BY DCOMMERCE - UNIFIED
    ======================================== */
 .powered-by-welcome,
 .powered-by-qr {
@@ -2034,7 +1993,6 @@ export default {
   right: 15px;
 }
 
-/* Shared container base styles */
 .powered-by-container-welcome,
 .powered-by-container-qr {
   display: flex;
@@ -2057,51 +2015,44 @@ export default {
   backdrop-filter: blur(8px);
 }
 
-/* Shared text styles */
-.powered-by-text-welcome,
-.powered-by-text-qr {
+.powered-by-text-welcome {
+  font-size: 0.7rem;
   color: #6c757d;
   font-weight: 400;
 }
 
-.powered-by-text-welcome {
-  font-size: 0.7rem;
-}
-
 .powered-by-text-qr {
   font-size: 0.6rem;
-}
-
-/* Shared logo styles */
-.dcommerce-logo-welcome,
-.dcommerce-logo-qr {
-  width: auto;
-  object-fit: contain;
+  color: #6c757d;
+  font-weight: 400;
 }
 
 .dcommerce-logo-welcome {
   height: 16px;
+  width: auto;
+  object-fit: contain;
 }
 
 .dcommerce-logo-qr {
   height: 14px;
-}
-
-/* Shared dcommerce text styles */
-.dcommerce-text-welcome,
-.dcommerce-text-qr {
-  font-weight: 700;
-  color: primary;
-  font-family: 'Arial', sans-serif;
-  letter-spacing: 0.3px;
+  width: auto;
+  object-fit: contain;
 }
 
 .dcommerce-text-welcome {
   font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--v-primary-base);
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.3px;
 }
 
 .dcommerce-text-qr {
   font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--v-primary-base);
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.3px;
 }
 
 /* ========================================
@@ -2119,16 +2070,37 @@ export default {
 }
 
 @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
   from {
     opacity: 0;
+    transform: translateX(30px);
   }
   to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
     opacity: 1;
   }
 }
 
 /* ========================================
-   📱 RESPONSIVE DESIGN - CONSOLIDATED
+   📱 RESPONSIVE DESIGN
    ======================================== */
 @media (max-width: 1200px) {
   .payment-layout {
@@ -2145,16 +2117,15 @@ export default {
     min-height: 50vh;
   }
 
-  /* Consolidated logo sizes */
   .qr-payment-method-logo,
   .payment-method-logo {
-    width: 140px;
-    height: 140px;
+    width: 220px;
+    height: 220px;
   }
 
   .qr-code-image {
-    width: 180px;
-    height: 180px;
+    width: 240px;
+    height: 240px;
   }
 }
 
@@ -2177,34 +2148,31 @@ export default {
     gap: 0.5rem;
   }
 
-  /* Hide spacers on mobile */
   .payment-method-spacer,
   .qr-spacer {
     display: none;
   }
 
-  /* Stack payment methods vertically */
   .payment-methods-container,
   .qr-payment-methods {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: center;
   }
 
-  /* Consolidated logo sizes */
   .qr-payment-method-logo {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
   }
 
   .payment-method-logo {
-    width: 140px;
-    height: 140px;
+    width: 220px;
+    height: 220px;
   }
 
   .qr-code-image {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
   }
 
   .offers-grid {
@@ -2219,20 +2187,11 @@ export default {
     padding: 0.5rem;
   }
 
-  /* Consolidated logo sizes for smallest screens */
-  .qr-payment-method-logo {
-    width: 100px;
-    height: 100px;
-  }
-
-  .payment-method-logo {
-    width: 140px;
-    height: 140px;
-  }
-
+  .qr-payment-method-logo,
+  .payment-method-logo,
   .qr-code-image {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
   }
 
   .slide-content {
@@ -2242,12 +2201,12 @@ export default {
 }
 
 /* ========================================
-   🔧 ACCESSIBILITY & SCROLLBAR
+   🔧 ACCESSIBILITY
    ======================================== */
 .payment-method-item:focus,
 .qr-payment-method-logo:focus,
 .indicator:focus {
-  outline: 2px solid primary;
+  outline: 2px solid var(--v-primary-base);
   outline-offset: 2px;
 }
 
@@ -2274,7 +2233,9 @@ export default {
   }
 }
 
-/* Custom Scrollbar */
+/* ========================================
+   🎨 CUSTOM SCROLLBAR
+   ======================================== */
 .order-items-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -2285,7 +2246,7 @@ export default {
 }
 
 .order-items-container::-webkit-scrollbar-thumb {
-  background: primary;
+  background: var(--v-primary-base);
   border-radius: 3px;
 }
 
@@ -2295,6 +2256,6 @@ export default {
 
 .order-items-container {
   scrollbar-width: thin;
-  scrollbar-color: primary #f1f1f1;
+  scrollbar-color: var(--v-primary-base) #f1f1f1;
 }
 </style>

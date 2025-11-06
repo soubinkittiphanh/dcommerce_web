@@ -5,7 +5,7 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from '..\\layouts\\error.vue'
+import NuxtError from '../layouts/error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -13,25 +13,25 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_7f3d00a7 from 'nuxt_plugin_plugin_7f3d00a7' // Source: .\\components\\plugin.js (mode: 'all')
-import nuxt_plugin_plugin_2e87d4ad from 'nuxt_plugin_plugin_2e87d4ad' // Source: .\\vuetify\\plugin.js (mode: 'all')
-import nuxt_plugin_toast_ec49780e from 'nuxt_plugin_toast_ec49780e' // Source: .\\toast.js (mode: 'client')
-import nuxt_plugin_axios_84aa116c from 'nuxt_plugin_axios_84aa116c' // Source: .\\axios.js (mode: 'all')
-import nuxt_plugin_vuetifytheme_33c34d63 from 'nuxt_plugin_vuetifytheme_33c34d63' // Source: ..\\plugins\\vuetify-theme.js (mode: 'all')
-import nuxt_plugin_jspdfinvoice_24aa2464 from 'nuxt_plugin_jspdfinvoice_24aa2464' // Source: ..\\plugins\\jspdf-invoice.js (mode: 'client')
-import nuxt_plugin_vuesweetalert2_1def2d6e from 'nuxt_plugin_vuesweetalert2_1def2d6e' // Source: ..\\plugins\\vue-sweetalert2 (mode: 'client')
-import nuxt_plugin_apexchart_56afe430 from 'nuxt_plugin_apexchart_56afe430' // Source: ..\\plugins\\apex-chart.js (mode: 'client')
-import nuxt_plugin_html2canvas_557cc08e from 'nuxt_plugin_html2canvas_557cc08e' // Source: ..\\plugins\\html2canvas.js (mode: 'client')
-import nuxt_plugin_echarts_30712fb1 from 'nuxt_plugin_echarts_30712fb1' // Source: ..\\plugins\\echarts.js (mode: 'client')
-import nuxt_plugin_xlsx_719232c8 from 'nuxt_plugin_xlsx_719232c8' // Source: ..\\plugins\\xlsx.js (mode: 'client')
-import nuxt_plugin_vueyoutube_6da200de from 'nuxt_plugin_vueyoutube_6da200de' // Source: ..\\plugins\\vue-youtube.js (mode: 'client')
-import nuxt_plugin_barcode_92607d26 from 'nuxt_plugin_barcode_92607d26' // Source: ..\\plugins\\barcode.js (mode: 'client')
-import nuxt_plugin_vcalendar_4dbed36c from 'nuxt_plugin_vcalendar_4dbed36c' // Source: ..\\plugins\\v-calendar.js (mode: 'client')
-import nuxt_plugin_draggable_6d354fc0 from 'nuxt_plugin_draggable_6d354fc0' // Source: ..\\plugins\\draggable.js (mode: 'client')
-import nuxt_plugin_ganttscheduletimelinecalendar_b57ec618 from 'nuxt_plugin_ganttscheduletimelinecalendar_b57ec618' // Source: ..\\plugins\\gantt-schedule-timeline-calendar.js (mode: 'client')
-import nuxt_plugin_vue2datepicker_4e082fe0 from 'nuxt_plugin_vue2datepicker_4e082fe0' // Source: ..\\plugins\\vue2-datepicker.js (mode: 'client')
-import nuxt_plugin_sweetalert_51f65655 from 'nuxt_plugin_sweetalert_51f65655' // Source: ..\\plugins\\sweetalert.js (mode: 'client')
-import nuxt_plugin_auth_f490beb4 from 'nuxt_plugin_auth_f490beb4' // Source: .\\auth.js (mode: 'all')
+import nuxt_plugin_plugin_e2278e14 from 'nuxt_plugin_plugin_e2278e14' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_plugin_51d09eb8 from 'nuxt_plugin_plugin_51d09eb8' // Source: ./vuetify/plugin.js (mode: 'all')
+import nuxt_plugin_toast_48781c8a from 'nuxt_plugin_toast_48781c8a' // Source: ./toast.js (mode: 'client')
+import nuxt_plugin_axios_0f93a50c from 'nuxt_plugin_axios_0f93a50c' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_vuetifytheme_33c34d63 from 'nuxt_plugin_vuetifytheme_33c34d63' // Source: ../plugins/vuetify-theme.js (mode: 'all')
+import nuxt_plugin_jspdfinvoice_24aa2464 from 'nuxt_plugin_jspdfinvoice_24aa2464' // Source: ../plugins/jspdf-invoice.js (mode: 'client')
+import nuxt_plugin_vuesweetalert2_1def2d6e from 'nuxt_plugin_vuesweetalert2_1def2d6e' // Source: ../plugins/vue-sweetalert2 (mode: 'client')
+import nuxt_plugin_apexchart_56afe430 from 'nuxt_plugin_apexchart_56afe430' // Source: ../plugins/apex-chart.js (mode: 'client')
+import nuxt_plugin_html2canvas_557cc08e from 'nuxt_plugin_html2canvas_557cc08e' // Source: ../plugins/html2canvas.js (mode: 'client')
+import nuxt_plugin_echarts_30712fb1 from 'nuxt_plugin_echarts_30712fb1' // Source: ../plugins/echarts.js (mode: 'client')
+import nuxt_plugin_xlsx_719232c8 from 'nuxt_plugin_xlsx_719232c8' // Source: ../plugins/xlsx.js (mode: 'client')
+import nuxt_plugin_vueyoutube_6da200de from 'nuxt_plugin_vueyoutube_6da200de' // Source: ../plugins/vue-youtube.js (mode: 'client')
+import nuxt_plugin_barcode_92607d26 from 'nuxt_plugin_barcode_92607d26' // Source: ../plugins/barcode.js (mode: 'client')
+import nuxt_plugin_vcalendar_4dbed36c from 'nuxt_plugin_vcalendar_4dbed36c' // Source: ../plugins/v-calendar.js (mode: 'client')
+import nuxt_plugin_draggable_6d354fc0 from 'nuxt_plugin_draggable_6d354fc0' // Source: ../plugins/draggable.js (mode: 'client')
+import nuxt_plugin_ganttscheduletimelinecalendar_b57ec618 from 'nuxt_plugin_ganttscheduletimelinecalendar_b57ec618' // Source: ../plugins/gantt-schedule-timeline-calendar.js (mode: 'client')
+import nuxt_plugin_vue2datepicker_4e082fe0 from 'nuxt_plugin_vue2datepicker_4e082fe0' // Source: ../plugins/vue2-datepicker.js (mode: 'client')
+import nuxt_plugin_sweetalert_51f65655 from 'nuxt_plugin_sweetalert_51f65655' // Source: ../plugins/sweetalert.js (mode: 'client')
+import nuxt_plugin_auth_1d0132a4 from 'nuxt_plugin_auth_1d0132a4' // Source: ./auth.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -231,20 +231,20 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_7f3d00a7 === 'function') {
-    await nuxt_plugin_plugin_7f3d00a7(app.context, inject)
+  if (typeof nuxt_plugin_plugin_e2278e14 === 'function') {
+    await nuxt_plugin_plugin_e2278e14(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_plugin_2e87d4ad === 'function') {
-    await nuxt_plugin_plugin_2e87d4ad(app.context, inject)
+  if (typeof nuxt_plugin_plugin_51d09eb8 === 'function') {
+    await nuxt_plugin_plugin_51d09eb8(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_toast_ec49780e === 'function') {
-    await nuxt_plugin_toast_ec49780e(app.context, inject)
+  if (process.client && typeof nuxt_plugin_toast_48781c8a === 'function') {
+    await nuxt_plugin_toast_48781c8a(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_84aa116c === 'function') {
-    await nuxt_plugin_axios_84aa116c(app.context, inject)
+  if (typeof nuxt_plugin_axios_0f93a50c === 'function') {
+    await nuxt_plugin_axios_0f93a50c(app.context, inject)
   }
 
   if (typeof nuxt_plugin_vuetifytheme_33c34d63 === 'function') {
@@ -303,8 +303,8 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_sweetalert_51f65655(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_auth_f490beb4 === 'function') {
-    await nuxt_plugin_auth_f490beb4(app.context, inject)
+  if (typeof nuxt_plugin_auth_1d0132a4 === 'function') {
+    await nuxt_plugin_auth_1d0132a4(app.context, inject)
   }
 
   // Lock enablePreview in context

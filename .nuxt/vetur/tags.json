@@ -2,17 +2,11 @@
   "AccountForm": {
     "description": "Auto imported from components/AccountForm.vue"
   },
-  "AllProduct": {
-    "description": "Auto imported from components/all-product.vue"
-  },
   "AuthorityForm": {
     "description": "Auto imported from components/AuthorityForm.vue"
   },
   "BasicAlert": {
     "description": "Auto imported from components/BasicAlert.vue"
-  },
-  "Brands": {
-    "description": "Auto imported from components/brands.vue"
   },
   "CancelTicketForm": {
     "description": "Auto imported from components/CancelTicketForm.vue"
@@ -35,9 +29,6 @@
   "CurrencyForm": {
     "description": "Auto imported from components/CurrencyForm.vue"
   },
-  "DeliveryForm": {
-    "description": "Auto imported from components/deliveryForm.vue"
-  },
   "DiaConfirm": {
     "description": "Auto imported from components/DiaConfirm.vue"
   },
@@ -47,23 +38,11 @@
   "DialogClassicMessage": {
     "description": "Auto imported from components/DialogClassicMessage.vue"
   },
-  "DiscountProductsCard": {
-    "description": "Auto imported from components/discount-products-card.vue"
-  },
-  "EnhancedInvoicePrinter": {
-    "description": "Auto imported from components/enhanced-invoice-printer.vue"
-  },
-  "Footer": {
-    "description": "Auto imported from components/footer.vue"
-  },
   "GanttChart": {
     "description": "Auto imported from components/GanttChart.vue"
   },
   "GroupForm": {
     "description": "Auto imported from components/GroupForm.vue"
-  },
-  "HotProductsCard": {
-    "description": "Auto imported from components/hot-products-card.vue"
   },
   "ImageDialog": {
     "description": "Auto imported from components/ImageDialog.vue"
@@ -88,12 +67,6 @@
   },
   "MyChart": {
     "description": "Auto imported from components/MyChart.vue"
-  },
-  "NewProductsCard": {
-    "description": "Auto imported from components/new-products-card.vue"
-  },
-  "NewUpdateProduct": {
-    "description": "Auto imported from components/new-update-product.vue"
   },
   "NewComing": {
     "description": "Auto imported from components/NewComing.vue"
@@ -121,15 +94,6 @@
   },
   "OrderStatusForm": {
     "description": "Auto imported from components/OrderStatusForm.vue"
-  },
-  "OrderSumaryCard": {
-    "description": "Auto imported from components/orderSumaryCard.vue"
-  },
-  "OrderSumaryCardPos": {
-    "description": "Auto imported from components/orderSumaryCardPos.vue"
-  },
-  "OrderSumaryCardV2": {
-    "description": "Auto imported from components/orderSumaryCardV2.vue"
   },
   "PaymentForm": {
     "description": "Auto imported from components/PaymentForm.vue"
@@ -164,12 +128,6 @@
   "ShippingForm": {
     "description": "Auto imported from components/ShippingForm.vue"
   },
-  "SimplifiedCompanyForm": {
-    "description": "Auto imported from components/simplified-company-form.vue"
-  },
-  "Slider": {
-    "description": "Auto imported from components/slider.vue"
-  },
   "SpfDialog": {
     "description": "Auto imported from components/SpfDialog.vue"
   },
@@ -187,9 +145,6 @@
   },
   "TutorialForm": {
     "description": "Auto imported from components/TutorialForm.vue"
-  },
-  "UnitForm": {
-    "description": "Auto imported from components/unitForm.vue"
   },
   "UserForm": {
     "description": "Auto imported from components/UserForm.vue"
@@ -215,6 +170,57 @@
   "YoutubePlayer": {
     "description": "Auto imported from components/YoutubePlayer.vue"
   },
+  "AllProduct": {
+    "description": "Auto imported from components/all-product.vue"
+  },
+  "Brands": {
+    "description": "Auto imported from components/brands.vue"
+  },
+  "DeliveryForm": {
+    "description": "Auto imported from components/deliveryForm.vue"
+  },
+  "DiscountProductsCard": {
+    "description": "Auto imported from components/discount-products-card.vue"
+  },
+  "EnhancedInvoicePrinter": {
+    "description": "Auto imported from components/enhanced-invoice-printer.vue"
+  },
+  "Footer": {
+    "description": "Auto imported from components/footer.vue"
+  },
+  "HotProductsCard": {
+    "description": "Auto imported from components/hot-products-card.vue"
+  },
+  "NewProductsCard": {
+    "description": "Auto imported from components/new-products-card.vue"
+  },
+  "NewUpdateProduct": {
+    "description": "Auto imported from components/new-update-product.vue"
+  },
+  "OrderSumaryCard": {
+    "description": "Auto imported from components/orderSumaryCard.vue"
+  },
+  "OrderSumaryCardPos": {
+    "description": "Auto imported from components/orderSumaryCardPos.vue"
+  },
+  "OrderSumaryCardV2": {
+    "description": "Auto imported from components/orderSumaryCardV2.vue"
+  },
+  "SimplifiedCompanyForm": {
+    "description": "Auto imported from components/simplified-company-form.vue"
+  },
+  "Slider": {
+    "description": "Auto imported from components/slider.vue"
+  },
+  "UnitForm": {
+    "description": "Auto imported from components/unitForm.vue"
+  },
+  "CafePOSScreen": {
+    "description": "Auto imported from components/CafePOSScreen/index.vue"
+  },
+  "CAFEPOSDialog": {
+    "description": "Auto imported from components/CAFE/POSDialog.vue"
+  },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
   },
@@ -224,17 +230,11 @@
   "AccountingGLForm": {
     "description": "Auto imported from components/accounting/GLForm.vue"
   },
-  "CAFEPOSDialog": {
-    "description": "Auto imported from components/CAFE/POSDialog.vue"
-  },
   "CalendarMyCalendar": {
     "description": "Auto imported from components/calendar/MyCalendar.vue"
   },
   "CampaignForm": {
     "description": "Auto imported from components/campaign/CampaignForm.vue"
-  },
-  "CafePOSScreen": {
-    "description": "Auto imported from components/CafePOSScreen/index.vue"
   },
   "CardCampaignCard": {
     "description": "Auto imported from components/card/campaignCard.vue"
@@ -299,11 +299,11 @@
   "ProductFormCreate": {
     "description": "Auto imported from components/product/ProductFormCreate.vue"
   },
-  "PromotionsPromotionDialog": {
-    "description": "Auto imported from components/promotions/PromotionDialog.vue"
-  },
   "Quotation": {
     "description": "Auto imported from components/quotation/index.vue"
+  },
+  "PromotionsPromotionDialog": {
+    "description": "Auto imported from components/promotions/PromotionDialog.vue"
   },
   "RolesRoleCard": {
     "description": "Auto imported from components/roles/RoleCard.vue"
@@ -335,27 +335,6 @@
   "TimelineGianttTimeline": {
     "description": "Auto imported from components/timeline/GianttTimeline.vue"
   },
-  "AccountingTransaction": {
-    "description": "Auto imported from components/accounting/transaction/index.vue"
-  },
-  "ApplicantsApplicantDialog": {
-    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
-  },
-  "ApplicantsApplicantViewDialog": {
-    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
-  },
-  "BankBankAccount": {
-    "description": "Auto imported from components/bank/bankAccount/index.vue"
-  },
-  "ApplicantsStatusUpdateDialog": {
-    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
-  },
-  "BenefitMaintain": {
-    "description": "Auto imported from components/benefit/maintain/index.vue"
-  },
-  "BenefitView": {
-    "description": "Auto imported from components/benefit/view/index.vue"
-  },
   "CAFECustomerDialog": {
     "description": "Auto imported from components/CAFE/customerDialog/index.vue"
   },
@@ -367,21 +346,6 @@
   },
   "CAFEPrintdialog": {
     "description": "Auto imported from components/CAFE/printdialog/index.vue"
-  },
-  "CompanyTheme": {
-    "description": "Auto imported from components/company/theme/index.vue"
-  },
-  "JobAdvertiseMaintain": {
-    "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
-  },
-  "JobAdvertiseStatusUpdate": {
-    "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
-  },
-  "JobAdvertiseView": {
-    "description": "Auto imported from components/jobAdvertise/view/index.vue"
-  },
-  "JobFairJobBatch": {
-    "description": "Auto imported from components/job_fair/job_batch/index.vue"
   },
   "MAPaymentAuditDialog": {
     "description": "Auto imported from components/MA/paymentAuditDialog/index.vue"
@@ -446,14 +410,50 @@
   "MASettlementVoucher": {
     "description": "Auto imported from components/MA/settlementVoucher/index.vue"
   },
+  "ApplicantsApplicantDialog": {
+    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
+  },
+  "ApplicantsApplicantViewDialog": {
+    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
+  },
+  "ApplicantsStatusUpdateDialog": {
+    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
+  },
+  "AccountingTransaction": {
+    "description": "Auto imported from components/accounting/transaction/index.vue"
+  },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
+  },
+  "BenefitMaintain": {
+    "description": "Auto imported from components/benefit/maintain/index.vue"
+  },
+  "BenefitView": {
+    "description": "Auto imported from components/benefit/view/index.vue"
+  },
+  "CompanyTheme": {
+    "description": "Auto imported from components/company/theme/index.vue"
+  },
+  "JobAdvertiseMaintain": {
+    "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
+  },
+  "JobAdvertiseStatusUpdate": {
+    "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
+  },
+  "JobAdvertiseView": {
+    "description": "Auto imported from components/jobAdvertise/view/index.vue"
+  },
+  "JobFairJobBatch": {
+    "description": "Auto imported from components/job_fair/job_batch/index.vue"
+  },
   "PosDialogsQuantityUpdateDialog": {
     "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
   },
-  "AccountingApSettlement": {
-    "description": "Auto imported from components/accounting/ap/settlement/index.vue"
-  },
   "AccountingApInvoice": {
     "description": "Auto imported from components/accounting/ap/invoice/index.vue"
+  },
+  "AccountingApSettlement": {
+    "description": "Auto imported from components/accounting/ap/settlement/index.vue"
   },
   "JobFairAgencyMaintain": {
     "description": "Auto imported from components/job_fair/agency/maintain/index.vue"
@@ -464,29 +464,29 @@
   "JobFairMouMaintain": {
     "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
   },
-  "AccountingApSettlementBrowsemou": {
-    "description": "Auto imported from components/accounting/ap/settlement/browsemou/index.vue"
+  "AccountingApInvoiceAudit": {
+    "description": "Auto imported from components/accounting/ap/invoice/audit/index.vue"
   },
   "AccountingApSettlementAudit": {
     "description": "Auto imported from components/accounting/ap/settlement/audit/index.vue"
   },
+  "AccountingApSettlementBrowsemou": {
+    "description": "Auto imported from components/accounting/ap/settlement/browsemou/index.vue"
+  },
   "AccountingApSettlementVoucher": {
     "description": "Auto imported from components/accounting/ap/settlement/voucher/index.vue"
   },
-  "AccountingApInvoiceAudit": {
-    "description": "Auto imported from components/accounting/ap/invoice/audit/index.vue"
-  },
   "AccountingArInvoiceAudit": {
     "description": "Auto imported from components/accounting/ar/invoice/audit/index.vue"
-  },
-  "AccountingArInvoiceVoucher": {
-    "description": "Auto imported from components/accounting/ar/invoice/voucher/index.vue"
   },
   "AccountingArInvoiceMaintain": {
     "description": "Auto imported from components/accounting/ar/invoice/maintain/index.vue"
   },
   "AccountingArInvoiceView": {
     "description": "Auto imported from components/accounting/ar/invoice/view/index.vue"
+  },
+  "AccountingArInvoiceVoucher": {
+    "description": "Auto imported from components/accounting/ar/invoice/voucher/index.vue"
   },
   "AccountingArReceiveMaintain": {
     "description": "Auto imported from components/accounting/ar/receive/maintain/index.vue"
@@ -497,11 +497,11 @@
   "AccountingArReceiveVoucher": {
     "description": "Auto imported from components/accounting/ar/receive/voucher/index.vue"
   },
-  "AccountingApSettlementAuditView": {
-    "description": "Auto imported from components/accounting/ap/settlement/audit/view/index.vue"
-  },
   "AccountingApInvoiceAuditView": {
     "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
+  },
+  "AccountingApSettlementAuditView": {
+    "description": "Auto imported from components/accounting/ap/settlement/audit/view/index.vue"
   },
   "AccountingArInvoiceAuditView": {
     "description": "Auto imported from components/accounting/ar/invoice/audit/view/index.vue"

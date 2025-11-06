@@ -310,7 +310,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
+    ...mapGetters(['currentSelectedLocation','findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
     activeOrderHeaderList() {
       return this.orderHeaderList.filter(el => el['header']['isActive'] == true)
     },
@@ -445,7 +445,8 @@ export default {
       const date = {
         startDate: this.date,
         endDate: this.date2,
-        productId: this.creteria.productId
+        productId: this.creteria.productId,
+        locationId: this.currentSelectedLocation['id'] || 1,
       }
       let apiLine = 'api/sale/findByDate'
       if (date.productId) {
