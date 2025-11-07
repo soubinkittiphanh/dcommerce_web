@@ -2,7 +2,7 @@ import Middleware from './middleware'
 import { Auth, authMiddleware, ExpiredAuthSessionError } from '~auth/runtime'
 
 // Active schemes
-import { LocalScheme } from '~auth/runtime'
+import { RefreshScheme } from '~auth/runtime'
 
 Middleware.auth = authMiddleware
 
@@ -17,8 +17,8 @@ export default function (ctx, inject) {
   "watchLoggedIn": true,
   "redirect": {
     "login": "/admin/login",
-    "logout": false,
-    "home": "/admin/login",
+    "logout": "/admin/login",
+    "home": "/admin/dashboard",
     "callback": "/admin/login"
   },
   "vuex": {
@@ -41,11 +41,13 @@ export default function (ctx, inject) {
 
   // Register strategies
   // local
-  $auth.registerStrategy('local', new LocalScheme($auth, {
+  $auth.registerStrategy('local', new RefreshScheme($auth, {
   "token": {
     "property": "accessToken",
     "global": true,
-    "expires_in": 60
+    "required": true,
+    "type": "Bearer",
+    "maxAge": 86400
   },
   "refreshToken": {
     "property": "refreshToken",
@@ -53,11 +55,12 @@ export default function (ctx, inject) {
     "maxAge": 2592000
   },
   "user": {
-    "property": "user"
+    "property": "user",
+    "autoFetch": true
   },
   "endpoints": {
     "login": {
-      "url": "userLogin",
+      "url": "/userLogin",
       "method": "post"
     },
     "refresh": {
@@ -65,11 +68,11 @@ export default function (ctx, inject) {
       "method": "post"
     },
     "logout": {
-      "url": "logout",
+      "url": "/logout",
       "method": "get"
     },
     "user": {
-      "url": "me",
+      "url": "/me",
       "method": "get"
     }
   },

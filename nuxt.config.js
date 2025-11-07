@@ -1,5 +1,5 @@
 // Remove this unused import
-// import { hostName } from './common/api'
+import { hostName } from './common/api'
 
 console.log('================================')
 console.log('🔧 Nuxt Config Loading...')
@@ -87,16 +87,16 @@ export default {
   
   // ✅ FIXED: Removed duplicate, added privateRuntimeConfig
   publicRuntimeConfig: {
-    baseURL: process.env.BASE_URL || 'http://localhost:8888',
+    baseURL: process.env.BASE_URL || hostName(),
   },
   
   privateRuntimeConfig: {
-    baseURL: process.env.BASE_URL || 'http://localhost:8888',
+    baseURL: process.env.BASE_URL || hostName(),
   },
   
   axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:8888',
-    browserBaseURL: process.env.BASE_URL || 'http://localhost:8888',
+    baseURL: process.env.BASE_URL || hostName(),
+    browserBaseURL: process.env.BASE_URL || hostName(),
   },
   
   // ✅ FIXED: Token config and added scheme prefix
