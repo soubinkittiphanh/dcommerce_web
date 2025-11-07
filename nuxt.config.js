@@ -1,4 +1,10 @@
 import { hostName } from './common/api'
+console.log('================================')
+console.log('🔧 Nuxt Config Loading...')
+console.log('BASE_URL:', process.env.BASE_URL)
+console.log('PORT:', process.env.PORT)
+console.log('NODE_ENV:', process.env.NODE_ENV)
+console.log('================================')
 export default {
   server: {
     host: '0.0.0.0'
@@ -84,6 +90,9 @@ export default {
   // },
   // nuxt.config.js
 
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL || 'http://localhost:8888',
+  },
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL || 'http://localhost:8888',
   },
