@@ -515,13 +515,13 @@ installComponents(component, {NewUpdateProduct: __webpack_require__(682).default
 
 /***/ }),
 
-/***/ 480:
+/***/ 482:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(481);
+var content = __webpack_require__(483);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -529,7 +529,7 @@ __webpack_require__(5).default("0df5f600", content, true)
 
 /***/ }),
 
-/***/ 481:
+/***/ 483:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -544,13 +544,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 482:
+/***/ 484:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(483);
+var content = __webpack_require__(485);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -558,7 +558,7 @@ __webpack_require__(5).default("3f874970", content, true)
 
 /***/ }),
 
-/***/ 483:
+/***/ 485:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -573,7 +573,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 505:
+/***/ 506:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/product.e130afd.jpg";
@@ -586,10 +586,10 @@ module.exports = __webpack_require__.p + "img/product.e130afd.jpg";
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCarousel/VCarousel.sass
-var VCarousel = __webpack_require__(480);
+var VCarousel = __webpack_require__(482);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VWindow/VWindow.sass
-var VWindow = __webpack_require__(482);
+var VWindow = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
 var touch = __webpack_require__(136);
@@ -1347,7 +1347,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/new-update-product.vue?vue&type=template&id=d6b8bfda
 
 // EXTERNAL MODULE: ./assets/img/product/product.jpg
-var product = __webpack_require__(505);
+var product = __webpack_require__(506);
 var product_default = /*#__PURE__*/__webpack_require__.n(product);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/new-update-product.vue?vue&type=script&lang=js

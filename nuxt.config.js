@@ -1,20 +1,10 @@
 // Remove this unused import
+
 import { hostName } from './common/api'
-
-console.log('================================')
-console.log('🔧 Nuxt Config Loading...')
-console.log('BASE_URL:', process.env.BASE_URL)
-console.log('PORT:', process.env.PORT)
-console.log('NODE_ENV:', process.env.NODE_ENV)
-console.log('================================')
-
 export default {
-  // ✅ FIXED: Added PORT
   server: {
-    port: process.env.PORT || 3000,
-    host: process.env.HOST || '0.0.0.0'
+    host: '0.0.0.0'
   },
-  
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: `DCOMMERCE`,
@@ -33,9 +23,10 @@ export default {
     ],
     script: [
       { src: "https://unpkg.com/jspdf-invoice-template@1.4.3/dist/index.js" },
+      // REMOVED Chart.js CDN - now using npm version
     ],
   },
-  
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/mycss.css',
@@ -43,13 +34,16 @@ export default {
     '@fortawesome/fontawesome-free/css/all.css',
     'vue2-datepicker/index.css'
   ],
-  
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/vuetify-theme.js',
     { src: '~/plugins/jspdf-invoice.js', mode: 'client' },
     { src: '~/plugins/vue-sweetalert2', ssr: false },
-    { src: '@/plugins/apex-chart.js', mode: 'client' },
+    {
+      src: '@/plugins/apex-chart.js',
+      mode: 'client',
+    },
     { src: '~/plugins/html2canvas.js', mode: 'client' },
     { src: '@/plugins/echarts.js', ssr: false },
     { src: '~/plugins/xlsx.js', mode: 'client' },
@@ -60,120 +54,116 @@ export default {
     { src: '~/plugins/gantt-schedule-timeline-calendar.js', mode: 'client' },
     { src: '~/plugins/vue2-datepicker.js', mode: 'client' },
     { src: '~/plugins/sweetalert.js', mode: 'client' }
+    // Removed Chart.js plugin - now using direct imports
   ],
-  
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
-  
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/vuetify',
-    '@nuxtjs/svg',
+    '@nuxtjs/svg', // Add this for SVG support
   ],
-  
+
+  // Add this to your modules array in nuxt.config.js
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxtjs/toast',
+    '@nuxtjs/toast', // Add this line
   ],
-  
+  // Add toast configuration (optional)
   toast: {
     position: 'top-right',
     duration: 3000,
     theme: 'outline',
     className: 'custom-toast',
-    iconPack: 'fontawesome'
+    iconPack: 'fontawesome' // Since you're using FontAwesome
   },
-  
-  // ✅ FIXED: Removed duplicate, added privateRuntimeConfig
-  publicRuntimeConfig: {
-    baseURL: process.env.BASE_URL || hostName(),
-  },
-  
-  privateRuntimeConfig: {
-    baseURL: process.env.BASE_URL || hostName(),
-  },
-  
+
   axios: {
-    baseURL: process.env.BASE_URL || hostName(),
-    browserBaseURL: process.env.BASE_URL || hostName(),
+    baseURL: hostName(),
   },
-  
-  // ✅ FIXED: Token config and added scheme prefix
+
   auth: {
     strategies: {
       local: {
-        scheme: 'refresh',
         token: {
           property: 'accessToken',
           global: true,
-          required: true,
-          type: 'Bearer',
-          maxAge: 60 * 60 * 24, // 24 hours in seconds
+          expires_in: 60,
         },
         refreshToken: {
           property: 'refreshToken',
           data: 'refreshToken',
-          maxAge: 60 * 60 * 24 * 30 // 30 days
+          maxAge: 60 * 60 * 24 * 30
         },
         user: {
           property: 'user',
-          autoFetch: true
         },
         endpoints: {
-          login: { url: '/userLogin', method: 'post' },
+          login: { url: 'userLogin', method: 'post' },
           refresh: { url: '/api/auth/refresh', method: 'post' },
-          logout: { url: '/logout', method: 'get' },
-          user: { url: '/me', method: 'get' },
+          logout: { url: 'logout', method: 'get' },
+          user: { url: 'me', method: 'get' },
         }
       }
     },
     redirect: {
       login: '/admin/login',
-      logout: '/admin/login',
+      logout: false,
       callback: '/admin/login',
-      home: '/admin/dashboard',
+      home: '/admin/login',
     }
   },
-  
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
       themes: {
         light: {
-          primary: '#01532B',
+          primary: '#01532B', //DCOMMERCE green
           secondary: '#337555',
+          // primary: '#-A12F8D', //JOB FAIRE PINK
+          // secondary: '#-8D2FA1',
           lightprimary: '#80a995',
           danger: '#D00505',
         },
       }
     }
   },
-  
+
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  // nuxt.config.js
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['lucide-vue-next', 'chart.js', 'gantt-schedule-timeline-calendar'],
-    terser: {
-      parallel: false,
-    },
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
-      }
-      if (isClient) {
-        config.node = {
-          fs: 'empty'
-        }
-      }
-      config.module.rules.push({
-        test: /\.mjs$/,
-        include: /node_modules/,
-        type: 'javascript/auto'
-      })
-    }
+  // Add Chart.js transpilation + gantt package
+  transpile: ['lucide-vue-next', 'chart.js', 'gantt-schedule-timeline-calendar'],
+  terser: {
+    parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
   },
-  
+  extend(config, { isDev, isClient }) {
+    // Suppress SES warnings in development
+    if (isDev && isClient) {
+      config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
+    }
+    // For Chart.js compatibility with Nuxt 2/Webpack 4
+    if (isClient) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
+    // Handle ES modules for gantt package
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto'
+    })
+  }
+},
+
+  // Add this to suppress console warnings
   render: {
     bundleRenderer: {
       shouldPreload: (file, type) => {
@@ -181,4 +171,5 @@ export default {
       }
     }
   }
+
 }

@@ -31,7 +31,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      
+
       <v-card class="login-card elevation-12">
         <div class="pa-16">
           <v-row>
@@ -48,15 +48,15 @@
                   <p class="mt-2 text-caption grey--text">ກຳລັງໂຫຼດໂລໂກ້...</p>
                 </div>
                 <!-- Company Logo -->
-                <img 
+                <img
                   v-else
-                  :src="logoUrl" 
-                  alt="Company Logo" 
+                  :src="logoUrl"
+                  alt="Company Logo"
                   class="logo-image"
                   @error="onLogoError"
                 />
               </div>
-              
+
               <h2 class="text-center" style="color: primary">{{ welcomeText }}</h2>
             </v-col>
           </v-row>
@@ -96,15 +96,15 @@
             </v-form>
           </v-card-text>
         </div>
-        
+
         <!-- Powered by DCOMMERCE Section -->
         <v-card-actions class="powered-by-section">
           <v-spacer></v-spacer>
           <div class="powered-by-container">
             <span class="powered-by-text">Powered by</span>
-            <img 
-              :src="dcommerceLogoUrl" 
-              alt="DCOMMERCE Logo" 
+            <img
+              :src="dcommerceLogoUrl"
+              alt="DCOMMERCE Logo"
               class="dcommerce-logo"
             />
             <span class="dcommerce-text">DCOMMERCE</span>
@@ -112,15 +112,15 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-      
+
       <!-- Alternative: Footer Powered By (uncomment if preferred) -->
-      <!-- 
+      <!--
       <div class="powered-by-footer">
         <div class="powered-by-container-footer">
           <span class="powered-by-text-footer">Powered by</span>
-          <img 
-            :src="dcommerceLogoUrl" 
-            alt="DCOMMERCE Logo" 
+          <img
+            :src="dcommerceLogoUrl"
+            alt="DCOMMERCE Logo"
             class="dcommerce-logo-footer"
           />
           <span class="dcommerce-text-footer">DCOMMERCE</span>
@@ -137,7 +137,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   layout: 'login',
-  
+
   data() {
     return {
       terminalDialog: false,
@@ -222,24 +222,24 @@ export default {
     async loadCompanyLogo() {
       this.companyLogo.loading = true
       this.companyLogo.error = false
-      
+
       try {
         // Get companies with active status
         const response = await this.$axios.get('/api/public/company/findAll')
-        
+
         const companies = Array.isArray(response.data) ? response.data : []
-        
+
         // Find first company with profile image
-        const companyWithImage = companies.find(company => 
+        const companyWithImage = companies.find(company =>
           company.profile_image_path && company.isActive
         )
-        
+
         if (companyWithImage) {
           this.companyLogo.company = companyWithImage
           const baseUrl = this.$axios.defaults.baseURL || ''
           this.companyLogo.url = `${baseUrl}/${companyWithImage.profile_image_path}`
         }
-        
+
       } catch (error) {
         console.error('Error loading company logo:', error)
         this.companyLogo.error = true
@@ -278,7 +278,7 @@ export default {
           ]
       )
       this.setSelectedLocation(location)
-      
+
       const homePage = this.spfList.find((spf) => spf.code === 'HOME')
       if (homePage?.value) {
         this.$router.push(homePage.value)
@@ -312,7 +312,7 @@ export default {
           console.log(`LOGIN COMPLETED`)
           this.initData()
           await this.fetchSPFItems()
-          
+
           const enableTerminal = this.spfList.find(
             (spf) => spf.code === 'E_TERMINAL'
           )

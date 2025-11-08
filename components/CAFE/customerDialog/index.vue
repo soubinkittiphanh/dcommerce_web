@@ -388,6 +388,7 @@ export default {
 
       try {
         this.$emit('save-customer', customerData)
+        this.closeAddCustomerForm()
       } finally {
         this.savingCustomer = false
       }

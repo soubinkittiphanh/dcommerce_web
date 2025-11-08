@@ -354,13 +354,13 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/card/index.vue?vue&type=template&id=d9e3e908
 
 // EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
-var PoForm = __webpack_require__(554);
+var PoForm = __webpack_require__(556);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
-var PurchasingFormCRUD = __webpack_require__(522);
+var PurchasingFormCRUD = __webpack_require__(523);
 
 // EXTERNAL MODULE: ./components/ReceivingFormCRUD.vue + 4 modules
-var ReceivingFormCRUD = __webpack_require__(520);
+var ReceivingFormCRUD = __webpack_require__(521);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(383);
@@ -587,7 +587,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var card = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {PurchasingFormCRUD: __webpack_require__(522).default,ReceivingFormCRUD: __webpack_require__(520).default,LoadingIndicator: __webpack_require__(87).default})
+installComponents(component, {PurchasingFormCRUD: __webpack_require__(523).default,ReceivingFormCRUD: __webpack_require__(521).default,LoadingIndicator: __webpack_require__(87).default})
 
 
 /***/ }),
@@ -3326,7 +3326,7 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 520:
+/***/ 521:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4576,7 +4576,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default,
 
 /***/ }),
 
-/***/ 522:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5768,7 +5768,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default,
 
 /***/ }),
 
-/***/ 554:
+/***/ 556:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

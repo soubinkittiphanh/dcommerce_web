@@ -829,7 +829,7 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 541:
+/***/ 542:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2234,7 +2234,7 @@ const MINUTES_IN_DAY = 1440;
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCalendar/VCalendarWeekly.sass
-var VCalendarWeekly = __webpack_require__(541);
+var VCalendarWeekly = __webpack_require__(542);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(20);

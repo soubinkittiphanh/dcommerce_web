@@ -22,7 +22,7 @@
             ></v-progress-circular>
             <p class="mt-2 text-caption white--text">ກຳລັງໂຫຼດ...</p>
           </div>
-          
+
           <!-- Company Logo -->
           <v-img
             v-else
@@ -33,7 +33,7 @@
           />
         </v-flex>
       </v-layout>
-      
+
       <v-list>
         <!-- Home -->
         <v-list-item :to="homePage" router exact>
@@ -138,7 +138,7 @@
             <v-icon left color="white">mdi-lock-reset</v-icon>
             ປ່ຽນລະຫັດຜ່ານ
           </v-card-title>
-          
+
           <v-form ref="passwordForm" v-model="passwordFormValid" lazy-validation>
             <v-card-text class="pt-4">
               <v-container>
@@ -159,7 +159,7 @@
                       :disabled="passwordLoading"
                     />
                   </v-col>
-                  
+
                   <!-- New Password -->
                   <v-col cols="12">
                     <v-text-field
@@ -176,7 +176,7 @@
                       :disabled="passwordLoading"
                     />
                   </v-col>
-                  
+
                   <!-- Confirm New Password -->
                   <v-col cols="12">
                     <v-text-field
@@ -194,7 +194,7 @@
                     />
                   </v-col>
                 </v-row>
-                
+
                 <!-- Password Requirements -->
                 <v-alert
                   type="info"
@@ -210,12 +210,12 @@
                 </v-alert>
               </v-container>
             </v-card-text>
-            
+
             <v-divider></v-divider>
-            
+
             <v-card-actions class="pa-4">
               <v-spacer></v-spacer>
-              
+
               <v-btn
                 color="grey darken-1"
                 text
@@ -225,7 +225,7 @@
                 <v-icon left>mdi-close</v-icon>
                 ຍົກເລີກ
               </v-btn>
-              
+
               <v-btn
                 color="primary"
                 :loading="passwordLoading"
@@ -404,7 +404,7 @@ export default {
       // if (this.companyLogo.url) {
       //   return this.companyLogo.url
       // }
-      
+
       // Try using the company data logo
       if (this.companyData?.dcLogo) {
         try {
@@ -413,7 +413,7 @@ export default {
           console.warn('Static company logo not found:', this.companyData.dcLogo)
         }
       }
-      
+
       // Final fallback
       try {
         return require('~/assets/image/MPWT/PWT.png')
@@ -488,7 +488,7 @@ export default {
       this.showCurrentPassword = false
       this.showNewPassword = false
       this.showConfirmPassword = false
-      
+
       if (this.$refs.passwordForm) {
         this.$refs.passwordForm.resetValidation()
       }
@@ -499,9 +499,9 @@ export default {
       if (!this.$refs.passwordForm.validate()) {
         return
       }
-      
+
       this.passwordLoading = true
-      
+
       try {
         // Prepare the request payload
         const payload = {
@@ -509,26 +509,26 @@ export default {
           currentPassword: this.currentPassword,
           newPassword: this.newPassword
         }
-        
+
         // Make API call to change password
         const response = await this.$axios.post('/api/user/change-password', payload)
-        
+
         if (response.data && response.data.success) {
           this.$toast.success('ປ່ຽນລະຫັດຜ່ານສຳເລັດແລ້ວ')
           this.closePasswordDialog()
-          
+
           // Optional: Force re-login after password change
           // setTimeout(() => {
           //   this.$router.push('/admin/logout')
           // }, 2000)
-          
+
         } else {
           throw new Error(response.data?.message || 'ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນລະຫັດຜ່ານ')
         }
-        
+
       } catch (error) {
         console.error('Password change error:', error)
-        
+
         // Handle different error types
         if (error.response?.status === 401) {
           this.$toast.error('ລະຫັດຜ່ານປັດຈຸບັນບໍ່ຖືກຕ້ອງ')
@@ -536,8 +536,8 @@ export default {
           this.$toast.error('ຂໍ້ມູນທີ່ສົ່ງມາບໍ່ຖືກຕ້ອງ')
         } else {
           this.$toast.error(
-            error.response?.data?.message || 
-            error.message || 
+            error.response?.data?.message ||
+            error.message ||
             'ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນລະຫັດຜ່ານ'
           )
         }
@@ -550,23 +550,23 @@ export default {
     async loadCompanyLogo() {
       this.companyLogo.loading = true
       this.companyLogo.error = false
-      
+
       try {
         // Get companies with active status using your public API
         const response = await this.$axios.get('/api/public/company/findAll')
         const companies = Array.isArray(response.data) ? response.data : []
-        
+
         // Find first company with profile image
-        const companyWithImage = companies.find(company => 
+        const companyWithImage = companies.find(company =>
           company.profile_image_path && company.isActive
         )
-        
+
         if (companyWithImage) {
           this.companyLogo.company = companyWithImage
           const baseUrl = this.$axios.defaults.baseURL || ''
           this.companyLogo.url = `${baseUrl}/${companyWithImage.profile_image_path}`
         }
-        
+
       } catch (error) {
         console.error('Error loading company logo:', error)
         this.companyLogo.error = true
