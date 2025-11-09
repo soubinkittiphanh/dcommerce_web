@@ -11,15 +11,15 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
   // const baseURL = 'http://150.95.31.23:8021' //  *** carcare sokpaluang
   // const baseURL = 'http://150.95.31.23:8022' //  *** PM Jobfair ..
-  // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
+  const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8024' //  *** DCOMMERCE
   // const baseURL = 'http://150.95.31.23:8025' //  *** DCOMMERCE MAIN
   // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   console.info(`BASE_URL ${process.env.BASE_URL}`)
-  return process.env.BASE_URL || 'http://localhost:8888'
-  // return baseURL;
+  // return process.env.BASE_URL || 'http://localhost:8888'
+  return baseURL;
 }
 
 export const mainCompanyInfoV1 = (store) => {
