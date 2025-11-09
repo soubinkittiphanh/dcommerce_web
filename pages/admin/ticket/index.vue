@@ -634,7 +634,7 @@ export default {
         const params = {
           page: this.pagination.currentPage,
           limit: this.pagination.limit,
-          include: 'client,table,ticketLines',
+          include: 'client,table,ticketLines,payment',
           sort: 'createdAt:desc',
           locationId: this.currentSelectedLocation['id'] || 1,
         }

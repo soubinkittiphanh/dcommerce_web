@@ -152,7 +152,8 @@
           <div class="payment-status">
             <span>Payment:</span>
             <span class="payment-value" :class="`payment-${ticket.paymentStatus}`">
-              {{ formatPaymentStatus(ticket.paymentStatus) }}
+              <!-- {{ formatPaymentStatus(ticket.paymentStatus) }} -->
+            {{ ticket.payment ? formatPaymentStatus(ticket.payment.payment_code) : 'unpaid' }}
             </span>
           </div>
         </div>
@@ -299,6 +300,7 @@ export default {
     },
   },
   mounted(){
+    console.info(`TICKET DETAIL ${JSON.stringify(this.ticket)}`)
     this.printNow()
   },
   methods: {

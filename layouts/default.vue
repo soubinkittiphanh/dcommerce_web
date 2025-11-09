@@ -401,9 +401,9 @@ export default {
     // Dynamic logo URL with fallback
     finalLogoUrl() {
       // Enable this below code for dynamic Company logo
-      // if (this.companyLogo.url) {
-      //   return this.companyLogo.url
-      // }
+      if (this.companyLogo.url) {
+        return this.companyLogo.url
+      }
 
       // Try using the company data logo
       if (this.companyData?.dcLogo) {

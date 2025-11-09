@@ -31,12 +31,18 @@
                 class="text-none"
               >
                 <v-icon left size="20">
-                  {{ isCustomerDisplayOpen() ? 'mdi-monitor-eye' : 'mdi-monitor-multiple' }}
+                  {{
+                    isCustomerDisplayOpen()
+                      ? 'mdi-monitor-eye'
+                      : 'mdi-monitor-multiple'
+                  }}
                 </v-icon>
-                {{ isCustomerDisplayOpen() ? 'Update Display' : 'Open Display' }}
+                {{
+                  isCustomerDisplayOpen() ? 'Update Display' : 'Open Display'
+                }}
               </v-btn>
             </v-col>
-            <v-col cols="4" v-if="1==0">
+            <v-col cols="4" v-if="1 == 0">
               <v-btn
                 block
                 @click="showQRDialog = true"
@@ -124,7 +130,7 @@
               <v-expand-transition>
                 <div v-if="isCashPayment" class="mt-3">
                   <v-divider class="mb-3"></v-divider>
-                  
+
                   <div class="subtitle-2 mb-2">
                     <v-icon left size="18" color="green">mdi-cash</v-icon>
                     Cash Payment Details
@@ -147,9 +153,9 @@
                         placeholder="0"
                       ></v-text-field>
                     </v-col>
-                    
+
                     <v-col cols="12" md="6">
-                      <v-card 
+                      <v-card
                         :color="changeAmount >= 0 ? 'success' : 'error'"
                         class="pa-3 text-center white--text"
                         :elevation="changeAmount !== 0 ? 3 : 1"
@@ -178,11 +184,11 @@
                   <div class="mt-2">
                     <div class="caption mb-1 grey--text">Quick amounts:</div>
                     <v-chip-group class="quick-cash-chips">
-                      <v-chip 
+                      <v-chip
                         v-for="quickAmount in getQuickCashAmounts()"
                         :key="quickAmount"
-                        small 
-                        outlined 
+                        small
+                        outlined
                         color="success"
                         @click="setCashReceived(quickAmount)"
                         class="ma-1"
@@ -336,22 +342,24 @@ export default {
       copied: false,
       qrString:
         '00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405100005802LA5907KHAMMAO6260011713a321asS321as2250302120713te rminal000010812test remarks63041c9f',
-      
+
       // Cash payment fields
       cashReceived: 0,
       cashReceivedFormatted: '',
       changeAmount: 0,
       cashRules: [
-        v => !!this.cashReceived || 'Cash received amount is required',
-        v => this.cashReceived >= 0 || 'Amount must be positive',
-        v => this.cashReceived >= this.amount || `Insufficient amount (minimum: ${this.formatPrice(this.amount)})`
+        (v) => !!this.cashReceived || 'Cash received amount is required',
+        (v) => this.cashReceived >= 0 || 'Amount must be positive',
+        (v) =>
+          this.cashReceived >= this.amount ||
+          `Insufficient amount (minimum: ${this.formatPrice(this.amount)})`,
       ],
 
       // Customer display window reference
-      customerDisplayWindow: null
+      customerDisplayWindow: null,
     }
   },
-  
+
   computed: {
     showDialog: {
       get() {
@@ -375,23 +383,29 @@ export default {
 
     // Check if selected payment method is cash
     isCashPayment() {
-      return this.selectedPaymentMethod && 
-             (this.selectedPaymentMethod.payment_code === 'CASH' || 
-              this.selectedPaymentMethod.payment_name?.toLowerCase().includes('cash'))
+      return (
+        this.selectedPaymentMethod &&
+        (this.selectedPaymentMethod.payment_code === 'CASH' ||
+          this.selectedPaymentMethod.payment_name
+            ?.toLowerCase()
+            .includes('cash'))
+      )
     },
 
     // Validate payment based on method type
     isPaymentValid() {
       if (!this.selectedPaymentMethod) return false
-      
+
       if (this.isCashPayment) {
-        return this.cashReceived && 
-               this.cashReceived >= this.amount &&
-               this.changeAmount >= 0
+        return (
+          this.cashReceived &&
+          this.cashReceived >= this.amount &&
+          this.changeAmount >= 0
+        )
       }
-      
+
       return true // Non-cash payments are valid once method is selected
-    }
+    },
   },
 
   watch: {
@@ -406,7 +420,7 @@ export default {
           this.onDialogClosed()
         }
       },
-      immediate: false
+      immediate: false,
     },
 
     // Also watch for changes in amount, tableNumber, or ticketId while dialog is open
@@ -416,7 +430,7 @@ export default {
           this.updateCustomerScreen()
           this.calculateChange() // Recalculate change when amount changes
         }
-      }
+      },
     },
 
     tableNumber: {
@@ -424,7 +438,7 @@ export default {
         if (this.show && newVal !== oldVal) {
           this.updateCustomerScreen()
         }
-      }
+      },
     },
 
     ticketId: {
@@ -432,7 +446,7 @@ export default {
         if (this.show && newVal !== oldVal) {
           this.updateCustomerScreen()
         }
-      }
+      },
     },
 
     // Watch for payment method changes
@@ -449,8 +463,8 @@ export default {
             this.setCashReceived(this.amount)
           }
         }
-      }
-    }
+      },
+    },
   },
 
   mounted() {
@@ -468,13 +482,13 @@ export default {
   methods: {
     onDialogOpened() {
       console.log('Payment dialog opened - updating customer screen')
-      
+
       // Immediately show QR on customer screen
       this.showQROnCustomerScreen()
-      
+
       // Optional: Set up auto-refresh interval
       this.startAutoRefresh()
-      
+
       // Emit event for parent component if needed
       this.$emit('dialog-opened')
     },
@@ -490,7 +504,7 @@ export default {
       if (this.qrRefreshInterval) {
         clearInterval(this.qrRefreshInterval)
       }
-      
+
       // Set up auto-refresh every 30 seconds (adjust as needed)
       this.qrRefreshInterval = setInterval(() => {
         if (this.show) {
@@ -506,13 +520,15 @@ export default {
         clearInterval(this.qrRefreshInterval)
         this.qrRefreshInterval = null
       }
-      
+
       // Hide QR from customer screen but keep window open
       this.hideQRFromCustomerScreen()
-      
+
       // Note: We deliberately do NOT close the customer display window here
       // so it can be reused for subsequent payments
-      console.log('Payment dialog cleanup - keeping customer display window open')
+      console.log(
+        'Payment dialog cleanup - keeping customer display window open'
+      )
     },
 
     updateCustomerScreen() {
@@ -520,7 +536,7 @@ export default {
       if (this.updateTimeout) {
         clearTimeout(this.updateTimeout)
       }
-      
+
       this.updateTimeout = setTimeout(() => {
         if (this.show) {
           console.log('Updating customer screen due to data change')
@@ -543,13 +559,13 @@ export default {
     onCashInput(value) {
       // Remove all non-numeric characters except decimal point
       const numericValue = value.replace(/[^\d.]/g, '')
-      
+
       // Convert to number and update the actual value
       this.cashReceived = parseFloat(numericValue) || 0
-      
+
       // Format for display with thousand separators
       this.cashReceivedFormatted = this.formatNumberWithCommas(numericValue)
-      
+
       // Calculate change
       this.calculateChange()
     },
@@ -557,18 +573,20 @@ export default {
     // Format display when field loses focus
     formatCashDisplay() {
       if (this.cashReceived > 0) {
-        this.cashReceivedFormatted = this.formatNumberWithCommas(this.cashReceived.toString())
+        this.cashReceivedFormatted = this.formatNumberWithCommas(
+          this.cashReceived.toString()
+        )
       }
     },
 
     // Format number with thousand separators
     formatNumberWithCommas(value) {
       if (!value) return ''
-      
+
       // Handle decimal numbers
       const parts = value.toString().split('.')
       const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      
+
       // Return with decimal part if it exists
       return parts[1] !== undefined ? `${integerPart}.${parts[1]}` : integerPart
     },
@@ -576,7 +594,9 @@ export default {
     // Set cash received amount from quick buttons
     setCashReceived(amount) {
       this.cashReceived = amount
-      this.cashReceivedFormatted = this.formatNumberWithCommas(amount.toString())
+      this.cashReceivedFormatted = this.formatNumberWithCommas(
+        amount.toString()
+      )
       this.calculateChange()
     },
 
@@ -584,25 +604,25 @@ export default {
     getQuickCashAmounts() {
       const ticketAmount = this.amount
       const amounts = []
-      
+
       // Add exact amount
       amounts.push(ticketAmount)
-      
+
       // Add common bill denominations above the ticket amount
       const commonBills = [20000, 50000, 100000, 200000, 500000]
-      
-      commonBills.forEach(bill => {
+
+      commonBills.forEach((bill) => {
         if (bill > ticketAmount && !amounts.includes(bill)) {
           amounts.push(bill)
         }
       })
-      
+
       // Add rounded amounts
       const roundedUp = Math.ceil(ticketAmount / 10000) * 10000
       if (roundedUp > ticketAmount && !amounts.includes(roundedUp)) {
         amounts.push(roundedUp)
       }
-      
+
       return amounts.slice(0, 4) // Limit to 4 suggestions
     },
 
@@ -650,7 +670,10 @@ export default {
         }
 
         // Check if there's a global reference to the customer display window
-        if (window.globalCustomerDisplayWindow && !window.globalCustomerDisplayWindow.closed) {
+        if (
+          window.globalCustomerDisplayWindow &&
+          !window.globalCustomerDisplayWindow.closed
+        ) {
           console.log('Using existing global customer display window')
           this.customerDisplayWindow = window.globalCustomerDisplayWindow
           this.updateExistingCustomerWindow(qrData)
@@ -658,41 +681,43 @@ export default {
         }
 
         console.log('Opening new customer display window...')
-        
+
         // Get available screens/monitors
         const screens = await this.getAvailableScreens()
-        
+
         // Determine target screen (second monitor if available)
         const targetScreen = screens.length > 1 ? screens[1] : screens[0]
-        
+
         // Calculate window position and size for target screen
         const windowFeatures = this.calculateWindowFeatures(targetScreen)
-        
+
         // Open new customer display window
         this.customerDisplayWindow = window.open(
           this.getCustomerDisplayURL(),
           'customerDisplay',
           windowFeatures
         )
-        
+
         if (this.customerDisplayWindow) {
           // Store global reference so other components can reuse it
           window.globalCustomerDisplayWindow = this.customerDisplayWindow
-          
+
           // Set up window event handlers
           this.setupCustomerWindowHandlers()
-          
+
           // Wait for window to load then send data
           this.customerDisplayWindow.addEventListener('load', () => {
             this.sendDataToCustomerWindow(qrData)
           })
-          
+
           // Focus the new window
           this.customerDisplayWindow.focus()
-          
+
           console.log('Customer display window opened successfully')
         } else {
-          throw new Error('Failed to open customer display window - popup blocked?')
+          throw new Error(
+            'Failed to open customer display window - popup blocked?'
+          )
         }
       } catch (error) {
         console.warn('Failed to open customer display window:', error)
@@ -730,38 +755,42 @@ export default {
           return screenDetails.screens
         } else {
           // Fallback: Use basic screen info
-          return [{
+          return [
+            {
+              left: 0,
+              top: 0,
+              width: window.screen.width,
+              height: window.screen.height,
+              availWidth: window.screen.availWidth,
+              availHeight: window.screen.availHeight,
+            },
+          ]
+        }
+      } catch (error) {
+        console.warn('Screen detection failed:', error)
+        // Return primary screen info as fallback
+        return [
+          {
             left: 0,
             top: 0,
             width: window.screen.width,
             height: window.screen.height,
             availWidth: window.screen.availWidth,
-            availHeight: window.screen.availHeight
-          }]
-        }
-      } catch (error) {
-        console.warn('Screen detection failed:', error)
-        // Return primary screen info as fallback
-        return [{
-          left: 0,
-          top: 0,
-          width: window.screen.width,
-          height: window.screen.height,
-          availWidth: window.screen.availWidth,
-          availHeight: window.screen.availHeight
-        }]
+            availHeight: window.screen.availHeight,
+          },
+        ]
       }
     },
 
     calculateWindowFeatures(screen) {
-      // Calculate optimal window size and position
-      const windowWidth = Math.min(800, screen.availWidth)
-      const windowHeight = Math.min(600, screen.availHeight)
-      
-      // Center window on target screen
-      const left = screen.left + (screen.availWidth - windowWidth) / 2
-      const top = screen.top + (screen.availHeight - windowHeight) / 2
-      
+      // Make window fullscreen on target screen
+      const windowWidth = screen.availWidth // Use full available width
+      const windowHeight = screen.availHeight // Use full available height
+
+      // Position at top-left of target screen
+      const left = screen.left
+      const top = screen.top
+
       return [
         `width=${windowWidth}`,
         `height=${windowHeight}`,
@@ -769,11 +798,12 @@ export default {
         `top=${top}`,
         'toolbar=no',
         'menubar=no',
-        'scrollbars=yes',
-        'resizable=yes',
+        'scrollbars=no', // No scrollbars for fullscreen
+        'resizable=no', // Prevent resizing
         'location=no',
         'directories=no',
-        'status=no'
+        'status=no',
+        'fullscreen=yes', // Request fullscreen if supported
       ].join(',')
     },
 
@@ -781,7 +811,7 @@ export default {
       // You can customize this URL based on your setup
       const baseUrl = window.location.origin
       const customerDisplayPath = '/admin/cafeTable/customer' // Adjust this path as needed
-      
+
       return `${baseUrl}${customerDisplayPath}`
     },
 
@@ -789,7 +819,7 @@ export default {
       try {
         // Send data to existing window
         this.sendDataToCustomerWindow(qrData)
-        
+
         // Bring window to front
         this.customerDisplayWindow.focus()
       } catch (error) {
@@ -802,14 +832,21 @@ export default {
 
     sendDataToCustomerWindow(qrData) {
       console.info(`sendDataToCustomerWindow==> ${JSON.stringify(qrData)}`)
-      console.info(`sendDataToCustomerWindow AAA==> ${JSON.stringify(this.customerDisplayWindow)}`)
+      console.info(
+        `sendDataToCustomerWindow AAA==> ${JSON.stringify(
+          this.customerDisplayWindow
+        )}`
+      )
       if (this.customerDisplayWindow && !this.customerDisplayWindow.closed) {
         // Send data via postMessage
-        this.customerDisplayWindow.postMessage({
-          type: 'SHOW_QR_PAYMENT',
-          data: qrData
-        }, '*')
-        
+        this.customerDisplayWindow.postMessage(
+          {
+            type: 'SHOW_QR_PAYMENT',
+            data: qrData,
+          },
+          '*'
+        )
+
         // Also set localStorage in the new window for compatibility
         try {
           this.customerDisplayWindow.localStorage.setItem(
@@ -835,9 +872,12 @@ export default {
       if (this.customerDisplayWindow && !this.customerDisplayWindow.closed) {
         this.customerDisplayWindow.postMessage(hideMessage, '*')
       }
-      
+
       // Also check global reference
-      if (window.globalCustomerDisplayWindow && !window.globalCustomerDisplayWindow.closed) {
+      if (
+        window.globalCustomerDisplayWindow &&
+        !window.globalCustomerDisplayWindow.closed
+      ) {
         window.globalCustomerDisplayWindow.postMessage(hideMessage, '*')
       }
 
@@ -853,16 +893,19 @@ export default {
           this.customerDisplayWindow.close()
           console.log('Customer display window closed manually')
         }
-        
-        if (window.globalCustomerDisplayWindow && !window.globalCustomerDisplayWindow.closed) {
+
+        if (
+          window.globalCustomerDisplayWindow &&
+          !window.globalCustomerDisplayWindow.closed
+        ) {
           window.globalCustomerDisplayWindow.close()
           console.log('Global customer display window closed manually')
         }
-        
+
         // Clear references
         this.customerDisplayWindow = null
         window.globalCustomerDisplayWindow = null
-        
+
         this.$emit(
           'show-message',
           'Customer display window closed',
@@ -876,8 +919,11 @@ export default {
 
     // Method to check if customer display is available
     isCustomerDisplayOpen() {
-      return (this.customerDisplayWindow && !this.customerDisplayWindow.closed) ||
-             (window.globalCustomerDisplayWindow && !window.globalCustomerDisplayWindow.closed)
+      return (
+        (this.customerDisplayWindow && !this.customerDisplayWindow.closed) ||
+        (window.globalCustomerDisplayWindow &&
+          !window.globalCustomerDisplayWindow.closed)
+      )
     },
 
     showPaymentSuccessOnCustomerScreen() {
@@ -914,7 +960,7 @@ export default {
       this.cashReceived = 0
       this.cashReceivedFormatted = ''
       this.changeAmount = 0
-      
+
       // Clear any pending timeouts
       if (this.updateTimeout) {
         clearTimeout(this.updateTimeout)
@@ -947,16 +993,16 @@ export default {
       }
 
       this.showPaymentSuccessOnCustomerScreen()
-      
+
       // Include cash details in payment data for cash payments
       const paymentData = {
         ...this.selectedPaymentMethod,
         ...(this.isCashPayment && {
           cashReceived: this.cashReceived,
-          changeAmount: this.changeAmount
-        })
+          changeAmount: this.changeAmount,
+        }),
       }
-      
+
       this.$emit('confirm-payment', paymentData)
     },
 
