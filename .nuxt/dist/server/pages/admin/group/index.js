@@ -1,19 +1,19 @@
 exports.ids = [202,40,60,108,109,114,161];
 exports.modules = {
 
-/***/ 1030:
+/***/ 1033:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05e3a970_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(823);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05e3a970_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(826);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05e3a970_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05e3a970_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05e3a970_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_05e3a970_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1031:
+/***/ 1034:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1315:
+/***/ 1318:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -278,10 +278,10 @@ var staticRenderFns = [];
 var common = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./components/GroupForm.vue + 4 modules
-var GroupForm = __webpack_require__(790);
+var GroupForm = __webpack_require__(793);
 
 // EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
-var OrderDetailPos = __webpack_require__(444);
+var OrderDetailPos = __webpack_require__(445);
 
 // EXTERNAL MODULE: ./components/OrderDetailPosCRUD.vue + 4 modules
 var OrderDetailPosCRUD = __webpack_require__(441);
@@ -374,7 +374,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1030)
+  var style0 = __webpack_require__(1033)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -395,7 +395,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var group = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(435).default,LoadingIndicator: __webpack_require__(87).default,GroupForm: __webpack_require__(790).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(435).default,LoadingIndicator: __webpack_require__(87).default,GroupForm: __webpack_require__(793).default})
 
 
 /***/ }),
@@ -2342,7 +2342,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default,
 
 /***/ }),
 
-/***/ 444:
+/***/ 445:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2830,7 +2830,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 
 /***/ }),
 
-/***/ 790:
+/***/ 793:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2882,7 +2882,7 @@ var VSwitch = __webpack_require__(457);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/GroupForm.vue?vue&type=template&id=0743e77a
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/GroupForm.vue?vue&type=template&id=d870e3c8
 
 
 
@@ -2901,7 +2901,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var GroupFormvue_type_template_id_0743e77a_render = function render() {
+var GroupFormvue_type_template_id_d870e3c8_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2932,7 +2932,7 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v("\n                ຈັດການກຸ່ມຜູ້ໃຊ້ງານ\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
+  }, [_vm._v("mdi-label")]), _vm._v("\n        ຈັດການກຸ່ມຜູ້ໃຊ້ງານ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
     ref: "form"
   }, [_c(VTextField["a" /* default */], {
     attrs: {
@@ -2963,11 +2963,26 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
     }
   }), _vm._v(" "), _c(VAutocomplete["a" /* default */], {
     attrs: {
-      "item-text": "llname",
+      "item-text": "name",
       "item-value": "id",
       "items": _vm.authorityList,
       "label": "Authority*"
     },
+    scopedSlots: _vm._u([{
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n            " + _vm._s(item.name) + " (code: " + _vm._s(item.code) + ") (: " + _vm._s(item.llname) + ")\n          ")];
+      }
+    }, {
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n            " + _vm._s(item.name) + " (code: " + _vm._s(item.code) + ") (: " + _vm._s(item.llname) + ")\n          ")];
+      }
+    }]),
     model: {
       value: _vm.authoritySelected,
       callback: function ($$v) {
@@ -2987,7 +3002,7 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
     }
   }, [_c('span', {
     staticClass: "mdi mdi-note-plus-outline"
-  }), _vm._v("\n                    ເພີ່ມ Authority\n                ")]), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+  }), _vm._v("\n          ເພີ່ມ Authority\n        ")]), _vm._v(" "), _c(VCheckbox["a" /* default */], {
     attrs: {
       "label": "Is Active"
     },
@@ -3023,7 +3038,7 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
           return _vm.removeAuthority(menu);
         }
       }
-    }, [_vm._v("\n                        " + _vm._s(menu.code) + " - " + _vm._s(menu.llname) + "\n                    ")]);
+    }, [_vm._v("\n            " + _vm._s(menu.code) + " - " + _vm._s(menu.llname) + "\n          ")]);
   }), 1)], 1), _vm._v(" "), _c('div', [_c(VRow["a" /* default */], {
     staticClass: "mt-4",
     attrs: {
@@ -3055,7 +3070,7 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
           attrs: {
             "color": _vm.form.ticketCancel ? 'success' : 'error'
           }
-        }, [_vm._v("\n                                    " + _vm._s(_vm.form.ticketCancel ? 'mdi-ticket-confirmation' : 'mdi-ticket-outline') + "\n                                ")])];
+        }, [_vm._v("\n                  " + _vm._s(_vm.form.ticketCancel ? 'mdi-ticket-confirmation' : 'mdi-ticket-outline') + "\n                ")])];
       },
       proxy: true
     }]),
@@ -3068,7 +3083,7 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "text-caption text-grey mt-1 ml-10"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form.ticketCancel ? 'ກຸ່ມນີ້ສາມາດຍົກເລີກ ticket ໄດ້' : 'ກຸ່ມນີ້ບໍ່ສາມາດຍົກເລີກ ticket ໄດ້') + "\n                        ")])], 1)], 1)], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("\n              " + _vm._s(_vm.form.ticketCancel ? 'ກຸ່ມນີ້ສາມາດຍົກເລີກ ticket ໄດ້' : 'ກຸ່ມນີ້ບໍ່ສາມາດຍົກເລີກ ticket ໄດ້') + "\n            ")])], 1)], 1)], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "warning",
       "rounded": "",
@@ -3079,7 +3094,7 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
         return _vm.$emit('close-dialog');
       }
     }
-  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("\n        Close\n      ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "rounded": "",
@@ -3088,11 +3103,11 @@ var GroupFormvue_type_template_id_0743e77a_render = function render() {
     on: {
       "click": _vm.commitRecord
     }
-  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
+  }, [_vm._v("\n        Save\n      ")])], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/GroupForm.vue?vue&type=template&id=0743e77a
+// CONCATENATED MODULE: ./components/GroupForm.vue?vue&type=template&id=d870e3c8
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -3155,22 +3170,22 @@ var common = __webpack_require__(11);
       if (this.$refs.form.validate() && !this.isloading) {
         this.isloading = true;
         let api = this.isCreate ? 'api/group/create' : `api/group/update/${this.recordId}`;
-        console.log("API => ", api);
+        console.log('API => ', api);
         if (this.isCreate) {
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
             return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            console.log('Error: ', error);
+            return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
             return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            console.log('Error: ', error);
+            return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -3186,7 +3201,7 @@ var common = __webpack_require__(11);
             this.form.ticketCancel = false;
           }
         }).catch(error => {
-          console.log("Cannot fetch data " + error);
+          console.log('Cannot fetch data ' + error);
         });
       }
     },
@@ -3225,7 +3240,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_GroupFormvue_type_script_lang_js,
-  GroupFormvue_type_template_id_0743e77a_render,
+  GroupFormvue_type_template_id_d870e3c8_render,
   staticRenderFns,
   false,
   null,
@@ -3242,13 +3257,13 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 
 /***/ }),
 
-/***/ 823:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1031);
+var content = __webpack_require__(1034);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

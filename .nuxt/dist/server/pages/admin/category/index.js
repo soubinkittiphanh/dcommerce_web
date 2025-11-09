@@ -1,7 +1,7 @@
 exports.ids = [191,45,55,161];
 exports.modules = {
 
-/***/ 1306:
+/***/ 1309:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -267,7 +267,7 @@ var staticRenderFns = [];
 var myUtil = __webpack_require__(139);
 
 // EXTERNAL MODULE: ./components/CategoryForm.vue + 4 modules
-var CategoryForm = __webpack_require__(538);
+var CategoryForm = __webpack_require__(540);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/category/index.vue?vue&type=script&lang=js
 
@@ -378,7 +378,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var category = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(435).default,CategoryForm: __webpack_require__(538).default,DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(435).default,CategoryForm: __webpack_require__(540).default,DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default})
 
 
 /***/ }),
@@ -712,7 +712,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 538:
+/***/ 540:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

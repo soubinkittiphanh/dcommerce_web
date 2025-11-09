@@ -1,26 +1,26 @@
 exports.ids = [276,55];
 exports.modules = {
 
-/***/ 1217:
+/***/ 1220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(914);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_50f54aff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67d01d70_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(917);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67d01d70_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67d01d70_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67d01d70_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67d01d70_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1218:
+/***/ 1221:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".text-h4[data-v-50f54aff]{font-weight:700}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".text-h4[data-v-67d01d70]{font-weight:700}.v-chip--outlined[data-v-67d01d70]{border-width:1px!important}.caption[data-v-67d01d70]{font-size:.75rem!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1413:
+/***/ 1416:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47,6 +47,9 @@ var components_VCard = __webpack_require__(6);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(127);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
+var VChipGroup = __webpack_require__(529);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(399);
 
@@ -54,7 +57,7 @@ var VCol = __webpack_require__(399);
 var VDataTable = __webpack_require__(409);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(446);
+var VDatePicker = __webpack_require__(444);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(356);
@@ -86,7 +89,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(138);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=template&id=50f54aff&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=template&id=67d01d70&scoped=true
 
 
 
@@ -106,12 +109,13 @@ var components_VToolbar = __webpack_require__(138);
 
 
 
-var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
+
+var _idvue_type_template_id_67d01d70_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-center"
-  }, [_vm._ssrNode("<h1 data-v-50f54aff>ລາຍການ ສະຕັອກສິນຄ້າ</h1> "), _c(VDialog["a" /* default */], {
+  }, [_vm._ssrNode("<h1 data-v-67d01d70>ລາຍການ ສະຕັອກສິນຄ້າ</h1> "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "300px"
     },
@@ -171,7 +175,7 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     attrs: {
       "cols": "12",
       "sm": "6",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4",
@@ -185,11 +189,11 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     staticClass: "text-h4"
   }, [_vm._v(_vm._s(_vm.summaryStats.available))]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
-  }, [_vm._v(_vm._s(_vm.summaryStats.availablePercent) + "% ຂອງທັງຫມົດ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.availablePercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "sm": "6",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4",
@@ -203,11 +207,11 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     staticClass: "text-h4"
   }, [_vm._v(_vm._s(_vm.summaryStats.used))]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
-  }, [_vm._v(_vm._s(_vm.summaryStats.usedPercent) + "% ຂອງທັງຫມົດ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.usedPercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "sm": "6",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4",
@@ -221,11 +225,47 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     staticClass: "text-h4"
   }, [_vm._v(_vm._s(_vm.summaryStats.deleted))]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
-  }, [_vm._v(_vm._s(_vm.summaryStats.deletedPercent) + "% ຂອງທັງຫມົດ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.deletedPercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "sm": "6",
-      "md": "3"
+      "md": "2"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "color": "orange",
+      "dark": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6"
+  }, [_vm._v("ໝົດອາຍຸ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h4"
+  }, [_vm._v(_vm._s(_vm.summaryStats.expired))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.expiredPercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "2"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "color": "amber",
+      "dark": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6"
+  }, [_vm._v("ໃກ້ໝົດອາຍຸ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h4"
+  }, [_vm._v(_vm._s(_vm.summaryStats.expiringSoon))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ໃນ 30 ວັນ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4",
@@ -237,14 +277,14 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     staticClass: "text-h6"
   }, [_vm._v("ມູນຄ່າລວມ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
     staticClass: "text-h4"
-  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.totalCost)))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.totalCost)) + "\n          ")]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
   }, [_vm._v("ກີບ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "4"
+      "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4"
@@ -252,12 +292,12 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     staticClass: "text-subtitle-1"
   }, [_vm._v("ມູນຄ່າສິນຄ້າພ້ອມໃຊ້")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
     staticClass: "text-h5 success--text"
-  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.availableCost)))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.availableCost)) + "\n          ")]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
   }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "4"
+      "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4"
@@ -265,25 +305,38 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     staticClass: "text-subtitle-1"
   }, [_vm._v("ມູນຄ່າສິນຄ້າໃຊ້ງານແລ້ວ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
     staticClass: "text-h5 warning--text"
-  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.usedCost)))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.usedCost)) + "\n          ")]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
   }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "4"
+      "md": "3"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "pa-4"
   }, [_c(components_VCard["d" /* VCardTitle */], {
     staticClass: "text-subtitle-1"
-  }, [_vm._v("ມູນຄ່າສິນຄ້າຖືກລົບ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h5 error--text"
-  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.deletedCost)))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("ມູນຄ່າສິນຄ້າໝົດອາຍຸ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h5 orange--text"
+  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.expiredCost)) + "\n          ")]), _vm._v(" "), _c('div', {
     staticClass: "text-caption"
-  }, [_vm._v("ກີບ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "lg": "5"
+      "md": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("ສິນຄ້າມີລະຫັດ Lot")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "text-h5 info--text"
+  }, [_vm._v(_vm._s(_vm.summaryStats.withLot))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ລາຍການ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "lg": "4"
     }
   }, [_c(VMenu["a" /* default */], {
     ref: "menu1",
@@ -408,14 +461,14 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
   })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "lg": "5"
+      "lg": "4"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.search,
@@ -426,10 +479,10 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     }
   }), _vm._v(" "), _c(VTextField["a" /* default */], {
     attrs: {
-      "append-icon": "mdi-magnify",
+      "append-icon": "mdi-account",
       "label": "ລະຫັດແອັດມິນ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.userId,
@@ -437,6 +490,60 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
         _vm.userId = $$v;
       },
       expression: "userId"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "append-icon": "mdi-barcode",
+      "label": "ຊອກຫາ Lot Number",
+      "single-line": "",
+      "hide-details": ""
+    },
+    on: {
+      "input": _vm.applyFilters
+    },
+    model: {
+      value: _vm.lotFilter,
+      callback: function ($$v) {
+        _vm.lotFilter = $$v;
+      },
+      expression: "lotFilter"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "lg": "4"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.statusOptions,
+      "label": "ກັ່ນຕອງສະຖານະ",
+      "clearable": ""
+    },
+    on: {
+      "change": _vm.applyFilters
+    },
+    model: {
+      value: _vm.statusFilter,
+      callback: function ($$v) {
+        _vm.statusFilter = $$v;
+      },
+      expression: "statusFilter"
+    }
+  }), _vm._v(" "), _c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.expiryOptions,
+      "label": "ກັ່ນຕອງອາຍຸການໃຊ້",
+      "clearable": ""
+    },
+    on: {
+      "change": _vm.applyFilters
+    },
+    model: {
+      value: _vm.expiryFilter,
+      callback: function ($$v) {
+        _vm.expiryFilter = $$v;
+      },
+      expression: "expiryFilter"
     }
   }), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c(VBtn["a" /* default */], {
     staticClass: "primary",
@@ -468,28 +575,7 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-microsoft-excel")]), _vm._v("\n                Export\n              ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "lg": "2"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.statusOptions,
-      "label": "ກັ່ນຕອງສະຖານະ",
-      "clearable": ""
-    },
-    on: {
-      "change": _vm.applyFilters
-    },
-    model: {
-      value: _vm.statusFilter,
-      callback: function ($$v) {
-        _vm.statusFilter = $$v;
-      },
-      expression: "statusFilter"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _vm.filteredData ? _c(VDataTable["a" /* default */], {
+  }, [_vm._v("mdi-microsoft-excel")]), _vm._v("\n                Export\n              ")], 1)], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _vm.filteredData ? _c(VDataTable["a" /* default */], {
     staticClass: "elevation-1",
     attrs: {
       "headers": _vm.headers,
@@ -520,21 +606,131 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
         }, [_vm._v("\n          " + _vm._s(item.status) + "\n        ")])];
       }
     }, {
+      key: `item.lotNumber`,
+      fn: function ({
+        item
+      }) {
+        return [item.lotNumber ? _c(VChip["a" /* default */], {
+          attrs: {
+            "color": "secondary",
+            "outlined": "",
+            "x-small": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-barcode")]), _vm._v("\n          " + _vm._s(item.lotNumber) + "\n        ")], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: `item.expiryDate`,
+      fn: function ({
+        item
+      }) {
+        return [item.expiryDate ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getExpiryColor(item.expiryDate),
+            "dark": "",
+            "x-small": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-calendar")]), _vm._v("\n            " + _vm._s(_vm.formatDate(item.expiryDate)) + "\n          ")], 1), _vm._v(" "), _c('div', {
+          staticClass: "caption mt-1",
+          class: _vm.getExpiryColor(item.expiryDate) + '--text'
+        }, [_vm._v("\n            " + _vm._s(_vm.getExpiryStatus(item.expiryDate)) + "\n          ")])], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: `item.costDetails`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', [_c('div', {
+          staticClass: "font-weight-bold"
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.cost)))]), _vm._v(" "), item.costType ? _c('div', {
+          staticClass: "caption"
+        }, [_vm._v("\n            " + _vm._s(item.costType === 'perUnit' ? 'ຕໍ່ຫົວໜ່ວຍ' : 'ລວມທັງໝົດ') + "\n          ")]) : _vm._e(), _vm._v(" "), item.totalCost && item.costType === 'perUnit' ? _c('div', {
+          staticClass: "caption grey--text"
+        }, [_vm._v("\n            ລວມ: " + _vm._s(_vm.formatNumber(item.totalCost)) + "\n          ")]) : _vm._e()])];
+      }
+    }, {
+      key: `item.location`,
+      fn: function ({
+        item
+      }) {
+        return [item.srcLocationName ? _c('span', [_vm._v(_vm._s(item.srcLocationName))]) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
       key: "top",
       fn: function () {
         return [_c(VToolbar["a" /* default */], {
           attrs: {
             "flat": ""
           }
-        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n            ສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filteredData.length) + " \n            "), _vm.statusFilter ? _c('span', {
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n            ສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filteredData.length) + "\n            "), _vm.statusFilter || _vm.expiryFilter ? _c('span', {
           staticClass: "text-caption"
-        }, [_vm._v("\n              (ກັ່ນຕອງ: " + _vm._s(_vm.statusFilter) + ")\n            ")]) : _vm._e()]), _vm._v(" "), _c(VDivider["a" /* default */], {
+        }, [_vm._v("\n              (ກັ່ນຕອງ: " + _vm._s(_vm.statusFilter || _vm.expiryFilter) + ")\n            ")]) : _vm._e()]), _vm._v(" "), _c(VDivider["a" /* default */], {
           staticClass: "mx-4",
           attrs: {
             "inset": "",
             "vertical": ""
           }
-        }), _vm._v(" "), _c(VSpacer["a" /* default */])], 1)];
+        }), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChipGroup["a" /* default */], [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.expiryFilter === 'expiring' ? 'warning' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('expiring');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-clock-alert")]), _vm._v("\n              ໃກ້ໝົດອາຍຸ\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.expiryFilter === 'expired' ? 'error' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('expired');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-calendar-remove")]), _vm._v("\n              ໝົດອາຍຸແລ້ວ\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.lotFilter ? 'info' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('withLot');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-barcode")]), _vm._v("\n              ມີ Lot\n            ")], 1)], 1)], 1)];
       },
       proxy: true
     }, {
@@ -563,7 +759,7 @@ var _idvue_type_template_id_50f54aff_scoped_true_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/stock/_id/index.vue?vue&type=template&id=50f54aff&scoped=true
+// CONCATENATED MODULE: ./pages/admin/stock/_id/index.vue?vue&type=template&id=67d01d70&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -615,18 +811,35 @@ var common = __webpack_require__(11);
       selectedCardType: '',
       search: '',
       statusFilter: null,
+      expiryFilter: null,
+      lotFilter: '',
       statusOptions: ['ພ້ອມໃຊ້', 'ໃຊ້ງານແລ້ວ', 'ຖືກລົບ'],
+      expiryOptions: [{
+        text: 'ໝົດອາຍຸແລ້ວ',
+        value: 'expired'
+      }, {
+        text: 'ໃກ້ໝົດອາຍຸ (30 ວັນ)',
+        value: 'expiring'
+      }, {
+        text: 'ຍັງໃຊ້ໄດ້',
+        value: 'valid'
+      }],
       summaryStats: {
         available: 0,
         used: 0,
         deleted: 0,
+        expired: 0,
+        expiringSoon: 0,
+        withLot: 0,
         totalCost: 0,
         availableCost: 0,
         usedCost: 0,
         deletedCost: 0,
+        expiredCost: 0,
         availablePercent: 0,
         usedPercent: 0,
-        deletedPercent: 0
+        deletedPercent: 0,
+        expiredPercent: 0
       },
       menu1: false,
       menu2: false,
@@ -642,7 +855,20 @@ var common = __webpack_require__(11);
       }, {
         text: 'ຕົ້ນທຶນ',
         align: 'center',
-        value: 'cost'
+        value: 'costDetails',
+        sortable: false
+      }, {
+        text: 'Lot Number',
+        align: 'center',
+        value: 'lotNumber'
+      }, {
+        text: 'ວັນໝົດອາຍຸ',
+        align: 'center',
+        value: 'expiryDate'
+      }, {
+        text: 'ສະຖານທີ່',
+        align: 'center',
+        value: 'location'
       }, {
         text: 'ວັນທີ',
         align: 'center',
@@ -682,6 +908,9 @@ var common = __webpack_require__(11);
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
+    },
+    user() {
+      return this.$auth.user || '';
     }
   },
   methods: {
@@ -700,47 +929,140 @@ var common = __webpack_require__(11);
           return 'grey';
       }
     },
+    getExpiryColor(expiryDate) {
+      if (!expiryDate) return 'grey';
+      const today = new Date();
+      const expiry = new Date(expiryDate);
+      const diffTime = expiry.getTime() - today.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays < 0) return 'error';
+      if (diffDays <= 7) return 'red';
+      if (diffDays <= 30) return 'orange';
+      return 'success';
+    },
+    getExpiryStatus(expiryDate) {
+      if (!expiryDate) return '';
+      const today = new Date();
+      const expiry = new Date(expiryDate);
+      const diffTime = expiry.getTime() - today.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays < 0) return `ໝົດອາຍຸ ${Math.abs(diffDays)} ວັນແລ້ວ`;
+      if (diffDays === 0) return 'ໝົດອາຍຸມື້ນີ້';
+      if (diffDays <= 7) return `ອີກ ${diffDays} ວັນໝົດອາຍຸ`;
+      if (diffDays <= 30) return `ອີກ ${diffDays} ວັນໝົດອາຍຸ`;
+      return `ອີກ ${diffDays} ວັນໝົດອາຍຸ`;
+    },
     calculateSummaryStats() {
       const total = this.loaddata.length;
       const available = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').length;
       const used = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').length;
       const deleted = this.loaddata.filter(item => item.status === 'ຖືກລົບ').length;
+
+      // Calculate expired and expiring items
+      const today = new Date();
+      const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
+      const expired = this.loaddata.filter(item => {
+        return item.expiryDate && new Date(item.expiryDate) < today;
+      }).length;
+      const expiringSoon = this.loaddata.filter(item => {
+        if (!item.expiryDate) return false;
+        const expiry = new Date(item.expiryDate);
+        return expiry >= today && expiry <= thirtyDaysFromNow;
+      }).length;
+      const withLot = this.loaddata.filter(item => item.lotNumber).length;
+
+      // Calculate costs
       const totalCost = this.loaddata.reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
       const availableCost = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
       const usedCost = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
       const deletedCost = this.loaddata.filter(item => item.status === 'ຖືກລົບ').reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
+      const expiredCost = this.loaddata.filter(item => item.expiryDate && new Date(item.expiryDate) < today).reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
       this.summaryStats = {
         available,
         used,
         deleted,
+        expired,
+        expiringSoon,
+        withLot,
         totalCost,
         availableCost,
         usedCost,
         deletedCost,
+        expiredCost,
         availablePercent: total > 0 ? (available / total * 100).toFixed(1) : 0,
         usedPercent: total > 0 ? (used / total * 100).toFixed(1) : 0,
-        deletedPercent: total > 0 ? (deleted / total * 100).toFixed(1) : 0
+        deletedPercent: total > 0 ? (deleted / total * 100).toFixed(1) : 0,
+        expiredPercent: total > 0 ? (expired / total * 100).toFixed(1) : 0
       };
     },
     applyFilters() {
+      let filtered = [...this.loaddata];
+
+      // Status filter
       if (this.statusFilter) {
-        this.filteredData = this.loaddata.filter(item => item.status === this.statusFilter);
-      } else {
-        this.filteredData = this.loaddata;
+        filtered = filtered.filter(item => item.status === this.statusFilter);
       }
+
+      // Expiry filter
+      if (this.expiryFilter) {
+        const today = new Date();
+        const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
+        filtered = filtered.filter(item => {
+          if (!item.expiryDate) return this.expiryFilter === 'valid';
+          const expiry = new Date(item.expiryDate);
+          switch (this.expiryFilter) {
+            case 'expired':
+              return expiry < today;
+            case 'expiring':
+              return expiry >= today && expiry <= thirtyDaysFromNow;
+            case 'valid':
+              return expiry > thirtyDaysFromNow;
+            default:
+              return true;
+          }
+        });
+      }
+
+      // Lot filter
+      if (this.lotFilter) {
+        filtered = filtered.filter(item => item.lotNumber && item.lotNumber.toLowerCase().includes(this.lotFilter.toLowerCase()));
+      }
+      this.filteredData = filtered;
+    },
+    setQuickFilter(filterType) {
+      switch (filterType) {
+        case 'expiring':
+          this.expiryFilter = this.expiryFilter === 'expiring' ? null : 'expiring';
+          break;
+        case 'expired':
+          this.expiryFilter = this.expiryFilter === 'expired' ? null : 'expired';
+          break;
+        case 'withLot':
+          this.lotFilter = this.lotFilter ? '' : 'LOT';
+          break;
+      }
+      this.applyFilters();
     },
     async fetchData() {
       this.isloading = true;
       const prodId = this.$route.params.id;
       console.log('product_id: ' + prodId);
-      await this.$axios.get(`card_f/?pro_id=${prodId}&fDate=${this.date}&tDate=${this.date2}&userId=${this.userId}`).then(res => {
-        this.loaddata = res.data.map(el => {
+      try {
+        const response = await this.$axios.get(`card_f/?pro_id=${prodId}&fDate=${this.date}&tDate=${this.date2}&userId=${this.userId}&includeEnhanced=true`);
+        this.loaddata = response.data.map(el => {
+          var _el$location;
           return {
             card_id: el.id,
             pro_id: el.product_id,
             card_number: el.card_number,
             cost: el.cost,
-            inputter: el.inputter + ' ' + el.cus_name,
+            costPerUnit: el.costPerUnit,
+            totalCost: el.totalCost,
+            costType: el.costType,
+            lotNumber: el.lotNumber,
+            expiryDate: el.expiryDate,
+            srcLocationName: ((_el$location = el.location) === null || _el$location === void 0 ? void 0 : _el$location.name) || '',
+            inputter: el.inputter + ' ' + (el.cus_name || ''),
             status: el.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : el.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້',
             input_date_time: el.card_input_date,
             updater: el.update_user,
@@ -750,40 +1072,46 @@ var common = __webpack_require__(11);
         });
         this.calculateSummaryStats();
         this.applyFilters();
-      }).catch(er => {
-        this.message = er;
-        console.log('Error: ' + er);
-      });
+      } catch (error) {
+        this.message = error.message || 'Error loading data';
+        console.log('Error: ' + error);
+      }
       this.isloading = false;
     },
     formatDate(date) {
       if (!date) return null;
-      console.log('DATE FORMAT METHOD1: ' + date);
+      if (typeof date === 'string' && date.includes('/')) return date;
       const formattedDate = this.formatDateToISO(date);
       const [year, month, day] = formattedDate.split('-');
-      return `${month}/${day}/${year}`;
+      return `${day}/${month}/${year}`;
     },
     parseDate(date) {
-      console.log('DATE PARSE METHOD1: ' + date);
       if (!date) return null;
       const [month, day, year] = date.split('/');
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
     exportToExcel() {
       const exportData = this.filteredData.map(item => ({
-        'ID': item.card_id,
-        'ລະຫັດສິນຄ້າ': item.pro_id,
-        'ຕົ້ນທຶນ': item.cost,
-        'ວັນທີ': item.input_date_time,
-        'Admin': item.inputter,
-        'ສະຖານະ': item.status,
-        'ຜູ້ລົບ': item.updater,
-        'ເວລາລົບ': item.update_time
+        ID: item.card_id,
+        ລະຫັດສິນຄ້າ: item.pro_id,
+        ຕົ້ນທຶນ: item.cost,
+        ຕົ້ນທຶນຕໍ່ຫົວໜ່ວຍ: item.costPerUnit || '',
+        ຕົ້ນທຶນລວມ: item.totalCost || '',
+        ປະເພດຄ່າໃຊ້ຈ່າຍ: item.costType || '',
+        'Lot Number': item.lotNumber || '',
+        ວັນໝົດອາຍຸ: item.expiryDate || '',
+        ສະຖານທີ່: item.srcLocationName || '',
+        ວັນທີ: item.input_date_time,
+        Admin: item.inputter,
+        ສະຖານະ: item.status,
+        ຜູ້ລົບ: item.updater || '',
+        ເວລາລົບ: item.update_time || ''
       }));
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData);
       const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Stock Report');
-      this.$xlsx.writeFile(workbook, `stock_report_${this.date}_to_${this.date2}.xlsx`);
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Enhanced Stock Report');
+      const filename = `enhanced_stock_report_${this.date}_to_${this.date2}.xlsx`;
+      this.$xlsx.writeFile(workbook, filename);
     },
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date);
@@ -795,19 +1123,18 @@ var common = __webpack_require__(11);
     async delCard(id) {
       this.isloading = true;
       const prodId = this.$route.params.id;
-      const user = this.$store.getters.loggedInUser.id;
-      console.log('product_id: ' + prodId + user);
-      await this.$axios.post('card_x', {
-        card_id: id.card_id,
-        user_id: user
-      }).then(res => {
-        this.message = res.data;
-        console.log(this.message);
+      const user = this.user.id;
+      try {
+        const response = await this.$axios.post('card_x', {
+          card_id: id.card_id,
+          user_id: user
+        });
+        this.message = response.data;
         this.fetchData();
-      }).catch(er => {
-        this.message = er;
-        console.log('Error: ' + er);
-      });
+      } catch (error) {
+        this.message = error.message || 'Error deleting card';
+        console.log('Error: ' + error);
+      }
       this.isloading = false;
     }
   }
@@ -823,7 +1150,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1217)
+  var style0 = __webpack_require__(1220)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -832,11 +1159,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   stock_idvue_type_script_lang_js,
-  _idvue_type_template_id_50f54aff_scoped_true_render,
+  _idvue_type_template_id_67d01d70_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "50f54aff",
+  "67d01d70",
   "54c0b213"
   
 )
@@ -1617,7 +1944,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 446:
+/***/ 444:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3086,20 +3413,561 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
-/***/ 914:
+/***/ 464:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1218);
+var content = __webpack_require__(465);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("d67becdc", content, true)
+
+/***/ }),
+
+/***/ 465:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-slide-group{display:flex}.v-slide-group:not(.v-slide-group--has-affixes)>.v-slide-group__next,.v-slide-group:not(.v-slide-group--has-affixes)>.v-slide-group__prev{display:none}.v-slide-group.v-item-group>.v-slide-group__next,.v-slide-group.v-item-group>.v-slide-group__prev{cursor:pointer}.v-slide-item{display:inline-flex;flex:0 1 auto}.v-slide-group__next,.v-slide-group__prev{align-items:center;display:flex;flex:0 1 52px;justify-content:center;min-width:52px}.v-slide-group__content{display:flex;flex:1 0 auto;position:relative;transition:.3s cubic-bezier(.25,.8,.5,1);white-space:nowrap}.v-slide-group__wrapper{contain:content;display:flex;flex:1 1 auto;overflow:hidden}.v-slide-group__next--disabled,.v-slide-group__prev--disabled{pointer-events:none}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 471:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export calculateUpdatedOffset */
+/* unused harmony export calculateCenteredOffset */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(464);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
+/* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
+/* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54);
+/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(52);
+/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(136);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
+// Styles
+ // Components
+
+
+ // Extensions
+
+ // Mixins
+
+ // Directives
+
+
+ // Utilities
+
+
+
+function bias(val) {
+  const c = 0.501;
+  const x = Math.abs(val);
+  return Math.sign(val) * (x / ((1 / c - 2) * (1 - x) + 1));
+}
+function calculateUpdatedOffset(selectedElement, widths, rtl, currentScrollOffset) {
+  const clientWidth = selectedElement.clientWidth;
+  const offsetLeft = rtl ? widths.content - selectedElement.offsetLeft - clientWidth : selectedElement.offsetLeft;
+  if (rtl) {
+    currentScrollOffset = -currentScrollOffset;
+  }
+  const totalWidth = widths.wrapper + currentScrollOffset;
+  const itemOffset = clientWidth + offsetLeft;
+  const additionalOffset = clientWidth * 0.4;
+  if (offsetLeft <= currentScrollOffset) {
+    currentScrollOffset = Math.max(offsetLeft - additionalOffset, 0);
+  } else if (totalWidth <= itemOffset) {
+    currentScrollOffset = Math.min(currentScrollOffset - (totalWidth - itemOffset - additionalOffset), widths.content - widths.wrapper);
+  }
+  return rtl ? -currentScrollOffset : currentScrollOffset;
+}
+function calculateCenteredOffset(selectedElement, widths, rtl) {
+  const {
+    offsetLeft,
+    clientWidth
+  } = selectedElement;
+  if (rtl) {
+    const offsetCentered = widths.content - offsetLeft - clientWidth / 2 - widths.wrapper / 2;
+    return -Math.min(widths.content - widths.wrapper, Math.max(0, offsetCentered));
+  } else {
+    const offsetCentered = offsetLeft + clientWidth / 2 - widths.wrapper / 2;
+    return Math.min(widths.content - widths.wrapper, Math.max(0, offsetCentered));
+  }
+}
+const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__[/* BaseItemGroup */ "a"], _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).extend({
+  name: 'base-slide-group',
+  directives: {
+    Resize: _directives_resize__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"],
+    Touch: _directives_touch__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]
+  },
+  props: {
+    activeClass: {
+      type: String,
+      default: 'v-slide-item--active'
+    },
+    centerActive: Boolean,
+    nextIcon: {
+      type: String,
+      default: '$next'
+    },
+    prevIcon: {
+      type: String,
+      default: '$prev'
+    },
+    showArrows: {
+      type: [Boolean, String],
+      validator: v => typeof v === 'boolean' || ['always', 'desktop', 'mobile'].includes(v)
+    }
+  },
+  data: () => ({
+    isOverflowing: false,
+    resizeTimeout: 0,
+    startX: 0,
+    isSwipingHorizontal: false,
+    isSwiping: false,
+    scrollOffset: 0,
+    widths: {
+      content: 0,
+      wrapper: 0
+    }
+  }),
+  computed: {
+    canTouch() {
+      return typeof window !== 'undefined';
+    },
+    __cachedNext() {
+      return this.genTransition('next');
+    },
+    __cachedPrev() {
+      return this.genTransition('prev');
+    },
+    classes() {
+      return {
+        ..._VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__[/* BaseItemGroup */ "a"].options.computed.classes.call(this),
+        'v-slide-group': true,
+        'v-slide-group--has-affixes': this.hasAffixes,
+        'v-slide-group--is-overflowing': this.isOverflowing
+      };
+    },
+    hasAffixes() {
+      switch (this.showArrows) {
+        // Always show arrows on desktop & mobile
+        case 'always':
+          return true;
+        // Always show arrows on desktop
+
+        case 'desktop':
+          return !this.isMobile;
+        // Show arrows on mobile when overflowing.
+        // This matches the default 2.2 behavior
+
+        case true:
+          return this.isOverflowing || Math.abs(this.scrollOffset) > 0;
+        // Always show on mobile
+
+        case 'mobile':
+          return this.isMobile || this.isOverflowing || Math.abs(this.scrollOffset) > 0;
+        // https://material.io/components/tabs#scrollable-tabs
+        // Always show arrows when
+        // overflowed on desktop
+
+        default:
+          return !this.isMobile && (this.isOverflowing || Math.abs(this.scrollOffset) > 0);
+      }
+    },
+    hasNext() {
+      if (!this.hasAffixes) return false;
+      const {
+        content,
+        wrapper
+      } = this.widths; // Check one scroll ahead to know the width of right-most item
+
+      return content > Math.abs(this.scrollOffset) + wrapper;
+    },
+    hasPrev() {
+      return this.hasAffixes && this.scrollOffset !== 0;
+    }
+  },
+  watch: {
+    internalValue: 'setWidths',
+    // When overflow changes, the arrows alter
+    // the widths of the content and wrapper
+    // and need to be recalculated
+    isOverflowing: 'setWidths',
+    scrollOffset(val) {
+      if (this.$vuetify.rtl) val = -val;
+      let scroll = val <= 0 ? bias(-val) : val > this.widths.content - this.widths.wrapper ? -(this.widths.content - this.widths.wrapper) + bias(this.widths.content - this.widths.wrapper - val) : -val;
+      if (this.$vuetify.rtl) scroll = -scroll;
+      this.$refs.content.style.transform = `translateX(${scroll}px)`;
+    }
+  },
+  mounted() {
+    if (typeof ResizeObserver !== 'undefined') {
+      const obs = new ResizeObserver(() => {
+        this.onResize();
+      });
+      obs.observe(this.$el);
+      obs.observe(this.$refs.content);
+      this.$on('hook:destroyed', () => {
+        obs.disconnect();
+      });
+    } else {
+      let itemsLength = 0;
+      this.$on('hook:beforeUpdate', () => {
+        var _a;
+        itemsLength = (((_a = this.$refs.content) === null || _a === void 0 ? void 0 : _a.children) || []).length;
+      });
+      this.$on('hook:updated', () => {
+        var _a;
+        if (itemsLength === (((_a = this.$refs.content) === null || _a === void 0 ? void 0 : _a.children) || []).length) return;
+        this.setWidths();
+      });
+    }
+  },
+  methods: {
+    onScroll() {
+      this.$refs.wrapper.scrollLeft = 0;
+    },
+    onFocusin(e) {
+      if (!this.isOverflowing) return; // Focused element is likely to be the root of an item, so a
+      // breadth-first search will probably find it in the first iteration
+
+      for (const el of Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__[/* composedPath */ "g"])(e)) {
+        for (const vm of this.items) {
+          if (vm.$el === el) {
+            this.scrollOffset = calculateUpdatedOffset(vm.$el, this.widths, this.$vuetify.rtl, this.scrollOffset);
+            return;
+          }
+        }
+      }
+    },
+    // Always generate next for scrollable hint
+    genNext() {
+      const slot = this.$scopedSlots.next ? this.$scopedSlots.next({}) : this.$slots.next || this.__cachedNext;
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__next',
+        class: {
+          'v-slide-group__next--disabled': !this.hasNext
+        },
+        on: {
+          click: () => this.onAffixClick('next')
+        },
+        key: 'next'
+      }, [slot]);
+    },
+    genContent() {
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__content',
+        ref: 'content',
+        on: {
+          focusin: this.onFocusin
+        }
+      }, this.$slots.default);
+    },
+    genData() {
+      return {
+        class: this.classes,
+        directives: [{
+          name: 'resize',
+          value: this.onResize
+        }]
+      };
+    },
+    genIcon(location) {
+      let icon = location;
+      if (this.$vuetify.rtl && location === 'prev') {
+        icon = 'next';
+      } else if (this.$vuetify.rtl && location === 'next') {
+        icon = 'prev';
+      }
+      const upperLocation = `${location[0].toUpperCase()}${location.slice(1)}`;
+      const hasAffix = this[`has${upperLocation}`];
+      if (!this.showArrows && !hasAffix) return null;
+      return this.$createElement(_VIcon__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
+        props: {
+          disabled: !hasAffix
+        }
+      }, this[`${icon}Icon`]);
+    },
+    // Always generate prev for scrollable hint
+    genPrev() {
+      const slot = this.$scopedSlots.prev ? this.$scopedSlots.prev({}) : this.$slots.prev || this.__cachedPrev;
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__prev',
+        class: {
+          'v-slide-group__prev--disabled': !this.hasPrev
+        },
+        on: {
+          click: () => this.onAffixClick('prev')
+        },
+        key: 'prev'
+      }, [slot]);
+    },
+    genTransition(location) {
+      return this.$createElement(_transitions__WEBPACK_IMPORTED_MODULE_2__[/* VFadeTransition */ "d"], [this.genIcon(location)]);
+    },
+    genWrapper() {
+      return this.$createElement('div', {
+        staticClass: 'v-slide-group__wrapper',
+        directives: [{
+          name: 'touch',
+          value: {
+            start: e => this.overflowCheck(e, this.onTouchStart),
+            move: e => this.overflowCheck(e, this.onTouchMove),
+            end: e => this.overflowCheck(e, this.onTouchEnd)
+          }
+        }],
+        ref: 'wrapper',
+        on: {
+          scroll: this.onScroll
+        }
+      }, [this.genContent()]);
+    },
+    calculateNewOffset(direction, widths, rtl, currentScrollOffset) {
+      const sign = rtl ? -1 : 1;
+      const newAbosluteOffset = sign * currentScrollOffset + (direction === 'prev' ? -1 : 1) * widths.wrapper;
+      return sign * Math.max(Math.min(newAbosluteOffset, widths.content - widths.wrapper), 0);
+    },
+    onAffixClick(location) {
+      this.$emit(`click:${location}`);
+      this.scrollTo(location);
+    },
+    onResize() {
+      /* istanbul ignore next */
+      if (this._isDestroyed) return;
+      this.setWidths();
+    },
+    onTouchStart(e) {
+      const {
+        content
+      } = this.$refs;
+      this.startX = this.scrollOffset + e.touchstartX;
+      content.style.setProperty('transition', 'none');
+      content.style.setProperty('willChange', 'transform');
+    },
+    onTouchMove(e) {
+      if (!this.canTouch) return;
+      if (!this.isSwiping) {
+        // only calculate disableSwipeHorizontal during the first onTouchMove invoke
+        // in order to ensure disableSwipeHorizontal value is consistent between onTouchStart and onTouchEnd
+        const diffX = e.touchmoveX - e.touchstartX;
+        const diffY = e.touchmoveY - e.touchstartY;
+        this.isSwipingHorizontal = Math.abs(diffX) > Math.abs(diffY);
+        this.isSwiping = true;
+      }
+      if (this.isSwipingHorizontal) {
+        // sliding horizontally
+        this.scrollOffset = this.startX - e.touchmoveX; // temporarily disable window vertical scrolling
+
+        document.documentElement.style.overflowY = 'hidden';
+      }
+    },
+    onTouchEnd() {
+      if (!this.canTouch) return;
+      const {
+        content,
+        wrapper
+      } = this.$refs;
+      const maxScrollOffset = content.clientWidth - wrapper.clientWidth;
+      content.style.setProperty('transition', null);
+      content.style.setProperty('willChange', null);
+      if (this.$vuetify.rtl) {
+        /* istanbul ignore else */
+        if (this.scrollOffset > 0 || !this.isOverflowing) {
+          this.scrollOffset = 0;
+        } else if (this.scrollOffset <= -maxScrollOffset) {
+          this.scrollOffset = -maxScrollOffset;
+        }
+      } else {
+        /* istanbul ignore else */
+        if (this.scrollOffset < 0 || !this.isOverflowing) {
+          this.scrollOffset = 0;
+        } else if (this.scrollOffset >= maxScrollOffset) {
+          this.scrollOffset = maxScrollOffset;
+        }
+      }
+      this.isSwiping = false; // rollback whole page scrolling to default
+
+      document.documentElement.style.removeProperty('overflow-y');
+    },
+    overflowCheck(e, fn) {
+      e.stopPropagation();
+      this.isOverflowing && fn(e);
+    },
+    scrollIntoView
+    /* istanbul ignore next */() {
+      if (!this.selectedItem && this.items.length) {
+        const lastItemPosition = this.items[this.items.length - 1].$el.getBoundingClientRect();
+        const wrapperPosition = this.$refs.wrapper.getBoundingClientRect();
+        if (this.$vuetify.rtl && wrapperPosition.right < lastItemPosition.right || !this.$vuetify.rtl && wrapperPosition.left > lastItemPosition.left) {
+          this.scrollTo('prev');
+        }
+      }
+      if (!this.selectedItem) {
+        return;
+      }
+      if (this.selectedIndex === 0 || !this.centerActive && !this.isOverflowing) {
+        this.scrollOffset = 0;
+      } else if (this.centerActive) {
+        this.scrollOffset = calculateCenteredOffset(this.selectedItem.$el, this.widths, this.$vuetify.rtl);
+      } else if (this.isOverflowing) {
+        this.scrollOffset = calculateUpdatedOffset(this.selectedItem.$el, this.widths, this.$vuetify.rtl, this.scrollOffset);
+      }
+    },
+    scrollTo
+    /* istanbul ignore next */(location) {
+      this.scrollOffset = this.calculateNewOffset(location, {
+        // Force reflow
+        content: this.$refs.content ? this.$refs.content.clientWidth : 0,
+        wrapper: this.$refs.wrapper ? this.$refs.wrapper.clientWidth : 0
+      }, this.$vuetify.rtl, this.scrollOffset);
+    },
+    setWidths() {
+      window.requestAnimationFrame(() => {
+        if (this._isDestroyed) return;
+        const {
+          content,
+          wrapper
+        } = this.$refs;
+        this.widths = {
+          content: content ? content.clientWidth : 0,
+          wrapper: wrapper ? wrapper.clientWidth : 0
+        }; // https://github.com/vuetifyjs/vuetify/issues/13212
+        // We add +1 to the wrappers width to prevent an issue where the `clientWidth`
+        // gets calculated wrongly by the browser if using a different zoom-level.
+
+        this.isOverflowing = this.widths.wrapper + 1 < this.widths.content;
+        this.scrollIntoView();
+      });
+    }
+  },
+  render(h) {
+    return h('div', this.genData(), [this.genPrev(), this.genWrapper(), this.genNext()]);
+  }
+});
+/* harmony default export */ __webpack_exports__["b"] = (BaseSlideGroup.extend({
+  name: 'v-slide-group',
+  provide() {
+    return {
+      slideGroup: this
+    };
+  }
+}));
+
+/***/ }),
+
+/***/ 478:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(479);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("44600667", content, true)
+
+/***/ }),
+
+/***/ 479:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-chip-group .v-chip{margin:4px 8px 4px 0}.v-chip-group .v-chip--active{color:inherit}.v-chip-group .v-chip--active.v-chip--no-color:after{opacity:.22}.v-chip-group .v-chip--active.v-chip--no-color:focus:after{opacity:.32}.v-chip-group .v-slide-group__content{padding:4px 0}.v-chip-group--column .v-slide-group__content{flex-wrap:wrap;max-width:100%;white-space:normal}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 529:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(478);
+/* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(471);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+// Styles
+ // Extensions
+
+ // Mixins
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(_VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseSlideGroup */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).extend({
+  name: 'v-chip-group',
+  provide() {
+    return {
+      chipGroup: this
+    };
+  },
+  props: {
+    column: Boolean
+  },
+  computed: {
+    classes() {
+      return {
+        ..._VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseSlideGroup */ "a"].options.computed.classes.call(this),
+        'v-chip-group': true,
+        'v-chip-group--column': this.column
+      };
+    }
+  },
+  watch: {
+    column(val) {
+      if (val) this.scrollOffset = 0;
+      this.$nextTick(this.onResize);
+    }
+  },
+  methods: {
+    genData() {
+      return this.setTextColor(this.color, {
+        ..._VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseSlideGroup */ "a"].options.methods.genData.call(this)
+      });
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 917:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1221);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6ec5a9c4", content, true, context)
+  add("319e6840", content, true, context)
 };
 
 /***/ })

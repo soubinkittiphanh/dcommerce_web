@@ -41,7 +41,13 @@
         @reload="rebuildStock"
       ></card-form>
     </v-dialog>
-    <v-dialog v-model="editProductForm" fullscreen persistent scrollable transition="dialog-bottom-transition">
+    <v-dialog
+      v-model="editProductForm"
+      fullscreen
+      persistent
+      scrollable
+      transition="dialog-bottom-transition"
+    >
       <product-form
         :key="productFormKey"
         @close-dialog="editProductForm = false"
@@ -50,7 +56,13 @@
         :isEdit="editProductForm"
       ></product-form>
     </v-dialog>
-    <v-dialog v-model="productFormCreate" fullscreen persistent scrollable transition="dialog-bottom-transition">
+    <v-dialog
+      v-model="productFormCreate"
+      fullscreen
+      persistent
+      scrollable
+      transition="dialog-bottom-transition"
+    >
       <product-form-create
         @close-dialog="productFormCreate = false"
         @refresh="fetchData"
@@ -325,35 +337,76 @@ export default {
   },
   methods: {
     exportToExcel() {
+      // Get all unique price list grades from the data
+      const allGrades = new Set()
+      this.loaddata.forEach((item) => {
+        if (item.priceLists && item.priceLists.length > 0) {
+          item.priceLists.forEach((priceList) => {
+            if (priceList.grade) {
+              allGrades.add(priceList.grade)
+            }
+          })
+        }
+      })
+
+      // Convert to sorted array for consistent column order
+      const sortedGrades = Array.from(allGrades).sort()
+
+      // Base header map
       const headerMap = {
         id: 'ID',
         co_name: 'Company Name',
         pro_id: 'Product Code',
         pro_name: 'Product Name',
         barCode: 'Barcode',
-        pro_cost_price: 'Cost Price',
-        pro_price: 'Product Price',
+        cost_price: 'Cost Price',
+        pro_price: 'Base Price',
+        effectivePrice: 'Current Price',
         pro_desc: 'Product Description',
-        pro_category_desc: 'Category Description',
-        pro_card_count: 'Stock',
+        categ_name: 'Category',
+        card_count: 'Stock',
         minStock: 'Minimum Stock',
       }
 
-      // Transform data with only required fields
+      // Add dynamic price list columns
+      sortedGrades.forEach((grade) => {
+        headerMap[`price_${grade}`] = `Price ${grade}`
+      })
+
+      // Transform data with dynamic price list fields
       const transformedData = this.loaddata.map((item) => {
         let newItem = {}
+
+        // Map base fields
         Object.keys(headerMap).forEach((key) => {
-          if (item.hasOwnProperty(key)) {
-            newItem[headerMap[key]] = item[key] // Map only required fields
+          if (key.startsWith('price_')) {
+            // Handle dynamic price list fields
+            const grade = key.replace('price_', '')
+            const priceList = item.priceLists?.find((pl) => pl.grade === grade)
+            newItem[headerMap[key]] = priceList ? priceList.amount : ''
+          } else if (item.hasOwnProperty(key)) {
+            newItem[headerMap[key]] = item[key]
           }
         })
+
         return newItem
       })
 
+      // Create Excel file
       const worksheet = this.$xlsx.utils.json_to_sheet(transformedData)
       const workbook = this.$xlsx.utils.book_new()
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
-      this.$xlsx.writeFile(workbook, 'data.xlsx')
+      this.$xlsx.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        'Products with Price Lists'
+      )
+
+      // Generate filename with timestamp
+      const timestamp = new Date().toISOString().slice(0, 10)
+      this.$xlsx.writeFile(
+        workbook,
+        `products_with_pricelists_${timestamp}.xlsx`
+      )
     },
     ...mapActions([
       'setSelectedTerminal',
@@ -2663,7 +2716,9 @@ export default {
       this.isloading = true
       // https://nodejsclusters-124154-0.cloudclusters.net/product_f
       await this.$axios
-        .get(`product_f/${this.currentSelectedLocation['id']}`)
+        .get(`product_f/${this.currentSelectedLocation['id']}`, {
+          params: { include: 'priceList' },
+        })
         .then((res) => {
           this.initProduct(res.data.data)
           this.loaddata = res.data.data.map((el) => {
@@ -2688,6 +2743,7 @@ export default {
               functionEdit: el.pro_id,
               functionStock: el.pro_id,
               pricing: el.pro_id,
+              priceLists: el.priceLists,
               functionStockView: el.pro_id,
               status: el.pro_id,
             }

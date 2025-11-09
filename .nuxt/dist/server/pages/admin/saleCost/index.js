@@ -1,7 +1,7 @@
 exports.ids = [264,54,55,121,124,125,161,316];
 exports.modules = {
 
-/***/ 1354:
+/***/ 1357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,7 +21,7 @@ var VChip = __webpack_require__(127);
 var VCol = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(446);
+var VDatePicker = __webpack_require__(444);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(356);
@@ -553,13 +553,13 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/saleCost/index.vue?vue&type=template&id=38591912
 
 // EXTERNAL MODULE: ./components/product/ProductForm.vue + 3 modules
-var ProductForm = __webpack_require__(467);
+var ProductForm = __webpack_require__(468);
 
 // EXTERNAL MODULE: ./components/PriceListForm.vue + 4 modules
-var PriceListForm = __webpack_require__(445);
+var PriceListForm = __webpack_require__(446);
 
 // EXTERNAL MODULE: ./components/product/ProductFormCreate.vue + 4 modules
-var ProductFormCreate = __webpack_require__(466);
+var ProductFormCreate = __webpack_require__(467);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -1925,474 +1925,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 445:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(403);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(442);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(399);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(409);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(396);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(398);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
-var VSelect = __webpack_require__(19);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(401);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(36);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=0f4cd630
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var PriceListFormvue_type_template_id_0f4cd630_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
-    staticClass: "ma-0",
-    attrs: {
-      "color": "primary",
-      "label": "",
-      "text-color": "white"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "start": ""
-    }
-  }, [_vm._v("mdi-label")]), _vm._v("\n        ຈັດການ ລາຍການລາຄາ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
-    ref: "form"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* ລະຫັດສິນຄ້າ",
-      "disabled": ""
-    },
-    model: {
-      value: _vm.form.productId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "productId", $$v);
-      },
-      expression: "form.productId"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* Name",
-      "required": "",
-      "rules": _vm.nameRules
-    },
-    model: {
-      value: _vm.form.name,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "name", $$v);
-      },
-      expression: "form.name"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "items": _vm.grades,
-      "label": "Grade *"
-    },
-    model: {
-      value: _vm.form.grade,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "grade", $$v);
-      },
-      expression: "form.grade"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* ລາຄາ",
-      "required": "",
-      "rules": _vm.nameRules
-    },
-    model: {
-      value: _vm.form.amount,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "amount", $$v);
-      },
-      expression: "form.amount"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "code",
-      "item-value": "id",
-      "items": _vm.findAllCurrency,
-      "label": "Currency*"
-    },
-    model: {
-      value: _vm.form.currencyId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "currencyId", $$v);
-      },
-      expression: "form.currencyId"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.type,
-      "label": "ຮູບແບບລາຄາ",
-      "required": ""
-    },
-    model: {
-      value: _vm.form.type,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "type", $$v);
-      },
-      expression: "form.type"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VCheckbox["a" /* default */], {
-    attrs: {
-      "label": "Is Active"
-    },
-    model: {
-      value: _vm.form.isActive,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "isActive", _vm._n($$v));
-      },
-      expression: "form.isActive"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.commitRecord
-    }
-  }, [_vm._v("\n              ເພີ່ມ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")]), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VDataTable["a" /* default */], {
-    attrs: {
-      "headers": _vm.headers,
-      "search": _vm.search,
-      "items": _vm.entries
-    },
-    scopedSlots: _vm._u([{
-      key: `item.id`,
-      fn: function ({
-        item,
-        index
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "warning",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.deleteItem(item, index);
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fa fa-trash"
-        })])];
-      }
-    }, {
-      key: `item.name`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(item.name) + " [ " + _vm._s(item.grade) + " ]\n        ")];
-      }
-    }, {
-      key: `item.amount`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(_vm.formatNumber(item.amount)) + "\n        ")];
-      }
-    }], null, true)
-  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n        Close\n      ")])], 1)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=0f4cd630
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(11);
-
-// EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(14);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=script&lang=js
-
-
-/* harmony default export */ var PriceListFormvue_type_script_lang_js = ({
-  props: {
-    isCreate: {
-      type: Boolean,
-      require: true,
-      default: true
-    },
-    recordId: {
-      type: Number,
-      require: false,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      grades: ['A', 'B', 'C', 'D', 'E', 'F'],
-      search: '',
-      form: {
-        grade: '',
-        productId: '',
-        id: null,
-        name: '',
-        amount: 0,
-        type: 'Price',
-        currencyId: 1,
-        isActive: true
-      },
-      type: ['Price', 'Percent'],
-      entries: [],
-      headers: [{
-        text: 'Name',
-        align: 'end',
-        value: 'name',
-        sortable: false
-      }, {
-        text: 'ລາຄາ',
-        align: 'end',
-        value: 'amount',
-        sortable: false
-      }, {
-        text: 'ສູດຄິດໄລ່',
-        align: 'end',
-        value: 'type',
-        sortable: false
-      }, {
-        text: 'ລົບ',
-        align: 'end',
-        value: 'id',
-        sortable: false
-      }],
-      isloading: false,
-      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
-    };
-  },
-  async created() {
-    this.form.productId = this.recordId;
-    this.loadEntry();
-  },
-  methods: {
-    ...Object(external_vuex_["mapActions"])(['addProductPricesToCreate', 'deleteProductPricesToCreate']),
-    formatNumber(value) {
-      return Object(common["e" /* getFormatNum */])(value);
-    },
-    async commitRecord() {
-      if (this.$refs.form.validate() && !this.isloading) {
-        if (this.recordId == 0) {
-          let localForm = {
-            ...this.form
-          };
-          this.addProductPricesToCreate(localForm);
-          console.log(`Item to create ${this.findAllProductPriceListToCreate.length}`);
-          return;
-        }
-        this.isloading = true;
-        let api = 'api/priceList/create';
-        console.log('API => ', api);
-        try {
-          const response = await this.$axios.post(api, this.form);
-          console.log(`Load data ${JSON.stringify(response)}`);
-          await this.loadEntry();
-          Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
-        } catch (error) {
-          return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-        }
-        this.isloading = false;
-      }
-    },
-    async deleteItem(item, idx) {
-      if (this.recordId == 0) {
-        this.deleteProductPricesToCreate(idx);
-        return;
-      }
-      if (!this.isloading) {
-        // Implement form submission logic here
-        this.isloading = true;
-        let api = `api/priceList/find/${item.id}`;
-        console.log('API => ', api);
-        try {
-          const response = await this.$axios.delete(api);
-          console.log(`Load data `);
-          await this.loadEntry();
-          Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
-        } catch (error) {
-          return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-        }
-        this.isloading = false;
-      }
-    },
-    async loadEntry() {
-      console.log(`Loading data .... ${this.recordId}`);
-      if (this.recordId == 0) {
-        this.entries = this.findAllProductPriceListToCreate;
-        return;
-      }
-      try {
-        const response = await this.$axios.get(`api/priceList/findByProductId/${this.recordId}`);
-        console.warn(`RESPONSE DATA ${JSON.stringify(response.data)}`);
-        this.entries = response.data;
-      } catch (error) {
-        console.log('Cannot fetch data ' + error);
-        return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-      }
-    },
-    refreshData() {
-      this.$emit('reload-data');
-    }
-  },
-  computed: {
-    ...Object(external_vuex_["mapGetters"])(['findAllProductPriceListToCreate', 'findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency'])
-  }
-});
-// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=script&lang=js
- /* harmony default export */ var components_PriceListFormvue_type_script_lang_js = (PriceListFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/PriceListForm.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_PriceListFormvue_type_script_lang_js,
-  PriceListFormvue_type_template_id_0f4cd630_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "23382228"
-  
-)
-
-/* harmony default export */ var PriceListForm = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
-
-
-/***/ }),
-
-/***/ 446:
+/***/ 444:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3861,6 +3394,473 @@ var console = __webpack_require__(3);
 
 /***/ }),
 
+/***/ 446:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
+var VAutocomplete = __webpack_require__(403);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
+var VCheckbox = __webpack_require__(442);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(399);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
+var VDataTable = __webpack_require__(409);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(356);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(122);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
+var VForm = __webpack_require__(396);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(398);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(19);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(401);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
+var VTextField = __webpack_require__(36);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=0f4cd630
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var PriceListFormvue_type_template_id_0f4cd630_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "persistent": "",
+      "width": "300"
+    },
+    model: {
+      value: _vm.isloading,
+      callback: function ($$v) {
+        _vm.isloading = $$v;
+      },
+      expression: "isloading"
+    }
+  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
+    staticClass: "ma-0",
+    attrs: {
+      "color": "primary",
+      "label": "",
+      "text-color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "start": ""
+    }
+  }, [_vm._v("mdi-label")]), _vm._v("\n        ຈັດການ ລາຍການລາຄາ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
+    ref: "form"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "* ລະຫັດສິນຄ້າ",
+      "disabled": ""
+    },
+    model: {
+      value: _vm.form.productId,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "productId", $$v);
+      },
+      expression: "form.productId"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "2"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "* Name",
+      "required": "",
+      "rules": _vm.nameRules
+    },
+    model: {
+      value: _vm.form.name,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "name", $$v);
+      },
+      expression: "form.name"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "2"
+    }
+  }, [_c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "items": _vm.grades,
+      "label": "Grade *"
+    },
+    model: {
+      value: _vm.form.grade,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "grade", $$v);
+      },
+      expression: "form.grade"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "2"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "* ລາຄາ",
+      "required": "",
+      "rules": _vm.nameRules
+    },
+    model: {
+      value: _vm.form.amount,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "amount", $$v);
+      },
+      expression: "form.amount"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "2"
+    }
+  }, [_c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "item-text": "code",
+      "item-value": "id",
+      "items": _vm.findAllCurrency,
+      "label": "Currency*"
+    },
+    model: {
+      value: _vm.form.currencyId,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "currencyId", $$v);
+      },
+      expression: "form.currencyId"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "2"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.type,
+      "label": "ຮູບແບບລາຄາ",
+      "required": ""
+    },
+    model: {
+      value: _vm.form.type,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "type", $$v);
+      },
+      expression: "form.type"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "2"
+    }
+  }, [_c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "Is Active"
+    },
+    model: {
+      value: _vm.form.isActive,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "isActive", _vm._n($$v));
+      },
+      expression: "form.isActive"
+    }
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "rounded": "",
+      "variant": "text"
+    },
+    on: {
+      "click": _vm.commitRecord
+    }
+  }, [_vm._v("\n              ເພີ່ມ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")]), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VDataTable["a" /* default */], {
+    attrs: {
+      "headers": _vm.headers,
+      "search": _vm.search,
+      "items": _vm.entries
+    },
+    scopedSlots: _vm._u([{
+      key: `item.id`,
+      fn: function ({
+        item,
+        index
+      }) {
+        return [_c(VBtn["a" /* default */], {
+          attrs: {
+            "color": "warning",
+            "text": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.deleteItem(item, index);
+            }
+          }
+        }, [_c('i', {
+          staticClass: "fa fa-trash"
+        })])];
+      }
+    }, {
+      key: `item.name`,
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n          " + _vm._s(item.name) + " [ " + _vm._s(item.grade) + " ]\n        ")];
+      }
+    }, {
+      key: `item.amount`,
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n          " + _vm._s(_vm.formatNumber(item.amount)) + "\n        ")];
+      }
+    }], null, true)
+  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "warning",
+      "rounded": "",
+      "variant": "text"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n        Close\n      ")])], 1)], 1)], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=0f4cd630
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(11);
+
+// EXTERNAL MODULE: external "vuex"
+var external_vuex_ = __webpack_require__(14);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=script&lang=js
+
+
+/* harmony default export */ var PriceListFormvue_type_script_lang_js = ({
+  props: {
+    isCreate: {
+      type: Boolean,
+      require: true,
+      default: true
+    },
+    recordId: {
+      type: Number,
+      require: false,
+      default: 0
+    }
+  },
+  data() {
+    return {
+      grades: ['A', 'B', 'C', 'D', 'E', 'F'],
+      search: '',
+      form: {
+        grade: '',
+        productId: '',
+        id: null,
+        name: '',
+        amount: 0,
+        type: 'Price',
+        currencyId: 1,
+        isActive: true
+      },
+      type: ['Price', 'Percent'],
+      entries: [],
+      headers: [{
+        text: 'Name',
+        align: 'end',
+        value: 'name',
+        sortable: false
+      }, {
+        text: 'ລາຄາ',
+        align: 'end',
+        value: 'amount',
+        sortable: false
+      }, {
+        text: 'ສູດຄິດໄລ່',
+        align: 'end',
+        value: 'type',
+        sortable: false
+      }, {
+        text: 'ລົບ',
+        align: 'end',
+        value: 'id',
+        sortable: false
+      }],
+      isloading: false,
+      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
+    };
+  },
+  async created() {
+    this.form.productId = this.recordId;
+    this.loadEntry();
+  },
+  methods: {
+    ...Object(external_vuex_["mapActions"])(['addProductPricesToCreate', 'deleteProductPricesToCreate']),
+    formatNumber(value) {
+      return Object(common["e" /* getFormatNum */])(value);
+    },
+    async commitRecord() {
+      if (this.$refs.form.validate() && !this.isloading) {
+        if (this.recordId == 0) {
+          let localForm = {
+            ...this.form
+          };
+          this.addProductPricesToCreate(localForm);
+          console.log(`Item to create ${this.findAllProductPriceListToCreate.length}`);
+          return;
+        }
+        this.isloading = true;
+        let api = 'api/priceList/create';
+        console.log('API => ', api);
+        try {
+          const response = await this.$axios.post(api, this.form);
+          console.log(`Load data ${JSON.stringify(response)}`);
+          await this.loadEntry();
+          Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+        } catch (error) {
+          return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        }
+        this.isloading = false;
+      }
+    },
+    async deleteItem(item, idx) {
+      if (this.recordId == 0) {
+        this.deleteProductPricesToCreate(idx);
+        return;
+      }
+      if (!this.isloading) {
+        // Implement form submission logic here
+        this.isloading = true;
+        let api = `api/priceList/find/${item.id}`;
+        console.log('API => ', api);
+        try {
+          const response = await this.$axios.delete(api);
+          console.log(`Load data `);
+          await this.loadEntry();
+          Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
+        } catch (error) {
+          return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        }
+        this.isloading = false;
+      }
+    },
+    async loadEntry() {
+      console.log(`Loading data .... ${this.recordId}`);
+      if (this.recordId == 0) {
+        this.entries = this.findAllProductPriceListToCreate;
+        return;
+      }
+      try {
+        const response = await this.$axios.get(`api/priceList/findByProductId/${this.recordId}`);
+        console.warn(`RESPONSE DATA ${JSON.stringify(response.data)}`);
+        this.entries = response.data;
+      } catch (error) {
+        console.log('Cannot fetch data ' + error);
+        return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+      }
+    },
+    refreshData() {
+      this.$emit('reload-data');
+    }
+  },
+  computed: {
+    ...Object(external_vuex_["mapGetters"])(['findAllProductPriceListToCreate', 'findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency'])
+  }
+});
+// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_PriceListFormvue_type_script_lang_js = (PriceListFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/PriceListForm.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_PriceListFormvue_type_script_lang_js,
+  PriceListFormvue_type_template_id_0f4cd630_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "23382228"
+  
+)
+
+/* harmony default export */ var PriceListForm = __webpack_exports__["default"] = (component.exports);
+
+/* nuxt-component-imports */
+installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
+
+
+/***/ }),
+
 /***/ 447:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3980,8 +3980,37 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
+// Extensions
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].extend({
+  name: 'button-group',
+  provide() {
+    return {
+      btnToggle: this
+    };
+  },
+  computed: {
+    classes() {
+      return _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].options.computed.classes.call(this);
+    }
+  },
+  methods: {
+    // Isn't being passed down through types
+    genData: _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].options.methods.genData
+  }
+}));
+
+/***/ }),
+
+/***/ 452:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(URL) {/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _pages_product_index_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(471);
+/* harmony import */ var _pages_product_index_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(472);
 /* harmony import */ var _common_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_3__);
@@ -4580,42 +4609,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 452:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(32);
-// Extensions
-
-/* @vue/component */
-
-/* harmony default export */ __webpack_exports__["a"] = (_components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].extend({
-  name: 'button-group',
-  provide() {
-    return {
-      btnToggle: this
-    };
-  },
-  computed: {
-    classes() {
-      return _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].options.computed.classes.call(this);
-    }
-  },
-  methods: {
-    // Isn't being passed down through types
-    genData: _components_VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_0__[/* BaseItemGroup */ "a"].options.methods.genData
-  }
-}));
-
-/***/ }),
-
 /***/ 455:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(469);
+var content = __webpack_require__(470);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4763,7 +4763,7 @@ module.exports.__inject__ = function (context) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(474);
+var content = __webpack_require__(475);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4781,7 +4781,7 @@ module.exports.__inject__ = function (context) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(476);
+var content = __webpack_require__(477);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4803,7 +4803,7 @@ var content = __webpack_require__(461);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("e8a466fa", content, true)
+__webpack_require__(5).default("09e1a384", content, true)
 
 /***/ }),
 
@@ -4814,7 +4814,7 @@ __webpack_require__(5).default("e8a466fa", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-rating{max-width:100%;white-space:nowrap}.v-rating .v-icon{border-radius:50%;outline:none;padding:.5rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-rating .v-icon:after{display:none}.v-application--is-ltr .v-rating .v-icon{transform:scaleX(1)}.v-application--is-rtl .v-rating .v-icon{transform:scaleX(-1)}.v-rating--readonly .v-icon{pointer-events:none}.v-rating--dense .v-icon{padding:.1rem}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-btn-toggle:not(.v-btn-toggle--group){background:#fff;color:rgba(0,0,0,.87)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:rgba(0,0,0,.12)!important}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:rgba(0,0,0,.26)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#000}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group){background:#1e1e1e;color:#fff}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:hsla(0,0%,100%,.12)!important}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:hsla(0,0%,100%,.3)}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#fff}.v-btn-toggle{border-radius:4px;display:inline-flex;max-width:100%}.v-btn-toggle>.v-btn.v-btn{border-radius:0;border-style:solid;border-width:thin;box-shadow:none;opacity:.8;padding:0 12px}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:first-child{border-bottom-left-radius:inherit;border-top-left-radius:inherit}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:last-child,.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:first-child{border-bottom-right-radius:inherit;border-top-right-radius:inherit}.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:last-child{border-bottom-left-radius:inherit;border-top-left-radius:inherit}.v-btn-toggle>.v-btn.v-btn--active{color:inherit;opacity:1}.v-btn-toggle>.v-btn.v-btn:after{display:none}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:not(:first-child),.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:not(:last-child){border-left-width:0}.v-btn-toggle .v-btn.v-btn.v-size--default{min-height:0;min-width:48px}.v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default{height:48px}.v-btn-toggle--borderless>.v-btn.v-btn{border-width:0}.v-btn-toggle--dense>.v-btn.v-btn{padding:0 8px}.v-btn-toggle--group{border-radius:0}.v-btn-toggle--group>.v-btn.v-btn{background-color:transparent!important;border-color:transparent;margin:4px;min-width:auto}.v-btn-toggle--rounded{border-radius:24px}.v-btn-toggle--shaped{border-radius:24px 4px}.v-btn-toggle--tile{border-radius:0}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -4832,7 +4832,7 @@ var content = __webpack_require__(463);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("09e1a384", content, true)
+__webpack_require__(5).default("e8a466fa", content, true)
 
 /***/ }),
 
@@ -4843,7 +4843,7 @@ __webpack_require__(5).default("09e1a384", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-btn-toggle:not(.v-btn-toggle--group){background:#fff;color:rgba(0,0,0,.87)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:rgba(0,0,0,.12)!important}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:rgba(0,0,0,.26)}.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#000}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group){background:#1e1e1e;color:#fff}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn{border-color:hsla(0,0%,100%,.12)!important}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn:focus:not(:active){border-color:hsla(0,0%,100%,.3)}.theme--dark.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn .v-icon{color:#fff}.v-btn-toggle{border-radius:4px;display:inline-flex;max-width:100%}.v-btn-toggle>.v-btn.v-btn{border-radius:0;border-style:solid;border-width:thin;box-shadow:none;opacity:.8;padding:0 12px}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:first-child{border-bottom-left-radius:inherit;border-top-left-radius:inherit}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:last-child,.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:first-child{border-bottom-right-radius:inherit;border-top-right-radius:inherit}.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:last-child{border-bottom-left-radius:inherit;border-top-left-radius:inherit}.v-btn-toggle>.v-btn.v-btn--active{color:inherit;opacity:1}.v-btn-toggle>.v-btn.v-btn:after{display:none}.v-application--is-ltr .v-btn-toggle>.v-btn.v-btn:not(:first-child),.v-application--is-rtl .v-btn-toggle>.v-btn.v-btn:not(:last-child){border-left-width:0}.v-btn-toggle .v-btn.v-btn.v-size--default{min-height:0;min-width:48px}.v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default{height:48px}.v-btn-toggle--borderless>.v-btn.v-btn{border-width:0}.v-btn-toggle--dense>.v-btn.v-btn{padding:0 8px}.v-btn-toggle--group{border-radius:0}.v-btn-toggle--group>.v-btn.v-btn{background-color:transparent!important;border-color:transparent;margin:4px;min-width:auto}.v-btn-toggle--rounded{border-radius:24px}.v-btn-toggle--shaped{border-radius:24px 4px}.v-btn-toggle--tile{border-radius:0}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-rating{max-width:100%;white-space:nowrap}.v-rating .v-icon{border-radius:50%;outline:none;padding:.5rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-rating .v-icon:after{display:none}.v-application--is-ltr .v-rating .v-icon{transform:scaleX(1)}.v-application--is-rtl .v-rating .v-icon{transform:scaleX(-1)}.v-rating--readonly .v-icon{pointer-events:none}.v-rating--dense .v-icon{padding:.1rem}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -4851,7 +4851,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 466:
+/***/ 467:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4868,7 +4868,7 @@ var VAutocomplete = __webpack_require__(403);
 var VBtn = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
-var VBtnToggle = __webpack_require__(502);
+var VBtnToggle = __webpack_require__(500);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(123);
@@ -4886,7 +4886,7 @@ var VCol = __webpack_require__(399);
 var VDialog = __webpack_require__(356);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
-var VFileInput = __webpack_require__(472);
+var VFileInput = __webpack_require__(473);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(396);
@@ -5987,7 +5987,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(475)
+  var style0 = __webpack_require__(476)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6008,12 +6008,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductFormCreate = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(445).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(446).default})
 
 
 /***/ }),
 
-/***/ 467:
+/***/ 468:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6033,7 +6033,7 @@ var VAvatar = __webpack_require__(120);
 var VBtn = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
-var VBtnToggle = __webpack_require__(502);
+var VBtnToggle = __webpack_require__(500);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(123);
@@ -6054,7 +6054,7 @@ var VCol = __webpack_require__(399);
 var VDialog = __webpack_require__(356);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
-var VFileInput = __webpack_require__(472);
+var VFileInput = __webpack_require__(473);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(396);
@@ -6754,7 +6754,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/product/ProductForm.vue?vue&type=template&id=6f74ef02&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductForm.vue?vue&type=script&lang=js
-var ProductFormvue_type_script_lang_js = __webpack_require__(451);
+var ProductFormvue_type_script_lang_js = __webpack_require__(452);
 
 // CONCATENATED MODULE: ./components/product/ProductForm.vue?vue&type=script&lang=js
  /* harmony default export */ var product_ProductFormvue_type_script_lang_js = (ProductFormvue_type_script_lang_js["a" /* default */]); 
@@ -6767,7 +6767,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(473)
+  var style0 = __webpack_require__(474)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6788,12 +6788,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(445).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(446).default})
 
 
 /***/ }),
 
-/***/ 468:
+/***/ 469:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6805,7 +6805,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 469:
+/***/ 470:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -6820,7 +6820,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 471:
+/***/ 472:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6858,7 +6858,7 @@ var VIcon = __webpack_require__(60);
 var VImg = __webpack_require__(84);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRating/VRating.js
-var VRating = __webpack_require__(499);
+var VRating = __webpack_require__(501);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(398);
@@ -7072,7 +7072,7 @@ var componentNormalizer = __webpack_require__(10);
 var script = {}
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(468)
+  var style0 = __webpack_require__(469)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -7094,7 +7094,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 472:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7353,7 +7353,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 473:
+/***/ 474:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7365,7 +7365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 474:
+/***/ 475:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7380,7 +7380,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 475:
+/***/ 476:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7392,7 +7392,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 476:
+/***/ 477:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7407,11 +7407,68 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 499:
+/***/ 500:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VRating_VRating_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(460);
+/* harmony import */ var _src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(460);
+/* harmony import */ var _src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_button_group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(451);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+// Styles
+ // Mixins
+
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(_mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).extend({
+  name: 'v-btn-toggle',
+  props: {
+    backgroundColor: String,
+    borderless: Boolean,
+    dense: Boolean,
+    group: Boolean,
+    rounded: Boolean,
+    shaped: Boolean,
+    tile: Boolean
+  },
+  computed: {
+    classes() {
+      return {
+        ..._mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.classes.call(this),
+        'v-btn-toggle': true,
+        'v-btn-toggle--borderless': this.borderless,
+        'v-btn-toggle--dense': this.dense,
+        'v-btn-toggle--group': this.group,
+        'v-btn-toggle--rounded': this.rounded,
+        'v-btn-toggle--shaped': this.shaped,
+        'v-btn-toggle--tile': this.tile,
+        ...this.themeClasses
+      };
+    }
+  },
+  methods: {
+    genData() {
+      const data = this.setTextColor(this.color, {
+        ..._mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.methods.genData.call(this)
+      });
+      if (this.group) return data;
+      return this.setBackgroundColor(this.backgroundColor, data);
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 501:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VRating_VRating_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(462);
 /* harmony import */ var _src_components_VRating_VRating_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VRating_VRating_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
@@ -7621,63 +7678,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
         'v-rating--dense': this.dense
       }
     }, children);
-  }
-}));
-
-/***/ }),
-
-/***/ 502:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(462);
-/* harmony import */ var _src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VBtnToggle_VBtnToggle_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mixins_button_group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(452);
-/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
-// Styles
- // Mixins
-
-
- // Utilities
-
-
-/* @vue/component */
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(_mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).extend({
-  name: 'v-btn-toggle',
-  props: {
-    backgroundColor: String,
-    borderless: Boolean,
-    dense: Boolean,
-    group: Boolean,
-    rounded: Boolean,
-    shaped: Boolean,
-    tile: Boolean
-  },
-  computed: {
-    classes() {
-      return {
-        ..._mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.classes.call(this),
-        'v-btn-toggle': true,
-        'v-btn-toggle--borderless': this.borderless,
-        'v-btn-toggle--dense': this.dense,
-        'v-btn-toggle--group': this.group,
-        'v-btn-toggle--rounded': this.rounded,
-        'v-btn-toggle--shaped': this.shaped,
-        'v-btn-toggle--tile': this.tile,
-        ...this.themeClasses
-      };
-    }
-  },
-  methods: {
-    genData() {
-      const data = this.setTextColor(this.color, {
-        ..._mixins_button_group__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.methods.genData.call(this)
-      });
-      if (this.group) return data;
-      return this.setBackgroundColor(this.backgroundColor, data);
-    }
   }
 }));
 

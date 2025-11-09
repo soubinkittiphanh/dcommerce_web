@@ -1,7 +1,7 @@
 exports.ids = [227,110,112,161];
 exports.modules = {
 
-/***/ 1333:
+/***/ 1336:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27,7 +27,7 @@ var VCol = __webpack_require__(399);
 var VDataTable = __webpack_require__(409);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(446);
+var VDatePicker = __webpack_require__(444);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(356);
@@ -1690,7 +1690,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 446:
+/***/ 444:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -1,0 +1,437 @@
+<template>
+    <div>
+        <v-dialog v-model="isSubmitting" hide-overlay persistent width="300">
+            <loading-indicator></loading-indicator>
+        </v-dialog>
+        
+        <v-card class="mx-auto" max-width="600">
+            <!-- Enhanced Header -->
+            <v-card-title class="primary white--text py-4">
+                <v-icon left color="white" size="24">mdi-package-variant-plus</v-icon>
+                <span class="text-h6">Add Stock</span>
+                <v-spacer></v-spacer>
+                <v-btn icon color="white" @click="$emit('close-dialog')">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </v-card-title>
+
+            <!-- Product Info -->
+            <v-card-subtitle class="pa-4 pb-2">
+                <v-chip 
+                    class="ma-1" 
+                    color="primary" 
+                    label 
+                    outlined
+                    prepend-icon="mdi-tag"
+                >
+                    {{ productName }}
+                </v-chip>
+                <v-chip 
+                    class="ma-1" 
+                    color="secondary" 
+                    label 
+                    outlined
+                    prepend-icon="mdi-identifier"
+                >
+                    ID: {{ productId }}
+                </v-chip>
+            </v-card-subtitle>
+
+            <v-card-text class="pa-4">
+                <v-container fluid>
+                    <v-form ref="myform" @submit.prevent="submitForm">
+                        <v-row>
+                            <!-- Location Selection -->
+                            <v-col cols="12">
+                                <v-autocomplete 
+                                    item-text="name" 
+                                    item-value="id" 
+                                    :items="locationList" 
+                                    label="Source Location"
+                                    v-model="srcLocationId"
+                                    outlined
+                                    dense
+                                    prepend-inner-icon="mdi-map-marker"
+                                    :rules="[v => !!v || 'Please select a location']"
+                                ></v-autocomplete>
+                            </v-col>
+
+                            <!-- Quantity -->
+                            <v-col cols="12" md="6">
+                                <v-text-field 
+                                    label="Quantity"
+                                    :rules="quantityRules"
+                                    hide-details="auto"
+                                    v-model="stockQty"
+                                    outlined
+                                    dense
+                                    type="number"
+                                    min="1"
+                                    prepend-inner-icon="mdi-counter"
+                                    suffix="units"
+                                ></v-text-field>
+                            </v-col>
+
+                            <!-- Currency -->
+                            <v-col cols="12" md="6">
+                                <v-autocomplete 
+                                    item-text="code" 
+                                    item-value="id" 
+                                    :items="findAllCurrency" 
+                                    label="Currency"
+                                    v-model="currencyId"
+                                    outlined
+                                    dense
+                                    prepend-inner-icon="mdi-currency-usd"
+                                    :rules="[v => !!v || 'Please select currency']"
+                                ></v-autocomplete>
+                            </v-col>
+                        </v-row>
+
+                        <!-- Cost Calculation Section -->
+                        <v-row>
+                            <v-col cols="12">
+                                <v-card outlined class="pa-3">
+                                    <v-card-subtitle class="pa-0 mb-2">
+                                        <v-icon small>mdi-calculator</v-icon>
+                                        Cost Calculation
+                                    </v-card-subtitle>
+
+                                    <!-- Cost Type Toggle -->
+                                    <v-btn-toggle 
+                                        v-model="costType" 
+                                        exclusive 
+                                        dense 
+                                        class="mb-3"
+                                        color="primary"
+                                    >
+                                        <v-btn value="perUnit" small>
+                                            <v-icon left small>mdi-numeric-1-circle</v-icon>
+                                            Per Unit
+                                        </v-btn>
+                                        <v-btn value="total" small>
+                                            <v-icon left small>mdi-sigma</v-icon>
+                                            Total Cost
+                                        </v-btn>
+                                    </v-btn-toggle>
+
+                                    <v-row>
+                                        <!-- Cost Input -->
+                                        <v-col cols="12" md="6">
+                                            <v-text-field 
+                                                :label="costType === 'perUnit' ? 'Cost Per Unit' : 'Total Cost'"
+                                                :rules="numberRule"
+                                                hide-details="auto"
+                                                v-model="costInput"
+                                                outlined
+                                                dense
+                                                type="number"
+                                                min="0"
+                                                step="0.01"
+                                                :prepend-inner-icon="costType === 'perUnit' ? 'mdi-tag' : 'mdi-calculator'"
+                                                :suffix="selectedCurrencyCode"
+                                                @input="calculateCosts"
+                                            ></v-text-field>
+                                        </v-col>
+
+                                        <!-- Calculated Display -->
+                                        <v-col cols="12" md="6">
+                                            <v-text-field 
+                                                :label="costType === 'perUnit' ? 'Total Cost' : 'Cost Per Unit'"
+                                                :value="calculatedCost"
+                                                outlined
+                                                dense
+                                                readonly
+                                                :prepend-inner-icon="costType === 'perUnit' ? 'mdi-calculator' : 'mdi-tag'"
+                                                :suffix="selectedCurrencyCode"
+                                                class="grey--text"
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+
+                                    <!-- Cost Summary -->
+                                    <v-alert 
+                                        v-if="stockQty && costInput" 
+                                        color="info" 
+                                        dense 
+                                        outlined 
+                                        class="mt-2"
+                                    >
+                                        <v-row align="center">
+                                            <v-col>
+                                                <strong>Summary:</strong> 
+                                                {{ stockQty }} units × {{ formatPrice(costPerUnit) }} {{ selectedCurrencyCode }} 
+                                                = {{ formatPrice(totalCost) }} {{ selectedCurrencyCode }}
+                                            </v-col>
+                                        </v-row>
+                                    </v-alert>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+
+                        <!-- Exchange Rate Info -->
+                        <v-row v-if="currencyExchangeRate !== 1">
+                            <v-col cols="12">
+                                <v-alert color="warning" dense outlined>
+                                    <v-icon small left>mdi-swap-horizontal</v-icon>
+                                    Exchange Rate: 1 {{ selectedCurrencyCode }} = {{ currencyExchangeRate }} 
+                                    (Base Currency)
+                                </v-alert>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-container>
+            </v-card-text>
+
+            <!-- Enhanced Actions -->
+            <v-card-actions class="pa-4">
+                <v-spacer></v-spacer>
+                <v-btn 
+                    outlined 
+                    color="grey" 
+                    @click="$emit('close-dialog')"
+                    :disabled="isSubmitting"
+                >
+                    <v-icon left>mdi-close</v-icon>
+                    Cancel
+                </v-btn>
+                <v-btn 
+                    color="primary" 
+                    @click="stockSubmit"
+                    :loading="isSubmitting"
+                    :disabled="!isFormValid"
+                >
+                    <v-icon left>mdi-content-save</v-icon>
+                    Add Stock
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </div>
+</template>
+
+<script>
+import { swalSuccess, swalError2 } from '~/common/index'
+import { mapGetters } from 'vuex'
+
+export default {
+    props: {
+        id: {
+            type: Number,
+            default: 0,
+        },
+        productId: {
+            type: Number,
+            default: '',
+        },
+        productName: {
+            type: String,
+            default: '',
+        },
+        isEdit: {
+            type: Boolean,
+            default: false,
+        },
+        cost: {
+            type: Number,
+            default: 0,
+        },
+    },
+    data() {
+        return {
+            stockQty: 1,
+            costInput: 0,
+            costType: 'perUnit', // 'perUnit' or 'total'
+            isSubmitting: false,
+            locationList: [],
+            srcLocationId: null,
+            currencyId: 1,
+        }
+    },
+    computed: {
+        ...mapGetters(['findAllCurrency', 'findSelectedTerminal', 'findAllTerminal']),
+        
+        quantityRules() {
+            return [
+                v => !!v || 'Please enter quantity',
+                v => /^[0-9]+$/.test(v) || 'Only numbers allowed',
+                v => parseInt(v) > 0 || 'Quantity must be greater than 0'
+            ]
+        },
+        
+        numberRule() {
+            return [
+                v => !!v || 'Please enter amount',
+                v => /^[0-9]+\.?[0-9]*$/.test(v) || 'Invalid number format',
+                v => parseFloat(v) >= 0 || 'Amount must be positive'
+            ]
+        },
+        
+        user() {
+            return this.$auth.user || ''
+        },
+        
+        currencyExchangeRate() {
+            const currency = this.findAllCurrency.find(el => el.id == this.currencyId)
+            return currency ? currency.rate : 1
+        },
+
+        selectedCurrencyCode() {
+            const currency = this.findAllCurrency.find(el => el.id == this.currencyId)
+            return currency ? currency.code : ''
+        },
+
+        costPerUnit() {
+            if (this.costType === 'perUnit') {
+                return parseFloat(this.costInput) || 0
+            } else {
+                return this.stockQty > 0 ? (parseFloat(this.costInput) || 0) / this.stockQty : 0
+            }
+        },
+
+        totalCost() {
+            if (this.costType === 'total') {
+                return parseFloat(this.costInput) || 0
+            } else {
+                return (parseFloat(this.costInput) || 0) * (this.stockQty || 0)
+            }
+        },
+
+        calculatedCost() {
+            if (this.costType === 'perUnit') {
+                return this.formatPrice(this.totalCost)
+            } else {
+                return this.formatPrice(this.costPerUnit)
+            }
+        },
+
+        isFormValid() {
+            return this.stockQty > 0 && 
+                   this.costInput > 0 && 
+                   this.srcLocationId && 
+                   this.currencyId &&
+                   !this.isSubmitting
+        }
+    },
+    
+    watch: {
+        cost: {
+            immediate: true,
+            handler(newVal) {
+                if (newVal > 0) {
+                    this.costInput = newVal
+                }
+            }
+        },
+
+        stockQty() {
+            this.calculateCosts()
+        }
+    },
+    
+    created() {
+        console.log(`Location in terminal ${this.findSelectedTerminal}`)
+        const terminal = this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal)
+        if (terminal) {
+            this.srcLocationId = terminal['locationId']
+        }
+
+        this.loadLocation()
+        this.loadProduct()
+    },
+    
+    methods: {
+        calculateCosts() {
+            // This method is called when input changes to trigger reactivity
+            // The actual calculations are handled by computed properties
+        },
+
+        formatPrice(amount) {
+            return new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }).format(amount || 0)
+        },
+
+        async loadLocation() {
+            try {
+                const res = await this.$axios.get(`api/location/find`)
+                this.locationList = res.data.map(el => el)
+            } catch (error) {
+                swalError2(this.$swal, 'Error', 'Failed to load locations: ' + error.message)
+            }
+        },
+
+        async loadProduct() {
+            this.isSubmitting = true
+            try {
+                const res = await this.$axios.get(`api/product/find/${this.id}`)
+                if (res.data.costCurrency) {
+                    console.log(`Cost info available`)
+                    this.currencyId = res.data.costCurrency.id
+                } else {
+                    console.log(`Cost info not available`)
+                }
+            } catch (error) {
+                swalError2(this.$swal, 'Error', 'Failed to load product: ' + error.message)
+            }
+            this.isSubmitting = false
+        },
+
+        async stockSubmit() {
+            if (this.$refs.myform.validate() && !this.isSubmitting) {
+                this.isSubmitting = true
+                
+                const stockData = {
+                    inputter: this.user.id,
+                    product_id: this.productId,
+                    stockCardQty: parseInt(this.stockQty),
+                    totalCost: this.totalCost,
+                    costPerUnit: this.costPerUnit,
+                    productId: this.id,
+                    srcLocationId: this.srcLocationId,
+                    currencyId: this.currencyId,
+                    exchangeRate: this.currencyExchangeRate,
+                    costType: this.costType
+                }
+                
+                console.log("Stock data:", stockData)
+                
+                try {
+                    const res = await this.$axios.post('/api/card/bulkCreate', stockData)
+                    console.log(res.data)
+                    swalSuccess(this.$swal, 'Success', 'Stock added successfully!')
+                    this.$emit('reload')
+                    this.$emit('close-dialog')
+                } catch (error) {
+                    console.log(error)
+                    swalError2(this.$swal, "Error", error.response?.data || error.message)
+                }
+                
+                this.isSubmitting = false
+            }
+        }
+    }
+}
+</script>
+
+<style scoped>
+.v-card {
+    border-radius: 12px !important;
+}
+
+.v-btn-toggle .v-btn {
+    border-radius: 8px !important;
+}
+
+.v-alert {
+    border-radius: 8px !important;
+}
+
+.v-text-field.v-text-field--outlined > .v-input__control > .v-input__slot {
+    border-radius: 8px !important;
+}
+
+.grey--text .v-input__slot {
+    background-color: #f5f5f5 !important;
+}
+</style>
