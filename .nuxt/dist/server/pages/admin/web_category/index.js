@@ -57,7 +57,7 @@ var VCol = __webpack_require__(399);
 var VDataTable = __webpack_require__(409);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
+var VDialog = __webpack_require__(357);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -343,7 +343,7 @@ var WebCategoryForm = __webpack_require__(974);
 var WebCategoryProductForm = __webpack_require__(975);
 
 // EXTERNAL MODULE: external "vuedraggable"
-var external_vuedraggable_ = __webpack_require__(381);
+var external_vuedraggable_ = __webpack_require__(382);
 var external_vuedraggable_default = /*#__PURE__*/__webpack_require__.n(external_vuedraggable_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_category/index.vue?vue&type=script&lang=js
@@ -840,7 +840,7 @@ var VCheckbox = __webpack_require__(442);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
+var VDialog = __webpack_require__(357);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(396);
@@ -1130,7 +1130,7 @@ var VCheckbox = __webpack_require__(442);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
+var VDialog = __webpack_require__(357);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(396);
@@ -1429,7 +1429,7 @@ var VChip = __webpack_require__(127);
 var VCol = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
+var VDialog = __webpack_require__(357);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);

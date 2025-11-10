@@ -57,7 +57,7 @@ var VDataTable = __webpack_require__(409);
 var VDatePicker = __webpack_require__(444);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
+var VDialog = __webpack_require__(357);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);

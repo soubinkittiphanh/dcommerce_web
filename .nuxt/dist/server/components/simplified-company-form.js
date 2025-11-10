@@ -57,7 +57,7 @@ var VChip = __webpack_require__(127);
 var VCol = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(356);
+var VDialog = __webpack_require__(357);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(396);
@@ -1175,7 +1175,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(355)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(356)["URL"]))
 
 /***/ }),
 

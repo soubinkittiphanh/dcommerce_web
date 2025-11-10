@@ -389,7 +389,7 @@ var staticRenderFns = [];
 var MetricCard = __webpack_require__(966);
 
 // EXTERNAL MODULE: external "vue-feather-icons"
-var external_vue_feather_icons_ = __webpack_require__(379);
+var external_vue_feather_icons_ = __webpack_require__(380);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleDashBoard/index.vue?vue&type=script&lang=js
 
@@ -4099,7 +4099,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/dashboard/MetricCard.vue?vue&type=template&id=e734e182&scoped=true
 
 // EXTERNAL MODULE: external "vue-feather-icons"
-var external_vue_feather_icons_ = __webpack_require__(379);
+var external_vue_feather_icons_ = __webpack_require__(380);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/MetricCard.vue?vue&type=script&lang=js
 

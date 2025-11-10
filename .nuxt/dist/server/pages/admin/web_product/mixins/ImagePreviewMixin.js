@@ -81,7 +81,7 @@ var component = Object(componentNormalizer["a" /* default */])(
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(355)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(356)["URL"]))
 
 /***/ })
 

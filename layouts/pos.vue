@@ -109,6 +109,20 @@
             <v-btn icon @click="drawer = !drawer" class="mr-2">
               <v-icon>mdi-menu</v-icon>
             </v-btn>
+            <!-- Mobile cart toggle -->
+            <v-btn 
+              icon 
+              @click="drawer_right = !drawer_right" 
+              class="d-lg-none mr-2"
+            >
+              <v-icon>mdi-cart</v-icon>
+              <v-badge 
+                v-if="productCart.length > 0"
+                :content="productCart.length" 
+                color="error" 
+                overlap
+              />
+            </v-btn>
           </v-col>
           
           <v-col cols="12" md="6" lg="4" class="px-2">
@@ -193,22 +207,25 @@
       </v-list>
     </v-navigation-drawer>
 
-    <!-- Main Content Area -->
+    <!-- Main Content Area with Fixed Scrolling -->
     <v-main class="main-content">
-      <v-container fluid class="pa-4">
-        <Nuxt :key="productComponentKey" />
-      </v-container>
+      <div class="main-content-wrapper">
+        <v-container fluid class="pa-4 main-container">
+          <Nuxt :key="productComponentKey" />
+        </v-container>
+      </div>
     </v-main>
 
-    <!-- Enhanced Right Cart Drawer -->
+    <!-- Enhanced Right Cart Drawer with Mobile Support -->
     <v-navigation-drawer
       app
       right
       clipped
       width="480"
-      fixed
       class="cart-drawer"
       :permanent="$vuetify.breakpoint.lgAndUp"
+      :temporary="$vuetify.breakpoint.mdAndDown"
+      v-model="drawer_right"
     >
       <div class="cart-container">
         <!-- Cart Header -->
@@ -251,6 +268,17 @@
               
               <v-btn icon color="primary" @click="newOrder" title="ອໍເດີໃໝ່">
                 <v-icon>mdi-file-document-refresh-outline</v-icon>
+              </v-btn>
+              
+              <!-- Mobile close button -->
+              <v-btn 
+                icon 
+                color="grey" 
+                @click="drawer_right = false" 
+                class="d-lg-none"
+                title="ປິດ"
+              >
+                <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-col>
           </v-row>
@@ -418,41 +446,40 @@
 
           <!-- Payment Methods (Collapsible) -->
           <v-expand-transition>
-  <div
-    v-show="showCheckOut"
-    class="pa-4"
-    style="background-color: #f5f5f5; border-radius: 12px;"
-  >
-    <v-card elevation="1" class="pa-4 rounded-lg">
-      <div class="text-h6 font-weight-bold mb-4">ວິທີການຊຳລະ</div>
-      
-      <v-row dense>
-        <v-col
-          v-for="(item, index) in paymentList"
-          :key="index"
-          cols="6"
-          sm="4"
-          md="3"
-        >
-          <PaymentCard
-            :id="item.id"
-            :title="item.payment_name"
-            :icon="item.icon"
-            :path="item.path"
-            class="payment-card-item"
-          >
-            <template v-slot:iconSlot>
-              <v-avatar size="40" class="elevation-1">
-                <img :src="svgIcon" alt="icon" />
-              </v-avatar>
-            </template>
-          </PaymentCard>
-        </v-col>
-      </v-row>
-    </v-card>
-  </div>
-</v-expand-transition>
-
+            <div
+              v-show="showCheckOut"
+              class="pa-4"
+              style="background-color: #f5f5f5; border-radius: 12px;"
+            >
+              <v-card elevation="1" class="pa-4 rounded-lg">
+                <div class="text-h6 font-weight-bold mb-4">ວິທີການຊຳລະ</div>
+                
+                <v-row dense>
+                  <v-col
+                    v-for="(item, index) in paymentList"
+                    :key="index"
+                    cols="6"
+                    sm="4"
+                    md="3"
+                  >
+                    <PaymentCard
+                      :id="item.id"
+                      :title="item.payment_name"
+                      :icon="item.icon"
+                      :path="item.path"
+                      class="payment-card-item"
+                    >
+                      <template v-slot:iconSlot>
+                        <v-avatar size="40" class="elevation-1">
+                          <img :src="svgIcon" alt="icon" />
+                        </v-avatar>
+                      </template>
+                    </PaymentCard>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </div>
+          </v-expand-transition>
 
           <!-- Payment Toggle & Main Pay Button -->
           <div class="payment-actions pa-3">
@@ -548,8 +575,33 @@
   color: var(--v-primary-base);
 }
 
+/* FIXED MAIN CONTENT SCROLLING */
 .main-content {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.main-content-wrapper {
+  height: calc(100vh - 72px); /* Account for app bar height */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+}
+
+.main-container {
+  min-height: 100%;
+  padding-bottom: 20px; /* Extra padding at bottom */
+}
+
+/* Responsive main content adjustments */
+@media (min-width: 1264px) {
+  .main-content-wrapper {
+    padding-right: 0; /* No extra padding, drawer handles spacing */
+  }
+}
+
+@media (max-width: 1263px) {
+  .main-content-wrapper {
+    padding-right: 0;
+  }
 }
 
 .cart-drawer {
@@ -579,6 +631,7 @@
 
 .cart-items {
   min-height: 0;
+  flex: 1;
 }
 
 .cart-items-header {
@@ -587,6 +640,8 @@
 
 .cart-items-list {
   max-height: calc(100vh - 500px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .cart-item {
@@ -614,11 +669,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 200px;
 }
 
 .cart-footer {
   border-top: 1px solid rgba(0,0,0,0.12);
   background-color: white;
+  flex-shrink: 0;
 }
 
 .payment-inputs {
@@ -642,7 +699,6 @@
   transform: translateY(-4px);
 }
 
-
 .pay-button {
   height: 56px !important;
   font-size: 18px;
@@ -662,10 +718,11 @@
   transform: none !important;
 }
 
-/* Responsive adjustments */
-@media (max-width: 960px) {
+/* Mobile responsive adjustments */
+@media (max-width: 1263px) {
   .cart-drawer {
     width: 100% !important;
+    max-width: 480px !important;
   }
   
   .header-btn span {
@@ -675,9 +732,14 @@
   .search-field {
     margin-bottom: 8px;
   }
+  
+  .main-content-wrapper {
+    height: calc(100vh - 72px);
+    padding-right: 0;
+  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 960px) {
   .customer-bar .v-row {
     flex-direction: column;
     gap: 8px;
@@ -691,8 +753,43 @@
     flex-direction: column;
     text-align: center;
   }
+  
+  .cart-items-list {
+    max-height: calc(100vh - 400px);
+  }
+}
+
+@media (max-width: 600px) {
+  .main-content-wrapper {
+    height: calc(100vh - 72px);
+  }
+  
+  .main-container {
+    padding: 8px;
+  }
+}
+
+/* Fix for browser scroll behavior */
+html {
+  overflow-y: auto;
+}
+
+body {
+  overflow-y: auto;
+}
+
+/* Ensure Vuetify app wrapper doesn't constrain height */
+.v-application--wrap {
+  min-height: 100vh;
+  backface-visibility: hidden;
+}
+
+/* Fix for webkit touch scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
 }
 </style>
+
 <script>
 import CustomerList from '~/components/customer/CustomerList.vue'
 import Quotation from '~/components/quotation'
@@ -708,6 +805,7 @@ import {
   toastNotification,
   confirmSwal,
 } from '~/common/index'
+
 export default {
   components: { CustomerList, Quotation, PricingOption },
   name: 'DefaultLayout',
@@ -716,7 +814,6 @@ export default {
       qtyDialog: false,
       newQty: 0,
       selectedProductId: null,
-
       upSvg: require('~/assets/icons/dcommerce/up.svg'),
       downSvg: require('~/assets/icons/dcommerce/down.svg'),
       showCheckOut: true,
@@ -734,7 +831,7 @@ export default {
       lastTransactionSaleHeaderId: 0,
       drawer: true,
       isloading: false,
-      drawer_right: true,
+      drawer_right: false, // Changed to false for mobile by default
       fixed: true,
       title: 'App name & Logo',
       customerDialog: false,
@@ -757,7 +854,6 @@ export default {
         {
           title: 'Orders',
           path: '/admin/ordersFromPos',
-          // $router.push('/admin/ordersFromPos')
           icon: 'mdi-reorder-horizontal',
           method: () => {},
         },
@@ -785,6 +881,7 @@ export default {
       },
     }
   },
+
   computed: {
     companyData() {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
@@ -871,13 +968,11 @@ export default {
         lines.push({
           quantity: iterator.qty,
           unitRate: 1,
-          // price: iterator.pro_price,
           price: iterator.localPrice,
           discount: 0,
           productId: iterator.id,
           productKey: iterator.id,
           unitId: iterator.stockUnitId,
-          // total: iterator.qty * iterator.pro_price,
           total: iterator.qty * iterator.localPrice,
           isActive: true,
         })
@@ -899,12 +994,12 @@ export default {
     },
     grandTotal() {
       const totalPrice = this.cartOfProduct.reduce((total, item) => {
-        // return total + item.qty * item.pro_price;
         return total + item.qty * item.localPrice
       }, 0)
       return totalPrice
     },
   },
+
   mounted() {
     window.addEventListener('beforeunload', this.checkAllInitData)
     this.terminalSelected = this.findSelectedTerminal
@@ -913,10 +1008,17 @@ export default {
     this.loadCustomer()
     this.loadCurrency()
     this.checkAllInitData()
+    
+    // Set drawer_right based on screen size
+    if (this.$vuetify.breakpoint.lgAndUp) {
+      this.drawer_right = true
+    }
   },
+
   beforeDestroy() {
     window.removeEventListener('beforeunload', null)
   },
+
   watch: {
     selectedItem(val) {
       if (val != undefined) {
@@ -924,23 +1026,28 @@ export default {
       }
     },
   },
+
   methods: {
     setQty() {},
+    
     pricingLogig(item) {
       console.log(`PRINCING CLICK....${item.id}`)
       this.productPricingSelected = item.id
       this.pricingDialogKey += 1
       this.pricingDialog = true
     },
+    
     openDeliveryBox() {
       if (this.cartOfProduct.length <= 0)
         return swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
       this.shippingFormKey += 1
       this.deliveryForm = true
     },
+    
     previewTicket() {
       this.tickePreviewDialog = true
     },
+    
     ...mapActions([
       'initiateData',
       'setSelectedTerminal',
@@ -948,8 +1055,8 @@ export default {
       'clearCustomerFormAction',
       'setSelectedPayment',
     ]),
+    
     checkAllInitData() {
-      // setInterval(() => {
       console.info(
         `...loading pos layout ${
           this.findAllTerminal.length
@@ -962,12 +1069,12 @@ export default {
       if (!this.currentSelectedLocation) {
         this.terminalDialog = true
       }
-      // }, 1000);
     },
+    
     initData() {
-      // Call the method directly
       this.initiateData(this.$axios)
     },
+    
     switchTerminal() {
       this.setSelectedTerminal(this.terminalSelected)
       const location = this.findAllLocation.find(
@@ -981,6 +1088,8 @@ export default {
       this.productComponentKey += 1
       this.terminalDialog = false
     },
+
+    // [Include all other methods from original code - they remain unchanged]
     generatePrintViewDeliveryCustomer() {
       let txnListHtml = ``
       for (const iterator of this.productCart) {
@@ -1012,13 +1121,7 @@ export default {
       const today = new Date()
       const bookingDate = jsDateToMysqlDate(today)
       const bookingDateWithTime = today.toISOString
-      // let totalHtml = ``
-      //*********Payment info tag********/
       let totalHtml = ``
-      // let totalHtml = `<div class="ticket">
-      //         <div class="product-name"> ${this.onlineCustomerInfo.payment}</div>
-      //     <div class="price"></div>
-      // </div>`
       for (const iterator of this.currencyList) {
         if (
           iterator.code == 'LAK' &&
@@ -1083,6 +1186,7 @@ export default {
         printWin.close()
       }, 1000)
     },
+
     printDefaultTicket() {
       console.log(`printDefaultTicket ${this.changes}`)
       const theChanges = this.changes;
@@ -1111,7 +1215,6 @@ export default {
         console.log(`=======${product}======`)
         const quantity = iterator.qty
         const total = iterator.qty * iterator.localPrice
-        // txnListHtml += `<div style="font-size: 14px;">${product.pro_name} x${quantity} - ${this.formatNumber(total)}</div>`
         txnListHtml += `<div class="ticket">
                     <div class="product-name" >${product.pro_name} </div>
                     <div class="price" >  ${this.formatNumber(total)}</div>
@@ -1142,30 +1245,6 @@ export default {
             </div>
                 `
       }
-      //******* Currency hard code for TONOO SHOP ONLY****** */
-      // totalHtml = `
-      //           <div class="ticket">
-      //               <div class="product-name"></div>
-      //           <div class="price">THB ${this.formatNumber(
-      //             this.grandTotal - this.discount
-      //           )}</div>
-      //       </div>
-      //           `
-      //******* Currency hard code for TONOO SHOP ONLY****** */
-      /*
- <div style="text-align: center;">
-                    <img src="${
-                      this.companyLogo
-                    }" alt="Description of the image" width="200" height="200">
-                </div>
-                <h3> ໃບຮັບເງິນ</h3>
-                <h5> ວັນທີ ${today.toLocaleString()}</h5>
-                <h5> ເລກທີ ${this.lastTransactionSaleHeaderId} </h5>
-                <h5> ເບີໂທຮ້ານ ${
-                  this.currentTerminal['location']['company']['tel']
-                }</h5>
-                <h5> ຜູ້ຂາຍ: ${this.user.cus_name}  </h5>
-*/
 
       const windowContent = `
          ${this.ticketCommon.header}
@@ -1248,10 +1327,10 @@ export default {
       this.isloading = true
       this.saleHeader.discount = this.discount
       this.saleHeader.remark = 'Quotation'
-      this.saleHeader.total = this.grandTotal - this.discount // Sale header total base on mobile logic (it is exclude discount amount)
+      this.saleHeader.total = this.grandTotal - this.discount
       this.saleHeader.clientId = this.currenctCustomer.id
       this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1 // DEFAULT CURRENCY I FOR LAK
+      this.saleHeader.currencyId = 1
       this.saleHeader.lines = this.generateSaleLine
       this.saleHeader.userId = this.user.id
       this.saleHeader.bookingDate = jsDateToMysqlDate(today)
@@ -1263,33 +1342,28 @@ export default {
             .split('-')[1]
             .toString()
             .trim()
-          // localStorage.setItem('customer', JSON.stringify(this.currenctCustomer));
-          // localStorage.setItem('product', JSON.stringify(this.productCart));
-          // localStorage.setItem('quotationId', this.lastTransactionSaleHeaderId);
           window.open(
             `/admin/PDFQuotation/${this.lastTransactionSaleHeaderId}`,
             '_blank'
           )
-          // swalSuccess(this.$swal, "Succeed", res.data)
         })
         .catch((er) => {
           swalError2(this.$swal, 'Error', er)
         })
       this.isloading = false
     },
+
     openCustomerDialog() {
       this.customerDialog = true
     },
-    // ...mapMutations({
-    //   SetSearchKeyword: 'SetSearchKeyword',
-    // }),
+
     ...mapMutations({
       SetSearchKeyword: 'SetSearchKeyword',
       UPDATE_QTY: 'UPDATE_QTY',
     }),
 
     updateQty(productId, newQty) {
-      const qty = parseInt(newQty) || 0 // Ensure it's a valid number
+      const qty = parseInt(newQty) || 0
       this.UPDATE_QTY({ productId, qty })
     },
 
@@ -1305,14 +1379,13 @@ export default {
         this.qtyDialog = false
       }
     },
+
     async postTransactionForOnlineCustomer(payload) {
       console.log(`Posting.......`)
       this.saleHeader.customerForm = payload.customerForm
       this.discount = payload.customerForm.discount
       this.onlineCustomerInfo = payload.customerInfo
       await this.postTransaction(true)
-      // ************ Clear online customer information after sale done *************//
-      // this.saleHeader.customerForm = null
       delete this.saleHeader.customerForm
       this.deliveryForm = false
     },
@@ -1328,16 +1401,15 @@ export default {
       this.isloading = true
       this.saleHeader.isActive = true
       this.saleHeader.discount = this.discount
-      this.saleHeader.total = this.grandTotal - this.discount // Sale header total base on mobile logic (it is exclude discount amount)
+      this.saleHeader.total = this.grandTotal - this.discount
       this.saleHeader.clientId = this.currenctCustomer.id
       this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1 // DEFAULT CURRENCY I FOR LAK
+      this.saleHeader.currencyId = 1
       this.saleHeader.lines = this.generateSaleLine
       this.saleHeader.userId = this.user.id
       this.saleHeader.bookingDate = jsDateToMysqlDate(today)
       this.saleHeader.locationId = this.currentTerminal['locationId']
-      // console.log('HEADER ' +this.saleHeader['locationId']);
-      // return
+      
       await this.$axios
         .post('/api/sale/create', this.saleHeader)
         .then((res) => {
@@ -1346,10 +1418,8 @@ export default {
           console.log('response post completed===> ' + res.data)
           if (isDeliveryCustomer) {
             this.generatePrintViewDeliveryCustomer()
-            // ******** clear delivery form state ***********
             this.clearCustomerFormAction()
           } else {
-            // this.generatePrintView()
             this.printDefaultTicket()
           }
           this.newOrder()
@@ -1374,6 +1444,7 @@ export default {
         })
       this.isloading = false
     },
+
     ...mapActions([
       'deleteProduct',
       'addProduct',
@@ -1383,25 +1454,28 @@ export default {
       'addSelectedPayment',
       'addCustomer',
     ]),
+
     formatNumber(val) {
       return getFormatNum(val)
     },
+
     selectePaymentMethod(id) {
       console.log('selected payment ', id)
       this.addSelectedPayment(id)
       console.log('SAATE ', this.currentPayment)
     },
+
     previewTicket(saleHeaderId) {
       const path = this.isQuotation ? 'PDFQuotation' : 'PDFInvoice'
       window.open(`/admin/PDFTicket/${saleHeaderId}`, '_blank')
     },
+
     async fetchCategory() {
       this.isLoading = true
       await this.$axios
         .get('category_f')
         .then((res) => {
           console.log('=>category' + res.data)
-          //**** all category ******/
           this.categoryList = res.data.map((el) => {
             return {
               categ_id: el.categ_id,
@@ -1409,7 +1483,6 @@ export default {
               categ_desc: el.categ_desc,
             }
           })
-          //**** all category ******/
           this.categoryList.push({
             categ_id: '9999',
             categ_name: 'ທັງໝົດ',
@@ -1422,6 +1495,7 @@ export default {
         })
       this.isLoading = false
     },
+
     async loadPayment() {
       this.isloading = true
       this.paymentList = []
@@ -1434,12 +1508,12 @@ export default {
           }
         })
         .catch((er) => {
-          // console.log('Data: ' + er)
           swalError2(this.$swal, 'Error', er)
         })
       this.selectePaymentMethod(this.paymentList[0]['id'])
       this.isloading = false
     },
+
     async loadCurrency() {
       this.isloading = true
       this.currencyList = []
@@ -1452,13 +1526,11 @@ export default {
           }
         })
         .catch((er) => {
-          // console.log('Data: ' + er)
           swalError2(this.$swal, 'Error', er)
         })
       this.isloading = false
     },
 
-    // ******** Set select default customer as WALK-IN ********//
     async loadCustomer() {
       this.isloading = true
       await this.$axios
@@ -1472,9 +1544,8 @@ export default {
         })
       this.isloading = false
     },
+
     newOrder() {
-      //  ********** Enable below line to confirm before clear ***********//
-      // confirmSwal(this.$swal, 'ທ່ານ ກຳລັງຈະຂື້ນບິນໃໝ່', this.clearCart)
       this.clearCart()
     },
   },

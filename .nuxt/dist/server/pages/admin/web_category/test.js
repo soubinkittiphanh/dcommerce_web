@@ -113,7 +113,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/web_category/test.vue?vue&type=template&id=7e12c691&scoped=true
 
 // EXTERNAL MODULE: external "vuedraggable"
-var external_vuedraggable_ = __webpack_require__(381);
+var external_vuedraggable_ = __webpack_require__(382);
 var external_vuedraggable_default = /*#__PURE__*/__webpack_require__.n(external_vuedraggable_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_category/test.vue?vue&type=script&lang=js

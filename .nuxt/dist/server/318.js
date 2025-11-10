@@ -26,7 +26,6 @@ __webpack_require__(103);
 __webpack_require__(104);
 __webpack_require__(105);
 __webpack_require__(106);
-__webpack_require__(359);
 __webpack_require__(360);
 __webpack_require__(361);
 __webpack_require__(362);
@@ -42,9 +41,10 @@ __webpack_require__(371);
 __webpack_require__(372);
 __webpack_require__(373);
 __webpack_require__(374);
-__webpack_require__(382);
+__webpack_require__(375);
+__webpack_require__(383);
 var helpers_dataset = __webpack_require__(779);
-__webpack_require__(378);
+__webpack_require__(379);
 class Animator {
   constructor() {
     this._request = null;
@@ -12206,7 +12206,6 @@ __webpack_require__(103);
 __webpack_require__(104);
 __webpack_require__(105);
 __webpack_require__(106);
-__webpack_require__(359);
 __webpack_require__(360);
 __webpack_require__(361);
 __webpack_require__(362);
@@ -12222,7 +12221,8 @@ __webpack_require__(371);
 __webpack_require__(372);
 __webpack_require__(373);
 __webpack_require__(374);
-var color$1 = __webpack_require__(378);
+__webpack_require__(375);
+var color$1 = __webpack_require__(379);
 
 /**
  * @namespace Chart.helpers
