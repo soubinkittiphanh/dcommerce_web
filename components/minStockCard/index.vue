@@ -166,7 +166,7 @@ export default {
         .get(`product_f/${this.currentSelectedLocation['id']}`)
         .then((res) => {
           this.loaddata = []
-          for (const iterator of res.data) {
+          for (const iterator of res.data.data) {
             if (iterator['minStock'] > iterator['card_count']) {
               this.loaddata.push({
                 pro_id: iterator.pro_id,

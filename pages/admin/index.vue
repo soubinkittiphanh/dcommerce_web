@@ -651,7 +651,7 @@ export default {
       await this.$axios
         .get(`product_f/${locationId}`)
         .then((res) => {
-          this.initProduct(res.data)
+          this.initProduct(res.data.data)
         })
         .catch((er) => {
           console.log('Data: ' + er)

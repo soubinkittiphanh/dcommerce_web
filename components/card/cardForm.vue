@@ -4,7 +4,7 @@
             <loading-indicator></loading-indicator>
         </v-dialog>
         
-        <v-card class="mx-auto" max-width="600">
+        <v-card class="mx-auto" max-width="1200">
             <!-- Enhanced Header -->
             <v-card-title class="primary white--text py-4">
                 <v-icon left color="white" size="24">mdi-package-variant-plus</v-icon>

@@ -257,7 +257,7 @@ export default {
         .get(`product_f/${locationId}`)
         .then((res) => {
           this.loaddata = []
-          for (const iterator of res.data) {
+          for (const iterator of res.data.data) {
             if (iterator['minStock'] > iterator['card_count']) {
               this.loaddata.push({
                 id: iterator.id,

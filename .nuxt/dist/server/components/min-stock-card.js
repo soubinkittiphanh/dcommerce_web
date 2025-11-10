@@ -4712,13 +4712,13 @@ var VChip = __webpack_require__(127);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
 var VDataTable = __webpack_require__(409);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/minStockCard/index.vue?vue&type=template&id=1e5ea2ac
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/minStockCard/index.vue?vue&type=template&id=150c6638
 
 
 
 
 
-var minStockCardvue_type_template_id_1e5ea2ac_render = function render() {
+var minStockCardvue_type_template_id_150c6638_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -4769,7 +4769,7 @@ var minStockCardvue_type_template_id_1e5ea2ac_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/minStockCard/index.vue?vue&type=template&id=1e5ea2ac
+// CONCATENATED MODULE: ./components/minStockCard/index.vue?vue&type=template&id=150c6638
 
 // EXTERNAL MODULE: ./components/product/ProductForm.vue + 3 modules
 var ProductForm = __webpack_require__(468);
@@ -4921,7 +4921,7 @@ var external_vuex_ = __webpack_require__(14);
       this.isloading = true;
       await this.$axios.get(`product_f/${this.currentSelectedLocation['id']}`).then(res => {
         this.loaddata = [];
-        for (const iterator of res.data) {
+        for (const iterator of res.data.data) {
           if (iterator['minStock'] > iterator['card_count']) {
             this.loaddata.push({
               pro_id: iterator.pro_id,
@@ -5040,7 +5040,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_minStockCardvue_type_script_lang_js,
-  minStockCardvue_type_template_id_1e5ea2ac_render,
+  minStockCardvue_type_template_id_150c6638_render,
   staticRenderFns,
   false,
   null,

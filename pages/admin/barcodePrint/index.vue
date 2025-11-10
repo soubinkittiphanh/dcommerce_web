@@ -407,7 +407,7 @@ export default {
       await this.$axios
         .get(`product_f/${this.currentSelectedLocation['id']}`)
         .then((res) => {
-          this.loaddata = res.data.map((el) => {
+          this.loaddata = res.data.data.map((el) => {
             return {
               id: el.id,
               co_name: el.co_name,

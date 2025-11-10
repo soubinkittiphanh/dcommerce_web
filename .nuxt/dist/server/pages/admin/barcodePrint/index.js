@@ -53,7 +53,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(138);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/barcodePrint/index.vue?vue&type=template&id=6022d643
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/barcodePrint/index.vue?vue&type=template&id=048303ca
 
 
 
@@ -70,7 +70,7 @@ var components_VToolbar = __webpack_require__(138);
 
 
 
-var barcodePrintvue_type_template_id_6022d643_render = function render() {
+var barcodePrintvue_type_template_id_048303ca_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -371,7 +371,7 @@ var barcodePrintvue_type_template_id_6022d643_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/barcodePrint/index.vue?vue&type=template&id=6022d643
+// CONCATENATED MODULE: ./pages/admin/barcodePrint/index.vue?vue&type=template&id=048303ca
 
 // EXTERNAL MODULE: ./components/product/ProductForm.vue + 3 modules
 var ProductForm = __webpack_require__(468);
@@ -633,7 +633,7 @@ var external_jsbarcode_default = /*#__PURE__*/__webpack_require__.n(external_jsb
       this.isloading = true;
       // https://nodejsclusters-124154-0.cloudclusters.net/product_f
       await this.$axios.get(`product_f/${this.currentSelectedLocation['id']}`).then(res => {
-        this.loaddata = res.data.map(el => {
+        this.loaddata = res.data.data.map(el => {
           return {
             id: el.id,
             co_name: el.co_name,
@@ -711,7 +711,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_barcodePrintvue_type_script_lang_js,
-  barcodePrintvue_type_template_id_6022d643_render,
+  barcodePrintvue_type_template_id_048303ca_render,
   staticRenderFns,
   false,
   null,

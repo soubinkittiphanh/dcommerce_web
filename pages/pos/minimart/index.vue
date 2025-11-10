@@ -128,7 +128,7 @@ export default {
             await this.$axios
                 .get(`product_f/${this.currentSelectedLocation['id']}`)
                 .then((res) => {
-                    for (const iterator of res.data) {
+                    for (const iterator of res.data.data) {
                         console.warn(`Currency id ${iterator['saleCurrencyId']}`)
                         const currency = this.findCurrency(iterator['saleCurrencyId'])
                         iterator['localPrice'] = iterator['pro_price'] * currency['rate']

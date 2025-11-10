@@ -32,7 +32,7 @@ var VRow = __webpack_require__(398);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/barcodePrint/gianttTime.vue?vue&type=template&id=3ff03882
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/barcodePrint/gianttTime.vue?vue&type=template&id=a3622c22
 
 
 
@@ -43,7 +43,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var gianttTimevue_type_template_id_3ff03882_render = function render() {
+var gianttTimevue_type_template_id_a3622c22_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -223,7 +223,7 @@ var gianttTimevue_type_template_id_3ff03882_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/barcodePrint/gianttTime.vue?vue&type=template&id=3ff03882
+// CONCATENATED MODULE: ./pages/admin/barcodePrint/gianttTime.vue?vue&type=template&id=a3622c22
 
 // EXTERNAL MODULE: ./components/timeline/GianttTimeline.vue + 4 modules
 var GianttTimeline = __webpack_require__(980);
@@ -437,7 +437,7 @@ var external_jsbarcode_default = /*#__PURE__*/__webpack_require__.n(external_jsb
       this.isloading = true;
       // https://nodejsclusters-124154-0.cloudclusters.net/product_f
       await this.$axios.get(`product_f/${this.currentSelectedLocation['id']}`).then(res => {
-        this.loaddata = res.data.map(el => {
+        this.loaddata = res.data.data.map(el => {
           return {
             id: el.id,
             co_name: el.co_name,
@@ -513,7 +513,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   barcodePrint_gianttTimevue_type_script_lang_js,
-  gianttTimevue_type_template_id_3ff03882_render,
+  gianttTimevue_type_template_id_a3622c22_render,
   staticRenderFns,
   false,
   null,
