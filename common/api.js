@@ -54,18 +54,18 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'PWT.png',
   //   env: ''
   // }
-  // const info = {
-  //   name: '',
-  //   tel: '',
-  //   whatsapp: '',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '',
-  //   ticketLogo: 'TTP_AUTO.jpeg',
-  //   companyLogo: 'TTP_AUTO.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
+  const info = {
+    name: '',
+    tel: '',
+    whatsapp: '',
+    imageUrl: '',
+    imageName: '',
+    address: '',
+    ticketLogo: 'TTP_AUTO.jpeg',
+    companyLogo: 'TTP_AUTO.jpeg',
+    dcLogo: 'Dcommerce-Logo_DC.png',
+    env: ''
+  }
 
 
 
@@ -106,18 +106,19 @@ export const mainCompanyInfo = (store) => {
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  const info = {
-    name: 'ໄທພວນ',
-    tel: '020 2383 8999',
-    whatsapp: '+8562002023838999',
-    imageUrl: '',
-    imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'TAIPHUAN.png',
-    companyLogo: 'TAIPHUAN.png',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }//
+  // const info = {
+  //   name: 'ໄທພວນ',
+  //   tel: '020 2383 8999',
+  //   whatsapp: '+8562002023838999',
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: '3 ແຍກອາໄພ່ LPB',
+  //   ticketLogo: 'TAIPHUAN.png',
+  //   companyLogo: 'TAIPHUAN.png',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
+  //   env: ''
+  // }
+  //
   // const info = {
   //   name: 'PM',
   //   tel: '020 2383 8999',

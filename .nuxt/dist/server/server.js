@@ -5596,18 +5596,18 @@ const mainCompanyInfo = store => {
   //   dcLogo: 'PWT.png',
   //   env: ''
   // }
-  // const info = {
-  //   name: '',
-  //   tel: '',
-  //   whatsapp: '',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '',
-  //   ticketLogo: 'TTP_AUTO.jpeg',
-  //   companyLogo: 'TTP_AUTO.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
+  const info = {
+    name: '',
+    tel: '',
+    whatsapp: '',
+    imageUrl: '',
+    imageName: '',
+    address: '',
+    ticketLogo: 'TTP_AUTO.jpeg',
+    companyLogo: 'TTP_AUTO.jpeg',
+    dcLogo: 'Dcommerce-Logo_DC.png',
+    env: ''
+  };
 
   // const info = {
   //   name: 'THE CORNERS',
@@ -5646,18 +5646,19 @@ const mainCompanyInfo = store => {
   //   dcLogo: 'Dcommerce-Logo_DC.png',
   //   env: ''
   // }
-  const info = {
-    name: 'ໄທພວນ',
-    tel: '020 2383 8999',
-    whatsapp: '+8562002023838999',
-    imageUrl: '',
-    imageName: '',
-    address: '3 ແຍກອາໄພ່ LPB',
-    ticketLogo: 'TAIPHUAN.png',
-    companyLogo: 'TAIPHUAN.png',
-    dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
-  }; //
+  // const info = {
+  //   name: 'ໄທພວນ',
+  //   tel: '020 2383 8999',
+  //   whatsapp: '+8562002023838999',
+  //   imageUrl: '',
+  //   imageName: '',
+  //   address: '3 ແຍກອາໄພ່ LPB',
+  //   ticketLogo: 'TAIPHUAN.png',
+  //   companyLogo: 'TAIPHUAN.png',
+  //   dcLogo: 'Dcommerce-Logo_DC.png',
+  //   env: ''
+  // }
+  //
   // const info = {
   //   name: 'PM',
   //   tel: '020 2383 8999',
@@ -18268,10 +18269,10 @@ __webpack_require__.d(components_namespaceObject, "MASettlementDialog", function
 __webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
+__webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
-__webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
 __webpack_require__.d(components_namespaceObject, "BenefitMaintain", function() { return BenefitMaintain; });
 __webpack_require__.d(components_namespaceObject, "BenefitView", function() { return BenefitView; });
 __webpack_require__.d(components_namespaceObject, "CompanyTheme", function() { return CompanyTheme; });
@@ -24704,10 +24705,10 @@ const MASettlementDialog = () => __webpack_require__.e(/* import() | components/
 const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 92).then(__webpack_require__.bind(null, 690)).then(c => wrapFunctional(c.default || c));
 const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 93).then(__webpack_require__.bind(null, 503)).then(c => wrapFunctional(c.default || c));
 const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1281)).then(c => wrapFunctional(c.default || c));
+const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 957)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 686)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1458)).then(c => wrapFunctional(c.default || c));
 const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1459)).then(c => wrapFunctional(c.default || c));
-const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 957)).then(c => wrapFunctional(c.default || c));
 const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 959)).then(c => wrapFunctional(c.default || c));
 const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 960)).then(c => wrapFunctional(c.default || c));
 const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 47).then(__webpack_require__.bind(null, 683)).then(c => wrapFunctional(c.default || c));
