@@ -137,6 +137,7 @@ const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
 const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/receive/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/receive/index" */))
 const _0d56c4e2 = () => interopDefault(import('../pages/admin/advertise/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/advertise/mixins/ImagePreviewMixin" */))
+const _290960d1 = () => interopDefault(import('../pages/admin/moneyAdvance/report/ministryReport.vue' /* webpackChunkName: "pages/admin/moneyAdvance/report/ministryReport" */))
 const _78a0b872 = () => interopDefault(import('../pages/admin/product/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/product/mixins/ImagePreviewMixin" */))
 const _4e9a3466 = () => interopDefault(import('../pages/admin/report/MA/bankSummary/index.vue' /* webpackChunkName: "pages/admin/report/MA/bankSummary/index" */))
 const _0167eed6 = () => interopDefault(import('../pages/admin/report/MA/master/index.vue' /* webpackChunkName: "pages/admin/report/MA/master/index" */))
@@ -704,6 +705,10 @@ export const routerOptions = {
     path: "/admin/advertise/mixins/ImagePreviewMixin",
     component: _0d56c4e2,
     name: "admin-advertise-mixins-ImagePreviewMixin"
+  }, {
+    path: "/admin/moneyAdvance/report/ministryReport",
+    component: _290960d1,
+    name: "admin-moneyAdvance-report-ministryReport"
   }, {
     path: "/admin/product/mixins/ImagePreviewMixin",
     component: _78a0b872,

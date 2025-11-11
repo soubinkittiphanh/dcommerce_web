@@ -1,7 +1,7 @@
-exports.ids = [246,53,54,55,242,243,244];
+exports.ids = [247,53,54,55,243,244,245];
 exports.modules = {
 
-/***/ 1083:
+/***/ 1084:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1084:
+/***/ 1085:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1350:
+/***/ 1353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -326,7 +326,7 @@ var staticRenderFns = [];
 var ImagePreviewMixin = __webpack_require__(589);
 
 // EXTERNAL MODULE: ./pages/admin/product/_id/index.vue + 4 modules
-var _id = __webpack_require__(947);
+var _id = __webpack_require__(948);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/productInuse.vue?vue&type=script&lang=js
 
@@ -458,7 +458,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1083)
+  var style0 = __webpack_require__(1084)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -706,7 +706,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 447:
+/***/ 448:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1847,7 +1847,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var product = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default})
 
 
 /***/ }),
@@ -1858,7 +1858,7 @@ installComponents(component, {DialogClassicMessage: __webpack_require__(433).def
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1084);
+var content = __webpack_require__(1085);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1870,7 +1870,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 947:
+/***/ 948:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2433,7 +2433,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,DiaConfirm: __webpack_require__(598).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default,DiaConfirm: __webpack_require__(598).default})
 
 
 /***/ })

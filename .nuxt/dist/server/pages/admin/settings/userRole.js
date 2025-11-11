@@ -1,7 +1,7 @@
-exports.ids = [273,133,134,135,138];
+exports.ids = [274,133,134,135,138];
 exports.modules = {
 
-/***/ 1182:
+/***/ 1183:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1183:
+/***/ 1184:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1404:
+/***/ 1407:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -129,16 +129,16 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/settings/userRole.vue?vue&type=template&id=3e130d02&scoped=true
 
 // EXTERNAL MODULE: ./components/roles/RoleCard.vue + 4 modules
-var RoleCard = __webpack_require__(982);
+var RoleCard = __webpack_require__(983);
 
 // EXTERNAL MODULE: ./components/roles/RoleDialog.vue + 4 modules
-var RoleDialog = __webpack_require__(983);
+var RoleDialog = __webpack_require__(984);
 
 // EXTERNAL MODULE: ./components/shared/ConfirmDialog.vue + 4 modules
-var ConfirmDialog = __webpack_require__(984);
+var ConfirmDialog = __webpack_require__(985);
 
 // EXTERNAL MODULE: ./components/roles/UsersListDialog.vue + 4 modules
-var UsersListDialog = __webpack_require__(985);
+var UsersListDialog = __webpack_require__(986);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/settings/userRole.vue?vue&type=script&lang=js
 
@@ -379,7 +379,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1182)
+  var style0 = __webpack_require__(1183)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -587,7 +587,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1183);
+var content = __webpack_require__(1184);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -599,7 +599,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 982:
+/***/ 983:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -727,7 +727,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 983:
+/***/ 984:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -950,7 +950,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 984:
+/***/ 985:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1058,7 +1058,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 985:
+/***/ 986:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

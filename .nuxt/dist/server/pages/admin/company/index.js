@@ -1,26 +1,26 @@
 exports.ids = [195,40,46,47,108,109,114];
 exports.modules = {
 
-/***/ 1027:
+/***/ 1028:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2058dc16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(823);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2058dc16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2058dc16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2058dc16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2058dc16_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4dbe319a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(823);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4dbe319a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4dbe319a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4dbe319a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4dbe319a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1028:
+/***/ 1029:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-2058dc16],.text-h5[data-v-2058dc16]{font-family:\"Noto Sans Lao\"}table[data-v-2058dc16]{border:1px solid #000}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-4dbe319a],.text-h5[data-v-4dbe319a]{font-family:\"Noto Sans Lao\"}table[data-v-4dbe319a]{border:1px solid #000}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1313:
+/***/ 1316:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68,7 +68,7 @@ var VLayout = __webpack_require__(392);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/company/index.vue?vue&type=template&id=2058dc16&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/company/index.vue?vue&type=template&id=4dbe319a&scoped=true
 
 
 
@@ -81,7 +81,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var companyvue_type_template_id_2058dc16_scoped_true_render = function render() {
+var companyvue_type_template_id_4dbe319a_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -112,7 +112,7 @@ var companyvue_type_template_id_2058dc16_scoped_true_render = function render() 
     }
   }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
-      "max-width": "1024"
+      "fullscreen": ""
     },
     model: {
       value: _vm.entryFormDialog,
@@ -235,7 +235,7 @@ var companyvue_type_template_id_2058dc16_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/company/index.vue?vue&type=template&id=2058dc16&scoped=true
+// CONCATENATED MODULE: ./pages/admin/company/index.vue?vue&type=template&id=4dbe319a&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -361,7 +361,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1027)
+  var style0 = __webpack_require__(1028)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -370,11 +370,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_companyvue_type_script_lang_js,
-  companyvue_type_template_id_2058dc16_scoped_true_render,
+  companyvue_type_template_id_4dbe319a_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "2058dc16",
+  "4dbe319a",
   "5bb51a0f"
   
 )
@@ -628,35 +628,6 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /* nuxt-component-imports */
 installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
-
-
-/***/ }),
-
-/***/ 417:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(418);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("7b5d4dc6", content, true)
-
-/***/ }),
-
-/***/ 418:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-input--checkbox.v-input--indeterminate.v-input--is-disabled{opacity:.6}.v-input--checkbox.v-input--dense{margin-top:4px}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
 
 
 /***/ }),
@@ -2121,118 +2092,6 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default,
 
 /***/ }),
 
-/***/ 442:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(417);
-/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(167);
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
-/* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
-/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(66);
-// Styles
-
- // Components
-
-
- // Mixins
-
-
-/* @vue/component */
-
-/* harmony default export */ __webpack_exports__["a"] = (_mixins_selectable__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].extend({
-  name: 'v-checkbox',
-  props: {
-    indeterminate: Boolean,
-    indeterminateIcon: {
-      type: String,
-      default: '$checkboxIndeterminate'
-    },
-    offIcon: {
-      type: String,
-      default: '$checkboxOff'
-    },
-    onIcon: {
-      type: String,
-      default: '$checkboxOn'
-    }
-  },
-  data() {
-    return {
-      inputIndeterminate: this.indeterminate
-    };
-  },
-  computed: {
-    classes() {
-      return {
-        ..._VInput__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.classes.call(this),
-        'v-input--selection-controls': true,
-        'v-input--checkbox': true,
-        'v-input--indeterminate': this.inputIndeterminate
-      };
-    },
-    computedIcon() {
-      if (this.inputIndeterminate) {
-        return this.indeterminateIcon;
-      } else if (this.isActive) {
-        return this.onIcon;
-      } else {
-        return this.offIcon;
-      }
-    },
-    // Do not return undefined if disabled,
-    // according to spec, should still show
-    // a color when disabled and active
-    validationState() {
-      if (this.isDisabled && !this.inputIndeterminate) return undefined;
-      if (this.hasError && this.shouldValidate) return 'error';
-      if (this.hasSuccess) return 'success';
-      if (this.hasColor !== null) return this.computedColor;
-      return undefined;
-    }
-  },
-  watch: {
-    indeterminate(val) {
-      // https://github.com/vuetifyjs/vuetify/issues/8270
-      this.$nextTick(() => this.inputIndeterminate = val);
-    },
-    inputIndeterminate(val) {
-      this.$emit('update:indeterminate', val);
-    },
-    isActive() {
-      if (!this.indeterminate) return;
-      this.inputIndeterminate = false;
-    }
-  },
-  methods: {
-    genCheckbox() {
-      const {
-        title,
-        ...checkboxAttrs
-      } = this.attrs$;
-      return this.$createElement('div', {
-        staticClass: 'v-input--selection-controls__input'
-      }, [this.$createElement(_VIcon__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], this.setTextColor(this.validationState, {
-        props: {
-          dense: this.dense,
-          dark: this.dark,
-          light: this.light
-        }
-      }), this.computedIcon), this.genInput('checkbox', {
-        ...checkboxAttrs,
-        'aria-checked': this.inputIndeterminate ? 'mixed' : this.isActive.toString()
-      }), this.genRipple(this.setTextColor(this.rippleState))]);
-    },
-    genDefaultSlot() {
-      return [this.genCheckbox(), this.genLabel()];
-    }
-  }
-}));
-
-/***/ }),
-
 /***/ 445:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3067,23 +2926,21 @@ module.exports.__inject__ = function (context) {
         remark: 'This is a sample company',
         bank: 'ທະນາຄານ BCEL',
         accounts: '',
+        accountName: '',
         profile_image_path: null,
         isActive: true
       },
-      items: ['Gold', 'Silver', 'Platinum', 'Diamond', 'Master'],
       isloading: false,
-      // Image handling
       selectedFile: null,
       previewUrl: null,
       uploading: false,
       deleting: false,
-      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 100 || 'Name must be less than 100 characters']
+      nameRules: [value => !!value || 'ຈຳເປັນຕ້ອງໃສ່', value => value && value.length <= 100 || 'ຕ້ອງນ້ອຍກວ່າ 100 ຕົວອັກສອນ']
     };
   },
   computed: {
     currentImageUrl() {
       if (this.form.profile_image_path) {
-        // Construct full URL for the image
         return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path}`;
       }
       return null;
@@ -3095,14 +2952,12 @@ module.exports.__inject__ = function (context) {
   methods: {
     onThemeUpdated() {
       this.$toast.success('ອັບເດດສີທີມສຳເລັດ');
-      // Optionally reload company data
       this.loadEntry();
     },
     async commitRecord() {
       if (this.$refs.form.validate() && !this.isloading) {
         this.isloading = true;
         let api = this.isCreate ? 'api/company/create' : `api/company/update/${this.recordId}`;
-        console.log('API => ', api);
         try {
           if (this.isCreate) {
             await this.$axios.post(api, this.form);
@@ -3120,7 +2975,6 @@ module.exports.__inject__ = function (context) {
       }
     },
     async loadEntry() {
-      console.log(`===> Update form record load`);
       if (this.recordId && !this.isCreate) {
         try {
           const response = await this.$axios.get(`api/company/find/${this.recordId}`);
@@ -3130,26 +2984,20 @@ module.exports.__inject__ = function (context) {
         }
       }
     },
-    // Image handling methods
     onFileSelected(file) {
       if (file) {
-        // Validate file type
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
         if (!allowedTypes.includes(file.type)) {
           this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ຮູບພາບ (JPG, PNG, GIF)');
           this.clearSelectedFile();
           return;
         }
-
-        // Validate file size (5MB max)
-        const maxSize = 5 * 1024 * 1024; // 5MB
+        const maxSize = 5 * 1024 * 1024;
         if (file.size > maxSize) {
           this.$toast.error('ຂະໜາດໄຟລ໌ໃຫຍ່ເກີນໄປ (ສູງສຸດ 5MB)');
           this.clearSelectedFile();
           return;
         }
-
-        // Create preview URL
         this.previewUrl = URL.createObjectURL(file);
       } else {
         this.clearSelectedFile();
@@ -3184,8 +3032,6 @@ module.exports.__inject__ = function (context) {
             'Content-Type': 'multipart/form-data'
           }
         });
-
-        // Update form with new image path
         this.form.profile_image_path = response.data.profile_image_path;
         this.$toast.success('ອັບໂຫລດຮູບສຳເລັດແລ້ວ');
         this.clearSelectedFile();
@@ -3216,8 +3062,6 @@ module.exports.__inject__ = function (context) {
           this.deleting = true;
           const companyId = this.form.id || this.recordId;
           await this.$axios.delete(`api/company/delete-profile-image/${companyId}`);
-
-          // Clear image path from form
           this.form.profile_image_path = null;
           this.$toast.success('ລຶບຮູບສຳເລັດແລ້ວ');
           this.refreshData();
@@ -3956,7 +3800,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("62a01768", content, true, context)
+  add("340397d0", content, true, context)
 };
 
 /***/ }),
@@ -6174,9 +6018,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_27dd6c77_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(633);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_27dd6c77_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_27dd6c77_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_27dd6c77_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_27dd6c77_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(633);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -6188,7 +6032,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".image-preview-container[data-v-27dd6c77]{min-height:150px}.profile-image[data-v-27dd6c77]{border-radius:8px}.preview-image[data-v-27dd6c77]{border:1px solid #e0e0e0;border-radius:4px}.v-file-input[data-v-27dd6c77]{margin-bottom:0}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-expansion-panel[data-v-0e1f48ff]:before{box-shadow:none}.v-expansion-panel-header[data-v-0e1f48ff]{min-height:40px!important}.v-expansion-panel-content[data-v-0e1f48ff] .v-expansion-panel-content__wrap{padding-bottom:8px;padding-top:8px}.rounded[data-v-0e1f48ff]{border-radius:4px!important}.v-file-input[data-v-0e1f48ff] .v-file-input__text{font-size:.875rem}.v-text-field--outlined.v-input--dense .v-label[data-v-0e1f48ff]{top:8px}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -6206,6 +6050,9 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
 var VAlert = __webpack_require__(400);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
+var VAvatar = __webpack_require__(120);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
 
@@ -6214,9 +6061,6 @@ var VCard = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(442);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(127);
@@ -6227,8 +6071,17 @@ var VCol = __webpack_require__(399);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(357);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
+var VExpansionPanel = __webpack_require__(406);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelContent.js
+var VExpansionPanelContent = __webpack_require__(408);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelHeader.js
+var VExpansionPanelHeader = __webpack_require__(407);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
+var VExpansionPanels = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
 var VFileInput = __webpack_require__(473);
@@ -6242,22 +6095,19 @@ var VIcon = __webpack_require__(60);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(84);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(92);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(398);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(401);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
-var VSubheader = __webpack_require__(129);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
+var VSwitch = __webpack_require__(457);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CompanyForm.vue?vue&type=template&id=27dd6c77&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CompanyForm.vue?vue&type=template&id=0e1f48ff&scoped=true
 
 
 
@@ -6279,7 +6129,9 @@ var VTextField = __webpack_require__(36);
 
 
 
-var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function render() {
+
+
+var CompanyFormvue_type_template_id_0e1f48ff_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -6312,29 +6164,45 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       expression: "showThemeDialog"
     }
   }), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
-    staticClass: "ma-0",
+    staticClass: "pa-3 mx-auto",
+    attrs: {
+      "max-width": "800"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "pb-2"
+  }, [_c(VChip["a" /* default */], {
     attrs: {
       "color": "primary",
       "label": "",
-      "text-color": "white"
+      "text-color": "white",
+      "small": ""
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "start": ""
+      "left": "",
+      "small": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v("\n        ຈັດການ ສາຂາ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
+  }, [_vm._v("mdi-office-building")]), _vm._v("\n        ຈັດການສາຂາ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "py-2"
+  }, [_c(VForm["a" /* default */], {
     ref: "form"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c(VRow["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6",
+      "md": "4"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "disabled": !_vm.isCreate,
-      "label": "* Code",
-      "required": "",
+      "label": "ລະຫັດ *",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
       "rules": _vm.nameRules
     },
     model: {
@@ -6346,12 +6214,16 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "sm": "6",
+      "md": "8"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "* ຊື່",
-      "required": "",
+      "label": "ຊື່ສາຂາ *",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
       "rules": _vm.nameRules
     },
     model: {
@@ -6361,15 +6233,23 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       },
       expression: "form.name"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "6"
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ເບີໂທ",
-      "required": "",
-      "rules": _vm.nameRules
+      "label": "ເບີໂທ",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-phone"
     },
     model: {
       value: _vm.form.tel,
@@ -6380,13 +6260,16 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "sm": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ອີເມວ",
-      "required": "",
-      "rules": _vm.nameRules
+      "label": "ອີເມວ",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-email"
     },
     model: {
       value: _vm.form.email,
@@ -6395,15 +6278,22 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       },
       expression: "form.email"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "6"
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ທີ່ຢູ່",
-      "required": "",
-      "rules": _vm.nameRules
+      "label": "ທີ່ຢູ່",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-map-marker"
     },
     model: {
       value: _vm.form.address,
@@ -6412,15 +6302,22 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       },
       expression: "form.address"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "6"
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "4"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ເມືອງ",
-      "required": "",
-      "rules": _vm.nameRules
+      "label": "ແຂວງ",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto"
     },
     model: {
       value: _vm.form.province,
@@ -6429,15 +6326,17 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       },
       expression: "form.province"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "sm": "4"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ແຂວງ",
-      "required": "",
-      "rules": _vm.nameRules
+      "label": "ເມືອງ",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto"
     },
     model: {
       value: _vm.form.district,
@@ -6447,27 +6346,60 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       expression: "form.district"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "d-flex align-center",
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "sm": "4"
     }
-  }, [_c(VCheckbox["a" /* default */], {
+  }, [_c(VSwitch["a" /* default */], {
+    staticClass: "mt-0 pt-0",
     attrs: {
-      "label": "Is Active"
+      "label": "ເປີດໃຊ້ງານ",
+      "color": "primary",
+      "dense": "",
+      "hide-details": ""
     },
     model: {
       value: _vm.form.isActive,
       callback: function ($$v) {
-        _vm.$set(_vm.form, "isActive", _vm._n($$v));
+        _vm.$set(_vm.form, "isActive", $$v);
       },
       expression: "form.isActive"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VExpansionPanels["a" /* default */], {
+    staticClass: "mt-4",
     attrs: {
-      "cols": "6"
+      "flat": ""
+    }
+  }, [_c(VExpansionPanel["a" /* default */], [_c(VExpansionPanelHeader["a" /* default */], {
+    staticClass: "px-0 py-2"
+  }, [_c('div', {
+    staticClass: "d-flex align-center"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-bank")]), _vm._v(" "), _c('span', {
+    staticClass: "text-subtitle2"
+  }, [_vm._v("ຂໍ້ມູນທະນາຄານ")])], 1)]), _vm._v(" "), _c(VExpansionPanelContent["a" /* default */], {
+    staticClass: "px-0"
+  }, [_c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ຊື່ທະນາຄານ"
+      "label": "ຊື່ທະນາຄານ",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-bank"
     },
     model: {
       value: _vm.form.bank,
@@ -6478,11 +6410,16 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "sm": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": " ຊື່ບັນຊີ"
+      "label": "ຊື່ບັນຊີ",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-account"
     },
     model: {
       value: _vm.form.accountName,
@@ -6491,13 +6428,22 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       },
       expression: "form.accountName"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "6"
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "ເລກບັນຊີ (ຂັ້ນຫລາຍບັນຊີດ້ວຍ ເຄື່ອງໝາຍ | )"
+      "label": "ເລກບັນຊີ (ຂັ້ນດ້ວຍ | ຖ້າມີຫຼາຍບັນຊີ)",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "prepend-inner-icon": "mdi-credit-card"
     },
     model: {
       value: _vm.form.accounts,
@@ -6506,61 +6452,52 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       },
       expression: "form.accounts"
     }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VExpansionPanels["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12"
+      "flat": ""
     }
-  }, [_c(VDivider["a" /* default */], {
-    staticClass: "my-4"
-  }), _vm._v(" "), _c(VSubheader["a" /* default */], {
-    staticClass: "pl-0"
+  }, [_c(VExpansionPanel["a" /* default */], [_c(VExpansionPanelHeader["a" /* default */], {
+    staticClass: "px-0 py-2"
+  }, [_c('div', {
+    staticClass: "d-flex align-center"
   }, [_c(VIcon["a" /* default */], {
-    staticClass: "mr-2"
-  }, [_vm._v("mdi-image-outline")]), _vm._v("\n              ຮູບໂປຣໄຟລ໌ບໍລິສັດ\n            ")], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-image")]), _vm._v(" "), _c('span', {
+    staticClass: "text-subtitle2"
+  }, [_vm._v("ຮູບໂປຣໄຟລ໌")]), _vm._v(" "), _vm.form.profile_image_path ? _c(VChip["a" /* default */], {
+    staticClass: "ml-2",
+    attrs: {
+      "x-small": "",
+      "color": "success"
+    }
+  }, [_vm._v("\n                  ມີຮູບແລ້ວ\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c(VExpansionPanelContent["a" /* default */], {
+    staticClass: "px-0"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "6"
+      "sm": "6"
     }
-  }, [_c('div', {
-    staticClass: "image-preview-container"
-  }, [_vm.currentImageUrl ? _c(VCard["a" /* default */], {
-    staticClass: "mx-auto",
+  }, [_vm.currentImageUrl ? _c('div', {
+    staticClass: "text-center"
+  }, [_c(VAvatar["a" /* default */], {
+    staticClass: "mb-2",
     attrs: {
-      "max-width": "200",
-      "elevation": "2"
+      "size": "120"
     }
   }, [_c(VImg["a" /* default */], {
-    staticClass: "profile-image",
     attrs: {
       "src": _vm.currentImageUrl,
-      "height": "150",
       "cover": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "placeholder",
-      fn: function () {
-        return [_c(VRow["a" /* default */], {
-          staticClass: "fill-height ma-0",
-          attrs: {
-            "align": "center",
-            "justify": "center"
-          }
-        }, [_c(VProgressCircular["a" /* default */], {
-          attrs: {
-            "indeterminate": "",
-            "color": "grey lighten-5"
-          }
-        })], 1)];
-      },
-      proxy: true
-    }], null, false, 4034393411)
-  }), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
-    staticClass: "justify-center"
-  }, [_c(VBtn["a" /* default */], {
+    }
+  })], 1), _vm._v(" "), _c('br'), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "error",
       "text": "",
-      "small": "",
+      "x-small": "",
       "loading": _vm.deleting
     },
     on: {
@@ -6570,35 +6507,36 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
     attrs: {
       "small": ""
     }
-  }, [_vm._v("mdi-delete")]), _vm._v("\n                    ລຶບ\n                  ")], 1)], 1)], 1) : _c(VCard["a" /* default */], {
-    staticClass: "mx-auto d-flex align-center justify-center",
-    attrs: {
-      "max-width": "200",
-      "height": "150",
-      "elevation": "1",
-      "outlined": ""
-    }
-  }, [_c('div', {
+  }, [_vm._v("mdi-delete")]), _vm._v("\n                      ລຶບ\n                    ")], 1)], 1) : _c('div', {
     staticClass: "text-center"
+  }, [_c(VAvatar["a" /* default */], {
+    staticClass: "mb-2",
+    attrs: {
+      "size": "120",
+      "color": "grey lighten-3"
+    }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "size": "48",
-      "color": "grey lighten-2"
+      "size": "40",
+      "color": "grey"
     }
-  }, [_vm._v("mdi-image-outline")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("mdi-image-outline")])], 1), _vm._v(" "), _c('div', {
     staticClass: "text-caption grey--text"
-  }, [_vm._v("ບໍ່ມີຮູບໂປຣໄຟລ໌")])], 1)])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("ບໍ່ມີຮູບ")])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "6"
+      "sm": "6"
     }
   }, [_c(VFileInput["a" /* default */], {
     ref: "fileInput",
     attrs: {
       "accept": "image/*",
-      "label": "ເລືອກຮູບໂປຣໄຟລ໌ໃໝ່",
-      "prepend-icon": "mdi-camera",
-      "show-size": "",
+      "label": "ເລືອກຮູບ",
+      "prepend-icon": "",
+      "prepend-inner-icon": "mdi-camera",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
       "disabled": _vm.uploading,
       "clearable": ""
     },
@@ -6613,65 +6551,58 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
       expression: "selectedFile"
     }
   }), _vm._v(" "), _vm.previewUrl ? _c('div', {
-    staticClass: "mt-3"
-  }, [_c(VSubheader["a" /* default */], {
-    staticClass: "pl-0"
-  }, [_vm._v("ຕົວຢ່າງຮູບທີ່ເລືອກ:")]), _vm._v(" "), _c(VImg["a" /* default */], {
-    staticClass: "preview-image",
+    staticClass: "mt-2 text-center"
+  }, [_c(VImg["a" /* default */], {
+    staticClass: "mx-auto rounded",
     attrs: {
       "src": _vm.previewUrl,
-      "max-width": "150",
-      "max-height": "100"
+      "max-width": "80",
+      "max-height": "60"
     }
   })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "mt-4"
+    staticClass: "mt-3"
   }, [_vm.selectedFile && !_vm.uploading ? _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
     attrs: {
       "color": "primary",
-      "disabled": !_vm.selectedFile
+      "small": "",
+      "block": ""
     },
     on: {
       "click": _vm.uploadProfileImage
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": ""
+      "left": "",
+      "small": ""
     }
-  }, [_vm._v("mdi-upload")]), _vm._v("\n                ອັບໂຫລດຮູບ\n              ")], 1) : _vm._e(), _vm._v(" "), _vm.uploading ? _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-upload")]), _vm._v("\n                      ອັບໂຫລດ\n                    ")], 1) : _vm._e(), _vm._v(" "), _vm.uploading ? _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
+      "small": "",
+      "block": "",
       "loading": "",
       "disabled": ""
     }
-  }, [_vm._v("\n                ກຳລັງອັບໂຫລດ...\n              ")]) : _vm._e(), _vm._v(" "), _vm.selectedFile ? _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "grey",
-      "text": "",
-      "disabled": _vm.uploading
-    },
-    on: {
-      "click": _vm.clearSelectedFile
-    }
-  }, [_vm._v("\n                ຍົກເລີກ\n              ")]) : _vm._e()], 1), _vm._v(" "), _c(VAlert["a" /* default */], {
-    staticClass: "mt-3",
+  }, [_vm._v("\n                      ກຳລັງອັບໂຫລດ...\n                    ")]) : _vm._e()], 1), _vm._v(" "), _c(VAlert["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
       "type": "info",
       "text": "",
-      "dense": ""
+      "dense": "",
+      "border": "left"
     }
-  }, [_c('small', [_vm._v("\n                • ຮອງຮັບໄຟລ໌: JPG, PNG, GIF"), _c('br'), _vm._v("\n                • ຂະໜາດສູງສຸດ: 5MB"), _c('br'), _vm._v("\n                • ແນະນຳຂະໜາດ: 400x400px\n              ")])])], 1)], 1), _vm._v(" "), !_vm.isCreate && _vm.form.id ? _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c('small', [_vm._v("\n                      JPG, PNG, GIF • ສູງສຸດ 5MB\n                    ")])])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), !_vm.isCreate && _vm.form.id ? _c(VRow["a" /* default */], {
+    staticClass: "mt-3"
+  }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12"
     }
-  }, [_c(VDivider["a" /* default */], {
-    staticClass: "my-4"
-  }), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "outlined": "",
-      "block": "",
-      "large": ""
+      "small": "",
+      "block": ""
     },
     on: {
       "click": function ($event) {
@@ -6680,33 +6611,52 @@ var CompanyFormvue_type_template_id_27dd6c77_scoped_true_render = function rende
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": ""
+      "left": "",
+      "small": ""
     }
-  }, [_vm._v("mdi-palette")]), _vm._v("\n              ຈັດການສີທີມບໍລິສັດ\n            ")], 1)], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-palette")]), _vm._v("\n              ຈັດການສີທີມ\n            ")], 1)], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "text-caption grey--text mt-3"
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
+      "x-small": ""
+    }
+  }, [_vm._v("mdi-asterisk")]), _vm._v(" ຟິວທີ່ຈຳເປັນຕ້ອງໃສ່\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+    staticClass: "pt-0"
+  }, [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "grey",
+      "text": "",
+      "small": ""
     },
     on: {
       "click": function ($event) {
         return _vm.$emit('close-dialog');
       }
     }
-  }, [_vm._v("\n        Close\n      ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-close")]), _vm._v("\n        ປິດ\n      ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
-      "rounded": "",
-      "variant": "text"
+      "small": "",
+      "loading": _vm.isloading
     },
     on: {
       "click": _vm.commitRecord
     }
-  }, [_vm._v("\n        Save\n      ")])], 1)], 1)], 2);
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-content-save")]), _vm._v("\n        ບັນທຶກ\n      ")], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CompanyForm.vue?vue&type=template&id=27dd6c77&scoped=true
+// CONCATENATED MODULE: ./components/CompanyForm.vue?vue&type=template&id=0e1f48ff&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CompanyForm.vue?vue&type=script&lang=js
 var CompanyFormvue_type_script_lang_js = __webpack_require__(570);
@@ -6731,11 +6681,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_CompanyFormvue_type_script_lang_js,
-  CompanyFormvue_type_template_id_27dd6c77_scoped_true_render,
+  CompanyFormvue_type_template_id_0e1f48ff_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "27dd6c77",
+  "0e1f48ff",
   "4367445e"
   
 )
@@ -6754,14 +6704,14 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1028);
+var content = __webpack_require__(1029);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("14815e83", content, true, context)
+  add("04d03b57", content, true, context)
 };
 
 /***/ })

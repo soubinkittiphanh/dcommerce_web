@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <div>
-            <v-dialog v-model="dialog" width="90%">
+            <v-dialog v-model="dialog" fullscreen>
                 <GLForm :isUpdate="isEdit" :GLId="selectedId" :key="apFormKey"
                     @close-dialog="dialog = false" @reload="loadTxn">
                 </GLForm>

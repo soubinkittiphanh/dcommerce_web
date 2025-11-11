@@ -1,7 +1,7 @@
 exports.ids = [201,21,40,118,128,129];
 exports.modules = {
 
-/***/ 1317:
+/***/ 1320:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38,7 +38,7 @@ var VMenu = __webpack_require__(128);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/generalLedger/index.vue?vue&type=template&id=268e854b
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/generalLedger/index.vue?vue&type=template&id=80db5a46
 
 
 
@@ -51,14 +51,14 @@ var VTextField = __webpack_require__(36);
 
 
 
-var generalLedgervue_type_template_id_268e854b_render = function render() {
+var generalLedgervue_type_template_id_80db5a46_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-center"
   }, [_vm._ssrNode("<div>", "</div>", [_c(VDialog["a" /* default */], {
     attrs: {
-      "width": "90%"
+      "fullscreen": ""
     },
     model: {
       value: _vm.dialog,
@@ -364,7 +364,7 @@ var generalLedgervue_type_template_id_268e854b_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/generalLedger/index.vue?vue&type=template&id=268e854b
+// CONCATENATED MODULE: ./pages/admin/generalLedger/index.vue?vue&type=template&id=80db5a46
 
 // EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
 var PoForm = __webpack_require__(557);
@@ -379,7 +379,7 @@ var ReceivingFormCRUD = __webpack_require__(522);
 var common = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./components/accounting/GLForm.vue + 4 modules
-var GLForm = __webpack_require__(961);
+var GLForm = __webpack_require__(962);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/generalLedger/index.vue?vue&type=script&lang=js
 
@@ -621,7 +621,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_generalLedgervue_type_script_lang_js,
-  generalLedgervue_type_template_id_268e854b_render,
+  generalLedgervue_type_template_id_80db5a46_render,
   staticRenderFns,
   false,
   injectStyles,
@@ -6857,7 +6857,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 961:
+/***/ 962:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

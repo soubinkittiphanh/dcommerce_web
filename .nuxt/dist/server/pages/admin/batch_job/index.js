@@ -1,7 +1,7 @@
 exports.ids = [182,12,13,14,16,69];
 exports.modules = {
 
-/***/ 1015:
+/***/ 1016:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1016:
+/***/ 1017:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1302:
+/***/ 1305:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -705,7 +705,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/batch_job/index.vue?vue&type=template&id=d814b55e&scoped=true
 
 // EXTERNAL MODULE: ./components/job_fair/job_batch/index.vue + 4 modules
-var job_batch = __webpack_require__(957);
+var job_batch = __webpack_require__(958);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(376);
@@ -1113,7 +1113,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1015)
+  var style0 = __webpack_require__(1016)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6157,7 +6157,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1016);
+var content = __webpack_require__(1017);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -6169,7 +6169,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 958:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -1,7 +1,7 @@
 exports.ids = [169,54,55,170];
 exports.modules = {
 
-/***/ 1007:
+/***/ 1008:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1008:
+/***/ 1009:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1294:
+/***/ 1297:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -289,7 +289,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/advertise/index.vue?vue&type=template&id=cff7bdb4&scoped=true
 
 // EXTERNAL MODULE: ./pages/admin/advertise/mixins/ImagePreviewMixin.vue + 1 modules
-var ImagePreviewMixin = __webpack_require__(991);
+var ImagePreviewMixin = __webpack_require__(992);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/advertise/index.vue?vue&type=script&lang=js
 
@@ -447,7 +447,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1007)
+  var style0 = __webpack_require__(1008)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -468,7 +468,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var advertise = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default})
 
 
 /***/ }),
@@ -695,7 +695,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 447:
+/***/ 448:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1129,7 +1129,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1008);
+var content = __webpack_require__(1009);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1141,7 +1141,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 991:
+/***/ 992:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

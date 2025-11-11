@@ -1,293 +1,310 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
-      <loading-indicator> </loading-indicator>
+      <loading-indicator></loading-indicator>
     </v-dialog>
     
-    <!-- Add the dialog component -->
     <company-theme-dialog
       v-model="showThemeDialog"
       :company-id="form.id || recordId"
       @theme-updated="onThemeUpdated"
     />
     
-    <v-card class="pa-4">
-      <v-card-title>
-        <v-chip class="ma-0" color="primary" label text-color="white">
-          <v-icon start>mdi-label</v-icon>
-          ຈັດການ ສາຂາ
+    <v-card class="pa-3 mx-auto" max-width="800">
+      <v-card-title class="pb-2">
+        <v-chip color="primary" label text-color="white" small>
+          <v-icon left small>mdi-office-building</v-icon>
+          ຈັດການສາຂາ
         </v-chip>
       </v-card-title>
       
-      <v-card-text>
+      <v-card-text class="py-2">
         <v-form ref="form">
-          <v-row>
-            <v-col cols="6">
+          <!-- Basic Info Section -->
+          <v-row dense>
+            <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :disabled="!isCreate"
                 v-model="form.mnemonic"
-                label="* Code"
-                required
+                label="ລະຫັດ *"
+                dense
+                outlined
+                hide-details="auto"
                 :rules="nameRules"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" sm="6" md="8">
               <v-text-field
                 v-model="form.name"
-                label="* ຊື່"
-                required
+                label="ຊື່ສາຂາ *"
+                dense
+                outlined
+                hide-details="auto"
                 :rules="nameRules"
               ></v-text-field>
             </v-col>
           </v-row>
           
-          <v-row>
-            <v-col cols="6">
+          <v-row dense class="mt-2">
+            <v-col cols="12" sm="6">
               <v-text-field
                 v-model="form.tel"
-                label=" ເບີໂທ"
-                required
-                :rules="nameRules"
+                label="ເບີໂທ"
+                dense
+                outlined
+                hide-details="auto"
+                prepend-inner-icon="mdi-phone"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" sm="6">
               <v-text-field
                 v-model="form.email"
-                label=" ອີເມວ"
-                required
-                :rules="nameRules"
+                label="ອີເມວ"
+                dense
+                outlined
+                hide-details="auto"
+                prepend-inner-icon="mdi-email"
               ></v-text-field>
             </v-col>
           </v-row>
-          
-          <v-row>
-            <v-col cols="6">
+
+          <v-row dense class="mt-2">
+            <v-col cols="12">
               <v-text-field
                 v-model="form.address"
-                label=" ທີ່ຢູ່"
-                required
-                :rules="nameRules"
+                label="ທີ່ຢູ່"
+                dense
+                outlined
+                hide-details="auto"
+                prepend-inner-icon="mdi-map-marker"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+          </v-row>
+          
+          <v-row dense class="mt-2">
+            <v-col cols="12" sm="4">
               <v-text-field
                 v-model="form.province"
-                label=" ເມືອງ"
-                required
-                :rules="nameRules"
+                label="ແຂວງ"
+                dense
+                outlined
+                hide-details="auto"
               ></v-text-field>
             </v-col>
-          </v-row>
-          
-          <v-row>
-            <v-col cols="6">
+            <v-col cols="12" sm="4">
               <v-text-field
                 v-model="form.district"
-                label=" ແຂວງ"
-                required
-                :rules="nameRules"
+                label="ເມືອງ"
+                dense
+                outlined
+                hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-checkbox
-                v-model.number="form.isActive"
-                label="Is Active"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          
-          <v-row>
-            <v-col cols="6">
-              <v-text-field
-                v-model="form.bank"
-                label=" ຊື່ທະນາຄານ"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="6">
-              <v-text-field
-                v-model="form.accountName"
-                label=" ຊື່ບັນຊີ"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          
-          <v-row>
-            <v-col cols="6">
-              <v-text-field
-                v-model="form.accounts"
-                label="ເລກບັນຊີ (ຂັ້ນຫລາຍບັນຊີດ້ວຍ ເຄື່ອງໝາຍ | )"
-              ></v-text-field>
+            <v-col cols="12" sm="4" class="d-flex align-center">
+              <v-switch
+                v-model="form.isActive"
+                label="ເປີດໃຊ້ງານ"
+                color="primary"
+                dense
+                hide-details
+                class="mt-0 pt-0"
+              ></v-switch>
             </v-col>
           </v-row>
 
-          <!-- Profile Image Section -->
-          <v-row>
-            <v-col cols="12">
-              <v-divider class="my-4"></v-divider>
-              <v-subheader class="pl-0">
-                <v-icon class="mr-2">mdi-image-outline</v-icon>
-                ຮູບໂປຣໄຟລ໌ບໍລິສັດ
-              </v-subheader>
-            </v-col>
-          </v-row>
+          <!-- Banking Info (Collapsible) -->
+          <v-expansion-panels flat class="mt-4">
+            <v-expansion-panel>
+              <v-expansion-panel-header class="px-0 py-2">
+                <div class="d-flex align-center">
+                  <v-icon small class="mr-2">mdi-bank</v-icon>
+                  <span class="text-subtitle2">ຂໍ້ມູນທະນາຄານ</span>
+                </div>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="px-0">
+                <v-row dense>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="form.bank"
+                      label="ຊື່ທະນາຄານ"
+                      dense
+                      outlined
+                      hide-details="auto"
+                      prepend-inner-icon="mdi-bank"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="form.accountName"
+                      label="ຊື່ບັນຊີ"
+                      dense
+                      outlined
+                      hide-details="auto"
+                      prepend-inner-icon="mdi-account"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row dense class="mt-2">
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="form.accounts"
+                      label="ເລກບັນຊີ (ຂັ້ນດ້ວຍ | ຖ້າມີຫຼາຍບັນຊີ)"
+                      dense
+                      outlined
+                      hide-details="auto"
+                      prepend-inner-icon="mdi-credit-card"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
 
-          <v-row>
-            <v-col cols="12" md="6">
-              <!-- Current Image Display -->
-              <div class="image-preview-container">
-                <v-card
-                  v-if="currentImageUrl"
-                  class="mx-auto"
-                  max-width="200"
-                  elevation="2"
-                >
-                  <v-img
-                    :src="currentImageUrl"
-                    height="150"
-                    cover
-                    class="profile-image"
-                  >
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
+          <!-- Profile Image (Collapsible) -->
+          <v-expansion-panels flat class="mt-2">
+            <v-expansion-panel>
+              <v-expansion-panel-header class="px-0 py-2">
+                <div class="d-flex align-center">
+                  <v-icon small class="mr-2">mdi-image</v-icon>
+                  <span class="text-subtitle2">ຮູບໂປຣໄຟລ໌</span>
+                  <v-chip v-if="form.profile_image_path" x-small color="success" class="ml-2">
+                    ມີຮູບແລ້ວ
+                  </v-chip>
+                </div>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="px-0">
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <!-- Current Image -->
+                    <div v-if="currentImageUrl" class="text-center">
+                      <v-avatar size="120" class="mb-2">
+                        <v-img :src="currentImageUrl" cover></v-img>
+                      </v-avatar>
+                      <br>
+                      <v-btn
+                        color="error"
+                        text
+                        x-small
+                        @click="deleteProfileImage"
+                        :loading="deleting"
                       >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
-                  </v-img>
-                  <v-card-actions class="justify-center">
-                    <v-btn
-                      color="error"
-                      text
-                      small
-                      @click="deleteProfileImage"
-                      :loading="deleting"
-                    >
-                      <v-icon small>mdi-delete</v-icon>
-                      ລຶບ
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
+                        <v-icon small>mdi-delete</v-icon>
+                        ລຶບ
+                      </v-btn>
+                    </div>
+                    
+                    <div v-else class="text-center">
+                      <v-avatar size="120" color="grey lighten-3" class="mb-2">
+                        <v-icon size="40" color="grey">mdi-image-outline</v-icon>
+                      </v-avatar>
+                      <div class="text-caption grey--text">ບໍ່ມີຮູບ</div>
+                    </div>
+                  </v-col>
 
-                <!-- No Image Placeholder -->
-                <v-card
-                  v-else
-                  class="mx-auto d-flex align-center justify-center"
-                  max-width="200"
-                  height="150"
-                  elevation="1"
-                  outlined
-                >
-                  <div class="text-center">
-                    <v-icon size="48" color="grey lighten-2">mdi-image-outline</v-icon>
-                    <div class="text-caption grey--text">ບໍ່ມີຮູບໂປຣໄຟລ໌</div>
-                  </div>
-                </v-card>
-              </div>
-            </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-file-input
+                      ref="fileInput"
+                      v-model="selectedFile"
+                      accept="image/*"
+                      label="ເລືອກຮູບ"
+                      prepend-icon=""
+                      prepend-inner-icon="mdi-camera"
+                      dense
+                      outlined
+                      hide-details="auto"
+                      @change="onFileSelected"
+                      :disabled="uploading"
+                      clearable
+                    ></v-file-input>
+                    
+                    <!-- Preview -->
+                    <div v-if="previewUrl" class="mt-2 text-center">
+                      <v-img
+                        :src="previewUrl"
+                        max-width="80"
+                        max-height="60"
+                        class="mx-auto rounded"
+                      ></v-img>
+                    </div>
 
-            <v-col cols="12" md="6">
-              <!-- File Upload Section -->
-              <v-file-input
-                ref="fileInput"
-                v-model="selectedFile"
-                accept="image/*"
-                label="ເລືອກຮູບໂປຣໄຟລ໌ໃໝ່"
-                prepend-icon="mdi-camera"
-                show-size
-                @change="onFileSelected"
-                :disabled="uploading"
-                clearable
-              ></v-file-input>
+                    <!-- Upload Button -->
+                    <div class="mt-3">
+                      <v-btn
+                        v-if="selectedFile && !uploading"
+                        color="primary"
+                        small
+                        block
+                        @click="uploadProfileImage"
+                      >
+                        <v-icon left small>mdi-upload</v-icon>
+                        ອັບໂຫລດ
+                      </v-btn>
 
-              <!-- Preview Selected Image -->
-              <div v-if="previewUrl" class="mt-3">
-                <v-subheader class="pl-0">ຕົວຢ່າງຮູບທີ່ເລືອກ:</v-subheader>
-                <v-img
-                  :src="previewUrl"
-                  max-width="150"
-                  max-height="100"
-                  class="preview-image"
-                ></v-img>
-              </div>
+                      <v-btn 
+                        v-if="uploading" 
+                        color="primary" 
+                        small 
+                        block 
+                        loading 
+                        disabled
+                      >
+                        ກຳລັງອັບໂຫລດ...
+                      </v-btn>
+                    </div>
 
-              <!-- Upload Controls -->
-              <div class="mt-4">
-                <v-btn
-                  v-if="selectedFile && !uploading"
-                  color="primary"
-                  @click="uploadProfileImage"
-                  :disabled="!selectedFile"
-                  class="mr-2"
-                >
-                  <v-icon left>mdi-upload</v-icon>
-                  ອັບໂຫລດຮູບ
-                </v-btn>
+                    <v-alert type="info" text dense class="mt-2" border="left">
+                      <small>
+                        JPG, PNG, GIF • ສູງສຸດ 5MB
+                      </small>
+                    </v-alert>
+                  </v-col>
+                </v-row>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
 
-                <v-btn v-if="uploading" color="primary" loading disabled>
-                  ກຳລັງອັບໂຫລດ...
-                </v-btn>
-
-                <v-btn
-                  v-if="selectedFile"
-                  color="grey"
-                  text
-                  @click="clearSelectedFile"
-                  :disabled="uploading"
-                >
-                  ຍົກເລີກ
-                </v-btn>
-              </div>
-
-              <!-- Upload Guidelines -->
-              <v-alert type="info" text dense class="mt-3">
-                <small>
-                  • ຮອງຮັບໄຟລ໌: JPG, PNG, GIF<br />
-                  • ຂະໜາດສູງສຸດ: 5MB<br />
-                  • ແນະນຳຂະໜາດ: 400x400px
-                </small>
-              </v-alert>
-            </v-col>
-          </v-row>
-
-          <!-- Theme Management Button - MOVED HERE -->
-          <v-row v-if="!isCreate && form.id">
+          <!-- Theme Management -->
+          <v-row v-if="!isCreate && form.id" class="mt-3">
             <v-col cols="12">
-              <v-divider class="my-4"></v-divider>
               <v-btn
                 color="primary"
                 outlined
+                small
                 block
-                large
                 @click="showThemeDialog = true"
               >
-                <v-icon left>mdi-palette</v-icon>
-                ຈັດການສີທີມບໍລິສັດ
+                <v-icon left small>mdi-palette</v-icon>
+                ຈັດການສີທີມ
               </v-btn>
             </v-col>
           </v-row>
 
         </v-form>
-        <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
+        
+        <div class="text-caption grey--text mt-3">
+          <v-icon x-small>mdi-asterisk</v-icon> ຟິວທີ່ຈຳເປັນຕ້ອງໃສ່
+        </div>
       </v-card-text>
       
-      <v-card-actions>
+      <v-card-actions class="pt-0">
         <v-spacer></v-spacer>
         <v-btn
-          color="warning"
-          rounded
-          variant="text"
+          color="grey"
+          text
+          small
           @click="$emit('close-dialog')"
         >
-          Close
+          <v-icon left small>mdi-close</v-icon>
+          ປິດ
         </v-btn>
-        <v-btn color="primary" rounded variant="text" @click="commitRecord">
-          Save
+        <v-btn 
+          color="primary" 
+          small
+          @click="commitRecord"
+          :loading="isloading"
+        >
+          <v-icon left small>mdi-content-save</v-icon>
+          ບັນທຶກ
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -330,42 +347,40 @@ export default {
         remark: 'This is a sample company',
         bank: 'ທະນາຄານ BCEL',
         accounts: '',
+        accountName: '',
         profile_image_path: null,
         isActive: true,
       },
-      items: ['Gold', 'Silver', 'Platinum', 'Diamond', 'Master'],
       isloading: false,
-      // Image handling
       selectedFile: null,
       previewUrl: null,
       uploading: false,
       deleting: false,
       nameRules: [
-        (value) => !!value || 'Name is required',
+        (value) => !!value || 'ຈຳເປັນຕ້ອງໃສ່',
         (value) =>
           (value && value.length <= 100) ||
-          'Name must be less than 100 characters',
+          'ຕ້ອງນ້ອຍກວ່າ 100 ຕົວອັກສອນ',
       ],
     }
   },
+  
   computed: {
     currentImageUrl() {
       if (this.form.profile_image_path) {
-        // Construct full URL for the image
-        return `${this.$axios.defaults.baseURL || ''}/${
-          this.form.profile_image_path
-        }`
+        return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path}`
       }
       return null
     },
   },
+  
   async created() {
     this.loadEntry()
   },
+  
   methods: {
     onThemeUpdated() {
       this.$toast.success('ອັບເດດສີທີມສຳເລັດ')
-      // Optionally reload company data
       this.loadEntry()
     },
     
@@ -375,7 +390,6 @@ export default {
         let api = this.isCreate
           ? 'api/company/create'
           : `api/company/update/${this.recordId}`
-        console.log('API => ', api)
 
         try {
           if (this.isCreate) {
@@ -396,12 +410,9 @@ export default {
     },
 
     async loadEntry() {
-      console.log(`===> Update form record load`)
       if (this.recordId && !this.isCreate) {
         try {
-          const response = await this.$axios.get(
-            `api/company/find/${this.recordId}`
-          )
+          const response = await this.$axios.get(`api/company/find/${this.recordId}`)
           this.form = response.data
         } catch (error) {
           console.log('Cannot fetch data ' + error)
@@ -409,31 +420,22 @@ export default {
       }
     },
 
-    // Image handling methods
     onFileSelected(file) {
       if (file) {
-        // Validate file type
-        const allowedTypes = [
-          'image/jpeg',
-          'image/jpg',
-          'image/png',
-          'image/gif',
-        ]
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
         if (!allowedTypes.includes(file.type)) {
           this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ຮູບພາບ (JPG, PNG, GIF)')
           this.clearSelectedFile()
           return
         }
 
-        // Validate file size (5MB max)
-        const maxSize = 5 * 1024 * 1024 // 5MB
+        const maxSize = 5 * 1024 * 1024
         if (file.size > maxSize) {
           this.$toast.error('ຂະໜາດໄຟລ໌ໃຫຍ່ເກີນໄປ (ສູງສຸດ 5MB)')
           this.clearSelectedFile()
           return
         }
 
-        // Create preview URL
         this.previewUrl = URL.createObjectURL(file)
       } else {
         this.clearSelectedFile()
@@ -479,16 +481,13 @@ export default {
           }
         )
 
-        // Update form with new image path
         this.form.profile_image_path = response.data.profile_image_path
-
         this.$toast.success('ອັບໂຫລດຮູບສຳເລັດແລ້ວ')
         this.clearSelectedFile()
         this.refreshData()
       } catch (error) {
         console.error('Upload error:', error)
-        const errorMessage =
-          error.response?.data?.message || 'ອັບໂຫລດຮູບບໍ່ສຳເລັດ'
+        const errorMessage = error.response?.data?.message || 'ອັບໂຫລດຮູບບໍ່ສຳເລັດ'
         this.$toast.error(errorMessage)
       } finally {
         this.uploading = false
@@ -512,15 +511,9 @@ export default {
 
         if (result.isConfirmed) {
           this.deleting = true
-
           const companyId = this.form.id || this.recordId
-          await this.$axios.delete(
-            `api/company/delete-profile-image/${companyId}`
-          )
-
-          // Clear image path from form
+          await this.$axios.delete(`api/company/delete-profile-image/${companyId}`)
           this.form.profile_image_path = null
-
           this.$toast.success('ລຶບຮູບສຳເລັດແລ້ວ')
           this.refreshData()
         }
@@ -541,20 +534,28 @@ export default {
 </script>
 
 <style scoped>
-.image-preview-container {
-  min-height: 150px;
+.v-expansion-panel::before {
+  box-shadow: none;
 }
 
-.profile-image {
-  border-radius: 8px;
+.v-expansion-panel-header {
+  min-height: 40px !important;
 }
 
-.preview-image {
-  border-radius: 4px;
-  border: 1px solid #e0e0e0;
+.v-expansion-panel-content >>> .v-expansion-panel-content__wrap {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.v-file-input {
-  margin-bottom: 0;
+.rounded {
+  border-radius: 4px !important;
+}
+
+.v-file-input >>> .v-file-input__text {
+  font-size: 0.875rem;
+}
+
+.v-text-field--outlined.v-input--dense .v-label {
+  top: 8px;
 }
 </style>

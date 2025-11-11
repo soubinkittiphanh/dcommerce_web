@@ -340,6 +340,7 @@ export default {
       // Get all unique price list grades from the data
       const allGrades = new Set()
       this.loaddata.forEach((item) => {
+        console.info(`Additional product ${JSON.stringify(item)}`)
         if (item.priceLists && item.priceLists.length > 0) {
           item.priceLists.forEach((priceList) => {
             if (priceList.grade) {
@@ -359,7 +360,7 @@ export default {
         pro_id: 'Product Code',
         pro_name: 'Product Name',
         barCode: 'Barcode',
-        cost_price: 'Cost Price',
+        pro_cost_price: 'Cost Price',
         pro_price: 'Base Price',
         effectivePrice: 'Current Price',
         pro_desc: 'Product Description',

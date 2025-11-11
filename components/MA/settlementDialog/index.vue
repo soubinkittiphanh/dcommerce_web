@@ -2,7 +2,7 @@
   <div>
     <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
       <div class="modal-dialog enhanced-dialog" @click.stop>
-        <div class="modal-header">
+        <div class="modal-header primary">
           <div class="modal-title-section">
             <i class="fas fa-money-bill-wave modal-icon"></i>
             <h5 class="modal-title">
@@ -562,18 +562,17 @@
           </div>
 
           <div class="modal-footer enhanced-footer compact">
-            <button
+            <v-btn
               type="button"
               @click="closeDialog"
-              class="btn btn-secondary compact"
               :disabled="isFormDisabled"
             >
               <i class="fas fa-times"></i>
               ຍົກເລີກ
-            </button>
-            <button
+            </v-btn>
+            <v-btn
               type="submit"
-              class="btn btn-primary compact"
+              color="primary"
               :disabled="isFormDisabled || !isFormValid"
             >
               <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
@@ -589,8 +588,8 @@
                   ? 'ອັບເດດ'
                   : 'ບັນທຶກ'
               }}
-            </button>
-            <button
+            </v-btn>
+            <v-btn
               type="button"
               class="btn btn-sm btn-outline-secondary"
               @click.prevent="printSettlement"
@@ -599,7 +598,7 @@
             >
               <i class="fas fa-print"></i>
               Save & Print
-            </button>
+            </v-btn>
           </div>
         </form>
       </div>

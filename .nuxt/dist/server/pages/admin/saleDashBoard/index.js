@@ -1,7 +1,7 @@
-exports.ids = [265,52];
+exports.ids = [266,52];
 exports.modules = {
 
-/***/ 1095:
+/***/ 1096:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1096:
+/***/ 1097:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1358:
+/***/ 1361:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -386,7 +386,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/saleDashBoard/index.vue?vue&type=template&id=012defd0&scoped=true
 
 // EXTERNAL MODULE: ./components/dashboard/MetricCard.vue + 4 modules
-var MetricCard = __webpack_require__(966);
+var MetricCard = __webpack_require__(967);
 
 // EXTERNAL MODULE: external "vue-feather-icons"
 var external_vue_feather_icons_ = __webpack_require__(380);
@@ -1288,7 +1288,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1095)
+  var style0 = __webpack_require__(1096)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -4047,7 +4047,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1096);
+var content = __webpack_require__(1097);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4059,7 +4059,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 966:
+/***/ 967:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

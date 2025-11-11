@@ -1,7 +1,7 @@
-exports.ids = [180,54,55,121,124,125,148,161,316];
+exports.ids = [180,54,55,121,124,125,148,161,317];
 exports.modules = {
 
-/***/ 1395:
+/***/ 1398:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -226,7 +226,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/barcodePrint/gianttTime.vue?vue&type=template&id=a3622c22
 
 // EXTERNAL MODULE: ./components/timeline/GianttTimeline.vue + 4 modules
-var GianttTimeline = __webpack_require__(980);
+var GianttTimeline = __webpack_require__(981);
 
 // EXTERNAL MODULE: ./components/PriceListForm.vue + 4 modules
 var PriceListForm = __webpack_require__(446);
@@ -1485,7 +1485,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 
 /***/ }),
 
-/***/ 447:
+/***/ 448:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3632,7 +3632,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductFormCreate = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(446).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default,PriceListForm: __webpack_require__(446).default})
 
 
 /***/ }),
@@ -4412,7 +4412,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(446).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default,PriceListForm: __webpack_require__(446).default})
 
 
 /***/ }),
@@ -5318,7 +5318,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 980:
+/***/ 981:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

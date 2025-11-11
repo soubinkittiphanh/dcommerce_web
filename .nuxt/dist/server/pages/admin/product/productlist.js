@@ -1,7 +1,7 @@
-exports.ids = [245,43,54,55,121,124,125,161,316];
+exports.ids = [246,43,54,55,121,124,125,161,317];
 exports.modules = {
 
-/***/ 1402:
+/***/ 1405:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50,7 +50,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(138);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/productlist.vue?vue&type=template&id=2330c1b2
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/productlist.vue?vue&type=template&id=973c2068
 
 
 
@@ -66,7 +66,7 @@ var components_VToolbar = __webpack_require__(138);
 
 
 
-var productlistvue_type_template_id_2330c1b2_render = function render() {
+var productlistvue_type_template_id_973c2068_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -456,7 +456,7 @@ var productlistvue_type_template_id_2330c1b2_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/product/productlist.vue?vue&type=template&id=2330c1b2
+// CONCATENATED MODULE: ./pages/admin/product/productlist.vue?vue&type=template&id=973c2068
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(360);
@@ -675,6 +675,7 @@ var external_vuex_ = __webpack_require__(14);
       // Get all unique price list grades from the data
       const allGrades = new Set();
       this.loaddata.forEach(item => {
+        console.info(`Additional product ${JSON.stringify(item)}`);
         if (item.priceLists && item.priceLists.length > 0) {
           item.priceLists.forEach(priceList => {
             if (priceList.grade) {
@@ -694,7 +695,7 @@ var external_vuex_ = __webpack_require__(14);
         pro_id: 'Product Code',
         pro_name: 'Product Name',
         barCode: 'Barcode',
-        cost_price: 'Cost Price',
+        pro_cost_price: 'Cost Price',
         pro_price: 'Base Price',
         effectivePrice: 'Current Price',
         pro_desc: 'Product Description',
@@ -2875,7 +2876,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   product_productlistvue_type_script_lang_js,
-  productlistvue_type_template_id_2330c1b2_render,
+  productlistvue_type_template_id_973c2068_render,
   staticRenderFns,
   false,
   null,
@@ -5992,7 +5993,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 
 /***/ }),
 
-/***/ 447:
+/***/ 448:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8139,7 +8140,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductFormCreate = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(446).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(433).default,LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default,PriceListForm: __webpack_require__(446).default})
 
 
 /***/ }),
@@ -8919,7 +8920,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(447).default,PriceListForm: __webpack_require__(446).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(87).default,DiaImage: __webpack_require__(448).default,PriceListForm: __webpack_require__(446).default})
 
 
 /***/ }),

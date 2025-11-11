@@ -1,7 +1,7 @@
-exports.ids = [279,32,33,34,35,36,37,144,146,147];
+exports.ids = [280,32,33,34,35,36,37,144,146,147];
 exports.modules = {
 
-/***/ 1117:
+/***/ 1118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1118:
+/***/ 1119:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1369:
+/***/ 1372:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -325,22 +325,22 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ticket/index.vue?vue&type=template&id=3089863a&scoped=true
 
 // EXTERNAL MODULE: ./components/tickets/TicketCard.vue + 4 modules
-var TicketCard = __webpack_require__(968);
+var TicketCard = __webpack_require__(969);
 
 // EXTERNAL MODULE: ./components/tickets/TicketDetailDialog.vue + 4 modules
-var TicketDetailDialog = __webpack_require__(969);
+var TicketDetailDialog = __webpack_require__(970);
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
 var printdialog = __webpack_require__(523);
 
 // EXTERNAL MODULE: ./components/CAFE/POSDialog.vue + 4 modules
-var POSDialog = __webpack_require__(970);
+var POSDialog = __webpack_require__(971);
 
 // EXTERNAL MODULE: ./components/tickets/NotesDialog.vue + 4 modules
 var NotesDialog = __webpack_require__(539);
 
 // EXTERNAL MODULE: ./components/CAFE/printBarDialog/index.vue + 4 modules
-var printBarDialog = __webpack_require__(971);
+var printBarDialog = __webpack_require__(972);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -849,7 +849,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1117)
+  var style0 = __webpack_require__(1118)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -7587,7 +7587,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1118);
+var content = __webpack_require__(1119);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -7599,7 +7599,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 968:
+/***/ 969:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7743,7 +7743,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 969:
+/***/ 970:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7844,7 +7844,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 970:
+/***/ 971:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8063,7 +8063,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 971:
+/***/ 972:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

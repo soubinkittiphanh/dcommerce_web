@@ -7,7 +7,7 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
-    <v-dialog v-model="entryFormDialog" max-width="1024">
+    <v-dialog v-model="entryFormDialog" fullscreen>
       <company-form @reload-data="loadData()
       entryFormDialog = false" :isCreate="isCreate" :key="componentKey" 
         :recordId="entrySelected" @close-dialog="entryFormDialog = false">

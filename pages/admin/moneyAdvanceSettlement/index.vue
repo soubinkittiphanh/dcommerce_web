@@ -256,7 +256,16 @@
         </template>
 
         <!-- Amount Column -->
-        <template #item.amount="{ item }">
+        <template #item.dramount="{ item }">
+          <div class="amount-cell">
+            <div class="amount-value">{{ formatAdvanceAmount(item.moneyAdvance ?? 0) }}</div>
+            <div class="currency-code">
+              {{ formatAdvanceAmount(item.moneyAdvance)?.code || 'LAK' }}
+            </div>
+          </div>
+        </template>
+        <!-- Amount Column -->
+        <template #item.cramount="{ item }">
           <div class="amount-cell">
             <div class="amount-value">{{ formatSettlementAmount(item) }}</div>
             <div class="currency-code">
@@ -265,6 +274,13 @@
           </div>
         </template>
 
+        <!-- Ministry Column -->
+        <template #item.notes="{ item }">
+          <v-chip v-if="item.notes" color="info" x-small outlined>
+            {{ item.notes }}
+          </v-chip>
+          <span v-else class="no-data">-</span>
+        </template>
         <!-- Ministry Column -->
         <template #item.ministry="{ item }">
           <v-chip v-if="item.ministry" color="info" x-small outlined>
@@ -464,7 +480,9 @@ export default {
         { text: 'ID', value: 'id', width: '80px', sortable: true },
         { text: 'ວັນທີ', value: 'bookingDate', width: '100px', sortable: true },
         { text: 'ການຊຳລະ', value: 'method', width: '90px', sortable: true },
-        { text: 'ຈຳນວນ', value: 'amount', width: '120px', sortable: true },
+        { text: 'ຈຳນວນ ຫນີ້', value: 'dramount', width: '120px', sortable: true },
+        { text: 'ຈຳນວນ ມີ', value: 'cramount', width: '120px', sortable: true },
+        { text: 'ເນື້ອໃນ', value: 'notes', width: '80px', sortable: false },
         { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
         {
           text: 'ບັນຊີ',
@@ -786,6 +804,7 @@ export default {
               ministry: settlement.ministry,
               chartAccount: settlement.chartAccount,
               moneyAdvanceId: settlement.moneyAdvanceId,
+              moneyAdvance: settlement.moneyAdvance,
               exchangeRate: settlement.exchangeRate,
               externalRef: settlement.externalRef,
               externalRefNo: settlement.externalRefNo,
@@ -1120,6 +1139,11 @@ export default {
       const currency = this.getSettlementCurrency(settlement)
       const currencyCode = currency?.code || 'LAK'
       return this.formatCurrency(settlement.amount, currencyCode)
+    },
+    formatAdvanceAmount(advance) {
+      const currency = this.getSettlementCurrency(advance)
+      const currencyCode = currency?.code || 'LAK'
+      return this.formatCurrency(advance.amount, currencyCode)
     },
 
     getSettlementCurrency(settlement) {

@@ -1,7 +1,7 @@
-exports.ids = [275,142];
+exports.ids = [276,142];
 exports.modules = {
 
-/***/ 1111:
+/***/ 1112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1112:
+/***/ 1113:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1366:
+/***/ 1369:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -266,7 +266,7 @@ var staticRenderFns = [];
 /* harmony default export */ var spfvue_type_script_lang_js = ({
   name: 'SPFIndex',
   components: {
-    SpfDialog: () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 967))
+    SpfDialog: () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 968))
   },
   data() {
     return {
@@ -402,7 +402,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1111)
+  var style0 = __webpack_require__(1112)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -423,7 +423,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var spf = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {SpfDialog: __webpack_require__(967).default})
+installComponents(component, {SpfDialog: __webpack_require__(968).default})
 
 
 /***/ }),
@@ -723,7 +723,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1112);
+var content = __webpack_require__(1113);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -735,7 +735,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 967:
+/***/ 968:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

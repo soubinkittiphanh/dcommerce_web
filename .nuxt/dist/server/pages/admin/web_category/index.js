@@ -1,7 +1,7 @@
-exports.ids = [290,45,55,158,159,161];
+exports.ids = [291,45,55,158,159,161];
 exports.modules = {
 
-/***/ 1131:
+/***/ 1132:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1132:
+/***/ 1133:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1379:
+/***/ 1382:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -337,10 +337,10 @@ var staticRenderFns = [];
 var myUtil = __webpack_require__(139);
 
 // EXTERNAL MODULE: ./components/WebCategoryForm.vue + 4 modules
-var WebCategoryForm = __webpack_require__(974);
+var WebCategoryForm = __webpack_require__(975);
 
 // EXTERNAL MODULE: ./components/WebCategoryProductForm.vue + 4 modules
-var WebCategoryProductForm = __webpack_require__(975);
+var WebCategoryProductForm = __webpack_require__(976);
 
 // EXTERNAL MODULE: external "vuedraggable"
 var external_vuedraggable_ = __webpack_require__(382);
@@ -462,7 +462,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1131)
+  var style0 = __webpack_require__(1132)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1095,7 +1095,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1132);
+var content = __webpack_require__(1133);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1107,7 +1107,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 974:
+/***/ 975:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1403,7 +1403,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 
 /***/ }),
 
-/***/ 975:
+/***/ 976:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

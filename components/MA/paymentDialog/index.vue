@@ -3,7 +3,7 @@
     <!-- Main Money Advance Dialog -->
     <div v-if="show" class="modal-overlay" @click="closeDialog">
       <div class="modal-dialog enhanced-dialog" @click.stop>
-        <div class="modal-header">
+        <div class="modal-header primary">
           <div class="modal-title-section">
             <i class="fas fa-money-bill-wave modal-icon"></i>
             <h5 class="modal-title">
@@ -244,7 +244,11 @@
                 </v-menu>
               </div>
 
-              <div class="form-group" v-show="localForm.method === 'cheque'" v-if="!isBankTransfer">
+              <div
+                class="form-group"
+                v-show="localForm.method === 'cheque'"
+                v-if="!isBankTransfer"
+              >
                 <label
                   class="form-label"
                   :class="{ required: localForm.method === 'cheque' }"
@@ -467,32 +471,31 @@
           </div>
 
           <div class="modal-footer enhanced-footer">
-            <button
+            <v-btn
               type="button"
               @click="closeDialog"
-              class="btn btn-secondary"
               :disabled="saving"
             >
               <i class="fas fa-times"></i>
               ອອກ
-            </button>
-            <button
+            </v-btn>
+            <v-btn
               type="submit"
-              class="btn btn-primary"
+              color="primary"
               :disabled="saving || formLoading || !isFormValid"
             >
               <i v-if="saving" class="fas fa-spinner fa-spin"></i>
               <i v-else class="fas" :class="isEdit ? 'fa-save' : 'fa-plus'"></i>
               {{ saving ? 'Saving...' : isEdit ? 'ບັນທຶກ ການແກ້ໄຂ' : 'ບັນທຶກ' }}
-            </button>
-            <button
+            </v-btn>
+            <v-btn
               @click.prevent="printAdvanceDetails"
               class="btn btn-sm btn-danger"
               title="Save & Print"
             >
               <i class="fas fa-print"></i>
               Save & Print
-            </button>
+            </v-btn>
           </div>
         </form>
       </div>
@@ -1496,8 +1499,6 @@ export default {
   align-items: center;
   padding: 16px 18px;
   border-bottom: 1px solid #e9ecef;
-  background: primary;
-  color: white;
 }
 
 .modal-title-section {
@@ -1811,7 +1812,6 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
-
   .form-grid {
     grid-template-columns: 1fr;
   }
