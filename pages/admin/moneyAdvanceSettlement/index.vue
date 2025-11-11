@@ -256,14 +256,17 @@
         </template>
 
         <!-- Amount Column -->
-        <template #item.dramount="{ item }">
-          <div class="amount-cell">
-            <div class="amount-value">{{ formatAdvanceAmount(item.moneyAdvance ?? 0) }}</div>
-            <div class="currency-code">
-              {{ formatAdvanceAmount(item.moneyAdvance)?.code || 'LAK' }}
-            </div>
-          </div>
-        </template>
+<template #item.dramount="{ item }">
+  <div class="amount-cell" v-if="item.moneyAdvance">
+    <div class="amount-value">{{ formatAdvanceAmount(item.moneyAdvance) }}</div>
+    <div class="currency-code">
+      {{ item.moneyAdvance?.currency?.code || 'LAK' }}
+    </div>
+  </div>
+  <div v-else class="no-data">
+    <span class="grey--text">-</span>
+  </div>
+</template>
         <!-- Amount Column -->
         <template #item.cramount="{ item }">
           <div class="amount-cell">
