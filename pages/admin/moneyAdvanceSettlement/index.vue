@@ -42,7 +42,7 @@
                 max-width="290px"
                 min-width="auto"
               >
-                <template #activator="{ on, attrs }">
+                <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     v-model="formattedStartDate"
                     label="ວັນທີ່ເລີ່ມ"
@@ -51,6 +51,7 @@
                     clearable
                     hide-details
                     prepend-inner-icon="mdi-calendar"
+                    readonly
                     v-bind="attrs"
                     v-on="on"
                     @click:clear="clearStartDate"
@@ -60,6 +61,7 @@
                   v-model="pickerStartDate"
                   no-title
                   @input="setStartDate"
+                  @change="setStartDate"
                 />
               </v-menu>
             </div>
@@ -75,7 +77,7 @@
               max-width="290px"
               min-width="auto"
             >
-              <template #activator="{ on, attrs }">
+              <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="formattedEndDate"
                   label="ວັນທີ່ສິ້ນສຸດ"
@@ -84,6 +86,7 @@
                   clearable
                   hide-details
                   prepend-inner-icon="mdi-calendar"
+                  readonly
                   v-bind="attrs"
                   v-on="on"
                   @click:clear="clearEndDate"
@@ -93,6 +96,7 @@
                 v-model="pickerEndDate"
                 no-title
                 @input="setEndDate"
+                @change="setEndDate"
               />
             </v-menu>
           </v-col>
@@ -232,7 +236,7 @@
         dense
       >
         <!-- ID Column -->
-        <template #item.id="{ item }">
+        <template v-slot:item.id="{ item }">
           <div class="id-cell">
             {{ formatVoucherNumber(item.id) }}
             <span v-if="item.moneyAdvanceId" class="advance-id"
@@ -242,33 +246,33 @@
         </template>
 
         <!-- Date Column -->
-        <template #item.bookingDate="{ item }">
+        <template v-slot:item.bookingDate="{ item }">
           <span class="date-text">{{
             formatCompactDate(item.bookingDate)
           }}</span>
         </template>
 
         <!-- Method Column -->
-        <template #item.method="{ item }">
+        <template v-slot:item.method="{ item }">
           <v-chip :color="getMethodColor(item.method)" small outlined>
             {{ formatMethod(item.method) }}
           </v-chip>
         </template>
 
         <!-- Amount Column -->
-<template #item.dramount="{ item }">
-  <div class="amount-cell" v-if="item.moneyAdvance">
-    <div class="amount-value">{{ formatAdvanceAmount(item.moneyAdvance) }}</div>
-    <div class="currency-code">
-      {{ item.moneyAdvance?.currency?.code || 'LAK' }}
-    </div>
-  </div>
-  <div v-else class="no-data">
-    <span class="grey--text">-</span>
-  </div>
-</template>
+        <template v-slot:item.dramount="{ item }">
+          <div class="amount-cell" v-if="item.moneyAdvance">
+            <div class="amount-value">{{ formatAdvanceAmount(item.moneyAdvance) }}</div>
+            <div class="currency-code">
+              {{ item.moneyAdvance?.currency?.code || 'LAK' }}
+            </div>
+          </div>
+          <div v-else class="no-data">
+            <span class="grey--text">-</span>
+          </div>
+        </template>
         <!-- Amount Column -->
-        <template #item.cramount="{ item }">
+        <template v-slot:item.cramount="{ item }">
           <div class="amount-cell">
             <div class="amount-value">{{ formatSettlementAmount(item) }}</div>
             <div class="currency-code">
@@ -278,14 +282,14 @@
         </template>
 
         <!-- Ministry Column -->
-        <template #item.notes="{ item }">
+        <template v-slot:item.notes="{ item }">
           <v-chip v-if="item.notes" color="info" x-small outlined>
             {{ item.notes }}
           </v-chip>
           <span v-else class="no-data">-</span>
         </template>
         <!-- Ministry Column -->
-        <template #item.ministry="{ item }">
+        <template v-slot:item.ministry="{ item }">
           <v-chip v-if="item.ministry" color="info" x-small outlined>
             {{ item.ministry.ministryName }}
           </v-chip>
@@ -293,7 +297,7 @@
         </template>
 
         <!-- Chart Account Column -->
-        <template #item.chartAccount="{ item }">
+        <template v-slot:item.chartAccount="{ item }">
           <v-chip v-if="item.chartAccount" color="warning" x-small outlined>
             {{ item.chartAccount.accountNumber }}
           </v-chip>
@@ -301,7 +305,7 @@
         </template>
 
         <!-- Actions Column -->
-        <template #item.actions="{ item }">
+        <template v-slot:item.actions="{ item }">
           <div class="action-buttons">
             <v-btn
               icon
@@ -389,7 +393,7 @@ export default {
 
   data() {
     return {
-      // Date picker data
+      // Date picker data - Fixed initialization
       startDateMenu: false,
       endDateMenu: false,
       pickerStartDate: null,
@@ -422,8 +426,8 @@ export default {
 
       // Filters (updated for new date handling)
       filters: {
-        startDate: '',
-        endDate: '',
+        startDate: null,
+        endDate: null,
         method: '',
         bankAccountId: '',
         ministryId: '',
@@ -457,10 +461,10 @@ export default {
       const params = {}
       console.info(`${JSON.stringify(this.filters)}`)
       if (this.filters.startDate) {
-        params.fromDate = this.filters.startDate
+        params.fromDate = this.formatDateForAPI(this.filters.startDate)
       }
       if (this.filters.endDate) {
-        params.toDate = this.filters.endDate
+        params.toDate = this.formatDateForAPI(this.filters.endDate)
       }
       if (this.filters.bankAccountId) {
         params.bankAccountId = this.filters.bankAccountId
@@ -598,21 +602,54 @@ export default {
   },
 
   mounted() {
-    const today = new Date()
-
-    // First day of current month
-    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
-
-    // Last day of current month
-    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0)
-
-    this.setStartDate(firstDay)
-    this.setEndDate(lastDay)
+    this.initializeDefaultDates()
     this.initializeData()
   },
 
   methods: {
-    // Date picker methods
+    // Fixed date picker methods
+    initializeDefaultDates() {
+      const today = new Date()
+      
+      // First day of current month
+      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
+      
+      // Last day of current month  
+      const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+
+      // Set picker dates first (YYYY-MM-DD format for v-date-picker)
+      this.pickerStartDate = this.formatForPicker(firstDay)
+      this.pickerEndDate = this.formatForPicker(lastDay)
+      
+      // Set display dates
+      this.formattedStartDate = this.formatDate(firstDay)
+      this.formattedEndDate = this.formatDate(lastDay)
+      
+      // Set filter dates
+      this.filters.startDate = firstDay
+      this.filters.endDate = lastDay
+    },
+
+    formatForPicker(date) {
+      if (!date) return null
+      
+      // Handle if date is already a string in correct format
+      if (typeof date === 'string' && date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return date
+      }
+      
+      // Convert to Date object if it's not already
+      const d = date instanceof Date ? date : new Date(date)
+      
+      // Check if date is valid
+      if (isNaN(d.getTime())) return null
+      
+      const year = d.getFullYear()
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+      const day = String(d.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
+    },
+
     formatDate(date) {
       if (!date) return null
       const d = new Date(date)
@@ -622,30 +659,65 @@ export default {
       return `${day}/${month}/${year}`
     },
 
-    setStartDate(val) {
-      this.formattedStartDate = this.formatDate(val)
-      this.pickerStartDate = val
-      this.filters.startDate = val
-      this.startDateMenu = false
+    formatDateForAPI(date) {
+      if (!date) return null
+      const d = new Date(date)
+      const year = d.getFullYear()
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+      const day = String(d.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
     },
 
-    setEndDate(val) {
-      this.formattedEndDate = this.formatDate(val)
-      this.pickerEndDate = val
-      this.filters.endDate = val
+    parsePickerDate(pickerValue) {
+      if (!pickerValue) return null
+      
+      // If pickerValue is already a Date object, return it
+      if (pickerValue instanceof Date) {
+        return pickerValue
+      }
+      
+      // If pickerValue is a string in YYYY-MM-DD format
+      if (typeof pickerValue === 'string') {
+        const parts = pickerValue.split('-')
+        return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))
+      }
+      
+      // Fallback: try to create a Date from the value
+      return new Date(pickerValue)
+    },
+
+    setStartDate(pickerValue) {
+      this.startDateMenu = false
+      if (!pickerValue) return
+      
+      const dateObj = this.parsePickerDate(pickerValue)
+      // Update picker value - ensure it's in YYYY-MM-DD format for the picker
+      this.pickerStartDate = this.formatForPicker(dateObj)
+      this.formattedStartDate = this.formatDate(dateObj)
+      this.filters.startDate = dateObj
+    },
+
+    setEndDate(pickerValue) {
       this.endDateMenu = false
+      if (!pickerValue) return
+      
+      const dateObj = this.parsePickerDate(pickerValue)
+      // Update picker value - ensure it's in YYYY-MM-DD format for the picker
+      this.pickerEndDate = this.formatForPicker(dateObj)
+      this.formattedEndDate = this.formatDate(dateObj)
+      this.filters.endDate = dateObj
     },
 
     clearStartDate() {
       this.formattedStartDate = null
       this.pickerStartDate = null
-      this.filters.startDate = ''
+      this.filters.startDate = null
     },
 
     clearEndDate() {
       this.formattedEndDate = null
       this.pickerEndDate = null
-      this.filters.endDate = ''
+      this.filters.endDate = null
     },
 
     // Compact date formatting
@@ -1023,8 +1095,8 @@ export default {
 
     resetFilters() {
       this.filters = {
-        startDate: '',
-        endDate: '',
+        startDate: null,
+        endDate: null,
         method: '',
         bankAccountId: '',
         ministryId: '',
@@ -1033,6 +1105,7 @@ export default {
       }
       this.clearStartDate()
       this.clearEndDate()
+      this.initializeDefaultDates()
       this.applyFilters()
     },
 
@@ -1222,29 +1295,17 @@ export default {
 </script>
 
 <style scoped>
-.settlement-container {
-  padding: 8px;
-  background-color: #fafafa;
-  min-height: 100vh;
-}
-
-/* Compact Header */
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
-  padding: 12px 16px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 16px 0;
 }
 
 .page-title {
   margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a202c;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .header-actions {
@@ -1252,40 +1313,41 @@ export default {
   gap: 8px;
 }
 
-/* Compact Filter Card */
 .filter-card {
-  margin-bottom: 8px;
-  border: 1px solid #e2e8f0;
+  margin-bottom: 16px;
 }
 
-.filter-row {
-  align-items: flex-end;
-}
-
-.date-range-container {
-  position: relative;
+.filter-row .px-1 {
+  padding: 0 4px;
 }
 
 .filter-actions {
   display: flex;
-  gap: 8px;
-  justify-content: flex-end;
+  gap: 4px;
 }
 
-/* Compact Summary Section */
+.date-range-container {
+  width: 100%;
+}
+
 .summary-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 8px;
-  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .summary-card {
-  border: 1px solid #e2e8f0;
+  flex: 1;
+  min-width: 200px;
 }
 
 .total-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+}
+
+.currency-card {
+  border: 1px solid #e0e0e0;
 }
 
 .summary-content {
@@ -1296,102 +1358,59 @@ export default {
 
 .summary-icon,
 .currency-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  flex-shrink: 0;
-}
-
-.currency-icon {
-  background: #f0f9ff;
 }
 
 .summary-details {
   flex: 1;
-  min-width: 0;
 }
 
 .summary-amount {
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  word-break: break-word;
-}
-
-.currency-card .summary-amount {
-  color: #1a202c;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .summary-label {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.9);
+  opacity: 0.8;
   margin-top: 2px;
-}
-
-.currency-card .summary-label {
-  color: #718096;
 }
 
 .lak-equivalent {
   font-size: 11px;
-  color: #a0aec0;
-  font-style: italic;
+  color: #666;
   margin-top: 2px;
 }
 
-/* Compact Table */
 .table-card {
-  border: 1px solid #e2e8f0;
+  margin-bottom: 16px;
 }
 
 .table-title {
   font-size: 16px;
-  font-weight: 600;
-}
-
-.table-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-weight: 500;
 }
 
 .compact-table {
   font-size: 13px;
 }
 
-.compact-table >>> .v-data-table__wrapper {
-  overflow-x: auto;
-}
-
-.compact-table >>> th {
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  padding: 8px 12px !important;
-  height: 40px !important;
-}
-
-.compact-table >>> td {
-  padding: 6px 12px !important;
-  height: 44px !important;
-}
-
-/* Table Cell Styles */
 .id-cell {
-  font-weight: 600;
+  font-family: monospace;
+  font-size: 12px;
 }
 
 .advance-id {
-  color: #718096;
-  font-size: 11px;
+  color: #666;
+  font-size: 10px;
 }
 
 .date-text {
-  font-size: 12px;
-  color: #4a5568;
+  font-family: monospace;
+  font-size: 11px;
 }
 
 .amount-cell {
@@ -1399,129 +1418,36 @@ export default {
 }
 
 .amount-value {
-  font-weight: 600;
-  color: #22c55e;
-  font-size: 13px;
+  font-weight: 500;
+  font-size: 12px;
 }
 
 .currency-code {
   font-size: 10px;
-  color: #718096;
-  text-transform: uppercase;
+  color: #666;
 }
 
 .action-buttons {
   display: flex;
-  gap: 4px;
-}
-
-.no-data {
-  color: #a0aec0;
-  font-style: italic;
-  font-size: 12px;
-}
-
-/* Custom Pagination */
-.custom-pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
-}
-
-.pagination-info {
-  font-size: 13px;
-  color: #718096;
-}
-
-.pagination-controls {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.page-numbers {
-  display: flex;
   gap: 2px;
 }
 
-.ellipsis {
-  padding: 8px 4px;
-  color: #a0aec0;
-  font-size: 13px;
-}
-
-/* Responsive Design */
-@media (max-width: 960px) {
-  .page-header {
-    flex-direction: column;
-    gap: 12px;
-    align-items: stretch;
-  }
-
-  .summary-section {
-    grid-template-columns: 1fr;
-  }
-
-  .filter-row {
-    gap: 8px;
-  }
-
-  .pagination-controls {
-    flex-wrap: wrap;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    gap: 2px;
-  }
+.no-data {
+  color: #999;
+  font-style: italic;
 }
 
 @media (max-width: 600px) {
-  .settlement-container {
-    padding: 4px;
-  }
-
-  .custom-pagination {
+  .summary-section {
     flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
-    text-align: center;
   }
-
-  .table-controls {
+  
+  .filter-row {
     flex-direction: column;
-    gap: 8px;
   }
-}
-
-/* Vuetify overrides for compact design */
-.v-card {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-}
-
-.v-btn--small {
-  height: 28px !important;
-  min-width: 64px !important;
-}
-
-.v-chip--small {
-  height: 20px !important;
-  font-size: 11px !important;
-}
-
-.v-chip--x-small {
-  height: 18px !important;
-  font-size: 10px !important;
-}
-
-.v-text-field--dense .v-input__control {
-  min-height: 32px !important;
-}
-
-.v-select--dense .v-input__control {
-  min-height: 32px !important;
+  
+  .filter-row .v-col {
+    margin-bottom: 8px;
+  }
 }
 </style>
