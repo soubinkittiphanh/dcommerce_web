@@ -17,7 +17,7 @@ export const hostName = () => {
   const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
-  console.info(`BASE_URL ${process.env.BASE_URL}`)
+  console.info(`BASE_URL ${process.env.BASE_URL}`)//
   // return process.env.BASE_URL || 'http://localhost:8888'
   return baseURL;
 }
