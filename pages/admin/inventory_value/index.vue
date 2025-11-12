@@ -47,14 +47,16 @@
             <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
           </v-col>
           <v-col cols="6" class="text-right">
+            <v-btn class="primary mr-3" size="large" variant="outlined" @click="exportToExcel" rounded :loading="exportLoading">
+              <span class="mdi mdi-file-excel"></span>
+              Export Excel
+            </v-btn>
             <v-btn class="primary" size="large" variant="outlined" @click="rebuildStock" rounded>
               <span class="mdi mdi-update"></span>
               Rebuild stock
             </v-btn>
           </v-col>
         </v-row>
-
-
       </v-card-title>
 
       <v-data-table v-if="loaddata" :headers="headers" :search="search" :items="stockList" :items-per-page="pageLine">
@@ -107,6 +109,7 @@ export default {
   middleware: 'auths',
   data() {
     return {
+      exportLoading: false, // Add this for export loading state
       simpleHeaders: [
         { text: 'ມູນຄ່າສິນຄ້າຄ້າງສະຕັອກ', value: 'age' },
       ],
@@ -208,6 +211,177 @@ export default {
       this.isloading = false
       const simpleHead = { age: this.formatNumber(this.grandTotalStockValue), };
       this.simpleItems.push(simpleHead)
+    },
+
+    // NEW METHOD: Export to Excel with Advanced Styling
+    async exportToExcel() {
+      this.exportLoading = true
+      try {
+        // Import XLSX library
+        const XLSX = await import('xlsx')
+
+        // Prepare data for Excel export
+        const exportData = this.stockList.map((item, index) => ({
+          'ລຳດັບ': index + 1,
+          'Product ID': item.product_id || '',
+          'ຊື່ສິນຄ້າ': item.product?.pro_name || '',
+          'ລາຄາຂາຍ': parseFloat(item.product?.pro_price || 0),
+          'ຈຳນວນສະຕັອກ': parseInt(item.cardCount || 0),
+          'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ': parseFloat(item.totalCardValue / item.cardCount || 0),
+          'ມູນຄ່າລວມ': parseFloat(item.totalCardValue || 0),
+        }))
+
+        // Create workbook and worksheet
+        const wb = XLSX.utils.book_new()
+        const ws = XLSX.utils.aoa_to_sheet([]) // Start with empty sheet
+
+        // Define styling
+        const headerStyle = {
+          fill: { fgColor: { rgb: "1976D2" } }, // Blue background
+          font: { bold: true, color: { rgb: "FFFFFF" }, sz: 12 }, // White, bold, size 12
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thin", color: { rgb: "000000" } },
+            bottom: { style: "thin", color: { rgb: "000000" } },
+            left: { style: "thin", color: { rgb: "000000" } },
+            right: { style: "thin", color: { rgb: "000000" } }
+          }
+        }
+
+        const titleStyle = {
+          fill: { fgColor: { rgb: "E3F2FD" } }, // Light blue background
+          font: { bold: true, sz: 16, color: { rgb: "1976D2" } },
+          alignment: { horizontal: "center", vertical: "center" }
+        }
+
+        const summaryStyle = {
+          fill: { fgColor: { rgb: "FFF3E0" } }, // Light orange background
+          font: { bold: true, color: { rgb: "E65100" } },
+          alignment: { horizontal: "center", vertical: "center" },
+          border: {
+            top: { style: "thick", color: { rgb: "E65100" } },
+            bottom: { style: "thick", color: { rgb: "E65100" } },
+            left: { style: "thick", color: { rgb: "E65100" } },
+            right: { style: "thick", color: { rgb: "E65100" } }
+          }
+        }
+
+        const dataStyle = {
+          border: {
+            top: { style: "thin", color: { rgb: "CCCCCC" } },
+            bottom: { style: "thin", color: { rgb: "CCCCCC" } },
+            left: { style: "thin", color: { rgb: "CCCCCC" } },
+            right: { style: "thin", color: { rgb: "CCCCCC" } }
+          },
+          alignment: { vertical: "center" }
+        }
+
+        const numberStyle = {
+          ...dataStyle,
+          numFmt: "#,##0.00", // Number format with thousand separators
+          alignment: { horizontal: "right", vertical: "center" }
+        }
+
+        // Add title (merged cell)
+        const currentDate = new Date().toLocaleDateString('lo-LA')
+        const title = `ລາຍງານສະຕັອກສິນຄ້າ - ${currentDate}`
+        
+        // Row 1: Title (merged across all columns)
+        XLSX.utils.sheet_add_aoa(ws, [[title]], { origin: 'A1' })
+        ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 6 } }] // Merge A1:G1
+        ws['A1'].s = titleStyle
+
+        // Row 2: Empty row for spacing
+        
+        // Row 3: Headers
+        const headers = ['ລຳດັບ', 'Product ID', 'ຊື່ສິນຄ້າ', 'ລາຄາຂາຍ', 'ຈຳນວນສະຕັອກ', 'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ', 'ມູນຄ່າລວມ']
+        XLSX.utils.sheet_add_aoa(ws, [headers], { origin: 'A3' })
+        
+        // Apply header styles
+        for (let col = 0; col < headers.length; col++) {
+          const cellRef = XLSX.utils.encode_cell({ r: 2, c: col })
+          if (!ws[cellRef]) ws[cellRef] = { v: headers[col] }
+          ws[cellRef].s = headerStyle
+        }
+
+        // Add data rows starting from row 4
+        exportData.forEach((row, index) => {
+          const rowData = Object.values(row)
+          const rowIndex = index + 3 // Starting from row 4 (0-indexed)
+          
+          XLSX.utils.sheet_add_aoa(ws, [rowData], { origin: `A${rowIndex + 1}` })
+          
+          // Apply styles to each cell in the row
+          for (let col = 0; col < rowData.length; col++) {
+            const cellRef = XLSX.utils.encode_cell({ r: rowIndex, c: col })
+            if (!ws[cellRef]) continue
+            
+            // Apply appropriate style based on column type
+            if (col === 0 || col === 1) { // Index and ID columns
+              ws[cellRef].s = { ...dataStyle, alignment: { horizontal: "center", vertical: "center" } }
+            } else if (col === 2) { // Product name
+              ws[cellRef].s = dataStyle
+            } else { // Number columns
+              ws[cellRef].s = numberStyle
+            }
+          }
+        })
+
+        // Add summary row
+        const summaryRowIndex = exportData.length + 3
+        const totalQuantity = this.stockList.reduce((sum, item) => sum + parseInt(item.cardCount || 0), 0)
+        const summaryData = ['', '', 'ລວມທັງໝົດ', '', totalQuantity, '', this.grandTotalStockValue]
+        
+        XLSX.utils.sheet_add_aoa(ws, [summaryData], { origin: `A${summaryRowIndex + 1}` })
+        
+        // Apply summary styles
+        for (let col = 0; col < summaryData.length; col++) {
+          const cellRef = XLSX.utils.encode_cell({ r: summaryRowIndex, c: col })
+          if (!ws[cellRef]) continue
+          ws[cellRef].s = summaryStyle
+        }
+
+        // Set column widths
+        const wscols = [
+          { wch: 8 },   // ລຳດັບ
+          { wch: 12 },  // Product ID
+          { wch: 35 },  // ຊື່ສິນຄ້າ
+          { wch: 15 },  // ລາຄາຂາຍ
+          { wch: 15 },  // ຈຳນວນສະຕັອກ
+          { wch: 18 },  // ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ
+          { wch: 18 },  // ມູນຄ່າລວມ
+        ]
+        ws['!cols'] = wscols
+
+        // Set row heights
+        ws['!rows'] = [
+          { hpx: 30 }, // Title row
+          { hpx: 15 }, // Empty row
+          { hpx: 25 }, // Header row
+          // Data rows will use default height
+        ]
+
+        // Add worksheet to workbook
+        XLSX.utils.book_append_sheet(wb, ws, 'Stock Report')
+
+        // Generate filename with current date and time
+        const now = new Date()
+        const dateStr = now.toISOString().split('T')[0]
+        const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-')
+        const filename = `Stock_Report_${dateStr}_${timeStr}.xlsx`
+
+        // Save file
+        XLSX.writeFile(wb, filename)
+
+        // Show success message
+        swalSuccess(this.$swal, 'ສຳເລັດ', `Export ຂໍ້ມູນສຳເລັດ: ${filename}`)
+
+      } catch (error) {
+        console.error('Export error:', error)
+        swalError2(this.$swal, 'ຜິດພາດ', 'ເກີດຂໍ້ຜິດພາດໃນການ Export ຂໍ້ມູນ')
+      } finally {
+        this.exportLoading = false
+      }
     },
 
     editStock(idx) {

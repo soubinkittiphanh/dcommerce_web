@@ -47,7 +47,7 @@ var VToolbar = __webpack_require__(28);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(138);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/inventory_value/index.vue?vue&type=template&id=75979994
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/inventory_value/index.vue?vue&type=template&id=135bd8b1
 
 
 
@@ -62,7 +62,7 @@ var components_VToolbar = __webpack_require__(138);
 
 
 
-var inventory_valuevue_type_template_id_75979994_render = function render() {
+var inventory_valuevue_type_template_id_135bd8b1_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -262,6 +262,19 @@ var inventory_valuevue_type_template_id_75979994_render = function render() {
       "cols": "6"
     }
   }, [_c(VBtn["a" /* default */], {
+    staticClass: "primary mr-3",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": "",
+      "loading": _vm.exportLoading
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c('span', {
+    staticClass: "mdi mdi-file-excel"
+  }), _vm._v("\n            Export Excel\n          ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "primary",
     attrs: {
       "size": "large",
@@ -328,7 +341,7 @@ var inventory_valuevue_type_template_id_75979994_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/inventory_value/index.vue?vue&type=template&id=75979994
+// CONCATENATED MODULE: ./pages/admin/inventory_value/index.vue?vue&type=template&id=135bd8b1
 
 // EXTERNAL MODULE: ./components/product/ProductForm.vue + 3 modules
 var ProductForm = __webpack_require__(468);
@@ -364,6 +377,8 @@ var external_vuex_ = __webpack_require__(14);
   middleware: 'auths',
   data() {
     return {
+      exportLoading: false,
+      // Add this for export loading state
       simpleHeaders: [{
         text: 'ມູນຄ່າສິນຄ້າຄ້າງສະຕັອກ',
         value: 'age'
@@ -472,6 +487,344 @@ var external_vuex_ = __webpack_require__(14);
       };
       this.simpleItems.push(simpleHead);
     },
+    // NEW METHOD: Export to Excel with Advanced Styling
+    async exportToExcel() {
+      this.exportLoading = true;
+      try {
+        // Import XLSX library
+        const XLSX = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 378, 7));
+
+        // Prepare data for Excel export
+        const exportData = this.stockList.map((item, index) => {
+          var _item$product, _item$product2;
+          return {
+            'ລຳດັບ': index + 1,
+            'Product ID': item.product_id || '',
+            'ຊື່ສິນຄ້າ': ((_item$product = item.product) === null || _item$product === void 0 ? void 0 : _item$product.pro_name) || '',
+            'ລາຄາຂາຍ': parseFloat(((_item$product2 = item.product) === null || _item$product2 === void 0 ? void 0 : _item$product2.pro_price) || 0),
+            'ຈຳນວນສະຕັອກ': parseInt(item.cardCount || 0),
+            'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ': parseFloat(item.totalCardValue / item.cardCount || 0),
+            'ມູນຄ່າລວມ': parseFloat(item.totalCardValue || 0)
+          };
+        });
+
+        // Create workbook and worksheet
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet([]); // Start with empty sheet
+
+        // Define styling
+        const headerStyle = {
+          fill: {
+            fgColor: {
+              rgb: "1976D2"
+            }
+          },
+          // Blue background
+          font: {
+            bold: true,
+            color: {
+              rgb: "FFFFFF"
+            },
+            sz: 12
+          },
+          // White, bold, size 12
+          alignment: {
+            horizontal: "center",
+            vertical: "center"
+          },
+          border: {
+            top: {
+              style: "thin",
+              color: {
+                rgb: "000000"
+              }
+            },
+            bottom: {
+              style: "thin",
+              color: {
+                rgb: "000000"
+              }
+            },
+            left: {
+              style: "thin",
+              color: {
+                rgb: "000000"
+              }
+            },
+            right: {
+              style: "thin",
+              color: {
+                rgb: "000000"
+              }
+            }
+          }
+        };
+        const titleStyle = {
+          fill: {
+            fgColor: {
+              rgb: "E3F2FD"
+            }
+          },
+          // Light blue background
+          font: {
+            bold: true,
+            sz: 16,
+            color: {
+              rgb: "1976D2"
+            }
+          },
+          alignment: {
+            horizontal: "center",
+            vertical: "center"
+          }
+        };
+        const summaryStyle = {
+          fill: {
+            fgColor: {
+              rgb: "FFF3E0"
+            }
+          },
+          // Light orange background
+          font: {
+            bold: true,
+            color: {
+              rgb: "E65100"
+            }
+          },
+          alignment: {
+            horizontal: "center",
+            vertical: "center"
+          },
+          border: {
+            top: {
+              style: "thick",
+              color: {
+                rgb: "E65100"
+              }
+            },
+            bottom: {
+              style: "thick",
+              color: {
+                rgb: "E65100"
+              }
+            },
+            left: {
+              style: "thick",
+              color: {
+                rgb: "E65100"
+              }
+            },
+            right: {
+              style: "thick",
+              color: {
+                rgb: "E65100"
+              }
+            }
+          }
+        };
+        const dataStyle = {
+          border: {
+            top: {
+              style: "thin",
+              color: {
+                rgb: "CCCCCC"
+              }
+            },
+            bottom: {
+              style: "thin",
+              color: {
+                rgb: "CCCCCC"
+              }
+            },
+            left: {
+              style: "thin",
+              color: {
+                rgb: "CCCCCC"
+              }
+            },
+            right: {
+              style: "thin",
+              color: {
+                rgb: "CCCCCC"
+              }
+            }
+          },
+          alignment: {
+            vertical: "center"
+          }
+        };
+        const numberStyle = {
+          ...dataStyle,
+          numFmt: "#,##0.00",
+          // Number format with thousand separators
+          alignment: {
+            horizontal: "right",
+            vertical: "center"
+          }
+        };
+
+        // Add title (merged cell)
+        const currentDate = new Date().toLocaleDateString('lo-LA');
+        const title = `ລາຍງານສະຕັອກສິນຄ້າ - ${currentDate}`;
+
+        // Row 1: Title (merged across all columns)
+        XLSX.utils.sheet_add_aoa(ws, [[title]], {
+          origin: 'A1'
+        });
+        ws['!merges'] = [{
+          s: {
+            r: 0,
+            c: 0
+          },
+          e: {
+            r: 0,
+            c: 6
+          }
+        }]; // Merge A1:G1
+        ws['A1'].s = titleStyle;
+
+        // Row 2: Empty row for spacing
+
+        // Row 3: Headers
+        const headers = ['ລຳດັບ', 'Product ID', 'ຊື່ສິນຄ້າ', 'ລາຄາຂາຍ', 'ຈຳນວນສະຕັອກ', 'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ', 'ມູນຄ່າລວມ'];
+        XLSX.utils.sheet_add_aoa(ws, [headers], {
+          origin: 'A3'
+        });
+
+        // Apply header styles
+        for (let col = 0; col < headers.length; col++) {
+          const cellRef = XLSX.utils.encode_cell({
+            r: 2,
+            c: col
+          });
+          if (!ws[cellRef]) ws[cellRef] = {
+            v: headers[col]
+          };
+          ws[cellRef].s = headerStyle;
+        }
+
+        // Add data rows starting from row 4
+        exportData.forEach((row, index) => {
+          const rowData = Object.values(row);
+          const rowIndex = index + 3; // Starting from row 4 (0-indexed)
+
+          XLSX.utils.sheet_add_aoa(ws, [rowData], {
+            origin: `A${rowIndex + 1}`
+          });
+
+          // Apply styles to each cell in the row
+          for (let col = 0; col < rowData.length; col++) {
+            const cellRef = XLSX.utils.encode_cell({
+              r: rowIndex,
+              c: col
+            });
+            if (!ws[cellRef]) continue;
+
+            // Apply appropriate style based on column type
+            if (col === 0 || col === 1) {
+              // Index and ID columns
+              ws[cellRef].s = {
+                ...dataStyle,
+                alignment: {
+                  horizontal: "center",
+                  vertical: "center"
+                }
+              };
+            } else if (col === 2) {
+              // Product name
+              ws[cellRef].s = dataStyle;
+            } else {
+              // Number columns
+              ws[cellRef].s = numberStyle;
+            }
+          }
+        });
+
+        // Add summary row
+        const summaryRowIndex = exportData.length + 3;
+        const totalQuantity = this.stockList.reduce((sum, item) => sum + parseInt(item.cardCount || 0), 0);
+        const summaryData = ['', '', 'ລວມທັງໝົດ', '', totalQuantity, '', this.grandTotalStockValue];
+        XLSX.utils.sheet_add_aoa(ws, [summaryData], {
+          origin: `A${summaryRowIndex + 1}`
+        });
+
+        // Apply summary styles
+        for (let col = 0; col < summaryData.length; col++) {
+          const cellRef = XLSX.utils.encode_cell({
+            r: summaryRowIndex,
+            c: col
+          });
+          if (!ws[cellRef]) continue;
+          ws[cellRef].s = summaryStyle;
+        }
+
+        // Set column widths
+        const wscols = [{
+          wch: 8
+        },
+        // ລຳດັບ
+        {
+          wch: 12
+        },
+        // Product ID
+        {
+          wch: 35
+        },
+        // ຊື່ສິນຄ້າ
+        {
+          wch: 15
+        },
+        // ລາຄາຂາຍ
+        {
+          wch: 15
+        },
+        // ຈຳນວນສະຕັອກ
+        {
+          wch: 18
+        },
+        // ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ
+        {
+          wch: 18
+        } // ມູນຄ່າລວມ
+        ];
+        ws['!cols'] = wscols;
+
+        // Set row heights
+        ws['!rows'] = [{
+          hpx: 30
+        },
+        // Title row
+        {
+          hpx: 15
+        },
+        // Empty row
+        {
+          hpx: 25
+        } // Header row
+        // Data rows will use default height
+        ];
+
+        // Add worksheet to workbook
+        XLSX.utils.book_append_sheet(wb, ws, 'Stock Report');
+
+        // Generate filename with current date and time
+        const now = new Date();
+        const dateStr = now.toISOString().split('T')[0];
+        const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-');
+        const filename = `Stock_Report_${dateStr}_${timeStr}.xlsx`;
+
+        // Save file
+        XLSX.writeFile(wb, filename);
+
+        // Show success message
+        Object(myUtil["c" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', `Export ຂໍ້ມູນສຳເລັດ: ${filename}`);
+      } catch (error) {
+        console.error('Export error:', error);
+        Object(myUtil["b" /* swalError2 */])(this.$swal, 'ຜິດພາດ', 'ເກີດຂໍ້ຜິດພາດໃນການ Export ຂໍ້ມູນ');
+      } finally {
+        this.exportLoading = false;
+      }
+    },
     editStock(idx) {
       console.log('ID ' + idx.product.pro_id);
       console.log('NAME ' + idx.product.pro_name);
@@ -526,7 +879,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_inventory_valuevue_type_script_lang_js,
-  inventory_valuevue_type_template_id_75979994_render,
+  inventory_valuevue_type_template_id_135bd8b1_render,
   staticRenderFns,
   false,
   null,
