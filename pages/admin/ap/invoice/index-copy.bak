@@ -1,0 +1,787 @@
+<template>
+  <div>
+    <!-- Header Section -->
+    <v-row>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title class="primary white--text py-3">
+            <v-icon color="white" class="mr-2">mdi-file-invoice</v-icon>
+            <span>ໃບແຈ້ງໜີ້ຄ້າງຈ່າຍ (AP Invoice)</span>
+            <v-spacer />
+            <v-btn color="white" text @click="openDialog()">
+              <v-icon left>mdi-plus</v-icon>
+              ເພີ່ມໃໝ່
+            </v-btn>
+          </v-card-title>
+
+          <!-- Filters -->
+          <v-card-text class="pa-3">
+            <v-row dense>
+              <v-col cols="12" md="2">
+                <v-select
+                  v-model="statusFilter"
+                  :items="statusOptions"
+                  label="ສະຖານະ"
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-flag"
+                  @change="onFilterChange"
+                />
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-select
+                  v-model="filters.vendorId"
+                  :items="agencies"
+                  item-text="name"
+                  item-value="id"
+                  label="ຜູ້ຂາຍ"
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-account"
+                  @change="fetchData"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="filters.startDate"
+                  label="ວັນທີເລີ່ມຕົ້ນ"
+                  type="date"
+                  outlined
+                  dense
+                  hide-details
+                  prepend-inner-icon="mdi-calendar-start"
+                  @change="fetchData"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="filters.endDate"
+                  label="ວັນທີສິ້ນສຸດ"
+                  type="date"
+                  outlined
+                  dense
+                  hide-details
+                  prepend-inner-icon="mdi-calendar-end"
+                  @change="fetchData"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="searchTerm"
+                  label="ຄົ້ນຫາ"
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-magnify"
+                  @input="debounceSearch"
+                />
+              </v-col>
+              <v-col cols="12" md="1">
+                <v-btn color="secondary" outlined block @click="resetFilters">
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Data Table -->
+    <v-row class="mt-3">
+      <v-col cols="12">
+        <v-card>
+          <v-card-title class="py-2">
+            <v-icon class="mr-2">mdi-table</v-icon>
+            <span>ລາຍການໃບແຈ້ງໜີ້</span>
+            <v-spacer />
+            <v-chip color="primary" outlined>
+              {{ pagination.totalItems }} ລາຍການ
+            </v-chip>
+          </v-card-title>
+
+          <v-data-table
+            :headers="headers"
+            :items="invoices"
+            :loading="loading"
+            :options.sync="tableOptions"
+            :server-items-length="pagination.totalItems"
+            :footer-props="{
+              'items-per-page-options': [10, 25, 50, 100],
+            }"
+            class="elevation-0"
+            loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+            no-data-text="ບໍ່ມີຂໍ້ມູນ"
+          >
+            <!-- Invoice Number -->
+            <template v-slot:item.invoiceNumber="{ item }">
+              <div>
+                <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
+                <v-chip
+                  v-if="isOverdue(item.dueDate) && item.status !== 'paid'"
+                  x-small
+                  color="error"
+                  text-color="white"
+                  class="mt-1"
+                >
+                  <v-icon x-small left>mdi-alert</v-icon>
+                  ເກີນກຳນົດ
+                </v-chip>
+              </div>
+            </template>
+
+            <!-- Vendor Invoice Number -->
+            <template v-slot:item.vendorInvoiceNumber="{ item }">
+              <span class="text-caption">{{ item.vendorInvoiceNumber }}</span>
+            </template>
+
+            <!-- Vendor -->
+            <template v-slot:item.vendor="{ item }">
+              <div v-if="item.agency">
+                <div class="font-weight-medium">
+                  {{ item.agency.agencyName }}
+                </div>
+                <div
+                  v-if="item.agency.agencyCode"
+                  class="text-caption grey--text"
+                >
+                  {{ item.agency?.agencyType }} -
+                  {{ item.agency?.agencyName || 'N/A' }}
+                </div>
+              </div>
+              <span v-else class="grey--text text-caption">ບໍ່ໄດ້ລະບຸ</span>
+            </template>
+
+            <!-- Invoice Date -->
+            <template v-slot:item.invoiceDate="{ item }">
+              <span class="text-caption">{{
+                formatDate(item.invoiceDate)
+              }}</span>
+            </template>
+
+            <!-- Due Date -->
+            <template v-slot:item.dueDate="{ item }">
+              <span
+                class="text-caption"
+                :class="{
+                  'error--text font-weight-bold':
+                    isOverdue(item.dueDate) && item.status !== 'paid',
+                }"
+              >
+                {{ formatDate(item.dueDate) }}
+              </span>
+            </template>
+
+            <!-- Total Amount -->
+            <template v-slot:item.totalAmount="{ item }">
+              <div class="text-right">
+                <div class="font-weight-bold">
+                  {{ formatCurrency(item.totalAmount) }}
+                </div>
+                <div v-if="item.currency" class="text-caption grey--text">
+                  {{ item.currency.code }}
+                </div>
+              </div>
+            </template>
+
+            <!-- Paid Amount -->
+            <template v-slot:item.paidAmount="{ item }">
+              <div class="text-right success--text font-weight-medium">
+                {{ formatCurrency(item.paidAmount) }}
+              </div>
+            </template>
+
+            <!-- Outstanding Amount -->
+            <template v-slot:item.outstandingAmount="{ item }">
+              <div class="text-right warning--text font-weight-bold">
+                {{ formatCurrency(getOutstandingAmount(item)) }}
+              </div>
+            </template>
+
+            <!-- Status -->
+            <template v-slot:item.status="{ item }">
+              <v-chip
+                x-small
+                :color="getStatusColor(item.status)"
+                text-color="white"
+              >
+                {{ getStatusInLao(item.status) }}
+              </v-chip>
+            </template>
+
+            <!-- Maker -->
+            <template v-slot:item.maker="{ item }">
+              <span class="text-caption">
+                {{ item.maker ? item.maker.cus_name : 'N/A' }}
+              </span>
+            </template>
+
+            <!-- Actions -->
+            <template v-slot:item.actions="{ item }">
+              <v-menu bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon small v-bind="attrs" v-on="on">
+                    <v-icon small>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item @click="viewDetails(item)">
+                    <v-list-item-icon>
+                      <v-icon small color="info">mdi-eye</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item
+                    v-if="['draft', 'pending'].includes(item.status)"
+                    @click="openDialog(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="warning">mdi-pencil</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item
+                    v-if="item.status === 'pending'"
+                    @click="approveInvoice(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="success">mdi-check</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ອະນຸມັດ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-divider v-if="item.status !== 'cancelled'" />
+
+                  <v-list-item
+                    v-if="item.status !== 'cancelled'"
+                    @click="cancelInvoice(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="error">mdi-close</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ຍົກເລີກ</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Dialog Component -->
+    <APInvoiceDialog
+      :visible="showDialog"
+      :invoice="selectedInvoice"
+      :agencies="agencies"
+      :currencies="currencies"
+      :gl-accounts="glAccounts"
+      :user="user"
+      @close="closeDialog"
+      @save="saveInvoice"
+    />
+
+    <!-- Detail Dialog -->
+    <v-dialog v-model="showDetailModal" max-width="600px">
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon color="white" class="mr-2">mdi-information</v-icon>
+          ລາຍລະອຽດໃບແຈ້ງໜີ້
+          <v-spacer />
+          <v-btn icon dark @click="closeDetailModal">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-4">
+          <v-progress-linear
+            v-if="detailLoading"
+            indeterminate
+            color="primary"
+          />
+
+          <div v-else-if="invoiceDetails">
+            <v-simple-table dense>
+              <tbody>
+                <tr>
+                  <td class="font-weight-bold">ເລກທີໃບແຈ້ງໜີ້:</td>
+                  <td>{{ invoiceDetails.invoiceNumber }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ເລກທີຜູ້ຂາຍ:</td>
+                  <td>{{ invoiceDetails.vendorInvoiceNumber }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ຜູ້ຂາຍ:</td>
+                  <td>
+                    {{ invoiceDetails.agency?.agencyType }} -
+                    {{ invoiceDetails.agency?.agencyName || 'N/A' }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ວັນທີໃບແຈ້ງໜີ້:</td>
+                  <td>{{ formatDate(invoiceDetails.invoiceDate) }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ວັນທີຄົບກຳນົດ:</td>
+                  <td>{{ formatDate(invoiceDetails.dueDate) }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ຈຳນວນເງິນລວມ:</td>
+                  <td class="font-weight-bold">
+                    {{ formatCurrency(invoiceDetails.totalAmount) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ສະຖານະ:</td>
+                  <td>
+                    <v-chip
+                      x-small
+                      :color="getStatusColor(invoiceDetails.status)"
+                      text-color="white"
+                    >
+                      {{ getStatusInLao(invoiceDetails.status) }}
+                    </v-chip>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ຄຳອະທິບາຍ:</td>
+                  <td>{{ invoiceDetails.description || 'N/A' }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ໝາຍເຫດ:</td>
+                  <td>{{ invoiceDetails.note || 'N/A' }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+import APInvoiceDialog from '~/components/accounting/ap/invoice/index.vue'
+import { swalConfirm } from '~/common'
+
+export default {
+  name: 'APInvoiceManagement',
+  components: { APInvoiceDialog },
+
+  data() {
+    return {
+      statusFilter: '',
+      statusOptions: [
+        { text: 'ຮ່າງ', value: 'draft' },
+        { text: 'ຄ້າງອະນຸມັດ', value: 'pending' },
+        { text: 'ອະນຸມັດແລ້ວ', value: 'approved' },
+        { text: 'ຊຳລະບາງສ່ວນ', value: 'partially_paid' },
+        { text: 'ຊຳລະແລ້ວ', value: 'paid' },
+        { text: 'ເກີນກຳນົດ', value: 'overdue' },
+        { text: 'ຍົກເລີກ', value: 'cancelled' },
+      ],
+      statusLabels: {
+        draft: 'ຮ່າງ',
+        pending: 'ຄ້າງອະນຸມັດ',
+        approved: 'ອະນຸມັດແລ້ວ',
+        partially_paid: 'ຊຳລະບາງສ່ວນ',
+        paid: 'ຊຳລະແລ້ວ',
+        overdue: 'ເກີນກຳນົດ',
+        cancelled: 'ຍົກເລີກ',
+      },
+      invoices: [],
+      agencies: [],
+      glAccounts: [],
+      currencies: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        itemsPerPage: 10,
+      },
+      tableOptions: {
+        page: 1,
+        itemsPerPage: 25,
+        sortBy: [],
+        sortDesc: [],
+      },
+      filters: {
+        status: '',
+        vendorId: '',
+        startDate: '',
+        endDate: '',
+      },
+      searchTerm: '',
+      loading: false,
+      detailLoading: false,
+      showDialog: false,
+      showDetailModal: false,
+      selectedInvoice: null,
+      invoiceDetails: null,
+      searchTimeout: null,
+
+      headers: [
+        {
+          text: 'ເລກທີໃບແຈ້ງໜີ້',
+          value: 'invoiceNumber',
+          sortable: true,
+          width: '150px',
+        },
+        {
+          text: 'ເລກທີຜູ້ຂາຍ',
+          value: 'vendorInvoiceNumber',
+          sortable: false,
+          width: '120px',
+        },
+        {
+          text: 'ຜູ້ຂາຍ / Agency',
+          value: 'vendor',
+          sortable: false,
+          width: '180px',
+        },
+        {
+          text: 'ວັນທີໃບແຈ້ງໜີ້',
+          value: 'invoiceDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ວັນທີຄົບກຳນົດ',
+          value: 'dueDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ຈຳນວນເງິນລວມ',
+          value: 'totalAmount',
+          sortable: true,
+          align: 'end',
+          width: '130px',
+        },
+        {
+          text: 'ຈຳນວນທີ່ຈ່າຍແລ້ວ',
+          value: 'paidAmount',
+          sortable: true,
+          align: 'end',
+          width: '130px',
+        },
+        {
+          text: 'ຍອດຄ້າງຈ່າຍ',
+          value: 'outstandingAmount',
+          sortable: false,
+          align: 'end',
+          width: '130px',
+        },
+        {
+          text: 'ສະຖານະ',
+          value: 'status',
+          sortable: true,
+          width: '120px',
+          align: 'center',
+        },
+        {
+          text: 'ຜູ້ລົງບັນຊີ',
+          value: 'maker',
+          sortable: false,
+          width: '120px',
+        },
+        {
+          text: 'ຟັງຊັ່ນ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+          align: 'center',
+        },
+      ],
+    }
+  },
+
+  computed: {
+    user() {
+      return this.$auth.user || null
+    },
+  },
+
+  watch: {
+    tableOptions: {
+      handler() {
+        this.fetchData()
+      },
+      deep: true,
+    },
+  },
+
+  async mounted() {
+    await this.loadInitialData()
+  },
+
+  methods: {
+    getStatusInLao(status) {
+      return this.statusLabels[status] || status.toUpperCase()
+    },
+
+    getStatusColor(status) {
+      const colors = {
+        draft: 'grey',
+        pending: 'orange',
+        approved: 'green',
+        partially_paid: 'blue',
+        paid: 'teal',
+        overdue: 'red',
+        cancelled: 'grey darken-2',
+      }
+      return colors[status] || 'grey'
+    },
+
+    getOutstandingAmount(invoice) {
+      return (
+        parseFloat(invoice.totalAmount || 0) -
+        parseFloat(invoice.paidAmount || 0)
+      )
+    },
+
+    isOverdue(dueDate) {
+      if (!dueDate) return false
+      return new Date(dueDate) < new Date()
+    },
+
+    async loadInitialData() {
+      await Promise.all([
+        // this.fetchVendors(),
+        this.fetchAgencies(),
+        this.fetchCurrencies(),
+        this.fetchAccountCharts(),
+      ])
+    },
+
+    async fetchData() {
+      this.loading = true
+      try {
+        const params = {
+          page: this.tableOptions.page,
+          limit: this.tableOptions.itemsPerPage,
+          ...this.filters,
+        }
+
+        if (this.statusFilter) params.status = this.statusFilter
+        if (this.searchTerm) params.search = this.searchTerm
+
+        const { data } = await this.$axios.get('/api/ap-invoices', { params })
+        this.invoices = data.data.invoices
+        this.pagination = data.data.pagination
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // async fetchVendors() {
+    //   try {
+    //     const { data } = await this.$axios.get('/api/vendor/find')
+    //     this.vendors = data || []
+    //   } catch (error) {
+    //     console.error(error)
+    //   }
+    // },
+    async fetchAgencies() {
+      this.loadingAgencies = true
+      try {
+        const response = await this.$axios.$get('/api/agency')
+        if (response.success && response.data && response.data.agencies) {
+          this.agencies = response.data.agencies
+        } else if (response.success && Array.isArray(response.data)) {
+          this.agencies = response.data
+        }
+      } catch (error) {
+        console.error('Error fetching agencies:', error)
+        this.$toast.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ')
+      } finally {
+        this.loadingAgencies = false
+      }
+    },
+
+    async fetchCurrencies() {
+      try {
+        const { data } = await this.$axios.get('/api/currency/find')
+        this.currencies = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async fetchAccountCharts() {
+      try {
+        const { data } = await this.$axios.get('/api/accountChart/find')
+        this.glAccounts = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    openDialog(invoice = null) {
+      this.selectedInvoice = invoice
+      this.showDialog = true
+    },
+
+    closeDialog() {
+      this.showDialog = false
+      this.selectedInvoice = null
+    },
+
+    async viewDetails(invoice) {
+      this.selectedInvoice = invoice
+      this.showDetailModal = true
+      this.detailLoading = true
+
+      try {
+        const { data } = await this.$axios.get(`/api/ap-invoices/${invoice.id}`)
+        this.invoiceDetails = data.data
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດລາຍລະອຽດໄດ້')
+      } finally {
+        this.detailLoading = false
+      }
+    },
+
+    closeDetailModal() {
+      this.showDetailModal = false
+      this.invoiceDetails = null
+    },
+
+    async saveInvoice(formData) {
+      try {
+        const auditContext = {
+          reason:
+            formData.reason ||
+            (formData.id ? 'Updated invoice' : 'Created new invoice'),
+          userId: this.user?.id,
+        }
+
+        if (formData.id) {
+          await this.$axios.put(`/api/ap-invoices/${formData.id}`, {
+            ...formData,
+            ...auditContext,
+          })
+          this.$toast.success('ອັບເດດສຳເລັດ')
+        } else {
+          await this.$axios.post('/api/ap-invoices', {
+            ...formData,
+            ...auditContext,
+          })
+          this.$toast.success('ສ້າງສຳເລັດ')
+        }
+
+        this.closeDialog()
+        await this.fetchData()
+      } catch (error) {
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    async approveInvoice(invoice) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການອະນຸມັດ',
+          `ທ່ານຕ້ອງການອະນຸມັດໃບແຈ້ງໜີ້ ${invoice.invoiceNumber} ແມ່ນບໍ່?`,
+          'question'
+        )
+
+        if (result.isConfirmed) {
+          await this.$axios.post(`/api/ap-invoices/${invoice.id}/approve`, {
+            checkerId: this.user.id,
+            reason: 'Approved by manager',
+          })
+          this.$toast.success('ອະນຸມັດສຳເລັດ')
+          await this.fetchData()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    async cancelInvoice(invoice) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການຍົກເລີກ',
+          `ທ່ານຕ້ອງການຍົກເລີກໃບແຈ້ງໜີ້ ${invoice.invoiceNumber} ແມ່ນບໍ່?`,
+          'warning'
+        )
+
+        if (result.isConfirmed) {
+          await this.$axios.post(`/api/ap-invoices/${invoice.id}/cancel`, {
+            reason: 'Cancelled by user',
+          })
+          this.$toast.success('ຍົກເລີກສຳເລັດ')
+          await this.fetchData()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    onFilterChange() {
+      this.filters.status = this.statusFilter
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+
+    resetFilters() {
+      this.filters = { status: '', vendorId: '', startDate: '', endDate: '' }
+      this.searchTerm = ''
+      this.statusFilter = ''
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+
+    debounceSearch() {
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        this.tableOptions.page = 1
+        this.fetchData()
+      }, 500)
+    },
+
+    formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount || 0)
+    },
+
+    formatDate(date) {
+      if (!date) return 'N/A'
+      return new Date(date).toLocaleDateString('en-GB')
+    },
+  },
+}
+</script>
+
+<style scoped>
+.ap-invoice-container {
+  padding: 20px;
+}
+
+.v-card-title.primary {
+  background: linear-gradient(45deg, #1976d2, #1565c0);
+}
+
+.text-caption {
+  font-size: 12px !important;
+}
+</style>

@@ -3,7 +3,7 @@
     <!-- Welcome Screen (when no QR is showing) -->
     <div v-if="!showQR" class="welcome-screen">
       <v-row class="fill-height" no-gutters>
-        <v-col cols="12" class="left-section" >
+        <v-col cols="12" class="left-section">
           <div class="logo-section">
             <!-- Dynamic Company Logo Section -->
             <div class="company-logo-container">
@@ -34,10 +34,10 @@
               </v-icon>
             </div>
 
-            <h1 class="store-name">{{ storeName }}</h1>
+            <h1 class="store-name">{{ parsedCompanyInfo.name }}</h1>
 
             <!-- QR Payment Methods Preview - CONSISTENT POSITIONING -->
-            <div class="payment-methods-preview" >
+            <div class="payment-methods-preview">
               <div class="payment-methods-container">
                 <div class="payment-method-item left-qr">
                   <img
@@ -63,9 +63,7 @@
           </div>
         </v-col>
 
-        
-        
-        <v-col cols="6" class="right-section" v-if="1==0">
+        <v-col cols="6" class="right-section" v-if="1 == 0">
           <!-- Slideshow Section for WiFi and Promotions -->
           <div class="slideshow-section">
             <div class="slideshow-container">
@@ -341,10 +339,10 @@
                     />
                     <span class="qr-method-label">BFL Mobile</span>
                   </div>
-                  
+
                   <!-- CENTER SPACER -->
                   <div class="qr-spacer"></div>
-                  
+
                   <!-- RIGHT QR -->
                   <div class="qr-method-item right-qr-payment">
                     <img
@@ -378,7 +376,7 @@
             </div>
 
             <!-- Payment Status -->
-            <div class="payment-status" v-if="1==0">
+            <div class="payment-status" v-if="1 == 0">
               <v-progress-circular
                 v-if="!paymentComplete"
                 indeterminate
@@ -464,7 +462,12 @@
 export default {
   name: 'CustomerScreen',
   layout: 'empty',
-
+  props: {
+    stationName: {
+      type: String,
+      default: 'BAR/KITCHEN',
+    },
+  },
   data() {
     return {
       bflQrImage: require('~/assets/image/qr_code/BFL_QR.jpeg'),
@@ -556,8 +559,32 @@ export default {
       ],
     }
   },
+  asyncData({ query }) {
+    let companyInfo = null
 
+    if (query.company) {
+      try {
+        companyInfo = JSON.parse(decodeURIComponent(query.company))
+      } catch (e) {
+        console.error('Failed to parse company info:', e)
+      }
+    }
+
+    return { companyInfo }
+  },
   computed: {
+    parsedCompanyInfo() {
+      console.info(`COMPANY DATA PARSING ${JSON.stringify(this.$route.query.company)}`)
+      if (this.$route.query.company) {
+        try {
+          return JSON.parse(decodeURIComponent(this.$route.query.company))
+        } catch (e) {
+          console.error('Failed to parse company info:', e)
+          return null
+        }
+      }
+      return null
+    },
     // Generate WiFi QR code URL
     wifiQrCodeUrl() {
       const wifiString = `WIFI:T:${this.wifiCredentials.security};S:${this.wifiCredentials.ssid};P:${this.wifiCredentials.password};H:false;`
@@ -2070,8 +2097,12 @@ export default {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
@@ -2133,7 +2164,7 @@ export default {
   .welcome-screen .v-row {
     flex-direction: column;
   }
-  
+
   .left-section,
   .right-section {
     height: 50vh;

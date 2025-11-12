@@ -70,6 +70,14 @@
               <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary" rounded>
                 <span class="mdi mdi-microsoft-excel"></span>Generate excel file
               </v-btn>
+              <!-- NEW AUDIT EXPORT BUTTON -->
+              <v-btn size="large" variant="outlined" @click="exportAuditReport" class="success" rounded>
+                <span class="mdi mdi-file-chart"></span>Audit Report
+              </v-btn>
+              <!-- NEW QUANTITY AUDIT EXPORT BUTTON -->
+              <v-btn size="large" variant="outlined" @click="exportSimplePDFReport" class="warning" rounded>
+                <span class="mdi mdi-file-pdf"></span>PDF Summary
+              </v-btn>
             </v-col>
             <v-col cols="6" class="text-right">
               <v-btn size="large" variant="outlined" @click="loadData" class="primary" rounded>
@@ -399,6 +407,251 @@ export default {
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
       this.$xlsx.writeFile(workbook, 'data.xlsx');
     },
+    
+    // SIMPLE PDF EXPORT METHOD
+    exportSimplePDFReport() {
+      try {
+        // Calculate simple summary data
+        const totalTickets = this.activeOrderHeaderList.length;
+        const totalItems = this.activeOrderHeaderList.reduce((sum, item) => sum + (parseInt(item.totalQTY) || 0), 0);
+        
+        // Count by product, category, and payment
+        const productCount = {};
+        const categoryCount = {};
+        const paymentCount = {};
+        
+        this.activeOrderHeaderList.forEach((item) => {
+          // Product counting
+          const productName = item.product?.pro_name || 'Other';
+          productCount[productName] = (productCount[productName] || 0) + 1;
+          
+          // Category counting (using the new category data structure)
+          const categoryName = item.product?.category?.categ_name || 'Unknown Category';
+          categoryCount[categoryName] = (categoryCount[categoryName] || 0) + 1;
+          
+          // Payment counting  
+          const payment = item.header?.payment?.payment_name || item.paymentStatus || 'Cash';
+          paymentCount[payment] = (paymentCount[payment] || 0) + 1;
+        });
+
+        // Create simple HTML for PDF
+        const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+            .summary-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background-color: #f9f9f9; }
+            .summary-title { font-weight: bold; font-size: 14px; color: #333; margin-bottom: 10px; }
+            .summary-item { margin: 5px 0; }
+            .section { margin: 20px 0; }
+            .footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f0f0f0; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h2>AUDIT SUMMARY REPORT</h2>
+            <p>Period: ${this.dateFormatted} - ${this.dateFormatted2}</p>
+            <p>Generated: ${new Date().toLocaleDateString()}</p>
+          </div>
+
+          <div class="summary-box">
+            <div class="summary-title">📊 OVERVIEW</div>
+            <div class="summary-item">Total Tickets: ${totalTickets}</div>
+            <div class="summary-item">Total Items Sold: ${totalItems}</div>
+            <div class="summary-item">Average Items per Ticket: ${totalTickets > 0 ? Math.round((totalItems / totalTickets) * 100) / 100 : 0}</div>
+          </div>
+
+          <div class="section">
+            <h3>📂 TICKETS BY CATEGORY</h3>
+            <table>
+              <tr><th>Category</th><th>Tickets</th></tr>
+              ${Object.entries(categoryCount)
+                .sort(([,a], [,b]) => b - a)
+                .map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>📦 TICKETS BY PRODUCT</h3>
+            <table>
+              <tr><th>Product</th><th>Tickets</th></tr>
+              ${Object.entries(productCount)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10) // Top 10 only
+                .map(([product, count]) => `<tr><td>${product}</td><td>${count}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>💳 TICKETS BY PAYMENT</h3>
+            <table>
+              <tr><th>Payment Method</th><th>Tickets</th></tr>
+              ${Object.entries(paymentCount)
+                .map(([payment, count]) => `<tr><td>${payment}</td><td>${count}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="footer">
+            <p><strong>NOTE:</strong> This report contains only operational data - no financial amounts</p>
+            <p>Generated for external audit purposes</p>
+          </div>
+        </body>
+        </html>`;
+
+        // Create PDF using html2pdf (you'll need to install this library)
+        // Alternative: Use jsPDF with simple text
+        this.generatePDFFromHTML(htmlContent);
+        
+      } catch (error) {
+        console.error('Error generating PDF report:', error);
+        this.$toast.error('Error generating PDF report: ' + error.message);
+      }
+    },
+
+    generatePDFFromHTML(htmlContent) {
+      // Method 1: If you have html2pdf library installed
+      if (typeof html2pdf !== 'undefined') {
+        const opt = {
+          margin: 1,
+          filename: `audit_summary_${this.date}_to_${this.date2}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().from(htmlContent).set(opt).save();
+      } 
+      // Method 2: Simple jsPDF fallback
+      else if (typeof jsPDF !== 'undefined') {
+        const doc = new jsPDF();
+        
+        // Simple text-based PDF
+        doc.setFontSize(16);
+        doc.text('AUDIT SUMMARY REPORT', 20, 20);
+        
+        doc.setFontSize(12);
+        doc.text(`Period: ${this.dateFormatted} - ${this.dateFormatted2}`, 20, 35);
+        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
+        
+        doc.text('OVERVIEW', 20, 65);
+        doc.text(`Total Tickets: ${this.activeOrderHeaderList.length}`, 20, 75);
+        doc.text(`Total Items: ${this.activeOrderHeaderList.reduce((sum, item) => sum + (parseInt(item.totalQTY) || 0), 0)}`, 20, 85);
+        
+        // Add more content as needed
+        doc.save(`audit_summary_${this.date}_to_${this.date2}.pdf`);
+      }
+      // Method 3: Browser print fallback
+      else {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.print();
+      }
+      
+      this.$toast.success('PDF report generated successfully!');
+    },
+    
+    // NEW AUDIT EXPORT METHOD
+    exportAuditReport() {
+      try {
+        // Group tickets by category
+        const categoryStats = {};
+        const paymentStats = {};
+        
+        this.activeOrderHeaderList.forEach((item) => {
+          // Count by product category (you might need to adjust based on your data structure)
+          const category = item.product?.category || item.product?.pro_name || 'Unknown';
+          if (!categoryStats[category]) {
+            categoryStats[category] = 0;
+          }
+          categoryStats[category] += 1; // Count tickets, not amounts
+          
+          // Count by payment type (adjust based on your payment data structure)
+          const paymentType = item.header?.paymentMethod || item.paymentStatus || 'Unknown';
+          if (!paymentStats[paymentType]) {
+            paymentStats[paymentType] = 0;
+          }
+          paymentStats[paymentType] += 1; // Count tickets, not amounts
+        });
+
+        // Create audit report data
+        const auditData = [];
+        
+        // Add header info
+        auditData.push({
+          'Report Type': 'External Audit Report',
+          'Period': `${this.dateFormatted} - ${this.dateFormatted2}`,
+          'Generated On': new Date().toLocaleDateString(),
+          'Generated By': this.user?.name || 'System',
+          'Location': this.currentSelectedLocation?.name || 'All Locations'
+        });
+        
+        // Add empty row
+        auditData.push({});
+        
+        // Add category section header
+        auditData.push({
+          'Report Type': '=== TICKETS BY CATEGORY ===',
+        });
+        
+        // Add category statistics
+        Object.entries(categoryStats).forEach(([category, count]) => {
+          auditData.push({
+            'Category': category,
+            'Ticket Count': count,
+          });
+        });
+        
+        // Add empty row
+        auditData.push({});
+        
+        // Add payment section header
+        auditData.push({
+          'Report Type': '=== TICKETS BY PAYMENT TYPE ===',
+        });
+        
+        // Add payment statistics
+        Object.entries(paymentStats).forEach(([paymentType, count]) => {
+          auditData.push({
+            'Payment Type': paymentType,
+            'Ticket Count': count,
+          });
+        });
+        
+        // Add empty row and summary
+        auditData.push({});
+        auditData.push({
+          'Report Type': '=== SUMMARY ===',
+          'Total Tickets': this.activeOrderHeaderList.length,
+          'Total Categories': Object.keys(categoryStats).length,
+          'Total Payment Types': Object.keys(paymentStats).length,
+        });
+
+        // Create Excel file
+        const worksheet = this.$xlsx.utils.json_to_sheet(auditData);
+        const workbook = this.$xlsx.utils.book_new();
+        this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Audit Report');
+        
+        // Generate filename with date range
+        const filename = `audit_report_${this.date}_to_${this.date2}.xlsx`;
+        this.$xlsx.writeFile(workbook, filename);
+        
+        // Show success message
+        this.$toast.success('Audit report exported successfully!');
+        
+      } catch (error) {
+        console.error('Error generating audit report:', error);
+        this.$toast.error('Error generating audit report: ' + error.message);
+      }
+    },
+    
     createSale() {
       this.componentKey += 1;
       this.selectedOrder = 0

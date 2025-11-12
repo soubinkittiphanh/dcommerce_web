@@ -5,7 +5,7 @@
 <template>
   <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
     <div class="enhanced-dialog" @click.stop>
-      <div class="modal-header">
+      <div class="modal-header primary">
         <h4 class="modal-title">
           <i class="fas fa-file-invoice"></i>
           {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່' }}
@@ -67,7 +67,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="agencyId" class="required">ກະຊວງ</label>
+                  <label for="agencyId" class="required">{{
+                    clientLabel
+                  }}</label>
                   <!-- <label for="agencyId" class="required">ຟົວແທນ/ຜູ້ຂາຍ</label> -->
                   <v-autocomplete
                     id="agencyId"
@@ -648,11 +650,11 @@ export default {
   data() {
     return {
       transactionCodes: [],
-          loadingTransactionCodes: false, // Add this
-      formLabel: {
-        vendor: 'ເລືອກກະຊວງ', //'ເລືອກຕົວແທນ',
-        model: '',
-      },
+      loadingTransactionCodes: false, // Add this
+      // formLabel: {
+      //   vendor: `ເລືອກ ${clientLabel}`, //'ເລືອກຕົວແທນ',
+      //   model: '',
+      // },
       formLoading: false,
       saving: false,
       errors: {},
@@ -680,6 +682,19 @@ export default {
     }
   },
   computed: {
+    formLabel() {
+      return {
+        vendor: `ເລືອກ ${this.clientLabel}`,
+        model: '',
+      }
+    },
+    clientLabel() {
+      const item = this.getSPF.find((spf) => spf.code == 'LABEL_AC_CUS')
+      return item?.value || 'ກະຊວງ'
+    },
+    getSPF() {
+      return this.$store.getters.findSPF
+    },
     isEdit() {
       return !!this.invoice
     },

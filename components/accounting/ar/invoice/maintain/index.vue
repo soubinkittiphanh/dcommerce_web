@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                   <!-- <label for="clientId" class="required">ຟົວແທນ/ຜູ້ຂາຍ</label> -->
-                  <label for="clientId" class="required">ກະຊວງ</label>
+                  <label for="clientId" class="required">{{clientLabel}}</label>
                   <v-autocomplete
                     id="agencyId"
                     v-model="form.agencyId"
@@ -630,10 +630,7 @@ export default {
       nextTempId: 1,
       selectedCustomer: null,
       selectedCurrency: null,
-      formLabel: {
-        vendor: 'ເລືອກກະຊວງ', //'ເລືອກຕົວແທນ',
-        model: '',
-      },
+
       form: {
         id: null,
         invoiceNumber: '',
@@ -658,6 +655,19 @@ export default {
   },
 
   computed: {
+     formLabel() {
+      return {
+        vendor: `ເລືອກ ${this.clientLabel}`,
+        model: '',
+      }
+    },
+    clientLabel() {
+      const item = this.getSPF.find((spf) => spf.code == 'LABEL_AC_CUS')
+      return item?.value || 'ກະຊວງ'
+    },
+    getSPF() {
+      return this.$store.getters.findSPF
+    },
     enableBatchJobbutton() {
       const spf = this.getSPF.find((spf) => spf.code === 'AC_AR_BATCH_JOB')
       return spf?.value === 'Y'

@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cae00f8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(860);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cae00f8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cae00f8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cae00f8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_cae00f8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dbdb2bc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(860);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dbdb2bc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dbdb2bc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dbdb2bc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dbdb2bc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-cae00f8e],.text-h5[data-v-cae00f8e]{font-family:\"Noto Sans Lao\"}table[data-v-cae00f8e]{border:1px solid #000}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-3dbdb2bc],.text-h5[data-v-3dbdb2bc]{font-family:\"Noto Sans Lao\"}table[data-v-3dbdb2bc]{border:1px solid #000}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -80,7 +80,7 @@ var VRow = __webpack_require__(398);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleReportDetailByProduct/index.vue?vue&type=template&id=cae00f8e&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleReportDetailByProduct/index.vue?vue&type=template&id=3dbdb2bc&scoped=true
 
 
 
@@ -98,12 +98,12 @@ var VTextField = __webpack_require__(36);
 
 
 
-var saleReportDetailByProductvue_type_template_id_cae00f8e_scoped_true_render = function render() {
+var saleReportDetailByProductvue_type_template_id_3dbdb2bc_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-cae00f8e>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-3dbdb2bc>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -215,7 +215,7 @@ var saleReportDetailByProductvue_type_template_id_cae00f8e_scoped_true_render = 
         _vm.cancelForm = false, _vm.loadData();
       }
     }
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-cae00f8e>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-3dbdb2bc>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -405,7 +405,31 @@ var saleReportDetailByProductvue_type_template_id_cae00f8e_scoped_true_render = 
     }
   }, [_c('span', {
     staticClass: "mdi mdi-microsoft-excel"
-  }), _vm._v("Generate excel file\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }), _vm._v("Generate excel file\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "success",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": _vm.exportAuditReport
+    }
+  }, [_c('span', {
+    staticClass: "mdi mdi-file-chart"
+  }), _vm._v("Audit Report\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "warning",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": _vm.exportSimplePDFReport
+    }
+  }, [_c('span', {
+    staticClass: "mdi mdi-file-pdf"
+  }), _vm._v("PDF Summary\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "text-right",
     attrs: {
       "cols": "6"
@@ -477,7 +501,7 @@ var saleReportDetailByProductvue_type_template_id_cae00f8e_scoped_true_render = 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/saleReportDetailByProduct/index.vue?vue&type=template&id=cae00f8e&scoped=true
+// CONCATENATED MODULE: ./pages/admin/saleReportDetailByProduct/index.vue?vue&type=template&id=3dbdb2bc&scoped=true
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -733,6 +757,244 @@ var orderSumaryCardPos = __webpack_require__(440);
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
       this.$xlsx.writeFile(workbook, 'data.xlsx');
     },
+    // SIMPLE PDF EXPORT METHOD
+    exportSimplePDFReport() {
+      try {
+        // Calculate simple summary data
+        const totalTickets = this.activeOrderHeaderList.length;
+        const totalItems = this.activeOrderHeaderList.reduce((sum, item) => sum + (parseInt(item.totalQTY) || 0), 0);
+
+        // Count by product, category, and payment
+        const productCount = {};
+        const categoryCount = {};
+        const paymentCount = {};
+        this.activeOrderHeaderList.forEach(item => {
+          var _item$product, _item$product2, _item$product2$catego, _item$header, _item$header$payment;
+          // Product counting
+          const productName = ((_item$product = item.product) === null || _item$product === void 0 ? void 0 : _item$product.pro_name) || 'Other';
+          productCount[productName] = (productCount[productName] || 0) + 1;
+
+          // Category counting (using the new category data structure)
+          const categoryName = ((_item$product2 = item.product) === null || _item$product2 === void 0 ? void 0 : (_item$product2$catego = _item$product2.category) === null || _item$product2$catego === void 0 ? void 0 : _item$product2$catego.categ_name) || 'Unknown Category';
+          categoryCount[categoryName] = (categoryCount[categoryName] || 0) + 1;
+
+          // Payment counting  
+          const payment = ((_item$header = item.header) === null || _item$header === void 0 ? void 0 : (_item$header$payment = _item$header.payment) === null || _item$header$payment === void 0 ? void 0 : _item$header$payment.payment_name) || item.paymentStatus || 'Cash';
+          paymentCount[payment] = (paymentCount[payment] || 0) + 1;
+        });
+
+        // Create simple HTML for PDF
+        const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+            .summary-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background-color: #f9f9f9; }
+            .summary-title { font-weight: bold; font-size: 14px; color: #333; margin-bottom: 10px; }
+            .summary-item { margin: 5px 0; }
+            .section { margin: 20px 0; }
+            .footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f0f0f0; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h2>AUDIT SUMMARY REPORT</h2>
+            <p>Period: ${this.dateFormatted} - ${this.dateFormatted2}</p>
+            <p>Generated: ${new Date().toLocaleDateString()}</p>
+          </div>
+
+          <div class="summary-box">
+            <div class="summary-title">📊 OVERVIEW</div>
+            <div class="summary-item">Total Tickets: ${totalTickets}</div>
+            <div class="summary-item">Total Items Sold: ${totalItems}</div>
+            <div class="summary-item">Average Items per Ticket: ${totalTickets > 0 ? Math.round(totalItems / totalTickets * 100) / 100 : 0}</div>
+          </div>
+
+          <div class="section">
+            <h3>📂 TICKETS BY CATEGORY</h3>
+            <table>
+              <tr><th>Category</th><th>Tickets</th></tr>
+              ${Object.entries(categoryCount).sort(([, a], [, b]) => b - a).map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>📦 TICKETS BY PRODUCT</h3>
+            <table>
+              <tr><th>Product</th><th>Tickets</th></tr>
+              ${Object.entries(productCount).sort(([, a], [, b]) => b - a).slice(0, 10) // Top 10 only
+        .map(([product, count]) => `<tr><td>${product}</td><td>${count}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>💳 TICKETS BY PAYMENT</h3>
+            <table>
+              <tr><th>Payment Method</th><th>Tickets</th></tr>
+              ${Object.entries(paymentCount).map(([payment, count]) => `<tr><td>${payment}</td><td>${count}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="footer">
+            <p><strong>NOTE:</strong> This report contains only operational data - no financial amounts</p>
+            <p>Generated for external audit purposes</p>
+          </div>
+        </body>
+        </html>`;
+
+        // Create PDF using html2pdf (you'll need to install this library)
+        // Alternative: Use jsPDF with simple text
+        this.generatePDFFromHTML(htmlContent);
+      } catch (error) {
+        console.error('Error generating PDF report:', error);
+        this.$toast.error('Error generating PDF report: ' + error.message);
+      }
+    },
+    generatePDFFromHTML(htmlContent) {
+      // Method 1: If you have html2pdf library installed
+      if (typeof html2pdf !== 'undefined') {
+        const opt = {
+          margin: 1,
+          filename: `audit_summary_${this.date}_to_${this.date2}.pdf`,
+          image: {
+            type: 'jpeg',
+            quality: 0.98
+          },
+          html2canvas: {
+            scale: 2
+          },
+          jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'portrait'
+          }
+        };
+        html2pdf().from(htmlContent).set(opt).save();
+      }
+      // Method 2: Simple jsPDF fallback
+      else if (typeof jsPDF !== 'undefined') {
+        const doc = new jsPDF();
+
+        // Simple text-based PDF
+        doc.setFontSize(16);
+        doc.text('AUDIT SUMMARY REPORT', 20, 20);
+        doc.setFontSize(12);
+        doc.text(`Period: ${this.dateFormatted} - ${this.dateFormatted2}`, 20, 35);
+        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
+        doc.text('OVERVIEW', 20, 65);
+        doc.text(`Total Tickets: ${this.activeOrderHeaderList.length}`, 20, 75);
+        doc.text(`Total Items: ${this.activeOrderHeaderList.reduce((sum, item) => sum + (parseInt(item.totalQTY) || 0), 0)}`, 20, 85);
+
+        // Add more content as needed
+        doc.save(`audit_summary_${this.date}_to_${this.date2}.pdf`);
+      }
+      // Method 3: Browser print fallback
+      else {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.print();
+      }
+      this.$toast.success('PDF report generated successfully!');
+    },
+    // NEW AUDIT EXPORT METHOD
+    exportAuditReport() {
+      try {
+        var _this$user, _this$currentSelected;
+        // Group tickets by category
+        const categoryStats = {};
+        const paymentStats = {};
+        this.activeOrderHeaderList.forEach(item => {
+          var _item$product3, _item$product4, _item$header2;
+          // Count by product category (you might need to adjust based on your data structure)
+          const category = ((_item$product3 = item.product) === null || _item$product3 === void 0 ? void 0 : _item$product3.category) || ((_item$product4 = item.product) === null || _item$product4 === void 0 ? void 0 : _item$product4.pro_name) || 'Unknown';
+          if (!categoryStats[category]) {
+            categoryStats[category] = 0;
+          }
+          categoryStats[category] += 1; // Count tickets, not amounts
+
+          // Count by payment type (adjust based on your payment data structure)
+          const paymentType = ((_item$header2 = item.header) === null || _item$header2 === void 0 ? void 0 : _item$header2.paymentMethod) || item.paymentStatus || 'Unknown';
+          if (!paymentStats[paymentType]) {
+            paymentStats[paymentType] = 0;
+          }
+          paymentStats[paymentType] += 1; // Count tickets, not amounts
+        });
+
+        // Create audit report data
+        const auditData = [];
+
+        // Add header info
+        auditData.push({
+          'Report Type': 'External Audit Report',
+          'Period': `${this.dateFormatted} - ${this.dateFormatted2}`,
+          'Generated On': new Date().toLocaleDateString(),
+          'Generated By': ((_this$user = this.user) === null || _this$user === void 0 ? void 0 : _this$user.name) || 'System',
+          'Location': ((_this$currentSelected = this.currentSelectedLocation) === null || _this$currentSelected === void 0 ? void 0 : _this$currentSelected.name) || 'All Locations'
+        });
+
+        // Add empty row
+        auditData.push({});
+
+        // Add category section header
+        auditData.push({
+          'Report Type': '=== TICKETS BY CATEGORY ==='
+        });
+
+        // Add category statistics
+        Object.entries(categoryStats).forEach(([category, count]) => {
+          auditData.push({
+            'Category': category,
+            'Ticket Count': count
+          });
+        });
+
+        // Add empty row
+        auditData.push({});
+
+        // Add payment section header
+        auditData.push({
+          'Report Type': '=== TICKETS BY PAYMENT TYPE ==='
+        });
+
+        // Add payment statistics
+        Object.entries(paymentStats).forEach(([paymentType, count]) => {
+          auditData.push({
+            'Payment Type': paymentType,
+            'Ticket Count': count
+          });
+        });
+
+        // Add empty row and summary
+        auditData.push({});
+        auditData.push({
+          'Report Type': '=== SUMMARY ===',
+          'Total Tickets': this.activeOrderHeaderList.length,
+          'Total Categories': Object.keys(categoryStats).length,
+          'Total Payment Types': Object.keys(paymentStats).length
+        });
+
+        // Create Excel file
+        const worksheet = this.$xlsx.utils.json_to_sheet(auditData);
+        const workbook = this.$xlsx.utils.book_new();
+        this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Audit Report');
+
+        // Generate filename with date range
+        const filename = `audit_report_${this.date}_to_${this.date2}.xlsx`;
+        this.$xlsx.writeFile(workbook, filename);
+
+        // Show success message
+        this.$toast.success('Audit report exported successfully!');
+      } catch (error) {
+        console.error('Error generating audit report:', error);
+        this.$toast.error('Error generating audit report: ' + error.message);
+      }
+    },
     createSale() {
       this.componentKey += 1;
       this.selectedOrder = 0;
@@ -854,11 +1116,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_saleReportDetailByProductvue_type_script_lang_js,
-  saleReportDetailByProductvue_type_template_id_cae00f8e_scoped_true_render,
+  saleReportDetailByProductvue_type_template_id_3dbdb2bc_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "cae00f8e",
+  "3dbdb2bc",
   "7648307e"
   
 )
@@ -5159,7 +5421,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("b5d0da4e", content, true, context)
+  add("04c838de", content, true, context)
 };
 
 /***/ })

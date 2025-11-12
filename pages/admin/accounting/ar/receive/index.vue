@@ -303,16 +303,6 @@ export default {
       loading: false,
       paymentMethods: [], // Add this
       transactionCodes: [], // Add this
-      currencies: [],
-      glAccounts: [],
-      showEditDialog: false,
-      showViewDialog: false,
-      selectedReceipt: null,
-      receipts: [],
-      filteredReceipts: [],
-      invoices: [],
-      users: [],
-      loading: false,
 
       filters: {
         search: '',
@@ -432,6 +422,8 @@ export default {
   },
 
   mounted() {
+    // Set default dates before loading data
+    this.setDefaultDates()
     this.fetchReceipts()
     this.fetchInvoices()
     this.fetchUsers()
@@ -442,6 +434,28 @@ export default {
   },
 
   methods: {
+    // NEW METHOD: Get current month's first day
+    getCurrentMonthStart() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month, 1).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Get current month's last day
+    getCurrentMonthEnd() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Set default dates for current month
+    setDefaultDates() {
+      this.filters.bookingDateFrom = this.getCurrentMonthStart()
+      this.filters.bookingDateTo = this.getCurrentMonthEnd()
+    },
+
     async fetchPaymentMethods() {
       try {
         const { data } = await this.$axios.get('/api/payment/find')
@@ -459,6 +473,7 @@ export default {
         console.error('Error fetching transaction codes:', error)
       }
     },
+    
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')
@@ -467,6 +482,7 @@ export default {
         console.error(error)
       }
     },
+    
     async fetchAccountCharts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
@@ -475,6 +491,7 @@ export default {
         console.error(error)
       }
     },
+    
     async fetchReceipts() {
       this.loading = true
       try {
@@ -550,6 +567,7 @@ export default {
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
       }
     },
+    
     closePrintDialog() {
       this.showPrintDialog = false
       this.selectedReceiptForPrint = null
@@ -640,8 +658,8 @@ export default {
       this.filters = {
         search: '',
         paymentMethod: '',
-        bookingDateFrom: '',
-        bookingDateTo: '',
+        bookingDateFrom: this.getCurrentMonthStart(),
+        bookingDateTo: this.getCurrentMonthEnd(),
       }
       this.applyFilters()
     },

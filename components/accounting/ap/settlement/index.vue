@@ -741,10 +741,7 @@ export default {
       selectedSettlement: null,
       transactionCodes: [],
       loadingTransactionCodes: false,
-      formLabel: {
-        vendor: 'ເລືອກກະຊວງ',
-        model: '',
-      },
+
       form: {
         id: null,
         settlementDate: new Date().toISOString().split('T')[0],
@@ -790,6 +787,19 @@ export default {
   },
 
   computed: {
+     formLabel() {
+      return {
+        vendor: `ເລືອກ ${this.clientLabel}`,
+        model: '',
+      }
+    },
+    clientLabel() {
+      const item = this.getSPF.find((spf) => spf.code == 'LABEL_AC_CUS')
+      return item?.value || 'ກະຊວງ'
+    },
+    getSPF() {
+      return this.$store.getters.findSPF
+    },
     enableMOUbutton() {
         const spf = this.getSPF.find(spf => spf.code === 'AC_AP_MOU_FETCH');
         return spf?.value === 'Y';

@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1524bf89_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(862);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1524bf89_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1524bf89_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1524bf89_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1524bf89_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2313a65e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(862);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2313a65e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2313a65e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2313a65e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2313a65e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-1524bf89],.text-h5[data-v-1524bf89]{font-family:\"Noto Sans Lao\"}table[data-v-1524bf89]{border:1px solid #000}@media print{.no-print[data-v-1524bf89]{display:none!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-2313a65e],.text-h5[data-v-2313a65e]{font-family:\"Noto Sans Lao\"}table[data-v-2313a65e]{border:1px solid #000}@media print{.no-print[data-v-2313a65e]{display:none!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -86,7 +86,7 @@ var VSpacer = __webpack_require__(401);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=1524bf89&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=2313a65e&scoped=true
 
 
 
@@ -107,13 +107,13 @@ var VTextField = __webpack_require__(36);
 
 
 
-var saleTicketReportDetailByProductvue_type_template_id_1524bf89_scoped_true_render = function render() {
+var saleTicketReportDetailByProductvue_type_template_id_2313a65e_scoped_true_render = function render() {
   var _vm$selectedTicket$cl, _vm$selectedTicket$ta;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-1524bf89>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-2313a65e>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -462,6 +462,18 @@ var saleTicketReportDetailByProductvue_type_template_id_1524bf89_scoped_true_ren
   }, [_c('span', {
     staticClass: "mdi mdi-microsoft-excel"
   }), _vm._v("Generate Excel\n          ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "success",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": _vm.exportSimplePDFAudit
+    }
+  }, [_c('span', {
+    staticClass: "mdi mdi-file-pdf"
+  }), _vm._v("PDF Audit\n          ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "primary",
     attrs: {
       "size": "large",
@@ -787,11 +799,11 @@ var saleTicketReportDetailByProductvue_type_template_id_1524bf89_scoped_true_ren
         }, [_c(VIcon["a" /* default */], [_vm._v("mdi-printer")])], 1)];
       }
     }], null, true)
-  }) : _vm._e()], 1), _vm._ssrNode(" <div id=\"printArea\" style=\"display: none\" data-v-1524bf89><div id=\"ticketPrint\" data-v-1524bf89></div></div>")], 2);
+  }) : _vm._e()], 1), _vm._ssrNode(" <div id=\"printArea\" style=\"display: none\" data-v-2313a65e><div id=\"ticketPrint\" data-v-2313a65e></div></div>")], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=1524bf89&scoped=true
+// CONCATENATED MODULE: ./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=2313a65e&scoped=true
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -966,6 +978,162 @@ var common = __webpack_require__(11);
     }
   },
   methods: {
+    // NEW: Simple PDF Audit Export Method
+    exportSimplePDFAudit() {
+      try {
+        // Calculate simple summary data
+        const totalTickets = this.filteredTickets.length;
+        const totalItems = this.productSummary.reduce((sum, product) => sum + product.quantity, 0);
+
+        // Group by category (extract from product data in ticket lines)
+        const categoryCount = {};
+        this.filteredTickets.forEach(ticket => {
+          if (ticket.ticketLines && ticket.ticketLines.length > 0) {
+            ticket.ticketLines.forEach(line => {
+              var _line$product3, _line$product3$catego;
+              const category = ((_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : (_line$product3$catego = _line$product3.category) === null || _line$product3$catego === void 0 ? void 0 : _line$product3$catego.categ_name) || 'Unknown Category';
+              categoryCount[category] = (categoryCount[category] || 0) + 1;
+            });
+          }
+        });
+
+        // Create simple HTML for PDF
+        const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+            .summary-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background-color: #f9f9f9; }
+            .summary-title { font-weight: bold; font-size: 14px; color: #333; margin-bottom: 10px; }
+            .summary-item { margin: 5px 0; }
+            .section { margin: 20px 0; }
+            .footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f0f0f0; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h2>TICKET AUDIT SUMMARY REPORT</h2>
+            <p>Period: ${this.dateFormatted} - ${this.dateFormatted2}</p>
+            <p>Generated: ${new Date().toLocaleDateString()}</p>
+          </div>
+
+          <div class="summary-box">
+            <div class="summary-title">📊 OVERVIEW</div>
+            <div class="summary-item">Total Tickets: ${totalTickets}</div>
+            <div class="summary-item">Paid Tickets: ${this.ticketsSummary.paidTickets}</div>
+            <div class="summary-item">Total Items Sold: ${totalItems}</div>
+            <div class="summary-item">Average Items per Ticket: ${totalTickets > 0 ? Math.round(totalItems / totalTickets * 100) / 100 : 0}</div>
+          </div>
+
+          <div class="section">
+            <h3>📂 TICKETS BY CATEGORY</h3>
+            <table>
+              <tr><th>Category</th><th>Tickets Count</th></tr>
+              ${Object.entries(categoryCount).sort(([, a], [, b]) => b - a).map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>💳 TICKETS BY PAYMENT METHOD</h3>
+            <table>
+              <tr><th>Payment Method</th><th>Tickets Count</th></tr>
+              ${this.paymentTypeSummary.map(payment => `<tr><td>${payment.name}</td><td>${payment.count}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>📦 TOP 10 PRODUCTS BY QUANTITY</h3>
+            <table>
+              <tr><th>Rank</th><th>Product</th><th>Quantity Sold</th></tr>
+              ${this.productSummary.slice(0, 10).map((product, index) => `<tr><td>${index + 1}</td><td>${product.name}</td><td>${product.quantity}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>🏪 TICKET STATUS BREAKDOWN</h3>
+            <table>
+              <tr><th>Status</th><th>Count</th></tr>
+              ${this.getTicketStatusBreakdown().map(status => `<tr><td>${status.name}</td><td>${status.count}</td></tr>`).join('')}
+            </table>
+          </div>
+
+          <div class="footer">
+            <p><strong>NOTE:</strong> This report contains only operational data - no financial amounts</p>
+            <p>Generated for external audit purposes</p>
+          </div>
+        </body>
+        </html>`;
+
+        // Generate PDF
+        this.generatePDFFromHTML(htmlContent);
+      } catch (error) {
+        console.error('Error generating PDF audit report:', error);
+        this.$toast.error('Error generating PDF audit report: ' + error.message);
+      }
+    },
+    getTicketStatusBreakdown() {
+      const statusBreakdown = {};
+      this.filteredTickets.forEach(ticket => {
+        const status = this.getPaymentStatusText(ticket.paymentStatus);
+        statusBreakdown[status] = (statusBreakdown[status] || 0) + 1;
+      });
+      return Object.entries(statusBreakdown).map(([name, count]) => ({
+        name,
+        count
+      }));
+    },
+    generatePDFFromHTML(htmlContent) {
+      // Method 1: If you have html2pdf library installed
+      if (typeof html2pdf !== 'undefined') {
+        const opt = {
+          margin: 1,
+          filename: `ticket_audit_summary_${this.date}_to_${this.date2}.pdf`,
+          image: {
+            type: 'jpeg',
+            quality: 0.98
+          },
+          html2canvas: {
+            scale: 2
+          },
+          jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'portrait'
+          }
+        };
+        html2pdf().from(htmlContent).set(opt).save();
+      }
+      // Method 2: Simple jsPDF fallback
+      else if (typeof jsPDF !== 'undefined') {
+        const doc = new jsPDF();
+
+        // Simple text-based PDF
+        doc.setFontSize(16);
+        doc.text('TICKET AUDIT SUMMARY REPORT', 20, 20);
+        doc.setFontSize(12);
+        doc.text(`Period: ${this.dateFormatted} - ${this.dateFormatted2}`, 20, 35);
+        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
+        doc.text('OVERVIEW', 20, 65);
+        doc.text(`Total Tickets: ${this.filteredTickets.length}`, 20, 75);
+        doc.text(`Paid Tickets: ${this.ticketsSummary.paidTickets}`, 20, 85);
+
+        // Add more content as needed
+        doc.save(`ticket_audit_summary_${this.date}_to_${this.date2}.pdf`);
+      }
+      // Method 3: Browser print fallback
+      else {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.print();
+      }
+      this.$toast.success('PDF audit report generated successfully!');
+    },
     async loadData() {
       this.isloading = true;
       try {
@@ -1022,10 +1190,10 @@ var common = __webpack_require__(11);
       `;
       if (ticket.ticketLines && ticket.ticketLines.length > 0) {
         ticket.ticketLines.forEach(line => {
-          var _line$product3;
+          var _line$product4;
           printContent += `
             <tr>
-              <td style="padding: 3px; text-align: left;">${((_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.pro_name) || 'ບໍ່ລະບຸ'}</td>
+              <td style="padding: 3px; text-align: left;">${((_line$product4 = line.product) === null || _line$product4 === void 0 ? void 0 : _line$product4.pro_name) || 'ບໍ່ລະບຸ'}</td>
               <td style="padding: 3px; text-align: center;">${line.quantity}</td>
               <td style="padding: 3px; text-align: right;">${this.numberWithCommas(line.totalPrice)}</td>
             </tr>
@@ -1384,11 +1552,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_saleTicketReportDetailByProductvue_type_script_lang_js,
-  saleTicketReportDetailByProductvue_type_template_id_1524bf89_scoped_true_render,
+  saleTicketReportDetailByProductvue_type_template_id_2313a65e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "1524bf89",
+  "2313a65e",
   "2fd357d2"
   
 )
@@ -3655,7 +3823,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("468c92a8", content, true, context)
+  add("0a920069", content, true, context)
 };
 
 /***/ })

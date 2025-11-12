@@ -131,13 +131,13 @@
 
             <!-- Customer -->
             <template v-slot:item.customer="{ item }">
-              <div v-if="item.customer">
+              <div v-if="item.agency">
                 <div class="font-weight-medium">
                   <v-icon x-small class="mr-1">mdi-account</v-icon>
-                  {{ item.customer.name }}
+                  {{ item.agency.agencyName }}
                 </div>
-                <div v-if="item.customer.email" class="text-caption grey--text">
-                  {{ item.customer.email }}
+                <div v-if="item.agency.email" class="text-caption grey--text">
+                  {{ item.agency.email }}
                 </div>
               </div>
               <span v-else class="grey--text text-caption">N/A</span>
@@ -368,6 +368,8 @@ export default {
   },
 
   mounted() {
+    // Set default dates before loading data
+    this.setDefaultDates()
     this.fetchInvoices()
     this.fetchCustomers()
     this.fetchAgencies()
@@ -377,6 +379,28 @@ export default {
   },
 
   methods: {
+    // NEW METHOD: Get current month's first day
+    getCurrentMonthStart() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month, 1).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Get current month's last day
+    getCurrentMonthEnd() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Set default dates for current month
+    setDefaultDates() {
+      this.filters.dateFrom = this.getCurrentMonthStart()
+      this.filters.dateTo = this.getCurrentMonthEnd()
+    },
+
     async fetchAccountCharts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
@@ -385,6 +409,7 @@ export default {
         console.error(error)
       }
     },
+    
     async fetchInvoices() {
       this.loading = true
       try {
@@ -415,6 +440,7 @@ export default {
         console.error(error)
       }
     },
+    
     async fetchAgencies() {
       this.loadingAgencies = true
       try {
@@ -548,9 +574,9 @@ export default {
     resetFilters() {
       this.filters = {
         search: '',
-        customerId: '',
-        dateFrom: '',
-        dateTo: '',
+        agencyId: '',
+        dateFrom: this.getCurrentMonthStart(),
+        dateTo: this.getCurrentMonthEnd(),
       }
       this.applyFilters()
     },

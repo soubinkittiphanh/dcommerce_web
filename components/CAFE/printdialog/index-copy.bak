@@ -10,7 +10,17 @@
         <!-- COMPACT HEADER for 54mm -->
         <div class="print-header">
           <div class="restaurant-info">
-            <h1 class="restaurant-name">{{ companyInfo.name }}</h1>
+            <v-row>
+              <v-col cols="6">
+                <h3>
+                  Q{{ getQueNo(ticket.ticketNumber) }}
+                </h3>
+              </v-col>
+              <v-col cols="6">
+                <h1 class="restaurant-name">{{ companyInfo.name }}</h1>
+              </v-col>
+            </v-row>
+            
             <div class="restaurant-address" v-html="companyInfo.address"></div>
             <div class="contact-line" v-if="companyInfo.tel || companyInfo.email">
               {{ companyInfo.tel }}<span v-if="companyInfo.tel && companyInfo.email"> | </span>{{ companyInfo.email }}
@@ -22,7 +32,7 @@
         <div class="print-ticket-info">
           <div class="ticket-basic">
             <div class="detail-row">
-              <span class="detail-label">#:</span>
+              <span class="detail-label"> #:</span>
               <span class="detail-value">{{ ticket.ticketNumber || ticket.id }}</span>
             </div>
             <div class="detail-row">
@@ -83,25 +93,54 @@
 
         <div class="print-divider"></div>
 
-        <!-- COMPACT SUMMARY for 54mm -->
+        <!-- CORRECTED SUMMARY for tax-inclusive pricing -->
         <div class="print-summary">
+          <!-- Show total with tax (original price) -->
           <div class="summary-line">
-            <span>Subtotal:</span>
-            <span>{{ formatPrice(ticket.subtotal) }}</span>
+            <span>Total (with tax):</span>
+            <span>{{ formatPrice(getTicketTotalWithTax()) }}</span>
           </div>
           
+          <!-- Show base amount (extracted from tax-inclusive price) -->
+<!--            
+          <div class="summary-line" style="color: #666; font-size: 9px;">
+            <span>Base amount:</span>
+            <span>{{ formatPrice(getTicketBaseAmount()) }}</span>
+          </div> -->
+          
+          <!-- Show promotions if any -->
           <div v-if="hasPromotionDiscount" class="summary-line promotion-line">
             <span>Discount:</span>
             <span>-{{ formatPrice(ticket.promotionDiscount || 0) }}</span>
           </div>
           
+          <!-- Show base after promotions -->
+          <!-- <div class="summary-line" style="color: #666; font-size: 9px;">
+            <span>Base after promotions:</span>
+            <span>{{ formatPrice(getTicketBaseAfterPromotions()) }}</span>
+          </div>
+           -->
+          <!-- Show tax breakdown -->
+          <div v-if="getTicketTaxBreakdown().length > 0">
+            <div
+              v-for="taxItem in getTicketTaxBreakdown()"
+              :key="taxItem.code"
+              class="summary-line"
+              style="font-size: 9px;"
+            >
+              <span>{{ taxItem.name }} ({{ (taxItem.rate * 100).toFixed(1) }}% {{ taxItem.type }}):</span>
+              <span>{{ formatPrice(taxItem.taxAmount) }}</span>
+            </div>
+          </div>
+          
+          <!-- Total tax amount -->
           <div class="summary-line">
-            <span>Tax:</span>
-            <span>{{ formatPrice(ticket.tax) }}</span>
+            <span>Total Tax:</span>
+            <span>{{ formatPrice(ticket.tax || 0) }}</span>
           </div>
           
           <div class="summary-line total-line">
-            <span>TOTAL:</span>
+            <span>FINAL TOTAL:</span>
             <span>{{ formatPrice(ticket.total) }}</span>
           </div>
         </div>
@@ -123,7 +162,8 @@
           <div class="payment-status">
             <span>Payment:</span>
             <span class="payment-value" :class="`payment-${ticket.paymentStatus}`">
-              {{ formatPaymentStatus(ticket.paymentStatus) }}
+              <!-- {{ formatPaymentStatus(ticket.paymentStatus) }} -->
+            {{ ticket.payment ? formatPaymentStatus(ticket.payment.payment_code) : 'unpaid' }}
             </span>
           </div>
         </div>
@@ -269,8 +309,106 @@ export default {
       }
     },
   },
-
+  mounted(){
+    console.info(`TICKET DETAIL ${JSON.stringify(this.ticket)}`)
+    this.printNow()
+  },
   methods: {
+    // ... existing methods ...
+    getQueNo(ticketNumber) {
+      const parts = ticketNumber?.split('-')[0]?.split('/')
+      return parts?.length === 2
+        ? (parseInt(parts[0]) * parseInt(parts[1])).toString()
+        : ''
+    },
+    // ADDED: Methods for tax-inclusive print calculations
+    getTicketTotalWithTax() {
+      if (!this.ticket || !this.ticket.ticketLines) return 0
+      
+      return this.ticket.ticketLines.reduce((total, line) => {
+        return total + (line.quantity * (line.unitPrice || line.pro_price || 0))
+      }, 0)
+    },
+
+    getTicketBaseAmount() {
+      if (!this.ticket || !this.ticket.ticketLines) return 0
+      
+      return this.ticket.ticketLines.reduce((total, line) => {
+        const itemTotal = line.quantity * (line.unitPrice || line.pro_price || 0)
+        
+        // If line has tax information and it's inclusive
+        if (line.taxRate && line.taxType === 'INC') {
+          // Extract base amount: base = total / (1 + tax_rate)
+          return total + (itemTotal / (1 + parseFloat(line.taxRate)))
+        } else {
+          // For tax exclusive or no tax: base = total
+          return total + itemTotal
+        }
+      }, 0)
+    },
+
+    getTicketBaseAfterPromotions() {
+      const baseAmount = this.getTicketBaseAmount()
+      const promotionDiscount = this.ticket.promotionDiscount || 0
+      return Math.max(0, baseAmount - promotionDiscount)
+    },
+
+    getTicketTaxBreakdown() {
+      if (!this.ticket || !this.ticket.ticketLines) return []
+      
+      const taxGroups = new Map()
+      const totalBaseAmount = this.getTicketBaseAmount()
+      const promotionDiscount = this.ticket.promotionDiscount || 0
+      const discountRatio = totalBaseAmount > 0 ? promotionDiscount / totalBaseAmount : 0
+
+      this.ticket.ticketLines.forEach(line => {
+        if (line.taxRate && line.taxRate > 0) {
+          const taxKey = line.taxId || 'default'
+          const itemTotal = line.quantity * (line.unitPrice || line.pro_price || 0)
+          
+          let itemBaseAmount
+          if (line.taxType === 'INC') {
+            // For tax inclusive: extract base amount
+            itemBaseAmount = itemTotal / (1 + parseFloat(line.taxRate))
+          } else {
+            // For tax exclusive: item total is the base amount
+            itemBaseAmount = itemTotal
+          }
+          
+          if (!taxGroups.has(taxKey)) {
+            taxGroups.set(taxKey, {
+              name: `Tax ${(parseFloat(line.taxRate) * 100).toFixed(1)}%`,
+              code: line.taxId || 'TAX',
+              rate: parseFloat(line.taxRate),
+              type: line.taxType || 'INC',
+              baseAmount: 0
+            })
+          }
+          
+          const group = taxGroups.get(taxKey)
+          group.baseAmount += itemBaseAmount
+        }
+      })
+
+      const breakdown = []
+      taxGroups.forEach(group => {
+        // Apply proportional discount
+        const adjustedBaseAmount = group.baseAmount * (1 - discountRatio)
+        const taxAmount = adjustedBaseAmount * group.rate
+        
+        breakdown.push({
+          name: group.name,
+          code: group.code,
+          rate: group.rate,
+          type: group.type,
+          baseAmount: adjustedBaseAmount,
+          taxAmount: taxAmount
+        })
+      })
+
+      return breakdown
+    },
+
     getAfterPromotionsAmount() {
       if (!this.ticket) return 0
       const subtotal = parseFloat(this.ticket.subtotal || 0)

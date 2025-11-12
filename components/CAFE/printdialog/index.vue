@@ -7,13 +7,24 @@
       </div>
 
       <div class="print-preview" v-if="ticket">
-        <!-- COMPACT HEADER for 54mm -->
+        <!-- HEADER with Q number (2 cols) and centered company info (10 cols) -->
         <div class="print-header">
-          <div class="restaurant-info">
-            <h1 class="restaurant-name">{{ companyInfo.name }}</h1>
-            <div class="restaurant-address" v-html="companyInfo.address"></div>
-            <div class="contact-line" v-if="companyInfo.tel || companyInfo.email">
-              {{ companyInfo.tel }}<span v-if="companyInfo.tel && companyInfo.email"> | </span>{{ companyInfo.email }}
+          <div class="header-row">
+            <!-- LEFT: Queue Number (2 columns width) -->
+            <div class="queue-section">
+              <div class="queue-number">
+                Q{{ getQueNo(ticket.ticketNumber) }}
+              </div>
+              <div class="queue-label">Queue #</div>
+            </div>
+            
+            <!-- RIGHT: Centered Company Details (10 columns width) -->
+            <div class="company-section">
+              <h1 class="restaurant-name">{{ companyInfo.name }}</h1>
+              <div class="restaurant-address" v-html="companyInfo.address"></div>
+              <div class="contact-line" v-if="companyInfo.tel || companyInfo.email">
+                {{ companyInfo.tel }}<span v-if="companyInfo.tel && companyInfo.email"> | </span>{{ companyInfo.email }}
+              </div>
             </div>
           </div>
         </div>
@@ -22,7 +33,7 @@
         <div class="print-ticket-info">
           <div class="ticket-basic">
             <div class="detail-row">
-              <span class="detail-label">Q{{ getQueNo(ticket.ticketNumber) }} #:</span>
+              <span class="detail-label"> #:</span>
               <span class="detail-value">{{ ticket.ticketNumber || ticket.id }}</span>
             </div>
             <div class="detail-row">
@@ -180,7 +191,7 @@
           :disabled="printing"
         >
           <span v-if="printing">Printing...</span>
-          <span v-else>🖨️ Print</span>
+          <span v-else">🖨️ Print</span>
         </button>
         <button @click="closeDialog" class="print-btn print-secondary">
           Cancel
@@ -548,7 +559,7 @@ export default {
       return name
     },
 
-    // 54mm thermal printer optimized styles - READABLE FONTS
+    // 54mm thermal printer optimized styles with PROMINENT QUEUE NUMBER
     getPrintStyles() {
       return `
         body {
@@ -561,25 +572,67 @@ export default {
           overflow-wrap: break-word;
         }
         
-        /* Header for 54mm */
+        /* HEADER with 2-10 COLUMN SPLIT (Queue 2 cols, Company 10 cols centered) */
         .print-header {
-          text-align: center;
           margin-bottom: 8px;
         }
+        
+        .header-row {
+          display: flex;
+          align-items: flex-start;
+          gap: 6px;
+        }
+        
+        /* LEFT: Queue Number (2 columns - ~16.67% width) */
+        .queue-section {
+          flex: 0 0 16.67%;
+          text-align: center;
+          padding: 6px 4px;
+          border: 2px solid #000;
+          background: #000;
+          color: #fff;
+          border-radius: 3px;
+        }
+        
+        .queue-number {
+          font-size: 20px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          margin: 0;
+          line-height: 1;
+        }
+        
+        .queue-label {
+          font-size: 7px;
+          margin: 1px 0 0 0;
+          letter-spacing: 0.5px;
+          color: #ccc;
+        }
+        
+        /* RIGHT: Centered Company Details (10 columns - ~83.33% width) */
+        .company-section {
+          flex: 1;
+          text-align: center;
+          padding: 2px 8px;
+        }
+        
         .restaurant-name {
           font-size: 14px;
           font-weight: bold;
-          margin: 0 0 4px 0;
+          margin: 0 0 2px 0;
+          text-align: center;
         }
         .restaurant-address {
-          font-size: 10px;
-          margin: 0 0 2px 0;
-          line-height: 1.2;
+          font-size: 9px;
+          margin: 0 0 1px 0;
+          line-height: 1.1;
+          text-align: center;
         }
         .contact-line {
-          font-size: 9px;
-          margin: 2px 0;
+          font-size: 8px;
+          margin: 1px 0;
           color: #666;
+          text-align: center;
         }
         
         /* Ticket info for 54mm */
@@ -771,6 +824,14 @@ export default {
           .total-line {
             font-size: 11px;
           }
+          /* Make queue number even more prominent in print */
+          .queue-number {
+            font-size: 32px;
+            font-weight: bold;
+          }
+          .queue-number-section {
+            padding: 10px 0;
+          }
         }
         
         /* Let content flow naturally */
@@ -855,10 +916,51 @@ export default {
   color: #000;
 }
 
-/* Dialog Preview Styles (Better for viewing in browser) */
+/* Dialog Preview Styles - 2-10 COLUMN LAYOUT WITH CENTERED COMPANY */
 .print-header {
-  text-align: center;
   margin-bottom: 20px;
+}
+
+.header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* LEFT: Queue Number (2 columns equivalent - ~16.67% width) */
+.queue-section {
+  flex: 0 0 16.67%;
+  text-align: center;
+  padding: 15px 10px;
+  border: 3px solid #333;
+  background: linear-gradient(135deg, #000 0%, #333 100%);
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.queue-number {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  line-height: 1;
+}
+
+.queue-label {
+  font-size: 11px;
+  margin: 5px 0 0 0;
+  letter-spacing: 1px;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+/* RIGHT: Centered Company Details (10 columns equivalent - ~83.33% width) */
+.company-section {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
 }
 
 .restaurant-name {
@@ -866,6 +968,7 @@ export default {
   font-weight: bold;
   margin: 0 0 8px 0;
   color: #333;
+  text-align: center;
 }
 
 .restaurant-address {
@@ -873,15 +976,17 @@ export default {
   margin: 0 0 4px 0;
   line-height: 1.3;
   color: #666;
+  text-align: center;
 }
 
 .contact-line {
   font-size: 12px;
   margin: 4px 0;
   color: #666;
+  text-align: center;
 }
 
-/* Ticket Info for Dialog */
+/* Rest of the existing styles remain the same... */
 .print-ticket-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -905,13 +1010,11 @@ export default {
   color: #000;
 }
 
-/* Divider for Dialog */
 .print-divider {
   border-top: 2px dashed #333;
   margin: 20px 0;
 }
 
-/* Items Section for Dialog */
 .print-items {
   margin-bottom: 20px;
 }
@@ -982,7 +1085,6 @@ export default {
   font-style: italic;
 }
 
-/* Summary for Dialog */
 .print-summary {
   margin: 20px 0;
 }
@@ -1007,7 +1109,6 @@ export default {
   margin-top: 12px;
 }
 
-/* Promotions for Dialog */
 .print-promotions {
   margin: 20px 0;
   padding: 10px;
@@ -1036,7 +1137,6 @@ export default {
   margin-bottom: 2px;
 }
 
-/* Payment for Dialog */
 .print-payment {
   margin: 20px 0;
 }
@@ -1059,7 +1159,6 @@ export default {
   color: #721c24;
 }
 
-/* Notes for Dialog */
 .print-notes {
   margin: 20px 0;
 }
@@ -1081,7 +1180,6 @@ export default {
   border-left: 4px solid #ffc107;
 }
 
-/* Footer for Dialog */
 .print-footer {
   text-align: center;
   margin-top: 30px;

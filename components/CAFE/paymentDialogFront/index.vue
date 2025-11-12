@@ -322,6 +322,7 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PaymentDialog',
   props: {
@@ -361,6 +362,52 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      searchKeyword: 'searchKeyword',
+      currenctSelectedCategoryId: 'currenctSelectedCategoryId',
+      currentSelectedLocation: 'currentSelectedLocation',
+      findAllCurrency: 'findAllCurrency',
+      findAllTerminal: 'findAllTerminal',
+      findSelectedTerminal: 'findSelectedTerminal',
+    }),
+    currentTerminal() {
+      return this.findAllTerminal.find(
+        (el) => el['id'] == this.findSelectedTerminal
+      )
+    },
+    companyInfo() {
+      const company = this.currentTerminal?.location?.company
+
+      if (!company) {
+        return {
+          name: 'Restaurant Name',
+          address: '123 Main Street<br>City, State 12345',
+          tel: '',
+          email: '',
+          bank: '',
+          accountName: '',
+          accounts: '',
+          remark: '',
+        }
+      }
+
+      let formattedAddress = ''
+      if (company.address) formattedAddress += company.address
+      if (company.village) formattedAddress += `<br>${company.village}`
+      if (company.district) formattedAddress += `, ${company.district}`
+      if (company.province) formattedAddress += `, ${company.province}`
+
+      return {
+        name: company.name || 'Restaurant Name',
+        address: formattedAddress || company.address || '',
+        tel: company.tel || '',
+        email: company.email || '',
+        bank: company.bank || '',
+        accountName: company.accountName || '',
+        accounts: company.accounts || '',
+        remark: company.remark || '',
+      }
+    },
     showDialog: {
       get() {
         return this.show
@@ -807,14 +854,22 @@ export default {
       ].join(',')
     },
 
+    //   getCustomerDisplayURL() {
+    //     // You can customize this URL based on your setup
+    //     const baseUrl = window.location.origin
+    //     const customerDisplayPath = '/admin/cafeTable/customer' // Adjust this path as needed
+    // return `${baseUrl}${customerDisplayPath}?tableId=${tableId}&orderId=${orderId}`
+    //     // return `${baseUrl}${customerDisplayPath}`
+    //   },
     getCustomerDisplayURL() {
-      // You can customize this URL based on your setup
       const baseUrl = window.location.origin
-      const customerDisplayPath = '/admin/cafeTable/customer' // Adjust this path as needed
+      const customerDisplayPath = '/admin/cafeTable/customer'
 
-      return `${baseUrl}${customerDisplayPath}`
+      // Serialize company info
+      const companyData = encodeURIComponent(JSON.stringify(this.companyInfo))
+
+      return `${baseUrl}${customerDisplayPath}?company=${companyData}`
     },
-
     updateExistingCustomerWindow(qrData) {
       try {
         // Send data to existing window

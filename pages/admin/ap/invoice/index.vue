@@ -520,10 +520,34 @@ export default {
   },
 
   async mounted() {
+    // Set default dates before loading data
+    this.setDefaultDates()
     await this.loadInitialData()
   },
 
   methods: {
+    // NEW METHOD: Get current month's first day
+    getCurrentMonthStart() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month, 1).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Get current month's last day
+    getCurrentMonthEnd() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Set default dates for current month
+    setDefaultDates() {
+      this.filters.startDate = this.getCurrentMonthStart()
+      this.filters.endDate = this.getCurrentMonthEnd()
+    },
+
     getStatusInLao(status) {
       return this.statusLabels[status] || status.toUpperCase()
     },
@@ -742,7 +766,12 @@ export default {
     },
 
     resetFilters() {
-      this.filters = { status: '', vendorId: '', startDate: '', endDate: '' }
+      this.filters = { 
+        status: '', 
+        vendorId: '', 
+        startDate: this.getCurrentMonthStart(), 
+        endDate: this.getCurrentMonthEnd()
+      }
       this.searchTerm = ''
       this.statusFilter = ''
       this.tableOptions.page = 1

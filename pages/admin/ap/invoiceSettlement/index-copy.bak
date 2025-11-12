@@ -1,0 +1,930 @@
+<template>
+  <div>
+    <!-- Header Section -->
+    <v-row>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title class="primary white--text py-3">
+            <v-icon color="white" class="mr-2">mdi-cash-multiple</v-icon>
+            <span>ການຊຳລະໜີ້ (AP Settlement)</span>
+            <v-spacer />
+            <v-btn color="white" text @click="openDialog()">
+              <v-icon left>mdi-plus</v-icon>
+              ເພີ່ມໃໝ່
+            </v-btn>
+          </v-card-title>
+
+          <!-- Filters -->
+          <v-card-text class="pa-3">
+            <v-row dense>
+              <v-col cols="12" md="2">
+                <v-select
+                  v-model="statusFilter"
+                  :items="statusOptions"
+                  label="ສະຖານະ"
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-flag"
+                  @change="onFilterChange"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="filters.startDate"
+                  label="ວັນທີເລີ່ມຕົ້ນ"
+                  type="date"
+                  outlined
+                  dense
+                  hide-details
+                  prepend-inner-icon="mdi-calendar-start"
+                  @change="fetchData"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-text-field
+                  v-model="filters.endDate"
+                  label="ວັນທີສິ້ນສຸດ"
+                  type="date"
+                  outlined
+                  dense
+                  hide-details
+                  prepend-inner-icon="mdi-calendar-end"
+                  @change="fetchData"
+                />
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-text-field
+                  v-model="searchTerm"
+                  label="ຄົ້ນຫາອ້າງອີງ"
+                  outlined
+                  dense
+                  hide-details
+                  clearable
+                  prepend-inner-icon="mdi-magnify"
+                  @input="debounceSearch"
+                />
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-btn
+                  color="info"
+                  outlined
+                  block
+                  @click="getOutstandingInvoices()"
+                >
+                  <v-icon left small>mdi-file-invoice</v-icon>
+                  ໃບແຈ້ງໜີ້ຄ້າງ
+                </v-btn>
+              </v-col>
+              <v-col cols="12" md="1">
+                <v-btn color="secondary" outlined block @click="resetFilters">
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Data Table -->
+    <v-row class="mt-3">
+      <v-col cols="12">
+        <v-card>
+          <v-card-title class="py-2">
+            <v-icon class="mr-2">mdi-table</v-icon>
+            <span>ລາຍການການຊຳລະ</span>
+            <v-spacer />
+            <v-chip color="primary" outlined>
+              {{ pagination.totalItems }} ລາຍການ
+            </v-chip>
+          </v-card-title>
+
+          <v-data-table
+            :headers="headers"
+            :items="settlements"
+            :loading="loading"
+            :options.sync="tableOptions"
+            :server-items-length="pagination.totalItems"
+            :footer-props="{
+              'items-per-page-options': [10, 25, 50, 100],
+            }"
+            class="elevation-0"
+            loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+            no-data-text="ບໍ່ມີຂໍ້ມູນ"
+          >
+            <!-- ID -->
+            <template v-slot:item.id="{ item }">
+              <span class="font-weight-bold">#{{ item.id }}</span>
+            </template>
+
+            <!-- Settlement Date -->
+            <template v-slot:item.settlementDate="{ item }">
+              <span class="text-caption">{{
+                formatDate(item.settlementDate)
+              }}</span>
+            </template>
+
+            <!-- Payment Amount -->
+            <template v-slot:item.paymentAmount="{ item }">
+              <div class="text-right font-weight-bold">
+                {{ formatCurrency(item.paymentAmount) }}
+              </div>
+            </template>
+
+            <!-- Base Amount -->
+            <template v-slot:item.baseAmount="{ item }">
+              <div class="text-right">
+                {{ formatCurrency(item.baseAmount) }}
+              </div>
+            </template>
+
+            <!-- Status -->
+            <template v-slot:item.status="{ item }">
+              <v-chip
+                x-small
+                :color="getStatusColor(item.status)"
+                text-color="white"
+              >
+                {{ getStatusInLao(item.status) }}
+              </v-chip>
+            </template>
+
+            <!-- Reference -->
+            <template v-slot:item.reference="{ item }">
+              <span class="text-caption">{{ item.reference || 'N/A' }}</span>
+            </template>
+
+            <!-- Description -->
+            <template v-slot:item.description="{ item }">
+              <span class="text-caption grey--text">
+                {{ item.description || 'N/A' }}
+              </span>
+            </template>
+
+            <!-- Actions -->
+            <template v-slot:item.actions="{ item }">
+              <v-menu bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon small v-bind="attrs" v-on="on">
+                    <v-icon small>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item @click="viewDetails(item)">
+                    <v-list-item-icon>
+                      <v-icon small color="info">mdi-eye</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item
+                    v-if="['draft', 'pending'].includes(item.status)"
+                    @click="openDialog(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="warning">mdi-pencil</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item
+                    v-if="item.status === 'pending'"
+                    @click="approveSettlement(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="success">mdi-check</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ອະນຸມັດ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item
+                    v-if="item.status === 'approved'"
+                    @click="completeSettlement(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="primary">mdi-check-all</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ສຳເລັດ</v-list-item-title>
+                  </v-list-item>
+
+                  <v-divider
+                    v-if="
+                      ['draft', 'pending', 'approved'].includes(item.status)
+                    "
+                  />
+
+                  <v-list-item
+                    v-if="
+                      ['draft', 'pending', 'approved'].includes(item.status)
+                    "
+                    @click="cancelSettlement(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon small color="error">mdi-close</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ຍົກເລີກ</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Settlement Dialog -->
+    <SettlementDialog
+      :visible="showDialog"
+      :currencies="currencies"
+      :settlement="selectedSettlement"
+      :gl-accounts="glAccounts"
+      :outstanding-invoices="outstandingInvoices"
+      :user="user"
+      @close="closeDialog"
+      @save="saveSettlement"
+    />
+
+    <!-- Outstanding Invoices Dialog -->
+    <v-dialog v-model="showOutstandingModal" max-width="900px" scrollable>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon color="white" class="mr-2">mdi-file-invoice</v-icon>
+          ໃບແຈ້ງໜີ້ຄ້າງຈ່າຍ
+          <v-spacer />
+          <v-btn icon dark @click="closeOutstandingModal">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-4">
+          <v-progress-linear
+            v-if="outstandingLoading"
+            indeterminate
+            color="primary"
+          />
+
+          <div v-else>
+            <!-- Filters -->
+            <v-row dense class="mb-3">
+              <v-col cols="12" md="6">
+                <v-select
+                  v-model="outstandingFilters.vendorId"
+                  :items="agencies"
+                  item-text="name"
+                  item-value="id"
+                  label="ຜູ້ຂາຍ"
+                  outlined
+                  dense
+                  clearable
+                  prepend-inner-icon="mdi-account"
+                  @change="getOutstandingInvoices(false)"
+                />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="outstandingSearch"
+                  label="ຄົ້ນຫາເລກທີໃບແຈ້ງໜີ້"
+                  outlined
+                  dense
+                  clearable
+                  prepend-inner-icon="mdi-magnify"
+                  @input="filterOutstandingInvoices"
+                />
+              </v-col>
+            </v-row>
+
+            <!-- Outstanding Invoices Table -->
+            <v-data-table
+              :headers="outstandingHeaders"
+              :items="filteredOutstandingInvoices"
+              :items-per-page="10"
+              class="elevation-1"
+              dense
+            >
+              <template v-slot:item.invoiceNumber="{ item }">
+                <span class="font-weight-medium">{{ item.invoiceNumber }}</span>
+              </template>
+
+              <template v-slot:item.vendor="{ item }">
+                <span class="text-caption">{{
+                  item.vendor?.name || 'N/A'
+                }}</span>
+              </template>
+
+              <template v-slot:item.dueDate="{ item }">
+                <span class="text-caption">{{ formatDate(item.dueDate) }}</span>
+              </template>
+
+              <template v-slot:item.outstandingAmount="{ item }">
+                <span class="font-weight-bold">
+                  {{ formatCurrency(item.outstandingAmount) }}
+                </span>
+              </template>
+
+              <template v-slot:item.actions="{ item }">
+                <v-btn
+                  small
+                  color="primary"
+                  @click="selectInvoiceForSettlement(item)"
+                >
+                  <v-icon small left>mdi-plus</v-icon>
+                  ເລືອກ
+                </v-btn>
+              </template>
+            </v-data-table>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <!-- Detail Dialog -->
+    <v-dialog v-model="showDetailModal" max-width="700px" scrollable>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon color="white" class="mr-2">mdi-information</v-icon>
+          ລາຍລະອຽດການຊຳລະ
+          <v-spacer />
+          <v-btn icon dark @click="closeDetailModal">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-4">
+          <v-progress-linear
+            v-if="detailLoading"
+            indeterminate
+            color="primary"
+          />
+
+          <div v-else-if="settlementDetails">
+            <!-- Basic Info -->
+            <v-simple-table dense>
+              <tbody>
+                <tr>
+                  <td class="font-weight-bold" width="40%">ID ການຊຳລະ:</td>
+                  <td>#{{ settlementDetails.id }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ວັນທີຊຳລະ:</td>
+                  <td>{{ formatDate(settlementDetails.settlementDate) }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ຈຳນວນເງິນຊຳລະ:</td>
+                  <td class="font-weight-bold">
+                    {{ formatCurrency(settlementDetails.paymentAmount) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ຈຳນວນເງິນພື້ນຖານ:</td>
+                  <td>{{ formatCurrency(settlementDetails.baseAmount) }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ສະຖານະ:</td>
+                  <td>
+                    <v-chip
+                      x-small
+                      :color="getStatusColor(settlementDetails.status)"
+                      text-color="white"
+                    >
+                      {{ getStatusInLao(settlementDetails.status) }}
+                    </v-chip>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ອ້າງອີງ:</td>
+                  <td>{{ settlementDetails.reference || 'N/A' }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ຄຳອະທິບາຍ:</td>
+                  <td>{{ settlementDetails.description || 'N/A' }}</td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">ໝາຍເຫດ:</td>
+                  <td>{{ settlementDetails.note || 'N/A' }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+
+            <!-- Invoice Allocations -->
+            <div
+              v-if="settlementDetails.invoiceSettlements?.length > 0"
+              class="mt-4"
+            >
+              <v-divider class="mb-3" />
+              <h4 class="mb-3">ການຈັດສັນໃບແຈ້ງໜີ້</h4>
+              <v-simple-table dense>
+                <thead>
+                  <tr>
+                    <th>ເລກທີໃບແຈ້ງໜີ້</th>
+                    <th class="text-right">ຈຳນວນທີ່ຈັດສັນ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="allocation in settlementDetails.invoiceSettlements"
+                    :key="allocation.id"
+                  >
+                    <td>{{ getInvoiceNumber(allocation) }}</td>
+                    <td class="text-right font-weight-medium">
+                      {{ formatCurrency(allocation.amount) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+import SettlementDialog from '~/components/accounting/ap/settlement/index.vue'
+import { swalConfirm } from '~/common'
+
+export default {
+  name: 'SettlementManagement',
+  components: { SettlementDialog },
+
+  data() {
+    return {
+      glAccounts: [],
+      currencies: [],
+      statusFilter: '',
+      statusOptions: [
+        { text: 'ຮ່າງ', value: 'draft' },
+        { text: 'ຄ້າງອະນຸມັດ', value: 'pending' },
+        { text: 'ອະນຸມັດແລ້ວ', value: 'approved' },
+        { text: 'ສຳເລັດແລ້ວ', value: 'completed' },
+        { text: 'ຍົກເລີກ', value: 'cancelled' },
+      ],
+      statusLabels: {
+        draft: 'ຮ່າງ',
+        pending: 'ຄ້າງອະນຸມັດ',
+        approved: 'ອະນຸມັດແລ້ວ',
+        completed: 'ສຳເລັດແລ້ວ',
+        cancelled: 'ຍົກເລີກ',
+      },
+      settlements: [],
+      agencies: [],
+      outstandingInvoices: [],
+      filteredOutstandingInvoices: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        itemsPerPage: 10,
+      },
+      tableOptions: {
+        page: 1,
+        itemsPerPage: 25,
+        sortBy: [],
+        sortDesc: [],
+      },
+      filters: {
+        status: '',
+        startDate: '',
+        endDate: '',
+      },
+      outstandingFilters: {
+        vendorId: '',
+      },
+      searchTerm: '',
+      outstandingSearch: '',
+      loading: false,
+      detailLoading: false,
+      outstandingLoading: false,
+      showDialog: false,
+      showDetailModal: false,
+      showOutstandingModal: false,
+      selectedSettlement: null,
+      settlementDetails: null,
+      searchTimeout: null,
+
+      headers: [
+        { text: 'ID', value: 'id', sortable: true, width: '80px' },
+        {
+          text: 'ວັນທີຊຳລະ',
+          value: 'settlementDate',
+          sortable: true,
+          width: '120px',
+        },
+        {
+          text: 'ຈຳນວນເງິນຊຳລະ',
+          value: 'paymentAmount',
+          sortable: true,
+          align: 'end',
+          width: '150px',
+        },
+        {
+          text: 'ຈຳນວນເງິນພື້ນຖານ',
+          value: 'baseAmount',
+          sortable: true,
+          align: 'end',
+          width: '150px',
+        },
+        {
+          text: 'ສະຖານະ',
+          value: 'status',
+          sortable: true,
+          width: '120px',
+          align: 'center',
+        },
+        {
+          text: 'ອ້າງອີງ',
+          value: 'reference',
+          sortable: false,
+          width: '150px',
+        },
+        {
+          text: 'ຄຳອະທິບາຍ',
+          value: 'description',
+          sortable: false,
+          width: '200px',
+        },
+        {
+          text: 'ຟັງຊັ່ນ',
+          value: 'actions',
+          sortable: false,
+          width: '80px',
+          align: 'center',
+        },
+      ],
+
+      outstandingHeaders: [
+        { text: 'ເລກທີໃບແຈ້ງໜີ້', value: 'invoiceNumber', sortable: true },
+        { text: 'ຜູ້ຂາຍ', value: 'vendor', sortable: false },
+        { text: 'ວັນທີຄົບກຳນົດ', value: 'dueDate', sortable: true },
+        {
+          text: 'ຍອດຄ້າງຈ່າຍ',
+          value: 'outstandingAmount',
+          sortable: true,
+          align: 'end',
+        },
+        {
+          text: 'ເລືອກ',
+          value: 'actions',
+          sortable: false,
+          align: 'center',
+          width: '120px',
+        },
+      ],
+    }
+  },
+
+  computed: {
+    user() {
+      return this.$auth.user || ''
+    },
+  },
+
+  watch: {
+    tableOptions: {
+      handler() {
+        this.fetchData()
+      },
+      deep: true,
+    },
+  },
+
+  async mounted() {
+    await this.loadInitialData()
+  },
+
+  created() {
+    this.getOutstandingInvoices(false)
+    this.fetchAccountCharts()
+  },
+
+  methods: {
+    async fetchAccountCharts() {
+      try {
+        const { data } = await this.$axios.get('/api/accountChart/find')
+        this.glAccounts = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    getStatusInLao(status) {
+      if (!status) return 'N/A'
+      return this.statusLabels[status] || status.toUpperCase()
+    },
+
+    getStatusColor(status) {
+      const colors = {
+        draft: 'grey',
+        pending: 'orange',
+        approved: 'green',
+        completed: 'teal',
+        cancelled: 'red',
+      }
+      return colors[status] || 'grey'
+    },
+
+    getInvoiceNumber(allocation) {
+      return allocation.invoiceLineItem?.invoice?.invoiceNumber || 'N/A'
+    },
+
+    async loadInitialData() {
+      // await Promise.all([this.fetchVendors()])
+      await Promise.all([this.fetchAgencies()])
+      await Promise.all([this.fetchCurrencies()])
+    },
+
+    async fetchData() {
+      this.loading = true
+      try {
+        const params = {
+          page: this.tableOptions.page,
+          limit: this.tableOptions.itemsPerPage,
+          ...this.filters,
+        }
+
+        if (this.statusFilter) params.status = this.statusFilter
+        if (this.searchTerm) params.search = this.searchTerm
+
+        const { data } = await this.$axios.get('/api/ap-invoices-settlement', {
+          params,
+        })
+        this.settlements = data.data.settlements
+        this.pagination = data.data.pagination
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // async fetchVendors() {
+    //   try {
+    //     const { data } = await this.$axios.get('/api/vendor/find')
+    //     this.vendors = data || []
+    //   } catch (error) {
+    //     console.error(error)
+    //   }
+    // },
+    async fetchAgencies() {
+      this.loadingAgencies = true
+      try {
+        const response = await this.$axios.$get('/api/agency')
+        if (response.success && response.data && response.data.agencies) {
+          this.agencies = response.data.agencies
+        } else if (response.success && Array.isArray(response.data)) {
+          this.agencies = response.data
+        }
+      } catch (error) {
+        console.error('Error fetching agencies:', error)
+        this.$toast.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ')
+      } finally {
+        this.loadingAgencies = false
+      }
+    },
+
+    async getOutstandingInvoices(showOutstandingModal = true) {
+      this.outstandingLoading = true
+      this.showOutstandingModal = showOutstandingModal
+
+      try {
+        const params = {}
+        if (this.outstandingFilters.vendorId) {
+          params.vendorId = this.outstandingFilters.vendorId
+        }
+
+        const { data } = await this.$axios.get(
+          '/api/ap-invoices-settlement/invoices/outstanding',
+          { params }
+        )
+        this.outstandingInvoices = data.data || []
+        this.filteredOutstandingInvoices = [...this.outstandingInvoices]
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດໃບແຈ້ງໜີ້ຄ້າງຈ່າຍໄດ້')
+      } finally {
+        this.outstandingLoading = false
+      }
+    },
+
+    filterOutstandingInvoices() {
+      if (!this.outstandingSearch) {
+        this.filteredOutstandingInvoices = [...this.outstandingInvoices]
+        return
+      }
+
+      const search = this.outstandingSearch.toLowerCase()
+      this.filteredOutstandingInvoices = this.outstandingInvoices.filter(
+        (invoice) =>
+          invoice.invoiceNumber.toLowerCase().includes(search) ||
+          invoice.vendorInvoiceNumber?.toLowerCase().includes(search) ||
+          invoice.vendor?.name?.toLowerCase().includes(search)
+      )
+    },
+
+    selectInvoiceForSettlement(invoice) {
+      this.closeOutstandingModal()
+      this.openDialog(null, [invoice])
+    },
+
+    openDialog(settlement = null, preSelectedInvoices = []) {
+      this.selectedSettlement = settlement
+      this.showDialog = true
+    },
+
+    closeDialog() {
+      this.showDialog = false
+      this.selectedSettlement = null
+    },
+
+    closeOutstandingModal() {
+      this.showOutstandingModal = false
+      this.outstandingFilters.vendorId = ''
+      this.outstandingSearch = ''
+    },
+
+    async viewDetails(settlement) {
+      this.selectedSettlement = settlement
+      this.showDetailModal = true
+      this.detailLoading = true
+
+      try {
+        const { data } = await this.$axios.get(
+          `/api/ap-invoices-settlement/${settlement.id}`
+        )
+        this.settlementDetails = data.data
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດລາຍລະອຽດໄດ້')
+      } finally {
+        this.detailLoading = false
+      }
+    },
+
+    closeDetailModal() {
+      this.showDetailModal = false
+      this.settlementDetails = null
+    },
+
+    async saveSettlement(formData) {
+      try {
+        const auditContext = {
+          reason:
+            formData.reason ||
+            (formData.id ? 'Updated settlement' : 'Created new settlement'),
+          userId: this.user?.id,
+        }
+
+        let response
+        if (formData.id) {
+          response = await this.$axios.put(
+            `/api/ap-invoices-settlement/${formData.id}`,
+            {
+              ...formData,
+              ...auditContext,
+            }
+          )
+          this.$toast.success('ອັບເດດສຳເລັດ')
+        } else {
+          response = await this.$axios.post('/api/ap-invoices-settlement', {
+            ...formData,
+            ...auditContext,
+          })
+          const created = response.data?.data
+          this.$toast.success(
+            created?.id ? `ສ້າງສຳເລັດ: #${created.id}` : 'ສ້າງສຳເລັດ'
+          )
+        }
+
+        this.closeDialog()
+        await this.fetchData()
+      } catch (error) {
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    async approveSettlement(settlement) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການອະນຸມັດ',
+          `ທ່ານຕ້ອງການອະນຸມັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
+          'question'
+        )
+
+        if (result.isConfirmed) {
+          await this.$axios.post(
+            `/api/ap-invoices-settlement/${settlement.id}/approve`
+          )
+          this.$toast.success('ອະນຸມັດສຳເລັດ')
+          await this.fetchData()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    async completeSettlement(settlement) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການສຳເລັດ',
+          `ທ່ານຕ້ອງການສຳເລັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
+          'question'
+        )
+
+        if (result.isConfirmed) {
+          await this.$axios.post(
+            `/api/ap-invoices-settlement/${settlement.id}/complete`
+          )
+          this.$toast.success('ສຳເລັດສຳເລັດ')
+          await this.fetchData()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    async cancelSettlement(settlement) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການຍົກເລີກ',
+          `ທ່ານຕ້ອງການຍົກເລີກການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
+          'warning'
+        )
+
+        if (result.isConfirmed) {
+          await this.$axios.delete(
+            `/api/ap-invoices-settlement/${settlement.id}`
+          )
+          this.$toast.success('ຍົກເລີກສຳເລັດ')
+          await this.fetchData()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    onFilterChange() {
+      this.filters.status = this.statusFilter
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+    resetFilters() {
+      this.filters = { status: '', startDate: '', endDate: '' }
+      this.searchTerm = ''
+      this.statusFilter = ''
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+    async fetchCurrencies() {
+      try {
+        const { data } = await this.$axios.get('/api/currency/find')
+        this.currencies = data || []
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    debounceSearch() {
+      clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        this.tableOptions.page = 1
+        this.fetchData()
+      }, 500)
+    },
+
+    formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount || 0)
+    },
+
+    formatDate(date) {
+      if (!date) return 'N/A'
+      return new Date(date).toLocaleDateString('en-GB')
+    },
+  },
+}
+</script>
+
+<style scoped>
+.ap-settlement-container {
+  padding: 20px;
+}
+
+.v-card-title.primary {
+  background: linear-gradient(45deg, #1976d2, #1565c0);
+}
+
+.text-caption {
+  font-size: 12px !important;
+}
+</style>

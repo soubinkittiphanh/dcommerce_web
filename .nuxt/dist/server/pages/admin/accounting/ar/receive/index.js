@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_22eb0af1_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(899);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_22eb0af1_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_22eb0af1_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_22eb0af1_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_22eb0af1_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9ef30d82_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(899);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9ef30d82_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9ef30d82_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9ef30d82_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_9ef30d82_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".receive-summary-container[data-v-22eb0af1]{padding:20px}.v-card-title.primary[data-v-22eb0af1]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-22eb0af1]{font-size:12px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".receive-summary-container[data-v-9ef30d82]{padding:20px}.v-card-title.primary[data-v-9ef30d82]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-9ef30d82]{font-size:12px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -83,7 +83,7 @@ var VSpacer = __webpack_require__(401);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/accounting/ar/receive/index.vue?vue&type=template&id=22eb0af1&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/accounting/ar/receive/index.vue?vue&type=template&id=9ef30d82&scoped=true
 
 
 
@@ -102,7 +102,7 @@ var VTextField = __webpack_require__(36);
 
 
 
-var receivevue_type_template_id_22eb0af1_scoped_true_render = function render() {
+var receivevue_type_template_id_9ef30d82_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
@@ -494,7 +494,7 @@ var receivevue_type_template_id_22eb0af1_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/accounting/ar/receive/index.vue?vue&type=template&id=22eb0af1&scoped=true
+// CONCATENATED MODULE: ./pages/admin/accounting/ar/receive/index.vue?vue&type=template&id=9ef30d82&scoped=true
 
 // EXTERNAL MODULE: ./components/accounting/ar/receive/maintain/index.vue + 4 modules
 var maintain = __webpack_require__(988);
@@ -536,16 +536,7 @@ var voucher = __webpack_require__(681);
       // Add this
       transactionCodes: [],
       // Add this
-      currencies: [],
-      glAccounts: [],
-      showEditDialog: false,
-      showViewDialog: false,
-      selectedReceipt: null,
-      receipts: [],
-      filteredReceipts: [],
-      invoices: [],
-      users: [],
-      loading: false,
+
       filters: {
         search: '',
         paymentMethod: '',
@@ -650,6 +641,8 @@ var voucher = __webpack_require__(681);
     }
   },
   mounted() {
+    // Set default dates before loading data
+    this.setDefaultDates();
     this.fetchReceipts();
     this.fetchInvoices();
     this.fetchUsers();
@@ -659,6 +652,25 @@ var voucher = __webpack_require__(681);
     this.fetchTransactionCodes(); // Add this
   },
   methods: {
+    // NEW METHOD: Get current month's first day
+    getCurrentMonthStart() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      return new Date(year, month, 1).toISOString().split('T')[0];
+    },
+    // NEW METHOD: Get current month's last day
+    getCurrentMonthEnd() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      return new Date(year, month + 1, 0).toISOString().split('T')[0];
+    },
+    // NEW METHOD: Set default dates for current month
+    setDefaultDates() {
+      this.filters.bookingDateFrom = this.getCurrentMonthStart();
+      this.filters.bookingDateTo = this.getCurrentMonthEnd();
+    },
     async fetchPaymentMethods() {
       try {
         const {
@@ -841,8 +853,8 @@ var voucher = __webpack_require__(681);
       this.filters = {
         search: '',
         paymentMethod: '',
-        bookingDateFrom: '',
-        bookingDateTo: ''
+        bookingDateFrom: this.getCurrentMonthStart(),
+        bookingDateTo: this.getCurrentMonthEnd()
       };
       this.applyFilters();
     },
@@ -925,11 +937,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   ar_receivevue_type_script_lang_js,
-  receivevue_type_template_id_22eb0af1_scoped_true_render,
+  receivevue_type_template_id_9ef30d82_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "22eb0af1",
+  "9ef30d82",
   "57587191"
   
 )
@@ -1894,7 +1906,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6826f40e", content, true, context)
+  add("9be8d2b2", content, true, context)
 };
 
 /***/ }),

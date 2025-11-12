@@ -591,6 +591,8 @@ export default {
   },
 
   async mounted() {
+    // Set default dates before loading data
+    this.setDefaultDates()
     await this.loadInitialData()
   },
 
@@ -600,6 +602,28 @@ export default {
   },
 
   methods: {
+    // NEW METHOD: Get current month's first day
+    getCurrentMonthStart() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month, 1).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Get current month's last day
+    getCurrentMonthEnd() {
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = now.getMonth()
+      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+    },
+
+    // NEW METHOD: Set default dates for current month
+    setDefaultDates() {
+      this.filters.startDate = this.getCurrentMonthStart()
+      this.filters.endDate = this.getCurrentMonthEnd()
+    },
+
     async fetchAccountCharts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
@@ -876,13 +900,19 @@ export default {
       this.tableOptions.page = 1
       this.fetchData()
     },
+    
     resetFilters() {
-      this.filters = { status: '', startDate: '', endDate: '' }
+      this.filters = { 
+        status: '', 
+        startDate: this.getCurrentMonthStart(), 
+        endDate: this.getCurrentMonthEnd() 
+      }
       this.searchTerm = ''
       this.statusFilter = ''
       this.tableOptions.page = 1
       this.fetchData()
     },
+    
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/find')

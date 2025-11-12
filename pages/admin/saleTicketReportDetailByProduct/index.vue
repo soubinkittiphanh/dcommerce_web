@@ -230,6 +230,16 @@
             >
               <span class="mdi mdi-microsoft-excel"></span>Generate Excel
             </v-btn>
+            <!-- NEW PDF AUDIT BUTTON -->
+            <v-btn
+              size="large"
+              variant="outlined"
+              @click="exportSimplePDFAudit"
+              class="success"
+              rounded
+            >
+              <span class="mdi mdi-file-pdf"></span>PDF Audit
+            </v-btn>
             <v-btn
               size="large"
               variant="outlined"
@@ -725,6 +735,168 @@ export default {
   },
 
   methods: {
+    // NEW: Simple PDF Audit Export Method
+    exportSimplePDFAudit() {
+      try {
+        // Calculate simple summary data
+        const totalTickets = this.filteredTickets.length;
+        const totalItems = this.productSummary.reduce((sum, product) => sum + product.quantity, 0);
+        
+        // Group by category (extract from product data in ticket lines)
+        const categoryCount = {};
+        this.filteredTickets.forEach(ticket => {
+          if (ticket.ticketLines && ticket.ticketLines.length > 0) {
+            ticket.ticketLines.forEach(line => {
+              const category = line.product?.category?.categ_name || 'Unknown Category';
+              categoryCount[category] = (categoryCount[category] || 0) + 1;
+            });
+          }
+        });
+        
+        // Create simple HTML for PDF
+        const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+            .summary-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background-color: #f9f9f9; }
+            .summary-title { font-weight: bold; font-size: 14px; color: #333; margin-bottom: 10px; }
+            .summary-item { margin: 5px 0; }
+            .section { margin: 20px 0; }
+            .footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f0f0f0; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h2>TICKET AUDIT SUMMARY REPORT</h2>
+            <p>Period: ${this.dateFormatted} - ${this.dateFormatted2}</p>
+            <p>Generated: ${new Date().toLocaleDateString()}</p>
+          </div>
+
+          <div class="summary-box">
+            <div class="summary-title">📊 OVERVIEW</div>
+            <div class="summary-item">Total Tickets: ${totalTickets}</div>
+            <div class="summary-item">Paid Tickets: ${this.ticketsSummary.paidTickets}</div>
+            <div class="summary-item">Total Items Sold: ${totalItems}</div>
+            <div class="summary-item">Average Items per Ticket: ${totalTickets > 0 ? Math.round((totalItems / totalTickets) * 100) / 100 : 0}</div>
+          </div>
+
+          <div class="section">
+            <h3>📂 TICKETS BY CATEGORY</h3>
+            <table>
+              <tr><th>Category</th><th>Tickets Count</th></tr>
+              ${Object.entries(categoryCount)
+                .sort(([,a], [,b]) => b - a)
+                .map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>💳 TICKETS BY PAYMENT METHOD</h3>
+            <table>
+              <tr><th>Payment Method</th><th>Tickets Count</th></tr>
+              ${this.paymentTypeSummary
+                .map(payment => `<tr><td>${payment.name}</td><td>${payment.count}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>📦 TOP 10 PRODUCTS BY QUANTITY</h3>
+            <table>
+              <tr><th>Rank</th><th>Product</th><th>Quantity Sold</th></tr>
+              ${this.productSummary
+                .slice(0, 10)
+                .map((product, index) => `<tr><td>${index + 1}</td><td>${product.name}</td><td>${product.quantity}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="section">
+            <h3>🏪 TICKET STATUS BREAKDOWN</h3>
+            <table>
+              <tr><th>Status</th><th>Count</th></tr>
+              ${this.getTicketStatusBreakdown()
+                .map(status => `<tr><td>${status.name}</td><td>${status.count}</td></tr>`)
+                .join('')}
+            </table>
+          </div>
+
+          <div class="footer">
+            <p><strong>NOTE:</strong> This report contains only operational data - no financial amounts</p>
+            <p>Generated for external audit purposes</p>
+          </div>
+        </body>
+        </html>`;
+
+        // Generate PDF
+        this.generatePDFFromHTML(htmlContent);
+        
+      } catch (error) {
+        console.error('Error generating PDF audit report:', error);
+        this.$toast.error('Error generating PDF audit report: ' + error.message);
+      }
+    },
+
+    getTicketStatusBreakdown() {
+      const statusBreakdown = {};
+      
+      this.filteredTickets.forEach(ticket => {
+        const status = this.getPaymentStatusText(ticket.paymentStatus);
+        statusBreakdown[status] = (statusBreakdown[status] || 0) + 1;
+      });
+
+      return Object.entries(statusBreakdown).map(([name, count]) => ({ name, count }));
+    },
+
+    generatePDFFromHTML(htmlContent) {
+      // Method 1: If you have html2pdf library installed
+      if (typeof html2pdf !== 'undefined') {
+        const opt = {
+          margin: 1,
+          filename: `ticket_audit_summary_${this.date}_to_${this.date2}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().from(htmlContent).set(opt).save();
+      } 
+      // Method 2: Simple jsPDF fallback
+      else if (typeof jsPDF !== 'undefined') {
+        const doc = new jsPDF();
+        
+        // Simple text-based PDF
+        doc.setFontSize(16);
+        doc.text('TICKET AUDIT SUMMARY REPORT', 20, 20);
+        
+        doc.setFontSize(12);
+        doc.text(`Period: ${this.dateFormatted} - ${this.dateFormatted2}`, 20, 35);
+        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
+        
+        doc.text('OVERVIEW', 20, 65);
+        doc.text(`Total Tickets: ${this.filteredTickets.length}`, 20, 75);
+        doc.text(`Paid Tickets: ${this.ticketsSummary.paidTickets}`, 20, 85);
+        
+        // Add more content as needed
+        doc.save(`ticket_audit_summary_${this.date}_to_${this.date2}.pdf`);
+      }
+      // Method 3: Browser print fallback
+      else {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.print();
+      }
+      
+      this.$toast.success('PDF audit report generated successfully!');
+    },
+
     async loadData() {
       this.isloading = true
 
