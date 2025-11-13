@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "319.js": "319.js",
+    "321.js": "321.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -95,6 +95,8 @@
     "components/m-a-settlement-dialog.js": "components/m-a-settlement-dialog.js",
     "components/m-a-settlement-view-dialog.js": "components/m-a-settlement-view-dialog.js",
     "components/m-a-settlement-voucher.js": "components/m-a-settlement-voucher.js",
+    "components/member-offer.js": "components/member-offer.js",
+    "components/member-usage.js": "components/member-usage.js",
     "components/menu-header-form.js": "components/menu-header-form.js",
     "components/menu-line-form.js": "components/menu-line-form.js",
     "components/menu-overview.js": "components/menu-overview.js",
@@ -323,7 +325,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "319.js": "319.js.map",
+    "321.js": "321.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -417,6 +419,8 @@
     "components/m-a-settlement-dialog.js": "components/m-a-settlement-dialog.js.map",
     "components/m-a-settlement-view-dialog.js": "components/m-a-settlement-view-dialog.js.map",
     "components/m-a-settlement-voucher.js": "components/m-a-settlement-voucher.js.map",
+    "components/member-offer.js": "components/member-offer.js.map",
+    "components/member-usage.js": "components/member-usage.js.map",
     "components/menu-header-form.js": "components/menu-header-form.js.map",
     "components/menu-line-form.js": "components/menu-line-form.js.map",
     "components/menu-overview.js": "components/menu-overview.js.map",

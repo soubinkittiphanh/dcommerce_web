@@ -1,7 +1,7 @@
 <template>
   <div class="ministry-settlement-report">
-    <!-- Enhanced Header -->
-    <div class="report-header">
+    <!-- Header -->
+    <div class="report-header primary">
       <div class="title-section">
         <h1 class="page-title">
           <i class="fas fa-building"></i>
@@ -25,198 +25,125 @@
       </div>
     </div>
 
-    <!-- Enhanced Filters Card -->
-    <v-card class="filter-card mb-4" elevation="2">
-      <v-card-title class="filter-title d-flex align-center">
-        <v-icon class="mr-2">mdi-filter</v-icon>
+    <!-- Filters Card -->
+    <v-card class="filter-card mb-4 primary" elevation="1">
+      <v-card-title class="filter-title py-2">
+        <v-icon small class="mr-2">mdi-filter</v-icon>
         ຕົວກອງ (Filters)
       </v-card-title>
-
-      <v-card-text class="pa-4">
-        <v-row>
-          <!-- Start Date -->
-          <v-col cols="12" md="3">
+      <v-card-text class="pa-3">
+        <v-row dense>
+          <!-- Date Range -->
+          <v-col cols="6" sm="3">
             <v-text-field
               v-model="filters.startDate"
               type="date"
-              label="ວັນທີເລີ່ມຕົ້ນ (From Date)"
+              label="From"
               outlined
               dense
+              hide-details
+              dark
               @change="loadDashboardData"
             ></v-text-field>
           </v-col>
-
-          <!-- End Date -->
-          <v-col cols="12" md="3">
+          <v-col cols="6" sm="3">
             <v-text-field
               v-model="filters.endDate"
               type="date"
-              label="ວັນທີສິ້ນສຸດ (To Date)"
+              label="To"
               outlined
               dense
+              hide-details
+              dark
               @change="loadDashboardData"
             ></v-text-field>
           </v-col>
-
+          
           <!-- Ministry -->
-          <v-col cols="12" md="4">
+          <v-col cols="6" sm="2">
             <v-select
               v-model="filters.ministryId"
               :items="ministries"
-              item-text="name"
+              item-text="ministryName"
               item-value="id"
-              label="ກະຊວງ (Ministry)"
+              label="Ministry"
               clearable
               outlined
               dense
-              @change="loadDashboardData"
-            >
-              <template v-slot:selection="{ item }">
-                <div class="ministry-selection">
-                  <span class="ministry-name">{{ item.ministryName }}</span>
-                  <small>{{ item.ministryCode }} - {{ item.ministryType }}</small>
-                </div>
-              </template>
-              <template v-slot:item="{ item }">
-                <div class="ministry-item">
-                  <div class="ministry-name">{{ item.ministryName }}</div>
-                  <div class="ministry-details">
-                    Code: {{ item.ministryCode }} | Type: {{ item.ministryType }}
-                  </div>
-                </div>
-              </template>
-            </v-select>
-          </v-col>
-
-          <!-- Settlement Method -->
-          <v-col cols="12" md="2">
-            <v-select
-              v-model="filters.method"
-              :items="settlementMethods"
-              label="ວິທີການຊຳລະ (Method)"
-              clearable
-              outlined
-              dense
+              hide-details
+              dark
               @change="loadDashboardData"
             ></v-select>
           </v-col>
-        </v-row>
-
-        <!-- Buttons Row -->
-        <v-row class="mt-2">
-          <v-col cols="12" md="3">
-            <v-btn
-              class="custom-primary-bg white--text"
-              block
+          
+          <!-- Method -->
+          <v-col cols="6" sm="2">
+            <v-select
+              v-model="filters.method"
+              :items="settlementMethods"
+              label="Method"
+              clearable
               outlined
+              dense
+              hide-details
+              dark
+              @change="loadDashboardData"
+            ></v-select>
+          </v-col>
+          
+          <!-- Actions -->
+          <v-col cols="12" sm="2" class="d-flex align-center">
+            <v-btn
+              class="custom-secondary-btn white--text mr-1"
+              small
               @click="loadDashboardData"
               :loading="loading"
             >
-              <v-icon left color="white">mdi-refresh</v-icon>
-              Refresh
+              <v-icon small>mdi-refresh</v-icon>
             </v-btn>
-          </v-col>
-
-          <v-col cols="12" md="3">
             <v-btn
-              class="custom-secondary-btn"
-              block
-              outlined
+              class="custom-secondary-btn white--text"
+              small
               @click="resetFilters"
-              color="grey lighten-1"
             >
-              <v-icon left>mdi-restore</v-icon>
-              Reset
+              <v-icon small>mdi-restore</v-icon>
             </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
 
-    <!-- Enhanced Summary Cards -->
-    <v-row class="summary-cards mb-4" v-if="!loading">
-      <v-col cols="12" md="3">
-        <v-card class="summary-card total-ministries-card" elevation="4">
-          <v-card-text>
-            <div class="summary-content">
-              <div class="summary-icon">
-                <i class="fas fa-building"></i>
-              </div>
-              <div class="summary-details">
-                <h3 class="summary-title">ທັງໝົດກະຊວງ</h3>
-                <p class="summary-subtitle">Total Ministries</p>
-                <h2 class="summary-amount">{{ ministryStats.length }}</h2>
-                <p class="summary-lcy">Active Ministries</p>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="3">
-        <v-card class="summary-card settlement-card" elevation="4">
-          <v-card-text>
-            <div class="summary-content">
-              <div class="summary-icon">
-                <i class="fas fa-money-bill-wave"></i>
-              </div>
-              <div class="summary-details">
-                <h3 class="summary-title">ຈຳນວນການຊຳລະ</h3>
-                <p class="summary-subtitle">Total Settlements</p>
-                <h2 class="summary-amount">{{ totalSettlementsCount }}</h2>
-                <p class="summary-lcy">Settlement Count</p>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="3">
-        <v-card class="summary-card amount-card" elevation="4">
-          <v-card-text>
-            <div class="summary-content">
-              <div class="summary-icon">
-                <i class="fas fa-coins"></i>
-              </div>
-              <div class="summary-details">
-                <h3 class="summary-title">ລວມທຸກສະກຸນ</h3>
-                <p class="summary-subtitle">Multi-Currency Total</p>
-                <h2 class="summary-amount">{{ uniqueCurrencies }}</h2>
-                <p class="summary-lcy">{{ uniqueCurrencies }} Currencies</p>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="3">
-        <v-card class="summary-card lak-card" elevation="4">
-          <v-card-text>
-            <div class="summary-content">
-              <div class="summary-icon">
-                <i class="fas fa-calculator"></i>
-              </div>
-              <div class="summary-details">
-                <h3 class="summary-title">ລາວກີບ (LAK)</h3>
-                <p class="summary-subtitle">Total LAK Equivalent</p>
-                <h2 class="summary-amount">
-                  {{ formatCurrency(totalLakAmount, 'LAK') }}
-                </h2>
-                <p class="summary-lcy">Local Currency</p>
-              </div>
-            </div>
+    <!-- Summary Cards -->
+    <v-row class="mb-4" dense>
+      <v-col cols="12" md="3" v-for="(card, index) in summaryCards" :key="index">
+        <v-card class="summary-card primary" elevation="4">
+          <v-card-text class="pa-4">
+            <v-row align="center">
+              <v-col cols="3">
+                <div class="summary-icon">
+                  <i :class="card.icon"></i>
+                </div>
+              </v-col>
+              <v-col cols="9">
+                <div class="summary-details">
+                  <div class="summary-title">{{ card.title }}</div>
+                  <div class="summary-subtitle">{{ card.subtitle }}</div>
+                  <div class="summary-amount">{{ card.amount }}</div>
+                  <div v-if="card.lcyAmount" class="summary-lcy">
+                    LAK: {{ formatCurrency(card.lcyAmount) }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
     <!-- Currency Breakdown Cards -->
-    <v-row
-      class="currency-breakdown mb-4"
-      v-if="!loading && currencyBreakdown.length > 0"
-    >
+    <v-row class="mb-4" v-if="!loading && currencyBreakdown.length > 0 && 1==0">
       <v-col cols="12">
-        <v-card elevation="2">
+        <v-card elevation="2" class="currency-breakdown-card">
           <v-card-title class="currency-title">
             <i class="fas fa-coins"></i>
             ການແຈກຢາຍຕາມສະກຸນເງິນ (Currency Breakdown)
@@ -230,43 +157,20 @@
                 md="4"
                 lg="3"
               >
-                <div class="currency-card">
-                  <div class="currency-header">
-                    <v-chip
-                      :color="getCurrencyColor(currency.currencyCode)"
-                      text-color="white"
-                      large
-                    >
-                      {{ currency.currencyCode || 'LAK' }}
-                    </v-chip>
-                    <div class="currency-flag">
-                      {{ getCurrencyFlag(currency.currencyCode) }}
+                <v-card class="currency-card" elevation="1" outlined>
+                  <v-card-text class="pa-3">
+                    <div class="currency-summary">
+                      <h4>
+                        {{ currency.currencyCode || 'LAK' }} 
+                        {{ getCurrencyFlag(currency.currencyCode) }}
+                      </h4>
+                      <p><strong>Amount:</strong> {{ formatCurrency(currency.totalAmount, currency.currencyCode) }}</p>
+                      <p><strong>LAK Equivalent:</strong> {{ formatCurrency(currency.lakEquivalent) }}</p>
+                      <p><strong>Count:</strong> {{ currency.count }} ການຊຳລະ</p>
+                      <p><strong>Percentage:</strong> {{ Math.round((currency.lakEquivalent / totalLakAmount) * 100) }}%</p>
                     </div>
-                  </div>
-                  <div class="currency-stats">
-                    <div class="original-amount">
-                      {{
-                        formatCurrency(
-                          currency.totalAmount,
-                          currency.currencyCode
-                        )
-                      }}
-                    </div>
-                    <div class="lak-equivalent">
-                      ≈ {{ formatCurrency(currency.lakEquivalent, 'LAK') }}
-                    </div>
-                    <div class="settlement-count">
-                      {{ currency.count }} ການຊຳລະ
-                    </div>
-                    <div class="percentage">
-                      {{
-                        Math.round(
-                          (currency.lakEquivalent / totalLakAmount) * 100
-                        )
-                      }}% ຂອງທັງໝົດ
-                    </div>
-                  </div>
-                </div>
+                  </v-card-text>
+                </v-card>
               </v-col>
             </v-row>
           </v-card-text>
@@ -274,460 +178,154 @@
       </v-col>
     </v-row>
 
-    <!-- Loading State -->
-    <div v-if="loading" class="text-center py-8">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        size="64"
-      ></v-progress-circular>
-      <p class="mt-4 text-gray-600">
-        ກຳລັງໂຫລດຂໍ້ມູນ... Loading ministry reports...
-      </p>
-    </div>
+    <!-- Detailed Report Table -->
+    <v-card class="table-card" elevation="2">
+      <v-card-title class="table-title">
+        <i class="fas fa-table"></i>
+        ລາຍລະອຽດລາຍງານ (Detailed Report)
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="ຄົ້ນຫາກະຊວງ..."
+          single-line
+          hide-details
+          class="search-field"
+          outlined
+          dense
+        ></v-text-field>
+      </v-card-title>
 
-    <!-- Ministry Report -->
-    <v-row class="mb-4">
-      <v-col cols="12">
-        <v-card elevation="2" class="rounded-xl report-card">
-          <v-card-title
-            class="ministry-primary--text py-2 px-4 d-flex align-center report-header"
-          >
-            <v-icon color="primary" class="mr-2">mdi-building</v-icon>
-            <span class="text-subtitle-1 font-weight-medium">
-              ລາຍງານ ຕາມກະຊວງ
-            </span>
-            <v-spacer></v-spacer>
+      <v-data-table
+        :headers="tableHeaders"
+        :items="filteredMinistries"
+        :search="search"
+        :loading="loading"
+        class="report-table"
+        :items-per-page="25"
+        :footer-props="{
+          itemsPerPageOptions: [10, 25, 50, 100],
+          itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
+        }"
+      >
+        <!-- Ministry Code -->
+        <template v-slot:item.ministryCode="{ item }">
+          <span class="ministry-code">{{ item.ministry?.ministryCode || 'N/A' }}</span>
+        </template>
 
-            <!-- Search Field -->
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="ຄົ້ນຫາກະຊວງ..."
-              single-line
-              hide-details
-              class="search-field mr-4"
-              outlined
-              dense
-              style="max-width: 250px"
-            ></v-text-field>
+        <!-- Ministry Name -->
+        <template v-slot:item.ministryName="{ item }">
+          <div class="ministry-cell">
+            <span class="ministry-name">{{ item.ministry?.ministryName || 'Unknown Ministry' }}</span>
+            <span class="ministry-type">{{ item.ministry?.ministryType || 'N/A' }}</span>
+          </div>
+        </template>
 
-            <!-- Export Button -->
-            <v-btn
-              color="#059669"
-              small
-              outlined
-              class="mr-2"
-              @click="exportToExcel"
-              :disabled="!filteredMinistries.length"
-              :loading="exporting"
-            >
-              <v-icon small left>mdi-file-excel</v-icon>
-              Export Excel
-            </v-btn>
-            <v-btn
-              icon
-              small
-              @click="loadDashboardData"
-              :loading="loading"
-              color="primary"
-            >
-              <v-icon small>mdi-refresh</v-icon>
-            </v-btn>
-          </v-card-title>
+        <!-- Count -->
+        <template v-slot:item.count="{ item }">
+          <v-chip small color="#228B22" text-color="white">
+            {{ item.count }}
+          </v-chip>
+        </template>
 
-          <v-divider class="ministry-divider"></v-divider>
+        <!-- USD Amount -->
+        <template v-slot:item.usd="{ item }">
+          <span class="amount-cell">{{ formatCurrency(item.amounts?.USD || 0) }}</span>
+        </template>
 
-          <v-card-text class="pa-0">
-            <div v-if="loading" class="text-center py-6">
-              <v-progress-circular indeterminate color="primary" />
-              <div class="mt-2 text-caption">
-                Loading ministry report...
-              </div>
-            </div>
+        <!-- LAK Amount -->
+        <template v-slot:item.lak="{ item }">
+          <span class="amount-cell">{{ formatCurrency(item.amounts?.LAK || 0) }}</span>
+        </template>
 
-            <div v-else-if="!ministryStats.length" class="text-center py-6">
-              <v-icon size="48" color="grey lighten-2"
-                >mdi-information-outline</v-icon
-              >
-              <div class="mt-2 text-subtitle-2 grey--text">
-                No ministry data available
-              </div>
-            </div>
+        <!-- THB Amount -->
+        <template v-slot:item.thb="{ item }">
+          <span class="amount-cell">{{ formatCurrency(item.amounts?.THB || 0) }}</span>
+        </template>
 
-            <v-simple-table v-else dense class="ministry-table">
-              <template v-slot:default>
-                <thead>
-                  <tr class="ministry-table-header">
-                    <th class="white--text text-caption font-weight-bold">#</th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Ministry Code
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Ministry Name
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Ministry Type
-                    </th>
-                    <th class="white--text text-caption font-weight-bold">
-                      Description
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      Count
-                    </th>
-                    <th
-                      v-for="currency in currencyList"
-                      :key="'head-' + currency.code"
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      {{ currency.code }}
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-right"
-                    >
-                      Total (LAK)
-                    </th>
-                    <th
-                      class="white--text text-caption font-weight-bold text-center"
-                    >
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
+        <!-- CNY Amount -->
+        <template v-slot:item.cny="{ item }">
+          <span class="amount-cell">{{ formatCurrency(item.amounts?.CNY || 0) }}</span>
+        </template>
 
-                <tbody>
-                  <tr
-                    v-for="(item, index) in filteredMinistries"
-                    :key="item.ministryId"
-                    :class="{
-                      'ministry-row-even': index % 2 === 0,
-                      'ministry-row-special':
-                        item.ministryId === 'NO_MINISTRY',
-                    }"
-                  >
-                    <td class="text-caption text-center">{{ index + 1 }}</td>
-                    <td
-                      class="text-body-2 font-weight-medium"
-                      :class="{
-                        'grey--text': item.ministryId === 'NO_MINISTRY',
-                      }"
-                    >
-                      {{ item.ministry?.ministryCode || 'N/A' }}
-                    </td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text font-italic':
-                          item.ministryId === 'NO_MINISTRY',
-                      }"
-                    >
-                      {{ item.ministry?.ministryName || 'Unknown Ministry' }}
-                    </td>
-                    <td class="text-body-2">
-                      <v-chip
-                        x-small
-                        :color="getMinistryTypeColor(item.ministry?.ministryType)"
-                        text-color="white"
-                      >
-                        {{ item.ministry?.ministryType || 'N/A' }}
-                      </v-chip>
-                    </td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text font-italic':
-                          item.ministryId === 'NO_MINISTRY',
-                      }"
-                    >
-                      {{ item.ministry?.description || 'N/A' }}
-                    </td>
-                    <td class="text-body-2 text-right">
-                      <v-chip x-small color="#228B22" text-color="white">
-                        {{ item.count }}
-                      </v-chip>
-                    </td>
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'amt-' + currency.code"
-                      class="text-body-2 text-right"
-                    >
-                      {{ formatCurrency(item.amounts?.[currency.code] || 0) }}
-                    </td>
-                    <td
-                      class="text-right font-weight-bold ministry-success--text"
-                    >
-                      {{ formatCurrency(item.totalLak || 0, 'LAK') }}
-                    </td>
-                    <td class="text-center">
-                      <v-btn
-                        x-small
-                        color="primary"
-                        @click="selectMinistry(item.ministryId)"
-                        class="white--text"
-                      >
-                        <v-icon x-small>mdi-eye</v-icon>
-                        ເບິ່ງ
-                      </v-btn>
-                    </td>
-                  </tr>
+        <!-- EUR Amount -->
+        <template v-slot:item.eur="{ item }">
+          <span class="amount-cell">{{ formatCurrency(item.amounts?.EUR || 0) }}</span>
+        </template>
 
-                  <!-- Totals -->
-                  <tr class="ministry-table-footer">
-                    <td colspan="5" class="font-weight-bold text-caption">
-                      ລວມ (Total)
-                    </td>
-                    <td class="text-right font-weight-bold text-body-2">
-                      <v-chip x-small color="primary" text-color="white">
-                        {{ totalSettlementsCount }}
-                      </v-chip>
-                    </td>
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'sum-' + currency.code"
-                      class="text-right font-weight-bold text-body-2"
-                    >
-                      {{ formatCurrency(getCurrencyTotal(currency.code)) }}
-                    </td>
-                    <td
-                      class="text-right font-weight-bold text-body-2 ministry-primary--text"
-                    >
-                      {{ formatCurrency(totalLakAmount, 'LAK') }}
-                    </td>
-                    <td class="text-center">
-                      <v-chip x-small color="grey"
-                        >{{ filteredMinistries.length }} ministries</v-chip
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+        <!-- Total LAK -->
+        <template v-slot:item.totalLak="{ item }">
+          <span class="amount-cell lcy-amount">{{ formatCurrency(item.totalLak || 0) }}</span>
+        </template>
 
-    <!-- Enhanced Settlement Details Dialog -->
+        <!-- Actions -->
+        <template v-slot:item.actions="{ item }">
+          <v-btn small color="primary" @click="selectMinistry(item.ministryId)">
+            <i class="fas fa-eye"></i>
+            ເບິ່ງ
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
+
+    <!-- Settlement Details Dialog -->
     <v-dialog v-model="settlementDialog" max-width="1200px" scrollable>
       <v-card v-if="selectedMinistry">
         <v-card-title class="dialog-header">
           <i class="fas fa-building"></i>
-          ລາຍລະອຽດການຊຳລະ - {{ selectedMinistry.name }}
+          ລາຍລະອຽດການຊຳລະ - {{ selectedMinistry.ministryName }}
           <v-spacer></v-spacer>
           <v-btn icon @click="closeDialog" class="close-btn">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-
-        <v-card-text>
-          <!-- Ministry Summary -->
-          <v-row class="summary-section mb-4">
-            <v-col cols="12">
-              <h3 class="section-title">
-                ສະຫຼຸບກະຊວງ (Ministry Summary)
-              </h3>
-              <v-divider class="custom-divider mb-3"></v-divider>
-            </v-col>
-            <v-col cols="6" md="3">
-              <div class="detail-stat">
-                <div class="stat-icon">
-                  <i class="fas fa-list-ol"></i>
-                </div>
-                <div class="stat-info">
-                  <strong>ຈຳນວນການຊຳລະ:</strong>
-                  <p class="stat-number">
-                    {{ settlementSummary.settlementCount }}
-                  </p>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="6" md="3">
-              <div class="detail-stat">
-                <div class="stat-icon">
-                  <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="stat-info">
-                  <strong>ລວມຈຳນວນເງິນ:</strong>
-                  <p class="stat-number">
-                    ${{ formatCurrency(settlementSummary.totalAmount) }}
-                  </p>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="6" md="3">
-              <div class="detail-stat">
-                <div class="stat-icon">
-                  <i class="fas fa-calculator"></i>
-                </div>
-                <div class="stat-info">
-                  <strong>ຄ່າສະເລ່ຍ:</strong>
-                  <p class="stat-number">
-                    ${{
-                      formatCurrency(
-                        settlementSummary.totalAmount /
-                          settlementSummary.settlementCount
-                      )
-                    }}
-                  </p>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="6" md="3">
-              <div class="detail-stat">
-                <div class="stat-icon">
-                  <i class="fas fa-building"></i>
-                </div>
-                <div class="stat-info">
-                  <strong>ລະຫັດກະຊວງ:</strong>
-                  <p class="stat-number">
-                    {{ selectedMinistry.code }}
-                  </p>
-                </div>
+        
+        <v-card-text v-if="selectedMinistry">
+          <!-- Summary Stats -->
+          <v-row class="mb-4">
+            <v-col cols="6" v-for="(field, index) in detailFields" :key="index">
+              <div class="detail-item">
+                <strong>{{ field.label }}:</strong>
+                <span>{{ field.formatter ? field.formatter(field.value) : field.value || 'N/A' }}</span>
               </div>
             </v-col>
           </v-row>
 
-          <!-- Settlement Method Distribution -->
-          <v-row
-            class="method-distribution mb-4"
-            v-if="methodDistribution.length > 0"
-          >
-            <v-col cols="12">
-              <h3 class="section-title">
-                ການແຈກຢາຍຕາມວິທີການ (Method Distribution)
-              </h3>
-              <v-divider class="custom-divider mb-3"></v-divider>
-            </v-col>
-            <v-col
-              v-for="method in methodDistribution"
-              :key="method.method"
-              cols="12"
-              md="4"
+          <!-- Settlement Details Table -->
+          <div v-if="selectedSettlements.length > 0" class="mt-4">
+            <h4>ລາຍການຊຳລະ (Settlement Details)</h4>
+            <v-data-table
+              :headers="settlementHeaders"
+              :items="selectedSettlements"
+              :loading="loadingDetails"
+              class="settlement-table"
+              :items-per-page="10"
+              :footer-props="{
+                itemsPerPageOptions: [5, 10, 25, 50],
+                itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
+              }"
             >
-              <div class="method-card">
-                <div class="method-header">
-                  <v-chip
-                    :color="getMethodColor(method.method)"
-                    text-color="white"
-                    small
-                  >
-                    {{ formatMethod(method.method) }}
-                  </v-chip>
-                </div>
-                <div class="method-stats">
-                  <div class="method-count">{{ method.count }} ການຊຳລະ</div>
-                  <div class="method-amount">
-                    ${{ formatCurrency(method.total) }}
-                  </div>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Detailed Settlements Table -->
-          <v-row>
-            <v-col cols="12">
-              <h3 class="section-title">
-                ລາຍການການຊຳລະ (Settlement Transactions)
-              </h3>
-              <v-divider class="custom-divider mb-3"></v-divider>
-
-              <v-data-table
-                :headers="settlementHeaders"
-                :items="selectedSettlements"
-                :loading="loadingDetails"
-                class="settlement-table"
-                :items-per-page="10"
-                :footer-props="{
-                  itemsPerPageOptions: [5, 10, 25, 50],
-                  itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
-                }"
-              >
-                <template v-slot:item.bookingDate="{ item }">
-                  <span class="date-cell">{{
-                    formatDate(item.bookingDate)
-                  }}</span>
-                </template>
-
-                <template v-slot:item.currency="{ item }">
-                  <v-chip
-                    :color="getCurrencyColor(item.currency?.code)"
-                    text-color="white"
-                    small
-                  >
-                    {{ item.currency?.code || 'LAK' }}
-                  </v-chip>
-                </template>
-
-                <template v-slot:item.amount="{ item }">
-                  <div class="amount-breakdown">
-                    <span class="amount-cell">{{
-                      formatCurrency(item.amount, item.currency?.code)
-                    }}</span>
-                  </div>
-                </template>
-
-                <template v-slot:item.exchangeRate="{ item }">
-                  <div class="exchange-rate-cell">
-                    <span v-if="item.exchangeRate && item.exchangeRate !== 1">
-                      {{ formatExchangeRate(item.exchangeRate) }}
-                    </span>
-                    <span v-else class="default-rate">1.0000</span>
-                  </div>
-                </template>
-
-                <template v-slot:item.lakAmount="{ item }">
-                  <div class="lak-amount-cell">
-                    <span class="lak-amount">{{
-                      formatCurrency(
-                        calculateLakAmount(item.amount, item.exchangeRate),
-                        'LAK'
-                      )
-                    }}</span>
-                  </div>
-                </template>
-
-                <template v-slot:item.method="{ item }">
-                  <v-chip
-                    :color="getMethodColor(item.method)"
-                    text-color="white"
-                    small
-                  >
-                    {{ formatMethod(item.method) }}
-                  </v-chip>
-                </template>
-
-                <template v-slot:item.proceeder="{ item }">
-                  <div class="user-info">
-                    <span class="user-name">{{
-                      item.proceeder?.name || 'N/A'
-                    }}</span>
-                  </div>
-                </template>
-
-                <template v-slot:item.moneyAdvance="{ item }">
-                  <div v-if="item.moneyAdvance" class="advance-info">
-                    <v-chip color="primary" text-color="white" small>
-                      #{{ item.moneyAdvance.id }}
-                    </v-chip>
-                    <div class="advance-status">
-                      {{ item.moneyAdvance.status }}
-                    </div>
-                  </div>
-                  <span v-else class="no-advance">Standalone</span>
-                </template>
-
-                <template v-slot:item.actions="{ item }">
-                  <v-btn small color="primary" @click="viewSettlement(item.id)">
-                    <i class="fas fa-eye"></i>
-                    ເບິ່ງ
-                  </v-btn>
-                </template>
-              </v-data-table>
-            </v-col>
-          </v-row>
+              <template v-slot:item.bookingDate="{ item }">
+                <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
+              </template>
+              <template v-slot:item.currency="{ item }">
+                <v-chip small :color="getCurrencyColor(item.currency?.code)" text-color="white">
+                  {{ item.currency?.code || 'LAK' }}
+                </v-chip>
+              </template>
+              <template v-slot:item.amount="{ item }">
+                <span class="amount-cell">{{ formatCurrency(item.amount, item.currency?.code) }}</span>
+              </template>
+              <template v-slot:item.method="{ item }">
+                <v-chip small :color="getMethodColor(item.method)" text-color="white">
+                  {{ formatMethod(item.method) }}
+                </v-chip>
+              </template>
+              <template v-slot:item.proceeder="{ item }">
+                <span>{{ item.proceeder?.name || 'N/A' }}</span>
+              </template>
+            </v-data-table>
+          </div>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -735,302 +333,179 @@
 </template>
 
 <script>
-import * as XLSX from 'xlsx'
 export default {
   name: 'MinistrySettlementReport',
-  head() {
-    return {
-      title: 'Ministry Settlement Reports',
-    }
-  },
+
   data() {
     return {
-      // Options data
-      ministries: [],
       loading: false,
       exporting: false,
       loadingDetails: false,
       search: '',
       settlementDialog: false,
+      
+      // Filter data
+      filters: {
+        startDate: null,
+        endDate: null,
+        method: '',
+        ministryId: null
+      },
+
+      // Options data
+      ministries: [],
+      settlementMethods: [
+        { text: 'ທັງໝົດ', value: '' },
+        { text: 'ເງິນສົດ', value: 'cash' },
+        { text: 'ໂອນເງິນ', value: 'bank_transfer' },
+        { text: 'ຫັກລົບ', value: 'deduction' }
+      ],
+
+      // Report data
       ministryStats: [],
       selectedMinistry: null,
       selectedSettlements: [],
       settlementSummary: {
         totalAmount: 0,
-        settlementCount: 0,
-        averageAmount: 0,
+        settlementCount: 0
       },
-      methodDistribution: [],
-      filters: {
-        startDate: null,
-        endDate: null,
-        method: '',
-        ministryId: null,
-      },
-      settlementMethods: [
-        { text: 'ທັງໝົດ (All Methods)', value: '' },
-        { text: 'ເງິນສົດ (Cash)', value: 'cash' },
-        { text: 'ໂອນເງິນຜ່ານທະນາຄານ (Bank Transfer)', value: 'bank_transfer' },
-        { text: 'ຫັກລົບ (Deduction)', value: 'deduction' },
-      ],
-      currencyOptions: [
-        { text: 'ທັງໝົດສະກຸນເງິນ (All Currencies)', value: null },
-        { text: 'ລາວກີບ (LAK)', value: 1 },
-        { text: 'ໂດລາອາເມລິກັນ (USD)', value: 2 },
-        { text: 'ບາດໄທ (THB)', value: 3 },
-        { text: 'ຢວນຈີນ (CNY)', value: 4 },
-        { text: 'ເອີໂຣ (EUR)', value: 5 },
-      ],
       currencyBreakdown: [],
       currencyList: [],
+
+      // Table headers - fixed structure
+      tableHeaders: [
+        { text: '#', value: 'index', width: '50px' },
+        { text: 'ລະຫັດ', value: 'ministryCode', width: '100px' },
+        { text: 'ກະຊວງ', value: 'ministryName', width: '250px' },
+        { text: 'ຈຳນວນ', value: 'count', width: '80px' },
+        { text: 'USD', value: 'usd', width: '100px', align: 'right' },
+        { text: 'LAK', value: 'lak', width: '100px', align: 'right' },
+        { text: 'THB', value: 'thb', width: '100px', align: 'right' },
+        { text: 'CNY', value: 'cny', width: '100px', align: 'right' },
+        { text: 'EUR', value: 'eur', width: '100px', align: 'right' },
+        { text: 'Total (LAK)', value: 'totalLak', width: '120px' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' }
+      ],
+
       settlementHeaders: [
         { text: 'ວັນທີ', value: 'bookingDate', width: '120px' },
         { text: 'ສະກຸນເງິນ', value: 'currency', width: '80px' },
-        { text: 'ຈຳນວນເງິນຕົ້ນ', value: 'amount', width: '130px' },
-        { text: 'ອັດຕາແລກປ່ຽນ', value: 'exchangeRate', width: '100px' },
-        { text: 'ເທົ່າກັບລາວກີບ', value: 'lakAmount', width: '130px' },
+        { text: 'ຈຳນວນເງິນ', value: 'amount', width: '130px' },
         { text: 'ວິທີການ', value: 'method', width: '120px' },
         { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '150px' },
-        { text: 'ເງິນກ່ອນ', value: 'moneyAdvance', width: '120px' },
-        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' },
-      ],
+        { text: 'ໝາຍເຫດ', value: 'notes', width: '200px' }
+      ]
     }
   },
+
   computed: {
+    summaryCards() {
+      return [
+        {
+          title: 'ທັງໝົດກະຊວງ',
+          subtitle: 'Total Ministries',
+          amount: this.ministryStats.length,
+          icon: 'fas fa-building'
+        },
+        {
+          title: 'ຈຳນວນການຊຳລະ',
+          subtitle: 'Total Settlements',
+          amount: this.totalSettlementsCount,
+          icon: 'fas fa-money-bill-wave'
+        },
+        {
+          title: 'ລວມທຸກສະກຸນ',
+          subtitle: 'Currencies',
+          amount: this.uniqueCurrencies,
+          icon: 'fas fa-coins'
+        },
+        {
+          title: 'ລາວກີບ (LAK)',
+          subtitle: 'Total LAK Equivalent',
+          amount: this.formatCurrency(this.totalLakAmount),
+          icon: 'fas fa-calculator'
+        }
+      ]
+    },
+
+    filteredMinistries() {
+      let filtered = this.ministryStats
+      
+      if (this.search) {
+        filtered = filtered.filter(ministry => 
+          ministry.ministry?.ministryName?.toLowerCase().includes(this.search.toLowerCase()) ||
+          ministry.ministry?.ministryCode?.toLowerCase().includes(this.search.toLowerCase()) ||
+          ministry.ministry?.ministryType?.toLowerCase().includes(this.search.toLowerCase())
+        )
+      }
+
+      return filtered.map((item, index) => ({ 
+        ...item, 
+        index: index + 1 
+      }))
+    },
+
+    totalSettlementsCount() {
+      return this.ministryStats.reduce((sum, ministry) => sum + parseInt(ministry.count || 0), 0)
+    },
+
+    totalLakAmount() {
+      return this.ministryStats.reduce((sum, ministry) => sum + (ministry.totalLak || 0), 0)
+    },
+
     uniqueCurrencies() {
       const currencies = new Set()
-      this.ministryStats.forEach((ministry) => {
-        Object.keys(ministry.amounts || {}).forEach((currency) => {
+      this.ministryStats.forEach(ministry => {
+        Object.keys(ministry.amounts || {}).forEach(currency => {
           currencies.add(currency)
         })
       })
       return currencies.size
     },
 
-    totalLakAmount() {
-      return this.ministryStats.reduce(
-        (sum, ministry) => sum + (ministry.totalLak || 0),
-        0
-      )
-    },
-
-    filteredMinistries() {
-      if (!this.search) return this.ministryStats
-      return this.ministryStats.filter(
-        (ministry) =>
-          ministry.ministry?.name
-            ?.toLowerCase()
-            .includes(this.search.toLowerCase()) ||
-          ministry.ministry?.code?.toLowerCase().includes(this.search.toLowerCase()) ||
-          ministry.ministry?.type?.toLowerCase().includes(this.search.toLowerCase())
-      )
-    },
-
-    totalSettlementsCount() {
-      return this.ministryStats.reduce(
-        (sum, ministry) => sum + parseInt(ministry.count || 0),
-        0
-      )
-    },
-
-    totalAmount() {
-      return this.ministryStats.reduce(
-        (sum, ministry) => sum + parseFloat(ministry.totalLak || 0),
-        0
-      )
-    },
-
-    averageAmount() {
-      return this.totalSettlementsCount > 0
-        ? this.totalAmount / this.totalSettlementsCount
-        : 0
-    },
-
-    maxAmount() {
-      return Math.max(
-        ...this.ministryStats.map((ministry) =>
-          parseFloat(ministry.totalLak || 0)
-        ),
-        0
-      )
-    },
+    detailFields() {
+      if (!this.selectedMinistry) return []
+      
+      return [
+        { label: 'ລະຫັດກະຊວງ', value: this.selectedMinistry.ministryCode },
+        { label: 'ຈຳນວນການຊຳລະ', value: this.settlementSummary.settlementCount },
+        { label: 'ລວມຈຳນວນເງິນ', value: this.settlementSummary.totalAmount, formatter: this.formatCurrency },
+        { label: 'ປະເພດກະຊວງ', value: this.selectedMinistry.ministryType },
+        { 
+          label: 'ຄ່າສະເລ່ຍ', 
+          value: this.settlementSummary.settlementCount > 0 ? 
+            this.settlementSummary.totalAmount / this.settlementSummary.settlementCount : 0, 
+          formatter: this.formatCurrency 
+        },
+        { label: 'ລາຍລະອຽດ', value: this.selectedMinistry.description }
+      ]
+    }
   },
-  mounted() {
+
+  async created() {
+    await this.loadInitialData()
     this.setDefaultDates()
-    this.loadDashboardData()
-    this.loadInitialData()
+    await this.loadDashboardData()
   },
+
   methods: {
     async loadInitialData() {
       try {
-        const response = await this.$axios.get('/api/ministries')
-        this.ministries = response.data.data || response.data
-      } catch (error) {
-        console.error('Error loading ministries:', error)
-        this.$toast.error('Error loading initial data')
-      }
+        const [ministriesRes, currenciesRes] = await Promise.all([
+          this.$axios.get('/api/ministries'),
+          this.$axios.get('/api/currency/find')
+        ])
 
-      try {
-        const response = await this.$axios.get('/api/currency/find')
-        const currencies = response.data.data || response.data
-        // Ensure currencyList has the right structure for the template
-        this.currencyList = currencies.map((currency) => ({
+        this.ministries = ministriesRes.data.data || ministriesRes.data
+        const currencies = currenciesRes.data.data || currenciesRes.data
+        this.currencyList = currencies.map(currency => ({
           code: currency.code,
           name: currency.name,
-          id: currency.id,
+          id: currency.id
         }))
       } catch (error) {
-        console.error('Error loading currencies:', error)
+        console.error('Error loading initial data:', error)
         this.$toast.error('Error loading initial data')
-      }
-    },
-
-    // Group settlements by ministry
-    groupSettlementsByMinistry(settlements) {
-      const grouped = {}
-
-      settlements.forEach((settlement) => {
-        const ministryId = settlement.ministryId || 'NO_MINISTRY'
-
-        if (!grouped[ministryId]) {
-          grouped[ministryId] = {
-            ministryId: ministryId,
-            ministry: settlement.ministry || {
-              code: 'N/A',
-              name: 'Unknown Ministry',
-              type: 'N/A',
-              description: 'N/A',
-            },
-            count: 0,
-            amounts: {},
-            totalLak: 0,
-          }
-        }
-
-        const ministry = grouped[ministryId]
-        ministry.count += 1
-
-        // Get currency code
-        const currencyCode = settlement.currency?.code || 'LAK'
-
-        // Initialize currency amount if not exists
-        if (!ministry.amounts[currencyCode]) {
-          ministry.amounts[currencyCode] = 0
-        }
-
-        // Add amount to currency
-        ministry.amounts[currencyCode] += parseFloat(settlement.amount || 0)
-
-        // Calculate LAK equivalent
-        const exchangeRate = settlement.exchangeRate || 1
-        const lakAmount = parseFloat(settlement.amount || 0) * exchangeRate
-        ministry.totalLak += lakAmount
-      })
-
-      // Convert grouped object to array
-      return Object.values(grouped)
-    },
-
-    async loadDashboardData() {
-      this.loading = true
-      try {
-        const params = new URLSearchParams()
-        if (this.filters.startDate)
-          params.append('fromDate', this.filters.startDate)
-        if (this.filters.endDate) params.append('toDate', this.filters.endDate)
-        if (this.filters.method) params.append('method', this.filters.method)
-        if (this.filters.ministryId)
-          params.append('ministryId', this.filters.ministryId)
-
-        const response = await this.$axios.get(`/api/settlements?${params}`)
-        if (response.data.success) {
-          console.info(`DATA FROM API: ${JSON.stringify(response.data.data)}`)
-
-          // Transform individual settlements into grouped ministry stats
-          const settlements = response.data.data.settlements || []
-          this.ministryStats =
-            this.groupSettlementsByMinistry(settlements)
-
-          // Calculate currency breakdown
-          await this.calculateCurrencyBreakdown()
-        }
-      } catch (error) {
-        console.error('Error loading dashboard data:', error)
-        this.$toast.error('Failed to load ministry reports')
-      } finally {
-        this.loading = false
-      }
-    },
-
-    getCurrencyColor(currencyCode) {
-      const colors = {
-        LAK: 'primary',
-        USD: '#228B22',
-        THB: '#32CD32',
-        CNY: '#006400',
-        EUR: '#9ACD32',
-        JPY: '#00FA9A',
-        GBP: '#66CDAA',
-        KRW: '#20B2AA',
-      }
-      return colors[currencyCode] || 'primary'
-    },
-
-    getMinistryTypeColor(ministryType) {
-      const colors = {
-        'Government': 'primary',
-        'Ministry': '#228B22',
-        'Department': '#DC3545',
-        'Agency': '#6610F2',
-        'Bureau': '#198754',
-        'Office': '#FD7E14',
-        'Commission': '#20C997',
-        'Council': '#E83E8C'
-      }
-      return colors[ministryType] || 'primary'
-    },
-
-    getCurrencyFlag(currencyCode) {
-      const flags = {
-        LAK: '🇱🇦',
-        USD: '🇺🇸',
-        THB: '🇹🇭',
-        CNY: '🇨🇳',
-        EUR: '🇪🇺',
-        JPY: '🇯🇵',
-        GBP: '🇬🇧',
-        KRW: '🇰🇷',
-      }
-      return flags[currencyCode] || '🏳️'
-    },
-
-    calculateLakAmount(amount, exchangeRate) {
-      if (!amount) return 0
-      const rate = exchangeRate || 1
-      return amount * rate
-    },
-
-    formatCurrency(amount, currencyCode = 'USD') {
-      if (!amount) return '0.00'
-
-      const formatted = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(amount)
-
-      // Add currency symbol or code
-      if (currencyCode === 'LAK') {
-        return formatted + ' ₭'
-      } else if (currencyCode === 'USD') {
-        return '$' + formatted
-      } else if (currencyCode === 'THB') {
-        return formatted + ' ฿'
-      } else if (currencyCode === 'CNY') {
-        return '¥' + formatted
-      } else if (currencyCode === 'EUR') {
-        return '€' + formatted
-      } else {
-        return formatted + ' ' + currencyCode
       }
     },
 
@@ -1041,25 +516,84 @@ export default {
       this.filters.endDate = now.toISOString().substr(0, 10)
     },
 
+    groupSettlementsByMinistry(settlements) {
+      const grouped = {}
+
+      settlements.forEach(settlement => {
+        const ministryId = settlement.ministryId || 'NO_MINISTRY'
+
+        if (!grouped[ministryId]) {
+          grouped[ministryId] = {
+            ministryId: ministryId,
+            ministry: settlement.ministry || {
+              ministryCode: 'N/A',
+              ministryName: 'Unknown Ministry',
+              ministryType: 'N/A',
+              description: 'N/A'
+            },
+            count: 0,
+            amounts: {},
+            totalLak: 0
+          }
+        }
+
+        const ministry = grouped[ministryId]
+        ministry.count += 1
+
+        const currencyCode = settlement.currency?.code || 'LAK'
+        if (!ministry.amounts[currencyCode]) {
+          ministry.amounts[currencyCode] = 0
+        }
+
+        ministry.amounts[currencyCode] += parseFloat(settlement.amount || 0)
+
+        const exchangeRate = settlement.exchangeRate || 1
+        const lakAmount = parseFloat(settlement.amount || 0) * exchangeRate
+        ministry.totalLak += lakAmount
+      })
+
+      return Object.values(grouped)
+    },
+
+    async loadDashboardData() {
+      this.loading = true
+      try {
+        const params = new URLSearchParams()
+        if (this.filters.startDate) params.append('fromDate', this.filters.startDate)
+        if (this.filters.endDate) params.append('toDate', this.filters.endDate)
+        if (this.filters.method) params.append('method', this.filters.method)
+        if (this.filters.ministryId) params.append('ministryId', this.filters.ministryId)
+
+        const response = await this.$axios.get(`/api/settlements?${params}`)
+        
+        if (response.data.success) {
+          const settlements = response.data.data.settlements || []
+          this.ministryStats = this.groupSettlementsByMinistry(settlements)
+          await this.calculateCurrencyBreakdown()
+        }
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+        this.$toast.error('Failed to load ministry reports')
+      } finally {
+        this.loading = false
+      }
+    },
+
     async calculateCurrencyBreakdown() {
       try {
         const params = new URLSearchParams()
-        if (this.filters.startDate)
-          params.append('startDate', this.filters.startDate)
+        if (this.filters.startDate) params.append('startDate', this.filters.startDate)
         if (this.filters.endDate) params.append('endDate', this.filters.endDate)
         if (this.filters.method) params.append('method', this.filters.method)
-        if (this.filters.ministryId)
-          params.append('ministryId', this.filters.ministryId)
+        if (this.filters.ministryId) params.append('ministryId', this.filters.ministryId)
 
-        const response = await this.$axios.get(
-          `/api/settlements/currency-breakdown?${params}`
-        )
+        const response = await this.$axios.get(`/api/settlements/currency-breakdown?${params}`)
+        
         if (response.data.success) {
           this.currencyBreakdown = response.data.data.currencies || []
         }
       } catch (error) {
         console.error('Error calculating currency breakdown:', error)
-        // Fallback: create empty breakdown if API fails
         this.currencyBreakdown = []
       }
     },
@@ -1067,22 +601,16 @@ export default {
     async selectMinistry(ministryId) {
       this.loadingDetails = true
       this.settlementDialog = true
+      
       try {
-        const response = await this.$axios.get(
-          `/api/settlements/by-ministry/${ministryId}`
-        )
+        const response = await this.$axios.get(`/api/settlements/by-ministry/${ministryId}`)
+        
         if (response.data.success) {
-          this.selectedSettlements = response.data.data.settlements
-          this.settlementSummary = response.data.data.summary
+          this.selectedSettlements = response.data.data.settlements || []
+          this.settlementSummary = response.data.data.summary || {}
 
-          // Find the selected ministry details
-          const stat = this.ministryStats.find(
-            (s) => s.ministryId == ministryId
-          )
+          const stat = this.ministryStats.find(s => s.ministryId == ministryId)
           this.selectedMinistry = stat ? stat.ministry : null
-
-          // Calculate method distribution
-          this.calculateMethodDistribution()
         }
       } catch (error) {
         console.error('Error loading ministry settlements:', error)
@@ -1092,29 +620,12 @@ export default {
       }
     },
 
-    calculateMethodDistribution() {
-      const methods = {}
-      this.selectedSettlements.forEach((settlement) => {
-        if (!methods[settlement.method]) {
-          methods[settlement.method] = { count: 0, total: 0 }
-        }
-        methods[settlement.method].count++
-        methods[settlement.method].total += parseFloat(settlement.amount)
-      })
-
-      this.methodDistribution = Object.keys(methods).map((method) => ({
-        method,
-        count: methods[method].count,
-        total: methods[method].total,
-      }))
-    },
-
     resetFilters() {
       this.filters = {
         startDate: null,
         endDate: null,
         method: '',
-        ministryId: null,
+        ministryId: null
       }
       this.setDefaultDates()
       this.loadDashboardData()
@@ -1124,282 +635,72 @@ export default {
       this.settlementDialog = false
       this.selectedMinistry = null
       this.selectedSettlements = []
-      this.methodDistribution = []
     },
-// Complete exportToExcel function for Ministry Settlement Report
-async exportToExcel() {
-  this.exporting = true
-  try {
-    // Import XLSX library (alternative dynamic import method)
-    const XLSX = await import('xlsx')
-    
-    // Create workbook
-    const workbook = XLSX.utils.book_new()
 
-    // Prepare summary data
-    const summaryData = [
-      ['Ministry Settlement Report'],
-      [`Report Period: ${this.filters.startDate || 'All'} to ${this.filters.endDate || 'All'}`],
-      [`Generated on: ${new Date().toLocaleDateString()}`],
-      [''], // Empty row
-      ['Summary Statistics'],
-      [`Total Ministries: ${this.ministryStats.length}`],
-      [`Total Settlements: ${this.totalSettlementsCount}`],
-      [`Total Amount (LAK): ${this.formatCurrency(this.totalLakAmount, 'LAK')}`],
-      [`Unique Currencies: ${this.uniqueCurrencies}`],
-      [''], // Empty row
-      ['Ministry Details'] // Header for main data
-    ]
-
-    // Create header row for ministry details
-    const headerRow = [
-      '#',
-      'Ministry Code', 
-      'Ministry Name', 
-      'Ministry Type', 
-      'Description', 
-      'Settlement Count'
-    ]
-    
-    // Add currency columns dynamically
-    this.currencyList.forEach(currency => {
-      headerRow.push(`${currency.code} Amount`)
-    })
-    headerRow.push('Total (LAK)')
-    
-    summaryData.push(headerRow)
-
-    // Add ministry data
-    this.filteredMinistries.forEach((ministry, index) => {
-      const row = [
-        index + 1,
-        ministry.ministry?.ministryCode || 'N/A',
-        ministry.ministry?.ministryName || 'Unknown Ministry',
-        ministry.ministry?.ministryType || 'N/A',
-        ministry.ministry?.description || 'N/A',
-        ministry.count
-      ]
-      
-      // Add currency amounts
-      this.currencyList.forEach(currency => {
-        row.push(ministry.amounts?.[currency.code] || 0)
-      })
-      row.push(ministry.totalLak || 0)
-      
-      summaryData.push(row)
-    })
-
-    // Add totals row
-    const totalsRow = ['', '', '', '', 'TOTAL', this.totalSettlementsCount]
-    this.currencyList.forEach(currency => {
-      totalsRow.push(this.getCurrencyTotal(currency.code))
-    })
-    totalsRow.push(this.totalLakAmount)
-    summaryData.push(totalsRow)
-
-    // Create summary worksheet
-    const summaryWorksheet = XLSX.utils.aoa_to_sheet(summaryData)
-    
-    // Set column widths
-    const colWidths = [
-      { wch: 5 },  // #
-      { wch: 15 }, // Ministry Code
-      { wch: 30 }, // Ministry Name  
-      { wch: 15 }, // Ministry Type
-      { wch: 25 }, // Description
-      { wch: 15 }  // Count
-    ]
-    
-    // Add currency column widths
-    this.currencyList.forEach(() => {
-      colWidths.push({ wch: 15 })
-    })
-    colWidths.push({ wch: 18 }) // Total LAK
-    
-    summaryWorksheet['!cols'] = colWidths
-
-    // Style the headers and important rows
-    const range = XLSX.utils.decode_range(summaryWorksheet['!ref'])
-    for (let R = range.s.r; R <= range.e.r; ++R) {
-      for (let C = range.s.c; C <= range.e.c; ++C) {
-        const cellAddress = XLSX.utils.encode_cell({ r: R, c: C })
-        if (!summaryWorksheet[cellAddress]) continue
-        
-        // Style title row
-        if (R === 0) {
-          summaryWorksheet[cellAddress].s = {
-            font: { bold: true, sz: 16 },
-            alignment: { horizontal: 'center' }
-          }
-        }
-        
-        // Style header row (Ministry Details header)
-        if (R === 11) {
-          summaryWorksheet[cellAddress].s = {
-            font: { bold: true, color: { rgb: 'FFFFFF' } },
-            fill: { fgColor: { rgb: '01532B' } },
-            alignment: { horizontal: 'center' }
-          }
-        }
-        
-        // Style totals row (last row)
-        if (R === range.e.r) {
-          summaryWorksheet[cellAddress].s = {
-            font: { bold: true },
-            fill: { fgColor: { rgb: 'E9ECEF' } }
-          }
-        }
+    // Export using frontend data
+    async exportToExcel() {
+      if (!this.ministryStats.length) {
+        this.$toast.warning('No data to export')
+        return
       }
-    }
 
-    // Add summary sheet to workbook
-    XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Ministry Summary')
+      this.exporting = true
+      try {
+        const exportData = this.ministryStats.map((item, index) => ({
+          '#': index + 1,
+          'ລະຫັດກະຊວງ': item.ministry?.ministryCode || 'N/A',
+          'ຊື່ກະຊວງ': item.ministry?.ministryName || 'Unknown Ministry',
+          'ປະເພດ': item.ministry?.ministryType || 'N/A',
+          'ຈຳນວນການຊຳລະ': item.count,
+          'USD': item.amounts?.USD || 0,
+          'LAK': item.amounts?.LAK || 0,
+          'THB': item.amounts?.THB || 0,
+          'CNY': item.amounts?.CNY || 0,
+          'EUR': item.amounts?.EUR || 0,
+          'Total (LAK)': item.totalLak || 0
+        }))
 
-    // Create ministry type breakdown sheet
-    if (this.ministryStats.length > 0) {
-      const typeBreakdown = {}
-      this.ministryStats.forEach(ministry => {
-        const ministryType = ministry.ministry?.ministryType || 'Unknown'
-        if (!typeBreakdown[ministryType]) {
-          typeBreakdown[ministryType] = {
-            count: 0,
-            totalAmount: 0,
-            settlements: 0
-          }
-        }
-        typeBreakdown[ministryType].count += 1
-        typeBreakdown[ministryType].totalAmount += ministry.totalLak || 0
-        typeBreakdown[ministryType].settlements += ministry.count || 0
-      })
+        // Create CSV content
+        const headers = Object.keys(exportData[0])
+        const csvContent = [
+          headers.join(','),
+          ...exportData.map((row) =>
+            headers.map((header) => `"${(row[header] || '').toString().replace(/"/g, '""')}"`).join(',')
+          )
+        ].join('\n')
 
-      const typeData = [
-        ['Ministry Type Analysis'],
-        [''],
-        ['Ministry Type', 'Number of Ministries', 'Total Settlements', 'Total Amount (LAK)', 'Average per Ministry']
-      ]
+        // Download file
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+        const link = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+        link.setAttribute('href', url)
+        link.setAttribute('download', `ministry-settlement-report-${this.filters.startDate}-${this.filters.endDate}.csv`)
+        link.style.visibility = 'hidden'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
 
-      Object.keys(typeBreakdown).forEach(type => {
-        const data = typeBreakdown[type]
-        typeData.push([
-          type,
-          data.count,
-          data.settlements,
-          data.totalAmount,
-          data.count > 0 ? (data.totalAmount / data.count) : 0
-        ])
-      })
-
-      const typeWorksheet = XLSX.utils.aoa_to_sheet(typeData)
-      typeWorksheet['!cols'] = [
-        { wch: 18 }, // Ministry Type
-        { wch: 20 }, // Number of Ministries
-        { wch: 18 }, // Total Settlements
-        { wch: 20 }, // Total Amount
-        { wch: 20 }  // Average per Ministry
-      ]
-
-      XLSX.utils.book_append_sheet(workbook, typeWorksheet, 'Ministry Type Analysis')
-    }
-
-    // Create top ministries sheet (by amount)
-    if (this.ministryStats.length > 0) {
-      const topMinistries = [...this.ministryStats]
-        .sort((a, b) => (b.totalLak || 0) - (a.totalLak || 0))
-        .slice(0, 10) // Top 10 ministries
-
-      const topData = [
-        ['Top 10 Ministries by Amount'],
-        [''],
-        ['Rank', 'Ministry Name', 'Ministry Type', 'Settlement Count', 'Total Amount (LAK)', 'Percentage of Total']
-      ]
-
-      topMinistries.forEach((ministry, index) => {
-        const percentage = this.totalLakAmount > 0 
-          ? ((ministry.totalLak || 0) / this.totalLakAmount * 100).toFixed(2)
-          : 0
-        
-        topData.push([
-          index + 1,
-          ministry.ministry?.ministryName || 'Unknown Ministry',
-          ministry.ministry?.ministryType || 'N/A',
-          ministry.count || 0,
-          ministry.totalLak || 0,
-          `${percentage}%`
-        ])
-      })
-
-      const topWorksheet = XLSX.utils.aoa_to_sheet(topData)
-      topWorksheet['!cols'] = [
-        { wch: 8 },  // Rank
-        { wch: 30 }, // Ministry Name
-        { wch: 15 }, // Ministry Type
-        { wch: 15 }, // Settlement Count
-        { wch: 18 }, // Total Amount
-        { wch: 15 }  // Percentage
-      ]
-
-      XLSX.utils.book_append_sheet(workbook, topWorksheet, 'Top 10 Ministries')
-    }
-
-    // Create currency breakdown sheet if data exists
-    if (this.currencyBreakdown.length > 0) {
-      const currencyData = [
-        ['Currency Breakdown Report'],
-        [''],
-        ['Currency', 'Total Amount (Original)', 'LAK Equivalent', 'Settlement Count', 'Percentage']
-      ]
-
-      this.currencyBreakdown.forEach(currency => {
-        currencyData.push([
-          currency.currencyCode || 'LAK',
-          currency.totalAmount || 0,
-          currency.lakEquivalent || 0,
-          currency.count || 0,
-          `${Math.round((currency.lakEquivalent / this.totalLakAmount) * 100)}%`
-        ])
-      })
-
-      const currencyWorksheet = XLSX.utils.aoa_to_sheet(currencyData)
-      currencyWorksheet['!cols'] = [
-        { wch: 12 }, // Currency
-        { wch: 20 }, // Total Amount
-        { wch: 18 }, // LAK Equivalent
-        { wch: 15 }, // Count
-        { wch: 12 }  // Percentage
-      ]
-
-      XLSX.utils.book_append_sheet(workbook, currencyWorksheet, 'Currency Breakdown')
-    }
-
-    // Generate filename
-    const filename = `ministry-settlement-report-${this.filters.startDate || 'all'}-${this.filters.endDate || 'all'}.xlsx`
-
-    // Generate Excel file and download
-    XLSX.writeFile(workbook, filename)
-
-    this.$toast.success('Ministry Report exported successfully!')
-  } catch (error) {
-    console.error('Error exporting report:', error)
-    this.$toast.error('Error exporting report: ' + error.message)
-  } finally {
-    this.exporting = false
-  }
-},
+        this.$toast.success('Ministry Report exported successfully!')
+      } catch (error) {
+        console.error('Error exporting report:', error)
+        this.$toast.error('Error exporting report')
+      } finally {
+        this.exporting = false
+      }
+    },
 
     printReport() {
       window.print()
     },
 
-    viewSettlement(settlementId) {
-      this.$router.push(`/settlements/${settlementId}`)
-    },
-
-    formatExchangeRate(rate) {
-      if (!rate) return '1.0000'
+    // Utility methods
+    formatCurrency(amount, currencyCode = 'LAK') {
+      if (!amount && amount !== 0) return '0.00'
       return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 4,
-        maximumFractionDigits: 4,
-      }).format(rate)
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount)
     },
 
     formatDate(date) {
@@ -1407,40 +708,54 @@ async exportToExcel() {
       return new Date(date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
-        day: 'numeric',
+        day: 'numeric'
       })
     },
 
     formatMethod(method) {
       const methods = {
-        cash: 'ເງິນສົດ (Cash)',
-        bank_transfer: 'ໂອນເງິນ (Transfer)',
-        deduction: 'ຫັກລົບ (Deduction)',
+        cash: 'ເງິນສົດ',
+        bank_transfer: 'ໂອນເງິນ',
+        deduction: 'ຫັກລົບ'
       }
       return methods[method] || method
     },
 
-    getCurrencyTotal(currencyCode) {
-      return this.ministryStats.reduce(
-        (sum, ministry) => sum + (ministry.amounts?.[currencyCode] || 0),
-        0
-      )
+    getCurrencyColor(currencyCode) {
+      const colors = {
+        LAK: 'primary',
+        USD: '#228B22',
+        THB: '#32CD32',
+        CNY: '#006400',
+        EUR: '#9ACD32'
+      }
+      return colors[currencyCode] || 'primary'
     },
 
     getMethodColor(method) {
       const colors = {
         cash: 'primary',
         bank_transfer: '#228B22',
-        deduction: '#32CD32',
+        deduction: '#32CD32'
       }
       return colors[method] || 'primary'
     },
-  },
+
+    getCurrencyFlag(currencyCode) {
+      const flags = {
+        LAK: '🇱🇦',
+        USD: '🇺🇸',
+        THB: '🇹🇭',
+        CNY: '🇨🇳',
+        EUR: '🇪🇺'
+      }
+      return flags[currencyCode] || '🏳️'
+    }
+  }
 }
 </script>
 
 <style scoped>
-/* Same base styles with ministry specific modifications */
 .ministry-settlement-report {
   padding: 0;
 }
@@ -1452,7 +767,6 @@ async exportToExcel() {
   align-items: center;
   margin-bottom: 24px;
   padding: 24px;
-  background: primary;
   color: white;
   border-radius: 8px;
 }
@@ -1493,13 +807,8 @@ async exportToExcel() {
 }
 
 .filter-title {
-  background: primary;
   color: white;
   font-weight: 600;
-}
-
-.custom-primary-bg {
-  background-color: primary !important;
 }
 
 .custom-secondary-btn {
@@ -1513,44 +822,17 @@ async exportToExcel() {
   background-color: #5a6268 !important;
 }
 
-/* Ministry Selection */
-.ministry-selection .ministry-name {
-  font-weight: 600;
-  color: primary;
-}
-
-.ministry-item .ministry-name {
-  font-weight: 600;
-  color: #333;
-}
-
-.ministry-item .ministry-details {
-  font-size: 12px;
-  color: #666;
-}
-
 /* Summary Cards */
-.summary-cards {
-  margin-bottom: 24px;
-}
-
 .summary-card {
   height: 140px;
   position: relative;
   overflow: hidden;
   border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
 .summary-card:hover {
   transform: translateY(-2px);
-}
-
-.summary-content {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  position: relative;
-  z-index: 2;
 }
 
 .summary-icon {
@@ -1560,20 +842,20 @@ async exportToExcel() {
   color: white;
 }
 
-.summary-details h3 {
+.summary-details .summary-title {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
   color: white;
 }
 
-.summary-details p {
+.summary-details .summary-subtitle {
   margin: 4px 0;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.9);
 }
 
-.summary-details h2 {
+.summary-details .summary-amount {
   margin: 8px 0 0 0;
   font-size: 24px;
   font-weight: 700;
@@ -1587,143 +869,62 @@ async exportToExcel() {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.total-ministries-card,
-.settlement-card,
-.amount-card,
-.lak-card {
-  background: primary;
-  color: white;
-}
-
 /* Currency Breakdown */
-.currency-breakdown {
+.currency-breakdown-card {
   margin-bottom: 24px;
+  border-radius: 8px;
 }
 
 .currency-title {
-  background: primary;
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
   color: white;
   font-weight: 600;
 }
 
 .currency-card {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  height: 100%;
-  border: 1px solid #e9ecef;
   transition: all 0.3s ease;
+  border-radius: 8px;
 }
 
 .currency-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
-  border-color: primary;
+  border-color: #01532B;
 }
 
-.currency-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.currency-flag {
-  font-size: 24px;
-}
-
-.currency-stats {
-  text-align: center;
-}
-
-.original-amount {
-  font-size: 18px;
-  font-weight: 700;
-  color: primary;
-  margin-bottom: 4px;
-  font-family: monospace;
-}
-
-.lak-equivalent {
-  font-size: 14px;
-  color: #228b22;
+.currency-summary h4 {
+  margin: 0 0 12px 0;
+  color: #01532B;
+  border-bottom: 1px solid #01532B;
+  padding-bottom: 8px;
   font-weight: 600;
-  margin-bottom: 8px;
-  font-family: monospace;
 }
 
-.settlement-count {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 4px;
+.currency-summary p {
+  margin: 4px 0;
+  font-size: 13px;
 }
 
-.percentage {
-  font-size: 11px;
-  color: #999;
+.currency-summary strong {
+  color: #01532B;
 }
 
-/* Ministry Table Styles */
-.ministry-table {
-  background: white;
+/* Main Table Section */
+.table-card {
+  margin-bottom: 24px;
+  border-radius: 8px;
 }
 
-.ministry-table-header {
-  background-color: primary !important;
-}
-
-.ministry-table-header th {
-  background-color: primary !important;
+.table-title {
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
   color: white !important;
-  padding: 12px 8px !important;
-  border-bottom: none !important;
-}
-
-.ministry-row-even {
-  background-color: #f8f9fa;
-}
-
-.ministry-row-special {
-  background-color: #fff3cd;
-  font-style: italic;
-}
-
-.ministry-table-footer {
-  background-color: #e9ecef !important;
-  font-weight: bold;
-}
-
-.ministry-table-footer td {
-  background-color: #e9ecef !important;
-  border-top: 2px solid primary !important;
-  padding: 12px 8px !important;
-}
-
-.ministry-divider {
-  border-color: primary !important;
-  opacity: 0.3 !important;
-}
-
-.ministry-primary--text {
-  color: primary !important;
-}
-
-.ministry-success--text {
-  color: #28a745 !important;
-}
-
-.report-card {
-  border-radius: 12px;
-}
-
-.report-header {
-  background: primary;
-  color: white;
   font-weight: 600;
 }
 
-/* Search field in header */
+.search-field {
+  max-width: 300px;
+}
+
 .search-field >>> input {
   color: white !important;
 }
@@ -1732,17 +933,77 @@ async exportToExcel() {
   color: white !important;
 }
 
-.search-field >>> .v-label {
-  color: rgba(255, 255, 255, 0.7) !important;
+.report-table {
+  background: white;
 }
 
-.search-field >>> .v-input__control {
-  border-color: rgba(255, 255, 255, 0.3) !important;
+.report-table >>> thead {
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
+}
+
+.report-table >>> thead th {
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+  font-size: 0.875rem !important;
+}
+
+.report-table >>> tbody tr:hover {
+  background-color: rgba(1, 83, 43, 0.1) !important;
+}
+
+/* Table Cell Styling */
+.ministry-code {
+  font-family: monospace;
+  font-size: 13px;
+  color: #01532B;
+  font-weight: 600;
+}
+
+.ministry-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.ministry-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #01532B;
+}
+
+.ministry-type {
+  font-size: 11px;
+  color: #666;
+  font-family: monospace;
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.amount-cell {
+  font-family: monospace;
+  font-weight: 600;
+  text-align: right;
+  display: block;
+}
+
+.lcy-amount {
+  color: #01532B !important;
+}
+
+.date-cell {
+  font-family: monospace;
+  font-size: 13px;
+  color: #01532B;
 }
 
 /* Dialog Styling */
 .dialog-header {
-  background: primary !important;
+  background: linear-gradient(135deg, #01532B 0%, #0D4F3C 100%) !important;
   color: white !important;
   font-weight: 600 !important;
 }
@@ -1751,190 +1012,23 @@ async exportToExcel() {
   color: white !important;
 }
 
-.section-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: primary;
-}
-
-.custom-divider {
-  border-color: primary !important;
-  opacity: 0.3 !important;
-}
-
-.detail-stat {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: 12px;
-  height: 100%;
-  border-left: 4px solid primary;
-  transition: all 0.3s ease;
-}
-
-.detail-stat:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
-}
-
-.stat-icon {
-  font-size: 24px;
-  color: primary;
-  margin-right: 12px;
-}
-
-.stat-info strong {
-  display: block;
-  font-size: 12px;
-  color: primary;
-  margin-bottom: 4px;
-  font-weight: 700;
-}
-
-.stat-number {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: monospace;
-  color: #333;
-}
-
-.method-card {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  border-left: 4px solid primary;
-  transition: all 0.3s ease;
-}
-
-.method-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
-}
-
-.method-header {
+.detail-item {
   margin-bottom: 12px;
-}
-
-.method-count {
   font-size: 14px;
-  color: #666;
-  margin-bottom: 4px;
 }
 
-.method-amount {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: monospace;
-  color: primary;
+.detail-item strong {
+  color: #01532B;
 }
 
 .settlement-table {
-  background: white;
-}
-
-.settlement-table >>> thead th {
-  background-color: primary !important;
-  color: white !important;
-  font-weight: 600 !important;
-  border-bottom: none !important;
-}
-
-.settlement-table >>> tbody tr:hover {
-  background-color: rgba(1, 83, 43, 0.1) !important;
-}
-
-.date-cell {
-  font-family: monospace;
-  font-size: 13px;
-  color: primary;
-}
-
-.amount-breakdown {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.amount-cell {
-  font-family: monospace;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.exchange-rate-cell {
-  text-align: center;
-}
-
-.exchange-rate-cell .default-rate {
-  color: #999;
-  font-style: italic;
-}
-
-.lak-amount-cell {
-  text-align: center;
-}
-
-.lak-amount {
-  font-family: monospace;
-  font-weight: 600;
-  color: #228b22;
-  font-size: 13px;
-}
-
-.user-info .user-name {
-  font-weight: 500;
-}
-
-.advance-info .advance-status {
-  font-size: 10px;
-  color: #666;
-  margin-top: 2px;
-}
-
-.no-advance {
-  color: #999;
-  font-style: italic;
-}
-
-/* Loading and spacing */
-.text-center {
-  text-align: center;
-}
-
-.py-8 {
-  padding: 64px 0;
-}
-
-.mt-4 {
   margin-top: 16px;
 }
 
-.mt-3 {
-  margin-top: 12px;
-}
-
-.mt-2 {
-  margin-top: 8px;
-}
-
-.mb-4 {
-  margin-bottom: 24px;
-}
-
-.mb-3 {
-  margin-bottom: 12px;
-}
-
-.my-3 {
-  margin: 12px 0;
-}
-
-.pa-4 {
-  padding: 24px;
+.settlement-table >>> thead th {
+  background-color: #01532B !important;
+  color: white !important;
+  font-weight: 600 !important;
 }
 
 /* Print styles */
@@ -1950,13 +1044,12 @@ async exportToExcel() {
   }
 
   .report-header {
-    background: primary !important;
     color: white !important;
     -webkit-print-color-adjust: exact;
   }
 }
 
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
   .report-header {
     flex-direction: column;
@@ -1974,30 +1067,14 @@ async exportToExcel() {
     justify-content: center;
   }
 
-  .summary-content {
-    flex-direction: column;
-    text-align: center;
-    padding: 12px;
-  }
-
   .summary-icon {
     margin-right: 0;
     margin-bottom: 8px;
     font-size: 40px;
   }
 
-  .summary-details h2 {
+  .summary-details .summary-amount {
     font-size: 20px;
-  }
-
-  .detail-stat {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .stat-icon {
-    margin-right: 0;
-    margin-bottom: 8px;
   }
 }
 </style>
