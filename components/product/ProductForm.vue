@@ -112,7 +112,31 @@
                   hide-details="auto"
                 />
               </v-col>
-              <v-col cols="4">
+              <v-col cols="2">
+                <v-autocomplete
+                  item-text="displayText"
+                  item-value="id"
+                  :items="productType"
+                  label="Product type"
+                  v-model="formData._category"
+                  :loading="loadingTaxRates"
+                  dense
+                  outlined
+                  hide-details="auto"
+                  clearable
+                >
+                  <template v-slot:selection="{ item }">
+                    <v-chip
+                      x-small
+                      :color="item.isDefault ? 'primary' : 'default'"
+                    >
+                      {{ item }}
+                    </v-chip>
+                    <span class="ml-1 text-caption">{{ item }}</span>
+                  </template>
+                </v-autocomplete>
+              </v-col>
+              <v-col cols="2">
                 <v-autocomplete
                   item-text="displayText"
                   item-value="id"
@@ -136,6 +160,7 @@
                   </template>
                 </v-autocomplete>
               </v-col>
+              
               <v-col cols="3">
                 <v-autocomplete
                   item-text="name"
@@ -602,6 +627,7 @@ export default {
   },
   data() {
     return {
+      productType:['product','service','stock'],
       priceListFormKey: 1,
       pricingRecordId: null,
       priceListDialog: false,
@@ -676,6 +702,7 @@ export default {
         pro_category: 1001,
         pro_id: null,
         pro_name: '',
+        _category: 'product',
         pro_price: 0,
         pro_retail_price: 0,
         pro_desc: '',
@@ -940,6 +967,7 @@ export default {
             pro_category: el.pro_category,
             pro_id: el.pro_id,
             pro_name: el.pro_name,
+            _category: el._category,
             pro_price: el.pro_price,
             pro_desc: el.pro_desc,
             pro_status: el.pro_status === 1 || false,

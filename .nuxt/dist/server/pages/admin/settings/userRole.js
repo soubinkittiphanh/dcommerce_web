@@ -1,19 +1,621 @@
-exports.ids = [276,135,136,137,140];
+exports.ids = [277,136,137,138,141];
 exports.modules = {
 
-/***/ 1189:
+/***/ 1001:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleCard.vue?vue&type=template&id=8669effa&scoped=true
+var render = function render() {
+  var _vm$role$users, _vm$role$users2, _vm$role$users3;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "role-card",
+    class: {
+      inactive: !_vm.role.isActive
+    }
+  }, [_vm._ssrNode("<div class=\"card-header\" data-v-8669effa><div class=\"role-info\" data-v-8669effa><div class=\"role-name\" data-v-8669effa><span class=\"name-text\" data-v-8669effa>" + _vm._ssrEscape(_vm._s(_vm.role.name)) + "</span> " + (!_vm.role.isActive ? "<span class=\"inactive-badge\" data-v-8669effa>Inactive</span>" : "<!---->") + "</div> <div class=\"role-level\" data-v-8669effa><span" + _vm._ssrClass("level-badge", _vm.getLevelClass(_vm.role.level)) + " data-v-8669effa>" + _vm._ssrEscape("\n          Level " + _vm._s(_vm.role.level) + "\n        ") + "</span></div></div> <div class=\"card-actions\" data-v-8669effa><button title=\"Edit\" class=\"action-icon\" data-v-8669effa>\n        ✏️\n      </button> <button title=\"More\" class=\"action-icon\" data-v-8669effa>\n        ⋮\n      </button> " + (_vm.showMenu ? "<div class=\"dropdown-menu\" data-v-8669effa><button class=\"menu-item\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>📋</span> <span data-v-8669effa>Clone Role</span></button> <button class=\"menu-item\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>👥</span> <span data-v-8669effa>" + _vm._ssrEscape("View Users (" + _vm._s(((_vm$role$users = _vm.role.users) === null || _vm$role$users === void 0 ? void 0 : _vm$role$users.length) || 0) + ")") + "</span></button> <button class=\"menu-item\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>" + _vm._ssrEscape(_vm._s(_vm.role.isActive ? '🔒' : '✓')) + "</span> <span data-v-8669effa>" + _vm._ssrEscape(_vm._s(_vm.role.isActive ? 'Deactivate' : 'Activate')) + "</span></button> " + (!_vm.isSystemRole ? "<button class=\"menu-item danger\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>🗑️</span> <span data-v-8669effa>Delete</span></button>" : "<!---->") + "</div>" : "<!---->") + "</div></div> <div class=\"card-body\" data-v-8669effa>" + (_vm.role.description ? "<p class=\"role-description\" data-v-8669effa>" + _vm._ssrEscape("\n      " + _vm._s(_vm.role.description) + "\n    ") + "</p>" : "<p class=\"role-description empty\" data-v-8669effa>No description available</p>") + " <div class=\"permissions-section\" data-v-8669effa><h4 class=\"section-title\" data-v-8669effa>Permissions</h4> " + (_vm.role.permissions && _vm.role.permissions.length > 0 ? "<div class=\"permissions-list\" data-v-8669effa>" + _vm._ssrList(_vm.displayPermissions, function (permission, index) {
+    return "<span class=\"permission-tag\" data-v-8669effa>" + _vm._ssrEscape("\n          " + _vm._s(_vm.formatPermission(permission)) + "\n        ") + "</span>";
+  }) + " " + (_vm.role.permissions.length > _vm.maxDisplayPermissions ? "<span class=\"permission-tag more\" data-v-8669effa>" + _vm._ssrEscape("\n          +" + _vm._s(_vm.role.permissions.length - _vm.maxDisplayPermissions) + " more\n        ") + "</span>" : "<!---->") + "</div>" : "<p class=\"no-permissions\" data-v-8669effa>No permissions assigned</p>") + "</div> <div class=\"users-section\" data-v-8669effa><div class=\"users-info\" data-v-8669effa><span class=\"users-icon\" data-v-8669effa>👥</span> <span class=\"users-count\" data-v-8669effa>" + _vm._ssrEscape("\n          " + _vm._s(((_vm$role$users2 = _vm.role.users) === null || _vm$role$users2 === void 0 ? void 0 : _vm$role$users2.length) || 0) + " " + _vm._s(((_vm$role$users3 = _vm.role.users) === null || _vm$role$users3 === void 0 ? void 0 : _vm$role$users3.length) === 1 ? 'user' : 'users') + "\n        ") + "</span></div></div></div> <div class=\"card-footer\" data-v-8669effa><button class=\"footer-btn btn-edit\" data-v-8669effa>\n      Edit Role\n    </button> <button class=\"footer-btn btn-users\" data-v-8669effa>\n      View Users\n    </button></div>")]);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/roles/RoleCard.vue?vue&type=template&id=8669effa&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleCard.vue?vue&type=script&lang=js
+/* harmony default export */ var RoleCardvue_type_script_lang_js = ({
+  name: 'RoleCard',
+  props: {
+    role: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      showMenu: false,
+      maxDisplayPermissions: 5
+    };
+  },
+  computed: {
+    isSystemRole() {
+      const systemRoles = ['admin', 'superadmin', 'manager', 'staff'];
+      return systemRoles.includes(this.role.name);
+    },
+    displayPermissions() {
+      if (!this.role.permissions) return [];
+      return this.role.permissions.slice(0, this.maxDisplayPermissions);
+    }
+  },
+  mounted() {
+    // Close menu when clicking outside
+    document.addEventListener('click', this.closeMenu);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.closeMenu);
+  },
+  methods: {
+    closeMenu() {
+      this.showMenu = false;
+    },
+    getLevelClass(level) {
+      if (level >= 100) return 'level-admin';
+      if (level >= 50) return 'level-manager';
+      if (level >= 30) return 'level-supervisor';
+      return 'level-staff';
+    },
+    formatPermission(permission) {
+      // Convert 'ticket.create' to 'Create Tickets'
+      const parts = permission.split('.');
+      if (parts.length === 2) {
+        const action = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+        const resource = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+        return `${action} ${resource}`;
+      }
+      return permission;
+    },
+    handleClone() {
+      this.showMenu = false;
+      this.$emit('clone', this.role);
+    },
+    handleViewUsers() {
+      this.showMenu = false;
+      this.$emit('view-users', this.role);
+    },
+    handleToggleStatus() {
+      this.showMenu = false;
+      this.$emit('toggle-status', this.role);
+    },
+    handleDelete() {
+      this.showMenu = false;
+      this.$emit('delete', this.role);
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/roles/RoleCard.vue?vue&type=script&lang=js
+ /* harmony default export */ var roles_RoleCardvue_type_script_lang_js = (RoleCardvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/roles/RoleCard.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(779)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  roles_RoleCardvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "8669effa",
+  "15bc60cb"
+  
+)
+
+/* harmony default export */ var RoleCard = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1002:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleDialog.vue?vue&type=template&id=57cd2fff&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.show ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": _vm.handleClose
+    }
+  }, [_vm._ssrNode("<div class=\"modal-container\" data-v-57cd2fff><div class=\"modal-header\" data-v-57cd2fff><h2 class=\"modal-title\" data-v-57cd2fff>" + _vm._ssrEscape("\n        " + _vm._s(_vm.mode === 'create' ? 'Create New Role' : 'Edit Role') + "\n      ") + "</h2> <button class=\"modal-close\" data-v-57cd2fff>×</button></div> <div class=\"modal-body\" data-v-57cd2fff><div class=\"form-group\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>\n          Role Name <span class=\"required\" data-v-57cd2fff>*</span></label> <input type=\"text\" placeholder=\"e.g., cashier, supervisor\"" + _vm._ssrAttr("value", _vm.formData.name) + _vm._ssrClass("form-input", {
+    error: _vm.errors.name
+  }) + " data-v-57cd2fff> " + (_vm.errors.name ? "<span class=\"error-message\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.errors.name)) + "</span>" : "<!---->") + " <span class=\"form-hint\" data-v-57cd2fff>Lowercase, no spaces. Use hyphens or underscores.</span></div> <div class=\"form-group\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>\n          Permission Level <span class=\"required\" data-v-57cd2fff>*</span></label> <div class=\"level-input-group\" data-v-57cd2fff><input type=\"number\" min=\"0\" max=\"100\"" + _vm._ssrAttr("value", _vm.formData.level) + _vm._ssrClass("form-input level-input", {
+    error: _vm.errors.level
+  }) + " data-v-57cd2fff> <div" + _vm._ssrClass("level-indicator", _vm.getLevelClass(_vm.formData.level)) + " data-v-57cd2fff>" + _vm._ssrEscape("\n            " + _vm._s(_vm.getLevelLabel(_vm.formData.level)) + "\n          ") + "</div></div> " + (_vm.errors.level ? "<span class=\"error-message\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.errors.level)) + "</span>" : "<!---->") + " <div class=\"level-guide\" data-v-57cd2fff><div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-admin\" data-v-57cd2fff>100</span> <span class=\"guide-text\" data-v-57cd2fff>Admin</span></div> <div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-manager\" data-v-57cd2fff>50</span> <span class=\"guide-text\" data-v-57cd2fff>Manager</span></div> <div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-supervisor\" data-v-57cd2fff>30</span> <span class=\"guide-text\" data-v-57cd2fff>Supervisor</span></div> <div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-staff\" data-v-57cd2fff>10</span> <span class=\"guide-text\" data-v-57cd2fff>Staff</span></div></div></div> <div class=\"form-group\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>Description</label> <textarea rows=\"3\" placeholder=\"Describe this role and its responsibilities...\"" + _vm._ssrClass("form-textarea", {
+    error: _vm.errors.description
+  }) + " data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.formData.description)) + "</textarea> " + (_vm.errors.description ? "<span class=\"error-message\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.errors.description)) + "</span>" : "<!---->") + "</div> <div class=\"form-group permissions-group\" data-v-57cd2fff><div class=\"permissions-header\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>Permissions</label> <div class=\"permissions-actions\" data-v-57cd2fff><button class=\"link-btn\" data-v-57cd2fff>\n              Select All\n            </button> <span class=\"separator\" data-v-57cd2fff>|</span> <button class=\"link-btn\" data-v-57cd2fff>\n              Clear All\n            </button></div></div> <div class=\"permissions-container\" data-v-57cd2fff>" + _vm._ssrList(_vm.groupedPermissions, function (categoryPerms, category) {
+    return "<div class=\"permission-category\" data-v-57cd2fff><div class=\"category-header\" data-v-57cd2fff><span class=\"category-icon\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.expandedCategories.includes(category) ? '▼' : '▶')) + "</span> <span class=\"category-name\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.formatCategoryName(category))) + "</span> <span class=\"category-count\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(categoryPerms.length)) + "</span></div> <div class=\"category-permissions\"" + _vm._ssrStyle(null, null, {
+      display: _vm.expandedCategories.includes(category) ? '' : 'none'
+    }) + " data-v-57cd2fff>" + _vm._ssrList(categoryPerms, function (permission) {
+      return "<label class=\"permission-item\" data-v-57cd2fff><input type=\"checkbox\"" + _vm._ssrAttr("value", permission.key) + _vm._ssrAttr("checked", Array.isArray(_vm.formData.permissions) ? _vm._i(_vm.formData.permissions, permission.key) > -1 : _vm.formData.permissions) + " class=\"permission-checkbox\" data-v-57cd2fff> <div class=\"permission-info\" data-v-57cd2fff><span class=\"permission-label\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(permission.label)) + "</span> <span class=\"permission-description\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(permission.description)) + "</span></div></label>";
+    }) + "</div></div>";
+  }) + "</div> <div class=\"selected-summary\" data-v-57cd2fff><span class=\"summary-label\" data-v-57cd2fff>Selected:</span> <span class=\"summary-count\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.formData.permissions.length)) + "</span> <span class=\"summary-text\" data-v-57cd2fff>permission(s)</span></div></div> <div class=\"form-group\" data-v-57cd2fff><label class=\"form-label checkbox-label\" data-v-57cd2fff><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.isActive) ? _vm._i(_vm.formData.isActive, null) > -1 : _vm.formData.isActive) + " class=\"form-checkbox\" data-v-57cd2fff> <span data-v-57cd2fff>Active Role</span></label> <span class=\"form-hint\" data-v-57cd2fff>Inactive roles cannot be assigned to users</span></div></div> <div class=\"modal-footer\" data-v-57cd2fff><button class=\"btn-secondary\" data-v-57cd2fff>Cancel</button> <button" + _vm._ssrAttr("disabled", _vm.saving) + " class=\"btn-primary\" data-v-57cd2fff>" + _vm._ssrEscape("\n        " + _vm._s(_vm.saving ? 'Saving...' : _vm.mode === 'create' ? 'Create Role' : 'Save Changes') + "\n      ") + "</button></div></div>")]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/roles/RoleDialog.vue?vue&type=template&id=57cd2fff&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleDialog.vue?vue&type=script&lang=js
+/* harmony default export */ var RoleDialogvue_type_script_lang_js = ({
+  name: 'RoleDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: Object,
+      default: null
+    },
+    permissions: {
+      type: Array,
+      default: () => []
+    },
+    mode: {
+      type: String,
+      default: 'create' // 'create' or 'edit'
+    }
+  },
+  data() {
+    return {
+      formData: {
+        name: '',
+        level: 10,
+        permissions: [],
+        description: '',
+        isActive: true
+      },
+      errors: {},
+      saving: false,
+      expandedCategories: []
+    };
+  },
+  computed: {
+    groupedPermissions() {
+      const groups = {};
+      this.permissions.forEach(permission => {
+        const category = permission.key.split('.')[0];
+        if (!groups[category]) {
+          groups[category] = [];
+        }
+        groups[category].push(permission);
+      });
+      return groups;
+    }
+  },
+  watch: {
+    show(newVal) {
+      if (newVal) {
+        this.initializeForm();
+        // Expand all categories by default
+        this.expandedCategories = Object.keys(this.groupedPermissions);
+      }
+    }
+  },
+  methods: {
+    initializeForm() {
+      if (this.mode === 'edit' && this.role) {
+        this.formData = {
+          id: this.role.id,
+          name: this.role.name,
+          level: this.role.level || 10,
+          permissions: Array.isArray(this.role.permissions) ? [...this.role.permissions] : [],
+          description: this.role.description || '',
+          isActive: this.role.isActive !== false
+        };
+      } else {
+        this.formData = {
+          name: '',
+          level: 10,
+          permissions: [],
+          description: '',
+          isActive: true
+        };
+      }
+      this.errors = {};
+    },
+    validateForm() {
+      this.errors = {};
+
+      // Validate name
+      if (!this.formData.name || this.formData.name.trim() === '') {
+        this.errors.name = 'Role name is required';
+      } else if (!/^[a-z0-9_-]+$/.test(this.formData.name)) {
+        this.errors.name = 'Role name can only contain lowercase letters, numbers, underscores, and hyphens';
+      }
+
+      // Validate level
+      if (this.formData.level === null || this.formData.level === undefined) {
+        this.errors.level = 'Permission level is required';
+      } else if (this.formData.level < 0 || this.formData.level > 100) {
+        this.errors.level = 'Level must be between 0 and 100';
+      }
+
+      // Validate description length
+      if (this.formData.description && this.formData.description.length > 500) {
+        this.errors.description = 'Description cannot exceed 500 characters';
+      }
+      return Object.keys(this.errors).length === 0;
+    },
+    clearError(field) {
+      if (this.errors[field]) {
+        delete this.errors[field];
+      }
+    },
+    handleSave() {
+      var _this$formData$descri;
+      if (!this.validateForm()) {
+        this.$toast.error('Please fix validation errors');
+        return;
+      }
+
+      // Trim name and convert to lowercase
+      const saveData = {
+        ...this.formData,
+        name: this.formData.name.toLowerCase().trim(),
+        description: ((_this$formData$descri = this.formData.description) === null || _this$formData$descri === void 0 ? void 0 : _this$formData$descri.trim()) || null
+      };
+      this.$emit('save', saveData);
+    },
+    handleClose() {
+      this.$emit('close');
+    },
+    getLevelClass(level) {
+      if (level >= 100) return 'level-admin';
+      if (level >= 50) return 'level-manager';
+      if (level >= 30) return 'level-supervisor';
+      return 'level-staff';
+    },
+    getLevelLabel(level) {
+      if (level >= 100) return 'Admin Level';
+      if (level >= 50) return 'Manager Level';
+      if (level >= 30) return 'Supervisor Level';
+      return 'Staff Level';
+    },
+    formatCategoryName(category) {
+      return category.charAt(0).toUpperCase() + category.slice(1);
+    },
+    toggleCategory(category) {
+      const index = this.expandedCategories.indexOf(category);
+      if (index > -1) {
+        this.expandedCategories.splice(index, 1);
+      } else {
+        this.expandedCategories.push(category);
+      }
+    },
+    selectAllPermissions() {
+      this.formData.permissions = this.permissions.map(p => p.key);
+    },
+    clearAllPermissions() {
+      this.formData.permissions = [];
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/roles/RoleDialog.vue?vue&type=script&lang=js
+ /* harmony default export */ var roles_RoleDialogvue_type_script_lang_js = (RoleDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/roles/RoleDialog.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(781)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  roles_RoleDialogvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "57cd2fff",
+  "5dc9ca43"
+  
+)
+
+/* harmony default export */ var RoleDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1003:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/shared/ConfirmDialog.vue?vue&type=template&id=f665ef8e&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.show ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('cancel');
+      }
+    }
+  }, [_vm._ssrNode("<div class=\"confirm-dialog\" data-v-f665ef8e><div" + _vm._ssrClass("dialog-icon", _vm.iconClass) + " data-v-f665ef8e><span class=\"icon-symbol\" data-v-f665ef8e>" + _vm._ssrEscape(_vm._s(_vm.iconSymbol)) + "</span></div> <div class=\"dialog-content\" data-v-f665ef8e><h3 class=\"dialog-title\" data-v-f665ef8e>" + _vm._ssrEscape(_vm._s(_vm.title)) + "</h3> <p class=\"dialog-message\" data-v-f665ef8e>" + _vm._ssrEscape(_vm._s(_vm.message)) + "</p> " + (_vm.warning ? "<p class=\"dialog-warning\" data-v-f665ef8e><span class=\"warning-icon\" data-v-f665ef8e>⚠️</span>" + _vm._ssrEscape("\n        " + _vm._s(_vm.warning) + "\n      ") + "</p>" : "<!---->") + "</div> <div class=\"dialog-actions\" data-v-f665ef8e><button class=\"btn-cancel\" data-v-f665ef8e>" + _vm._ssrEscape("\n        " + _vm._s(_vm.cancelText) + "\n      ") + "</button> <button" + _vm._ssrClass("btn-confirm", _vm.confirmClass) + " data-v-f665ef8e>" + _vm._ssrEscape("\n        " + _vm._s(_vm.confirmText) + "\n      ") + "</button></div></div>")]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/shared/ConfirmDialog.vue?vue&type=template&id=f665ef8e&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/shared/ConfirmDialog.vue?vue&type=script&lang=js
+/* harmony default export */ var ConfirmDialogvue_type_script_lang_js = ({
+  name: 'ConfirmDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      default: 'Confirm Action'
+    },
+    message: {
+      type: String,
+      default: 'Are you sure you want to proceed?'
+    },
+    warning: {
+      type: String,
+      default: ''
+    },
+    confirmText: {
+      type: String,
+      default: 'Confirm'
+    },
+    cancelText: {
+      type: String,
+      default: 'Cancel'
+    },
+    type: {
+      type: String,
+      default: 'danger' // 'danger', 'warning', 'info', 'success'
+    }
+  },
+  computed: {
+    iconClass() {
+      return `icon-${this.type}`;
+    },
+    confirmClass() {
+      return `confirm-${this.type}`;
+    },
+    iconSymbol() {
+      const icons = {
+        danger: '🗑️',
+        warning: '⚠️',
+        info: 'ℹ️',
+        success: '✓'
+      };
+      return icons[this.type] || icons.info;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/shared/ConfirmDialog.vue?vue&type=script&lang=js
+ /* harmony default export */ var shared_ConfirmDialogvue_type_script_lang_js = (ConfirmDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/shared/ConfirmDialog.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(783)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  shared_ConfirmDialogvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "f665ef8e",
+  "0c114991"
+  
+)
+
+/* harmony default export */ var ConfirmDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1004:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/UsersListDialog.vue?vue&type=template&id=783f0bc4&scoped=true
+var render = function render() {
+  var _vm$role;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.show ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close');
+      }
+    }
+  }, [_vm._ssrNode("<div class=\"modal-container\" data-v-783f0bc4><div class=\"modal-header\" data-v-783f0bc4><div class=\"header-info\" data-v-783f0bc4><h2 class=\"modal-title\" data-v-783f0bc4>" + _vm._ssrEscape("Users with Role: " + _vm._s(((_vm$role = _vm.role) === null || _vm$role === void 0 ? void 0 : _vm$role.name) || 'N/A')) + "</h2> <span class=\"user-count-badge\" data-v-783f0bc4>" + _vm._ssrEscape(_vm._s(_vm.users.length) + " user(s)") + "</span></div> <button class=\"modal-close\" data-v-783f0bc4>×</button></div> <div class=\"modal-body\" data-v-783f0bc4><div class=\"search-section\" data-v-783f0bc4><input type=\"text\" placeholder=\"Search users...\"" + _vm._ssrAttr("value", _vm.searchQuery) + " class=\"search-input\" data-v-783f0bc4></div> " + (_vm.filteredUsers.length === 0 ? "<div class=\"empty-state\" data-v-783f0bc4><div class=\"empty-icon\" data-v-783f0bc4>👥</div> <h3 data-v-783f0bc4>No users found</h3> " + (_vm.searchQuery ? "<p data-v-783f0bc4>Try adjusting your search</p>" : "<p data-v-783f0bc4>No users are assigned to this role yet</p>") + "</div>" : "<div class=\"users-list\" data-v-783f0bc4>" + _vm._ssrList(_vm.filteredUsers, function (user) {
+    return "<div" + _vm._ssrClass("user-item", {
+      inactive: !user.isActive
+    }) + " data-v-783f0bc4><div class=\"user-avatar\" data-v-783f0bc4><span class=\"avatar-text\" data-v-783f0bc4>" + _vm._ssrEscape(_vm._s(_vm.getUserInitials(user))) + "</span></div> <div class=\"user-info\" data-v-783f0bc4><div class=\"user-name\" data-v-783f0bc4>" + _vm._ssrEscape("\n              " + _vm._s(user.firstName || user.username) + "\n              " + _vm._s(user.lastName || '') + "\n              ") + (!user.isActive ? "<span class=\"inactive-badge\" data-v-783f0bc4>Inactive</span>" : "<!---->") + "</div> <div class=\"user-details\" data-v-783f0bc4><span class=\"detail-item\" data-v-783f0bc4><span class=\"detail-icon\" data-v-783f0bc4>📧</span>" + _vm._ssrEscape("\n                " + _vm._s(user.email) + "\n              ") + "</span> " + (user.phone ? "<span class=\"detail-item\" data-v-783f0bc4><span class=\"detail-icon\" data-v-783f0bc4>📱</span>" + _vm._ssrEscape("\n                " + _vm._s(user.phone) + "\n              ") + "</span>" : "<!---->") + "</div> " + (user.lastLogin ? "<div class=\"user-meta\" data-v-783f0bc4>" + _vm._ssrEscape("\n              Last login: " + _vm._s(_vm.formatDate(user.lastLogin)) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"user-actions\" data-v-783f0bc4><button title=\"View User\" class=\"action-btn btn-view\" data-v-783f0bc4>\n              👁️\n            </button> <button title=\"Edit User\" class=\"action-btn btn-edit\" data-v-783f0bc4>\n              ✏️\n            </button></div></div>";
+  }) + "</div>") + "</div> <div class=\"modal-footer\" data-v-783f0bc4><div class=\"footer-info\" data-v-783f0bc4><span class=\"info-text\" data-v-783f0bc4>" + _vm._ssrEscape("\n          Showing " + _vm._s(_vm.filteredUsers.length) + " of " + _vm._s(_vm.users.length) + " user(s)\n        ") + "</span></div> <button class=\"btn-close\" data-v-783f0bc4>Close</button></div></div>")]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/roles/UsersListDialog.vue?vue&type=template&id=783f0bc4&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/UsersListDialog.vue?vue&type=script&lang=js
+/* harmony default export */ var UsersListDialogvue_type_script_lang_js = ({
+  name: 'UsersListDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: Object,
+      default: null
+    },
+    users: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      searchQuery: ''
+    };
+  },
+  computed: {
+    filteredUsers() {
+      if (!this.searchQuery) {
+        return this.users;
+      }
+      const query = this.searchQuery.toLowerCase();
+      return this.users.filter(user => {
+        var _user$username, _user$email, _user$firstName, _user$lastName, _user$phone;
+        return ((_user$username = user.username) === null || _user$username === void 0 ? void 0 : _user$username.toLowerCase().includes(query)) || ((_user$email = user.email) === null || _user$email === void 0 ? void 0 : _user$email.toLowerCase().includes(query)) || ((_user$firstName = user.firstName) === null || _user$firstName === void 0 ? void 0 : _user$firstName.toLowerCase().includes(query)) || ((_user$lastName = user.lastName) === null || _user$lastName === void 0 ? void 0 : _user$lastName.toLowerCase().includes(query)) || ((_user$phone = user.phone) === null || _user$phone === void 0 ? void 0 : _user$phone.includes(query));
+      });
+    }
+  },
+  watch: {
+    show(newVal) {
+      if (newVal) {
+        this.searchQuery = '';
+      }
+    }
+  },
+  methods: {
+    getUserInitials(user) {
+      if (user.firstName && user.lastName) {
+        return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
+      }
+      if (user.username) {
+        return user.username.substring(0, 2).toUpperCase();
+      }
+      return '??';
+    },
+    formatDate(date) {
+      if (!date) return 'Never';
+      const d = new Date(date);
+      const now = new Date();
+      const diffMs = now - d;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMins / 60);
+      const diffDays = Math.floor(diffHours / 24);
+      if (diffMins < 1) return 'Just now';
+      if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+      if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+      if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+      return d.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    },
+    viewUser(user) {
+      // Navigate to user detail page or open user detail dialog
+      this.$router.push(`/admin/users/${user.id}`);
+      this.$emit('close');
+    },
+    editUser(user) {
+      // Navigate to user edit page or open user edit dialog
+      this.$router.push(`/admin/users/${user.id}/edit`);
+      this.$emit('close');
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/roles/UsersListDialog.vue?vue&type=script&lang=js
+ /* harmony default export */ var roles_UsersListDialogvue_type_script_lang_js = (UsersListDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/roles/UsersListDialog.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(785)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  roles_UsersListDialogvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "783f0bc4",
+  "a2983bce"
+  
+)
+
+/* harmony default export */ var UsersListDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1203:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_userRole_vue_vue_type_style_index_0_id_3e130d02_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(904);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_userRole_vue_vue_type_style_index_0_id_3e130d02_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(915);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_userRole_vue_vue_type_style_index_0_id_3e130d02_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_userRole_vue_vue_type_style_index_0_id_3e130d02_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_userRole_vue_vue_type_style_index_0_id_3e130d02_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_userRole_vue_vue_type_style_index_0_id_3e130d02_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1190:
+/***/ 1204:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +630,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1418:
+/***/ 1432:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -129,16 +731,16 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/settings/userRole.vue?vue&type=template&id=3e130d02&scoped=true
 
 // EXTERNAL MODULE: ./components/roles/RoleCard.vue + 4 modules
-var RoleCard = __webpack_require__(989);
+var RoleCard = __webpack_require__(1001);
 
 // EXTERNAL MODULE: ./components/roles/RoleDialog.vue + 4 modules
-var RoleDialog = __webpack_require__(990);
+var RoleDialog = __webpack_require__(1002);
 
 // EXTERNAL MODULE: ./components/shared/ConfirmDialog.vue + 4 modules
-var ConfirmDialog = __webpack_require__(991);
+var ConfirmDialog = __webpack_require__(1003);
 
 // EXTERNAL MODULE: ./components/roles/UsersListDialog.vue + 4 modules
-var UsersListDialog = __webpack_require__(992);
+var UsersListDialog = __webpack_require__(1004);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/settings/userRole.vue?vue&type=script&lang=js
 
@@ -379,7 +981,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1189)
+  var style0 = __webpack_require__(1203)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -401,13 +1003,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 675:
+/***/ 683:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(770);
+var content = __webpack_require__(780);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -419,13 +1021,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 676:
+/***/ 684:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(772);
+var content = __webpack_require__(782);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -437,13 +1039,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 677:
+/***/ 685:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(774);
+var content = __webpack_require__(784);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -455,13 +1057,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 678:
+/***/ 686:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(776);
+var content = __webpack_require__(786);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -473,19 +1075,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 769:
+/***/ 779:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(675);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(683);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 770:
+/***/ 780:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -500,19 +1102,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 771:
+/***/ 781:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleDialog_vue_vue_type_style_index_0_id_57cd2fff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(676);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleDialog_vue_vue_type_style_index_0_id_57cd2fff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(684);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleDialog_vue_vue_type_style_index_0_id_57cd2fff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleDialog_vue_vue_type_style_index_0_id_57cd2fff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleDialog_vue_vue_type_style_index_0_id_57cd2fff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleDialog_vue_vue_type_style_index_0_id_57cd2fff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 772:
+/***/ 782:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -527,19 +1129,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 773:
+/***/ 783:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmDialog_vue_vue_type_style_index_0_id_f665ef8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(677);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmDialog_vue_vue_type_style_index_0_id_f665ef8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(685);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmDialog_vue_vue_type_style_index_0_id_f665ef8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmDialog_vue_vue_type_style_index_0_id_f665ef8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmDialog_vue_vue_type_style_index_0_id_f665ef8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmDialog_vue_vue_type_style_index_0_id_f665ef8e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 774:
+/***/ 784:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -554,19 +1156,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 775:
+/***/ 785:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersListDialog_vue_vue_type_style_index_0_id_783f0bc4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(678);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersListDialog_vue_vue_type_style_index_0_id_783f0bc4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(686);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersListDialog_vue_vue_type_style_index_0_id_783f0bc4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersListDialog_vue_vue_type_style_index_0_id_783f0bc4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersListDialog_vue_vue_type_style_index_0_id_783f0bc4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UsersListDialog_vue_vue_type_style_index_0_id_783f0bc4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 776:
+/***/ 786:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -581,13 +1183,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 904:
+/***/ 915:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1190);
+var content = __webpack_require__(1204);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -596,608 +1198,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("17b3244c", content, true, context)
 };
-
-/***/ }),
-
-/***/ 989:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleCard.vue?vue&type=template&id=8669effa&scoped=true
-var render = function render() {
-  var _vm$role$users, _vm$role$users2, _vm$role$users3;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "role-card",
-    class: {
-      inactive: !_vm.role.isActive
-    }
-  }, [_vm._ssrNode("<div class=\"card-header\" data-v-8669effa><div class=\"role-info\" data-v-8669effa><div class=\"role-name\" data-v-8669effa><span class=\"name-text\" data-v-8669effa>" + _vm._ssrEscape(_vm._s(_vm.role.name)) + "</span> " + (!_vm.role.isActive ? "<span class=\"inactive-badge\" data-v-8669effa>Inactive</span>" : "<!---->") + "</div> <div class=\"role-level\" data-v-8669effa><span" + _vm._ssrClass("level-badge", _vm.getLevelClass(_vm.role.level)) + " data-v-8669effa>" + _vm._ssrEscape("\n          Level " + _vm._s(_vm.role.level) + "\n        ") + "</span></div></div> <div class=\"card-actions\" data-v-8669effa><button title=\"Edit\" class=\"action-icon\" data-v-8669effa>\n        ✏️\n      </button> <button title=\"More\" class=\"action-icon\" data-v-8669effa>\n        ⋮\n      </button> " + (_vm.showMenu ? "<div class=\"dropdown-menu\" data-v-8669effa><button class=\"menu-item\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>📋</span> <span data-v-8669effa>Clone Role</span></button> <button class=\"menu-item\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>👥</span> <span data-v-8669effa>" + _vm._ssrEscape("View Users (" + _vm._s(((_vm$role$users = _vm.role.users) === null || _vm$role$users === void 0 ? void 0 : _vm$role$users.length) || 0) + ")") + "</span></button> <button class=\"menu-item\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>" + _vm._ssrEscape(_vm._s(_vm.role.isActive ? '🔒' : '✓')) + "</span> <span data-v-8669effa>" + _vm._ssrEscape(_vm._s(_vm.role.isActive ? 'Deactivate' : 'Activate')) + "</span></button> " + (!_vm.isSystemRole ? "<button class=\"menu-item danger\" data-v-8669effa><span class=\"menu-icon\" data-v-8669effa>🗑️</span> <span data-v-8669effa>Delete</span></button>" : "<!---->") + "</div>" : "<!---->") + "</div></div> <div class=\"card-body\" data-v-8669effa>" + (_vm.role.description ? "<p class=\"role-description\" data-v-8669effa>" + _vm._ssrEscape("\n      " + _vm._s(_vm.role.description) + "\n    ") + "</p>" : "<p class=\"role-description empty\" data-v-8669effa>No description available</p>") + " <div class=\"permissions-section\" data-v-8669effa><h4 class=\"section-title\" data-v-8669effa>Permissions</h4> " + (_vm.role.permissions && _vm.role.permissions.length > 0 ? "<div class=\"permissions-list\" data-v-8669effa>" + _vm._ssrList(_vm.displayPermissions, function (permission, index) {
-    return "<span class=\"permission-tag\" data-v-8669effa>" + _vm._ssrEscape("\n          " + _vm._s(_vm.formatPermission(permission)) + "\n        ") + "</span>";
-  }) + " " + (_vm.role.permissions.length > _vm.maxDisplayPermissions ? "<span class=\"permission-tag more\" data-v-8669effa>" + _vm._ssrEscape("\n          +" + _vm._s(_vm.role.permissions.length - _vm.maxDisplayPermissions) + " more\n        ") + "</span>" : "<!---->") + "</div>" : "<p class=\"no-permissions\" data-v-8669effa>No permissions assigned</p>") + "</div> <div class=\"users-section\" data-v-8669effa><div class=\"users-info\" data-v-8669effa><span class=\"users-icon\" data-v-8669effa>👥</span> <span class=\"users-count\" data-v-8669effa>" + _vm._ssrEscape("\n          " + _vm._s(((_vm$role$users2 = _vm.role.users) === null || _vm$role$users2 === void 0 ? void 0 : _vm$role$users2.length) || 0) + " " + _vm._s(((_vm$role$users3 = _vm.role.users) === null || _vm$role$users3 === void 0 ? void 0 : _vm$role$users3.length) === 1 ? 'user' : 'users') + "\n        ") + "</span></div></div></div> <div class=\"card-footer\" data-v-8669effa><button class=\"footer-btn btn-edit\" data-v-8669effa>\n      Edit Role\n    </button> <button class=\"footer-btn btn-users\" data-v-8669effa>\n      View Users\n    </button></div>")]);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/roles/RoleCard.vue?vue&type=template&id=8669effa&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleCard.vue?vue&type=script&lang=js
-/* harmony default export */ var RoleCardvue_type_script_lang_js = ({
-  name: 'RoleCard',
-  props: {
-    role: {
-      type: Object,
-      required: true
-    }
-  },
-  data() {
-    return {
-      showMenu: false,
-      maxDisplayPermissions: 5
-    };
-  },
-  computed: {
-    isSystemRole() {
-      const systemRoles = ['admin', 'superadmin', 'manager', 'staff'];
-      return systemRoles.includes(this.role.name);
-    },
-    displayPermissions() {
-      if (!this.role.permissions) return [];
-      return this.role.permissions.slice(0, this.maxDisplayPermissions);
-    }
-  },
-  mounted() {
-    // Close menu when clicking outside
-    document.addEventListener('click', this.closeMenu);
-  },
-  beforeDestroy() {
-    document.removeEventListener('click', this.closeMenu);
-  },
-  methods: {
-    closeMenu() {
-      this.showMenu = false;
-    },
-    getLevelClass(level) {
-      if (level >= 100) return 'level-admin';
-      if (level >= 50) return 'level-manager';
-      if (level >= 30) return 'level-supervisor';
-      return 'level-staff';
-    },
-    formatPermission(permission) {
-      // Convert 'ticket.create' to 'Create Tickets'
-      const parts = permission.split('.');
-      if (parts.length === 2) {
-        const action = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
-        const resource = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
-        return `${action} ${resource}`;
-      }
-      return permission;
-    },
-    handleClone() {
-      this.showMenu = false;
-      this.$emit('clone', this.role);
-    },
-    handleViewUsers() {
-      this.showMenu = false;
-      this.$emit('view-users', this.role);
-    },
-    handleToggleStatus() {
-      this.showMenu = false;
-      this.$emit('toggle-status', this.role);
-    },
-    handleDelete() {
-      this.showMenu = false;
-      this.$emit('delete', this.role);
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/roles/RoleCard.vue?vue&type=script&lang=js
- /* harmony default export */ var roles_RoleCardvue_type_script_lang_js = (RoleCardvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/roles/RoleCard.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(769)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  roles_RoleCardvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "8669effa",
-  "15bc60cb"
-  
-)
-
-/* harmony default export */ var RoleCard = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 990:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleDialog.vue?vue&type=template&id=57cd2fff&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.handleClose
-    }
-  }, [_vm._ssrNode("<div class=\"modal-container\" data-v-57cd2fff><div class=\"modal-header\" data-v-57cd2fff><h2 class=\"modal-title\" data-v-57cd2fff>" + _vm._ssrEscape("\n        " + _vm._s(_vm.mode === 'create' ? 'Create New Role' : 'Edit Role') + "\n      ") + "</h2> <button class=\"modal-close\" data-v-57cd2fff>×</button></div> <div class=\"modal-body\" data-v-57cd2fff><div class=\"form-group\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>\n          Role Name <span class=\"required\" data-v-57cd2fff>*</span></label> <input type=\"text\" placeholder=\"e.g., cashier, supervisor\"" + _vm._ssrAttr("value", _vm.formData.name) + _vm._ssrClass("form-input", {
-    error: _vm.errors.name
-  }) + " data-v-57cd2fff> " + (_vm.errors.name ? "<span class=\"error-message\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.errors.name)) + "</span>" : "<!---->") + " <span class=\"form-hint\" data-v-57cd2fff>Lowercase, no spaces. Use hyphens or underscores.</span></div> <div class=\"form-group\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>\n          Permission Level <span class=\"required\" data-v-57cd2fff>*</span></label> <div class=\"level-input-group\" data-v-57cd2fff><input type=\"number\" min=\"0\" max=\"100\"" + _vm._ssrAttr("value", _vm.formData.level) + _vm._ssrClass("form-input level-input", {
-    error: _vm.errors.level
-  }) + " data-v-57cd2fff> <div" + _vm._ssrClass("level-indicator", _vm.getLevelClass(_vm.formData.level)) + " data-v-57cd2fff>" + _vm._ssrEscape("\n            " + _vm._s(_vm.getLevelLabel(_vm.formData.level)) + "\n          ") + "</div></div> " + (_vm.errors.level ? "<span class=\"error-message\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.errors.level)) + "</span>" : "<!---->") + " <div class=\"level-guide\" data-v-57cd2fff><div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-admin\" data-v-57cd2fff>100</span> <span class=\"guide-text\" data-v-57cd2fff>Admin</span></div> <div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-manager\" data-v-57cd2fff>50</span> <span class=\"guide-text\" data-v-57cd2fff>Manager</span></div> <div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-supervisor\" data-v-57cd2fff>30</span> <span class=\"guide-text\" data-v-57cd2fff>Supervisor</span></div> <div class=\"guide-item\" data-v-57cd2fff><span class=\"guide-badge level-staff\" data-v-57cd2fff>10</span> <span class=\"guide-text\" data-v-57cd2fff>Staff</span></div></div></div> <div class=\"form-group\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>Description</label> <textarea rows=\"3\" placeholder=\"Describe this role and its responsibilities...\"" + _vm._ssrClass("form-textarea", {
-    error: _vm.errors.description
-  }) + " data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.formData.description)) + "</textarea> " + (_vm.errors.description ? "<span class=\"error-message\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.errors.description)) + "</span>" : "<!---->") + "</div> <div class=\"form-group permissions-group\" data-v-57cd2fff><div class=\"permissions-header\" data-v-57cd2fff><label class=\"form-label\" data-v-57cd2fff>Permissions</label> <div class=\"permissions-actions\" data-v-57cd2fff><button class=\"link-btn\" data-v-57cd2fff>\n              Select All\n            </button> <span class=\"separator\" data-v-57cd2fff>|</span> <button class=\"link-btn\" data-v-57cd2fff>\n              Clear All\n            </button></div></div> <div class=\"permissions-container\" data-v-57cd2fff>" + _vm._ssrList(_vm.groupedPermissions, function (categoryPerms, category) {
-    return "<div class=\"permission-category\" data-v-57cd2fff><div class=\"category-header\" data-v-57cd2fff><span class=\"category-icon\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.expandedCategories.includes(category) ? '▼' : '▶')) + "</span> <span class=\"category-name\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.formatCategoryName(category))) + "</span> <span class=\"category-count\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(categoryPerms.length)) + "</span></div> <div class=\"category-permissions\"" + _vm._ssrStyle(null, null, {
-      display: _vm.expandedCategories.includes(category) ? '' : 'none'
-    }) + " data-v-57cd2fff>" + _vm._ssrList(categoryPerms, function (permission) {
-      return "<label class=\"permission-item\" data-v-57cd2fff><input type=\"checkbox\"" + _vm._ssrAttr("value", permission.key) + _vm._ssrAttr("checked", Array.isArray(_vm.formData.permissions) ? _vm._i(_vm.formData.permissions, permission.key) > -1 : _vm.formData.permissions) + " class=\"permission-checkbox\" data-v-57cd2fff> <div class=\"permission-info\" data-v-57cd2fff><span class=\"permission-label\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(permission.label)) + "</span> <span class=\"permission-description\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(permission.description)) + "</span></div></label>";
-    }) + "</div></div>";
-  }) + "</div> <div class=\"selected-summary\" data-v-57cd2fff><span class=\"summary-label\" data-v-57cd2fff>Selected:</span> <span class=\"summary-count\" data-v-57cd2fff>" + _vm._ssrEscape(_vm._s(_vm.formData.permissions.length)) + "</span> <span class=\"summary-text\" data-v-57cd2fff>permission(s)</span></div></div> <div class=\"form-group\" data-v-57cd2fff><label class=\"form-label checkbox-label\" data-v-57cd2fff><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.isActive) ? _vm._i(_vm.formData.isActive, null) > -1 : _vm.formData.isActive) + " class=\"form-checkbox\" data-v-57cd2fff> <span data-v-57cd2fff>Active Role</span></label> <span class=\"form-hint\" data-v-57cd2fff>Inactive roles cannot be assigned to users</span></div></div> <div class=\"modal-footer\" data-v-57cd2fff><button class=\"btn-secondary\" data-v-57cd2fff>Cancel</button> <button" + _vm._ssrAttr("disabled", _vm.saving) + " class=\"btn-primary\" data-v-57cd2fff>" + _vm._ssrEscape("\n        " + _vm._s(_vm.saving ? 'Saving...' : _vm.mode === 'create' ? 'Create Role' : 'Save Changes') + "\n      ") + "</button></div></div>")]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/roles/RoleDialog.vue?vue&type=template&id=57cd2fff&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/RoleDialog.vue?vue&type=script&lang=js
-/* harmony default export */ var RoleDialogvue_type_script_lang_js = ({
-  name: 'RoleDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    role: {
-      type: Object,
-      default: null
-    },
-    permissions: {
-      type: Array,
-      default: () => []
-    },
-    mode: {
-      type: String,
-      default: 'create' // 'create' or 'edit'
-    }
-  },
-  data() {
-    return {
-      formData: {
-        name: '',
-        level: 10,
-        permissions: [],
-        description: '',
-        isActive: true
-      },
-      errors: {},
-      saving: false,
-      expandedCategories: []
-    };
-  },
-  computed: {
-    groupedPermissions() {
-      const groups = {};
-      this.permissions.forEach(permission => {
-        const category = permission.key.split('.')[0];
-        if (!groups[category]) {
-          groups[category] = [];
-        }
-        groups[category].push(permission);
-      });
-      return groups;
-    }
-  },
-  watch: {
-    show(newVal) {
-      if (newVal) {
-        this.initializeForm();
-        // Expand all categories by default
-        this.expandedCategories = Object.keys(this.groupedPermissions);
-      }
-    }
-  },
-  methods: {
-    initializeForm() {
-      if (this.mode === 'edit' && this.role) {
-        this.formData = {
-          id: this.role.id,
-          name: this.role.name,
-          level: this.role.level || 10,
-          permissions: Array.isArray(this.role.permissions) ? [...this.role.permissions] : [],
-          description: this.role.description || '',
-          isActive: this.role.isActive !== false
-        };
-      } else {
-        this.formData = {
-          name: '',
-          level: 10,
-          permissions: [],
-          description: '',
-          isActive: true
-        };
-      }
-      this.errors = {};
-    },
-    validateForm() {
-      this.errors = {};
-
-      // Validate name
-      if (!this.formData.name || this.formData.name.trim() === '') {
-        this.errors.name = 'Role name is required';
-      } else if (!/^[a-z0-9_-]+$/.test(this.formData.name)) {
-        this.errors.name = 'Role name can only contain lowercase letters, numbers, underscores, and hyphens';
-      }
-
-      // Validate level
-      if (this.formData.level === null || this.formData.level === undefined) {
-        this.errors.level = 'Permission level is required';
-      } else if (this.formData.level < 0 || this.formData.level > 100) {
-        this.errors.level = 'Level must be between 0 and 100';
-      }
-
-      // Validate description length
-      if (this.formData.description && this.formData.description.length > 500) {
-        this.errors.description = 'Description cannot exceed 500 characters';
-      }
-      return Object.keys(this.errors).length === 0;
-    },
-    clearError(field) {
-      if (this.errors[field]) {
-        delete this.errors[field];
-      }
-    },
-    handleSave() {
-      var _this$formData$descri;
-      if (!this.validateForm()) {
-        this.$toast.error('Please fix validation errors');
-        return;
-      }
-
-      // Trim name and convert to lowercase
-      const saveData = {
-        ...this.formData,
-        name: this.formData.name.toLowerCase().trim(),
-        description: ((_this$formData$descri = this.formData.description) === null || _this$formData$descri === void 0 ? void 0 : _this$formData$descri.trim()) || null
-      };
-      this.$emit('save', saveData);
-    },
-    handleClose() {
-      this.$emit('close');
-    },
-    getLevelClass(level) {
-      if (level >= 100) return 'level-admin';
-      if (level >= 50) return 'level-manager';
-      if (level >= 30) return 'level-supervisor';
-      return 'level-staff';
-    },
-    getLevelLabel(level) {
-      if (level >= 100) return 'Admin Level';
-      if (level >= 50) return 'Manager Level';
-      if (level >= 30) return 'Supervisor Level';
-      return 'Staff Level';
-    },
-    formatCategoryName(category) {
-      return category.charAt(0).toUpperCase() + category.slice(1);
-    },
-    toggleCategory(category) {
-      const index = this.expandedCategories.indexOf(category);
-      if (index > -1) {
-        this.expandedCategories.splice(index, 1);
-      } else {
-        this.expandedCategories.push(category);
-      }
-    },
-    selectAllPermissions() {
-      this.formData.permissions = this.permissions.map(p => p.key);
-    },
-    clearAllPermissions() {
-      this.formData.permissions = [];
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/roles/RoleDialog.vue?vue&type=script&lang=js
- /* harmony default export */ var roles_RoleDialogvue_type_script_lang_js = (RoleDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/roles/RoleDialog.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(771)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  roles_RoleDialogvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "57cd2fff",
-  "5dc9ca43"
-  
-)
-
-/* harmony default export */ var RoleDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 991:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/shared/ConfirmDialog.vue?vue&type=template&id=f665ef8e&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('cancel');
-      }
-    }
-  }, [_vm._ssrNode("<div class=\"confirm-dialog\" data-v-f665ef8e><div" + _vm._ssrClass("dialog-icon", _vm.iconClass) + " data-v-f665ef8e><span class=\"icon-symbol\" data-v-f665ef8e>" + _vm._ssrEscape(_vm._s(_vm.iconSymbol)) + "</span></div> <div class=\"dialog-content\" data-v-f665ef8e><h3 class=\"dialog-title\" data-v-f665ef8e>" + _vm._ssrEscape(_vm._s(_vm.title)) + "</h3> <p class=\"dialog-message\" data-v-f665ef8e>" + _vm._ssrEscape(_vm._s(_vm.message)) + "</p> " + (_vm.warning ? "<p class=\"dialog-warning\" data-v-f665ef8e><span class=\"warning-icon\" data-v-f665ef8e>⚠️</span>" + _vm._ssrEscape("\n        " + _vm._s(_vm.warning) + "\n      ") + "</p>" : "<!---->") + "</div> <div class=\"dialog-actions\" data-v-f665ef8e><button class=\"btn-cancel\" data-v-f665ef8e>" + _vm._ssrEscape("\n        " + _vm._s(_vm.cancelText) + "\n      ") + "</button> <button" + _vm._ssrClass("btn-confirm", _vm.confirmClass) + " data-v-f665ef8e>" + _vm._ssrEscape("\n        " + _vm._s(_vm.confirmText) + "\n      ") + "</button></div></div>")]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/shared/ConfirmDialog.vue?vue&type=template&id=f665ef8e&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/shared/ConfirmDialog.vue?vue&type=script&lang=js
-/* harmony default export */ var ConfirmDialogvue_type_script_lang_js = ({
-  name: 'ConfirmDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    title: {
-      type: String,
-      default: 'Confirm Action'
-    },
-    message: {
-      type: String,
-      default: 'Are you sure you want to proceed?'
-    },
-    warning: {
-      type: String,
-      default: ''
-    },
-    confirmText: {
-      type: String,
-      default: 'Confirm'
-    },
-    cancelText: {
-      type: String,
-      default: 'Cancel'
-    },
-    type: {
-      type: String,
-      default: 'danger' // 'danger', 'warning', 'info', 'success'
-    }
-  },
-  computed: {
-    iconClass() {
-      return `icon-${this.type}`;
-    },
-    confirmClass() {
-      return `confirm-${this.type}`;
-    },
-    iconSymbol() {
-      const icons = {
-        danger: '🗑️',
-        warning: '⚠️',
-        info: 'ℹ️',
-        success: '✓'
-      };
-      return icons[this.type] || icons.info;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/shared/ConfirmDialog.vue?vue&type=script&lang=js
- /* harmony default export */ var shared_ConfirmDialogvue_type_script_lang_js = (ConfirmDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/shared/ConfirmDialog.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(773)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  shared_ConfirmDialogvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "f665ef8e",
-  "0c114991"
-  
-)
-
-/* harmony default export */ var ConfirmDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 992:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/UsersListDialog.vue?vue&type=template&id=783f0bc4&scoped=true
-var render = function render() {
-  var _vm$role;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close');
-      }
-    }
-  }, [_vm._ssrNode("<div class=\"modal-container\" data-v-783f0bc4><div class=\"modal-header\" data-v-783f0bc4><div class=\"header-info\" data-v-783f0bc4><h2 class=\"modal-title\" data-v-783f0bc4>" + _vm._ssrEscape("Users with Role: " + _vm._s(((_vm$role = _vm.role) === null || _vm$role === void 0 ? void 0 : _vm$role.name) || 'N/A')) + "</h2> <span class=\"user-count-badge\" data-v-783f0bc4>" + _vm._ssrEscape(_vm._s(_vm.users.length) + " user(s)") + "</span></div> <button class=\"modal-close\" data-v-783f0bc4>×</button></div> <div class=\"modal-body\" data-v-783f0bc4><div class=\"search-section\" data-v-783f0bc4><input type=\"text\" placeholder=\"Search users...\"" + _vm._ssrAttr("value", _vm.searchQuery) + " class=\"search-input\" data-v-783f0bc4></div> " + (_vm.filteredUsers.length === 0 ? "<div class=\"empty-state\" data-v-783f0bc4><div class=\"empty-icon\" data-v-783f0bc4>👥</div> <h3 data-v-783f0bc4>No users found</h3> " + (_vm.searchQuery ? "<p data-v-783f0bc4>Try adjusting your search</p>" : "<p data-v-783f0bc4>No users are assigned to this role yet</p>") + "</div>" : "<div class=\"users-list\" data-v-783f0bc4>" + _vm._ssrList(_vm.filteredUsers, function (user) {
-    return "<div" + _vm._ssrClass("user-item", {
-      inactive: !user.isActive
-    }) + " data-v-783f0bc4><div class=\"user-avatar\" data-v-783f0bc4><span class=\"avatar-text\" data-v-783f0bc4>" + _vm._ssrEscape(_vm._s(_vm.getUserInitials(user))) + "</span></div> <div class=\"user-info\" data-v-783f0bc4><div class=\"user-name\" data-v-783f0bc4>" + _vm._ssrEscape("\n              " + _vm._s(user.firstName || user.username) + "\n              " + _vm._s(user.lastName || '') + "\n              ") + (!user.isActive ? "<span class=\"inactive-badge\" data-v-783f0bc4>Inactive</span>" : "<!---->") + "</div> <div class=\"user-details\" data-v-783f0bc4><span class=\"detail-item\" data-v-783f0bc4><span class=\"detail-icon\" data-v-783f0bc4>📧</span>" + _vm._ssrEscape("\n                " + _vm._s(user.email) + "\n              ") + "</span> " + (user.phone ? "<span class=\"detail-item\" data-v-783f0bc4><span class=\"detail-icon\" data-v-783f0bc4>📱</span>" + _vm._ssrEscape("\n                " + _vm._s(user.phone) + "\n              ") + "</span>" : "<!---->") + "</div> " + (user.lastLogin ? "<div class=\"user-meta\" data-v-783f0bc4>" + _vm._ssrEscape("\n              Last login: " + _vm._s(_vm.formatDate(user.lastLogin)) + "\n            ") + "</div>" : "<!---->") + "</div> <div class=\"user-actions\" data-v-783f0bc4><button title=\"View User\" class=\"action-btn btn-view\" data-v-783f0bc4>\n              👁️\n            </button> <button title=\"Edit User\" class=\"action-btn btn-edit\" data-v-783f0bc4>\n              ✏️\n            </button></div></div>";
-  }) + "</div>") + "</div> <div class=\"modal-footer\" data-v-783f0bc4><div class=\"footer-info\" data-v-783f0bc4><span class=\"info-text\" data-v-783f0bc4>" + _vm._ssrEscape("\n          Showing " + _vm._s(_vm.filteredUsers.length) + " of " + _vm._s(_vm.users.length) + " user(s)\n        ") + "</span></div> <button class=\"btn-close\" data-v-783f0bc4>Close</button></div></div>")]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/roles/UsersListDialog.vue?vue&type=template&id=783f0bc4&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/roles/UsersListDialog.vue?vue&type=script&lang=js
-/* harmony default export */ var UsersListDialogvue_type_script_lang_js = ({
-  name: 'UsersListDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    role: {
-      type: Object,
-      default: null
-    },
-    users: {
-      type: Array,
-      default: () => []
-    }
-  },
-  data() {
-    return {
-      searchQuery: ''
-    };
-  },
-  computed: {
-    filteredUsers() {
-      if (!this.searchQuery) {
-        return this.users;
-      }
-      const query = this.searchQuery.toLowerCase();
-      return this.users.filter(user => {
-        var _user$username, _user$email, _user$firstName, _user$lastName, _user$phone;
-        return ((_user$username = user.username) === null || _user$username === void 0 ? void 0 : _user$username.toLowerCase().includes(query)) || ((_user$email = user.email) === null || _user$email === void 0 ? void 0 : _user$email.toLowerCase().includes(query)) || ((_user$firstName = user.firstName) === null || _user$firstName === void 0 ? void 0 : _user$firstName.toLowerCase().includes(query)) || ((_user$lastName = user.lastName) === null || _user$lastName === void 0 ? void 0 : _user$lastName.toLowerCase().includes(query)) || ((_user$phone = user.phone) === null || _user$phone === void 0 ? void 0 : _user$phone.includes(query));
-      });
-    }
-  },
-  watch: {
-    show(newVal) {
-      if (newVal) {
-        this.searchQuery = '';
-      }
-    }
-  },
-  methods: {
-    getUserInitials(user) {
-      if (user.firstName && user.lastName) {
-        return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
-      }
-      if (user.username) {
-        return user.username.substring(0, 2).toUpperCase();
-      }
-      return '??';
-    },
-    formatDate(date) {
-      if (!date) return 'Never';
-      const d = new Date(date);
-      const now = new Date();
-      const diffMs = now - d;
-      const diffMins = Math.floor(diffMs / 60000);
-      const diffHours = Math.floor(diffMins / 60);
-      const diffDays = Math.floor(diffHours / 24);
-      if (diffMins < 1) return 'Just now';
-      if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-      if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-      if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-      return d.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-    },
-    viewUser(user) {
-      // Navigate to user detail page or open user detail dialog
-      this.$router.push(`/admin/users/${user.id}`);
-      this.$emit('close');
-    },
-    editUser(user) {
-      // Navigate to user edit page or open user edit dialog
-      this.$router.push(`/admin/users/${user.id}/edit`);
-      this.$emit('close');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/roles/UsersListDialog.vue?vue&type=script&lang=js
- /* harmony default export */ var roles_UsersListDialogvue_type_script_lang_js = (UsersListDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/roles/UsersListDialog.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(775)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  roles_UsersListDialogvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "783f0bc4",
-  "a2983bce"
-  
-)
-
-/* harmony default export */ var UsersListDialog = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

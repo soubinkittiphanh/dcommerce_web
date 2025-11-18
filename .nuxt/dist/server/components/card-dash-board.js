@@ -1,7 +1,7 @@
 exports.ids = [42];
 exports.modules = {
 
-/***/ 1435:
+/***/ 1449:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27,7 +27,7 @@ var VListItem = __webpack_require__(68);
 var VListItemAvatar = __webpack_require__(119);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var VList = __webpack_require__(9);
+var VList = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CardDashBoard.vue?vue&type=template&id=138d1775
 

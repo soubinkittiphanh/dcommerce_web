@@ -1,7 +1,7 @@
 exports.ids = [121];
 exports.modules = {
 
-/***/ 1450:
+/***/ 1464:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,7 +21,7 @@ var VList = __webpack_require__(116);
 var VListItem = __webpack_require__(68);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var components_VList = __webpack_require__(9);
+var components_VList = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CateogoryList.vue?vue&type=template&id=16f44712
 

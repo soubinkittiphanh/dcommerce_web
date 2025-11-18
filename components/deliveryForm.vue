@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <v-dialog v-model="ticketPreviewDialog" max-width="524">
@@ -17,7 +16,7 @@
                         </v-row>
                         <v-row>
                             <v-col cols="12">
-                                <v-row>ຜູ້ຮັບ: {{ customerForm.name }}</v-row>
+                                <v-row>ຼູ້ຮັບ: {{ customerForm.name }}</v-row>
                                 <v-row>ໂທ: {{ customerForm.tel }}</v-row>
                                 <v-row>ຂົນສົ່ງ: {{ currentShipping }}</v-row>
                                 <v-row>ບ່ອນສົ່ງ: {{ customerForm.address }} - {{ currentGeo }}</v-row>
@@ -31,9 +30,6 @@
                             <v-divider></v-divider>
                         </v-row>
                         <v-row v-for="prod in cartOfProduct" :key="prod['id']">
-                            <!-- <v-col cols="5">{{ prod['pro_name'] }}</v-col>
-                            <v-col cols="3">{{ formatNumber(prod['localPrice']) }}</v-col>
-                            <v-col cols="4">{{ prod['qty'] }}</v-col> -->
                             {{ prod['pro_name'] }}
                             <v-spacer></v-spacer>
                             {{ currentPayment == 'COD' ? formatNumber(prod['localPrice']) + ' X ' : '' }}
@@ -79,7 +75,6 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-                <!-- <v-form @submit.prevent="previewTicket"> -->
                 <v-form>
                     <v-row>
                         <v-col cols="4">
@@ -99,8 +94,16 @@
                             <v-text-field v-model="customerForm.address" label="*ບ່ອນສົ່ງ"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete item-text="abbr" item-value="id" :items="geographyList" label="ແຂວງ*"
-                                v-model="customerForm.geoId"></v-autocomplete>
+                            <v-autocomplete 
+                                item-text="abbr" 
+                                item-value="id" 
+                                :items="geographyList" 
+                                label="ແຂວງ*"
+                                v-model="customerForm.geoId"
+                                clearable
+                                placeholder="ເລືອກແຂວງ"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກແຂວງ']"
+                            ></v-autocomplete>
                         </v-col>
                         <v-col cols="4">
                             <v-radio-group v-model="customerForm.shipping_fee_by" row align="center">
@@ -112,27 +115,78 @@
                     </v-row>
                     <v-row>
                         <v-col cols="4">
-                            <v-autocomplete item-text="name" item-value="id" :items="shippingList" label="ຂົນສົ່ງ*"
-                                v-model="customerForm.shippingId"></v-autocomplete>
+                            <v-autocomplete 
+                                item-text="name" 
+                                item-value="id" 
+                                :items="shippingList" 
+                                label="ຂົນສົ່ງ*"
+                                v-model="customerForm.shippingId"
+                                clearable
+                                placeholder="ເລືອກວິທີຂົນສົ່ງ"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກວິທີຂົນສົ່ງ']"
+                                :error="shippingError"
+                                :error-messages="shippingErrorMessage"
+                                @input="clearShippingError"
+                            >
+                                <template v-slot:no-data>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <v-list-item-title>
+                                                ບໍ່ມີຂໍ້ມູນຂົນສົ່ງ
+                                            </v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </template>
+                            </v-autocomplete>
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete item-text="name" item-value="id" :items="riderList" label="Rider*"
-                                v-model="customerForm.riderId"></v-autocomplete>
+                            <v-autocomplete 
+                                item-text="name" 
+                                item-value="id" 
+                                :items="riderList" 
+                                label="Rider*"
+                                v-model="customerForm.riderId"
+                                clearable
+                                placeholder="ເລືອກ Rider"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກ Rider']"
+                            ></v-autocomplete>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="customerForm.rider_fee" label="ຄ່າສົ່ງ"></v-text-field>
+                            <v-text-field 
+                                v-model="customerForm.rider_fee" 
+                                label="ຄ່າສົ່ງ"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                            ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="4">
-
+                            <!-- Empty column for spacing -->
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete item-text="payment_code" item-value="id" :items="paymentList" label="ການຊຳລະ*"
-                                v-model="paymentSelected"></v-autocomplete>
+                            <v-autocomplete 
+                                item-text="payment_code" 
+                                item-value="id" 
+                                :items="paymentList" 
+                                label="ການຊຳລະ*"
+                                v-model="paymentSelected"
+                                clearable
+                                placeholder="ເລືອກວິທີຊຳລະ"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກວິທີຊຳລະ']"
+                            ></v-autocomplete>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field v-model="customerForm.discount" label="ສ່ວນຫລຸດ"></v-text-field>
+                            <v-text-field 
+                                v-model="customerForm.discount" 
+                                label="ສ່ວນຫລຸດ"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="0.00"
+                            ></v-text-field>
                         </v-col>
                     </v-row>
                 </v-form>
@@ -148,33 +202,47 @@
   
 <script>
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
-import { getFormatNum,swalError2 } from '~/common'
+import { getFormatNum, swalError2 } from '~/common'
+
 export default {
     name: 'delivery-form',
 
     async created() {
-        // ************ Load the delivery info form from state *************
-        //  this.confirmEntries = this.$store.state.listOfConfirmPaymentOrder.map(order => ({ ...JSON.parse(JSON.stringify(order)) }));
+        // Load the delivery info form from state
         this.customerForm = JSON.parse(JSON.stringify(this.$store.state.customerForm))
-        console.log(`Customer information load from statem \n${JSON.stringify(this.customerForm)}`);
+        console.log(`Customer information load from state \n${JSON.stringify(this.customerForm)}`);
+        
         const today = new Date().toISOString().substr(0, 10);
         this.customerForm.txn_date = today;
         console.log(`PRODUCT ${this.cartOfProduct[0]['pro_name']}`);
+        
+        // Clear any pre-selected shipping values to force manual selection
+        this.customerForm.shippingId = null;
+        this.customerForm.riderId = null;
+        this.customerForm.geoId = null;
+        
         await this.loadRider()
         await this.loadGeo()
         await this.loadShipping()
         await this.loadPayment()
-        this.paymentSelected = this.currentSelectedPayment
+        
+        // Only set payment if there's a current selection from store, otherwise leave null
+        this.paymentSelected = this.currentSelectedPayment || null
     },
+
     beforeDestroy() {
         console.log(`Before close dialog...`);
     },
+
     watch: {
         paymentSelected(value) {
             console.log(`New data payment selected ${value}`);
-            this.addSelectedPayment(value)
+            if (value) {
+                this.addSelectedPayment(value)
+            }
         }
     },
+
     computed: {
         generateCustomerObjec() {
             const customerInfo = {
@@ -199,8 +267,6 @@ export default {
             return (total + (+this.customerForm.rider_fee)) - this.customerForm.discount;
         },
         currentTerminal() {
-
-            const terminalInfo = this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
             return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal)
         },
         currentGeo() {
@@ -220,6 +286,7 @@ export default {
         },
         ...mapGetters(['currentSelectedLocation', 'cartOfProduct', 'currenctSelectedCategoryId', 'findAllProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation']),
     },
+
     data() {
         return {
             geographyList: [],
@@ -228,9 +295,10 @@ export default {
             ticketPreviewDialog: false,
             riderList: [],
             shippingList: [],
-            ticketPreviewDialog: false,
-            paymentSelected: 1,
-            // TODO: Manage this data in vuex state
+            paymentSelected: null, // Start with null to force manual selection
+            shippingError: false,
+            shippingErrorMessage: '',
+            // Customer form with all shipping-related fields set to null initially
             customerForm: {
                 name: '',
                 tel: '',
@@ -238,17 +306,22 @@ export default {
                 rider_fee: 0,
                 txn_date: null,
                 shipping_fee_by: 'destination',
-                shippingId: 1,
-                riderId: 1,
-                geoId: 1,
+                shippingId: null, // Force manual selection
+                riderId: null,    // Force manual selection
+                geoId: null,      // Force manual selection
                 discount: 0,
             }
         }
     },
+
     methods: {
         ...mapActions(['addSelectedPayment', 'assignCustomerFormAction']),
+
         submit() {
-            // handle form submission
+            if (!this.validateForm()) {
+                return;
+            }
+
             console.log(this.customerForm)
             const payload = {
                 customerForm: this.customerForm,
@@ -257,70 +330,115 @@ export default {
             this.caputreStateOfDeliveryForm()
             this.$emit('post-transaction', payload)
         },
+
+        validateForm() {
+            // Check required shipping selection
+            if (!this.customerForm.shippingId) {
+                this.shippingError = true;
+                this.shippingErrorMessage = 'ກະລຸນາເລືອກວິທີຂົນສົ່ງ';
+                swalError2(this.$swal, "ກະລຸນາເລືອກວິທີຂົນສົ່ງ");
+                return false;
+            }
+
+            if (!this.customerForm.riderId) {
+                swalError2(this.$swal, "ກະລຸນາເລືອກ Rider");
+                return false;
+            }
+
+            if (!this.customerForm.geoId) {
+                swalError2(this.$swal, "ກະລຸນາເລືອກແຂວງ");
+                return false;
+            }
+
+            if (!this.paymentSelected) {
+                swalError2(this.$swal, "ກະລຸນາເລືອກວິທີຊຳລະ");
+                return false;
+            }
+
+            return true;
+        },
+
+        clearShippingError() {
+            this.shippingError = false;
+            this.shippingErrorMessage = '';
+        },
+
         caputreStateOfDeliveryForm() {
             this.assignCustomerFormAction(this.customerForm)
             this.$emit('close-dialog')
         },
+
         formatNumber(val) {
             return getFormatNum(val)
         },
+
         previewTicket() {
-            if(! this.customerForm.tel) return   swalError2(this.$swal, "ກະລຸນາໃສ່ເບີໂທ")
-            if(! this.customerForm.address) return   swalError2(this.$swal, "ກະລຸນາໃສ່ທີ່ຢູ່")
+            if (!this.customerForm.tel) return swalError2(this.$swal, "ກະລຸນາໃສ່ເບີໂທ")
+            if (!this.customerForm.address) return swalError2(this.$swal, "ກະລຸນາໃສ່ທີ່ຢູ່")
+            
+            // Validate shipping selection before preview
+            if (!this.validateForm()) {
+                return;
+            }
+
             this.previewDialogKey += 1;
             this.ticketPreviewDialog = true
+        },
 
-        },
         async loadRider() {
-            this.$axios
-                .get('/api/rider/find')
-                .then((res) => {
-                    this.riderList = res.data
-                })
-                .catch((er) => {
-                    swalError2(this.$swal, "Error", er)
-                })
-            this.isloading = false;
+            try {
+                const res = await this.$axios.get('/api/rider/find');
+                this.riderList = res.data;
+                // Do NOT auto-select first rider - keep it null for manual selection
+                console.log('Riders loaded, no auto-selection applied');
+            } catch (er) {
+                swalError2(this.$swal, "Error loading riders", er);
+            }
         },
+
         async loadPayment() {
-            this.isloading = true;
             this.paymentList = []
-            await this.$axios
-                .get('/api/paymentMethod/find')
-                .then((res) => {
-                    this.paymentList = res.data
-                })
-                .catch((er) => {
-                    swalError2(this.$swal, "Error", er)
-                })
-            this.isloading = false;
+            try {
+                const res = await this.$axios.get('/api/paymentMethod/find');
+                this.paymentList = res.data;
+                // Do NOT auto-select first payment method
+                console.log('Payment methods loaded, no auto-selection applied');
+            } catch (er) {
+                swalError2(this.$swal, "Error loading payment methods", er);
+            }
         },
+
         async loadGeo() {
-            this.$axios
-                .get('/api/geography/find')
-                .then((res) => {
-                    this.geographyList = res.data
-                    for (const iterator of this.geographyList) {
-                        iterator['abbr'] += ' - '.concat(iterator['description'])
-                    }
-                })
-                .catch((er) => {
-                    swalError2(this.$swal, "Error", er)
-                })
-            this.isloading = false;
+            try {
+                const res = await this.$axios.get('/api/geography/find');
+                this.geographyList = res.data;
+                for (const iterator of this.geographyList) {
+                    iterator['abbr'] += ' - '.concat(iterator['description'])
+                }
+                // Do NOT auto-select first geography
+                console.log('Geography loaded, no auto-selection applied');
+            } catch (er) {
+                swalError2(this.$swal, "Error loading geography", er);
+            }
         },
+
         async loadShipping() {
-            this.$axios
-                .get('/api/shipping/find')
-                .then((res) => {
-                    this.shippingList = res.data
-                })
-                .catch((er) => {
-                    swalError2(this.$swal, "Error", er)
-                })
-            this.isloading = false;
+            try {
+                const res = await this.$axios.get('/api/shipping/find');
+                this.shippingList = res.data;
+                // Do NOT auto-select first shipping method - this is the key change
+                console.log('Shipping methods loaded, no auto-selection applied');
+            } catch (er) {
+                swalError2(this.$swal, "Error loading shipping methods", er);
+            }
         }
     }
 }
 </script>
-  
+
+<style scoped>
+/* Optional: Add some visual indication for required fields */
+.v-text-field--outlined.error--text .v-label {
+    color: #ff5252 !important;
+}
+</style>

@@ -1,13 +1,13 @@
 exports.ids = [32,94];
 exports.modules = {
 
-/***/ 413:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(414);
+var content = __webpack_require__(417);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -15,7 +15,7 @@ __webpack_require__(5).default("c54b7bb4", content, true)
 
 /***/ }),
 
-/***/ 414:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -30,13 +30,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 433:
+/***/ 436:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(434);
+var content = __webpack_require__(437);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -44,7 +44,7 @@ __webpack_require__(5).default("59f225a8", content, true)
 
 /***/ }),
 
-/***/ 434:
+/***/ 437:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -59,11 +59,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 437:
+/***/ 440:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(413);
+/* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(416);
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
@@ -160,13 +160,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 454:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(167);
+/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(168);
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(433);
+/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(436);
 /* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(66);
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
@@ -290,14 +290,14 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 460:
+/***/ 461:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export calculateUpdatedOffset */
 /* unused harmony export calculateCenteredOffset */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
-/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(461);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(462);
 /* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
@@ -718,13 +718,13 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
 
 /***/ }),
 
-/***/ 461:
+/***/ 462:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(462);
+var content = __webpack_require__(463);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -732,7 +732,7 @@ __webpack_require__(5).default("d67becdc", content, true)
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -747,11 +747,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 465:
+/***/ 466:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(466);
+/* harmony import */ var _src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(467);
 /* harmony import */ var _src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(136);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
@@ -996,13 +996,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 466:
+/***/ 467:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(467);
+var content = __webpack_require__(468);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1010,7 +1010,7 @@ __webpack_require__(5).default("3f874970", content, true)
 
 /***/ }),
 
-/***/ 467:
+/***/ 468:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1025,11 +1025,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 468:
+/***/ 469:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _mixins_bootable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _mixins_bootable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
 /* harmony import */ var _mixins_groupable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(136);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
@@ -1160,13 +1160,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_4__[/* default *
 
 /***/ }),
 
-/***/ 485:
+/***/ 488:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(518);
+var content = __webpack_require__(522);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1178,13 +1178,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 497:
+/***/ 502:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(542);
+var content = __webpack_require__(547);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1196,13 +1196,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 515:
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(516);
+var content = __webpack_require__(509);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1210,7 +1210,7 @@ __webpack_require__(5).default("410cae3c", content, true)
 
 /***/ }),
 
-/***/ 516:
+/***/ 509:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1225,19 +1225,59 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 517:
+/***/ 510:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _VWindow_VWindow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(466);
+/* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
+// Extensions
+ // Types & Components
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_VWindow_VWindow__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].extend({
+  name: 'v-tabs-items',
+  props: {
+    mandatory: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    classes() {
+      return {
+        ..._VWindow_VWindow__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].options.computed.classes.call(this),
+        'v-tabs-items': true
+      };
+    },
+    isDark() {
+      return this.rootIsDark;
+    }
+  },
+  methods: {
+    getValue(item, i) {
+      return item.id || _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_1__[/* BaseItemGroup */ "a"].options.methods.getValue.call(this, item, i);
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 521:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(485);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 518:
+/***/ 522:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1252,7 +1292,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 531:
+/***/ 536:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1272,16 +1312,16 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(399);
+var VCol = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(357);
+var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(396);
+var VForm = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -1293,7 +1333,7 @@ var VList = __webpack_require__(116);
 var VListItem = __webpack_require__(68);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var components_VList = __webpack_require__(9);
+var components_VList = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
 var VListItemIcon = __webpack_require__(61);
@@ -1308,568 +1348,29 @@ var VProgressCircular = __webpack_require__(91);
 var VProgressLinear = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(398);
+var VRow = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(401);
+var VSpacer = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(454);
+var VSwitch = __webpack_require__(457);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/groupable/index.js
-var groupable = __webpack_require__(33);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTabs/VTab.js
+var VTab = __webpack_require__(605);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/routable/index.js
-var routable = __webpack_require__(21);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabItem.js
+var VTabItem = __webpack_require__(606);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
-var themeable = __webpack_require__(7);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabs.js + 2 modules
+var VTabs = __webpack_require__(619);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
-var helpers = __webpack_require__(0);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsItems.js
+var VTabsItems = __webpack_require__(510);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
-var mixins = __webpack_require__(2);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTab.js
-// Mixins
-
-
- // Utilities
-
-
-
-const baseMixins = Object(mixins["a" /* default */])(routable["a" /* default */],
-// Must be after routable
-// to overwrite activeClass
-Object(groupable["a" /* factory */])('tabsBar'), themeable["a" /* default */]);
-/* harmony default export */ var VTab = (baseMixins.extend().extend().extend({
-  name: 'v-tab',
-  props: {
-    ripple: {
-      type: [Boolean, Object],
-      default: true
-    }
-  },
-  data: () => ({
-    proxyClass: 'v-tab--active'
-  }),
-  computed: {
-    classes() {
-      return {
-        'v-tab': true,
-        ...routable["a" /* default */].options.computed.classes.call(this),
-        'v-tab--disabled': this.disabled,
-        ...this.groupClasses
-      };
-    },
-    value() {
-      let to = this.to || this.href;
-      if (to == null) return to;
-      if (this.$router && this.to === Object(this.to)) {
-        const resolve = this.$router.resolve(this.to, this.$route, this.append);
-        to = resolve.href;
-      }
-      return to.replace('#', '');
-    }
-  },
-  methods: {
-    click(e) {
-      // Prevent keyboard actions
-      // from children elements
-      // within disabled tabs
-      if (this.disabled) {
-        e.preventDefault();
-        return;
-      } // If user provides an
-      // actual link, do not
-      // prevent default
-
-      if (this.href && this.href.indexOf('#') > -1) e.preventDefault();
-      if (e.detail) this.$el.blur();
-      this.$emit('click', e);
-      this.to || this.toggle();
-    },
-    toggle() {
-      // VItemGroup treats a change event as a click
-      if (!this.isActive || !this.tabsBar.mandatory && !this.to) {
-        this.$emit('change');
-      }
-    }
-  },
-  render(h) {
-    const {
-      tag,
-      data
-    } = this.generateRouteLink();
-    data.attrs = {
-      ...data.attrs,
-      'aria-selected': String(this.isActive),
-      role: 'tab',
-      tabindex: this.disabled ? -1 : 0
-    };
-    data.on = {
-      ...data.on,
-      keydown: e => {
-        if (e.keyCode === helpers["y" /* keyCodes */].enter) this.click(e);
-        this.$emit('keydown', e);
-      }
-    };
-    return h(tag, data, this.$slots.default);
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VWindow/VWindowItem.js
-var VWindowItem = __webpack_require__(468);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabItem.js
-// Extensions
-
-/* @vue/component */
-
-/* harmony default export */ var VTabItem = (VWindowItem["a" /* default */].extend({
-  name: 'v-tab-item',
-  props: {
-    id: String
-  },
-  methods: {
-    genWindowItem() {
-      const item = VWindowItem["a" /* default */].options.methods.genWindowItem.call(this);
-      item.data.domProps = item.data.domProps || {};
-      item.data.domProps.id = this.id || this.value;
-      return item;
-    }
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VTabs/VTabs.sass
-var VTabs = __webpack_require__(515);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
-var VSlideGroup = __webpack_require__(460);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/ssr-bootable/index.js
-var ssr_bootable = __webpack_require__(42);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsBar.js
-// Extensions
- // Mixins
-
-
- // Utilities
-
-
-/* harmony default export */ var VTabsBar = (Object(mixins["a" /* default */])(VSlideGroup["a" /* BaseSlideGroup */], ssr_bootable["a" /* default */], themeable["a" /* default */]
-/* @vue/component */).extend({
-  name: 'v-tabs-bar',
-  provide() {
-    return {
-      tabsBar: this
-    };
-  },
-  computed: {
-    classes() {
-      return {
-        ...VSlideGroup["a" /* BaseSlideGroup */].options.computed.classes.call(this),
-        'v-tabs-bar': true,
-        'v-tabs-bar--is-mobile': this.isMobile,
-        // TODO: Remove this and move to v-slide-group
-        'v-tabs-bar--show-arrows': this.showArrows,
-        ...this.themeClasses
-      };
-    }
-  },
-  watch: {
-    items: 'callSlider',
-    internalValue: 'callSlider',
-    $route: 'onRouteChange'
-  },
-  methods: {
-    callSlider() {
-      if (!this.isBooted) return;
-      this.$emit('call:slider');
-    },
-    genContent() {
-      const render = VSlideGroup["a" /* BaseSlideGroup */].options.methods.genContent.call(this);
-      render.data = render.data || {};
-      render.data.staticClass += ' v-tabs-bar__content';
-      return render;
-    },
-    onRouteChange(val, oldVal) {
-      /* istanbul ignore next */
-      if (this.mandatory) return;
-      const items = this.items;
-      const newPath = val.path;
-      const oldPath = oldVal.path;
-      let hasNew = false;
-      let hasOld = false;
-      for (const item of items) {
-        if (item.to === oldPath) hasOld = true;else if (item.to === newPath) hasNew = true;
-        if (hasNew && hasOld) break;
-      } // If we have an old item and not a new one
-      // it's assumed that the user navigated to
-      // a path that is not present in the items
-
-      if (!hasNew && hasOld) this.internalValue = undefined;
-    }
-  },
-  render(h) {
-    const render = VSlideGroup["a" /* BaseSlideGroup */].options.render.call(this, h);
-    render.data.attrs = {
-      role: 'tablist'
-    };
-    return render;
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VWindow/VWindow.js
-var VWindow = __webpack_require__(465);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VItemGroup/VItemGroup.js
-var VItemGroup = __webpack_require__(32);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsItems.js
-// Extensions
- // Types & Components
-
-
-/* @vue/component */
-
-/* harmony default export */ var VTabsItems = (VWindow["a" /* default */].extend({
-  name: 'v-tabs-items',
-  props: {
-    mandatory: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    classes() {
-      return {
-        ...VWindow["a" /* default */].options.computed.classes.call(this),
-        'v-tabs-items': true
-      };
-    },
-    isDark() {
-      return this.rootIsDark;
-    }
-  },
-  methods: {
-    getValue(item, i) {
-      return item.id || VItemGroup["a" /* BaseItemGroup */].options.methods.getValue.call(this, item, i);
-    }
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
-var colorable = __webpack_require__(8);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsSlider.js
-// Mixins
- // Utilities
-
-
-/* @vue/component */
-
-/* harmony default export */ var VTabsSlider = (Object(mixins["a" /* default */])(colorable["a" /* default */]).extend({
-  name: 'v-tabs-slider',
-  render(h) {
-    return h('div', this.setBackgroundColor(this.color, {
-      staticClass: 'v-tabs-slider'
-    }));
-  }
-}));
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/proxyable/index.js
-var proxyable = __webpack_require__(77);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/resize/index.js
-var resize = __webpack_require__(50);
-
-// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabs.js
-// Styles
- // Components
-
-
-
- // Mixins
-
-
-
- // Directives
-
- // Utilities
-
-
-
-const VTabs_baseMixins = Object(mixins["a" /* default */])(colorable["a" /* default */], proxyable["a" /* default */], themeable["a" /* default */]);
-/* harmony default export */ var VTabs_VTabs = (VTabs_baseMixins.extend().extend({
-  name: 'v-tabs',
-  directives: {
-    Resize: resize["a" /* default */]
-  },
-  props: {
-    activeClass: {
-      type: String,
-      default: ''
-    },
-    alignWithTitle: Boolean,
-    backgroundColor: String,
-    centerActive: Boolean,
-    centered: Boolean,
-    fixedTabs: Boolean,
-    grow: Boolean,
-    height: {
-      type: [Number, String],
-      default: undefined
-    },
-    hideSlider: Boolean,
-    iconsAndText: Boolean,
-    mobileBreakpoint: [String, Number],
-    nextIcon: {
-      type: String,
-      default: '$next'
-    },
-    optional: Boolean,
-    prevIcon: {
-      type: String,
-      default: '$prev'
-    },
-    right: Boolean,
-    showArrows: [Boolean, String],
-    sliderColor: String,
-    sliderSize: {
-      type: [Number, String],
-      default: 2
-    },
-    vertical: Boolean
-  },
-  data() {
-    return {
-      resizeTimeout: 0,
-      slider: {
-        height: null,
-        left: null,
-        right: null,
-        top: null,
-        width: null
-      },
-      transitionTime: 300
-    };
-  },
-  computed: {
-    classes() {
-      return {
-        'v-tabs--align-with-title': this.alignWithTitle,
-        'v-tabs--centered': this.centered,
-        'v-tabs--fixed-tabs': this.fixedTabs,
-        'v-tabs--grow': this.grow,
-        'v-tabs--icons-and-text': this.iconsAndText,
-        'v-tabs--right': this.right,
-        'v-tabs--vertical': this.vertical,
-        ...this.themeClasses
-      };
-    },
-    isReversed() {
-      return this.$vuetify.rtl && this.vertical;
-    },
-    sliderStyles() {
-      return {
-        height: Object(helpers["h" /* convertToUnit */])(this.slider.height),
-        left: this.isReversed ? undefined : Object(helpers["h" /* convertToUnit */])(this.slider.left),
-        right: this.isReversed ? Object(helpers["h" /* convertToUnit */])(this.slider.right) : undefined,
-        top: this.vertical ? Object(helpers["h" /* convertToUnit */])(this.slider.top) : undefined,
-        transition: this.slider.left != null ? null : 'none',
-        width: Object(helpers["h" /* convertToUnit */])(this.slider.width)
-      };
-    },
-    computedColor() {
-      if (this.color) return this.color;else if (this.isDark && !this.appIsDark) return 'white';else return 'primary';
-    }
-  },
-  watch: {
-    alignWithTitle: 'callSlider',
-    centered: 'callSlider',
-    centerActive: 'callSlider',
-    fixedTabs: 'callSlider',
-    grow: 'callSlider',
-    iconsAndText: 'callSlider',
-    right: 'callSlider',
-    showArrows: 'callSlider',
-    vertical: 'callSlider',
-    '$vuetify.application.left': 'onResize',
-    '$vuetify.application.right': 'onResize',
-    '$vuetify.rtl': 'onResize'
-  },
-  mounted() {
-    if (typeof ResizeObserver !== 'undefined') {
-      const obs = new ResizeObserver(() => {
-        this.onResize();
-      });
-      obs.observe(this.$el);
-      this.$on('hook:destroyed', () => {
-        obs.disconnect();
-      });
-    }
-    this.$nextTick(() => {
-      window.setTimeout(this.callSlider, 30);
-    });
-  },
-  methods: {
-    callSlider() {
-      if (this.hideSlider || !this.$refs.items || !this.$refs.items.selectedItems.length) {
-        this.slider.width = 0;
-        return false;
-      }
-      this.$nextTick(() => {
-        // Give screen time to paint
-        const activeTab = this.$refs.items.selectedItems[0];
-        /* istanbul ignore if */
-
-        if (!activeTab || !activeTab.$el) {
-          this.slider.width = 0;
-          this.slider.left = 0;
-          return;
-        }
-        const el = activeTab.$el;
-        this.slider = {
-          height: !this.vertical ? Number(this.sliderSize) : el.scrollHeight,
-          left: this.vertical ? 0 : el.offsetLeft,
-          right: this.vertical ? 0 : el.offsetLeft + el.offsetWidth,
-          top: el.offsetTop,
-          width: this.vertical ? Number(this.sliderSize) : el.scrollWidth
-        };
-      });
-      return true;
-    },
-    genBar(items, slider) {
-      const data = {
-        style: {
-          height: Object(helpers["h" /* convertToUnit */])(this.height)
-        },
-        props: {
-          activeClass: this.activeClass,
-          centerActive: this.centerActive,
-          dark: this.dark,
-          light: this.light,
-          mandatory: !this.optional,
-          mobileBreakpoint: this.mobileBreakpoint,
-          nextIcon: this.nextIcon,
-          prevIcon: this.prevIcon,
-          showArrows: this.showArrows,
-          value: this.internalValue
-        },
-        on: {
-          'call:slider': this.callSlider,
-          change: val => {
-            this.internalValue = val;
-          }
-        },
-        ref: 'items'
-      };
-      this.setTextColor(this.computedColor, data);
-      this.setBackgroundColor(this.backgroundColor, data);
-      return this.$createElement(VTabsBar, data, [this.genSlider(slider), items]);
-    },
-    genItems(items, item) {
-      // If user provides items
-      // opt to use theirs
-      if (items) return items; // If no tabs are provided
-      // render nothing
-
-      if (!item.length) return null;
-      return this.$createElement(VTabsItems, {
-        props: {
-          value: this.internalValue
-        },
-        on: {
-          change: val => {
-            this.internalValue = val;
-          }
-        }
-      }, item);
-    },
-    genSlider(slider) {
-      if (this.hideSlider) return null;
-      if (!slider) {
-        slider = this.$createElement(VTabsSlider, {
-          props: {
-            color: this.sliderColor
-          }
-        });
-      }
-      return this.$createElement('div', {
-        staticClass: 'v-tabs-slider-wrapper',
-        style: this.sliderStyles
-      }, [slider]);
-    },
-    onResize() {
-      if (this._isDestroyed) return;
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = window.setTimeout(this.callSlider, 0);
-    },
-    parseNodes() {
-      let items = null;
-      let slider = null;
-      const item = [];
-      const tab = [];
-      const slot = this.$slots.default || [];
-      const length = slot.length;
-      for (let i = 0; i < length; i++) {
-        const vnode = slot[i];
-        if (vnode.componentOptions) {
-          switch (vnode.componentOptions.Ctor.options.name) {
-            case 'v-tabs-slider':
-              slider = vnode;
-              break;
-            case 'v-tabs-items':
-              items = vnode;
-              break;
-            case 'v-tab-item':
-              item.push(vnode);
-              break;
-            // case 'v-tab' - intentionally omitted
-
-            default:
-              tab.push(vnode);
-          }
-        } else {
-          tab.push(vnode);
-        }
-      }
-      /**
-       * tab: array of `v-tab`
-       * slider: single `v-tabs-slider`
-       * items: single `v-tabs-items`
-       * item: array of `v-tab-item`
-       */
-
-      return {
-        tab,
-        slider,
-        items,
-        item
-      };
-    }
-  },
-  render(h) {
-    const {
-      tab,
-      slider,
-      items,
-      item
-    } = this.parseNodes();
-    return h('div', {
-      staticClass: 'v-tabs',
-      class: this.classes,
-      directives: [{
-        name: 'resize',
-        modifiers: {
-          quiet: true
-        },
-        value: this.onResize
-      }]
-    }, [this.genBar(tab, slider), this.genItems(items, item)]);
-  }
-}));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
@@ -1936,7 +1437,7 @@ var member_offervue_type_template_id_0539923e_scoped_true_render = function rend
     }
   }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
     staticClass: "pa-0"
-  }, [_c(VTabs_VTabs, {
+  }, [_c(VTabs["a" /* default */], {
     attrs: {
       "background-color": "grey lighten-4"
     },
@@ -1947,15 +1448,15 @@ var member_offervue_type_template_id_0539923e_scoped_true_render = function rend
       },
       expression: "activeTab"
     }
-  }, [_c(VTab, [_c(VIcon["a" /* default */], {
+  }, [_c(VTab["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-view-list")]), _vm._v("\n            Offers List\n          ")], 1), _vm._v(" "), _c(VTab, [_c(VIcon["a" /* default */], {
+  }, [_vm._v("mdi-view-list")]), _vm._v("\n            Offers List\n          ")], 1), _vm._v(" "), _c(VTab["a" /* default */], [_c(VIcon["a" /* default */], {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-plus")]), _vm._v("\n            Add New Offer\n          ")], 1)], 1), _vm._v(" "), _c(VTabsItems, {
+  }, [_vm._v("mdi-plus")]), _vm._v("\n            Add New Offer\n          ")], 1)], 1), _vm._v(" "), _c(VTabsItems["a" /* default */], {
     model: {
       value: _vm.activeTab,
       callback: function ($$v) {
@@ -1963,7 +1464,7 @@ var member_offervue_type_template_id_0539923e_scoped_true_render = function rend
       },
       expression: "activeTab"
     }
-  }, [_c(VTabItem, [_c('div', {
+  }, [_c(VTabItem["a" /* default */], [_c('div', {
     staticClass: "pa-4"
   }, [_vm.selectedMember ? _c(VCard["a" /* default */], {
     staticClass: "mb-4",
@@ -2168,7 +1669,7 @@ var member_offervue_type_template_id_0539923e_scoped_true_render = function rend
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-plus")]), _vm._v("\n                  Create First Offer\n                ")], 1)], 1)], 1)]), _vm._v(" "), _c(VTabItem, [_c('div', {
+  }, [_vm._v("mdi-plus")]), _vm._v("\n                  Create First Offer\n                ")], 1)], 1)], 1)]), _vm._v(" "), _c(VTabItem["a" /* default */], [_c('div', {
     staticClass: "pa-4"
   }, [_c('h3', {
     staticClass: "mb-4"
@@ -2662,7 +2163,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(517)
+  var style0 = __webpack_require__(521)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2684,19 +2185,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 541:
+/***/ 546:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7d3a3b54_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(497);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7d3a3b54_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(502);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7d3a3b54_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7d3a3b54_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7d3a3b54_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7d3a3b54_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 542:
+/***/ 547:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2711,7 +2212,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 565:
+/***/ 571:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2731,13 +2232,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(399);
+var VCol = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(357);
+var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(396);
+var VForm = __webpack_require__(399);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -2746,19 +2247,19 @@ var VIcon = __webpack_require__(60);
 var VProgressCircular = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(398);
+var VRow = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(401);
+var VSpacer = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(437);
+var VTextarea = __webpack_require__(440);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=template&id=7d3a3b54&scoped=true
 
@@ -3297,8 +2798,8 @@ var staticRenderFns = [];
 
 // CONCATENATED MODULE: ./components/CAFE/customerDialog/index.vue?vue&type=template&id=7d3a3b54&scoped=true
 
-// EXTERNAL MODULE: ./components/member_offer/index.vue + 10 modules
-var member_offer = __webpack_require__(531);
+// EXTERNAL MODULE: ./components/member_offer/index.vue + 4 modules
+var member_offer = __webpack_require__(536);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=script&lang=js
  // NEW: Import member offer dialog
@@ -3539,7 +3040,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(541)
+  var style0 = __webpack_require__(546)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -3558,6 +3059,539 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var customerDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 605:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _mixins_groupable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _mixins_routable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21);
+/* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2);
+// Mixins
+
+
+ // Utilities
+
+
+
+const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(_mixins_routable__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"],
+// Must be after routable
+// to overwrite activeClass
+Object(_mixins_groupable__WEBPACK_IMPORTED_MODULE_0__[/* factory */ "a"])('tabsBar'), _mixins_themeable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]);
+/* harmony default export */ __webpack_exports__["a"] = (baseMixins.extend().extend().extend({
+  name: 'v-tab',
+  props: {
+    ripple: {
+      type: [Boolean, Object],
+      default: true
+    }
+  },
+  data: () => ({
+    proxyClass: 'v-tab--active'
+  }),
+  computed: {
+    classes() {
+      return {
+        'v-tab': true,
+        ..._mixins_routable__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.computed.classes.call(this),
+        'v-tab--disabled': this.disabled,
+        ...this.groupClasses
+      };
+    },
+    value() {
+      let to = this.to || this.href;
+      if (to == null) return to;
+      if (this.$router && this.to === Object(this.to)) {
+        const resolve = this.$router.resolve(this.to, this.$route, this.append);
+        to = resolve.href;
+      }
+      return to.replace('#', '');
+    }
+  },
+  methods: {
+    click(e) {
+      // Prevent keyboard actions
+      // from children elements
+      // within disabled tabs
+      if (this.disabled) {
+        e.preventDefault();
+        return;
+      } // If user provides an
+      // actual link, do not
+      // prevent default
+
+      if (this.href && this.href.indexOf('#') > -1) e.preventDefault();
+      if (e.detail) this.$el.blur();
+      this.$emit('click', e);
+      this.to || this.toggle();
+    },
+    toggle() {
+      // VItemGroup treats a change event as a click
+      if (!this.isActive || !this.tabsBar.mandatory && !this.to) {
+        this.$emit('change');
+      }
+    }
+  },
+  render(h) {
+    const {
+      tag,
+      data
+    } = this.generateRouteLink();
+    data.attrs = {
+      ...data.attrs,
+      'aria-selected': String(this.isActive),
+      role: 'tab',
+      tabindex: this.disabled ? -1 : 0
+    };
+    data.on = {
+      ...data.on,
+      keydown: e => {
+        if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_3__[/* keyCodes */ "y"].enter) this.click(e);
+        this.$emit('keydown', e);
+      }
+    };
+    return h(tag, data, this.$slots.default);
+  }
+}));
+
+/***/ }),
+
+/***/ 606:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _VWindow_VWindowItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(469);
+// Extensions
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_VWindow_VWindowItem__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].extend({
+  name: 'v-tab-item',
+  props: {
+    id: String
+  },
+  methods: {
+    genWindowItem() {
+      const item = _VWindow_VWindowItem__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].options.methods.genWindowItem.call(this);
+      item.data.domProps = item.data.domProps || {};
+      item.data.domProps.id = this.id || this.value;
+      return item;
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 619:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: ./node_modules/vuetify/src/components/VTabs/VTabs.sass
+var VTabs = __webpack_require__(508);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
+var VSlideGroup = __webpack_require__(461);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
+var themeable = __webpack_require__(7);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/ssr-bootable/index.js
+var ssr_bootable = __webpack_require__(42);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
+var mixins = __webpack_require__(2);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsBar.js
+// Extensions
+ // Mixins
+
+
+ // Utilities
+
+
+/* harmony default export */ var VTabsBar = (Object(mixins["a" /* default */])(VSlideGroup["a" /* BaseSlideGroup */], ssr_bootable["a" /* default */], themeable["a" /* default */]
+/* @vue/component */).extend({
+  name: 'v-tabs-bar',
+  provide() {
+    return {
+      tabsBar: this
+    };
+  },
+  computed: {
+    classes() {
+      return {
+        ...VSlideGroup["a" /* BaseSlideGroup */].options.computed.classes.call(this),
+        'v-tabs-bar': true,
+        'v-tabs-bar--is-mobile': this.isMobile,
+        // TODO: Remove this and move to v-slide-group
+        'v-tabs-bar--show-arrows': this.showArrows,
+        ...this.themeClasses
+      };
+    }
+  },
+  watch: {
+    items: 'callSlider',
+    internalValue: 'callSlider',
+    $route: 'onRouteChange'
+  },
+  methods: {
+    callSlider() {
+      if (!this.isBooted) return;
+      this.$emit('call:slider');
+    },
+    genContent() {
+      const render = VSlideGroup["a" /* BaseSlideGroup */].options.methods.genContent.call(this);
+      render.data = render.data || {};
+      render.data.staticClass += ' v-tabs-bar__content';
+      return render;
+    },
+    onRouteChange(val, oldVal) {
+      /* istanbul ignore next */
+      if (this.mandatory) return;
+      const items = this.items;
+      const newPath = val.path;
+      const oldPath = oldVal.path;
+      let hasNew = false;
+      let hasOld = false;
+      for (const item of items) {
+        if (item.to === oldPath) hasOld = true;else if (item.to === newPath) hasNew = true;
+        if (hasNew && hasOld) break;
+      } // If we have an old item and not a new one
+      // it's assumed that the user navigated to
+      // a path that is not present in the items
+
+      if (!hasNew && hasOld) this.internalValue = undefined;
+    }
+  },
+  render(h) {
+    const render = VSlideGroup["a" /* BaseSlideGroup */].options.render.call(this, h);
+    render.data.attrs = {
+      role: 'tablist'
+    };
+    return render;
+  }
+}));
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsItems.js
+var VTabsItems = __webpack_require__(510);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/colorable/index.js
+var colorable = __webpack_require__(9);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabsSlider.js
+// Mixins
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ var VTabsSlider = (Object(mixins["a" /* default */])(colorable["a" /* default */]).extend({
+  name: 'v-tabs-slider',
+  render(h) {
+    return h('div', this.setBackgroundColor(this.color, {
+      staticClass: 'v-tabs-slider'
+    }));
+  }
+}));
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/proxyable/index.js
+var proxyable = __webpack_require__(77);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/resize/index.js
+var resize = __webpack_require__(50);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
+var helpers = __webpack_require__(0);
+
+// CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VTabs/VTabs.js
+// Styles
+ // Components
+
+
+
+ // Mixins
+
+
+
+ // Directives
+
+ // Utilities
+
+
+
+const baseMixins = Object(mixins["a" /* default */])(colorable["a" /* default */], proxyable["a" /* default */], themeable["a" /* default */]);
+/* harmony default export */ var VTabs_VTabs = __webpack_exports__["a"] = (baseMixins.extend().extend({
+  name: 'v-tabs',
+  directives: {
+    Resize: resize["a" /* default */]
+  },
+  props: {
+    activeClass: {
+      type: String,
+      default: ''
+    },
+    alignWithTitle: Boolean,
+    backgroundColor: String,
+    centerActive: Boolean,
+    centered: Boolean,
+    fixedTabs: Boolean,
+    grow: Boolean,
+    height: {
+      type: [Number, String],
+      default: undefined
+    },
+    hideSlider: Boolean,
+    iconsAndText: Boolean,
+    mobileBreakpoint: [String, Number],
+    nextIcon: {
+      type: String,
+      default: '$next'
+    },
+    optional: Boolean,
+    prevIcon: {
+      type: String,
+      default: '$prev'
+    },
+    right: Boolean,
+    showArrows: [Boolean, String],
+    sliderColor: String,
+    sliderSize: {
+      type: [Number, String],
+      default: 2
+    },
+    vertical: Boolean
+  },
+  data() {
+    return {
+      resizeTimeout: 0,
+      slider: {
+        height: null,
+        left: null,
+        right: null,
+        top: null,
+        width: null
+      },
+      transitionTime: 300
+    };
+  },
+  computed: {
+    classes() {
+      return {
+        'v-tabs--align-with-title': this.alignWithTitle,
+        'v-tabs--centered': this.centered,
+        'v-tabs--fixed-tabs': this.fixedTabs,
+        'v-tabs--grow': this.grow,
+        'v-tabs--icons-and-text': this.iconsAndText,
+        'v-tabs--right': this.right,
+        'v-tabs--vertical': this.vertical,
+        ...this.themeClasses
+      };
+    },
+    isReversed() {
+      return this.$vuetify.rtl && this.vertical;
+    },
+    sliderStyles() {
+      return {
+        height: Object(helpers["h" /* convertToUnit */])(this.slider.height),
+        left: this.isReversed ? undefined : Object(helpers["h" /* convertToUnit */])(this.slider.left),
+        right: this.isReversed ? Object(helpers["h" /* convertToUnit */])(this.slider.right) : undefined,
+        top: this.vertical ? Object(helpers["h" /* convertToUnit */])(this.slider.top) : undefined,
+        transition: this.slider.left != null ? null : 'none',
+        width: Object(helpers["h" /* convertToUnit */])(this.slider.width)
+      };
+    },
+    computedColor() {
+      if (this.color) return this.color;else if (this.isDark && !this.appIsDark) return 'white';else return 'primary';
+    }
+  },
+  watch: {
+    alignWithTitle: 'callSlider',
+    centered: 'callSlider',
+    centerActive: 'callSlider',
+    fixedTabs: 'callSlider',
+    grow: 'callSlider',
+    iconsAndText: 'callSlider',
+    right: 'callSlider',
+    showArrows: 'callSlider',
+    vertical: 'callSlider',
+    '$vuetify.application.left': 'onResize',
+    '$vuetify.application.right': 'onResize',
+    '$vuetify.rtl': 'onResize'
+  },
+  mounted() {
+    if (typeof ResizeObserver !== 'undefined') {
+      const obs = new ResizeObserver(() => {
+        this.onResize();
+      });
+      obs.observe(this.$el);
+      this.$on('hook:destroyed', () => {
+        obs.disconnect();
+      });
+    }
+    this.$nextTick(() => {
+      window.setTimeout(this.callSlider, 30);
+    });
+  },
+  methods: {
+    callSlider() {
+      if (this.hideSlider || !this.$refs.items || !this.$refs.items.selectedItems.length) {
+        this.slider.width = 0;
+        return false;
+      }
+      this.$nextTick(() => {
+        // Give screen time to paint
+        const activeTab = this.$refs.items.selectedItems[0];
+        /* istanbul ignore if */
+
+        if (!activeTab || !activeTab.$el) {
+          this.slider.width = 0;
+          this.slider.left = 0;
+          return;
+        }
+        const el = activeTab.$el;
+        this.slider = {
+          height: !this.vertical ? Number(this.sliderSize) : el.scrollHeight,
+          left: this.vertical ? 0 : el.offsetLeft,
+          right: this.vertical ? 0 : el.offsetLeft + el.offsetWidth,
+          top: el.offsetTop,
+          width: this.vertical ? Number(this.sliderSize) : el.scrollWidth
+        };
+      });
+      return true;
+    },
+    genBar(items, slider) {
+      const data = {
+        style: {
+          height: Object(helpers["h" /* convertToUnit */])(this.height)
+        },
+        props: {
+          activeClass: this.activeClass,
+          centerActive: this.centerActive,
+          dark: this.dark,
+          light: this.light,
+          mandatory: !this.optional,
+          mobileBreakpoint: this.mobileBreakpoint,
+          nextIcon: this.nextIcon,
+          prevIcon: this.prevIcon,
+          showArrows: this.showArrows,
+          value: this.internalValue
+        },
+        on: {
+          'call:slider': this.callSlider,
+          change: val => {
+            this.internalValue = val;
+          }
+        },
+        ref: 'items'
+      };
+      this.setTextColor(this.computedColor, data);
+      this.setBackgroundColor(this.backgroundColor, data);
+      return this.$createElement(VTabsBar, data, [this.genSlider(slider), items]);
+    },
+    genItems(items, item) {
+      // If user provides items
+      // opt to use theirs
+      if (items) return items; // If no tabs are provided
+      // render nothing
+
+      if (!item.length) return null;
+      return this.$createElement(VTabsItems["a" /* default */], {
+        props: {
+          value: this.internalValue
+        },
+        on: {
+          change: val => {
+            this.internalValue = val;
+          }
+        }
+      }, item);
+    },
+    genSlider(slider) {
+      if (this.hideSlider) return null;
+      if (!slider) {
+        slider = this.$createElement(VTabsSlider, {
+          props: {
+            color: this.sliderColor
+          }
+        });
+      }
+      return this.$createElement('div', {
+        staticClass: 'v-tabs-slider-wrapper',
+        style: this.sliderStyles
+      }, [slider]);
+    },
+    onResize() {
+      if (this._isDestroyed) return;
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = window.setTimeout(this.callSlider, 0);
+    },
+    parseNodes() {
+      let items = null;
+      let slider = null;
+      const item = [];
+      const tab = [];
+      const slot = this.$slots.default || [];
+      const length = slot.length;
+      for (let i = 0; i < length; i++) {
+        const vnode = slot[i];
+        if (vnode.componentOptions) {
+          switch (vnode.componentOptions.Ctor.options.name) {
+            case 'v-tabs-slider':
+              slider = vnode;
+              break;
+            case 'v-tabs-items':
+              items = vnode;
+              break;
+            case 'v-tab-item':
+              item.push(vnode);
+              break;
+            // case 'v-tab' - intentionally omitted
+
+            default:
+              tab.push(vnode);
+          }
+        } else {
+          tab.push(vnode);
+        }
+      }
+      /**
+       * tab: array of `v-tab`
+       * slider: single `v-tabs-slider`
+       * items: single `v-tabs-items`
+       * item: array of `v-tab-item`
+       */
+
+      return {
+        tab,
+        slider,
+        items,
+        item
+      };
+    }
+  },
+  render(h) {
+    const {
+      tab,
+      slider,
+      items,
+      item
+    } = this.parseNodes();
+    return h('div', {
+      staticClass: 'v-tabs',
+      class: this.classes,
+      directives: [{
+        name: 'resize',
+        modifiers: {
+          quiet: true
+        },
+        value: this.onResize
+      }]
+    }, [this.genBar(tab, slider), this.genItems(items, item)]);
+  }
+}));
 
 /***/ })
 

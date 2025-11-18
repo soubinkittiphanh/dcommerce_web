@@ -1,7 +1,7 @@
 exports.ids = [96];
 exports.modules = {
 
-/***/ 959:
+/***/ 970:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,19 +21,19 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(357);
+var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(404);
+var VHover = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
-var VRadio = __webpack_require__(395);
+var VRadio = __webpack_require__(398);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
-var VRadioGroup = __webpack_require__(394);
+var VRadioGroup = __webpack_require__(397);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menu/index.vue?vue&type=template&id=8df4f1be
 
@@ -161,7 +161,7 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      imageSvg: __webpack_require__(172),
+      imageSvg: __webpack_require__(173),
       imageSrc: __webpack_require__(143),
       terminalDialog: false,
       terminalSelected: this.findSelectedTerminal || 1

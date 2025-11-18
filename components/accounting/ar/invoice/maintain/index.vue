@@ -88,7 +88,8 @@
                     {{ errors.agencyId }}
                   </div>
                 </div>
-                <div class="form-group" v-if="enableBatchJobbutton">
+                <!-- <div class="form-group" v-if="enableBatchJobbutton"> -->
+                <div class="form-group" >
                   <label for="jobBatchId" class="required">ແບັດຈັອບ</label>
                   <v-autocomplete
                     id="jobBatchId"

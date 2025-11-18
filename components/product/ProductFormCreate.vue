@@ -117,7 +117,31 @@
                   hide-details="auto"
                 />
               </v-col>
-              <v-col cols="4">
+              <v-col cols="2">
+                <v-autocomplete
+                  item-text="displayText"
+                  item-value="id"
+                  :items="productType"
+                  label="Product type"
+                  v-model="formData._category"
+                  :loading="loadingTaxRates"
+                  dense
+                  outlined
+                  hide-details="auto"
+                  clearable
+                >
+                  <template v-slot:selection="{ item }">
+                    <v-chip
+                      x-small
+                      :color="item.isDefault ? 'primary' : 'default'"
+                    >
+                      {{ item }}
+                    </v-chip>
+                    <span class="ml-1 text-caption">{{ item }}</span>
+                  </template>
+                </v-autocomplete>
+              </v-col>
+              <v-col cols="2">
                 <v-autocomplete
                   item-text="displayText"
                   item-value="id"
@@ -409,6 +433,7 @@ export default {
   },
   data() {
     return {
+      productType:['product','service','stock'],
       valid: false,
       isloading: false,
       message: null,
@@ -429,6 +454,7 @@ export default {
         pro_category: null,
         pro_id: null,
         pro_name: '',
+        _category: 'product',
         pro_price: 0,
         pro_cost_price: 0,
         pro_retail_price: 0,

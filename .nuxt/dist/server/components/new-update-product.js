@@ -1,14 +1,14 @@
 exports.ids = [106];
 exports.modules = {
 
-/***/ 510:
+/***/ 516:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/product.e130afd.jpg";
 
 /***/ }),
 
-/***/ 694:
+/***/ 702:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25,13 +25,13 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(404);
+var VHover = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(84);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(401);
+var VSpacer = __webpack_require__(404);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/new-update-product.vue?vue&type=template&id=d6b8bfda
 
@@ -101,7 +101,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/new-update-product.vue?vue&type=template&id=d6b8bfda
 
 // EXTERNAL MODULE: ./assets/img/product/product.jpg
-var product = __webpack_require__(510);
+var product = __webpack_require__(516);
 var product_default = /*#__PURE__*/__webpack_require__.n(product);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/new-update-product.vue?vue&type=script&lang=js

@@ -1,52 +1,7 @@
-exports.ids = [135];
+exports.ids = [136];
 exports.modules = {
 
-/***/ 675:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(770);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("953a6038", content, true, context)
-};
-
-/***/ }),
-
-/***/ 769:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(675);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 770:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".role-card[data-v-8669effa]{background:#fff;border:2px solid #e2e8f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;flex-direction:column;position:relative;transition:all .3s ease}.role-card[data-v-8669effa]:hover{border-color:#4299e1;box-shadow:0 8px 24px rgba(0,0,0,.15);transform:translateY(-4px)}.role-card.inactive[data-v-8669effa]{border-color:#cbd5e0;opacity:.7}.card-header[data-v-8669effa]{align-items:flex-start;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:20px}.role-info[data-v-8669effa]{flex:1}.role-name[data-v-8669effa]{align-items:center;display:flex;gap:8px;margin-bottom:8px}.name-text[data-v-8669effa]{color:#1a202c;font-size:20px;font-weight:700;text-transform:capitalize}.inactive-badge[data-v-8669effa]{background:#fc8181;border-radius:12px;color:#fff;font-size:11px;font-weight:600;padding:2px 8px}.role-level[data-v-8669effa]{align-items:center;display:flex}.level-badge[data-v-8669effa]{border-radius:16px;font-size:12px;font-weight:600;letter-spacing:.5px;padding:4px 12px;text-transform:uppercase}.level-admin[data-v-8669effa]{background:#fed7d7;color:#c53030}.level-manager[data-v-8669effa]{background:#feebc8;color:#c05621}.level-supervisor[data-v-8669effa]{background:#bee3f8;color:#2c5282}.level-staff[data-v-8669effa]{background:#e2e8f0;color:#2d3748}.card-actions[data-v-8669effa]{display:flex;gap:8px;position:relative}.action-icon[data-v-8669effa]{background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:18px;padding:4px 8px;transition:all .2s}.action-icon[data-v-8669effa]:hover{background:#f7fafc}.dropdown-menu[data-v-8669effa]{background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);margin-top:4px;min-width:180px;padding:8px 0;position:absolute;right:0;top:100%;z-index:10}.menu-item[data-v-8669effa]{align-items:center;background:transparent;border:none;color:#2d3748;cursor:pointer;display:flex;font-size:14px;gap:12px;padding:10px 16px;text-align:left;transition:all .2s;width:100%}.menu-item[data-v-8669effa]:hover{background:#f7fafc}.menu-item.danger[data-v-8669effa]{color:#e53e3e}.menu-item.danger[data-v-8669effa]:hover{background:#fff5f5}.menu-icon[data-v-8669effa]{font-size:16px}.card-body[data-v-8669effa]{flex:1;padding:20px}.role-description[data-v-8669effa]{color:#4a5568;font-size:14px;line-height:1.6;margin:0 0 16px}.role-description.empty[data-v-8669effa]{color:#a0aec0;font-style:italic}.permissions-section[data-v-8669effa]{margin-bottom:16px}.section-title[data-v-8669effa]{color:#718096;font-size:13px;font-weight:600;letter-spacing:.5px;margin:0 0 12px;text-transform:uppercase}.permissions-list[data-v-8669effa]{display:flex;flex-wrap:wrap;gap:6px}.permission-tag[data-v-8669effa]{background:#ebf8ff;border-radius:12px;color:#2c5282;font-size:11px;font-weight:600;padding:4px 10px}.permission-tag.more[data-v-8669effa]{background:#e2e8f0;color:#4a5568}.no-permissions[data-v-8669effa]{color:#a0aec0;font-size:13px;font-style:italic;margin:0}.users-section[data-v-8669effa]{border-top:1px solid #e2e8f0;padding-top:16px}.users-info[data-v-8669effa]{align-items:center;display:flex;gap:8px}.users-icon[data-v-8669effa]{font-size:18px}.users-count[data-v-8669effa]{color:#4a5568;font-size:14px;font-weight:600}.card-footer[data-v-8669effa]{border-top:1px solid #e2e8f0;display:flex;gap:8px;padding:16px 20px}.footer-btn[data-v-8669effa]{border:none;border-radius:6px;cursor:pointer;flex:1;font-size:13px;font-weight:600;padding:8px 16px;transition:all .2s}.btn-edit[data-v-8669effa]{background:#4299e1;color:#fff}.btn-edit[data-v-8669effa]:hover{background:#3182ce}.btn-users[data-v-8669effa]{background:#e2e8f0;color:#2d3748}.btn-users[data-v-8669effa]:hover{background:#cbd5e0}@media (max-width:768px){.role-card[data-v-8669effa]{margin-bottom:16px}.card-footer[data-v-8669effa]{flex-direction:column}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 989:
+/***/ 1001:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -152,7 +107,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(769)
+  var style0 = __webpack_require__(779)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -171,6 +126,51 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var RoleCard = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 683:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(780);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("953a6038", content, true, context)
+};
+
+/***/ }),
+
+/***/ 779:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(683);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCard_vue_vue_type_style_index_0_id_8669effa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 780:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".role-card[data-v-8669effa]{background:#fff;border:2px solid #e2e8f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;flex-direction:column;position:relative;transition:all .3s ease}.role-card[data-v-8669effa]:hover{border-color:#4299e1;box-shadow:0 8px 24px rgba(0,0,0,.15);transform:translateY(-4px)}.role-card.inactive[data-v-8669effa]{border-color:#cbd5e0;opacity:.7}.card-header[data-v-8669effa]{align-items:flex-start;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;padding:20px}.role-info[data-v-8669effa]{flex:1}.role-name[data-v-8669effa]{align-items:center;display:flex;gap:8px;margin-bottom:8px}.name-text[data-v-8669effa]{color:#1a202c;font-size:20px;font-weight:700;text-transform:capitalize}.inactive-badge[data-v-8669effa]{background:#fc8181;border-radius:12px;color:#fff;font-size:11px;font-weight:600;padding:2px 8px}.role-level[data-v-8669effa]{align-items:center;display:flex}.level-badge[data-v-8669effa]{border-radius:16px;font-size:12px;font-weight:600;letter-spacing:.5px;padding:4px 12px;text-transform:uppercase}.level-admin[data-v-8669effa]{background:#fed7d7;color:#c53030}.level-manager[data-v-8669effa]{background:#feebc8;color:#c05621}.level-supervisor[data-v-8669effa]{background:#bee3f8;color:#2c5282}.level-staff[data-v-8669effa]{background:#e2e8f0;color:#2d3748}.card-actions[data-v-8669effa]{display:flex;gap:8px;position:relative}.action-icon[data-v-8669effa]{background:transparent;border:none;border-radius:4px;cursor:pointer;font-size:18px;padding:4px 8px;transition:all .2s}.action-icon[data-v-8669effa]:hover{background:#f7fafc}.dropdown-menu[data-v-8669effa]{background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);margin-top:4px;min-width:180px;padding:8px 0;position:absolute;right:0;top:100%;z-index:10}.menu-item[data-v-8669effa]{align-items:center;background:transparent;border:none;color:#2d3748;cursor:pointer;display:flex;font-size:14px;gap:12px;padding:10px 16px;text-align:left;transition:all .2s;width:100%}.menu-item[data-v-8669effa]:hover{background:#f7fafc}.menu-item.danger[data-v-8669effa]{color:#e53e3e}.menu-item.danger[data-v-8669effa]:hover{background:#fff5f5}.menu-icon[data-v-8669effa]{font-size:16px}.card-body[data-v-8669effa]{flex:1;padding:20px}.role-description[data-v-8669effa]{color:#4a5568;font-size:14px;line-height:1.6;margin:0 0 16px}.role-description.empty[data-v-8669effa]{color:#a0aec0;font-style:italic}.permissions-section[data-v-8669effa]{margin-bottom:16px}.section-title[data-v-8669effa]{color:#718096;font-size:13px;font-weight:600;letter-spacing:.5px;margin:0 0 12px;text-transform:uppercase}.permissions-list[data-v-8669effa]{display:flex;flex-wrap:wrap;gap:6px}.permission-tag[data-v-8669effa]{background:#ebf8ff;border-radius:12px;color:#2c5282;font-size:11px;font-weight:600;padding:4px 10px}.permission-tag.more[data-v-8669effa]{background:#e2e8f0;color:#4a5568}.no-permissions[data-v-8669effa]{color:#a0aec0;font-size:13px;font-style:italic;margin:0}.users-section[data-v-8669effa]{border-top:1px solid #e2e8f0;padding-top:16px}.users-info[data-v-8669effa]{align-items:center;display:flex;gap:8px}.users-icon[data-v-8669effa]{font-size:18px}.users-count[data-v-8669effa]{color:#4a5568;font-size:14px;font-weight:600}.card-footer[data-v-8669effa]{border-top:1px solid #e2e8f0;display:flex;gap:8px;padding:16px 20px}.footer-btn[data-v-8669effa]{border:none;border-radius:6px;cursor:pointer;flex:1;font-size:13px;font-weight:600;padding:8px 16px;transition:all .2s}.btn-edit[data-v-8669effa]{background:#4299e1;color:#fff}.btn-edit[data-v-8669effa]:hover{background:#3182ce}.btn-users[data-v-8669effa]{background:#e2e8f0;color:#2d3748}.btn-users[data-v-8669effa]:hover{background:#cbd5e0}@media (max-width:768px){.role-card[data-v-8669effa]{margin-bottom:16px}.card-footer[data-v-8669effa]{flex-direction:column}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
 
 /***/ })
 

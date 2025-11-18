@@ -1,7 +1,210 @@
-exports.ids = [143];
+exports.ids = [144];
 exports.modules = {
 
-/***/ 452:
+/***/ 1008:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarousel.js
+var VCarousel = __webpack_require__(576);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarouselItem.js
+var VCarouselItem = __webpack_require__(577);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
+var VImg = __webpack_require__(84);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
+var VSheet = __webpack_require__(27);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
+var VSlideGroup = __webpack_require__(461);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
+var VSlideItem = __webpack_require__(824);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=template&id=921bc894
+
+
+
+
+
+
+
+
+
+var slidervue_type_template_id_921bc894_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "ma-0"
+  }, [_c(VCarousel["a" /* default */], {
+    ref: "carousel"
+  }, [_c(VCarouselItem["a" /* default */], {
+    attrs: {
+      "src": "https://www.xn--72cfaa3c9df7evc7a4a6gf0c0dm.com/wp-content/uploads/2022/06/bikini.jpg",
+      "cover": ""
+    }
+  }), _vm._v(" "), _c(VCarouselItem["a" /* default */], {
+    attrs: {
+      "src": "https://www.xn--72cfaa3c9df7evc7a4a6gf0c0dm.com/wp-content/uploads/2022/06/Untitled-1.jpg",
+      "cover": ""
+    }
+  }), _vm._v(" "), _c(VCarouselItem["a" /* default */], {
+    attrs: {
+      "src": "https://www.xn--72cfaa3c9df7evc7a4a6gf0c0dm.com/wp-content/uploads/2022/06/%E0%B8%A2%E0%B8%B9%E0%B8%AD%E0%B8%B4.jpg",
+      "cover": ""
+    }
+  })], 1), _vm._ssrNode(" "), _c(VSheet["a" /* default */], {
+    staticClass: "rounded-lg"
+  }, [_c(VSlideGroup["b" /* default */], {
+    ref: "slideGroup",
+    attrs: {
+      "show-arrows": "",
+      "center-active": "",
+      "cycle": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "next",
+      fn: function () {
+        return [_c(VIcon["a" /* default */], {
+          attrs: {
+            "color": "primary"
+          }
+        }, [_vm._v("mdi-arrow-right")])];
+      },
+      proxy: true
+    }, {
+      key: "prev",
+      fn: function () {
+        return [_c(VIcon["a" /* default */], {
+          attrs: {
+            "color": "primary"
+          }
+        }, [_vm._v("mdi-arrow-left")])];
+      },
+      proxy: true
+    }])
+  }, [_vm._v(" "), _vm._v(" "), _vm._l(_vm.imageList, function (image, index) {
+    return _c(VSlideItem["a" /* default */], {
+      key: index
+    }, [_c(VCard["a" /* default */], {
+      staticClass: "ma-4",
+      attrs: {
+        "width": "100"
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.gotoProductDetail(image['productId']);
+        }
+      }
+    }, [_c(VImg["a" /* default */], {
+      staticClass: "pointer-cursor hover",
+      attrs: {
+        "width": "100",
+        "src": _vm.host + '/' + image['img_path']
+      }
+    })], 1)], 1);
+  })], 2)], 1)], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/slider.vue?vue&type=template&id=921bc894
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(11);
+
+// EXTERNAL MODULE: ./common/api.js
+var api = __webpack_require__(37);
+
+// EXTERNAL MODULE: ./assets/img/products/product_1.jpg
+var product_1 = __webpack_require__(802);
+var product_1_default = /*#__PURE__*/__webpack_require__.n(product_1);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=script&lang=js
+
+
+
+// import SliderV1 from '~/assets/img/slider/SliderV1.jpg'
+/* harmony default export */ var slidervue_type_script_lang_js = ({
+  name: 'slider',
+  props: {
+    imageList: {
+      type: Array,
+      require: true
+    }
+  },
+  computed: {
+    host() {
+      return Object(api["a" /* hostName */])();
+    }
+  },
+  data() {
+    return {
+      xiaomiImage: product_1_default.a
+      // sliderV1: SliderV1,
+      // imageList: XiaomiImage,
+    };
+  },
+  mounted() {
+    // Auto-slide every 5 seconds (adjust the interval as needed)
+    setInterval(this.nextSlide, 5000);
+  },
+  methods: {
+    gotoProductDetail(productId) {
+      // this.$router.push({ name: 'product-details', params: { id: productId } });
+      this.$router.push({
+        path: `product/${productId}`
+      });
+    },
+    nextSlide() {
+      // Programmatically go to the next slide
+      this.$refs.carousel.next();
+      this.$refs.slideGroup.next();
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/slider.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_slidervue_type_script_lang_js = (slidervue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/slider.vue
+
+
+
+function injectStyles (context) {
+  
+  
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_slidervue_type_script_lang_js,
+  slidervue_type_template_id_921bc894_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  null,
+  "457bf854"
+  
+)
+
+/* harmony default export */ var slider = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 455:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30,14 +233,14 @@ exports.modules = {
 
 /***/ }),
 
-/***/ 460:
+/***/ 461:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export calculateUpdatedOffset */
 /* unused harmony export calculateCenteredOffset */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
-/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(461);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(462);
 /* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
@@ -458,13 +661,13 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
 
 /***/ }),
 
-/***/ 461:
+/***/ 462:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(462);
+var content = __webpack_require__(463);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -472,7 +675,7 @@ __webpack_require__(5).default("d67becdc", content, true)
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -487,11 +690,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 465:
+/***/ 466:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(466);
+/* harmony import */ var _src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(467);
 /* harmony import */ var _src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VWindow_VWindow_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(136);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
@@ -736,13 +939,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 466:
+/***/ 467:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(467);
+var content = __webpack_require__(468);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -750,7 +953,7 @@ __webpack_require__(5).default("3f874970", content, true)
 
 /***/ }),
 
-/***/ 467:
+/***/ 468:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -765,11 +968,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 468:
+/***/ 469:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _mixins_bootable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _mixins_bootable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54);
 /* harmony import */ var _mixins_groupable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(136);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
@@ -900,13 +1103,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_4__[/* default *
 
 /***/ }),
 
-/***/ 488:
+/***/ 493:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(489);
+var content = __webpack_require__(494);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -914,7 +1117,7 @@ __webpack_require__(5).default("0df5f600", content, true)
 
 /***/ }),
 
-/***/ 489:
+/***/ 494:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -929,17 +1132,17 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 570:
+/***/ 576:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VCarousel_VCarousel_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
+/* harmony import */ var _src_components_VCarousel_VCarousel_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(493);
 /* harmony import */ var _src_components_VCarousel_VCarousel_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VCarousel_VCarousel_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VWindow_VWindow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(465);
+/* harmony import */ var _VWindow_VWindow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(466);
 /* harmony import */ var _VBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 /* harmony import */ var _VProgressLinear__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(94);
-/* harmony import */ var _mixins_button_group__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(452);
+/* harmony import */ var _mixins_button_group__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(455);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
 /* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3);
 // Styles
@@ -1133,11 +1336,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 571:
+/***/ 577:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _VWindow_VWindowItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(468);
+/* harmony import */ var _VWindow_VWindowItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(469);
 /* harmony import */ var _VImg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
@@ -1201,14 +1404,14 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 792:
+/***/ 802:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/product_1.4a4e54e.jpg";
 
 /***/ }),
 
-/***/ 814:
+/***/ 824:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1293,209 +1496,6 @@ const BaseItem = external_vue_default.a.extend({
 /* @vue/component */).extend({
   name: 'v-slide-item'
 }));
-
-/***/ }),
-
-/***/ 996:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarousel.js
-var VCarousel = __webpack_require__(570);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCarousel/VCarouselItem.js
-var VCarouselItem = __webpack_require__(571);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
-var VImg = __webpack_require__(84);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
-var VSheet = __webpack_require__(27);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
-var VSlideGroup = __webpack_require__(460);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(814);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=template&id=921bc894
-
-
-
-
-
-
-
-
-
-var slidervue_type_template_id_921bc894_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "ma-0"
-  }, [_c(VCarousel["a" /* default */], {
-    ref: "carousel"
-  }, [_c(VCarouselItem["a" /* default */], {
-    attrs: {
-      "src": "https://www.xn--72cfaa3c9df7evc7a4a6gf0c0dm.com/wp-content/uploads/2022/06/bikini.jpg",
-      "cover": ""
-    }
-  }), _vm._v(" "), _c(VCarouselItem["a" /* default */], {
-    attrs: {
-      "src": "https://www.xn--72cfaa3c9df7evc7a4a6gf0c0dm.com/wp-content/uploads/2022/06/Untitled-1.jpg",
-      "cover": ""
-    }
-  }), _vm._v(" "), _c(VCarouselItem["a" /* default */], {
-    attrs: {
-      "src": "https://www.xn--72cfaa3c9df7evc7a4a6gf0c0dm.com/wp-content/uploads/2022/06/%E0%B8%A2%E0%B8%B9%E0%B8%AD%E0%B8%B4.jpg",
-      "cover": ""
-    }
-  })], 1), _vm._ssrNode(" "), _c(VSheet["a" /* default */], {
-    staticClass: "rounded-lg"
-  }, [_c(VSlideGroup["b" /* default */], {
-    ref: "slideGroup",
-    attrs: {
-      "show-arrows": "",
-      "center-active": "",
-      "cycle": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "next",
-      fn: function () {
-        return [_c(VIcon["a" /* default */], {
-          attrs: {
-            "color": "primary"
-          }
-        }, [_vm._v("mdi-arrow-right")])];
-      },
-      proxy: true
-    }, {
-      key: "prev",
-      fn: function () {
-        return [_c(VIcon["a" /* default */], {
-          attrs: {
-            "color": "primary"
-          }
-        }, [_vm._v("mdi-arrow-left")])];
-      },
-      proxy: true
-    }])
-  }, [_vm._v(" "), _vm._v(" "), _vm._l(_vm.imageList, function (image, index) {
-    return _c(VSlideItem["a" /* default */], {
-      key: index
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "ma-4",
-      attrs: {
-        "width": "100"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.gotoProductDetail(image['productId']);
-        }
-      }
-    }, [_c(VImg["a" /* default */], {
-      staticClass: "pointer-cursor hover",
-      attrs: {
-        "width": "100",
-        "src": _vm.host + '/' + image['img_path']
-      }
-    })], 1)], 1);
-  })], 2)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/slider.vue?vue&type=template&id=921bc894
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(11);
-
-// EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(37);
-
-// EXTERNAL MODULE: ./assets/img/products/product_1.jpg
-var product_1 = __webpack_require__(792);
-var product_1_default = /*#__PURE__*/__webpack_require__.n(product_1);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=script&lang=js
-
-
-
-// import SliderV1 from '~/assets/img/slider/SliderV1.jpg'
-/* harmony default export */ var slidervue_type_script_lang_js = ({
-  name: 'slider',
-  props: {
-    imageList: {
-      type: Array,
-      require: true
-    }
-  },
-  computed: {
-    host() {
-      return Object(api["a" /* hostName */])();
-    }
-  },
-  data() {
-    return {
-      xiaomiImage: product_1_default.a
-      // sliderV1: SliderV1,
-      // imageList: XiaomiImage,
-    };
-  },
-  mounted() {
-    // Auto-slide every 5 seconds (adjust the interval as needed)
-    setInterval(this.nextSlide, 5000);
-  },
-  methods: {
-    gotoProductDetail(productId) {
-      // this.$router.push({ name: 'product-details', params: { id: productId } });
-      this.$router.push({
-        path: `product/${productId}`
-      });
-    },
-    nextSlide() {
-      // Programmatically go to the next slide
-      this.$refs.carousel.next();
-      this.$refs.slideGroup.next();
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/slider.vue?vue&type=script&lang=js
- /* harmony default export */ var components_slidervue_type_script_lang_js = (slidervue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/slider.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_slidervue_type_script_lang_js,
-  slidervue_type_template_id_921bc894_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "457bf854"
-  
-)
-
-/* harmony default export */ var slider = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

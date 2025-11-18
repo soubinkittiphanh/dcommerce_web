@@ -3,7 +3,7 @@
 
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8003' // *** CHITHAN
-  // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
+  const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
   // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
   // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
@@ -14,7 +14,7 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8024' //  *** DCOMMERCE
   // const baseURL = 'http://150.95.31.23:8025' //  *** DCOMMERCE MAIN
-  const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
+  // const baseURL = 'http://150.95.31.23:8014' //  *** DEMO1
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   console.info(`BASE_URL ${process.env.BASE_URL}`)//
