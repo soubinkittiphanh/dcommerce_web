@@ -1,19 +1,626 @@
-exports.ids = [294,45,55,161,162,164];
+exports.ids = [298,47,57,163,164,166];
 exports.modules = {
 
-/***/ 1150:
+/***/ 1007:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
+var VCheckbox = __webpack_require__(445);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(360);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
+var VForm = __webpack_require__(400);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(405);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
+var VTextField = __webpack_require__(36);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryForm.vue?vue&type=template&id=652e6d51
+
+
+
+
+
+
+
+
+
+
+
+
+
+var WebCategoryFormvue_type_template_id_652e6d51_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "persistent": "",
+      "width": "300"
+    },
+    model: {
+      value: _vm.isloading,
+      callback: function ($$v) {
+        _vm.isloading = $$v;
+      },
+      expression: "isloading"
+    }
+  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
+    staticClass: "ma-0",
+    attrs: {
+      "color": "primary",
+      "label": "",
+      "text-color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "start": ""
+    }
+  }, [_vm._v("mdi-label")]), _vm._v("\n                ຈັດການໝວດສິນຄ້າ ສະແດງຫນ້າເວັບ\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
+    ref: "form"
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "disabled": "",
+      "label": "* RECID"
+    },
+    model: {
+      value: _vm.form.id,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "id", $$v);
+      },
+      expression: "form.id"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "* ລຳດັບການສະແດງ"
+    },
+    model: {
+      value: _vm.form.order_level,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "order_level", $$v);
+      },
+      expression: "form.order_level"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "* ຊື່",
+      "required": "",
+      "rules": _vm.nameRules
+    },
+    model: {
+      value: _vm.form.name,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "name", $$v);
+      },
+      expression: "form.name"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "ຊື່ພາສາລາວ"
+    },
+    model: {
+      value: _vm.form.g_name,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "g_name", $$v);
+      },
+      expression: "form.g_name"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "ໝາຍເຫດ"
+    },
+    model: {
+      value: _vm.form.remark,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "remark", $$v);
+      },
+      expression: "form.remark"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "Is Active"
+    },
+    model: {
+      value: _vm.form.isActive,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "isActive", _vm._n($$v));
+      },
+      expression: "form.isActive"
+    }
+  })], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "warning",
+      "rounded": "",
+      "variant": "text"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "rounded": "",
+      "variant": "text"
+    },
+    on: {
+      "click": _vm.commitRecord
+    }
+  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/WebCategoryForm.vue?vue&type=template&id=652e6d51
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(11);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryForm.vue?vue&type=script&lang=js
+
+/* harmony default export */ var WebCategoryFormvue_type_script_lang_js = ({
+  props: {
+    isCreate: {
+      type: Boolean,
+      require: true,
+      default: true
+    },
+    recordId: {
+      type: Number,
+      require: false,
+      default: 0
+    }
+  },
+  data() {
+    return {
+      form: {
+        id: null,
+        name: '1XXX',
+        g_name: '',
+        remark: '',
+        order_level: 1,
+        isActive: true
+      },
+      isloading: false,
+      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
+    };
+  },
+  // mounted() {
+  //     this.loadEntry();
+  // },
+  async created() {
+    this.loadEntry();
+  },
+  methods: {
+    async commitRecord() {
+      if (this.$refs.form.validate() && !this.isloading) {
+        // Implement form submission logic here
+        this.isloading = true;
+        let api = this.isCreate ? 'api/webproductgroup/create' : `api/webproductgroup/update/${this.recordId}`;
+        console.log("API => ", api);
+        if (this.isCreate) {
+          await this.$axios.post(api, this.form).then(response => {
+            this.refreshData();
+            this.$emit('close-dialog');
+            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          }).catch(error => {
+            console.log("Error: ", error);
+            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          });
+        } else {
+          await this.$axios.put(api, this.form).then(response => {
+            this.refreshData();
+            this.$emit('close-dialog');
+            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          }).catch(error => {
+            console.log("Error: ", error);
+            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          });
+        }
+        this.isloading = false;
+      }
+    },
+    async loadEntry() {
+      console.log(`===> Update form record load`);
+      if (this.recordId && !this.isCreate) {
+        await this.$axios.get(`api/webproductgroup/find/${this.recordId}`).then(response => {
+          this.form = response.data;
+        }).catch(error => {
+          console.log("Cannot fetch data " + error);
+        });
+      }
+    },
+    refreshData() {
+      this.$emit('reload-data');
+    }
+  },
+  computed: {
+    // Add any necessary computed properties here
+  }
+});
+// CONCATENATED MODULE: ./components/WebCategoryForm.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_WebCategoryFormvue_type_script_lang_js = (WebCategoryFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/WebCategoryForm.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_WebCategoryFormvue_type_script_lang_js,
+  WebCategoryFormvue_type_template_id_652e6d51_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "214960d3"
+  
+)
+
+/* harmony default export */ var WebCategoryForm = __webpack_exports__["default"] = (component.exports);
+
+/* nuxt-component-imports */
+installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
+
+
+/***/ }),
+
+/***/ 1008:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
+var VAutocomplete = __webpack_require__(383);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(403);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(360);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(122);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
+var VForm = __webpack_require__(400);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(402);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(405);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryProductForm.vue?vue&type=template&id=06910bf6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var WebCategoryProductFormvue_type_template_id_06910bf6_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "persistent": "",
+      "width": "300"
+    },
+    model: {
+      value: _vm.isloading,
+      callback: function ($$v) {
+        _vm.isloading = $$v;
+      },
+      expression: "isloading"
+    }
+  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "pa-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
+    staticClass: "ma-0",
+    attrs: {
+      "color": "primary",
+      "label": "",
+      "text-color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "start": ""
+    }
+  }, [_vm._v("mdi-label")]), _vm._v("\n                " + _vm._s(`ກຸ່ມສິນຄ້າຫນ້າເວັບ: ${_vm.category.name} `) + "\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
+    ref: "form"
+  }, [_c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "item-text": "pro_name",
+      "item-value": "id",
+      "items": _vm.productList,
+      "label": "ສິນຄ້າ*"
+    },
+    model: {
+      value: _vm.selectProductId,
+      callback: function ($$v) {
+        _vm.selectProductId = $$v;
+      },
+      expression: "selectProductId"
+    }
+  })], 1), _vm._v(" "), _c('div', [_c(VRow["a" /* default */], {
+    attrs: {
+      "justify": "center",
+      "align": "center"
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "primary",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": _vm.addProductToGroup
+    }
+  }, [_c('span', {
+    staticClass: "mdi mdi-note-plus-outline"
+  }), _vm._v("\n                            ເພີ່ມສິນຄ້າເຂົ້າກຸ່ມ\n                        ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VDivider["a" /* default */]), _vm._v(" "), _c('div', {
+    staticClass: "mx-2"
+  }, [_vm._v("ສິນຄ້າ ທີ່ເລືອກ")]), _vm._v(" "), _c(VDivider["a" /* default */])], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    attrs: {
+      "no-gutters": ""
+    }
+  }, _vm._l(_vm.localCategory.products, function (product) {
+    return _c(VChip["a" /* default */], {
+      key: product.id,
+      staticClass: "ma-2",
+      attrs: {
+        "color": "warning",
+        "variant": "outlined"
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.removeProductFromGroup(product);
+        }
+      }
+    }, [_vm._v("\n                        " + _vm._s(product.id) + " - " + _vm._s(product.pro_name) + "\n                    ")]);
+  }), 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "warning",
+      "rounded": "",
+      "variant": "text"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "rounded": "",
+      "variant": "text"
+    },
+    on: {
+      "click": _vm.commitRecord
+    }
+  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/WebCategoryProductForm.vue?vue&type=template&id=06910bf6
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(11);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryProductForm.vue?vue&type=script&lang=js
+
+/* harmony default export */ var WebCategoryProductFormvue_type_script_lang_js = ({
+  props: {
+    category: {
+      type: Object,
+      require: true
+    },
+    isCreate: {
+      type: Boolean,
+      require: true
+    }
+  },
+  data() {
+    return {
+      productList: [],
+      selectProductId: null,
+      localCategory: this.category,
+      isloading: false,
+      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
+    };
+  },
+  // mounted() {
+  //     this.loadEntry();
+  // },
+  async created() {
+    // this.
+    this.loadEntry();
+  },
+  methods: {
+    async commitRecord() {
+      if (!this.isloading) {
+        this.isloading = true;
+        let api = this.isCreate ? 'api/webproductgroup/create' : `api/webproductgroup/update/${this.localCategory.id}`;
+        if (this.isCreate) {
+          await this.$axios.post(api, this.localCategory).then(response => {
+            this.refreshData();
+            this.$emit('close-dialog');
+            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          }).catch(error => {
+            console.log("Error: ", error);
+            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          });
+        } else {
+          console.log(`update category product`);
+          this.localCategory.productList = this.localCategory.products;
+          await this.$axios.put(api, this.localCategory).then(response => {
+            this.refreshData();
+            this.$emit('close-dialog');
+            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          }).catch(error => {
+            console.log("Error: ", error);
+            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          });
+        }
+        this.isloading = false;
+      }
+    },
+    formatNumber(value) {
+      return Object(common["e" /* getFormatNum */])(value);
+    },
+    addProductToGroup() {
+      console.log(`Add product to group handler`);
+      if (!this.selectProductId) return;
+      const newGroup = this.productList.find(el => el.id == this.selectProductId);
+      console.log(`Authority ${newGroup.id}`);
+      if (this.localCategory.products.length == 0) {
+        console.log(`TEHERE IS NO TERMINAL`);
+        this.localCategory.products.push(newGroup);
+      } else if (this.localCategory.products == 'undefined') {
+        this.localCategory.products.push(newGroup);
+      } else {
+        const group = this.localCategory.products.find(el => el.id == this.selectProductId);
+        console.log(`ADD TERMINAL ${group}`);
+        if (!group) this.localCategory.products.push(newGroup);
+      }
+    },
+    removeProductFromGroup(group) {
+      console.log(`Remove product to group handler`);
+      const idx = this.localCategory.products.indexOf(group);
+      this.localCategory.products.splice(idx, 1);
+    },
+    async loadEntry() {
+      console.log(`===> Update form record load`);
+      await this.$axios.get(`api/product/find`).then(response => {
+        this.productList = response.data;
+        this.selectProductId = this.productList[0]['id'];
+      }).catch(error => {
+        console.log("Cannot fetch data " + error);
+      });
+    },
+    refreshData() {
+      this.$emit('reload-data');
+    }
+  },
+  computed: {
+    // Add any necessary computed properties here
+  }
+});
+// CONCATENATED MODULE: ./components/WebCategoryProductForm.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_WebCategoryProductFormvue_type_script_lang_js = (WebCategoryProductFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/WebCategoryProductForm.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_WebCategoryProductFormvue_type_script_lang_js,
+  WebCategoryProductFormvue_type_template_id_06910bf6_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "6b4a6814"
+  
+)
+
+/* harmony default export */ var WebCategoryProductForm = __webpack_exports__["default"] = (component.exports);
+
+/* nuxt-component-imports */
+installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
+
+
+/***/ }),
+
+/***/ 1169:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_c48bced6_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(892);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_c48bced6_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(905);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_c48bced6_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_c48bced6_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_c48bced6_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_c48bced6_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1151:
+/***/ 1170:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +635,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1407:
+/***/ 1429:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51,7 +658,7 @@ var VCheckbox = __webpack_require__(445);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
 var VDataTable = __webpack_require__(412);
@@ -63,10 +670,10 @@ var VDialog = __webpack_require__(360);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
@@ -337,13 +944,13 @@ var staticRenderFns = [];
 var myUtil = __webpack_require__(139);
 
 // EXTERNAL MODULE: ./components/WebCategoryForm.vue + 4 modules
-var WebCategoryForm = __webpack_require__(992);
+var WebCategoryForm = __webpack_require__(1007);
 
 // EXTERNAL MODULE: ./components/WebCategoryProductForm.vue + 4 modules
-var WebCategoryProductForm = __webpack_require__(993);
+var WebCategoryProductForm = __webpack_require__(1008);
 
 // EXTERNAL MODULE: external "vuedraggable"
-var external_vuedraggable_ = __webpack_require__(384);
+var external_vuedraggable_ = __webpack_require__(385);
 var external_vuedraggable_default = /*#__PURE__*/__webpack_require__.n(external_vuedraggable_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_category/index.vue?vue&type=script&lang=js
@@ -462,7 +1069,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1150)
+  var style0 = __webpack_require__(1169)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -483,7 +1090,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var web_category = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(439).default,CategoryForm: __webpack_require__(554).default,DialogClassicMessage: __webpack_require__(438).default,LoadingIndicator: __webpack_require__(87).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(440).default,CategoryForm: __webpack_require__(555).default,DialogClassicMessage: __webpack_require__(439).default,LoadingIndicator: __webpack_require__(87).default})
 
 
 /***/ }),
@@ -517,7 +1124,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 438:
+/***/ 439:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -537,7 +1144,7 @@ var components_VCard = __webpack_require__(6);
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DialogClassicMessage.vue?vue&type=template&id=3accbb34
 
@@ -609,7 +1216,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 439:
+/***/ 440:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -626,7 +1233,7 @@ var VCard = __webpack_require__(123);
 var components_VCard = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
 
@@ -817,7 +1424,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 554:
+/***/ 555:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -843,13 +1450,13 @@ var VChip = __webpack_require__(127);
 var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
+var VForm = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
@@ -1089,13 +1696,13 @@ installComponents(component, {LoadingIndicator: __webpack_require__(87).default}
 
 /***/ }),
 
-/***/ 892:
+/***/ 905:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1151);
+var content = __webpack_require__(1170);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1104,613 +1711,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("35834a62", content, true, context)
 };
-
-/***/ }),
-
-/***/ 992:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(445);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(360);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(36);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryForm.vue?vue&type=template&id=652e6d51
-
-
-
-
-
-
-
-
-
-
-
-
-
-var WebCategoryFormvue_type_template_id_652e6d51_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
-    staticClass: "ma-0",
-    attrs: {
-      "color": "primary",
-      "label": "",
-      "text-color": "white"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "start": ""
-    }
-  }, [_vm._v("mdi-label")]), _vm._v("\n                ຈັດການໝວດສິນຄ້າ ສະແດງຫນ້າເວັບ\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
-    ref: "form"
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "disabled": "",
-      "label": "* RECID"
-    },
-    model: {
-      value: _vm.form.id,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "id", $$v);
-      },
-      expression: "form.id"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* ລຳດັບການສະແດງ"
-    },
-    model: {
-      value: _vm.form.order_level,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "order_level", $$v);
-      },
-      expression: "form.order_level"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* ຊື່",
-      "required": "",
-      "rules": _vm.nameRules
-    },
-    model: {
-      value: _vm.form.name,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "name", $$v);
-      },
-      expression: "form.name"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "ຊື່ພາສາລາວ"
-    },
-    model: {
-      value: _vm.form.g_name,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "g_name", $$v);
-      },
-      expression: "form.g_name"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "ໝາຍເຫດ"
-    },
-    model: {
-      value: _vm.form.remark,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "remark", $$v);
-      },
-      expression: "form.remark"
-    }
-  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
-    attrs: {
-      "label": "Is Active"
-    },
-    model: {
-      value: _vm.form.isActive,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "isActive", _vm._n($$v));
-      },
-      expression: "form.isActive"
-    }
-  })], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.commitRecord
-    }
-  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/WebCategoryForm.vue?vue&type=template&id=652e6d51
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(11);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryForm.vue?vue&type=script&lang=js
-
-/* harmony default export */ var WebCategoryFormvue_type_script_lang_js = ({
-  props: {
-    isCreate: {
-      type: Boolean,
-      require: true,
-      default: true
-    },
-    recordId: {
-      type: Number,
-      require: false,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      form: {
-        id: null,
-        name: '1XXX',
-        g_name: '',
-        remark: '',
-        order_level: 1,
-        isActive: true
-      },
-      isloading: false,
-      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
-    };
-  },
-  // mounted() {
-  //     this.loadEntry();
-  // },
-  async created() {
-    this.loadEntry();
-  },
-  methods: {
-    async commitRecord() {
-      if (this.$refs.form.validate() && !this.isloading) {
-        // Implement form submission logic here
-        this.isloading = true;
-        let api = this.isCreate ? 'api/webproductgroup/create' : `api/webproductgroup/update/${this.recordId}`;
-        console.log("API => ", api);
-        if (this.isCreate) {
-          await this.$axios.post(api, this.form).then(response => {
-            this.refreshData();
-            this.$emit('close-dialog');
-            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
-          }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-          });
-        } else {
-          await this.$axios.put(api, this.form).then(response => {
-            this.refreshData();
-            this.$emit('close-dialog');
-            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
-          }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-          });
-        }
-        this.isloading = false;
-      }
-    },
-    async loadEntry() {
-      console.log(`===> Update form record load`);
-      if (this.recordId && !this.isCreate) {
-        await this.$axios.get(`api/webproductgroup/find/${this.recordId}`).then(response => {
-          this.form = response.data;
-        }).catch(error => {
-          console.log("Cannot fetch data " + error);
-        });
-      }
-    },
-    refreshData() {
-      this.$emit('reload-data');
-    }
-  },
-  computed: {
-    // Add any necessary computed properties here
-  }
-});
-// CONCATENATED MODULE: ./components/WebCategoryForm.vue?vue&type=script&lang=js
- /* harmony default export */ var components_WebCategoryFormvue_type_script_lang_js = (WebCategoryFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/WebCategoryForm.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_WebCategoryFormvue_type_script_lang_js,
-  WebCategoryFormvue_type_template_id_652e6d51_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "214960d3"
-  
-)
-
-/* harmony default export */ var WebCategoryForm = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
-
-
-/***/ }),
-
-/***/ 993:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(406);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(360);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryProductForm.vue?vue&type=template&id=06910bf6
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var WebCategoryProductFormvue_type_template_id_06910bf6_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
-    staticClass: "ma-0",
-    attrs: {
-      "color": "primary",
-      "label": "",
-      "text-color": "white"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "start": ""
-    }
-  }, [_vm._v("mdi-label")]), _vm._v("\n                " + _vm._s(`ກຸ່ມສິນຄ້າຫນ້າເວັບ: ${_vm.category.name} `) + "\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
-    ref: "form"
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "pro_name",
-      "item-value": "id",
-      "items": _vm.productList,
-      "label": "ສິນຄ້າ*"
-    },
-    model: {
-      value: _vm.selectProductId,
-      callback: function ($$v) {
-        _vm.selectProductId = $$v;
-      },
-      expression: "selectProductId"
-    }
-  })], 1), _vm._v(" "), _c('div', [_c(VRow["a" /* default */], {
-    attrs: {
-      "justify": "center",
-      "align": "center"
-    }
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.addProductToGroup
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-note-plus-outline"
-  }), _vm._v("\n                            ເພີ່ມສິນຄ້າເຂົ້າກຸ່ມ\n                        ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VDivider["a" /* default */]), _vm._v(" "), _c('div', {
-    staticClass: "mx-2"
-  }, [_vm._v("ສິນຄ້າ ທີ່ເລືອກ")]), _vm._v(" "), _c(VDivider["a" /* default */])], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    attrs: {
-      "no-gutters": ""
-    }
-  }, _vm._l(_vm.localCategory.products, function (product) {
-    return _c(VChip["a" /* default */], {
-      key: product.id,
-      staticClass: "ma-2",
-      attrs: {
-        "color": "warning",
-        "variant": "outlined"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.removeProductFromGroup(product);
-        }
-      }
-    }, [_vm._v("\n                        " + _vm._s(product.id) + " - " + _vm._s(product.pro_name) + "\n                    ")]);
-  }), 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.commitRecord
-    }
-  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/WebCategoryProductForm.vue?vue&type=template&id=06910bf6
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(11);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/WebCategoryProductForm.vue?vue&type=script&lang=js
-
-/* harmony default export */ var WebCategoryProductFormvue_type_script_lang_js = ({
-  props: {
-    category: {
-      type: Object,
-      require: true
-    },
-    isCreate: {
-      type: Boolean,
-      require: true
-    }
-  },
-  data() {
-    return {
-      productList: [],
-      selectProductId: null,
-      localCategory: this.category,
-      isloading: false,
-      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
-    };
-  },
-  // mounted() {
-  //     this.loadEntry();
-  // },
-  async created() {
-    // this.
-    this.loadEntry();
-  },
-  methods: {
-    async commitRecord() {
-      if (!this.isloading) {
-        this.isloading = true;
-        let api = this.isCreate ? 'api/webproductgroup/create' : `api/webproductgroup/update/${this.localCategory.id}`;
-        if (this.isCreate) {
-          await this.$axios.post(api, this.localCategory).then(response => {
-            this.refreshData();
-            this.$emit('close-dialog');
-            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
-          }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-          });
-        } else {
-          console.log(`update category product`);
-          this.localCategory.productList = this.localCategory.products;
-          await this.$axios.put(api, this.localCategory).then(response => {
-            this.refreshData();
-            this.$emit('close-dialog');
-            return Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
-          }).catch(error => {
-            console.log("Error: ", error);
-            return Object(common["j" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-          });
-        }
-        this.isloading = false;
-      }
-    },
-    formatNumber(value) {
-      return Object(common["e" /* getFormatNum */])(value);
-    },
-    addProductToGroup() {
-      console.log(`Add product to group handler`);
-      if (!this.selectProductId) return;
-      const newGroup = this.productList.find(el => el.id == this.selectProductId);
-      console.log(`Authority ${newGroup.id}`);
-      if (this.localCategory.products.length == 0) {
-        console.log(`TEHERE IS NO TERMINAL`);
-        this.localCategory.products.push(newGroup);
-      } else if (this.localCategory.products == 'undefined') {
-        this.localCategory.products.push(newGroup);
-      } else {
-        const group = this.localCategory.products.find(el => el.id == this.selectProductId);
-        console.log(`ADD TERMINAL ${group}`);
-        if (!group) this.localCategory.products.push(newGroup);
-      }
-    },
-    removeProductFromGroup(group) {
-      console.log(`Remove product to group handler`);
-      const idx = this.localCategory.products.indexOf(group);
-      this.localCategory.products.splice(idx, 1);
-    },
-    async loadEntry() {
-      console.log(`===> Update form record load`);
-      await this.$axios.get(`api/product/find`).then(response => {
-        this.productList = response.data;
-        this.selectProductId = this.productList[0]['id'];
-      }).catch(error => {
-        console.log("Cannot fetch data " + error);
-      });
-    },
-    refreshData() {
-      this.$emit('reload-data');
-    }
-  },
-  computed: {
-    // Add any necessary computed properties here
-  }
-});
-// CONCATENATED MODULE: ./components/WebCategoryProductForm.vue?vue&type=script&lang=js
- /* harmony default export */ var components_WebCategoryProductFormvue_type_script_lang_js = (WebCategoryProductFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/WebCategoryProductForm.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_WebCategoryProductFormvue_type_script_lang_js,
-  WebCategoryProductFormvue_type_template_id_06910bf6_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "6b4a6814"
-  
-)
-
-/* harmony default export */ var WebCategoryProductForm = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(87).default})
-
 
 /***/ })
 

@@ -39,7 +39,7 @@
                 <v-icon color="white">{{ stat.icon }}</v-icon>
               </v-avatar>
               <div>
-                <h3 class="stat-value">{{ stat.value }}</h3>
+                <h3 class="stat-value">{{ formatNumber(stat.value) }}</h3>
                 <p class="stat-label">{{ stat.label }}</p>
               </div>
             </div>
@@ -162,7 +162,7 @@
         <!-- Quantity Column -->
         <template v-slot:item.quantity="{ item }">
           <div class="quantity-info">
-            <span class="quantity-value">{{ item.quantity }}</span>
+            <span class="quantity-value">{{ formatNumber(item.quantity) }}</span>
             <span v-if="item.unit" class="quantity-unit">{{ item.unit.symbol }}</span>
           </div>
         </template>
@@ -355,7 +355,8 @@
                           <v-list-item-title>{{ ingredient.pro_name }}</v-list-item-title>
                           <v-list-item-subtitle>
                             Price: {{ formatCurrency(ingredient.pro_price) }} | 
-                            Stock: {{ ingredient.pro_card_count || 0 }}
+                            Stock: {{ formatNumber(ingredient.pro_card_count || 0) }}
+                            <span v-if="getIngredientUnit(ingredient.id)"> | Unit: {{ getIngredientUnit(ingredient.id) }}</span>
                           </v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-action>
@@ -395,24 +396,19 @@
                     ></v-text-field>
                   </template>
 
-                  <template v-slot:item.unitId="{ item }">
-                    <v-autocomplete
-                      v-model="item.unitId"
-                      :items="units"
-                      item-text="name"
-                      item-value="id"
-                      label="Unit"
+                  <template v-slot:item.unitId="{ item, index }">
+                    <v-text-field
+                      :value="getAutoSelectedUnitName(item.ingredientId)"
+                      label="Unit (Auto)"
                       dense
                       outlined
-                      clearable
-                      placeholder="Select unit"
+                      readonly
+                      disabled
+                      :hint="item.ingredientId ? 'Auto-selected from ingredient' : 'Select ingredient first'"
+                      persistent-hint
+                      prepend-inner-icon="mdi-scale"
                     >
-                      <template v-slot:item="{ item: unit }">
-                        <v-list-item-content>
-                          <v-list-item-title>{{ unit.name }}</v-list-item-title>
-                        </v-list-item-content>
-                      </template>
-                    </v-autocomplete>
+                    </v-text-field>
                   </template>
 
                   <template v-slot:item.unitCost="{ item }">
@@ -573,16 +569,13 @@
             </template>
 
             <template v-slot:item.unitId="{ item, index }">
-              <v-autocomplete
-                v-model="item.unitId"
-                :items="units"
-                item-text="name"
-                item-value="id"
+              <v-text-field
+                :value="getBulkAutoSelectedUnitName(item.ingredientId)"
                 dense
-                clearable
-                placeholder="Units"
-                @change="updateBulkRecipe(index, 'unitId', item.unitId)"
-              ></v-autocomplete>
+                readonly
+                disabled
+                placeholder="Auto unit"
+              ></v-text-field>
             </template>
 
             <template v-slot:item.actions="{ index }">
@@ -648,7 +641,7 @@
               <v-list-item-content>
                 <v-list-item-title>Quantity</v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ selectedRecipe.quantity }}
+                  {{ formatNumber(selectedRecipe.quantity) }}
                   {{ selectedRecipe.unit?.symbol || '' }}
                 </v-list-item-subtitle>
               </v-list-item-content>
@@ -852,6 +845,66 @@ export default {
       }
     },
 
+    // NEW: Get ingredient unit information
+    getIngredientUnit(ingredientId) {
+      const ingredient = this.stockItems.find(item => item.id === ingredientId)
+      if (!ingredient || !ingredient.stockUnitId) return null
+      
+      const unit = this.units.find(u => u.id === ingredient.stockUnitId)
+      return unit ? unit.symbol || unit.name : null
+    },
+
+    // NEW: Get auto-selected unit name for display
+    getAutoSelectedUnitName(ingredientId) {
+      if (!ingredientId) return 'Select ingredient first'
+      
+      const ingredient = this.stockItems.find(item => item.id === ingredientId)
+      if (!ingredient || !ingredient.stockUnitId) return 'No unit defined'
+      
+      const unit = this.units.find(u => u.id === ingredient.stockUnitId)
+      return unit ? `${unit.name} (${unit.symbol || ''})` : 'Unknown unit'
+    },
+
+    // NEW: Get auto-selected unit for bulk operations
+    getBulkAutoSelectedUnitName(ingredientId) {
+      if (!ingredientId) return ''
+      return this.getAutoSelectedUnitName(ingredientId)
+    },
+
+    // NEW: Auto-select unit based on ingredient
+    autoSelectIngredientUnit(index) {
+      const ingredient = this.currentRecipe.ingredients[index]
+      if (!ingredient.ingredientId) {
+        ingredient.unitId = null
+        return
+      }
+      
+      const stockItem = this.stockItems.find(item => item.id === ingredient.ingredientId)
+      if (stockItem && stockItem.stockUnitId) {
+        ingredient.unitId = stockItem.stockUnitId
+        console.log(`Auto-selected unit ${stockItem.stockUnitId} for ingredient ${stockItem.pro_name}`)
+      } else {
+        ingredient.unitId = null
+        console.log(`No unit defined for ingredient ${stockItem?.pro_name || 'unknown'}`)
+      }
+    },
+
+    // NEW: Auto-select unit for bulk operations
+    autoSelectBulkIngredientUnit(index) {
+      const recipe = this.bulkRecipes.recipes[index]
+      if (!recipe.ingredientId) {
+        recipe.unitId = null
+        return
+      }
+      
+      const stockItem = this.stockItems.find(item => item.id === recipe.ingredientId)
+      if (stockItem && stockItem.unitId) {
+        recipe.unitId = stockItem.unitId
+      } else {
+        recipe.unitId = null
+      }
+    },
+
     onProductChange() {
       this.selectedProduct = this.finishedProducts.find(p => p.id === this.currentRecipe.productId)
       this.productSearch = '' // Clear search after selection
@@ -894,6 +947,9 @@ export default {
         if (!this.currentRecipe.ingredients[index].customName) {
           this.currentRecipe.ingredients[index].name = `${this.selectedProduct?.pro_name} - ${ingredient.pro_name}`
         }
+        
+        // NEW: Auto-select unit based on ingredient
+        this.autoSelectIngredientUnit(index)
       }
       // Clear search input after selection using $nextTick for proper reactive update
       this.$nextTick(() => {
@@ -1054,7 +1110,7 @@ export default {
           {
             ingredientId: recipe.ingredientId,
             quantity: recipe.quantity,
-            unitId: recipe.unitId,
+            unitId: recipe.unitId, // Keep original unit
             customName: recipe.name.includes(' - ') ? recipe.name.split(' - ').slice(1).join(' - ') : '',
             name: recipe.name
           }
@@ -1130,7 +1186,7 @@ export default {
               name: ingredient.name || ingredient.customName || `${this.selectedProduct?.pro_name} - ${this.getIngredientName(ingredient.ingredientId)}`,
               ingredientId: ingredient.ingredientId,
               quantity: ingredient.quantity,
-              unitId: ingredient.unitId
+              unitId: ingredient.unitId // Use auto-selected unit
             }))
           }
 
@@ -1162,7 +1218,7 @@ export default {
           productId: this.currentRecipe.productId,
           ingredientId: ingredient.ingredientId,
           quantity: ingredient.quantity,
-          unitId: ingredient.unitId
+          unitId: ingredient.unitId // Use auto-selected or existing unit
         }
 
         const response = await this.$axios.put(`/api/recipes/${this.selectedRecipe.id}`, updateData)
@@ -1178,10 +1234,6 @@ export default {
         this.$toast.error(message)
         console.error(error)
       }
-    },
-
-    async updateProductRecipe() {
-      this.$toast.info('Recipe updating not yet implemented')
     },
 
     getIngredientName(ingredientId) {
@@ -1228,6 +1280,9 @@ export default {
         if (ingredient && product && !this.bulkRecipes.recipes[index].customName) {
           this.bulkRecipes.recipes[index].name = `${this.bulkRecipes.recipeName} - ${ingredient.pro_name}`
         }
+        
+        // NEW: Auto-select unit for bulk operations
+        this.autoSelectBulkIngredientUnit(index)
       }
     },
 
@@ -1292,8 +1347,20 @@ export default {
       }
     },
     
+    // Updated formatting methods with thousand separators
     formatCurrency(amount) {
-      return parseFloat(amount || 0).toFixed(2)
+      return parseFloat(amount || 0).toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })
+    },
+    
+    formatNumber(amount) {
+      const num = parseFloat(amount || 0)
+      return num.toLocaleString('en-US', {
+        minimumFractionDigits: num % 1 === 0 ? 0 : 2,
+        maximumFractionDigits: 2
+      })
     },
     
     formatDate(date) {
@@ -1302,6 +1369,195 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.recipe-management {
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  min-height: 120px;
+  flex-wrap: nowrap;
+}
+
+.header-content {
+  flex: 1;
+  min-width: 0;
+  color: white;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.page-subtitle {
+  margin: 8px 0 0 0;
+  opacity: 0.9;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.stat-card {
+  transition: transform 0.2s ease;
+  height: 100%;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.stat-label {
+  color: #666;
+  margin: 4px 0 0 0;
+  font-size: 14px;
+}
+
+.filter-card {
+  background: #f8f9fa;
+}
+
+.filter-title {
+  color: white;
+  font-weight: 600;
+}
+
+.product-info,
+.ingredient-info {
+  min-height: 40px;
+}
+
+.quantity-info {
+  text-align: center;
+  font-weight: 600;
+}
+
+.quantity-unit {
+  color: #666;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.cost-info {
+  text-align: right;
+}
+
+.cost-value {
+  color: var(--v-primary-base);
+  font-family: monospace;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.dialog-title {
+  background: var(--v-primary-base);
+  color: white;
+  font-weight: 600;
+}
+
+.bulk-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.ingredient-builder-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+/* Auto-unit field styling */
+.v-text-field--outlined.v-text-field--disabled {
+  background-color: #f5f5f5;
+}
+
+.v-text-field--outlined.v-text-field--disabled .v-label {
+  color: #757575 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .page-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    justify-content: center;
+  }
+
+  .page-subtitle {
+    text-align: center;
+  }
+
+  .header-actions {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .recipe-management {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 20px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-title {
+    white-space: normal;
+  }
+  
+  .page-subtitle {
+    white-space: normal;
+  }
+}
+</style>
 
 <style scoped>
 .recipe-management {

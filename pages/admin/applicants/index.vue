@@ -145,12 +145,13 @@
             {{ item.phone }}
           </div>
         </template>
-        <template v-slot:item.employee="{ item }">
+       <template v-slot:item.employee="{ item }">
           <div class="contact-details">
             <v-icon small left>mdi-account</v-icon>
-            {{ item.employee.agencyName }}
+            {{ item.employee?.agencyName ?? '' }}
           </div>
         </template>
+
         <!-- Contract Start Date Column -->
         <template v-slot:item.contractStartDate="{ item }">
           <div class="contact-details">

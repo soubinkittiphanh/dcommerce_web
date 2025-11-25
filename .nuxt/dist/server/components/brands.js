@@ -1,6 +1,136 @@
 exports.ids = [31];
 exports.modules = {
 
+/***/ 1009:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
+var VImg = __webpack_require__(84);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
+var VSheet = __webpack_require__(27);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
+var VSlideGroup = __webpack_require__(461);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
+var VSlideItem = __webpack_require__(836);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=template&id=53ec9e7e
+
+
+
+
+
+
+
+var brandsvue_type_template_id_53ec9e7e_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c(VSheet["a" /* default */], {
+    staticClass: "rounded-lg"
+  }, [_c(VSlideGroup["b" /* default */], {
+    attrs: {
+      "show-arrows": "",
+      "center-active": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "next",
+      fn: function () {
+        return [_c(VIcon["a" /* default */], {
+          attrs: {
+            "color": "primary"
+          }
+        }, [_vm._v("mdi-arrow-right")])];
+      },
+      proxy: true
+    }, {
+      key: "prev",
+      fn: function () {
+        return [_c(VIcon["a" /* default */], {
+          attrs: {
+            "color": "primary"
+          }
+        }, [_vm._v("mdi-arrow-left")])];
+      },
+      proxy: true
+    }])
+  }, [_vm._v(" "), _vm._v(" "), _vm._l(20, function (item, index) {
+    return _c(VSlideItem["a" /* default */], {
+      key: index
+    }, [_c(VCard["a" /* default */], {
+      staticClass: "ma-4",
+      attrs: {
+        "width": "100"
+      }
+    }, [_c(VImg["a" /* default */], {
+      staticClass: "pointer-cursor hover",
+      attrs: {
+        "width": "100",
+        "src": _vm.xiaomiImage
+      }
+    })], 1)], 1);
+  })], 2)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/brands.vue?vue&type=template&id=53ec9e7e
+
+// EXTERNAL MODULE: ./assets/img/brands/xiaomi.png
+var xiaomi = __webpack_require__(769);
+var xiaomi_default = /*#__PURE__*/__webpack_require__.n(xiaomi);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=script&lang=js
+
+/* harmony default export */ var brandsvue_type_script_lang_js = ({
+  name: 'brands',
+  data() {
+    return {
+      xiaomiImage: xiaomi_default.a
+    };
+  }
+});
+// CONCATENATED MODULE: ./components/brands.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_brandsvue_type_script_lang_js = (brandsvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/brands.vue
+
+
+
+function injectStyles (context) {
+  
+  
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_brandsvue_type_script_lang_js,
+  brandsvue_type_template_id_53ec9e7e_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  null,
+  "568437bf"
+  
+)
+
+/* harmony default export */ var brands = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ 461:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -14,7 +144,7 @@ exports.modules = {
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
 /* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
 /* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53);
-/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(50);
+/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(51);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(136);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
@@ -458,14 +588,14 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 763:
+/***/ 769:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/xiaomi.db57d06.png";
 
 /***/ }),
 
-/***/ 824:
+/***/ 836:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -550,136 +680,6 @@ const BaseItem = external_vue_default.a.extend({
 /* @vue/component */).extend({
   name: 'v-slide-item'
 }));
-
-/***/ }),
-
-/***/ 994:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
-var VImg = __webpack_require__(84);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
-var VSheet = __webpack_require__(27);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
-var VSlideGroup = __webpack_require__(461);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(824);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=template&id=53ec9e7e
-
-
-
-
-
-
-
-var brandsvue_type_template_id_53ec9e7e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c(VSheet["a" /* default */], {
-    staticClass: "rounded-lg"
-  }, [_c(VSlideGroup["b" /* default */], {
-    attrs: {
-      "show-arrows": "",
-      "center-active": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "next",
-      fn: function () {
-        return [_c(VIcon["a" /* default */], {
-          attrs: {
-            "color": "primary"
-          }
-        }, [_vm._v("mdi-arrow-right")])];
-      },
-      proxy: true
-    }, {
-      key: "prev",
-      fn: function () {
-        return [_c(VIcon["a" /* default */], {
-          attrs: {
-            "color": "primary"
-          }
-        }, [_vm._v("mdi-arrow-left")])];
-      },
-      proxy: true
-    }])
-  }, [_vm._v(" "), _vm._v(" "), _vm._l(20, function (item, index) {
-    return _c(VSlideItem["a" /* default */], {
-      key: index
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "ma-4",
-      attrs: {
-        "width": "100"
-      }
-    }, [_c(VImg["a" /* default */], {
-      staticClass: "pointer-cursor hover",
-      attrs: {
-        "width": "100",
-        "src": _vm.xiaomiImage
-      }
-    })], 1)], 1);
-  })], 2)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/brands.vue?vue&type=template&id=53ec9e7e
-
-// EXTERNAL MODULE: ./assets/img/brands/xiaomi.png
-var xiaomi = __webpack_require__(763);
-var xiaomi_default = /*#__PURE__*/__webpack_require__.n(xiaomi);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=script&lang=js
-
-/* harmony default export */ var brandsvue_type_script_lang_js = ({
-  name: 'brands',
-  data() {
-    return {
-      xiaomiImage: xiaomi_default.a
-    };
-  }
-});
-// CONCATENATED MODULE: ./components/brands.vue?vue&type=script&lang=js
- /* harmony default export */ var components_brandsvue_type_script_lang_js = (brandsvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/brands.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_brandsvue_type_script_lang_js,
-  brandsvue_type_template_id_53ec9e7e_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "568437bf"
-  
-)
-
-/* harmony default export */ var brands = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

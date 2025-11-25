@@ -1,19 +1,969 @@
-exports.ids = [283,32,33,34,35,36,37,94,147,149,150];
+exports.ids = [287,32,33,34,35,36,37,96,149,151,152];
 exports.modules = {
 
-/***/ 1136:
+/***/ 1001:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketCard.vue?vue&type=template&id=65711714&scoped=true
+var render = function render() {
+  var _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2, _vm$ticket$ticketLine, _vm$ticket$createUser, _vm$ticket$createUser2, _vm$ticket$cancelUser, _vm$ticket$cancelUser2, _vm$ticket$updateUser, _vm$ticket$updateUser2;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "ticket-card",
+    class: {
+      urgent: _vm.isUrgent
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('click', _vm.ticket);
+      }
+    }
+  }, [_vm._ssrNode("<div class=\"card-header\" data-v-65711714><div class=\"ticket-number\" data-v-65711714><span class=\"ticket-id\" data-v-65711714>" + _vm._ssrEscape("Q" + _vm._s(_vm.getQueNo(_vm.ticket.ticketNumber)) + " #" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id)) + "</span> <span class=\"ticket-time\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.formatTime(_vm.ticket.createdAt))) + "</span></div> <div class=\"ticket-badges\" data-v-65711714><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.ticket.status}`]) + " data-v-65711714>" + _vm._ssrEscape("\n        " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n      ") + "</span> <span" + _vm._ssrClass(null, ['payment-badge', `payment-${_vm.ticket.paymentStatus}`]) + " data-v-65711714>" + _vm._ssrEscape("\n        " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n      ") + "</span></div></div> <div class=\"card-info\" data-v-65711714><div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Customer:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in')) + "</span></div> <div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Table:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'N/A')) + "</span></div> <div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Items:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$ticketLine = _vm.ticket.ticketLines) === null || _vm$ticket$ticketLine === void 0 ? void 0 : _vm$ticket$ticketLine.length) || 0) + " items") + "</span></div> " + (_vm.ticket.createUser ? "<div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Created by:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$createUser = _vm.ticket.createUser) === null || _vm$ticket$createUser === void 0 ? void 0 : _vm$ticket$createUser.cus_name) || ((_vm$ticket$createUser2 = _vm.ticket.createUser) === null || _vm$ticket$createUser2 === void 0 ? void 0 : _vm$ticket$createUser2.name) || 'N/A')) + "</span></div>" : "<!---->") + " " + (_vm.ticket.cancelUser ? "<div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Cancelled by:</span> <span class=\"info-value text-error\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$cancelUser = _vm.ticket.cancelUser) === null || _vm$ticket$cancelUser === void 0 ? void 0 : _vm$ticket$cancelUser.cus_name) || ((_vm$ticket$cancelUser2 = _vm.ticket.cancelUser) === null || _vm$ticket$cancelUser2 === void 0 ? void 0 : _vm$ticket$cancelUser2.name) || 'N/A')) + "</span></div>" : "<!---->") + " " + (_vm.ticket.updateUser && _vm.ticket.status !== 'pending' ? "<div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Updated by:</span> <span class=\"info-value text-muted\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$updateUser = _vm.ticket.updateUser) === null || _vm$ticket$updateUser === void 0 ? void 0 : _vm$ticket$updateUser.cus_name) || ((_vm$ticket$updateUser2 = _vm.ticket.updateUser) === null || _vm$ticket$updateUser2 === void 0 ? void 0 : _vm$ticket$updateUser2.name) || 'N/A')) + "</span></div>" : "<!---->") + "</div> <div class=\"card-summary\" data-v-65711714><div class=\"summary-total\" data-v-65711714><span class=\"total-label\" data-v-65711714>Total:</span> <span class=\"total-amount\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.total))) + "</span></div> " + (_vm.ticket.notes ? "<div class=\"ticket-notes-preview\" data-v-65711714><span class=\"notes-icon\" data-v-65711714>📝</span> <span class=\"notes-text\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.truncateNotes(_vm.ticket.notes))) + "</span> <button title=\"Edit notes\" class=\"notes-edit-btn\" data-v-65711714>\n        ✏️\n      </button></div>" : "<div class=\"ticket-notes-empty\" data-v-65711714><button class=\"add-notes-btn\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>📝</span> <span data-v-65711714>Add Notes</span></button></div>") + "</div> <div class=\"card-actions\" data-v-65711714>" + (_vm.ticket.status === 'ready' ? "<button class=\"action-btn btn-served\" data-v-65711714>\n      Mark Served\n    </button>" : "<!---->") + " " + (_vm.ticket.status === 'served' && _vm.ticket.paymentStatus === 'pending' ? "<button class=\"action-btn btn-payment\" data-v-65711714>\n      Process Payment\n    </button>" : "<!---->") + " <button" + _vm._ssrClass("action-btn btn-notes", {
+    'has-notes': _vm.ticket.notes
+  }) + " data-v-65711714><span class=\"btn-icon\" data-v-65711714>📝</span>" + _vm._ssrEscape("\n      " + _vm._s(_vm.ticket.notes ? 'Edit Notes' : 'Add Notes') + "\n    ") + "</button> " + (!['paid', 'refunded', 'cancel'].includes(_vm.ticket.status) ? "<button title=\"Print Bar/Kitchen Ticket\" class=\"action-btn btn-print-bar\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>🍹</span>\n      Print Bar\n    </button>" : "<!---->") + " <button class=\"action-btn btn-print\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>🖨️</span>\n      Print\n    </button> " + (_vm.ticket.status !== 'cancel' ? "<button class=\"action-btn btn-cancel\" data-v-65711714>\n      Cancel\n    </button>" : "<!---->") + " " + (!['paid', 'cancel', 'void'].includes(_vm.ticket.status) ? "<button" + _vm._ssrAttr("disabled", ['paid', 'cancel', 'void'].includes(_vm.ticket.status)) + " class=\"action-btn btn-add-item\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>➕</span>\n      Add Item\n    </button>" : "<!---->") + "</div> " + (_vm.isUrgent ? "<div class=\"urgency-indicator\" data-v-65711714><span class=\"urgency-icon\" data-v-65711714>⚠️</span> <span class=\"urgency-text\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.urgencyReason)) + "</span></div>" : "<!---->"))]);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/tickets/TicketCard.vue?vue&type=template&id=65711714&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketCard.vue?vue&type=script&lang=js
+/* harmony default export */ var TicketCardvue_type_script_lang_js = ({
+  name: 'TicketCard',
+  props: {
+    ticket: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    isUrgent() {
+      const now = new Date();
+      const createdAt = new Date(this.ticket.createdAt);
+      const minutesAgo = (now - createdAt) / (1000 * 60);
+      return this.ticket.status === 'preparing' && minutesAgo > 15 || this.ticket.status === 'ready' && minutesAgo > 5;
+    },
+    urgencyReason() {
+      const now = new Date();
+      const createdAt = new Date(this.ticket.createdAt);
+      const minutesAgo = Math.floor((now - createdAt) / (1000 * 60));
+      if (this.ticket.status === 'preparing') {
+        return `Preparing for ${minutesAgo} minutes`;
+      } else if (this.ticket.status === 'ready') {
+        return `Ready for ${minutesAgo} minutes`;
+      }
+      return '';
+    }
+  },
+  methods: {
+    getQueNo(ticketNumber) {
+      var _ticketNumber$split$;
+      const parts = ticketNumber === null || ticketNumber === void 0 ? void 0 : (_ticketNumber$split$ = ticketNumber.split('-')[0]) === null || _ticketNumber$split$ === void 0 ? void 0 : _ticketNumber$split$.split('/');
+      return (parts === null || parts === void 0 ? void 0 : parts.length) === 2 ? (parseInt(parts[0]) * parseInt(parts[1])).toString() : '';
+    },
+    handleAddItem() {
+      var _this$ticket$table;
+      this.$emit('add-item', {
+        ticketId: this.ticket.id,
+        tableId: this.ticket.tableId || ((_this$ticket$table = this.ticket.table) === null || _this$ticket$table === void 0 ? void 0 : _this$ticket$table.id) || null,
+        ticket: this.ticket
+      });
+    },
+    formatTime(date) {
+      if (!date) return 'N/A';
+      return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    },
+    formatPrice(amount) {
+      const formattedNumber = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(Math.round(amount || 0));
+      return `${formattedNumber} ₭`;
+    },
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'Pending',
+        preparing: 'Preparing',
+        ready: 'Ready',
+        served: 'Served',
+        paid: 'Paid',
+        cancel: 'Cancelled'
+      };
+      return statusMap[status] || status;
+    },
+    formatPaymentStatus(status) {
+      const statusMap = {
+        pending: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refunded'
+      };
+      return statusMap[status] || status;
+    },
+    truncateNotes(notes) {
+      if (!notes) return '';
+      return notes.length > 60 ? notes.substring(0, 60) + '...' : notes;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/tickets/TicketCard.vue?vue&type=script&lang=js
+ /* harmony default export */ var tickets_TicketCardvue_type_script_lang_js = (TicketCardvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/tickets/TicketCard.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(758)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  tickets_TicketCardvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "65711714",
+  "e0a22c12"
+  
+)
+
+/* harmony default export */ var TicketCard = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1002:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketDetailDialog.vue?vue&type=template&id=8946fa6a&scoped=true
+var render = function render() {
+  var _vm$ticket, _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2, _vm$ticket2, _vm$ticket3, _vm$ticket4, _vm$ticket5, _vm$ticket6;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "dialog-overlay",
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close');
+      }
+    }
+  }, [_vm._ssrNode("<div class=\"dialog-content\" data-v-8946fa6a><div class=\"dialog-header\" data-v-8946fa6a><h2 data-v-8946fa6a>" + _vm._ssrEscape("Ticket #" + _vm._s((_vm$ticket = _vm.ticket) === null || _vm$ticket === void 0 ? void 0 : _vm$ticket.id) + " Details") + "</h2> <button class=\"close-btn\" data-v-8946fa6a>×</button></div> " + (_vm.ticket ? "<div class=\"dialog-body\" data-v-8946fa6a><div class=\"dialog-section\" data-v-8946fa6a><div class=\"section-header\" data-v-8946fa6a><h3 data-v-8946fa6a>Ticket Information</h3> <div class=\"ticket-status-badges\" data-v-8946fa6a><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.ticket.status}`]) + " data-v-8946fa6a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n            ") + "</span> <span" + _vm._ssrClass(null, ['payment-badge', `payment-${_vm.ticket.paymentStatus}`]) + " data-v-8946fa6a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n            ") + "</span></div></div> <div class=\"info-grid\" data-v-8946fa6a><div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Created:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.formatDate(_vm.ticket.createdAt)) + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Last Updated:</strong>" + _vm._ssrEscape("\n            " + _vm._s(_vm.formatDate(_vm.ticket.updateTimestamp)) + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Customer:</strong>" + _vm._ssrEscape(" " + _vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in') + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Table:</strong>" + _vm._ssrEscape("\n            " + _vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'N/A') + "\n          ") + "</div></div></div> " + (_vm.ticket.client ? "<div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Customer Details</h3> <div class=\"info-grid\" data-v-8946fa6a><div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Name:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.client.name) + "\n          ") + "</div> " + (_vm.ticket.client.email ? "<div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Email:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.client.email) + "\n          ") + "</div>" : "<!---->") + " " + (_vm.ticket.client.phone ? "<div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Phone:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.client.phone) + "\n          ") + "</div>" : "<!---->") + "</div></div>" : "<!---->") + " <div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Order Items</h3> " + (_vm.ticket.ticketLines && _vm.ticket.ticketLines.length > 0 ? "<div class=\"items-table\" data-v-8946fa6a><div class=\"table-header\" data-v-8946fa6a><div class=\"col-item\" data-v-8946fa6a>Item</div> <div class=\"col-qty\" data-v-8946fa6a>Qty</div> <div class=\"col-price\" data-v-8946fa6a>Price</div> <div class=\"col-total\" data-v-8946fa6a>Total</div></div> " + _vm._ssrList(_vm.ticket.ticketLines, function (line) {
+    return "<div class=\"table-row\" data-v-8946fa6a><div class=\"col-item\" data-v-8946fa6a><div class=\"item-name\" data-v-8946fa6a>" + _vm._ssrEscape("\n                " + _vm._s(line.product.pro_name || 'Unknown Item') + "\n              ") + "</div> " + (line.notes ? "<div class=\"item-notes\" data-v-8946fa6a>" + _vm._ssrEscape("\n                " + _vm._s(line.notes) + "\n              ") + "</div>" : "<!---->") + "</div> <div class=\"col-qty\" data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(line.quantity)) + "</div> <div class=\"col-price\" data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(line.unitPrice))) + "</div> <div class=\"col-total\" data-v-8946fa6a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatPrice(line.total || line.quantity * line.unitPrice)) + "\n            ") + "</div></div>";
+  }) + "</div>" : "<div class=\"no-items\" data-v-8946fa6a><p data-v-8946fa6a>No items in this order</p></div>") + "</div> <div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Order Summary</h3> <div class=\"summary-table\" data-v-8946fa6a><div class=\"summary-row\" data-v-8946fa6a><span data-v-8946fa6a>Subtotal:</span> <span data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.subtotal))) + "</span></div> <div class=\"summary-row\" data-v-8946fa6a><span data-v-8946fa6a>Tax:</span> <span data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.tax))) + "</span></div> <div class=\"summary-row total-row\" data-v-8946fa6a><span data-v-8946fa6a><strong data-v-8946fa6a>Total:</strong></span> <span data-v-8946fa6a><strong data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.total))) + "</strong></span></div></div></div> " + (_vm.ticket.payment ? "<div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Payment Information</h3> <div class=\"info-grid\" data-v-8946fa6a><div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Method:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.payment.method || 'N/A') + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Amount:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.formatPrice(_vm.ticket.payment.amount)) + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Status:</strong>" + _vm._ssrEscape("\n            " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n          ") + "</div> " + (_vm.ticket.payment.transactionId ? "<div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Transaction ID:</strong>" + _vm._ssrEscape("\n            " + _vm._s(_vm.ticket.payment.transactionId) + "\n          ") + "</div>" : "<!---->") + "</div></div>" : "<!---->") + " " + (_vm.ticket.notes ? "<div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Notes</h3> <div class=\"notes-content\" data-v-8946fa6a>" + _vm._ssrEscape("\n          " + _vm._s(_vm.ticket.notes) + "\n        ") + "</div></div>" : "<!---->") + "</div>" : "<!---->") + " <div class=\"dialog-footer\" data-v-8946fa6a><div class=\"dialog-actions\" data-v-8946fa6a>" + (((_vm$ticket2 = _vm.ticket) === null || _vm$ticket2 === void 0 ? void 0 : _vm$ticket2.status) === 'pending' ? "<button class=\"dialog-btn btn-preparing\" data-v-8946fa6a>\n          Start Preparing\n        </button>" : "<!---->") + " " + (((_vm$ticket3 = _vm.ticket) === null || _vm$ticket3 === void 0 ? void 0 : _vm$ticket3.status) === 'preparing' ? "<button class=\"dialog-btn btn-ready\" data-v-8946fa6a>\n          Mark Ready\n        </button>" : "<!---->") + " " + (((_vm$ticket4 = _vm.ticket) === null || _vm$ticket4 === void 0 ? void 0 : _vm$ticket4.status) === 'ready' ? "<button class=\"dialog-btn btn-served\" data-v-8946fa6a>\n          Mark Served\n        </button>" : "<!---->") + " " + (((_vm$ticket5 = _vm.ticket) === null || _vm$ticket5 === void 0 ? void 0 : _vm$ticket5.status) === 'served' && ((_vm$ticket6 = _vm.ticket) === null || _vm$ticket6 === void 0 ? void 0 : _vm$ticket6.paymentStatus) === 'pending' ? "<button class=\"dialog-btn btn-payment\" data-v-8946fa6a>\n          Process Payment\n        </button>" : "<!---->") + " <button class=\"dialog-btn btn-print\" data-v-8946fa6a>\n          Print Ticket\n        </button> <button class=\"dialog-btn btn-close\" data-v-8946fa6a>\n          Close\n        </button></div></div></div>")]);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/tickets/TicketDetailDialog.vue?vue&type=template&id=8946fa6a&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketDetailDialog.vue?vue&type=script&lang=js
+/* harmony default export */ var TicketDetailDialogvue_type_script_lang_js = ({
+  name: 'TicketDetailDialog',
+  props: {
+    ticket: {
+      type: Object,
+      default: null
+    }
+  },
+  methods: {
+    formatDate(date) {
+      if (!date) return 'N/A';
+      return new Date(date).toLocaleString();
+    },
+    formatPrice(amount) {
+      const formattedNumber = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(Math.round(amount || 0));
+      return `${formattedNumber} ₭`;
+    },
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'Pending',
+        preparing: 'Preparing',
+        ready: 'Ready',
+        served: 'Served',
+        paid: 'Paid'
+      };
+      return statusMap[status] || status;
+    },
+    formatPaymentStatus(status) {
+      const statusMap = {
+        pending: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refunded'
+      };
+      return statusMap[status] || status;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/tickets/TicketDetailDialog.vue?vue&type=script&lang=js
+ /* harmony default export */ var tickets_TicketDetailDialogvue_type_script_lang_js = (TicketDetailDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/tickets/TicketDetailDialog.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(760)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  tickets_TicketDetailDialogvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "8946fa6a",
+  "e2d95740"
+  
+)
+
+/* harmony default export */ var TicketDetailDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1003:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(360);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(405);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
+var VToolbar = __webpack_require__(28);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
+var components_VToolbar = __webpack_require__(138);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
+
+
+
+
+
+
+
+
+
+
+var POSDialogvue_type_template_id_5b0376a2_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c(VDialog["a" /* default */], {
+    attrs: {
+      "fullscreen": "",
+      "persistent": "",
+      "transition": "dialog-bottom-transition",
+      "retain-focus": false
+    },
+    model: {
+      value: _vm.internalShow,
+      callback: function ($$v) {
+        _vm.internalShow = $$v;
+      },
+      expression: "internalShow"
+    }
+  }, [_c(VCard["a" /* default */], [_c(VToolbar["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "dark": ""
+    }
+  }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n        " + _vm._s(_vm.toolbarTitle) + "\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.ticket ? _c(VChip["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white",
+      "text-color": "primary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-ticket")]), _vm._v("\n        Ticket #" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id) + " \n      ")], 1) : _vm._e(), _vm._v(" "), _vm.hasTable ? _c(VChip["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "accent",
+      "text-color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-table-furniture")]), _vm._v("\n        Table " + _vm._s(_vm.tableDisplay) + "\n      ")], 1) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "icon": "",
+      "dark": ""
+    },
+    on: {
+      "click": _vm.handleClose
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [_vm.internalShow ? _c('MenuPOSScreen', {
+    attrs: {
+      "table-id": _vm.effectiveTableId,
+      "existing-ticket": _vm.ticket,
+      "dialog-mode": true
+    },
+    on: {
+      "ticket-updated": _vm.handleTicketUpdated,
+      "close-dialog": _vm.handleClose,
+      "reload-data": _vm.handleReloadData
+    }
+  }) : _vm._e()], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
+
+// EXTERNAL MODULE: ./components/CafePOSScreen/index.vue + 4 modules
+var CafePOSScreen = __webpack_require__(609);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=script&lang=js
+
+/* harmony default export */ var POSDialogvue_type_script_lang_js = ({
+  name: 'POSDialog',
+  components: {
+    MenuPOSScreen: CafePOSScreen["default"]
+  },
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    tableId: {
+      type: [String, Number],
+      default: null
+    },
+    ticket: {
+      type: Object,
+      default: null
+    }
+  },
+  computed: {
+    internalShow: {
+      get() {
+        return this.show;
+      },
+      set(value) {
+        if (!value) {
+          this.$emit('close');
+        }
+      }
+    },
+    hasTable() {
+      return this.tableId && this.tableId !== 'walk-in';
+    },
+    tableDisplay() {
+      var _this$ticket, _this$ticket$table;
+      if (!this.tableId || this.tableId === 'walk-in') return 'Walk-in';
+      return ((_this$ticket = this.ticket) === null || _this$ticket === void 0 ? void 0 : (_this$ticket$table = _this$ticket.table) === null || _this$ticket$table === void 0 ? void 0 : _this$ticket$table.number) || this.tableId;
+    },
+    effectiveTableId() {
+      var _this$ticket2;
+      return this.tableId || ((_this$ticket2 = this.ticket) === null || _this$ticket2 === void 0 ? void 0 : _this$ticket2.tableId) || 'walk-in';
+    },
+    toolbarTitle() {
+      var _this$ticket$client;
+      if (!this.ticket) return 'Add Items - New Order';
+      const customer = ((_this$ticket$client = this.ticket.client) === null || _this$ticket$client === void 0 ? void 0 : _this$ticket$client.name) || 'Walk-in';
+      const table = this.hasTable ? `Table ${this.tableDisplay}` : 'Walk-in';
+      return `Add Items - ${table} - ${customer}`;
+    }
+  },
+  mounted() {
+    console.info(` from POS DIALOG ${JSON.stringify(this.ticket)}`);
+  },
+  methods: {
+    handleClose() {
+      console.log('POSDialog: Closing dialog');
+      this.$emit('close');
+    },
+    handleTicketUpdated(ticket) {
+      console.log('POSDialog: Ticket updated', ticket.id);
+      this.$emit('ticket-updated', ticket);
+      // ❌ DON'T close the dialog here - let user close it manually
+      // this.$emit('close')
+    },
+    handleReloadData() {
+      console.log('POSDialog: Reload data requested');
+      this.$emit('reload-data');
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=script&lang=js
+ /* harmony default export */ var CAFE_POSDialogvue_type_script_lang_js = (POSDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  CAFE_POSDialogvue_type_script_lang_js,
+  POSDialogvue_type_template_id_5b0376a2_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "87b1b2c6"
+  
+)
+
+/* harmony default export */ var POSDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1004:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printBarDialog/index.vue?vue&type=template&id=63c6d396&scoped=true
+var render = function render() {
+  var _vm$ticket$table, _vm$ticket$table2, _vm$ticket$client;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.show ? _c('div', {
+    staticClass: "dialog-overlay",
+    on: {
+      "click": _vm.closeDialog
+    }
+  }, [_vm._ssrNode("<div class=\"print-dialog-content\" data-v-63c6d396>", "</div>", [_vm._ssrNode("<div class=\"print-dialog-header\" data-v-63c6d396><h2 data-v-63c6d396>Print Bar/Kitchen Ticket</h2> <button class=\"close-btn\" data-v-63c6d396>×</button></div> " + (_vm.ticket ? "<div class=\"print-preview\" data-v-63c6d396><div class=\"bar-header\" data-v-63c6d396><div class=\"station-info\" data-v-63c6d396><h1 class=\"station-name\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.stationName)) + "</h1> <div" + _vm._ssrClass("order-priority", _vm.getPriorityClass()) + " data-v-63c6d396>" + _vm._ssrEscape("\n            " + _vm._s(_vm.getPriorityLabel()) + "\n          ") + "</div></div></div> <div class=\"bar-order-info\" data-v-63c6d396><div class=\"info-grid\" data-v-63c6d396><div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>ORDER #:</span> <span class=\"info-value bold\" data-v-63c6d396>" + _vm._ssrEscape("Q" + _vm._s(_vm.getQueNo(_vm.ticket.ticketNumber)) + "\n              " + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id)) + "</span></div> <div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>TABLE:</span> <span class=\"info-value bold\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'Takeaway')) + "</span></div> <div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>TIME:</span> <span class=\"info-value\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.formatPrintTime(_vm.ticket.createdAt))) + "</span></div> <div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>SERVER:</span> <span class=\"info-value\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.getServerName())) + "</span></div></div></div> <div class=\"print-divider-bold\" data-v-63c6d396></div> <div class=\"bar-items\" data-v-63c6d396><div class=\"section-title-large\" data-v-63c6d396>ITEMS TO PREPARE</div> " + (_vm.filteredItems.length > 0 ? "<div data-v-63c6d396>" + _vm._ssrList(_vm.filteredItems, function (line, index) {
+    return "<div class=\"bar-item\" data-v-63c6d396><div class=\"item-qty-badge\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(line.quantity) + "x") + "</div> <div class=\"item-content\" data-v-63c6d396><div class=\"item-name-large\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.getItemName(line))) + "</div> " + (line.notes ? "<div class=\"item-notes-bar\" data-v-63c6d396><span class=\"notes-icon\" data-v-63c6d396>📝</span> <span class=\"notes-text\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(line.notes)) + "</span></div>" : "<!---->") + " " + (line.modifiers && line.modifiers.length > 0 ? "<div class=\"item-modifiers\" data-v-63c6d396>" + _vm._ssrList(line.modifiers, function (mod) {
+      return "<div class=\"modifier-item\" data-v-63c6d396>" + _vm._ssrEscape("\n                  + " + _vm._s(mod.name) + "\n                ") + "</div>";
+    }) + "</div>" : "<!---->") + " " + (line.is_promotion_item ? "<div class=\"promo-badge-bar\" data-v-63c6d396>\n                🏷️ PROMO\n              </div>" : "<!---->") + "</div> <div class=\"item-checkbox\" data-v-63c6d396>☐</div></div>";
+  }) + "</div>" : "<div class=\"no-items-bar\" data-v-63c6d396><p data-v-63c6d396>No items for this station</p></div>") + "</div> <div class=\"print-divider-bold\" data-v-63c6d396></div> <div class=\"bar-summary\" data-v-63c6d396><div class=\"summary-row-large\" data-v-63c6d396><span data-v-63c6d396>TOTAL ITEMS:</span> <span class=\"bold\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.getTotalItemCount())) + "</span></div> <div class=\"summary-row-large\" data-v-63c6d396><span data-v-63c6d396>CUSTOMER:</span> <span data-v-63c6d396>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in')) + "</span></div></div> " + (_vm.ticket.notes ? "<div class=\"bar-special-notes\" data-v-63c6d396><div class=\"print-divider\" data-v-63c6d396></div> <div class=\"notes-header\" data-v-63c6d396>⚠️ SPECIAL INSTRUCTIONS:</div> <div class=\"notes-content\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.ticket.notes)) + "</div></div>" : "<!---->") + " <div class=\"bar-footer\" data-v-63c6d396><div class=\"print-divider\" data-v-63c6d396></div> <div class=\"footer-time\" data-v-63c6d396>" + _vm._ssrEscape("\n          Printed: " + _vm._s(_vm.formatPrintDateTime(new Date())) + "\n        ") + "</div> <div class=\"footer-status\" data-v-63c6d396>" + _vm._ssrEscape("\n          Status: " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n        ") + "</div></div></div>" : "<!---->") + " "), _vm._ssrNode("<div class=\"print-dialog-actions\" data-v-63c6d396>", "</div>", [_vm._ssrNode("<div class=\"station-filter\" data-v-63c6d396>", "</div>", [_vm._ssrNode("<label data-v-63c6d396>Station:</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.selectedStation,
+      expression: "selectedStation"
+    }],
+    staticClass: "station-select",
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.selectedStation = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "all"
+    }
+  }, [_vm._v("All Items")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "bar"
+    }
+  }, [_vm._v("Bar Only")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "kitchen"
+    }
+  }, [_vm._v("Kitchen Only")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "cold"
+    }
+  }, [_vm._v("Cold Station")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "hot"
+    }
+  }, [_vm._v("Hot Station")])])], 2), _vm._ssrNode(" <div class=\"action-buttons\" data-v-63c6d396><button" + _vm._ssrAttr("disabled", _vm.printing) + " class=\"print-btn print-primary\" data-v-63c6d396>" + (_vm.printing ? "<span data-v-63c6d396>Printing...</span>" : "<span data-v-63c6d396>🖨️ Print</span>") + "</button> <button class=\"print-btn print-secondary\" data-v-63c6d396>\n          Cancel\n        </button></div>")], 2)], 2)]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/CAFE/printBarDialog/index.vue?vue&type=template&id=63c6d396&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printBarDialog/index.vue?vue&type=script&lang=js
+/* harmony default export */ var printBarDialogvue_type_script_lang_js = ({
+  name: 'PrintBarTicketDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    ticket: {
+      type: Object,
+      default: null
+    },
+    stationName: {
+      type: String,
+      default: 'BAR/KITCHEN'
+    }
+  },
+  data() {
+    return {
+      printing: false,
+      selectedStation: 'all' // Filter by station
+    };
+  },
+  computed: {
+    filteredItems() {
+      if (!this.ticket || !this.ticket.ticketLines) return [];
+      let items = this.ticket.ticketLines;
+
+      // Filter by station type
+      if (this.selectedStation !== 'all') {
+        items = items.filter(line => {
+          var _line$product, _line$product$categor, _line$pro_name;
+          const category = ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : (_line$product$categor = _line$product.category) === null || _line$product$categor === void 0 ? void 0 : _line$product$categor.toLowerCase()) || '';
+          const productName = ((_line$pro_name = line.pro_name) === null || _line$pro_name === void 0 ? void 0 : _line$pro_name.toLowerCase()) || '';
+          switch (this.selectedStation) {
+            case 'bar':
+              return category.includes('drink') || category.includes('beverage') || productName.includes('coffee') || productName.includes('juice');
+            case 'kitchen':
+              return category.includes('food') || category.includes('meal');
+            case 'cold':
+              return category.includes('salad') || category.includes('cold') || productName.includes('ice');
+            case 'hot':
+              return category.includes('hot') || category.includes('grill');
+            default:
+              return true;
+          }
+        });
+      }
+      return items;
+    }
+  },
+  methods: {
+    getQueNo(ticketNumber) {
+      var _ticketNumber$split$;
+      const parts = ticketNumber === null || ticketNumber === void 0 ? void 0 : (_ticketNumber$split$ = ticketNumber.split('-')[0]) === null || _ticketNumber$split$ === void 0 ? void 0 : _ticketNumber$split$.split('/');
+      return (parts === null || parts === void 0 ? void 0 : parts.length) === 2 ? (parseInt(parts[0]) * parseInt(parts[1])).toString() : '';
+    },
+    closeDialog() {
+      this.$emit('close');
+    },
+    getPriorityClass() {
+      const now = new Date();
+      const orderTime = new Date(this.ticket.createdAt);
+      const minutesPassed = (now - orderTime) / 1000 / 60;
+      if (minutesPassed > 15) return 'priority-urgent';
+      if (minutesPassed > 10) return 'priority-high';
+      return 'priority-normal';
+    },
+    getPriorityLabel() {
+      const now = new Date();
+      const orderTime = new Date(this.ticket.createdAt);
+      const minutesPassed = Math.floor((now - orderTime) / 1000 / 60);
+      if (minutesPassed > 15) return '🔴 URGENT!';
+      if (minutesPassed > 10) return '🟠 HIGH';
+      return '🟢 NORMAL';
+    },
+    getTotalItemCount() {
+      return this.filteredItems.reduce((sum, line) => sum + line.quantity, 0);
+    },
+    getServerName() {
+      var _this$ticket$server, _this$ticket$createdB, _this$ticket$createdB2;
+      return ((_this$ticket$server = this.ticket.server) === null || _this$ticket$server === void 0 ? void 0 : _this$ticket$server.name) || ((_this$ticket$createdB = this.ticket.createdBy) === null || _this$ticket$createdB === void 0 ? void 0 : _this$ticket$createdB.cus_name) || ((_this$ticket$createdB2 = this.ticket.createdBy) === null || _this$ticket$createdB2 === void 0 ? void 0 : _this$ticket$createdB2.username) || 'Staff';
+    },
+    getItemName(line) {
+      var _line$product2, _line$product3;
+      return line.pro_name || ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_name) || ((_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.name) || 'Unknown Item';
+    },
+    formatPrintTime(date) {
+      if (!date) return 'N/A';
+      return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+    },
+    formatPrintDateTime(date) {
+      if (!date) return 'N/A';
+      const d = new Date(date);
+      return `${d.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit'
+      })} ${d.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })}`;
+    },
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'NEW ORDER',
+        preparing: 'PREPARING',
+        ready: 'READY',
+        served: 'SERVED',
+        paid: 'COMPLETED',
+        cancel: 'CANCELLED'
+      };
+      return statusMap[status] || (status === null || status === void 0 ? void 0 : status.toUpperCase());
+    },
+    async printNow() {
+      if (!this.ticket) return;
+      this.printing = true;
+      try {
+        const printContent = document.querySelector('.print-preview').innerHTML;
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Bar Ticket #${this.ticket.id}</title>
+            <meta charset="utf-8">
+            <style>
+              ${this.getBarPrintStyles()}
+            </style>
+          </head>
+          <body>
+            ${printContent}
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+          this.printing = false;
+          this.$emit('printed', this.ticket);
+          this.closeDialog();
+        }, 100);
+      } catch (error) {
+        console.error('Print error:', error);
+        this.printing = false;
+        this.$emit('print-error', error);
+      }
+    },
+    getBarPrintStyles() {
+      return `
+        body {
+          font-family: 'Courier New', monospace;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 1.3;
+          margin: 0;
+          padding: 6px;
+          color: #000;
+        }
+        
+        /* Header */
+        .bar-header {
+          text-align: center;
+          margin-bottom: 10px;
+          border: 3px solid #000;
+          padding: 8px;
+          background: #000;
+          color: #fff;
+        }
+        .station-name {
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0 0 6px 0;
+          letter-spacing: 2px;
+        }
+        .order-priority {
+          font-size: 16px;
+          font-weight: bold;
+          padding: 4px 8px;
+          border-radius: 4px;
+          display: inline-block;
+        }
+        .priority-normal { background: #28a745; color: #fff; }
+        .priority-high { background: #ffc107; color: #000; }
+        .priority-urgent { background: #dc3545; color: #fff; }
+        
+        /* Order Info */
+        .bar-order-info {
+          margin-bottom: 10px;
+        }
+        .info-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+        }
+        .info-item {
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+        }
+        .info-label {
+          font-weight: bold;
+        }
+        .info-value.bold {
+          font-weight: bold;
+          font-size: 15px;
+        }
+        
+        /* Dividers */
+        .print-divider {
+          border-top: 1px dashed #000;
+          margin: 8px 0;
+        }
+        .print-divider-bold {
+          border-top: 3px double #000;
+          margin: 10px 0;
+        }
+        
+        /* Section Title */
+        .section-title-large {
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          margin: 10px 0;
+          padding: 6px;
+          background: #000;
+          color: #fff;
+          letter-spacing: 1px;
+        }
+        
+        /* Bar Items */
+        .bar-items {
+          margin: 10px 0;
+        }
+        .bar-item {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 12px;
+          padding: 10px;
+          border: 2px solid #000;
+          background: #fff;
+          position: relative;
+        }
+        .item-qty-badge {
+          font-size: 24px;
+          font-weight: bold;
+          min-width: 50px;
+          text-align: center;
+          background: #000;
+          color: #fff;
+          padding: 8px 4px;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .item-content {
+          flex: 1;
+        }
+        .item-name-large {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 6px;
+          text-transform: uppercase;
+        }
+        .item-notes-bar {
+          display: flex;
+          gap: 6px;
+          margin-top: 6px;
+          padding: 6px;
+          background: #fff3cd;
+          border-left: 4px solid #ffc107;
+          font-size: 13px;
+        }
+        .notes-icon {
+          font-size: 14px;
+        }
+        .notes-text {
+          font-weight: bold;
+          color: #856404;
+        }
+        .item-modifiers {
+          margin-top: 6px;
+          padding-left: 10px;
+        }
+        .modifier-item {
+          font-size: 12px;
+          margin: 2px 0;
+          color: #666;
+        }
+        .promo-badge-bar {
+          display: inline-block;
+          margin-top: 6px;
+          padding: 3px 8px;
+          background: #28a745;
+          color: #fff;
+          font-size: 11px;
+          border-radius: 3px;
+        }
+        .item-checkbox {
+          font-size: 32px;
+          font-weight: bold;
+          min-width: 40px;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Summary */
+        .bar-summary {
+          margin: 12px 0;
+          padding: 10px;
+          background: #f8f9fa;
+          border: 2px solid #000;
+        }
+        .summary-row-large {
+          display: flex;
+          justify-content: space-between;
+          font-size: 14px;
+          margin-bottom: 4px;
+        }
+        .summary-row-large .bold {
+          font-weight: bold;
+          font-size: 16px;
+        }
+        
+        /* Special Notes */
+        .bar-special-notes {
+          margin: 12px 0;
+          padding: 10px;
+          background: #fff3cd;
+          border: 3px solid #ffc107;
+        }
+        .notes-header {
+          font-size: 14px;
+          font-weight: bold;
+          margin-bottom: 6px;
+          color: #856404;
+        }
+        .notes-content {
+          font-size: 13px;
+          font-weight: bold;
+          color: #000;
+        }
+        
+        /* Footer */
+        .bar-footer {
+          margin-top: 12px;
+          text-align: center;
+          font-size: 11px;
+        }
+        .footer-time {
+          margin: 4px 0;
+          color: #666;
+        }
+        .footer-status {
+          font-weight: bold;
+          font-size: 13px;
+        }
+        
+        .no-items-bar {
+          text-align: center;
+          padding: 20px;
+          font-size: 14px;
+          color: #666;
+        }
+        
+        @media print {
+          body { 
+            margin: 0; 
+            padding: 4px;
+          }
+          .bar-item {
+            page-break-inside: avoid;
+          }
+        }
+      `;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/CAFE/printBarDialog/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var CAFE_printBarDialogvue_type_script_lang_js = (printBarDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/CAFE/printBarDialog/index.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(762)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  CAFE_printBarDialogvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "63c6d396",
+  "9eb8d8c0"
+  
+)
+
+/* harmony default export */ var printBarDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3089863a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(885);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3089863a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(898);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3089863a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3089863a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3089863a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3089863a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1137:
+/***/ 1156:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +978,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1397:
+/***/ 1419:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,7 +986,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -51,16 +1001,16 @@ var components_VCard = __webpack_require__(6);
 var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
+var VForm = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ticket/index.vue?vue&type=template&id=3089863a&scoped=true
 
@@ -325,22 +1275,22 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ticket/index.vue?vue&type=template&id=3089863a&scoped=true
 
 // EXTERNAL MODULE: ./components/tickets/TicketCard.vue + 4 modules
-var TicketCard = __webpack_require__(986);
+var TicketCard = __webpack_require__(1001);
 
 // EXTERNAL MODULE: ./components/tickets/TicketDetailDialog.vue + 4 modules
-var TicketDetailDialog = __webpack_require__(987);
+var TicketDetailDialog = __webpack_require__(1002);
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(535);
+var printdialog = __webpack_require__(536);
 
 // EXTERNAL MODULE: ./components/CAFE/POSDialog.vue + 4 modules
-var POSDialog = __webpack_require__(988);
+var POSDialog = __webpack_require__(1003);
 
 // EXTERNAL MODULE: ./components/tickets/NotesDialog.vue + 4 modules
-var NotesDialog = __webpack_require__(553);
+var NotesDialog = __webpack_require__(554);
 
 // EXTERNAL MODULE: ./components/CAFE/printBarDialog/index.vue + 4 modules
-var printBarDialog = __webpack_require__(989);
+var printBarDialog = __webpack_require__(1004);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -849,7 +1799,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1136)
+  var style0 = __webpack_require__(1155)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -929,7 +1879,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 440:
+/***/ 438:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1042,7 +1992,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(136);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
-/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(91);
+/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
 // Styles
 
@@ -1173,7 +2123,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
 /* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
 /* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53);
-/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(50);
+/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(51);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(136);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
@@ -2059,7 +3009,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 488:
+/***/ 490:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -2252,7 +3202,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(490);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
@@ -2292,7 +3242,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 535:
+/***/ 536:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2993,7 +3943,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 536:
+/***/ 537:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3013,7 +3963,7 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
@@ -3022,7 +3972,7 @@ var VDialog = __webpack_require__(360);
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
+var VForm = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -3043,19 +3993,19 @@ var VListItemIcon = __webpack_require__(61);
 var VMenu = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 var VProgressLinear = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
 var VSwitch = __webpack_require__(457);
@@ -4049,7 +4999,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 552:
+/***/ 553:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4057,7 +5007,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -4075,7 +5025,7 @@ var VChip = __webpack_require__(127);
 var VChipGroup = __webpack_require__(543);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
@@ -4090,13 +5040,13 @@ var transitions = __webpack_require__(26);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
@@ -5257,7 +6207,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 553:
+/***/ 554:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5265,7 +6215,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -5289,10 +6239,10 @@ var VDialog = __webpack_require__(360);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/NotesDialog.vue?vue&type=template&id=ccdaad86&scoped=true
 
@@ -5655,34 +6605,34 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
+var VForm = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=template&id=7d3a3b54&scoped=true
 
@@ -6222,7 +7172,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/CAFE/customerDialog/index.vue?vue&type=template&id=7d3a3b54&scoped=true
 
 // EXTERNAL MODULE: ./components/member_offer/index.vue + 4 modules
-var member_offer = __webpack_require__(536);
+var member_offer = __webpack_require__(537);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=script&lang=js
  // NEW: Import member offer dialog
@@ -6831,10 +7781,10 @@ Object(_mixins_groupable__WEBPACK_IMPORTED_MODULE_0__[/* factory */ "a"])('tabsB
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(406);
+var VAutocomplete = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -6849,10 +7799,10 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(400);
+var VContainer = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
@@ -6864,10 +7814,10 @@ var VDivider = __webpack_require__(122);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
@@ -6876,13 +7826,13 @@ var VSelect = __webpack_require__(19);
 var VSnackbar = __webpack_require__(583);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=template&id=42f3927a&scoped=true
 
@@ -7922,16 +8872,16 @@ var esnext_map_some_js_ = __webpack_require__(106);
 var esnext_map_update_js_ = __webpack_require__(107);
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(535);
+var printdialog = __webpack_require__(536);
 
 // EXTERNAL MODULE: ./components/CAFE/paymentDialogFront/index.vue + 4 modules
-var paymentDialogFront = __webpack_require__(552);
+var paymentDialogFront = __webpack_require__(553);
 
 // EXTERNAL MODULE: ./components/CAFE/customerDialog/index.vue + 4 modules
 var customerDialog = __webpack_require__(571);
 
 // EXTERNAL MODULE: ./components/tickets/NotesDialog.vue + 4 modules
-var NotesDialog = __webpack_require__(553);
+var NotesDialog = __webpack_require__(554);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -9583,7 +10533,7 @@ var colorable = __webpack_require__(9);
 var proxyable = __webpack_require__(77);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/resize/index.js
-var resize = __webpack_require__(50);
+var resize = __webpack_require__(51);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
 var helpers = __webpack_require__(0);
@@ -9883,7 +10833,7 @@ const baseMixins = Object(mixins["a" /* default */])(colorable["a" /* default */
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(755);
+var content = __webpack_require__(759);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -9901,7 +10851,7 @@ module.exports.__inject__ = function (context) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(757);
+var content = __webpack_require__(761);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -9919,7 +10869,7 @@ module.exports.__inject__ = function (context) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(759);
+var content = __webpack_require__(763);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -9931,7 +10881,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 754:
+/***/ 758:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9943,7 +10893,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 755:
+/***/ 759:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -9958,7 +10908,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 756:
+/***/ 760:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9970,7 +10920,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 757:
+/***/ 761:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -9985,7 +10935,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 758:
+/***/ 762:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9997,7 +10947,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 759:
+/***/ 763:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -10012,13 +10962,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 885:
+/***/ 898:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1137);
+var content = __webpack_require__(1156);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -10027,956 +10977,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("25197357", content, true, context)
 };
-
-/***/ }),
-
-/***/ 986:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketCard.vue?vue&type=template&id=65711714&scoped=true
-var render = function render() {
-  var _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2, _vm$ticket$ticketLine, _vm$ticket$createUser, _vm$ticket$createUser2, _vm$ticket$cancelUser, _vm$ticket$cancelUser2, _vm$ticket$updateUser, _vm$ticket$updateUser2;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "ticket-card",
-    class: {
-      urgent: _vm.isUrgent
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('click', _vm.ticket);
-      }
-    }
-  }, [_vm._ssrNode("<div class=\"card-header\" data-v-65711714><div class=\"ticket-number\" data-v-65711714><span class=\"ticket-id\" data-v-65711714>" + _vm._ssrEscape("Q" + _vm._s(_vm.getQueNo(_vm.ticket.ticketNumber)) + " #" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id)) + "</span> <span class=\"ticket-time\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.formatTime(_vm.ticket.createdAt))) + "</span></div> <div class=\"ticket-badges\" data-v-65711714><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.ticket.status}`]) + " data-v-65711714>" + _vm._ssrEscape("\n        " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n      ") + "</span> <span" + _vm._ssrClass(null, ['payment-badge', `payment-${_vm.ticket.paymentStatus}`]) + " data-v-65711714>" + _vm._ssrEscape("\n        " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n      ") + "</span></div></div> <div class=\"card-info\" data-v-65711714><div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Customer:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in')) + "</span></div> <div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Table:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'N/A')) + "</span></div> <div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Items:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$ticketLine = _vm.ticket.ticketLines) === null || _vm$ticket$ticketLine === void 0 ? void 0 : _vm$ticket$ticketLine.length) || 0) + " items") + "</span></div> " + (_vm.ticket.createUser ? "<div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Created by:</span> <span class=\"info-value\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$createUser = _vm.ticket.createUser) === null || _vm$ticket$createUser === void 0 ? void 0 : _vm$ticket$createUser.cus_name) || ((_vm$ticket$createUser2 = _vm.ticket.createUser) === null || _vm$ticket$createUser2 === void 0 ? void 0 : _vm$ticket$createUser2.name) || 'N/A')) + "</span></div>" : "<!---->") + " " + (_vm.ticket.cancelUser ? "<div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Cancelled by:</span> <span class=\"info-value text-error\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$cancelUser = _vm.ticket.cancelUser) === null || _vm$ticket$cancelUser === void 0 ? void 0 : _vm$ticket$cancelUser.cus_name) || ((_vm$ticket$cancelUser2 = _vm.ticket.cancelUser) === null || _vm$ticket$cancelUser2 === void 0 ? void 0 : _vm$ticket$cancelUser2.name) || 'N/A')) + "</span></div>" : "<!---->") + " " + (_vm.ticket.updateUser && _vm.ticket.status !== 'pending' ? "<div class=\"info-row\" data-v-65711714><span class=\"info-label\" data-v-65711714>Updated by:</span> <span class=\"info-value text-muted\" data-v-65711714>" + _vm._ssrEscape(_vm._s(((_vm$ticket$updateUser = _vm.ticket.updateUser) === null || _vm$ticket$updateUser === void 0 ? void 0 : _vm$ticket$updateUser.cus_name) || ((_vm$ticket$updateUser2 = _vm.ticket.updateUser) === null || _vm$ticket$updateUser2 === void 0 ? void 0 : _vm$ticket$updateUser2.name) || 'N/A')) + "</span></div>" : "<!---->") + "</div> <div class=\"card-summary\" data-v-65711714><div class=\"summary-total\" data-v-65711714><span class=\"total-label\" data-v-65711714>Total:</span> <span class=\"total-amount\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.total))) + "</span></div> " + (_vm.ticket.notes ? "<div class=\"ticket-notes-preview\" data-v-65711714><span class=\"notes-icon\" data-v-65711714>📝</span> <span class=\"notes-text\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.truncateNotes(_vm.ticket.notes))) + "</span> <button title=\"Edit notes\" class=\"notes-edit-btn\" data-v-65711714>\n        ✏️\n      </button></div>" : "<div class=\"ticket-notes-empty\" data-v-65711714><button class=\"add-notes-btn\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>📝</span> <span data-v-65711714>Add Notes</span></button></div>") + "</div> <div class=\"card-actions\" data-v-65711714>" + (_vm.ticket.status === 'ready' ? "<button class=\"action-btn btn-served\" data-v-65711714>\n      Mark Served\n    </button>" : "<!---->") + " " + (_vm.ticket.status === 'served' && _vm.ticket.paymentStatus === 'pending' ? "<button class=\"action-btn btn-payment\" data-v-65711714>\n      Process Payment\n    </button>" : "<!---->") + " <button" + _vm._ssrClass("action-btn btn-notes", {
-    'has-notes': _vm.ticket.notes
-  }) + " data-v-65711714><span class=\"btn-icon\" data-v-65711714>📝</span>" + _vm._ssrEscape("\n      " + _vm._s(_vm.ticket.notes ? 'Edit Notes' : 'Add Notes') + "\n    ") + "</button> " + (!['paid', 'refunded', 'cancel'].includes(_vm.ticket.status) ? "<button title=\"Print Bar/Kitchen Ticket\" class=\"action-btn btn-print-bar\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>🍹</span>\n      Print Bar\n    </button>" : "<!---->") + " <button class=\"action-btn btn-print\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>🖨️</span>\n      Print\n    </button> " + (_vm.ticket.status !== 'cancel' ? "<button class=\"action-btn btn-cancel\" data-v-65711714>\n      Cancel\n    </button>" : "<!---->") + " " + (!['paid', 'cancel', 'void'].includes(_vm.ticket.status) ? "<button" + _vm._ssrAttr("disabled", ['paid', 'cancel', 'void'].includes(_vm.ticket.status)) + " class=\"action-btn btn-add-item\" data-v-65711714><span class=\"btn-icon\" data-v-65711714>➕</span>\n      Add Item\n    </button>" : "<!---->") + "</div> " + (_vm.isUrgent ? "<div class=\"urgency-indicator\" data-v-65711714><span class=\"urgency-icon\" data-v-65711714>⚠️</span> <span class=\"urgency-text\" data-v-65711714>" + _vm._ssrEscape(_vm._s(_vm.urgencyReason)) + "</span></div>" : "<!---->"))]);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/tickets/TicketCard.vue?vue&type=template&id=65711714&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketCard.vue?vue&type=script&lang=js
-/* harmony default export */ var TicketCardvue_type_script_lang_js = ({
-  name: 'TicketCard',
-  props: {
-    ticket: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    isUrgent() {
-      const now = new Date();
-      const createdAt = new Date(this.ticket.createdAt);
-      const minutesAgo = (now - createdAt) / (1000 * 60);
-      return this.ticket.status === 'preparing' && minutesAgo > 15 || this.ticket.status === 'ready' && minutesAgo > 5;
-    },
-    urgencyReason() {
-      const now = new Date();
-      const createdAt = new Date(this.ticket.createdAt);
-      const minutesAgo = Math.floor((now - createdAt) / (1000 * 60));
-      if (this.ticket.status === 'preparing') {
-        return `Preparing for ${minutesAgo} minutes`;
-      } else if (this.ticket.status === 'ready') {
-        return `Ready for ${minutesAgo} minutes`;
-      }
-      return '';
-    }
-  },
-  methods: {
-    getQueNo(ticketNumber) {
-      var _ticketNumber$split$;
-      const parts = ticketNumber === null || ticketNumber === void 0 ? void 0 : (_ticketNumber$split$ = ticketNumber.split('-')[0]) === null || _ticketNumber$split$ === void 0 ? void 0 : _ticketNumber$split$.split('/');
-      return (parts === null || parts === void 0 ? void 0 : parts.length) === 2 ? (parseInt(parts[0]) * parseInt(parts[1])).toString() : '';
-    },
-    handleAddItem() {
-      var _this$ticket$table;
-      this.$emit('add-item', {
-        ticketId: this.ticket.id,
-        tableId: this.ticket.tableId || ((_this$ticket$table = this.ticket.table) === null || _this$ticket$table === void 0 ? void 0 : _this$ticket$table.id) || null,
-        ticket: this.ticket
-      });
-    },
-    formatTime(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    },
-    formatPrice(amount) {
-      const formattedNumber = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(Math.round(amount || 0));
-      return `${formattedNumber} ₭`;
-    },
-    formatStatus(status) {
-      const statusMap = {
-        pending: 'Pending',
-        preparing: 'Preparing',
-        ready: 'Ready',
-        served: 'Served',
-        paid: 'Paid',
-        cancel: 'Cancelled'
-      };
-      return statusMap[status] || status;
-    },
-    formatPaymentStatus(status) {
-      const statusMap = {
-        pending: 'Unpaid',
-        paid: 'Paid',
-        refunded: 'Refunded'
-      };
-      return statusMap[status] || status;
-    },
-    truncateNotes(notes) {
-      if (!notes) return '';
-      return notes.length > 60 ? notes.substring(0, 60) + '...' : notes;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/tickets/TicketCard.vue?vue&type=script&lang=js
- /* harmony default export */ var tickets_TicketCardvue_type_script_lang_js = (TicketCardvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/tickets/TicketCard.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(754)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  tickets_TicketCardvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "65711714",
-  "e0a22c12"
-  
-)
-
-/* harmony default export */ var TicketCard = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 987:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketDetailDialog.vue?vue&type=template&id=8946fa6a&scoped=true
-var render = function render() {
-  var _vm$ticket, _vm$ticket$client, _vm$ticket$table, _vm$ticket$table2, _vm$ticket2, _vm$ticket3, _vm$ticket4, _vm$ticket5, _vm$ticket6;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "dialog-overlay",
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close');
-      }
-    }
-  }, [_vm._ssrNode("<div class=\"dialog-content\" data-v-8946fa6a><div class=\"dialog-header\" data-v-8946fa6a><h2 data-v-8946fa6a>" + _vm._ssrEscape("Ticket #" + _vm._s((_vm$ticket = _vm.ticket) === null || _vm$ticket === void 0 ? void 0 : _vm$ticket.id) + " Details") + "</h2> <button class=\"close-btn\" data-v-8946fa6a>×</button></div> " + (_vm.ticket ? "<div class=\"dialog-body\" data-v-8946fa6a><div class=\"dialog-section\" data-v-8946fa6a><div class=\"section-header\" data-v-8946fa6a><h3 data-v-8946fa6a>Ticket Information</h3> <div class=\"ticket-status-badges\" data-v-8946fa6a><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.ticket.status}`]) + " data-v-8946fa6a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n            ") + "</span> <span" + _vm._ssrClass(null, ['payment-badge', `payment-${_vm.ticket.paymentStatus}`]) + " data-v-8946fa6a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n            ") + "</span></div></div> <div class=\"info-grid\" data-v-8946fa6a><div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Created:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.formatDate(_vm.ticket.createdAt)) + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Last Updated:</strong>" + _vm._ssrEscape("\n            " + _vm._s(_vm.formatDate(_vm.ticket.updateTimestamp)) + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Customer:</strong>" + _vm._ssrEscape(" " + _vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in') + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Table:</strong>" + _vm._ssrEscape("\n            " + _vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'N/A') + "\n          ") + "</div></div></div> " + (_vm.ticket.client ? "<div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Customer Details</h3> <div class=\"info-grid\" data-v-8946fa6a><div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Name:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.client.name) + "\n          ") + "</div> " + (_vm.ticket.client.email ? "<div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Email:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.client.email) + "\n          ") + "</div>" : "<!---->") + " " + (_vm.ticket.client.phone ? "<div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Phone:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.client.phone) + "\n          ") + "</div>" : "<!---->") + "</div></div>" : "<!---->") + " <div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Order Items</h3> " + (_vm.ticket.ticketLines && _vm.ticket.ticketLines.length > 0 ? "<div class=\"items-table\" data-v-8946fa6a><div class=\"table-header\" data-v-8946fa6a><div class=\"col-item\" data-v-8946fa6a>Item</div> <div class=\"col-qty\" data-v-8946fa6a>Qty</div> <div class=\"col-price\" data-v-8946fa6a>Price</div> <div class=\"col-total\" data-v-8946fa6a>Total</div></div> " + _vm._ssrList(_vm.ticket.ticketLines, function (line) {
-    return "<div class=\"table-row\" data-v-8946fa6a><div class=\"col-item\" data-v-8946fa6a><div class=\"item-name\" data-v-8946fa6a>" + _vm._ssrEscape("\n                " + _vm._s(line.product.pro_name || 'Unknown Item') + "\n              ") + "</div> " + (line.notes ? "<div class=\"item-notes\" data-v-8946fa6a>" + _vm._ssrEscape("\n                " + _vm._s(line.notes) + "\n              ") + "</div>" : "<!---->") + "</div> <div class=\"col-qty\" data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(line.quantity)) + "</div> <div class=\"col-price\" data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(line.unitPrice))) + "</div> <div class=\"col-total\" data-v-8946fa6a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatPrice(line.total || line.quantity * line.unitPrice)) + "\n            ") + "</div></div>";
-  }) + "</div>" : "<div class=\"no-items\" data-v-8946fa6a><p data-v-8946fa6a>No items in this order</p></div>") + "</div> <div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Order Summary</h3> <div class=\"summary-table\" data-v-8946fa6a><div class=\"summary-row\" data-v-8946fa6a><span data-v-8946fa6a>Subtotal:</span> <span data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.subtotal))) + "</span></div> <div class=\"summary-row\" data-v-8946fa6a><span data-v-8946fa6a>Tax:</span> <span data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.tax))) + "</span></div> <div class=\"summary-row total-row\" data-v-8946fa6a><span data-v-8946fa6a><strong data-v-8946fa6a>Total:</strong></span> <span data-v-8946fa6a><strong data-v-8946fa6a>" + _vm._ssrEscape(_vm._s(_vm.formatPrice(_vm.ticket.total))) + "</strong></span></div></div></div> " + (_vm.ticket.payment ? "<div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Payment Information</h3> <div class=\"info-grid\" data-v-8946fa6a><div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Method:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.ticket.payment.method || 'N/A') + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Amount:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.formatPrice(_vm.ticket.payment.amount)) + "\n          ") + "</div> <div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Status:</strong>" + _vm._ssrEscape("\n            " + _vm._s(_vm.formatPaymentStatus(_vm.ticket.paymentStatus)) + "\n          ") + "</div> " + (_vm.ticket.payment.transactionId ? "<div class=\"info-item\" data-v-8946fa6a><strong data-v-8946fa6a>Transaction ID:</strong>" + _vm._ssrEscape("\n            " + _vm._s(_vm.ticket.payment.transactionId) + "\n          ") + "</div>" : "<!---->") + "</div></div>" : "<!---->") + " " + (_vm.ticket.notes ? "<div class=\"dialog-section\" data-v-8946fa6a><h3 data-v-8946fa6a>Notes</h3> <div class=\"notes-content\" data-v-8946fa6a>" + _vm._ssrEscape("\n          " + _vm._s(_vm.ticket.notes) + "\n        ") + "</div></div>" : "<!---->") + "</div>" : "<!---->") + " <div class=\"dialog-footer\" data-v-8946fa6a><div class=\"dialog-actions\" data-v-8946fa6a>" + (((_vm$ticket2 = _vm.ticket) === null || _vm$ticket2 === void 0 ? void 0 : _vm$ticket2.status) === 'pending' ? "<button class=\"dialog-btn btn-preparing\" data-v-8946fa6a>\n          Start Preparing\n        </button>" : "<!---->") + " " + (((_vm$ticket3 = _vm.ticket) === null || _vm$ticket3 === void 0 ? void 0 : _vm$ticket3.status) === 'preparing' ? "<button class=\"dialog-btn btn-ready\" data-v-8946fa6a>\n          Mark Ready\n        </button>" : "<!---->") + " " + (((_vm$ticket4 = _vm.ticket) === null || _vm$ticket4 === void 0 ? void 0 : _vm$ticket4.status) === 'ready' ? "<button class=\"dialog-btn btn-served\" data-v-8946fa6a>\n          Mark Served\n        </button>" : "<!---->") + " " + (((_vm$ticket5 = _vm.ticket) === null || _vm$ticket5 === void 0 ? void 0 : _vm$ticket5.status) === 'served' && ((_vm$ticket6 = _vm.ticket) === null || _vm$ticket6 === void 0 ? void 0 : _vm$ticket6.paymentStatus) === 'pending' ? "<button class=\"dialog-btn btn-payment\" data-v-8946fa6a>\n          Process Payment\n        </button>" : "<!---->") + " <button class=\"dialog-btn btn-print\" data-v-8946fa6a>\n          Print Ticket\n        </button> <button class=\"dialog-btn btn-close\" data-v-8946fa6a>\n          Close\n        </button></div></div></div>")]);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/tickets/TicketDetailDialog.vue?vue&type=template&id=8946fa6a&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/TicketDetailDialog.vue?vue&type=script&lang=js
-/* harmony default export */ var TicketDetailDialogvue_type_script_lang_js = ({
-  name: 'TicketDetailDialog',
-  props: {
-    ticket: {
-      type: Object,
-      default: null
-    }
-  },
-  methods: {
-    formatDate(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleString();
-    },
-    formatPrice(amount) {
-      const formattedNumber = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(Math.round(amount || 0));
-      return `${formattedNumber} ₭`;
-    },
-    formatStatus(status) {
-      const statusMap = {
-        pending: 'Pending',
-        preparing: 'Preparing',
-        ready: 'Ready',
-        served: 'Served',
-        paid: 'Paid'
-      };
-      return statusMap[status] || status;
-    },
-    formatPaymentStatus(status) {
-      const statusMap = {
-        pending: 'Unpaid',
-        paid: 'Paid',
-        refunded: 'Refunded'
-      };
-      return statusMap[status] || status;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/tickets/TicketDetailDialog.vue?vue&type=script&lang=js
- /* harmony default export */ var tickets_TicketDetailDialogvue_type_script_lang_js = (TicketDetailDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/tickets/TicketDetailDialog.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(756)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  tickets_TicketDetailDialogvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "8946fa6a",
-  "e2d95740"
-  
-)
-
-/* harmony default export */ var TicketDetailDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 988:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(360);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
-var VToolbar = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
-var components_VToolbar = __webpack_require__(138);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
-
-
-
-
-
-
-
-
-
-
-var POSDialogvue_type_template_id_5b0376a2_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VDialog["a" /* default */], {
-    attrs: {
-      "fullscreen": "",
-      "persistent": "",
-      "transition": "dialog-bottom-transition",
-      "retain-focus": false
-    },
-    model: {
-      value: _vm.internalShow,
-      callback: function ($$v) {
-        _vm.internalShow = $$v;
-      },
-      expression: "internalShow"
-    }
-  }, [_c(VCard["a" /* default */], [_c(VToolbar["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "dark": ""
-    }
-  }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n        " + _vm._s(_vm.toolbarTitle) + "\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.ticket ? _c(VChip["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "white",
-      "text-color": "primary"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-ticket")]), _vm._v("\n        Ticket #" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id) + " \n      ")], 1) : _vm._e(), _vm._v(" "), _vm.hasTable ? _c(VChip["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "accent",
-      "text-color": "white"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-table-furniture")]), _vm._v("\n        Table " + _vm._s(_vm.tableDisplay) + "\n      ")], 1) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "dark": ""
-    },
-    on: {
-      "click": _vm.handleClose
-    }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.internalShow ? _c('MenuPOSScreen', {
-    attrs: {
-      "table-id": _vm.effectiveTableId,
-      "existing-ticket": _vm.ticket,
-      "dialog-mode": true
-    },
-    on: {
-      "ticket-updated": _vm.handleTicketUpdated,
-      "close-dialog": _vm.handleClose,
-      "reload-data": _vm.handleReloadData
-    }
-  }) : _vm._e()], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
-
-// EXTERNAL MODULE: ./components/CafePOSScreen/index.vue + 4 modules
-var CafePOSScreen = __webpack_require__(609);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=script&lang=js
-
-/* harmony default export */ var POSDialogvue_type_script_lang_js = ({
-  name: 'POSDialog',
-  components: {
-    MenuPOSScreen: CafePOSScreen["default"]
-  },
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    tableId: {
-      type: [String, Number],
-      default: null
-    },
-    ticket: {
-      type: Object,
-      default: null
-    }
-  },
-  computed: {
-    internalShow: {
-      get() {
-        return this.show;
-      },
-      set(value) {
-        if (!value) {
-          this.$emit('close');
-        }
-      }
-    },
-    hasTable() {
-      return this.tableId && this.tableId !== 'walk-in';
-    },
-    tableDisplay() {
-      var _this$ticket, _this$ticket$table;
-      if (!this.tableId || this.tableId === 'walk-in') return 'Walk-in';
-      return ((_this$ticket = this.ticket) === null || _this$ticket === void 0 ? void 0 : (_this$ticket$table = _this$ticket.table) === null || _this$ticket$table === void 0 ? void 0 : _this$ticket$table.number) || this.tableId;
-    },
-    effectiveTableId() {
-      var _this$ticket2;
-      return this.tableId || ((_this$ticket2 = this.ticket) === null || _this$ticket2 === void 0 ? void 0 : _this$ticket2.tableId) || 'walk-in';
-    },
-    toolbarTitle() {
-      var _this$ticket$client;
-      if (!this.ticket) return 'Add Items - New Order';
-      const customer = ((_this$ticket$client = this.ticket.client) === null || _this$ticket$client === void 0 ? void 0 : _this$ticket$client.name) || 'Walk-in';
-      const table = this.hasTable ? `Table ${this.tableDisplay}` : 'Walk-in';
-      return `Add Items - ${table} - ${customer}`;
-    }
-  },
-  mounted() {
-    console.info(` from POS DIALOG ${JSON.stringify(this.ticket)}`);
-  },
-  methods: {
-    handleClose() {
-      console.log('POSDialog: Closing dialog');
-      this.$emit('close');
-    },
-    handleTicketUpdated(ticket) {
-      console.log('POSDialog: Ticket updated', ticket.id);
-      this.$emit('ticket-updated', ticket);
-      // ❌ DON'T close the dialog here - let user close it manually
-      // this.$emit('close')
-    },
-    handleReloadData() {
-      console.log('POSDialog: Reload data requested');
-      this.$emit('reload-data');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=script&lang=js
- /* harmony default export */ var CAFE_POSDialogvue_type_script_lang_js = (POSDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  CAFE_POSDialogvue_type_script_lang_js,
-  POSDialogvue_type_template_id_5b0376a2_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "87b1b2c6"
-  
-)
-
-/* harmony default export */ var POSDialog = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 989:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printBarDialog/index.vue?vue&type=template&id=63c6d396&scoped=true
-var render = function render() {
-  var _vm$ticket$table, _vm$ticket$table2, _vm$ticket$client;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "dialog-overlay",
-    on: {
-      "click": _vm.closeDialog
-    }
-  }, [_vm._ssrNode("<div class=\"print-dialog-content\" data-v-63c6d396>", "</div>", [_vm._ssrNode("<div class=\"print-dialog-header\" data-v-63c6d396><h2 data-v-63c6d396>Print Bar/Kitchen Ticket</h2> <button class=\"close-btn\" data-v-63c6d396>×</button></div> " + (_vm.ticket ? "<div class=\"print-preview\" data-v-63c6d396><div class=\"bar-header\" data-v-63c6d396><div class=\"station-info\" data-v-63c6d396><h1 class=\"station-name\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.stationName)) + "</h1> <div" + _vm._ssrClass("order-priority", _vm.getPriorityClass()) + " data-v-63c6d396>" + _vm._ssrEscape("\n            " + _vm._s(_vm.getPriorityLabel()) + "\n          ") + "</div></div></div> <div class=\"bar-order-info\" data-v-63c6d396><div class=\"info-grid\" data-v-63c6d396><div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>ORDER #:</span> <span class=\"info-value bold\" data-v-63c6d396>" + _vm._ssrEscape("Q" + _vm._s(_vm.getQueNo(_vm.ticket.ticketNumber)) + "\n              " + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id)) + "</span></div> <div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>TABLE:</span> <span class=\"info-value bold\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(((_vm$ticket$table = _vm.ticket.table) === null || _vm$ticket$table === void 0 ? void 0 : _vm$ticket$table.number) || ((_vm$ticket$table2 = _vm.ticket.table) === null || _vm$ticket$table2 === void 0 ? void 0 : _vm$ticket$table2.name) || 'Takeaway')) + "</span></div> <div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>TIME:</span> <span class=\"info-value\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.formatPrintTime(_vm.ticket.createdAt))) + "</span></div> <div class=\"info-item\" data-v-63c6d396><span class=\"info-label\" data-v-63c6d396>SERVER:</span> <span class=\"info-value\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.getServerName())) + "</span></div></div></div> <div class=\"print-divider-bold\" data-v-63c6d396></div> <div class=\"bar-items\" data-v-63c6d396><div class=\"section-title-large\" data-v-63c6d396>ITEMS TO PREPARE</div> " + (_vm.filteredItems.length > 0 ? "<div data-v-63c6d396>" + _vm._ssrList(_vm.filteredItems, function (line, index) {
-    return "<div class=\"bar-item\" data-v-63c6d396><div class=\"item-qty-badge\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(line.quantity) + "x") + "</div> <div class=\"item-content\" data-v-63c6d396><div class=\"item-name-large\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.getItemName(line))) + "</div> " + (line.notes ? "<div class=\"item-notes-bar\" data-v-63c6d396><span class=\"notes-icon\" data-v-63c6d396>📝</span> <span class=\"notes-text\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(line.notes)) + "</span></div>" : "<!---->") + " " + (line.modifiers && line.modifiers.length > 0 ? "<div class=\"item-modifiers\" data-v-63c6d396>" + _vm._ssrList(line.modifiers, function (mod) {
-      return "<div class=\"modifier-item\" data-v-63c6d396>" + _vm._ssrEscape("\n                  + " + _vm._s(mod.name) + "\n                ") + "</div>";
-    }) + "</div>" : "<!---->") + " " + (line.is_promotion_item ? "<div class=\"promo-badge-bar\" data-v-63c6d396>\n                🏷️ PROMO\n              </div>" : "<!---->") + "</div> <div class=\"item-checkbox\" data-v-63c6d396>☐</div></div>";
-  }) + "</div>" : "<div class=\"no-items-bar\" data-v-63c6d396><p data-v-63c6d396>No items for this station</p></div>") + "</div> <div class=\"print-divider-bold\" data-v-63c6d396></div> <div class=\"bar-summary\" data-v-63c6d396><div class=\"summary-row-large\" data-v-63c6d396><span data-v-63c6d396>TOTAL ITEMS:</span> <span class=\"bold\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.getTotalItemCount())) + "</span></div> <div class=\"summary-row-large\" data-v-63c6d396><span data-v-63c6d396>CUSTOMER:</span> <span data-v-63c6d396>" + _vm._ssrEscape(_vm._s(((_vm$ticket$client = _vm.ticket.client) === null || _vm$ticket$client === void 0 ? void 0 : _vm$ticket$client.name) || 'Walk-in')) + "</span></div></div> " + (_vm.ticket.notes ? "<div class=\"bar-special-notes\" data-v-63c6d396><div class=\"print-divider\" data-v-63c6d396></div> <div class=\"notes-header\" data-v-63c6d396>⚠️ SPECIAL INSTRUCTIONS:</div> <div class=\"notes-content\" data-v-63c6d396>" + _vm._ssrEscape(_vm._s(_vm.ticket.notes)) + "</div></div>" : "<!---->") + " <div class=\"bar-footer\" data-v-63c6d396><div class=\"print-divider\" data-v-63c6d396></div> <div class=\"footer-time\" data-v-63c6d396>" + _vm._ssrEscape("\n          Printed: " + _vm._s(_vm.formatPrintDateTime(new Date())) + "\n        ") + "</div> <div class=\"footer-status\" data-v-63c6d396>" + _vm._ssrEscape("\n          Status: " + _vm._s(_vm.formatStatus(_vm.ticket.status)) + "\n        ") + "</div></div></div>" : "<!---->") + " "), _vm._ssrNode("<div class=\"print-dialog-actions\" data-v-63c6d396>", "</div>", [_vm._ssrNode("<div class=\"station-filter\" data-v-63c6d396>", "</div>", [_vm._ssrNode("<label data-v-63c6d396>Station:</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.selectedStation,
-      expression: "selectedStation"
-    }],
-    staticClass: "station-select",
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.selectedStation = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "all"
-    }
-  }, [_vm._v("All Items")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bar"
-    }
-  }, [_vm._v("Bar Only")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "kitchen"
-    }
-  }, [_vm._v("Kitchen Only")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cold"
-    }
-  }, [_vm._v("Cold Station")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hot"
-    }
-  }, [_vm._v("Hot Station")])])], 2), _vm._ssrNode(" <div class=\"action-buttons\" data-v-63c6d396><button" + _vm._ssrAttr("disabled", _vm.printing) + " class=\"print-btn print-primary\" data-v-63c6d396>" + (_vm.printing ? "<span data-v-63c6d396>Printing...</span>" : "<span data-v-63c6d396>🖨️ Print</span>") + "</button> <button class=\"print-btn print-secondary\" data-v-63c6d396>\n          Cancel\n        </button></div>")], 2)], 2)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/CAFE/printBarDialog/index.vue?vue&type=template&id=63c6d396&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/printBarDialog/index.vue?vue&type=script&lang=js
-/* harmony default export */ var printBarDialogvue_type_script_lang_js = ({
-  name: 'PrintBarTicketDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    ticket: {
-      type: Object,
-      default: null
-    },
-    stationName: {
-      type: String,
-      default: 'BAR/KITCHEN'
-    }
-  },
-  data() {
-    return {
-      printing: false,
-      selectedStation: 'all' // Filter by station
-    };
-  },
-  computed: {
-    filteredItems() {
-      if (!this.ticket || !this.ticket.ticketLines) return [];
-      let items = this.ticket.ticketLines;
-
-      // Filter by station type
-      if (this.selectedStation !== 'all') {
-        items = items.filter(line => {
-          var _line$product, _line$product$categor, _line$pro_name;
-          const category = ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : (_line$product$categor = _line$product.category) === null || _line$product$categor === void 0 ? void 0 : _line$product$categor.toLowerCase()) || '';
-          const productName = ((_line$pro_name = line.pro_name) === null || _line$pro_name === void 0 ? void 0 : _line$pro_name.toLowerCase()) || '';
-          switch (this.selectedStation) {
-            case 'bar':
-              return category.includes('drink') || category.includes('beverage') || productName.includes('coffee') || productName.includes('juice');
-            case 'kitchen':
-              return category.includes('food') || category.includes('meal');
-            case 'cold':
-              return category.includes('salad') || category.includes('cold') || productName.includes('ice');
-            case 'hot':
-              return category.includes('hot') || category.includes('grill');
-            default:
-              return true;
-          }
-        });
-      }
-      return items;
-    }
-  },
-  methods: {
-    getQueNo(ticketNumber) {
-      var _ticketNumber$split$;
-      const parts = ticketNumber === null || ticketNumber === void 0 ? void 0 : (_ticketNumber$split$ = ticketNumber.split('-')[0]) === null || _ticketNumber$split$ === void 0 ? void 0 : _ticketNumber$split$.split('/');
-      return (parts === null || parts === void 0 ? void 0 : parts.length) === 2 ? (parseInt(parts[0]) * parseInt(parts[1])).toString() : '';
-    },
-    closeDialog() {
-      this.$emit('close');
-    },
-    getPriorityClass() {
-      const now = new Date();
-      const orderTime = new Date(this.ticket.createdAt);
-      const minutesPassed = (now - orderTime) / 1000 / 60;
-      if (minutesPassed > 15) return 'priority-urgent';
-      if (minutesPassed > 10) return 'priority-high';
-      return 'priority-normal';
-    },
-    getPriorityLabel() {
-      const now = new Date();
-      const orderTime = new Date(this.ticket.createdAt);
-      const minutesPassed = Math.floor((now - orderTime) / 1000 / 60);
-      if (minutesPassed > 15) return '🔴 URGENT!';
-      if (minutesPassed > 10) return '🟠 HIGH';
-      return '🟢 NORMAL';
-    },
-    getTotalItemCount() {
-      return this.filteredItems.reduce((sum, line) => sum + line.quantity, 0);
-    },
-    getServerName() {
-      var _this$ticket$server, _this$ticket$createdB, _this$ticket$createdB2;
-      return ((_this$ticket$server = this.ticket.server) === null || _this$ticket$server === void 0 ? void 0 : _this$ticket$server.name) || ((_this$ticket$createdB = this.ticket.createdBy) === null || _this$ticket$createdB === void 0 ? void 0 : _this$ticket$createdB.cus_name) || ((_this$ticket$createdB2 = this.ticket.createdBy) === null || _this$ticket$createdB2 === void 0 ? void 0 : _this$ticket$createdB2.username) || 'Staff';
-    },
-    getItemName(line) {
-      var _line$product2, _line$product3;
-      return line.pro_name || ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_name) || ((_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.name) || 'Unknown Item';
-    },
-    formatPrintTime(date) {
-      if (!date) return 'N/A';
-      return new Date(date).toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      });
-    },
-    formatPrintDateTime(date) {
-      if (!date) return 'N/A';
-      const d = new Date(date);
-      return `${d.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit'
-      })} ${d.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      })}`;
-    },
-    formatStatus(status) {
-      const statusMap = {
-        pending: 'NEW ORDER',
-        preparing: 'PREPARING',
-        ready: 'READY',
-        served: 'SERVED',
-        paid: 'COMPLETED',
-        cancel: 'CANCELLED'
-      };
-      return statusMap[status] || (status === null || status === void 0 ? void 0 : status.toUpperCase());
-    },
-    async printNow() {
-      if (!this.ticket) return;
-      this.printing = true;
-      try {
-        const printContent = document.querySelector('.print-preview').innerHTML;
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>Bar Ticket #${this.ticket.id}</title>
-            <meta charset="utf-8">
-            <style>
-              ${this.getBarPrintStyles()}
-            </style>
-          </head>
-          <body>
-            ${printContent}
-          </body>
-          </html>
-        `);
-        printWindow.document.close();
-        printWindow.focus();
-        setTimeout(() => {
-          printWindow.print();
-          printWindow.close();
-          this.printing = false;
-          this.$emit('printed', this.ticket);
-          this.closeDialog();
-        }, 100);
-      } catch (error) {
-        console.error('Print error:', error);
-        this.printing = false;
-        this.$emit('print-error', error);
-      }
-    },
-    getBarPrintStyles() {
-      return `
-        body {
-          font-family: 'Courier New', monospace;
-          font-size: 14px;
-          font-weight: bold;
-          line-height: 1.3;
-          margin: 0;
-          padding: 6px;
-          color: #000;
-        }
-        
-        /* Header */
-        .bar-header {
-          text-align: center;
-          margin-bottom: 10px;
-          border: 3px solid #000;
-          padding: 8px;
-          background: #000;
-          color: #fff;
-        }
-        .station-name {
-          font-size: 20px;
-          font-weight: bold;
-          margin: 0 0 6px 0;
-          letter-spacing: 2px;
-        }
-        .order-priority {
-          font-size: 16px;
-          font-weight: bold;
-          padding: 4px 8px;
-          border-radius: 4px;
-          display: inline-block;
-        }
-        .priority-normal { background: #28a745; color: #fff; }
-        .priority-high { background: #ffc107; color: #000; }
-        .priority-urgent { background: #dc3545; color: #fff; }
-        
-        /* Order Info */
-        .bar-order-info {
-          margin-bottom: 10px;
-        }
-        .info-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 6px;
-        }
-        .info-item {
-          display: flex;
-          justify-content: space-between;
-          font-size: 13px;
-        }
-        .info-label {
-          font-weight: bold;
-        }
-        .info-value.bold {
-          font-weight: bold;
-          font-size: 15px;
-        }
-        
-        /* Dividers */
-        .print-divider {
-          border-top: 1px dashed #000;
-          margin: 8px 0;
-        }
-        .print-divider-bold {
-          border-top: 3px double #000;
-          margin: 10px 0;
-        }
-        
-        /* Section Title */
-        .section-title-large {
-          font-size: 16px;
-          font-weight: bold;
-          text-align: center;
-          margin: 10px 0;
-          padding: 6px;
-          background: #000;
-          color: #fff;
-          letter-spacing: 1px;
-        }
-        
-        /* Bar Items */
-        .bar-items {
-          margin: 10px 0;
-        }
-        .bar-item {
-          display: flex;
-          gap: 10px;
-          margin-bottom: 12px;
-          padding: 10px;
-          border: 2px solid #000;
-          background: #fff;
-          position: relative;
-        }
-        .item-qty-badge {
-          font-size: 24px;
-          font-weight: bold;
-          min-width: 50px;
-          text-align: center;
-          background: #000;
-          color: #fff;
-          padding: 8px 4px;
-          border-radius: 4px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .item-content {
-          flex: 1;
-        }
-        .item-name-large {
-          font-size: 16px;
-          font-weight: bold;
-          margin-bottom: 6px;
-          text-transform: uppercase;
-        }
-        .item-notes-bar {
-          display: flex;
-          gap: 6px;
-          margin-top: 6px;
-          padding: 6px;
-          background: #fff3cd;
-          border-left: 4px solid #ffc107;
-          font-size: 13px;
-        }
-        .notes-icon {
-          font-size: 14px;
-        }
-        .notes-text {
-          font-weight: bold;
-          color: #856404;
-        }
-        .item-modifiers {
-          margin-top: 6px;
-          padding-left: 10px;
-        }
-        .modifier-item {
-          font-size: 12px;
-          margin: 2px 0;
-          color: #666;
-        }
-        .promo-badge-bar {
-          display: inline-block;
-          margin-top: 6px;
-          padding: 3px 8px;
-          background: #28a745;
-          color: #fff;
-          font-size: 11px;
-          border-radius: 3px;
-        }
-        .item-checkbox {
-          font-size: 32px;
-          font-weight: bold;
-          min-width: 40px;
-          text-align: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        /* Summary */
-        .bar-summary {
-          margin: 12px 0;
-          padding: 10px;
-          background: #f8f9fa;
-          border: 2px solid #000;
-        }
-        .summary-row-large {
-          display: flex;
-          justify-content: space-between;
-          font-size: 14px;
-          margin-bottom: 4px;
-        }
-        .summary-row-large .bold {
-          font-weight: bold;
-          font-size: 16px;
-        }
-        
-        /* Special Notes */
-        .bar-special-notes {
-          margin: 12px 0;
-          padding: 10px;
-          background: #fff3cd;
-          border: 3px solid #ffc107;
-        }
-        .notes-header {
-          font-size: 14px;
-          font-weight: bold;
-          margin-bottom: 6px;
-          color: #856404;
-        }
-        .notes-content {
-          font-size: 13px;
-          font-weight: bold;
-          color: #000;
-        }
-        
-        /* Footer */
-        .bar-footer {
-          margin-top: 12px;
-          text-align: center;
-          font-size: 11px;
-        }
-        .footer-time {
-          margin: 4px 0;
-          color: #666;
-        }
-        .footer-status {
-          font-weight: bold;
-          font-size: 13px;
-        }
-        
-        .no-items-bar {
-          text-align: center;
-          padding: 20px;
-          font-size: 14px;
-          color: #666;
-        }
-        
-        @media print {
-          body { 
-            margin: 0; 
-            padding: 4px;
-          }
-          .bar-item {
-            page-break-inside: avoid;
-          }
-        }
-      `;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/CAFE/printBarDialog/index.vue?vue&type=script&lang=js
- /* harmony default export */ var CAFE_printBarDialogvue_type_script_lang_js = (printBarDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/CAFE/printBarDialog/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(758)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  CAFE_printBarDialogvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "63c6d396",
-  "9eb8d8c0"
-  
-)
-
-/* harmony default export */ var printBarDialog = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

@@ -1,19 +1,707 @@
-exports.ids = [175,3,4,5];
+exports.ids = [177,3,4,5];
 exports.modules = {
 
-/***/ 1175:
+/***/ 1011:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
+var VAutocomplete = __webpack_require__(383);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
+var VList = __webpack_require__(8);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/invoice/index.vue?vue&type=template&id=7625c714&scoped=true
+
+
+
+
+var invoicevue_type_template_id_7625c714_scoped_true_render = function render() {
+  var _vm$selectedCurrency, _vm$selectedCurrency3, _vm$selectedCurrency4, _vm$selectedCurrency5, _vm$selectedCurrency6;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.visible ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": _vm.handleOverlayClick
+    }
+  }, [_vm._ssrNode("<div class=\"enhanced-dialog\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"modal-header primary\" data-v-7625c714><h4 class=\"modal-title\" data-v-7625c714><i class=\"fas fa-file-invoice\" data-v-7625c714></i>" + _vm._ssrEscape("\n        " + _vm._s(_vm.isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່') + "\n      ") + "</h4> <button type=\"button\" class=\"close-button\" data-v-7625c714><i class=\"fas fa-times\" data-v-7625c714></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-7625c714>", "</div>", [_vm.formLoading ? _vm._ssrNode("<div class=\"loading-state\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"spinner\" data-v-7625c714></div> <p data-v-7625c714>ກຳລັງໂຫຼດຂໍ້ມູນ...</p>")], 2) : _vm._ssrNode("<div class=\"invoice-form\" data-v-7625c714>", "</div>", [_vm._ssrNode("<form data-v-7625c714>", "</form>", [_vm._ssrNode("<div class=\"form-section\" data-v-7625c714>", "</div>", [_vm._ssrNode("<h5 class=\"section-title\" data-v-7625c714><i class=\"fas fa-info-circle\" data-v-7625c714></i>\n              ຂໍ້ມູນພື້ນຖານ\n            </h5> "), _vm._ssrNode("<div class=\"form-grid\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-7625c714><label for=\"invoiceDate\" class=\"required\" data-v-7625c714>ວັນທີໃບແຈ້ງໜີ້</label> <input id=\"invoiceDate\" type=\"date\"" + _vm._ssrAttr("value", _vm.form.invoiceDate) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.invoiceDate
+  }) + " data-v-7625c714> " + (_vm.errors.invoiceDate ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.invoiceDate) + "\n                ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-7625c714><label for=\"invoiceNumber\" class=\"required\" data-v-7625c714>ເລກທີໃບແຈ້ງໜີ້</label> <input id=\"invoiceNumber\" type=\"text\" placeholder=\"ເຊັ່ນ: INV-2025-001\"" + _vm._ssrAttr("readonly", _vm.isEdit) + _vm._ssrAttr("value", _vm.form.invoiceNumber) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.invoiceNumber
+  }) + " data-v-7625c714> " + (_vm.errors.invoiceNumber ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.invoiceNumber) + "\n                ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-7625c714>", "</div>", [_vm._ssrNode("<label for=\"agencyId\" class=\"required\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.clientLabel)) + "</label> "), _c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "id": "agencyId",
+      "items": _vm.agencies,
+      "item-value": "id",
+      "item-text": "agencyName",
+      "error": !!_vm.errors.agencyId,
+      "error-messages": _vm.errors.agencyId,
+      "dense": "",
+      "outlined": "",
+      "clearable": "",
+      "hide-details": "auto",
+      "placeholder": _vm.formLabel.vendor
+    },
+    on: {
+      "change": _vm.onVendorChange
+    },
+    scopedSlots: _vm._u([{
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                        " + _vm._s(item.name || item.agencyName) + " - (" + _vm._s(item.code || item.agencyCode) + ")\n                      ")])], 1)];
+      }
+    }, {
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n                    " + _vm._s(item.name || item.agencyName) + " (" + _vm._s(item.code || item.agencyCode) + ")\n                  ")];
+      }
+    }], null, false, 1554401541),
+    model: {
+      value: _vm.form.agencyId,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "agencyId", $$v);
+      },
+      expression: "form.agencyId"
+    }
+  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-7625c714><label for=\"vendorInvoiceNumber\" data-v-7625c714>ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label> <input id=\"vendorInvoiceNumber\" type=\"text\" placeholder=\"ເລກທີໃບແຈ້ງໜີ້ຂອງຜູ້ຂາຍ\"" + _vm._ssrAttr("value", _vm.form.vendorInvoiceNumber) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.vendorInvoiceNumber
+  }) + " data-v-7625c714> " + (_vm.errors.vendorInvoiceNumber ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.vendorInvoiceNumber) + "\n                ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-7625c714>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" class=\"required\" data-v-7625c714>ສະກຸນເງິນ</label> "), _c(VAutocomplete["a" /* default */], {
+    attrs: {
+      "id": "currencyId",
+      "items": _vm.currencies,
+      "item-value": "id",
+      "item-text": "name",
+      "error": !!_vm.errors.currencyId,
+      "error-messages": _vm.errors.currencyId,
+      "dense": "",
+      "outlined": "",
+      "clearable": "",
+      "hide-details": "auto",
+      "placeholder": "ເລືອກສະກຸນເງິນ"
+    },
+    on: {
+      "change": _vm.onCurrencyChange
+    },
+    scopedSlots: _vm._u([{
+      key: "item",
+      fn: function ({
+        item
+      }) {
+        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                        " + _vm._s(item.name) + " (" + _vm._s(item.code) + ")\n                      ")])], 1)];
+      }
+    }, {
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n                    " + _vm._s(item.name) + " (" + _vm._s(item.code) + ")\n                  ")];
+      }
+    }], null, false, 2423314344),
+    model: {
+      value: _vm.form.currencyId,
+      callback: function ($$v) {
+        _vm.$set(_vm.form, "currencyId", $$v);
+      },
+      expression: "form.currencyId"
+    }
+  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-7625c714><label for=\"exchangeRate\" class=\"required\" data-v-7625c714>\n                  ອັດຕາແລກປ່ຽນ\n                  " + (_vm.selectedCurrency ? "<span class=\"currency-info\" data-v-7625c714>" + _vm._ssrEscape("\n                    (" + _vm._s(_vm.selectedCurrency.code) + " ຕໍ່ LAK)\n                  ") + "</span>" : "<!---->") + "</label> <input id=\"exchangeRate\" type=\"number\" step=\"0.0001\" min=\"0\" placeholder=\"1.0000\"" + _vm._ssrAttr("value", _vm.form.exchangeRate) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.exchangeRate
+  }) + " data-v-7625c714> " + (_vm.errors.exchangeRate ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.exchangeRate) + "\n                ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-7625c714><label for=\"dueDate\" data-v-7625c714>ວັນທີຄົບກຳນົດ</label> <input id=\"dueDate\" type=\"date\"" + _vm._ssrAttr("value", _vm.form.dueDate) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.dueDate
+  }) + " data-v-7625c714> " + (_vm.errors.dueDate ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.dueDate) + "\n                ") + "</div>" : "<!---->") + "</div> <div class=\"form-group span-2\" data-v-7625c714><label for=\"description\" data-v-7625c714>ຄຳອະທິບາຍ</label> <textarea id=\"description\" rows=\"2\" placeholder=\"ລາຍລະອຽດກ່ຽວກັບໃບແຈ້ງໜີ້...\" class=\"form-control\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.form.description)) + "</textarea></div>")], 2), _vm._ssrNode(" " + (_vm.selectedCurrency && _vm.form.exchangeRate ? "<div class=\"exchange-display\" data-v-7625c714><div class=\"exchange-amount\" data-v-7625c714><span class=\"foreign-amount\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatCurrency(_vm.calculatedTotal, ((_vm$selectedCurrency = _vm.selectedCurrency) === null || _vm$selectedCurrency === void 0 ? void 0 : _vm$selectedCurrency.code) || 'USD')) + "\n                ") + "</span> <i class=\"fas fa-arrow-right exchange-arrow\" data-v-7625c714></i> <span class=\"local-amount\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatCurrency(_vm.calculatedTotal * parseFloat(_vm.form.exchangeRate || 1), 'LAK')) + "\n                ") + "</span></div></div>" : "<!---->") + " " + (_vm.isEdit ? "<div class=\"form-group\" data-v-7625c714><label for=\"reason\" class=\"required\" data-v-7625c714>ເຫດຜົນຂອງການແກ້ໄຂ</label> <input id=\"reason\" type=\"text\" placeholder=\"ລະບຸເຫດຜົນຂອງການແກ້ໄຂ...\"" + _vm._ssrAttr("value", _vm.form.reason) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.reason
+  }) + " data-v-7625c714> " + (_vm.errors.reason ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.reason) + "\n              ") + "</div>" : "<!---->") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"section-header\" data-v-7625c714><h5 class=\"section-title\" data-v-7625c714><i class=\"fas fa-list\" data-v-7625c714></i>\n                ລາຍການສິນຄ້າ\n                " + (_vm.lineItems.length > 0 ? "<span class=\"line-count\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.lineItems.length)) + "</span>" : "<!---->") + "</h5> <div class=\"add-line-actions\" data-v-7625c714><button type=\"button\" class=\"btn btn-primary btn-sm\" data-v-7625c714><i class=\"fas fa-plus\" data-v-7625c714></i>\n                  ເພີ່ມລາຍການ\n                </button> <button type=\"button\" class=\"btn btn-secondary btn-xs\" data-v-7625c714>\n                  +3\n                </button> <button type=\"button\" class=\"btn btn-secondary btn-xs\" data-v-7625c714>\n                  +5\n                </button></div></div> "), _vm.lineItems.length === 0 ? _vm._ssrNode("<div class=\"empty-line-state\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"empty-content\" data-v-7625c714><i class=\"fas fa-shopping-cart\" data-v-7625c714></i> <h4 data-v-7625c714>ຍັງບໍ່ມີລາຍການສິນຄ້າ</h4> <button type=\"button\" class=\"btn btn-primary\" data-v-7625c714><i class=\"fas fa-plus-circle\" data-v-7625c714></i>\n                  ເພີ່ມລາຍການທຳອິດ\n                </button></div>")], 2) : _vm._ssrNode("<div class=\"line-items-table-container\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"line-items-table\" data-v-7625c714>", "</div>", [_vm._ssrNode("<table class=\"table\" data-v-7625c714>", "</table>", [_vm._ssrNode("<thead data-v-7625c714><tr data-v-7625c714><th style=\"width: 30px\" data-v-7625c714>#</th> <th style=\"width: 140px\" data-v-7625c714>ລາຍລະອຽດ *</th> <th style=\"width: 140px\" data-v-7625c714>ລະຫັດການເງິນ</th> <th style=\"width: 60px\" data-v-7625c714>ຈຳນວນ *</th> <th style=\"width: 70px\" data-v-7625c714>ລາຄາ *</th> <th style=\"width: 80px\" data-v-7625c714>ລວມ</th> <th style=\"width: 40px\" data-v-7625c714>ລຶບ</th></tr></thead> "), _vm._ssrNode("<tbody data-v-7625c714>", "</tbody>", _vm._l(_vm.lineItems, function (line, index) {
+    var _vm$selectedCurrency2;
+    return _vm._ssrNode("<tr class=\"line-row\" data-v-7625c714>", "</tr>", [_vm._ssrNode("<td class=\"line-number\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(index + 1)) + "</td> <td data-v-7625c714><input type=\"text\" placeholder=\"ລາຍລະອຽດ...\"" + _vm._ssrAttr("value", line.description) + _vm._ssrClass("form-control form-control-xs", {
+      'is-invalid': _vm.errors[`line_${index}_description`]
+    }) + " data-v-7625c714></td> "), _vm._ssrNode("<td data-v-7625c714>", "</td>", [_c(VAutocomplete["a" /* default */], {
+      staticClass: "mt-0",
+      attrs: {
+        "items": _vm.transactionCodes.filter(t => t.type !== 'ALL' && t.isActive),
+        "item-value": "id",
+        "item-text": "code",
+        "label": _vm.loadingTransactionCodes ? 'ກຳລັງໂຫຼດ...' : 'ເລືອກລະຫັດການເງິນ',
+        "loading": _vm.loadingTransactionCodes,
+        "disabled": _vm.loadingTransactionCodes,
+        "error": !line.txnId && _vm.errors.settlementLines,
+        "dense": "",
+        "outlined": "",
+        "clearable": "",
+        "hide-details": "auto"
+      },
+      scopedSlots: _vm._u([{
+        key: "item",
+        fn: function ({
+          item
+        }) {
+          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                                " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                              ")])], 1)];
+        }
+      }, {
+        key: "selection",
+        fn: function ({
+          item
+        }) {
+          return [_vm._v("\n                            " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                          ")];
+        }
+      }], null, true),
+      model: {
+        value: line.txnId,
+        callback: function ($$v) {
+          _vm.$set(line, "txnId", $$v);
+        },
+        expression: "line.txnId"
+      }
+    }), _vm._ssrNode(" " + (!line.txnId && _vm.errors.settlementLines ? "<small class=\"text-danger d-block mt-1\" data-v-7625c714>\n                          ກະລຸນາເລືອກລະຫັດການເງິນ\n                        </small>" : "<!---->"))], 2), _vm._ssrNode(" <td data-v-7625c714><input type=\"number\" step=\"0.001\" min=\"0\"" + _vm._ssrAttr("value", line.quantity) + _vm._ssrClass("form-control form-control-xs", {
+      'is-invalid': _vm.errors[`line_${index}_quantity`]
+    }) + " data-v-7625c714></td> <td data-v-7625c714><input type=\"number\" step=\"0.01\" min=\"0\"" + _vm._ssrAttr("value", line.unitPrice) + _vm._ssrClass("form-control form-control-xs", {
+      'is-invalid': _vm.errors[`line_${index}_unitPrice`]
+    }) + " data-v-7625c714></td> <td class=\"line-total\" data-v-7625c714>" + _vm._ssrEscape("\n                        " + _vm._s(_vm.formatCurrency(line.lineTotal || 0, (_vm$selectedCurrency2 = _vm.selectedCurrency) === null || _vm$selectedCurrency2 === void 0 ? void 0 : _vm$selectedCurrency2.code)) + "\n                      ") + "</td> <td data-v-7625c714><button type=\"button\" title=\"ລຶບ\" class=\"btn btn-xs btn-danger\" data-v-7625c714><i class=\"fas fa-trash\" data-v-7625c714></i></button></td>")], 2);
+  }), 0)], 2)])])], 2), _vm._ssrNode(" <div class=\"amount-summary\" data-v-7625c714><div class=\"totals-grid\" data-v-7625c714><div class=\"total-item\" data-v-7625c714><span data-v-7625c714>ລວມຍ່ອຍ:</span> <span class=\"amount\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.calculatedSubtotal, (_vm$selectedCurrency3 = _vm.selectedCurrency) === null || _vm$selectedCurrency3 === void 0 ? void 0 : _vm$selectedCurrency3.code))) + "</span></div> <div class=\"total-item\" data-v-7625c714><span data-v-7625c714>ສ່ວນຫຼຸດ:</span> <span class=\"amount discount\" data-v-7625c714>" + _vm._ssrEscape("-" + _vm._s(_vm.formatCurrency(_vm.calculatedDiscount, (_vm$selectedCurrency4 = _vm.selectedCurrency) === null || _vm$selectedCurrency4 === void 0 ? void 0 : _vm$selectedCurrency4.code))) + "</span></div> <div class=\"total-item\" data-v-7625c714><span data-v-7625c714>ພາສີ:</span> <span class=\"amount\" data-v-7625c714>" + _vm._ssrEscape("+" + _vm._s(_vm.formatCurrency(_vm.calculatedTax, (_vm$selectedCurrency5 = _vm.selectedCurrency) === null || _vm$selectedCurrency5 === void 0 ? void 0 : _vm$selectedCurrency5.code))) + "</span></div> <div class=\"total-item grand-total\" data-v-7625c714><span data-v-7625c714>ລວມທັງໝົດ:</span> <span class=\"amount\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.calculatedTotal, (_vm$selectedCurrency6 = _vm.selectedCurrency) === null || _vm$selectedCurrency6 === void 0 ? void 0 : _vm$selectedCurrency6.code))) + "</span></div> " + (_vm.selectedCurrency && _vm.selectedCurrency.code !== 'LAK' && _vm.form.exchangeRate ? "<div class=\"total-item local-currency\" data-v-7625c714><span data-v-7625c714>ລວມເປັນ LAK:</span> <span class=\"amount local\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.calculatedTotal * parseFloat(_vm.form.exchangeRate || 1), 'LAK'))) + "</span></div>" : "<!---->") + "</div></div> " + (_vm.isEdit ? "<div class=\"audit-trail-compact\" data-v-7625c714><div class=\"audit-header\" data-v-7625c714><h5 data-v-7625c714>ປະຫວັດການດຳເນີນງານ</h5> <button type=\"button\" class=\"btn-view-audit\" data-v-7625c714><i class=\"fas fa-external-link-alt\" data-v-7625c714></i>\n                ເບິ່ງລະອຽດ\n              </button></div> <div class=\"audit-summary\" data-v-7625c714><div class=\"audit-item\" data-v-7625c714><i class=\"fas fa-user-edit\" data-v-7625c714></i> <span data-v-7625c714>" + _vm._ssrEscape("ສ້າງໂດຍ: " + _vm._s(_vm.auditTrail.makerName) + " (" + _vm._s(_vm.auditTrail.createdDate) + ")") + "</span></div> <div class=\"audit-item\" data-v-7625c714><i class=\"fas fa-user-check\" data-v-7625c714></i> <span data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.auditTrail.isChecked ? `ອະນຸມັດໂດຍ: ${_vm.auditTrail.checkerName}` : 'ລໍຖ້າການອະນຸມັດ')) + "</span></div> <div class=\"status-badge-container\" data-v-7625c714><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.auditTrail.status}`]) + " data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.getStatusText(_vm.auditTrail.status)) + "\n                ") + "</span></div></div></div>" : "<!---->"))], 2)])]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-7625c714><div class=\"footer-actions\" data-v-7625c714><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.saving) + " class=\"btn btn-secondary\" data-v-7625c714><i class=\"fas fa-times\" data-v-7625c714></i>\n          ຍົກເລີກ\n        </button> <button type=\"button\"" + _vm._ssrAttr("disabled", _vm.saving || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-7625c714>" + (_vm.saving ? "<i class=\"fas fa-spinner fa-spin\" data-v-7625c714></i>" : "<i class=\"fas fa-save\" data-v-7625c714></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.saving ? 'ກຳລັງບັນທຶກ...' : _vm.isEdit ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div></div>")], 2), _vm._ssrNode(" "), _c('audit-log-dialog', {
+    attrs: {
+      "visible": _vm.auditDialogVisible,
+      "invoice-id": _vm.form.id,
+      "invoice-info": _vm.getInvoiceInfo()
+    },
+    on: {
+      "close": _vm.closeAuditDialog
+    }
+  })], 2) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/accounting/ap/invoice/index.vue?vue&type=template&id=7625c714&scoped=true
+
+// EXTERNAL MODULE: ./components/accounting/ap/invoice/audit/index.vue + 3 modules
+var audit = __webpack_require__(717);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/invoice/index.vue?vue&type=script&lang=js
+
+/* harmony default export */ var invoicevue_type_script_lang_js = ({
+  name: 'APInvoiceDialog',
+  components: {
+    AuditLogDialog: audit["default"]
+  },
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    invoice: {
+      type: Object,
+      default: null
+    },
+    agencies: {
+      type: Array,
+      default: () => []
+    },
+    currencies: {
+      type: Array,
+      default: () => []
+    },
+    glAccounts: {
+      type: Array,
+      default: () => []
+    },
+    user: {
+      type: Object,
+      default: null
+    }
+  },
+  emits: ['close', 'save'],
+  async mounted() {
+    await this.loadTransactionCodes(); // Add this
+  },
+  data() {
+    return {
+      transactionCodes: [],
+      loadingTransactionCodes: false,
+      // Add this
+      // formLabel: {
+      //   vendor: `ເລືອກ ${clientLabel}`, //'ເລືອກຕົວແທນ',
+      //   model: '',
+      // },
+      formLoading: false,
+      saving: false,
+      errors: {},
+      lineItems: [],
+      nextTempId: 1,
+      selectedVendor: null,
+      selectedCurrency: null,
+      auditDialogVisible: false,
+      form: {
+        id: null,
+        invoiceNumber: '',
+        vendorInvoiceNumber: '',
+        vendorId: null,
+        agencyId: '',
+        invoiceDate: new Date().toISOString().split('T')[0],
+        // Set today's date
+        dueDate: '',
+        description: '',
+        totalAmount: '',
+        exchangeRate: 1.0,
+        currencyId: '',
+        makerId: '',
+        note: '',
+        reason: ''
+      }
+    };
+  },
+  computed: {
+    formLabel() {
+      return {
+        vendor: `ເລືອກ ${this.clientLabel}`,
+        model: ''
+      };
+    },
+    clientLabel() {
+      const item = this.getSPF.find(spf => spf.code == 'LABEL_AC_CUS');
+      return (item === null || item === void 0 ? void 0 : item.value) || 'ກະຊວງ';
+    },
+    getSPF() {
+      return this.$store.getters.findSPF;
+    },
+    isEdit() {
+      return !!this.invoice;
+    },
+    auditTrail() {
+      if (!this.invoice) {
+        var _this$user, _this$user2;
+        return {
+          makerName: ((_this$user = this.user) === null || _this$user === void 0 ? void 0 : _this$user.cus_name) || ((_this$user2 = this.user) === null || _this$user2 === void 0 ? void 0 : _this$user2.name) || 'ຜູ້ໃຊ້ປະຈຸບັນ',
+          createdDate: new Date().toISOString().split('T')[0],
+          isChecked: false,
+          checkerName: null,
+          status: 'draft'
+        };
+      }
+      const maker = this.invoice.maker || {};
+      const checker = this.invoice.checker || null;
+      const createdAt = new Date(this.invoice.createdAt);
+      return {
+        makerName: maker.cus_name || 'ບໍ່ມີຂໍ້ມູນ',
+        createdDate: createdAt.toISOString().split('T')[0],
+        checkerName: (checker === null || checker === void 0 ? void 0 : checker.cus_name) || null,
+        isChecked: !!this.invoice.checkerId && !!this.invoice.approvedAt,
+        status: this.invoice.status || 'draft'
+      };
+    },
+    calculatedSubtotal() {
+      return this.lineItems.reduce((sum, line) => {
+        const subtotal = (parseFloat(line.quantity) || 0) * (parseFloat(line.unitPrice) || 0);
+        return sum + subtotal;
+      }, 0);
+    },
+    calculatedDiscount() {
+      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.discountAmount) || 0), 0);
+    },
+    calculatedTax() {
+      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.taxAmount) || 0), 0);
+    },
+    calculatedTotal() {
+      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.lineTotal) || 0), 0);
+    },
+    isFormValid() {
+      const hasValidHeader = this.form.invoiceNumber && this.form.agencyId && this.form.invoiceDate && this.form.dueDate && this.form.currencyId && this.form.exchangeRate && parseFloat(this.form.exchangeRate) > 0 && (!this.isEdit || this.form.reason);
+      const hasValidLines = this.lineItems.length > 0 && this.lineItems.every(line => line.description && (parseFloat(line.quantity) || 0) > 0 && (parseFloat(line.unitPrice) || 0) >= 0);
+      return hasValidHeader && hasValidLines;
+    }
+  },
+  watch: {
+    visible: {
+      handler(newVal) {
+        if (newVal) {
+          this.initializeDialog();
+        } else {
+          this.resetDialog();
+        }
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    async loadTransactionCodes() {
+      this.loadingTransactionCodes = true;
+      try {
+        const {
+          data
+        } = await this.$axios.get('/api/transaction-codes', {
+          params: {
+            includeInactive: false,
+            // type: 'EXPENSE', // Filter only EXPENSE types for payments
+            type: 'EXPENSE' // Filter only EXPENSE types for payments
+          }
+        });
+        this.transactionCodes = data || [];
+      } catch (error) {
+        var _this$$toast;
+        console.error('Error loading transaction codes:', error);
+        (_this$$toast = this.$toast) === null || _this$$toast === void 0 ? void 0 : _this$$toast.error('ໂຫລດລະຫັດການເງິນບໍ່ສຳເລັດ');
+        this.transactionCodes = [];
+      } finally {
+        this.loadingTransactionCodes = false;
+      }
+    },
+    getTransactionCodeLabel(txnId) {
+      const txn = this.transactionCodes.find(t => t.id === txnId);
+      return txn ? `${txn.code} - ${txn.description}` : '';
+    },
+    async requestSequence() {
+      try {
+        const {
+          data
+        } = await this.$axios.get('/api/ap-invoices/sequence');
+        if (data.success) {
+          // Assign the generated invoice number to your form
+          this.form.invoiceNumber = data.data.invoiceNumber;
+
+          // Optional: Show success message
+          this.$message.success(`Invoice number generated: ${data.data.invoiceNumber}`);
+          return data.data.invoiceNumber;
+        }
+      } catch (error) {
+        console.error('Error getting invoice sequence:', error);
+        this.$message.error('Failed to generate invoice number');
+        throw error;
+      }
+    },
+    async initializeDialog() {
+      this.clearErrors();
+      if (this.invoice) {
+        this.form = {
+          id: this.invoice.id,
+          invoiceNumber: this.invoice.invoiceNumber,
+          vendorInvoiceNumber: this.invoice.vendorInvoiceNumber,
+          vendorId: this.invoice.vendorId,
+          agencyId: this.invoice.agencyId,
+          invoiceDate: this.invoice.invoiceDate ? this.invoice.invoiceDate.split('T')[0] : '',
+          dueDate: this.invoice.dueDate ? this.invoice.dueDate.split('T')[0] : new Date().toISOString().split('T')[0],
+          description: this.invoice.description || '',
+          totalAmount: this.invoice.totalAmount,
+          exchangeRate: this.invoice.exchangeRate || 1.0,
+          currencyId: this.invoice.currencyId,
+          makerId: this.invoice.makerId,
+          note: this.invoice.note || '',
+          reason: ''
+        };
+        await this.loadLineItems(this.invoice.id);
+      } else {
+        this.resetForm();
+        if (this.currencies.length > 0) {
+          const defaultCurrency = this.currencies.find(c => c.code === 'LAK') || this.currencies.find(c => c.code === 'USD') || this.currencies[0];
+          this.form.currencyId = defaultCurrency.id;
+          this.selectedCurrency = defaultCurrency;
+          this.form.exchangeRate = defaultCurrency.code === 'LAK' ? 1.0 : 1.0;
+        }
+        this.lineItems = [this.createEmptyLine()];
+        this.requestSequence();
+        this.loadTransactionCodes();
+      }
+      this.updateSelectedVendor();
+      this.updateSelectedCurrency();
+    },
+    resetDialog() {
+      this.resetForm();
+      this.lineItems = [];
+      this.selectedVendor = null;
+      this.selectedCurrency = null;
+      this.clearErrors();
+      this.formLoading = false;
+      this.saving = false;
+      this.auditDialogVisible = false;
+    },
+    async loadLineItems(invoiceId) {
+      try {
+        const {
+          data
+        } = await this.$axios.get(`/api/ap-invoices-lines/invoice/${invoiceId}`);
+        this.lineItems = data.data || [this.createEmptyLine()];
+        this.lineItems.forEach(line => {
+          if (!line.tempId) line.tempId = this.nextTempId++;
+          this.calculateLineTotal(line);
+        });
+      } catch (error) {
+        console.error('Error loading line items:', error);
+        this.lineItems = [this.createEmptyLine()];
+      }
+    },
+    openAuditDialog() {
+      if (this.form.id) this.auditDialogVisible = true;
+    },
+    closeAuditDialog() {
+      this.auditDialogVisible = false;
+    },
+    getInvoiceInfo() {
+      if (!this.invoice) return null;
+      return {
+        invoiceNumber: this.form.invoiceNumber,
+        vendorInvoiceNumber: this.form.vendorInvoiceNumber,
+        totalAmount: this.calculatedTotal,
+        status: this.invoice.status
+      };
+    },
+    createEmptyLine() {
+      return {
+        tempId: this.nextTempId++,
+        lineNumber: this.lineItems.length + 1,
+        description: '',
+        quantity: 1,
+        unitPrice: 0,
+        DRglAccountId: null,
+        CRglAccountId: null,
+        txnId: null,
+        discountRate: 0,
+        discountAmount: 0,
+        taxRate: 0,
+        taxAmount: 0,
+        lineTotal: 0,
+        note: ''
+      };
+    },
+    addNewLine() {
+      this.lineItems.push(this.createEmptyLine());
+    },
+    addMultipleLines(count) {
+      for (let i = 0; i < count; i++) {
+        this.lineItems.push(this.createEmptyLine());
+      }
+    },
+    removeLine(index) {
+      if (this.lineItems.length > 1) {
+        this.lineItems.splice(index, 1);
+        this.updateLineNumbers();
+      }
+    },
+    updateLineNumbers() {
+      this.lineItems.forEach((line, index) => {
+        line.lineNumber = index + 1;
+      });
+    },
+    calculateLineTotal(line) {
+      const quantity = parseFloat(line.quantity) || 0;
+      const unitPrice = parseFloat(line.unitPrice) || 0;
+      const discountRate = parseFloat(line.discountRate) || 0;
+      const taxRate = parseFloat(line.taxRate) || 0;
+      const subtotal = quantity * unitPrice;
+      const discountAmount = subtotal * (discountRate / 100);
+      line.discountAmount = discountAmount;
+      const afterDiscount = subtotal - discountAmount;
+      const taxAmount = afterDiscount * (taxRate / 100);
+      line.taxAmount = taxAmount;
+      line.lineTotal = afterDiscount + taxAmount;
+      this.calculateExchangeAmounts();
+    },
+    calculateExchangeAmounts() {
+      this.clearFieldError('exchangeRate');
+    },
+    updateSelectedVendor() {
+      if (this.form.agencyId && this.agencies.length > 0) {
+        this.selectedVendor = this.agencies.find(v => v.id === this.form.agencyId);
+      } else {
+        this.selectedVendor = null;
+      }
+    },
+    updateSelectedCurrency() {
+      if (this.form.currencyId && this.currencies.length > 0) {
+        this.selectedCurrency = this.currencies.find(c => c.id === this.form.currencyId);
+        if (this.selectedCurrency && this.selectedCurrency.code === 'LAK') {
+          this.form.exchangeRate = 1.0;
+        }
+      } else {
+        this.selectedCurrency = null;
+      }
+    },
+    onVendorChange() {
+      this.updateSelectedVendor();
+      this.calculateDueDate();
+      this.clearFieldError('agencyId');
+    },
+    onCurrencyChange() {
+      this.updateSelectedCurrency();
+      this.clearFieldError('currencyId');
+      const selectedCurrency = this.currencies.find(c => c.id === this.form.currencyId);
+      if (selectedCurrency) {
+        this.form.exchangeRate = selectedCurrency.rate || 1.0;
+        this.calculateExchangeAmounts();
+      }
+    },
+    calculateDueDate() {
+      if (this.form.invoiceDate && this.selectedVendor) {
+        const invoiceDate = new Date(this.form.invoiceDate);
+        const dueDate = new Date(invoiceDate);
+        const paymentTerms = this.selectedVendor.paymentTerms || this.selectedVendor.payment_terms || 30;
+        dueDate.setDate(dueDate.getDate() + parseInt(paymentTerms));
+        this.form.dueDate = dueDate.toISOString().split('T')[0];
+      }
+    },
+    validateForm() {
+      this.errors = {};
+      if (!this.form.invoiceNumber) this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້';
+      // if (!this.form.vendorInvoiceNumber)
+      //   this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
+      if (!this.form.agencyId) this.errors.agencyId = `ກະລຸນາເລືອກ${this.formLabel.vendor}`;
+      if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ';
+      if (!this.form.exchangeRate) this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ';else if (parseFloat(this.form.exchangeRate) <= 0) this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0';
+      if (!this.form.invoiceDate) this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້';
+      // if (!this.form.dueDate) this.errors.dueDate = 'ກະລຸນາໃສ່ວັນທີຄົບກຳນົດ'
+      if (this.form.invoiceDate && this.form.dueDate) {
+        const invoiceDate = new Date(this.form.invoiceDate);
+        const dueDate = new Date(this.form.dueDate);
+        if (dueDate <= invoiceDate) {
+          this.errors.dueDate = 'ວັນທີຄົບກຳນົດຕ້ອງຫຼັງຈາກວັນທີໃບແຈ້ງໜີ້';
+        }
+      }
+      if (this.lineItems.length === 0) {
+        this.errors.lineItems = 'ກະລຸນາເພີ່ມລາຍການສິນຄ້າຢ່າງໜ້ອຍ 1 ລາຍການ';
+      } else {
+        for (let i = 0; i < this.lineItems.length; i++) {
+          const line = this.lineItems[i];
+          if (!line.description) this.errors[`line_${i}_description`] = 'ກະລຸນາໃສ່ລາຍລະອຽດສິນຄ້າ';
+          if (!line.quantity || parseFloat(line.quantity) <= 0) this.errors[`line_${i}_quantity`] = 'ຈຳນວນຕ້ອງຫຼາຍກວ່າ 0';
+          if (line.unitPrice === '' || parseFloat(line.unitPrice) < 0) this.errors[`line_${i}_unitPrice`] = 'ລາຄາຕ້ອງເປັນຄ່າບວກ';
+          // if (!line.DRglAccountId)
+          //   this.errors[`line_${i}_DRglAccountId`] = 'ກະລຸນາເລືອກ DR Account'
+          // if (!line.CRglAccountId)
+          //   this.errors[`line_${i}_CRglAccountId`] = 'ກະລຸນາເລືອກ CR Account'
+        }
+      }
+      if (this.isEdit && !this.form.reason) this.errors.reason = 'ກະລຸນາລະບຸເຫດຜົນຂອງການແກ້ໄຂ';
+      return Object.keys(this.errors).length === 0;
+    },
+    clearErrors() {
+      this.errors = {};
+    },
+    clearFieldError(field) {
+      if (this.errors[field]) {
+        this.$delete(this.errors, field);
+      }
+    },
+    handleSubmit() {
+      var _this$user3;
+      if (!this.validateForm()) return;
+      this.saving = true;
+      const formData = {
+        ...this.form,
+        makerId: this.form.makerId || ((_this$user3 = this.user) === null || _this$user3 === void 0 ? void 0 : _this$user3.id),
+        totalAmount: this.calculatedTotal,
+        exchangeRate: parseFloat(this.form.exchangeRate) || 1.0,
+        lineItems: this.lineItems.map((line, index) => ({
+          ...line,
+          lineNumber: index + 1,
+          quantity: parseFloat(line.quantity) || 0,
+          unitPrice: parseFloat(line.unitPrice) || 0,
+          discountRate: parseFloat(line.discountRate) || 0,
+          taxRate: parseFloat(line.taxRate) || 0
+        }))
+      };
+      this.$emit('save', formData);
+      this.saving = false;
+    },
+    handleOverlayClick() {
+      if (!this.saving) this.handleClose();
+    },
+    handleClose() {
+      this.$emit('close');
+    },
+    resetForm() {
+      this.form = {
+        id: null,
+        invoiceNumber: '',
+        vendorInvoiceNumber: '',
+        vendorId: null,
+        agencyId: '',
+        invoiceDate: new Date().toISOString().split('T')[0],
+        // Add this
+        dueDate: '',
+        description: '',
+        totalAmount: '',
+        exchangeRate: 1.0,
+        currencyId: '',
+        makerId: '',
+        note: '',
+        reason: ''
+      };
+    },
+    formatCurrency(amount, currencyCode = 'USD') {
+      const currency = currencyCode || 'USD';
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency === 'LAK' ? 'USD' : currency,
+        minimumFractionDigits: currency === 'LAK' ? 0 : 2,
+        maximumFractionDigits: currency === 'LAK' ? 0 : 2
+      });
+      if (currency === 'LAK') {
+        return `₭${new Intl.NumberFormat('en-US').format(amount || 0)}`;
+      }
+      return formatter.format(amount || 0);
+    },
+    getStatusText(status) {
+      const statusMap = {
+        draft: 'ຮ່າງ',
+        pending: 'ລໍຖ້າການອະນຸມັດ',
+        approved: 'ອະນຸມັດແລ້ວ',
+        rejected: 'ປະຕິເສດ',
+        paid: 'ຈ່າຍແລ້ວ',
+        cancelled: 'ຍົກເລີກ'
+      };
+      return statusMap[status] || status;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/accounting/ap/invoice/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var ap_invoicevue_type_script_lang_js = (invoicevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/accounting/ap/invoice/index.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(772)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  ap_invoicevue_type_script_lang_js,
+  invoicevue_type_template_id_7625c714_scoped_true_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "7625c714",
+  "86e34e32"
+  
+)
+
+/* harmony default export */ var invoice = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_54cfbc93_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(902);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_54cfbc93_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(915);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_54cfbc93_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_54cfbc93_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_54cfbc93_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_54cfbc93_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1176:
+/***/ 1195:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +716,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1420:
+/***/ 1442:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48,7 +736,7 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
 var VDataTable = __webpack_require__(412);
@@ -81,7 +769,7 @@ var VMenu = __webpack_require__(128);
 var VProgressLinear = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
@@ -90,7 +778,7 @@ var VSelect = __webpack_require__(19);
 var VSimpleTable = __webpack_require__(163);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
@@ -605,7 +1293,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ap/invoice/index.vue?vue&type=template&id=54cfbc93&scoped=true
 
 // EXTERNAL MODULE: ./components/accounting/ap/invoice/index.vue + 4 modules
-var ap_invoice = __webpack_require__(996);
+var ap_invoice = __webpack_require__(1011);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(11);
@@ -1012,7 +1700,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1175)
+  var style0 = __webpack_require__(1194)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1415,7 +2103,7 @@ module.exports.__inject__ = function (context) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(671);
+var content = __webpack_require__(672);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1746,7 +2434,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 670:
+/***/ 671:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1758,7 +2446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 671:
+/***/ 672:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1773,13 +2461,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 672:
+/***/ 673:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(767);
+var content = __webpack_require__(773);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1791,7 +2479,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 713:
+/***/ 717:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1836,7 +2524,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(670)
+  var style0 = __webpack_require__(671)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1858,19 +2546,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 766:
+/***/ 772:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7625c714_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(672);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7625c714_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(673);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7625c714_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7625c714_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7625c714_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7625c714_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 767:
+/***/ 773:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1885,13 +2573,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 902:
+/***/ 915:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1176);
+var content = __webpack_require__(1195);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1900,694 +2588,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("288ddd60", content, true, context)
 };
-
-/***/ }),
-
-/***/ 996:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(406);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var VList = __webpack_require__(8);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/invoice/index.vue?vue&type=template&id=7625c714&scoped=true
-
-
-
-
-var invoicevue_type_template_id_7625c714_scoped_true_render = function render() {
-  var _vm$selectedCurrency, _vm$selectedCurrency3, _vm$selectedCurrency4, _vm$selectedCurrency5, _vm$selectedCurrency6;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.visible ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.handleOverlayClick
-    }
-  }, [_vm._ssrNode("<div class=\"enhanced-dialog\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"modal-header primary\" data-v-7625c714><h4 class=\"modal-title\" data-v-7625c714><i class=\"fas fa-file-invoice\" data-v-7625c714></i>" + _vm._ssrEscape("\n        " + _vm._s(_vm.isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່') + "\n      ") + "</h4> <button type=\"button\" class=\"close-button\" data-v-7625c714><i class=\"fas fa-times\" data-v-7625c714></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-7625c714>", "</div>", [_vm.formLoading ? _vm._ssrNode("<div class=\"loading-state\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"spinner\" data-v-7625c714></div> <p data-v-7625c714>ກຳລັງໂຫຼດຂໍ້ມູນ...</p>")], 2) : _vm._ssrNode("<div class=\"invoice-form\" data-v-7625c714>", "</div>", [_vm._ssrNode("<form data-v-7625c714>", "</form>", [_vm._ssrNode("<div class=\"form-section\" data-v-7625c714>", "</div>", [_vm._ssrNode("<h5 class=\"section-title\" data-v-7625c714><i class=\"fas fa-info-circle\" data-v-7625c714></i>\n              ຂໍ້ມູນພື້ນຖານ\n            </h5> "), _vm._ssrNode("<div class=\"form-grid\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-7625c714><label for=\"invoiceDate\" class=\"required\" data-v-7625c714>ວັນທີໃບແຈ້ງໜີ້</label> <input id=\"invoiceDate\" type=\"date\"" + _vm._ssrAttr("value", _vm.form.invoiceDate) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.invoiceDate
-  }) + " data-v-7625c714> " + (_vm.errors.invoiceDate ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.invoiceDate) + "\n                ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-7625c714><label for=\"invoiceNumber\" class=\"required\" data-v-7625c714>ເລກທີໃບແຈ້ງໜີ້</label> <input id=\"invoiceNumber\" type=\"text\" placeholder=\"ເຊັ່ນ: INV-2025-001\"" + _vm._ssrAttr("readonly", _vm.isEdit) + _vm._ssrAttr("value", _vm.form.invoiceNumber) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.invoiceNumber
-  }) + " data-v-7625c714> " + (_vm.errors.invoiceNumber ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.invoiceNumber) + "\n                ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-7625c714>", "</div>", [_vm._ssrNode("<label for=\"agencyId\" class=\"required\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.clientLabel)) + "</label> "), _c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "id": "agencyId",
-      "items": _vm.agencies,
-      "item-value": "id",
-      "item-text": "agencyName",
-      "error": !!_vm.errors.agencyId,
-      "error-messages": _vm.errors.agencyId,
-      "dense": "",
-      "outlined": "",
-      "clearable": "",
-      "hide-details": "auto",
-      "placeholder": _vm.formLabel.vendor
-    },
-    on: {
-      "change": _vm.onVendorChange
-    },
-    scopedSlots: _vm._u([{
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                        " + _vm._s(item.name || item.agencyName) + " - (" + _vm._s(item.code || item.agencyCode) + ")\n                      ")])], 1)];
-      }
-    }, {
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(item.name || item.agencyName) + " (" + _vm._s(item.code || item.agencyCode) + ")\n                  ")];
-      }
-    }], null, false, 1554401541),
-    model: {
-      value: _vm.form.agencyId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "agencyId", $$v);
-      },
-      expression: "form.agencyId"
-    }
-  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-7625c714><label for=\"vendorInvoiceNumber\" data-v-7625c714>ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ</label> <input id=\"vendorInvoiceNumber\" type=\"text\" placeholder=\"ເລກທີໃບແຈ້ງໜີ້ຂອງຜູ້ຂາຍ\"" + _vm._ssrAttr("value", _vm.form.vendorInvoiceNumber) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.vendorInvoiceNumber
-  }) + " data-v-7625c714> " + (_vm.errors.vendorInvoiceNumber ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.vendorInvoiceNumber) + "\n                ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-7625c714>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" class=\"required\" data-v-7625c714>ສະກຸນເງິນ</label> "), _c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "id": "currencyId",
-      "items": _vm.currencies,
-      "item-value": "id",
-      "item-text": "name",
-      "error": !!_vm.errors.currencyId,
-      "error-messages": _vm.errors.currencyId,
-      "dense": "",
-      "outlined": "",
-      "clearable": "",
-      "hide-details": "auto",
-      "placeholder": "ເລືອກສະກຸນເງິນ"
-    },
-    on: {
-      "change": _vm.onCurrencyChange
-    },
-    scopedSlots: _vm._u([{
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                        " + _vm._s(item.name) + " (" + _vm._s(item.code) + ")\n                      ")])], 1)];
-      }
-    }, {
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(item.name) + " (" + _vm._s(item.code) + ")\n                  ")];
-      }
-    }], null, false, 2423314344),
-    model: {
-      value: _vm.form.currencyId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "currencyId", $$v);
-      },
-      expression: "form.currencyId"
-    }
-  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-7625c714><label for=\"exchangeRate\" class=\"required\" data-v-7625c714>\n                  ອັດຕາແລກປ່ຽນ\n                  " + (_vm.selectedCurrency ? "<span class=\"currency-info\" data-v-7625c714>" + _vm._ssrEscape("\n                    (" + _vm._s(_vm.selectedCurrency.code) + " ຕໍ່ LAK)\n                  ") + "</span>" : "<!---->") + "</label> <input id=\"exchangeRate\" type=\"number\" step=\"0.0001\" min=\"0\" placeholder=\"1.0000\"" + _vm._ssrAttr("value", _vm.form.exchangeRate) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.exchangeRate
-  }) + " data-v-7625c714> " + (_vm.errors.exchangeRate ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.exchangeRate) + "\n                ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-7625c714><label for=\"dueDate\" data-v-7625c714>ວັນທີຄົບກຳນົດ</label> <input id=\"dueDate\" type=\"date\"" + _vm._ssrAttr("value", _vm.form.dueDate) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.dueDate
-  }) + " data-v-7625c714> " + (_vm.errors.dueDate ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.errors.dueDate) + "\n                ") + "</div>" : "<!---->") + "</div> <div class=\"form-group span-2\" data-v-7625c714><label for=\"description\" data-v-7625c714>ຄຳອະທິບາຍ</label> <textarea id=\"description\" rows=\"2\" placeholder=\"ລາຍລະອຽດກ່ຽວກັບໃບແຈ້ງໜີ້...\" class=\"form-control\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.form.description)) + "</textarea></div>")], 2), _vm._ssrNode(" " + (_vm.selectedCurrency && _vm.form.exchangeRate ? "<div class=\"exchange-display\" data-v-7625c714><div class=\"exchange-amount\" data-v-7625c714><span class=\"foreign-amount\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatCurrency(_vm.calculatedTotal, ((_vm$selectedCurrency = _vm.selectedCurrency) === null || _vm$selectedCurrency === void 0 ? void 0 : _vm$selectedCurrency.code) || 'USD')) + "\n                ") + "</span> <i class=\"fas fa-arrow-right exchange-arrow\" data-v-7625c714></i> <span class=\"local-amount\" data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatCurrency(_vm.calculatedTotal * parseFloat(_vm.form.exchangeRate || 1), 'LAK')) + "\n                ") + "</span></div></div>" : "<!---->") + " " + (_vm.isEdit ? "<div class=\"form-group\" data-v-7625c714><label for=\"reason\" class=\"required\" data-v-7625c714>ເຫດຜົນຂອງການແກ້ໄຂ</label> <input id=\"reason\" type=\"text\" placeholder=\"ລະບຸເຫດຜົນຂອງການແກ້ໄຂ...\"" + _vm._ssrAttr("value", _vm.form.reason) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.reason
-  }) + " data-v-7625c714> " + (_vm.errors.reason ? "<div class=\"invalid-feedback\" data-v-7625c714>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.reason) + "\n              ") + "</div>" : "<!---->") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"section-header\" data-v-7625c714><h5 class=\"section-title\" data-v-7625c714><i class=\"fas fa-list\" data-v-7625c714></i>\n                ລາຍການສິນຄ້າ\n                " + (_vm.lineItems.length > 0 ? "<span class=\"line-count\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.lineItems.length)) + "</span>" : "<!---->") + "</h5> <div class=\"add-line-actions\" data-v-7625c714><button type=\"button\" class=\"btn btn-primary btn-sm\" data-v-7625c714><i class=\"fas fa-plus\" data-v-7625c714></i>\n                  ເພີ່ມລາຍການ\n                </button> <button type=\"button\" class=\"btn btn-secondary btn-xs\" data-v-7625c714>\n                  +3\n                </button> <button type=\"button\" class=\"btn btn-secondary btn-xs\" data-v-7625c714>\n                  +5\n                </button></div></div> "), _vm.lineItems.length === 0 ? _vm._ssrNode("<div class=\"empty-line-state\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"empty-content\" data-v-7625c714><i class=\"fas fa-shopping-cart\" data-v-7625c714></i> <h4 data-v-7625c714>ຍັງບໍ່ມີລາຍການສິນຄ້າ</h4> <button type=\"button\" class=\"btn btn-primary\" data-v-7625c714><i class=\"fas fa-plus-circle\" data-v-7625c714></i>\n                  ເພີ່ມລາຍການທຳອິດ\n                </button></div>")], 2) : _vm._ssrNode("<div class=\"line-items-table-container\" data-v-7625c714>", "</div>", [_vm._ssrNode("<div class=\"line-items-table\" data-v-7625c714>", "</div>", [_vm._ssrNode("<table class=\"table\" data-v-7625c714>", "</table>", [_vm._ssrNode("<thead data-v-7625c714><tr data-v-7625c714><th style=\"width: 30px\" data-v-7625c714>#</th> <th style=\"width: 140px\" data-v-7625c714>ລາຍລະອຽດ *</th> <th style=\"width: 140px\" data-v-7625c714>ລະຫັດການເງິນ</th> <th style=\"width: 60px\" data-v-7625c714>ຈຳນວນ *</th> <th style=\"width: 70px\" data-v-7625c714>ລາຄາ *</th> <th style=\"width: 80px\" data-v-7625c714>ລວມ</th> <th style=\"width: 40px\" data-v-7625c714>ລຶບ</th></tr></thead> "), _vm._ssrNode("<tbody data-v-7625c714>", "</tbody>", _vm._l(_vm.lineItems, function (line, index) {
-    var _vm$selectedCurrency2;
-    return _vm._ssrNode("<tr class=\"line-row\" data-v-7625c714>", "</tr>", [_vm._ssrNode("<td class=\"line-number\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(index + 1)) + "</td> <td data-v-7625c714><input type=\"text\" placeholder=\"ລາຍລະອຽດ...\"" + _vm._ssrAttr("value", line.description) + _vm._ssrClass("form-control form-control-xs", {
-      'is-invalid': _vm.errors[`line_${index}_description`]
-    }) + " data-v-7625c714></td> "), _vm._ssrNode("<td data-v-7625c714>", "</td>", [_c(VAutocomplete["a" /* default */], {
-      staticClass: "mt-0",
-      attrs: {
-        "items": _vm.transactionCodes.filter(t => t.type !== 'ALL' && t.isActive),
-        "item-value": "id",
-        "item-text": "code",
-        "label": _vm.loadingTransactionCodes ? 'ກຳລັງໂຫຼດ...' : 'ເລືອກລະຫັດການເງິນ',
-        "loading": _vm.loadingTransactionCodes,
-        "disabled": _vm.loadingTransactionCodes,
-        "error": !line.txnId && _vm.errors.settlementLines,
-        "dense": "",
-        "outlined": "",
-        "clearable": "",
-        "hide-details": "auto"
-      },
-      scopedSlots: _vm._u([{
-        key: "item",
-        fn: function ({
-          item
-        }) {
-          return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v("\n                                " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                              ")])], 1)];
-        }
-      }, {
-        key: "selection",
-        fn: function ({
-          item
-        }) {
-          return [_vm._v("\n                            " + _vm._s(item.code) + " - " + _vm._s(item.description) + "\n                          ")];
-        }
-      }], null, true),
-      model: {
-        value: line.txnId,
-        callback: function ($$v) {
-          _vm.$set(line, "txnId", $$v);
-        },
-        expression: "line.txnId"
-      }
-    }), _vm._ssrNode(" " + (!line.txnId && _vm.errors.settlementLines ? "<small class=\"text-danger d-block mt-1\" data-v-7625c714>\n                          ກະລຸນາເລືອກລະຫັດການເງິນ\n                        </small>" : "<!---->"))], 2), _vm._ssrNode(" <td data-v-7625c714><input type=\"number\" step=\"0.001\" min=\"0\"" + _vm._ssrAttr("value", line.quantity) + _vm._ssrClass("form-control form-control-xs", {
-      'is-invalid': _vm.errors[`line_${index}_quantity`]
-    }) + " data-v-7625c714></td> <td data-v-7625c714><input type=\"number\" step=\"0.01\" min=\"0\"" + _vm._ssrAttr("value", line.unitPrice) + _vm._ssrClass("form-control form-control-xs", {
-      'is-invalid': _vm.errors[`line_${index}_unitPrice`]
-    }) + " data-v-7625c714></td> <td class=\"line-total\" data-v-7625c714>" + _vm._ssrEscape("\n                        " + _vm._s(_vm.formatCurrency(line.lineTotal || 0, (_vm$selectedCurrency2 = _vm.selectedCurrency) === null || _vm$selectedCurrency2 === void 0 ? void 0 : _vm$selectedCurrency2.code)) + "\n                      ") + "</td> <td data-v-7625c714><button type=\"button\" title=\"ລຶບ\" class=\"btn btn-xs btn-danger\" data-v-7625c714><i class=\"fas fa-trash\" data-v-7625c714></i></button></td>")], 2);
-  }), 0)], 2)])])], 2), _vm._ssrNode(" <div class=\"amount-summary\" data-v-7625c714><div class=\"totals-grid\" data-v-7625c714><div class=\"total-item\" data-v-7625c714><span data-v-7625c714>ລວມຍ່ອຍ:</span> <span class=\"amount\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.calculatedSubtotal, (_vm$selectedCurrency3 = _vm.selectedCurrency) === null || _vm$selectedCurrency3 === void 0 ? void 0 : _vm$selectedCurrency3.code))) + "</span></div> <div class=\"total-item\" data-v-7625c714><span data-v-7625c714>ສ່ວນຫຼຸດ:</span> <span class=\"amount discount\" data-v-7625c714>" + _vm._ssrEscape("-" + _vm._s(_vm.formatCurrency(_vm.calculatedDiscount, (_vm$selectedCurrency4 = _vm.selectedCurrency) === null || _vm$selectedCurrency4 === void 0 ? void 0 : _vm$selectedCurrency4.code))) + "</span></div> <div class=\"total-item\" data-v-7625c714><span data-v-7625c714>ພາສີ:</span> <span class=\"amount\" data-v-7625c714>" + _vm._ssrEscape("+" + _vm._s(_vm.formatCurrency(_vm.calculatedTax, (_vm$selectedCurrency5 = _vm.selectedCurrency) === null || _vm$selectedCurrency5 === void 0 ? void 0 : _vm$selectedCurrency5.code))) + "</span></div> <div class=\"total-item grand-total\" data-v-7625c714><span data-v-7625c714>ລວມທັງໝົດ:</span> <span class=\"amount\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.calculatedTotal, (_vm$selectedCurrency6 = _vm.selectedCurrency) === null || _vm$selectedCurrency6 === void 0 ? void 0 : _vm$selectedCurrency6.code))) + "</span></div> " + (_vm.selectedCurrency && _vm.selectedCurrency.code !== 'LAK' && _vm.form.exchangeRate ? "<div class=\"total-item local-currency\" data-v-7625c714><span data-v-7625c714>ລວມເປັນ LAK:</span> <span class=\"amount local\" data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.calculatedTotal * parseFloat(_vm.form.exchangeRate || 1), 'LAK'))) + "</span></div>" : "<!---->") + "</div></div> " + (_vm.isEdit ? "<div class=\"audit-trail-compact\" data-v-7625c714><div class=\"audit-header\" data-v-7625c714><h5 data-v-7625c714>ປະຫວັດການດຳເນີນງານ</h5> <button type=\"button\" class=\"btn-view-audit\" data-v-7625c714><i class=\"fas fa-external-link-alt\" data-v-7625c714></i>\n                ເບິ່ງລະອຽດ\n              </button></div> <div class=\"audit-summary\" data-v-7625c714><div class=\"audit-item\" data-v-7625c714><i class=\"fas fa-user-edit\" data-v-7625c714></i> <span data-v-7625c714>" + _vm._ssrEscape("ສ້າງໂດຍ: " + _vm._s(_vm.auditTrail.makerName) + " (" + _vm._s(_vm.auditTrail.createdDate) + ")") + "</span></div> <div class=\"audit-item\" data-v-7625c714><i class=\"fas fa-user-check\" data-v-7625c714></i> <span data-v-7625c714>" + _vm._ssrEscape(_vm._s(_vm.auditTrail.isChecked ? `ອະນຸມັດໂດຍ: ${_vm.auditTrail.checkerName}` : 'ລໍຖ້າການອະນຸມັດ')) + "</span></div> <div class=\"status-badge-container\" data-v-7625c714><span" + _vm._ssrClass(null, ['status-badge', `status-${_vm.auditTrail.status}`]) + " data-v-7625c714>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.getStatusText(_vm.auditTrail.status)) + "\n                ") + "</span></div></div></div>" : "<!---->"))], 2)])]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-7625c714><div class=\"footer-actions\" data-v-7625c714><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.saving) + " class=\"btn btn-secondary\" data-v-7625c714><i class=\"fas fa-times\" data-v-7625c714></i>\n          ຍົກເລີກ\n        </button> <button type=\"button\"" + _vm._ssrAttr("disabled", _vm.saving || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-7625c714>" + (_vm.saving ? "<i class=\"fas fa-spinner fa-spin\" data-v-7625c714></i>" : "<i class=\"fas fa-save\" data-v-7625c714></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.saving ? 'ກຳລັງບັນທຶກ...' : _vm.isEdit ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div></div>")], 2), _vm._ssrNode(" "), _c('audit-log-dialog', {
-    attrs: {
-      "visible": _vm.auditDialogVisible,
-      "invoice-id": _vm.form.id,
-      "invoice-info": _vm.getInvoiceInfo()
-    },
-    on: {
-      "close": _vm.closeAuditDialog
-    }
-  })], 2) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/accounting/ap/invoice/index.vue?vue&type=template&id=7625c714&scoped=true
-
-// EXTERNAL MODULE: ./components/accounting/ap/invoice/audit/index.vue + 3 modules
-var audit = __webpack_require__(713);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/invoice/index.vue?vue&type=script&lang=js
-
-/* harmony default export */ var invoicevue_type_script_lang_js = ({
-  name: 'APInvoiceDialog',
-  components: {
-    AuditLogDialog: audit["default"]
-  },
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    invoice: {
-      type: Object,
-      default: null
-    },
-    agencies: {
-      type: Array,
-      default: () => []
-    },
-    currencies: {
-      type: Array,
-      default: () => []
-    },
-    glAccounts: {
-      type: Array,
-      default: () => []
-    },
-    user: {
-      type: Object,
-      default: null
-    }
-  },
-  emits: ['close', 'save'],
-  async mounted() {
-    await this.loadTransactionCodes(); // Add this
-  },
-  data() {
-    return {
-      transactionCodes: [],
-      loadingTransactionCodes: false,
-      // Add this
-      // formLabel: {
-      //   vendor: `ເລືອກ ${clientLabel}`, //'ເລືອກຕົວແທນ',
-      //   model: '',
-      // },
-      formLoading: false,
-      saving: false,
-      errors: {},
-      lineItems: [],
-      nextTempId: 1,
-      selectedVendor: null,
-      selectedCurrency: null,
-      auditDialogVisible: false,
-      form: {
-        id: null,
-        invoiceNumber: '',
-        vendorInvoiceNumber: '',
-        vendorId: null,
-        agencyId: '',
-        invoiceDate: new Date().toISOString().split('T')[0],
-        // Set today's date
-        dueDate: '',
-        description: '',
-        totalAmount: '',
-        exchangeRate: 1.0,
-        currencyId: '',
-        makerId: '',
-        note: '',
-        reason: ''
-      }
-    };
-  },
-  computed: {
-    formLabel() {
-      return {
-        vendor: `ເລືອກ ${this.clientLabel}`,
-        model: ''
-      };
-    },
-    clientLabel() {
-      const item = this.getSPF.find(spf => spf.code == 'LABEL_AC_CUS');
-      return (item === null || item === void 0 ? void 0 : item.value) || 'ກະຊວງ';
-    },
-    getSPF() {
-      return this.$store.getters.findSPF;
-    },
-    isEdit() {
-      return !!this.invoice;
-    },
-    auditTrail() {
-      if (!this.invoice) {
-        var _this$user, _this$user2;
-        return {
-          makerName: ((_this$user = this.user) === null || _this$user === void 0 ? void 0 : _this$user.cus_name) || ((_this$user2 = this.user) === null || _this$user2 === void 0 ? void 0 : _this$user2.name) || 'ຜູ້ໃຊ້ປະຈຸບັນ',
-          createdDate: new Date().toISOString().split('T')[0],
-          isChecked: false,
-          checkerName: null,
-          status: 'draft'
-        };
-      }
-      const maker = this.invoice.maker || {};
-      const checker = this.invoice.checker || null;
-      const createdAt = new Date(this.invoice.createdAt);
-      return {
-        makerName: maker.cus_name || 'ບໍ່ມີຂໍ້ມູນ',
-        createdDate: createdAt.toISOString().split('T')[0],
-        checkerName: (checker === null || checker === void 0 ? void 0 : checker.cus_name) || null,
-        isChecked: !!this.invoice.checkerId && !!this.invoice.approvedAt,
-        status: this.invoice.status || 'draft'
-      };
-    },
-    calculatedSubtotal() {
-      return this.lineItems.reduce((sum, line) => {
-        const subtotal = (parseFloat(line.quantity) || 0) * (parseFloat(line.unitPrice) || 0);
-        return sum + subtotal;
-      }, 0);
-    },
-    calculatedDiscount() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.discountAmount) || 0), 0);
-    },
-    calculatedTax() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.taxAmount) || 0), 0);
-    },
-    calculatedTotal() {
-      return this.lineItems.reduce((sum, line) => sum + (parseFloat(line.lineTotal) || 0), 0);
-    },
-    isFormValid() {
-      const hasValidHeader = this.form.invoiceNumber && this.form.agencyId && this.form.invoiceDate && this.form.dueDate && this.form.currencyId && this.form.exchangeRate && parseFloat(this.form.exchangeRate) > 0 && (!this.isEdit || this.form.reason);
-      const hasValidLines = this.lineItems.length > 0 && this.lineItems.every(line => line.description && (parseFloat(line.quantity) || 0) > 0 && (parseFloat(line.unitPrice) || 0) >= 0);
-      return hasValidHeader && hasValidLines;
-    }
-  },
-  watch: {
-    visible: {
-      handler(newVal) {
-        if (newVal) {
-          this.initializeDialog();
-        } else {
-          this.resetDialog();
-        }
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    async loadTransactionCodes() {
-      this.loadingTransactionCodes = true;
-      try {
-        const {
-          data
-        } = await this.$axios.get('/api/transaction-codes', {
-          params: {
-            includeInactive: false,
-            // type: 'EXPENSE', // Filter only EXPENSE types for payments
-            type: 'EXPENSE' // Filter only EXPENSE types for payments
-          }
-        });
-        this.transactionCodes = data || [];
-      } catch (error) {
-        var _this$$toast;
-        console.error('Error loading transaction codes:', error);
-        (_this$$toast = this.$toast) === null || _this$$toast === void 0 ? void 0 : _this$$toast.error('ໂຫລດລະຫັດການເງິນບໍ່ສຳເລັດ');
-        this.transactionCodes = [];
-      } finally {
-        this.loadingTransactionCodes = false;
-      }
-    },
-    getTransactionCodeLabel(txnId) {
-      const txn = this.transactionCodes.find(t => t.id === txnId);
-      return txn ? `${txn.code} - ${txn.description}` : '';
-    },
-    async requestSequence() {
-      try {
-        const {
-          data
-        } = await this.$axios.get('/api/ap-invoices/sequence');
-        if (data.success) {
-          // Assign the generated invoice number to your form
-          this.form.invoiceNumber = data.data.invoiceNumber;
-
-          // Optional: Show success message
-          this.$message.success(`Invoice number generated: ${data.data.invoiceNumber}`);
-          return data.data.invoiceNumber;
-        }
-      } catch (error) {
-        console.error('Error getting invoice sequence:', error);
-        this.$message.error('Failed to generate invoice number');
-        throw error;
-      }
-    },
-    async initializeDialog() {
-      this.clearErrors();
-      if (this.invoice) {
-        this.form = {
-          id: this.invoice.id,
-          invoiceNumber: this.invoice.invoiceNumber,
-          vendorInvoiceNumber: this.invoice.vendorInvoiceNumber,
-          vendorId: this.invoice.vendorId,
-          agencyId: this.invoice.agencyId,
-          invoiceDate: this.invoice.invoiceDate ? this.invoice.invoiceDate.split('T')[0] : '',
-          dueDate: this.invoice.dueDate ? this.invoice.dueDate.split('T')[0] : new Date().toISOString().split('T')[0],
-          description: this.invoice.description || '',
-          totalAmount: this.invoice.totalAmount,
-          exchangeRate: this.invoice.exchangeRate || 1.0,
-          currencyId: this.invoice.currencyId,
-          makerId: this.invoice.makerId,
-          note: this.invoice.note || '',
-          reason: ''
-        };
-        await this.loadLineItems(this.invoice.id);
-      } else {
-        this.resetForm();
-        if (this.currencies.length > 0) {
-          const defaultCurrency = this.currencies.find(c => c.code === 'LAK') || this.currencies.find(c => c.code === 'USD') || this.currencies[0];
-          this.form.currencyId = defaultCurrency.id;
-          this.selectedCurrency = defaultCurrency;
-          this.form.exchangeRate = defaultCurrency.code === 'LAK' ? 1.0 : 1.0;
-        }
-        this.lineItems = [this.createEmptyLine()];
-        this.requestSequence();
-        this.loadTransactionCodes();
-      }
-      this.updateSelectedVendor();
-      this.updateSelectedCurrency();
-    },
-    resetDialog() {
-      this.resetForm();
-      this.lineItems = [];
-      this.selectedVendor = null;
-      this.selectedCurrency = null;
-      this.clearErrors();
-      this.formLoading = false;
-      this.saving = false;
-      this.auditDialogVisible = false;
-    },
-    async loadLineItems(invoiceId) {
-      try {
-        const {
-          data
-        } = await this.$axios.get(`/api/ap-invoices-lines/invoice/${invoiceId}`);
-        this.lineItems = data.data || [this.createEmptyLine()];
-        this.lineItems.forEach(line => {
-          if (!line.tempId) line.tempId = this.nextTempId++;
-          this.calculateLineTotal(line);
-        });
-      } catch (error) {
-        console.error('Error loading line items:', error);
-        this.lineItems = [this.createEmptyLine()];
-      }
-    },
-    openAuditDialog() {
-      if (this.form.id) this.auditDialogVisible = true;
-    },
-    closeAuditDialog() {
-      this.auditDialogVisible = false;
-    },
-    getInvoiceInfo() {
-      if (!this.invoice) return null;
-      return {
-        invoiceNumber: this.form.invoiceNumber,
-        vendorInvoiceNumber: this.form.vendorInvoiceNumber,
-        totalAmount: this.calculatedTotal,
-        status: this.invoice.status
-      };
-    },
-    createEmptyLine() {
-      return {
-        tempId: this.nextTempId++,
-        lineNumber: this.lineItems.length + 1,
-        description: '',
-        quantity: 1,
-        unitPrice: 0,
-        DRglAccountId: null,
-        CRglAccountId: null,
-        txnId: null,
-        discountRate: 0,
-        discountAmount: 0,
-        taxRate: 0,
-        taxAmount: 0,
-        lineTotal: 0,
-        note: ''
-      };
-    },
-    addNewLine() {
-      this.lineItems.push(this.createEmptyLine());
-    },
-    addMultipleLines(count) {
-      for (let i = 0; i < count; i++) {
-        this.lineItems.push(this.createEmptyLine());
-      }
-    },
-    removeLine(index) {
-      if (this.lineItems.length > 1) {
-        this.lineItems.splice(index, 1);
-        this.updateLineNumbers();
-      }
-    },
-    updateLineNumbers() {
-      this.lineItems.forEach((line, index) => {
-        line.lineNumber = index + 1;
-      });
-    },
-    calculateLineTotal(line) {
-      const quantity = parseFloat(line.quantity) || 0;
-      const unitPrice = parseFloat(line.unitPrice) || 0;
-      const discountRate = parseFloat(line.discountRate) || 0;
-      const taxRate = parseFloat(line.taxRate) || 0;
-      const subtotal = quantity * unitPrice;
-      const discountAmount = subtotal * (discountRate / 100);
-      line.discountAmount = discountAmount;
-      const afterDiscount = subtotal - discountAmount;
-      const taxAmount = afterDiscount * (taxRate / 100);
-      line.taxAmount = taxAmount;
-      line.lineTotal = afterDiscount + taxAmount;
-      this.calculateExchangeAmounts();
-    },
-    calculateExchangeAmounts() {
-      this.clearFieldError('exchangeRate');
-    },
-    updateSelectedVendor() {
-      if (this.form.agencyId && this.agencies.length > 0) {
-        this.selectedVendor = this.agencies.find(v => v.id === this.form.agencyId);
-      } else {
-        this.selectedVendor = null;
-      }
-    },
-    updateSelectedCurrency() {
-      if (this.form.currencyId && this.currencies.length > 0) {
-        this.selectedCurrency = this.currencies.find(c => c.id === this.form.currencyId);
-        if (this.selectedCurrency && this.selectedCurrency.code === 'LAK') {
-          this.form.exchangeRate = 1.0;
-        }
-      } else {
-        this.selectedCurrency = null;
-      }
-    },
-    onVendorChange() {
-      this.updateSelectedVendor();
-      this.calculateDueDate();
-      this.clearFieldError('agencyId');
-    },
-    onCurrencyChange() {
-      this.updateSelectedCurrency();
-      this.clearFieldError('currencyId');
-      const selectedCurrency = this.currencies.find(c => c.id === this.form.currencyId);
-      if (selectedCurrency) {
-        this.form.exchangeRate = selectedCurrency.rate || 1.0;
-        this.calculateExchangeAmounts();
-      }
-    },
-    calculateDueDate() {
-      if (this.form.invoiceDate && this.selectedVendor) {
-        const invoiceDate = new Date(this.form.invoiceDate);
-        const dueDate = new Date(invoiceDate);
-        const paymentTerms = this.selectedVendor.paymentTerms || this.selectedVendor.payment_terms || 30;
-        dueDate.setDate(dueDate.getDate() + parseInt(paymentTerms));
-        this.form.dueDate = dueDate.toISOString().split('T')[0];
-      }
-    },
-    validateForm() {
-      this.errors = {};
-      if (!this.form.invoiceNumber) this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້';
-      // if (!this.form.vendorInvoiceNumber)
-      //   this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
-      if (!this.form.agencyId) this.errors.agencyId = `ກະລຸນາເລືອກ${this.formLabel.vendor}`;
-      if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ';
-      if (!this.form.exchangeRate) this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ';else if (parseFloat(this.form.exchangeRate) <= 0) this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງຫຼາຍກວ່າ 0';
-      if (!this.form.invoiceDate) this.errors.invoiceDate = 'ກະລຸນາໃສ່ວັນທີໃບແຈ້ງໜີ້';
-      // if (!this.form.dueDate) this.errors.dueDate = 'ກະລຸນາໃສ່ວັນທີຄົບກຳນົດ'
-      if (this.form.invoiceDate && this.form.dueDate) {
-        const invoiceDate = new Date(this.form.invoiceDate);
-        const dueDate = new Date(this.form.dueDate);
-        if (dueDate <= invoiceDate) {
-          this.errors.dueDate = 'ວັນທີຄົບກຳນົດຕ້ອງຫຼັງຈາກວັນທີໃບແຈ້ງໜີ້';
-        }
-      }
-      if (this.lineItems.length === 0) {
-        this.errors.lineItems = 'ກະລຸນາເພີ່ມລາຍການສິນຄ້າຢ່າງໜ້ອຍ 1 ລາຍການ';
-      } else {
-        for (let i = 0; i < this.lineItems.length; i++) {
-          const line = this.lineItems[i];
-          if (!line.description) this.errors[`line_${i}_description`] = 'ກະລຸນາໃສ່ລາຍລະອຽດສິນຄ້າ';
-          if (!line.quantity || parseFloat(line.quantity) <= 0) this.errors[`line_${i}_quantity`] = 'ຈຳນວນຕ້ອງຫຼາຍກວ່າ 0';
-          if (line.unitPrice === '' || parseFloat(line.unitPrice) < 0) this.errors[`line_${i}_unitPrice`] = 'ລາຄາຕ້ອງເປັນຄ່າບວກ';
-          // if (!line.DRglAccountId)
-          //   this.errors[`line_${i}_DRglAccountId`] = 'ກະລຸນາເລືອກ DR Account'
-          // if (!line.CRglAccountId)
-          //   this.errors[`line_${i}_CRglAccountId`] = 'ກະລຸນາເລືອກ CR Account'
-        }
-      }
-      if (this.isEdit && !this.form.reason) this.errors.reason = 'ກະລຸນາລະບຸເຫດຜົນຂອງການແກ້ໄຂ';
-      return Object.keys(this.errors).length === 0;
-    },
-    clearErrors() {
-      this.errors = {};
-    },
-    clearFieldError(field) {
-      if (this.errors[field]) {
-        this.$delete(this.errors, field);
-      }
-    },
-    handleSubmit() {
-      var _this$user3;
-      if (!this.validateForm()) return;
-      this.saving = true;
-      const formData = {
-        ...this.form,
-        makerId: this.form.makerId || ((_this$user3 = this.user) === null || _this$user3 === void 0 ? void 0 : _this$user3.id),
-        totalAmount: this.calculatedTotal,
-        exchangeRate: parseFloat(this.form.exchangeRate) || 1.0,
-        lineItems: this.lineItems.map((line, index) => ({
-          ...line,
-          lineNumber: index + 1,
-          quantity: parseFloat(line.quantity) || 0,
-          unitPrice: parseFloat(line.unitPrice) || 0,
-          discountRate: parseFloat(line.discountRate) || 0,
-          taxRate: parseFloat(line.taxRate) || 0
-        }))
-      };
-      this.$emit('save', formData);
-      this.saving = false;
-    },
-    handleOverlayClick() {
-      if (!this.saving) this.handleClose();
-    },
-    handleClose() {
-      this.$emit('close');
-    },
-    resetForm() {
-      this.form = {
-        id: null,
-        invoiceNumber: '',
-        vendorInvoiceNumber: '',
-        vendorId: null,
-        agencyId: '',
-        invoiceDate: new Date().toISOString().split('T')[0],
-        // Add this
-        dueDate: '',
-        description: '',
-        totalAmount: '',
-        exchangeRate: 1.0,
-        currencyId: '',
-        makerId: '',
-        note: '',
-        reason: ''
-      };
-    },
-    formatCurrency(amount, currencyCode = 'USD') {
-      const currency = currencyCode || 'USD';
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency === 'LAK' ? 'USD' : currency,
-        minimumFractionDigits: currency === 'LAK' ? 0 : 2,
-        maximumFractionDigits: currency === 'LAK' ? 0 : 2
-      });
-      if (currency === 'LAK') {
-        return `₭${new Intl.NumberFormat('en-US').format(amount || 0)}`;
-      }
-      return formatter.format(amount || 0);
-    },
-    getStatusText(status) {
-      const statusMap = {
-        draft: 'ຮ່າງ',
-        pending: 'ລໍຖ້າການອະນຸມັດ',
-        approved: 'ອະນຸມັດແລ້ວ',
-        rejected: 'ປະຕິເສດ',
-        paid: 'ຈ່າຍແລ້ວ',
-        cancelled: 'ຍົກເລີກ'
-      };
-      return statusMap[status] || status;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/accounting/ap/invoice/index.vue?vue&type=script&lang=js
- /* harmony default export */ var ap_invoicevue_type_script_lang_js = (invoicevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/accounting/ap/invoice/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(766)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  ap_invoicevue_type_script_lang_js,
-  invoicevue_type_template_id_7625c714_scoped_true_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "7625c714",
-  "86e34e32"
-  
-)
-
-/* harmony default export */ var invoice = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

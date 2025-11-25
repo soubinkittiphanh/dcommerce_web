@@ -224,7 +224,8 @@
                   >mdi-account-check</v-icon
                 >
                 <span class="text-caption font-weight-bold">
-                  {{ item.applicantStatistics?.interview || 0 }}
+                  {{ item.applicantStatistics?.interview || item.applicantStatistics?.total || 0 }}
+                  <!-- {{ item.applicantStatistics?.total || 0 }} -->
                 </span>
               </div>
             </template>

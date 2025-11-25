@@ -1,5 +1,224 @@
-exports.ids = [33,32,34,36,37,94,147];
+exports.ids = [33,32,34,36,37,96,149];
 exports.modules = {
+
+/***/ 1003:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(360);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(60);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(405);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
+var VToolbar = __webpack_require__(28);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
+var components_VToolbar = __webpack_require__(138);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
+
+
+
+
+
+
+
+
+
+
+var POSDialogvue_type_template_id_5b0376a2_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c(VDialog["a" /* default */], {
+    attrs: {
+      "fullscreen": "",
+      "persistent": "",
+      "transition": "dialog-bottom-transition",
+      "retain-focus": false
+    },
+    model: {
+      value: _vm.internalShow,
+      callback: function ($$v) {
+        _vm.internalShow = $$v;
+      },
+      expression: "internalShow"
+    }
+  }, [_c(VCard["a" /* default */], [_c(VToolbar["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "dark": ""
+    }
+  }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n        " + _vm._s(_vm.toolbarTitle) + "\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.ticket ? _c(VChip["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white",
+      "text-color": "primary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-ticket")]), _vm._v("\n        Ticket #" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id) + " \n      ")], 1) : _vm._e(), _vm._v(" "), _vm.hasTable ? _c(VChip["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "accent",
+      "text-color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-table-furniture")]), _vm._v("\n        Table " + _vm._s(_vm.tableDisplay) + "\n      ")], 1) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "icon": "",
+      "dark": ""
+    },
+    on: {
+      "click": _vm.handleClose
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [_vm.internalShow ? _c('MenuPOSScreen', {
+    attrs: {
+      "table-id": _vm.effectiveTableId,
+      "existing-ticket": _vm.ticket,
+      "dialog-mode": true
+    },
+    on: {
+      "ticket-updated": _vm.handleTicketUpdated,
+      "close-dialog": _vm.handleClose,
+      "reload-data": _vm.handleReloadData
+    }
+  }) : _vm._e()], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
+
+// EXTERNAL MODULE: ./components/CafePOSScreen/index.vue + 4 modules
+var CafePOSScreen = __webpack_require__(609);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=script&lang=js
+
+/* harmony default export */ var POSDialogvue_type_script_lang_js = ({
+  name: 'POSDialog',
+  components: {
+    MenuPOSScreen: CafePOSScreen["default"]
+  },
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    tableId: {
+      type: [String, Number],
+      default: null
+    },
+    ticket: {
+      type: Object,
+      default: null
+    }
+  },
+  computed: {
+    internalShow: {
+      get() {
+        return this.show;
+      },
+      set(value) {
+        if (!value) {
+          this.$emit('close');
+        }
+      }
+    },
+    hasTable() {
+      return this.tableId && this.tableId !== 'walk-in';
+    },
+    tableDisplay() {
+      var _this$ticket, _this$ticket$table;
+      if (!this.tableId || this.tableId === 'walk-in') return 'Walk-in';
+      return ((_this$ticket = this.ticket) === null || _this$ticket === void 0 ? void 0 : (_this$ticket$table = _this$ticket.table) === null || _this$ticket$table === void 0 ? void 0 : _this$ticket$table.number) || this.tableId;
+    },
+    effectiveTableId() {
+      var _this$ticket2;
+      return this.tableId || ((_this$ticket2 = this.ticket) === null || _this$ticket2 === void 0 ? void 0 : _this$ticket2.tableId) || 'walk-in';
+    },
+    toolbarTitle() {
+      var _this$ticket$client;
+      if (!this.ticket) return 'Add Items - New Order';
+      const customer = ((_this$ticket$client = this.ticket.client) === null || _this$ticket$client === void 0 ? void 0 : _this$ticket$client.name) || 'Walk-in';
+      const table = this.hasTable ? `Table ${this.tableDisplay}` : 'Walk-in';
+      return `Add Items - ${table} - ${customer}`;
+    }
+  },
+  mounted() {
+    console.info(` from POS DIALOG ${JSON.stringify(this.ticket)}`);
+  },
+  methods: {
+    handleClose() {
+      console.log('POSDialog: Closing dialog');
+      this.$emit('close');
+    },
+    handleTicketUpdated(ticket) {
+      console.log('POSDialog: Ticket updated', ticket.id);
+      this.$emit('ticket-updated', ticket);
+      // ❌ DON'T close the dialog here - let user close it manually
+      // this.$emit('close')
+    },
+    handleReloadData() {
+      console.log('POSDialog: Reload data requested');
+      this.$emit('reload-data');
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=script&lang=js
+ /* harmony default export */ var CAFE_POSDialogvue_type_script_lang_js = (POSDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  CAFE_POSDialogvue_type_script_lang_js,
+  POSDialogvue_type_template_id_5b0376a2_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "87b1b2c6"
+  
+)
+
+/* harmony default export */ var POSDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
 
 /***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
@@ -59,7 +278,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 440:
+/***/ 438:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -172,7 +391,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(136);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
-/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(91);
+/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
 // Styles
 
@@ -303,7 +522,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
 /* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
 /* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53);
-/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(50);
+/* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(51);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(136);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
@@ -1189,7 +1408,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 488:
+/***/ 490:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -1382,7 +1601,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(490);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0539923e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
@@ -1422,7 +1641,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 535:
+/***/ 536:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2123,7 +2342,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 536:
+/***/ 537:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2143,7 +2362,7 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
@@ -2152,7 +2371,7 @@ var VDialog = __webpack_require__(360);
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
+var VForm = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
@@ -2173,19 +2392,19 @@ var VListItemIcon = __webpack_require__(61);
 var VMenu = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 var VProgressLinear = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
 var VSwitch = __webpack_require__(457);
@@ -3179,7 +3398,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 552:
+/***/ 553:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3187,7 +3406,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -3205,7 +3424,7 @@ var VChip = __webpack_require__(127);
 var VChipGroup = __webpack_require__(543);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
@@ -3220,13 +3439,13 @@ var transitions = __webpack_require__(26);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
@@ -4387,7 +4606,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 553:
+/***/ 554:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4395,7 +4614,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -4419,10 +4638,10 @@ var VDialog = __webpack_require__(360);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/tickets/NotesDialog.vue?vue&type=template&id=ccdaad86&scoped=true
 
@@ -4785,34 +5004,34 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(399);
+var VForm = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=template&id=7d3a3b54&scoped=true
 
@@ -5352,7 +5571,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/CAFE/customerDialog/index.vue?vue&type=template&id=7d3a3b54&scoped=true
 
 // EXTERNAL MODULE: ./components/member_offer/index.vue + 4 modules
-var member_offer = __webpack_require__(536);
+var member_offer = __webpack_require__(537);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/customerDialog/index.vue?vue&type=script&lang=js
  // NEW: Import member offer dialog
@@ -5961,10 +6180,10 @@ Object(_mixins_groupable__WEBPACK_IMPORTED_MODULE_0__[/* factory */ "a"])('tabsB
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(403);
+var VAlert = __webpack_require__(404);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(406);
+var VAutocomplete = __webpack_require__(383);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -5979,10 +6198,10 @@ var components_VCard = __webpack_require__(6);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(402);
+var VCol = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(400);
+var VContainer = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(360);
@@ -5994,10 +6213,10 @@ var VDivider = __webpack_require__(122);
 var VIcon = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(91);
+var VProgressCircular = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(401);
+var VRow = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(19);
@@ -6006,13 +6225,13 @@ var VSelect = __webpack_require__(19);
 var VSnackbar = __webpack_require__(583);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(440);
+var VTextarea = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CafePOSScreen/index.vue?vue&type=template&id=42f3927a&scoped=true
 
@@ -7052,16 +7271,16 @@ var esnext_map_some_js_ = __webpack_require__(106);
 var esnext_map_update_js_ = __webpack_require__(107);
 
 // EXTERNAL MODULE: ./components/CAFE/printdialog/index.vue + 4 modules
-var printdialog = __webpack_require__(535);
+var printdialog = __webpack_require__(536);
 
 // EXTERNAL MODULE: ./components/CAFE/paymentDialogFront/index.vue + 4 modules
-var paymentDialogFront = __webpack_require__(552);
+var paymentDialogFront = __webpack_require__(553);
 
 // EXTERNAL MODULE: ./components/CAFE/customerDialog/index.vue + 4 modules
 var customerDialog = __webpack_require__(571);
 
 // EXTERNAL MODULE: ./components/tickets/NotesDialog.vue + 4 modules
-var NotesDialog = __webpack_require__(553);
+var NotesDialog = __webpack_require__(554);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -8713,7 +8932,7 @@ var colorable = __webpack_require__(9);
 var proxyable = __webpack_require__(77);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/resize/index.js
-var resize = __webpack_require__(50);
+var resize = __webpack_require__(51);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
 var helpers = __webpack_require__(0);
@@ -9004,225 +9223,6 @@ const baseMixins = Object(mixins["a" /* default */])(colorable["a" /* default */
     }, [this.genBar(tab, slider), this.genItems(items, item)]);
   }
 }));
-
-/***/ }),
-
-/***/ 988:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(6);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(360);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(60);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
-var VToolbar = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
-var components_VToolbar = __webpack_require__(138);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
-
-
-
-
-
-
-
-
-
-
-var POSDialogvue_type_template_id_5b0376a2_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VDialog["a" /* default */], {
-    attrs: {
-      "fullscreen": "",
-      "persistent": "",
-      "transition": "dialog-bottom-transition",
-      "retain-focus": false
-    },
-    model: {
-      value: _vm.internalShow,
-      callback: function ($$v) {
-        _vm.internalShow = $$v;
-      },
-      expression: "internalShow"
-    }
-  }, [_c(VCard["a" /* default */], [_c(VToolbar["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "dark": ""
-    }
-  }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n        " + _vm._s(_vm.toolbarTitle) + "\n      ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _vm.ticket ? _c(VChip["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "white",
-      "text-color": "primary"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-ticket")]), _vm._v("\n        Ticket #" + _vm._s(_vm.ticket.ticketNumber || _vm.ticket.id) + " \n      ")], 1) : _vm._e(), _vm._v(" "), _vm.hasTable ? _c(VChip["a" /* default */], {
-    staticClass: "mr-2",
-    attrs: {
-      "color": "accent",
-      "text-color": "white"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-table-furniture")]), _vm._v("\n        Table " + _vm._s(_vm.tableDisplay) + "\n      ")], 1) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "icon": "",
-      "dark": ""
-    },
-    on: {
-      "click": _vm.handleClose
-    }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-0"
-  }, [_vm.internalShow ? _c('MenuPOSScreen', {
-    attrs: {
-      "table-id": _vm.effectiveTableId,
-      "existing-ticket": _vm.ticket,
-      "dialog-mode": true
-    },
-    on: {
-      "ticket-updated": _vm.handleTicketUpdated,
-      "close-dialog": _vm.handleClose,
-      "reload-data": _vm.handleReloadData
-    }
-  }) : _vm._e()], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=template&id=5b0376a2
-
-// EXTERNAL MODULE: ./components/CafePOSScreen/index.vue + 4 modules
-var CafePOSScreen = __webpack_require__(609);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CAFE/POSDialog.vue?vue&type=script&lang=js
-
-/* harmony default export */ var POSDialogvue_type_script_lang_js = ({
-  name: 'POSDialog',
-  components: {
-    MenuPOSScreen: CafePOSScreen["default"]
-  },
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    tableId: {
-      type: [String, Number],
-      default: null
-    },
-    ticket: {
-      type: Object,
-      default: null
-    }
-  },
-  computed: {
-    internalShow: {
-      get() {
-        return this.show;
-      },
-      set(value) {
-        if (!value) {
-          this.$emit('close');
-        }
-      }
-    },
-    hasTable() {
-      return this.tableId && this.tableId !== 'walk-in';
-    },
-    tableDisplay() {
-      var _this$ticket, _this$ticket$table;
-      if (!this.tableId || this.tableId === 'walk-in') return 'Walk-in';
-      return ((_this$ticket = this.ticket) === null || _this$ticket === void 0 ? void 0 : (_this$ticket$table = _this$ticket.table) === null || _this$ticket$table === void 0 ? void 0 : _this$ticket$table.number) || this.tableId;
-    },
-    effectiveTableId() {
-      var _this$ticket2;
-      return this.tableId || ((_this$ticket2 = this.ticket) === null || _this$ticket2 === void 0 ? void 0 : _this$ticket2.tableId) || 'walk-in';
-    },
-    toolbarTitle() {
-      var _this$ticket$client;
-      if (!this.ticket) return 'Add Items - New Order';
-      const customer = ((_this$ticket$client = this.ticket.client) === null || _this$ticket$client === void 0 ? void 0 : _this$ticket$client.name) || 'Walk-in';
-      const table = this.hasTable ? `Table ${this.tableDisplay}` : 'Walk-in';
-      return `Add Items - ${table} - ${customer}`;
-    }
-  },
-  mounted() {
-    console.info(` from POS DIALOG ${JSON.stringify(this.ticket)}`);
-  },
-  methods: {
-    handleClose() {
-      console.log('POSDialog: Closing dialog');
-      this.$emit('close');
-    },
-    handleTicketUpdated(ticket) {
-      console.log('POSDialog: Ticket updated', ticket.id);
-      this.$emit('ticket-updated', ticket);
-      // ❌ DON'T close the dialog here - let user close it manually
-      // this.$emit('close')
-    },
-    handleReloadData() {
-      console.log('POSDialog: Reload data requested');
-      this.$emit('reload-data');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue?vue&type=script&lang=js
- /* harmony default export */ var CAFE_POSDialogvue_type_script_lang_js = (POSDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/CAFE/POSDialog.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  CAFE_POSDialogvue_type_script_lang_js,
-  POSDialogvue_type_template_id_5b0376a2_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "87b1b2c6"
-  
-)
-
-/* harmony default export */ var POSDialog = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

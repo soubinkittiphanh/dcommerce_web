@@ -43,6 +43,7 @@ const _cdba2146 = () => interopDefault(import('../pages/admin/jobAdvertise/index
 const _70c5e868 = () => interopDefault(import('../pages/admin/location/index.vue' /* webpackChunkName: "pages/admin/location/index" */))
 const _54691328 = () => interopDefault(import('../pages/admin/login/index.vue' /* webpackChunkName: "pages/admin/login/index" */))
 const _51a6edfd = () => interopDefault(import('../pages/admin/logout/index.vue' /* webpackChunkName: "pages/admin/logout/index" */))
+const _ad29d0a2 = () => interopDefault(import('../pages/admin/manage_stock/index.vue' /* webpackChunkName: "pages/admin/manage_stock/index" */))
 const _3a4e4f0d = () => interopDefault(import('../pages/admin/member/index.vue' /* webpackChunkName: "pages/admin/member/index" */))
 const _b984ba82 = () => interopDefault(import('../pages/admin/menuHeader/index.vue' /* webpackChunkName: "pages/admin/menuHeader/index" */))
 const _36ba8526 = () => interopDefault(import('../pages/admin/menuLine/index.vue' /* webpackChunkName: "pages/admin/menuLine/index" */))
@@ -124,6 +125,7 @@ const _16e21664 = () => interopDefault(import('../pages/admin/cafe/promotion/ind
 const _324d246c = () => interopDefault(import('../pages/admin/cafeTable/customer.vue' /* webpackChunkName: "pages/admin/cafeTable/customer" */))
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
+const _581a3c60 = () => interopDefault(import('../pages/admin/inventory/stock-management/index.vue' /* webpackChunkName: "pages/admin/inventory/stock-management/index" */))
 const _5fa81691 = () => interopDefault(import('../pages/admin/job_fair/agency/index.vue' /* webpackChunkName: "pages/admin/job_fair/agency/index" */))
 const _21eab965 = () => interopDefault(import('../pages/admin/job_fair/broker/index.vue' /* webpackChunkName: "pages/admin/job_fair/broker/index" */))
 const _d3be8c8c = () => interopDefault(import('../pages/admin/job_fair/employee/index.vue' /* webpackChunkName: "pages/admin/job_fair/employee/index" */))
@@ -329,6 +331,10 @@ export const routerOptions = {
     path: "/admin/logout",
     component: _51a6edfd,
     name: "admin-logout"
+  }, {
+    path: "/admin/manage_stock",
+    component: _ad29d0a2,
+    name: "admin-manage_stock"
   }, {
     path: "/admin/member",
     component: _3a4e4f0d,
@@ -653,6 +659,10 @@ export const routerOptions = {
     path: "/admin/customer_request/withdraw",
     component: _e852f9ea,
     name: "admin-customer_request-withdraw"
+  }, {
+    path: "/admin/inventory/stock-management",
+    component: _581a3c60,
+    name: "admin-inventory-stock-management"
   }, {
     path: "/admin/job_fair/agency",
     component: _5fa81691,

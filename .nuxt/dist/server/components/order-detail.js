@@ -1,4 +1,4 @@
-exports.ids = [109];
+exports.ids = [111];
 exports.modules = {
 
 /***/ 610:
@@ -21,7 +21,7 @@ var components_VCard = __webpack_require__(6);
 var VDataTable = __webpack_require__(412);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(404);
+var VSpacer = __webpack_require__(405);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetail.vue?vue&type=template&id=4e790339
 
