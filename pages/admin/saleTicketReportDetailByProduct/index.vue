@@ -648,6 +648,20 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
+    safeTerminals() {
+      return Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
+    },
+    currentTerminal() {
+      if (!this.safeTerminals.length || !this.findSelectedTerminal) {
+        return null
+      }
+
+      return (
+        this.safeTerminals.find(
+          (el) => el && el.id == this.findSelectedTerminal
+        ) || null
+      )
+    },
     user() {
       return this.$auth.user || ''
     },
@@ -739,20 +753,24 @@ export default {
     exportSimplePDFAudit() {
       try {
         // Calculate simple summary data
-        const totalTickets = this.filteredTickets.length;
-        const totalItems = this.productSummary.reduce((sum, product) => sum + product.quantity, 0);
-        
+        const totalTickets = this.filteredTickets.length
+        const totalItems = this.productSummary.reduce(
+          (sum, product) => sum + product.quantity,
+          0
+        )
+
         // Group by category (extract from product data in ticket lines)
-        const categoryCount = {};
-        this.filteredTickets.forEach(ticket => {
+        const categoryCount = {}
+        this.filteredTickets.forEach((ticket) => {
           if (ticket.ticketLines && ticket.ticketLines.length > 0) {
-            ticket.ticketLines.forEach(line => {
-              const category = line.product?.category?.categ_name || 'Unknown Category';
-              categoryCount[category] = (categoryCount[category] || 0) + 1;
-            });
+            ticket.ticketLines.forEach((line) => {
+              const category =
+                line.product?.category?.categ_name || 'Unknown Category'
+              categoryCount[category] = (categoryCount[category] || 0) + 1
+            })
           }
-        });
-        
+        })
+
         // Create simple HTML for PDF
         const htmlContent = `
         <!DOCTYPE html>
@@ -781,9 +799,15 @@ export default {
           <div class="summary-box">
             <div class="summary-title">📊 OVERVIEW</div>
             <div class="summary-item">Total Tickets: ${totalTickets}</div>
-            <div class="summary-item">Paid Tickets: ${this.ticketsSummary.paidTickets}</div>
+            <div class="summary-item">Paid Tickets: ${
+              this.ticketsSummary.paidTickets
+            }</div>
             <div class="summary-item">Total Items Sold: ${totalItems}</div>
-            <div class="summary-item">Average Items per Ticket: ${totalTickets > 0 ? Math.round((totalItems / totalTickets) * 100) / 100 : 0}</div>
+            <div class="summary-item">Average Items per Ticket: ${
+              totalTickets > 0
+                ? Math.round((totalItems / totalTickets) * 100) / 100
+                : 0
+            }</div>
           </div>
 
           <div class="section">
@@ -791,8 +815,11 @@ export default {
             <table>
               <tr><th>Category</th><th>Tickets Count</th></tr>
               ${Object.entries(categoryCount)
-                .sort(([,a], [,b]) => b - a)
-                .map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`)
+                .sort(([, a], [, b]) => b - a)
+                .map(
+                  ([category, count]) =>
+                    `<tr><td>${category}</td><td>${count}</td></tr>`
+                )
                 .join('')}
             </table>
           </div>
@@ -802,7 +829,10 @@ export default {
             <table>
               <tr><th>Payment Method</th><th>Tickets Count</th></tr>
               ${this.paymentTypeSummary
-                .map(payment => `<tr><td>${payment.name}</td><td>${payment.count}</td></tr>`)
+                .map(
+                  (payment) =>
+                    `<tr><td>${payment.name}</td><td>${payment.count}</td></tr>`
+                )
                 .join('')}
             </table>
           </div>
@@ -813,7 +843,12 @@ export default {
               <tr><th>Rank</th><th>Product</th><th>Quantity Sold</th></tr>
               ${this.productSummary
                 .slice(0, 10)
-                .map((product, index) => `<tr><td>${index + 1}</td><td>${product.name}</td><td>${product.quantity}</td></tr>`)
+                .map(
+                  (product, index) =>
+                    `<tr><td>${index + 1}</td><td>${product.name}</td><td>${
+                      product.quantity
+                    }</td></tr>`
+                )
                 .join('')}
             </table>
           </div>
@@ -823,7 +858,10 @@ export default {
             <table>
               <tr><th>Status</th><th>Count</th></tr>
               ${this.getTicketStatusBreakdown()
-                .map(status => `<tr><td>${status.name}</td><td>${status.count}</td></tr>`)
+                .map(
+                  (status) =>
+                    `<tr><td>${status.name}</td><td>${status.count}</td></tr>`
+                )
                 .join('')}
             </table>
           </div>
@@ -833,26 +871,28 @@ export default {
             <p>Generated for external audit purposes</p>
           </div>
         </body>
-        </html>`;
+        </html>`
 
         // Generate PDF
-        this.generatePDFFromHTML(htmlContent);
-        
+        this.generatePDFFromHTML(htmlContent)
       } catch (error) {
-        console.error('Error generating PDF audit report:', error);
-        this.$toast.error('Error generating PDF audit report: ' + error.message);
+        console.error('Error generating PDF audit report:', error)
+        this.$toast.error('Error generating PDF audit report: ' + error.message)
       }
     },
 
     getTicketStatusBreakdown() {
-      const statusBreakdown = {};
-      
-      this.filteredTickets.forEach(ticket => {
-        const status = this.getPaymentStatusText(ticket.paymentStatus);
-        statusBreakdown[status] = (statusBreakdown[status] || 0) + 1;
-      });
+      const statusBreakdown = {}
 
-      return Object.entries(statusBreakdown).map(([name, count]) => ({ name, count }));
+      this.filteredTickets.forEach((ticket) => {
+        const status = this.getPaymentStatusText(ticket.paymentStatus)
+        statusBreakdown[status] = (statusBreakdown[status] || 0) + 1
+      })
+
+      return Object.entries(statusBreakdown).map(([name, count]) => ({
+        name,
+        count,
+      }))
     },
 
     generatePDFFromHTML(htmlContent) {
@@ -863,38 +903,42 @@ export default {
           filename: `ticket_audit_summary_${this.date}_to_${this.date2}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().from(htmlContent).set(opt).save();
-      } 
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        }
+        html2pdf().from(htmlContent).set(opt).save()
+      }
       // Method 2: Simple jsPDF fallback
       else if (typeof jsPDF !== 'undefined') {
-        const doc = new jsPDF();
-        
+        const doc = new jsPDF()
+
         // Simple text-based PDF
-        doc.setFontSize(16);
-        doc.text('TICKET AUDIT SUMMARY REPORT', 20, 20);
-        
-        doc.setFontSize(12);
-        doc.text(`Period: ${this.dateFormatted} - ${this.dateFormatted2}`, 20, 35);
-        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
-        
-        doc.text('OVERVIEW', 20, 65);
-        doc.text(`Total Tickets: ${this.filteredTickets.length}`, 20, 75);
-        doc.text(`Paid Tickets: ${this.ticketsSummary.paidTickets}`, 20, 85);
-        
+        doc.setFontSize(16)
+        doc.text('TICKET AUDIT SUMMARY REPORT', 20, 20)
+
+        doc.setFontSize(12)
+        doc.text(
+          `Period: ${this.dateFormatted} - ${this.dateFormatted2}`,
+          20,
+          35
+        )
+        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45)
+
+        doc.text('OVERVIEW', 20, 65)
+        doc.text(`Total Tickets: ${this.filteredTickets.length}`, 20, 75)
+        doc.text(`Paid Tickets: ${this.ticketsSummary.paidTickets}`, 20, 85)
+
         // Add more content as needed
-        doc.save(`ticket_audit_summary_${this.date}_to_${this.date2}.pdf`);
+        doc.save(`ticket_audit_summary_${this.date}_to_${this.date2}.pdf`)
       }
       // Method 3: Browser print fallback
       else {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(htmlContent);
-        printWindow.document.close();
-        printWindow.print();
+        const printWindow = window.open('', '_blank')
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+        printWindow.print()
       }
-      
-      this.$toast.success('PDF audit report generated successfully!');
+
+      this.$toast.success('PDF audit report generated successfully!')
     },
 
     async loadData() {
@@ -1044,7 +1088,9 @@ export default {
       let reportContent = `
         <div style="font-family: 'Noto Sans Lao', Arial, sans-serif; margin: 20px;">
           <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px;">
-            <h1 style="margin: 0;">ລາຍງານການຂາຍບິນ</h1>
+            <h1 style="margin: 0;">ລາຍງານການຂາຍບິນ ${
+              this.currentTerminal.name
+            }</h1>
             <p style="margin: 10px 0;">ຈາກວັນທີ: ${
               this.dateFormatted
             } ຫາວັນທີ: ${this.dateFormatted2}</p>
