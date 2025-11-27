@@ -654,7 +654,7 @@ export default {
         case 'percentage':
           return `${conditions.discount_percentage || 0}%${conditions.max_discount_amount ? ` (max $${conditions.max_discount_amount})` : ''}`
         case 'fixed_amount':
-          return `$${conditions.discount_amount || 0} off`
+          return `${conditions.discount_amount || 0} off`
         case 'combo_deal':
           return 'Combo Deal'
         default:

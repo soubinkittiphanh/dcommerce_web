@@ -2,7 +2,7 @@
   <div v-if="visible" class="modal-overlay" @click.self="handleOverlayClick">
     <div class="settlement-dialog" @click.stop>
       <!-- Header -->
-      <div class="dialog-header">
+      <div class="dialog-header primary">
         <h4>{{ isEditMode ? 'ແກ້ໄຂການຊຳລະ' : 'ສ້າງການຊຳລະໃໝ່' }}</h4>
         <div class="header-actions">
           <button

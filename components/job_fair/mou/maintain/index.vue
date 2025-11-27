@@ -121,7 +121,7 @@
               <v-col cols="4" sm="4" md="2">
                 <v-select
                   v-model="form.agencyId"
-                  :items="agencies"
+                  :items="agencies.filter(agency => agency.agencyType === 'Agency')"
                   item-text="agencyName"
                   item-value="id"
                   label="Agency"

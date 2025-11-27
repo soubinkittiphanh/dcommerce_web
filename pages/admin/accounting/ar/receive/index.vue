@@ -186,6 +186,17 @@
                 {{ item.referenceNumber || '-' }}
               </span>
             </template>
+   <template v-slot:item.batch="{ item }">
+  <span
+    class="text-caption font-weight-medium"
+    style="font-family: monospace"
+  >
+    {{ item.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '-' }}
+    {{ item.invoiceHeader?.jobbatch?.mou?.jobCode || '-' }}
+    {{ item.invoiceHeader?.jobbatch?.mou?.jobTitle || '-' }}
+  </span>
+</template>
+
 
             <!-- Inputter -->
             <template v-slot:item.inputter="{ item }">
@@ -371,6 +382,12 @@ export default {
         {
           text: 'ເລກອ້າງອີງ',
           value: 'referenceNumber',
+          sortable: false,
+          width: '120px',
+        },
+        {
+          text: 'Batch info',
+          value: 'batch',
           sortable: false,
           width: '120px',
         },

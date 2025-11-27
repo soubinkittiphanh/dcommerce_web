@@ -721,7 +721,7 @@ export default {
               : ''
           }`
         case 'fixed_amount':
-          return `$${conditions.discount_amount || 0} off${
+          return `${conditions.discount_amount || 0} off${
             conditions.minimum_order
               ? ` on orders over $${conditions.minimum_order}`
               : ''

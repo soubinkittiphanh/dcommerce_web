@@ -18,7 +18,7 @@
         />
       </client-only>
       <div class="enhanced-dialog" @click.stop>
-        <div class="modal-header">
+        <div class="modal-header primary" >
           <h4 class="modal-title">
             <i class="fas fa-receipt"></i>
             {{ isEdit ? 'ແກ້ໄຂການຮັບຊຳລະ' : 'ເພີ່ມການຮັບຊຳລະໃໝ່' }}

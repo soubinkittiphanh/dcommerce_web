@@ -1,7 +1,5 @@
 <template>
-  <!-- <v-container fluid class="invoice-summary-container"> -->
   <div>
-    <!-- Header Section -->
     <v-row>
       <v-col cols="12">
         <v-card>
@@ -19,7 +17,6 @@
             </v-btn>
           </v-card-title>
 
-          <!-- Filters -->
           <v-card-text class="pa-3">
             <v-row dense>
               <v-col cols="12" md="3">
@@ -86,7 +83,6 @@
       </v-col>
     </v-row>
 
-    <!-- Data Table -->
     <v-row class="mt-3">
       <v-col cols="12">
         <v-card>
@@ -108,7 +104,6 @@
             loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
             no-data-text="ບໍ່ມີຂໍ້ມູນ"
           >
-            <!-- Invoice Number -->
             <template v-slot:item.invoiceNumber="{ item }">
               <div>
                 <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
@@ -122,14 +117,12 @@
               </div>
             </template>
 
-            <!-- Invoice Date -->
             <template v-slot:item.invoiceDate="{ item }">
               <span class="text-caption">{{
                 formatDate(item.invoiceDate)
               }}</span>
             </template>
 
-            <!-- Customer -->
             <template v-slot:item.customer="{ item }">
               <div v-if="item.agency">
                 <div class="font-weight-medium">
@@ -143,7 +136,6 @@
               <span v-else class="grey--text text-caption">N/A</span>
             </template>
 
-            <!-- Due Date -->
             <template v-slot:item.dueDate="{ item }">
               <span
                 class="text-caption"
@@ -159,7 +151,6 @@
               </span>
             </template>
 
-            <!-- Total Amount -->
             <template v-slot:item.totalAmount="{ item }">
               <div class="text-right">
                 <div class="font-weight-bold">
@@ -173,8 +164,24 @@
                 </div>
               </div>
             </template>
+            
+            <template v-slot:item.settledAmount="{ item }">
+              <div class="text-right font-weight-bold success--text">
+                {{ formatCurrency(item.settledAmount) }}
+              </div>
+            </template>
 
-            <!-- Status -->
+            <template v-slot:item.outstandingAmount="{ item }">
+              <div
+                class="text-right font-weight-bold"
+                :class="{
+                  'error--text': item.outstandingAmount > 0 && item.status !== 'paid',
+                }"
+              >
+                {{ formatCurrency(item.outstandingAmount) }}
+              </div>
+            </template>
+
             <template v-slot:item.status="{ item }">
               <v-chip
                 x-small
@@ -185,17 +192,15 @@
               </v-chip>
             </template>
 
-            <!-- Maker -->
             <template v-slot:item.maker="{ item }">
               <div class="text-caption">
-                <div>{{ item.maker ? item.maker.username : 'N/A' }}</div>
+                <div>{{ item.maker ? item.maker.cus_name : 'N/A' }}</div>
                 <div v-if="item.createdAt" class="grey--text">
                   {{ formatDate(item.createdAt) }}
                 </div>
               </div>
             </template>
 
-            <!-- Actions -->
             <template v-slot:item.actions="{ item }">
               <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
@@ -225,19 +230,17 @@
       </v-col>
     </v-row>
 
-    <!-- Invoice Maintain Dialog -->
     <InvoiceHeaderMaintain
       :gl-accounts="glAccounts"
       :visible="showEditDialog"
       :invoice="selectedInvoice"
-      :agencies="agencies"
+      :agencies="agencies.filter(agency => agency.agencyType != 'Employee')"
       :jobBatches="jobBatches"
       :currencies="currencies"
       @close="closeEditDialog"
       @save="onInvoiceSave"
     />
 
-    <!-- Invoice View Dialog -->
     <client-only>
       <InvoiceHeaderView
         :visible="showViewDialog"
@@ -246,8 +249,7 @@
       />
     </client-only>
   </div>
-  <!-- </v-container> -->
-</template>
+  </template>
 
 <script>
 import InvoiceHeaderMaintain from '~/components/accounting/ar/invoice/maintain'
@@ -319,6 +321,20 @@ export default {
           width: '180px',
         },
         {
+          text: 'ຍອດຊຳລະແລ້ວ',
+          value: 'settledAmount',
+          sortable: true,
+          align: 'end',
+          width: '180px',
+        },
+        {
+          text: 'ຍອດຄ້າງຊຳລະ',
+          value: 'outstandingAmount',
+          sortable: true,
+          align: 'end',
+          width: '180px',
+        },
+        {
           text: 'ສະຖານະ',
           value: 'status',
           sortable: true,
@@ -379,7 +395,34 @@ export default {
   },
 
   methods: {
-    // NEW METHOD: Get current month's first day
+    /**
+     * Calculates the settled and outstanding amounts for each invoice.
+     * @param {Array<Object>} invoices - The array of invoice objects from the API.
+     * @returns {Array<Object>} The updated array of invoice objects.
+     */
+    calculateAmounts(invoices) {
+      return invoices.map((invoice) => {
+        // Calculate total settled amount from receiveHeaders
+        const settledAmount = (invoice.receiveHeaders || []).reduce(
+          (sum, header) => {
+            // Use totalReceivedAmount from the header, as per the structure
+            const totalReceived = header.totalReceivedAmount || 0;
+            return sum + totalReceived;
+          },
+          0
+        )
+
+        const totalAmount = invoice.totalAmount || 0
+        const outstandingAmount = totalAmount - settledAmount;
+
+        return {
+          ...invoice,
+          settledAmount: settledAmount,
+          outstandingAmount: outstandingAmount,
+        }
+      })
+    },
+
     getCurrentMonthStart() {
       const now = new Date()
       const year = now.getFullYear()
@@ -387,7 +430,6 @@ export default {
       return new Date(year, month, 1).toISOString().split('T')[0]
     },
 
-    // NEW METHOD: Get current month's last day
     getCurrentMonthEnd() {
       const now = new Date()
       const year = now.getFullYear()
@@ -395,7 +437,6 @@ export default {
       return new Date(year, month + 1, 0).toISOString().split('T')[0]
     },
 
-    // NEW METHOD: Set default dates for current month
     setDefaultDates() {
       this.filters.dateFrom = this.getCurrentMonthStart()
       this.filters.dateTo = this.getCurrentMonthEnd()
@@ -418,7 +459,8 @@ export default {
         })
 
         if (data && data.success) {
-          this.invoices = data.data.invoices || []
+          // Calculate amounts when data is fetched
+          this.invoices = this.calculateAmounts(data.data.invoices || [])
         } else {
           this.invoices = []
         }
@@ -547,7 +589,7 @@ export default {
 
       if (this.filters.agencyId) {
         filtered = filtered.filter(
-          (inv) => inv.customerId == this.filters.agencyId
+          (inv) => inv.agencyId == this.filters.agencyId // Corrected from customerId to agencyId
         )
       }
 
@@ -567,7 +609,8 @@ export default {
         })
       }
 
-      this.filteredInvoices = filtered
+      // Recalculate amounts on filtered data (although already done in fetch, this is safer for manipulation)
+      this.filteredInvoices = this.calculateAmounts(filtered) 
       this.pagination.currentPage = 1
     },
 
@@ -586,6 +629,7 @@ export default {
     },
 
     exportData() {
+      // NOTE: Update convertToCSV if you want to include Settle and Outstanding amounts in export
       const csvData = this.convertToCSV(this.filteredInvoices)
       this.downloadCSV(csvData, 'invoices-export.csv')
     },
@@ -597,6 +641,8 @@ export default {
         'Due Date',
         'Customer',
         'Total Amount',
+        'Settled Amount', // Added to export
+        'Outstanding Amount', // Added to export
         'Status',
       ]
       const csvContent = [
@@ -606,8 +652,10 @@ export default {
             `"${row.invoiceNumber}"`,
             row.invoiceDate,
             row.dueDate || '',
-            `"${row.customer?.name || ''}"`,
+            `"${row.agency?.agencyName || ''}"`, // Changed from customer?.name to agency?.agencyName
             row.totalAmount,
+            row.settledAmount, // Added to export
+            row.outstandingAmount, // Added to export
             row.status,
           ].join(',')
         ),
@@ -631,7 +679,8 @@ export default {
     },
 
     formatCurrency(amount) {
-      if (!amount) return '0.00'
+      if (amount === null || amount === undefined) return '0.00'
+      // Ensure amount is a number before formatting
       return parseFloat(amount).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -664,9 +713,13 @@ export default {
       if (!dueDate || status === 'paid' || status === 'cancelled') return ''
 
       const today = new Date()
+      today.setHours(0, 0, 0, 0) // Normalize today
+
       const due = new Date(dueDate)
+      due.setHours(0, 0, 0, 0) // Normalize due date
 
       if (due < today) return 'overdue-date'
+      // Due in 7 days or less
       if (due <= new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000))
         return 'due-soon'
       return ''

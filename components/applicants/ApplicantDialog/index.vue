@@ -169,6 +169,7 @@
                     <option value="REGISTER">ລົງທະບຽນ</option>
                     <option value="CONFIRM">ພ້ອມເດີນທາງ</option>
                     <option value="SUBMITED">ເດີນທາງແລ້ວ</option>
+                    <option value="rejected">ປະຕິເສດ</option>
                   </select>
                 </div>
 
@@ -214,6 +215,12 @@
                   <label>
                     <input type="checkbox" v-model="formData.isRefund" />
                     <i class="fas fa-hand-holding-usd"></i> ຄືນມັດຈຳ
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" v-model="formData.depositByCensusBook" />
+                    <i class="fas fa-hand-holding-usd"></i> ມັດຈຳດ້ວຍປື້ມສຳມະໂນຄົວ
                   </label>
                 </div>
               </div>
@@ -363,6 +370,7 @@ export default {
         emergencyContactNo: '',
         depositAmount: '',
         isRefund: false,
+        depositByCensusBook: false,
         address: '',
         village: '',
         city: '',
@@ -503,6 +511,7 @@ export default {
           district: a.district || '',
           depositAmount: a.depositAmount || 0,
           isRefund: a.isRefund || false,
+          depositByCensusBook: a.depositByCensusBook || false,
           passportAvailability: a.passportAvailability || false,
           passportRecieve: a.passportRecieve || false,
           passportNo: a.passportNo || '',

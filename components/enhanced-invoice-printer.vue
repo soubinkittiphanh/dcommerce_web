@@ -385,7 +385,7 @@ export default {
 
     formatCurrency(value) {
       if (!value && value !== 0) return '$0.00'
-      return `$${parseFloat(value).toLocaleString('en-US', {
+      return `${parseFloat(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`
@@ -393,9 +393,9 @@ export default {
 
     numberToWords(num) {
       if (num === 0) return 'Zero'
-      if (num < 1000) return `${Math.floor(num)} Dollars`
-      if (num < 1000000) return `${Math.floor(num / 1000)} Thousand Dollars`
-      return `${Math.floor(num / 1000000)} Million Dollars`
+      if (num < 1000) return `${Math.floor(num)} ${this.getCurrencyInfo}`
+      if (num < 1000000) return `${Math.floor(num / 1000)} Thousand ${this.getCurrencyInfo}`
+      return `${Math.floor(num / 1000000)} Million ${this.getCurrencyInfo}`
     },
 
     printInvoice() {

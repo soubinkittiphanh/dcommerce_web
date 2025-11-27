@@ -145,6 +145,12 @@
             {{ item.phone }}
           </div>
         </template>
+        <template v-slot:item.batch="{ item }">
+          <div class="contact-details">
+            <v-icon small left>mdi-office-building</v-icon>
+            {{ item.jobBatch?.mou?.jobCode || '' }} - {{ item.jobBatch?.mou?.jobTitle || '' }}
+          </div>
+        </template>
        <template v-slot:item.employee="{ item }">
           <div class="contact-details">
             <v-icon small left>mdi-account</v-icon>
@@ -310,7 +316,9 @@ export default {
         { text: 'ເພດ', value: 'gender', sortable: true },
         { text: 'ອາຍຸ', value: 'age', sortable: true },
         { text: 'ຕິດຕໍ່', value: 'phone', sortable: false },
-        { text: 'ທີ່ຢູ່', value: 'address', sortable: false },
+        { text: 'Job batch', value: 'batch', sortable: false },
+        // { text: 'ທີ່ຢູ່', value: 'mou', sortable: false },
+        // { text: 'ທີ່ຢູ່', value: 'address', sortable: false },
         {
           text: 'ວັນທີ່ເລີມຕົ້ນສັນຍາ',
           value: 'contractStartDate',

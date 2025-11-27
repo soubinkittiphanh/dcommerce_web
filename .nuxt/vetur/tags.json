@@ -215,11 +215,11 @@
   "UnitForm": {
     "description": "Auto imported from components/unitForm.vue"
   },
-  "CAFEPOSDialog": {
-    "description": "Auto imported from components/CAFE/POSDialog.vue"
-  },
   "CafePOSScreen": {
     "description": "Auto imported from components/CafePOSScreen/index.vue"
+  },
+  "CAFEPOSDialog": {
+    "description": "Auto imported from components/CAFE/POSDialog.vue"
   },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
@@ -353,11 +353,11 @@
   "CAFEPaymentDialogFront": {
     "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
   },
-  "CAFEPrintBarDialog": {
-    "description": "Auto imported from components/CAFE/printBarDialog/index.vue"
-  },
   "CAFEPrintdialog": {
     "description": "Auto imported from components/CAFE/printdialog/index.vue"
+  },
+  "CAFEPrintBarDialog": {
+    "description": "Auto imported from components/CAFE/printBarDialog/index.vue"
   },
   "MAPaymentAuditDialog": {
     "description": "Auto imported from components/MA/paymentAuditDialog/index.vue"
@@ -512,11 +512,11 @@
   "AccountingArReceiveVoucher": {
     "description": "Auto imported from components/accounting/ar/receive/voucher/index.vue"
   },
-  "AccountingApInvoiceAuditView": {
-    "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
-  },
   "AccountingApSettlementAuditView": {
     "description": "Auto imported from components/accounting/ap/settlement/audit/view/index.vue"
+  },
+  "AccountingApInvoiceAuditView": {
+    "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
   },
   "AccountingArInvoiceAuditView": {
     "description": "Auto imported from components/accounting/ar/invoice/audit/view/index.vue"

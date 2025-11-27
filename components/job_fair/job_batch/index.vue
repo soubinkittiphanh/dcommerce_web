@@ -194,7 +194,7 @@
             <v-divider class="my-4"></v-divider>
 
             <!-- Configuration & Status Section -->
-             <v-row dense>
+            <v-row dense>
               <!-- Status -->
               <v-col cols="3" md="3">
                 <v-select
@@ -276,13 +276,32 @@
               </v-col>
               <!-- person -->
               <v-col cols="4" md="4">
-                <v-textarea
+                <!-- <v-textarea
                   v-model="formData.inchargePerson"
                   label="ຜູ້ຮັບຜິດຊອບ"
                   outlined
                   dense
                   rows="2"
                   no-resize
+                /> -->
+
+                <label><i class="fas fa-building"></i> ຜູ້ຮັບຜິດຊອບ</label>
+                <v-select
+                  v-model="formData.agencyId"
+                  :items="
+                    agencies.filter(
+                      (agency) => agency.agencyType === 'Employee'
+                    )
+                  "
+                  item-text="agencyName"
+                  item-value="id"
+                  label="ພະນັກງານ"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-domain"
+                  :loading="loadingAgencies"
+                  clearable
                 />
               </v-col>
             </v-row>
@@ -319,6 +338,8 @@ export default {
   },
   data() {
     return {
+      loadingAgencies:false,
+      agencies:[],
       nextRunningNo: null,
       loadingRunningNo: false,
       formValid: false,
@@ -341,6 +362,7 @@ export default {
         status: 'draft',
         notes: '',
         inchargePerson: '',
+        agencyId: null,
       },
       rules: {
         mouId: [(v) => !!v || 'MOU selection is required'],
@@ -373,6 +395,22 @@ export default {
     },
   },
   methods: {
+   async fetchAgencies() {
+      this.loadingAgencies = true
+      try {
+        const response = await this.$axios.$get('/api/agency')
+        if (response.success && response.data && response.data.agencies) {
+          this.agencies = response.data.agencies
+        } else if (response.success && Array.isArray(response.data)) {
+          this.agencies = response.data
+        }
+      } catch (error) {
+        console.error('Error fetching agencies:', error)
+        this.$toast.error('ໂຫລດຂໍ້ມູນຕົວແທນບໍ່ສຳເລັດ')
+      } finally {
+        this.loadingAgencies = false
+      }
+    },
     async fetchMous() {
       this.loadingMous = true
       try {
@@ -419,6 +457,7 @@ export default {
     },
 
     initializeForm() {
+    this.fetchAgencies()
       if (this.isEdit && this.batch) {
         this.formData = {
           mouId: this.batch.mouId || null,
@@ -434,6 +473,7 @@ export default {
           status: this.batch.status || 'draft',
           notes: this.batch.notes || '',
           inchargePerson: this.batch.inchargePerson || '',
+          agencyId: this.batch.agencyId || null,
         }
         if (this.batch.mou) {
           this.selectedMou = this.batch.mou
@@ -464,6 +504,7 @@ export default {
         status: 'draft',
         notes: '',
         inchargePerson: '',
+        agencyId: null,
       }
       this.selectedMou = null
       this.nextRunningNo = null

@@ -145,7 +145,7 @@
                 >
                 <div>
                   <div class="text-caption font-weight-bold">
-                    {{ item.mou.mouName }}
+                    {{ item.mou.employerCompany }}
                   </div>
                   <div class="text-caption grey--text">
                     {{ item.mou.mouNumber }}

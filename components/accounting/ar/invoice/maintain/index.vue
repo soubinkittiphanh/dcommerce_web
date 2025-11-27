@@ -1,7 +1,7 @@
 <template>
   <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
     <div class="enhanced-dialog" @click.stop>
-      <div class="modal-header">
+      <div class="modal-header primary">
         <h4 class="modal-title">
           <i class="fas fa-file-invoice"></i>
           {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່' }}
