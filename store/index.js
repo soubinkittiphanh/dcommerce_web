@@ -761,7 +761,7 @@ export const actions = {
 const fetchData = async (url, action, dispatch, axios, errorMessage) => {
     try {
         const response = await axios.get(url)
-        await dispatch(action, response.data)
+        await dispatch(action, response.data?.data ?? response.data)
     } catch (error) {
         console.error(`${errorMessage}: ${error.message || error}`)
         await dispatch('addError', `${errorMessage}: ${error.message || error}`)

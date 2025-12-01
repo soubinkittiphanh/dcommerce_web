@@ -2,18 +2,21 @@
   <div class="modal-overlay">
     <div class="enhanced-dialog">
       <v-dialog v-model="dialogMessage" max-width="300px" persistent>
-        <dialog-classic-message :message="message" @closedialog="message = null">
+        <dialog-classic-message
+          :message="message"
+          @closedialog="message = null"
+        >
         </dialog-classic-message>
       </v-dialog>
-      
+
       <v-dialog v-model="isloading" hide-overlay persistent width="300">
         <loading-indicator></loading-indicator>
       </v-dialog>
-      
+
       <v-dialog v-model="preview" hide-overlay width="400px">
         <dia-image :i-url="previewSrc" @closeDia="preview = false"></dia-image>
       </v-dialog>
-      
+
       <v-dialog v-model="priceListDialog" max-width="800px">
         <price-list-form
           :key="priceListFormKey"
@@ -23,352 +26,380 @@
         ></price-list-form>
       </v-dialog>
 
-      <v-card>
-        <v-card-title class="py-2">
-          <v-chip small color="primary" text-color="white">
-            <v-icon left small>mdi-label</v-icon>
-            {{ title }}
-          </v-chip>
-        </v-card-title>
+      <!-- Scrollable Content Area -->
+      <div class="modal-content">
+        <v-card>
+          <v-card-title class="py-2">
+            <v-chip small color="primary" text-color="white">
+              <v-icon left small>mdi-label</v-icon>
+              {{ title }}
+            </v-chip>
+          </v-card-title>
 
-        <v-card-text class="pa-3">
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-row dense>
-              <!-- Row 1: Company, Category, Product ID -->
-              <v-col cols="4">
-                <v-autocomplete
-                  item-text="name"
-                  item-value="id"
-                  :items="companyList"
-                  label="ຮ້ານ*"
-                  v-model="formData.companyId"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="4">
-                <v-autocomplete
-                  item-text="categ_name"
-                  item-value="categ_id"
-                  :items="category"
-                  label="ປະເພດສິນຄ້າ*"
-                  v-model="formData.pro_category"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  :value="formData.pro_id || '1XXX'"
-                  label="ໄອດີສິນຄ້າ"
-                  disabled
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
+          <v-card-text class="pa-3">
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-row dense>
+                <!-- Row 1: Company, Category, Product ID -->
+                <v-col cols="12" sm="4">
+                  <v-autocomplete
+                    item-text="name"
+                    item-value="id"
+                    :items="companyList"
+                    label="ຮ້ານ*"
+                    v-model="formData.companyId"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12" sm="4">
+                  <v-autocomplete
+                    item-text="categ_name"
+                    item-value="categ_id"
+                    :items="category"
+                    label="ປະເພດສິນຄ້າ*"
+                    v-model="formData.pro_category"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12" sm="4">
+                  <v-text-field
+                    :value="formData.pro_id || '1XXX'"
+                    label="ໄອດີສິນຄ້າ"
+                    disabled
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
 
-              <!-- Row 2: Name, Price, Cost -->
-              <v-col cols="6">
-                <v-text-field
-                  v-model="formData.pro_name"
-                  :rules="rules.nameRule"
-                  label="ຊື້ສິນຄ້າ*"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="3">
-                <v-text-field
-                  v-model="formData.pro_price"
-                  :rules="rules.priceRule"
-                  label="ລາຄາ*"
-                  type="number"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="3">
-                <v-text-field
-                  v-model="formData.pro_cost_price"
-                  :rules="rules.priceRule"
-                  label="ຕົ້ນທຶນ*"
-                  type="number"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
+                <!-- Row 2: Name, Price, Cost -->
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="formData.pro_name"
+                    :rules="rules.nameRule"
+                    label="ຊື້ສິນຄ້າ*"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6" sm="3">
+                  <v-text-field
+                    v-model="formData.pro_price"
+                    :rules="rules.priceRule"
+                    label="ລາຄາ*"
+                    type="number"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6" sm="3">
+                  <v-text-field
+                    v-model="formData.pro_cost_price"
+                    :rules="rules.priceRule"
+                    label="ຕົ້ນທຶນ*"
+                    type="number"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
 
-              <!-- Row 3: Currency, Tax, Units -->
-              <v-col cols="2">
-                <v-autocomplete
-                  item-text="code"
-                  item-value="id"
-                  :items="findAllCurrency"
-                  label="Currency"
-                  v-model="formData.saleCurrencyId"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="2">
-                <v-autocomplete
-                  item-text="displayText"
-                  item-value="id"
-                  :items="productType"
-                  label="Product type"
-                  v-model="formData._category"
-                  :loading="loadingTaxRates"
-                  dense
-                  outlined
-                  hide-details="auto"
-                  clearable
-                >
-                  <template v-slot:selection="{ item }">
-                    <v-chip
-                      x-small
-                      :color="item.isDefault ? 'primary' : 'default'"
-                    >
-                      {{ item }}
-                    </v-chip>
-                    <span class="ml-1 text-caption">{{ item }}</span>
-                  </template>
-                </v-autocomplete>
-              </v-col>
-              <v-col cols="2">
-                <v-autocomplete
-                  item-text="displayText"
-                  item-value="id"
-                  :items="taxRateOptions"
-                  label="Tax Rate"
-                  v-model="formData.taxId"
-                  :loading="loadingTaxRates"
-                  dense
-                  outlined
-                  hide-details="auto"
-                  clearable
-                >
-                  <template v-slot:selection="{ item }">
-                    <v-chip
-                      x-small
-                      :color="item.isDefault ? 'primary' : 'default'"
-                    >
-                      {{ item.displayRate }}
-                    </v-chip>
-                    <span class="ml-1 text-caption">{{ item.name }}</span>
-                  </template>
-                </v-autocomplete>
-              </v-col>
-              <v-col cols="3">
-                <v-autocomplete
-                  item-text="name"
-                  item-value="id"
-                  :items="unitList"
-                  label="ຫົວຫນ່ວຍຮັບ*"
-                  v-model="formData.receiveUnitId"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="3">
-                <v-autocomplete
-                  item-text="name"
-                  item-value="id"
-                  :items="unitList"
-                  label="ຫົວຫນ່ວຍສາງ*"
-                  v-model="formData.stockUnitId"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-
-              <!-- Row 4: Retail %, Min Stock, Barcode, File Upload -->
-              <v-col cols="2">
-                <v-text-field
-                  v-model="formData.pro_retail_price"
-                  type="number"
-                  label="ລາຄາສົ່ງ %"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="2">
-                <v-text-field
-                  v-model="formData.minStock"
-                  type="number"
-                  label="ສຕັອກຂັ້ນຕ່ຳ*"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  v-model="formData.barCode"
-                  label="Barcode"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="4">
-                <v-file-input
-                  ref="filesfield"
-                  multiple
-                  accept="image/*"
-                  label="ຮູບພາບ"
-                  @change="onFilesChange"
-                  dense
-                  outlined
-                  hide-details="auto"
-                  prepend-icon=""
-                  prepend-inner-icon="mdi-camera"
-                />
-              </v-col>
-
-              <!-- Tax Preview (Compact) -->
-              <v-col cols="12" v-if="formData.taxId && formData.pro_price">
-                <v-alert dense outlined color="info" class="pa-2 mb-1">
-                  <div class="d-flex justify-space-between text-caption">
-                    <span>Base: {{ formatNumber(formData.pro_price) }}</span>
-                    <span
-                      >Tax ({{ selectedTaxRate?.displayRate }}):
-                      {{ formatNumber(calculateTaxAmount()) }}</span
-                    >
-                    <span
-                      ><strong
-                        >Total:
-                        {{ formatNumber(calculateTotalWithTax()) }}</strong
-                      ></span
-                    >
-                  </div>
-                </v-alert>
-              </v-col>
-
-              <!-- Row 5: Action Buttons, Vendor, Status -->
-              <v-col cols="2">
-                <v-btn
-                  small
-                  color="primary"
-                  outlined
-                  @click="triggerPriceListForm()"
-                  block
-                >
-                  ຈັດການລາຄາ
-                </v-btn>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  v-model="formData.vendorName"
-                  label="Vendor name"
-                  dense
-                  outlined
-                  hide-details="auto"
-                />
-              </v-col>
-              <v-col cols="3">
-                <v-switch
-                  v-model.number="formData.isActive"
-                  label="Active"
-                  dense
-                  hide-details
-                  color="success"
-                />
-              </v-col>
-              <v-col cols="3">
-                <v-switch
-                  v-model.number="formData.validateStockOnSale"
-                  label="ກວດສຕັອກກ່ອນຂາຍ"
-                  dense
-                  hide-details
-                  color="success"
-                />
-              </v-col>
-
-              <!-- Row 6: Description -->
-              <v-col cols="12">
-                <v-textarea
-                  v-model="formData.pro_desc"
-                  label="ຄຳອະທິບາຍ"
-                  rows="2"
-                  dense
-                  outlined
-                  hide-details="auto"
-                  no-resize
-                />
-              </v-col>
-
-              <!-- Barcode Section (Compact) -->
-              <v-col cols="6">
-                <v-card outlined class="pa-2">
-                  <canvas ref="barcodeCanvas" style="max-width: 100%; height: auto;"></canvas>
-                  <div class="text-center text-caption mt-1">
-                    ລາຄາ: {{ formatNumber(formData.pro_price) }}
-                  </div>
-                  <div class="text-center mt-1">
-                    <v-btn-toggle dense>
-                      <v-btn
+                <!-- Row 3: Currency, Tax, Units -->
+                <v-col cols="6" sm="2">
+                  <v-autocomplete
+                    item-text="code"
+                    item-value="id"
+                    :items="findAllCurrency"
+                    label="Currency"
+                    v-model="formData.saleCurrencyId"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6" sm="2">
+                  <v-autocomplete
+                    item-text="displayText"
+                    item-value="id"
+                    :items="productType"
+                    label="Product type"
+                    v-model="formData._category"
+                    :loading="loadingTaxRates"
+                    dense
+                    outlined
+                    hide-details="auto"
+                    clearable
+                  >
+                    <template v-slot:selection="{ item }">
+                      <v-chip
                         x-small
-                        :disabled="formData.barCode.length > 0"
-                        color="primary"
-                        @click="generateBarcode"
+                        :color="item.isDefault ? 'primary' : 'default'"
                       >
-                        Generate
-                      </v-btn>
-                      <v-btn
+                        {{ item }}
+                      </v-chip>
+                      <span class="ml-1 text-caption">{{ item }}</span>
+                    </template>
+                  </v-autocomplete>
+                </v-col>
+                <v-col cols="6" sm="2">
+                  <v-autocomplete
+                    item-text="displayText"
+                    item-value="id"
+                    :items="taxRateOptions"
+                    label="Tax Rate"
+                    v-model="formData.taxId"
+                    :loading="loadingTaxRates"
+                    dense
+                    outlined
+                    hide-details="auto"
+                    clearable
+                  >
+                    <template v-slot:selection="{ item }">
+                      <v-chip
                         x-small
-                        :disabled="formData.barCode.length == 0"
-                        color="success"
-                        @click="printBarcode"
+                        :color="item.isDefault ? 'primary' : 'default'"
                       >
-                        Print
-                      </v-btn>
-                    </v-btn-toggle>
-                  </div>
-                </v-card>
-              </v-col>
+                        {{ item.displayRate }}
+                      </v-chip>
+                      <span class="ml-1 text-caption">{{ item.name }}</span>
+                    </template>
+                  </v-autocomplete>
+                </v-col>
+                <v-col cols="6" sm="3">
+                  <v-autocomplete
+                    item-text="name"
+                    item-value="id"
+                    :items="unitList"
+                    label="ຫົວຫນ່ວຍຮັບ*"
+                    v-model="formData.receiveUnitId"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6" sm="3">
+                  <v-autocomplete
+                    item-text="name"
+                    item-value="id"
+                    :items="unitList"
+                    label="ຫົວຫນ່ວຍສາງ*"
+                    v-model="formData.stockUnitId"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
 
-              <!-- Action section (compact) -->
-              <v-col cols="6">
-                <v-row dense>
-                  <v-col cols="12">
-                    <div class="footer-actions">
-                      <v-btn
-                        color="primary"
-                        @click="uploadFiles"
-                        :disabled="!valid"
-                        block
-                        class="mb-2"
+                <!-- Row 4: Retail %, Min Stock, Barcode, File Upload -->
+                <v-col cols="6" sm="2">
+                  <v-text-field
+                    v-model="formData.pro_retail_price"
+                    type="number"
+                    label="ລາຄາສົ່ງ %"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6" sm="2">
+                  <v-text-field
+                    v-model="formData.minStock"
+                    type="number"
+                    label="ສຕັອກຂັ້ນຕ່ຳ*"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12" sm="4">
+                  <v-text-field
+                    v-model="formData.barCode"
+                    label="Barcode"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="12" sm="4">
+                  <v-file-input
+                    ref="filesfield"
+                    multiple
+                    accept="image/*"
+                    label="ຮູບພາບ"
+                    @change="onFilesChange"
+                    dense
+                    outlined
+                    hide-details="auto"
+                    prepend-icon=""
+                    prepend-inner-icon="mdi-camera"
+                  />
+                </v-col>
+
+                <!-- Tax Preview (Compact) -->
+                <v-col cols="12" v-if="formData.taxId && formData.pro_price">
+                  <v-alert dense outlined color="info" class="pa-2 mb-1">
+                    <div
+                      class="d-flex justify-space-between text-caption flex-wrap"
+                    >
+                      <span>Base: {{ formatNumber(formData.pro_price) }}</span>
+                      <span
+                        >Tax ({{ selectedTaxRate?.displayRate }}):
+                        {{ formatNumber(calculateTaxAmount()) }}</span
                       >
-                        <v-icon left>mdi-content-save</v-icon>
-                        ບັນທຶກ
-                      </v-btn>
-                      <v-btn
-                        color="secondary"
-                        @click="$emit('close-dialog')"
-                        block
-                        class="mb-2"
+                      <span
+                        ><strong
+                          >Total:
+                          {{ formatNumber(calculateTotalWithTax()) }}</strong
+                        ></span
                       >
-                        <v-icon left>mdi-close</v-icon>
-                        ຍົກເລີກ
+                    </div>
+                  </v-alert>
+                </v-col>
+
+                <!-- Row 5: Action Buttons, Vendor, Status -->
+                <v-col cols="12" sm="6" md="2">
+                  <v-btn
+                    small
+                    color="primary"
+                    outlined
+                    @click="triggerPriceListForm()"
+                    block
+                  >
+                    ຈັດການລາຄາ
+                  </v-btn>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-text-field
+                    v-model="formData.vendorName"
+                    label="Vendor name"
+                    dense
+                    outlined
+                    hide-details="auto"
+                  />
+                </v-col>
+                <v-col cols="6" sm="3">
+                  <v-switch
+                    v-model.number="formData.isActive"
+                    label="Active"
+                    dense
+                    hide-details
+                    color="success"
+                  />
+                </v-col>
+                <v-col cols="6" sm="3">
+                  <v-switch
+                    v-model.number="formData.validateStockOnSale"
+                    label="ກວດສຕັອກກ່ອນຂາຍ"
+                    dense
+                    hide-details
+                    color="success"
+                  />
+                </v-col>
+
+                <!-- Row 6: Description -->
+                <v-col cols="12">
+                  <v-textarea
+                    v-model="formData.pro_desc"
+                    label="ຄຳອະທິບາຍ"
+                    rows="2"
+                    dense
+                    outlined
+                    hide-details="auto"
+                    no-resize
+                  />
+                </v-col>
+
+                <!-- Barcode Section (Responsive) -->
+                <v-col cols="12" md="6">
+                  <v-card outlined class="pa-2">
+                    <div class="text-center mb-2">
+                      <canvas
+                        ref="barcodeCanvas"
+                        style="max-width: 100%; height: auto"
+                      ></canvas>
+                      <div class="text-caption mt-1">
+                        ລາຄາ: {{ formatNumber(formData.pro_price) }}
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <v-btn-toggle dense>
+                        <v-btn
+                          x-small
+                          :disabled="formData.barCode.length > 0"
+                          color="primary"
+                          @click="generateBarcode"
+                        >
+                          Generate
+                        </v-btn>
+                        <v-btn
+                          x-small
+                          :disabled="formData.barCode.length == 0"
+                          color="success"
+                          @click="printBarcode"
+                        >
+                          Print
+                        </v-btn>
+                      </v-btn-toggle>
+                    </div>
+                  </v-card>
+                </v-col>
+
+                <!-- Image preview section placeholder (if needed) -->
+                <v-col cols="12" md="6" v-if="files && files.length > 0">
+                  <v-card
+                    outlined
+                    class="pa-2"
+                    style="max-height: 200px; overflow-y: auto"
+                  >
+                    <div class="text-caption mb-2">Image Preview</div>
+                    <div
+                      v-for="(file, index) in files"
+                      :key="index"
+                      class="d-flex align-center mb-1"
+                    >
+                      <v-avatar size="30">
+                        <v-img :src="getFilePreview(file)"></v-img>
+                      </v-avatar>
+                      <span class="text-caption ml-2 flex-grow-1">{{
+                        file.name
+                      }}</span>
+                      <v-btn
+                        icon
+                        x-small
+                        color="error"
+                        @click="removeFile(index)"
+                      >
+                        <v-icon x-small>mdi-delete</v-icon>
                       </v-btn>
                     </div>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-card-text>
-      </v-card>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-form>
+            <!-- Required fields note -->
+            <div class="text-caption mt-2">* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ.</div>
+          </v-card-text>
+        </v-card>
+      </div>
+
+      <!-- Sticky Footer -->
+      <div class="modal-footer">
+        <div class="footer-actions">
+          <v-btn color="secondary" @click="$emit('close-dialog')" small>
+            <v-icon left small>mdi-close</v-icon>
+            ຍົກເລີກ
+          </v-btn>
+          <v-btn color="primary" @click="uploadFiles" :disabled="!valid" small>
+            <v-icon left small>mdi-content-save</v-icon>
+            ບັນທຶກ
+          </v-btn>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -395,7 +426,7 @@ const getFormatNum = (val) => {
   if (!val) return '0'
   return Number(val).toLocaleString('en-US', {
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
   })
 }
 
@@ -405,7 +436,7 @@ const swalSuccess = (swal, title, message) => {
       icon: 'success',
       title: title,
       text: message,
-      timer: 2000
+      timer: 2000,
     })
   } else {
     alert(`${title}: ${message}`)
@@ -433,7 +464,7 @@ export default {
   },
   data() {
     return {
-      productType:['product','service','stock'],
+      productType: ['product', 'service', 'stock'],
       valid: false,
       isloading: false,
       message: null,
@@ -444,11 +475,11 @@ export default {
       pricingRecordId: null,
       barcodeImage: '',
       threeColPaper: false,
-      
+
       // Tax-related data
       loadingTaxRates: false,
       taxRates: [],
-      
+
       formData: {
         companyId: null,
         pro_category: null,
@@ -469,27 +500,38 @@ export default {
         vendorName: '',
         taxId: null, // Add tax field
       },
-      
+
       rules: {
         nameRule: [(v) => !!v || 'ຊື່ສິນຄ້າຈຳເປັນ'],
         priceRule: [(v) => !!v || 'ລາຄາຈຳເປັນ'],
       },
-      
+
       category: [],
       companyList: [],
-      unitList: [],
+      // unitList: [],
       findAllCurrency: [],
       files: [],
     }
   },
-  
+
   computed: {
-    ...mapGetters(['findAllProductPriceListToCreate']),
-    
+    // ...mapGetters(['findAllProductPriceListToCreate']),
+    ...mapGetters([
+      'findAllProductPriceListToCreate',
+      'findAllProduct',
+      'findAllClient',
+      'findAllPayment',
+      'findAllUnit',
+      'findAllCurrency',
+    ]),
+    unitList() {
+      return this.findAllUnit
+    },
+
     dialogMessage() {
       return this.message !== null
     },
-    
+
     // Tax rate options for autocomplete
     taxRateOptions() {
       return this.taxRates.map((rate) => ({
@@ -502,13 +544,13 @@ export default {
         displayRate: `${(rate.rate * 100).toFixed(1)}%`,
       }))
     },
-    
+
     // Get selected tax rate details
     selectedTaxRate() {
       if (!this.formData.taxId || !this.taxRates.length) return null
       return this.taxRates.find((rate) => rate.id === this.formData.taxId)
     },
-    
+
     barcode3by2cm() {
       const html = `
             <!DOCTYPE html>
@@ -533,7 +575,9 @@ export default {
                         <table style="width: 200px; text-align: center;" >
                             <tr>
                               <td style="width: 500px; height: 15px;font-size:8px;">
-                                ລາຄາ:${this.formatNumber(this.formData.pro_price)}
+                                ລາຄາ:${this.formatNumber(
+                                  this.formData.pro_price
+                                )}
                                 </br>
                                 <img src="${this.barcodeImage}">
                               </td>               
@@ -545,7 +589,7 @@ export default {
         `
       return html
     },
-    
+
     barcodeNormal() {
       const html = `
             <!DOCTYPE html>
@@ -583,40 +627,40 @@ export default {
       return html
     },
   },
-  
+
   async mounted() {
     await Promise.all([
       this.fetchCategory(),
       this.fetchCompany(),
-      this.fetchUnit(),
+      // this.fetchUnit(),
       this.fetchCurrency(),
       this.fetchTaxRates(), // Add tax rates fetching
     ])
   },
-  
+
   methods: {
     ...mapActions([
       'clearProductPricesToCreate',
       'addProductPricesToCreate',
       'deleteProductPricesToCreate',
     ]),
-    
+
     fetchData() {},
-    
+
     triggerPriceListForm() {
       this.pricingRecordId = this.headerId
       this.priceListFormKey += 1
       this.priceListDialog = true
     },
-    
+
     validate() {
       this.$refs.form.validate()
     },
-    
+
     formatNumber(val) {
       return getFormatNum(val)
     },
-    
+
     // Tax calculation methods
     async fetchTaxRates() {
       this.loadingTaxRates = true
@@ -661,7 +705,7 @@ export default {
     onTaxRateChange() {
       console.log('Tax rate changed to:', this.selectedTaxRate)
     },
-    
+
     generateBarcode() {
       const barcodeValue =
         Math.floor(Math.random() * 900000000000) + 100000000000
@@ -675,14 +719,14 @@ export default {
       this.formData.barCode = barcodeValue.toString()
       this.generateBarcodeImage(barcodeValue)
     },
-    
+
     generateBarcodeImage(barcode) {
       const canvas = this.$refs.barcodeCanvas
       console.log(`.....Canvas logger.....`)
       console.log(canvas)
       if (canvas) {
         console.log(canvas.width, canvas.height)
-        
+
         JsBarcode(canvas, barcode, {
           format: 'code128',
           displayValue: true,
@@ -694,7 +738,7 @@ export default {
         this.barcodeImage = canvas.toDataURL()
       }
     },
-    
+
     printBarcode() {
       const windowContent = this.threeColPaper
         ? this.barcode3by2cm
@@ -713,15 +757,15 @@ export default {
         printWin.close()
       }, 1000)
     },
-    
+
     reset() {
       this.$refs.form.reset()
     },
-    
+
     resetValidation() {
       this.$refs.form.resetValidation()
     },
-    
+
     async fetchCategory() {
       this.isloading = true
       try {
@@ -742,7 +786,7 @@ export default {
       }
       this.isloading = false
     },
-    
+
     async fetchCompany() {
       this.isloading = true
       try {
@@ -762,21 +806,21 @@ export default {
       }
       this.isloading = false
     },
-    
-    async fetchUnit() {
-      try {
-        const response = await this.$axios.get('/api/unit/find')
-        this.unitList = response.data.map((el) => ({
-          id: el.id,
-          name: el.name,
-        }))
-      } catch (error) {
-        console.error('Error fetching units:', error)
-        // Fallback if API doesn't exist
-        this.unitList = []
-      }
-    },
-    
+
+    // async fetchUnit() {
+    //   try {
+    //     const response = await this.$axios.get('/api/unit/find')
+    //     this.unitList = response.data.map((el) => ({
+    //       id: el.id,
+    //       name: el.name,
+    //     }))
+    //   } catch (error) {
+    //     console.error('Error fetching units:', error)
+    //     // Fallback if API doesn't exist
+    //     this.unitList = []
+    //   }
+    // },
+
     async fetchCurrency() {
       try {
         const response = await this.$axios.get('/api/currency/find')
@@ -790,11 +834,24 @@ export default {
         this.findAllCurrency = []
       }
     },
-    
+
     onFilesChange(files) {
       this.files = files || []
     },
-    
+
+    // File preview helper
+    getFilePreview(file) {
+      if (file && file instanceof File) {
+        return URL.createObjectURL(file)
+      }
+      return ''
+    },
+
+    // Remove file from preview
+    removeFile(index) {
+      this.files.splice(index, 1)
+    },
+
     async uploadFiles() {
       if (!this.$refs.form.validate()) {
         return
@@ -802,7 +859,7 @@ export default {
 
       this.isloading = true
       const formData = new FormData()
-      
+
       // Include tax information in the form data
       const formDataWithTax = {
         ...this.formData,
@@ -817,7 +874,7 @@ export default {
         calculatedTaxAmount: this.calculateTaxAmount(),
         totalWithTax: this.calculateTotalWithTax(),
       }
-      
+
       formData.append('FORM', JSON.stringify(formDataWithTax))
 
       if (this.files && this.files.length > 0) {
@@ -878,7 +935,7 @@ export default {
         return null
       }
     },
-    
+
     previewImg(url) {
       this.previewSrc = url
       this.preview = true
@@ -888,19 +945,7 @@ export default {
 </script>
 
 <style scoped>
-.footer-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-.footer-actions {
-  flex-direction: column;
-}
-
-.footer-actions .btn {
-  width: 100%;
-  justify-content: center;
-}
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -914,6 +959,8 @@ export default {
   z-index: 1050;
   padding: 0;
 }
+
+/* Enhanced Dialog Container */
 .enhanced-dialog {
   background: white;
   width: 100vw;
@@ -922,18 +969,90 @@ export default {
   flex-direction: column;
   overflow: hidden;
 }
-.my-forn {
-  font-weight: bold;
-}
-.modal-footer {
-  padding: 12px 20px;
-  border-top: 1px solid #e9ecef;
-  background: #f8f9fa;
-  min-height: 56px;
+
+/* Scrollable Content Area */
+.modal-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 20px; /* Add space before footer */
 }
 
+/* Sticky Footer */
+.modal-footer {
+  position: sticky;
+  bottom: 0;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  padding: 12px 20px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Footer Actions */
+.footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .enhanced-dialog {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .footer-actions {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .footer-actions .v-btn {
+    min-width: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-footer {
+    padding: 8px 16px;
+  }
+
+  .footer-actions {
+    width: 100%;
+  }
+
+  .footer-actions .v-btn {
+    flex: 1;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Text styling */
 .text-h5,
 .grey {
   font-family: 'Noto Sans Lao';
+}
+
+/* Additional utility classes */
+.my-form {
+  font-weight: bold;
 }
 </style>

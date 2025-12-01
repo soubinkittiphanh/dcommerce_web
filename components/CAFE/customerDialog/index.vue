@@ -162,7 +162,7 @@
     <!-- Add Customer Dialog -->
     <v-dialog v-model="showAddCustomerForm" max-width="700" persistent>
       <v-card>
-        <v-card-title class="success white--text">
+        <v-card-title class="primary white--text">
           <v-icon left color="white">mdi-account-plus</v-icon>
           Add New Customer
           <v-spacer></v-spacer>

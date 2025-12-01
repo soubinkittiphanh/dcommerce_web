@@ -720,10 +720,10 @@ export default {
       let apiLine = 'api/product/find'
       try {
         const response = await this.$axios.get(apiLine);
-        this.productList = response.data
+        this.productList = response.data.data.products
         this.productList.push({ id: -1, 'pro_name': 'ທັງຫມົດ' })
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could no load data ' + JSON.stringify(error))
+        swalError2(this.$swal, 'Error', 'Could no load product data ' + JSON.stringify(error))
       }
       this.isloading = false
     },

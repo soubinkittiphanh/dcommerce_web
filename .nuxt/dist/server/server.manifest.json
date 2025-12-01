@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "326.js": "326.js",
+    "327.js": "327.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -121,6 +121,7 @@
     "components/order-sumary-card-pos.js": "components/order-sumary-card-pos.js",
     "components/order-sumary-card-v2.js": "components/order-sumary-card-v2.js",
     "components/order-sumary-card.js": "components/order-sumary-card.js",
+    "components/payment-card.js": "components/payment-card.js",
     "components/payment-form.js": "components/payment-form.js",
     "components/payment-qr.js": "components/payment-qr.js",
     "components/po-form.js": "components/po-form.js",
@@ -330,7 +331,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "326.js": "326.js.map",
+    "327.js": "327.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -450,6 +451,7 @@
     "components/order-sumary-card-pos.js": "components/order-sumary-card-pos.js.map",
     "components/order-sumary-card-v2.js": "components/order-sumary-card-v2.js.map",
     "components/order-sumary-card.js": "components/order-sumary-card.js.map",
+    "components/payment-card.js": "components/payment-card.js.map",
     "components/payment-form.js": "components/payment-form.js.map",
     "components/payment-qr.js": "components/payment-qr.js.map",
     "components/po-form.js": "components/po-form.js.map",

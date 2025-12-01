@@ -1,19 +1,614 @@
-exports.ids = [188,29,30];
+exports.ids = [189,29,30];
 exports.modules = {
 
-/***/ 1053:
+/***/ 1006:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/maintain/index.vue?vue&type=template&id=207cf086&scoped=true
+var render = function render() {
+  var _vm$formData$descript, _vm$formData$notes;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.visible ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": _vm.handleOverlayClick
+    }
+  }, [_vm._ssrNode("<div class=\"modal-dialog enhanced-dialog\" data-v-207cf086>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-207cf086><div class=\"modal-title-section\" data-v-207cf086><i class=\"fas fa-gift modal-icon\" data-v-207cf086></i> <h5 class=\"modal-title\" data-v-207cf086>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isEditMode ? 'ແກ້ໄຂສະຫວັດດີການ' : 'ເພີ່ມສະຫວັດດີການໃໝ່') + "\n        ") + "</h5></div> <button class=\"close-btn\" data-v-207cf086><i class=\"fas fa-times\" data-v-207cf086></i></button></div> "), _vm._ssrNode("<form data-v-207cf086>", "</form>", [_vm._ssrNode("<div class=\"modal-body\" data-v-207cf086>", "</div>", [_vm._ssrNode("<div class=\"form-grid\" data-v-207cf086>", "</div>", [_vm._ssrNode("<div class=\"section-header full-width\" data-v-207cf086><h4 data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>\n              ຂໍ້ມູນພື້ນຖານ\n            </h4></div> <div class=\"form-group full-width\" data-v-207cf086><label class=\"form-label required\" data-v-207cf086><i class=\"fas fa-tag\" data-v-207cf086></i>\n              ຊື່ສະຫວັດດີການ\n            </label> <input type=\"text\" placeholder=\"ເຊັ່ນ: ເງິນເດືອນພື້ນຖານ, ເງິນເດີນທາງ, ປະກັນສຸຂະພາບ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.name) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.name
+  }) + " data-v-207cf086> " + (_vm.errors.name ? "<div class=\"invalid-feedback\" data-v-207cf086>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.name) + "\n            ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-207cf086>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-207cf086><i class=\"fas fa-layer-group\" data-v-207cf086></i>\n              ປະເພດສະຫວັດດີການ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-207cf086>", "</div>", [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.type,
+      expression: "formData.type"
+    }],
+    staticClass: "form-control custom-select",
+    class: {
+      'is-invalid': _vm.errors.type
+    },
+    attrs: {
+      "required": ""
+    },
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.formData, "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ເລືອກປະເພດ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "salary"
+    }
+  }, [_vm._v("ເງິນເດືອນ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "allowance"
+    }
+  }, [_vm._v("ເງິນອຸດໜູນ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "insurance"
+    }
+  }, [_vm._v("ປະກັນໄພ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "accommodation"
+    }
+  }, [_vm._v("ທີ່ພັກ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "transportation"
+    }
+  }, [_vm._v("ການເດີນທາງ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "other"
+    }
+  }, [_vm._v("ອື່ນໆ")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-207cf086><i class=\"fas fa-chevron-down\" data-v-207cf086></i></div>")], 2), _vm._ssrNode(" " + (_vm.errors.type ? "<div class=\"invalid-feedback\" data-v-207cf086>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.type) + "\n            ") + "</div>" : "<!---->") + " <div class=\"field-hint info\" data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.getTypeDescription(_vm.formData.type)) + "\n            ") + "</div>")], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-207cf086><label class=\"form-label required\" data-v-207cf086><i class=\"fas fa-toggle-on\" data-v-207cf086></i>\n              ສະຖານະ\n            </label> <div class=\"checkbox-group\" data-v-207cf086><label class=\"checkbox-option\" data-v-207cf086><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.isActive) ? _vm._i(_vm.formData.isActive, null) > -1 : _vm.formData.isActive) + " data-v-207cf086> <span class=\"checkbox-label\" data-v-207cf086>ເປີດໃຊ້ງານ</span></label></div> <div" + _vm._ssrClass("field-hint", _vm.formData.isActive ? 'success' : 'warning') + " data-v-207cf086><i" + _vm._ssrClass(null, _vm.formData.isActive ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle') + " data-v-207cf086></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formData.isActive ? 'ສະຫວັດດີການນີ້ສາມາດໃຊ້ໄດ້' : 'ສະຫວັດດີການນີ້ຖືກປິດໃຊ້ງານ') + "\n            ") + "</div></div> <div class=\"section-header full-width\" data-v-207cf086><h4 data-v-207cf086><i class=\"fas fa-coins\" data-v-207cf086></i>\n              ຂໍ້ມູນການເງິນ\n            </h4></div> <div class=\"form-group\" data-v-207cf086><label class=\"form-label\" data-v-207cf086><i class=\"fas fa-money-bill-wave\" data-v-207cf086></i>\n              ມູນຄ່າ/ຈຳນວນເງິນ\n            </label> <input type=\"number\" step=\"0.01\" min=\"0\" max=\"999999999.99\" placeholder=\"0.00\"" + _vm._ssrAttr("value", _vm.formData.value) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.value
+  }) + " data-v-207cf086> " + (_vm.errors.value ? "<div class=\"invalid-feedback\" data-v-207cf086>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.value) + "\n            ") + "</div>" : "<!---->") + " <div class=\"field-hint info\" data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>\n              ໃສ່ຈຳນວນເງິນ ຫຼື ບໍ່ໃສ່ກໍໄດ້ຖ້າບໍ່ມີມູນຄ່າທີ່ແນ່ນອນ\n            </div></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-207cf086>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-207cf086><i class=\"fas fa-dollar-sign\" data-v-207cf086></i>\n              ສະກຸນເງິນ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-207cf086>", "</div>", [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.currency,
+      expression: "formData.currency"
+    }],
+    staticClass: "form-control custom-select",
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.formData, "currency", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "LAK"
+    }
+  }, [_vm._v("ກີບ ລາວ (LAK)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "THB"
+    }
+  }, [_vm._v("ບາດ ໄທ (THB)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "USD"
+    }
+  }, [_vm._v("ໂດລາ ສະຫະລັດ (USD)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "KRW"
+    }
+  }, [_vm._v("ວອນ ເກົາຫຼີ (KRW)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "JPY"
+    }
+  }, [_vm._v("ເຢນ ຍີ່ປຸ່ນ (JPY)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MYR"
+    }
+  }, [_vm._v("ຣິງກິດ ມາເລເຊຍ (MYR)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "SGD"
+    }
+  }, [_vm._v("ໂດລາ ສິງກະໂປ (SGD)")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-207cf086><i class=\"fas fa-chevron-down\" data-v-207cf086></i></div>")], 2), _vm._ssrNode(" <div class=\"field-hint success\" data-v-207cf086><i class=\"fas fa-star\" data-v-207cf086></i>\n              ເລືອກສະກຸນເງິນທີ່ກ່ຽວຂ້ອງກັບປະເທດປາຍທາງ\n            </div>")], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group full-width\" data-v-207cf086>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-207cf086><i class=\"fas fa-briefcase\" data-v-207cf086></i>\n              ການປະກາດຫາງານທີ່ກ່ຽວຂ້ອງ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-207cf086>", "</div>", [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.jobAdvertiseId,
+      expression: "formData.jobAdvertiseId"
+    }],
+    staticClass: "form-control custom-select",
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.formData, "jobAdvertiseId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ບໍ່ກ່ຽວຂ້ອງກັບການປະກາດໃດ")]), _vm._v(" "), _vm._l(_vm.availableJobs, function (job) {
+    return _c('option', {
+      key: job.id,
+      domProps: {
+        "value": job.id
+      }
+    }, [_vm._v("\n                  " + _vm._s(job.title) + " - " + _vm._s(job.country) + "\n                ")]);
+  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-207cf086><i class=\"fas fa-chevron-down\" data-v-207cf086></i></div>")], 2), _vm._ssrNode(" <div class=\"field-hint info\" data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>\n              ເລືອກການປະກາດຫາງານທີ່ສະຫວັດດີການນີ້ຈະຖືກນຳໃຊ້\n            </div>")], 2), _vm._ssrNode(" <div class=\"section-header full-width\" data-v-207cf086><h4 data-v-207cf086><i class=\"fas fa-align-left\" data-v-207cf086></i>\n              ລາຍລະອຽດ\n            </h4></div> <div class=\"form-group full-width\" data-v-207cf086><label class=\"form-label\" data-v-207cf086><i class=\"fas fa-file-text\" data-v-207cf086></i>\n              ຄຳອະທິບາຍສະຫວັດດີການ\n            </label> <textarea rows=\"4\" placeholder=\"ອະທິບາຍລາຍລະອຽດຂອງສະຫວັດດີການນີ້...\" maxlength=\"1000\" class=\"form-control\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formData.description)) + "</textarea> <div class=\"field-hint\" data-v-207cf086><span class=\"text-counter\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(((_vm$formData$descript = _vm.formData.description) === null || _vm$formData$descript === void 0 ? void 0 : _vm$formData$descript.length) || 0) + "/1000") + "</span></div></div> <div class=\"form-group full-width\" data-v-207cf086><label class=\"form-label\" data-v-207cf086><i class=\"fas fa-sticky-note\" data-v-207cf086></i>\n              ໝາຍເຫດ\n            </label> <textarea rows=\"3\" placeholder=\"ໝາຍເຫດເພີ່ມເຕີມ, ເງື່ອນໄຂພິເສດ...\" maxlength=\"500\" class=\"form-control\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formData.notes)) + "</textarea> <div class=\"field-hint\" data-v-207cf086><span class=\"text-counter\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(((_vm$formData$notes = _vm.formData.notes) === null || _vm$formData$notes === void 0 ? void 0 : _vm$formData$notes.length) || 0) + "/500") + "</span></div></div> <div class=\"form-group full-width\" data-v-207cf086><div class=\"benefit-preview\" data-v-207cf086><h5 data-v-207cf086><i class=\"fas fa-eye\" data-v-207cf086></i>\n                ຕົວຢ່າງສະຫວັດດີການ\n              </h5> <div class=\"preview-card\" data-v-207cf086><div class=\"preview-header\" data-v-207cf086><div class=\"preview-name\" data-v-207cf086><i" + _vm._ssrClass(null, _vm.getTypeIcon(_vm.formData.type)) + " data-v-207cf086></i> <strong data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formData.name || 'ຊື່ສະຫວັດດີການ')) + "</strong></div> <div class=\"preview-status\" data-v-207cf086><span" + _vm._ssrClass(null, ['status-badge', _vm.formData.isActive ? 'active' : 'inactive']) + " data-v-207cf086><i" + _vm._ssrClass(null, _vm.formData.isActive ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-207cf086></i>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.formData.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n                    ") + "</span></div></div> <div class=\"preview-content\" data-v-207cf086><div class=\"preview-type\" data-v-207cf086><span" + _vm._ssrClass(null, ['type-badge', _vm.formData.type]) + " data-v-207cf086><i" + _vm._ssrClass(null, _vm.getTypeIcon(_vm.formData.type)) + " data-v-207cf086></i>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.formatType(_vm.formData.type) || 'ເລືອກປະເພດ') + "\n                    ") + "</span></div> " + (_vm.formData.value ? "<div class=\"preview-value\" data-v-207cf086><i class=\"fas fa-coins\" data-v-207cf086></i> <span class=\"value-amount\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.formData.value, _vm.formData.currency))) + "</span></div>" : "<!---->") + " " + (_vm.formData.description ? "<div class=\"preview-description\" data-v-207cf086><i class=\"fas fa-file-text\" data-v-207cf086></i> <span data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.truncateText(_vm.formData.description, 100))) + "</span></div>" : "<!---->") + " " + (_vm.selectedJobTitle ? "<div class=\"preview-job\" data-v-207cf086><i class=\"fas fa-briefcase\" data-v-207cf086></i> <span data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.selectedJobTitle)) + "</span></div>" : "<!---->") + "</div></div></div></div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length > 0 ? "<div class=\"form-errors\" data-v-207cf086><h6 data-v-207cf086><i class=\"fas fa-exclamation-circle\" data-v-207cf086></i>\n            ກະລຸນາແກ້ໄຂຂໍ້ຜິດພາດຕໍ່ໄປນີ້:\n          </h6> <ul data-v-207cf086>" + _vm._ssrList(_vm.formErrors, function (error) {
+    return "<li data-v-207cf086>" + _vm._ssrEscape(_vm._s(error)) + "</li>";
+  }) + "</ul></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"modal-footer enhanced-footer\" data-v-207cf086><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-secondary\" data-v-207cf086><i class=\"fas fa-times\" data-v-207cf086></i>\n          ຍົກເລີກ\n        </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.loading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-207cf086>" + (_vm.loading ? "<i class=\"fas fa-spinner fa-spin\" data-v-207cf086></i>" : "<i" + _vm._ssrClass("fas", _vm.isEditMode ? 'fa-save' : 'fa-plus') + " data-v-207cf086></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.loading ? 'Saving...' : _vm.isEditMode ? 'ອັບເດດ' : 'ສ້າງສະຫວັດດີການ') + "\n        ") + "</button></div>")], 2)], 2)]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/benefit/maintain/index.vue?vue&type=template&id=207cf086&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/maintain/index.vue?vue&type=script&lang=js
+/* harmony default export */ var maintainvue_type_script_lang_js = ({
+  name: 'BenefitDialog',
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    benefit: {
+      type: Object,
+      default: null
+    }
+  },
+  data() {
+    return {
+      loading: false,
+      availableJobs: [],
+      // This would be fetched from API
+      formData: {
+        name: '',
+        type: '',
+        description: '',
+        value: null,
+        currency: 'LAK',
+        isActive: true,
+        notes: '',
+        jobAdvertiseId: null
+      },
+      errors: {},
+      formErrors: []
+    };
+  },
+  computed: {
+    isEditMode() {
+      return this.benefit && this.benefit.id;
+    },
+    user() {
+      return this.$auth.user || '';
+    },
+    // Form validation
+    isFormValid() {
+      return this.formData.name.trim() && this.formData.type && this.formErrors.length === 0;
+    },
+    selectedJobTitle() {
+      if (!this.formData.jobAdvertiseId) return null;
+      const job = this.availableJobs.find(j => j.id == this.formData.jobAdvertiseId);
+      return job ? `${job.title} - ${job.country}` : null;
+    }
+  },
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        this.initializeForm();
+        this.fetchAvailableJobs();
+      } else {
+        this.resetForm();
+      }
+    },
+    benefit: {
+      handler(newVal, oldVal) {
+        if (this.visible && newVal !== oldVal) {
+          this.$nextTick(() => {
+            this.initializeForm();
+          });
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    initializeForm() {
+      if (this.benefit && this.benefit.id) {
+        // Edit mode
+        this.formData = {
+          name: this.benefit.name || '',
+          type: this.benefit.type || '',
+          description: this.benefit.description || '',
+          value: this.benefit.value || null,
+          currency: this.benefit.currency || 'LAK',
+          isActive: this.benefit.isActive !== undefined ? this.benefit.isActive : true,
+          notes: this.benefit.notes || '',
+          jobAdvertiseId: this.benefit.jobAdvertiseId || null
+        };
+      } else {
+        // Create mode - set defaults
+        this.formData = {
+          name: '',
+          type: '',
+          description: '',
+          value: null,
+          currency: 'LAK',
+          isActive: true,
+          notes: '',
+          jobAdvertiseId: null
+        };
+      }
+      this.errors = {};
+      this.formErrors = [];
+    },
+    resetForm() {
+      this.formData = {
+        name: '',
+        type: '',
+        description: '',
+        value: null,
+        currency: 'LAK',
+        isActive: true,
+        notes: '',
+        jobAdvertiseId: null
+      };
+      this.errors = {};
+      this.formErrors = [];
+      this.loading = false;
+    },
+    async fetchAvailableJobs() {
+      try {
+        const {
+          data
+        } = await this.$axios.get('/api/job-advertises', {
+          params: {
+            status: 'active',
+            limit: 100
+          }
+        });
+        if (data && data.success) {
+          this.availableJobs = data.data || [];
+        }
+      } catch (error) {
+        console.error('Error fetching job advertisements:', error);
+        this.availableJobs = [];
+      }
+    },
+    validateForm() {
+      this.errors = {};
+      this.formErrors = [];
+
+      // Required fields validation
+      if (!this.formData.name.trim()) {
+        this.errors.name = 'ກະລຸນາໃສ່ຊື່ສະຫວັດດີການ';
+        this.formErrors.push('Benefit name is required');
+      }
+      if (!this.formData.type) {
+        this.errors.type = 'ກະລຸນາເລືອກປະເພດສະຫວັດດີການ';
+        this.formErrors.push('Benefit type selection is required');
+      }
+
+      // Value validation
+      if (this.formData.value !== null && this.formData.value !== undefined) {
+        if (this.formData.value < 0) {
+          this.errors.value = 'ມູນຄ່າຕ້ອງເປັນຈຳນວນບວກ';
+          this.formErrors.push('Value must be a positive number');
+        }
+        if (this.formData.value > 999999999.99) {
+          this.errors.value = 'ມູນຄ່າສູງເກີນໄປ';
+          this.formErrors.push('Value is too large');
+        }
+      }
+
+      // Text length validation
+      if (this.formData.description && this.formData.description.length > 1000) {
+        this.formErrors.push('Description must not exceed 1000 characters');
+      }
+      if (this.formData.notes && this.formData.notes.length > 500) {
+        this.formErrors.push('Notes must not exceed 500 characters');
+      }
+      return this.formErrors.length === 0;
+    },
+    async saveBenefit() {
+      if (!this.validateForm()) {
+        return;
+      }
+      this.loading = true;
+      try {
+        // Prepare data for submission
+        const submitData = {
+          ...this.formData,
+          // Convert empty strings to null for optional fields
+          value: this.formData.value || null,
+          jobAdvertiseId: this.formData.jobAdvertiseId || null
+        };
+        console.log('📤 Submitting benefit data:', submitData);
+
+        // Emit save event to parent
+        this.$emit('save', submitData);
+      } catch (error) {
+        console.error('Form submission error:', error);
+        this.formErrors.push('An error occurred while saving. Please try again.');
+      } finally {
+        this.loading = false;
+      }
+    },
+    closeDialog() {
+      this.$emit('close');
+    },
+    handleOverlayClick() {
+      this.closeDialog();
+    },
+    // Utility methods
+    formatType(type) {
+      const typeLabels = {
+        salary: 'ເງິນເດືອນ',
+        allowance: 'ເງິນອຸດໜູນ',
+        insurance: 'ປະກັນໄພ',
+        accommodation: 'ທີ່ພັກ',
+        transportation: 'ການເດີນທາງ',
+        other: 'ອື່ນໆ'
+      };
+      return typeLabels[type] || type;
+    },
+    getTypeIcon(type) {
+      const typeIcons = {
+        salary: 'fas fa-money-bill-wave',
+        allowance: 'fas fa-hand-holding-usd',
+        insurance: 'fas fa-shield-alt',
+        accommodation: 'fas fa-home',
+        transportation: 'fas fa-bus',
+        other: 'fas fa-ellipsis-h'
+      };
+      return typeIcons[type] || 'fas fa-gift';
+    },
+    getTypeDescription(type) {
+      const descriptions = {
+        salary: 'ເງິນເດືອນປົກກະຕິ ຫຼື ເງິນພື້ນຖານ',
+        allowance: 'ເງິນອຸດໜູນພິເສດ ເຊັ່ນ: ເງິນອາຫານ, ເງິນເດີນທາງ',
+        insurance: 'ປະກັນສຸຂະພາບ, ປະກັນອຸບັດເຫດ',
+        accommodation: 'ທີ່ພັກ, ຫ້ອງພັກ, ຄ່າເຊົ່າ',
+        transportation: 'ຄ່າເດີນທາງ, ລົດຮັບສົ່ງ',
+        other: 'ສະຫວັດດີການອື່ນໆ ທີ່ບໍ່ຢູ່ໃນປະເພດຂ້າງເທິງ'
+      };
+      return descriptions[type] || 'ເລືອກປະເພດເພື່ອເບິ່ງຄຳອະທິບາຍ';
+    },
+    formatCurrency(value, currency = 'LAK') {
+      if (!value) return '-';
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+      try {
+        return formatter.format(value);
+      } catch (e) {
+        return `${Number(value).toLocaleString()} ${currency}`;
+      }
+    },
+    truncateText(text, length) {
+      if (!text) return '';
+      return text.length > length ? text.substring(0, length) + '...' : text;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/benefit/maintain/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var benefit_maintainvue_type_script_lang_js = (maintainvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/benefit/maintain/index.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(750)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  benefit_maintainvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "207cf086",
+  "0e5aaab9"
+  
+)
+
+/* harmony default export */ var maintain = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1007:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/view/index.vue?vue&type=template&id=24889058&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.visible ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": _vm.handleOverlayClick
+    }
+  }, [_vm._ssrNode("<div class=\"modal-dialog view-dialog\" data-v-24889058><div class=\"modal-header\" data-v-24889058><div class=\"modal-title-section\" data-v-24889058><i class=\"fas fa-gift modal-icon\" data-v-24889058></i> <h5 class=\"modal-title\" data-v-24889058>ລາຍລະອຽດສະຫວັດດີການ</h5></div> <button class=\"close-btn\" data-v-24889058><i class=\"fas fa-times\" data-v-24889058></i></button></div> <div class=\"modal-body\" data-v-24889058>" + (_vm.benefit ? "<div class=\"benefit-details\" data-v-24889058><div class=\"status-header\" data-v-24889058><div class=\"status-info\" data-v-24889058><span" + _vm._ssrClass(null, ['status-badge', 'large', _vm.benefit.isActive ? 'active' : 'inactive']) + " data-v-24889058><i" + _vm._ssrClass(null, _vm.benefit.isActive ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-24889058></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.benefit.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n            ") + "</span></div> <div class=\"benefit-id\" data-v-24889058><span class=\"id-label\" data-v-24889058>ID:</span> <span class=\"id-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.id)) + "</span></div></div> <div class=\"info-section\" data-v-24889058><div class=\"section-header\" data-v-24889058><h4 data-v-24889058><i class=\"fas fa-info-circle\" data-v-24889058></i>\n              ຂໍ້ມູນພື້ນຖານ\n            </h4></div> <div class=\"info-grid\" data-v-24889058><div class=\"info-item full-width\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-tag\" data-v-24889058></i>\n                ຊື່ສະຫວັດດີການ\n              </label> <div class=\"info-value\" data-v-24889058><h3 class=\"benefit-name\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.name)) + "</h3></div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-layer-group\" data-v-24889058></i>\n                ປະເພດ\n              </label> <div class=\"info-value\" data-v-24889058><span" + _vm._ssrClass(null, ['type-badge', 'large', _vm.benefit.type]) + " data-v-24889058><i" + _vm._ssrClass(null, _vm.getTypeIcon(_vm.benefit.type)) + " data-v-24889058></i>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatType(_vm.benefit.type)) + "\n                ") + "</span></div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-coins\" data-v-24889058></i>\n                ມູນຄ່າ\n              </label> <div class=\"info-value\" data-v-24889058>" + (_vm.benefit.value ? "<div class=\"value-display\" data-v-24889058><span class=\"value-amount\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.benefit.value, _vm.benefit.currency))) + "</span></div>" : "<div class=\"no-value\" data-v-24889058><i class=\"fas fa-minus\" data-v-24889058></i>\n                  ບໍ່ລະບຸມູນຄ່າ\n                </div>") + "</div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-money-bill-wave\" data-v-24889058></i>\n                ສະກຸນເງິນ\n              </label> <div class=\"info-value\" data-v-24889058><span class=\"currency-display\" data-v-24889058>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatCurrencyName(_vm.benefit.currency)) + "\n                ") + "</span></div></div> " + (_vm.benefit.description ? "<div class=\"info-item full-width\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-align-left\" data-v-24889058></i>\n                ຄຳອະທິບາຍ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"description-text\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.description)) + "</div></div></div>" : "<!---->") + " " + (_vm.benefit.notes ? "<div class=\"info-item full-width\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-sticky-note\" data-v-24889058></i>\n                ໝາຍເຫດ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"notes-text\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.notes)) + "</div></div></div>" : "<!---->") + "</div></div> " + (_vm.benefit.jobAdvertise ? "<div class=\"info-section\" data-v-24889058><div class=\"section-header\" data-v-24889058><h4 data-v-24889058><i class=\"fas fa-briefcase\" data-v-24889058></i>\n              ການປະກາດຫາງານທີ່ກ່ຽວຂ້ອງ\n            </h4></div> <div class=\"job-info-card\" data-v-24889058><div class=\"job-header\" data-v-24889058><div class=\"job-title\" data-v-24889058><i class=\"fas fa-briefcase\" data-v-24889058></i> <strong data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.jobAdvertise.title)) + "</strong></div> <div class=\"job-status\" data-v-24889058><span" + _vm._ssrClass(null, ['status-badge', 'small', _vm.benefit.jobAdvertise.status]) + " data-v-24889058>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatJobStatus(_vm.benefit.jobAdvertise.status)) + "\n                ") + "</span></div></div> <div class=\"job-details\" data-v-24889058><div class=\"job-location\" data-v-24889058><i class=\"fas fa-map-marker-alt\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.jobAdvertise.country)) + "</span> " + (_vm.benefit.jobAdvertise.province ? "<span data-v-24889058>" + _vm._ssrEscape("\n                  - " + _vm._s(_vm.benefit.jobAdvertise.province) + "\n                ") + "</span>" : "<!---->") + "</div> " + (_vm.benefit.jobAdvertise.jobDescription ? "<div class=\"job-description\" data-v-24889058><i class=\"fas fa-file-text\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.truncateText(_vm.benefit.jobAdvertise.jobDescription, 150))) + "</span></div>" : "<!---->") + "</div></div></div>" : "<!---->") + " <div class=\"info-section\" data-v-24889058><div class=\"section-header\" data-v-24889058><h4 data-v-24889058><i class=\"fas fa-cog\" data-v-24889058></i>\n              ຂໍ້ມູນລະບົບ\n            </h4></div> <div class=\"info-grid\" data-v-24889058><div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-user-plus\" data-v-24889058></i>\n                ຜູ້ສ້າງ\n              </label> <div class=\"info-value\" data-v-24889058>" + (_vm.benefit.maker ? "<div class=\"user-info\" data-v-24889058><i class=\"fas fa-user\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.maker.firstName) + " " + _vm._s(_vm.benefit.maker.lastName)) + "</span></div>" : "<div class=\"no-user\" data-v-24889058><i class=\"fas fa-minus\" data-v-24889058></i>\n                  ບໍ່ລະບຸ\n                </div>") + "</div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-user-edit\" data-v-24889058></i>\n                ຜູ້ອັບເດດ\n              </label> <div class=\"info-value\" data-v-24889058>" + (_vm.benefit.updateUser ? "<div class=\"user-info\" data-v-24889058><i class=\"fas fa-user\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.updateUser.firstName) + " " + _vm._s(_vm.benefit.updateUser.lastName)) + "</span></div>" : "<div class=\"no-user\" data-v-24889058><i class=\"fas fa-minus\" data-v-24889058></i>\n                  ຍັງບໍ່ມີການອັບເດດ\n                </div>") + "</div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-calendar-plus\" data-v-24889058></i>\n                ວັນທີສ້າງ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"date-info\" data-v-24889058><i class=\"fas fa-clock\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime(_vm.benefit.createdAt))) + "</span></div></div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-calendar-edit\" data-v-24889058></i>\n                ວັນທີອັບເດດ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"date-info\" data-v-24889058><i class=\"fas fa-clock\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime(_vm.benefit.updateTimestamp))) + "</span></div></div></div></div></div> <div class=\"benefit-summary\" data-v-24889058><div class=\"summary-header\" data-v-24889058><i class=\"fas fa-clipboard-list\" data-v-24889058></i> <h5 data-v-24889058>ສະຫລຸບສະຫວັດດີການ</h5></div> <div class=\"summary-content\" data-v-24889058><div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ປະເພດ:</span> <span class=\"summary-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatType(_vm.benefit.type))) + "</span></div> " + (_vm.benefit.value ? "<div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ມູນຄ່າ:</span> <span class=\"summary-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.benefit.value, _vm.benefit.currency))) + "</span></div>" : "<!---->") + " <div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ສະຖານະ:</span> <span" + _vm._ssrClass(null, ['summary-value', _vm.benefit.isActive ? 'active' : 'inactive']) + " data-v-24889058>" + _vm._ssrEscape("\n                " + _vm._s(_vm.benefit.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n              ") + "</span></div> " + (_vm.benefit.jobAdvertise ? "<div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ການປະກາດຫາງານ:</span> <span class=\"summary-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.jobAdvertise.title)) + "</span></div>" : "<!---->") + "</div></div></div>" : "<div class=\"no-data\" data-v-24889058><i class=\"fas fa-exclamation-triangle\" data-v-24889058></i> <p data-v-24889058>ບໍ່ພົບຂໍ້ມູນສະຫວັດດີການ</p></div>") + "</div> <div class=\"modal-footer\" data-v-24889058><button class=\"btn btn-secondary\" data-v-24889058><i class=\"fas fa-times\" data-v-24889058></i>\n        ປິດ\n      </button> " + (_vm.benefit ? "<button class=\"btn btn-primary\" data-v-24889058><i class=\"fas fa-edit\" data-v-24889058></i>\n        ແກ້ໄຂ\n      </button>" : "<!---->") + "</div></div>")]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/benefit/view/index.vue?vue&type=template&id=24889058&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/view/index.vue?vue&type=script&lang=js
+/* harmony default export */ var viewvue_type_script_lang_js = ({
+  name: 'BenefitViewDialog',
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    benefit: {
+      type: Object,
+      default: null
+    }
+  },
+  methods: {
+    closeDialog() {
+      this.$emit('close');
+    },
+    handleOverlayClick() {
+      this.closeDialog();
+    },
+    editBenefit() {
+      this.$emit('edit', this.benefit);
+      this.closeDialog();
+    },
+    // Utility methods
+    formatType(type) {
+      const typeLabels = {
+        salary: 'ເງິນເດືອນ',
+        allowance: 'ເງິນອຸດໜູນ',
+        insurance: 'ປະກັນໄພ',
+        accommodation: 'ທີ່ພັກ',
+        transportation: 'ການເດີນທາງ',
+        other: 'ອື່ນໆ'
+      };
+      return typeLabels[type] || type;
+    },
+    getTypeIcon(type) {
+      const typeIcons = {
+        salary: 'fas fa-money-bill-wave',
+        allowance: 'fas fa-hand-holding-usd',
+        insurance: 'fas fa-shield-alt',
+        accommodation: 'fas fa-home',
+        transportation: 'fas fa-bus',
+        other: 'fas fa-ellipsis-h'
+      };
+      return typeIcons[type] || 'fas fa-gift';
+    },
+    formatCurrency(value, currency = 'LAK') {
+      if (!value) return '-';
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+      try {
+        return formatter.format(value);
+      } catch (e) {
+        return `${Number(value).toLocaleString()} ${currency}`;
+      }
+    },
+    formatCurrencyName(currency) {
+      const currencyNames = {
+        LAK: 'ກີບ ລາວ (LAK)',
+        THB: 'ບາດ ໄທ (THB)',
+        USD: 'ໂດລາ ສະຫະລັດ (USD)',
+        KRW: 'ວອນ ເກົາຫຼີ (KRW)',
+        JPY: 'ເຢນ ຍີ່ປຸ່ນ (JPY)',
+        MYR: 'ຣິງກິດ ມາເລເຊຍ (MYR)',
+        SGD: 'ໂດລາ ສິງກະໂປ (SGD)'
+      };
+      return currencyNames[currency] || currency;
+    },
+    formatJobStatus(status) {
+      const statusLabels = {
+        active: 'ເປີດຮັບສະໝັກ',
+        inactive: 'ປິດຊົ່ວຄາວ',
+        closed: 'ປິດແລ້ວ'
+      };
+      return statusLabels[status] || status;
+    },
+    formatDateTime(dateTime) {
+      if (!dateTime) return '-';
+      return new Date(dateTime).toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    },
+    truncateText(text, length) {
+      if (!text) return '';
+      return text.length > length ? text.substring(0, length) + '...' : text;
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/benefit/view/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var benefit_viewvue_type_script_lang_js = (viewvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/benefit/view/index.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(752)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  benefit_viewvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "24889058",
+  "5842f8d3"
+  
+)
+
+/* harmony default export */ var view = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1068:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(848);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(863);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_8446105a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1054:
+/***/ 1069:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +623,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1352:
+/***/ 1367:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -220,58 +815,58 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/benefit/index.vue?vue&type=template&id=8446105a&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(363);
+var esnext_set_add_all_js_ = __webpack_require__(143);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(364);
+var esnext_set_delete_all_js_ = __webpack_require__(144);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(365);
+var esnext_set_difference_js_ = __webpack_require__(145);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(366);
+var esnext_set_every_js_ = __webpack_require__(146);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(367);
+var esnext_set_filter_js_ = __webpack_require__(147);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(368);
+var esnext_set_find_js_ = __webpack_require__(148);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(369);
+var esnext_set_intersection_js_ = __webpack_require__(149);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(370);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(150);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(371);
+var esnext_set_is_subset_of_js_ = __webpack_require__(151);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(372);
+var esnext_set_is_superset_of_js_ = __webpack_require__(152);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(373);
+var esnext_set_join_js_ = __webpack_require__(153);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(374);
+var esnext_set_map_js_ = __webpack_require__(154);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(375);
+var esnext_set_reduce_js_ = __webpack_require__(155);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(376);
+var esnext_set_some_js_ = __webpack_require__(156);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(377);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(157);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(378);
+var esnext_set_union_js_ = __webpack_require__(158);
 
 // EXTERNAL MODULE: ./components/benefit/maintain/index.vue + 4 modules
-var maintain = __webpack_require__(991);
+var maintain = __webpack_require__(1006);
 
 // EXTERNAL MODULE: ./components/benefit/view/index.vue + 4 modules
-var view = __webpack_require__(992);
+var view = __webpack_require__(1007);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/benefit/index.vue?vue&type=script&lang=js
 
@@ -756,7 +1351,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1053)
+  var style0 = __webpack_require__(1068)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -778,13 +1373,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 628:
+/***/ 643:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(736);
+var content = __webpack_require__(751);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -796,13 +1391,13 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 629:
+/***/ 644:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(738);
+var content = __webpack_require__(753);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -814,19 +1409,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 735:
+/***/ 750:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(628);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(643);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_207cf086_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 736:
+/***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -841,19 +1436,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 737:
+/***/ 752:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(629);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(644);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_24889058_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 738:
+/***/ 753:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -868,13 +1463,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 848:
+/***/ 863:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1054);
+var content = __webpack_require__(1069);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -883,601 +1478,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("37b1cc01", content, true, context)
 };
-
-/***/ }),
-
-/***/ 991:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/maintain/index.vue?vue&type=template&id=207cf086&scoped=true
-var render = function render() {
-  var _vm$formData$descript, _vm$formData$notes;
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.visible ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.handleOverlayClick
-    }
-  }, [_vm._ssrNode("<div class=\"modal-dialog enhanced-dialog\" data-v-207cf086>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-207cf086><div class=\"modal-title-section\" data-v-207cf086><i class=\"fas fa-gift modal-icon\" data-v-207cf086></i> <h5 class=\"modal-title\" data-v-207cf086>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isEditMode ? 'ແກ້ໄຂສະຫວັດດີການ' : 'ເພີ່ມສະຫວັດດີການໃໝ່') + "\n        ") + "</h5></div> <button class=\"close-btn\" data-v-207cf086><i class=\"fas fa-times\" data-v-207cf086></i></button></div> "), _vm._ssrNode("<form data-v-207cf086>", "</form>", [_vm._ssrNode("<div class=\"modal-body\" data-v-207cf086>", "</div>", [_vm._ssrNode("<div class=\"form-grid\" data-v-207cf086>", "</div>", [_vm._ssrNode("<div class=\"section-header full-width\" data-v-207cf086><h4 data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>\n              ຂໍ້ມູນພື້ນຖານ\n            </h4></div> <div class=\"form-group full-width\" data-v-207cf086><label class=\"form-label required\" data-v-207cf086><i class=\"fas fa-tag\" data-v-207cf086></i>\n              ຊື່ສະຫວັດດີການ\n            </label> <input type=\"text\" placeholder=\"ເຊັ່ນ: ເງິນເດືອນພື້ນຖານ, ເງິນເດີນທາງ, ປະກັນສຸຂະພາບ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.name) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.name
-  }) + " data-v-207cf086> " + (_vm.errors.name ? "<div class=\"invalid-feedback\" data-v-207cf086>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.name) + "\n            ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-207cf086>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-207cf086><i class=\"fas fa-layer-group\" data-v-207cf086></i>\n              ປະເພດສະຫວັດດີການ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-207cf086>", "</div>", [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.formData.type,
-      expression: "formData.type"
-    }],
-    staticClass: "form-control custom-select",
-    class: {
-      'is-invalid': _vm.errors.type
-    },
-    attrs: {
-      "required": ""
-    },
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.formData, "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກປະເພດ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "salary"
-    }
-  }, [_vm._v("ເງິນເດືອນ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "allowance"
-    }
-  }, [_vm._v("ເງິນອຸດໜູນ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insurance"
-    }
-  }, [_vm._v("ປະກັນໄພ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "accommodation"
-    }
-  }, [_vm._v("ທີ່ພັກ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "transportation"
-    }
-  }, [_vm._v("ການເດີນທາງ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "other"
-    }
-  }, [_vm._v("ອື່ນໆ")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-207cf086><i class=\"fas fa-chevron-down\" data-v-207cf086></i></div>")], 2), _vm._ssrNode(" " + (_vm.errors.type ? "<div class=\"invalid-feedback\" data-v-207cf086>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.type) + "\n            ") + "</div>" : "<!---->") + " <div class=\"field-hint info\" data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.getTypeDescription(_vm.formData.type)) + "\n            ") + "</div>")], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-207cf086><label class=\"form-label required\" data-v-207cf086><i class=\"fas fa-toggle-on\" data-v-207cf086></i>\n              ສະຖານະ\n            </label> <div class=\"checkbox-group\" data-v-207cf086><label class=\"checkbox-option\" data-v-207cf086><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.isActive) ? _vm._i(_vm.formData.isActive, null) > -1 : _vm.formData.isActive) + " data-v-207cf086> <span class=\"checkbox-label\" data-v-207cf086>ເປີດໃຊ້ງານ</span></label></div> <div" + _vm._ssrClass("field-hint", _vm.formData.isActive ? 'success' : 'warning') + " data-v-207cf086><i" + _vm._ssrClass(null, _vm.formData.isActive ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle') + " data-v-207cf086></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formData.isActive ? 'ສະຫວັດດີການນີ້ສາມາດໃຊ້ໄດ້' : 'ສະຫວັດດີການນີ້ຖືກປິດໃຊ້ງານ') + "\n            ") + "</div></div> <div class=\"section-header full-width\" data-v-207cf086><h4 data-v-207cf086><i class=\"fas fa-coins\" data-v-207cf086></i>\n              ຂໍ້ມູນການເງິນ\n            </h4></div> <div class=\"form-group\" data-v-207cf086><label class=\"form-label\" data-v-207cf086><i class=\"fas fa-money-bill-wave\" data-v-207cf086></i>\n              ມູນຄ່າ/ຈຳນວນເງິນ\n            </label> <input type=\"number\" step=\"0.01\" min=\"0\" max=\"999999999.99\" placeholder=\"0.00\"" + _vm._ssrAttr("value", _vm.formData.value) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.value
-  }) + " data-v-207cf086> " + (_vm.errors.value ? "<div class=\"invalid-feedback\" data-v-207cf086>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.value) + "\n            ") + "</div>" : "<!---->") + " <div class=\"field-hint info\" data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>\n              ໃສ່ຈຳນວນເງິນ ຫຼື ບໍ່ໃສ່ກໍໄດ້ຖ້າບໍ່ມີມູນຄ່າທີ່ແນ່ນອນ\n            </div></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-207cf086>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-207cf086><i class=\"fas fa-dollar-sign\" data-v-207cf086></i>\n              ສະກຸນເງິນ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-207cf086>", "</div>", [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.formData.currency,
-      expression: "formData.currency"
-    }],
-    staticClass: "form-control custom-select",
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.formData, "currency", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "LAK"
-    }
-  }, [_vm._v("ກີບ ລາວ (LAK)")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "THB"
-    }
-  }, [_vm._v("ບາດ ໄທ (THB)")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "USD"
-    }
-  }, [_vm._v("ໂດລາ ສະຫະລັດ (USD)")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "KRW"
-    }
-  }, [_vm._v("ວອນ ເກົາຫຼີ (KRW)")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "JPY"
-    }
-  }, [_vm._v("ເຢນ ຍີ່ປຸ່ນ (JPY)")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "MYR"
-    }
-  }, [_vm._v("ຣິງກິດ ມາເລເຊຍ (MYR)")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "SGD"
-    }
-  }, [_vm._v("ໂດລາ ສິງກະໂປ (SGD)")])]), _vm._ssrNode(" <div class=\"select-icon\" data-v-207cf086><i class=\"fas fa-chevron-down\" data-v-207cf086></i></div>")], 2), _vm._ssrNode(" <div class=\"field-hint success\" data-v-207cf086><i class=\"fas fa-star\" data-v-207cf086></i>\n              ເລືອກສະກຸນເງິນທີ່ກ່ຽວຂ້ອງກັບປະເທດປາຍທາງ\n            </div>")], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group full-width\" data-v-207cf086>", "</div>", [_vm._ssrNode("<label class=\"form-label\" data-v-207cf086><i class=\"fas fa-briefcase\" data-v-207cf086></i>\n              ການປະກາດຫາງານທີ່ກ່ຽວຂ້ອງ\n            </label> "), _vm._ssrNode("<div class=\"custom-select-wrapper\" data-v-207cf086>", "</div>", [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.formData.jobAdvertiseId,
-      expression: "formData.jobAdvertiseId"
-    }],
-    staticClass: "form-control custom-select",
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.formData, "jobAdvertiseId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ບໍ່ກ່ຽວຂ້ອງກັບການປະກາດໃດ")]), _vm._v(" "), _vm._l(_vm.availableJobs, function (job) {
-    return _c('option', {
-      key: job.id,
-      domProps: {
-        "value": job.id
-      }
-    }, [_vm._v("\n                  " + _vm._s(job.title) + " - " + _vm._s(job.country) + "\n                ")]);
-  })], 2), _vm._ssrNode(" <div class=\"select-icon\" data-v-207cf086><i class=\"fas fa-chevron-down\" data-v-207cf086></i></div>")], 2), _vm._ssrNode(" <div class=\"field-hint info\" data-v-207cf086><i class=\"fas fa-info-circle\" data-v-207cf086></i>\n              ເລືອກການປະກາດຫາງານທີ່ສະຫວັດດີການນີ້ຈະຖືກນຳໃຊ້\n            </div>")], 2), _vm._ssrNode(" <div class=\"section-header full-width\" data-v-207cf086><h4 data-v-207cf086><i class=\"fas fa-align-left\" data-v-207cf086></i>\n              ລາຍລະອຽດ\n            </h4></div> <div class=\"form-group full-width\" data-v-207cf086><label class=\"form-label\" data-v-207cf086><i class=\"fas fa-file-text\" data-v-207cf086></i>\n              ຄຳອະທິບາຍສະຫວັດດີການ\n            </label> <textarea rows=\"4\" placeholder=\"ອະທິບາຍລາຍລະອຽດຂອງສະຫວັດດີການນີ້...\" maxlength=\"1000\" class=\"form-control\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formData.description)) + "</textarea> <div class=\"field-hint\" data-v-207cf086><span class=\"text-counter\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(((_vm$formData$descript = _vm.formData.description) === null || _vm$formData$descript === void 0 ? void 0 : _vm$formData$descript.length) || 0) + "/1000") + "</span></div></div> <div class=\"form-group full-width\" data-v-207cf086><label class=\"form-label\" data-v-207cf086><i class=\"fas fa-sticky-note\" data-v-207cf086></i>\n              ໝາຍເຫດ\n            </label> <textarea rows=\"3\" placeholder=\"ໝາຍເຫດເພີ່ມເຕີມ, ເງື່ອນໄຂພິເສດ...\" maxlength=\"500\" class=\"form-control\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formData.notes)) + "</textarea> <div class=\"field-hint\" data-v-207cf086><span class=\"text-counter\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(((_vm$formData$notes = _vm.formData.notes) === null || _vm$formData$notes === void 0 ? void 0 : _vm$formData$notes.length) || 0) + "/500") + "</span></div></div> <div class=\"form-group full-width\" data-v-207cf086><div class=\"benefit-preview\" data-v-207cf086><h5 data-v-207cf086><i class=\"fas fa-eye\" data-v-207cf086></i>\n                ຕົວຢ່າງສະຫວັດດີການ\n              </h5> <div class=\"preview-card\" data-v-207cf086><div class=\"preview-header\" data-v-207cf086><div class=\"preview-name\" data-v-207cf086><i" + _vm._ssrClass(null, _vm.getTypeIcon(_vm.formData.type)) + " data-v-207cf086></i> <strong data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formData.name || 'ຊື່ສະຫວັດດີການ')) + "</strong></div> <div class=\"preview-status\" data-v-207cf086><span" + _vm._ssrClass(null, ['status-badge', _vm.formData.isActive ? 'active' : 'inactive']) + " data-v-207cf086><i" + _vm._ssrClass(null, _vm.formData.isActive ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-207cf086></i>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.formData.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n                    ") + "</span></div></div> <div class=\"preview-content\" data-v-207cf086><div class=\"preview-type\" data-v-207cf086><span" + _vm._ssrClass(null, ['type-badge', _vm.formData.type]) + " data-v-207cf086><i" + _vm._ssrClass(null, _vm.getTypeIcon(_vm.formData.type)) + " data-v-207cf086></i>" + _vm._ssrEscape("\n                      " + _vm._s(_vm.formatType(_vm.formData.type) || 'ເລືອກປະເພດ') + "\n                    ") + "</span></div> " + (_vm.formData.value ? "<div class=\"preview-value\" data-v-207cf086><i class=\"fas fa-coins\" data-v-207cf086></i> <span class=\"value-amount\" data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.formData.value, _vm.formData.currency))) + "</span></div>" : "<!---->") + " " + (_vm.formData.description ? "<div class=\"preview-description\" data-v-207cf086><i class=\"fas fa-file-text\" data-v-207cf086></i> <span data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.truncateText(_vm.formData.description, 100))) + "</span></div>" : "<!---->") + " " + (_vm.selectedJobTitle ? "<div class=\"preview-job\" data-v-207cf086><i class=\"fas fa-briefcase\" data-v-207cf086></i> <span data-v-207cf086>" + _vm._ssrEscape(_vm._s(_vm.selectedJobTitle)) + "</span></div>" : "<!---->") + "</div></div></div></div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length > 0 ? "<div class=\"form-errors\" data-v-207cf086><h6 data-v-207cf086><i class=\"fas fa-exclamation-circle\" data-v-207cf086></i>\n            ກະລຸນາແກ້ໄຂຂໍ້ຜິດພາດຕໍ່ໄປນີ້:\n          </h6> <ul data-v-207cf086>" + _vm._ssrList(_vm.formErrors, function (error) {
-    return "<li data-v-207cf086>" + _vm._ssrEscape(_vm._s(error)) + "</li>";
-  }) + "</ul></div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"modal-footer enhanced-footer\" data-v-207cf086><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-secondary\" data-v-207cf086><i class=\"fas fa-times\" data-v-207cf086></i>\n          ຍົກເລີກ\n        </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.loading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-207cf086>" + (_vm.loading ? "<i class=\"fas fa-spinner fa-spin\" data-v-207cf086></i>" : "<i" + _vm._ssrClass("fas", _vm.isEditMode ? 'fa-save' : 'fa-plus') + " data-v-207cf086></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.loading ? 'Saving...' : _vm.isEditMode ? 'ອັບເດດ' : 'ສ້າງສະຫວັດດີການ') + "\n        ") + "</button></div>")], 2)], 2)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/benefit/maintain/index.vue?vue&type=template&id=207cf086&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/maintain/index.vue?vue&type=script&lang=js
-/* harmony default export */ var maintainvue_type_script_lang_js = ({
-  name: 'BenefitDialog',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    benefit: {
-      type: Object,
-      default: null
-    }
-  },
-  data() {
-    return {
-      loading: false,
-      availableJobs: [],
-      // This would be fetched from API
-      formData: {
-        name: '',
-        type: '',
-        description: '',
-        value: null,
-        currency: 'LAK',
-        isActive: true,
-        notes: '',
-        jobAdvertiseId: null
-      },
-      errors: {},
-      formErrors: []
-    };
-  },
-  computed: {
-    isEditMode() {
-      return this.benefit && this.benefit.id;
-    },
-    user() {
-      return this.$auth.user || '';
-    },
-    // Form validation
-    isFormValid() {
-      return this.formData.name.trim() && this.formData.type && this.formErrors.length === 0;
-    },
-    selectedJobTitle() {
-      if (!this.formData.jobAdvertiseId) return null;
-      const job = this.availableJobs.find(j => j.id == this.formData.jobAdvertiseId);
-      return job ? `${job.title} - ${job.country}` : null;
-    }
-  },
-  watch: {
-    visible(newVal) {
-      if (newVal) {
-        this.initializeForm();
-        this.fetchAvailableJobs();
-      } else {
-        this.resetForm();
-      }
-    },
-    benefit: {
-      handler(newVal, oldVal) {
-        if (this.visible && newVal !== oldVal) {
-          this.$nextTick(() => {
-            this.initializeForm();
-          });
-        }
-      },
-      deep: true
-    }
-  },
-  methods: {
-    initializeForm() {
-      if (this.benefit && this.benefit.id) {
-        // Edit mode
-        this.formData = {
-          name: this.benefit.name || '',
-          type: this.benefit.type || '',
-          description: this.benefit.description || '',
-          value: this.benefit.value || null,
-          currency: this.benefit.currency || 'LAK',
-          isActive: this.benefit.isActive !== undefined ? this.benefit.isActive : true,
-          notes: this.benefit.notes || '',
-          jobAdvertiseId: this.benefit.jobAdvertiseId || null
-        };
-      } else {
-        // Create mode - set defaults
-        this.formData = {
-          name: '',
-          type: '',
-          description: '',
-          value: null,
-          currency: 'LAK',
-          isActive: true,
-          notes: '',
-          jobAdvertiseId: null
-        };
-      }
-      this.errors = {};
-      this.formErrors = [];
-    },
-    resetForm() {
-      this.formData = {
-        name: '',
-        type: '',
-        description: '',
-        value: null,
-        currency: 'LAK',
-        isActive: true,
-        notes: '',
-        jobAdvertiseId: null
-      };
-      this.errors = {};
-      this.formErrors = [];
-      this.loading = false;
-    },
-    async fetchAvailableJobs() {
-      try {
-        const {
-          data
-        } = await this.$axios.get('/api/job-advertises', {
-          params: {
-            status: 'active',
-            limit: 100
-          }
-        });
-        if (data && data.success) {
-          this.availableJobs = data.data || [];
-        }
-      } catch (error) {
-        console.error('Error fetching job advertisements:', error);
-        this.availableJobs = [];
-      }
-    },
-    validateForm() {
-      this.errors = {};
-      this.formErrors = [];
-
-      // Required fields validation
-      if (!this.formData.name.trim()) {
-        this.errors.name = 'ກະລຸນາໃສ່ຊື່ສະຫວັດດີການ';
-        this.formErrors.push('Benefit name is required');
-      }
-      if (!this.formData.type) {
-        this.errors.type = 'ກະລຸນາເລືອກປະເພດສະຫວັດດີການ';
-        this.formErrors.push('Benefit type selection is required');
-      }
-
-      // Value validation
-      if (this.formData.value !== null && this.formData.value !== undefined) {
-        if (this.formData.value < 0) {
-          this.errors.value = 'ມູນຄ່າຕ້ອງເປັນຈຳນວນບວກ';
-          this.formErrors.push('Value must be a positive number');
-        }
-        if (this.formData.value > 999999999.99) {
-          this.errors.value = 'ມູນຄ່າສູງເກີນໄປ';
-          this.formErrors.push('Value is too large');
-        }
-      }
-
-      // Text length validation
-      if (this.formData.description && this.formData.description.length > 1000) {
-        this.formErrors.push('Description must not exceed 1000 characters');
-      }
-      if (this.formData.notes && this.formData.notes.length > 500) {
-        this.formErrors.push('Notes must not exceed 500 characters');
-      }
-      return this.formErrors.length === 0;
-    },
-    async saveBenefit() {
-      if (!this.validateForm()) {
-        return;
-      }
-      this.loading = true;
-      try {
-        // Prepare data for submission
-        const submitData = {
-          ...this.formData,
-          // Convert empty strings to null for optional fields
-          value: this.formData.value || null,
-          jobAdvertiseId: this.formData.jobAdvertiseId || null
-        };
-        console.log('📤 Submitting benefit data:', submitData);
-
-        // Emit save event to parent
-        this.$emit('save', submitData);
-      } catch (error) {
-        console.error('Form submission error:', error);
-        this.formErrors.push('An error occurred while saving. Please try again.');
-      } finally {
-        this.loading = false;
-      }
-    },
-    closeDialog() {
-      this.$emit('close');
-    },
-    handleOverlayClick() {
-      this.closeDialog();
-    },
-    // Utility methods
-    formatType(type) {
-      const typeLabels = {
-        salary: 'ເງິນເດືອນ',
-        allowance: 'ເງິນອຸດໜູນ',
-        insurance: 'ປະກັນໄພ',
-        accommodation: 'ທີ່ພັກ',
-        transportation: 'ການເດີນທາງ',
-        other: 'ອື່ນໆ'
-      };
-      return typeLabels[type] || type;
-    },
-    getTypeIcon(type) {
-      const typeIcons = {
-        salary: 'fas fa-money-bill-wave',
-        allowance: 'fas fa-hand-holding-usd',
-        insurance: 'fas fa-shield-alt',
-        accommodation: 'fas fa-home',
-        transportation: 'fas fa-bus',
-        other: 'fas fa-ellipsis-h'
-      };
-      return typeIcons[type] || 'fas fa-gift';
-    },
-    getTypeDescription(type) {
-      const descriptions = {
-        salary: 'ເງິນເດືອນປົກກະຕິ ຫຼື ເງິນພື້ນຖານ',
-        allowance: 'ເງິນອຸດໜູນພິເສດ ເຊັ່ນ: ເງິນອາຫານ, ເງິນເດີນທາງ',
-        insurance: 'ປະກັນສຸຂະພາບ, ປະກັນອຸບັດເຫດ',
-        accommodation: 'ທີ່ພັກ, ຫ້ອງພັກ, ຄ່າເຊົ່າ',
-        transportation: 'ຄ່າເດີນທາງ, ລົດຮັບສົ່ງ',
-        other: 'ສະຫວັດດີການອື່ນໆ ທີ່ບໍ່ຢູ່ໃນປະເພດຂ້າງເທິງ'
-      };
-      return descriptions[type] || 'ເລືອກປະເພດເພື່ອເບິ່ງຄຳອະທິບາຍ';
-    },
-    formatCurrency(value, currency = 'LAK') {
-      if (!value) return '-';
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-      });
-      try {
-        return formatter.format(value);
-      } catch (e) {
-        return `${Number(value).toLocaleString()} ${currency}`;
-      }
-    },
-    truncateText(text, length) {
-      if (!text) return '';
-      return text.length > length ? text.substring(0, length) + '...' : text;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/benefit/maintain/index.vue?vue&type=script&lang=js
- /* harmony default export */ var benefit_maintainvue_type_script_lang_js = (maintainvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/benefit/maintain/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(735)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  benefit_maintainvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "207cf086",
-  "0e5aaab9"
-  
-)
-
-/* harmony default export */ var maintain = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 992:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/view/index.vue?vue&type=template&id=24889058&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.visible ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": _vm.handleOverlayClick
-    }
-  }, [_vm._ssrNode("<div class=\"modal-dialog view-dialog\" data-v-24889058><div class=\"modal-header\" data-v-24889058><div class=\"modal-title-section\" data-v-24889058><i class=\"fas fa-gift modal-icon\" data-v-24889058></i> <h5 class=\"modal-title\" data-v-24889058>ລາຍລະອຽດສະຫວັດດີການ</h5></div> <button class=\"close-btn\" data-v-24889058><i class=\"fas fa-times\" data-v-24889058></i></button></div> <div class=\"modal-body\" data-v-24889058>" + (_vm.benefit ? "<div class=\"benefit-details\" data-v-24889058><div class=\"status-header\" data-v-24889058><div class=\"status-info\" data-v-24889058><span" + _vm._ssrClass(null, ['status-badge', 'large', _vm.benefit.isActive ? 'active' : 'inactive']) + " data-v-24889058><i" + _vm._ssrClass(null, _vm.benefit.isActive ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-24889058></i>" + _vm._ssrEscape("\n              " + _vm._s(_vm.benefit.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n            ") + "</span></div> <div class=\"benefit-id\" data-v-24889058><span class=\"id-label\" data-v-24889058>ID:</span> <span class=\"id-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.id)) + "</span></div></div> <div class=\"info-section\" data-v-24889058><div class=\"section-header\" data-v-24889058><h4 data-v-24889058><i class=\"fas fa-info-circle\" data-v-24889058></i>\n              ຂໍ້ມູນພື້ນຖານ\n            </h4></div> <div class=\"info-grid\" data-v-24889058><div class=\"info-item full-width\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-tag\" data-v-24889058></i>\n                ຊື່ສະຫວັດດີການ\n              </label> <div class=\"info-value\" data-v-24889058><h3 class=\"benefit-name\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.name)) + "</h3></div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-layer-group\" data-v-24889058></i>\n                ປະເພດ\n              </label> <div class=\"info-value\" data-v-24889058><span" + _vm._ssrClass(null, ['type-badge', 'large', _vm.benefit.type]) + " data-v-24889058><i" + _vm._ssrClass(null, _vm.getTypeIcon(_vm.benefit.type)) + " data-v-24889058></i>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatType(_vm.benefit.type)) + "\n                ") + "</span></div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-coins\" data-v-24889058></i>\n                ມູນຄ່າ\n              </label> <div class=\"info-value\" data-v-24889058>" + (_vm.benefit.value ? "<div class=\"value-display\" data-v-24889058><span class=\"value-amount\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.benefit.value, _vm.benefit.currency))) + "</span></div>" : "<div class=\"no-value\" data-v-24889058><i class=\"fas fa-minus\" data-v-24889058></i>\n                  ບໍ່ລະບຸມູນຄ່າ\n                </div>") + "</div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-money-bill-wave\" data-v-24889058></i>\n                ສະກຸນເງິນ\n              </label> <div class=\"info-value\" data-v-24889058><span class=\"currency-display\" data-v-24889058>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatCurrencyName(_vm.benefit.currency)) + "\n                ") + "</span></div></div> " + (_vm.benefit.description ? "<div class=\"info-item full-width\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-align-left\" data-v-24889058></i>\n                ຄຳອະທິບາຍ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"description-text\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.description)) + "</div></div></div>" : "<!---->") + " " + (_vm.benefit.notes ? "<div class=\"info-item full-width\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-sticky-note\" data-v-24889058></i>\n                ໝາຍເຫດ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"notes-text\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.notes)) + "</div></div></div>" : "<!---->") + "</div></div> " + (_vm.benefit.jobAdvertise ? "<div class=\"info-section\" data-v-24889058><div class=\"section-header\" data-v-24889058><h4 data-v-24889058><i class=\"fas fa-briefcase\" data-v-24889058></i>\n              ການປະກາດຫາງານທີ່ກ່ຽວຂ້ອງ\n            </h4></div> <div class=\"job-info-card\" data-v-24889058><div class=\"job-header\" data-v-24889058><div class=\"job-title\" data-v-24889058><i class=\"fas fa-briefcase\" data-v-24889058></i> <strong data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.jobAdvertise.title)) + "</strong></div> <div class=\"job-status\" data-v-24889058><span" + _vm._ssrClass(null, ['status-badge', 'small', _vm.benefit.jobAdvertise.status]) + " data-v-24889058>" + _vm._ssrEscape("\n                  " + _vm._s(_vm.formatJobStatus(_vm.benefit.jobAdvertise.status)) + "\n                ") + "</span></div></div> <div class=\"job-details\" data-v-24889058><div class=\"job-location\" data-v-24889058><i class=\"fas fa-map-marker-alt\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.jobAdvertise.country)) + "</span> " + (_vm.benefit.jobAdvertise.province ? "<span data-v-24889058>" + _vm._ssrEscape("\n                  - " + _vm._s(_vm.benefit.jobAdvertise.province) + "\n                ") + "</span>" : "<!---->") + "</div> " + (_vm.benefit.jobAdvertise.jobDescription ? "<div class=\"job-description\" data-v-24889058><i class=\"fas fa-file-text\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.truncateText(_vm.benefit.jobAdvertise.jobDescription, 150))) + "</span></div>" : "<!---->") + "</div></div></div>" : "<!---->") + " <div class=\"info-section\" data-v-24889058><div class=\"section-header\" data-v-24889058><h4 data-v-24889058><i class=\"fas fa-cog\" data-v-24889058></i>\n              ຂໍ້ມູນລະບົບ\n            </h4></div> <div class=\"info-grid\" data-v-24889058><div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-user-plus\" data-v-24889058></i>\n                ຜູ້ສ້າງ\n              </label> <div class=\"info-value\" data-v-24889058>" + (_vm.benefit.maker ? "<div class=\"user-info\" data-v-24889058><i class=\"fas fa-user\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.maker.firstName) + " " + _vm._s(_vm.benefit.maker.lastName)) + "</span></div>" : "<div class=\"no-user\" data-v-24889058><i class=\"fas fa-minus\" data-v-24889058></i>\n                  ບໍ່ລະບຸ\n                </div>") + "</div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-user-edit\" data-v-24889058></i>\n                ຜູ້ອັບເດດ\n              </label> <div class=\"info-value\" data-v-24889058>" + (_vm.benefit.updateUser ? "<div class=\"user-info\" data-v-24889058><i class=\"fas fa-user\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.updateUser.firstName) + " " + _vm._s(_vm.benefit.updateUser.lastName)) + "</span></div>" : "<div class=\"no-user\" data-v-24889058><i class=\"fas fa-minus\" data-v-24889058></i>\n                  ຍັງບໍ່ມີການອັບເດດ\n                </div>") + "</div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-calendar-plus\" data-v-24889058></i>\n                ວັນທີສ້າງ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"date-info\" data-v-24889058><i class=\"fas fa-clock\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime(_vm.benefit.createdAt))) + "</span></div></div></div> <div class=\"info-item\" data-v-24889058><label class=\"info-label\" data-v-24889058><i class=\"fas fa-calendar-edit\" data-v-24889058></i>\n                ວັນທີອັບເດດ\n              </label> <div class=\"info-value\" data-v-24889058><div class=\"date-info\" data-v-24889058><i class=\"fas fa-clock\" data-v-24889058></i> <span data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatDateTime(_vm.benefit.updateTimestamp))) + "</span></div></div></div></div></div> <div class=\"benefit-summary\" data-v-24889058><div class=\"summary-header\" data-v-24889058><i class=\"fas fa-clipboard-list\" data-v-24889058></i> <h5 data-v-24889058>ສະຫລຸບສະຫວັດດີການ</h5></div> <div class=\"summary-content\" data-v-24889058><div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ປະເພດ:</span> <span class=\"summary-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatType(_vm.benefit.type))) + "</span></div> " + (_vm.benefit.value ? "<div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ມູນຄ່າ:</span> <span class=\"summary-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(_vm.benefit.value, _vm.benefit.currency))) + "</span></div>" : "<!---->") + " <div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ສະຖານະ:</span> <span" + _vm._ssrClass(null, ['summary-value', _vm.benefit.isActive ? 'active' : 'inactive']) + " data-v-24889058>" + _vm._ssrEscape("\n                " + _vm._s(_vm.benefit.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n              ") + "</span></div> " + (_vm.benefit.jobAdvertise ? "<div class=\"summary-item\" data-v-24889058><span class=\"summary-label\" data-v-24889058>ການປະກາດຫາງານ:</span> <span class=\"summary-value\" data-v-24889058>" + _vm._ssrEscape(_vm._s(_vm.benefit.jobAdvertise.title)) + "</span></div>" : "<!---->") + "</div></div></div>" : "<div class=\"no-data\" data-v-24889058><i class=\"fas fa-exclamation-triangle\" data-v-24889058></i> <p data-v-24889058>ບໍ່ພົບຂໍ້ມູນສະຫວັດດີການ</p></div>") + "</div> <div class=\"modal-footer\" data-v-24889058><button class=\"btn btn-secondary\" data-v-24889058><i class=\"fas fa-times\" data-v-24889058></i>\n        ປິດ\n      </button> " + (_vm.benefit ? "<button class=\"btn btn-primary\" data-v-24889058><i class=\"fas fa-edit\" data-v-24889058></i>\n        ແກ້ໄຂ\n      </button>" : "<!---->") + "</div></div>")]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/benefit/view/index.vue?vue&type=template&id=24889058&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/benefit/view/index.vue?vue&type=script&lang=js
-/* harmony default export */ var viewvue_type_script_lang_js = ({
-  name: 'BenefitViewDialog',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    benefit: {
-      type: Object,
-      default: null
-    }
-  },
-  methods: {
-    closeDialog() {
-      this.$emit('close');
-    },
-    handleOverlayClick() {
-      this.closeDialog();
-    },
-    editBenefit() {
-      this.$emit('edit', this.benefit);
-      this.closeDialog();
-    },
-    // Utility methods
-    formatType(type) {
-      const typeLabels = {
-        salary: 'ເງິນເດືອນ',
-        allowance: 'ເງິນອຸດໜູນ',
-        insurance: 'ປະກັນໄພ',
-        accommodation: 'ທີ່ພັກ',
-        transportation: 'ການເດີນທາງ',
-        other: 'ອື່ນໆ'
-      };
-      return typeLabels[type] || type;
-    },
-    getTypeIcon(type) {
-      const typeIcons = {
-        salary: 'fas fa-money-bill-wave',
-        allowance: 'fas fa-hand-holding-usd',
-        insurance: 'fas fa-shield-alt',
-        accommodation: 'fas fa-home',
-        transportation: 'fas fa-bus',
-        other: 'fas fa-ellipsis-h'
-      };
-      return typeIcons[type] || 'fas fa-gift';
-    },
-    formatCurrency(value, currency = 'LAK') {
-      if (!value) return '-';
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-      });
-      try {
-        return formatter.format(value);
-      } catch (e) {
-        return `${Number(value).toLocaleString()} ${currency}`;
-      }
-    },
-    formatCurrencyName(currency) {
-      const currencyNames = {
-        LAK: 'ກີບ ລາວ (LAK)',
-        THB: 'ບາດ ໄທ (THB)',
-        USD: 'ໂດລາ ສະຫະລັດ (USD)',
-        KRW: 'ວອນ ເກົາຫຼີ (KRW)',
-        JPY: 'ເຢນ ຍີ່ປຸ່ນ (JPY)',
-        MYR: 'ຣິງກິດ ມາເລເຊຍ (MYR)',
-        SGD: 'ໂດລາ ສິງກະໂປ (SGD)'
-      };
-      return currencyNames[currency] || currency;
-    },
-    formatJobStatus(status) {
-      const statusLabels = {
-        active: 'ເປີດຮັບສະໝັກ',
-        inactive: 'ປິດຊົ່ວຄາວ',
-        closed: 'ປິດແລ້ວ'
-      };
-      return statusLabels[status] || status;
-    },
-    formatDateTime(dateTime) {
-      if (!dateTime) return '-';
-      return new Date(dateTime).toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    },
-    truncateText(text, length) {
-      if (!text) return '';
-      return text.length > length ? text.substring(0, length) + '...' : text;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/benefit/view/index.vue?vue&type=script&lang=js
- /* harmony default export */ var benefit_viewvue_type_script_lang_js = (viewvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/benefit/view/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(737)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  benefit_viewvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "24889058",
-  "5842f8d3"
-  
-)
-
-/* harmony default export */ var view = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

@@ -1,19 +1,511 @@
-exports.ids = [232,92];
+exports.ids = [233,92];
 exports.modules = {
 
-/***/ 1097:
+/***/ 1013:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/revenueTargetDialog/index.vue?vue&type=template&id=1861f3a8&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.show ? _c('div', {
+    staticClass: "dialog-overlay",
+    on: {
+      "click": _vm.handleOverlayClick
+    }
+  }, [_vm._ssrNode("<div class=\"dialog-container\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"dialog-header\" data-v-1861f3a8><h2 class=\"dialog-title\" data-v-1861f3a8>" + _vm._ssrEscape("\n        " + _vm._s(_vm.target ? 'ແກ້ໄຂເປົ້າໝາຍລາຍຮັບ' : 'ສ້າງເປົ້າໝາຍລາຍຮັບ') + "\n      ") + "</h2> <button class=\"dialog-close\" data-v-1861f3a8><i class=\"fas fa-times\" data-v-1861f3a8></i></button></div> "), _vm._ssrNode("<div class=\"dialog-body\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<form data-v-1861f3a8>", "</form>", [_vm._ssrNode("<div class=\"form-row\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8><label for=\"name\" class=\"required\" data-v-1861f3a8>ຊື່ເປົ້າໝາຍລາຍຮັບ</label> <input id=\"name\" type=\"text\" placeholder=\"ກະລຸນາໃສ່ຊື່ເປົ້າໝາຍ\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.name) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.name
+  }) + " data-v-1861f3a8> " + (_vm.errors.name ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.name) + "\n            ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"year\" class=\"required\" data-v-1861f3a8>ປີ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.year,
+      expression: "form.year"
+    }],
+    staticClass: "form-control",
+    class: {
+      'is-invalid': _vm.errors.year
+    },
+    attrs: {
+      "id": "year",
+      "required": ""
+    },
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "year", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ເລືອກປີ")]), _vm._v(" "), _vm._l(_vm.availableYears, function (year) {
+    return _c('option', {
+      key: year,
+      domProps: {
+        "value": year
+      }
+    }, [_vm._v("\n                " + _vm._s(year) + "\n              ")]);
+  })], 2), _vm._ssrNode(" " + (_vm.errors.year ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.year) + "\n            ") + "</div>" : "<!---->"))], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-row\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"parentMinistryId\" class=\"required\" data-v-1861f3a8>ກະຊວງ/ຫົວໜ່ວຍງານ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.parentMinistryId,
+      expression: "form.parentMinistryId"
+    }],
+    staticClass: "form-control",
+    class: {
+      'is-invalid': _vm.errors.parentMinistryId
+    },
+    attrs: {
+      "id": "parentMinistryId",
+      "required": ""
+    },
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "parentMinistryId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ເລືອກກະຊວງ/ຫົວໜ່ວຍງານ")]), _vm._v(" "), _vm._l(_vm.ministries, function (ministry) {
+    return _c('option', {
+      key: ministry.id,
+      domProps: {
+        "value": ministry.id
+      }
+    }, [_vm._v("\n                " + _vm._s(ministry.ministryCode) + " (" + _vm._s(ministry.ministryName) + ")\n              ")]);
+  })], 2), _vm._ssrNode(" " + (_vm.errors.parentMinistryId ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.parentMinistryId) + "\n            ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"chartAccountId\" class=\"required\" data-v-1861f3a8>ບັນຊີລາຍຮັບ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.chartAccountId,
+      expression: "form.chartAccountId"
+    }],
+    staticClass: "form-control",
+    class: {
+      'is-invalid': _vm.errors.chartAccountId
+    },
+    attrs: {
+      "id": "chartAccountId",
+      "required": ""
+    },
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "chartAccountId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ເລືອກບັນຊີລາຍຮັບ ")]), _vm._v(" "), _vm._l(_vm.chartAccounts, function (account) {
+    return _c('option', {
+      key: account.id,
+      domProps: {
+        "value": account.id
+      }
+    }, [_vm._v("\n                " + _vm._s(account.accountNumber) + " - " + _vm._s(account.accountName) + "\n              ")]);
+  })], 2), _vm._ssrNode(" " + (_vm.errors.chartAccountId ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.chartAccountId) + "\n            ") + "</div>" : "<!---->"))], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-row\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" class=\"required\" data-v-1861f3a8>ສະກຸນເງິນ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.currencyId,
+      expression: "form.currencyId"
+    }],
+    staticClass: "form-control",
+    class: {
+      'is-invalid': _vm.errors.currencyId
+    },
+    attrs: {
+      "id": "currencyId",
+      "required": ""
+    },
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "currencyId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, _vm.onCurrencyChange]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ເລືອກສະກຸນເງິນ")]), _vm._v(" "), _vm._l(_vm.currencies, function (currency) {
+    return _c('option', {
+      key: currency.id,
+      domProps: {
+        "value": currency.id
+      }
+    }, [_vm._v("\n                " + _vm._s(currency.code) + " - " + _vm._s(currency.name) + "\n              ")]);
+  })], 2), _vm._ssrNode(" " + (_vm.errors.currencyId ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.currencyId) + "\n            ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-1861f3a8><label for=\"exchangeRate\" class=\"required\" data-v-1861f3a8>\n              ອັດຕາແລກປ່ຽນ\n              " + (_vm.selectedCurrency ? "<span class=\"exchange-rate-info\" data-v-1861f3a8>" + _vm._ssrEscape("\n                (" + _vm._s(_vm.selectedCurrency.code) + " to LAK)\n              ") + "</span>" : "<!---->") + "</label> <div class=\"exchange-rate-wrapper\" data-v-1861f3a8><input id=\"exchangeRate\" type=\"number\" step=\"0.01\" min=\"1\"" + _vm._ssrAttr("placeholder", _vm.selectedCurrency ? `Rate for ${_vm.selectedCurrency.code}` : '1.00') + _vm._ssrAttr("readonly", _vm.isExchangeRateReadonly) + " required=\"required\"" + _vm._ssrAttr("value", _vm.form.exchangeRate) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.exchangeRate
+  }) + " data-v-1861f3a8> " + (_vm.selectedCurrency && _vm.selectedCurrency.code !== 'LAK' ? "<button type=\"button\"" + _vm._ssrAttr("disabled", _vm.refreshingRate) + _vm._ssrAttr("title", 'ອັບເດດອັດຕາແລກປ່ຽນ ' + _vm.selectedCurrency.code) + " class=\"btn-refresh-rate\" data-v-1861f3a8><i" + _vm._ssrClass(null, ['fas', _vm.refreshingRate ? 'fa-spinner fa-spin' : 'fa-sync-alt']) + " data-v-1861f3a8></i></button>" : "<!---->") + "</div> " + (_vm.errors.exchangeRate ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.exchangeRate) + "\n            ") + "</div>" : "<!---->") + " " + (_vm.exchangeRateUpdated ? "<div class=\"exchange-rate-updated\" data-v-1861f3a8><i class=\"fas fa-check-circle\" data-v-1861f3a8></i>\n              ອັດຕາແລກປ່ຽນໄດ້ຮັບການອັບເດດ\n            </div>" : "<!---->") + "</div>")], 2), _vm._ssrNode(" <div class=\"form-row\" data-v-1861f3a8><div class=\"form-group\" data-v-1861f3a8><label for=\"targetAmount\" class=\"required\" data-v-1861f3a8>ຈຳນວນເປົ້າໝາຍ</label> <input id=\"targetAmount\" type=\"number\" step=\"0.01\" min=\"0\" placeholder=\"0.00\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.targetAmount) + _vm._ssrClass("form-control", {
+    'is-invalid': _vm.errors.targetAmount
+  }) + " data-v-1861f3a8> " + (_vm.errors.targetAmount ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.targetAmount) + "\n            ") + "</div>" : "<!---->") + "</div></div> <div class=\"form-group\" data-v-1861f3a8><label for=\"remark\" data-v-1861f3a8>ຫມາຍເຫດ</label> <textarea id=\"remark\" rows=\"3\" placeholder=\"ໃສ່ຫມາຍເຫດ (ຖ້າມີ)...\" class=\"form-control\" data-v-1861f3a8>" + _vm._ssrEscape(_vm._s(_vm.form.remark)) + "</textarea></div> " + (_vm.form.targetAmount && _vm.form.exchangeRate ? "<div class=\"calculation-section\" data-v-1861f3a8><h4 data-v-1861f3a8>ການຄິດໄລ່</h4> <div class=\"calculation-grid\" data-v-1861f3a8><div class=\"calculation-item\" data-v-1861f3a8><label data-v-1861f3a8>ຍອດເປົ້າໝາຍເປັນ LAK:</label> <span class=\"calculation-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatCurrency(_vm.calculateLAKAmount())) + "\n              ") + "</span></div> <div class=\"calculation-item\" data-v-1861f3a8><label data-v-1861f3a8>ຍອດເປົ້າໝາຍເປັນ USD:</label> <span class=\"calculation-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatUSD(_vm.calculateUSDAmount())) + "\n              ") + "</span></div></div></div>" : "<!---->") + " " + (_vm.selectedMinistry || _vm.selectedChartAccount || _vm.selectedCurrency ? "<div class=\"selected-info-section\" data-v-1861f3a8><h4 data-v-1861f3a8>ຂໍ້ມູນທີ່ເລືອກ</h4> <div class=\"info-grid\" data-v-1861f3a8>" + (_vm.selectedMinistry ? "<div class=\"info-item\" data-v-1861f3a8><label data-v-1861f3a8>ກະຊວງ/ຫົວໜ່ວຍງານ:</label> <span class=\"info-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.selectedMinistry.ministryCode) + " (" + _vm._s(_vm.selectedMinistry.ministryName) + ")\n              ") + "</span></div>" : "<!---->") + " " + (_vm.selectedChartAccount ? "<div class=\"info-item\" data-v-1861f3a8><label data-v-1861f3a8>ບັນຊີລາຍຮັບ:</label> <span class=\"info-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.selectedChartAccount.accountNumber) + " - " + _vm._s(_vm.selectedChartAccount.accountName) + "\n              ") + "</span></div>" : "<!---->") + " " + (_vm.selectedCurrency ? "<div class=\"info-item\" data-v-1861f3a8><label data-v-1861f3a8>ສະກຸນເງິນ:</label> <span class=\"info-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.selectedCurrency.code) + " - " + _vm._s(_vm.selectedCurrency.name) + "\n                ") + (_vm.selectedCurrency.rate ? "<span class=\"currency-rate\" data-v-1861f3a8>" + _vm._ssrEscape("\n                  (Rate: " + _vm._s(_vm.selectedCurrency.rate) + ")\n                ") + "</span>" : "<!---->") + "</span></div>" : "<!---->") + "</div></div>" : "<!---->") + " <div class=\"dialog-footer\" data-v-1861f3a8><button type=\"button\" class=\"btn btn-secondary\" data-v-1861f3a8>\n            ຍົກເລີກ\n          </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.formLoading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-1861f3a8>" + (_vm.formLoading ? "<i class=\"fas fa-spinner fa-spin\" data-v-1861f3a8></i>" : "<!---->") + _vm._ssrEscape("\n            " + _vm._s(_vm.target ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n          ") + "</button></div>")], 2)])], 2)]) : _vm._e();
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/MA/revenueTargetDialog/index.vue?vue&type=template&id=1861f3a8&scoped=true
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/revenueTargetDialog/index.vue?vue&type=script&lang=js
+/* harmony default export */ var revenueTargetDialogvue_type_script_lang_js = ({
+  name: 'RevenueTargetDialog',
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    target: {
+      type: Object,
+      default: null
+    },
+    currencies: {
+      type: Array,
+      default: () => []
+    },
+    ministries: {
+      type: Array,
+      default: () => []
+    },
+    chartAccounts: {
+      type: Array,
+      default: () => []
+    },
+    formLoading: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      form: {
+        name: '',
+        year: '',
+        targetAmount: '',
+        exchangeRate: '',
+        currencyId: '',
+        parentMinistryId: '',
+        chartAccountId: '',
+        remark: '',
+        isActive: true
+      },
+      errors: {},
+      currentYear: new Date().getFullYear(),
+      refreshingRate: false,
+      exchangeRateUpdated: false,
+      manualRateChange: false
+    };
+  },
+  computed: {
+    availableYears() {
+      const years = [];
+      for (let i = 0; i < 10; i++) {
+        years.push(this.currentYear + i);
+      }
+      return years;
+    },
+    isFormValid() {
+      return this.form.name && this.form.year && this.form.targetAmount && this.form.exchangeRate && this.form.currencyId && this.form.parentMinistryId && this.form.chartAccountId && parseFloat(this.form.targetAmount) >= 0 && parseFloat(this.form.exchangeRate) >= 1;
+    },
+    selectedMinistry() {
+      return this.ministries.find(m => m.id === parseInt(this.form.parentMinistryId));
+    },
+    selectedChartAccount() {
+      return this.chartAccounts.find(a => a.id === parseInt(this.form.chartAccountId));
+    },
+    selectedCurrency() {
+      return this.currencies.find(c => c.id === parseInt(this.form.currencyId));
+    },
+    isExchangeRateReadonly() {
+      // Make exchange rate readonly for LAK currency since it should always be 1
+      return this.selectedCurrency && this.selectedCurrency.code === 'LAK';
+    }
+  },
+  watch: {
+    show(newVal) {
+      if (newVal) {
+        this.initializeForm();
+      }
+    },
+    target: {
+      handler() {
+        if (this.show) {
+          this.initializeForm();
+        }
+      },
+      deep: true
+    },
+    'form.exchangeRate'() {
+      // Reset the update indicator when user manually changes the rate
+      if (!this.refreshingRate) {
+        this.exchangeRateUpdated = false;
+      }
+    }
+  },
+  methods: {
+    initializeForm() {
+      if (this.target) {
+        // Edit mode
+        this.form = {
+          name: this.target.name || '',
+          year: this.target.year || '',
+          targetAmount: this.target.targetAmount || '',
+          exchangeRate: this.target.exchangeRate || '',
+          currencyId: this.target.currencyId || '',
+          parentMinistryId: this.target.parentMinistryId || '',
+          chartAccountId: this.target.chartAccountId || '',
+          remark: this.target.remark || '',
+          isActive: this.target.isActive !== false
+        };
+        // Set initial exchange rate if currency is already selected
+        this.$nextTick(() => {
+          if (this.form.currencyId) {
+            this.updateExchangeRateFromCurrency();
+          }
+        });
+      } else {
+        // Create mode
+        this.form = {
+          name: '',
+          year: this.currentYear,
+          targetAmount: '',
+          exchangeRate: '',
+          currencyId: '',
+          parentMinistryId: '',
+          chartAccountId: '',
+          remark: '',
+          isActive: true
+        };
+      }
+      this.errors = {};
+      this.exchangeRateUpdated = false;
+      this.manualRateChange = false;
+    },
+    onCurrencyChange() {
+      this.updateExchangeRateFromCurrency();
+    },
+    updateExchangeRateFromCurrency() {
+      const currency = this.selectedCurrency;
+      console.log(`currency ${JSON.stringify(this.currencies)}`);
+      console.log(`Exchange rate ${currency.rate}`);
+      if (currency) {
+        if (currency.code === 'LAK') {
+          // LAK to LAK rate is always 1
+          this.form.exchangeRate = '1';
+        } else if (currency.rate) {
+          // Use the rate from currency object
+          this.form.exchangeRate = currency.rate.toString();
+        } else if (currency.exchangeRate) {
+          // Alternative property name for exchange rate
+          this.form.exchangeRate = currency.exchangeRate.toString();
+        } else {
+          // Default rates for common currencies if no rate is provided
+          const defaultRates = {
+            'USD': '21000',
+            'EUR': '23000',
+            'THB': '600',
+            'CNY': '2900',
+            'VND': '0.85'
+          };
+          this.form.exchangeRate = defaultRates[currency.code] || '1';
+        }
+
+        // Clear validation errors for exchange rate
+        if (this.errors.exchangeRate) {
+          delete this.errors.exchangeRate;
+        }
+      }
+    },
+    async refreshExchangeRate() {
+      if (!this.selectedCurrency || this.selectedCurrency.code === 'LAK') return;
+      this.refreshingRate = true;
+      this.exchangeRateUpdated = false;
+      try {
+        // Emit event to parent to fetch latest exchange rate
+        this.$emit('refresh-exchange-rate', {
+          currencyId: this.selectedCurrency.id,
+          currencyCode: this.selectedCurrency.code,
+          callback: this.handleExchangeRateUpdate
+        });
+      } catch (error) {
+        console.error('Error refreshing exchange rate:', error);
+        this.$emit('show-error', 'ບໍ່ສາມາດອັບເດດອັດຕາແລກປ່ຽນໄດ້');
+      } finally {
+        this.refreshingRate = false;
+      }
+    },
+    handleExchangeRateUpdate(newRate) {
+      if (newRate && newRate > 0) {
+        this.form.exchangeRate = newRate.toString();
+        this.exchangeRateUpdated = true;
+
+        // Hide the update indicator after 3 seconds
+        setTimeout(() => {
+          this.exchangeRateUpdated = false;
+        }, 3000);
+      }
+      this.refreshingRate = false;
+    },
+    validateForm() {
+      this.errors = {};
+      if (!this.form.name || this.form.name.trim().length < 2) {
+        this.errors.name = 'ຊື່ເປົ້າໝາຍຕ້ອງມີຢ່າງນ້ອຍ 2 ຕົວອັກສອນ';
+      }
+      if (!this.form.year) {
+        this.errors.year = 'ກະລຸນາເລືອກປີ';
+      }
+      if (!this.form.targetAmount || parseFloat(this.form.targetAmount) < 0) {
+        this.errors.targetAmount = 'ຈຳນວນເປົ້າໝາຍຕ້ອງເປັນຕົວເລກບວກ';
+      }
+      if (!this.form.exchangeRate || parseFloat(this.form.exchangeRate) < 1) {
+        this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງເປັນຕົວເລກທີ່ມາກກວ່າ 1';
+      }
+      if (!this.form.currencyId) {
+        this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ';
+      }
+      if (!this.form.parentMinistryId) {
+        this.errors.parentMinistryId = 'ກະລຸນາເລືອກກະຊວງ/ຫົວໜ່ວຍງານ';
+      }
+      if (!this.form.chartAccountId) {
+        this.errors.chartAccountId = 'ກະລຸນາເລືອກບັນຊີລາຍຮັບ';
+      }
+      return Object.keys(this.errors).length === 0;
+    },
+    async handleSubmit() {
+      if (!this.validateForm()) {
+        this.$emit('validation-error', 'ກະລຸນາແກ້ໄຂຂໍ້ຜິດພາດ');
+        return;
+      }
+      const formData = {
+        name: this.form.name.trim(),
+        year: parseInt(this.form.year),
+        targetAmount: parseFloat(this.form.targetAmount),
+        exchangeRate: parseFloat(this.form.exchangeRate),
+        currencyId: parseInt(this.form.currencyId),
+        parentMinistryId: parseInt(this.form.parentMinistryId),
+        chartAccountId: parseInt(this.form.chartAccountId),
+        remark: this.form.remark.trim(),
+        isActive: this.form.isActive
+      };
+      this.$emit('save', formData);
+    },
+    handleOverlayClick() {
+      this.closeDialog();
+    },
+    closeDialog() {
+      this.$emit('close');
+    },
+    calculateLAKAmount() {
+      const amount = parseFloat(this.form.targetAmount) || 0;
+      const rate = parseFloat(this.form.exchangeRate) || 1;
+      return amount * rate;
+    },
+    calculateUSDAmount() {
+      const amount = parseFloat(this.form.targetAmount) || 0;
+      const rate = parseFloat(this.form.exchangeRate) || 1;
+
+      // If the selected currency is USD, return the original amount
+      if (this.selectedCurrency && this.selectedCurrency.code === 'USD') {
+        return amount;
+      }
+
+      // Convert to USD (assuming USD rate is around 21000 LAK)
+      const usdRate = 21000;
+      const lakAmount = amount * rate;
+      return lakAmount / usdRate;
+    },
+    formatCurrency(amount) {
+      return new Intl.NumberFormat('lo-LA', {
+        style: 'currency',
+        currency: 'LAK',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(amount || 0);
+    },
+    formatUSD(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount || 0);
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/MA/revenueTargetDialog/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var MA_revenueTargetDialogvue_type_script_lang_js = (revenueTargetDialogvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/MA/revenueTargetDialog/index.vue
+
+
+
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(768)
+if (style0.__inject__) style0.__inject__(context)
+
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  MA_revenueTargetDialogvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  "1861f3a8",
+  "3c76fda0"
+  
+)
+
+/* harmony default export */ var revenueTargetDialog = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 1112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_107afb10_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(870);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_107afb10_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(885);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_107afb10_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_107afb10_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_107afb10_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_107afb10_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1098:
+/***/ 1113:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +520,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1384:
+/***/ 1399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -251,55 +743,55 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/moneyAdvanceTarget/index.vue?vue&type=template&id=107afb10&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(363);
+var esnext_set_add_all_js_ = __webpack_require__(143);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(364);
+var esnext_set_delete_all_js_ = __webpack_require__(144);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(365);
+var esnext_set_difference_js_ = __webpack_require__(145);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(366);
+var esnext_set_every_js_ = __webpack_require__(146);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(367);
+var esnext_set_filter_js_ = __webpack_require__(147);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(368);
+var esnext_set_find_js_ = __webpack_require__(148);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(369);
+var esnext_set_intersection_js_ = __webpack_require__(149);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(370);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(150);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(371);
+var esnext_set_is_subset_of_js_ = __webpack_require__(151);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(372);
+var esnext_set_is_superset_of_js_ = __webpack_require__(152);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(373);
+var esnext_set_join_js_ = __webpack_require__(153);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(374);
+var esnext_set_map_js_ = __webpack_require__(154);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(375);
+var esnext_set_reduce_js_ = __webpack_require__(155);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(376);
+var esnext_set_some_js_ = __webpack_require__(156);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(377);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(157);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(378);
+var esnext_set_union_js_ = __webpack_require__(158);
 
 // EXTERNAL MODULE: ./components/MA/revenueTargetDialog/index.vue + 4 modules
-var revenueTargetDialog = __webpack_require__(998);
+var revenueTargetDialog = __webpack_require__(1013);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceTarget/index.vue?vue&type=script&lang=js
 
@@ -806,7 +1298,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1097)
+  var style0 = __webpack_require__(1112)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -828,13 +1320,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 662:
+/***/ 677:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(754);
+var content = __webpack_require__(769);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -846,19 +1338,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 753:
+/***/ 768:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1861f3a8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(662);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1861f3a8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(677);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1861f3a8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1861f3a8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1861f3a8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1861f3a8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 754:
+/***/ 769:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -873,13 +1365,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 870:
+/***/ 885:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1098);
+var content = __webpack_require__(1113);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -888,498 +1380,6 @@ var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
   add("85cb65f8", content, true, context)
 };
-
-/***/ }),
-
-/***/ 998:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/revenueTargetDialog/index.vue?vue&type=template&id=1861f3a8&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.show ? _c('div', {
-    staticClass: "dialog-overlay",
-    on: {
-      "click": _vm.handleOverlayClick
-    }
-  }, [_vm._ssrNode("<div class=\"dialog-container\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"dialog-header\" data-v-1861f3a8><h2 class=\"dialog-title\" data-v-1861f3a8>" + _vm._ssrEscape("\n        " + _vm._s(_vm.target ? 'ແກ້ໄຂເປົ້າໝາຍລາຍຮັບ' : 'ສ້າງເປົ້າໝາຍລາຍຮັບ') + "\n      ") + "</h2> <button class=\"dialog-close\" data-v-1861f3a8><i class=\"fas fa-times\" data-v-1861f3a8></i></button></div> "), _vm._ssrNode("<div class=\"dialog-body\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<form data-v-1861f3a8>", "</form>", [_vm._ssrNode("<div class=\"form-row\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8><label for=\"name\" class=\"required\" data-v-1861f3a8>ຊື່ເປົ້າໝາຍລາຍຮັບ</label> <input id=\"name\" type=\"text\" placeholder=\"ກະລຸນາໃສ່ຊື່ເປົ້າໝາຍ\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.name) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.name
-  }) + " data-v-1861f3a8> " + (_vm.errors.name ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.name) + "\n            ") + "</div>" : "<!---->") + "</div> "), _vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"year\" class=\"required\" data-v-1861f3a8>ປີ</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.year,
-      expression: "form.year"
-    }],
-    staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.year
-    },
-    attrs: {
-      "id": "year",
-      "required": ""
-    },
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "year", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກປີ")]), _vm._v(" "), _vm._l(_vm.availableYears, function (year) {
-    return _c('option', {
-      key: year,
-      domProps: {
-        "value": year
-      }
-    }, [_vm._v("\n                " + _vm._s(year) + "\n              ")]);
-  })], 2), _vm._ssrNode(" " + (_vm.errors.year ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.year) + "\n            ") + "</div>" : "<!---->"))], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-row\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"parentMinistryId\" class=\"required\" data-v-1861f3a8>ກະຊວງ/ຫົວໜ່ວຍງານ</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.parentMinistryId,
-      expression: "form.parentMinistryId"
-    }],
-    staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.parentMinistryId
-    },
-    attrs: {
-      "id": "parentMinistryId",
-      "required": ""
-    },
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "parentMinistryId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກກະຊວງ/ຫົວໜ່ວຍງານ")]), _vm._v(" "), _vm._l(_vm.ministries, function (ministry) {
-    return _c('option', {
-      key: ministry.id,
-      domProps: {
-        "value": ministry.id
-      }
-    }, [_vm._v("\n                " + _vm._s(ministry.ministryCode) + " (" + _vm._s(ministry.ministryName) + ")\n              ")]);
-  })], 2), _vm._ssrNode(" " + (_vm.errors.parentMinistryId ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.parentMinistryId) + "\n            ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"chartAccountId\" class=\"required\" data-v-1861f3a8>ບັນຊີລາຍຮັບ</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.chartAccountId,
-      expression: "form.chartAccountId"
-    }],
-    staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.chartAccountId
-    },
-    attrs: {
-      "id": "chartAccountId",
-      "required": ""
-    },
-    on: {
-      "change": function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "chartAccountId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກບັນຊີລາຍຮັບ ")]), _vm._v(" "), _vm._l(_vm.chartAccounts, function (account) {
-    return _c('option', {
-      key: account.id,
-      domProps: {
-        "value": account.id
-      }
-    }, [_vm._v("\n                " + _vm._s(account.accountNumber) + " - " + _vm._s(account.accountName) + "\n              ")]);
-  })], 2), _vm._ssrNode(" " + (_vm.errors.chartAccountId ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.chartAccountId) + "\n            ") + "</div>" : "<!---->"))], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-row\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-1861f3a8>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" class=\"required\" data-v-1861f3a8>ສະກຸນເງິນ</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.currencyId,
-      expression: "form.currencyId"
-    }],
-    staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.currencyId
-    },
-    attrs: {
-      "id": "currencyId",
-      "required": ""
-    },
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "currencyId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }, _vm.onCurrencyChange]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ເລືອກສະກຸນເງິນ")]), _vm._v(" "), _vm._l(_vm.currencies, function (currency) {
-    return _c('option', {
-      key: currency.id,
-      domProps: {
-        "value": currency.id
-      }
-    }, [_vm._v("\n                " + _vm._s(currency.code) + " - " + _vm._s(currency.name) + "\n              ")]);
-  })], 2), _vm._ssrNode(" " + (_vm.errors.currencyId ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.currencyId) + "\n            ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-1861f3a8><label for=\"exchangeRate\" class=\"required\" data-v-1861f3a8>\n              ອັດຕາແລກປ່ຽນ\n              " + (_vm.selectedCurrency ? "<span class=\"exchange-rate-info\" data-v-1861f3a8>" + _vm._ssrEscape("\n                (" + _vm._s(_vm.selectedCurrency.code) + " to LAK)\n              ") + "</span>" : "<!---->") + "</label> <div class=\"exchange-rate-wrapper\" data-v-1861f3a8><input id=\"exchangeRate\" type=\"number\" step=\"0.01\" min=\"1\"" + _vm._ssrAttr("placeholder", _vm.selectedCurrency ? `Rate for ${_vm.selectedCurrency.code}` : '1.00') + _vm._ssrAttr("readonly", _vm.isExchangeRateReadonly) + " required=\"required\"" + _vm._ssrAttr("value", _vm.form.exchangeRate) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.exchangeRate
-  }) + " data-v-1861f3a8> " + (_vm.selectedCurrency && _vm.selectedCurrency.code !== 'LAK' ? "<button type=\"button\"" + _vm._ssrAttr("disabled", _vm.refreshingRate) + _vm._ssrAttr("title", 'ອັບເດດອັດຕາແລກປ່ຽນ ' + _vm.selectedCurrency.code) + " class=\"btn-refresh-rate\" data-v-1861f3a8><i" + _vm._ssrClass(null, ['fas', _vm.refreshingRate ? 'fa-spinner fa-spin' : 'fa-sync-alt']) + " data-v-1861f3a8></i></button>" : "<!---->") + "</div> " + (_vm.errors.exchangeRate ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.exchangeRate) + "\n            ") + "</div>" : "<!---->") + " " + (_vm.exchangeRateUpdated ? "<div class=\"exchange-rate-updated\" data-v-1861f3a8><i class=\"fas fa-check-circle\" data-v-1861f3a8></i>\n              ອັດຕາແລກປ່ຽນໄດ້ຮັບການອັບເດດ\n            </div>" : "<!---->") + "</div>")], 2), _vm._ssrNode(" <div class=\"form-row\" data-v-1861f3a8><div class=\"form-group\" data-v-1861f3a8><label for=\"targetAmount\" class=\"required\" data-v-1861f3a8>ຈຳນວນເປົ້າໝາຍ</label> <input id=\"targetAmount\" type=\"number\" step=\"0.01\" min=\"0\" placeholder=\"0.00\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.targetAmount) + _vm._ssrClass("form-control", {
-    'is-invalid': _vm.errors.targetAmount
-  }) + " data-v-1861f3a8> " + (_vm.errors.targetAmount ? "<div class=\"invalid-feedback\" data-v-1861f3a8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.errors.targetAmount) + "\n            ") + "</div>" : "<!---->") + "</div></div> <div class=\"form-group\" data-v-1861f3a8><label for=\"remark\" data-v-1861f3a8>ຫມາຍເຫດ</label> <textarea id=\"remark\" rows=\"3\" placeholder=\"ໃສ່ຫມາຍເຫດ (ຖ້າມີ)...\" class=\"form-control\" data-v-1861f3a8>" + _vm._ssrEscape(_vm._s(_vm.form.remark)) + "</textarea></div> " + (_vm.form.targetAmount && _vm.form.exchangeRate ? "<div class=\"calculation-section\" data-v-1861f3a8><h4 data-v-1861f3a8>ການຄິດໄລ່</h4> <div class=\"calculation-grid\" data-v-1861f3a8><div class=\"calculation-item\" data-v-1861f3a8><label data-v-1861f3a8>ຍອດເປົ້າໝາຍເປັນ LAK:</label> <span class=\"calculation-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatCurrency(_vm.calculateLAKAmount())) + "\n              ") + "</span></div> <div class=\"calculation-item\" data-v-1861f3a8><label data-v-1861f3a8>ຍອດເປົ້າໝາຍເປັນ USD:</label> <span class=\"calculation-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.formatUSD(_vm.calculateUSDAmount())) + "\n              ") + "</span></div></div></div>" : "<!---->") + " " + (_vm.selectedMinistry || _vm.selectedChartAccount || _vm.selectedCurrency ? "<div class=\"selected-info-section\" data-v-1861f3a8><h4 data-v-1861f3a8>ຂໍ້ມູນທີ່ເລືອກ</h4> <div class=\"info-grid\" data-v-1861f3a8>" + (_vm.selectedMinistry ? "<div class=\"info-item\" data-v-1861f3a8><label data-v-1861f3a8>ກະຊວງ/ຫົວໜ່ວຍງານ:</label> <span class=\"info-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.selectedMinistry.ministryCode) + " (" + _vm._s(_vm.selectedMinistry.ministryName) + ")\n              ") + "</span></div>" : "<!---->") + " " + (_vm.selectedChartAccount ? "<div class=\"info-item\" data-v-1861f3a8><label data-v-1861f3a8>ບັນຊີລາຍຮັບ:</label> <span class=\"info-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.selectedChartAccount.accountNumber) + " - " + _vm._s(_vm.selectedChartAccount.accountName) + "\n              ") + "</span></div>" : "<!---->") + " " + (_vm.selectedCurrency ? "<div class=\"info-item\" data-v-1861f3a8><label data-v-1861f3a8>ສະກຸນເງິນ:</label> <span class=\"info-value\" data-v-1861f3a8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.selectedCurrency.code) + " - " + _vm._s(_vm.selectedCurrency.name) + "\n                ") + (_vm.selectedCurrency.rate ? "<span class=\"currency-rate\" data-v-1861f3a8>" + _vm._ssrEscape("\n                  (Rate: " + _vm._s(_vm.selectedCurrency.rate) + ")\n                ") + "</span>" : "<!---->") + "</span></div>" : "<!---->") + "</div></div>" : "<!---->") + " <div class=\"dialog-footer\" data-v-1861f3a8><button type=\"button\" class=\"btn btn-secondary\" data-v-1861f3a8>\n            ຍົກເລີກ\n          </button> <button type=\"submit\"" + _vm._ssrAttr("disabled", _vm.formLoading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-1861f3a8>" + (_vm.formLoading ? "<i class=\"fas fa-spinner fa-spin\" data-v-1861f3a8></i>" : "<!---->") + _vm._ssrEscape("\n            " + _vm._s(_vm.target ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n          ") + "</button></div>")], 2)])], 2)]) : _vm._e();
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/MA/revenueTargetDialog/index.vue?vue&type=template&id=1861f3a8&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/MA/revenueTargetDialog/index.vue?vue&type=script&lang=js
-/* harmony default export */ var revenueTargetDialogvue_type_script_lang_js = ({
-  name: 'RevenueTargetDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    target: {
-      type: Object,
-      default: null
-    },
-    currencies: {
-      type: Array,
-      default: () => []
-    },
-    ministries: {
-      type: Array,
-      default: () => []
-    },
-    chartAccounts: {
-      type: Array,
-      default: () => []
-    },
-    formLoading: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      form: {
-        name: '',
-        year: '',
-        targetAmount: '',
-        exchangeRate: '',
-        currencyId: '',
-        parentMinistryId: '',
-        chartAccountId: '',
-        remark: '',
-        isActive: true
-      },
-      errors: {},
-      currentYear: new Date().getFullYear(),
-      refreshingRate: false,
-      exchangeRateUpdated: false,
-      manualRateChange: false
-    };
-  },
-  computed: {
-    availableYears() {
-      const years = [];
-      for (let i = 0; i < 10; i++) {
-        years.push(this.currentYear + i);
-      }
-      return years;
-    },
-    isFormValid() {
-      return this.form.name && this.form.year && this.form.targetAmount && this.form.exchangeRate && this.form.currencyId && this.form.parentMinistryId && this.form.chartAccountId && parseFloat(this.form.targetAmount) >= 0 && parseFloat(this.form.exchangeRate) >= 1;
-    },
-    selectedMinistry() {
-      return this.ministries.find(m => m.id === parseInt(this.form.parentMinistryId));
-    },
-    selectedChartAccount() {
-      return this.chartAccounts.find(a => a.id === parseInt(this.form.chartAccountId));
-    },
-    selectedCurrency() {
-      return this.currencies.find(c => c.id === parseInt(this.form.currencyId));
-    },
-    isExchangeRateReadonly() {
-      // Make exchange rate readonly for LAK currency since it should always be 1
-      return this.selectedCurrency && this.selectedCurrency.code === 'LAK';
-    }
-  },
-  watch: {
-    show(newVal) {
-      if (newVal) {
-        this.initializeForm();
-      }
-    },
-    target: {
-      handler() {
-        if (this.show) {
-          this.initializeForm();
-        }
-      },
-      deep: true
-    },
-    'form.exchangeRate'() {
-      // Reset the update indicator when user manually changes the rate
-      if (!this.refreshingRate) {
-        this.exchangeRateUpdated = false;
-      }
-    }
-  },
-  methods: {
-    initializeForm() {
-      if (this.target) {
-        // Edit mode
-        this.form = {
-          name: this.target.name || '',
-          year: this.target.year || '',
-          targetAmount: this.target.targetAmount || '',
-          exchangeRate: this.target.exchangeRate || '',
-          currencyId: this.target.currencyId || '',
-          parentMinistryId: this.target.parentMinistryId || '',
-          chartAccountId: this.target.chartAccountId || '',
-          remark: this.target.remark || '',
-          isActive: this.target.isActive !== false
-        };
-        // Set initial exchange rate if currency is already selected
-        this.$nextTick(() => {
-          if (this.form.currencyId) {
-            this.updateExchangeRateFromCurrency();
-          }
-        });
-      } else {
-        // Create mode
-        this.form = {
-          name: '',
-          year: this.currentYear,
-          targetAmount: '',
-          exchangeRate: '',
-          currencyId: '',
-          parentMinistryId: '',
-          chartAccountId: '',
-          remark: '',
-          isActive: true
-        };
-      }
-      this.errors = {};
-      this.exchangeRateUpdated = false;
-      this.manualRateChange = false;
-    },
-    onCurrencyChange() {
-      this.updateExchangeRateFromCurrency();
-    },
-    updateExchangeRateFromCurrency() {
-      const currency = this.selectedCurrency;
-      console.log(`currency ${JSON.stringify(this.currencies)}`);
-      console.log(`Exchange rate ${currency.rate}`);
-      if (currency) {
-        if (currency.code === 'LAK') {
-          // LAK to LAK rate is always 1
-          this.form.exchangeRate = '1';
-        } else if (currency.rate) {
-          // Use the rate from currency object
-          this.form.exchangeRate = currency.rate.toString();
-        } else if (currency.exchangeRate) {
-          // Alternative property name for exchange rate
-          this.form.exchangeRate = currency.exchangeRate.toString();
-        } else {
-          // Default rates for common currencies if no rate is provided
-          const defaultRates = {
-            'USD': '21000',
-            'EUR': '23000',
-            'THB': '600',
-            'CNY': '2900',
-            'VND': '0.85'
-          };
-          this.form.exchangeRate = defaultRates[currency.code] || '1';
-        }
-
-        // Clear validation errors for exchange rate
-        if (this.errors.exchangeRate) {
-          delete this.errors.exchangeRate;
-        }
-      }
-    },
-    async refreshExchangeRate() {
-      if (!this.selectedCurrency || this.selectedCurrency.code === 'LAK') return;
-      this.refreshingRate = true;
-      this.exchangeRateUpdated = false;
-      try {
-        // Emit event to parent to fetch latest exchange rate
-        this.$emit('refresh-exchange-rate', {
-          currencyId: this.selectedCurrency.id,
-          currencyCode: this.selectedCurrency.code,
-          callback: this.handleExchangeRateUpdate
-        });
-      } catch (error) {
-        console.error('Error refreshing exchange rate:', error);
-        this.$emit('show-error', 'ບໍ່ສາມາດອັບເດດອັດຕາແລກປ່ຽນໄດ້');
-      } finally {
-        this.refreshingRate = false;
-      }
-    },
-    handleExchangeRateUpdate(newRate) {
-      if (newRate && newRate > 0) {
-        this.form.exchangeRate = newRate.toString();
-        this.exchangeRateUpdated = true;
-
-        // Hide the update indicator after 3 seconds
-        setTimeout(() => {
-          this.exchangeRateUpdated = false;
-        }, 3000);
-      }
-      this.refreshingRate = false;
-    },
-    validateForm() {
-      this.errors = {};
-      if (!this.form.name || this.form.name.trim().length < 2) {
-        this.errors.name = 'ຊື່ເປົ້າໝາຍຕ້ອງມີຢ່າງນ້ອຍ 2 ຕົວອັກສອນ';
-      }
-      if (!this.form.year) {
-        this.errors.year = 'ກະລຸນາເລືອກປີ';
-      }
-      if (!this.form.targetAmount || parseFloat(this.form.targetAmount) < 0) {
-        this.errors.targetAmount = 'ຈຳນວນເປົ້າໝາຍຕ້ອງເປັນຕົວເລກບວກ';
-      }
-      if (!this.form.exchangeRate || parseFloat(this.form.exchangeRate) < 1) {
-        this.errors.exchangeRate = 'ອັດຕາແລກປ່ຽນຕ້ອງເປັນຕົວເລກທີ່ມາກກວ່າ 1';
-      }
-      if (!this.form.currencyId) {
-        this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ';
-      }
-      if (!this.form.parentMinistryId) {
-        this.errors.parentMinistryId = 'ກະລຸນາເລືອກກະຊວງ/ຫົວໜ່ວຍງານ';
-      }
-      if (!this.form.chartAccountId) {
-        this.errors.chartAccountId = 'ກະລຸນາເລືອກບັນຊີລາຍຮັບ';
-      }
-      return Object.keys(this.errors).length === 0;
-    },
-    async handleSubmit() {
-      if (!this.validateForm()) {
-        this.$emit('validation-error', 'ກະລຸນາແກ້ໄຂຂໍ້ຜິດພາດ');
-        return;
-      }
-      const formData = {
-        name: this.form.name.trim(),
-        year: parseInt(this.form.year),
-        targetAmount: parseFloat(this.form.targetAmount),
-        exchangeRate: parseFloat(this.form.exchangeRate),
-        currencyId: parseInt(this.form.currencyId),
-        parentMinistryId: parseInt(this.form.parentMinistryId),
-        chartAccountId: parseInt(this.form.chartAccountId),
-        remark: this.form.remark.trim(),
-        isActive: this.form.isActive
-      };
-      this.$emit('save', formData);
-    },
-    handleOverlayClick() {
-      this.closeDialog();
-    },
-    closeDialog() {
-      this.$emit('close');
-    },
-    calculateLAKAmount() {
-      const amount = parseFloat(this.form.targetAmount) || 0;
-      const rate = parseFloat(this.form.exchangeRate) || 1;
-      return amount * rate;
-    },
-    calculateUSDAmount() {
-      const amount = parseFloat(this.form.targetAmount) || 0;
-      const rate = parseFloat(this.form.exchangeRate) || 1;
-
-      // If the selected currency is USD, return the original amount
-      if (this.selectedCurrency && this.selectedCurrency.code === 'USD') {
-        return amount;
-      }
-
-      // Convert to USD (assuming USD rate is around 21000 LAK)
-      const usdRate = 21000;
-      const lakAmount = amount * rate;
-      return lakAmount / usdRate;
-    },
-    formatCurrency(amount) {
-      return new Intl.NumberFormat('lo-LA', {
-        style: 'currency',
-        currency: 'LAK',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(amount || 0);
-    },
-    formatUSD(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount || 0);
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/MA/revenueTargetDialog/index.vue?vue&type=script&lang=js
- /* harmony default export */ var MA_revenueTargetDialogvue_type_script_lang_js = (revenueTargetDialogvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/MA/revenueTargetDialog/index.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(753)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  MA_revenueTargetDialogvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "1861f3a8",
-  "3c76fda0"
-  
-)
-
-/* harmony default export */ var revenueTargetDialog = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

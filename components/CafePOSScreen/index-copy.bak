@@ -3,6 +3,7 @@
     <!-- Print Dialog -->
     <PrintTicketDialog
       :show="showCustomerPrint"
+      :key="printDialogKey"
       :ticket="selectedTicket"
       :restaurant-info="restaurantConfig"
       @close="closePrintDialog"
@@ -59,6 +60,25 @@
             <div class="caption">
               Base Price: {{ formatPrice(selectedProduct?.pro_price) }}
             </div>
+            <div v-if="selectedCustomer && selectedCustomer.grade" class="caption">
+              Customer Grade: {{ selectedCustomer.grade }}
+            </div>
+          </v-alert>
+
+          <!-- Current Customer Grade Price (if available) -->
+          <v-alert 
+            v-if="getCustomerGradePrice(selectedProduct)"
+            color="success" 
+            text 
+            dense 
+            class="mb-3"
+          >
+            <div class="font-weight-bold">
+              Grade {{ selectedCustomer.grade }} Price: {{ formatPrice(getCustomerGradePrice(selectedProduct)) }}
+            </div>
+            <div class="caption">
+              This price will be used automatically
+            </div>
           </v-alert>
 
           <!-- Price List Selection -->
@@ -113,6 +133,10 @@
               <v-icon x-small color="success">mdi-tag</v-icon>
               Price list applied
             </div>
+            <div v-else-if="getCustomerGradePrice(selectedProduct)" class="caption success--text">
+              <v-icon x-small color="success">mdi-account</v-icon>
+              Customer grade price applied
+            </div>
           </div>
 
           <v-divider class="my-3"></v-divider>
@@ -146,24 +170,24 @@
           <v-alert
             v-if="
               customPriceInput &&
-              customPriceInput !== selectedProduct?.pro_price
+              customPriceInput !== getDefaultProductPrice(selectedProduct)
             "
             type="info"
             dense
             text
             class="mb-3"
           >
-            Difference from base:
+            Difference from default:
             <strong>{{
               formatPriceDifference(
-                customPriceInput - selectedProduct?.pro_price
+                customPriceInput - getDefaultProductPrice(selectedProduct)
               )
             }}</strong>
           </v-alert>
 
           <!-- Override Reason -->
           <v-textarea
-            v-if="customPriceInput || selectedPriceListId"
+            v-if="customPriceInput || selectedPriceListId || !getCustomerGradePrice(selectedProduct)"
             v-model="priceOverrideReason"
             label="Reason (optional)"
             outlined
@@ -192,6 +216,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <!-- Print Confirmation Dialog -->
     <v-dialog v-model="showPrintConfirmDialog" max-width="400" persistent>
       <v-card>
@@ -273,6 +298,15 @@
               <v-icon class="mr-1" small>mdi-walk</v-icon>
               Walk-in
             </v-chip>
+            <!-- Customer Grade Display -->
+            <v-chip 
+              v-if="selectedCustomer && selectedCustomer.grade" 
+              :color="getGradeColor(selectedCustomer.grade)" 
+              class="mr-2"
+            >
+              <v-icon class="mr-1" small>mdi-account-star</v-icon>
+              Grade {{ selectedCustomer.grade }}
+            </v-chip>
             <v-chip color="white" class="mr-2">
               <v-icon class="mr-1" small>mdi-package-variant</v-icon>
               {{ filteredProducts.length }} items
@@ -351,6 +385,7 @@
                       (!product.isActive || product.stock_count <= 0) &&
                       product.validateStockOnSale,
                     'promotion-eligible': isProductInPromotion(product),
+                    'customer-grade-pricing': getCustomerGradePrice(product)
                   }"
                 >
                   <!-- Promotion indicator -->
@@ -363,9 +398,21 @@
                     mdi-tag
                   </v-icon>
 
+                  <!-- ✅ Customer Grade Badge -->
+                  <v-chip
+                    v-if="getCustomerGradePrice(product)"
+                    x-small
+                    :color="getGradeColor(selectedCustomer.grade)"
+                    text-color="white"
+                    class="grade-price-badge"
+                  >
+                    <v-icon x-small left>mdi-account-star</v-icon>
+                    Grade {{ selectedCustomer.grade }}
+                  </v-chip>
+
                   <!-- ✅ Price List Badge (if available) -->
                   <v-chip
-                    v-if="hasAvailablePriceLists(product)"
+                    v-else-if="hasAvailablePriceLists(product)"
                     x-small
                     color="purple"
                     text-color="white"
@@ -383,17 +430,36 @@
                   </v-card-title>
 
                   <v-card-text class="pa-2">
-                    <!-- ✅ Enhanced Price Display -->
+                    <!-- ✅ Enhanced Price Display with Customer Grade -->
                     <div class="price-section mb-2">
-                      <div class="text-h5 primary--text font-weight-bold">
-                        {{ formatPrice(product.pro_price) }}
+                      <!-- Show customer grade price if available -->
+                      <div v-if="getCustomerGradePrice(product)" class="text-center">
+                        <!-- Base price (struck through) -->
+                        <div class="text-body-2 grey--text text-decoration-line-through">
+                          {{ formatPrice(product.pro_price) }}
+                        </div>
+                        <!-- Customer grade price (highlighted) -->
+                        <div class="text-h5 primary--text font-weight-bold">
+                          {{ formatPrice(getCustomerGradePrice(product)) }}
+                        </div>
+                        <!-- Grade indicator -->
+                        <div class="caption success--text mt-1">
+                          <v-icon x-small color="success">mdi-account-check</v-icon>
+                          Grade {{ selectedCustomer.grade }} Price
+                        </div>
                       </div>
-                      <!-- Show price range if price lists available -->
-                      <div
-                        v-if="hasAvailablePriceLists(product)"
-                        class="caption grey--text"
-                      >
-                        {{ getPriceRangeText(product) }}
+                      <!-- Default price display -->
+                      <div v-else>
+                        <div class="text-h5 primary--text font-weight-bold">
+                          {{ formatPrice(product.pro_price) }}
+                        </div>
+                        <!-- Show price range if price lists available -->
+                        <div
+                          v-if="hasAvailablePriceLists(product)"
+                          class="caption grey--text"
+                        >
+                          {{ getPriceRangeText(product) }}
+                        </div>
                       </div>
                     </div>
 
@@ -428,12 +494,12 @@
                         "
                       >
                         <v-icon small left>mdi-cart-plus</v-icon>
-                        Add
+                        {{ getCustomerGradePrice(product) ? 'Add (Grade)' : 'Add' }}
                       </v-btn>
 
-                      <!-- ✅ Price Selection Button (if price lists available) -->
+                      <!-- ✅ Price Selection Button (if price lists available OR no customer grade match) -->
                       <v-btn
-                        v-if="hasAvailablePriceLists(product)"
+                        v-if="hasAvailablePriceLists(product) || !getCustomerGradePrice(product)"
                         @click.stop="openPriceSelector(product)"
                         color="purple"
                         small
@@ -476,9 +542,9 @@
       <v-col cols="4" class="right-panel">
         <div class="cart-container">
           <!-- Cart Header (FIXED) -->
-          <v-card-title class="cart-header accent white--text">
+          <v-card-title class="cart-header secondary white--text">
             <v-icon class="mr-2" color="white">mdi-cart</v-icon>
-            Order Cart {{ selectedCustomer?.grade || '' }}
+            Order Cart 
             <v-spacer></v-spacer>
             <v-chip color="white" class="accent--text">
               {{ cart.length }} items
@@ -486,7 +552,6 @@
           </v-card-title>
 
           <!-- Customer Section (FIXED) -->
-
           <div class="customer-section">
             <v-row dense align="center">
               <v-col>
@@ -496,11 +561,11 @@
                     <div class="text-subtitle-2 font-weight-medium">
                       {{ selectedCustomer?.name || 'Walk-in Customer' }}
                     </div>
-                    <div
-                      class="caption grey--text"
-                      v-if="selectedCustomer?.phone"
-                    >
-                      {{ selectedCustomer.phone }}
+                    <div class="caption grey--text">
+                      <span v-if="selectedCustomer?.phone">{{ selectedCustomer.phone }}</span>
+                      <span v-if="selectedCustomer?.grade" class="ml-2">
+                        • Grade {{ selectedCustomer.grade }}
+                      </span>
                     </div>
                   </div>
                   <v-btn @click="openCustomerDialog" icon small color="primary">
@@ -543,6 +608,14 @@
                     <div class="caption grey--text">
                       {{ item.categ_name }} •
                       {{ formatPrice(item.pro_price) }}/each
+                      <!-- Show if customer grade price was used -->
+                      <span v-if="item.isCustomerGradePrice" class="success--text">
+                        • Grade {{ selectedCustomer?.grade }}
+                      </span>
+                      <!-- Show if price was overridden -->
+                      <span v-else-if="item.priceOverridden" class="warning--text">
+                        • Modified
+                      </span>
                     </div>
                     <!-- Show indicators for ticket line items -->
                     <div
@@ -794,6 +867,7 @@ export default {
   },
   data() {
     return {
+      printDialogKey:1,
       showPriceOverrideDialog: false,
       selectedProduct: null,
       selectedPriceListId: null,
@@ -878,6 +952,14 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
+      currentTerminal() {
+      console.log(
+        `ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`
+      )
+      return this.findAllTerminal.find(
+        (el) => el['id'] == this.findSelectedTerminal
+      )
+    },
     user() {
       return this.$auth.user || null
     },
@@ -886,7 +968,7 @@ export default {
       const tax = this.calculatedTax
       return baseAfterPromotions + tax
     },
-    // ✅ NEW: Effective price in dialog
+    // ✅ NEW: Effective price in dialog with customer grade consideration
     effectivePriceInDialog() {
       if (!this.selectedProduct) return 0
 
@@ -909,6 +991,12 @@ export default {
         }
       }
 
+      // ✅ If customer has grade and product has matching price list, use it
+      const customerGradePrice = this.getCustomerGradePrice(this.selectedProduct)
+      if (customerGradePrice) {
+        return customerGradePrice
+      }
+
       // Default to base price
       return this.selectedProduct.pro_price
     },
@@ -916,6 +1004,11 @@ export default {
     // ✅ NEW: Check if price selection is valid
     isValidPriceSelection() {
       if (!this.selectedProduct) return false
+
+      // Always allow if there's a customer grade price available (auto-applied)
+      if (this.getCustomerGradePrice(this.selectedProduct)) {
+        return true
+      }
 
       // Allow if price list is selected or custom price is entered
       if (
@@ -1086,9 +1179,73 @@ export default {
       },
       deep: true,
     },
+
+    // ✅ NEW: Watch for customer changes and update cart pricing
+    selectedCustomer: {
+      handler(newCustomer, oldCustomer) {
+        // If customer grade changed, update existing cart items
+        if (newCustomer?.grade !== oldCustomer?.grade) {
+          this.updateCartPricesForCustomerGrade()
+        }
+      },
+      deep: true
+    }
   },
 
   methods: {
+    // ✅ NEW: Get customer grade specific price for a product
+    getCustomerGradePrice(product) {
+      if (!this.selectedCustomer?.grade || !product) {
+        return null
+      }
+
+      const priceLists = this.getProductPriceLists(product)
+      const matchingPriceList = priceLists.find(
+        (pl) => pl.grade === this.selectedCustomer.grade
+      )
+
+      if (matchingPriceList) {
+        return this.calculatePriceListAmount(matchingPriceList, product.pro_price)
+      }
+
+      return null
+    },
+
+    // ✅ NEW: Get default product price (considering customer grade)
+    getDefaultProductPrice(product) {
+      const customerGradePrice = this.getCustomerGradePrice(product)
+      return customerGradePrice || product.pro_price
+    },
+
+    // ✅ NEW: Update cart prices when customer grade changes
+    updateCartPricesForCustomerGrade() {
+      this.cart.forEach(item => {
+        // Only update if item wasn't manually overridden
+        if (!item.priceOverridden && !item.isFromTicketLine) {
+          const product = this.products.find(p => p.id === item.id)
+          if (product) {
+            const customerGradePrice = this.getCustomerGradePrice(product)
+            if (customerGradePrice) {
+              item.pro_price = customerGradePrice
+              item.isCustomerGradePrice = true
+            } else {
+              item.pro_price = product.pro_price
+              item.isCustomerGradePrice = false
+            }
+          }
+        }
+      })
+
+      // Show message about price updates
+      if (this.selectedCustomer?.grade) {
+        this.showMessage(
+          `Prices updated for Grade ${this.selectedCustomer.grade} customer`,
+          'info',
+          'mdi-account-star'
+        )
+      }
+    },
+
     formatPriceDifference(diff) {
       const sign = diff >= 0 ? '+' : ''
       return sign + this.formatPrice(Math.abs(diff))
@@ -1785,6 +1942,7 @@ export default {
               ? parseInt(this.tableId)
               : null,
           clientId: this.selectedCustomer ? this.selectedCustomer.id : null,
+          locationId: this.currentSelectedLocation['id'] || 1,
           status: 'pending',
           subtotal: parseFloat(subtotal.toFixed(2) - tax.toFixed(2)),
           promotionDiscount: parseFloat(promotionDiscount.toFixed(2)),
@@ -1829,8 +1987,9 @@ export default {
               promotion_note: promotionData?.promotion_note || null,
               // ✅ ADD: Price override fields
               priceListId: item.priceListId || null,
-              priceOverridden: item.priceOverridden || false,
-              priceOverrideReason: item.priceOverrideReason || null,
+              priceOverridden: item.priceOverridden || item.isCustomerGradePrice || false,
+              priceOverrideReason: item.priceOverrideReason || 
+                (item.isCustomerGradePrice ? `Customer Grade ${this.selectedCustomer?.grade} pricing` : null),
             }
           }),
         }
@@ -1896,7 +2055,7 @@ export default {
       )
     },
 
-    // ✅ FIXED: Improved stock validation logic
+    // ✅ ENHANCED: Add to cart with customer grade pricing
     addToCart(product) {
       console.log('Adding product to cart:', product)
 
@@ -1910,19 +2069,23 @@ export default {
         return
       }
 
+      // ✅ Get customer grade price if available
+      const customerGradePrice = this.getCustomerGradePrice(product)
+      const priceToUse = customerGradePrice || product.pro_price
+
       const existingItem = this.cart.find((item) => item.id === product.id)
 
       if (existingItem) {
-        // ✅ FIX: Cleaner stock validation logic
         const canAddMore =
           !product.validateStockOnSale ||
           existingItem.quantity < product.stock_count
 
         if (canAddMore) {
           existingItem.quantity += 1
-          // Only update price if not from ticket line and not overridden
+          // Only update price if not from ticket line and not manually overridden
           if (!existingItem.isFromTicketLine && !existingItem.priceOverridden) {
-            existingItem.pro_price = parseFloat(product.pro_price)
+            existingItem.pro_price = parseFloat(priceToUse)
+            existingItem.isCustomerGradePrice = !!customerGradePrice
           }
         } else {
           this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
@@ -1932,7 +2095,7 @@ export default {
           id: product.id,
           pro_id: product.id,
           pro_name: product.pro_name,
-          pro_price: parseFloat(product.pro_price),
+          pro_price: parseFloat(priceToUse),
           categ_name: product.categ_name,
           stock_count: product.stock_count,
           isActive: product.isActive,
@@ -1941,11 +2104,23 @@ export default {
           isFromTicketLine: false,
           priceOverridden: false,
           originalPrice: parseFloat(product.pro_price),
+          isCustomerGradePrice: !!customerGradePrice,
         })
       }
+
+      // Show appropriate message
+      const priceMessage = customerGradePrice 
+        ? `with Grade ${this.selectedCustomer.grade} price (${this.formatPrice(priceToUse)})` 
+        : `(${this.formatPrice(priceToUse)})`
+      
+      this.showMessage(
+        `${product.pro_name} added ${priceMessage}`,
+        'success',
+        'mdi-cart-plus'
+      )
     },
 
-    // ✅ Price override methods
+    // ✅ Enhanced price selection with customer grade consideration
     applyPriceSelection() {
       if (!this.selectedProduct) return
 
@@ -1968,6 +2143,9 @@ export default {
         (item) => item.id === this.selectedProduct.id
       )
 
+      const isCustomerGrade = this.getCustomerGradePrice(this.selectedProduct) && 
+        !this.customPriceInput && !this.selectedPriceListId
+
       if (existingItem) {
         const canAddMore =
           !this.selectedProduct.validateStockOnSale ||
@@ -1975,13 +2153,12 @@ export default {
 
         if (canAddMore) {
           existingItem.quantity += 1
-          // Update price if custom or price list applied
-          if (this.customPriceInput || this.selectedPriceListId) {
-            existingItem.pro_price = effectivePrice
-            existingItem.priceOverridden = true
-            existingItem.priceListId = this.selectedPriceListId
-            existingItem.priceOverrideReason = this.priceOverrideReason || null
-          }
+          // Update price details
+          existingItem.pro_price = effectivePrice
+          existingItem.priceOverridden = !!(this.customPriceInput || this.selectedPriceListId)
+          existingItem.priceListId = this.selectedPriceListId
+          existingItem.priceOverrideReason = this.priceOverrideReason || null
+          existingItem.isCustomerGradePrice = isCustomerGrade
         } else {
           this.showMessage('Maximum stock reached', 'warning', 'mdi-alert')
           return
@@ -1998,23 +2175,24 @@ export default {
           validateStockOnSale: this.selectedProduct.validateStockOnSale,
           quantity: 1,
           isFromTicketLine: false,
-          priceOverridden: !!(
-            this.customPriceInput || this.selectedPriceListId
-          ),
+          priceOverridden: !!(this.customPriceInput || this.selectedPriceListId),
           priceListId: this.selectedPriceListId,
           originalPrice: this.selectedProduct.pro_price,
           priceOverrideReason: this.priceOverrideReason || null,
+          isCustomerGradePrice: isCustomerGrade,
         })
       }
 
-      this.showMessage(
-        `${this.selectedProduct.pro_name} added with ${this.formatPrice(
-          effectivePrice
-        )}`,
-        'success',
-        'mdi-cart-plus'
-      )
+      let message = `${this.selectedProduct.pro_name} added with ${this.formatPrice(effectivePrice)}`
+      if (isCustomerGrade) {
+        message += ` (Grade ${this.selectedCustomer.grade})`
+      } else if (this.selectedPriceListId) {
+        message += ` (Price List Applied)`
+      } else if (this.customPriceInput) {
+        message += ` (Custom Price)`
+      }
 
+      this.showMessage(message, 'success', 'mdi-cart-plus')
       this.closePriceOverrideDialog()
     },
 
@@ -2031,7 +2209,6 @@ export default {
     },
 
     hasAvailablePriceLists(product) {
-      console.info(`PRODUCT DET: ${JSON.stringify(product)}`)
       return this.getProductPriceLists(product).length > 0
     },
 
@@ -2207,7 +2384,8 @@ export default {
           )
         }
         this.closePaymentDialog()
-        this.showPrintConfirmDialog = true
+        // this.showPrintConfirmDialog = true
+        this.handlePrintConfirmation(true);
         if (!this.isWalkIn) {
           await this.updateTableStatus('cleaning')
         }
@@ -2393,7 +2571,9 @@ export default {
         console.log('Updated ticket for print:', ticketForPrint)
         this.currentTicket = latestTicket
         this.selectedTicket = ticketForPrint
+        this.printDialogKey++
         this.showCustomerPrint = true
+        // this.onPrintSuccess()
       } catch (error) {
         console.error('Error fetching latest ticket data for printing:', error)
         this.showMessage(
@@ -2418,6 +2598,7 @@ export default {
           total: this.getFinalTotal,
         }
         this.selectedTicket = ticketForPrint
+        this.printDialogKey++
         this.showCustomerPrint = true
       } finally {
         this.loading = false

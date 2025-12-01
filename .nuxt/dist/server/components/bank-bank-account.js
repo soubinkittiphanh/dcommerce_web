@@ -1,52 +1,7 @@
 exports.ids = [27];
 exports.modules = {
 
-/***/ 624:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(732);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("60dcde25", content, true, context)
-};
-
-/***/ }),
-
-/***/ 731:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(624);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 732:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-5f6eb4c3]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.modal-container[data-v-5f6eb4c3]{animation:modalSlideIn-5f6eb4c3 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 10px 25px rgba(0,0,0,.2);max-height:90vh;max-width:700px;overflow-y:auto;width:100%}@keyframes modalSlideIn-5f6eb4c3{0%{opacity:0;transform:translateY(-30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-5f6eb4c3]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #e9ecef;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;padding:20px 20px 16px}.modal-title[data-v-5f6eb4c3]{color:#333;font-size:20px;font-weight:600;margin:0}.modal-close-btn[data-v-5f6eb4c3]{background:none;border:none;border-radius:4px;color:#666;cursor:pointer;font-size:18px;padding:4px 8px;transition:background-color .2s}.modal-close-btn[data-v-5f6eb4c3]:hover{background-color:#e9ecef;color:#333}.modal-body[data-v-5f6eb4c3]{padding:24px}.account-form[data-v-5f6eb4c3]{display:flex;flex-direction:column;gap:20px}.form-row[data-v-5f6eb4c3]{display:grid;grid-template-columns:1fr 1fr;grid-gap:20px;gap:20px}.form-group[data-v-5f6eb4c3]{display:flex;flex-direction:column;gap:8px}.form-label[data-v-5f6eb4c3]{color:#555;font-size:14px;font-weight:500}.form-label.required[data-v-5f6eb4c3]:after{color:#dc3545;content:\" *\"}.input-with-icon[data-v-5f6eb4c3]{position:relative}.input-icon[data-v-5f6eb4c3]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%);z-index:1}.form-control[data-v-5f6eb4c3]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 40px;transition:all .2s}.form-control[data-v-5f6eb4c3]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.form-control.is-invalid[data-v-5f6eb4c3]{border-color:#dc3545}.invalid-feedback[data-v-5f6eb4c3]{color:#dc3545;font-size:12px;margin-top:4px}.status-toggle[data-v-5f6eb4c3]{align-items:center;display:flex;gap:12px}.toggle-switch[data-v-5f6eb4c3]{display:inline-block;height:24px;position:relative;width:48px}.toggle-input[data-v-5f6eb4c3]{height:0;opacity:0;width:0}.toggle-slider[data-v-5f6eb4c3]{background-color:#ccc;border-radius:24px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0;transition:.4s}.toggle-slider[data-v-5f6eb4c3]:before{background-color:#fff;border-radius:50%;bottom:3px;content:\"\";height:18px;left:3px;position:absolute;transition:.4s;width:18px}.toggle-input:checked+.toggle-slider[data-v-5f6eb4c3]{background-color:#28a745}.toggle-input:checked+.toggle-slider[data-v-5f6eb4c3]:before{transform:translateX(24px)}.toggle-label[data-v-5f6eb4c3]{color:#555;font-weight:500}.modal-footer[data-v-5f6eb4c3]{display:flex;gap:12px;justify-content:flex-end;padding:16px 24px 24px}.btn[data-v-5f6eb4c3]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-5f6eb4c3]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-5f6eb4c3]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-5f6eb4c3]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-5f6eb4c3]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-5f6eb4c3]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.modal-overlay[data-v-5f6eb4c3]{padding:10px}.modal-container[data-v-5f6eb4c3]{max-height:95vh}.modal-header[data-v-5f6eb4c3]{padding:16px}.modal-body[data-v-5f6eb4c3]{padding:20px 16px}.modal-footer[data-v-5f6eb4c3]{flex-direction:column-reverse;padding:12px 16px 16px}.form-row[data-v-5f6eb4c3]{gap:16px;grid-template-columns:1fr}.btn[data-v-5f6eb4c3]{justify-content:center;width:100%}}@media (max-width:480px){.modal-title[data-v-5f6eb4c3]{font-size:18px}.account-form[data-v-5f6eb4c3]{gap:16px}.form-group[data-v-5f6eb4c3]{gap:6px}.toggle-switch[data-v-5f6eb4c3]{height:20px;width:40px}.toggle-slider[data-v-5f6eb4c3]:before{bottom:2px;height:16px;left:2px;width:16px}.toggle-input:checked+.toggle-slider[data-v-5f6eb4c3]:before{transform:translateX(20px)}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 989:
+/***/ 1004:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -493,7 +448,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(731)
+  var style0 = __webpack_require__(746)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -512,6 +467,51 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var bankAccount = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 639:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(747);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("60dcde25", content, true, context)
+};
+
+/***/ }),
+
+/***/ 746:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(639);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5f6eb4c3_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 747:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-5f6eb4c3]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.modal-container[data-v-5f6eb4c3]{animation:modalSlideIn-5f6eb4c3 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 10px 25px rgba(0,0,0,.2);max-height:90vh;max-width:700px;overflow-y:auto;width:100%}@keyframes modalSlideIn-5f6eb4c3{0%{opacity:0;transform:translateY(-30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-5f6eb4c3]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #e9ecef;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;padding:20px 20px 16px}.modal-title[data-v-5f6eb4c3]{color:#333;font-size:20px;font-weight:600;margin:0}.modal-close-btn[data-v-5f6eb4c3]{background:none;border:none;border-radius:4px;color:#666;cursor:pointer;font-size:18px;padding:4px 8px;transition:background-color .2s}.modal-close-btn[data-v-5f6eb4c3]:hover{background-color:#e9ecef;color:#333}.modal-body[data-v-5f6eb4c3]{padding:24px}.account-form[data-v-5f6eb4c3]{display:flex;flex-direction:column;gap:20px}.form-row[data-v-5f6eb4c3]{display:grid;grid-template-columns:1fr 1fr;grid-gap:20px;gap:20px}.form-group[data-v-5f6eb4c3]{display:flex;flex-direction:column;gap:8px}.form-label[data-v-5f6eb4c3]{color:#555;font-size:14px;font-weight:500}.form-label.required[data-v-5f6eb4c3]:after{color:#dc3545;content:\" *\"}.input-with-icon[data-v-5f6eb4c3]{position:relative}.input-icon[data-v-5f6eb4c3]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%);z-index:1}.form-control[data-v-5f6eb4c3]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 40px;transition:all .2s}.form-control[data-v-5f6eb4c3]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.form-control.is-invalid[data-v-5f6eb4c3]{border-color:#dc3545}.invalid-feedback[data-v-5f6eb4c3]{color:#dc3545;font-size:12px;margin-top:4px}.status-toggle[data-v-5f6eb4c3]{align-items:center;display:flex;gap:12px}.toggle-switch[data-v-5f6eb4c3]{display:inline-block;height:24px;position:relative;width:48px}.toggle-input[data-v-5f6eb4c3]{height:0;opacity:0;width:0}.toggle-slider[data-v-5f6eb4c3]{background-color:#ccc;border-radius:24px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0;transition:.4s}.toggle-slider[data-v-5f6eb4c3]:before{background-color:#fff;border-radius:50%;bottom:3px;content:\"\";height:18px;left:3px;position:absolute;transition:.4s;width:18px}.toggle-input:checked+.toggle-slider[data-v-5f6eb4c3]{background-color:#28a745}.toggle-input:checked+.toggle-slider[data-v-5f6eb4c3]:before{transform:translateX(24px)}.toggle-label[data-v-5f6eb4c3]{color:#555;font-weight:500}.modal-footer[data-v-5f6eb4c3]{display:flex;gap:12px;justify-content:flex-end;padding:16px 24px 24px}.btn[data-v-5f6eb4c3]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-5f6eb4c3]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-5f6eb4c3]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-5f6eb4c3]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-5f6eb4c3]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-5f6eb4c3]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.modal-overlay[data-v-5f6eb4c3]{padding:10px}.modal-container[data-v-5f6eb4c3]{max-height:95vh}.modal-header[data-v-5f6eb4c3]{padding:16px}.modal-body[data-v-5f6eb4c3]{padding:20px 16px}.modal-footer[data-v-5f6eb4c3]{flex-direction:column-reverse;padding:12px 16px 16px}.form-row[data-v-5f6eb4c3]{gap:16px;grid-template-columns:1fr}.btn[data-v-5f6eb4c3]{justify-content:center;width:100%}}@media (max-width:480px){.modal-title[data-v-5f6eb4c3]{font-size:18px}.account-form[data-v-5f6eb4c3]{gap:16px}.form-group[data-v-5f6eb4c3]{gap:6px}.toggle-switch[data-v-5f6eb4c3]{height:20px;width:40px}.toggle-slider[data-v-5f6eb4c3]:before{bottom:2px;height:16px;left:2px;width:16px}.toggle-input:checked+.toggle-slider[data-v-5f6eb4c3]:before{transform:translateX(20px)}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
 
 /***/ })
 

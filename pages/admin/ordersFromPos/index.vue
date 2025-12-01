@@ -27,7 +27,7 @@
       >
       </youtube-player>
     </v-dialog>
-    <v-dialog v-model="dialogOrderDetail" max-width="1024">
+    <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
         @reload="
           loadData()
