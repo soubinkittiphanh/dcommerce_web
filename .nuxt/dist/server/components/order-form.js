@@ -153,10 +153,10 @@ __webpack_require__.r(__webpack_exports__);
 var VAutocomplete = __webpack_require__(396);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -165,7 +165,7 @@ var components_VCard = __webpack_require__(3);
 var VCheckbox = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
+var VChip = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(416);
@@ -174,7 +174,7 @@ var VCol = __webpack_require__(416);
 var VDialog = __webpack_require__(390);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+var VDivider = __webpack_require__(121);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(413);

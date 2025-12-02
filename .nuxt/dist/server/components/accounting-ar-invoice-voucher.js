@@ -54,10 +54,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -399,7 +399,7 @@ var api = __webpack_require__(41);
     },
     fallbackLogoUrl() {
       // Return your default logo
-      return __webpack_require__(143);
+      return __webpack_require__(142);
     },
     // Company information
     companyName() {

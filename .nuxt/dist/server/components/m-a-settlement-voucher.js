@@ -55,7 +55,7 @@ var settlementVouchervue_type_template_id_99e2760e_scoped_true_render = function
   }, [_c('img', {
     staticClass: "voucher-logo",
     attrs: {
-      "src": __webpack_require__(143),
+      "src": __webpack_require__(142),
       "alt": "Ministry Logo"
     }
   }), _vm._v(" "), _c('div', {

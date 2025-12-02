@@ -36,10 +36,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -102,7 +102,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/pos/dialogs/QuantityUpdateDialog.vue?vue&type=template&id=69f70c00&scoped=true
 
 // EXTERNAL MODULE: ./components/quotation/index.vue + 4 modules
-var quotation = __webpack_require__(110);
+var quotation = __webpack_require__(109);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/dialogs/QuantityUpdateDialog.vue?vue&type=script&lang=js
 
@@ -160,7 +160,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var QuantityUpdateDialog = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {Quotation: __webpack_require__(110).default})
+installComponents(component, {Quotation: __webpack_require__(109).default})
 
 
 /***/ }),

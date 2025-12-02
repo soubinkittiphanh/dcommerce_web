@@ -39,10 +39,10 @@ __webpack_require__.r(__webpack_exports__);
 var VAlert = __webpack_require__(417);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -78,7 +78,7 @@ var VRow = __webpack_require__(415);
 var VSpacer = __webpack_require__(418);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
-var VSubheader = __webpack_require__(129);
+var VSubheader = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(449);

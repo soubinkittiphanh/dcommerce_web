@@ -39,7 +39,7 @@ __webpack_require__.r(__webpack_exports__);
 var VDatePicker = __webpack_require__(459);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
-var VMenu = __webpack_require__(128);
+var VMenu = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
@@ -1242,7 +1242,7 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
 var VDatePickerTable = __webpack_require__(441);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
-var touch = __webpack_require__(138);
+var touch = __webpack_require__(137);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/eventHelpers.js
 function createItemTypeNativeListeners(instance, itemTypeSuffix, value) {

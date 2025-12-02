@@ -36,7 +36,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(416);
@@ -45,7 +45,7 @@ var VCol = __webpack_require__(416);
 var VContainer = __webpack_require__(414);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+var VDivider = __webpack_require__(121);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(415);
@@ -338,7 +338,7 @@ var api = __webpack_require__(41);
       try {
         var _this$companyData;
         const logoName = (_this$companyData = this.companyData) === null || _this$companyData === void 0 ? void 0 : _this$companyData.companyLogo;
-        return logoName ? __webpack_require__(141)(`./${logoName}`) : null;
+        return logoName ? __webpack_require__(140)(`./${logoName}`) : null;
       } catch (error) {
         console.error('Error loading company logo:', error);
         return null;

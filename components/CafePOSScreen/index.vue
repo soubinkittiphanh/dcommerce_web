@@ -147,7 +147,7 @@
           <v-divider class="my-3"></v-divider>
 
           <!-- Custom Price Override -->
-          <div class="text-subtitle-2 mb-2">
+          <div class=" mb-2">
             <v-icon small class="mr-1">mdi-pencil</v-icon>
             Or Enter Custom Price
           </div>
@@ -238,7 +238,7 @@
           <v-icon size="64" color="success" class="mb-3"
             >mdi-credit-card-check</v-icon
           >
-          <div class="text-h6 mb-2">
+          <div class=" mb-2">
             Payment has been processed successfully
           </div>
           <div class="text-subtitle-1 mb-4">
@@ -441,7 +441,7 @@
                   color="primary"
                   indeterminate
                 ></v-progress-circular>
-                <p class="mt-4 text-h6">Loading products...</p>
+                <p class="mt-4 ">Loading products...</p>
               </div>
             </div>
 
@@ -507,7 +507,7 @@
                     </v-chip>
 
                     <v-card-title
-                      class="justify-center text-subtitle-2 pa-1"
+                      class="justify-center  pa-1"
                       style="line-height: 1.2; font-size: 0.875rem"
                     >
                       {{ product.pro_name }}
@@ -528,7 +528,7 @@
                             {{ formatPrice(product.pro_price) }}
                           </div>
                           <!-- Customer grade price (highlighted) -->
-                          <div class="text-h6 primary--text font-weight-bold">
+                          <div class=" primary--text font-weight-bold">
                             {{ formatPrice(getCustomerGradePrice(product)) }}
                           </div>
                           <!-- Grade indicator -->
@@ -541,7 +541,7 @@
                         </div>
                         <!-- Default price display -->
                         <div v-else>
-                          <div class="text-h6 primary--text font-weight-bold">
+                          <div class=" primary--text font-weight-bold">
                             {{ formatPrice(product.pro_price) }}
                           </div>
                           <!-- Show price range if price lists available -->
@@ -622,7 +622,7 @@
                 <v-icon size="64" color="grey"
                   >mdi-package-variant-closed</v-icon
                 >
-                <p class="text-h6 mt-4 grey--text">No products found</p>
+                <p class=" mt-4 grey--text">No products found</p>
                 <p class="grey--text">
                   Try adjusting your search or category filter
                 </p>
@@ -656,7 +656,7 @@
                 <div class="d-flex align-center">
                   <v-icon class="mr-2" color="primary">mdi-account</v-icon>
                   <div class="flex-grow-1">
-                    <div class="text-subtitle-2 font-weight-medium">
+                    <div class=" font-weight-medium">
                       {{ selectedCustomer?.name || 'Walk-in Customer' }}
                     </div>
                     <div class="caption grey--text">
@@ -701,7 +701,7 @@
                 <div class="d-flex justify-space-between align-center mb-1">
                   <div class="flex-grow-1 mr-2">
                     <div
-                      class="text-subtitle-2 font-weight-medium line-clamp-1"
+                      class=" font-weight-medium line-clamp-1"
                     >
                       {{ getProductName(item.pro_id) }}
                     </div>

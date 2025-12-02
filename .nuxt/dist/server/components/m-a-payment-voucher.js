@@ -55,7 +55,7 @@ var paymentVouchervue_type_template_id_3d1eb6e0_scoped_true_render = function re
   }, [_c('img', {
     staticClass: "voucher-logo",
     attrs: {
-      "src": __webpack_require__(143),
+      "src": __webpack_require__(142),
       "alt": "Ministry Logo"
     }
   }), _vm._v(" "), _c('div', {

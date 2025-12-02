@@ -574,7 +574,9 @@ export default {
   },
   computed: {
     parsedCompanyInfo() {
-      console.info(`COMPANY DATA PARSING ${JSON.stringify(this.$route.query.company)}`)
+      console.info(
+        `COMPANY DATA PARSING ${JSON.stringify(this.$route.query.company)}`
+      )
       if (this.$route.query.company) {
         try {
           return JSON.parse(decodeURIComponent(this.$route.query.company))
@@ -754,6 +756,7 @@ export default {
     handleStorageChange(event) {
       if (event.key === 'customerDisplay') {
         const data = event.newValue
+        console.info(`EVENT TRIGGEREED ${JSON.stringify(data)}`)
         if (data) {
           try {
             const message = JSON.parse(data)
@@ -778,7 +781,7 @@ export default {
     },
 
     handleDisplayMessage(message) {
-      console.log('Customer screen received message:', message)
+      console.log(`Customer screen received message: ${JSON.stringify(message)}`)
 
       if (message.type === 'SHOW_QR_PAYMENT') {
         this.displayQR(message.data)
@@ -790,17 +793,28 @@ export default {
     },
 
     async displayQR(data) {
-      console.log('Displaying QR for:', data)
+      console.log(`Displaying QR for: ${JSON.stringify(data)}`)
 
       this.qrData = {
         ...data,
         timestamp: Date.now(),
       }
 
-      if (data.ticketId) {
+      // FIXED: Check if order items are directly provided
+      if (data.orderItems && data.orderItems.length > 0) {
+        // Use the provided order items directly
+        this.orderItems = data.orderItems
+        console.log('Using provided order items:', this.orderItems)
+      } else if (data.ticketId) {
         await this.loadOrderDetailsByTicketId(data.ticketId)
       } else if (data.tableNumber) {
         await this.loadOrderDetails(data.tableNumber)
+      }
+
+      // FIXED: Check if order summary is directly provided
+      if (data.orderSummary) {
+        this.orderSummary = data.orderSummary
+        console.log('Using provided order summary:', this.orderSummary)
       }
 
       this.showQR = true

@@ -9,7 +9,7 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -24,7 +24,7 @@ var VImg = __webpack_require__(85);
 var VListItem = __webpack_require__(69);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAvatar.js
-var VListItemAvatar = __webpack_require__(119);
+var VListItemAvatar = __webpack_require__(118);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
 var VList = __webpack_require__(9);

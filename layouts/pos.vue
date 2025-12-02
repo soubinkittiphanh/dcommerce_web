@@ -1,7 +1,8 @@
 <template>
   <v-app dark>
-    <!-- Multi-Payment Dialog - ADDED -->
-    <v-dialog v-model="multiPaymentDialog" max-width="800" persistent>
+    <!-- MINIMART POS.VUE -->
+    <!-- Multi-Payment Dialog - ENHANCED -->
+    <v-dialog v-model="multiPaymentDialog" max-width="900" persistent>
       <multi-payment-dialog
         v-model="multiPaymentDialog"
         :sale-total="grandTotal - discount"
@@ -14,31 +15,53 @@
       />
     </v-dialog>
 
-    <!-- Terminal Selection Dialog -->
-    <v-dialog v-model="terminalDialog" scrollable max-width="600" persistent>
-      <v-card class="terminal-dialog">
-        <v-card-title class="primary white--text">
-          <v-icon left>mdi-monitor</v-icon>
-          ເລືອກ Terminal
+    <!-- Terminal Selection Dialog - ENHANCED -->
+    <v-dialog v-model="terminalDialog" scrollable max-width="700" persistent>
+      <v-card class="terminal-dialog elevation-12">
+        <v-card-title class="primary white--text py-4">
+          <v-icon left size="28">mdi-monitor</v-icon>
+          <span class="text-h5">ເລືອກ Terminal</span>
+          <v-spacer></v-spacer>
+          <v-icon color="white">mdi-lan-connect</v-icon>
         </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text class="pa-4" style="max-height: 400px">
+        <v-divider class="primary darken-1"></v-divider>
+        <v-card-text class="pa-6" style="max-height: 450px">
           <v-radio-group v-model="terminalSelected" class="mt-2">
             <v-card
               v-for="terminal in findAllTerminal"
               :key="terminal.id"
-              class="mb-3 terminal-card"
-              :class="{ selected: terminalSelected === terminal.id }"
+              class="mb-4 terminal-card"
+              :class="{
+                selected: terminalSelected === terminal.id,
+                'elevation-8': terminalSelected === terminal.id,
+              }"
               @click="terminalSelected = terminal.id"
               outlined
               hover
             >
-              <v-card-text class="pa-3">
-                <v-radio
-                  :value="terminal.id"
-                  :label="`${terminal.name} - ${terminal.description}`"
-                  color="primary"
-                ></v-radio>
+              <v-card-text class="pa-4">
+                <v-row align="center" no-gutters>
+                  <v-col cols="auto" class="mr-3">
+                    <v-radio :value="terminal.id" color="primary"></v-radio>
+                  </v-col>
+                  <v-col>
+                    <div class="text-subtitle-1 font-weight-bold mb-1">
+                      {{ terminal.name }}
+                    </div>
+                    <div class="grey--text">
+                      {{ terminal.description }}
+                    </div>
+                  </v-col>
+                  <v-col cols="auto">
+                    <v-icon
+                      v-if="terminalSelected === terminal.id"
+                      color="primary"
+                      size="24"
+                    >
+                      mdi-check-circle
+                    </v-icon>
+                  </v-col>
+                </v-row>
               </v-card-text>
             </v-card>
           </v-radio-group>
@@ -46,14 +69,22 @@
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-
-          <v-btn color="grey" text @click="terminalDialog = false">
+          <v-btn
+            color="grey"
+            text
+            large
+            @click="terminalDialog = false"
+            class="px-6"
+          >
+            <v-icon left>mdi-close</v-icon>
             ຍົກເລີກ
           </v-btn>
           <v-btn
             color="primary"
+            large
             @click="switchTerminalAction"
             :disabled="!terminalSelected"
+            class="px-6 ml-2"
           >
             <v-icon left>mdi-check</v-icon>
             ເລືອກ
@@ -62,14 +93,14 @@
       </v-card>
     </v-dialog>
 
-    <!-- Quantity Update Dialog -->
-    <v-dialog v-model="qtyDialog" max-width="400px" @keydown.enter="updateQty">
-      <v-card>
-        <v-card-title class="primary white--text">
-          <v-icon left>mdi-counter</v-icon>
-          ອັບເດດຈຳນວນ
+    <!-- Quantity Update Dialog - ENHANCED -->
+    <v-dialog v-model="qtyDialog" max-width="450px" @keydown.enter="updateQty">
+      <v-card class="elevation-12">
+        <v-card-title class="primary white--text py-4">
+          <v-icon left size="24">mdi-counter</v-icon>
+          <span class="">ອັບເດດຈຳນວນ</span>
         </v-card-title>
-        <v-card-text class="pa-4">
+        <v-card-text class="pa-6">
           <v-text-field
             v-model.number="newQty"
             label="ໃສ່ຈຳນວນໃໝ່"
@@ -79,13 +110,22 @@
             autofocus
             :rules="[(v) => v > 0 || 'ຈຳນວນຕ້ອງມາກກວ່າ 0']"
             @keydown.enter="updateQty"
+            prepend-inner-icon="mdi-numeric"
+            class=""
           ></v-text-field>
         </v-card-text>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="qtyDialog = false">ຍົກເລີກ</v-btn>
-          <v-btn color="primary" @click="updateQty" :disabled="newQty <= 0">
-            <v-icon left>mdi-check</v-icon>
+          <v-btn color="grey" text @click="qtyDialog = false" class="px-4">
+            ຍົກເລີກ
+          </v-btn>
+          <v-btn
+            color="primary"
+            @click="updateQty"
+            :disabled="newQty <= 0"
+            class="px-4 ml-2"
+          >
+            <v-icon left small>mdi-check</v-icon>
             ບັນທຶກ
           </v-btn>
         </v-card-actions>
@@ -116,7 +156,7 @@
     </v-dialog>
 
     <!-- Loading Indicator Dialog -->
-    <v-dialog v-model="isloading" hide-overlay persistent width="300">
+    <v-dialog v-model="isloading" hide-overlay persistent width="350">
       <loading-indicator></loading-indicator>
     </v-dialog>
 
@@ -125,40 +165,105 @@
       <Quotation></Quotation>
     </v-dialog>
 
-    <!-- App Bar -->
+    <!-- ENHANCED App Bar -->
     <v-app-bar
       app
       color="primary"
       dark
       clipped-left
       clipped-right
-      elevation="4"
-      height="72"
+      elevation="8"
+      height="80"
+      class="app-header"
     >
-      <v-container fluid class="pa-2">
+      <v-container fluid class="pa-3">
         <v-row align="center" no-gutters>
+          <!-- Left Section - Menu & Mobile Cart -->
           <v-col cols="12" md="2" class="d-flex align-center">
-            <v-btn icon @click="drawer = !drawer" class="mr-2">
-              <v-icon>mdi-menu</v-icon>
+            <v-btn icon @click="drawer = !drawer" class="mr-3 menu-btn" large>
+              <v-icon size="28">mdi-menu</v-icon>
             </v-btn>
+
+            <!-- Mobile Cart Button -->
             <v-btn
               icon
               @click="drawer_right = !drawer_right"
-              class="d-lg-none mr-2"
+              class="d-lg-none cart-mobile-btn"
+              large
             >
               <v-badge
                 v-if="productCart.length > 0"
                 :content="productCart.length"
                 color="error"
                 overlap
+                dot
               >
-                <v-icon>mdi-cart</v-icon>
+                <v-icon size="28">mdi-cart</v-icon>
               </v-badge>
-              <v-icon v-else>mdi-cart</v-icon>
+              <v-icon v-else size="28">mdi-cart-outline</v-icon>
             </v-btn>
           </v-col>
 
-          <v-col cols="12" md="6" lg="4" class="px-2">
+          <!-- Right Section - Action Buttons -->
+          <v-col cols="12" md="8" lg="9" class="d-flex justify-end">
+            <div class="d-flex align-center flex-wrap ga-2">
+              <!-- Customer Screen Button - ENHANCED -->
+              <v-btn
+                class="header-btn mr-2"
+                :color="isCustomerDisplayOpen() ? 'success' : 'white'"
+                text
+                @click="openCustomerScreenEnhanced"
+                large
+                rounded
+              >
+                <v-icon left size="20">
+                  {{
+                    isCustomerDisplayOpen()
+                      ? 'mdi-monitor-eye'
+                      : 'mdi-monitor-share'
+                  }}
+                </v-icon>
+                <span class="d-none d-sm-inline font-weight-medium">
+                  {{ isCustomerDisplayOpen() ? 'ອັບເດດຈໍ' : 'ຈໍລູກຄ້າ' }}
+                </span>
+              </v-btn>
+
+              <!-- Navigation Buttons -->
+              <v-btn
+                v-for="item in headerMenu"
+                :key="item.title"
+                :to="item.path"
+                @click="item.method"
+                text
+                class="header-btn"
+                :class="{ 'active-route': $route.path === item.path }"
+                large
+                rounded
+              >
+                <v-icon left size="20">{{ item.icon }}</v-icon>
+                <span class="d-none d-sm-inline font-weight-medium">{{
+                  item.title
+                }}</span>
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+
+    <!-- ENHANCED Left Navigation Drawer -->
+    <v-navigation-drawer
+      app
+      v-model="drawer"
+      clipped
+      width="300"
+      class="drawer-left elevation-8"
+    >
+      <div class="drawer-header pa-4 ma-0">
+        <v-row align="center" no-gutters>
+          <v-col cols="auto" class="mr-3">
+            <!-- Center Section - Search -->
+
             <v-text-field
               v-model="serachModel"
               clearable
@@ -169,169 +274,200 @@
               label="ຄົ້ນຫາສິນຄ້າ..."
               solo-inverted
               hide-details
-              class="search-field"
+              class="search-field elevation-2"
             />
           </v-col>
-
-          <v-col cols="12" md="4" lg="6" class="d-flex justify-end">
-            <div class="d-flex align-center flex-wrap ga-2">
-              <v-btn
-                class="header-btn mr-2"
-                color="primary"
-                @click="openCustomerScreen"
-                large
-                outlined
-                rounded
-              >
-                <v-icon left>mdi-monitor-share</v-icon>
-                <span class="d-none d-sm-inline">ເປີດ ຈໍລູກຄ້າ</span>
-              </v-btn>
-              <v-btn
-                v-for="item in headerMenu"
-                :key="item.title"
-                :to="item.path"
-                @click="item.method"
-                outlined
-                class="header-btn"
-                :class="{ active: $route.path === item.path }"
-              >
-                <v-icon left size="20">{{ item.icon }}</v-icon>
-                <span class="d-none d-sm-inline">{{ item.title }}</span>
-              </v-btn>
-            </div>
-          </v-col>
         </v-row>
-      </v-container>
-    </v-app-bar>
-
-    <!-- Left Navigation Drawer -->
-    <v-navigation-drawer
-      app
-      v-model="drawer"
-      clipped
-      width="280"
-      class="drawer-left"
-    >
-      <div class="drawer-header pa-4">
-        <v-chip
+        <!-- <v-btn
+          class="header-btn mr-2"
+          color="warning"
+          text
+          @click="testCustomerScreenWithCurrentCart"
+          large
+          rounded
+        >
+          <v-icon left size="20">mdi-bug</v-icon>
+          <span class="d-none d-sm-inline font-weight-medium">DEBUG</span>
+        </v-btn> -->
+      </div>
+      <!-- Terminal Header -->
+      <div class="drawer-header pa-4 ma-0">
+        <v-card
           color="warning"
           outlined
-          block
           @click="terminalDialog = true"
-          class="terminal-chip"
+          class="terminal-chip elevation-2"
+          hover
         >
-          <v-icon left>mdi-monitor</v-icon>
-          <span class="text-truncate">
-            {{ currentTerminal?.description || 'ເລືອກ Terminal' }}
-            <br />
-            <small>{{ currentTerminal?.name || '' }}</small>
-          </span>
-          <v-icon right>mdi-chevron-down</v-icon>
-        </v-chip>
+          <v-card-text class="pa-3">
+            <v-row align="center" no-gutters>
+              <v-col cols="auto" class="mr-3">
+                <v-icon color="orange darken-2" size="24">mdi-monitor</v-icon>
+              </v-col>
+              <v-col>
+                <div class="font-weight-bold">
+                  {{ currentTerminal?.name || 'ເລືອກ Terminal' }}
+                </div>
+                <div class="text-caption grey--text">
+                  {{ currentTerminal?.description || 'ກະລຸນາເລືອກ Terminal' }}
+                </div>
+              </v-col>
+              <v-col cols="auto">
+                <v-icon color="orange darken-2">mdi-chevron-down</v-icon>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
       </div>
 
-      <v-divider></v-divider>
+      <v-divider class="mx-4"></v-divider>
 
-      <v-list dense nav class="py-0">
-        <v-subheader class="font-weight-bold px-4"> ໝວດໝູ່ສິນຄ້າ </v-subheader>
+      <!-- Categories List -->
+      <div class="pa-4">
+        <div class="font-weight-bold mb-3 primary--text">ໝວດໝູ່ສິນຄ້າ</div>
 
-        <v-list-item-group v-model="selectedItem" color="primary">
-          <v-list-item
-            v-for="(item, i) in categoryList"
-            :key="i"
-            class="category-item"
-            :class="{ active: selectedItem === i }"
-          >
-            <v-list-item-icon>
-              <v-icon>mdi-tag</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="font-weight-medium text-wrap">
-                {{ item.categ_name }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+        <v-list dense nav class="transparent">
+          <v-list-item-group v-model="selectedItem" color="primary">
+            <v-list-item
+              v-for="(item, i) in categoryList"
+              :key="i"
+              class="category-item mb-1"
+              :class="{ 'active-category': selectedItem === i }"
+              rounded
+            >
+              <v-list-item-icon class="mr-3">
+                <v-icon :color="selectedItem === i ? 'primary' : 'grey'">
+                  mdi-tag
+                </v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title
+                  class="font-weight-medium text-wrap"
+                  :class="{ 'primary--text': selectedItem === i }"
+                >
+                  {{ item.categ_name }}
+                </v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-icon v-if="selectedItem === i">
+                <v-icon color="primary" small>mdi-chevron-right</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </div>
     </v-navigation-drawer>
 
-    <!-- Main Content -->
+    <!-- ENHANCED Main Content -->
     <v-main class="main-content">
       <div class="main-content-wrapper">
-        <v-container fluid class="pa-4 main-container">
+        <v-container fluid class="pa-0 main-container">
           <Nuxt :key="productComponentKey" />
         </v-container>
       </div>
     </v-main>
 
-    <!-- Right Navigation Drawer (Cart) -->
+    <!-- ENHANCED Right Navigation Drawer (Cart) -->
     <v-navigation-drawer
       app
       right
       clipped
-      width="480"
-      class="cart-drawer"
+      width="500"
+      class="cart-drawer elevation-8"
       :permanent="$vuetify.breakpoint.lgAndUp"
       :temporary="$vuetify.breakpoint.mdAndDown"
       v-model="drawer_right"
     >
       <div class="cart-container">
-        <!-- Cart Header -->
-        <div class="cart-header pa-3 primary white--text">
+        <!-- Enhanced Cart Header -->
+        <div class="cart-header pa-4">
           <v-row align="center" no-gutters>
             <v-col>
-              <h3 class="mb-0">
-                <v-icon left>mdi-cart</v-icon>
-                ກະຕ່າສິນຄ້າ
-              </h3>
+              <div class="d-flex align-center">
+                <v-icon left size="28">mdi-shopping-cart</v-icon>
+                <div>
+                  <div class="font-weight-bold mb-0">ກະຕ່າສິນຄ້າ</div>
+                  <div class="text-caption white--text" style="opacity: 0.8">
+                    ລາຍການສິນຄ້າທີ່ເລືອກ
+                  </div>
+                </div>
+              </div>
             </v-col>
             <v-col cols="auto">
-              <v-chip color="white" text-color="primary" small>
+              <v-chip
+                color="white"
+                text-color="primary"
+                label
+                class="font-weight-bold"
+              >
                 {{ productCart.length }} ລາຍການ
               </v-chip>
             </v-col>
           </v-row>
         </div>
 
-        <!-- Customer Bar -->
-        <div class="customer-bar pa-3 grey lighten-5">
+        <!-- Enhanced Customer Bar -->
+        <div class="customer-bar pa-4">
           <v-row align="center" no-gutters class="ga-2">
             <v-col>
-              <v-chip
+              <v-card
                 color="success"
                 outlined
                 @click="openCustomerDialog"
-                class="customer-chip"
+                class="customer-chip elevation-2"
+                hover
               >
-                <v-icon left small>mdi-account</v-icon>
-                <span class="text-truncate">{{ customerDisplayName }}</span>
-                <v-icon right small>mdi-pencil</v-icon>
-              </v-chip>
+                <v-card-text class="pa-3">
+                  <v-row align="center" no-gutters>
+                    <v-col cols="auto" class="mr-3">
+                      <v-icon color="success" size="20"
+                        >mdi-account-circle</v-icon
+                      >
+                    </v-col>
+                    <v-col>
+                      <div class="font-weight-bold text-truncate">
+                        {{ customerDisplayName }}
+                      </div>
+                    </v-col>
+                    <v-col cols="auto">
+                      <v-icon color="success" small>mdi-pencil</v-icon>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
             </v-col>
 
             <v-col cols="auto">
-              <v-btn
-                icon
-                color="primary"
-                @click="openDeliveryBox"
-                title="ຈັດສົ່ງ"
-              >
-                <v-icon>mdi-bike-fast</v-icon>
-              </v-btn>
+              <div class="d-flex ga-2">
+                <v-btn
+                  icon
+                  color="primary"
+                  @click="openDeliveryBox"
+                  title="ຈັດສົ່ງ"
+                  class="action-btn"
+                >
+                  <v-icon>mdi-truck-delivery</v-icon>
+                </v-btn>
 
-              <v-btn icon color="primary" @click="newOrder" title="ອໍເດີໃໝ່">
-                <v-icon>mdi-file-document-refresh-outline</v-icon>
-              </v-btn>
+                <v-btn
+                  icon
+                  color="primary"
+                  @click="newOrder"
+                  title="ອໍເດີໃໝ່"
+                  class="action-btn"
+                >
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
 
-              <v-btn
-                icon
-                color="grey"
-                @click="drawer_right = false"
-                class="d-lg-none"
-                title="ປິດ"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
+                <v-btn
+                  icon
+                  color="grey"
+                  @click="drawer_right = false"
+                  class="d-lg-none action-btn"
+                  title="ປິດ"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </div>
             </v-col>
           </v-row>
         </div>
@@ -339,11 +475,12 @@
         <!-- Cart Items -->
         <div class="cart-items flex-grow-1">
           <v-card flat height="100%" class="d-flex flex-column">
-            <div class="cart-items-header pa-2 grey lighten-4">
+            <!-- Enhanced Header -->
+            <div class="cart-items-header pa-3 grey lighten-4">
               <v-row
                 no-gutters
                 align="center"
-                class="text-caption font-weight-bold"
+                class="text-caption font-weight-bold grey--text text--darken-2"
               >
                 <v-col cols="1"></v-col>
                 <v-col cols="4">ສິນຄ້າ</v-col>
@@ -367,18 +504,19 @@
                 />
               </template>
 
-              <div v-else class="empty-cart pa-4 text-center">
-                <v-icon size="64" color="grey lighten-2"
-                  >mdi-cart-outline</v-icon
-                >
-                <p class="text-body-2 grey--text mt-2">ກະຕ່າວ່າງເປົ່າ</p>
+              <!-- Enhanced Empty Cart -->
+              <div v-else class="empty-cart pa-6 text-center">
+                <v-icon size="80" color="grey lighten-2" class="mb-4">
+                  mdi-cart-outline
+                </v-icon>
+                <div class="grey--text mb-2">ກະຕ່າວ່າງເປົ່າ</div>
+                <div class="grey--text">ເລືອກສິນຄ້າເພື່ອເພີ່ມໃສ່ກະຕ່າ</div>
               </div>
             </div>
           </v-card>
         </div>
 
-        <!-- Cart Footer with Multi-Payment Support - UPDATED -->
-
+        <!-- Enhanced Cart Footer -->
         <cart-footer-component
           :product-cart="productCart"
           :discount="discount"
@@ -410,10 +548,10 @@ import Quotation from '~/components/quotation'
 import PricingOption from '~/components/PricingOption.vue'
 import LoadingIndicator from '~/components/LoadingIndicator.vue'
 import DeliveryForm from '~/components/DeliveryForm.vue'
-import MultiPaymentDialog from '~/components/pos/MultiPaymentDialog-vue2.vue' // FIXED: Vue 2 compatible version
-import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js' // FIXED: Vue 2 compatible version
+import MultiPaymentDialog from '~/components/pos/MultiPaymentDialog-vue2.vue'
+import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js'
 
-// Import the new components
+// Import the components
 import CartItemComponent from '~/components/pos/CartItemComponent.vue'
 import CartFooterComponent from '~/components/pos/CartFooterComponent.vue'
 
@@ -438,7 +576,7 @@ export default {
     DeliveryForm,
     CartItemComponent,
     CartFooterComponent,
-    MultiPaymentDialog, // Vue 2 compatible version
+    MultiPaymentDialog,
   },
   name: 'DefaultLayout',
   data() {
@@ -515,12 +653,35 @@ export default {
         isActive: true,
       },
       stateValue: '',
+
+      // CUSTOMER SCREEN INTEGRATION - NEW
+      $customerWindow: null,
     }
   },
 
   computed: {
+    // ENHANCED COMPANY DATA FOR CUSTOMER SCREEN
     companyData() {
-      return mainCompanyInfo()
+      const baseCompany = mainCompanyInfo()
+
+      // Try to get enhanced company data from terminal/location
+      const terminalCompany = this.currentTerminal?.location?.company
+
+      return {
+        name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
+        address:
+          this.formatCompanyAddress(terminalCompany) ||
+          baseCompany?.address ||
+          '123 Main Street',
+        tel: terminalCompany?.tel || baseCompany?.tel || '',
+        email: terminalCompany?.email || baseCompany?.email || '',
+        bank: terminalCompany?.bank || baseCompany?.bank || '',
+        accountName:
+          terminalCompany?.accountName || baseCompany?.accountName || '',
+        accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
+        remark: terminalCompany?.remark || baseCompany?.remark || '',
+        ticketLogo: baseCompany?.ticketLogo || 'default-logo.png',
+      }
     },
 
     changes() {
@@ -592,11 +753,13 @@ export default {
     generateSaleLine() {
       let lines = []
       for (const iterator of this.productCart) {
+        console.info(`PORUCDDDD ===> ${JSON.stringify(iterator)}`)
         lines.push({
           quantity: iterator.qty,
           unitRate: 1,
           price: iterator.localPrice,
           discount: 0,
+          validateStockOnSale: iterator.validateStockOnSale,
           productId: iterator.id,
           productKey: iterator.id,
           unitId: iterator.stockUnitId,
@@ -635,9 +798,12 @@ export default {
     this.loadCustomer()
     this.loadCurrency()
     this.checkAllInitData()
-    this.initializeMultiPayment() // Initialize multi-payment system
+    this.initializeMultiPayment()
 
-    // Set drawer_right based on screen size
+    // CUSTOMER SCREEN INTEGRATION
+    this.$customerWindow = null
+    window.addEventListener('message', this.handleCustomerScreenMessage)
+
     if (this.$vuetify.breakpoint.lgAndUp) {
       this.drawer_right = true
     }
@@ -645,9 +811,17 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.checkAllInitData)
+
+    // CUSTOMER SCREEN CLEANUP
+    // this.closeCustomerDisplayWindow()
+    window.removeEventListener('message', this.handleCustomerScreenMessage)
   },
 
   watch: {
+    cartOfProduct(newVal, oldVal) {
+      console.log('Cart changed:', newVal)
+      this.sendWelcomeMessage()
+    },
     selectedItem(val) {
       if (val != undefined) {
         this.updateSelectedCategoryId(this.categoryList[val]['categ_id'])
@@ -656,20 +830,325 @@ export default {
   },
 
   methods: {
-    openCustomerScreen() {
-      // The path to your customer display component
-      const customerScreenPath = '/admin/cafeTable/customer'
+    testCustomerScreenWithCurrentCart() {
+      console.log('=== DEBUGGING CUSTOMER SCREEN DATA ===')
+      console.log('Current cart:', this.productCart)
+      console.log('Product count:', this.productCart.length)
+      console.log('All products available:', this.findAllProduct.length)
+      console.log('Current terminal:', this.currentTerminal)
+      console.log('Grand total:', this.grandTotal)
+      console.log('Discount:', this.discount)
 
-      // We use window.open() to launch the path in a new, unstyled window
-      // The second argument '_blank' ensures it opens in a new tab/window
-      // The third argument specifies features like size (optional, but good practice)
-      window.open(
-        customerScreenPath,
-        'CustomerDisplay',
-        'width=1200,height=800,resizable=yes,scrollbars=yes'
+      const formattedItems = this.formatOrderItemsForCustomerScreen()
+      const formattedSummary = this.formatOrderSummaryForCustomerScreen()
+
+      console.log('Formatted items for customer screen:', formattedItems)
+      console.log('Formatted summary for customer screen:', formattedSummary)
+
+      // Send test data
+      this.sendQRToCustomerScreen()
+      console.log('=== END DEBUG ===')
+    },
+
+    // ================================================
+    // CUSTOMER SCREEN INTEGRATION METHODS - NEW
+    // ================================================
+
+    /**
+     * Enhanced customer screen opening with proper company data
+     */
+    openCustomerScreenEnhanced() {
+      try {
+        // Prepare company information exactly like PaymentDialog does
+        const companyInfo = {
+          name: this.companyData.name,
+          address: this.companyData.address,
+          tel: this.companyData.tel,
+          email: this.companyData.email,
+          bank: this.companyData.bank,
+          accountName: this.companyData.accountName,
+          accounts: this.companyData.accounts,
+          remark: this.companyData.remark,
+        }
+        this.sendQRToCustomerScreen()
+
+        // Encode company data for URL (same as PaymentDialog)
+        const companyParam = encodeURIComponent(JSON.stringify(companyInfo))
+        const customerScreenPath = `/admin/cafeTable/customer?company=${companyParam}`
+
+        // Open customer screen window
+        this.$customerWindow = window.open(
+          customerScreenPath,
+          'CustomerDisplay',
+          'width=1200,height=800,resizable=yes,scrollbars=yes,location=no,menubar=no,toolbar=no,status=no'
+        )
+
+        if (!this.$customerWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Please allow popups for customer display'
+          )
+          return
+        }
+
+        // Set up window handlers
+        this.setupCustomerWindowHandlers()
+
+        console.log('Customer screen opened successfully')
+
+        // Send welcome message after window loads
+        setTimeout(() => {
+          this.sendWelcomeMessage()
+        }, 1000)
+      } catch (error) {
+        console.error('Error opening customer screen:', error)
+        swalError2(this.$swal, 'Error', 'Failed to open customer screen')
+      }
+    },
+
+    /**
+     * Set up customer window event handlers
+     */
+    setupCustomerWindowHandlers() {
+      if (!this.$customerWindow) return
+
+      this.$customerWindow.addEventListener('beforeunload', () => {
+        console.log('Customer display window is closing')
+        this.$customerWindow = null
+      })
+    },
+
+    /**
+     * Send welcome message to customer screen
+     */
+    sendWelcomeMessage() {
+      const formattedOrderItems = this.formatOrderItemsForCustomerScreen()
+      const formattedOrderSummary = this.formatOrderSummaryForCustomerScreen()
+
+      const message = {
+        type: 'SHOW_QR_PAYMENT',
+        data: {
+          amount: this.grandTotal - this.discount,
+          storeName: this.companyData.name,
+          timestamp: Date.now(),
+          orderItems: formattedOrderItems,
+          orderSummary: formattedOrderSummary,
+        },
+      }
+      this.sendToCustomerScreen(message)
+    },
+
+    /**
+     * Send message to customer screen
+     */
+    sendToCustomerScreen(message) {
+      try {
+        // Store in localStorage for persistence
+        localStorage.setItem('customerDisplay', JSON.stringify(message))
+
+        // Also send via postMessage if window is open
+        if (this.$customerWindow && !this.$customerWindow.closed) {
+          this.$customerWindow.postMessage(message, '*')
+        }
+
+        console.log('Message sent to customer screen:', message)
+      } catch (error) {
+        console.error('Failed to send message to customer screen:', error)
+      }
+    },
+
+    /**
+     * Send QR data to customer screen during payment
+     */
+    sendQRToCustomerScreen() {
+      if (!this.productCart.length) {
+        console.log('No items in cart for customer screen QR')
+        return
+      }
+
+      // Format order items BEFORE sending to customer screen
+      const formattedOrderItems = this.formatOrderItemsForCustomerScreen()
+      const formattedOrderSummary = this.formatOrderSummaryForCustomerScreen()
+
+      console.log(
+        'Sending order items to customer screen:',
+        formattedOrderItems
+      )
+      console.log(
+        'Sending order summary to customer screen:',
+        formattedOrderSummary
+      )
+
+      const qrData = {
+        amount: this.grandTotal - this.discount,
+        tableNumber: this.currentTerminal?.name || 'POS-TERMINAL',
+        ticketId: this.lastTransactionSaleHeaderId || null,
+        qrString: this.generateQRForCustomerScreen(),
+        timestamp: Date.now(),
+        // DIRECTLY PASS THE FORMATTED ORDER DATA
+        orderItems: formattedOrderItems,
+        orderSummary: formattedOrderSummary,
+      }
+
+      const message = {
+        type: 'SHOW_QR_PAYMENT',
+        data: qrData,
+      }
+
+      this.sendToCustomerScreen(message)
+      console.info(
+        `Complete QR data sent to customer screen: ${JSON.stringify(qrData)}`
       )
     },
-    // FIXED: Vue 2 compatible multi-payment initialization
+
+    /**
+     * Generate QR string for customer screen
+     */
+    generateQRForCustomerScreen() {
+      const amount = Math.round(this.grandTotal - this.discount)
+      const terminal = this.currentTerminal?.name || 'MART'
+
+      const amountStr = amount.toString().padStart(6, '0')
+      const tableStr = terminal.toString().padStart(6, '0')
+
+      // Generate QR string similar to PaymentDialog
+      return `00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405${amountStr}05802LA5907KHAMMAO6260011713a321asS321as2250302120713terminal${tableStr}0812${terminal} payment63041c9f`
+    },
+
+    /**
+     * Format order items for customer screen display
+     */
+    formatOrderItemsForCustomerScreen() {
+      console.log('Formatting cart items:', this.productCart)
+      console.log('Available products for mapping:', this.findAllProduct.length)
+
+      return this.productCart.map((cartItem) => {
+        // Find the full product details
+        const product = this.findAllProduct.find((p) => p.id === cartItem.id)
+
+        const formattedItem = {
+          id: cartItem.id,
+          name: product?.pro_name || cartItem.name || `Product ${cartItem.id}`,
+          description: product?.pro_desc || cartItem.description || '',
+          category: product?.categ_name || 'General',
+          quantity: cartItem.qty,
+          unitPrice: cartItem.localPrice,
+          totalPrice: cartItem.qty * cartItem.localPrice,
+          status: 'pending',
+        }
+
+        console.log(`Formatted item ${cartItem.id}:`, formattedItem)
+        return formattedItem
+      })
+    },
+
+    /**
+     * Format order summary for customer screen
+     */
+    formatOrderSummaryForCustomerScreen() {
+      const subtotal = this.grandTotal
+      const discount = this.discount
+      const total = subtotal - discount
+
+      const summary = {
+        subtotal: subtotal,
+        tax: 0, // Add tax calculation if you have it
+        taxRate: 0,
+        discount: discount,
+        total: total,
+      }
+
+      console.log('Formatted order summary:', summary)
+      return summary
+    },
+
+    /**
+     * Show payment success on customer screen
+     */
+    showPaymentSuccessOnCustomerScreen() {
+      const message = {
+        type: 'PAYMENT_SUCCESS',
+        data: {
+          amount: this.grandTotal - this.discount,
+          tableNumber: this.currentTerminal?.name || 'POS',
+        },
+        timestamp: Date.now(),
+      }
+
+      this.sendToCustomerScreen(message)
+    },
+
+    /**
+     * Hide QR from customer screen
+     */
+    hideQRPaymentFromCustomerScreen() {
+      const message = {
+        type: 'HIDE_QR_PAYMENT',
+        timestamp: Date.now(),
+      }
+
+      this.sendToCustomerScreen(message)
+      localStorage.removeItem('customerDisplay')
+    },
+
+    /**
+     * Check if customer display window is open
+     */
+    isCustomerDisplayOpen() {
+      return this.$customerWindow && !this.$customerWindow.closed
+    },
+
+    /**
+     * Close customer display window
+     */
+    closeCustomerDisplayWindow() {
+      if (this.$customerWindow && !this.$customerWindow.closed) {
+        this.$customerWindow.close()
+      }
+      this.$customerWindow = null
+      localStorage.removeItem('customerDisplay')
+    },
+
+    /**
+     * Handle messages from customer screen
+     */
+    handleCustomerScreenMessage(event) {
+      try {
+        if (event.data && typeof event.data === 'object') {
+          console.log('Received message from customer screen:', event.data)
+          // Handle any responses from customer screen if needed
+        }
+      } catch (error) {
+        console.error('Error handling customer screen message:', error)
+      }
+    },
+
+    /**
+     * Format company address
+     */
+    formatCompanyAddress(company) {
+      if (!company) return ''
+
+      let formattedAddress = ''
+      if (company.address) formattedAddress += company.address
+      if (company.village) formattedAddress += `<br>${company.village}`
+      if (company.district) formattedAddress += `, ${company.district}`
+      if (company.province) formattedAddress += `, ${company.province}`
+
+      return formattedAddress || company.address || ''
+    },
+
+    // ================================================
+    // EXISTING METHODS WITH CUSTOMER SCREEN INTEGRATION
+    // ================================================
+
+    // Keep your existing openCustomerScreen method as backup
+    openCustomerScreen() {
+      // Redirect to enhanced version
+      this.openCustomerScreenEnhanced()
+    },
+
     initializeMultiPayment() {
       this.multiPayment = createMultiPayment(this.$axios, this.formatNumber)
     },
@@ -681,14 +1160,19 @@ export default {
       }
 
       try {
-        // First create the sale header to get saleHeaderId
-        await this.createSaleHeader()
+        console.log(
+          'Opening multi-payment dialog - Cart items:',
+          this.productCart.length
+        )
 
-        // Initialize payment with the created sale
+        await this.createSaleHeader()
         await this.multiPayment.initializePayment(
           this.grandTotal - this.discount,
           this.pendingSaleHeaderId
         )
+
+        // SHOW QR ON CUSTOMER SCREEN WHEN DIALOG OPENS
+        this.sendQRToCustomerScreen()
 
         this.multiPaymentDialog = true
       } catch (error) {
@@ -699,9 +1183,9 @@ export default {
         )
       }
     },
+
     async processSinglePayment() {
       try {
-        // Validation
         if (this.generateSaleLine.length === 0) {
           swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
           return
@@ -712,7 +1196,14 @@ export default {
           return
         }
 
-        // For cash payments, validate cash received
+        console.log(
+          'Processing single payment - Cart items:',
+          this.productCart.length
+        )
+
+        // SHOW QR ON CUSTOMER SCREEN WITH CURRENT CART DATA
+        this.sendQRToCustomerScreen()
+
         if (this.currentPaymentCode === 'CASH') {
           const totalDue = this.grandTotal - this.discount
           if (this.cashReceived < totalDue) {
@@ -725,16 +1216,10 @@ export default {
           }
         }
 
-        console.log('Processing single payment:', {
-          paymentMethod: this.currentPaymentCode,
-          total: this.grandTotal - this.discount,
-          cashReceived: this.cashReceived,
-        })
-
-        // Process single payment using original method (no multi-payment dialog)
         await this.postTransactionOriginal(false)
       } catch (error) {
         console.error('Single payment error:', error)
+        this.hideQRPaymentFromCustomerScreen() // Hide QR on error
         swalError2(
           this.$swal,
           'Error',
@@ -742,6 +1227,7 @@ export default {
         )
       }
     },
+
     async createSaleHeader() {
       if (this.isCreatingSale || this.pendingSaleHeaderId) return
 
@@ -750,13 +1236,12 @@ export default {
 
       try {
         const today = new Date()
-
         const saleHeaderData = {
           isActive: true,
           discount: this.discount,
           total: this.grandTotal - this.discount,
           clientId: this.currenctCustomer.id,
-          paymentId: null, // Temporary payment ID, will be replaced by multi-payment
+          paymentId: null,
           currencyId: 1,
           lines: this.generateSaleLine,
           userId: this.user.id,
@@ -765,19 +1250,14 @@ export default {
           remark: 'Multi-payment transaction',
         }
 
-        console.log('Creating sale header:', saleHeaderData)
-
         const response = await this.$axios.post(
           '/api/sale/create-header-only',
           saleHeaderData
         )
 
-        // Extract saleHeaderId from response
         this.pendingSaleHeaderId =
           response.data.saleHeaderId || response.data.id
         this.lastTransactionSaleHeaderId = this.pendingSaleHeaderId
-
-        console.log('Sale header created with ID:', this.pendingSaleHeaderId)
       } catch (error) {
         console.error('Error creating sale header:', error)
         throw new Error(error.response?.data || 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້')
@@ -791,25 +1271,25 @@ export default {
       try {
         this.isloading = true
 
-        console.log('Received payment data:', paymentData)
-        console.log('Sale header ID:', this.pendingSaleHeaderId)
+        console.log(
+          'Processing multi-payment - Cart items:',
+          this.productCart.length
+        )
 
-        // Validate the payment data directly instead of using composable validation
+        // SHOW QR ON CUSTOMER SCREEN BEFORE PROCESSING WITH CURRENT CART DATA
+        this.sendQRToCustomerScreen()
+
         if (!paymentData || paymentData.length === 0) {
           throw new Error('ຕ້ອງມີການຈ່າຍເງິນຢ່າງໜ້ອຍ 1 ວິທີ')
         }
 
-        // Calculate total from payment data
         const totalPaid = paymentData.reduce(
           (sum, payment) => sum + (payment.amount || 0),
           0
         )
         const expectedTotal = this.grandTotal - this.discount
 
-        console.log('Total paid:', totalPaid, 'Expected:', expectedTotal)
-
         if (Math.abs(totalPaid - expectedTotal) > 0.01) {
-          // Allow for small rounding differences
           throw new Error(
             `ຈຳນວນເງິນບໍ່ຄົບ. ຈ່າຍແລ້ວ: ${this.formatNumber(
               totalPaid
@@ -817,25 +1297,20 @@ export default {
           )
         }
 
-        // Submit payments directly to API (bypass composable)
-        const response = await this.$axios.post(
-          '/api/sale-payment/bulk',
-          paymentData
-        )
+        await this.$axios.post('/api/sale-payment/bulk', paymentData)
 
-        console.log('Payment API response:', response.data)
+        // SHOW SUCCESS ON CUSTOMER SCREEN
+        this.showPaymentSuccessOnCustomerScreen()
 
-        // Show success message
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
-
-        // Print ticket and cleanup
         this.printDefaultTicket()
         this.completeTransaction()
       } catch (error) {
         console.error('Multi-payment error:', error)
+        this.hideQRPaymentFromCustomerScreen() // Hide QR on error
+
         let errorMessage = error.message
 
-        // Handle API error responses
         if (error.response?.data) {
           if (typeof error.response.data === 'string') {
             errorMessage = error.response.data
@@ -852,30 +1327,28 @@ export default {
     },
 
     completeTransaction() {
-      // Clear cart and reset state
       this.newOrder()
       this.discount = 0
       this.cashReceived = 0
       this.pendingSaleHeaderId = null
 
-      // Clear multi-payment state
       if (this.multiPayment) {
         this.multiPayment.clearPayments()
       }
+
+      // HIDE QR AFTER SUCCESSFUL TRANSACTION
+      setTimeout(() => {
+        this.hideQRPaymentFromCustomerScreen()
+      }, 2000)
     },
 
     handleMultiPaymentCancel() {
       this.multiPaymentDialog = false
-      // this.pendingSaleHeaderId = null
     },
 
     handleMultiPaymentError(error) {
       console.error('Multi-payment error:', error)
-      swalError2(
-        this.$swal,
-        'Error',
-        error.message || 'ເກີດຂໍ້ຜິດພາດໃນການຈ່າຍເງິນ'
-      )
+      swalError2(this.$swal, 'Error', error.message || 'ເກີດຂໍ້ຜິດພາດໃນການຊຳລະ')
     },
 
     switchTerminalAction() {
@@ -910,8 +1383,6 @@ export default {
       }
     },
 
-    setQty() {},
-
     pricingLogig(item) {
       this.productPricingSelected = item.id
       this.pricingDialogKey += 1
@@ -923,10 +1394,6 @@ export default {
         return swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
       this.shippingFormKey += 1
       this.deliveryForm = true
-    },
-
-    previewTicket() {
-      this.tickePreviewDialog = true
     },
 
     ...mapActions([
@@ -957,100 +1424,6 @@ export default {
       this.initiateData(this.$axios)
     },
 
-    generatePrintViewDeliveryCustomer() {
-      let txnListHtml = ``
-      for (const iterator of this.productCart) {
-        const product = this.findAllProduct.find((el) => el.id == iterator.id)
-        const quantity = iterator.qty
-        const total = iterator.qty * iterator.localPrice
-        txnListHtml += `<div class="ticket">
-                    <div class="product-name">${product.pro_name} </div>
-                    <div class="price"> ${quantity} ${
-          this.onlineCustomerInfo.payment == 'COD'
-            ? ' X ' + this.formatNumber(total)
-            : ''
-        }</div>
-                </div>`
-      }
-      const discountHtml = `<div class="ticket">
-                    <div class="product-name">ສ່ວນຫລຸດ </div>
-                    <div class="price"> - ${this.formatNumber(
-                      this.discount
-                    )}</div>
-                </div>`
-      const riderFeeHtml = `<div class="ticket">
-                    <div class="product-name">ຄ່າສົ່ງ </div>
-                    <div class="price">${this.formatNumber(
-                      this.onlineCustomerInfo.riderFee
-                    )}</div>
-                </div>`
-      const today = new Date()
-      let totalHtml = ``
-      for (const iterator of this.currencyList) {
-        if (
-          iterator.code == 'LAK' &&
-          (this.onlineCustomerInfo.payment == 'COD' ||
-            this.onlineCustomerInfo.shipping == 'RIDER')
-        ) {
-          totalHtml += `
-                            <div class="ticket">
-                                        <div class="product-name"> </div>
-                                        <div class="price-total"> <h5>ຍອດລວມ(${
-                                          this.onlineCustomerInfo.payment
-                                        }): ${this.formatNumber(
-            (this.grandTotal +
-              +this.onlineCustomerInfo.riderFee -
-              this.discount) /
-              iterator.rate
-          )}  </h5> </div>
-                                </div>
-                        `
-        }
-      }
-
-      const windowContent = `
-         ${this.ticketCommon.header}
-            <body>
-                <h5> ວັນທີ: ${today.toLocaleString()}</h5>
-                <h5> ຮ້ານ: ${this.onlineCustomerInfo.branch} </h5>
-                <h5> ເບີໂທ: ${this.onlineCustomerInfo.branchTel} </h5>
-                <hr> </hr>
-                <h5> ຜູ້ຮັບ: ${this.onlineCustomerInfo.name}</h5>
-                <h5> ໂທ: ${this.onlineCustomerInfo.tel} </h5>
-                <h5> ຂົນສົ່ງ: ${this.onlineCustomerInfo.shipping} </h5>
-                <h5> ບ່ອນສົ່ງ: ${this.onlineCustomerInfo.address} </h5>
-              ${
-                this.onlineCustomerInfo.shipping == 'RIDER'
-                  ? ``
-                  : `<h5> ຄ່າຝາກ: ${this.onlineCustomerInfo.shippingFeeBy}</h5>`
-              }  
-                <hr> </hr>
-                ${txnListHtml}
-                ${this.onlineCustomerInfo.riderFee > 0 ? riderFeeHtml : ''}
-                ${
-                  this.discount > 0 && this.onlineCustomerInfo.payment == 'COD'
-                    ? discountHtml
-                    : ''
-                }
-                <hr> </hr>
-                ${totalHtml}
-            </body>
-            </html>
-      `
-      const printWin = window.open(
-        '',
-        '',
-        'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
-      )
-      printWin.document.open()
-      printWin.document.write(windowContent)
-
-      setTimeout(() => {
-        printWin.print()
-        printWin.close()
-      }, 1000)
-    },
-
     printDefaultTicket() {
       const theChanges = this.changes
       defaultTicket({
@@ -1068,29 +1441,9 @@ export default {
         currentPaymentCode: this.currentPaymentCode,
         cashReceived: this.cashReceived,
         changes: theChanges,
-        axios: this.$axios, // Add this for API logo loading
-        companyData: this.companyData, // Add this for fallback
+        axios: this.$axios,
+        companyData: this.companyData,
       })
-    },
-
-    generatePrintView() {
-      // ... (keeping existing method unchanged)
-      let txnListHtml = ``
-      for (const iterator of this.productCart) {
-        const product = this.findAllProduct.find((el) => el.id == iterator.id)
-        const quantity = iterator.qty
-        const total = iterator.qty * iterator.localPrice
-        txnListHtml += `<div class="ticket">
-                    <div class="product-name" >${product.pro_name} </div>
-                    <div class="price" >  ${this.formatNumber(total)}</div>
-                </div>
-                <div class="product-name" >${quantity} X ${this.formatNumber(
-          iterator.localPrice
-        )}</div>
-                <br>
-                    `
-      }
-      // Rest of the method remains the same...
     },
 
     async setQuotation() {
@@ -1150,30 +1503,18 @@ export default {
     },
 
     async postTransaction(isDeliveryCustomer = false) {
-      // If cart is empty, show error
       if (this.generateSaleLine.length === 0) {
         swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
         return
       }
 
-      // For delivery customers, use the existing flow
       if (isDeliveryCustomer) {
         return this.postTransactionOriginal(isDeliveryCustomer)
       }
 
-      // This method is now only called by multi-payment or special cases
-      // Regular single payments go through processSinglePayment()
-      console.log(
-        'postTransaction called - this should only happen for special cases or multi-payment'
-      )
-
-      // If called without context, default to multi-payment
       this.openMultiPaymentDialog()
     },
 
-    /**
-     * Handle payment errors from cart footer
-     */
     handlePaymentError(errorMessage) {
       swalError2(this.$swal, 'Error', errorMessage)
     },
@@ -1205,7 +1546,6 @@ export default {
           swalSuccess(this.$swal, 'Succeed', res.data.split('-')[0])
 
           if (isDeliveryCustomer) {
-            this.generatePrintViewDeliveryCustomer()
             this.clearCustomerFormAction()
           } else {
             this.printDefaultTicket()
@@ -1213,6 +1553,13 @@ export default {
           this.newOrder()
           this.discount = 0
           this.cashReceived = 0
+          // SHOW SUCCESS ON CUSTOMER SCREEN
+          this.showPaymentSuccessOnCustomerScreen()
+
+          // Hide QR after delay
+          setTimeout(() => {
+            this.hideQRPaymentFromCustomerScreen()
+          }, 3000)
         })
         .catch((er) => {
           if (er.response.data.includes('#')) {
@@ -1236,11 +1583,6 @@ export default {
 
     selectePaymentMethod(id) {
       this.addSelectedPayment(id)
-    },
-
-    previewTicket(saleHeaderId) {
-      const path = this.isQuotation ? 'PDFQuotation' : 'PDFInvoice'
-      window.open(`/admin/PDFTicket/${saleHeaderId}`, '_blank')
     },
 
     async fetchCategory() {
@@ -1324,125 +1666,137 @@ export default {
 </script>
 
 <style scoped>
-/* NOTE: The scoped style from the original file is preserved below. */
+/* Enhanced UI Styling */
 * {
-  font-family: 'noto sans lao';
-}
-.terminal-dialog .terminal-card {
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-family: 'Noto Sans Lao', 'Roboto', sans-serif;
 }
 
-.terminal-dialog .terminal-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+/* App Header Enhancements */
+.app-header {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
-.terminal-dialog .terminal-card.selected {
-  border-color: var(--v-primary-base) !important;
-  background-color: rgba(var(--v-primary-base), 0.05);
+.menu-btn,
+.cart-mobile-btn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.menu-btn:hover,
+.cart-mobile-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.05);
 }
 
 .search-field {
-  max-width: 100%;
+  border-radius: 12px !important;
+  transition: all 0.3s ease;
+}
+
+.search-field:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .header-btn {
-  min-width: auto;
-  height: 40px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
+  margin: 0 2px;
 }
 
-.header-btn.active {
-  background-color: rgba(255, 255, 255, 0.2);
+.header-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+.active-route {
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced Left Drawer */
 .drawer-left {
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
 .terminal-chip {
-  height: auto !important;
-  padding: 8px 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  border-radius: 12px !important;
 }
 
 .terminal-chip:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3) !important;
 }
 
 .category-item {
-  border-radius: 8px !important;
-  margin: 4px 8px;
-  transition: all 0.2s ease;
+  border-radius: 12px !important;
+  margin: 4px 0;
+  transition: all 0.3s ease;
 }
 
 .category-item:hover {
-  background-color: rgba(var(--v-primary-base), 0.08);
+  transform: translateX(4px);
 }
 
-.category-item.active {
-  background-color: rgba(var(--v-primary-base), 0.12);
-  color: var(--v-primary-base);
+.active-category {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateX(6px);
 }
 
-/* FIXED MAIN CONTENT SCROLLING */
+/* Enhanced Main Content */
 .main-content {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .main-content-wrapper {
-  height: calc(100vh - 72px); /* Account for app bar height */
+  height: calc(100vh - 80px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .main-container {
   min-height: 100%;
-  padding-bottom: 20px;
 }
 
-/* Responsive main content adjustments */
-@media (min-width: 1264px) {
-  .main-content-wrapper {
-    padding-right: 0;
-  }
-}
-
-@media (max-width: 1263px) {
-  .main-content-wrapper {
-    padding-right: 0;
-  }
-}
-
+/* Enhanced Cart Drawer */
 .cart-drawer {
-  border-left: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-.cart-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
 .cart-header {
-  background: linear-gradient(
-    135deg,
-    var(--v-primary-base),
-    var(--v-primary-darken1)
-  );
-}
-
-.customer-bar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .customer-chip {
-  height: auto !important;
-  padding: 8px;
   cursor: pointer;
-  max-width: 100%;
+  transition: all 0.3s ease;
+  border-radius: 12px !important;
+}
+
+.customer-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3) !important;
+}
+
+.customer-bar {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.action-btn {
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
 }
 
 .cart-items {
@@ -1451,21 +1805,14 @@ export default {
 }
 
 .cart-items-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%) !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.06);
 }
 
-/* NOTE: Removed .cart-items-list max-height/overflow-y from original as it conflicts with the new virtual-scroll pattern, but keeping it simple for the non-virtual scroll implementation. */
 .cart-items-list {
-  /* max-height: calc(100vh - 500px); <- Removed for flexibility with new component */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-
-/* NOTE: Removed .cart-item styles as they moved to CartItemComponent.vue */
-
-/* NOTE: Removed .qty-btn styles as they moved to CartItemComponent.vue */
-
-/* NOTE: Removed .price-chip styles as they moved to CartItemComponent.vue */
 
 .empty-cart {
   flex-grow: 1;
@@ -1473,28 +1820,30 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
+  min-height: 250px;
 }
 
-.cart-footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: white;
-  flex-shrink: 0;
+/* Enhanced Dialog Styling */
+.terminal-dialog .terminal-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 12px !important;
 }
 
-/* NOTE: Removed payment-inputs styles as they moved to CartFooterComponent.vue */
+.terminal-dialog .terminal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
 
-/* NOTE: Removed total-display styles as they moved to CartFooterComponent.vue */
+.terminal-dialog .terminal-card.selected {
+  transform: translateY(-2px);
+}
 
-/* NOTE: Removed payment-card-item styles as they moved to CartFooterComponent.vue */
-
-/* NOTE: Removed pay-button styles as they moved to CartFooterComponent.vue */
-
-/* Mobile responsive adjustments */
+/* Responsive Design Enhancements */
 @media (max-width: 1263px) {
   .cart-drawer {
     width: 100% !important;
-    max-width: 480px !important;
+    max-width: 500px !important;
   }
 
   .header-btn span {
@@ -1506,7 +1855,7 @@ export default {
   }
 
   .main-content-wrapper {
-    height: calc(100vh - 72px);
+    height: calc(100vh - 80px);
     padding-right: 0;
   }
 }
@@ -1514,50 +1863,60 @@ export default {
 @media (max-width: 960px) {
   .customer-bar .v-row {
     flex-direction: column;
-    gap: 8px;
-  }
-
-  .payment-inputs .v-row {
-    flex-direction: column;
-  }
-
-  .total-display .v-row {
-    flex-direction: column;
-    text-align: center;
+    gap: 12px;
   }
 
   .cart-items-list {
-    max-height: calc(100vh - 400px);
+    max-height: calc(100vh - 450px);
   }
 }
 
 @media (max-width: 600px) {
   .main-content-wrapper {
-    height: calc(100vh - 72px);
+    height: calc(100vh - 80px);
   }
 
-  .main-container {
-    padding: 8px;
+  .app-header {
+    height: 70px !important;
+  }
+
+  .main-content-wrapper {
+    height: calc(100vh - 70px);
   }
 }
 
-/* Fix for browser scroll behavior */
-html {
-  overflow-y: auto;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-body {
-  overflow-y: auto;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
 }
 
-/* Ensure Vuetify app wrapper doesn't constrain height */
-.v-application--wrap {
-  min-height: 100vh;
-  backface-visibility: hidden;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #c1c1c1 0%, #a8a8a8 100%);
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-/* Fix for webkit touch scrolling */
-* {
-  -webkit-overflow-scrolling: touch;
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #a8a8a8 0%, #909090 100%);
+}
+
+/* Smooth Animations */
+.v-application * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced Focus States */
+.v-btn:focus::before {
+  opacity: 0.12;
+}
+
+.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot {
+  border: 2px solid var(--v-primary-base) !important;
+  border-color: var(--v-primary-base) !important;
 }
 </style>
