@@ -202,11 +202,15 @@
                 <h4>- ACCOUNT NAME: MS. VANIDA VIPHAVADY</h4> -->
 
               <!-- TODO: PLEASE MAINTAIN DATA IN DB -->
-              <ul  >
-                <li v-for="(account, index) in companyDataV1.accounts.split('|')" :key="index">
-                  {{ account }} 
-                </li>
-              </ul>
+    <ul>
+  <li 
+    v-for="(account, index) in (companyDataV1.accounts || '').split('|').filter(a => a)"
+    :key="index"
+  >
+    {{ account }}
+  </li>
+</ul>
+
 
               <!-- </v-card-text> -->
               <!-- </v-card> -->
@@ -259,9 +263,10 @@ export default {
       return totalDiscount
     },
     companyData() {
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
-
-      return mainCompanyInfo()
+      console.log(`**********ENHANCED COMPANY DATA**********`)
+      const company = mainCompanyInfo()
+      console.log('Company info:', company)
+      return company
     },
     companyDataV1() {
       console.log(`**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`)
@@ -270,8 +275,42 @@ export default {
       return comV1
     },
 
-    companyLogo() {
-      return require(`~/assets/image/${this.companyData.companyLogo}`)
+companyLogo() {
+      const company = this.companyData
+
+      // 1. Try API logo first (highest priority)
+      if (company.apiData && company.apiData.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`
+        console.log('Using API logo:', logoUrl)
+        return logoUrl
+      }
+
+      // 2. Try static logo from company data
+      if (company.ticketLogo) {
+        try {
+          const staticLogo = require(`~/assets/image/${company.ticketLogo}`)
+          console.log('Using static logo:', company.ticketLogo)
+          return staticLogo
+        } catch (error) {
+          console.warn('Static logo not found:', company.ticketLogo, error)
+        }
+      }
+
+      // 3. Try dcLogo fallback
+      if (company.dcLogo) {
+        try {
+          const fallbackLogo = require(`~/assets/image/${company.dcLogo}`)
+          console.log('Using dcLogo fallback:', company.dcLogo)
+          return fallbackLogo
+        } catch (error) {
+          console.warn('dcLogo not found:', company.dcLogo, error)
+        }
+      }
+
+      // 4. Final fallback
+      console.log('Using final fallback logo')
+      return '/static/images/default-logo.png'
     },
   },
   async mounted() {

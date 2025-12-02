@@ -399,7 +399,7 @@ var api = __webpack_require__(41);
     },
     fallbackLogoUrl() {
       // Return your default logo
-      return __webpack_require__(142);
+      return __webpack_require__(143);
     },
     // Company information
     companyName() {

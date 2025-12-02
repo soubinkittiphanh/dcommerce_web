@@ -338,7 +338,7 @@ var api = __webpack_require__(41);
       try {
         var _this$companyData;
         const logoName = (_this$companyData = this.companyData) === null || _this$companyData === void 0 ? void 0 : _this$companyData.companyLogo;
-        return logoName ? __webpack_require__(160)(`./${logoName}`) : null;
+        return logoName ? __webpack_require__(141)(`./${logoName}`) : null;
       } catch (error) {
         console.error('Error loading company logo:', error);
         return null;

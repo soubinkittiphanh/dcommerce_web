@@ -49,7 +49,7 @@
       
       <v-divider class="my-2"></v-divider>
       
-      <v-row no-gutters align="center" class="grand-total-row">
+      <v-row no-gutters align="center" class="grand-total-row" v-if="1==0">
         <v-col cols="8">
           <div class="grand-total-label">ຍອດເງິນລວມ</div>
         </v-col>
@@ -173,7 +173,7 @@
     </div>
 
     <!-- Quick stats for collapsed state -->
-    <div class="quick-stats pa-3" v-if="!showCheckOut">
+    <div class="quick-stats pa-3" v-if="!showCheckOut && 1==0" >
       <v-row no-gutters align="center">
         <v-col cols="4" class="text-center">
           <div class="stat-value">{{ productCart.length }}</div>
@@ -226,7 +226,7 @@ export default {
     },
     showCheckOut: {
       type: Boolean,
-      default: true
+      default: false
     },
     formatNumber: {
       type: Function,

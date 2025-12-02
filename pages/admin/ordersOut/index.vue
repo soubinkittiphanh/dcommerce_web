@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <v-dialog v-model="formDialog" max-width="1024">
@@ -133,9 +132,10 @@
 <script>
 import OrderForm from '@/components/OrderForm.vue';
 import { mapActions, mapGetters } from 'vuex'
-import { hostName,mainCompanyInfo } from '~/common/api'
+import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
 import OrderStatusForm from '@/components/OrderStatusForm.vue';
 import { ticketHtml, jsDateToMysqlDate, swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
+
 export default {
   components: {
     OrderForm,
@@ -243,22 +243,72 @@ export default {
       ),
     }
   },
-  mounted() {
+
+  async mounted() {
+    // ENHANCED: Preload company data for API logos
+    try {
+      await preloadCompanyData(this.$axios)
+      console.log('Company data preloaded for order management')
+    } catch (error) {
+      console.warn('Company preload failed, using fallback:', error)
+    }
+
     this.loadData()
     window.addEventListener('keydown', this.handleKeyDown);
   },
+
   beforeDestroy() {
     window.removeEventListener('keydown', this.handleKeyDown);
   },
+
   computed: {
+    // ENHANCED: Company data with API integration
     companyData() {
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
-      return mainCompanyInfo()
+      console.log(`**********ENHANCED COMPANY DATA**********`)
+      const company = mainCompanyInfo()
+      console.log('Company info:', company)
+      return company
     },
 
+    // ENHANCED: Company logo with API priority and smart fallbacks
     companyLogo() {
-      return require(`~/assets/image/${this.companyData.ticketLogo}`)
+      const company = this.companyData
+
+      // 1. Try API logo first (highest priority)
+      if (company.apiData && company.apiData.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`
+        console.log('Using API logo for order management:', logoUrl)
+        return logoUrl
+      }
+
+      // 2. Try static logo from company data
+      if (company.ticketLogo) {
+        try {
+          const staticLogo = require(`~/assets/image/${company.ticketLogo}`)
+          console.log('Using static logo for order management:', company.ticketLogo)
+          return staticLogo
+        } catch (error) {
+          console.warn('Static logo not found for order management:', company.ticketLogo, error)
+        }
+      }
+
+      // 3. Try dcLogo fallback
+      if (company.dcLogo) {
+        try {
+          const fallbackLogo = require(`~/assets/image/${company.dcLogo}`)
+          console.log('Using dcLogo fallback for order management:', company.dcLogo)
+          return fallbackLogo
+        } catch (error) {
+          console.warn('dcLogo not found for order management:', company.dcLogo, error)
+        }
+      }
+
+      // 4. Final fallback
+      console.log('Using final fallback logo for order management')
+      return '/static/images/default-logo.png'
     },
+
     localStatus() {
       const status = [
         { 'name': 'ຍັງບໍ່ເຂົ້າສາງ', 'code': 'ORDERED' },
@@ -267,21 +317,26 @@ export default {
       ];
       return status;
     },
+
     ticketCommon() {
       return ticketHtml();
     },
+
     filterOrders() {
       return this.entries.filter(el => el['status'] == 'INVOICED')
     },
+
     user() {
       return this.$auth.user || ''
     },
+
     currentTerminal() {
       return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal)
     },
-    ...mapGetters(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
 
+    ...mapGetters(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
   },
+
   watch: {
     date(val) {
       this.dateFormatted = this.formatDate(this.date)
@@ -292,6 +347,7 @@ export default {
       this.loadData()
     },
   },
+
   methods: {
     findInvoicingDate(order) {
       let invoicingDate = order['updateTimestamp'].split('T')[0]
@@ -305,10 +361,13 @@ export default {
       }
       return invoicingDate;
     },
+
     ...mapActions(['addOrderToConformPaymentList', 'setSelectedTerminal', 'setSelectedLocation']),
+
     formatNumber(val) {
       return getFormatNum(val)
     },
+
     generateBarcodeImage(barcode) {
       // Generate a random 12-digit number as the barcode value
       // Get the canvas element using the ref attribute
@@ -330,16 +389,13 @@ export default {
       // Convert the canvas to a data URL and set it as the barcodeImage data property
       this.barcodeImage = canvas.toDataURL();
     },
+
+    // ENHANCED: Print ticket with API logo support
     printTicket(item) {
       this.generateBarcodeImage(item['trackingNumber'])
       let txnListHtml = ``
       const price = item.shippingFee * item.shippingRate;
-      // for (const iterator of this.productCart) {
-      //   const product = this.findAllProduct.find(el => el.id == iterator.id)
-      //   console.log(`=======${product}======`);
-      //   const quantity = iterator.qty
-      //   const total = iterator.qty * iterator.localPrice
-      // txnListHtml += `<div style="font-size: 14px;">${product.pro_name} x${quantity} - ${this.formatNumber(total)}</div>`
+
       txnListHtml +=
         `<div class="ticket">
                     <div class="product-name">${item.name}</div>
@@ -348,11 +404,7 @@ export default {
                 <div class="product-name">${item.trackingNumber} X ${this.formatNumber(price)}</div>
                 <br>
                     `
-      // }
-      // const discountHtml = `<div class="ticket">
-      //               <div class="product-name">ສ່ວນຫລຸດ </div>
-      //               <div class="price"> - ${this.formatNumber(this.discount)}</div>
-      //           </div>`
+
       const today = new Date()
       const bookingDate = jsDateToMysqlDate(today)
       const bookingDateWithTime = today.toISOString
@@ -362,25 +414,30 @@ export default {
                 <div class="price">THB ${this.formatNumber((item['shippingFee'] * item['shippingRate']))}</div>
             </div>`
 
+      // ENHANCED: Use dynamic company logo and information
+      const logoHtml = this.getCompanyLogoHtml()
+      const companyName = this.getCompanyName()
+      const companyTel = this.getCompanyTelephone()
+
       const windowContent = `
          ${this.ticketCommon.header}
             <body>
                 <div style="text-align: center;">
-                    <img src="${this.companyLogo}" alt="Description of the image" width="100" height="100">
+                    ${logoHtml}
                 </div>
-                <h3> ເຈ້ນ່ອງ ຂົນສົ່ງ ໄທ-ລາວ </h3>
-                <h3> ໃບຮັບເງິນ</h3>
-                <h5> ວັນທີ ${today.toLocaleString()}</h5>
-                <h5> ເລກບິນ: ${item.id} </h5>
-                <h5> Tel ${this.currentTerminal['location']['company']['tel']}</h5>
-                <h5> ຜູ້ຂາຍ: ${this.user.cus_name}  </h5>
-                <h5> ຜູ້ຮັບ: ${item['client']['name']}  </h5>
-                <hr style="margin-top: 50px;"> </hr>
+                <h3>${companyName}</h3>
+                <h3>ໃບຮັບເງິນ</h3>
+                <h5>ວັນທີ ${today.toLocaleString()}</h5>
+                <h5>ເລກບິນ: ${item.id}</h5>
+                <h5>Tel ${companyTel}</h5>
+                <h5>ຜູ້ຂາຍ: ${this.user.cus_name}</h5>
+                <h5>ຜູ້ຮັບ: ${item['client']['name']}</h5>
+                <hr style="margin-top: 50px;"></hr>
                 ${txnListHtml}
-                <hr> </hr>
+                <hr></hr>
                 ${totalHtml}
-                <h2 style="text-align: center; margin-top: 50px;">  <img src="${this.barcodeImage}"> </h2>
-                <h2 style="text-align: center; margin-top: 50px;"> THANKYOU </h2>
+                <h2 style="text-align: center; margin-top: 50px;"><img src="${this.barcodeImage}"></h2>
+                <h2 style="text-align: center; margin-top: 50px;">THANKYOU</h2>
                 
             </body>
             </html>
@@ -398,8 +455,67 @@ export default {
         printWin.print()
         printWin.close()
       }, 1000)
-
     },
+
+    // ENHANCED: Helper methods for company information with API priority
+    getCompanyLogoHtml() {
+      // Try to get the actual logo URL (API or static)
+      const logoUrl = this.companyLogo
+      
+      if (logoUrl && !logoUrl.includes('default-logo')) {
+        return `<img src="${logoUrl}" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">`
+      } else {
+        // Fallback: show company initials if no logo
+        const companyName = this.getCompanyName()
+        const initials = companyName.substring(0, 2).toUpperCase()
+        return `<div style="width: 100px; height: 100px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 24px; font-weight: bold; color: #666; margin: 0 auto;">${initials}</div>`
+      }
+    },
+
+    getCompanyName() {
+      const company = this.companyData
+      
+      // 1. Try API company name first
+      if (company.apiData && company.apiData.name) {
+        return company.apiData.name
+      }
+      
+      // 2. Try static company name
+      if (company.name) {
+        return company.name
+      }
+      
+      // 3. Try terminal company name
+      if (this.currentTerminal?.location?.company?.name) {
+        return this.currentTerminal.location.company.name
+      }
+      
+      // 4. Default fallback
+      return 'ເຈ້ນ່ອງ ຂົນສົ່ງ ໄທ-ລາວ'
+    },
+
+    getCompanyTelephone() {
+      const company = this.companyData
+      
+      // 1. Try API company telephone first
+      if (company.apiData && company.apiData.tel) {
+        return company.apiData.tel
+      }
+      
+      // 2. Try static company telephone
+      if (company.tel) {
+        return company.tel
+      }
+      
+      // 3. Try terminal company telephone
+      if (this.currentTerminal?.location?.company?.tel) {
+        return this.currentTerminal.location.company.tel
+      }
+      
+      // 4. Default fallback
+      return 'N/A'
+    },
+
     handleKeyDown(event) {
       if (this.timer) {
         clearInterval(this.timer)
@@ -417,6 +533,7 @@ export default {
       }
       this.timer = setInterval(() => this.barcode = '', 20);
     },
+
     findOrderByTrackingNumber(barcode) {
       const regex = /^[A-Za-z0-9]*$/;
       const isValid = regex.test(barcode); // Should return true
@@ -432,11 +549,12 @@ export default {
           this.statusFormDialog = true;
           this.isCreate = false;
           this.addOrderToConformPaymentList(order)
-        }else{
+        } else {
           return swalError2(this.$swal, "Error", `Tracking number ${barcode.toUpperCase()} ບໍ່ພົບໃນລະບົບ`);
         }
       }
     },
+
     async changeOrderStatus(orderStatus, orderId) {
       this.isloading = true
       try {
@@ -448,21 +566,25 @@ export default {
       }
       this.isloading = false
     },
+
     exportToExcel() {
       const worksheet = this.$xlsx.utils.json_to_sheet(this.entries);
       const workbook = this.$xlsx.utils.book_new();
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
       this.$xlsx.writeFile(workbook, 'data.xlsx');
     },
+
     formatDate(date) {
       if (!date) return null
 
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
     },
+
     countDay(startDate) {
       return dayCount(startDate)
     },
+
     viewItem(item) {
       this.updateViewCount(item.id)
       this.watchingLink = item.youtubeLink
@@ -476,36 +598,40 @@ export default {
       this.isCreate = true
       this.formDialog = true;
     },
+
     handleEvent() {
       this.formDialog = false;
     },
-    editItem(item) {
 
+    editItem(item) {
       this.componentKey += 1;
       this.entrySelectedId = item.id;
       this.formDialog = true;
       this.isCreate = false;
     },
+
     changeOrderStatus(item) {
       this.orderStatusComponentKey += 1;
       this.entrySelectedId = item.id;
       this.statusFormDialog = true;
       this.isCreate = false;
     },
-    whatsappLink(item) {
 
+    whatsappLink(item) {
       console.log(`******** customer tel ${item} *******`);
       const tel = item.client.telephone.trim();
       const completeTel = tel.substring(tel.length - 8);
       this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent(`ສະບາຍດີ ລູກຄ້າ ${item.client.name} \n ອໍເດີ 🛒 : ${item.trackingNumber} \n ສິນຄ້າ: ${item.name} \n ວັນທີສັ່ງ: ${item.bookingDate} \n ລິ້ງ: ${item.link} \n 🔔🔔🔔 ເຄຶ່ອງມາຮອດສາງແລ້ວ 🔔🔔🔔`)}`;
       // return `https://api.whatsapp.com/send?phone=${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
     },
+
     parseDate(date) {
       if (!date) return null
 
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
+
     async loadData() {
       this.formDialog = false;
       const date = {

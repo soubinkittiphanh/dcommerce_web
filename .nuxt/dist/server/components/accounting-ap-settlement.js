@@ -1693,7 +1693,7 @@ var component = Object(componentNormalizer["a" /* default */])(
     // Get default/fallback logo
     getDefaultLogo() {
       try {
-        return __webpack_require__(142);
+        return __webpack_require__(143);
       } catch {
         return '/static/images/default-logo.png';
       }

@@ -1,4 +1,3 @@
-
 <template>
   <div class="text-center">
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
@@ -192,8 +191,9 @@
 <script>
 import { swalSuccess, swalError2, ticketHtml, getFormatNum } from '~/common'
 import { debounce } from 'lodash'
-import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
+import { hostName, mainCompanyInfo, mainCompanyInfoV1, preloadCompanyData } from '~/common/api'
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
   props: {
     isCreate: {
@@ -226,7 +226,15 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
+    // ENHANCED: Preload company data for API logos
+    try {
+      await preloadCompanyData(this.$axios)
+      console.log('Company data preloaded for shipping confirmation')
+    } catch (error) {
+      console.warn('Company preload failed, using fallback:', error)
+    }
+
     if (this.orderStatus == 'INVOICED') {
       // We cannot change client data comming from state,
       //we have to clone data from state to new variable
@@ -361,6 +369,8 @@ export default {
       // Convert the canvas to a data URL and set it as the barcodeImage data property
       this.barcodeImage = canvas.toDataURL()
     },
+
+    // ENHANCED: Bulk print with API logo support
     async merceEntryToPrint() {
       this.generateBarcodeImage(this.confirmEntries[0]['trackingNumber'])
       let txnListHtml = ``
@@ -384,30 +394,30 @@ export default {
         <div class="price">THB ${this.formatNumber(this.ticketTotal)}</div>
     </div>`
 
-      // <h5> Ticket ${item.id} </h5>
+      // ENHANCED: Use dynamic company logo with API priority
+      const logoHtml = this.getCompanyLogoHtml()
+      const companyName = this.getCompanyName()
+      const companyTel = this.getCompanyTelephone()
+
       const windowContent = `
  ${this.ticketCommon.header}
     <body>
         <div style="text-align: center;">
-            <img src="${
-              this.companyLogo
-            }" alt="Description of the image" width="100" height="100">
+            ${logoHtml}
         </div>
-        <h3> ເຈ້ນ່ອງ ຂົນສົ່ງ ໄທ-ລາວ</h3>
-        <h3> ໃບຮັບເງິນ</h3>
-        <h5> ວັນທີ ${today.toLocaleString()}</h5>
-        <h5> Ticket ${this.confirmEntries[0].id} </h5>
-        <h5> Tel ${this.currentTerminal['location']['company']['tel']}</h5>
-        <h5> ຜູ້ຂາຍ: ${this.user.cus_name}  </h5>
-        <h5> ຜູ້ຮັບ: ${this.confirmEntries[0]['client']['name']}  </h5>
-        <hr style="margin-top: 50px;"> </hr>
+        <h3>${companyName}</h3>
+        <h3>ໃບຮັບເງິນ</h3>
+        <h5>ວັນທີ ${today.toLocaleString()}</h5>
+        <h5>Ticket ${this.confirmEntries[0].id}</h5>
+        <h5>Tel ${companyTel}</h5>
+        <h5>ຜູ້ຂາຍ: ${this.user.cus_name}</h5>
+        <h5>ຜູ້ຮັບ: ${this.confirmEntries[0]['client']['name']}</h5>
+        <hr style="margin-top: 50px;"></hr>
         ${txnListHtml}
-        <hr> </hr>
+        <hr></hr>
         ${totalHtml}
-        <h2 style="text-align: center; margin-top: 50px;">  <img src="${
-          this.barcodeImage
-        }"> </h2>
-        <h2 style="text-align: center; margin-top: 50px;"> THANKYOU </h2>
+        <h2 style="text-align: center; margin-top: 50px;"><img src="${this.barcodeImage}"></h2>
+        <h2 style="text-align: center; margin-top: 50px;">THANKYOU</h2>
         
     </body>
     </html>
@@ -425,6 +435,8 @@ export default {
         printWin.close()
       }, 1000)
     },
+
+    // ENHANCED: Single ticket print with API logo support
     printTicket(item) {
       console.log(`${JSON.stringify(item)}`)
       let txnListHtml = ``
@@ -448,31 +460,30 @@ export default {
                 )} ${this.formatNumber(item['shippingFee'])}</div>
             </div>`
 
+      // ENHANCED: Use dynamic company logo with API priority
+      const logoHtml = this.getCompanyLogoHtml()
+      const companyName = this.getCompanyName()
+      const companyTel = this.getCompanyTelephone()
+
       const windowContent = `
          ${this.ticketCommon.header}
             <body>
                 <div style="text-align: center;">
-                    <img src="${
-                      this.companyLogo
-                    }" alt="Description of the image" width="100" height="100">
+                    ${logoHtml}
                 </div>
-                <h3> ເຈ້ນ່ອງ ຂົນສົ່ງ ໄທ-ລາວ </h3>
-                <h3> ໃບຮັບເງິນ</h3>
-                <h5> ວັນທີ ${today.toLocaleString()}</h5>
-                <h5> Ticket ${item.id} </h5>
-                <h5> Tel ${
-                  this.currentTerminal['location']['company']['tel']
-                }</h5>
-                <h5> ຜູ້ຂາຍ: ${this.user.cus_name}  </h5>
-                <h5> ຜູ້ຮັບ: ${item['client']['name']}  </h5>
-                <hr style="margin-top: 50px;"> </hr>
+                <h3>${companyName}</h3>
+                <h3>ໃບຮັບເງິນ</h3>
+                <h5>ວັນທີ ${today.toLocaleString()}</h5>
+                <h5>Ticket ${item.id}</h5>
+                <h5>Tel ${companyTel}</h5>
+                <h5>ຜູ້ຂາຍ: ${this.user.cus_name}</h5>
+                <h5>ຜູ້ຮັບ: ${item['client']['name']}</h5>
+                <hr style="margin-top: 50px;"></hr>
                 ${txnListHtml}
-                <hr> </hr>
+                <hr></hr>
                 ${totalHtml}
-                <h2 style="text-align: center; margin-top: 50px;">  <img src="${
-                  this.barcodeImage
-                }"> </h2>
-                <h2 style="text-align: center; margin-top: 50px;"> THANKYOU </h2>
+                <h2 style="text-align: center; margin-top: 50px;"><img src="${this.barcodeImage}"></h2>
+                <h2 style="text-align: center; margin-top: 50px;">THANKYOU</h2>
                 
             </body>
             </html>
@@ -490,6 +501,66 @@ export default {
         printWin.close()
       }, 1000)
     },
+
+    // ENHANCED: Helper methods for company information
+    getCompanyLogoHtml() {
+      // Try to get the actual logo URL (API or static)
+      const logoUrl = this.companyLogo
+      
+      if (logoUrl && !logoUrl.includes('default-logo')) {
+        return `<img src="${logoUrl}" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">`
+      } else {
+        // Fallback: show company initials if no logo
+        const companyName = this.getCompanyName()
+        const initials = companyName.substring(0, 2).toUpperCase()
+        return `<div style="width: 100px; height: 100px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 24px; font-weight: bold; color: #666; margin: 0 auto;">${initials}</div>`
+      }
+    },
+
+    getCompanyName() {
+      const company = this.companyData
+      
+      // 1. Try API company name first
+      if (company.apiData && company.apiData.name) {
+        return company.apiData.name
+      }
+      
+      // 2. Try static company name
+      if (company.name) {
+        return company.name
+      }
+      
+      // 3. Try terminal company name
+      if (this.currentTerminal?.location?.company?.name) {
+        return this.currentTerminal.location.company.name
+      }
+      
+      // 4. Default fallback
+      return 'ເຈ້ນ່ອງ ຂົນສົ່ງ ໄທ-ລາວ'
+    },
+
+    getCompanyTelephone() {
+      const company = this.companyData
+      
+      // 1. Try API company telephone first
+      if (company.apiData && company.apiData.tel) {
+        return company.apiData.tel
+      }
+      
+      // 2. Try static company telephone
+      if (company.tel) {
+        return company.tel
+      }
+      
+      // 3. Try terminal company telephone
+      if (this.currentTerminal?.location?.company?.tel) {
+        return this.currentTerminal.location.company.tel
+      }
+      
+      // 4. Default fallback
+      return 'N/A'
+    },
+
     currencyChange(order) {
       const orderIdx = this.confirmEntries.indexOf(order)
       const currency = this.currencyList.find(
@@ -557,31 +628,73 @@ export default {
     },
   },
   computed: {
+    // ENHANCED: Company data with API integration
     companyData() {
-      
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
-      return mainCompanyInfo()
+      console.log(`**********ENHANCED COMPANY DATA**********`)
+      const company = mainCompanyInfo()
+      console.log('Company info:', company)
+      return company
     },
 
+    // ENHANCED: Company logo with API priority and smart fallbacks
     companyLogo() {
-      return require(`~/assets/image/${this.companyData.ticketLogo}`)
+      const company = this.companyData
+
+      // 1. Try API logo first (highest priority)
+      if (company.apiData && company.apiData.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`
+        console.log('Using API logo for shipping:', logoUrl)
+        return logoUrl
+      }
+
+      // 2. Try static logo from company data
+      if (company.ticketLogo) {
+        try {
+          const staticLogo = require(`~/assets/image/${company.ticketLogo}`)
+          console.log('Using static logo for shipping:', company.ticketLogo)
+          return staticLogo
+        } catch (error) {
+          console.warn('Static logo not found for shipping:', company.ticketLogo, error)
+        }
+      }
+
+      // 3. Try dcLogo fallback
+      if (company.dcLogo) {
+        try {
+          const fallbackLogo = require(`~/assets/image/${company.dcLogo}`)
+          console.log('Using dcLogo fallback for shipping:', company.dcLogo)
+          return fallbackLogo
+        } catch (error) {
+          console.warn('dcLogo not found for shipping:', company.dcLogo, error)
+        }
+      }
+
+      // 4. Final fallback
+      console.log('Using final fallback logo for shipping')
+      return '/static/images/default-logo.png'
     },
+
     user() {
       return this.$auth.user || ''
     },
+
     clientList() {
       return this.findAllClient.filter((el) =>
         el.telephone.includes(this.customerTel)
       )
     },
+
     currentTerminal() {
       return this.findAllTerminal.find(
         (el) => el['id'] == this.findSelectedTerminal
       )
     },
+
     ticketCommon() {
       return ticketHtml()
     },
+
     currencyList() {
       return this.findAllCurrency
     },
@@ -598,9 +711,11 @@ export default {
       )
       return totalAmount
     },
+
     paymentList() {
       return this.findAllPayment
     },
+
     ...mapGetters([
       'findAllListOfConfirmPayment',
       'findAllListOfConfirmStockIn',

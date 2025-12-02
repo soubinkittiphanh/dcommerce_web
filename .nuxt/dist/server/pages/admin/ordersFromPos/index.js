@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ce42b81a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(887);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ce42b81a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ce42b81a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ce42b81a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ce42b81a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0491cd3a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(887);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0491cd3a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0491cd3a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0491cd3a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_0491cd3a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-ce42b81a],.text-h5[data-v-ce42b81a]{font-family:\"Noto Sans Lao\"}table[data-v-ce42b81a]{border:1px solid #000}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-0491cd3a],.text-h5[data-v-0491cd3a]{font-family:\"Noto Sans Lao\"}table[data-v-0491cd3a]{border:1px solid #000}.payment-details-dialog .v-data-table th[data-v-0491cd3a]{background-color:#f5f5f5!important;font-weight:600}.payment-method-chip[data-v-0491cd3a]{cursor:pointer;transition:all .2s ease}.payment-method-chip[data-v-0491cd3a]:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -77,13 +77,19 @@ var VLayout = __webpack_require__(409);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(128);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
+var VProgressLinear = __webpack_require__(124);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(415);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(418);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=ce42b81a&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=0491cd3a&scoped=true
 
 
 
@@ -102,12 +108,16 @@ var VTextField = __webpack_require__(37);
 
 
 
-var ordersFromPosvue_type_template_id_ce42b81a_scoped_true_render = function render() {
+
+
+
+var ordersFromPosvue_type_template_id_0491cd3a_scoped_true_render = function render() {
+  var _vm$selectedOrderForP, _vm$selectedOrderForP2;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-ce42b81a>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-0491cd3a>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -220,7 +230,124 @@ var ordersFromPosvue_type_template_id_ce42b81a_scoped_true_render = function ren
         _vm.cancelForm = false, _vm.loadData();
       }
     }
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-ce42b81a>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "800"
+    },
+    model: {
+      value: _vm.paymentDetailsDialog,
+      callback: function ($$v) {
+        _vm.paymentDetailsDialog = $$v;
+      },
+      expression: "paymentDetailsDialog"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "primary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n        ລາຍລະອຽດການຊຳລະ - ບິນເລກທີ " + _vm._s((_vm$selectedOrderForP = _vm.selectedOrderForPayments) === null || _vm$selectedOrderForP === void 0 ? void 0 : _vm$selectedOrderForP.id) + "\n      ")], 1), _vm._v(" "), _vm.selectedOrderForPayments ? _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-3",
+    attrs: {
+      "outlined": ""
+    }
+  }, [_c('h4', [_vm._v("ຂໍ້ມູນພື້ນຖານ")]), _vm._v(" "), _c('div', [_c('strong', [_vm._v("ຍອດລວມ:")]), _vm._v(" " + _vm._s(_vm.formatNumber(_vm.selectedOrderForPayments.total)) + " LAK")]), _vm._v(" "), _c('div', [_c('strong', [_vm._v("ສ່ວນຫລຸດ:")]), _vm._v(" " + _vm._s(_vm.formatNumber(_vm.selectedOrderForPayments.discount)) + " LAK")]), _vm._v(" "), _c('div', [_c('strong', [_vm._v("ຈຳນວນຊຳລະ:")]), _vm._v(" " + _vm._s(_vm.formatNumber(_vm.selectedOrderForPayments.total - _vm.selectedOrderForPayments.discount)) + " LAK")]), _vm._v(" "), _c('div', [_c('strong', [_vm._v("ລູກຄ້າ:")]), _vm._v(" " + _vm._s((_vm$selectedOrderForP2 = _vm.selectedOrderForPayments.client) === null || _vm$selectedOrderForP2 === void 0 ? void 0 : _vm$selectedOrderForP2.name))])])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-3",
+    attrs: {
+      "outlined": ""
+    }
+  }, [_c('h4', [_vm._v("ປະເພດການຊຳລະ")]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": _vm.getPaymentTypeColor(_vm.selectedOrderForPayments),
+      "small": ""
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.getPaymentTypeLabel(_vm.selectedOrderForPayments)) + "\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "mt-2"
+  }, [_c('strong', [_vm._v("ຈຳນວນວິທີການຊຳລະ:")]), _vm._v(" " + _vm._s(_vm.getPaymentMethodsCount(_vm.selectedOrderForPayments)) + "\n              ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "my-4"
+  }), _vm._v(" "), _c('h4', {
+    staticClass: "mb-3"
+  }, [_vm._v("ລາຍລະອຽດການຊຳລະ")]), _vm._v(" "), _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1",
+    attrs: {
+      "headers": _vm.paymentDetailsHeaders,
+      "items": _vm.getPaymentDetails(_vm.selectedOrderForPayments),
+      "hide-default-footer": "",
+      "disable-pagination": ""
+    },
+    scopedSlots: _vm._u([{
+      key: `item.paymentMethod`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getPaymentMethodColor(item.code),
+            "small": "",
+            "dark": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v(_vm._s(_vm.getPaymentMethodIcon(item.code)))]), _vm._v("\n              " + _vm._s(item.name) + "\n            ")], 1)];
+      }
+    }, {
+      key: `item.amount`,
+      fn: function ({
+        item
+      }) {
+        return [_c('strong', [_vm._v(_vm._s(_vm.formatNumber(item.amount)) + " LAK")])];
+      }
+    }, {
+      key: `item.percentage`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VProgressLinear["a" /* default */], {
+          staticClass: "my-1",
+          attrs: {
+            "value": item.percentage,
+            "height": "20",
+            "color": _vm.getPaymentMethodColor(item.code)
+          }
+        }, [_c('small', [_vm._v(_vm._s(item.percentage.toFixed(1)) + "%")])])];
+      }
+    }], null, true)
+  })], 1) : _vm._e(), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "grey",
+      "text": ""
+    },
+    on: {
+      "click": function ($event) {
+        _vm.paymentDetailsDialog = false;
+      }
+    }
+  }, [_vm._v("\n          ປິດ\n        ")]), _vm._v(" "), _vm.selectedOrderForPayments ? _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary"
+    },
+    on: {
+      "click": _vm.printPaymentDetails
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-printer")]), _vm._v("\n          ພິມລາຍລະອຽດ\n        ")], 1) : _vm._e()], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-0491cd3a>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -464,7 +591,38 @@ var ordersFromPosvue_type_template_id_ce42b81a_scoped_true_render = function ren
         // 'gross': getFormatNum(totalSale - totalDiscount)
       }
     }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _vm.activeOrderHeaderList ? _c(VDataTable["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "lg": "6"
+    }
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-3 text-center",
+    attrs: {
+      "outlined": ""
+    }
+  }, [_c('h4', {
+    staticClass: "primary--text"
+  }, [_vm._v(_vm._s(_vm.singlePaymentCount))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ຊຳລະແບບດຽວ")])])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-3 text-center",
+    attrs: {
+      "outlined": ""
+    }
+  }, [_c('h4', {
+    staticClass: "success--text"
+  }, [_vm._v(_vm._s(_vm.multiPaymentCount))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ຊຳລະຫຼາຍວິທີ")])])], 1)], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _vm.activeOrderHeaderList ? _c(VDataTable["a" /* default */], {
     attrs: {
       "headers": _vm.headers,
       "search": _vm.search,
@@ -587,6 +745,67 @@ var ordersFromPosvue_type_template_id_ce42b81a_scoped_true_render = function ren
         })])];
       }
     }, {
+      key: `item.payment.payment_code`,
+      fn: function ({
+        item
+      }) {
+        var _item$payment, _item$payment2, _item$payment3;
+        return [_vm.isMultiPayment(item) ? _c('div', [_c(VChip["a" /* default */], {
+          staticStyle: {
+            "cursor": "pointer"
+          },
+          attrs: {
+            "color": "success",
+            "small": "",
+            "dark": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.showPaymentDetails(item);
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n              ຫຼາຍວິທີ (" + _vm._s(_vm.getPaymentMethodsCount(item)) + ")\n            ")], 1)], 1) : _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getPaymentMethodColor((_item$payment = item.payment) === null || _item$payment === void 0 ? void 0 : _item$payment.payment_code),
+            "small": "",
+            "dark": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v(_vm._s(_vm.getPaymentMethodIcon((_item$payment2 = item.payment) === null || _item$payment2 === void 0 ? void 0 : _item$payment2.payment_code)))]), _vm._v("\n              " + _vm._s(((_item$payment3 = item.payment) === null || _item$payment3 === void 0 ? void 0 : _item$payment3.payment_name) || 'N/A') + "\n            ")], 1)], 1)];
+      }
+    }, {
+      key: `item.paymentDetails`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VBtn["a" /* default */], {
+          attrs: {
+            "color": "info",
+            "text": "",
+            "small": "",
+            "disabled": !_vm.hasPaymentDetails(item)
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.showPaymentDetails(item);
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": ""
+          }
+        }, [_vm._v("mdi-eye")]), _vm._v("\n            ລາຍລະອຽດ\n          ")], 1)];
+      }
+    }, {
       key: `item.cusTel`,
       fn: function ({
         item
@@ -634,7 +853,7 @@ var ordersFromPosvue_type_template_id_ce42b81a_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=ce42b81a&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=0491cd3a&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -699,6 +918,9 @@ var external_vuex_ = __webpack_require__(14);
       cancelForm: false,
       OrderIdSelected: '',
       lastTransactionSaleHeaderId: 0,
+      // NEW: Payment Details Dialog
+      paymentDetailsDialog: false,
+      selectedOrderForPayments: null,
       headers: [{
         text: 'ວັນທີ',
         align: 'center',
@@ -730,6 +952,12 @@ var external_vuex_ = __webpack_require__(14);
         align: 'center',
         value: 'payment.payment_code',
         sortable: true
+      }, {
+        text: 'ລາຍລະອຽດການຊຳລະ',
+        // NEW COLUMN
+        align: 'center',
+        value: 'paymentDetails',
+        sortable: false
       }, {
         text: 'ສະກຸນເງິນ',
         align: 'center',
@@ -776,6 +1004,28 @@ var external_vuex_ = __webpack_require__(14);
         value: 'id',
         sortable: false
       }],
+      // NEW: Payment Details Table Headers
+      paymentDetailsHeaders: [{
+        text: 'ວິທີການຊຳລະ',
+        align: 'left',
+        value: 'paymentMethod',
+        sortable: false
+      }, {
+        text: 'ຈຳນວນເງິນ',
+        align: 'right',
+        value: 'amount',
+        sortable: false
+      }, {
+        text: 'ເປີເຊັນ',
+        align: 'center',
+        value: 'percentage',
+        sortable: false
+      }, {
+        text: 'ເວລາຊຳລະ',
+        align: 'center',
+        value: 'createdAt',
+        sortable: false
+      }],
       fromDate: Object(common["d" /* getFirstDayOfMonth */])(),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       fromDateLabel: this.formatDate(Object(common["d" /* getFirstDayOfMonth */])()),
@@ -787,6 +1037,14 @@ var external_vuex_ = __webpack_require__(14);
   async created() {
     this.terminalId = this.findSelectedTerminal;
     console.log(`Current terminal select ${this.findSelectedTerminal}`);
+
+    // ENHANCED: Preload company data for API logos
+    try {
+      await Object(api["d" /* preloadCompanyData */])(this.$axios);
+      console.log('Company data preloaded for sales report');
+    } catch (error) {
+      console.warn('Company preload failed, using fallback:', error);
+    }
     await this.loadData();
     await this.loadShipping();
     await this.loadCurrency();
@@ -804,12 +1062,50 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   computed: {
+    // ENHANCED: Company data with API integration
     companyData() {
-      console.log(`**********COMPANY DATA ${api["b" /* mainCompanyInfo */]}**********`);
-      return Object(api["b" /* mainCompanyInfo */])();
+      console.log(`**********ENHANCED COMPANY DATA**********`);
+      const company = Object(api["b" /* mainCompanyInfo */])();
+      console.log('Company info:', company);
+      return company;
     },
+    // ENHANCED: Company logo with API priority and smart fallbacks
     companyLogo() {
-      return __webpack_require__(160)(`./${this.companyData.ticketLogo}`);
+      const company = this.companyData;
+
+      // 1. Try API logo first (highest priority)
+      if (company.apiData && company.apiData.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || '';
+        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`;
+        console.log('Using API logo:', logoUrl);
+        return logoUrl;
+      }
+
+      // 2. Try static logo from company data
+      if (company.ticketLogo) {
+        try {
+          const staticLogo = __webpack_require__(141)(`./${company.ticketLogo}`);
+          console.log('Using static logo:', company.ticketLogo);
+          return staticLogo;
+        } catch (error) {
+          console.warn('Static logo not found:', company.ticketLogo, error);
+        }
+      }
+
+      // 3. Try dcLogo fallback
+      if (company.dcLogo) {
+        try {
+          const fallbackLogo = __webpack_require__(141)(`./${company.dcLogo}`);
+          console.log('Using dcLogo fallback:', company.dcLogo);
+          return fallbackLogo;
+        } catch (error) {
+          console.warn('dcLogo not found:', company.dcLogo, error);
+        }
+      }
+
+      // 4. Final fallback
+      console.log('Using final fallback logo');
+      return '/static/images/default-logo.png';
     },
     ticketCommon() {
       return Object(common["l" /* ticketHtml */])();
@@ -817,7 +1113,7 @@ var external_vuex_ = __webpack_require__(14);
     currentTerminal() {
       console.log(`ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`);
       const terminalInfo = this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
-      console.log(`************ ${this.findAllTerminal.length} SELECTED ${terminalInfo['name']} ************ `);
+      console.log(`************ ${this.findAllTerminal.length} SELECTED ${terminalInfo === null || terminalInfo === void 0 ? void 0 : terminalInfo['name']} ************ `);
       return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
     },
     customTerminalList() {
@@ -844,6 +1140,13 @@ var external_vuex_ = __webpack_require__(14);
       console.log(`Current location ${JSON.stringify(terminal)}`);
       return this.orderHeaderList.filter(el => el['isActive'] == true && el['paymentId'] != 2 && el['locationId'] == terminal['locationId']);
     },
+    // NEW: Payment Statistics
+    singlePaymentCount() {
+      return this.activeOrderHeaderList.filter(item => !this.isMultiPayment(item)).length;
+    },
+    multiPaymentCount() {
+      return this.activeOrderHeaderList.filter(item => this.isMultiPayment(item)).length;
+    },
     computedDateFormatted() {
       return this.formatDate(this.fromDate);
     },
@@ -853,7 +1156,6 @@ var external_vuex_ = __webpack_require__(14);
         total += el.total;
       });
       return total;
-      // return total
     },
     totalSaleRaw() {
       let total = 0;
@@ -862,9 +1164,7 @@ var external_vuex_ = __webpack_require__(14);
         total += parseInt(el.cartTotal);
       });
       console.log('Price total: ' + total);
-      // return previousValue.cartTotal + currentValue.cartTotal
       return total;
-      // return total
     },
     totalDiscount() {
       let total = 0;
@@ -872,7 +1172,6 @@ var external_vuex_ = __webpack_require__(14);
         total += parseInt(el.discount);
       });
       return total;
-      // return total
     },
     unpaidCodOrder() {
       let txnList = [];
@@ -902,6 +1201,146 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
+    // NEW: Multi-Payment Detection and Handling Methods
+    isMultiPayment(item) {
+      return item.payments && Array.isArray(item.payments) && item.payments.length > 1;
+    },
+    hasPaymentDetails(item) {
+      return item.payments && item.payments.length > 0 || item.payment;
+    },
+    getPaymentMethodsCount(item) {
+      if (this.isMultiPayment(item)) {
+        return item.payments.length;
+      }
+      return item.payment ? 1 : 0;
+    },
+    getPaymentTypeLabel(item) {
+      if (this.isMultiPayment(item)) {
+        return `ຊຳລະຫຼາຍວິທີ (${item.payments.length} ວິທີ)`;
+      } else if (item.payment) {
+        return 'ຊຳລະແບບດຽວ';
+      }
+      return 'ບໍ່ມີຂໍ້ມູນ';
+    },
+    getPaymentTypeColor(item) {
+      if (this.isMultiPayment(item)) {
+        return 'success';
+      } else if (item.payment) {
+        return 'primary';
+      }
+      return 'grey';
+    },
+    getPaymentDetails(item) {
+      const details = [];
+      const totalAmount = item.total - item.discount;
+      if (this.isMultiPayment(item)) {
+        // Multi-payment transaction
+        item.payments.forEach(payment => {
+          var _payment$paymentMetho, _payment$paymentMetho2;
+          const percentage = payment.amount / totalAmount * 100;
+          details.push({
+            code: ((_payment$paymentMetho = payment.paymentMethod) === null || _payment$paymentMetho === void 0 ? void 0 : _payment$paymentMetho.payment_code) || 'UNKNOWN',
+            name: ((_payment$paymentMetho2 = payment.paymentMethod) === null || _payment$paymentMetho2 === void 0 ? void 0 : _payment$paymentMetho2.payment_name) || 'Unknown',
+            amount: payment.amount,
+            percentage: percentage,
+            createdAt: payment.createdAt ? payment.createdAt.split('.')[0] : 'N/A'
+          });
+        });
+      } else if (item.payment) {
+        // Single payment transaction
+        details.push({
+          code: item.payment.payment_code,
+          name: item.payment.payment_name,
+          amount: totalAmount,
+          percentage: 100,
+          createdAt: item.createdAt ? item.createdAt.split('.')[0] : 'N/A'
+        });
+      }
+      return details;
+    },
+    getPaymentMethodColor(paymentCode) {
+      const colorMap = {
+        'CASH': 'green',
+        'QR SCAN': 'purple',
+        'TRANSFER_BCEL': 'blue',
+        'COD': 'orange',
+        'CREDIT': 'red',
+        'CARD': 'indigo'
+      };
+      return colorMap[paymentCode] || 'grey';
+    },
+    getPaymentMethodIcon(paymentCode) {
+      const iconMap = {
+        'CASH': 'mdi-cash',
+        'QR SCAN': 'mdi-qrcode',
+        'TRANSFER_BCEL': 'mdi-bank-transfer',
+        'COD': 'mdi-truck-delivery',
+        'CREDIT': 'mdi-credit-card-outline',
+        'CARD': 'mdi-credit-card'
+      };
+      return iconMap[paymentCode] || 'mdi-help-circle';
+    },
+    showPaymentDetails(item) {
+      this.selectedOrderForPayments = item;
+      this.paymentDetailsDialog = true;
+    },
+    printPaymentDetails() {
+      var _item$client;
+      if (!this.selectedOrderForPayments) return;
+      const item = this.selectedOrderForPayments;
+      const paymentDetails = this.getPaymentDetails(item);
+      let paymentListHtml = '';
+      paymentDetails.forEach(payment => {
+        paymentListHtml += `
+          <tr>
+            <td>${payment.name}</td>
+            <td style="text-align: right">${this.formatNumber(payment.amount)} LAK</td>
+            <td style="text-align: center">${payment.percentage.toFixed(1)}%</td>
+          </tr>
+        `;
+      });
+      const windowContent = `
+        ${this.ticketCommon.header}
+        <body>
+          <div style="text-align: center;">
+            <img src="${this.companyLogo}" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">
+          </div>
+          <h3 style="text-align: center">ລາຍລະອຽດການຊຳລະ</h3>
+          <hr>
+          <h5>ເລກບິນ: ${item.id}</h5>
+          <h5>ວັນທີ: ${item.bookingDate}</h5>
+          <h5>ລູກຄ້າ: ${(_item$client = item.client) === null || _item$client === void 0 ? void 0 : _item$client.name}</h5>
+          <h5>ຍອດລວມ: ${this.formatNumber(item.total)} LAK</h5>
+          <h5>ສ່ວນຫລຸດ: ${this.formatNumber(item.discount)} LAK</h5>
+          <h5>ຈຳນວນຊຳລະ: ${this.formatNumber(item.total - item.discount)} LAK</h5>
+          <hr>
+          <h4>ວິທີການຊຳລະ:</h4>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 1px solid #000;">
+                <th style="text-align: left; padding: 8px;">ວິທີການ</th>
+                <th style="text-align: right; padding: 8px;">ຈຳນວນ</th>
+                <th style="text-align: center; padding: 8px;">ເປີເຊັນ</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${paymentListHtml}
+            </tbody>
+          </table>
+          <hr>
+          <h3 style="text-align: center; margin-top: 30px;">THANK YOU</h3>
+        </body>
+        </html>
+      `;
+      const printWin = window.open('', '', 'width=800,height=600');
+      printWin.document.open();
+      printWin.document.write(windowContent);
+      printWin.document.close();
+      setTimeout(() => {
+        printWin.print();
+        printWin.close();
+      }, 1000);
+    },
     currentShipping(shippingId) {
       const shipping = this.shippingList.find(el => el.id == shippingId);
       if (shipping == undefined) return '';
@@ -932,8 +1371,17 @@ var external_vuex_ = __webpack_require__(14);
       });
       this.isloading = false;
     },
+    // ENHANCED: Print ticket with API logo support and multi-payment details
     printDefaultTicket(data) {
-      console.info(`DATA ${JSON.stringify(data)}`);
+      console.info(`PRINTING TICKET WITH DATA: ${JSON.stringify(data)}`);
+
+      // Determine the payment method to show on ticket
+      let paymentCode = 'UNKNOWN';
+      if (this.isMultiPayment(data)) {
+        paymentCode = 'MULTI-PAYMENT';
+      } else if (data.payment) {
+        paymentCode = data.payment.payment_code;
+      }
       Object(ticket["b" /* defaultTicketReprint */])({
         productCart: data.lines,
         findAllProduct: this.findAllProduct,
@@ -942,14 +1390,18 @@ var external_vuex_ = __webpack_require__(14);
         currencyList: this.currencyList,
         grandTotal: data.total,
         companyLogo: this.companyLogo,
+        // This now includes API logos automatically
         lastTransactionSaleHeaderId: data.id,
         currentTerminal: this.currentTerminal,
         user: this.user,
         ticketCommon: this.ticketCommon,
-        currentPaymentCode: data.payment.payment_code,
+        currentPaymentCode: paymentCode,
         cashReceived: data.total,
         changes: 0,
-        bookingDate: data.createdAt
+        bookingDate: data.createdAt,
+        axios: this.$axios,
+        // Enable API logo loading in enhanced ticket
+        companyData: this.companyData // Provide company data for fallback
       });
     },
     exportToExcel() {
@@ -1096,11 +1548,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosvue_type_script_lang_js,
-  ordersFromPosvue_type_template_id_ce42b81a_scoped_true_render,
+  ordersFromPosvue_type_template_id_0491cd3a_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "ce42b81a",
+  "0491cd3a",
   "ac53ec12"
   
 )
@@ -5401,7 +5853,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("ab823b28", content, true, context)
+  add("5801e571", content, true, context)
 };
 
 /***/ })

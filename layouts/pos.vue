@@ -46,6 +46,7 @@
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
+
           <v-btn color="grey" text @click="terminalDialog = false">
             ຍົກເລີກ
           </v-btn>
@@ -174,6 +175,17 @@
 
           <v-col cols="12" md="4" lg="6" class="d-flex justify-end">
             <div class="d-flex align-center flex-wrap ga-2">
+              <v-btn
+                class="header-btn mr-2"
+                color="primary"
+                @click="openCustomerScreen"
+                large
+                outlined
+                rounded
+              >
+                <v-icon left>mdi-monitor-share</v-icon>
+                <span class="d-none d-sm-inline">ເປີດ ຈໍລູກຄ້າ</span>
+              </v-btn>
               <v-btn
                 v-for="item in headerMenu"
                 :key="item.title"
@@ -439,7 +451,7 @@ export default {
       selectedProductId: null,
       upSvg: require('~/assets/icons/dcommerce/up.svg'),
       downSvg: require('~/assets/icons/dcommerce/down.svg'),
-      showCheckOut: true,
+      showCheckOut: false,
       productPricingSelected: null,
       pricingDialogKey: 1,
       pricingDialog: false,
@@ -644,6 +656,19 @@ export default {
   },
 
   methods: {
+    openCustomerScreen() {
+      // The path to your customer display component
+      const customerScreenPath = '/admin/cafeTable/customer'
+
+      // We use window.open() to launch the path in a new, unstyled window
+      // The second argument '_blank' ensures it opens in a new tab/window
+      // The third argument specifies features like size (optional, but good practice)
+      window.open(
+        customerScreenPath,
+        'CustomerDisplay',
+        'width=1200,height=800,resizable=yes,scrollbars=yes'
+      )
+    },
     // FIXED: Vue 2 compatible multi-payment initialization
     initializeMultiPayment() {
       this.multiPayment = createMultiPayment(this.$axios, this.formatNumber)
@@ -718,7 +743,7 @@ export default {
       }
     },
     async createSaleHeader() {
-      if (this.isCreatingSale) return
+      if (this.isCreatingSale || this.pendingSaleHeaderId) return
 
       this.isCreatingSale = true
       this.isloading = true
@@ -841,7 +866,7 @@ export default {
 
     handleMultiPaymentCancel() {
       this.multiPaymentDialog = false
-      this.pendingSaleHeaderId = null
+      // this.pendingSaleHeaderId = null
     },
 
     handleMultiPaymentError(error) {

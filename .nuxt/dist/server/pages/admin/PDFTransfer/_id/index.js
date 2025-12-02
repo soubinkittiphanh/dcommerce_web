@@ -294,7 +294,7 @@ var api = __webpack_require__(41);
       return comV1;
     },
     companyLogo() {
-      return __webpack_require__(160)(`./${this.companyData.companyLogo}`);
+      return __webpack_require__(141)(`./${this.companyData.companyLogo}`);
     },
     ...Object(external_vuex_["mapGetters"])(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct'])
   },

@@ -5617,7 +5617,20 @@ const Intersect = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hostName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mainCompanyInfoV1; });
+/* unused harmony export loadCompanyFromAPI */
+/* unused harmony export getStaticCompanyInfo */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mainCompanyInfo; });
+/* unused harmony export mainCompanyInfoAsync */
+/* unused harmony export clearCompanyCache */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return preloadCompanyData; });
+/* unused harmony export getCompanyCacheInfo */
+// Enhanced API Configuration with Dynamic Logo Loading
+// Fixed version without duplicate exports
+
+/**
+ * Get the base URL for API calls
+ * @returns {string} The base URL for the application
+ */
 const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8003' // *** CHITHAN
   // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
@@ -5636,39 +5649,103 @@ const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
-  console.info(`BASE_URL ${process.env.BASE_URL}`); //
+
+  console.info(`BASE_URL ${process.env.BASE_URL}`);
   // return process.env.BASE_URL || 'http://localhost:8888'
   return baseURL;
 };
+
+/**
+ * Legacy company info function (V1) - uses store
+ * @param {Object} store - Vuex store instance
+ * @returns {Object} First company from store
+ */
 const mainCompanyInfoV1 = store => {
   return store.getters.findAllCompany[0];
 };
-const mainCompanyInfo = store => {
-  // const info = {
-  //   name: '',
-  //   tel: '',
-  //   whatsapp: '+',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: 'SAPHANTHONG ONLINE',
-  //   ticketLogo: 'BWLOGO_DC.jpeg',
-  //   companyLogo: 'company_logo_DC.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-  // const info = {
-  //   name: 'ຮ້ານຂາຍຢາ ໄພວັນ ຟາມາຊີ',
-  //   tel: '020 55 627 486',
-  //   whatsapp: '+85620 55 627 486',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: 'SAPHANTHONG ONLINE',
-  //   ticketLogo: 'BWLOGO_PHAIVANH.jpeg',
-  //   companyLogo: 'company_logo_phaivanh.jpeg',
-  //   dcLogo: 'Dcommerce-Logo-phaivanh.pnga',
-  //   dcLogo: 'PWT.png',
-  //   env: ''
-  // }
+
+/**
+ * Cache for API-loaded company information
+ */
+let apiCompanyCache = {
+  data: null,
+  loading: false,
+  error: false,
+  lastFetch: null,
+  cacheExpiry: 5 * 60 * 1000 // 5 minutes cache
+};
+
+/**
+ * Load company information from API
+ * @param {Object} axios - Axios instance (optional)
+ * @returns {Promise<Object|null>} Company data from API
+ */
+const loadCompanyFromAPI = async axios => {
+  // Check cache validity
+  const now = Date.now();
+  const cacheValid = apiCompanyCache.lastFetch && now - apiCompanyCache.lastFetch < apiCompanyCache.cacheExpiry;
+  if (cacheValid && apiCompanyCache.data) {
+    console.info('Using cached company data from API');
+    return apiCompanyCache.data;
+  }
+
+  // Prevent multiple simultaneous requests
+  if (apiCompanyCache.loading) {
+    console.info('Company API data already loading, waiting...');
+    return new Promise(resolve => {
+      const checkInterval = setInterval(() => {
+        if (!apiCompanyCache.loading) {
+          clearInterval(checkInterval);
+          resolve(apiCompanyCache.data);
+        }
+      }, 100);
+    });
+  }
+  if (!axios) {
+    console.warn('No axios instance provided, cannot load from API');
+    return null;
+  }
+  apiCompanyCache.loading = true;
+  apiCompanyCache.error = false;
+  try {
+    console.info('Loading company data from API...');
+    const response = await axios.get('/api/public/company/findAll');
+    const companies = Array.isArray(response.data) ? response.data : [];
+
+    // Get the first active company
+    const firstActiveCompany = companies.find(company => company.isActive === true);
+    if (firstActiveCompany) {
+      apiCompanyCache.data = firstActiveCompany;
+      apiCompanyCache.lastFetch = now;
+      console.info('Company data loaded from API:', {
+        id: firstActiveCompany.id,
+        name: firstActiveCompany.name,
+        mnemonic: firstActiveCompany.mnemonic,
+        hasLogo: !!firstActiveCompany.profile_image_path
+      });
+      return firstActiveCompany;
+    } else {
+      console.warn('No active company found in API response');
+      apiCompanyCache.data = null;
+      apiCompanyCache.lastFetch = now;
+      return null;
+    }
+  } catch (error) {
+    console.error('Error loading company data from API:', error);
+    apiCompanyCache.error = true;
+    apiCompanyCache.data = null;
+    apiCompanyCache.lastFetch = now;
+    return null;
+  } finally {
+    apiCompanyCache.loading = false;
+  }
+};
+
+/**
+ * Get static company information (fallback)
+ * @returns {Object} Static company configuration
+ */
+const getStaticCompanyInfo = () => {
   const info = {
     name: '',
     tel: '',
@@ -5681,71 +5758,175 @@ const mainCompanyInfo = store => {
     dcLogo: 'Dcommerce-Logo_DC.png',
     env: ''
   };
-
-  // const info = {
-  //   name: 'THE CORNERS',
-  //   tel: '020 2698 3331',
-  //   whatsapp: '+8562023378899',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'BWLOGO_the_conners.jpeg',
-  //   companyLogo: 'company_logo_DC.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-
-  // const info = {
-  //   name: 'PEEAIR',
-  //   tel: '020 2698 3331',
-  //   whatsapp: '+8562023378899',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'BWLOGO_the_conners.jpeg',
-  //   companyLogo: 'company_logo_DC.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-  // const info = {
-  //   name: 'BMART',
-  //   tel: '020 2698 3331',
-  //   whatsapp: '+8562023378899',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'BWLOGO_BMART.png',
-  //   companyLogo: 'company_logo_BMART.jpeg',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-  // const info = {
-  //   name: 'ໄທພວນ',
-  //   tel: '020 2383 8999',
-  //   whatsapp: '+8562002023838999',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'TAIPHUAN.png',
-  //   companyLogo: 'TAIPHUAN.png',
-  //   dcLogo: 'Dcommerce-Logo_DC.png',
-  //   env: ''
-  // }
-  //
-  // const info = {
-  //   name: 'PM',
-  //   tel: '020 2383 8999',
-  //   whatsapp: '+8562002023838999',
-  //   imageUrl: '',
-  //   imageName: '',
-  //   address: '3 ແຍກອາໄພ່ LPB',
-  //   ticketLogo: 'TAIPHUAN.png',
-  //   companyLogo: 'TAIPHUAN.png',
-  //   // dcLogo: 'Dcommerce-Logo_DC.png',
-  //   dcLogo: 'Dcommerce-Logo-PM-1.png',
-  //   env: ''
-  // }
   return info;
+};
+
+/**
+ * Enhanced company info function with API integration and fallbacks
+ * This is the main function that replaces the original mainCompanyInfo
+ * @param {Object} options - Configuration options
+ * @returns {Object|Promise<Object>} Company information
+ */
+const mainCompanyInfo = options => {
+  // Legacy usage (backward compatibility) - return sync version
+  if (!options || options.getters) {
+    // If cached API data is available, use it
+    if (apiCompanyCache.data) {
+      return {
+        name: apiCompanyCache.data.name || '',
+        tel: apiCompanyCache.data.tel || '',
+        whatsapp: apiCompanyCache.data.tel ? `+856${apiCompanyCache.data.tel.replace(/^0/, '')}` : '',
+        imageUrl: apiCompanyCache.data.profile_image_path || '',
+        imageName: apiCompanyCache.data.profile_image_path ? apiCompanyCache.data.profile_image_path.split('/').pop() : '',
+        address: apiCompanyCache.data.address || '',
+        ticketLogo: apiCompanyCache.data.profile_image_path ? apiCompanyCache.data.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
+        companyLogo: apiCompanyCache.data.profile_image_path ? apiCompanyCache.data.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
+        dcLogo: 'Dcommerce-Logo_DC.png',
+        env: '',
+        apiData: apiCompanyCache.data,
+        mnemonic: apiCompanyCache.data.mnemonic || '',
+        id: apiCompanyCache.data.id || null
+      };
+    }
+
+    // If options is a store (legacy usage)
+    if (options && options.getters && options.getters.findAllCompany) {
+      const storeCompany = options.getters.findAllCompany[0];
+      if (storeCompany) {
+        return storeCompany;
+      }
+    }
+
+    // Fallback to static configuration
+    return getStaticCompanyInfo();
+  }
+
+  // Enhanced usage with options
+  const {
+    axios,
+    useAPI = true,
+    store
+  } = options;
+
+  // If API usage is requested and axios is available
+  if (useAPI && axios) {
+    return loadCompanyFromAPI(axios).then(apiData => {
+      if (apiData) {
+        // Transform API data to match expected format
+        return {
+          name: apiData.name || '',
+          tel: apiData.tel || '',
+          whatsapp: apiData.tel ? `+856${apiData.tel.replace(/^0/, '')}` : '',
+          imageUrl: apiData.profile_image_path || '',
+          imageName: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : '',
+          address: apiData.address || '',
+          ticketLogo: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
+          companyLogo: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
+          dcLogo: 'Dcommerce-Logo_DC.png',
+          env: '',
+          apiData: apiData,
+          mnemonic: apiData.mnemonic || '',
+          id: apiData.id || null
+        };
+      } else {
+        // Fallback to static info if API fails
+        return getStaticCompanyInfo();
+      }
+    }).catch(error => {
+      console.error('Error in enhanced mainCompanyInfo:', error);
+      return getStaticCompanyInfo();
+    });
+  }
+
+  // If store is provided, try store first
+  if (store && store.getters && store.getters.findAllCompany) {
+    const storeCompany = store.getters.findAllCompany[0];
+    if (storeCompany) {
+      return storeCompany;
+    }
+  }
+
+  // Default fallback
+  return getStaticCompanyInfo();
+};
+
+/**
+ * Enhanced version for explicit async usage
+ * @param {Object} options - Configuration options
+ * @returns {Promise<Object>} Company information
+ */
+const mainCompanyInfoAsync = async (options = {}) => {
+  const {
+    axios,
+    useAPI = true,
+    store
+  } = options;
+
+  // If API usage is requested and axios is available
+  if (useAPI && axios) {
+    try {
+      const apiData = await loadCompanyFromAPI(axios);
+      if (apiData) {
+        return {
+          name: apiData.name || '',
+          tel: apiData.tel || '',
+          whatsapp: apiData.tel ? `+856${apiData.tel.replace(/^0/, '')}` : '',
+          imageUrl: apiData.profile_image_path || '',
+          imageName: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : '',
+          address: apiData.address || '',
+          ticketLogo: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
+          companyLogo: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
+          dcLogo: 'Dcommerce-Logo_DC.png',
+          env: '',
+          apiData: apiData,
+          mnemonic: apiData.mnemonic || '',
+          id: apiData.id || null
+        };
+      }
+    } catch (error) {
+      console.error('Error loading company data from API:', error);
+    }
+  }
+
+  // Fallback to static info
+  return getStaticCompanyInfo();
+};
+
+/**
+ * Clear company cache (useful for forcing refresh)
+ */
+const clearCompanyCache = () => {
+  apiCompanyCache = {
+    data: null,
+    loading: false,
+    error: false,
+    lastFetch: null,
+    cacheExpiry: 5 * 60 * 1000
+  };
+};
+
+/**
+ * Preload company data (useful for app initialization)
+ * @param {Object} axios - Axios instance
+ * @returns {Promise<void>}
+ */
+const preloadCompanyData = async axios => {
+  try {
+    await loadCompanyFromAPI(axios);
+    console.info('Company data preloaded successfully');
+  } catch (error) {
+    console.warn('Failed to preload company data:', error);
+  }
+};
+
+/**
+ * Get current cached company info
+ * @returns {Object} Company cache object
+ */
+const getCompanyCacheInfo = () => {
+  return {
+    ...apiCompanyCache
+  };
 };
 
 /***/ }),
@@ -7392,7 +7573,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_9__[/* default *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _components_VOverlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(159);
+/* harmony import */ var _components_VOverlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(160);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
@@ -10277,7 +10458,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/customer/CustomerList.vue?vue&type=template&id=927f0380
 
 // EXTERNAL MODULE: ./util/myUtil.js
-var myUtil = __webpack_require__(141);
+var myUtil = __webpack_require__(142);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -13572,6 +13753,65 @@ const VToolbarItems = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_1__[/* creat
 
 /***/ }),
 /* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./BWLOGO_BMART.png": 299,
+	"./BWLOGO_CHITHANH.jpeg": 300,
+	"./BWLOGO_DC.jpeg": 301,
+	"./BWLOGO_JNONG.jpeg": 302,
+	"./BWLOGO_PEEL.jpeg": 303,
+	"./BWLOGO_PHAIVANH.jpeg": 304,
+	"./BWLOGO_laosFriend.jpeg": 305,
+	"./BWLOGO_the_conners.jpeg": 306,
+	"./Dcommerce-Logo-PM-1.png": 307,
+	"./Dcommerce-Logo-PM-login.jpg": 308,
+	"./Dcommerce-Logo-PM.png": 309,
+	"./Dcommerce-Logo-md.png": 310,
+	"./Dcommerce-Logo-old.png": 311,
+	"./Dcommerce-Logo-phaivanh.png": 312,
+	"./Dcommerce-Logo_DC.png": 195,
+	"./Dcommerce-bmart.png": 313,
+	"./MPWT/PWT.png": 143,
+	"./MPWT/gov sign.png": 193,
+	"./PWT.png": 314,
+	"./TAIPHUAN.png": 315,
+	"./TTP_AUTO.jpeg": 316,
+	"./company_logo_BMART.jpeg": 317,
+	"./company_logo_DC.jpeg": 318,
+	"./company_logo_PEEL.jpeg": 319,
+	"./company_logo_chithanh.jpeg": 320,
+	"./company_logo_conners.jpeg": 321,
+	"./company_logo_laofriend.jpeg": 322,
+	"./company_logo_phaivanh.jpeg": 323,
+	"./pos-terminal.png": 194,
+	"./qr_code/BCEL_QR.jpeg": 198,
+	"./qr_code/BFL_QR.jpeg": 199,
+	"./qr_code/Dcommerce-Logo-md.png": 324
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 141;
+
+/***/ }),
+/* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13833,109 +14073,109 @@ const getFirstDayOfMonth = () => {
 };
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/PWT.8807ec4.png";
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.add-all.js");
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.delete-all.js");
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.difference.js");
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.every.js");
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.filter.js");
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.find.js");
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.intersection.js");
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.is-disjoint-from.js");
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.is-subset-of.js");
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.is-superset-of.js");
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.join.js");
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.map.js");
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.reduce.js");
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.some.js");
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.symmetric-difference.js");
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/esnext.set.union.js");
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13943,65 +14183,6 @@ module.exports = require("core-js/modules/esnext.set.union.js");
 
 
 /* harmony default export */ __webpack_exports__["a"] = (_VOverlay__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
-
-/***/ }),
-/* 160 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./BWLOGO_BMART.png": 299,
-	"./BWLOGO_CHITHANH.jpeg": 300,
-	"./BWLOGO_DC.jpeg": 301,
-	"./BWLOGO_JNONG.jpeg": 302,
-	"./BWLOGO_PEEL.jpeg": 303,
-	"./BWLOGO_PHAIVANH.jpeg": 304,
-	"./BWLOGO_laosFriend.jpeg": 305,
-	"./BWLOGO_the_conners.jpeg": 306,
-	"./Dcommerce-Logo-PM-1.png": 307,
-	"./Dcommerce-Logo-PM-login.jpg": 308,
-	"./Dcommerce-Logo-PM.png": 309,
-	"./Dcommerce-Logo-md.png": 310,
-	"./Dcommerce-Logo-old.png": 311,
-	"./Dcommerce-Logo-phaivanh.png": 312,
-	"./Dcommerce-Logo_DC.png": 195,
-	"./Dcommerce-bmart.png": 313,
-	"./MPWT/PWT.png": 142,
-	"./MPWT/gov sign.png": 193,
-	"./PWT.png": 314,
-	"./TAIPHUAN.png": 315,
-	"./TTP_AUTO.jpeg": 316,
-	"./company_logo_BMART.jpeg": 317,
-	"./company_logo_DC.jpeg": 318,
-	"./company_logo_PEEL.jpeg": 319,
-	"./company_logo_chithanh.jpeg": 320,
-	"./company_logo_conners.jpeg": 321,
-	"./company_logo_laofriend.jpeg": 322,
-	"./company_logo_phaivanh.jpeg": 323,
-	"./pos-terminal.png": 194,
-	"./qr_code/BCEL_QR.jpeg": 198,
-	"./qr_code/BFL_QR.jpeg": 199,
-	"./qr_code/Dcommerce-Logo-md.png": 324
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 160;
 
 /***/ }),
 /* 161 */
@@ -14257,7 +14438,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6846603a", content, true, context)
+  add("68dc7344", content, true, context)
 };
 
 /***/ }),
@@ -15090,7 +15271,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("e93e75ac", content, true, context)
+  add("43f56740", content, true, context)
 };
 
 /***/ }),
@@ -15641,52 +15822,52 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/pos/MultiPaymentDialog-vue2.vue?vue&type=template&id=07906c2c&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(143);
+var esnext_set_add_all_js_ = __webpack_require__(144);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(144);
+var esnext_set_delete_all_js_ = __webpack_require__(145);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(145);
+var esnext_set_difference_js_ = __webpack_require__(146);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(146);
+var esnext_set_every_js_ = __webpack_require__(147);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(147);
+var esnext_set_filter_js_ = __webpack_require__(148);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(148);
+var esnext_set_find_js_ = __webpack_require__(149);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(149);
+var esnext_set_intersection_js_ = __webpack_require__(150);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(150);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(151);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(151);
+var esnext_set_is_subset_of_js_ = __webpack_require__(152);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(152);
+var esnext_set_is_superset_of_js_ = __webpack_require__(153);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(153);
+var esnext_set_join_js_ = __webpack_require__(154);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(154);
+var esnext_set_map_js_ = __webpack_require__(155);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(155);
+var esnext_set_reduce_js_ = __webpack_require__(156);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(156);
+var esnext_set_some_js_ = __webpack_require__(157);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(157);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(158);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(158);
+var esnext_set_union_js_ = __webpack_require__(159);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/MultiPaymentDialog-vue2.vue?vue&type=script&lang=js
 
@@ -16225,7 +16406,7 @@ var VRow = __webpack_require__(415);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CartFooterComponent.vue?vue&type=template&id=6d4d2870&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CartFooterComponent.vue?vue&type=template&id=10114e7c&scoped=true
 
 
 
@@ -16235,12 +16416,12 @@ var VTextField = __webpack_require__(37);
 
 
 
-var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = function render() {
+var CartFooterComponentvue_type_template_id_10114e7c_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "cart-footer"
-  }, [_vm.showCheckOut ? _vm._ssrNode("<div class=\"payment-inputs pa-4\" data-v-6d4d2870>", "</div>", [_c(VRow["a" /* default */], {
+  }, [_vm.showCheckOut ? _vm._ssrNode("<div class=\"payment-inputs pa-4\" data-v-10114e7c>", "</div>", [_c(VRow["a" /* default */], {
     staticClass: "ga-3",
     attrs: {
       "no-gutters": ""
@@ -16289,7 +16470,7 @@ var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = functi
         return _vm.$emit('update:cash-received', $event);
       }
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"total-display pa-4\" data-v-6d4d2870>", "</div>", [_c(VRow["a" /* default */], {
+  })], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"total-display pa-4\" data-v-10114e7c>", "</div>", [_c(VRow["a" /* default */], {
     staticClass: "total-row",
     attrs: {
       "no-gutters": "",
@@ -16314,26 +16495,7 @@ var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = functi
     staticClass: "discount-amount"
   }, [_vm._v("-" + _vm._s(_vm.formatNumber(_vm.discount)))])]) : _vm._e()], 1), _vm._ssrNode(" "), _c(VDivider["a" /* default */], {
     staticClass: "my-2"
-  }), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
-    staticClass: "grand-total-row",
-    attrs: {
-      "no-gutters": "",
-      "align": "center"
-    }
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "8"
-    }
-  }, [_c('div', {
-    staticClass: "grand-total-label"
-  }, [_vm._v("ຍອດເງິນລວມ")])]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "text-right",
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c('div', {
-    staticClass: "grand-total-amount"
-  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.grandTotal)))])])], 1), _vm._ssrNode(" "), _vm.showCheckOut && _vm.isTraditionalCashPayment && _vm.cashReceived > 0 ? _c(VRow["a" /* default */], {
+  }), _vm._ssrNode(" "),  false ? undefined : _vm._e(), _vm._ssrNode(" "), _vm.showCheckOut && _vm.isTraditionalCashPayment && _vm.cashReceived > 0 ? _c(VRow["a" /* default */], {
     staticClass: "change-row",
     attrs: {
       "no-gutters": "",
@@ -16352,7 +16514,7 @@ var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = functi
     }
   }, [_c('div', {
     staticClass: "change-amount"
-  }, [_vm._v(_vm._s(_vm.changes))])])], 1) : _vm._e()], 2), _vm._ssrNode(" "), _vm.showCheckOut ? _vm._ssrNode("<div class=\"payment-methods pa-4\" data-v-6d4d2870>", "</div>", [_vm._ssrNode("<div class=\"payment-section-header mb-3\" data-v-6d4d2870>", "</div>", [_c(VRow["a" /* default */], {
+  }, [_vm._v(_vm._s(_vm.changes))])])], 1) : _vm._e()], 2), _vm._ssrNode(" "), _vm.showCheckOut ? _vm._ssrNode("<div class=\"payment-methods pa-4\" data-v-10114e7c>", "</div>", [_vm._ssrNode("<div class=\"payment-section-header mb-3\" data-v-10114e7c>", "</div>", [_c(VRow["a" /* default */], {
     attrs: {
       "no-gutters": "",
       "align": "center"
@@ -16416,7 +16578,7 @@ var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = functi
     }, [_vm._v("\n              " + _vm._s(_vm.getPaymentIcon(payment.payment_code)) + "\n            ")]), _vm._v(" "), _c('div', {
       staticClass: "payment-name text-caption"
     }, [_vm._v("\n              " + _vm._s(payment.payment_name) + "\n            ")])], 1)], 1)], 1);
-  }), 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"action-buttons pa-4\" data-v-6d4d2870>", "</div>", [_c(VRow["a" /* default */], {
+  }), 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"action-buttons pa-4\" data-v-10114e7c>", "</div>", [_c(VRow["a" /* default */], {
     staticClass: "ga-2",
     attrs: {
       "no-gutters": ""
@@ -16484,7 +16646,7 @@ var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = functi
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n          ຈ່າຍເງິນຫຼາຍວິທີ\n        ")], 1)], 1)], 1) : _vm._e()], 2), _vm._ssrNode(" "), !_vm.showCheckOut ? _vm._ssrNode("<div class=\"quick-stats pa-3\" data-v-6d4d2870>", "</div>", [_c(VRow["a" /* default */], {
+  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n          ຈ່າຍເງິນຫຼາຍວິທີ\n        ")], 1)], 1)], 1) : _vm._e()], 2), _vm._ssrNode(" "), !_vm.showCheckOut && 1 == 0 ? _vm._ssrNode("<div class=\"quick-stats pa-3\" data-v-10114e7c>", "</div>", [_c(VRow["a" /* default */], {
     attrs: {
       "no-gutters": "",
       "align": "center"
@@ -16520,7 +16682,7 @@ var CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render = functi
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/pos/CartFooterComponent.vue?vue&type=template&id=6d4d2870&scoped=true
+// CONCATENATED MODULE: ./components/pos/CartFooterComponent.vue?vue&type=template&id=10114e7c&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CartFooterComponent.vue?vue&type=script&lang=js
 /* harmony default export */ var CartFooterComponentvue_type_script_lang_js = ({
@@ -16556,7 +16718,7 @@ var staticRenderFns = [];
     },
     showCheckOut: {
       type: Boolean,
-      default: true
+      default: false
     },
     formatNumber: {
       type: Function,
@@ -16698,11 +16860,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   pos_CartFooterComponentvue_type_script_lang_js,
-  CartFooterComponentvue_type_template_id_6d4d2870_scoped_true_render,
+  CartFooterComponentvue_type_template_id_10114e7c_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "6d4d2870",
+  "10114e7c",
   "bab855b8"
   
 )
@@ -18816,9 +18978,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_6d4d2870_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(176);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_6d4d2870_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_6d4d2870_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_6d4d2870_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_6d4d2870_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_10114e7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(176);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_10114e7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_10114e7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_10114e7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_10114e7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -18829,7 +18991,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cart-footer[data-v-6d4d2870]{background:#fff;border-top:1px solid #e0e0e0}.payment-inputs[data-v-6d4d2870]{background:#f8f9fa;border-bottom:1px solid #e0e0e0}.total-display[data-v-6d4d2870]{background:#fff}.total-row[data-v-6d4d2870]{margin-bottom:8px}.change-label[data-v-6d4d2870],.discount-label[data-v-6d4d2870],.total-label[data-v-6d4d2870]{color:#666;font-size:14px;font-weight:500}.change-amount[data-v-6d4d2870],.discount-amount[data-v-6d4d2870],.total-amount[data-v-6d4d2870]{color:#333;font-size:16px;font-weight:600}.discount-amount[data-v-6d4d2870]{color:#ff9800}.change-amount[data-v-6d4d2870]{color:#4caf50}.grand-total-label[data-v-6d4d2870]{color:#333;font-size:18px;font-weight:700}.grand-total-amount[data-v-6d4d2870]{color:#1976d2;font-size:24px;font-weight:700}.payment-title[data-v-6d4d2870]{color:#333;font-size:16px;font-weight:600;margin:0}.payment-methods-grid[data-v-6d4d2870]{margin-top:12px}.payment-card-item[data-v-6d4d2870]{border:2px solid #e0e0e0;border-radius:8px;cursor:pointer;transition:all .2s ease}.payment-card-item[data-v-6d4d2870]:hover{border-color:#1976d2;box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}.payment-card-item--selected[data-v-6d4d2870]{background:linear-gradient(135deg,#1976d2,#1565c0);border-color:#1976d2;box-shadow:0 4px 12px rgba(25,118,210,.3);color:#fff;transform:translateY(-1px)}.payment-name[data-v-6d4d2870]{font-size:11px;font-weight:600;line-height:1.2}.pay-button[data-v-6d4d2870]{font-weight:600;text-transform:none}.pay-button[data-v-6d4d2870]:disabled{opacity:.6}.multi-pay-button[data-v-6d4d2870]{background:linear-gradient(135deg,#1976d2,#1565c0);font-weight:600}.multi-pay-button[data-v-6d4d2870],.toggle-btn[data-v-6d4d2870]{text-transform:none}.quick-stats[data-v-6d4d2870]{background:#f5f5f5;border-top:1px solid #e0e0e0}.stat-value[data-v-6d4d2870]{font-size:18px;font-weight:700;line-height:1.2}.stat-label[data-v-6d4d2870]{color:#666;font-size:12px;letter-spacing:.5px;text-transform:uppercase}@media (max-width:600px){.payment-methods-grid .v-col[data-v-6d4d2870]{flex:0 0 50%!important;max-width:50%!important}.grand-total-amount[data-v-6d4d2870]{font-size:20px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".cart-footer[data-v-10114e7c]{background:#fff;border-top:1px solid #e0e0e0}.payment-inputs[data-v-10114e7c]{background:#f8f9fa;border-bottom:1px solid #e0e0e0}.total-display[data-v-10114e7c]{background:#fff}.total-row[data-v-10114e7c]{margin-bottom:8px}.change-label[data-v-10114e7c],.discount-label[data-v-10114e7c],.total-label[data-v-10114e7c]{color:#666;font-size:14px;font-weight:500}.change-amount[data-v-10114e7c],.discount-amount[data-v-10114e7c],.total-amount[data-v-10114e7c]{color:#333;font-size:16px;font-weight:600}.discount-amount[data-v-10114e7c]{color:#ff9800}.change-amount[data-v-10114e7c]{color:#4caf50}.grand-total-label[data-v-10114e7c]{color:#333;font-size:18px;font-weight:700}.grand-total-amount[data-v-10114e7c]{color:#1976d2;font-size:24px;font-weight:700}.payment-title[data-v-10114e7c]{color:#333;font-size:16px;font-weight:600;margin:0}.payment-methods-grid[data-v-10114e7c]{margin-top:12px}.payment-card-item[data-v-10114e7c]{border:2px solid #e0e0e0;border-radius:8px;cursor:pointer;transition:all .2s ease}.payment-card-item[data-v-10114e7c]:hover{border-color:#1976d2;box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}.payment-card-item--selected[data-v-10114e7c]{background:linear-gradient(135deg,#1976d2,#1565c0);border-color:#1976d2;box-shadow:0 4px 12px rgba(25,118,210,.3);color:#fff;transform:translateY(-1px)}.payment-name[data-v-10114e7c]{font-size:11px;font-weight:600;line-height:1.2}.pay-button[data-v-10114e7c]{font-weight:600;text-transform:none}.pay-button[data-v-10114e7c]:disabled{opacity:.6}.multi-pay-button[data-v-10114e7c]{background:linear-gradient(135deg,#1976d2,#1565c0);font-weight:600}.multi-pay-button[data-v-10114e7c],.toggle-btn[data-v-10114e7c]{text-transform:none}.quick-stats[data-v-10114e7c]{background:#f5f5f5;border-top:1px solid #e0e0e0}.stat-value[data-v-10114e7c]{font-size:18px;font-weight:700;line-height:1.2}.stat-label[data-v-10114e7c]{color:#666;font-size:12px;letter-spacing:.5px;text-transform:uppercase}@media (max-width:600px){.payment-methods-grid .v-col[data-v-10114e7c]{flex:0 0 50%!important;max-width:50%!important}.grand-total-amount[data-v-10114e7c]{font-size:20px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -18859,9 +19021,9 @@ module.exports = __webpack_require__.p + "img/cash.b97ff15.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6de71c47_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(178);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6de71c47_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6de71c47_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6de71c47_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6de71c47_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_37773758_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(178);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_37773758_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_37773758_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_37773758_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_37773758_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -18872,7 +19034,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-6de71c47]{font-family:\"noto sans lao\"}.terminal-dialog .terminal-card[data-v-6de71c47]{cursor:pointer;transition:all .2s ease}.terminal-dialog .terminal-card[data-v-6de71c47]:hover{box-shadow:0 4px 8px rgba(0,0,0,.12);transform:translateY(-2px)}.terminal-dialog .terminal-card.selected[data-v-6de71c47]{background-color:rgba(var(--v-primary-base),.05);border-color:var(--v-primary-base)!important}.search-field[data-v-6de71c47]{max-width:100%}.header-btn[data-v-6de71c47]{height:40px;min-width:auto}.header-btn.active[data-v-6de71c47]{background-color:hsla(0,0%,100%,.2)}.drawer-left[data-v-6de71c47]{border-right:1px solid rgba(0,0,0,.12)}.terminal-chip[data-v-6de71c47]{cursor:pointer;height:auto!important;padding:8px 12px;transition:all .2s ease}.terminal-chip[data-v-6de71c47]:hover{box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-1px)}.category-item[data-v-6de71c47]{border-radius:8px!important;margin:4px 8px;transition:all .2s ease}.category-item[data-v-6de71c47]:hover{background-color:rgba(var(--v-primary-base),.08)}.category-item.active[data-v-6de71c47]{background-color:rgba(var(--v-primary-base),.12);color:var(--v-primary-base)}.main-content[data-v-6de71c47]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-6de71c47]{height:calc(100vh - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-6de71c47]{min-height:100%;padding-bottom:20px}@media (min-width:1264px){.main-content-wrapper[data-v-6de71c47]{padding-right:0}}@media (max-width:1263px){.main-content-wrapper[data-v-6de71c47]{padding-right:0}}.cart-drawer[data-v-6de71c47]{border-left:1px solid rgba(0,0,0,.12)}.cart-container[data-v-6de71c47]{display:flex;flex-direction:column;height:100%}.cart-header[data-v-6de71c47]{background:linear-gradient(135deg,var(--v-primary-base),var(--v-primary-darken1))}.customer-bar[data-v-6de71c47]{border-bottom:1px solid rgba(0,0,0,.12)}.customer-chip[data-v-6de71c47]{cursor:pointer;height:auto!important;max-width:100%;padding:8px}.cart-items[data-v-6de71c47]{flex:1;min-height:0}.cart-items-header[data-v-6de71c47]{border-bottom:1px solid rgba(0,0,0,.12)}.cart-items-list[data-v-6de71c47]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-6de71c47]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:200px}.cart-footer[data-v-6de71c47]{background-color:#fff;border-top:1px solid rgba(0,0,0,.12);flex-shrink:0}@media (max-width:1263px){.cart-drawer[data-v-6de71c47]{max-width:480px!important;width:100%!important}.header-btn span[data-v-6de71c47]{display:none}.search-field[data-v-6de71c47]{margin-bottom:8px}.main-content-wrapper[data-v-6de71c47]{height:calc(100vh - 72px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-6de71c47]{gap:8px}.customer-bar .v-row[data-v-6de71c47],.payment-inputs .v-row[data-v-6de71c47]{flex-direction:column}.total-display .v-row[data-v-6de71c47]{flex-direction:column;text-align:center}.cart-items-list[data-v-6de71c47]{max-height:calc(100vh - 400px)}}@media (max-width:600px){.main-content-wrapper[data-v-6de71c47]{height:calc(100vh - 72px)}.main-container[data-v-6de71c47]{padding:8px}}body[data-v-6de71c47],html[data-v-6de71c47]{overflow-y:auto}.v-application--wrap[data-v-6de71c47]{backface-visibility:hidden;min-height:100vh}*[data-v-6de71c47]{-webkit-overflow-scrolling:touch}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-37773758]{font-family:\"noto sans lao\"}.terminal-dialog .terminal-card[data-v-37773758]{cursor:pointer;transition:all .2s ease}.terminal-dialog .terminal-card[data-v-37773758]:hover{box-shadow:0 4px 8px rgba(0,0,0,.12);transform:translateY(-2px)}.terminal-dialog .terminal-card.selected[data-v-37773758]{background-color:rgba(var(--v-primary-base),.05);border-color:var(--v-primary-base)!important}.search-field[data-v-37773758]{max-width:100%}.header-btn[data-v-37773758]{height:40px;min-width:auto}.header-btn.active[data-v-37773758]{background-color:hsla(0,0%,100%,.2)}.drawer-left[data-v-37773758]{border-right:1px solid rgba(0,0,0,.12)}.terminal-chip[data-v-37773758]{cursor:pointer;height:auto!important;padding:8px 12px;transition:all .2s ease}.terminal-chip[data-v-37773758]:hover{box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-1px)}.category-item[data-v-37773758]{border-radius:8px!important;margin:4px 8px;transition:all .2s ease}.category-item[data-v-37773758]:hover{background-color:rgba(var(--v-primary-base),.08)}.category-item.active[data-v-37773758]{background-color:rgba(var(--v-primary-base),.12);color:var(--v-primary-base)}.main-content[data-v-37773758]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-37773758]{height:calc(100vh - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-37773758]{min-height:100%;padding-bottom:20px}@media (min-width:1264px){.main-content-wrapper[data-v-37773758]{padding-right:0}}@media (max-width:1263px){.main-content-wrapper[data-v-37773758]{padding-right:0}}.cart-drawer[data-v-37773758]{border-left:1px solid rgba(0,0,0,.12)}.cart-container[data-v-37773758]{display:flex;flex-direction:column;height:100%}.cart-header[data-v-37773758]{background:linear-gradient(135deg,var(--v-primary-base),var(--v-primary-darken1))}.customer-bar[data-v-37773758]{border-bottom:1px solid rgba(0,0,0,.12)}.customer-chip[data-v-37773758]{cursor:pointer;height:auto!important;max-width:100%;padding:8px}.cart-items[data-v-37773758]{flex:1;min-height:0}.cart-items-header[data-v-37773758]{border-bottom:1px solid rgba(0,0,0,.12)}.cart-items-list[data-v-37773758]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-37773758]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:200px}.cart-footer[data-v-37773758]{background-color:#fff;border-top:1px solid rgba(0,0,0,.12);flex-shrink:0}@media (max-width:1263px){.cart-drawer[data-v-37773758]{max-width:480px!important;width:100%!important}.header-btn span[data-v-37773758]{display:none}.search-field[data-v-37773758]{margin-bottom:8px}.main-content-wrapper[data-v-37773758]{height:calc(100vh - 72px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-37773758]{gap:8px}.customer-bar .v-row[data-v-37773758],.payment-inputs .v-row[data-v-37773758]{flex-direction:column}.total-display .v-row[data-v-37773758]{flex-direction:column;text-align:center}.cart-items-list[data-v-37773758]{max-height:calc(100vh - 400px)}}@media (max-width:600px){.main-content-wrapper[data-v-37773758]{height:calc(100vh - 72px)}.main-container[data-v-37773758]{padding:8px}}body[data-v-37773758],html[data-v-37773758]{overflow-y:auto}.v-application--wrap[data-v-37773758]{backface-visibility:hidden;min-height:100vh}*[data-v-37773758]{-webkit-overflow-scrolling:touch}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -20361,8 +20523,8 @@ __webpack_require__.d(components_namespaceObject, "OrderSumaryCardV2", function(
 __webpack_require__.d(components_namespaceObject, "SimplifiedCompanyForm", function() { return SimplifiedCompanyForm; });
 __webpack_require__.d(components_namespaceObject, "Slider", function() { return Slider; });
 __webpack_require__.d(components_namespaceObject, "UnitForm", function() { return UnitForm; });
-__webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
 __webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
+__webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
 __webpack_require__.d(components_namespaceObject, "AccountingApPayment", function() { return AccountingApPayment; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", function() { return AccountingArReceivable; });
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
@@ -23132,7 +23294,7 @@ var api = __webpack_require__(41);
       // Try using the company data logo
       if ((_this$companyData = this.companyData) !== null && _this$companyData !== void 0 && _this$companyData.dcLogo) {
         try {
-          return __webpack_require__(160)(`./${this.companyData.dcLogo}`);
+          return __webpack_require__(141)(`./${this.companyData.dcLogo}`);
         } catch (error) {
           console.warn('Static company logo not found:', this.companyData.dcLogo);
         }
@@ -23140,7 +23302,7 @@ var api = __webpack_require__(41);
 
       // Final fallback
       try {
-        return __webpack_require__(142);
+        return __webpack_require__(143);
       } catch {
         return '/static/images/default-logo.png';
       }
@@ -24556,7 +24718,7 @@ var VListItemIcon = __webpack_require__(63);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSubheader/VSubheader.js
 var VSubheader = __webpack_require__(129);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=6de71c47&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=37773758&scoped=true
 
 
 
@@ -24586,7 +24748,7 @@ var VSubheader = __webpack_require__(129);
 
 
 
-var posvue_type_template_id_6de71c47_scoped_true_render = function render() {
+var posvue_type_template_id_37773758_scoped_true_render = function render() {
   var _vm$currentTerminal, _vm$currentTerminal2;
   var _vm = this,
     _c = _vm._self._c;
@@ -24950,7 +25112,24 @@ var posvue_type_template_id_6de71c47_scoped_true_render = function render() {
     }
   }, [_c('div', {
     staticClass: "d-flex align-center flex-wrap ga-2"
-  }, _vm._l(_vm.headerMenu, function (item) {
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "header-btn mr-2",
+    attrs: {
+      "color": "primary",
+      "large": "",
+      "outlined": "",
+      "rounded": ""
+    },
+    on: {
+      "click": _vm.openCustomerScreen
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-monitor-share")]), _vm._v(" "), _c('span', {
+    staticClass: "d-none d-sm-inline"
+  }, [_vm._v("ເປີດ ຈໍລູກຄ້າ")])], 1), _vm._v(" "), _vm._l(_vm.headerMenu, function (item) {
     return _c(VBtn["a" /* default */], {
       key: item.title,
       staticClass: "header-btn",
@@ -24972,7 +25151,7 @@ var posvue_type_template_id_6de71c47_scoped_true_render = function render() {
     }, [_vm._v(_vm._s(item.icon))]), _vm._v(" "), _c('span', {
       staticClass: "d-none d-sm-inline"
     }, [_vm._v(_vm._s(item.title))])], 1);
-  }), 1)])], 1)], 1)], 1), _vm._v(" "), _c(VNavigationDrawer["a" /* default */], {
+  })], 2)])], 1)], 1)], 1), _vm._v(" "), _c(VNavigationDrawer["a" /* default */], {
     staticClass: "drawer-left",
     attrs: {
       "app": "",
@@ -25246,9 +25425,9 @@ var posvue_type_template_id_6de71c47_scoped_true_render = function render() {
     }
   })], 1)])], 1);
 };
-var posvue_type_template_id_6de71c47_scoped_true_staticRenderFns = [];
+var posvue_type_template_id_37773758_scoped_true_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=6de71c47&scoped=true
+// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=37773758&scoped=true
 
 // EXTERNAL MODULE: ./components/customer/CustomerList.vue + 4 modules
 var CustomerList = __webpack_require__(93);
@@ -25845,52 +26024,52 @@ var DeliveryForm_component = Object(componentNormalizer["a" /* default */])(
 var MultiPaymentDialog_vue2 = __webpack_require__(185);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(143);
+var esnext_set_add_all_js_ = __webpack_require__(144);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(144);
+var esnext_set_delete_all_js_ = __webpack_require__(145);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(145);
+var esnext_set_difference_js_ = __webpack_require__(146);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(146);
+var esnext_set_every_js_ = __webpack_require__(147);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(147);
+var esnext_set_filter_js_ = __webpack_require__(148);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(148);
+var esnext_set_find_js_ = __webpack_require__(149);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(149);
+var esnext_set_intersection_js_ = __webpack_require__(150);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(150);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(151);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(151);
+var esnext_set_is_subset_of_js_ = __webpack_require__(152);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(152);
+var esnext_set_is_superset_of_js_ = __webpack_require__(153);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(153);
+var esnext_set_join_js_ = __webpack_require__(154);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(154);
+var esnext_set_map_js_ = __webpack_require__(155);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(155);
+var esnext_set_reduce_js_ = __webpack_require__(156);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(156);
+var esnext_set_some_js_ = __webpack_require__(157);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(157);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(158);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(158);
+var esnext_set_union_js_ = __webpack_require__(159);
 
 // CONCATENATED MODULE: ./composables/useMultiPayment-vue2.js
 
@@ -26245,7 +26424,7 @@ var ticket = __webpack_require__(177);
       selectedProductId: null,
       upSvg: __webpack_require__(371),
       downSvg: __webpack_require__(372),
-      showCheckOut: true,
+      showCheckOut: false,
       productPricingSelected: null,
       pricingDialogKey: 1,
       pricingDialog: false,
@@ -26313,7 +26492,7 @@ var ticket = __webpack_require__(177);
       return this.formatNumber(changeValue);
     },
     companyLogo() {
-      return __webpack_require__(160)(`./${this.companyData.ticketLogo}`);
+      return __webpack_require__(141)(`./${this.companyData.ticketLogo}`);
     },
     ticketCommon() {
       return Object(common["l" /* ticketHtml */])();
@@ -26417,6 +26596,15 @@ var ticket = __webpack_require__(177);
     }
   },
   methods: {
+    openCustomerScreen() {
+      // The path to your customer display component
+      const customerScreenPath = '/admin/cafeTable/customer';
+
+      // We use window.open() to launch the path in a new, unstyled window
+      // The second argument '_blank' ensures it opens in a new tab/window
+      // The third argument specifies features like size (optional, but good practice)
+      window.open(customerScreenPath, 'CustomerDisplay', 'width=1200,height=800,resizable=yes,scrollbars=yes');
+    },
     // FIXED: Vue 2 compatible multi-payment initialization
     initializeMultiPayment() {
       this.multiPayment = createMultiPayment(this.$axios, this.formatNumber);
@@ -26471,7 +26659,7 @@ var ticket = __webpack_require__(177);
       }
     },
     async createSaleHeader() {
-      if (this.isCreatingSale) return;
+      if (this.isCreatingSale || this.pendingSaleHeaderId) return;
       this.isCreatingSale = true;
       this.isloading = true;
       try {
@@ -26569,7 +26757,7 @@ var ticket = __webpack_require__(177);
     },
     handleMultiPaymentCancel() {
       this.multiPaymentDialog = false;
-      this.pendingSaleHeaderId = null;
+      // this.pendingSaleHeaderId = null
     },
     handleMultiPaymentError(error) {
       console.error('Multi-payment error:', error);
@@ -26921,11 +27109,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var pos_component = Object(componentNormalizer["a" /* default */])(
   layouts_posvue_type_script_lang_js,
-  posvue_type_template_id_6de71c47_scoped_true_render,
-  posvue_type_template_id_6de71c47_scoped_true_staticRenderFns,
+  posvue_type_template_id_37773758_scoped_true_render,
+  posvue_type_template_id_37773758_scoped_true_staticRenderFns,
   false,
   pos_injectStyles,
-  "6de71c47",
+  "37773758",
   "69e9e3a8"
   
 )
@@ -27643,8 +27831,8 @@ const OrderSumaryCardV2 = () => __webpack_require__.e(/* import() | components/o
 const SimplifiedCompanyForm = () => __webpack_require__.e(/* import() | components/simplified-company-form */ 146).then(__webpack_require__.bind(null, 1498)).then(c => wrapFunctional(c.default || c));
 const Slider = () => __webpack_require__.e(/* import() | components/slider */ 147).then(__webpack_require__.bind(null, 1039)).then(c => wrapFunctional(c.default || c));
 const UnitForm = () => __webpack_require__.e(/* import() | components/unit-form */ 159).then(__webpack_require__.bind(null, 845)).then(c => wrapFunctional(c.default || c));
-const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 1018)).then(c => wrapFunctional(c.default || c));
 const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 623)).then(c => wrapFunctional(c.default || c));
+const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 1018)).then(c => wrapFunctional(c.default || c));
 const AccountingApPayment = () => __webpack_require__.e(/* import() | components/accounting-ap-payment */ 6).then(__webpack_require__.bind(null, 1002)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 1003)).then(c => wrapFunctional(c.default || c));
 const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 1009)).then(c => wrapFunctional(c.default || c));
