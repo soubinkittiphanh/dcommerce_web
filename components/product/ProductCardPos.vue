@@ -1,34 +1,50 @@
 <template>
   <div>
     <v-hover v-slot:default="{ hover }" open-delay="100">
-      <v-card 
-        :elevation="hover ? 16 : 4" 
+      <v-card
+        :elevation="hover ? 16 : 4"
         hover
         outlined
         class="ma-0 text-center cursor-pointer product-card d-flex flex-column position-relative overflow-hidden"
         height="220"
-        :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
+        :disabled="
+          (!product.isActive || stock <= 0) && product.validateStockOnSale == 1
+        "
         :class="{
-          'product-disabled': (!product.isActive || stock <= 0) && product.validateStockOnSale==1,
+          'product-disabled':
+            (!product.isActive || stock <= 0) &&
+            product.validateStockOnSale == 1,
           'promotion-eligible': isProductInPromotion(product),
           'customer-grade-pricing': getCustomerGradePrice(product),
         }"
         @click="handleCardClick"
       >
         <!-- Background Image -->
-        <div 
+        <div
           class="product-background ma-0"
-          :class="{ 'grayscale-filter': (!product.isActive || stock <= 0) && product.validateStockOnSale==1 }"
-          :style="!imageError ? `background-image: url('${host}/uploads/${imagePath}')` : ''"
+          :class="{
+            'grayscale-filter':
+              (!product.isActive || stock <= 0) &&
+              product.validateStockOnSale == 1,
+          }"
+          :style="
+            !imageError
+              ? `background-image: url('${host}/uploads/${imagePath}')`
+              : ''
+          "
         ></div>
-        
+
         <!-- Fallback for missing image -->
         <div v-if="imageError" class="broken-image-background">
-          <v-icon size="48" color="grey lighten-2">mdi-image-broken-variant</v-icon>
+          <v-icon size="48" color="grey lighten-2"
+            >mdi-image-broken-variant</v-icon
+          >
         </div>
 
         <!-- Content Overlay -->
-        <div class="content-overlay d-flex flex-column justify-space-between fill-height">
+        <div
+          class="content-overlay d-flex flex-column justify-space-between fill-height"
+        >
           <!-- Top Section - Badges -->
           <div class="top-section pa-2">
             <!-- Promotion indicator -->
@@ -80,7 +96,7 @@
           <div class="bottom-section-enhanced">
             <!-- Text readability backdrop -->
             <div class="text-backdrop"></div>
-            
+
             <!-- Product Name with enhanced visibility -->
             <div class="product-name-enhanced">
               <div class="product-name-text enhanced-text">
@@ -95,38 +111,54 @@
                 <!-- Show customer grade price if available -->
                 <div v-if="getCustomerGradePrice(product)" class="text-center">
                   <!-- Base price (struck through) -->
-                  <div class="caption text-decoration-line-through price-text enhanced-text" style="opacity: 0.85;">
+                  <div
+                    class="caption text-decoration-line-through price-text enhanced-text"
+                    style="opacity: 0.85"
+                  >
                     {{ formatNumber(product.localPrice || product.pro_price) }}
                   </div>
                   <!-- Customer grade price (highlighted) -->
-                  <div class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight">
+                  <div
+                    class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight"
+                  >
                     {{ formatNumber(getCustomerGradePrice(product)) }}
                   </div>
                 </div>
                 <!-- Default price display -->
                 <div v-else>
-                  <div class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight">
+                  <div
+                    class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight"
+                  >
                     {{ formatNumber(product.localPrice || product.pro_price) }}
                   </div>
                   <!-- Show price range if price lists available -->
                   <div
                     v-if="hasAvailablePriceLists(product)"
                     class="caption price-text enhanced-text"
-                    style="opacity: 0.85;"
+                    style="opacity: 0.85"
                   >
                     {{ getPriceRangeText(product) }}
                   </div>
                 </div>
 
                 <!-- Action Button (moved inline with price) -->
-                <div v-if="hasAvailablePriceLists(product) || !getCustomerGradePrice(product)" class="d-inline-block ml-2">
+                <div
+                  v-if="
+                    hasAvailablePriceLists(product) ||
+                    !getCustomerGradePrice(product)
+                  "
+                  class="d-inline-block ml-2"
+                >
                   <v-btn
                     @click.stop="handlePriceSelection"
                     color="primary"
                     outlined
                     x-small
                     icon
-                    :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
+                    :disabled="
+                      (!product.isActive || stock <= 0) &&
+                      product.validateStockOnSale == 1
+                    "
                     class="price-select-btn-enhanced"
                   >
                     <v-icon x-small>mdi-tag-multiple</v-icon>
@@ -136,12 +168,25 @@
 
               <!-- Status Indicators -->
               <div v-if="!product.isActive" class="status-overlay-enhanced">
-                <v-chip x-small color="error" text-color="white" class="status-chip-enhanced">
+                <v-chip
+                  x-small
+                  color="error"
+                  text-color="white"
+                  class="status-chip-enhanced"
+                >
                   INACTIVE
                 </v-chip>
               </div>
-              <div v-else-if="stock <= 0 && product.validateStockOnSale==1" class="status-overlay-enhanced">
-                <v-chip x-small color="warning" text-color="white" class="status-chip-enhanced">
+              <div
+                v-else-if="stock <= 0 && product.validateStockOnSale == 1"
+                class="status-overlay-enhanced"
+              >
+                <v-chip
+                  x-small
+                  color="warning"
+                  text-color="white"
+                  class="status-chip-enhanced"
+                >
                   OUT OF STOCK
                 </v-chip>
               </div>
@@ -167,20 +212,18 @@ export default {
     stock: { type: Number, default: 0 },
     selectedCustomer: { type: Object, default: null },
     promotions: { type: Array, default: () => [] },
-    priceLists: { type: Array, default: () => [] }
+    priceLists: { type: Array, default: () => [] },
   },
 
   data() {
     return {
       imageError: false,
-      imageLoading: true
+      imageLoading: true,
     }
   },
 
   computed: {
-    ...mapGetters([
-      'currentSelectedCustomer'
-    ]),
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct']),
 
     host() {
       return hostName()
@@ -188,7 +231,7 @@ export default {
 
     effectiveCustomer() {
       return this.selectedCustomer || this.currentSelectedCustomer
-    }
+    },
   },
 
   mounted() {
@@ -203,24 +246,83 @@ export default {
       this.handleQuickAdd()
     },
 
+    // Final improved methods to replace in your component
+
     handleQuickAdd() {
       if (!this.validateProductAvailability()) {
+        return
+      }
+
+      // Check card_count limit before adding to cart
+      if (!this.validateCardCount()) {
         return
       }
 
       // Use customer grade price if available, otherwise use default price
       const productToAdd = {
         ...this.product,
-        localPrice: this.getCustomerGradePrice(this.product) || this.product.localPrice || this.product.pro_price
+        localPrice:
+          this.getCustomerGradePrice(this.product) ||
+          this.product.localPrice ||
+          this.product.pro_price,
       }
 
+      console.info(`CART PRODUCT ${JSON.stringify(this.cartOfProduct)}`)
       this.addProduct(productToAdd)
       this.$emit('update-cus-screen')
-      
-      // Show success feedback
+
+      // Show success feedback with quantity info
       if (this.$toast) {
-        this.$toast.success(`${this.productName} added to cart`)
+        const existingItem = this.cartOfProduct.find(
+          (item) => item.pro_id === this.product.pro_id
+        )
+        const newQty = existingItem ? existingItem.qty + 1 : 1
+        const limit = this.product.card_count
+
+        if (limit && limit > 0) {
+          const remaining = limit - newQty
+          this.$toast.success(
+            `${this.productName} added to cart. ${
+              remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
+            }`
+          )
+        } else {
+          this.$toast.success(`${this.productName} added to cart`)
+        }
       }
+    },
+
+    validateCardCount() {
+      const cardCountLimit = this.product.card_count
+
+      // If card_count is not defined, null, or 0, don't allow any additions
+      if (!cardCountLimit || cardCountLimit <= 0) {
+        if (this.$toast) {
+          this.$toast.error(`This product is not available for purchase`)
+        }
+        return false
+      }
+
+      // Find if this product is already in the cart
+      const existingCartItem = this.cartOfProduct.find(
+        (item) => item.pro_id === this.product.pro_id
+      )
+
+      if (existingCartItem) {
+        const currentQty = existingCartItem.qty
+
+        // Check if adding one more would exceed card_count
+        if (currentQty >= cardCountLimit) {
+          if (this.$toast) {
+            this.$toast.error(
+              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${this.product.pro_name}`
+            )
+          }
+          return false
+        }
+      }
+
+      return true
     },
 
     handlePriceSelection() {
@@ -234,12 +336,12 @@ export default {
 
     validateProductAvailability() {
       if (!this.product.isActive) {
-        this.showError("Product is inactive")
+        this.showError('Product is inactive')
         return false
       }
 
-      if (this.stock <= 0 && this.product.validateStockOnSale==1) {
-        this.showError("Stock not enough")
+      if (this.stock <= 0 && this.product.validateStockOnSale == 1) {
+        this.showError('Stock not enough')
         return false
       }
 
@@ -254,7 +356,7 @@ export default {
           icon: 'error',
           title: 'Error',
           text: message,
-          timer: 2000
+          timer: 2000,
         })
       } else {
         alert(message)
@@ -286,31 +388,32 @@ export default {
     // Promotion-related methods
     isProductInPromotion(product) {
       if (!this.promotions || this.promotions.length === 0) return false
-      return this.promotions.some(promo => 
-        promo.productId === product.id && 
-        promo.isActive && 
-        new Date() >= new Date(promo.startDate) && 
-        new Date() <= new Date(promo.endDate)
+      return this.promotions.some(
+        (promo) =>
+          promo.productId === product.id &&
+          promo.isActive &&
+          new Date() >= new Date(promo.startDate) &&
+          new Date() <= new Date(promo.endDate)
       )
     },
 
     // Customer grade pricing methods
     getCustomerGradePrice(product) {
       if (!this.effectiveCustomer?.grade || !product.gradePricing) return null
-      
+
       const gradePrice = product.gradePricing.find(
-        pricing => pricing.grade === this.effectiveCustomer.grade
+        (pricing) => pricing.grade === this.effectiveCustomer.grade
       )
-      
+
       return gradePrice ? gradePrice.price : null
     },
 
     getGradeColor(grade) {
       const gradeColors = {
-        'A': 'green',
-        'B': 'blue',
-        'C': 'orange',
-        'D': 'red'
+        A: 'green',
+        B: 'blue',
+        C: 'orange',
+        D: 'red',
       }
       return gradeColors[grade] || 'grey'
     },
@@ -318,30 +421,30 @@ export default {
     // Price list methods
     hasAvailablePriceLists(product) {
       if (!this.priceLists || this.priceLists.length === 0) return false
-      return this.priceLists.some(priceList => 
-        priceList.productId === product.id && priceList.isActive
+      return this.priceLists.some(
+        (priceList) => priceList.productId === product.id && priceList.isActive
       )
     },
 
     getProductPriceLists(product) {
       if (!this.priceLists) return []
-      return this.priceLists.filter(priceList => 
-        priceList.productId === product.id && priceList.isActive
+      return this.priceLists.filter(
+        (priceList) => priceList.productId === product.id && priceList.isActive
       )
     },
 
     getPriceRangeText(product) {
       const priceLists = this.getProductPriceLists(product)
       if (priceLists.length === 0) return ''
-      
-      const prices = priceLists.map(pl => pl.price)
+
+      const prices = priceLists.map((pl) => pl.price)
       const minPrice = Math.min(...prices)
       const maxPrice = Math.max(...prices)
-      
+
       if (minPrice === maxPrice) {
         return `Special: ${this.formatNumber(minPrice)}`
       }
-      
+
       return `${this.formatNumber(minPrice)} - ${this.formatNumber(maxPrice)}`
     },
 
@@ -351,8 +454,8 @@ export default {
       if (stockCount <= 5) return 'warning'
       if (stockCount <= 20) return 'orange'
       return 'success'
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -372,7 +475,7 @@ export default {
 .product-card:hover .content-overlay {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.0) 0%,
+    rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.05) 70%,
     rgba(0, 0, 0, 0.4) 100%
   ) !important;
@@ -383,7 +486,7 @@ export default {
     to top,
     rgba(0, 0, 0, 0.7) 0%,
     rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.0) 100%
+    rgba(0, 0, 0, 0) 100%
   ) !important;
 }
 
@@ -394,11 +497,11 @@ export default {
 }
 
 .promotion-eligible {
-  border: 2px solid #4CAF50 !important;
+  border: 2px solid #4caf50 !important;
 }
 
 .customer-grade-pricing {
-  border: 2px solid #2196F3 !important;
+  border: 2px solid #2196f3 !important;
 }
 
 /* Background Image Styling */
@@ -432,8 +535,8 @@ export default {
   z-index: 2;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.0) 0%,
-    rgba(0, 0, 0, 0.0) 75%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 75%,
     rgba(0, 0, 0, 0.3) 100%
   );
   transition: background 0.3s ease;
@@ -457,7 +560,7 @@ export default {
     to top,
     rgba(0, 0, 0, 0.5) 0%,
     rgba(0, 0, 0, 0.2) 60%,
-    rgba(0, 0, 0, 0.0) 100%
+    rgba(0, 0, 0, 0) 100%
   );
   transition: background 0.3s ease;
   z-index: 1;
@@ -468,13 +571,9 @@ export default {
   position: relative;
   z-index: 2;
   /* Multiple text shadow layers for maximum contrast */
-  text-shadow: 
-    0 0 3px rgba(0, 0, 0, 1),
-    0 0 6px rgba(0, 0, 0, 0.8),
-    1px 1px 2px rgba(0, 0, 0, 0.9),
-    -1px -1px 2px rgba(0, 0, 0, 0.9),
-    1px -1px 2px rgba(0, 0, 0, 0.9),
-    -1px 1px 2px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 1), 0 0 6px rgba(0, 0, 0, 0.8),
+    1px 1px 2px rgba(0, 0, 0, 0.9), -1px -1px 2px rgba(0, 0, 0, 0.9),
+    1px -1px 2px rgba(0, 0, 0, 0.9), -1px 1px 2px rgba(0, 0, 0, 0.9);
   color: white !important;
   font-weight: bold;
 }
@@ -599,9 +698,15 @@ export default {
 }
 
 @keyframes pulse-green {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Responsive adjustments */
@@ -609,23 +714,23 @@ export default {
   .product-card {
     height: 200px !important;
   }
-  
+
   .product-name-text {
     font-size: 0.8rem !important;
     padding: 3px 6px;
   }
-  
+
   .price-text {
     font-size: 0.75rem !important;
     padding: 2px 6px;
   }
-  
+
   .price-select-btn-enhanced {
     height: 20px !important;
     width: 20px !important;
     min-width: 20px !important;
   }
-  
+
   .bottom-section-enhanced {
     padding: 4px;
   }
@@ -635,10 +740,8 @@ export default {
 @media (prefers-color-scheme: dark) {
   .enhanced-text {
     /* Inverted shadows for dark backgrounds */
-    text-shadow: 
-      0 0 3px rgba(255, 255, 255, 0.8),
-      0 0 6px rgba(255, 255, 255, 0.6),
-      1px 1px 2px rgba(255, 255, 255, 0.7),
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.8),
+      0 0 6px rgba(255, 255, 255, 0.6), 1px 1px 2px rgba(255, 255, 255, 0.7),
       -1px -1px 2px rgba(255, 255, 255, 0.7),
       1px -1px 2px rgba(255, 255, 255, 0.7),
       -1px 1px 2px rgba(255, 255, 255, 0.7);

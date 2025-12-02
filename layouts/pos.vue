@@ -45,7 +45,7 @@
                     <v-radio :value="terminal.id" color="primary"></v-radio>
                   </v-col>
                   <v-col>
-                    <div class=" font-weight-bold mb-1">
+                    <div class="font-weight-bold mb-1">
                       {{ terminal.name }}
                     </div>
                     <div class="grey--text">
@@ -379,7 +379,7 @@
     >
       <div class="cart-container">
         <!-- Enhanced Cart Header -->
-        <div class="cart-header pa-4">
+        <div class="cart-header pa-4" v-if="1 == 0">
           <v-row align="center" no-gutters>
             <v-col>
               <div class="d-flex align-center">
@@ -499,7 +499,7 @@
                   @delete="deleteProductFromCart"
                   @update-qty="openQtyDialog"
                   @decrease="deleteProduct"
-                  @increase="addProduct"
+                  @increase="addProductValidation"
                   @price-click="pricingLogig"
                 />
               </template>
@@ -1230,10 +1230,10 @@ export default {
 
     async createSaleHeader() {
       if (this.isCreatingSale || this.pendingSaleHeaderId) return
-      
+
       this.isCreatingSale = true
       this.isloading = true
-      
+
       try {
         const today = new Date()
         const saleHeaderData = {
@@ -1249,42 +1249,52 @@ export default {
           locationId: this.currentTerminal['locationId'],
           remark: 'Multi-payment transaction',
         }
-        
+
         const response = await this.$axios.post(
           '/api/sale/create-header-only',
           saleHeaderData
         )
-        
-        this.pendingSaleHeaderId = response.data.saleHeaderId || response.data.id
+
+        this.pendingSaleHeaderId =
+          response.data.saleHeaderId || response.data.id
         this.lastTransactionSaleHeaderId = this.pendingSaleHeaderId
-        
       } catch (error) {
         console.log('Full error object:', error)
         console.log('Error response:', error.response)
         console.log('Error response data:', error.response?.data)
-        
+
         // Get the actual error data
         let errorData = null
         let errorMessage = 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້' // Default Lao message
-        
+
         if (error.response && error.response.data) {
           errorData = error.response.data
         } else if (error.message) {
           errorMessage = error.message
         }
-        
+
         console.log('Processed errorData:', errorData)
         console.log('Type of errorData:', typeof errorData)
-        
+
         // Handle different error response formats
         if (errorData && typeof errorData === 'object') {
           // New JSON format with stockErrors
-          if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+          if (
+            errorData.stockErrors &&
+            Array.isArray(errorData.stockErrors) &&
+            errorData.stockErrors.length > 0
+          ) {
             const stockError = errorData.stockErrors[0] // Get first stock error
-            const product = this.findAllProduct.find((el) => el.id == stockError.productId)
-            
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || 'Unknown Product'} ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${stockError.available}, ຂາດ: ${stockError.shortage})`
-          } 
+            const product = this.findAllProduct.find(
+              (el) => el.id == stockError.productId
+            )
+
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || 'Unknown Product'
+            } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
+              stockError.available
+            }, ຂາດ: ${stockError.shortage})`
+          }
           // JSON object with message
           else if (errorData.message) {
             errorMessage = errorData.message
@@ -1293,22 +1303,23 @@ export default {
           else {
             errorMessage = JSON.stringify(errorData)
           }
-        } 
+        }
         // Handle string responses (old format)
         else if (typeof errorData === 'string') {
           if (errorData.includes && errorData.includes('#')) {
             const id = errorData.split('#')[1]
             const product = this.findAllProduct.find((el) => el.id == id)
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || ''
+            } ມີບໍ່ພຽງພໍໃນສາງ`
           } else {
             errorMessage = errorData
           }
         }
-        
+
         console.log('Final error message:', errorMessage)
         console.error('Error creating sale header:', error)
         throw new Error(errorMessage)
-        
       } finally {
         this.isCreatingSale = false
         this.isloading = false
@@ -1459,6 +1470,159 @@ export default {
       'addCustomer',
     ]),
 
+    // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
+
+    // 1. Replace your existing addProduct method with this enhanced version:
+    addProductValidation(product) {
+      try {
+        // Validate product is active
+        if (!product.isActive) {
+          this.showError('Product is inactive')
+          return false
+        }
+
+        // Check stock if validation is enabled
+        if (product.validateStockOnSale === 1) {
+          const productStock = this.findAllProduct.find(
+            (p) => p.id === product.id
+          )
+          if (productStock && productStock.stock <= 0) {
+            this.showError('Stock not enough')
+            return false
+          }
+        }
+
+        // NEW: Check card_count limit before adding to cart
+        if (!this.validateCardCountForIncrease(product)) {
+          return false
+        }
+
+        // If all validations pass, add to store using Vuex action
+        this.$store.dispatch('addProduct', product)
+
+        // Show success feedback with quantity info
+        this.showAddSuccessMessage(product)
+
+        return true
+      } catch (error) {
+        console.error('Error adding product:', error)
+        this.showError('Failed to add product to cart')
+        return false
+      }
+    },
+
+    // 2. Add this new validation method:
+    // SIMPLE VERSION WITHOUT WARNING MESSAGE
+
+    validateCardCountForIncrease(product) {
+      const cardCountLimit = product.card_count
+
+      // If card_count is not defined, null, or 0, don't allow any additions
+      if (!cardCountLimit || cardCountLimit <= 0) {
+        if (this.$toast) {
+          this.$toast.error(
+            `Product ${product.pro_name} is not available for purchase`
+          )
+        }
+        return false
+      }
+
+      // Find if this product is already in the cart
+      const existingCartItem = this.cartOfProduct.find((item) => {
+        return item.pro_id === product.pro_id || item.id === product.id
+      })
+
+      if (existingCartItem) {
+        const currentQty = existingCartItem.qty
+
+        // Check if adding one more would exceed card_count
+        if (currentQty >= cardCountLimit) {
+          if (this.$toast) {
+            this.$toast.error(
+              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${product.pro_name}`
+            )
+          }
+          return false
+        }
+        // Removed the warning section that was causing the error
+      }
+
+      return true
+    },
+
+    // 3. Add this helper method for success messages:
+    showAddSuccessMessage(product) {
+      if (!this.$toast) return
+
+      const existingItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      const newQty = existingItem ? existingItem.qty : 1
+      const limit = product.card_count
+
+      if (limit && limit > 0) {
+        const remaining = limit - newQty
+
+        if (remaining > 0) {
+          this.$toast.success(
+            `${product.pro_name} added. ${remaining} more allowed`
+          )
+        } else {
+          this.$toast.success(`${product.pro_name} added. Limit reached!`)
+        }
+      } else {
+        this.$toast.success(`${product.pro_name} added to cart`)
+      }
+    },
+
+    // 4. Add this helper method for errors (if you don't have it):
+    showError(message) {
+      if (this.$toast) {
+        this.$toast.error(message)
+      } else if (this.$swal) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: message,
+          timer: 2000,
+          timerProgressBar: true,
+        })
+      } else {
+        alert(message)
+      }
+    },
+
+    // 5. OPTIONAL: Add these computed properties for enhanced UI:
+    canAddProductToCart(product) {
+      if (!product.card_count || product.card_count <= 0) return false
+
+      const existingCartItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      if (!existingCartItem) return true
+
+      return existingCartItem.qty < product.card_count
+    },
+
+    getProductAvailabilityStatus(product) {
+      if (!product.card_count || product.card_count <= 0) return 'unavailable'
+
+      const existingCartItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      if (!existingCartItem) return 'available'
+
+      const currentQty = existingCartItem.qty
+      const limit = product.card_count
+
+      if (currentQty >= limit) return 'limit-reached'
+      if (currentQty >= limit - 1) return 'near-limit'
+
+      return 'available'
+    },
     checkAllInitData() {
       if (this.findAllTerminal.length == 0) {
         this.initData()
@@ -1574,7 +1738,7 @@ export default {
         }
         return
       }
-      
+
       const today = new Date()
       this.isloading = true
       this.saleHeader.isActive = true
@@ -1587,59 +1751,71 @@ export default {
       this.saleHeader.userId = this.user.id
       this.saleHeader.bookingDate = jsDateToMysqlDate(today)
       this.saleHeader.locationId = this.currentTerminal['locationId']
-      
+
       try {
-        const response = await this.$axios.post('/api/sale/create', this.saleHeader)
-        
+        const response = await this.$axios.post(
+          '/api/sale/create',
+          this.saleHeader
+        )
+
         // Handle successful response
         this.lastTransactionSaleHeaderId = response.data.split('-')[1].trim()
         swalSuccess(this.$swal, 'Succeed', response.data.split('-')[0])
-        
+
         if (isDeliveryCustomer) {
           this.clearCustomerFormAction()
         } else {
           this.printDefaultTicket()
         }
-        
+
         this.newOrder()
         this.discount = 0
         this.cashReceived = 0
-        
+
         // SHOW SUCCESS ON CUSTOMER SCREEN
         this.showPaymentSuccessOnCustomerScreen()
-        
+
         // Hide QR after delay
         setTimeout(() => {
           this.hideQRPaymentFromCustomerScreen()
         }, 3000)
-        
       } catch (error) {
         console.log('Full error object:', error)
         console.log('Error response:', error.response)
         console.log('Error response data:', error.response?.data)
-        
+
         // Get the actual error data
         let errorData = null
         let errorMessage = 'Unknown error occurred'
-        
+
         if (error.response && error.response.data) {
           errorData = error.response.data
         } else if (error.message) {
           errorMessage = error.message
         }
-        
+
         console.log('Processed errorData:', errorData)
         console.log('Type of errorData:', typeof errorData)
-        
+
         // Handle different error response formats
         if (errorData && typeof errorData === 'object') {
           // New JSON format with stockErrors
-          if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+          if (
+            errorData.stockErrors &&
+            Array.isArray(errorData.stockErrors) &&
+            errorData.stockErrors.length > 0
+          ) {
             const stockError = errorData.stockErrors[0] // Get first stock error
-            const product = this.findAllProduct.find((el) => el.id == stockError.productId)
-            
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || 'Unknown Product'} ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${stockError.available}, ຂາດ: ${stockError.shortage})`
-          } 
+            const product = this.findAllProduct.find(
+              (el) => el.id == stockError.productId
+            )
+
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || 'Unknown Product'
+            } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
+              stockError.available
+            }, ຂາດ: ${stockError.shortage})`
+          }
           // JSON object with message
           else if (errorData.message) {
             errorMessage = errorData.message
@@ -1648,22 +1824,24 @@ export default {
           else {
             errorMessage = JSON.stringify(errorData)
           }
-        } 
+        }
         // Handle string responses (old format)
         else if (typeof errorData === 'string') {
           if (errorData.includes('#')) {
             const id = errorData.split('#')[1]
             const product = this.findAllProduct.find((el) => el.id == id)
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || ''
+            } ມີບໍ່ພຽງພໍໃນສາງ`
           } else {
             errorMessage = errorData
           }
         }
-        
+
         console.log('Final error message:', errorMessage)
         swalError2(this.$swal, 'Error', errorMessage)
       }
-      
+
       this.isloading = false
     },
 

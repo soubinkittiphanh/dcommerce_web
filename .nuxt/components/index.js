@@ -171,8 +171,8 @@ export const AccountingArInvoiceView = () => import('../../components/accounting
 export const AccountingArInvoiceVoucher = () => import('../../components/accounting/ar/invoice/voucher/index.vue' /* webpackChunkName: "components/accounting-ar-invoice-voucher" */).then(c => wrapFunctional(c.default || c))
 export const AccountingArReceiveMaintain = () => import('../../components/accounting/ar/receive/maintain/index.vue' /* webpackChunkName: "components/accounting-ar-receive-maintain" */).then(c => wrapFunctional(c.default || c))
 export const AccountingArReceiveView = () => import('../../components/accounting/ar/receive/view/index.vue' /* webpackChunkName: "components/accounting-ar-receive-view" */).then(c => wrapFunctional(c.default || c))
-export const AccountingApInvoiceAuditView = () => import('../../components/accounting/ap/invoice/audit/view/index.vue' /* webpackChunkName: "components/accounting-ap-invoice-audit-view" */).then(c => wrapFunctional(c.default || c))
 export const AccountingArReceiveVoucher = () => import('../../components/accounting/ar/receive/voucher/index.vue' /* webpackChunkName: "components/accounting-ar-receive-voucher" */).then(c => wrapFunctional(c.default || c))
+export const AccountingApInvoiceAuditView = () => import('../../components/accounting/ap/invoice/audit/view/index.vue' /* webpackChunkName: "components/accounting-ap-invoice-audit-view" */).then(c => wrapFunctional(c.default || c))
 export const AccountingApSettlementAuditView = () => import('../../components/accounting/ap/settlement/audit/view/index.vue' /* webpackChunkName: "components/accounting-ap-settlement-audit-view" */).then(c => wrapFunctional(c.default || c))
 export const AccountingArInvoiceAuditView = () => import('../../components/accounting/ar/invoice/audit/view/index.vue' /* webpackChunkName: "components/accounting-ar-invoice-audit-view" */).then(c => wrapFunctional(c.default || c))
 

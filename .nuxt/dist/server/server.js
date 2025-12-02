@@ -15271,7 +15271,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("3163d835", content, true, context)
+  add("1f5cabff", content, true, context)
 };
 
 /***/ }),
@@ -19021,9 +19021,9 @@ module.exports = __webpack_require__.p + "img/cash.b97ff15.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_67d53acc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(178);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_67d53acc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_67d53acc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_67d53acc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_67d53acc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_38673645_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(178);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_38673645_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_38673645_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_38673645_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_38673645_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -19034,7 +19034,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-67d53acc]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.app-header[data-v-67d53acc]{box-shadow:0 4px 20px rgba(0,0,0,.15)!important}.cart-mobile-btn[data-v-67d53acc],.menu-btn[data-v-67d53acc]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;transition:all .3s ease}.cart-mobile-btn[data-v-67d53acc]:hover,.menu-btn[data-v-67d53acc]:hover{background:hsla(0,0%,100%,.2)!important;transform:scale(1.05)}.search-field[data-v-67d53acc]{border-radius:12px!important;transition:all .3s ease}.search-field[data-v-67d53acc]:focus-within{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-2px)}.header-btn[data-v-67d53acc]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;border:1px solid hsla(0,0%,100%,.2)!important;margin:0 2px;transition:all .3s ease}.header-btn[data-v-67d53acc]:hover{background:hsla(0,0%,100%,.2)!important;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:translateY(-2px)}.active-route[data-v-67d53acc]{background:hsla(0,0%,100%,.25)!important;box-shadow:0 2px 10px rgba(0,0,0,.15)}.drawer-left[data-v-67d53acc]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-right:1px solid rgba(0,0,0,.08)!important}.terminal-chip[data-v-67d53acc]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-chip[data-v-67d53acc]:hover{box-shadow:0 8px 25px rgba(255,152,0,.3)!important;transform:translateY(-2px)}.category-item[data-v-67d53acc]{border-radius:12px!important;margin:4px 0;transition:all .3s ease}.category-item[data-v-67d53acc]:hover{transform:translateX(4px)}.active-category[data-v-67d53acc]{box-shadow:0 4px 15px rgba(0,0,0,.1);transform:translateX(6px)}.main-content[data-v-67d53acc]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-67d53acc]{height:calc(100vh - 80px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-67d53acc]{min-height:100%}.cart-drawer[data-v-67d53acc]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-left:1px solid rgba(0,0,0,.08)!important}.cart-header[data-v-67d53acc]{box-shadow:0 2px 10px rgba(0,0,0,.1)}.customer-chip[data-v-67d53acc]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.customer-chip[data-v-67d53acc]:hover{box-shadow:0 8px 25px rgba(76,175,80,.3)!important;transform:translateY(-2px)}.customer-bar[data-v-67d53acc]{background:linear-gradient(135deg,#f8f9fa,#fff)!important;border-bottom:1px solid rgba(0,0,0,.08)}.action-btn[data-v-67d53acc]{transition:all .3s ease}.action-btn[data-v-67d53acc]:hover{transform:scale(1.1)}.cart-items[data-v-67d53acc]{flex:1;min-height:0}.cart-items-header[data-v-67d53acc]{background:linear-gradient(135deg,#f5f5f5,#eee)!important;border-bottom:2px solid rgba(0,0,0,.06)}.cart-items-list[data-v-67d53acc]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-67d53acc]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:250px}.terminal-dialog .terminal-card[data-v-67d53acc]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-dialog .terminal-card[data-v-67d53acc]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.terminal-dialog .terminal-card.selected[data-v-67d53acc]{transform:translateY(-2px)}@media (max-width:1263px){.cart-drawer[data-v-67d53acc]{max-width:500px!important;width:100%!important}.header-btn span[data-v-67d53acc]{display:none}.search-field[data-v-67d53acc]{margin-bottom:8px}.main-content-wrapper[data-v-67d53acc]{height:calc(100vh - 80px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-67d53acc]{flex-direction:column;gap:12px}.cart-items-list[data-v-67d53acc]{max-height:calc(100vh - 450px)}}@media (max-width:600px){.main-content-wrapper[data-v-67d53acc]{height:calc(100vh - 80px)}.app-header[data-v-67d53acc]{height:70px!important}.main-content-wrapper[data-v-67d53acc]{height:calc(100vh - 70px)}}[data-v-67d53acc]::-webkit-scrollbar{width:6px}[data-v-67d53acc]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}[data-v-67d53acc]::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#c1c1c1,#a8a8a8);border-radius:3px;-webkit-transition:all .3s ease;transition:all .3s ease}[data-v-67d53acc]::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#a8a8a8,#909090)}.v-application *[data-v-67d53acc]{transition:all .3s cubic-bezier(.4,0,.2,1)}.v-btn[data-v-67d53acc]:focus:before{opacity:.12}.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-67d53acc]{border:2px solid var(--v-primary-base)!important;border-color:var(--v-primary-base)!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-38673645]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.app-header[data-v-38673645]{box-shadow:0 4px 20px rgba(0,0,0,.15)!important}.cart-mobile-btn[data-v-38673645],.menu-btn[data-v-38673645]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;transition:all .3s ease}.cart-mobile-btn[data-v-38673645]:hover,.menu-btn[data-v-38673645]:hover{background:hsla(0,0%,100%,.2)!important;transform:scale(1.05)}.search-field[data-v-38673645]{border-radius:12px!important;transition:all .3s ease}.search-field[data-v-38673645]:focus-within{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-2px)}.header-btn[data-v-38673645]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;border:1px solid hsla(0,0%,100%,.2)!important;margin:0 2px;transition:all .3s ease}.header-btn[data-v-38673645]:hover{background:hsla(0,0%,100%,.2)!important;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:translateY(-2px)}.active-route[data-v-38673645]{background:hsla(0,0%,100%,.25)!important;box-shadow:0 2px 10px rgba(0,0,0,.15)}.drawer-left[data-v-38673645]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-right:1px solid rgba(0,0,0,.08)!important}.terminal-chip[data-v-38673645]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-chip[data-v-38673645]:hover{box-shadow:0 8px 25px rgba(255,152,0,.3)!important;transform:translateY(-2px)}.category-item[data-v-38673645]{border-radius:12px!important;margin:4px 0;transition:all .3s ease}.category-item[data-v-38673645]:hover{transform:translateX(4px)}.active-category[data-v-38673645]{box-shadow:0 4px 15px rgba(0,0,0,.1);transform:translateX(6px)}.main-content[data-v-38673645]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-38673645]{height:calc(100vh - 80px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-38673645]{min-height:100%}.cart-drawer[data-v-38673645]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-left:1px solid rgba(0,0,0,.08)!important}.cart-header[data-v-38673645]{box-shadow:0 2px 10px rgba(0,0,0,.1)}.customer-chip[data-v-38673645]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.customer-chip[data-v-38673645]:hover{box-shadow:0 8px 25px rgba(76,175,80,.3)!important;transform:translateY(-2px)}.customer-bar[data-v-38673645]{background:linear-gradient(135deg,#f8f9fa,#fff)!important;border-bottom:1px solid rgba(0,0,0,.08)}.action-btn[data-v-38673645]{transition:all .3s ease}.action-btn[data-v-38673645]:hover{transform:scale(1.1)}.cart-items[data-v-38673645]{flex:1;min-height:0}.cart-items-header[data-v-38673645]{background:linear-gradient(135deg,#f5f5f5,#eee)!important;border-bottom:2px solid rgba(0,0,0,.06)}.cart-items-list[data-v-38673645]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-38673645]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:250px}.terminal-dialog .terminal-card[data-v-38673645]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-dialog .terminal-card[data-v-38673645]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.terminal-dialog .terminal-card.selected[data-v-38673645]{transform:translateY(-2px)}@media (max-width:1263px){.cart-drawer[data-v-38673645]{max-width:500px!important;width:100%!important}.header-btn span[data-v-38673645]{display:none}.search-field[data-v-38673645]{margin-bottom:8px}.main-content-wrapper[data-v-38673645]{height:calc(100vh - 80px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-38673645]{flex-direction:column;gap:12px}.cart-items-list[data-v-38673645]{max-height:calc(100vh - 450px)}}@media (max-width:600px){.main-content-wrapper[data-v-38673645]{height:calc(100vh - 80px)}.app-header[data-v-38673645]{height:70px!important}.main-content-wrapper[data-v-38673645]{height:calc(100vh - 70px)}}[data-v-38673645]::-webkit-scrollbar{width:6px}[data-v-38673645]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}[data-v-38673645]::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#c1c1c1,#a8a8a8);border-radius:3px;-webkit-transition:all .3s ease;transition:all .3s ease}[data-v-38673645]::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#a8a8a8,#909090)}.v-application *[data-v-38673645]{transition:all .3s cubic-bezier(.4,0,.2,1)}.v-btn[data-v-38673645]:focus:before{opacity:.12}.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-38673645]{border:2px solid var(--v-primary-base)!important;border-color:var(--v-primary-base)!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -20624,8 +20624,8 @@ __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", fun
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
 
@@ -24715,7 +24715,7 @@ var VListItemGroup = __webpack_require__(120);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
 var VListItemIcon = __webpack_require__(63);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=67d53acc&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=38673645&scoped=true
 
 
 
@@ -24744,7 +24744,7 @@ var VListItemIcon = __webpack_require__(63);
 
 
 
-var posvue_type_template_id_67d53acc_scoped_true_render = function render() {
+var posvue_type_template_id_38673645_scoped_true_render = function render() {
   var _vm$currentTerminal, _vm$currentTerminal2;
   var _vm = this,
     _c = _vm._self._c;
@@ -25353,39 +25353,7 @@ var posvue_type_template_id_67d53acc_scoped_true_render = function render() {
     }
   }, [_c('div', {
     staticClass: "cart-container"
-  }, [_c('div', {
-    staticClass: "cart-header pa-4"
-  }, [_c(VRow["a" /* default */], {
-    attrs: {
-      "align": "center",
-      "no-gutters": ""
-    }
-  }, [_c(VCol["a" /* default */], [_c('div', {
-    staticClass: "d-flex align-center"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "size": "28"
-    }
-  }, [_vm._v("mdi-shopping-cart")]), _vm._v(" "), _c('div', [_c('div', {
-    staticClass: "font-weight-bold mb-0"
-  }, [_vm._v("ກະຕ່າສິນຄ້າ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption white--text",
-    staticStyle: {
-      "opacity": "0.8"
-    }
-  }, [_vm._v("\n                  ລາຍການສິນຄ້າທີ່ເລືອກ\n                ")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "auto"
-    }
-  }, [_c(VChip["a" /* default */], {
-    staticClass: "font-weight-bold",
-    attrs: {
-      "color": "white",
-      "text-color": "primary",
-      "label": ""
-    }
-  }, [_vm._v("\n              " + _vm._s(_vm.productCart.length) + " ລາຍການ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c('div', {
+  }, [ false ? undefined : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "customer-bar pa-4"
   }, [_c(VRow["a" /* default */], {
     staticClass: "ga-2",
@@ -25516,7 +25484,7 @@ var posvue_type_template_id_67d53acc_scoped_true_render = function render() {
         "delete": _vm.deleteProductFromCart,
         "update-qty": _vm.openQtyDialog,
         "decrease": _vm.deleteProduct,
-        "increase": _vm.addProduct,
+        "increase": _vm.addProductValidation,
         "price-click": _vm.pricingLogig
       }
     });
@@ -25563,9 +25531,9 @@ var posvue_type_template_id_67d53acc_scoped_true_render = function render() {
     }
   })], 1)])], 1);
 };
-var posvue_type_template_id_67d53acc_scoped_true_staticRenderFns = [];
+var posvue_type_template_id_38673645_scoped_true_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=67d53acc&scoped=true
+// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=38673645&scoped=true
 
 // EXTERNAL MODULE: ./components/customer/CustomerList.vue + 4 modules
 var CustomerList = __webpack_require__(93);
@@ -27253,6 +27221,125 @@ var ticket = __webpack_require__(177);
       this.deliveryForm = true;
     },
     ...Object(external_vuex_["mapActions"])(['initiateData', 'setSelectedTerminal', 'setSelectedLocation', 'clearCustomerFormAction', 'setSelectedPayment', 'deleteProduct', 'addProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
+    // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
+
+    // 1. Replace your existing addProduct method with this enhanced version:
+    addProductValidation(product) {
+      try {
+        // Validate product is active
+        if (!product.isActive) {
+          this.showError('Product is inactive');
+          return false;
+        }
+
+        // Check stock if validation is enabled
+        if (product.validateStockOnSale === 1) {
+          const productStock = this.findAllProduct.find(p => p.id === product.id);
+          if (productStock && productStock.stock <= 0) {
+            this.showError('Stock not enough');
+            return false;
+          }
+        }
+
+        // NEW: Check card_count limit before adding to cart
+        if (!this.validateCardCountForIncrease(product)) {
+          return false;
+        }
+
+        // If all validations pass, add to store using Vuex action
+        this.$store.dispatch('addProduct', product);
+
+        // Show success feedback with quantity info
+        this.showAddSuccessMessage(product);
+        return true;
+      } catch (error) {
+        console.error('Error adding product:', error);
+        this.showError('Failed to add product to cart');
+        return false;
+      }
+    },
+    // 2. Add this new validation method:
+    // SIMPLE VERSION WITHOUT WARNING MESSAGE
+
+    validateCardCountForIncrease(product) {
+      const cardCountLimit = product.card_count;
+
+      // If card_count is not defined, null, or 0, don't allow any additions
+      if (!cardCountLimit || cardCountLimit <= 0) {
+        if (this.$toast) {
+          this.$toast.error(`Product ${product.pro_name} is not available for purchase`);
+        }
+        return false;
+      }
+
+      // Find if this product is already in the cart
+      const existingCartItem = this.cartOfProduct.find(item => {
+        return item.pro_id === product.pro_id || item.id === product.id;
+      });
+      if (existingCartItem) {
+        const currentQty = existingCartItem.qty;
+
+        // Check if adding one more would exceed card_count
+        if (currentQty >= cardCountLimit) {
+          if (this.$toast) {
+            this.$toast.error(`Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${product.pro_name}`);
+          }
+          return false;
+        }
+        // Removed the warning section that was causing the error
+      }
+      return true;
+    },
+    // 3. Add this helper method for success messages:
+    showAddSuccessMessage(product) {
+      if (!this.$toast) return;
+      const existingItem = this.cartOfProduct.find(item => item.pro_id === product.pro_id || item.id === product.id);
+      const newQty = existingItem ? existingItem.qty : 1;
+      const limit = product.card_count;
+      if (limit && limit > 0) {
+        const remaining = limit - newQty;
+        if (remaining > 0) {
+          this.$toast.success(`${product.pro_name} added. ${remaining} more allowed`);
+        } else {
+          this.$toast.success(`${product.pro_name} added. Limit reached!`);
+        }
+      } else {
+        this.$toast.success(`${product.pro_name} added to cart`);
+      }
+    },
+    // 4. Add this helper method for errors (if you don't have it):
+    showError(message) {
+      if (this.$toast) {
+        this.$toast.error(message);
+      } else if (this.$swal) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: message,
+          timer: 2000,
+          timerProgressBar: true
+        });
+      } else {
+        alert(message);
+      }
+    },
+    // 5. OPTIONAL: Add these computed properties for enhanced UI:
+    canAddProductToCart(product) {
+      if (!product.card_count || product.card_count <= 0) return false;
+      const existingCartItem = this.cartOfProduct.find(item => item.pro_id === product.pro_id || item.id === product.id);
+      if (!existingCartItem) return true;
+      return existingCartItem.qty < product.card_count;
+    },
+    getProductAvailabilityStatus(product) {
+      if (!product.card_count || product.card_count <= 0) return 'unavailable';
+      const existingCartItem = this.cartOfProduct.find(item => item.pro_id === product.pro_id || item.id === product.id);
+      if (!existingCartItem) return 'available';
+      const currentQty = existingCartItem.qty;
+      const limit = product.card_count;
+      if (currentQty >= limit) return 'limit-reached';
+      if (currentQty >= limit - 1) return 'near-limit';
+      return 'available';
+    },
     checkAllInitData() {
       if (this.findAllTerminal.length == 0) {
         this.initData();
@@ -27515,11 +27602,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var pos_component = Object(componentNormalizer["a" /* default */])(
   layouts_posvue_type_script_lang_js,
-  posvue_type_template_id_67d53acc_scoped_true_render,
-  posvue_type_template_id_67d53acc_scoped_true_staticRenderFns,
+  posvue_type_template_id_38673645_scoped_true_render,
+  posvue_type_template_id_38673645_scoped_true_staticRenderFns,
   false,
   pos_injectStyles,
-  "67d53acc",
+  "38673645",
   "69e9e3a8"
   
 )
@@ -28338,8 +28425,8 @@ const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | compon
 const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 622)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1037)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 1038)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 628)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 717)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 628)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 629)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 584)).then(c => wrapFunctional(c.default || c));
 

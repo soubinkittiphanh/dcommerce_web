@@ -179,7 +179,7 @@ You can directly use them in pages and other components without the need to impo
 - `<AccountingArInvoiceVoucher>` | `<accounting-ar-invoice-voucher>` (components/accounting/ar/invoice/voucher/index.vue)
 - `<AccountingArReceiveMaintain>` | `<accounting-ar-receive-maintain>` (components/accounting/ar/receive/maintain/index.vue)
 - `<AccountingArReceiveView>` | `<accounting-ar-receive-view>` (components/accounting/ar/receive/view/index.vue)
-- `<AccountingApInvoiceAuditView>` | `<accounting-ap-invoice-audit-view>` (components/accounting/ap/invoice/audit/view/index.vue)
 - `<AccountingArReceiveVoucher>` | `<accounting-ar-receive-voucher>` (components/accounting/ar/receive/voucher/index.vue)
+- `<AccountingApInvoiceAuditView>` | `<accounting-ap-invoice-audit-view>` (components/accounting/ap/invoice/audit/view/index.vue)
 - `<AccountingApSettlementAuditView>` | `<accounting-ap-settlement-audit-view>` (components/accounting/ap/settlement/audit/view/index.vue)
 - `<AccountingArInvoiceAuditView>` | `<accounting-ar-invoice-audit-view>` (components/accounting/ar/invoice/audit/view/index.vue)
