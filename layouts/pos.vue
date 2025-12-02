@@ -20,7 +20,7 @@
       <v-card class="terminal-dialog elevation-12">
         <v-card-title class="primary white--text py-4">
           <v-icon left size="28">mdi-monitor</v-icon>
-          <span class="text-h5">ເລືອກ Terminal</span>
+          <span class="">ເລືອກ Terminal</span>
           <v-spacer></v-spacer>
           <v-icon color="white">mdi-lan-connect</v-icon>
         </v-card-title>
@@ -45,7 +45,7 @@
                     <v-radio :value="terminal.id" color="primary"></v-radio>
                   </v-col>
                   <v-col>
-                    <div class="text-subtitle-1 font-weight-bold mb-1">
+                    <div class=" font-weight-bold mb-1">
                       {{ terminal.name }}
                     </div>
                     <div class="grey--text">
@@ -302,13 +302,13 @@
           <v-card-text class="pa-3">
             <v-row align="center" no-gutters>
               <v-col cols="auto" class="mr-3">
-                <v-icon color="orange darken-2" size="24">mdi-monitor</v-icon>
+                <v-icon color="white darken-2" size="24">mdi-monitor</v-icon>
               </v-col>
               <v-col>
                 <div class="font-weight-bold">
                   {{ currentTerminal?.name || 'ເລືອກ Terminal' }}
                 </div>
-                <div class="text-caption grey--text">
+                <div class="text-caption">
                   {{ currentTerminal?.description || 'ກະລຸນາເລືອກ Terminal' }}
                 </div>
               </v-col>

@@ -103,7 +103,7 @@
           <v-card
             outlined
             class="payment-card-item"
-            :class="{ 'payment-card-item--selected': selectedPayment === payment.id }"
+            :class="{ 'primary': selectedPayment === payment.id }"
             @click="selectPayment(payment.id)"
           >
             <v-card-text class="pa-2 text-center">
@@ -114,7 +114,7 @@
               >
                 {{ getPaymentIcon(payment.payment_code) }}
               </v-icon>
-              <div class="payment-name text-caption">
+              <div class="payment-name">
                 {{ payment.payment_name }}
               </div>
             </v-card-text>
@@ -441,15 +441,15 @@ export default {
 }
 
 .payment-card-item:hover {
-  border-color: #1976d2;
+  /* border-color: #1976d2; */
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .payment-card-item--selected {
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  /* background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%); */
   color: white;
-  border-color: #1976d2;
+  /* border-color: #1976d2; */
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
 }
@@ -472,7 +472,6 @@ export default {
 .multi-pay-button {
   font-weight: 600;
   text-transform: none;
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
 }
 
 .toggle-btn {

@@ -452,13 +452,13 @@ export default {
 }
 
 .product-name-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(4px);
   border-radius: 8px;
 }
 
 .price-actions-overlay {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(6px);
   border-radius: 8px 8px 0 0;
 }

@@ -14,7 +14,7 @@
       </v-col>
 
       <v-col cols="4" class="pr-2">
-        <div class="text-body-2 font-weight-medium text-wrap">
+        <div class="font-weight-medium text-wrap">
           {{ item.pro_name }}
         </div>
       </v-col>
