@@ -1230,10 +1230,10 @@ export default {
 
     async createSaleHeader() {
       if (this.isCreatingSale || this.pendingSaleHeaderId) return
-
+      
       this.isCreatingSale = true
       this.isloading = true
-
+      
       try {
         const today = new Date()
         const saleHeaderData = {
@@ -1249,18 +1249,66 @@ export default {
           locationId: this.currentTerminal['locationId'],
           remark: 'Multi-payment transaction',
         }
-
+        
         const response = await this.$axios.post(
           '/api/sale/create-header-only',
           saleHeaderData
         )
-
-        this.pendingSaleHeaderId =
-          response.data.saleHeaderId || response.data.id
+        
+        this.pendingSaleHeaderId = response.data.saleHeaderId || response.data.id
         this.lastTransactionSaleHeaderId = this.pendingSaleHeaderId
+        
       } catch (error) {
+        console.log('Full error object:', error)
+        console.log('Error response:', error.response)
+        console.log('Error response data:', error.response?.data)
+        
+        // Get the actual error data
+        let errorData = null
+        let errorMessage = 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້' // Default Lao message
+        
+        if (error.response && error.response.data) {
+          errorData = error.response.data
+        } else if (error.message) {
+          errorMessage = error.message
+        }
+        
+        console.log('Processed errorData:', errorData)
+        console.log('Type of errorData:', typeof errorData)
+        
+        // Handle different error response formats
+        if (errorData && typeof errorData === 'object') {
+          // New JSON format with stockErrors
+          if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+            const stockError = errorData.stockErrors[0] // Get first stock error
+            const product = this.findAllProduct.find((el) => el.id == stockError.productId)
+            
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || 'Unknown Product'} ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${stockError.available}, ຂາດ: ${stockError.shortage})`
+          } 
+          // JSON object with message
+          else if (errorData.message) {
+            errorMessage = errorData.message
+          }
+          // JSON object converted to string
+          else {
+            errorMessage = JSON.stringify(errorData)
+          }
+        } 
+        // Handle string responses (old format)
+        else if (typeof errorData === 'string') {
+          if (errorData.includes && errorData.includes('#')) {
+            const id = errorData.split('#')[1]
+            const product = this.findAllProduct.find((el) => el.id == id)
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
+          } else {
+            errorMessage = errorData
+          }
+        }
+        
+        console.log('Final error message:', errorMessage)
         console.error('Error creating sale header:', error)
-        throw new Error(error.response?.data || 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້')
+        throw new Error(errorMessage)
+        
       } finally {
         this.isCreatingSale = false
         this.isloading = false
@@ -1526,6 +1574,7 @@ export default {
         }
         return
       }
+      
       const today = new Date()
       this.isloading = true
       this.saleHeader.isActive = true
@@ -1538,42 +1587,83 @@ export default {
       this.saleHeader.userId = this.user.id
       this.saleHeader.bookingDate = jsDateToMysqlDate(today)
       this.saleHeader.locationId = this.currentTerminal['locationId']
-
-      await this.$axios
-        .post('/api/sale/create', this.saleHeader)
-        .then((res) => {
-          this.lastTransactionSaleHeaderId = res.data.split('-')[1].trim()
-          swalSuccess(this.$swal, 'Succeed', res.data.split('-')[0])
-
-          if (isDeliveryCustomer) {
-            this.clearCustomerFormAction()
-          } else {
-            this.printDefaultTicket()
+      
+      try {
+        const response = await this.$axios.post('/api/sale/create', this.saleHeader)
+        
+        // Handle successful response
+        this.lastTransactionSaleHeaderId = response.data.split('-')[1].trim()
+        swalSuccess(this.$swal, 'Succeed', response.data.split('-')[0])
+        
+        if (isDeliveryCustomer) {
+          this.clearCustomerFormAction()
+        } else {
+          this.printDefaultTicket()
+        }
+        
+        this.newOrder()
+        this.discount = 0
+        this.cashReceived = 0
+        
+        // SHOW SUCCESS ON CUSTOMER SCREEN
+        this.showPaymentSuccessOnCustomerScreen()
+        
+        // Hide QR after delay
+        setTimeout(() => {
+          this.hideQRPaymentFromCustomerScreen()
+        }, 3000)
+        
+      } catch (error) {
+        console.log('Full error object:', error)
+        console.log('Error response:', error.response)
+        console.log('Error response data:', error.response?.data)
+        
+        // Get the actual error data
+        let errorData = null
+        let errorMessage = 'Unknown error occurred'
+        
+        if (error.response && error.response.data) {
+          errorData = error.response.data
+        } else if (error.message) {
+          errorMessage = error.message
+        }
+        
+        console.log('Processed errorData:', errorData)
+        console.log('Type of errorData:', typeof errorData)
+        
+        // Handle different error response formats
+        if (errorData && typeof errorData === 'object') {
+          // New JSON format with stockErrors
+          if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+            const stockError = errorData.stockErrors[0] // Get first stock error
+            const product = this.findAllProduct.find((el) => el.id == stockError.productId)
+            
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || 'Unknown Product'} ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${stockError.available}, ຂາດ: ${stockError.shortage})`
+          } 
+          // JSON object with message
+          else if (errorData.message) {
+            errorMessage = errorData.message
           }
-          this.newOrder()
-          this.discount = 0
-          this.cashReceived = 0
-          // SHOW SUCCESS ON CUSTOMER SCREEN
-          this.showPaymentSuccessOnCustomerScreen()
-
-          // Hide QR after delay
-          setTimeout(() => {
-            this.hideQRPaymentFromCustomerScreen()
-          }, 3000)
-        })
-        .catch((er) => {
-          if (er.response.data.includes('#')) {
-            const id = er.response.data.split('#')[1]
+          // JSON object converted to string
+          else {
+            errorMessage = JSON.stringify(errorData)
+          }
+        } 
+        // Handle string responses (old format)
+        else if (typeof errorData === 'string') {
+          if (errorData.includes('#')) {
+            const id = errorData.split('#')[1]
             const product = this.findAllProduct.find((el) => el.id == id)
-            swalError2(
-              this.$swal,
-              'Error',
-              `ຈຳນວນສິນຄ້າ: ${product.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
-            )
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${product?.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
           } else {
-            swalError2(this.$swal, 'Error', er.response.data)
+            errorMessage = errorData
           }
-        })
+        }
+        
+        console.log('Final error message:', errorMessage)
+        swalError2(this.$swal, 'Error', errorMessage)
+      }
+      
       this.isloading = false
     },
 

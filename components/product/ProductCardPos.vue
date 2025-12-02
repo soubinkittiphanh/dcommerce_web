@@ -76,84 +76,72 @@
             </v-chip>
           </div>
 
-          <!-- Bottom Section - Product Info -->
-          <div class="bottom-section">
-            <!-- Product Name with overlay background -->
-            <div class="product-name-overlay pa-2 mb-2">
-              <div class="font-weight-bold white--text">
+          <!-- Bottom Section - Product Info with enhanced readability -->
+          <div class="bottom-section-enhanced">
+            <!-- Text readability backdrop -->
+            <div class="text-backdrop"></div>
+            
+            <!-- Product Name with enhanced visibility -->
+            <div class="product-name-enhanced">
+              <div class="product-name-text enhanced-text">
                 {{ productName }}
               </div>
             </div>
 
             <!-- Price and Actions Section -->
-            <div class="price-actions-overlay pa-2">
+            <div class="price-actions-enhanced">
               <!-- Enhanced Price Display -->
-              <div class="price-section mb-2">
+              <div class="price-section-enhanced">
                 <!-- Show customer grade price if available -->
                 <div v-if="getCustomerGradePrice(product)" class="text-center">
                   <!-- Base price (struck through) -->
-                  <div class="caption white--text text-decoration-line-through" style="opacity: 0.75;">
+                  <div class="caption text-decoration-line-through price-text enhanced-text" style="opacity: 0.85;">
                     {{ formatNumber(product.localPrice || product.pro_price) }}
                   </div>
                   <!-- Customer grade price (highlighted) -->
-                  <div class="subtitle-1 white--text font-weight-bold">
+                  <div class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight">
                     {{ formatNumber(getCustomerGradePrice(product)) }}
                   </div>
                 </div>
                 <!-- Default price display -->
                 <div v-else>
-                  <div class="subtitle-1 white--text font-weight-bold">
+                  <div class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight">
                     {{ formatNumber(product.localPrice || product.pro_price) }}
                   </div>
                   <!-- Show price range if price lists available -->
                   <div
                     v-if="hasAvailablePriceLists(product)"
-                    class="caption white--text"
-                    style="opacity: 0.75;"
+                    class="caption price-text enhanced-text"
+                    style="opacity: 0.85;"
                   >
                     {{ getPriceRangeText(product) }}
                   </div>
                 </div>
-              </div>
 
-              <!-- Action Buttons -->
-              <div class="d-flex gap-1">
-                <!-- Quick Add Button -->
-                <!-- <v-btn
-                  @click.stop="handleQuickAdd"
-                  color="primary"
-                  x-small
-                  block
-                  :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
-                  class="quick-add-btn"
-                >
-                  <v-icon x-small left>mdi-cart-plus</v-icon>
-                  Add
-                </v-btn> -->
-
-                <!-- Price Selection Button -->
-                <v-btn
-                  v-if="hasAvailablePriceLists(product) || !getCustomerGradePrice(product)"
-                  @click.stop="handlePriceSelection"
-                  color="white"
-                  text-color="primary"
-                  x-small
-                  icon
-                  :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
-                  class="price-select-btn"
-                >
-                  <v-icon x-small color="primary">mdi-tag-multiple</v-icon>
-                </v-btn>
+                <!-- Action Button (moved inline with price) -->
+                <div v-if="hasAvailablePriceLists(product) || !getCustomerGradePrice(product)" class="d-inline-block ml-2">
+                  <v-btn
+                    @click.stop="handlePriceSelection"
+                    color="primary"
+                    outlined
+                    x-small
+                    icon
+                    :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
+                    class="price-select-btn-enhanced"
+                  >
+                    <v-icon x-small>mdi-tag-multiple</v-icon>
+                  </v-btn>
+                </div>
               </div>
 
               <!-- Status Indicators -->
-              <div v-if="!product.isActive" class="status-overlay mt-1">
-                <v-chip x-small color="error" text-color="white">
+              <div v-if="!product.isActive" class="status-overlay-enhanced">
+                <v-chip x-small color="error" text-color="white" class="status-chip-enhanced">
                   INACTIVE
                 </v-chip>
               </div>
-              <div v-else-if="stock <= 0 && product.validateStockOnSale==1" class="status-overlay mt-1">
-                <v-chip x-small color="warning" text-color="white">
+              <div v-else-if="stock <= 0 && product.validateStockOnSale==1" class="status-overlay-enhanced">
+                <v-chip x-small color="warning" text-color="white" class="status-chip-enhanced">
                   OUT OF STOCK
                 </v-chip>
               </div>
@@ -384,9 +372,18 @@ export default {
 .product-card:hover .content-overlay {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0.2) 40%,
-    rgba(0, 0, 0, 0.6) 100%
+    rgba(0, 0, 0, 0.0) 0%,
+    rgba(0, 0, 0, 0.05) 70%,
+    rgba(0, 0, 0, 0.4) 100%
+  ) !important;
+}
+
+.product-card:hover .text-backdrop {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.0) 100%
   ) !important;
 }
 
@@ -436,41 +433,137 @@ export default {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.0) 0%,
-    rgba(0, 0, 0, 0.1) 30%,
-    rgba(0, 0, 0, 0.4) 100%
+    rgba(0, 0, 0, 0.0) 75%,
+    rgba(0, 0, 0, 0.3) 100%
   );
   transition: background 0.3s ease;
 }
 
-/* Overlay sections */
-.top-section {
+/* Enhanced bottom section with better contrast */
+.bottom-section-enhanced {
   position: relative;
-}
-
-.bottom-section {
   margin-top: auto;
+  padding: 6px;
 }
 
-.product-name-overlay {
-  background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(4px);
-  border-radius: 8px;
+/* Text backdrop for guaranteed readability */
+.text-backdrop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 60%,
+    rgba(0, 0, 0, 0.0) 100%
+  );
+  transition: background 0.3s ease;
+  z-index: 1;
 }
 
-.price-actions-overlay {
-  background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(6px);
-  border-radius: 8px 8px 0 0;
+/* Enhanced text styling with multiple contrast techniques */
+.enhanced-text {
+  position: relative;
+  z-index: 2;
+  /* Multiple text shadow layers for maximum contrast */
+  text-shadow: 
+    0 0 3px rgba(0, 0, 0, 1),
+    0 0 6px rgba(0, 0, 0, 0.8),
+    1px 1px 2px rgba(0, 0, 0, 0.9),
+    -1px -1px 2px rgba(0, 0, 0, 0.9),
+    1px -1px 2px rgba(0, 0, 0, 0.9),
+    -1px 1px 2px rgba(0, 0, 0, 0.9);
+  color: white !important;
+  font-weight: bold;
+}
+
+.product-name-enhanced {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4px;
+}
+
+.product-name-text {
+  font-size: 0.85rem !important;
+  line-height: 1.1;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-block;
+  max-width: 100%;
+  word-wrap: break-word;
+  backdrop-filter: blur(2px);
+}
+
+/* Enhanced price section */
+.price-actions-enhanced {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.price-section-enhanced {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.price-text {
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin: 2px;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+}
+
+.price-highlight {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Enhanced action button */
+.price-select-btn-enhanced {
+  height: 24px !important;
+  width: 24px !important;
+  min-width: 24px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid var(--v-primary-base) !important;
+  margin-left: 4px;
+}
+
+/* Enhanced status indicators */
+.status-overlay-enhanced {
+  position: relative;
+  z-index: 2;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.status-chip-enhanced {
+  font-size: 0.65rem !important;
+  height: 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
 }
 
 /* Badge positioning */
 .promotion-badge {
   position: absolute;
   top: 8px;
-  right: 8px;
-  background: rgba(255, 255, 255, 0.9);
+  right: 40px;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 50%;
   padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .grade-price-badge {
@@ -492,31 +585,12 @@ export default {
   font-size: 0.7rem;
   height: 20px;
   min-width: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Grayscale filter ONLY for disabled products */
 .grayscale-filter {
   filter: grayscale(100%) brightness(0.7);
-}
-
-/* Button styling for overlay */
-.quick-add-btn {
-  font-size: 0.7rem;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.95) !important;
-  color: var(--v-primary-base) !important;
-  font-weight: bold;
-}
-
-.price-select-btn {
-  height: 24px;
-  width: 24px;
-  min-width: 24px;
-  background: rgba(255, 255, 255, 0.9) !important;
-}
-
-.status-overlay {
-  text-align: center;
 }
 
 /* Animation for adding to cart */
@@ -533,26 +607,42 @@ export default {
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .product-card {
-    height: 200px !important; /* Slightly smaller on mobile */
+    height: 200px !important;
   }
   
-  .quick-add-btn {
-    font-size: 0.65rem;
-    height: 22px;
+  .product-name-text {
+    font-size: 0.8rem !important;
+    padding: 3px 6px;
   }
   
-  .price-select-btn {
-    height: 22px;
-    width: 22px;
-    min-width: 22px;
+  .price-text {
+    font-size: 0.75rem !important;
+    padding: 2px 6px;
   }
   
-  .product-name-overlay {
-    padding: 8px !important;
+  .price-select-btn-enhanced {
+    height: 20px !important;
+    width: 20px !important;
+    min-width: 20px !important;
   }
   
-  .price-actions-overlay {
-    padding: 8px !important;
+  .bottom-section-enhanced {
+    padding: 4px;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .enhanced-text {
+    /* Inverted shadows for dark backgrounds */
+    text-shadow: 
+      0 0 3px rgba(255, 255, 255, 0.8),
+      0 0 6px rgba(255, 255, 255, 0.6),
+      1px 1px 2px rgba(255, 255, 255, 0.7),
+      -1px -1px 2px rgba(255, 255, 255, 0.7),
+      1px -1px 2px rgba(255, 255, 255, 0.7),
+      -1px 1px 2px rgba(255, 255, 255, 0.7);
+    color: black !important;
   }
 }
 </style>

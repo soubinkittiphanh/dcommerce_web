@@ -894,7 +894,7 @@
                     @click="processPayment"
                     color="primary"
                     block
-                    :disabled="!currentTicket"
+                    
                   >
                     <v-icon small class="mr-1">mdi-credit-card</v-icon>
                     Payment
@@ -2529,6 +2529,9 @@ export default {
     },
 
     async processPayment() {
+      if(!this.currentTicket){
+        await this.saveTicket()
+      }
       const total = this.getFinalTotal || 0
       if (total <= 0) {
         this.showMessage('No amount to process', 'warning', 'mdi-alert')
