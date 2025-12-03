@@ -308,9 +308,6 @@
   "PosMultiPaymentDialogVue2": {
     "description": "Auto imported from components/pos/MultiPaymentDialog-vue2.vue"
   },
-  "PromotionsPromotionDialog": {
-    "description": "Auto imported from components/promotions/PromotionDialog.vue"
-  },
   "ProductItem": {
     "description": "Auto imported from components/product/Item.vue"
   },
@@ -322,6 +319,9 @@
   },
   "ProductFormCreate": {
     "description": "Auto imported from components/product/ProductFormCreate.vue"
+  },
+  "PromotionsPromotionDialog": {
+    "description": "Auto imported from components/promotions/PromotionDialog.vue"
   },
   "Quotation": {
     "description": "Auto imported from components/quotation/index.vue"
@@ -443,14 +443,14 @@
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
   },
-  "BankBankAccount": {
-    "description": "Auto imported from components/bank/bankAccount/index.vue"
-  },
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"
   },
   "BenefitView": {
     "description": "Auto imported from components/benefit/view/index.vue"
+  },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
   },
   "CompanyTheme": {
     "description": "Auto imported from components/company/theme/index.vue"

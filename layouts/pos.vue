@@ -1769,6 +1769,8 @@ export default {
         }
 
         this.newOrder()
+        // set value to trigger load product again to refresh stock count
+        localStorage.setItem('saleHeader', this.lastTransactionSaleHeaderId);
         this.discount = 0
         this.cashReceived = 0
 
