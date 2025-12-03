@@ -65,6 +65,7 @@ export const mutations = {
     },
 
     UPDATE_QTY(state, { productId, qty }) {
+        console.info(`update qty ${qty} ${productId}`)
         try {
             const product = state.cartOfproductSelected.find(p => p.id === productId)
             if (product && qty >= 0) {

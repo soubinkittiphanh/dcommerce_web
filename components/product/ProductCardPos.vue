@@ -284,10 +284,11 @@ export default {
           this.$toast.success(
             `${this.productName} added to cart. ${
               remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
-            }`
+            }`,
+            { position: 'bottom-center' }
           )
         } else {
-          this.$toast.success(`${this.productName} added to cart`)
+          this.$toast.success(`${this.productName} added to cart`,{ position: 'bottom-center' })
         }
       }
     },
@@ -315,7 +316,8 @@ export default {
         if (currentQty >= cardCountLimit) {
           if (this.$toast) {
             this.$toast.error(
-              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${this.product.pro_name}`
+              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${this.product.pro_name}`,
+              { position: 'bottom-center' }
             )
           }
           return false

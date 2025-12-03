@@ -1212,17 +1212,17 @@ export default {
         // SHOW QR ON CUSTOMER SCREEN WITH CURRENT CART DATA
         this.sendQRToCustomerScreen()
 
-        if (this.currentPaymentCode === 'CASH') {
-          const totalDue = this.grandTotal - this.discount
-          if (this.cashReceived < totalDue) {
-            swalError2(
-              this.$swal,
-              'Error',
-              `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການ ${this.formatNumber(totalDue)}`
-            )
-            return
-          }
-        }
+        // if (this.currentPaymentCode === 'CASH') {
+        //   const totalDue = this.grandTotal - this.discount
+        //   if (this.cashReceived < totalDue) {
+        //     swalError2(
+        //       this.$swal,
+        //       'Error',
+        //       `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການ ${this.formatNumber(totalDue)}`
+        //     )
+        //     return
+        //   }
+        // }
 
         await this.postTransactionOriginal(false)
       } catch (error) {
@@ -1433,15 +1433,17 @@ export default {
     },
 
     openQtyDialog(item) {
+      console.info(`selected product ${JSON.stringify(item)}`)
       this.selectedProductId = item.id
       this.newQty = item.qty
       this.qtyDialog = true
     },
 
     updateQty() {
+      console.info(`update qty ... ${this.newQty} ${this.selectedProductId}`)
       if (this.selectedProductId !== null) {
-        this.$store.commit('UPDATE_PRODUCT_QTY', {
-          id: this.selectedProductId,
+        this.$store.commit('UPDATE_QTY', {
+          productId: this.selectedProductId,
           qty: this.newQty,
         })
         this.qtyDialog = false
@@ -1529,7 +1531,8 @@ export default {
       if (!cardCountLimit || cardCountLimit <= 0) {
         if (this.$toast) {
           this.$toast.error(
-            `Product ${product.pro_name} is not available for purchase`
+            `Product ${product.pro_name} is not available for purchase`,
+            { position: 'bottom-center' }
           )
         }
         return false
@@ -1547,7 +1550,8 @@ export default {
         if (currentQty >= cardCountLimit) {
           if (this.$toast) {
             this.$toast.error(
-              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${product.pro_name}`
+              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${product.pro_name}`,
+              { position: 'bottom-center' }
             )
           }
           return false
@@ -1574,10 +1578,11 @@ export default {
 
         if (remaining > 0) {
           this.$toast.success(
-            `${product.pro_name} added. ${remaining} more allowed`
+            `${product.pro_name} added. ${remaining} more allowed`,
+            { position: 'bottom-center' }
           )
         } else {
-          this.$toast.success(`${product.pro_name} added. Limit reached!`)
+          this.$toast.success(`${product.pro_name} added. Limit reached!`,{ position: 'bottom-center' })
         }
       } else {
         this.$toast.success(`${product.pro_name} added to cart`)
@@ -1710,7 +1715,7 @@ export default {
 
     ...mapMutations({
       SetSearchKeyword: 'SetSearchKeyword',
-      UPDATE_PRODUCT_QTY: 'UPDATE_PRODUCT_QTY',
+      UPDATE_QTY: 'UPDATE_QTY',
     }),
 
     async postTransactionForOnlineCustomer(payload) {
