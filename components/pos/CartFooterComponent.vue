@@ -269,7 +269,8 @@ export default {
     },
 
     canPaySingle() {
-      if (this.productCart.length === 0 || !this.selectedPayment || this.grandTotal <= 0) {
+      // if (this.productCart.length === 0 || !this.selectedPayment || this.grandTotal <= 0) {
+      if (this.productCart.length === 0 || !this.selectedPayment ) {
         return false
       }
 

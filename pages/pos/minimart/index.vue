@@ -94,7 +94,9 @@ export default {
     filterProduct() {
       console.log(`Category ${this.currenctSelectedCategoryId}`)
       let productByTerminalCompany = this.productList.filter(
-        (pro) => pro.companyId === this.currentTerminal.location.companyId
+        // ---------- anable below code to show product base on company select
+        // (pro) => pro.companyId === this.currentTerminal.location.companyId 
+        (pro) => pro
       )
       if (!this.searchKeyword) {
         console.log(`Keywoard not available ...${this.searchKeyword}`)

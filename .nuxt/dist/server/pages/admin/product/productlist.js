@@ -5970,7 +5970,7 @@ var VSpacer = __webpack_require__(418);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(37);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=0f4cd630
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=5ba95cfe
 
 
 
@@ -5990,7 +5990,7 @@ var VTextField = __webpack_require__(37);
 
 
 
-var PriceListFormvue_type_template_id_0f4cd630_render = function render() {
+var PriceListFormvue_type_template_id_5ba95cfe_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -6078,9 +6078,7 @@ var PriceListFormvue_type_template_id_0f4cd630_render = function render() {
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "* ລາຄາ",
-      "required": "",
-      "rules": _vm.nameRules
+      "label": "* ລາຄາ"
     },
     model: {
       value: _vm.form.amount,
@@ -6208,7 +6206,7 @@ var PriceListFormvue_type_template_id_0f4cd630_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=0f4cd630
+// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=5ba95cfe
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -6365,7 +6363,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_PriceListFormvue_type_script_lang_js,
-  PriceListFormvue_type_template_id_0f4cd630_render,
+  PriceListFormvue_type_template_id_5ba95cfe_render,
   staticRenderFns,
   false,
   null,
