@@ -558,7 +558,7 @@ import CartFooterComponent from '~/components/pos/CartFooterComponent.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 import { hostName, mainCompanyInfo } from '~/common/api'
 import { defaultTicket, customerTicket } from '~/common/ticket.js'
-
+import Vue from 'vue'
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
 import {
   swalSuccess,
@@ -579,8 +579,16 @@ export default {
     MultiPaymentDialog,
   },
   name: 'DefaultLayout',
+  provide() {
+    return {
+      sharedState: this.sharedState,
+    }
+  },
   data() {
     return {
+      sharedState: Vue.observable({
+        saleHeader: 0,
+      }),
       multiPaymentDialog: false,
       pendingSaleHeaderId: null,
       isCreatingSale: false,
@@ -1767,10 +1775,17 @@ export default {
         } else {
           this.printDefaultTicket()
         }
-
+        const now = new Date()
+        console.info(
+          `SALE HEADER CREATED ${this.lastTransactionSaleHeaderId || now}`
+        )
         this.newOrder()
         // set value to trigger load product again to refresh stock count
-        localStorage.setItem('saleHeader', this.lastTransactionSaleHeaderId);
+        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
+        localStorage.setItem(
+          'saleHeader',
+          this.lastTransactionSaleHeaderId || now
+        )
         this.discount = 0
         this.cashReceived = 0
 

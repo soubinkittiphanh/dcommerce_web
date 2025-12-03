@@ -36,6 +36,7 @@ import { hostName, mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
 export default {
   layout: 'pos',
   middleware: 'auths',
+  inject: ['sharedState'],
   data() {
     return {
       productPriceList: [],
@@ -52,6 +53,12 @@ export default {
       paymentList: [],
       productSelectedFromBarcode: null,
     }
+  },
+  watch: {
+    'sharedState.saleHeader'(newVal, oldVal) {
+      console.log('Count changed:', newVal, oldVal)
+     this.loadProduct()
+    },
   },
   beforeDestroy() {
     window.removeEventListener('storage', this.handleStorageChange)
@@ -119,9 +126,9 @@ export default {
       return this.findAllCurrency.find((el) => el.id == currencyId)
     },
     async handleStorageChange(event) {
+       
       if (event.key === 'saleHeader') {
         console.log('myValue changed:', event.newValue)
-        await this.loadProduct();
       }
     },
     findProductFromBarcode(barcode) {

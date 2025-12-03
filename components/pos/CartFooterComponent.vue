@@ -275,6 +275,7 @@ export default {
 
       // For cash payments, ensure sufficient cash received
       if (this.isTraditionalCashPayment) {
+        this.cashReceived = this.grandTotal - this.discount;
         return this.cashReceived >= (this.grandTotal - this.discount)
       }
 
