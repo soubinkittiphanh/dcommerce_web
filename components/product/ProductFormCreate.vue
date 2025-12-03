@@ -89,7 +89,7 @@
                 <v-col cols="6" sm="3">
                   <v-text-field
                     v-model="formData.pro_price"
-                    :rules="rules.priceRule"
+
                     label="ລາຄາ*"
                     type="number"
                     dense
@@ -100,7 +100,7 @@
                 <v-col cols="6" sm="3">
                   <v-text-field
                     v-model="formData.pro_cost_price"
-                    :rules="rules.priceRule"
+
                     label="ຕົ້ນທຶນ*"
                     type="number"
                     dense
