@@ -1,19 +1,19 @@
 exports.ids = [181,23];
 exports.modules = {
 
-/***/ 1217:
+/***/ 1219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_1_vue_vue_type_style_index_0_id_4ad84973_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(936);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_1_vue_vue_type_style_index_0_id_4ad84973_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(938);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_1_vue_vue_type_style_index_0_id_4ad84973_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_1_vue_vue_type_style_index_0_id_4ad84973_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_1_vue_vue_type_style_index_0_id_4ad84973_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_1_vue_vue_type_style_index_0_id_4ad84973_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1218:
+/***/ 1220:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1463:
+/***/ 1465:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,31 +36,31 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(125);
+var VBtn = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(122);
+var VCard = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(126);
+var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(423);
+var VCol = __webpack_require__(429);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(432);
+var VDataTable = __webpack_require__(439);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(397);
+var VDialog = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(422);
+var VRow = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(20);
@@ -432,7 +432,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/applicants/index-1.vue?vue&type=template&id=4ad84973&scoped=true
 
 // EXTERNAL MODULE: ./components/applicants/ApplicantDialog/index.vue + 4 modules
-var ApplicantDialog = __webpack_require__(726);
+var ApplicantDialog = __webpack_require__(728);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/applicants/index-1.vue?vue&type=script&lang=js
 
@@ -702,7 +702,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1217)
+  var style0 = __webpack_require__(1219)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -724,44 +724,28 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 575:
+/***/ 458:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(642);
+var content = __webpack_require__(459);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("8994a28a", content, true, context)
-};
+__webpack_require__(5).default("59f225a8", content, true)
 
 /***/ }),
 
-/***/ 641:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3132a240_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(575);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3132a240_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3132a240_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3132a240_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3132a240_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 642:
+/***/ 459:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".applicant-form[data-v-3132a240]{background:#fff;display:flex;flex-direction:column;height:100vh}.form-header[data-v-3132a240]{background:primary;border-bottom:1px solid #e5e7eb;color:#fff;flex-shrink:0;padding:16px 20px}.form-content[data-v-3132a240]{background:#fafafa;flex:1;overflow-y:auto;padding:20px}.form-footer[data-v-3132a240]{background:#fff;border-top:1px solid #e5e7eb;flex-shrink:0;padding:16px 20px}.form-title[data-v-3132a240]{align-items:center;display:flex;font-size:18px;font-weight:600;gap:10px;margin:0}.split-layout[data-v-3132a240]{display:grid;grid-template-columns:1fr 380px;grid-gap:20px;gap:20px}.left-section[data-v-3132a240]{display:flex;flex-direction:column;gap:20px}.form-section[data-v-3132a240]{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:20px}.section-title[data-v-3132a240]{align-items:center;border-bottom:2px solid #e5e7eb;color:primary;display:flex;font-size:16px;font-weight:600;gap:8px;margin:0 0 16px;padding-bottom:12px}.right-section[data-v-3132a240]{align-self:start;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:20px;position:sticky;top:20px}.photo-section[data-v-3132a240]{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}.photo-section label[data-v-3132a240]{align-items:center;color:#374151;display:flex;font-size:14px;font-weight:600;gap:6px}.photo-upload[data-v-3132a240]{align-items:center;background:#f9fafb;border:2px dashed #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:280px;justify-content:center;overflow:hidden;transition:all .3s;width:100%}.photo-upload[data-v-3132a240]:hover{background:#f0fdf4;border-color:primary}.photo-upload img[data-v-3132a240]{cursor:pointer;height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.photo-placeholder[data-v-3132a240]{align-items:center;color:#6b7280;display:flex;flex-direction:column;font-size:14px;gap:10px}.photo-placeholder i[data-v-3132a240]{color:#9ca3af;font-size:40px}.btn-remove[data-v-3132a240]{align-items:center;background:#ef4444;border:none;border-radius:6px;color:#fff;cursor:pointer;display:flex;font-size:13px;gap:6px;justify-content:center;padding:8px 16px;transition:background .2s}.btn-remove[data-v-3132a240]:hover{background:#dc2626}.passport-photo-section[data-v-3132a240]{align-items:center;display:flex;gap:12px}.photo-upload-small[data-v-3132a240]{align-items:center;background:#f9fafb;border:2px dashed #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:150px;justify-content:center;overflow:hidden;transition:all .3s;width:150px}.photo-upload-small[data-v-3132a240]:hover{background:#f0fdf4;border-color:primary}.photo-upload-small img[data-v-3132a240]{cursor:pointer;height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.photo-placeholder-small[data-v-3132a240]{align-items:center;color:#6b7280;display:flex;flex-direction:column;font-size:13px;gap:8px;padding:10px;text-align:center}.photo-placeholder-small i[data-v-3132a240]{color:#9ca3af;font-size:32px}.btn-remove-small[data-v-3132a240]{align-items:center;background:#ef4444;border:none;border-radius:6px;color:#fff;cursor:pointer;display:flex;font-size:12px;gap:4px;padding:8px 12px;transition:background .2s}.btn-remove-small[data-v-3132a240]:hover{background:#dc2626}.batch-summary-card[data-v-3132a240]{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);margin-top:16px;overflow:hidden}.summary-header[data-v-3132a240]{align-items:center;background:hsla(0,0%,100%,.2);color:#fff;display:flex;font-size:15px;font-weight:600;gap:8px;padding:12px 16px}.summary-header i[data-v-3132a240]{font-size:18px}.summary-content[data-v-3132a240]{background:#fff;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));padding:16px;grid-gap:12px;gap:12px}.summary-row[data-v-3132a240]{display:flex;flex-direction:column;gap:4px}.summary-row strong[data-v-3132a240]{color:#6b7280;font-size:12px;font-weight:600}.summary-row span[data-v-3132a240]{color:#1f2937;font-size:14px;font-weight:500}.form-grid[data-v-3132a240]{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:16px;gap:16px}.form-group[data-v-3132a240]{display:flex;flex-direction:column}.form-group.full-width[data-v-3132a240]{grid-column:1/-1}.form-group label[data-v-3132a240]{align-items:center;color:#374151;display:flex;font-size:14px;font-weight:600;gap:6px;margin-bottom:6px}.form-group label.required[data-v-3132a240]:after{color:#ef4444;content:\"*\";margin-left:2px}.form-group input[data-v-3132a240],.form-group select[data-v-3132a240],.form-group textarea[data-v-3132a240]{background:#fff;border:1px solid #d1d5db;border-radius:6px;font-size:14px;padding:10px 12px;transition:all .2s}.form-group input[data-v-3132a240]:disabled,.form-group select[data-v-3132a240]:disabled{background:#f3f4f6;cursor:not-allowed;opacity:.6}.form-group input[data-v-3132a240]:focus,.form-group select[data-v-3132a240]:focus,.form-group textarea[data-v-3132a240]:focus{border-color:primary;box-shadow:0 0 0 3px rgba(1,83,43,.1);outline:none}.form-group input.error[data-v-3132a240],.form-group select.error[data-v-3132a240]{border-color:#ef4444}.radio-group[data-v-3132a240]{display:flex;gap:16px;margin-top:4px}.radio-group label[data-v-3132a240]{align-items:center;cursor:pointer;display:flex;font-weight:500;gap:6px;margin-bottom:0}.form-errors[data-v-3132a240]{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;color:#dc2626;font-size:13px;margin-top:16px;padding:10px 14px}.actions[data-v-3132a240]{display:flex;gap:12px;justify-content:flex-end}.btn[data-v-3132a240]{border:none;border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;padding:10px 24px;transition:all .2s}.btn[data-v-3132a240]:disabled{cursor:not-allowed;opacity:.6}.btn.primary[data-v-3132a240]{background:primary;color:#fff}.btn.primary[data-v-3132a240]:hover:not(:disabled){background:#064e3b}.btn.secondary[data-v-3132a240]{background:#6b7280;color:#fff}.btn.secondary[data-v-3132a240]:hover:not(:disabled){background:#4b5563}@media (max-width:1024px){.form-grid[data-v-3132a240]{grid-template-columns:repeat(2,1fr)}.split-layout[data-v-3132a240]{grid-template-columns:1fr}.right-section[data-v-3132a240]{order:-1;position:relative;top:0}.photo-upload[data-v-3132a240]{height:220px}.summary-content[data-v-3132a240]{grid-template-columns:repeat(2,1fr)}}@media (max-width:768px){.form-content[data-v-3132a240],.form-section[data-v-3132a240]{padding:16px}.form-grid[data-v-3132a240]{gap:12px;grid-template-columns:1fr}.photo-upload[data-v-3132a240]{height:200px}.summary-content[data-v-3132a240]{grid-template-columns:1fr}.actions[data-v-3132a240]{flex-wrap:wrap}.btn[data-v-3132a240]{flex:1;min-width:120px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-input--switch .v-input--switch__thumb{color:#fff}.theme--light.v-input--switch .v-input--switch__track{color:rgba(0,0,0,.38)}.theme--light.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__thumb{color:#fafafa!important}.theme--light.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__track{color:rgba(0,0,0,.12)!important}.theme--dark.v-input--switch .v-input--switch__thumb{color:#bdbdbd}.theme--dark.v-input--switch .v-input--switch__track{color:hsla(0,0%,100%,.3)}.theme--dark.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__thumb{color:#424242!important}.theme--dark.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__track{color:hsla(0,0%,100%,.1)!important}.v-input--switch__thumb,.v-input--switch__track{background-color:currentColor;pointer-events:none;transition:inherit}.v-input--switch__track{border-radius:8px;height:14px;left:2px;opacity:.6;position:absolute;right:2px;top:calc(50% - 7px);width:36px}.v-input--switch__thumb{align-items:center;border-radius:50%;display:flex;height:20px;justify-content:center;position:relative;top:calc(50% - 10px);transition:.3s cubic-bezier(.25,.8,.5,1);width:20px}.v-input--switch .v-input--selection-controls__input{transition:opacity .3s cubic-bezier(.25,.8,.5,1);width:38px}.v-input--switch .v-input--selection-controls__ripple{top:calc(50% - 24px)}.v-input--switch.v-input--dense .v-input--switch__thumb{height:18px;width:18px}.v-input--switch.v-input--dense .v-input--switch__track{height:12px;width:32px}.v-input--switch.v-input--dense.v-input--switch--inset .v-input--switch__track{height:22px;left:-3px;top:calc(50% - 12px);width:44px}.v-input--switch.v-input--dense .v-input--selection-controls__ripple{top:calc(50% - 22px)}.v-input--switch.v-input--is-dirty.v-input--is-disabled .v-input--selection-controls__input{opacity:.6}.v-application--is-ltr .v-input--switch .v-input--selection-controls__ripple{left:-14px}.v-application--is-ltr .v-input--switch.v-input--dense .v-input--selection-controls__ripple{left:-12px}.v-application--is-ltr .v-input--switch.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-ltr .v-input--switch.v-input--is-dirty .v-input--switch__thumb{transform:translate(20px)}.v-application--is-rtl .v-input--switch .v-input--selection-controls__ripple{right:-14px}.v-application--is-rtl .v-input--switch.v-input--dense .v-input--selection-controls__ripple{right:-12px}.v-application--is-rtl .v-input--switch.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-rtl .v-input--switch.v-input--is-dirty .v-input--switch__thumb{transform:translate(-20px)}.v-input--switch:not(.v-input--switch--flat):not(.v-input--switch--inset) .v-input--switch__thumb{box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)}.v-input--switch--inset .v-input--selection-controls__input,.v-input--switch--inset .v-input--switch__track{width:48px}.v-input--switch--inset .v-input--switch__track{border-radius:14px;height:28px;left:-4px;opacity:.32;top:calc(50% - 14px)}.v-application--is-ltr .v-input--switch--inset .v-input--selection-controls__ripple,.v-application--is-ltr .v-input--switch--inset .v-input--switch__thumb{transform:translate(0)!important}.v-application--is-rtl .v-input--switch--inset .v-input--selection-controls__ripple,.v-application--is-rtl .v-input--switch--inset .v-input--switch__thumb{transform:translate(-6px)!important}.v-application--is-ltr .v-input--switch--inset.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-ltr .v-input--switch--inset.v-input--is-dirty .v-input--switch__thumb{transform:translate(20px)!important}.v-application--is-rtl .v-input--switch--inset.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-rtl .v-input--switch--inset.v-input--is-dirty .v-input--switch__thumb{transform:translate(-26px)!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -769,7 +753,182 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 726:
+/***/ 478:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(194);
+/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(458);
+/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
+/* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
+/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(138);
+/* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(34);
+/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
+// Styles
+
+ // Mixins
+
+
+ // Directives
+
+ // Components
+
+
+ // Helpers
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_mixins_selectable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].extend({
+  name: 'v-switch',
+  directives: {
+    Touch: _directives_touch__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]
+  },
+  props: {
+    inset: Boolean,
+    loading: {
+      type: [Boolean, String],
+      default: false
+    },
+    flat: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    classes() {
+      return {
+        ..._VInput__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.classes.call(this),
+        'v-input--selection-controls v-input--switch': true,
+        'v-input--switch--flat': this.flat,
+        'v-input--switch--inset': this.inset
+      };
+    },
+    attrs() {
+      return {
+        'aria-checked': String(this.isActive),
+        'aria-disabled': String(this.isDisabled),
+        role: 'switch'
+      };
+    },
+    // Do not return undefined if disabled,
+    // according to spec, should still show
+    // a color when disabled and active
+    validationState() {
+      if (this.hasError && this.shouldValidate) return 'error';
+      if (this.hasSuccess) return 'success';
+      if (this.hasColor !== null) return this.computedColor;
+      return undefined;
+    },
+    switchData() {
+      return this.setTextColor(this.loading ? undefined : this.validationState, {
+        class: this.themeClasses
+      });
+    }
+  },
+  methods: {
+    genDefaultSlot() {
+      return [this.genSwitch(), this.genLabel()];
+    },
+    genSwitch() {
+      const {
+        title,
+        ...switchAttrs
+      } = this.attrs$;
+      return this.$createElement('div', {
+        staticClass: 'v-input--selection-controls__input'
+      }, [this.genInput('checkbox', {
+        ...this.attrs,
+        ...switchAttrs
+      }), this.genRipple(this.setTextColor(this.validationState, {
+        directives: [{
+          name: 'touch',
+          value: {
+            left: this.onSwipeLeft,
+            right: this.onSwipeRight
+          }
+        }]
+      })), this.$createElement('div', {
+        staticClass: 'v-input--switch__track',
+        ...this.switchData
+      }), this.$createElement('div', {
+        staticClass: 'v-input--switch__thumb',
+        ...this.switchData
+      }, [this.genProgress()])]);
+    },
+    genProgress() {
+      return this.$createElement(_transitions__WEBPACK_IMPORTED_MODULE_5__[/* VFabTransition */ "c"], {}, [this.loading === false ? null : this.$slots.progress || this.$createElement(_VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+        props: {
+          color: this.loading === true || this.loading === '' ? this.color || 'primary' : this.loading,
+          size: 16,
+          width: 2,
+          indeterminate: true
+        }
+      })]);
+    },
+    onSwipeLeft() {
+      if (this.isActive) this.onChange();
+    },
+    onSwipeRight() {
+      if (!this.isActive) this.onChange();
+    },
+    onKeydown(e) {
+      if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* keyCodes */ "y"].left && this.isActive || e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* keyCodes */ "y"].right && !this.isActive) this.onChange();
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 577:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(644);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("3bfc4c76", content, true, context)
+};
+
+/***/ }),
+
+/***/ 643:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_026b6a7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(577);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_026b6a7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_026b6a7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_026b6a7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_026b6a7c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 644:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".applicant-form[data-v-026b6a7c]{background:#fff;display:flex;flex-direction:column;height:100vh}.form-header[data-v-026b6a7c]{background:primary;border-bottom:1px solid #e5e7eb;color:#fff;flex-shrink:0;padding:16px 20px}.form-content[data-v-026b6a7c]{background:#fafafa;flex:1;overflow-y:auto;padding:20px}.form-footer[data-v-026b6a7c]{background:#fff;border-top:1px solid #e5e7eb;flex-shrink:0;padding:16px 20px}.form-title[data-v-026b6a7c]{align-items:center;display:flex;font-size:18px;font-weight:600;gap:10px;margin:0}.split-layout[data-v-026b6a7c]{display:grid;grid-template-columns:1fr 380px;grid-gap:20px;gap:20px}.left-section[data-v-026b6a7c]{display:flex;flex-direction:column;gap:20px}.form-section[data-v-026b6a7c]{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:20px}.section-title[data-v-026b6a7c]{align-items:center;border-bottom:2px solid #e5e7eb;color:primary;display:flex;font-size:16px;font-weight:600;gap:8px;margin:0 0 16px;padding-bottom:12px}.right-section[data-v-026b6a7c]{align-self:start;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:20px;position:sticky;top:20px}.photo-section[data-v-026b6a7c]{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}.photo-section label[data-v-026b6a7c]{align-items:center;color:#374151;display:flex;font-size:14px;font-weight:600;gap:6px}.photo-upload[data-v-026b6a7c]{align-items:center;background:#f9fafb;border:2px dashed #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:280px;justify-content:center;overflow:hidden;transition:all .3s;width:100%}.photo-upload[data-v-026b6a7c]:hover{background:#f0fdf4;border-color:primary}.photo-upload img[data-v-026b6a7c]{cursor:pointer;height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.photo-placeholder[data-v-026b6a7c]{align-items:center;color:#6b7280;display:flex;flex-direction:column;font-size:14px;gap:10px}.photo-placeholder i[data-v-026b6a7c]{color:#9ca3af;font-size:40px}.btn-remove[data-v-026b6a7c]{align-items:center;background:#ef4444;border:none;border-radius:6px;color:#fff;cursor:pointer;display:flex;font-size:13px;gap:6px;justify-content:center;padding:8px 16px;transition:background .2s}.btn-remove[data-v-026b6a7c]:hover{background:#dc2626}.passport-photo-section[data-v-026b6a7c]{align-items:center;display:flex;gap:12px}.photo-upload-small[data-v-026b6a7c]{align-items:center;background:#f9fafb;border:2px dashed #d1d5db;border-radius:8px;cursor:pointer;display:flex;height:150px;justify-content:center;overflow:hidden;transition:all .3s;width:150px}.photo-upload-small[data-v-026b6a7c]:hover{background:#f0fdf4;border-color:primary}.photo-upload-small img[data-v-026b6a7c]{cursor:pointer;height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.photo-placeholder-small[data-v-026b6a7c]{align-items:center;color:#6b7280;display:flex;flex-direction:column;font-size:13px;gap:8px;padding:10px;text-align:center}.photo-placeholder-small i[data-v-026b6a7c]{color:#9ca3af;font-size:32px}.btn-remove-small[data-v-026b6a7c]{align-items:center;background:#ef4444;border:none;border-radius:6px;color:#fff;cursor:pointer;display:flex;font-size:12px;gap:4px;padding:8px 12px;transition:background .2s}.btn-remove-small[data-v-026b6a7c]:hover{background:#dc2626}.batch-summary-card[data-v-026b6a7c]{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);margin-top:16px;overflow:hidden}.summary-header[data-v-026b6a7c]{align-items:center;background:hsla(0,0%,100%,.2);color:#fff;display:flex;font-size:15px;font-weight:600;gap:8px;padding:12px 16px}.summary-header i[data-v-026b6a7c]{font-size:18px}.summary-content[data-v-026b6a7c]{background:#fff;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));padding:16px;grid-gap:12px;gap:12px}.summary-row[data-v-026b6a7c]{display:flex;flex-direction:column;gap:4px}.summary-row strong[data-v-026b6a7c]{color:#6b7280;font-size:12px;font-weight:600}.summary-row span[data-v-026b6a7c]{color:#1f2937;font-size:14px;font-weight:500}.form-grid[data-v-026b6a7c]{display:grid;grid-template-columns:repeat(3,1fr);grid-gap:16px;gap:16px}.form-group[data-v-026b6a7c]{display:flex;flex-direction:column}.form-group.full-width[data-v-026b6a7c]{grid-column:1/-1}.form-group label[data-v-026b6a7c]{align-items:center;color:#374151;display:flex;font-size:14px;font-weight:600;gap:6px;margin-bottom:6px}.form-group label.required[data-v-026b6a7c]:after{color:#ef4444;content:\"*\";margin-left:2px}.form-group input[data-v-026b6a7c],.form-group select[data-v-026b6a7c],.form-group textarea[data-v-026b6a7c]{background:#fff;border:1px solid #d1d5db;border-radius:6px;font-size:14px;padding:10px 12px;transition:all .2s}.form-group input[data-v-026b6a7c]:disabled,.form-group select[data-v-026b6a7c]:disabled{background:#f3f4f6;cursor:not-allowed;opacity:.6}.form-group input[data-v-026b6a7c]:focus,.form-group select[data-v-026b6a7c]:focus,.form-group textarea[data-v-026b6a7c]:focus{border-color:primary;box-shadow:0 0 0 3px rgba(1,83,43,.1);outline:none}.form-group input.error[data-v-026b6a7c],.form-group select.error[data-v-026b6a7c]{border-color:#ef4444}.radio-group[data-v-026b6a7c]{display:flex;gap:16px;margin-top:4px}.radio-group label[data-v-026b6a7c]{align-items:center;cursor:pointer;display:flex;font-weight:500;gap:6px;margin-bottom:0}.form-errors[data-v-026b6a7c]{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;color:#dc2626;font-size:13px;margin-top:16px;padding:10px 14px}.actions[data-v-026b6a7c]{display:flex;gap:12px;justify-content:flex-end}.btn[data-v-026b6a7c]{border:none;border-radius:6px;cursor:pointer;font-size:14px;font-weight:500;padding:10px 24px;transition:all .2s}.btn[data-v-026b6a7c]:disabled{cursor:not-allowed;opacity:.6}.btn.primary[data-v-026b6a7c]{background:primary;color:#fff}.btn.primary[data-v-026b6a7c]:hover:not(:disabled){background:#064e3b}.btn.secondary[data-v-026b6a7c]{background:#6b7280;color:#fff}.btn.secondary[data-v-026b6a7c]:hover:not(:disabled){background:#4b5563}@media (max-width:1024px){.form-grid[data-v-026b6a7c]{grid-template-columns:repeat(2,1fr)}.split-layout[data-v-026b6a7c]{grid-template-columns:1fr}.right-section[data-v-026b6a7c]{order:-1;position:relative;top:0}.photo-upload[data-v-026b6a7c]{height:220px}.summary-content[data-v-026b6a7c]{grid-template-columns:repeat(2,1fr)}}@media (max-width:768px){.form-content[data-v-026b6a7c],.form-section[data-v-026b6a7c]{padding:16px}.form-grid[data-v-026b6a7c]{gap:12px;grid-template-columns:1fr}.photo-upload[data-v-026b6a7c]{height:200px}.summary-content[data-v-026b6a7c]{grid-template-columns:1fr}.actions[data-v-026b6a7c]{flex-wrap:wrap}.btn[data-v-026b6a7c]{flex:1;min-width:120px}}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 728:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -779,15 +938,19 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(20);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=3132a240&scoped=true
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
+var VSwitch = __webpack_require__(478);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=026b6a7c&scoped=true
 
 
-var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function render() {
+
+var ApplicantDialogvue_type_template_id_026b6a7c_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "applicant-form"
-  }, [_vm._ssrNode("<div class=\"form-header\" data-v-3132a240><h5 class=\"form-title\" data-v-3132a240><i class=\"fas fa-user-plus\" data-v-3132a240></i>" + _vm._ssrEscape("\n      " + _vm._s(_vm.isEditMode ? 'ແກ້ໄຂຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກ') + "\n    ") + "</h5></div> "), _vm._ssrNode("<div class=\"form-content\" data-v-3132a240>", "</div>", [_vm._ssrNode("<form data-v-3132a240>", "</form>", [_vm._ssrNode("<div class=\"split-layout\" data-v-3132a240>", "</div>", [_vm._ssrNode("<div class=\"left-section\" data-v-3132a240>", "</div>", [_vm._ssrNode("<div class=\"form-section\" data-v-3132a240>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-3132a240><i class=\"fas fa-briefcase\" data-v-3132a240></i> ຂໍ້ມູນວຽກ\n            </h3> "), _vm._ssrNode("<div class=\"form-group full-width\" data-v-3132a240>", "</div>", [_vm._ssrNode("<label data-v-3132a240><i class=\"fas fa-briefcase\" data-v-3132a240></i> Job Batch</label> "), _c('select', {
+  }, [_vm._ssrNode("<div class=\"form-header\" data-v-026b6a7c><h5 class=\"form-title\" data-v-026b6a7c><i class=\"fas fa-user-plus\" data-v-026b6a7c></i>" + _vm._ssrEscape("\n      " + _vm._s(_vm.isEditMode ? 'ແກ້ໄຂຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກ') + "\n    ") + "</h5></div> "), _vm._ssrNode("<div class=\"form-content\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<form data-v-026b6a7c>", "</form>", [_vm._ssrNode("<div class=\"split-layout\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<div class=\"left-section\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<div class=\"form-section\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-026b6a7c><i class=\"fas fa-briefcase\" data-v-026b6a7c></i> ຂໍ້ມູນວຽກ\n            </h3> "), _vm._ssrNode("<div class=\"form-group full-width\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<label data-v-026b6a7c><i class=\"fas fa-briefcase\" data-v-026b6a7c></i> Job Batch</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -819,13 +982,13 @@ var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function r
         "value": batch.id
       }
     }, [_vm._v("\n                  " + _vm._s(batch.mou.jobCode) + " - " + _vm._s(batch.mou.jobTitle) + " -\n                  " + _vm._s(batch.mou.workLocation) + " -\n                  " + _vm._s(`ຮອບ ${batch.runningNo}`) + " -\n                  " + _vm._s(`ເປີດຮັບ ຈຳນວນ ${batch.totalPositions} ຄົນ`) + "\n                ")]);
-  })], 2)], 2), _vm._ssrNode(" " + (_vm.selectedBatch ? "<div class=\"batch-summary-card\" data-v-3132a240><div class=\"summary-header\" data-v-3132a240><i class=\"fas fa-info-circle\" data-v-3132a240></i> <span data-v-3132a240>ຂໍ້ມູນ Job Batch ທີ່ເລືອກ</span></div> <div class=\"summary-content\" data-v-3132a240><div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>ຮອບ:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.runningNo || _vm.selectedBatch.batchName)) + "</span></div> " + (_vm.selectedBatch.mou ? "<div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>Job Code:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.jobCode)) + "</span></div>" : "<!---->") + " " + (_vm.selectedBatch.mou ? "<div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>ບໍລິສັດ:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.employerCompany || '-')) + "</span></div>" : "<!---->") + " <div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>ວຽກທີ່ສະໝັກ:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.jobTitle || '-') + " (" + _vm._s(_vm.selectedBatch.mou.numberOfWorkers || 0) + "\n                    ຄົນ)") + "</span></div> " + (_vm.selectedBatch.mou ? "<div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>ສະຖານທີ່ເຮັດວຽກ:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.workLocation || '-')) + "</span></div>" : "<!---->") + " " + (_vm.selectedBatch.batchStartDate ? "<div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>ວັນທີ່ເລີມຕົ້ນສັນຍາ:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.selectedBatch.batchStartDate))) + "</span></div>" : "<!---->") + " " + (_vm.selectedBatch.batchEndDate ? "<div class=\"summary-row\" data-v-3132a240><strong data-v-3132a240>ວັນທີ່ສິນສຸດສັນຍາ:</strong> <span data-v-3132a240>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.selectedBatch.batchEndDate))) + "</span></div>" : "<!---->") + "</div></div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-3132a240>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-3132a240><i class=\"fas fa-user\" data-v-3132a240></i> ຂໍ້ມູນສ່ວນຕົວ\n            </h3> "), _vm._ssrNode("<div class=\"form-grid\" data-v-3132a240>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-3132a240><label class=\"required\" data-v-3132a240><i class=\"fas fa-user\" data-v-3132a240></i> ຊື່</label> <input type=\"text\" placeholder=\"ຊື່ຕົວຈິງ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.firstName) + _vm._ssrClass(null, {
+  })], 2)], 2), _vm._ssrNode(" " + (_vm.selectedBatch ? "<div class=\"batch-summary-card\" data-v-026b6a7c><div class=\"summary-header\" data-v-026b6a7c><i class=\"fas fa-info-circle\" data-v-026b6a7c></i> <span data-v-026b6a7c>ຂໍ້ມູນ Job Batch ທີ່ເລືອກ</span></div> <div class=\"summary-content\" data-v-026b6a7c><div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>ຮອບ:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.runningNo || _vm.selectedBatch.batchName)) + "</span></div> " + (_vm.selectedBatch.mou ? "<div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>Job Code:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.jobCode)) + "</span></div>" : "<!---->") + " " + (_vm.selectedBatch.mou ? "<div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>ບໍລິສັດ:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.employerCompany || '-')) + "</span></div>" : "<!---->") + " <div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>ວຽກທີ່ສະໝັກ:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.jobTitle || '-') + " (" + _vm._s(_vm.selectedBatch.mou.numberOfWorkers || 0) + "\n                    ຄົນ)") + "</span></div> " + (_vm.selectedBatch.mou ? "<div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>ສະຖານທີ່ເຮັດວຽກ:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.selectedBatch.mou.workLocation || '-')) + "</span></div>" : "<!---->") + " " + (_vm.selectedBatch.batchStartDate ? "<div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>ວັນທີ່ເລີມຕົ້ນສັນຍາ:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.selectedBatch.batchStartDate))) + "</span></div>" : "<!---->") + " " + (_vm.selectedBatch.batchEndDate ? "<div class=\"summary-row\" data-v-026b6a7c><strong data-v-026b6a7c>ວັນທີ່ສິນສຸດສັນຍາ:</strong> <span data-v-026b6a7c>" + _vm._ssrEscape(_vm._s(_vm.formatDate(_vm.selectedBatch.batchEndDate))) + "</span></div>" : "<!---->") + "</div></div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-026b6a7c><i class=\"fas fa-user\" data-v-026b6a7c></i> ຂໍ້ມູນສ່ວນຕົວ\n            </h3> "), _vm._ssrNode("<div class=\"form-grid\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c><label class=\"required\" data-v-026b6a7c><i class=\"fas fa-user\" data-v-026b6a7c></i> ຊື່</label> <input type=\"text\" placeholder=\"ຊື່ຕົວຈິງ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.firstName) + _vm._ssrClass(null, {
     error: _vm.errors.firstName
-  }) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label class=\"required\" data-v-3132a240><i class=\"fas fa-user\" data-v-3132a240></i> ນາມສະກຸນ</label> <input type=\"text\" placeholder=\"ນາມສະກຸນ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.lastName) + _vm._ssrClass(null, {
+  }) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label class=\"required\" data-v-026b6a7c><i class=\"fas fa-user\" data-v-026b6a7c></i> ນາມສະກຸນ</label> <input type=\"text\" placeholder=\"ນາມສະກຸນ\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.lastName) + _vm._ssrClass(null, {
     error: _vm.errors.lastName
-  }) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label class=\"required\" data-v-3132a240><i class=\"fas fa-venus-mars\" data-v-3132a240></i> ເພດ</label> <div class=\"radio-group\" data-v-3132a240><label data-v-3132a240><input type=\"radio\" value=\"male\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "male")) + " data-v-3132a240>\n                    ຊາຍ</label> <label data-v-3132a240><input type=\"radio\" value=\"female\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "female")) + " data-v-3132a240>\n                    ຍິງ</label></div></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-calendar\" data-v-3132a240></i> ອາຍຸ</label> <input type=\"number\" min=\"18\" max=\"32\" placeholder=\"ອາຍຸ\"" + _vm._ssrAttr("value", _vm.formData.age) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label class=\"required\" data-v-3132a240><i class=\"fas fa-phone\" data-v-3132a240></i> ເບີໂທ</label> <input type=\"tel\" placeholder=\"+856 20 12345678\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.phone) + _vm._ssrClass(null, {
+  }) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label class=\"required\" data-v-026b6a7c><i class=\"fas fa-venus-mars\" data-v-026b6a7c></i> ເພດ</label> <div class=\"radio-group\" data-v-026b6a7c><label data-v-026b6a7c><input type=\"radio\" value=\"male\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "male")) + " data-v-026b6a7c>\n                    ຊາຍ</label> <label data-v-026b6a7c><input type=\"radio\" value=\"female\" required=\"required\"" + _vm._ssrAttr("checked", _vm._q(_vm.formData.gender, "female")) + " data-v-026b6a7c>\n                    ຍິງ</label></div></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-calendar\" data-v-026b6a7c></i> ອາຍຸ</label> <input type=\"number\" min=\"18\" max=\"32\" placeholder=\"ອາຍຸ\"" + _vm._ssrAttr("value", _vm.formData.age) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label class=\"required\" data-v-026b6a7c><i class=\"fas fa-phone\" data-v-026b6a7c></i> ເບີໂທ</label> <input type=\"tel\" placeholder=\"+856 20 12345678\" required=\"required\"" + _vm._ssrAttr("value", _vm.formData.phone) + _vm._ssrClass(null, {
     error: _vm.errors.phone
-  }) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-exclamation-triangle\" data-v-3132a240></i>\n                  ເບີສຸກເສີນ</label> <input type=\"tel\" placeholder=\"+856 20 87654321\"" + _vm._ssrAttr("value", _vm.formData.emergencyContactNo) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-graduation-cap\" data-v-3132a240></i> ລະດັບການສຶກສາ\n                </label> <input type=\"text\" placeholder=\"ລະດັບການສຶກສາ\"" + _vm._ssrAttr("value", _vm.formData.education) + " data-v-3132a240></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-3132a240>", "</div>", [_vm._ssrNode("<label data-v-3132a240><i class=\"fas fa-heart\" data-v-3132a240></i> ສະຖານະການແຕ່ງງານ</label> "), _c('select', {
+  }) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-exclamation-triangle\" data-v-026b6a7c></i>\n                  ເບີສຸກເສີນ</label> <input type=\"tel\" placeholder=\"+856 20 87654321\"" + _vm._ssrAttr("value", _vm.formData.emergencyContactNo) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-graduation-cap\" data-v-026b6a7c></i> ລະດັບການສຶກສາ\n                </label> <input type=\"text\" placeholder=\"ລະດັບການສຶກສາ\"" + _vm._ssrAttr("value", _vm.formData.education) + " data-v-026b6a7c></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<label data-v-026b6a7c><i class=\"fas fa-heart\" data-v-026b6a7c></i> ສະຖານະການແຕ່ງງານ</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -863,7 +1026,7 @@ var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function r
     attrs: {
       "value": "widowed"
     }
-  }, [_vm._v("ເປັນເມ່າຍ")])])], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-map-marker-alt\" data-v-3132a240></i> ບ້ານ</label> <input type=\"text\" placeholder=\"ບ້ານ\"" + _vm._ssrAttr("value", _vm.formData.village) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-map-marker-alt\" data-v-3132a240></i> ເມືອງ</label> <input type=\"text\" placeholder=\"ເມືອງ\"" + _vm._ssrAttr("value", _vm.formData.city) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-map-marker-alt\" data-v-3132a240></i> ແຂວງ</label> <input type=\"text\" placeholder=\"ແຂວງ\"" + _vm._ssrAttr("value", _vm.formData.district) + " data-v-3132a240></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-3132a240>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-3132a240><i class=\"fas fa-clipboard-list\" data-v-3132a240></i> ຂໍ້ມູນລົງທະບຽນ\n            </h3> "), _vm._ssrNode("<div class=\"form-grid\" data-v-3132a240>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-3132a240>", "</div>", [_vm._ssrNode("<label data-v-3132a240><i class=\"fas fa-flag\" data-v-3132a240></i> ສະຖານະ</label> "), _c('select', {
+  }, [_vm._v("ເປັນເມ່າຍ")])])], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-map-marker-alt\" data-v-026b6a7c></i> ບ້ານ</label> <input type=\"text\" placeholder=\"ບ້ານ\"" + _vm._ssrAttr("value", _vm.formData.village) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-map-marker-alt\" data-v-026b6a7c></i> ເມືອງ</label> <input type=\"text\" placeholder=\"ເມືອງ\"" + _vm._ssrAttr("value", _vm.formData.city) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-map-marker-alt\" data-v-026b6a7c></i> ແຂວງ</label> <input type=\"text\" placeholder=\"ແຂວງ\"" + _vm._ssrAttr("value", _vm.formData.district) + " data-v-026b6a7c></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-026b6a7c><i class=\"fas fa-clipboard-list\" data-v-026b6a7c></i> ຂໍ້ມູນລົງທະບຽນ\n            </h3> "), _vm._ssrNode("<div class=\"form-grid\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<label data-v-026b6a7c><i class=\"fas fa-flag\" data-v-026b6a7c></i> ສະຖານະ</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -901,7 +1064,7 @@ var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function r
     attrs: {
       "value": "rejected"
     }
-  }, [_vm._v("ປະຕິເສດ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-3132a240>", "</div>", [_vm._ssrNode("<label data-v-3132a240><i class=\"fas fa-building\" data-v-3132a240></i> ຕົວແທນສັນຫາ</label> "), _c(VSelect["a" /* default */], {
+  }, [_vm._v("ປະຕິເສດ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<label data-v-026b6a7c><i class=\"fas fa-building\" data-v-026b6a7c></i> ຕົວແທນສັນຫາ</label> "), _c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.agencies.filter(agency => agency.agencyType === 'Broker'),
       "item-text": "agencyName",
@@ -921,7 +1084,7 @@ var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function r
       },
       expression: "formData.agencyId"
     }
-  })], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-3132a240>", "</div>", [_vm._ssrNode("<label data-v-3132a240><i class=\"fas fa-building\" data-v-3132a240></i> ຜູ້ຮັບຜິດຊອບ</label> "), _c(VSelect["a" /* default */], {
+  })], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<label data-v-026b6a7c><i class=\"fas fa-building\" data-v-026b6a7c></i> ຜູ້ຮັບຜິດຊອບ</label> "), _c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.agencies.filter(agency => agency.agencyType === 'Employee'),
       "item-text": "agencyName",
@@ -941,7 +1104,7 @@ var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function r
       },
       expression: "formData.employeeId"
     }
-  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-calendar-check\" data-v-3132a240></i>\n                  ວັນທີ່ເລີ່ມສັນຍາ</label> <input type=\"date\"" + _vm._ssrAttr("value", _vm.formData.contactStartDate) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-calendar-times\" data-v-3132a240></i>\n                  ວັນທີ່ສິ້ນສຸດສັນຍາ</label> <input type=\"date\"" + _vm._ssrAttr("min", _vm.formData.contactStartDate) + _vm._ssrAttr("value", _vm.formData.contactEndDate) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-money-bill-wave\" data-v-3132a240></i>\n                  ຈຳນວນເງິນມັດຈຳ</label> <input type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"0.00\"" + _vm._ssrAttr("value", _vm.formData.depositAmount) + " data-v-3132a240></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-3132a240>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" data-v-3132a240>ສະກຸນເງິນ</label> "), _c(VSelect["a" /* default */], {
+  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-calendar-check\" data-v-026b6a7c></i>\n                  ວັນທີ່ເລີ່ມສັນຍາ</label> <input type=\"date\"" + _vm._ssrAttr("value", _vm.formData.contactStartDate) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-calendar-times\" data-v-026b6a7c></i>\n                  ວັນທີ່ສິ້ນສຸດສັນຍາ</label> <input type=\"date\"" + _vm._ssrAttr("min", _vm.formData.contactStartDate) + _vm._ssrAttr("value", _vm.formData.contactEndDate) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-money-bill-wave\" data-v-026b6a7c></i>\n                  ຈຳນວນເງິນມັດຈຳ</label> <input type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"0.00\"" + _vm._ssrAttr("value", _vm.formData.depositAmount) + " data-v-026b6a7c></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<label for=\"currencyId\" data-v-026b6a7c>ສະກຸນເງິນ</label> "), _c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.currencies,
       "item-text": "code",
@@ -960,11 +1123,25 @@ var ApplicantDialogvue_type_template_id_3132a240_scoped_true_render = function r
       },
       expression: "formData.currencyId"
     }
-  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.isRefund) ? _vm._i(_vm.formData.isRefund, null) > -1 : _vm.formData.isRefund) + " data-v-3132a240> <i class=\"fas fa-hand-holding-usd\" data-v-3132a240></i> ຄືນມັດຈຳ\n                </label></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.depositByCensusBook) ? _vm._i(_vm.formData.depositByCensusBook, null) > -1 : _vm.formData.depositByCensusBook) + " data-v-3132a240> <i class=\"fas fa-hand-holding-usd\" data-v-3132a240></i> ມັດຈຳດ້ວຍປື້ມສຳມະໂນຄົວ\n                </label></div>")], 2)], 2), _vm._ssrNode(" <div class=\"form-section\" data-v-3132a240><h3 class=\"section-title\" data-v-3132a240><i class=\"fas fa-passport\" data-v-3132a240></i> ຂໍ້ມູນໜັງສືເດີນທາງ\n            </h3> <div class=\"form-grid\" data-v-3132a240><div class=\"form-group\" data-v-3132a240><label data-v-3132a240><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.passportAvailability) ? _vm._i(_vm.formData.passportAvailability, null) > -1 : _vm.formData.passportAvailability) + " data-v-3132a240> <i class=\"fas fa-passport\" data-v-3132a240></i> ມີໜັງສືເດີນທາງ\n                </label></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.passportRecieve) ? _vm._i(_vm.formData.passportRecieve, null) > -1 : _vm.formData.passportRecieve) + " data-v-3132a240> <i class=\"fas fa-passport\" data-v-3132a240></i> ຮັບພາດສະປອດແລ້ວ\n                </label></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-id-card\" data-v-3132a240></i> ເລກໜັງສືເດີນທາງ</label> <input type=\"text\" placeholder=\"ເລກໜັງສືເດີນທາງ\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("value", _vm.formData.passportNo) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-calendar-plus\" data-v-3132a240></i>\n                  ວັນທີ່ອອກໜັງສືເດີນທາງ</label> <input type=\"date\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("value", _vm.formData.passportIssueDate) + " data-v-3132a240></div> <div class=\"form-group\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-calendar-minus\" data-v-3132a240></i>\n                  ວັນທີ່ໝົດອາຍຸໜັງສືເດີນທາງ</label> <input type=\"date\"" + _vm._ssrAttr("min", _vm.formData.passportIssueDate) + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("value", _vm.formData.passportExpiredDate) + " data-v-3132a240></div></div></div>")], 2), _vm._ssrNode(" <div class=\"right-section\" data-v-3132a240><div class=\"photo-section\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-camera\" data-v-3132a240></i> ຮູບຜູ້ສະໝັກ</label> <div class=\"photo-upload\" data-v-3132a240>" + (_vm.applicantPhotoPreview || _vm.formData.applicantPhoto ? "<img" + _vm._ssrAttr("src", _vm.applicantPhotoPreview || _vm.getImageUrl(_vm.formData.applicantPhoto)) + " alt=\"Applicant\" data-v-3132a240>" : "<div class=\"photo-placeholder\" data-v-3132a240><i class=\"fas fa-camera\" data-v-3132a240></i> <span data-v-3132a240>ເພີ່ມຮູບຜູ້ສະໝັກ</span></div>") + "</div> " + (_vm.applicantPhotoFile || _vm.formData.applicantPhoto ? "<button type=\"button\" class=\"btn-remove\" data-v-3132a240><i class=\"fas fa-trash\" data-v-3132a240></i> ລຶບຮູບ\n            </button>" : "<!---->") + " <input type=\"file\" accept=\"image/*\" hidden=\"hidden\" data-v-3132a240></div> " + (_vm.formData.passportAvailability ? "<div class=\"form-group full-width\" data-v-3132a240><label data-v-3132a240><i class=\"fas fa-id-badge\" data-v-3132a240></i> ຮູບໜັງສືເດີນທາງ</label> <div class=\"passport-photo-section\" data-v-3132a240><div class=\"photo-upload-small\" data-v-3132a240>" + (_vm.passportPhotoPreview || _vm.formData.passportPhoto ? "<img" + _vm._ssrAttr("src", _vm.passportPhotoPreview || _vm.getImageUrl(_vm.formData.passportPhoto)) + " alt=\"Passport\" data-v-3132a240>" : "<div class=\"photo-placeholder-small\" data-v-3132a240><i class=\"fas fa-id-badge\" data-v-3132a240></i> <span data-v-3132a240>ເພີ່ມຮູບໜັງສືເດີນທາງ</span></div>") + "</div> " + (_vm.passportPhotoFile || _vm.formData.passportPhoto ? "<button type=\"button\" class=\"btn-remove-small\" data-v-3132a240><i class=\"fas fa-trash\" data-v-3132a240></i> ລຶບ\n              </button>" : "<!---->") + "</div> <input type=\"file\" accept=\"image/*\" hidden=\"hidden\" data-v-3132a240></div>" : "<!---->") + "</div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length ? "<div class=\"form-errors\" data-v-3132a240><strong data-v-3132a240>ແກ້ໄຂ:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.formErrors.join(', ')) + "\n      ") + "</div>" : "<!---->"))], 2)]), _vm._ssrNode(" <div class=\"form-footer\" data-v-3132a240><div class=\"actions\" data-v-3132a240><button type=\"button\" class=\"btn secondary\" data-v-3132a240>\n        ຍົກເລີກ\n      </button> <button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.isFormValid || _vm.loading) + " class=\"btn primary\" data-v-3132a240>" + _vm._ssrEscape("\n        " + _vm._s(_vm.loading ? 'ກຳລັງບັນທຶກ...' : _vm.isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n      ") + "</button></div></div>")], 2);
+  })], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.isRefund) ? _vm._i(_vm.formData.isRefund, null) > -1 : _vm.formData.isRefund) + " data-v-026b6a7c> <i class=\"fas fa-hand-holding-usd\" data-v-026b6a7c></i> ຄືນມັດຈຳ\n                </label></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.depositByCensusBook) ? _vm._i(_vm.formData.depositByCensusBook, null) > -1 : _vm.formData.depositByCensusBook) + " data-v-026b6a7c> <i class=\"fas fa-hand-holding-usd\" data-v-026b6a7c></i> ມັດຈຳດ້ວຍປື້ມສຳມະໂນຄົວ\n                </label></div>")], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-section\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<h3 class=\"section-title\" data-v-026b6a7c><i class=\"fas fa-passport\" data-v-026b6a7c></i> ຂໍ້ມູນໜັງສືເດີນທາງ\n            </h3> "), _vm._ssrNode("<div class=\"form-grid\" data-v-026b6a7c>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.passportAvailability) ? _vm._i(_vm.formData.passportAvailability, null) > -1 : _vm.formData.passportAvailability) + " data-v-026b6a7c> <i class=\"fas fa-passport\" data-v-026b6a7c></i> ມີໜັງສືເດີນທາງ\n                </label></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.formData.passportRecieve) ? _vm._i(_vm.formData.passportRecieve, null) > -1 : _vm.formData.passportRecieve) + " data-v-026b6a7c> <i class=\"fas fa-passport\" data-v-026b6a7c></i> ຮັບພາດສະປອດແລ້ວ\n                </label></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-id-card\" data-v-026b6a7c></i> ເລກໜັງສືເດີນທາງ</label> <input type=\"text\" placeholder=\"ເລກໜັງສືເດີນທາງ\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("value", _vm.formData.passportNo) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-calendar-plus\" data-v-026b6a7c></i>\n                  ວັນທີ່ອອກໜັງສືເດີນທາງ</label> <input type=\"date\"" + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("value", _vm.formData.passportIssueDate) + " data-v-026b6a7c></div> <div class=\"form-group\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-calendar-minus\" data-v-026b6a7c></i>\n                  ວັນທີ່ໝົດອາຍຸໜັງສືເດີນທາງ</label> <input type=\"date\"" + _vm._ssrAttr("min", _vm.formData.passportIssueDate) + _vm._ssrAttr("disabled", !_vm.formData.passportAvailability) + _vm._ssrAttr("value", _vm.formData.passportExpiredDate) + " data-v-026b6a7c></div> "), _vm._ssrNode("<div class=\"form-group\" data-v-026b6a7c>", "</div>", [_c(VSwitch["a" /* default */], {
+    attrs: {
+      "label": "ສະຖານະ",
+      "dense": "",
+      "hide-details": "",
+      "color": "success"
+    },
+    model: {
+      value: _vm.formData.isActive,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "isActive", _vm._n($$v));
+      },
+      expression: "formData.isActive"
+    }
+  })], 1)], 2)], 2)], 2), _vm._ssrNode(" <div class=\"right-section\" data-v-026b6a7c><div class=\"photo-section\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-camera\" data-v-026b6a7c></i> ຮູບຜູ້ສະໝັກ</label> <div class=\"photo-upload\" data-v-026b6a7c>" + (_vm.applicantPhotoPreview || _vm.formData.applicantPhoto ? "<img" + _vm._ssrAttr("src", _vm.applicantPhotoPreview || _vm.getImageUrl(_vm.formData.applicantPhoto)) + " alt=\"Applicant\" data-v-026b6a7c>" : "<div class=\"photo-placeholder\" data-v-026b6a7c><i class=\"fas fa-camera\" data-v-026b6a7c></i> <span data-v-026b6a7c>ເພີ່ມຮູບຜູ້ສະໝັກ</span></div>") + "</div> " + (_vm.applicantPhotoFile || _vm.formData.applicantPhoto ? "<button type=\"button\" class=\"btn-remove\" data-v-026b6a7c><i class=\"fas fa-trash\" data-v-026b6a7c></i> ລຶບຮູບ\n            </button>" : "<!---->") + " <input type=\"file\" accept=\"image/*\" hidden=\"hidden\" data-v-026b6a7c></div> " + (_vm.formData.passportAvailability ? "<div class=\"form-group full-width\" data-v-026b6a7c><label data-v-026b6a7c><i class=\"fas fa-id-badge\" data-v-026b6a7c></i> ຮູບໜັງສືເດີນທາງ</label> <div class=\"passport-photo-section\" data-v-026b6a7c><div class=\"photo-upload-small\" data-v-026b6a7c>" + (_vm.passportPhotoPreview || _vm.formData.passportPhoto ? "<img" + _vm._ssrAttr("src", _vm.passportPhotoPreview || _vm.getImageUrl(_vm.formData.passportPhoto)) + " alt=\"Passport\" data-v-026b6a7c>" : "<div class=\"photo-placeholder-small\" data-v-026b6a7c><i class=\"fas fa-id-badge\" data-v-026b6a7c></i> <span data-v-026b6a7c>ເພີ່ມຮູບໜັງສືເດີນທາງ</span></div>") + "</div> " + (_vm.passportPhotoFile || _vm.formData.passportPhoto ? "<button type=\"button\" class=\"btn-remove-small\" data-v-026b6a7c><i class=\"fas fa-trash\" data-v-026b6a7c></i> ລຶບ\n              </button>" : "<!---->") + "</div> <input type=\"file\" accept=\"image/*\" hidden=\"hidden\" data-v-026b6a7c></div>" : "<!---->") + "</div>")], 2), _vm._ssrNode(" " + (_vm.formErrors.length ? "<div class=\"form-errors\" data-v-026b6a7c><strong data-v-026b6a7c>ແກ້ໄຂ:</strong>" + _vm._ssrEscape(" " + _vm._s(_vm.formErrors.join(', ')) + "\n      ") + "</div>" : "<!---->"))], 2)]), _vm._ssrNode(" <div class=\"form-footer\" data-v-026b6a7c><div class=\"actions\" data-v-026b6a7c><button type=\"button\" class=\"btn secondary\" data-v-026b6a7c>\n        ຍົກເລີກ\n      </button> <button type=\"button\"" + _vm._ssrAttr("disabled", !_vm.isFormValid || _vm.loading) + " class=\"btn primary\" data-v-026b6a7c>" + _vm._ssrEscape("\n        " + _vm._s(_vm.loading ? 'ກຳລັງບັນທຶກ...' : _vm.isEditMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n      ") + "</button></div></div>")], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=3132a240&scoped=true
+// CONCATENATED MODULE: ./components/applicants/ApplicantDialog/index.vue?vue&type=template&id=026b6a7c&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/applicants/ApplicantDialog/index.vue?vue&type=script&lang=js
 /* harmony default export */ var ApplicantDialogvue_type_script_lang_js = ({
@@ -1007,6 +1184,7 @@ var staticRenderFns = [];
         passportRecieve: false,
         passportNo: '',
         passportExpiredDate: '',
+        isActive: true,
         passportIssueDate: '',
         workPlace: '',
         contactStartDate: '',
@@ -1127,6 +1305,7 @@ var staticRenderFns = [];
           district: a.district || '',
           depositAmount: a.depositAmount || 0,
           isRefund: a.isRefund || false,
+          isActive: a.isActive || true,
           depositByCensusBook: a.depositByCensusBook || false,
           passportAvailability: a.passportAvailability || false,
           passportRecieve: a.passportRecieve || false,
@@ -1226,7 +1405,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(641)
+  var style0 = __webpack_require__(643)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1235,11 +1414,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   applicants_ApplicantDialogvue_type_script_lang_js,
-  ApplicantDialogvue_type_template_id_3132a240_scoped_true_render,
+  ApplicantDialogvue_type_template_id_026b6a7c_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "3132a240",
+  "026b6a7c",
   "519f9c22"
   
 )
@@ -1248,13 +1427,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 936:
+/***/ 938:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1218);
+var content = __webpack_require__(1220);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

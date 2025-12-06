@@ -4,7 +4,7 @@
       <!-- Header -->
       <v-card-title class="pink white--text py-4">
         <v-icon left size="28" color="white">mdi-gift</v-icon>
-        <span class="text-h6">ກຳນົດຂອງຂວັນ</span>
+        <span class="text-h6">{{ isEditMode ? 'ແກ້ໄຂຂອງຂວັນ' : 'ກຳນົດຂອງຂວັນ' }}</span>
         <v-spacer></v-spacer>
         <v-icon color="white">mdi-heart</v-icon>
       </v-card-title>
@@ -24,15 +24,49 @@
             <v-col>
               <div class="font-weight-bold text-h6">{{ item?.pro_name }}</div>
               <div class="text-caption grey--text">ສິນຄ້າທີ່ຈະກຳນົດເປັນຂອງຂວັນ</div>
+              <div class="text-caption blue--text mt-1">
+                ລາຄາເດີມ: {{ formatNumber(item?.localPrice || 0) }} × {{ item?.qty || 0 }}
+              </div>
             </v-col>
           </v-row>
         </div>
 
         <v-divider class="mb-4"></v-divider>
 
-        <!-- Gift Quantity -->
-        <div class="gift-settings">
+        <!-- Gift Mode Selection -->
+        <div class="gift-mode-selection mb-4">
           <v-row>
+            <v-col cols="12">
+              <div class="text-subtitle-2 mb-2">ເລືອກແບບຂອງຂວັນ:</div>
+              <v-btn-toggle
+                v-model="giftMode"
+                color="pink"
+                dense
+                rounded
+                mandatory
+                class="gift-mode-toggle"
+              >
+                <v-btn value="partial" small>
+                  <v-icon small left>mdi-gift-outline</v-icon>
+                  ບາງສ່ວນ
+                </v-btn>
+                <v-btn value="all" small>
+                  <v-icon small left>mdi-gift</v-icon>
+                  ທັງໝົດ
+                </v-btn>
+                <v-btn value="none" small color="grey">
+                  <v-icon small left>mdi-close</v-icon>
+                  ຍົກເລີກຂອງຂວັນ
+                </v-btn>
+              </v-btn-toggle>
+            </v-col>
+          </v-row>
+        </div>
+
+        <!-- Gift Settings (show when not removing gift) -->
+        <div v-if="giftMode !== 'none'" class="gift-settings">
+          <!-- Gift Quantity (only for partial mode) -->
+          <v-row v-if="giftMode === 'partial'">
             <v-col cols="12">
               <v-text-field
                 v-model.number="giftForm.quantity"
@@ -63,6 +97,7 @@
             </v-col>
           </v-row>
 
+          <!-- Gift Amount -->
           <v-row>
             <v-col cols="12">
               <v-text-field
@@ -101,20 +136,27 @@
                 ສະຫຼຸບຂອງຂວັນ
               </div>
               
-              <v-row dense>
+              <v-row dense v-if="giftMode === 'partial'">
                 <v-col cols="6">
                   <div class="text-caption grey--text">ຈຳນວນປົກກະຕິ:</div>
                   <div class="font-weight-bold">{{ remainingQuantity }} ລາຍການ</div>
                 </v-col>
                 <v-col cols="6">
                   <div class="text-caption grey--text">ຈຳນວນຂອງຂວັນ:</div>
-                  <div class="font-weight-bold pink--text">{{ giftForm.quantity }} ລາຍການ</div>
+                  <div class="font-weight-bold pink--text">{{ effectiveGiftQuantity }} ລາຍການ</div>
+                </v-col>
+              </v-row>
+              
+              <v-row dense v-else>
+                <v-col cols="12">
+                  <div class="text-caption grey--text">ຈຳນວນທັງໝົດ (ເປັນຂອງຂວັນ):</div>
+                  <div class="font-weight-bold pink--text">{{ item?.qty || 0 }} ລາຍການ</div>
                 </v-col>
               </v-row>
               
               <v-divider class="my-2"></v-divider>
               
-              <v-row dense>
+              <v-row dense v-if="giftMode === 'partial'">
                 <v-col cols="6">
                   <div class="text-caption grey--text">ລາຄາປົກກະຕິ:</div>
                   <div class="font-weight-bold">{{ formatNumber(remainingQuantity * (item?.localPrice || 0)) }}</div>
@@ -122,7 +164,32 @@
                 <v-col cols="6">
                   <div class="text-caption grey--text">ລາຄາຂອງຂວັນ:</div>
                   <div class="font-weight-bold pink--text">
-                    {{ giftForm.giftAmount === 0 ? 'ຟຣີ' : formatNumber(giftForm.quantity * giftForm.giftAmount) }}
+                    {{ giftForm.giftAmount === 0 ? 'ຟຣີ' : formatNumber(effectiveGiftQuantity * giftForm.giftAmount) }}
+                  </div>
+                </v-col>
+              </v-row>
+              
+              <v-row dense v-else>
+                <v-col cols="6">
+                  <div class="text-caption grey--text">ລາຄາເດີມ:</div>
+                  <div class="text-decoration-line-through">{{ formatNumber((item?.qty || 0) * (item?.localPrice || 0)) }}</div>
+                </v-col>
+                <v-col cols="6">
+                  <div class="text-caption grey--text">ລາຄາຂອງຂວັນ:</div>
+                  <div class="font-weight-bold pink--text">
+                    {{ giftForm.giftAmount === 0 ? 'ຟຣີ' : formatNumber((item?.qty || 0) * giftForm.giftAmount) }}
+                  </div>
+                </v-col>
+              </v-row>
+
+              <v-divider class="my-2"></v-divider>
+              
+              <!-- Total -->
+              <v-row dense>
+                <v-col cols="12">
+                  <div class="text-subtitle-2 font-weight-bold">
+                    <span class="grey--text">ລວມທັງໝົດ: </span>
+                    <span class="pink--text text--darken-2">{{ getTotalPrice() }}</span>
                   </div>
                 </v-col>
               </v-row>
@@ -145,6 +212,21 @@
             </v-col>
           </v-row>
         </div>
+
+        <!-- Remove Gift Confirmation -->
+        <div v-else class="remove-gift-confirmation">
+          <v-alert
+            type="warning"
+            outlined
+            class="mt-4"
+          >
+            <div class="font-weight-bold mb-2">ຢືນຢັນການຍົກເລີກຂອງຂວັນ</div>
+            <div class="text-body-2">
+              ສິນຄ້ານີ້ຈະກັບໄປເປັນລາຄາປົກກະຕິ: 
+              <strong>{{ formatNumber((item?.qty || 0) * (item?.localPrice || 0)) }}</strong>
+            </div>
+          </v-alert>
+        </div>
       </v-card-text>
 
       <!-- Actions -->
@@ -161,14 +243,14 @@
           ຍົກເລີກ
         </v-btn>
         <v-btn
-          color="pink"
+          :color="giftMode === 'none' ? 'orange' : 'pink'"
           large
           @click="confirmGift"
           :disabled="!isValidGift"
           class="px-6 ml-2"
         >
-          <v-icon left>mdi-gift</v-icon>
-          ຢືນຢັນຂອງຂວັນ
+          <v-icon left>{{ giftMode === 'none' ? 'mdi-delete' : 'mdi-gift' }}</v-icon>
+          {{ giftMode === 'none' ? 'ຍົກເລີກຂອງຂວັນ' : 'ຢືນຢັນຂອງຂວັນ' }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -178,6 +260,7 @@
 <script>
 export default {
   name: 'GiftDialog',
+  
   props: {
     value: {
       type: Boolean,
@@ -195,6 +278,7 @@ export default {
 
   data() {
     return {
+      giftMode: 'partial', // 'partial', 'all', 'none'
       giftForm: {
         quantity: 1,
         giftAmount: 0,
@@ -221,14 +305,28 @@ export default {
       }
     },
 
+    isEditMode() {
+      return this.item?.isGift || (this.item?.giftQuantity > 0)
+    },
+
+    effectiveGiftQuantity() {
+      return this.giftMode === 'all' ? (this.item?.qty || 0) : this.giftForm.quantity
+    },
+
     remainingQuantity() {
-      return Math.max(0, (this.item?.qty || 0) - this.giftForm.quantity)
+      return Math.max(0, (this.item?.qty || 0) - this.effectiveGiftQuantity)
     },
 
     isValidGift() {
-      return this.giftForm.quantity > 0 && 
-             this.giftForm.quantity <= (this.item?.qty || 0) &&
-             this.giftForm.giftAmount >= 0
+      if (this.giftMode === 'none') return true
+      
+      if (this.giftMode === 'partial') {
+        return this.giftForm.quantity > 0 && 
+               this.giftForm.quantity <= (this.item?.qty || 0) &&
+               this.giftForm.giftAmount >= 0
+      }
+      
+      return this.giftForm.giftAmount >= 0
     }
   },
 
@@ -243,24 +341,62 @@ export default {
       if (newItem) {
         this.initializeGiftForm()
       }
+    },
+
+    giftMode(newMode) {
+      if (newMode === 'all') {
+        this.giftForm.quantity = this.item?.qty || 1
+      } else if (newMode === 'partial' && this.giftForm.quantity === (this.item?.qty || 1)) {
+        this.giftForm.quantity = Math.min(1, this.item?.qty || 1)
+      }
     }
   },
 
   methods: {
     initializeGiftForm() {
-      this.giftForm = {
-        quantity: Math.min(1, this.item?.qty || 1),
-        giftAmount: 0,
-        giftNote: ''
+      // Initialize based on existing gift settings
+      if (this.item?.isGift) {
+        this.giftMode = 'all'
+        this.giftForm = {
+          quantity: this.item.qty || 1,
+          giftAmount: this.item.giftAmount || 0,
+          giftNote: this.item.giftNote || ''
+        }
+      } else if (this.item?.giftQuantity > 0) {
+        this.giftMode = 'partial'
+        this.giftForm = {
+          quantity: this.item.giftQuantity,
+          giftAmount: this.item.giftAmount || 0,
+          giftNote: this.item.giftNote || ''
+        }
+      } else {
+        this.giftMode = 'partial'
+        this.giftForm = {
+          quantity: Math.min(1, this.item?.qty || 1),
+          giftAmount: 0,
+          giftNote: ''
+        }
       }
     },
 
     setMaxQuantity() {
       this.giftForm.quantity = this.item?.qty || 1
+      this.giftMode = 'all'
     },
 
     setZeroAmount() {
       this.giftForm.giftAmount = 0
+    },
+
+    getTotalPrice() {
+      if (this.giftMode === 'none') {
+        return this.formatNumber((this.item?.qty || 0) * (this.item?.localPrice || 0))
+      }
+      
+      const regularPrice = this.remainingQuantity * (this.item?.localPrice || 0)
+      const giftPrice = this.effectiveGiftQuantity * this.giftForm.giftAmount
+      
+      return this.formatNumber(regularPrice + giftPrice)
     },
 
     cancelGift() {
@@ -271,18 +407,33 @@ export default {
     confirmGift() {
       if (!this.isValidGift) return
 
-      const giftData = {
-        item: this.item,
-        giftConfig: {
-          originalQuantity: this.item.qty,
-          giftQuantity: this.giftForm.quantity,
-          regularQuantity: this.remainingQuantity,
-          giftAmount: this.giftForm.giftAmount,
-          giftNote: this.giftForm.giftNote,
-          originalPrice: this.item.localPrice
+      let giftData
+      
+      if (this.giftMode === 'none') {
+        // Remove gift settings
+        giftData = {
+          item: this.item,
+          action: 'remove-gift'
+        }
+      } else {
+        // Configure gift
+        giftData = {
+          item: this.item,
+          action: 'configure-gift',
+          giftConfig: {
+            isFullGift: this.giftMode === 'all',
+            originalQuantity: this.item.qty,
+            giftQuantity: this.effectiveGiftQuantity,
+            regularQuantity: this.remainingQuantity,
+            giftAmount: this.giftForm.giftAmount,
+            giftNote: this.giftForm.giftNote,
+            originalPrice: this.item.localPrice
+          }
         }
       }
 
+      console.warn(`GIFT MODEL DETAIL ${JSON.stringify(giftData)}`)
+    //   TODO: Gift source maintenance 
       this.$emit('confirm-gift', giftData)
       this.dialog = false
       this.initializeGiftForm()
@@ -312,6 +463,19 @@ export default {
 }
 
 .gift-settings {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.gift-mode-toggle {
+  width: 100%;
+}
+
+.gift-mode-toggle .v-btn {
+  flex: 1;
+  text-transform: none;
+}
+
+.remove-gift-confirmation {
   animation: fadeInUp 0.5s ease-out;
 }
 
@@ -349,5 +513,16 @@ export default {
 .v-btn.pink:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4) !important;
+}
+
+.v-btn.orange {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%) !important;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3) !important;
+  color: white !important;
+}
+
+.v-btn.orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4) !important;
 }
 </style>

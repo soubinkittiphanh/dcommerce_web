@@ -75,7 +75,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['deleteProduct', 'addProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
+        ...mapActions(['deleteProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
         selectePaymentMethod(id) {
             console.log("selected payment ", id);
             this.addSelectedPayment(id)

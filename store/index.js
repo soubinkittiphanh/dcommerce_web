@@ -67,13 +67,29 @@ export const mutations = {
     UPDATE_QTY(state, { productId, qty }) {
         console.info(`update qty ${qty} ${productId}`)
         try {
+            console.log('Updating qty for productId:', productId)
+            console.log('Current cart items:', JSON.stringify(state.cartOfproductSelected, null, 2))
+
             const product = state.cartOfproductSelected.find(p => p.id === productId)
+
+            console.log('Item found:', JSON.stringify(product, null, 2))
+
             if (product && qty >= 0) {
                 product.qty = qty
+                console.log('Updated product:', JSON.stringify(product, null, 2))
+            } else {
+                console.warn(
+                    'Product not found OR qty invalid:',
+                    JSON.stringify({ product, qty }, null, 2)
+                )
             }
+
+            console.log('Cart after update:', JSON.stringify(state.cartOfproductSelected, null, 2))
+
         } catch (error) {
             console.error('Error updating quantity:', error)
         }
+
     },
 
     initProductPriceList(state, productPrices) {
@@ -224,6 +240,7 @@ export const mutations = {
     },
 
     addProductToCart(state, product) {
+        console.info(`cart item before add ${JSON.stringify(product)}`)
         try {
             if (!product || !product.id) return
 
@@ -793,7 +810,7 @@ const initSPF = async (dispatch, axios) => {
     try {
         const response = await axios.get('api/SPF/find')
         console.info(`SPF initialization response: ${JSON.stringify(response.data)}`)
-        
+
         // Assuming the API returns { data: [...] } structure like your product API
         const spfData = response.data.data || response.data
         await dispatch('initSPF', spfData)

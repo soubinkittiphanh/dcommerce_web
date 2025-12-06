@@ -28,7 +28,9 @@
             :suffix="currencySymbol"
             class="cash-input"
             :disabled="!isTraditionalCashPayment"
-            :hint="isTraditionalCashPayment ? '' : 'ສຳລັບການຊຳລະເງິນສົດເທົ່ານັ້ນ'"
+            :hint="
+              isTraditionalCashPayment ? '' : 'ສຳລັບການຊຳລະເງິນສົດເທົ່ານັ້ນ'
+            "
           />
         </v-col>
       </v-row>
@@ -37,19 +39,27 @@
     <!-- Total Display -->
     <div class="total-display pa-4">
       <v-row no-gutters align="center" class="total-row">
-        <v-col cols="6">
+        <v-col cols="2">
           <div class="total-label">ຍອດລວມ</div>
           <div class="total-amount">{{ formatNumber(subtotal) }}</div>
+        </v-col>
+        <v-col cols="2" class="text-center">
+          <div class="stat-label">ລາຍການ</div>
+          <div class="stat-value">{{ productCart.length }}</div>
+        </v-col>
+        <v-col cols="2" class="text-center">
+          <div class="stat-label">ຊິ້ນ</div>
+          <div class="stat-value">{{ formatNumber(totalItems) }}</div>
         </v-col>
         <v-col cols="6" class="text-right" v-if="discount > 0">
           <div class="discount-label">ສ່ວນຫລຸດ</div>
           <div class="discount-amount">-{{ formatNumber(discount) }}</div>
         </v-col>
       </v-row>
-      
+
       <v-divider class="my-2"></v-divider>
-      
-      <v-row no-gutters align="center" class="grand-total-row" v-if="1==0">
+
+      <v-row no-gutters align="center" class="grand-total-row" v-if="1 == 0">
         <v-col cols="8">
           <div class="grand-total-label">ຍອດເງິນລວມ</div>
         </v-col>
@@ -59,7 +69,12 @@
       </v-row>
 
       <!-- Change display for single payment method -->
-      <v-row v-if="showCheckOut && isTraditionalCashPayment && cashReceived > 0" no-gutters align="center" class="change-row">
+      <v-row
+        v-if="showCheckOut && isTraditionalCashPayment && cashReceived > 0"
+        no-gutters
+        align="center"
+        class="change-row"
+      >
         <v-col cols="8">
           <div class="change-label">ເງິນທອນ</div>
         </v-col>
@@ -103,12 +118,12 @@
           <v-card
             outlined
             class="payment-card-item"
-            :class="{ 'primary': selectedPayment === payment.id }"
+            :class="{ primary: selectedPayment === payment.id }"
             @click="selectPayment(payment.id)"
           >
             <v-card-text class="pa-2 text-center">
-              <v-icon 
-                size="24" 
+              <v-icon
+                size="24"
                 :color="selectedPayment === payment.id ? 'white' : 'primary'"
                 class="mb-1"
               >
@@ -134,7 +149,9 @@
             @click="$emit('toggle-checkout')"
             class="toggle-btn"
           >
-            <v-icon left>{{ showCheckOut ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            <v-icon left>{{
+              showCheckOut ? 'mdi-chevron-up' : 'mdi-chevron-down'
+            }}</v-icon>
             {{ showCheckOut ? 'ເຊື່ອງ' : 'ຈ່າຍເງິນ' }}
           </v-btn>
         </v-col>
@@ -173,7 +190,7 @@
     </div>
 
     <!-- Quick stats for collapsed state -->
-    <div class="quick-stats pa-3" v-if="!showCheckOut && 1==0" >
+    <div class="quick-stats pa-0" v-if="!showCheckOut && 1 == 0">
       <v-row no-gutters align="center">
         <v-col cols="4" class="text-center">
           <div class="stat-value">{{ productCart.length }}</div>
@@ -184,7 +201,9 @@
           <div class="stat-label">ຊິ້ນ</div>
         </v-col>
         <v-col cols="4" class="text-center">
-          <div class="stat-value primary--text">{{ formatNumber(grandTotal) }}</div>
+          <div class="stat-value primary--text">
+            {{ formatNumber(grandTotal) }}
+          </div>
           <div class="stat-label">ລາຄາ</div>
         </v-col>
       </v-row>
@@ -198,61 +217,61 @@ export default {
   props: {
     productCart: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     discount: {
       type: Number,
-      default: 0
+      default: 0,
     },
     cashReceived: {
       type: Number,
-      default: 0
+      default: 0,
     },
     changes: {
       type: String,
-      default: '0'
+      default: '0',
     },
     grandTotal: {
       type: Number,
-      required: true
+      required: true,
     },
     currencyList: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     paymentList: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     showCheckOut: {
       type: Boolean,
-      default: false
+      default: false,
     },
     formatNumber: {
       type: Function,
-      required: true
+      required: true,
     },
     selectedPayment: {
       type: [Number, String],
-      default: null
+      default: null,
     },
     svgIcon: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
 
   data() {
     return {
       currencySymbol: 'LAK',
-      processingPayment: false
+      processingPayment: false,
     }
   },
 
   computed: {
     subtotal() {
       return this.productCart.reduce((sum, item) => {
-        return sum + (item.qty * item.localPrice)
+        return sum + item.qty * item.localPrice
       }, 0)
     },
 
@@ -261,24 +280,27 @@ export default {
     },
 
     selectedPaymentMethod() {
-      return this.paymentList.find(p => p.id === this.selectedPayment)
+      return this.paymentList.find((p) => p.id === this.selectedPayment)
     },
 
     isTraditionalCashPayment() {
-      return this.selectedPaymentMethod && this.selectedPaymentMethod.payment_code === 'CASH'
+      return (
+        this.selectedPaymentMethod &&
+        this.selectedPaymentMethod.payment_code === 'CASH'
+      )
     },
 
     canPaySingle() {
       // if (this.productCart.length === 0 || !this.selectedPayment || this.grandTotal <= 0) {
-      if (this.productCart.length === 0 || !this.selectedPayment ) {
+      if (this.productCart.length === 0 || !this.selectedPayment) {
         return false
       }
 
       // For cash payments, ensure sufficient cash received
-      if (this.isTraditionalCashPayment) {
-        this.cashReceived = this.grandTotal - this.discount;
-        return this.cashReceived >= (this.grandTotal - this.discount)
-      }
+      // if (this.isTraditionalCashPayment) {
+      //   const requiredAmount = this.grandTotal - this.discount
+      //   return this.cashReceived >= requiredAmount
+      // }
 
       // For non-cash payments, just need selection
       return true
@@ -290,14 +312,14 @@ export default {
       }
 
       if (this.isTraditionalCashPayment) {
-        if (this.cashReceived < (this.grandTotal - this.discount)) {
+        if (this.cashReceived < this.grandTotal - this.discount) {
           return 'ໃສ່ຈຳນວນເງິນ'
         }
         return 'ຊຳລະເງິນສົດ'
       }
 
       return `ຊຳລະດ້ວຍ ${this.selectedPaymentMethod.payment_name}`
-    }
+    },
   },
 
   methods: {
@@ -307,12 +329,12 @@ export default {
 
     getPaymentIcon(paymentCode) {
       const iconMap = {
-        'CASH': 'mdi-cash',
-        'CARD': 'mdi-credit-card',
-        'BCEL': 'mdi-cellphone',
-        'QR': 'mdi-qrcode',
-        'TRANSFER': 'mdi-bank-transfer',
-        'CREDIT': 'mdi-credit-card-outline'
+        CASH: 'mdi-cash',
+        CARD: 'mdi-credit-card',
+        BCEL: 'mdi-cellphone',
+        QR: 'mdi-qrcode',
+        TRANSFER: 'mdi-bank-transfer',
+        CREDIT: 'mdi-credit-card-outline',
       }
       return iconMap[paymentCode?.toUpperCase()] || 'mdi-credit-card'
     },
@@ -349,8 +371,13 @@ export default {
         return
       }
 
-      if (this.isTraditionalCashPayment && this.cashReceived < (this.grandTotal - this.discount)) {
-        const needed = this.formatNumber(this.grandTotal - this.discount - this.cashReceived)
+      if (
+        this.isTraditionalCashPayment &&
+        this.cashReceived < this.grandTotal - this.discount
+      ) {
+        const needed = this.formatNumber(
+          this.grandTotal - this.discount - this.cashReceived
+        )
         this.$emit('show-error', `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການອີກ ${needed}`)
         return
       }
@@ -361,11 +388,11 @@ export default {
         this.$emit('show-error', 'ກະລຸນາເລືອກສິນຄ້າ')
         return
       }
-      
+
       // Emit event to parent to open multi-payment dialog
       this.$emit('open-multi-payment')
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -445,7 +472,7 @@ export default {
 .payment-card-item:hover {
   /* border-color: #1976d2; */
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .payment-card-item--selected {
@@ -504,7 +531,7 @@ export default {
     flex: 0 0 50% !important;
     max-width: 50% !important;
   }
-  
+
   .grand-total-amount {
     font-size: 20px;
   }

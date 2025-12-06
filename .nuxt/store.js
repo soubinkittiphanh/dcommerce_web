@@ -15,7 +15,9 @@ let store = {};
   // Enforce store modules
   store.modules = store.modules || {}
 
+  resolveStoreModules(require('../store/cart.js'), 'cart.js')
   resolveStoreModules(require('../store/index-copy.js'), 'index-copy.js')
+  resolveStoreModules(require('../store/order.js'), 'order.js')
 
   // If the environment supports hot reloading...
 })()

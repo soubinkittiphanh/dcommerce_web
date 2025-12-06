@@ -1483,7 +1483,7 @@ export default {
     // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
 
     // 1. Replace your existing addProduct method with this enhanced version:
-    addProductValidation(product) {
+    addProductValidation(product, isGift = false) {
       try {
         // Validate product is active
         if (!product.isActive) {
@@ -1506,9 +1506,14 @@ export default {
         if (!this.validateCardCountForIncrease(product)) {
           return false
         }
-
+        const cartItem = {
+          ...product, // copy all product fields
+          isGift: isGift,
+          lineUUID: Date.now() + Math.random().toString(16),
+        }
+        console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
         // If all validations pass, add to store using Vuex action
-        this.$store.dispatch('addProduct', product)
+        this.$store.dispatch('addProduct', cartItem)
 
         // Show success feedback with quantity info
         this.showAddSuccessMessage(product)
@@ -1582,7 +1587,9 @@ export default {
             { position: 'bottom-center' }
           )
         } else {
-          this.$toast.success(`${product.pro_name} added. Limit reached!`,{ position: 'bottom-center' })
+          this.$toast.success(`${product.pro_name} added. Limit reached!`, {
+            position: 'bottom-center',
+          })
         }
       } else {
         this.$toast.success(`${product.pro_name} added to cart`)

@@ -1,7 +1,7 @@
 exports.ids = [120];
 exports.modules = {
 
-/***/ 1505:
+/***/ 1507:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,20 +9,20 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(122);
+var VCard = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(487);
+var VHover = __webpack_require__(493);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/paymentCard/index.vue?vue&type=template&id=74d4e43a&scoped=true
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/paymentCard/index.vue?vue&type=template&id=9dc33500&scoped=true
 
 
-var paymentCardvue_type_template_id_74d4e43a_scoped_true_render = function render() {
+
+
+var paymentCardvue_type_template_id_9dc33500_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VHover["a" /* default */], {
@@ -55,7 +55,7 @@ var paymentCardvue_type_template_id_74d4e43a_scoped_true_render = function rende
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/paymentCard/index.vue?vue&type=template&id=74d4e43a&scoped=true
+// CONCATENATED MODULE: ./components/paymentCard/index.vue?vue&type=template&id=9dc33500&scoped=true
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -88,8 +88,8 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      imageSvg: __webpack_require__(640),
-      imageSrc: __webpack_require__(195)
+      imageSvg: __webpack_require__(642),
+      imageSrc: __webpack_require__(197)
     };
   },
   computed: {
@@ -99,7 +99,7 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
-    ...Object(external_vuex_["mapActions"])(['deleteProduct', 'addProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
+    ...Object(external_vuex_["mapActions"])(['deleteProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
     selectePaymentMethod(id) {
       console.log("selected payment ", id);
       this.addSelectedPayment(id);
@@ -125,11 +125,11 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_paymentCardvue_type_script_lang_js,
-  paymentCardvue_type_template_id_74d4e43a_scoped_true_render,
+  paymentCardvue_type_template_id_9dc33500_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "74d4e43a",
+  "9dc33500",
   "0dc964d4"
   
 )
@@ -138,7 +138,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 487:
+/***/ 493:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -206,7 +206,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 640:
+/***/ 642:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier.a8bb445.svg";

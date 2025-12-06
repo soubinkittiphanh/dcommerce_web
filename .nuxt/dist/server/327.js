@@ -1,7 +1,7 @@
 exports.ids = [327];
 exports.modules = {
 
-/***/ 1341:
+/***/ 1343:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,6 @@ exports.modules = {
  */
 
 
-__webpack_require__(95);
 __webpack_require__(96);
 __webpack_require__(97);
 __webpack_require__(98);
@@ -26,8 +25,7 @@ __webpack_require__(104);
 __webpack_require__(105);
 __webpack_require__(106);
 __webpack_require__(107);
-__webpack_require__(143);
-__webpack_require__(144);
+__webpack_require__(108);
 __webpack_require__(145);
 __webpack_require__(146);
 __webpack_require__(147);
@@ -42,9 +40,11 @@ __webpack_require__(155);
 __webpack_require__(156);
 __webpack_require__(157);
 __webpack_require__(158);
-__webpack_require__(408);
-var helpers_dataset = __webpack_require__(1342);
-__webpack_require__(406);
+__webpack_require__(159);
+__webpack_require__(160);
+__webpack_require__(414);
+var helpers_dataset = __webpack_require__(1344);
+__webpack_require__(412);
 class Animator {
   constructor() {
     this._request = null;
@@ -12181,7 +12181,7 @@ exports.scales = scales;
 
 /***/ }),
 
-/***/ 1342:
+/***/ 1344:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12193,7 +12193,6 @@ exports.scales = scales;
  */
 
 
-__webpack_require__(95);
 __webpack_require__(96);
 __webpack_require__(97);
 __webpack_require__(98);
@@ -12206,8 +12205,7 @@ __webpack_require__(104);
 __webpack_require__(105);
 __webpack_require__(106);
 __webpack_require__(107);
-__webpack_require__(143);
-__webpack_require__(144);
+__webpack_require__(108);
 __webpack_require__(145);
 __webpack_require__(146);
 __webpack_require__(147);
@@ -12222,7 +12220,9 @@ __webpack_require__(155);
 __webpack_require__(156);
 __webpack_require__(157);
 __webpack_require__(158);
-var color$1 = __webpack_require__(406);
+__webpack_require__(159);
+__webpack_require__(160);
+var color$1 = __webpack_require__(412);
 
 /**
  * @namespace Chart.helpers
@@ -15243,10 +15243,10 @@ exports.valueOrDefault = valueOrDefault;
 
 /***/ }),
 
-/***/ 1351:
+/***/ 1353:
 /***/ (function(module, exports, __webpack_require__) {
 
-const chartjs = __webpack_require__(1341);
+const chartjs = __webpack_require__(1343);
 const {
   Chart,
   registerables

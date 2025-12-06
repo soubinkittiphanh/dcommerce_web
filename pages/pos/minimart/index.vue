@@ -57,7 +57,7 @@ export default {
   watch: {
     'sharedState.saleHeader'(newVal, oldVal) {
       console.log('Count changed:', newVal, oldVal)
-     this.loadProduct()
+      this.loadProduct()
     },
   },
   beforeDestroy() {
@@ -95,7 +95,7 @@ export default {
       console.log(`Category ${this.currenctSelectedCategoryId}`)
       let productByTerminalCompany = this.productList.filter(
         // ---------- anable below code to show product base on company select
-        // (pro) => pro.companyId === this.currentTerminal.location.companyId 
+        // (pro) => pro.companyId === this.currentTerminal.location.companyId
         (pro) => pro
       )
       if (!this.searchKeyword) {
@@ -128,17 +128,22 @@ export default {
       return this.findAllCurrency.find((el) => el.id == currencyId)
     },
     async handleStorageChange(event) {
-       
       if (event.key === 'saleHeader') {
         console.log('myValue changed:', event.newValue)
       }
     },
-    findProductFromBarcode(barcode) {
+    findProductFromBarcode(barcode, isGift = false) {
       this.productSelectedFromBarcode = this.productList.find(
         (el) => el.barCode == barcode
       )
       if (this.productSelectedFromBarcode) {
-        this.addProduct(this.productSelectedFromBarcode)
+        const cartItem = {
+          ...this.productSelectedFromBarcode, // copy all product fields
+          isGift: isGift,
+          lineUUID: Date.now() + Math.random().toString(16),
+        }
+        // this.addProduct(this.productSelectedFromBarcode)
+        this.addProduct(cartItem)
         this.productSelectedFromBarcode = null
       }
     },

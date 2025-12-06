@@ -264,6 +264,15 @@
                   <input v-model="formData.passportExpiredDate" type="date" :min="formData.passportIssueDate"
                     :disabled="!formData.passportAvailability" />
                 </div>
+                <div class="form-group">
+                  <v-switch
+                    v-model.number="formData.isActive"
+                    label="ສະຖານະ"
+                    dense
+                    hide-details
+                    color="success"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -379,6 +388,7 @@ export default {
         passportRecieve: false,
         passportNo: '',
         passportExpiredDate: '',
+        isActive: true,
         passportIssueDate: '',
         workPlace: '',
         contactStartDate: '',
@@ -511,6 +521,7 @@ export default {
           district: a.district || '',
           depositAmount: a.depositAmount || 0,
           isRefund: a.isRefund || false,
+          isActive: a.isActive || true,
           depositByCensusBook: a.depositByCensusBook || false,
           passportAvailability: a.passportAvailability || false,
           passportRecieve: a.passportRecieve || false,

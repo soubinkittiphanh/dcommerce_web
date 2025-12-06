@@ -390,7 +390,7 @@ export default {
 
         isFormValid() {
             return this.stockQty > 0 && 
-                   this.costInput > 0 && 
+                   this.costInput >= 0 && 
                    this.srcLocationId && 
                    this.currencyId &&
                    !this.isSubmitting

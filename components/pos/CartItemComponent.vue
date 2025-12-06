@@ -29,6 +29,22 @@
             <v-icon x-small left>mdi-gift</v-icon>
             GIFT
           </v-chip>
+          <!-- Gift partial indicator -->
+          <v-chip
+            v-else-if="item.giftQuantity > 0"
+            x-small
+            color="purple"
+            text-color="white"
+            class="ml-1 gift-indicator"
+          >
+            <v-icon x-small left>mdi-gift-outline</v-icon>
+            {{ item.giftQuantity }}/{{ item.qty }} GIFT
+          </v-chip>
+        </div>
+        <!-- Gift note display -->
+        <div v-if="item.giftNote" class="text-caption pink--text mt-1">
+          <v-icon x-small class="mr-1">mdi-note-text</v-icon>
+          {{ item.giftNote }}
         </div>
       </v-col>
 
@@ -63,32 +79,55 @@
         <v-btn
           icon
           small
-          :color="item.isGift ? 'pink' : 'grey'"
-          @click="$emit('toggle-gift', item)"
-          :title="item.isGift ? 'ຍົກເລີກຂອງຂວັນ' : 'ກຳນົດເປັນຂອງຂວັນ'"
+          :color="(item.isGift || item.giftQuantity > 0) ? 'pink' : 'grey'"
+          @click="handleGiftClick"
+          :title="getGiftButtonTitle()"
           class="gift-btn"
         >
-          <v-icon small :class="{ 'gift-active': item.isGift }">
-            {{ item.isGift ? 'mdi-gift' : 'mdi-gift-outline' }}
+          <v-icon small :class="{ 'gift-active': item.isGift || item.giftQuantity > 0 }">
+            {{ getGiftIcon() }}
           </v-icon>
         </v-btn>
       </v-col>
 
       <!-- Price -->
       <v-col cols="4" class="text-right">
-        <v-chip
-          small
-          :color="item.isGift ? 'pink' : 'warning'"
-          outlined
-          @click="$emit('price-click', item)"
-          class="price-chip"
-          :class="{ 'gift-price': item.isGift }"
-        >
-          <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
-          {{ item.isGift ? 'FREE' : formatNumber(item.localPrice * item.qty) }}
-        </v-chip>
+        <div class="d-flex flex-column align-end">
+          <!-- Main price chip -->
+          <v-chip
+            small
+            :color="item.isGift ? 'pink' : 'warning'"
+            outlined
+            @click="$emit('price-click', item)"
+            class="price-chip mb-1"
+            :class="{ 'gift-price': item.isGift }"
+          >
+            <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
+            {{ getPriceDisplay() }}
+          </v-chip>
+          
+          <!-- Gift breakdown for partial gifts -->
+          <div v-if="item.giftQuantity > 0 && !item.isGift" class="gift-breakdown">
+            <div class="text-caption pink--text">
+              <v-icon x-small class="mr-1">mdi-gift</v-icon>
+              {{ item.giftQuantity }} × {{ getGiftPriceDisplay() }}
+            </div>
+            <div class="text-caption grey--text">
+              <v-icon x-small class="mr-1">mdi-currency-usd</v-icon>
+              {{ item.qty - item.giftQuantity }} × {{ formatNumber(item.localPrice) }}
+            </div>
+          </div>
+        </div>
       </v-col>
     </v-row>
+
+    <!-- Gift Dialog -->
+    <GiftDialog
+      v-model="giftDialogOpen"
+      :item="item"
+      :format-number="formatNumber"
+      @confirm-gift="handleGiftConfirm"
+    />
   </v-card>
 </template>
 
@@ -97,8 +136,13 @@
 import { getFormatNum } from '~/common' 
 import GiftDialog from '~/components/card/GiftDialog.vue'
 
-
 export default {
+  name: 'CartItem',
+  
+  components: {
+    GiftDialog
+  },
+
   props: {
     item: {
       type: Object,
@@ -110,7 +154,76 @@ export default {
       required: true
     }
   },
-  // Emit events: delete, decrease, increase, update-qty, price-click, toggle-gift
+
+  data() {
+    return {
+      giftDialogOpen: false
+    }
+  },
+
+  methods: {
+    handleGiftClick() {
+      if (this.item.isGift || this.item.giftQuantity > 0) {
+        // If item has gift settings, open dialog to modify
+        this.giftDialogOpen = true
+      } else {
+        // If no gift settings, open dialog to create gift
+        this.giftDialogOpen = true
+      }
+    },
+
+    handleGiftConfirm(giftData) {
+      // Emit gift configuration to parent component
+      console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
+      console.info(`GIFT DATA ITEM CART logs ${giftData}`)
+      this.$emit('configure-gift', giftData)
+      // TODO:Let continue gift feature from here
+      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly 
+      this.giftDialogOpen = false
+    },
+
+    getGiftButtonTitle() {
+      if (this.item.isGift) {
+        return 'ແກ້ໄຂການຕັ້ງຄ່າຂອງຂວັນ'
+      } else if (this.item.giftQuantity > 0) {
+        return 'ແກ້ໄຂຂອງຂວັນບາງສ່ວນ'
+      } else {
+        return 'ກຳນົດເປັນຂອງຂວັນ'
+      }
+    },
+
+    getGiftIcon() {
+      if (this.item.isGift) {
+        return 'mdi-gift'
+      } else if (this.item.giftQuantity > 0) {
+        return 'mdi-gift-outline'
+      } else {
+        return 'mdi-gift-outline'
+      }
+    },
+
+    getPriceDisplay() {
+      if (this.item.isGift) {
+        return this.item.giftAmount === 0 ? 'FREE' : this.formatNumber(this.item.giftAmount * this.item.qty)
+      } else if (this.item.giftQuantity > 0) {
+        // Mixed pricing: regular + gift
+        const regularPrice = (this.item.qty - this.item.giftQuantity) * this.item.localPrice
+        const giftPrice = this.item.giftQuantity * (this.item.giftAmount || 0)
+        return this.formatNumber(regularPrice + giftPrice)
+      } else {
+        return this.formatNumber(this.item.localPrice * this.item.qty)
+      }
+    },
+
+    getGiftPriceDisplay() {
+      if (this.item.giftAmount === 0) {
+        return 'FREE'
+      }
+      return this.formatNumber(this.item.giftAmount)
+    }
+  }
+
+  // Emit events: delete, decrease, increase, update-qty, price-click, configure-gift
 }
 </script>
 
@@ -156,6 +269,15 @@ export default {
 
 .gift-indicator {
   animation: gift-glow 2s infinite alternate;
+}
+
+.gift-breakdown {
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.gift-breakdown .text-caption {
+  margin: 1px 0;
 }
 
 @keyframes gift-pulse {

@@ -248,7 +248,7 @@ export default {
 
     // Final improved methods to replace in your component
 
-    handleQuickAdd() {
+    handleQuickAdd(isGift = false) {
       if (!this.validateProductAvailability()) {
         return
       }
@@ -265,7 +265,10 @@ export default {
           this.getCustomerGradePrice(this.product) ||
           this.product.localPrice ||
           this.product.pro_price,
+          isGift: isGift,
+          lineUUID: Date.now() + Math.random().toString(16),
       }
+
 
       console.info(`CART PRODUCT ${JSON.stringify(this.cartOfProduct)}`)
       this.addProduct(productToAdd)
