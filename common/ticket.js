@@ -60,6 +60,7 @@ const loadCompanyLogoFromAPI = async (axios) => {
     const companies = Array.isArray(response.data) ? response.data : [];
     
     console.info(`Found ${companies.length} companies from API`);
+    console.info(`Found ${JSON.stringify(companies)} companies from API`);
 
     // Take the FIRST company with isActive: true and valid profile_image_path
     const firstActiveCompany = companies.find(company =>
