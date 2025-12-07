@@ -501,6 +501,7 @@
                   @decrease="deleteProduct"
                   @increase="addProductValidation"
                   @price-click="pricingLogig"
+                  @configure-gift="handleGiftConfirm"
                 />
               </template>
 
@@ -669,6 +670,7 @@ export default {
 
   computed: {
     // ENHANCED COMPANY DATA FOR CUSTOMER SCREEN
+
     companyData() {
       const baseCompany = mainCompanyInfo()
 
@@ -772,6 +774,7 @@ export default {
           productKey: iterator.id,
           unitId: iterator.stockUnitId,
           total: iterator.qty * iterator.localPrice,
+          isGift: iterator.isGift,
           isActive: true,
         })
       }
@@ -838,6 +841,19 @@ export default {
   },
 
   methods: {
+    handleGiftConfirm(giftData) {
+      // Emit gift configuration to parent component
+      console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
+      console.info(`GIFT DATA ITEM CART logs @POS.vue ${giftData}`)
+      // this.$emit('configure-gift', giftData)
+      // TODO:Let continue gift feature from here
+      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly
+      // this.giftDialogOpen = false
+      this.$store.commit('setGiftForCartItem', {
+        item: giftData.item,
+        giftConfig: giftData.giftConfig,
+      })
+    },
     testCustomerScreenWithCurrentCart() {
       console.log('=== DEBUGGING CUSTOMER SCREEN DATA ===')
       console.log('Current cart:', this.productCart)
@@ -1509,7 +1525,8 @@ export default {
         const cartItem = {
           ...product, // copy all product fields
           isGift: isGift,
-          lineUUID: Date.now() + Math.random().toString(16),
+          lineUUIDCheck:true,
+          lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
         }
         console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
         // If all validations pass, add to store using Vuex action

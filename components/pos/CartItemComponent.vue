@@ -17,7 +17,8 @@
       <!-- Product Name -->
       <v-col cols="4" class="pr-2">
         <div class="font-weight-medium text-wrap">
-          {{ item.pro_name }}
+          {{ item.pro_name }} 
+          <!-- {{ item.lineUUID}}  -->
           <!-- Gift indicator -->
           <v-chip
             v-if="item.isGift"
@@ -103,11 +104,12 @@
             :class="{ 'gift-price': item.isGift }"
           >
             <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
-            {{ getPriceDisplay() }}
+            {{ getPriceDisplay() }} 
           </v-chip>
           
           <!-- Gift breakdown for partial gifts -->
           <div v-if="item.giftQuantity > 0 && !item.isGift" class="gift-breakdown">
+            
             <div class="text-caption pink--text">
               <v-icon x-small class="mr-1">mdi-gift</v-icon>
               {{ item.giftQuantity }} × {{ getGiftPriceDisplay() }}
@@ -204,7 +206,10 @@ export default {
 
     getPriceDisplay() {
       if (this.item.isGift) {
-        return this.item.giftAmount === 0 ? 'FREE' : this.formatNumber(this.item.giftAmount * this.item.qty)
+        console.info(`IT IS ITEM GIFT ${JSON.stringify(this.item)}`)
+        console.info(`IT IS GIFT ${this.item.giftAmount === 0 ? 'FREE' : this.formatNumber(this.item.giftAmount * this.item.qty)}`)
+        
+        return this.item.localPrice === 0 ? 'FREE' : this.formatNumber(this.item.localPrice * this.item.qty)
       } else if (this.item.giftQuantity > 0) {
         // Mixed pricing: regular + gift
         const regularPrice = (this.item.qty - this.item.giftQuantity) * this.item.localPrice

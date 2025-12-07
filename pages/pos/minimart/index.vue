@@ -140,6 +140,7 @@ export default {
         const cartItem = {
           ...this.productSelectedFromBarcode, // copy all product fields
           isGift: isGift,
+          lineUUIDCheck:false,
           lineUUID: Date.now() + Math.random().toString(16),
         }
         // this.addProduct(this.productSelectedFromBarcode)

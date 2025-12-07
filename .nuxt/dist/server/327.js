@@ -42,9 +42,9 @@ __webpack_require__(157);
 __webpack_require__(158);
 __webpack_require__(159);
 __webpack_require__(160);
-__webpack_require__(414);
+__webpack_require__(411);
 var helpers_dataset = __webpack_require__(1344);
-__webpack_require__(412);
+__webpack_require__(409);
 class Animator {
   constructor() {
     this._request = null;
@@ -12222,7 +12222,7 @@ __webpack_require__(157);
 __webpack_require__(158);
 __webpack_require__(159);
 __webpack_require__(160);
-var color$1 = __webpack_require__(412);
+var color$1 = __webpack_require__(409);
 
 /**
  * @namespace Chart.helpers

@@ -259,7 +259,14 @@ export const mutations = {
             product.localPrice = customerPrice ?? product.localPrice
 
             const existingProductIndex = state.cartOfproductSelected.findIndex(
-                item => item.id === product.id
+                (item) => {
+                    console.info(`linUUIDCHECK ${product.lineUUIDCheck}`)
+                    if (!product.lineUUIDCheck) {
+                        return item.id === product.id
+                    } else {
+                        return item.id === product.id && item.lineUUID === product.lineUUID
+                    }
+                }
             )
 
             if (existingProductIndex !== -1) {
@@ -273,6 +280,62 @@ export const mutations = {
         } catch (error) {
             console.error('Error adding product to cart:', error)
         }
+    },
+    setGiftForCartItem(state, { item, giftConfig }) {
+        const {
+            isFullGift,
+            originalQuantity,
+            giftQuantity,
+            regularQuantity,
+            giftAmount,
+            giftNote,
+            originalPrice
+        } = giftConfig
+
+        // 1. Find the target item in cart by lineUUID
+        const index = state.cartOfproductSelected.findIndex(i => i.lineUUID === item.lineUUID)
+        if (index === -1) return
+
+        const cartItem = state.cartOfproductSelected[index]
+
+        // CASE A — All quantity becomes gift
+        if (isFullGift) {
+            cartItem.isGift = true
+            cartItem.qty = originalQuantity
+            cartItem.localPrice = giftAmount // often 0
+            cartItem.giftNote = giftNote
+            return
+        }
+
+        // CASE B — Split line: some gift, some regular
+        // Remove original line
+        state.cartOfproductSelected.splice(index, 1)
+
+        // Add regular part (if > 0)
+        if (regularQuantity > 0) {
+            state.cartOfproductSelected.push({
+                ...cartItem,
+                qty: regularQuantity,
+                isGift: false,
+                localPrice: originalPrice,
+                giftNote: null,
+                lineUUID: Date.now() + Math.random().toString(16)
+            })
+        }
+
+        // Add gift part (if > 0)
+        if (giftQuantity > 0) {
+            state.cartOfproductSelected.push({
+                ...cartItem,
+                qty: giftQuantity,
+                isGift: true,
+                localPrice: giftAmount, // probably zero
+                giftNote: giftNote,
+                lineUUID: Date.now() + Math.random().toString(16)
+            })
+        }
+
+        console.warn(`AFTER GIFT SET ${JSON.stringify(state.cartOfproductSelected)}`)
     },
 
     updateProductCart(state, productInfo) {
@@ -302,10 +365,11 @@ export const mutations = {
     },
 
     removeProductFromCart(state, product) {
+        console.info(`remove from cart ${JSON.stringify(product)}`)
         try {
             if (!product || !product.id) return
 
-            const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id)
+            const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id && item.lineUUID === product.lineUUID)
             if (existingProduct) {
                 if (existingProduct.qty > 1) {
                     existingProduct.qty--
@@ -323,7 +387,8 @@ export const mutations = {
     clearProductFromCart(state, product) {
         if (product && product.id) {
             state.cartOfproductSelected = state.cartOfproductSelected.filter(
-                item => item.id !== product.id
+                // item => item.id !== product.id && item.lineUUID === product.lineUUID
+                item => item.lineUUID !== product.lineUUID
             )
         }
     },

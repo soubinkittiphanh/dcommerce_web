@@ -1,6 +1,10 @@
 <template>
   <div class="text-center">
     <h1>ລາຍການ ສະຕັອກສິນຄ້າ</h1>
+    <!-- <v-chip color="secondary" outlined x-small>
+      <v-icon x-small left>mdi-barcode</v-icon>
+      111
+    </v-chip> -->
     <v-dialog v-model="dialogMessage" max-width="300px">
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
@@ -396,6 +400,7 @@ import { getFormatNum } from '~/common'
 export default {
   middleware: 'auths',
   validate(data) {
+    console.info(`DATA PARSING ${JSON.stringify(data)}`)
     console.log('MIXIN ID: ' + data.params.id)
     return /^\d+$/.test(data.params.id)
   },

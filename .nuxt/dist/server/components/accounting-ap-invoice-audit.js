@@ -90,7 +90,7 @@ exports.modules = {
       // Import jsPDF dynamically (requires: npm install jspdf)
       const {
         jsPDF
-      } = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 406, 7));
+      } = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 403, 7));
 
       // Create new PDF document
       const doc = new jsPDF();
@@ -354,7 +354,7 @@ exports.modules = {
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(401)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(398)["URL"]))
 
 /***/ }),
 

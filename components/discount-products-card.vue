@@ -79,7 +79,6 @@ export default {
     },
     whatsappProduct(pro_price) {
       console.log(`Price ${this.formatPrice(pro_price)}`);
-// TODO: Get whatsapp function done
     },
   }
 }

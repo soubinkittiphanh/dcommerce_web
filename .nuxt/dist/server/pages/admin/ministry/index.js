@@ -754,7 +754,7 @@ installComponents(component, {MinistryDialog: __webpack_require__(855).default,M
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(401)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(398)["URL"]))
 
 /***/ }),
 

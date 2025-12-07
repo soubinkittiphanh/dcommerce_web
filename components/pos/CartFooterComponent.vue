@@ -312,9 +312,6 @@ export default {
       }
 
       if (this.isTraditionalCashPayment) {
-        if (this.cashReceived < this.grandTotal - this.discount) {
-          return 'ໃສ່ຈຳນວນເງິນ'
-        }
         return 'ຊຳລະເງິນສົດ'
       }
 

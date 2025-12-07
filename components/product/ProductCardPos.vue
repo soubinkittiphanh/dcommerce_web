@@ -266,12 +266,13 @@ export default {
           this.product.localPrice ||
           this.product.pro_price,
           isGift: isGift,
-          lineUUID: Date.now() + Math.random().toString(16),
+          lineUUIDCheck:false,
+          lineUUID: Date.now() + Math.random().toString(16),//TODO: Resolve this logic issue for adding new item
       }
 
 
       console.info(`CART PRODUCT ${JSON.stringify(this.cartOfProduct)}`)
-      this.addProduct(productToAdd)
+      this.addProduct(productToAdd) 
       this.$emit('update-cus-screen')
 
       // Show success feedback with quantity info
