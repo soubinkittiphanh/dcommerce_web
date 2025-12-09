@@ -1,7 +1,7 @@
 exports.ids = [313];
 exports.modules = {
 
-/***/ 1359:
+/***/ 1358:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24,7 +24,7 @@ var VContainer = __webpack_require__(424);
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMain/VMain.js
 var VMain = __webpack_require__(420);

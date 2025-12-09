@@ -901,4 +901,4 @@ const initUnit = (dispatch, axios) =>
     fetchData('api/unit/find', 'initUnit', dispatch, axios, 'Unit initialization failed')
 
 const initCompanyData = (dispatch, axios) =>
-    fetchData('api/company/find', 'initCompany', dispatch, axios, 'Company initialization failed')
+    fetchData('api/public/company/findAll', 'initCompany', dispatch, axios, 'Company initialization failed')

@@ -1,7 +1,7 @@
 exports.ids = [101];
 exports.modules = {
 
-/***/ 839:
+/***/ 1001:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24,7 +24,7 @@ var VChip = __webpack_require__(127);
 var VCol = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(425);
@@ -142,7 +142,7 @@ var staticRenderFns = [];
   },
   data() {
     return {
-      imageSrc: __webpack_require__(197)
+      imageSrc: __webpack_require__(198)
     };
   },
   methods: {

@@ -7,7 +7,7 @@
           <p class="metric-card__value">{{ value }}</p>
           <p v-if="subtitle" class="metric-card__subtitle">{{ subtitle }}</p>
         </div>
-        
+        METRIC
         <div class="metric-card__icon-container" :style="{ backgroundColor: `${color}15` }">
           <component 
             :is="iconComponent" 

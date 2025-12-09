@@ -166,6 +166,7 @@ export default {
       this.timer = setInterval(() => (this.barcode = ''), 20)
     },
     async loadProduct() {
+      console.warn(`PRODUCT IS being reload ...`)
       this.isloading = true
       this.productList = []
       await this.$axios

@@ -1,10 +1,11 @@
 <template>
   <div class="text-center">
-    <h1>ລາຍການ ສະຕັອກສິນຄ້າ</h1>
-    <!-- <v-chip color="secondary" outlined x-small>
-      <v-icon x-small left>mdi-barcode</v-icon>
-      111
-    </v-chip> -->
+    <h1>
+          <v-chip large label class="ma-0 white--text" color="blue">
+              ລາຍການ ສະຕັອກສິນຄ້າ   {{ pro_name }}
+    </v-chip>
+    </h1>
+
     <v-dialog v-model="dialogMessage" max-width="300px">
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
@@ -139,9 +140,9 @@
 
     <v-card>
       <v-card-title>
-        <v-row>
-          <v-col cols="12" lg="4">
-            <!-- Date Range Filters -->
+        <v-layout row wrap>
+          <v-col cols="6">
+            <!-- Date Range Filters - USING SAME PATTERN AS PAYMENT PAGE -->
             <v-menu
               ref="menu1"
               v-model="menu1"
@@ -199,7 +200,7 @@
             </v-menu>
           </v-col>
 
-          <v-col cols="12" lg="4">
+          <v-col cols="6">
             <!-- Search and Filters -->
             <v-text-field
               v-model="search"
@@ -215,6 +216,15 @@
               single-line
               hide-details
             />
+            <v-btn @click="fetchData" class="primary" size="large" variant="outlined" rounded>
+              ດຶງລາຍງານ
+            </v-btn>
+          </v-col>
+        </v-layout>
+
+        <!-- Additional Filters Row -->
+        <v-layout row wrap class="mt-4">
+          <v-col cols="12" md="3">
             <v-text-field
               v-model="lotFilter"
               append-icon="mdi-barcode"
@@ -224,9 +234,7 @@
               @input="applyFilters"
             />
           </v-col>
-
-          <v-col cols="12" lg="4">
-            <!-- Status and Action Buttons -->
+          <v-col cols="12" md="3">
             <v-select
               v-model="statusFilter"
               :items="statusOptions"
@@ -234,7 +242,8 @@
               @change="applyFilters"
               clearable
             ></v-select>
-
+          </v-col>
+          <v-col cols="12" md="3">
             <v-select
               v-model="expiryFilter"
               :items="expiryOptions"
@@ -242,37 +251,21 @@
               @change="applyFilters"
               clearable
             ></v-select>
-
-            <v-row>
-              <v-col>
-                <v-btn
-                  @click="fetchData"
-                  class="primary"
-                  size="large"
-                  variant="outlined"
-                  rounded
-                  block
-                >
-                  <v-icon left>mdi-reload</v-icon>
-                  ດຶງລາຍງານ
-                </v-btn>
-              </v-col>
-              <v-col>
-                <v-btn
-                  @click="exportToExcel"
-                  class="success"
-                  size="large"
-                  variant="outlined"
-                  rounded
-                  block
-                >
-                  <v-icon left>mdi-microsoft-excel</v-icon>
-                  Export
-                </v-btn>
-              </v-col>
-            </v-row>
           </v-col>
-        </v-row>
+          <v-col cols="12" md="3">
+            <v-btn
+              @click="exportToExcel"
+              class="success"
+              size="large"
+              variant="outlined"
+              rounded
+              block
+            >
+              <v-icon left>mdi-microsoft-excel</v-icon>
+              Export
+            </v-btn>
+          </v-col>
+        </v-layout>
       </v-card-title>
 
       <!-- Enhanced Data Table -->
@@ -400,11 +393,11 @@ import { getFormatNum } from '~/common'
 export default {
   middleware: 'auths',
   validate(data) {
-    console.info(`DATA PARSING ${JSON.stringify(data)}`)
     console.log('MIXIN ID: ' + data.params.id)
     return /^\d+$/.test(data.params.id)
   },
 
+  // USING SAME SIMPLE WATCH PATTERN AS PAYMENT PAGE
   watch: {
     message(val) {
       if (val != null) {
@@ -429,6 +422,7 @@ export default {
 
   data() {
     return {
+      pro_name: '',
       showlist: false,
       isstock: false,
       isloading: false,
@@ -497,6 +491,7 @@ export default {
           width: '100px',
         },
       ],
+      // USING SAME DATE INITIALIZATION AS PAYMENT PAGE
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -517,6 +512,13 @@ export default {
   },
 
   mounted() {
+    const productId = this.$route.params.id
+    const productName = this.$route.query.name
+    const category = this.$route.query.category
+    this.pro_name = productName || 'Unknown Product'
+    console.log('Product Name:', productName)
+    console.log('Product ID:', productId)
+    console.log('Category:', category)
     this.fetchData()
   },
 
@@ -532,6 +534,30 @@ export default {
   methods: {
     formatNumber(value) {
       return getFormatNum(value)
+    },
+
+    // USING SAME DATE FORMATTING METHODS AS PAYMENT PAGE
+    formatDate(date) {
+      if (!date) return null
+      console.log("DATE FORMAT METHOD: " + date)
+      const formattedDate = this.formatDateToISO(date)
+      const [year, month, day] = formattedDate.split('-')
+      return `${month}/${day}/${year}`
+    },
+
+    parseDate(date) {
+      console.log("DATE PARSE METHOD: " + date)
+      if (!date) return null
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+
+    formatDateToISO(date) {
+      if (!(date instanceof Date)) date = new Date(date)
+      const year = date.getFullYear()
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
+      const day = `${date.getDate()}`.padStart(2, '0')
+      return `${year}-${month}-${day}`
     },
 
     getStatusColor(status) {
@@ -705,10 +731,12 @@ export default {
       this.applyFilters()
     },
 
+    // MAIN FETCH METHOD - RENAMED TO MATCH PATTERN
     async fetchData() {
       this.isloading = true
       const prodId = this.$route.params.id
-      console.log('product_id: ' + prodId)
+      console.log('Fetching data for product_id:', prodId)
+      console.log('Date range:', this.date, 'to', this.date2)
 
       try {
         const response = await this.$axios.get(
@@ -743,27 +771,14 @@ export default {
 
         this.calculateSummaryStats()
         this.applyFilters()
+        
+        console.log('Data loaded successfully:', this.loaddata.length, 'items')
       } catch (error) {
         this.message = error.message || 'Error loading data'
         console.log('Error: ' + error)
       }
 
       this.isloading = false
-    },
-
-    formatDate(date) {
-      if (!date) return null
-      if (typeof date === 'string' && date.includes('/')) return date
-
-      const formattedDate = this.formatDateToISO(date)
-      const [year, month, day] = formattedDate.split('-')
-      return `${day}/${month}/${year}`
-    },
-
-    parseDate(date) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
 
     exportToExcel() {
@@ -794,14 +809,6 @@ export default {
 
       const filename = `enhanced_stock_report_${this.date}_to_${this.date2}.xlsx`
       this.$xlsx.writeFile(workbook, filename)
-    },
-
-    formatDateToISO(date) {
-      if (!(date instanceof Date)) date = new Date(date)
-      const year = date.getFullYear()
-      const month = `${date.getMonth() + 1}`.padStart(2, '0')
-      const day = `${date.getDate()}`.padStart(2, '0')
-      return `${year}-${month}-${day}`
     },
 
     async delCard(id) {

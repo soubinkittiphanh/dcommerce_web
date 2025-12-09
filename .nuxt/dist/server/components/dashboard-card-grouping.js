@@ -1,7 +1,7 @@
 exports.ids = [52];
 exports.modules = {
 
-/***/ 1004:
+/***/ 1506:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20,16 +20,16 @@ var VCol = __webpack_require__(426);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(425);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardGrouping.vue?vue&type=template&id=64cde921
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardGrouping.vue?vue&type=template&id=d5ed0cf8
 
 
 
 
 
-var CardGroupingvue_type_template_id_64cde921_render = function render() {
+var CardGroupingvue_type_template_id_d5ed0cf8_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c(VCard["a" /* default */], {
+  return _c('div', [_vm._ssrNode("\n        GROUPING\n    "), _c(VCard["a" /* default */], {
     staticClass: "mx-auto",
     attrs: {
       "min-height": "100",
@@ -51,11 +51,11 @@ var CardGroupingvue_type_template_id_64cde921_render = function render() {
     attrs: {
       "cols": "6"
     }
-  }, [_vm._t("slot4")], 2)], 1)], 1)], 1)], 1);
+  }, [_vm._t("slot4")], 2)], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/dashboard/CardGrouping.vue?vue&type=template&id=64cde921
+// CONCATENATED MODULE: ./components/dashboard/CardGrouping.vue?vue&type=template&id=d5ed0cf8
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardGrouping.vue?vue&type=script&lang=js
 /* harmony default export */ var CardGroupingvue_type_script_lang_js = ({
@@ -80,7 +80,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   dashboard_CardGroupingvue_type_script_lang_js,
-  CardGroupingvue_type_template_id_64cde921_render,
+  CardGroupingvue_type_template_id_d5ed0cf8_render,
   staticRenderFns,
   false,
   null,

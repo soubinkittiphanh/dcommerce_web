@@ -1,369 +1,15 @@
-exports.ids = [209,41,52,53,56,57,98,101,102,127,130,131,325];
+exports.ids = [209,56,57,101,102,127,130,131,325];
 exports.modules = {
 
-/***/ 1003:
+/***/ 1001:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(426);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(424);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardOnTop.vue?vue&type=template&id=7da7ed0d&scoped=true
-
-
-
-
-
-
-var CardOnTopvue_type_template_id_7da7ed0d_scoped_true_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VContainer["a" /* default */], {
-    staticClass: "ma-0 pa-0"
-  }, [_c('div', [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "mx-auto mr-0",
-    attrs: {
-      "height": "60",
-      "width": "60",
-      "color": _vm.color
-    }
-  }, [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_vm._t("icon")], 2)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c('p', {
-    staticClass: "my-text-bold"
-  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c('p', {
-    staticClass: "my-text-bold"
-  }, [_vm._v(_vm._s(_vm.value))])])], 1)], 1)]);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/dashboard/CardOnTop.vue?vue&type=template&id=7da7ed0d&scoped=true
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardOnTop.vue?vue&type=script&lang=js
-/* harmony default export */ var CardOnTopvue_type_script_lang_js = ({
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    value: {
-      type: String,
-      default: 0
-    },
-    color: {
-      type: String,
-      default: "#26c6da"
-    }
-  },
-  data() {
-    return {
-      expand: false
-    };
-  }
-});
-// CONCATENATED MODULE: ./components/dashboard/CardOnTop.vue?vue&type=script&lang=js
- /* harmony default export */ var dashboard_CardOnTopvue_type_script_lang_js = (CardOnTopvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/dashboard/CardOnTop.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(740)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  dashboard_CardOnTopvue_type_script_lang_js,
-  CardOnTopvue_type_template_id_7da7ed0d_scoped_true_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "7da7ed0d",
-  "7b0f8b88"
-  
-)
-
-/* harmony default export */ var CardOnTop = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 1004:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(426);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardGrouping.vue?vue&type=template&id=64cde921
-
-
-
-
-
-var CardGroupingvue_type_template_id_64cde921_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c(VCard["a" /* default */], {
-    staticClass: "mx-auto",
-    attrs: {
-      "min-height": "100",
-      "color": "transparent"
-    }
-  }, [_c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_vm._t("slot1")], 2), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_vm._t("slot2")], 2)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_vm._t("slot3")], 2), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_vm._t("slot4")], 2)], 1)], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/dashboard/CardGrouping.vue?vue&type=template&id=64cde921
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/CardGrouping.vue?vue&type=script&lang=js
-/* harmony default export */ var CardGroupingvue_type_script_lang_js = ({
-  data() {
-    return {
-      // expand: false,
-    };
-  }
-});
-// CONCATENATED MODULE: ./components/dashboard/CardGrouping.vue?vue&type=script&lang=js
- /* harmony default export */ var dashboard_CardGroupingvue_type_script_lang_js = (CardGroupingvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/dashboard/CardGrouping.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  dashboard_CardGroupingvue_type_script_lang_js,
-  CardGroupingvue_type_template_id_64cde921_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "2be9f2e1"
-  
-)
-
-/* harmony default export */ var CardGrouping = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 1005:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(435);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/card/campaignCard.vue?vue&type=template&id=4ffc897b
-
-
-
-
-
-var campaignCardvue_type_template_id_4ffc897b_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_vm._v("\n            Campaign\n        ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_vm.campaignList ? _c(VDataTable["a" /* default */], {
-    attrs: {
-      "headers": _vm.headers,
-      "search": _vm.search,
-      "items": _vm.campaignList
-    }
-  }) : _vm._e()], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/card/campaignCard.vue?vue&type=template&id=4ffc897b
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/card/campaignCard.vue?vue&type=script&lang=js
-/* harmony default export */ var campaignCardvue_type_script_lang_js = ({
-  data() {
-    return {
-      campaignList: [],
-      search: '',
-      headers: [{
-        text: 'ຊື່ Campaign',
-        align: 'center',
-        value: 'title',
-        sortable: true
-      }, {
-        text: 'ສິນຄ້າ',
-        align: 'center',
-        value: 'pro_name'
-      }, {
-        text: 'ວັນທີເລີ່ມ',
-        align: 'center',
-        value: 'start'
-      }, {
-        text: 'ວັນທີສິ້ນສຸດ',
-        align: 'center',
-        value: 'end'
-      }, {
-        text: 'ເຂົ້າເຖິງ',
-        align: 'center',
-        value: 'reach'
-      }, {
-        text: 'ຄອມເມັ້ນ',
-        align: 'center',
-        value: 'comments'
-      }, {
-        text: 'Result',
-        align: 'center',
-        value: 'results'
-      }, {
-        text: 'ປິດການຂາຍ',
-        align: 'center',
-        value: 'closed'
-      }, {
-        text: 'ຍອດທີ່ຈ່າຍໄປ',
-        align: 'center',
-        value: 'budgetSpend'
-      }]
-    };
-  },
-  async mounted() {
-    await this.loadCampaignData();
-  },
-  methods: {
-    async loadCampaignData() {
-      this.isloading = true;
-      await this.$axios.get("/api/campaign/find_summary").then(response => {
-        this.campaignList = response.data.rows.map(el => {
-          return el;
-        });
-        for (const iterator of this.campaignList) {
-          iterator.start = iterator.start.split('T')[0];
-          iterator.end = iterator.end.split('T')[0];
-        }
-        this.headers.length = 0;
-        // for (const iterator of response.data.fieldList) {
-        //     this.headers.push(
-        //         {
-        //             text: iterator,
-        //             align: 'end',
-        //             value: iterator,
-        //             sortable: true,
-        //         },
-        //     )
-        // }
-      }).catch(error => {
-        console.log("Error ", error);
-      });
-      this.isloading = false;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/card/campaignCard.vue?vue&type=script&lang=js
- /* harmony default export */ var card_campaignCardvue_type_script_lang_js = (campaignCardvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/card/campaignCard.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  card_campaignCardvue_type_script_lang_js,
-  campaignCardvue_type_template_id_4ffc897b_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "32ddc7bc"
-  
-)
-
-/* harmony default export */ var campaignCard = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 1006:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
+var VAvatar = __webpack_require__(120);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(123);
@@ -374,22 +20,16 @@ var components_VCard = __webpack_require__(3);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(127);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(426);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(61);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(493);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(425);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
-var VRadio = __webpack_require__(422);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
-var VRadioGroup = __webpack_require__(421);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menu/index.vue?vue&type=template&id=8df4f1be
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menuOverview/index.vue?vue&type=template&id=1c25764e
 
 
 
@@ -398,107 +38,86 @@ var VRadioGroup = __webpack_require__(421);
 
 
 
-
-
-
-
-var menuvue_type_template_id_8df4f1be_render = function render() {
+var menuOverviewvue_type_template_id_1c25764e_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c(VDialog["a" /* default */], {
+  return _c(VCard["a" /* default */], {
     attrs: {
-      "scrollable": "",
-      "max-width": "1200",
-      "persistent": ""
-    },
-    model: {
-      value: _vm.terminalDialog,
-      callback: function ($$v) {
-        _vm.terminalDialog = $$v;
-      },
-      expression: "terminalDialog"
+      "outlined": ""
     }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_vm._v("ເລືອກ Terminal")]), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+  }, [_c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     staticStyle: {
-      "height": "300px"
-    }
-  }, [_c(VRadioGroup["a" /* default */], {
-    attrs: {
-      "column": ""
+      "text-align": "left"
     },
-    model: {
-      value: _vm.terminalSelected,
-      callback: function ($$v) {
-        _vm.terminalSelected = $$v;
-      },
-      expression: "terminalSelected"
+    attrs: {
+      "cols": "3"
     }
-  }, _vm._l(_vm.findAllTerminal, function (terminal) {
-    return _c(VRadio["a" /* default */], {
-      key: terminal.id,
-      attrs: {
-        "label": terminal.name + ' - ' + terminal.description,
-        "value": terminal.id
-      }
-    });
-  }), 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
+  }, [_c(VAvatar["a" /* default */], {
     attrs: {
       "color": "primary",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.takeToPOS
+      "size": "50"
     }
-  }, [_vm._v("\n                    ເລືອກ\n                ")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VHover["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "open-delay": "100"
+      "dark": "",
+      "size": "30"
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.icon) + "\n          ")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "pt-0",
+    staticStyle: {
+      "text-align": "right"
     },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function ({
-        hover
-      }) {
-        return [_c(VCard["a" /* default */], {
-          attrs: {
-            "elevation": hover ? 16 : 0,
-            "outlined": ""
-          },
-          on: {
-            "click": _vm.takeMeTo
-          }
-        }, [_c(components_VCard["c" /* VCardText */], {
-          staticClass: "text-center"
-        }, [_c('div', [_vm._t("iconSlot")], 2), _vm._v(" "), _c('div', {
-          staticClass: "font-weight-meduim primary--text"
-        }, [_c(VChip["a" /* default */], {
-          staticClass: "ma-2",
-          staticStyle: {
-            "background-color": "transparent",
-            "outline": "1px solid gray"
-          },
-          attrs: {
-            "variant": "outlined"
-          }
-        }, [_vm._v("\n                        " + _vm._s(_vm.title) + "\n                    ")])], 1)])], 1)];
+    attrs: {
+      "cols": "9"
+    }
+  }, [_c(VRow["a" /* default */], {
+    staticStyle: {
+      "text-align": "right"
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticStyle: {
+      "font-size": "larger",
+      "font-weight": "bold",
+      "font-family": "Arial, Helvetica, sans-serif"
+    },
+    attrs: {
+      "cols": "12"
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.total) + "\n          ")]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, _vm._l(_vm.groupedSales, function (details, paymentCode) {
+    return _c(VCard["a" /* default */], {
+      key: paymentCode,
+      staticClass: "mx-auto",
+      attrs: {
+        "max-width": "344",
+        "outlined": ""
       }
-    }], null, true)
-  })], 2);
+    }, [_c(components_VCard["c" /* VCardText */], [_vm._v("\n                " + _vm._s(paymentCode)), _c('br'), _vm._v(" "), _c(VChip["a" /* default */], {
+      attrs: {
+        "color": "grey",
+        "text-color": "white"
+      }
+    }, [_vm._v("\n                  " + _vm._s(details.totalSales.toLocaleString()) + " /\n                  " + _vm._s(details.count) + "\n                  "), _c(VIcon["a" /* default */], {
+      attrs: {
+        "size": "14"
+      }
+    }, [_vm._v("mdi-invoice-list-outline")])], 1)], 1)], 1);
+  }), 1)], 1), _vm._v(" "), _c(VRow["a" /* default */])], 1)], 1)], 1)], 1);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/menu/index.vue?vue&type=template&id=8df4f1be
+// CONCATENATED MODULE: ./components/menuOverview/index.vue?vue&type=template&id=1c25764e
 
-// EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(14);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menu/index.vue?vue&type=script&lang=js
-
-/* harmony default export */ var menuvue_type_script_lang_js = ({
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menuOverview/index.vue?vue&type=script&lang=js
+/* harmony default export */ var menuOverviewvue_type_script_lang_js = ({
   name: 'menu-card',
-  components: {
-    // MySvgIcon
-  },
   props: {
     title: {
       type: String,
@@ -511,42 +130,33 @@ var external_vuex_ = __webpack_require__(14);
     icon: {
       type: String,
       default: ''
+    },
+    total: {
+      type: String,
+      default: ''
+    },
+    groupedSales: {
+      type: Object,
+      default: () => ({})
     }
   },
   data() {
     return {
-      imageSvg: __webpack_require__(642),
-      imageSrc: __webpack_require__(197),
-      terminalDialog: false,
-      terminalSelected: this.findSelectedTerminal || 1
+      imageSrc: __webpack_require__(198)
     };
   },
-  computed: {
-    ...Object(external_vuex_["mapGetters"])(['findAllTerminal', 'findSelectedTerminal'])
-  },
   methods: {
-    ...Object(external_vuex_["mapActions"])(['setSelectedTerminal']),
     takeMeTo() {
-      if (this.path.includes('/pos') && !this.findSelectedTerminal) {
-        this.terminalDialog = true;
-        console.log(`PATH ${this.path}`);
-      } else {
-        this.$router.push(this.path);
-      }
-    },
-    takeToPOS() {
-      this.setSelectedTerminal(this.terminalSelected);
-      this.terminalDialog = false;
       this.$router.push(this.path);
     }
   }
 });
-// CONCATENATED MODULE: ./components/menu/index.vue?vue&type=script&lang=js
- /* harmony default export */ var components_menuvue_type_script_lang_js = (menuvue_type_script_lang_js); 
+// CONCATENATED MODULE: ./components/menuOverview/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_menuOverviewvue_type_script_lang_js = (menuOverviewvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(10);
 
-// CONCATENATED MODULE: ./components/menu/index.vue
+// CONCATENATED MODULE: ./components/menuOverview/index.vue
 
 
 
@@ -558,63 +168,91 @@ function injectStyles (context) {
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  components_menuvue_type_script_lang_js,
-  menuvue_type_template_id_8df4f1be_render,
+  components_menuOverviewvue_type_script_lang_js,
+  menuOverviewvue_type_template_id_1c25764e_render,
   staticRenderFns,
   false,
   injectStyles,
   null,
-  "5c4a1195"
+  "91e44424"
   
 )
 
-/* harmony default export */ var menu = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var menuOverview = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ 1050:
+/***/ 1045:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier_2.208aede.svg";
 
 /***/ }),
 
-/***/ 1051:
+/***/ 1046:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/invoice.45f420f.svg";
 
 /***/ }),
 
-/***/ 1052:
+/***/ 1047:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/pay-card.8fb80cc.svg";
 
 /***/ }),
 
-/***/ 1053:
+/***/ 1048:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/stock.b6becdb.svg";
 
 /***/ }),
 
-/***/ 1054:
+/***/ 1049:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/responsive.bfad449.svg";
 
 /***/ }),
 
-/***/ 1055:
+/***/ 1050:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/patient.1cdc99c.svg";
 
 /***/ }),
 
-/***/ 1356:
+/***/ 1051:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_43b613b9_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(856);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_43b613b9_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_43b613b9_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_43b613b9_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_43b613b9_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1052:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".modern-dashboard[data-v-43b613b9]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);font-family:\"Inter\",\"Noto Sans Lao\",sans-serif;min-height:100vh}.loading-container[data-v-43b613b9]{align-items:center;background:#fff;border-radius:16px;box-shadow:0 20px 25px -5px rgba(0,0,0,.1);display:flex;flex-direction:column;padding:2rem}.loading-spinner[data-v-43b613b9]{animation:spin-43b613b9 1s linear infinite;border:3px solid #f3f4f6;border-radius:50%;border-top-color:#667eea;height:40px;margin-bottom:1rem;width:40px}@keyframes spin-43b613b9{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.loading-text[data-v-43b613b9]{color:#6b7280;font-weight:500;margin:0}.terminal-dialog[data-v-43b613b9]{border-radius:16px!important;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)!important;overflow:hidden}.dialog-header[data-v-43b613b9]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;justify-content:space-between;padding:1.5rem 2rem}.dialog-header h3[data-v-43b613b9]{font-size:1.25rem;font-weight:600;margin:0}.dialog-content[data-v-43b613b9]{max-height:400px;overflow-y:auto;padding:1.5rem 2rem}.custom-radio-group .v-input[data-v-43b613b9]{margin:0}.terminal-option[data-v-43b613b9]{align-items:center;background:#fff;border:2px solid #f3f4f6;border-radius:12px;cursor:pointer;display:flex;justify-content:space-between;margin-bottom:.75rem;padding:1rem;transition:all .2s ease}.terminal-option[data-v-43b613b9]:hover{border-color:#667eea;box-shadow:0 4px 12px rgba(102,126,234,.15);transform:translateY(-2px)}.terminal-option.selected[data-v-43b613b9]{background:rgba(102,126,234,.05);border-color:#667eea}.terminal-option .hidden[data-v-43b613b9]{display:none}.terminal-info h4[data-v-43b613b9]{color:#1f2937;font-weight:600;margin:0 0 .25rem}.terminal-info p[data-v-43b613b9]{color:#6b7280;font-size:.875rem;margin:0}.dialog-actions[data-v-43b613b9]{background:#f9fafb;display:flex;justify-content:flex-end;padding:1.5rem 2rem}.primary-button[data-v-43b613b9]{background:linear-gradient(135deg,#667eea,#764ba2)!important;border-radius:8px!important;box-shadow:0 4px 12px rgba(102,126,234,.4)!important;color:#fff!important;font-weight:600!important;height:44px!important;padding:0 2rem!important;text-transform:none!important;transition:all .2s ease!important}.primary-button[data-v-43b613b9]:hover{box-shadow:0 8px 20px rgba(102,126,234,.6)!important;transform:translateY(-2px)}.primary-button[data-v-43b613b9]:disabled{box-shadow:none!important;opacity:.6;transform:none!important}.dashboard-container[data-v-43b613b9]{margin:0 auto;max-width:1400px;padding:2rem}.dashboard-header[data-v-43b613b9]{align-items:flex-end;display:flex;justify-content:space-between;margin-bottom:3rem;padding:2rem 0}.header-content[data-v-43b613b9]{flex:1}.dashboard-title[data-v-43b613b9]{background:linear-gradient(135deg,#1f2937,#667eea);-webkit-background-clip:text;color:#1f2937;font-size:2.5rem;font-weight:700;margin:0 0 .5rem;-webkit-text-fill-color:transparent;background-clip:text}.dashboard-subtitle[data-v-43b613b9]{color:#6b7280;font-size:1.125rem;font-weight:400;margin:0}.header-actions[data-v-43b613b9]{gap:1rem}.date-display[data-v-43b613b9],.header-actions[data-v-43b613b9]{align-items:center;display:flex}.date-display[data-v-43b613b9]{background:#fff;border-radius:12px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);color:#6b7280;font-weight:500;gap:.5rem;padding:.75rem 1rem}.section-header[data-v-43b613b9]{margin-bottom:2rem}.section-title[data-v-43b613b9]{color:#1f2937;font-size:1.75rem;font-weight:600;margin:0 0 .5rem}.section-description[data-v-43b613b9]{color:#6b7280;font-size:1rem;margin:0}.quick-actions-section[data-v-43b613b9]{margin-bottom:4rem}.quick-actions-grid[data-v-43b613b9]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:1.5rem;gap:1.5rem}.action-card[data-v-43b613b9]{background:#fff;border:1px solid #f3f4f6;border-radius:16px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);cursor:pointer;overflow:hidden;padding:2rem;position:relative;transition:all .3s ease}.action-card[data-v-43b613b9]:hover{box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);transform:translateY(-8px)}.action-card:hover .card-overlay[data-v-43b613b9]{opacity:1}.card-overlay[data-v-43b613b9]{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));bottom:0;left:0;opacity:0;pointer-events:none;position:absolute;right:0;top:0;transition:opacity .3s ease}.card-icon[data-v-43b613b9]{align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;display:flex;height:64px;justify-content:center;margin-bottom:1.5rem;padding:1rem;width:64px}.card-icon img[data-v-43b613b9]{filter:brightness(0) invert(1);height:32px;width:32px}.card-content[data-v-43b613b9]{align-items:center;display:flex;justify-content:space-between}.card-content h3[data-v-43b613b9]{color:#1f2937;flex:1;font-size:1.125rem;font-weight:600;margin:0}.arrow-icon[data-v-43b613b9]{color:#6b7280;transition:transform .3s ease}.action-card:hover .arrow-icon[data-v-43b613b9]{color:#667eea;transform:translateX(4px)}.kpi-section[data-v-43b613b9]{margin-bottom:4rem}.kpi-grid[data-v-43b613b9]{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));grid-gap:1.5rem;gap:1.5rem}.kpi-card[data-v-43b613b9]{background:#fff;border:1px solid #f3f4f6;border-radius:16px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);overflow:hidden;padding:2rem;position:relative;transition:all .3s ease}.kpi-card[data-v-43b613b9]:before{content:\"\";height:4px;left:0;position:absolute;right:0;top:0}.kpi-card--0[data-v-43b613b9]:before,.kpi-card[data-v-43b613b9]:before{background:linear-gradient(90deg,#667eea,#764ba2)}.kpi-card--1[data-v-43b613b9]:before{background:linear-gradient(90deg,#f093fb,#f5576c)}.kpi-card--2[data-v-43b613b9]:before{background:linear-gradient(90deg,#4facfe,#00f2fe)}.kpi-card[data-v-43b613b9]:hover{box-shadow:0 12px 20px -5px rgba(0,0,0,.15);transform:translateY(-4px)}.kpi-header[data-v-43b613b9]{justify-content:space-between;margin-bottom:1rem}.kpi-header[data-v-43b613b9],.kpi-icon[data-v-43b613b9]{align-items:center;display:flex}.kpi-icon[data-v-43b613b9]{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;color:#fff;height:48px;justify-content:center;width:48px}.kpi-trend[data-v-43b613b9]{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #10b981;border-radius:10px;box-shadow:0 2px 4px rgba(16,185,129,.1);padding:.5rem}.kpi-content[data-v-43b613b9]{flex:1}.kpi-title[data-v-43b613b9]{color:#6b7280;font-size:.875rem;font-weight:500;margin:0 0 .5rem}.kpi-value[data-v-43b613b9]{color:#1f2937;font-size:2rem;font-weight:700;margin-bottom:1rem}.payment-breakdown[data-v-43b613b9]{border-top:1px solid #f3f4f6;padding-top:1rem}.payment-item[data-v-43b613b9]{align-items:center;border-bottom:1px solid #f9fafb;display:flex;justify-content:space-between;padding:.5rem 0}.payment-item[data-v-43b613b9]:last-child{border-bottom:none}.payment-method[data-v-43b613b9]{color:#6b7280;font-size:.875rem;font-weight:500}.payment-amount[data-v-43b613b9]{color:#1f2937;font-size:.875rem;font-weight:600}.analytics-section[data-v-43b613b9]{margin-bottom:4rem}.analytics-grid[data-v-43b613b9]{display:grid;grid-template-columns:repeat(12,1fr);grid-gap:1.5rem;gap:1.5rem}.chart-card[data-v-43b613b9]{background:#fff;border:1px solid #f3f4f6;border-radius:16px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);overflow:hidden;transition:all .3s ease}.chart-card[data-v-43b613b9]:hover{box-shadow:0 12px 20px -5px rgba(0,0,0,.15)}.chart-card--large[data-v-43b613b9]{grid-column:span 8}.chart-card--small[data-v-43b613b9]{grid-column:span 4}.chart-card[data-v-43b613b9]:not(.chart-card--large):not(.chart-card--small){grid-column:span 6}@media (max-width:1024px){.chart-card[data-v-43b613b9],.chart-card--large[data-v-43b613b9],.chart-card--small[data-v-43b613b9]{grid-column:span 12}}.chart-header[data-v-43b613b9]{align-items:center;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;margin-bottom:1rem;padding:1.5rem 2rem 0}.chart-header h3[data-v-43b613b9]{color:#1f2937;font-size:1.125rem;font-weight:600;margin:0}.chart-period[data-v-43b613b9]{background:#f9fafb;border-radius:6px;color:#6b7280;font-size:.875rem;font-weight:500;padding:.25rem .75rem}.chart-container[data-v-43b613b9]{padding:0 2rem 2rem}.echarts-container[data-v-43b613b9]{height:400px;width:100%}.inventory-section[data-v-43b613b9]{margin-bottom:2rem}.inventory-container[data-v-43b613b9]{background:#fff;border:1px solid #f3f4f6;border-radius:16px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}@media (max-width:768px){.dashboard-container[data-v-43b613b9]{padding:1rem}.dashboard-header[data-v-43b613b9]{align-items:flex-start;flex-direction:column;gap:1rem}.dashboard-title[data-v-43b613b9]{font-size:2rem}.quick-actions-grid[data-v-43b613b9]{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.kpi-grid[data-v-43b613b9]{grid-template-columns:1fr}.section-title[data-v-43b613b9]{font-size:1.5rem}}@media (max-width:480px){.action-card[data-v-43b613b9],.kpi-card[data-v-43b613b9]{padding:1.5rem}.card-icon[data-v-43b613b9]{height:56px;width:56px}.kpi-value[data-v-43b613b9]{font-size:1.75rem}.chart-header[data-v-43b613b9]{padding:1rem 1.5rem 0}.chart-container[data-v-43b613b9]{padding:0 1.5rem 1.5rem}}@keyframes slideInUp-43b613b9{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.action-card[data-v-43b613b9],.chart-card[data-v-43b613b9],.kpi-card[data-v-43b613b9]{animation:slideInUp-43b613b9 .6s ease-out}.action-card[data-v-43b613b9]:first-child{animation-delay:.1s}.action-card[data-v-43b613b9]:nth-child(2){animation-delay:.2s}.action-card[data-v-43b613b9]:nth-child(3){animation-delay:.3s}.action-card[data-v-43b613b9]:nth-child(4){animation-delay:.4s}.action-card[data-v-43b613b9]:nth-child(5){animation-delay:.5s}.action-card[data-v-43b613b9]:nth-child(6){animation-delay:.6s}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1355:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -627,17 +265,11 @@ var VBtn = __webpack_require__(126);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(123);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(426);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+var VDialog = __webpack_require__(400);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
 var VRadio = __webpack_require__(422);
@@ -645,10 +277,7 @@ var VRadio = __webpack_require__(422);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
 var VRadioGroup = __webpack_require__(421);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/index.vue?vue&type=template&id=222987c5
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/index.vue?vue&type=template&id=43b613b9&scoped=true
 
 
 
@@ -656,19 +285,11 @@ var VRow = __webpack_require__(425);
 
 
 
-
-
-
-
-
-var adminvue_type_template_id_222987c5_render = function render() {
+var adminvue_type_template_id_43b613b9_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "ma-0",
-    staticStyle: {
-      "background": "#eff2f9"
-    }
+    staticClass: "modern-dashboard"
   }, [_c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
@@ -682,10 +303,16 @@ var adminvue_type_template_id_222987c5_render = function render() {
       },
       expression: "isloading"
     }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "loading-container"
+  }, [_c('div', {
+    staticClass: "loading-spinner"
+  }), _vm._v(" "), _c('p', {
+    staticClass: "loading-text"
+  }, [_vm._v("Loading...")])])]), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "scrollable": "",
-      "max-width": "1200",
+      "max-width": "500",
       "persistent": ""
     },
     model: {
@@ -695,14 +322,24 @@ var adminvue_type_template_id_222987c5_render = function render() {
       },
       expression: "terminalDialog"
     }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_vm._v("ເລືອກ Terminal")]), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticStyle: {
-      "height": "300px"
-    }
-  }, [_c(VRadioGroup["a" /* default */], {
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "terminal-dialog"
+  }, [_c('div', {
+    staticClass: "dialog-header"
+  }, [_c('h3', [_vm._v("ເລືອກ Terminal")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
-      "column": ""
+      "icon": "",
+      "small": ""
     },
+    on: {
+      "click": function ($event) {
+        _vm.terminalDialog = false;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "dialog-content"
+  }, [_c(VRadioGroup["a" /* default */], {
+    staticClass: "custom-radio-group",
     model: {
       value: _vm.terminalSelected,
       callback: function ($$v) {
@@ -711,146 +348,83 @@ var adminvue_type_template_id_222987c5_render = function render() {
       expression: "terminalSelected"
     }
   }, _vm._l(_vm.findAllTerminal, function (terminal) {
-    return _c(VRadio["a" /* default */], {
+    return _c('div', {
       key: terminal.id,
+      staticClass: "terminal-option",
+      class: {
+        'selected': _vm.terminalSelected === terminal.id
+      },
+      on: {
+        "click": function ($event) {
+          _vm.terminalSelected = terminal.id;
+        }
+      }
+    }, [_c(VRadio["a" /* default */], {
+      staticClass: "hidden",
       attrs: {
-        "label": terminal.name + ' - ' + terminal.description,
         "value": terminal.id
       }
-    });
-  }), 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
+    }), _vm._v(" "), _c('div', {
+      staticClass: "terminal-info"
+    }, [_c('h4', [_vm._v(_vm._s(terminal.name))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(terminal.description))])]), _vm._v(" "), _vm.terminalSelected === terminal.id ? _c(VIcon["a" /* default */], {
+      attrs: {
+        "color": "primary"
+      }
+    }, [_vm._v("mdi-check-circle")]) : _vm._e()], 1);
+  }), 0)], 1), _vm._v(" "), _c('div', {
+    staticClass: "dialog-actions"
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "primary-button",
     attrs: {
-      "color": "primary",
-      "rounded": "",
-      "variant": "text"
+      "disabled": !_vm.terminalSelected
     },
     on: {
       "click": _vm.chooseTerminal
     }
-  }, [_vm._v("\n          ເລືອກ\n        ")])], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"mb-1\">", "</div>", [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    staticStyle: {
-      "background-color": "transparent"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticStyle: {
-      "font-weight": "bold",
-      "font-family": "Arial, Helvetica, sans-serif"
-    }
-  }, [_vm._v("\n        SHORTCUT\n      ")]), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": 12
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, _vm._l(_vm.menus, function (item, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "col-12 col-md-4 col-sm-6 col-xs-6 text-center"
-    }, [_c('Menu', {
+  }, [_vm._v("\n          ເລືອກ Terminal\n        ")])], 1)])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"dashboard-container\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"dashboard-header\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-43b613b9><h1 class=\"dashboard-title\" data-v-43b613b9>Dashboard Overview</h1> <p class=\"dashboard-subtitle\" data-v-43b613b9>Real-time business insights and analytics</p></div> "), _vm._ssrNode("<div class=\"header-actions\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"date-display\" data-v-43b613b9>", "</div>", [_c(VIcon["a" /* default */], [_vm._v("mdi-calendar")]), _vm._ssrNode(" <span data-v-43b613b9>" + _vm._ssrEscape(_vm._s(_vm.currentDate)) + "</span>")], 2)])], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"quick-actions-section\" data-v-43b613b9>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-43b613b9><h2 class=\"section-title\" data-v-43b613b9>Quick Actions</h2> <p class=\"section-description\" data-v-43b613b9>Access your most used features</p></div> "), _vm._ssrNode("<div class=\"quick-actions-grid\" data-v-43b613b9>", "</div>", _vm._l(_vm.menus, function (item, index) {
+    return _vm._ssrNode("<div class=\"action-card\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"card-icon\" data-v-43b613b9><img" + _vm._ssrAttr("src", item.svgIcon) + " alt data-v-43b613b9></div> "), _vm._ssrNode("<div class=\"card-content\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<h3 data-v-43b613b9>" + _vm._ssrEscape(_vm._s(item.title)) + "</h3> "), _c(VIcon["a" /* default */], {
+      staticClass: "arrow-icon"
+    }, [_vm._v("mdi-arrow-right")])], 2), _vm._ssrNode(" <div class=\"card-overlay\" data-v-43b613b9></div>")], 2);
+  }), 0)], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"kpi-section\" data-v-43b613b9>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-43b613b9><h2 class=\"section-title\" data-v-43b613b9>Sales Overview</h2> <p class=\"section-description\" data-v-43b613b9>Track your performance metrics</p></div> "), _vm._ssrNode("<div class=\"kpi-grid\" data-v-43b613b9>", "</div>", _vm._l(_vm.menusOverview, function (item, index) {
+    return _vm._ssrNode("<div" + _vm._ssrClass("kpi-card", `kpi-card--${index}`) + " data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"kpi-header\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"kpi-icon\" data-v-43b613b9>", "</div>", [_c(VIcon["a" /* default */], [_vm._v(_vm._s(item.icon))])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"kpi-trend\" data-v-43b613b9>", "</div>", [_c(VIcon["a" /* default */], {
       attrs: {
-        "title": item.title,
-        "icon": item.icon,
-        "path": item.path
-      },
-      scopedSlots: _vm._u([{
-        key: "iconSlot",
-        fn: function () {
-          return [_c('img', {
-            attrs: {
-              "src": item.svgIcon,
-              "height": "80"
-            }
-          })];
-        },
-        proxy: true
-      }], null, true)
-    })], 1);
-  }), 0)])], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"mb-1\">", "</div>", [_c(VCard["a" /* default */], {
-    staticClass: "pa-1",
-    staticStyle: {
-      "background-color": "transparent"
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticStyle: {
-      "font-weight": "bold",
-      "font-family": "Arial, Helvetica, sans-serif"
-    }
-  }, [_vm._v("\n        OVERVIEW\n      ")]), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": 12
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, _vm._l(_vm.menusOverview, function (item, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "col-12 col-md-4 col-sm-6 col-xs-6"
-    }, [_c('MenuOverview', {
-      attrs: {
-        "title": item.title,
-        "icon": item.icon,
-        "path": item.path,
-        "total": item.total,
-        "groupedSales": item.groupedSales
+        "size": "18",
+        "color": "#10B981"
       }
-    })], 1);
-  }), 0)])], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"mb-2 pa-0\">", "</div>", [_c(VRow["a" /* default */], {
-    staticClass: "p-0"
-  }, [_c(VCol["a" /* default */], {
+    }, [_vm._v("mdi-trending-up")])], 1)], 2), _vm._ssrNode(" <div class=\"kpi-content\" data-v-43b613b9><h3 class=\"kpi-title\" data-v-43b613b9>" + _vm._ssrEscape(_vm._s(item.title)) + "</h3> <div class=\"kpi-value\" data-v-43b613b9>" + _vm._ssrEscape(_vm._s(item.total)) + "</div> " + (item.groupedSales && Object.keys(item.groupedSales).length > 0 ? "<div class=\"payment-breakdown\" data-v-43b613b9>" + _vm._ssrList(item.groupedSales, function (payment, code) {
+      return "<div class=\"payment-item\" data-v-43b613b9><span class=\"payment-method\" data-v-43b613b9>" + _vm._ssrEscape(_vm._s(payment.paymentName)) + "</span> <span class=\"payment-amount\" data-v-43b613b9>" + _vm._ssrEscape(_vm._s(_vm.numberFormatter(payment.totalSales))) + "</span></div>";
+    }) + "</div>" : "<!---->") + "</div>")], 2);
+  }), 0)], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"analytics-section\" data-v-43b613b9>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-43b613b9><h2 class=\"section-title\" data-v-43b613b9>Analytics Dashboard</h2> <p class=\"section-description\" data-v-43b613b9>Detailed insights into your business performance</p></div> "), _vm._ssrNode("<div class=\"analytics-grid\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"chart-card chart-card--large\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<h3 data-v-43b613b9>ສິນຄ້າຂາຍດີຕາມໝວດ</h3> "), _c(VBtn["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "icon": "",
+      "small": ""
     }
-  }), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-dots-horizontal")])], 1)], 2), _vm._ssrNode(" <div class=\"chart-container\" data-v-43b613b9><div class=\"echarts-container\" data-v-43b613b9></div></div>")], 2), _vm._ssrNode(" "), _vm.dailyState ? _vm._ssrNode("<div class=\"chart-card\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-43b613b9><h3 data-v-43b613b9>Daily Sales Trend</h3> <div class=\"chart-period\" data-v-43b613b9>This Month</div></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-43b613b9>", "</div>", [_c('apexchart', {
     attrs: {
-      "cols": "3"
-    }
-  }), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "3"
-    }
-  })], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"mb-1\">", "</div>", [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "md": "6",
-      "sm": "6",
-      "xl": "6"
-    }
-  }, [_c(VCard["a" /* default */], [_c('div', {
-    ref: "chart",
-    staticStyle: {
-      "width": "100%",
-      "height": "400px"
-    }
-  })])], 1), _vm._v(" "), _vm.dailyState ? _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "md": "6",
-      "sm": "6",
-      "xl": "6"
-    }
-  }, [_c(VCard["a" /* default */], [_c('apexchart', {
-    attrs: {
+      "type": "line",
+      "height": "300",
       "options": _vm.barOptionsForDailyStat,
       "series": _vm.barSeriesForDailyStat
     }
-  })], 1)], 1) : _vm._e()], 1)], 1), _vm._ssrNode(" "), _vm.dailyState ? _vm._ssrNode("<div class=\"mb-1\">", "</div>", [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  })], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"chart-card chart-card--small\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-43b613b9><h3 data-v-43b613b9>Payment Methods</h3></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-43b613b9>", "</div>", [_c('apexchart', {
     attrs: {
-      "cols": "6",
-      "md": "6",
-      "sm": "6",
-      "xl": "6"
+      "type": "donut",
+      "height": "250",
+      "options": _vm.options,
+      "series": _vm.paymentSeries
     }
-  }, [_c(VCard["a" /* default */], [_c('apexchart', {
+  })], 1)], 2), _vm._ssrNode(" "), _vm.dailyState ? _vm._ssrNode("<div class=\"chart-card\" data-v-43b613b9>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-43b613b9><h3 data-v-43b613b9>Monthly Overview</h3> <div class=\"chart-period\" data-v-43b613b9>" + _vm._ssrEscape(_vm._s(new Date().getFullYear())) + "</div></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-43b613b9>", "</div>", [_c('apexchart', {
     attrs: {
+      "type": "line",
+      "height": "300",
       "options": _vm.barOptionsForMonthlyStat,
       "series": _vm.barSeriesForMonthlyStat
     }
-  })], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div>", "</div>", [_vm.currentSelectedLocation ? _c('MinStockCard') : _vm._e()], 1)], 2);
+  })], 1)], 2) : _vm._e()], 2)], 2), _vm._ssrNode(" "), _vm.currentSelectedLocation ? _vm._ssrNode("<section class=\"inventory-section\" data-v-43b613b9>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-43b613b9><h2 class=\"section-title\" data-v-43b613b9>Inventory Alerts</h2> <p class=\"section-description\" data-v-43b613b9>Monitor low stock items</p></div> "), _vm._ssrNode("<div class=\"inventory-container\" data-v-43b613b9>", "</div>", [_c('MinStockCard')], 1)], 2) : _vm._e()], 2)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/index.vue?vue&type=template&id=222987c5
+// CONCATENATED MODULE: ./pages/admin/index.vue?vue&type=template&id=43b613b9&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -858,20 +432,11 @@ var common = __webpack_require__(7);
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(41);
 
-// EXTERNAL MODULE: ./components/dashboard/CardOnTop.vue + 4 modules
-var CardOnTop = __webpack_require__(1003);
-
-// EXTERNAL MODULE: ./components/dashboard/CardGrouping.vue + 4 modules
-var CardGrouping = __webpack_require__(1004);
-
-// EXTERNAL MODULE: ./components/card/campaignCard.vue + 4 modules
-var campaignCard = __webpack_require__(1005);
-
 // EXTERNAL MODULE: ./components/minStockCard/index.vue + 4 modules
-var minStockCard = __webpack_require__(838);
+var minStockCard = __webpack_require__(835);
 
 // EXTERNAL MODULE: ./components/menuOverview/index.vue + 4 modules
-var menuOverview = __webpack_require__(839);
+var menuOverview = __webpack_require__(1001);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -886,16 +451,8 @@ var external_echarts_ = __webpack_require__(407);
 
 
 
-
-
-// import ECharts from 'echarts'
-// import { ECharts } from 'echarts'
-
 /* harmony default export */ var adminvue_type_script_lang_js = ({
   components: {
-    CardOnTop: CardOnTop["default"],
-    CampaignCard: campaignCard["default"],
-    CardGrouping: CardGrouping["default"],
     MenuOverview: menuOverview["default"],
     MinStockCard: minStockCard["default"]
   },
@@ -904,133 +461,190 @@ var external_echarts_ = __webpack_require__(407);
     return {
       terminalDialog: false,
       terminalSelected: null,
-      // displayMinstock:false,
+      currentDate: new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }),
+      // Chart configurations
       barOptionsForMonthlyStat: {
-        colors: [],
+        colors: ['#10B981'],
+        // Bright green for better visibility
         chart: {
           type: 'line',
-          height: 'auto'
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: true
+          height: 'auto',
+          toolbar: {
+            show: false
           },
-          dataLabels: {
-            style: {
-              fontSize: '12px'
-            },
-            formatter: function (val) {
-              return val.toFixed(2);
-            }
+          background: 'transparent'
+        },
+        stroke: {
+          curve: 'smooth',
+          width: 4,
+          // Increased from 3 to 4
+          dashArray: 0
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.4,
+            // Increased opacity
+            opacityTo: 0.1,
+            stops: [0, 90, 100]
+          }
+        },
+        markers: {
+          size: 5,
+          colors: ['#10B981'],
+          strokeColors: '#fff',
+          strokeWidth: 2,
+          hover: {
+            size: 7
           }
         },
         dataLabels: {
-          enabled: true
+          enabled: false
         },
         xaxis: {
           categories: [],
-          style: {
-            fontFamily: 'noto sans lao',
-            fontSize: '16',
-            fontWeight: 'bold'
+          labels: {
+            style: {
+              fontFamily: 'Noto Sans Lao, sans-serif',
+              fontSize: '12px',
+              colors: '#6B7280'
+            }
+          },
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false
           }
         },
         yaxis: {
           title: {
-            text: 'Sales (in thousands)'
+            text: ''
           },
           labels: {
             formatter: function (value) {
-              return value.toLocaleString(); // use toLocaleString() method to format numbers with 1000 separators
+              return value.toLocaleString();
+            },
+            style: {
+              colors: '#6B7280',
+              fontSize: '12px'
             }
           }
         },
-        title: {
-          text: 'ສະຖິຕິການຂາຍໃນປີ',
+        grid: {
+          show: true,
+          borderColor: '#F3F4F6',
+          strokeDashArray: 0,
+          position: 'back',
+          xaxis: {
+            lines: {
+              show: false
+            }
+          },
+          yaxis: {
+            lines: {
+              show: true
+            }
+          }
+        },
+        tooltip: {
+          theme: 'light',
           style: {
-            fontFamily: 'noto sans lao',
-            fontSize: '16',
-            fontWeight: 'bold'
+            fontSize: '12px',
+            fontFamily: 'Noto Sans Lao, sans-serif'
+          }
+        },
+        title: {
+          text: '',
+          style: {
+            fontFamily: 'Noto Sans Lao, sans-serif',
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#1F2937'
           }
         }
       },
       barSeriesForMonthlyStat: [{
+        name: 'Sales',
         data: []
       }],
       menus: [{
         title: 'POS',
-        // icon: 'mdi-network-pos',
-        svgIcon: __webpack_require__(1050),
+        svgIcon: __webpack_require__(1045),
         path: '/pos/minimart'
       }, {
         title: 'Invoice',
-        // icon: 'mdi-file-document-multiple',
-        svgIcon: __webpack_require__(1051),
+        svgIcon: __webpack_require__(1046),
         path: '/admin/ordersFromPos'
       }, {
         title: 'ລູກຫນີ້',
-        // icon: 'mdi-credit-card-refresh-outline',
-        svgIcon: __webpack_require__(1052),
+        svgIcon: __webpack_require__(1047),
         path: '/admin/ordersFromPosCredit'
       }, {
         title: 'Stock',
-        // icon: 'mdi-warehouse',
-        svgIcon: __webpack_require__(1053),
+        svgIcon: __webpack_require__(1048),
         path: '/admin/product/productlist'
       }, {
-        // title: 'ລາຍການ ການຂາຍ',
-        title: 'ລາຍງານ ລູກຄ້າຕິດຫນີ້ ',
-        //231001 CR By Bae
-        // icon: 'mdi-warehouse',
-        svgIcon: __webpack_require__(1054),
-        // path: '/admin/ordersFromPos'
-        path: '/admin/ordersFromPosSummaryByCustomer' //231001 CR By Bae
+        title: 'ລາຍງານ ລູກຄ້າຕິດຫນີ້',
+        svgIcon: __webpack_require__(1049),
+        path: '/admin/ordersFromPosSummaryByCustomer'
       }, {
         title: 'Customer',
-        // icon: 'mdi-warehouse',
-        svgIcon: __webpack_require__(1055),
+        svgIcon: __webpack_require__(1050),
         path: '/admin/client'
-      }
-      // {
-      //     title: 'ຄົ້ນຫາອິນວອຍຄ້າງຈ່າຍ',
-      //     // icon: 'mdi-warehouse',
-      //     svgIcon: require('~/assets/icons/account-clock.svg'),
-      //     path: '/admin/ordersFromPosSummaryByCustomer'
-      // },
-      ],
+      }],
       yearlySale: [],
       menusOverview: [{
         title: 'ຍອດຂາຍມື້ນິ (KIP)',
-        icon: 'mdi-calendar',
+        icon: 'mdi-calendar-today',
         path: '',
         total: '0',
         groupedSales: {}
       }, {
-        title: 'ຍອດຂາຍເດືອນນີ້ - ' + '( ' + new Date().toDateString().split(' ')[1] + '/' + new Date().toDateString().split(' ')[3] + ' ) KIP',
-        icon: 'mdi-calendar',
+        title: `ຍອດຂາຍເດືອນນີ້ - ${new Date().toDateString().split(' ')[1]}/${new Date().toDateString().split(' ')[3]} KIP`,
+        icon: 'mdi-calendar-month',
         path: '',
         total: '0',
         cnt: '0'
       }, {
-        title: 'ຍອດຂາຍໝົດປີ - ' + new Date().toDateString().split(' ')[3] + ' KIP',
-        icon: 'mdi-calendar',
+        title: `ຍອດຂາຍໝົດປີ - ${new Date().toDateString().split(' ')[3]} KIP`,
+        icon: 'mdi-calendar-range',
         path: '',
         total: '0'
       }],
-      saleValue: 0,
-      // minProductList: [{
-      //     pro_name:'',
-      //     pro_id:1
-      // }],
-
       minstockComponentsKey: 1,
       isloading: false,
       dailyState: false,
-      series: [0, 0],
       options: {
         chart: {
-          type: 'donut'
+          type: 'donut',
+          height: 250
+        },
+        colors: ['#667eea', '#f093fb', '#764ba2', '#4facfe', '#00f2fe'],
+        labels: [],
+        legend: {
+          position: 'bottom',
+          fontSize: '12px',
+          fontFamily: 'Noto Sans Lao, sans-serif'
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '70%'
+            }
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return val.toFixed(1) + '%';
+          }
         },
         responsive: [{
           breakpoint: 480,
@@ -1042,103 +656,107 @@ var external_echarts_ = __webpack_require__(407);
               position: 'bottom'
             }
           }
-        }],
-        labels: ['CASH', 'COD'],
-        title: {
-          text: 'ອໍເດີ ປະເພດ'
-        },
-        annotations: {
-          points: []
-        }
-      },
-      peeair: {
-        series: [],
-        options: {
-          colors: ['#FF4560', '#775DD0']
-        }
-      },
-      pieChartOption: {
-        // plotOptions: {
-        //     pie: {
-        //         customScale: 0.9
-        //     }
-        // },
-        title: {
-          text: 'ໝວດສິນຄ້າຂາຍດີ',
-          align: 'center',
-          style: {
-            fontSize: '16px'
-          },
-          style: {
-            fontFamily: 'noto sans lao',
-            fontSize: '16',
-            fontWeight: 'bold'
-          }
-        },
-        labels: [],
-        barSeries: [],
-        // theme: {
-        //     monochrome: {
-        //         enabled: true,
-        //         color: 'primary',
-        //     }
-        // },
-        chart: {
-          type: 'pie',
-          height: 'auto'
-        }
+        }]
       },
       barSeriesForDailyStat: [{
+        name: 'Daily Sales',
         data: []
       }],
-      //ກາບຍອດຂາຍແຕ່ລະມື ເປັນ ຮູບທຽນ
       barOptionsForDailyStat: {
-        colors: [],
+        colors: ['#3B82F6'],
+        // Bright blue for better visibility
         chart: {
           type: 'line',
-          height: 'auto'
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: true
+          height: 'auto',
+          toolbar: {
+            show: false
           },
-          dataLabels: {
-            style: {
-              fontSize: '12px'
-            },
-            formatter: function (val) {
-              return val.toFixed(2);
-            }
+          background: 'transparent'
+        },
+        stroke: {
+          curve: 'smooth',
+          width: 4,
+          // Increased from 3 to 4
+          dashArray: 0
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.4,
+            // Increased opacity
+            opacityTo: 0.1,
+            stops: [0, 90, 100]
+          }
+        },
+        markers: {
+          size: 5,
+          colors: ['#3B82F6'],
+          strokeColors: '#fff',
+          strokeWidth: 2,
+          hover: {
+            size: 7
           }
         },
         dataLabels: {
-          enabled: true
+          enabled: false
         },
         xaxis: {
           categories: [],
-          style: {
-            fontFamily: 'noto sans lao',
-            fontSize: '16',
-            fontWeight: 'bold'
+          labels: {
+            style: {
+              fontFamily: 'Noto Sans Lao, sans-serif',
+              fontSize: '12px',
+              colors: '#6B7280'
+            }
+          },
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false
           }
         },
         yaxis: {
-          title: {
-            text: 'Sales (in thousands)'
-          },
           labels: {
             formatter: function (value) {
-              return value.toLocaleString(); // use toLocaleString() method to format numbers with 1000 separators
+              return value.toLocaleString();
+            },
+            style: {
+              colors: '#6B7280',
+              fontSize: '12px'
             }
           }
         },
-        title: {
-          text: 'ສະຖິຕິການຂາຍໃນເດືອນ',
+        grid: {
+          show: true,
+          borderColor: '#F3F4F6',
+          strokeDashArray: 0,
+          xaxis: {
+            lines: {
+              show: false
+            }
+          },
+          yaxis: {
+            lines: {
+              show: true
+            }
+          }
+        },
+        tooltip: {
+          theme: 'light',
           style: {
-            fontFamily: 'noto sans lao',
-            fontSize: '16',
-            fontWeight: 'bold'
+            fontSize: '12px',
+            fontFamily: 'Noto Sans Lao, sans-serif'
+          }
+        },
+        title: {
+          text: '',
+          style: {
+            fontFamily: 'Noto Sans Lao, sans-serif',
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#1F2937'
           }
         }
       }
@@ -1151,15 +769,18 @@ var external_echarts_ = __webpack_require__(407);
   },
   async mounted() {
     await this.loadTopSale();
-    await this.paymentGroup();
   },
   computed: {
     ...Object(external_vuex_["mapGetters"])(['findAllTerminal', 'findSelectedTerminal', 'currentSelectedLocation', 'findAllLocation']),
+    // Use computed properties for chart data
+    paymentSeries() {
+      return this.paymentMethodData.series;
+    },
+    paymentLabels() {
+      return this.paymentMethodData.labels;
+    },
     totalSaleYTD() {
       const totalPrice = this.yearlySale.reduce((total, item) => {
-        // discountTotal+=item.discount
-        // return total + item.total - item.discount;//OLD VERSION 240106
-        // return total + item.total; //Total field already exclude discount
         let rider_fee = 0;
         let cod_fee = 0;
         if (item.dynamic_customer) {
@@ -1168,16 +789,11 @@ var external_echarts_ = __webpack_require__(407);
         }
         return total += item.total + rider_fee - cod_fee;
       }, 0);
-      console.log(`YTD SALE ${totalPrice}`);
       return Object(common["e" /* getFormatNum */])(totalPrice);
     },
     totalSaleMTD() {
-      console.log(`====> TD ${common["m" /* today */].split('-')[1]}`);
       const monthSaleList = this.yearlySale.filter(el => el.bookingDate.split('-')[1] == common["m" /* today */].split('-')[1]);
       const totalPrice = monthSaleList.reduce((total, item) => {
-        // discountTotal+=item.discount
-        // return total + item.total - item.discount; //OLD VERSION 240106
-        // return total + item.total; //Total field already exclude discount
         let rider_fee = 0;
         let cod_fee = 0;
         if (item.dynamic_customer) {
@@ -1186,7 +802,6 @@ var external_echarts_ = __webpack_require__(407);
         }
         return total += item.total + rider_fee - cod_fee;
       }, 0);
-      console.log(`MTD SALE ${totalPrice}`);
       return Object(common["e" /* getFormatNum */])(totalPrice);
     },
     txnSaleMTD() {
@@ -1217,9 +832,6 @@ var external_echarts_ = __webpack_require__(407);
     totalSaleTD() {
       const todaySaleList = this.yearlySale.filter(el => el.bookingDate == common["m" /* today */]);
       const totalPrice = todaySaleList.reduce((total, item) => {
-        // discountTotal+=item.discount
-        // return total + item.total - item.discount; //OLD VERSION 240106
-        // return total + item.total; //Total field already exclude discount
         let rider_fee = 0;
         let cod_fee = 0;
         if (item.dynamic_customer) {
@@ -1228,12 +840,44 @@ var external_echarts_ = __webpack_require__(407);
         }
         return total += item.total + rider_fee - cod_fee;
       }, 0);
-      console.log(`TD SALE ${totalPrice}`);
       return Object(common["e" /* getFormatNum */])(totalPrice);
+    },
+    // Computed property for payment method chart
+    paymentMethodData() {
+      if (!this.yearlySale || this.yearlySale.length === 0) {
+        return {
+          series: [],
+          labels: []
+        };
+      }
+      const grouped = this.saleGroupByPayment(this.yearlySale);
+      const series = [];
+      const labels = [];
+      Object.keys(grouped).forEach(code => {
+        const payment = grouped[code];
+        series.push(payment.totalSales);
+        labels.push(payment.paymentName);
+      });
+      return {
+        series,
+        labels
+      };
+    }
+  },
+  watch: {
+    // Watch for payment data changes to update chart labels
+    paymentLabels: {
+      handler(newLabels) {
+        this.options.labels = newLabels;
+      },
+      immediate: true
     }
   },
   methods: {
     ...Object(external_vuex_["mapActions"])(['setSelectedTerminal', 'setSelectedLocation', 'initProduct']),
+    navigateTo(path) {
+      this.$router.push(path);
+    },
     saleGroupByPayment(saleList) {
       if (!Array.isArray(saleList)) {
         throw new Error('Input must be an array');
@@ -1256,21 +900,14 @@ var external_echarts_ = __webpack_require__(407);
       }, {});
     },
     async chooseTerminal() {
-      // this.displayMinstock = false
       this.setSelectedTerminal(this.terminalSelected);
-      console.log(`LOCATION LIST ${this.findAllLocation.length}`);
       const location = this.findAllLocation.find(el => el.id == this.findAllTerminal.find(el => el.id == this.terminalSelected)['locationId']);
-      if (!location) {
-        console.log(`LOCATION IS !TRUE`);
+      if (location) {
+        this.setSelectedLocation(location);
+        this.minstockComponentsKey += 1;
+        this.terminalDialog = false;
+        await this.loadProduct(location.id);
       }
-      console.log(`LOCATION IS ${location}`);
-      console.log(`LOCATION FOUND ${location['id']}`);
-      this.setSelectedLocation(location);
-      console.log(`Location id ${location.id}`);
-      this.minstockComponentsKey += 1;
-      // this.displayMinstock = true
-      this.terminalDialog = false;
-      await this.loadProduct(location.id);
     },
     async loadProduct(locationId) {
       this.isloading = true;
@@ -1286,62 +923,62 @@ var external_echarts_ = __webpack_require__(407);
       return Object(common["e" /* getFormatNum */])(value);
     },
     getRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
+      const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#a8edea', '#fed6e3'];
+      return colors[Math.floor(Math.random() * colors.length)];
     },
     async loadTopSale() {
       this.isloading = true;
-      await this.$axios
-      // .get('api/topsale/?top=' + 5) // For delivery sale system
-      .get('api/topsaleMinimart/?top=' + 5).then(res => {
-        // ************** PIE FROM ECHARTS *************//
+      await this.$axios.get('api/topsaleMinimart/?top=' + 5).then(res => {
         const chart = external_echarts_["init"](this.$refs.chart);
         const option = {
-          title: {
-            text: 'ສິນຄ້າຂາຍດີຕາມໝວດ',
-            subtext: '-',
-            left: 'center',
-            textStyle: {
-              fontFamily: 'noto sans lao'
-            }
-          },
           tooltip: {
             trigger: 'item'
           },
           legend: {
-            orient: 'vertical',
-            left: 'left'
+            orient: 'horizontal',
+            bottom: '0%',
+            textStyle: {
+              fontFamily: 'Noto Sans Lao, sans-serif',
+              fontSize: 12
+            }
           },
           series: [{
-            name: 'Access From',
+            name: 'Sales by Category',
             type: 'pie',
-            radius: '50%',
-            data: [
-              // { value: 0, name: 'Search Engine' },
-              // { value: 0, name: 'Direct' },
-              // { value: 0, name: 'Email' },
-              // { value: 0, name: 'Union Ads' },
-              // { value: 0, name: 'Video Ads' }
-            ],
+            radius: ['40%', '70%'],
+            center: ['50%', '45%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
             emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              label: {
+                show: true,
+                fontSize: 16,
+                fontWeight: 'bold',
+                fontFamily: 'Noto Sans Lao, sans-serif'
               }
-            }
+            },
+            labelLine: {
+              show: false
+            },
+            data: []
           }]
         };
-        // ************** PIE FROM ECHARTS *************//
-        console.log('Data ', res.data[0]);
-        res.data.map(el => {
+        const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe'];
+        res.data.forEach((el, index) => {
           const entry = {
-            name: el.categ_name + ' ' + Object(common["e" /* getFormatNum */])(el.total_sale),
-            value: +el.sale_count
+            name: el.categ_name,
+            value: +el.sale_count,
+            itemStyle: {
+              color: colors[index % colors.length]
+            }
           };
           option.series[0].data.push(entry);
         });
@@ -1351,8 +988,6 @@ var external_echarts_ = __webpack_require__(407);
       });
       this.isloading = false;
     },
-    // http://localhost:8080/api/sale/sumsaleYearly?date={"startDate":"2023-01-01","endDate":"2023-12-31"}
-
     async loadSaleStatistic() {
       const date = Object(common["c" /* firstAndLastDateOfCurrentYear */])();
       this.isloading = true;
@@ -1373,7 +1008,6 @@ var external_echarts_ = __webpack_require__(407);
         this.menusOverview[1]['groupedSales'] = this.saleGroupByPayment(monthSaleList);
         this.menusOverview[0]['total'] = this.totalSaleTD;
         this.menusOverview[0]['groupedSales'] = this.saleGroupByPayment(todaySaleList);
-        console.log('Lend of sale yearly ' + this.yearlySale.length);
         this.monthGroupSale();
       }).catch(err => {
         console.log('error', err);
@@ -1383,7 +1017,6 @@ var external_echarts_ = __webpack_require__(407);
     async generateDailyStatisticSale() {
       this.isloading = true;
       for (const iterator of this.txnSaleMTD) {
-        this.barOptionsForDailyStat.colors.push(this.getRandomColor); // ******* Original
         this.barSeriesForDailyStat[0].data.push(iterator['totalSale']);
         this.barOptionsForDailyStat.xaxis.categories.push(iterator['date']);
       }
@@ -1411,56 +1044,16 @@ var external_echarts_ = __webpack_require__(407);
         }
         groupedTransactions[key].total += transaction.total + rider_fee - cod_fee;
         groupedTransactions[key].transactions.push(transaction);
-        console.log('datat add===>');
       });
-      console.log('====> my chart' + groupedTransactions);
       const keyList = Object.keys(groupedTransactions);
       for (const iterator of keyList) {
-        console.log('*****ETERATOR*****' + iterator);
-        this.barOptionsForMonthlyStat.colors.push(this.getRandomColor); // ******* Original
         this.barSeriesForMonthlyStat[0].data.push(groupedTransactions[iterator]['total']);
         this.barOptionsForMonthlyStat.xaxis.categories.push(iterator);
       }
-      // for (const key in groupedTransactions) {
-      //     console.log(`Month: ${groupedTransactions['2023-07']}`);
-      //     console.log(`Total: ${groupedTransactions[key].total}`);
-      //     console.log("Transactions:");
-      //     groupedTransactions[key].transactions.forEach(transaction => {
-      //         console.log(`  ID: ${transaction.id}, Date: ${transaction.date}, Amount: ${transaction.amount}`);
-      //     });
-      //     console.log("--------------------");
-      // }
       return groupedTransactions;
     },
-    async paymentGroup() {
-      this.isloading = true;
-      await this.$axios.get('api/cod_n_cash_report').then(res => {
-        this.series = res.data.series;
-        this.options.labels = res.data.labels;
-      }).catch(err => {
-        console.log('error', err);
-      });
-      this.isloading = false;
-    },
     init() {
-      console.log('Init function');
-      const series2 = [66, 33];
-      this.peeair.options = {
-        title: {
-          text: 'GreenWood',
-          align: 'center',
-          style: {
-            fontSize: '16px'
-          }
-        },
-        labels: [` COD ${series2[0]} ບິນ `, ` ORDER ${series2[1]} ບິນ`],
-        chart: {
-          type: 'pie',
-          width: '100%',
-          height: '400px'
-        }
-      };
-      this.peeair.series = series2;
+      console.log('Dashboard initialized');
     }
   }
 });
@@ -1473,17 +1066,22 @@ var componentNormalizer = __webpack_require__(10);
 
 
 
+function injectStyles (context) {
+  
+  var style0 = __webpack_require__(1051)
+if (style0.__inject__) style0.__inject__(context)
 
+}
 
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_adminvue_type_script_lang_js,
-  adminvue_type_template_id_222987c5_render,
+  adminvue_type_template_id_43b613b9_scoped_true_render,
   staticRenderFns,
   false,
-  null,
-  null,
+  injectStyles,
+  "43b613b9",
   "8e090fbe"
   
 )
@@ -1491,7 +1089,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var admin = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default,Menu: __webpack_require__(1006).default,MenuOverview: __webpack_require__(839).default,MinStockCard: __webpack_require__(838).default})
+installComponents(component, {MinStockCard: __webpack_require__(835).default})
 
 
 /***/ }),
@@ -1797,7 +1395,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
-/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(68);
+/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67);
 // Styles
 
  // Components
@@ -1931,7 +1529,7 @@ var VCol = __webpack_require__(426);
 var VDataTable = __webpack_require__(435);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+var VDialog = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
@@ -1940,7 +1538,7 @@ var VDivider = __webpack_require__(122);
 var VForm = __webpack_require__(423);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(425);
@@ -2359,7 +1957,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var PriceListForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(66).default})
 
 
 /***/ }),
@@ -3082,7 +2680,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(398)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(399)["URL"]))
 
 /***/ }),
 
@@ -3560,7 +3158,7 @@ const swalError2 = (swal, title, error) => {
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(398)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(399)["URL"]))
 
 /***/ }),
 
@@ -3572,7 +3170,7 @@ const swalError2 = (swal, title, error) => {
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(457);
 /* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
+/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67);
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
 /* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(138);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(33);
@@ -3880,7 +3478,7 @@ var VChip = __webpack_require__(127);
 var VCol = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+var VDialog = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
 var VFileInput = __webpack_require__(502);
@@ -3889,7 +3487,7 @@ var VFileInput = __webpack_require__(502);
 var VForm = __webpack_require__(423);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(86);
@@ -4653,7 +4251,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductFormCreate = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(461).default,LoadingIndicator: __webpack_require__(67).default,DiaImage: __webpack_require__(473).default,PriceListForm: __webpack_require__(472).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(461).default,LoadingIndicator: __webpack_require__(66).default,DiaImage: __webpack_require__(473).default,PriceListForm: __webpack_require__(472).default})
 
 
 /***/ }),
@@ -4696,7 +4294,7 @@ var VChip = __webpack_require__(127);
 var VCol = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+var VDialog = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
 var VFileInput = __webpack_require__(502);
@@ -4705,7 +4303,7 @@ var VFileInput = __webpack_require__(502);
 var VForm = __webpack_require__(423);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(86);
@@ -5476,7 +5074,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ProductForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default,DiaImage: __webpack_require__(473).default,PriceListForm: __webpack_require__(472).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(66).default,DiaImage: __webpack_require__(473).default,PriceListForm: __webpack_require__(472).default})
 
 
 /***/ }),
@@ -5531,7 +5129,7 @@ var VCol = __webpack_require__(426);
 var VContainer = __webpack_require__(424);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+var VDialog = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
@@ -5540,7 +5138,7 @@ var VDivider = __webpack_require__(122);
 var VHover = __webpack_require__(493);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(86);
@@ -6104,7 +5702,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
 /* harmony import */ var _mixins_delayable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(76);
-/* harmony import */ var _mixins_sizeable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57);
+/* harmony import */ var _mixins_sizeable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(56);
 /* harmony import */ var _mixins_rippleable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77);
 /* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
@@ -6314,59 +5912,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 641:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(741);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("70c3c872", content, true, context)
-};
-
-/***/ }),
-
-/***/ 642:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "img/cashier.a8bb445.svg";
-
-/***/ }),
-
-/***/ 740:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(641);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardOnTop_vue_vue_type_style_index_0_id_7da7ed0d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 741:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".my-text-bold[data-v-7da7ed0d]{color:#000;font-weight:bolder}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 838:
+/***/ 835:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6726,184 +6272,21 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 839:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 856:
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
-var VAvatar = __webpack_require__(120);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(426);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menuOverview/index.vue?vue&type=template&id=1c25764e
-
-
-
-
-
-
-
-
-var menuOverviewvue_type_template_id_1c25764e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VCard["a" /* default */], {
-    attrs: {
-      "outlined": ""
-    }
-  }, [_c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "3"
-    }
-  }, [_c(VAvatar["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "size": "50"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "dark": "",
-      "size": "30"
-    }
-  }, [_vm._v("\n            " + _vm._s(_vm.icon) + "\n          ")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "pt-0",
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "9"
-    }
-  }, [_c(VRow["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    }
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "font-size": "larger",
-      "font-weight": "bold",
-      "font-family": "Arial, Helvetica, sans-serif"
-    },
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("\n            " + _vm._s(_vm.total) + "\n          ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, _vm._l(_vm.groupedSales, function (details, paymentCode) {
-    return _c(VCard["a" /* default */], {
-      key: paymentCode,
-      staticClass: "mx-auto",
-      attrs: {
-        "max-width": "344",
-        "outlined": ""
-      }
-    }, [_c(components_VCard["c" /* VCardText */], [_vm._v("\n                " + _vm._s(paymentCode)), _c('br'), _vm._v(" "), _c(VChip["a" /* default */], {
-      attrs: {
-        "color": "grey",
-        "text-color": "white"
-      }
-    }, [_vm._v("\n                  " + _vm._s(details.totalSales.toLocaleString()) + " /\n                  " + _vm._s(details.count) + "\n                  "), _c(VIcon["a" /* default */], {
-      attrs: {
-        "size": "14"
-      }
-    }, [_vm._v("mdi-invoice-list-outline")])], 1)], 1)], 1);
-  }), 1)], 1), _vm._v(" "), _c(VRow["a" /* default */])], 1)], 1)], 1)], 1);
+// load the styles
+var content = __webpack_require__(1052);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("2f5e5981", content, true, context)
 };
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/menuOverview/index.vue?vue&type=template&id=1c25764e
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/menuOverview/index.vue?vue&type=script&lang=js
-/* harmony default export */ var menuOverviewvue_type_script_lang_js = ({
-  name: 'menu-card',
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    path: {
-      type: String,
-      default: ''
-    },
-    icon: {
-      type: String,
-      default: ''
-    },
-    total: {
-      type: String,
-      default: ''
-    },
-    groupedSales: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  data() {
-    return {
-      imageSrc: __webpack_require__(197)
-    };
-  },
-  methods: {
-    takeMeTo() {
-      this.$router.push(this.path);
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/menuOverview/index.vue?vue&type=script&lang=js
- /* harmony default export */ var components_menuOverviewvue_type_script_lang_js = (menuOverviewvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/menuOverview/index.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_menuOverviewvue_type_script_lang_js,
-  menuOverviewvue_type_template_id_1c25764e_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "91e44424"
-  
-)
-
-/* harmony default export */ var menuOverview = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

@@ -136,6 +136,19 @@ const loadCompanyLogoFromAPI = async (axios) => {
  * @param {Object} params - Parameters containing axios and fallback options
  * @returns {Promise<string>} Logo URL (API, static, or default)
  */
+
+const getBaseURL = ()=>{
+        let baseUrl = '';
+      
+      // Get base URL from axios defaults
+      if (axios.defaults.baseURL) {
+        baseUrl = axios.defaults.baseURL.replace(/\/$/, ''); // Remove trailing slash
+      } else {
+        // Fallback to current origin if no baseURL set
+        baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+      }
+      return baseUrl;
+}
 const getCompanyLogo = async (params) => {
   const { 
     axios, 
@@ -399,7 +412,7 @@ const generateHeaderSection = (headerData, dateValue, logoUrl) => {
     currentTerminal,
     user
   } = headerData;
-
+  console.info(`LOGO paSSING TO HEADER ${logoUrl}`)
   // Get company information with fallbacks
   const companyName = currentTerminal?.location?.company?.name || 
                      companyLogoCache.company?.name || 
@@ -407,11 +420,16 @@ const generateHeaderSection = (headerData, dateValue, logoUrl) => {
   const companyTel = currentTerminal?.location?.company?.tel || 
                     companyLogoCache.company?.tel || 
                     'N/A';
+  const companyLogoUrl = currentTerminal?.location?.company?.profile_image_path || 
+                    companyLogoCache.company?.profile_image_path || 
+                    'N/A';
   const userName = user?.cus_name || 'N/A';
-
+  console.info(`real image path ${companyLogoUrl}`)
   // Create logo HTML with error handling
+  const baseURL = window.location.origin; 
+  console.warn(`base url ${currentTerminal.baseURL}`)
   const logoHtml = logoUrl ? 
-    `<img src="${logoUrl}" alt="Company Logo" width="100" height="100" 
+    `<img src="${currentTerminal.baseURL}/${companyLogoUrl}" alt="Company Logo" width="100" height="100" 
           style="max-width: 100px; max-height: 100px; object-fit: contain;" 
           onerror="this.style.display='none';">` : 
     `<div style="width: 100px; height: 100px; background: #f0f0f0; 
@@ -645,6 +663,9 @@ export const defaultTicket = async (params) => {
 
   try {
     const currentDate = new Date();
+    console.info(`COMPANY PASSING ${JSON.stringify(companyData)}`)
+    console.info(`COMPANY PASSING IMAGE ${JSON.stringify(companyData.ticketLogo)}`)
+    
 
     // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({

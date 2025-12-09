@@ -1,574 +1,6 @@
 exports.ids = [251,55,56,57,252,253];
 exports.modules = {
 
-/***/ 1001:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
-var VFileInput = __webpack_require__(502);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(423);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
-var VImg = __webpack_require__(86);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
-var VList = __webpack_require__(116);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
-var VListItem = __webpack_require__(69);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAvatar.js
-var VListItemAvatar = __webpack_require__(119);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var components_VList = __webpack_require__(9);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
-var VSelect = __webpack_require__(20);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(428);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(38);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(460);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/_id/index.vue?vue&type=template&id=5cc388e6
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _idvue_type_template_id_5cc388e6_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_vm._ssrNode("<h1>ແກ້ໄຂສິນຄ້າ</h1> "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "max-width": "300px",
-      "persistent": ""
-    },
-    model: {
-      value: _vm.dialogMessage,
-      callback: function ($$v) {
-        _vm.dialogMessage = $$v;
-      },
-      expression: "dialogMessage"
-    }
-  }, [_c('dialog-classic-message', {
-    attrs: {
-      "message": _vm.message
-    },
-    on: {
-      "closedialog": function ($event) {
-        _vm.message = null;
-      }
-    }
-  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "width": "400px"
-    },
-    model: {
-      value: _vm.preview,
-      callback: function ($$v) {
-        _vm.preview = $$v;
-      },
-      expression: "preview"
-    }
-  }, [_c('dia-image', {
-    attrs: {
-      "i-url": _vm.previewSrc
-    },
-    on: {
-      "closeDia": function ($event) {
-        _vm.preview = false;
-      }
-    }
-  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "width": "500",
-      "persistent": ""
-    },
-    model: {
-      value: _vm.dia_confirm,
-      callback: function ($$v) {
-        _vm.dia_confirm = $$v;
-      },
-      expression: "dia_confirm"
-    }
-  }, [_c('dia-confirm', {
-    attrs: {
-      "message-title": _vm.diaMessageTitle,
-      "message-body": _vm.diaMessageBody
-    },
-    on: {
-      "react": _vm.reactDiaConfirm
-    }
-  })], 1), _vm._ssrNode(" "), _c(VForm["a" /* default */], {
-    ref: "formLocal",
-    attrs: {
-      "lazy-validation": ""
-    },
-    model: {
-      value: _vm.validLocal,
-      callback: function ($$v) {
-        _vm.validLocal = $$v;
-      },
-      expression: "validLocal"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.outlet,
-      "item-value": item => item.outlet_id,
-      "item-text": item => item.outlet_id + ' - ' + item.outlet_name,
-      "rules": [v => !!v || 'ກະລຸນາເລືອກຮ້ານ'],
-      "label": "ຮ້ານ",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.outlet,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "outlet", $$v);
-      },
-      expression: "formData.outlet"
-    }
-  }), _vm._v(" "), _c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.category,
-      "item-value": item => item.categ_id,
-      "item-text": item => item.categ_id + ' - ' + item.categ_name,
-      "rules": [v => !!v || 'ກະລຸນາເລືອກ ປະເພດສິນຄ້າ'],
-      "label": "ປະເພດສິນຄ້າ",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.pro_category,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_category", $$v);
-      },
-      expression: "formData.pro_category"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "counter": 10,
-      "disabled": !!_vm.formData.pro_id,
-      "label": "ໄອດີສິນຄ້າ",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.pro_id,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_id", $$v);
-      },
-      expression: "formData.pro_id"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "counter": 10,
-      "rules": _vm.rules.nameRule,
-      "label": "ຊື້ສິນຄ້າ",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.pro_name,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_name", $$v);
-      },
-      expression: "formData.pro_name"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "counter": 10,
-      "rules": _vm.rules.priceRule,
-      "label": "ລາຄາ",
-      "type": "number",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.pro_price,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_price", $$v);
-      },
-      expression: "formData.pro_price"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "counter": 10,
-      "type": "numbser",
-      "rules": _vm.rules.priceRule,
-      "label": "ຕົ້ນທຶນ",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.pro_cost_price,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_cost_price", $$v);
-      },
-      expression: "formData.pro_cost_price"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "counter": 10,
-      "type": "numbser",
-      "rules": _vm.rules.priceRule,
-      "label": "ລາຄາສົ່ງ %",
-      "required": ""
-    },
-    model: {
-      value: _vm.formData.pro_retail_price,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_retail_price", $$v);
-      },
-      expression: "formData.pro_retail_price"
-    }
-  }), _vm._v(" "), _c(VTextarea["a" /* default */], {
-    attrs: {
-      "outlined": "",
-      "name": "input-7-4",
-      "counter": "5",
-      "label": "ຄຳອະທິບາຍ",
-      "value": "abc"
-    },
-    model: {
-      value: _vm.formData.pro_desc,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_desc", $$v);
-      },
-      expression: "formData.pro_desc"
-    }
-  }), _vm._v(" "), _c(VFileInput["a" /* default */], {
-    ref: "filesfield",
-    attrs: {
-      "rules": _vm.rules.imageRule,
-      "multiple": "",
-      "accept": "image/png, image/jpeg, image/bmp",
-      "placeholder": "Pick an avatar",
-      "prepend-icon": "mdi-camera",
-      "label": "ຮູບພາບຫລາຍພາບ"
-    },
-    on: {
-      "change": _vm.onFilesChange
-    }
-  }), _vm._v(" "), _c('div', _vm._l(_vm.formData.pro_image, function (img, idx) {
-    return _c(VCard["a" /* default */], {
-      key: idx,
-      staticClass: "pa-md-6 mx-lg-auto"
-    }, [_c(VRow["a" /* default */], {
-      attrs: {
-        "justify": "space-around"
-      }
-    }, [_c(VListItemAvatar["a" /* default */], {
-      on: {
-        "click": function ($event) {
-          $event.preventDefault();
-          return _vm.previewImg(`https://nodejsclusters-99563-0.cloudclusters.net/${img.name}`);
-        }
-      }
-    }, [_c(VImg["a" /* default */], {
-      attrs: {
-        "src": `https://nodejsclusters-99563-0.cloudclusters.net/${img.name}`
-      }
-    })], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-      attrs: {
-        "text": "",
-        "color": "blue darken-1"
-      },
-      on: {
-        "click": function ($event) {
-          $event.preventDefault();
-          return _vm.deleteFileFrServ(idx);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-trash-alt"
-    })])], 1)], 1);
-  }), 1), _vm._v(" "), _c('div', [_c(VList["a" /* default */], {
-    attrs: {
-      "three-line": ""
-    }
-  }, [_vm._l(_vm.imagesPreviewURL, function (item, index) {
-    return [_c(VListItem["a" /* default */], {
-      key: index
-    }, [_c(VListItemAvatar["a" /* default */], {
-      on: {
-        "click": function ($event) {
-          $event.preventDefault();
-          return _vm.previewImg(item.IMG_URL);
-        }
-      }
-    }, [_c(VImg["a" /* default */], {
-      attrs: {
-        "src": item.IMG_URL
-      }
-    })], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
-      domProps: {
-        "innerHTML": _vm._s(item.NAME)
-      }
-    }), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], {
-      domProps: {
-        "innerHTML": _vm._s(item.isvalid)
-      }
-    })], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-      attrs: {
-        "text": "",
-        "color": "blue darken-1"
-      },
-      on: {
-        "click": function ($event) {
-          $event.preventDefault();
-          return _vm.deleteFile(index);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-trash-alt"
-    })])], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
-      key: index + item.NAME
-    })];
-  })], 2)], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-4",
-    attrs: {
-      "color": "error"
-    },
-    on: {
-      "click": function ($event) {
-        $event.preventDefault();
-        return _vm.hello.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("\n      ລ້າງຂໍ້ມູນ\n    ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mb-2",
-    attrs: {
-      "color": "primary",
-      "dark": ""
-    },
-    on: {
-      "click": function ($event) {
-        $event.preventDefault();
-        return _vm.uploadFilesLocal.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("\n      ບັນທຶກ\n    ")])], 1), _vm._ssrNode(" "), _c('nuxt-child')], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./pages/admin/product/_id/index.vue?vue&type=template&id=5cc388e6
-
-// EXTERNAL MODULE: ./pages/admin/product/index.vue + 4 modules
-var product = __webpack_require__(726);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/_id/index.vue?vue&type=script&lang=js
-// import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
-
-/* harmony default export */ var _idvue_type_script_lang_js = ({
-  middleware: 'auths',
-  mixins: [product["default"]],
-  mounted() {
-    console.log('FORMDATA ID: ' + this.formData.pro_id);
-    this.pro_id = this.$route.params.id;
-    this.formData.pro_id = this.$route.params.id;
-    console.log('Mounted: ');
-    this.$route.params.id && this.fetchProId(this.$route.params.id);
-  },
-  validate(data) {
-    // this.formData.pro_id = data.params.id
-    console.log('MIXIN ID: ' + data.params.id);
-    console.log('PRO DEFUALT ID: ' + this.pro_id);
-    return /^\d+$/.test(data.params.id);
-  },
-  data() {
-    return {
-      validLocal: true,
-      diaMessageTitle: 'ຄຳເຕືອນ',
-      diaMessageBody: 'ທ່ານ ກຳລັງຈະລົບ ຂໍ້ມູນອອກຈາກ ເຊີເວີ ຖາວອນ ກະລຸນາຢືນຢັນ',
-      pro_id: null,
-      dia_confirm: false,
-      tempImgId: null
-    };
-  },
-  methods: {
-    validateLocal() {
-      console.log('VALIDATING...');
-      this.$refs.formLocal.validate();
-    },
-    updateData() {
-      this.isloading = true;
-      this.$axios.put('/uploadmulti_update', this.formData).then(res => {
-        this.message = res.data;
-      }).catch(er => {
-        this.message = er;
-      });
-      this.isloading = false;
-    },
-    async fetchProId(id) {
-      this.isloading = true;
-      console.log('FECT ID:' + id);
-      await this.$axios.post('/product_f_id', {
-        proid: id
-      }).then(res => {
-        console.log('Product ID ' + res.data);
-        const el = res.data[0];
-        const image = res.data[0].img_name == null ? [] : res.data.map(el => {
-          return {
-            name: el.img_name,
-            path: el.img_path
-          };
-        });
-        this.formData = {
-          pro_category: el.pro_category,
-          pro_id: el.pro_id,
-          pro_name: el.pro_name,
-          pro_price: el.pro_price,
-          pro_desc: el.pro_desc,
-          pro_status: el.pro_status === 1 || false,
-          pro_retail_price: el.retail_cost_percent,
-          pro_cost_price: el.cost_price,
-          outlet: el.outlet,
-          pro_image: image
-        };
-        console.log('IMAGE COUNT: ' + this.formData.pro_image.length);
-      }).catch(er => {
-        console.log('Error: ' + er);
-        this.message = er;
-      });
-      this.isloading = false;
-    },
-    deleteFileFrServ(idx) {
-      console.log('IDX: ' + idx);
-      this.tempImgId = idx;
-      this.dia_confirm = true;
-    },
-    async reactDiaConfirm(v) {
-      //   v && this.deleteFileFrServ'
-      this.dia_confirm = false;
-      this.isloading = true;
-      v && (await this.$axios.post('/unlink_file', {
-        img_name: this.formData.pro_image[this.tempImgId].name
-      }).then(res => {
-        res.data === 'Transaction completed' && this.formData.pro_image.splice(this.tempImgId, 1);
-        this.message = res.data;
-      }).catch(er => {
-        this.message = er.error;
-      }));
-      this.isloading = false;
-    },
-    hello() {
-      if (!this.$refs.formLocal.validate()) {
-        console.log('VALIDATE...' + false);
-      } else {
-        console.log('VALIDATE...' + true);
-      }
-
-      // console.log('VALIDATE...')
-    },
-    async uploadFilesLocal() {
-      if (!this.$refs.formLocal.validate()) {
-        return;
-      }
-      console.log('Files length: ' + this.files.length);
-      this.isloading = true;
-      const formData = new FormData();
-      formData.append('FORM', JSON.stringify(this.formData));
-      this.files.forEach(element => {
-        formData.append('files', element);
-      });
-      await this.$axios.post('uploadmulti_update', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(res => {
-        this.isloading = false;
-        this.message = res.data;
-      }).catch(er => {
-        this.isloading = false;
-        this.message = er.response.data;
-      });
-    }
-  }
-});
-// CONCATENATED MODULE: ./pages/admin/product/_id/index.vue?vue&type=script&lang=js
- /* harmony default export */ var product_idvue_type_script_lang_js = (_idvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./pages/admin/product/_id/index.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  product_idvue_type_script_lang_js,
-  _idvue_type_template_id_5cc388e6_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "0db71328"
-  
-)
-
-/* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(461).default,LoadingIndicator: __webpack_require__(67).default,DiaImage: __webpack_require__(473).default,DiaConfirm: __webpack_require__(633).default})
-
-
-/***/ }),
-
 /***/ 37:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1218,7 +650,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(398)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(399)["URL"]))
 
 /***/ }),
 
@@ -1228,7 +660,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(685);
+var content = __webpack_require__(683);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1379,7 +811,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 684:
+/***/ 682:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1391,7 +823,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 685:
+/***/ 683:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1406,7 +838,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 726:
+/***/ 724:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1417,7 +849,7 @@ __webpack_require__.r(__webpack_exports__);
 var VBtn = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(399);
+var VDialog = __webpack_require__(400);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
@@ -1911,7 +1343,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(684)
+  var style0 = __webpack_require__(682)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1932,7 +1364,575 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var product = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(461).default,LoadingIndicator: __webpack_require__(67).default,DiaImage: __webpack_require__(473).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(461).default,LoadingIndicator: __webpack_require__(66).default,DiaImage: __webpack_require__(473).default})
+
+
+/***/ }),
+
+/***/ 999:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
+var VDialog = __webpack_require__(400);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(122);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
+var VFileInput = __webpack_require__(502);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
+var VForm = __webpack_require__(423);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
+var VImg = __webpack_require__(86);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
+var VList = __webpack_require__(116);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
+var VListItem = __webpack_require__(69);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAvatar.js
+var VListItemAvatar = __webpack_require__(119);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
+var components_VList = __webpack_require__(9);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(425);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(20);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(428);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
+var VTextField = __webpack_require__(38);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
+var VTextarea = __webpack_require__(460);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/_id/index.vue?vue&type=template&id=5cc388e6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _idvue_type_template_id_5cc388e6_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_vm._ssrNode("<h1>ແກ້ໄຂສິນຄ້າ</h1> "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "300px",
+      "persistent": ""
+    },
+    model: {
+      value: _vm.dialogMessage,
+      callback: function ($$v) {
+        _vm.dialogMessage = $$v;
+      },
+      expression: "dialogMessage"
+    }
+  }, [_c('dialog-classic-message', {
+    attrs: {
+      "message": _vm.message
+    },
+    on: {
+      "closedialog": function ($event) {
+        _vm.message = null;
+      }
+    }
+  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "persistent": "",
+      "width": "300"
+    },
+    model: {
+      value: _vm.isloading,
+      callback: function ($$v) {
+        _vm.isloading = $$v;
+      },
+      expression: "isloading"
+    }
+  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "width": "400px"
+    },
+    model: {
+      value: _vm.preview,
+      callback: function ($$v) {
+        _vm.preview = $$v;
+      },
+      expression: "preview"
+    }
+  }, [_c('dia-image', {
+    attrs: {
+      "i-url": _vm.previewSrc
+    },
+    on: {
+      "closeDia": function ($event) {
+        _vm.preview = false;
+      }
+    }
+  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "width": "500",
+      "persistent": ""
+    },
+    model: {
+      value: _vm.dia_confirm,
+      callback: function ($$v) {
+        _vm.dia_confirm = $$v;
+      },
+      expression: "dia_confirm"
+    }
+  }, [_c('dia-confirm', {
+    attrs: {
+      "message-title": _vm.diaMessageTitle,
+      "message-body": _vm.diaMessageBody
+    },
+    on: {
+      "react": _vm.reactDiaConfirm
+    }
+  })], 1), _vm._ssrNode(" "), _c(VForm["a" /* default */], {
+    ref: "formLocal",
+    attrs: {
+      "lazy-validation": ""
+    },
+    model: {
+      value: _vm.validLocal,
+      callback: function ($$v) {
+        _vm.validLocal = $$v;
+      },
+      expression: "validLocal"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.outlet,
+      "item-value": item => item.outlet_id,
+      "item-text": item => item.outlet_id + ' - ' + item.outlet_name,
+      "rules": [v => !!v || 'ກະລຸນາເລືອກຮ້ານ'],
+      "label": "ຮ້ານ",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.outlet,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "outlet", $$v);
+      },
+      expression: "formData.outlet"
+    }
+  }), _vm._v(" "), _c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.category,
+      "item-value": item => item.categ_id,
+      "item-text": item => item.categ_id + ' - ' + item.categ_name,
+      "rules": [v => !!v || 'ກະລຸນາເລືອກ ປະເພດສິນຄ້າ'],
+      "label": "ປະເພດສິນຄ້າ",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.pro_category,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_category", $$v);
+      },
+      expression: "formData.pro_category"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "counter": 10,
+      "disabled": !!_vm.formData.pro_id,
+      "label": "ໄອດີສິນຄ້າ",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.pro_id,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_id", $$v);
+      },
+      expression: "formData.pro_id"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "counter": 10,
+      "rules": _vm.rules.nameRule,
+      "label": "ຊື້ສິນຄ້າ",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.pro_name,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_name", $$v);
+      },
+      expression: "formData.pro_name"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "counter": 10,
+      "rules": _vm.rules.priceRule,
+      "label": "ລາຄາ",
+      "type": "number",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.pro_price,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_price", $$v);
+      },
+      expression: "formData.pro_price"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "counter": 10,
+      "type": "numbser",
+      "rules": _vm.rules.priceRule,
+      "label": "ຕົ້ນທຶນ",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.pro_cost_price,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_cost_price", $$v);
+      },
+      expression: "formData.pro_cost_price"
+    }
+  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    attrs: {
+      "counter": 10,
+      "type": "numbser",
+      "rules": _vm.rules.priceRule,
+      "label": "ລາຄາສົ່ງ %",
+      "required": ""
+    },
+    model: {
+      value: _vm.formData.pro_retail_price,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_retail_price", $$v);
+      },
+      expression: "formData.pro_retail_price"
+    }
+  }), _vm._v(" "), _c(VTextarea["a" /* default */], {
+    attrs: {
+      "outlined": "",
+      "name": "input-7-4",
+      "counter": "5",
+      "label": "ຄຳອະທິບາຍ",
+      "value": "abc"
+    },
+    model: {
+      value: _vm.formData.pro_desc,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_desc", $$v);
+      },
+      expression: "formData.pro_desc"
+    }
+  }), _vm._v(" "), _c(VFileInput["a" /* default */], {
+    ref: "filesfield",
+    attrs: {
+      "rules": _vm.rules.imageRule,
+      "multiple": "",
+      "accept": "image/png, image/jpeg, image/bmp",
+      "placeholder": "Pick an avatar",
+      "prepend-icon": "mdi-camera",
+      "label": "ຮູບພາບຫລາຍພາບ"
+    },
+    on: {
+      "change": _vm.onFilesChange
+    }
+  }), _vm._v(" "), _c('div', _vm._l(_vm.formData.pro_image, function (img, idx) {
+    return _c(VCard["a" /* default */], {
+      key: idx,
+      staticClass: "pa-md-6 mx-lg-auto"
+    }, [_c(VRow["a" /* default */], {
+      attrs: {
+        "justify": "space-around"
+      }
+    }, [_c(VListItemAvatar["a" /* default */], {
+      on: {
+        "click": function ($event) {
+          $event.preventDefault();
+          return _vm.previewImg(`https://nodejsclusters-99563-0.cloudclusters.net/${img.name}`);
+        }
+      }
+    }, [_c(VImg["a" /* default */], {
+      attrs: {
+        "src": `https://nodejsclusters-99563-0.cloudclusters.net/${img.name}`
+      }
+    })], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+      attrs: {
+        "text": "",
+        "color": "blue darken-1"
+      },
+      on: {
+        "click": function ($event) {
+          $event.preventDefault();
+          return _vm.deleteFileFrServ(idx);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-trash-alt"
+    })])], 1)], 1);
+  }), 1), _vm._v(" "), _c('div', [_c(VList["a" /* default */], {
+    attrs: {
+      "three-line": ""
+    }
+  }, [_vm._l(_vm.imagesPreviewURL, function (item, index) {
+    return [_c(VListItem["a" /* default */], {
+      key: index
+    }, [_c(VListItemAvatar["a" /* default */], {
+      on: {
+        "click": function ($event) {
+          $event.preventDefault();
+          return _vm.previewImg(item.IMG_URL);
+        }
+      }
+    }, [_c(VImg["a" /* default */], {
+      attrs: {
+        "src": item.IMG_URL
+      }
+    })], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+      domProps: {
+        "innerHTML": _vm._s(item.NAME)
+      }
+    }), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], {
+      domProps: {
+        "innerHTML": _vm._s(item.isvalid)
+      }
+    })], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+      attrs: {
+        "text": "",
+        "color": "blue darken-1"
+      },
+      on: {
+        "click": function ($event) {
+          $event.preventDefault();
+          return _vm.deleteFile(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-trash-alt"
+    })])], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+      key: index + item.NAME
+    })];
+  })], 2)], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-4",
+    attrs: {
+      "color": "error"
+    },
+    on: {
+      "click": function ($event) {
+        $event.preventDefault();
+        return _vm.hello.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("\n      ລ້າງຂໍ້ມູນ\n    ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mb-2",
+    attrs: {
+      "color": "primary",
+      "dark": ""
+    },
+    on: {
+      "click": function ($event) {
+        $event.preventDefault();
+        return _vm.uploadFilesLocal.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("\n      ບັນທຶກ\n    ")])], 1), _vm._ssrNode(" "), _c('nuxt-child')], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./pages/admin/product/_id/index.vue?vue&type=template&id=5cc388e6
+
+// EXTERNAL MODULE: ./pages/admin/product/index.vue + 4 modules
+var product = __webpack_require__(724);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/_id/index.vue?vue&type=script&lang=js
+// import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
+
+/* harmony default export */ var _idvue_type_script_lang_js = ({
+  middleware: 'auths',
+  mixins: [product["default"]],
+  mounted() {
+    console.log('FORMDATA ID: ' + this.formData.pro_id);
+    this.pro_id = this.$route.params.id;
+    this.formData.pro_id = this.$route.params.id;
+    console.log('Mounted: ');
+    this.$route.params.id && this.fetchProId(this.$route.params.id);
+  },
+  validate(data) {
+    // this.formData.pro_id = data.params.id
+    console.log('MIXIN ID: ' + data.params.id);
+    console.log('PRO DEFUALT ID: ' + this.pro_id);
+    return /^\d+$/.test(data.params.id);
+  },
+  data() {
+    return {
+      validLocal: true,
+      diaMessageTitle: 'ຄຳເຕືອນ',
+      diaMessageBody: 'ທ່ານ ກຳລັງຈະລົບ ຂໍ້ມູນອອກຈາກ ເຊີເວີ ຖາວອນ ກະລຸນາຢືນຢັນ',
+      pro_id: null,
+      dia_confirm: false,
+      tempImgId: null
+    };
+  },
+  methods: {
+    validateLocal() {
+      console.log('VALIDATING...');
+      this.$refs.formLocal.validate();
+    },
+    updateData() {
+      this.isloading = true;
+      this.$axios.put('/uploadmulti_update', this.formData).then(res => {
+        this.message = res.data;
+      }).catch(er => {
+        this.message = er;
+      });
+      this.isloading = false;
+    },
+    async fetchProId(id) {
+      this.isloading = true;
+      console.log('FECT ID:' + id);
+      await this.$axios.post('/product_f_id', {
+        proid: id
+      }).then(res => {
+        console.log('Product ID ' + res.data);
+        const el = res.data[0];
+        const image = res.data[0].img_name == null ? [] : res.data.map(el => {
+          return {
+            name: el.img_name,
+            path: el.img_path
+          };
+        });
+        this.formData = {
+          pro_category: el.pro_category,
+          pro_id: el.pro_id,
+          pro_name: el.pro_name,
+          pro_price: el.pro_price,
+          pro_desc: el.pro_desc,
+          pro_status: el.pro_status === 1 || false,
+          pro_retail_price: el.retail_cost_percent,
+          pro_cost_price: el.cost_price,
+          outlet: el.outlet,
+          pro_image: image
+        };
+        console.log('IMAGE COUNT: ' + this.formData.pro_image.length);
+      }).catch(er => {
+        console.log('Error: ' + er);
+        this.message = er;
+      });
+      this.isloading = false;
+    },
+    deleteFileFrServ(idx) {
+      console.log('IDX: ' + idx);
+      this.tempImgId = idx;
+      this.dia_confirm = true;
+    },
+    async reactDiaConfirm(v) {
+      //   v && this.deleteFileFrServ'
+      this.dia_confirm = false;
+      this.isloading = true;
+      v && (await this.$axios.post('/unlink_file', {
+        img_name: this.formData.pro_image[this.tempImgId].name
+      }).then(res => {
+        res.data === 'Transaction completed' && this.formData.pro_image.splice(this.tempImgId, 1);
+        this.message = res.data;
+      }).catch(er => {
+        this.message = er.error;
+      }));
+      this.isloading = false;
+    },
+    hello() {
+      if (!this.$refs.formLocal.validate()) {
+        console.log('VALIDATE...' + false);
+      } else {
+        console.log('VALIDATE...' + true);
+      }
+
+      // console.log('VALIDATE...')
+    },
+    async uploadFilesLocal() {
+      if (!this.$refs.formLocal.validate()) {
+        return;
+      }
+      console.log('Files length: ' + this.files.length);
+      this.isloading = true;
+      const formData = new FormData();
+      formData.append('FORM', JSON.stringify(this.formData));
+      this.files.forEach(element => {
+        formData.append('files', element);
+      });
+      await this.$axios.post('uploadmulti_update', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(res => {
+        this.isloading = false;
+        this.message = res.data;
+      }).catch(er => {
+        this.isloading = false;
+        this.message = er.response.data;
+      });
+    }
+  }
+});
+// CONCATENATED MODULE: ./pages/admin/product/_id/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var product_idvue_type_script_lang_js = (_idvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./pages/admin/product/_id/index.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  product_idvue_type_script_lang_js,
+  _idvue_type_template_id_5cc388e6_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "0db71328"
+  
+)
+
+/* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
+
+/* nuxt-component-imports */
+installComponents(component, {DialogClassicMessage: __webpack_require__(461).default,LoadingIndicator: __webpack_require__(66).default,DiaImage: __webpack_require__(473).default,DiaConfirm: __webpack_require__(633).default})
 
 
 /***/ })

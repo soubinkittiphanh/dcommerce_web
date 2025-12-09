@@ -81,7 +81,8 @@
                       class="primary"
                       rounded
                     >
-                      <span class="mdi mdi-microsoft-excel"></span>Generate excel file
+                      <span class="mdi mdi-microsoft-excel"></span>Generate
+                      excel file
                     </v-btn>
                     <v-spacer></v-spacer>
 
@@ -147,7 +148,7 @@
                 </template>
                 <!-- UPDATED: Recipe function with multiple buttons -->
                 <template v-slot:[`item.functionRecipe`]="{ item }">
-                  <div v-if="item._category ='stock'" class="recipe-buttons">
+                  <div v-if="(item._category = 'stock')" class="recipe-buttons">
                     <!-- View existing recipes button -->
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
@@ -198,7 +199,9 @@
                 <template v-slot:[`item.status`]="{ item }">
                   <v-chip
                     class="ma-2"
-                    :color="getStatusChipColor(item.minStock, item.pro_card_count)"
+                    :color="
+                      getStatusChipColor(item.minStock, item.pro_card_count)
+                    "
                     text-color="white"
                   >
                     {{ verifyStockStatus(item.minStock, item.pro_card_count) }}
@@ -239,11 +242,23 @@
                   <div class="flex-grow-1">
                     <h4>{{ selectedProductForRecipe.pro_name }}</h4>
                     <p class="mb-0">{{ selectedProductForRecipe.pro_desc }}</p>
-                    <small>Category: {{ selectedProductForRecipe.pro_category_desc }}</small>
+                    <small
+                      >Category:
+                      {{ selectedProductForRecipe.pro_category_desc }}</small
+                    >
                   </div>
                   <div class="text-right">
-                    <div><strong>ລາຄາ:</strong> {{ formatNumber(selectedProductForRecipe.pro_price) }} LAK</div>
-                    <div><strong>ຕົ້ນທຶນ:</strong> {{ formatNumber(selectedProductForRecipe.pro_cost_price) }} LAK</div>
+                    <div>
+                      <strong>ລາຄາ:</strong>
+                      {{ formatNumber(selectedProductForRecipe.pro_price) }} LAK
+                    </div>
+                    <div>
+                      <strong>ຕົ້ນທຶນ:</strong>
+                      {{
+                        formatNumber(selectedProductForRecipe.pro_cost_price)
+                      }}
+                      LAK
+                    </div>
                   </div>
                 </div>
               </v-alert>
@@ -263,7 +278,7 @@
               </v-card>
             </v-col>
             <v-col cols="12" md="4">
-              <v-card color="primary" dark style="opacity: 0.8;">
+              <v-card color="primary" dark style="opacity: 0.8">
                 <v-card-text>
                   <div class="text-center">
                     <h3>{{ formatNumber(totalRecipeCost) }}</h3>
@@ -273,7 +288,7 @@
               </v-card>
             </v-col>
             <v-col cols="12" md="4">
-              <v-card color="primary" dark style="opacity: 0.6;">
+              <v-card color="primary" dark style="opacity: 0.6">
                 <v-card-text>
                   <div class="text-center">
                     <h3>{{ formatNumber(profitMargin) }}</h3>
@@ -296,7 +311,7 @@
             <template v-slot:item.ingredient="{ item }">
               <div class="ingredient-info">
                 <strong>{{ item.ingredient?.pro_name || 'N/A' }}</strong>
-                <br>
+                <br />
                 <small class="text-grey">{{ item.ingredient?.pro_desc }}</small>
               </div>
             </template>
@@ -304,7 +319,9 @@
             <template v-slot:item.quantity="{ item }">
               <div class="quantity-display">
                 {{ item.quantity }}
-                <span v-if="item.unit" class="text-grey ml-1">{{ item.unit.name }}</span>
+                <span v-if="item.unit" class="text-grey ml-1">{{
+                  item.unit.name
+                }}</span>
               </div>
             </template>
 
@@ -316,7 +333,14 @@
 
             <template v-slot:item.totalCost="{ item }">
               <div class="total-cost-display">
-                <strong>{{ formatNumber((item.ingredient?.pro_price || 0) * item.quantity) }} LAK</strong>
+                <strong
+                  >{{
+                    formatNumber(
+                      (item.ingredient?.pro_price || 0) * item.quantity
+                    )
+                  }}
+                  LAK</strong
+                >
               </div>
             </template>
 
@@ -333,7 +357,9 @@
             <div class="text-center">
               <v-icon size="48" color="info">mdi-information</v-icon>
               <h4 class="mt-2">ບໍ່ມີສູດອາຫານ</h4>
-              <p>ສິນຄ້ານີ້ຍັງບໍ່ມີສູດອາຫານ. ກົດປຸ່ມຂ້າງລຸ່ມເພື່ອສ້າງສູດອາຫານໃຫມ່.</p>
+              <p>
+                ສິນຄ້ານີ້ຍັງບໍ່ມີສູດອາຫານ. ກົດປຸ່ມຂ້າງລຸ່ມເພື່ອສ້າງສູດອາຫານໃຫມ່.
+              </p>
               <v-btn class="primary" @click="createRecipeForProduct">
                 <v-icon left>mdi-plus</v-icon>
                 ສ້າງສູດອາຫານ
@@ -343,7 +369,10 @@
 
           <!-- Loading State -->
           <div v-if="loadingRecipes" class="text-center py-4">
-            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            <v-progress-circular
+              indeterminate
+              color="primary"
+            ></v-progress-circular>
             <p class="mt-2">ກຳລັງໂຫລດສູດອາຫານ...</p>
           </div>
         </v-card-text>
@@ -371,16 +400,16 @@
       >
       </youtube-player>
     </v-dialog>
-    
+
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
-    
+
     <v-dialog v-model="dialogMessage" max-width="300px">
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
     </v-dialog>
-    
+
     <v-dialog v-model="isstock" max-width="600px">
       <card-form
         :key="stockFormKey"
@@ -392,7 +421,7 @@
         @reload="rebuildStock"
       ></card-form>
     </v-dialog>
-    
+
     <v-dialog
       v-model="editProductForm"
       fullscreen
@@ -408,7 +437,7 @@
         :isEdit="editProductForm"
       ></product-form>
     </v-dialog>
-    
+
     <v-dialog
       v-model="productFormCreate"
       fullscreen
@@ -445,14 +474,19 @@ import { mapActions, mapGetters } from 'vuex'
 import RecipeManagement from '~/components/pos/recipe'
 
 export default {
-  components: { ProductForm, ProductFormCreate, PriceListForm, RecipeManagement },
+  components: {
+    ProductForm,
+    ProductFormCreate,
+    PriceListForm,
+    RecipeManagement,
+  },
   middleware: 'auths',
-  
+
   data() {
     return {
       // Tab management
       activeTab: 0,
-      
+
       // Recipe-related data
       productRecipeDialog: false,
       selectedProductForRecipe: null,
@@ -460,15 +494,31 @@ export default {
       loadingRecipes: false,
       totalRecipeCost: 0,
       profitMargin: 0,
-      
+
       recipeHeaders: [
         { text: 'ວັດຖຸດິບ', value: 'ingredient', width: '30%' },
         { text: 'ປະລິມານ', value: 'quantity', width: '15%', align: 'center' },
-        { text: 'ລາຄາຕໍ່ຫົວໜ່ວຍ', value: 'unitCost', width: '20%', align: 'right' },
-        { text: 'ຕົ້ນທຶນລວມ', value: 'totalCost', width: '20%', align: 'right' },
-        { text: 'ຈັດການ', value: 'actions', width: '15%', align: 'center', sortable: false }
+        {
+          text: 'ລາຄາຕໍ່ຫົວໜ່ວຍ',
+          value: 'unitCost',
+          width: '20%',
+          align: 'right',
+        },
+        {
+          text: 'ຕົ້ນທຶນລວມ',
+          value: 'totalCost',
+          width: '20%',
+          align: 'right',
+        },
+        {
+          text: 'ຈັດການ',
+          value: 'actions',
+          width: '15%',
+          align: 'center',
+          sortable: false,
+        },
       ],
-      
+
       // Existing data
       priceListDialog: false,
       priceListFormKey: 1,
@@ -578,8 +628,10 @@ export default {
     async loadProductRecipes(productId) {
       this.loadingRecipes = true
       try {
-        const response = await this.$axios.get(`/api/recipes/product/${productId}`)
-        
+        const response = await this.$axios.get(
+          `/api/recipes/product/${productId}`
+        )
+
         if (response.data.success) {
           this.productRecipes = response.data.data.recipes || []
           this.calculateRecipeTotals()
@@ -595,21 +647,25 @@ export default {
 
     calculateRecipeTotals() {
       this.totalRecipeCost = this.productRecipes.reduce((total, recipe) => {
-        const ingredientCost = (recipe.ingredient?.pro_price || 0) * recipe.quantity
+        const ingredientCost =
+          (recipe.ingredient?.pro_price || 0) * recipe.quantity
         return total + ingredientCost
       }, 0)
 
-      this.profitMargin = (this.selectedProductForRecipe?.pro_price || 0) - this.totalRecipeCost
+      this.profitMargin =
+        (this.selectedProductForRecipe?.pro_price || 0) - this.totalRecipeCost
     },
 
     createRecipeForProduct() {
       // Switch to recipe tab and trigger create with pre-selected product
       this.activeTab = 1
       this.productRecipeDialog = false
-      
+
       this.$nextTick(() => {
         if (this.$refs.recipeManagement) {
-          this.$refs.recipeManagement.openCreateDialogWithProduct(this.selectedProductForRecipe)
+          this.$refs.recipeManagement.openCreateDialogWithProduct(
+            this.selectedProductForRecipe
+          )
         }
       })
     },
@@ -618,7 +674,7 @@ export default {
     createRecipeFromProductList(product) {
       // Switch to recipe tab
       this.activeTab = 1
-      
+
       // Wait for the RecipeManagement component to be rendered
       this.$nextTick(() => {
         if (this.$refs.recipeManagement) {
@@ -631,7 +687,7 @@ export default {
       // Switch to recipe tab and trigger edit
       this.activeTab = 1
       this.productRecipeDialog = false
-      
+
       this.$nextTick(() => {
         if (this.$refs.recipeManagement) {
           this.$refs.recipeManagement.openEditDialog(recipe)
@@ -643,16 +699,21 @@ export default {
       if (!this.selectedProductForRecipe) return
 
       try {
-        const response = await this.$axios.get(`/api/recipes/product/${this.selectedProductForRecipe.id}/cost`, {
-          params: { quantity: 1 }
-        })
+        const response = await this.$axios.get(
+          `/api/recipes/product/${this.selectedProductForRecipe.id}/cost`,
+          {
+            params: { quantity: 1 },
+          }
+        )
 
         if (response.data.success) {
           const costData = response.data.data
-          
+
           // Show detailed cost breakdown
-          this.$toast.success(`Production Cost: ${this.formatNumber(costData.totalCost)} LAK`)
-          
+          this.$toast.success(
+            `Production Cost: ${this.formatNumber(costData.totalCost)} LAK`
+          )
+
           // You could also show a detailed dialog here with the cost breakdown
           console.log('Cost breakdown:', costData.costBreakdown)
         }
@@ -763,11 +824,11 @@ export default {
 
     getStatusChipColor(minStock, curStock) {
       if (curStock == 0) {
-        return 'error'  // Out of stock - use error theme color
+        return 'error' // Out of stock - use error theme color
       } else if (minStock < curStock) {
-        return 'primary'  // In stock - use primary theme color
+        return 'primary' // In stock - use primary theme color
       } else {
-        return 'warning'  // Low stock - use warning theme color
+        return 'warning' // Low stock - use warning theme color
       }
     },
 
@@ -793,7 +854,7 @@ export default {
     async fetchData() {
       console.log(`PRODUCT LIST ===>`)
       this.isloading = true
-      
+
       await this.$axios
         .get(`product_f/${this.currentSelectedLocation['id']}`, {
           params: { include: 'priceList' },
@@ -847,7 +908,17 @@ export default {
       console.log('ID ' + idx.pro_id)
       console.log('NAME ' + idx.pro_name)
       console.log('OBJ ' + Object.keys(idx))
-      this.$router.push(`/admin/stock/${idx.pro_id}`)
+      // this.$router.push(`/admin/stock/${idx.pro_id}`)
+      // this.$router.push(`/admin/stock/${idx.pro_id}/${encodeURIComponent(idx.pro_name)}`)
+      this.$router.push({
+        path: `/admin/stock/${idx.pro_id}`,
+        query: {
+          name: idx.pro_name,
+          // You can add more query params
+          category: idx.category || '',
+          price: idx.price || '',
+        },
+      })
     },
 
     loadCardCategory() {
@@ -941,11 +1012,11 @@ export default {
   .recipeHeaders {
     font-size: 12px;
   }
-  
+
   .ingredient-info {
     min-width: 150px;
   }
-  
+
   .recipe-buttons {
     flex-direction: column;
     gap: 2px;

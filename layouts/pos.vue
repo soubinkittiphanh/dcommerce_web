@@ -530,6 +530,8 @@
           :selected-payment="currentPayment"
           :format-number="formatNumber"
           :svg-icon="svgIcon"
+          :enablePredefinedPayments="true"
+          :defaultPaymentMethods="[14, 15]"
           @update:discount="discount = $event"
           @update:cash-received="cashReceived = $event"
           @toggle-checkout="showCheckOut = !showCheckOut"
@@ -655,6 +657,7 @@ export default {
       shippingFormKey: 1,
       currencyList: [],
       saleHeader: {
+        id: null,
         bookingDate: '',
         remark: '',
         total: 0,
@@ -677,6 +680,10 @@ export default {
       // Try to get enhanced company data from terminal/location
       const terminalCompany = this.currentTerminal?.location?.company
 
+      console.warn(
+        `POS Terminal company ${JSON.stringify(this.currentTerminal)}`
+      )
+      const baseUrl = this.$axios.defaults.baseURL || ''
       return {
         name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
         address:
@@ -690,7 +697,9 @@ export default {
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
-        ticketLogo: baseCompany?.ticketLogo || 'default-logo.png',
+        ticketLogo:
+          `${baseUrl}/${terminalCompany.profile_image_path}` ||
+          'default-logo.png',
       }
     },
 
@@ -1282,6 +1291,7 @@ export default {
         this.pendingSaleHeaderId =
           response.data.saleHeaderId || response.data.id
         this.lastTransactionSaleHeaderId = this.pendingSaleHeaderId
+        console.info(`PENDING SALE HEADER ${this.pendingSaleHeaderId}`)
       } catch (error) {
         console.log('Full error object:', error)
         console.log('Error response:', error.response)
@@ -1381,10 +1391,15 @@ export default {
         }
 
         await this.$axios.post('/api/sale-payment/bulk', paymentData)
-
+        this.formSaleHeader('')
+        const response = await this.$axios.post(
+          '/api/sale/create-line-only',
+          this.saleHeader
+        )
         // SHOW SUCCESS ON CUSTOMER SCREEN
         this.showPaymentSuccessOnCustomerScreen()
-
+        // set value to trigger load product again to refresh stock count
+        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
         this.printDefaultTicket()
         this.completeTransaction()
@@ -1525,7 +1540,7 @@ export default {
         const cartItem = {
           ...product, // copy all product fields
           isGift: isGift,
-          lineUUIDCheck:true,
+          lineUUIDCheck: true,
           lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
         }
         console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
@@ -1682,9 +1697,12 @@ export default {
         discount: this.discount,
         currencyList: this.currencyList,
         grandTotal: this.grandTotal,
-        companyLogo: this.companyLogo,
+        // companyLogo: this.companyLogo,
         lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
-        currentTerminal: this.currentTerminal,
+        currentTerminal: {
+          ...this.currentTerminal,
+          baseURL: this.$axios.defaults.baseURL,
+        },
         user: this.user,
         ticketCommon: this.ticketCommon,
         currentPaymentCode: this.currentPaymentCode,
@@ -1694,7 +1712,30 @@ export default {
         companyData: this.companyData,
       })
     },
-
+    formSaleHeader(remark = '') {
+      // this.saleHeader.discount = this.discount
+      // this.saleHeader.remark = remark
+      // this.saleHeader.total = this.grandTotal - this.discount
+      // this.saleHeader.clientId = this.currenctCustomer.id
+      // this.saleHeader.paymentId = this.currentPayment
+      // this.saleHeader.currencyId = 1
+      // this.saleHeader.lines = this.generateSaleLine
+      // this.saleHeader.userId = this.user.id
+      // this.saleHeader.bookingDate = jsDateToMysqlDate(today)
+      // this.saleHeader.isActive = true
+      const today = new Date()
+      this.saleHeader.isActive = true
+      this.saleHeader.discount = this.discount
+      this.saleHeader.total = this.grandTotal - this.discount
+      this.saleHeader.clientId = this.currenctCustomer.id
+      this.saleHeader.paymentId = this.currentPayment
+      this.saleHeader.currencyId = 1
+      this.saleHeader.lines = this.generateSaleLine
+      this.saleHeader.userId = this.user.id
+      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
+      this.saleHeader.locationId = this.currentTerminal['locationId']
+      this.saleHeader.id = this.pendingSaleHeaderId
+    },
     async setQuotation() {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -1703,18 +1744,8 @@ export default {
         return
       }
 
-      const today = new Date()
       this.isloading = true
-      this.saleHeader.discount = this.discount
-      this.saleHeader.remark = 'Quotation'
-      this.saleHeader.total = this.grandTotal - this.discount
-      this.saleHeader.clientId = this.currenctCustomer.id
-      this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1
-      this.saleHeader.lines = this.generateSaleLine
-      this.saleHeader.userId = this.user.id
-      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
-      this.saleHeader.isActive = true
+      this.formSaleHeader('Quotation')
       await this.$axios
         .post('/api/quotation/create', this.saleHeader)
         .then((res) => {
@@ -1767,7 +1798,6 @@ export default {
     handlePaymentError(errorMessage) {
       swalError2(this.$swal, 'Error', errorMessage)
     },
-
     async postTransactionOriginal(isDeliveryCustomer) {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -1776,38 +1806,67 @@ export default {
         return
       }
 
-      const today = new Date()
       this.isloading = true
-      this.saleHeader.isActive = true
-      this.saleHeader.discount = this.discount
-      this.saleHeader.total = this.grandTotal - this.discount
-      this.saleHeader.clientId = this.currenctCustomer.id
-      this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1
-      this.saleHeader.lines = this.generateSaleLine
-      this.saleHeader.userId = this.user.id
-      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
-      this.saleHeader.locationId = this.currentTerminal['locationId']
+      this.formSaleHeader('')
 
       try {
-        const response = await this.$axios.post(
-          '/api/sale/create',
-          this.saleHeader
-        )
+        let response
+        const isUpdate = this.saleHeader.id && this.saleHeader.id !== null
 
-        // Handle successful response
-        this.lastTransactionSaleHeaderId = response.data.split('-')[1].trim()
-        swalSuccess(this.$swal, 'Succeed', response.data.split('-')[0])
+        if (isUpdate) {
+          // Update existing sale header
+          response = await this.$axios.put(
+            `/api/sale/update-v2/${this.saleHeader.id}`,
+            this.saleHeader
+          )
+        } else {
+          // Create new sale header
+          response = await this.$axios.post('/api/sale/create', this.saleHeader)
+        }
+
+        // Handle successful response - both create and update now return similar format
+        let successMessage = ''
+        let saleHeaderId = ''
+
+        if (typeof response.data === 'string' && response.data.includes('-')) {
+          // Handle string format: "message - id"
+          const parts = response.data.split('-')
+          successMessage = parts[0].trim()
+          saleHeaderId = parts[1].trim()
+        } else if (typeof response.data === 'object') {
+          // Handle object format (if your backend returns object)
+          successMessage = isUpdate
+            ? 'Successfully updated'
+            : 'Successfully created'
+          saleHeaderId = response.data.id || this.saleHeader.id
+        } else {
+          // Fallback
+          successMessage = isUpdate
+            ? 'Sale updated successfully'
+            : 'Sale created successfully'
+          saleHeaderId = this.saleHeader.id || new Date().getTime()
+        }
+
+        this.lastTransactionSaleHeaderId = saleHeaderId
+        swalSuccess(this.$swal, 'Succeed', successMessage)
 
         if (isDeliveryCustomer) {
           this.clearCustomerFormAction()
         } else {
-          this.printDefaultTicket()
+          try {
+            this.printDefaultTicket()
+          } catch (error) {
+            console.error(`PRINT TICKET FAIL ${error}`)
+          }
         }
+
         const now = new Date()
         console.info(
-          `SALE HEADER CREATED ${this.lastTransactionSaleHeaderId || now}`
+          `SALE HEADER ${isUpdate ? 'UPDATED' : 'CREATED'} ${
+            this.lastTransactionSaleHeaderId || now
+          }`
         )
+
         this.newOrder()
         // set value to trigger load product again to refresh stock count
         this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
@@ -1843,7 +1902,7 @@ export default {
         console.log('Processed errorData:', errorData)
         console.log('Type of errorData:', typeof errorData)
 
-        // Handle different error response formats
+        // Handle different error response formats (works for both create and update)
         if (errorData && typeof errorData === 'object') {
           // New JSON format with stockErrors
           if (
@@ -1865,6 +1924,10 @@ export default {
           // JSON object with message
           else if (errorData.message) {
             errorMessage = errorData.message
+          }
+          // JSON object with error property
+          else if (errorData.error) {
+            errorMessage = errorData.error
           }
           // JSON object converted to string
           else {
@@ -1890,6 +1953,134 @@ export default {
 
       this.isloading = false
     },
+    // *********** THE STABLE CODE ONE **********
+    // async postTransactionOriginal(isDeliveryCustomer) {
+    //   if (this.isloading || this.generateSaleLine == 0) {
+    //     if (this.generateSaleLine == 0) {
+    //       swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
+    //     }
+    //     return
+    //   }
+
+    //   const today = new Date()
+    //   this.isloading = true
+    //   this.saleHeader.isActive = true
+    //   this.saleHeader.discount = this.discount
+    //   this.saleHeader.total = this.grandTotal - this.discount
+    //   this.saleHeader.clientId = this.currenctCustomer.id
+    //   this.saleHeader.paymentId = this.currentPayment
+    //   this.saleHeader.currencyId = 1
+    //   this.saleHeader.lines = this.generateSaleLine
+    //   this.saleHeader.userId = this.user.id
+    //   this.saleHeader.bookingDate = jsDateToMysqlDate(today)
+    //   this.saleHeader.locationId = this.currentTerminal['locationId']
+    //   this.saleHeader.id = this.pendingSaleHeaderId
+
+    //   try {
+    //     const response = await this.$axios.post(
+    //       '/api/sale/create',
+    //       this.saleHeader
+    //     )
+
+    //     // Handle successful response
+    //     this.lastTransactionSaleHeaderId = response.data.split('-')[1].trim()
+    //     swalSuccess(this.$swal, 'Succeed', response.data.split('-')[0])
+
+    //     if (isDeliveryCustomer) {
+    //       this.clearCustomerFormAction()
+    //     } else {
+    //       try {
+    //         this.printDefaultTicket()
+    //       } catch (error) {
+    //         console.error(`PRINT TICKET FAIL ${error}`)
+    //       }
+    //     }
+    //     const now = new Date()
+    //     console.info(
+    //       `SALE HEADER CREATED ${this.lastTransactionSaleHeaderId || now}`
+    //     )
+    //     this.newOrder()
+    //     // set value to trigger load product again to refresh stock count
+    //     this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
+    //     localStorage.setItem(
+    //       'saleHeader',
+    //       this.lastTransactionSaleHeaderId || now
+    //     )
+    //     this.discount = 0
+    //     this.cashReceived = 0
+
+    //     // SHOW SUCCESS ON CUSTOMER SCREEN
+    //     this.showPaymentSuccessOnCustomerScreen()
+
+    //     // Hide QR after delay
+    //     setTimeout(() => {
+    //       this.hideQRPaymentFromCustomerScreen()
+    //     }, 3000)
+    //   } catch (error) {
+    //     console.log('Full error object:', error)
+    //     console.log('Error response:', error.response)
+    //     console.log('Error response data:', error.response?.data)
+
+    //     // Get the actual error data
+    //     let errorData = null
+    //     let errorMessage = 'Unknown error occurred'
+
+    //     if (error.response && error.response.data) {
+    //       errorData = error.response.data
+    //     } else if (error.message) {
+    //       errorMessage = error.message
+    //     }
+
+    //     console.log('Processed errorData:', errorData)
+    //     console.log('Type of errorData:', typeof errorData)
+
+    //     // Handle different error response formats
+    //     if (errorData && typeof errorData === 'object') {
+    //       // New JSON format with stockErrors
+    //       if (
+    //         errorData.stockErrors &&
+    //         Array.isArray(errorData.stockErrors) &&
+    //         errorData.stockErrors.length > 0
+    //       ) {
+    //         const stockError = errorData.stockErrors[0] // Get first stock error
+    //         const product = this.findAllProduct.find(
+    //           (el) => el.id == stockError.productId
+    //         )
+
+    //         errorMessage = `ຈຳນວນສິນຄ້າ: ${
+    //           product?.pro_name || 'Unknown Product'
+    //         } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
+    //           stockError.available
+    //         }, ຂາດ: ${stockError.shortage})`
+    //       }
+    //       // JSON object with message
+    //       else if (errorData.message) {
+    //         errorMessage = errorData.message
+    //       }
+    //       // JSON object converted to string
+    //       else {
+    //         errorMessage = JSON.stringify(errorData)
+    //       }
+    //     }
+    //     // Handle string responses (old format)
+    //     else if (typeof errorData === 'string') {
+    //       if (errorData.includes('#')) {
+    //         const id = errorData.split('#')[1]
+    //         const product = this.findAllProduct.find((el) => el.id == id)
+    //         errorMessage = `ຈຳນວນສິນຄ້າ: ${
+    //           product?.pro_name || ''
+    //         } ມີບໍ່ພຽງພໍໃນສາງ`
+    //       } else {
+    //         errorMessage = errorData
+    //       }
+    //     }
+
+    //     console.log('Final error message:', errorMessage)
+    //     swalError2(this.$swal, 'Error', errorMessage)
+    //   }
+
+    //   this.isloading = false
+    // },
 
     formatNumber(val) {
       return getFormatNum(val)
@@ -1971,6 +2162,7 @@ export default {
     },
 
     newOrder() {
+      this.pendingSaleHeaderId = null
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
