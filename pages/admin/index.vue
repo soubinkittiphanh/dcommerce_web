@@ -224,6 +224,7 @@
 import {
   generateColorShades,
   firstAndLastDateOfCurrentYear,
+  firstAndLastDateOfLast6Months,
   getFirstDayOfMonth,
   today,
   getFormatNum,
@@ -389,7 +390,7 @@ export default {
           cnt: '0',
         },
         {
-          title: `ຍອດຂາຍໝົດປີ - ${new Date().toDateString().split(' ')[3]} KIP`,
+          title: `ຍອດຂາຍ 6 ເດືອນຫຼັງ - KIP`,
           icon: 'mdi-calendar-range',
           path: '',
           total: '0',
@@ -548,7 +549,7 @@ export default {
       return this.paymentMethodData.labels
     },
     
-    totalSaleYTD() {
+    totalSale6M() {
       const totalPrice = this.yearlySale.reduce((total, item) => {
         let rider_fee = 0
         let cod_fee = 0
@@ -791,12 +792,12 @@ export default {
     },
 
     async loadSaleStatistic() {
-      const date = firstAndLastDateOfCurrentYear()
+      const date = firstAndLastDateOfLast6Months() // Changed from firstAndLastDateOfCurrentYear()
       this.isloading = true
       await this.$axios
         .get('api/sale/sumsaleYearly', { params: { date } })
         .then((res) => {
-          this.yearlySale = []
+          this.yearlySale = [] // Note: keeping the same variable name for compatibility
           for (const iterator of res.data) {
             this.yearlySale.push(iterator)
           }
@@ -808,7 +809,7 @@ export default {
             (el) => el.bookingDate == today
           )
           
-          this.menusOverview[2]['total'] = this.totalSaleYTD
+          this.menusOverview[2]['total'] = this.totalSale6M // Updated name
           this.menusOverview[2]['groupedSales'] = this.saleGroupByPayment(this.yearlySale)
           this.menusOverview[1]['total'] = this.totalSaleMTD
           this.menusOverview[1]['groupedSales'] = this.saleGroupByPayment(monthSaleList)
@@ -1383,7 +1384,7 @@ export default {
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {
-    padding: 1rem;
+    padding: 0rem;
   }
   
   .dashboard-header {
