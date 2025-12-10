@@ -1,5 +1,5 @@
 <template>
-  <div class="modern-dashboard">
+  <div>
     <!-- Loading Dialog -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <div class="loading-container">
@@ -11,7 +11,7 @@
     <!-- Terminal Selection Dialog -->
     <v-dialog v-model="terminalDialog" scrollable max-width="500" persistent>
       <v-card class="terminal-dialog">
-        <div class="dialog-header">
+        <div class="dialog-header" :style="dialogHeaderStyle">
           <h3>ເລືອກ Terminal</h3>
           <v-btn icon small @click="terminalDialog = false">
             <v-icon>mdi-close</v-icon>
@@ -40,6 +40,7 @@
         <div class="dialog-actions">
           <v-btn 
             class="primary-button" 
+            :style="primaryButtonStyle"
             @click="chooseTerminal"
             :disabled="!terminalSelected"
           >
@@ -80,7 +81,7 @@
             class="action-card"
             @click="navigateTo(item.path)"
           >
-            <div class="card-icon">
+            <div class="card-icon" :style="cardIconStyle">
               <img :src="item.svgIcon" alt="" />
             </div>
             <div class="card-content">
@@ -107,7 +108,7 @@
             :class="`kpi-card--${index}`"
           >
             <div class="kpi-header">
-              <div class="kpi-icon">
+              <div class="kpi-icon" :style="kpiIconStyle">
                 <v-icon>{{ item.icon }}</v-icon>
               </div>
               <div class="kpi-trend">
@@ -144,7 +145,7 @@
         
         <div class="analytics-grid">
           <!-- Top Categories Chart -->
-          <div class="chart-card chart-card--large">
+          <div class="chart-card ">
             <div class="chart-header">
               <h3>ສິນຄ້າຂາຍດີຕາມໝວດ</h3>
               <v-btn icon small>
@@ -252,9 +253,9 @@ export default {
         day: 'numeric' 
       }),
       
-      // Chart configurations
+      // Chart configurations - will be updated in mounted()
       barOptionsForMonthlyStat: {
-        colors: ['#10B981'], // Bright green for better visibility
+        colors: [], // Will be set dynamically
         chart: {
           type: 'line',
           height: 'auto',
@@ -277,7 +278,7 @@ export default {
         },
         markers: {
           size: 5,
-          colors: ['#10B981'],
+          colors: [], // Will be set dynamically
           strokeColors: '#fff',
           strokeWidth: 2,
           hover: {
@@ -406,7 +407,7 @@ export default {
           type: 'donut',
           height: 250,
         },
-        colors: ['#667eea', '#f093fb', '#764ba2', '#4facfe', '#00f2fe'],
+        colors: [], // Will be set dynamically based on theme
         labels: [],
         legend: {
           position: 'bottom',
@@ -441,7 +442,7 @@ export default {
       }],
       
       barOptionsForDailyStat: {
-        colors: ['#3B82F6'], // Bright blue for better visibility
+        colors: [], // Will be set dynamically
         chart: {
           type: 'line',
           height: 'auto',
@@ -464,7 +465,7 @@ export default {
         },
         markers: {
           size: 5,
-          colors: ['#3B82F6'],
+          colors: [], // Will be set dynamically
           strokeColors: '#fff',
           strokeWidth: 2,
           hover: {
@@ -539,6 +540,53 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
+
+    // Theme-based styling using dynamic colors from vuetify-theme.js
+    primaryGradient() {
+      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      return `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`
+    },
+
+    primaryColor() {
+      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      return theme.primary
+    },
+
+    secondaryColor() {
+      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      return theme.secondary
+    },
+
+    lightPrimaryColor() {
+      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      return theme.lightprimary || theme.primary
+    },
+
+    // Dynamic styles
+    dialogHeaderStyle() {
+      return {
+        background: this.primaryGradient
+      }
+    },
+
+    primaryButtonStyle() {
+      return {
+        background: `${this.primaryGradient} !important`,
+        boxShadow: `0 4px 12px ${this.primaryColor}40 !important`
+      }
+    },
+
+    kpiIconStyle() {
+      return {
+        background: this.primaryGradient
+      }
+    },
+
+    cardIconStyle() {
+      return {
+        background: this.primaryGradient
+      }
+    },
 
     // Use computed properties for chart data
     paymentSeries() {
@@ -868,6 +916,36 @@ export default {
 
     init() {
       console.log('Dashboard initialized')
+      this.applyThemeToCharts()
+    },
+
+    applyThemeToCharts() {
+      // Apply theme colors to charts
+      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      
+      // Monthly stats chart
+      this.barOptionsForMonthlyStat.colors = [theme.secondary || '#10B981']
+      this.barOptionsForMonthlyStat.markers.colors = [theme.secondary || '#10B981']
+      
+      // Daily stats chart  
+      this.barOptionsForDailyStat.colors = [theme.primary || '#3B82F6']
+      this.barOptionsForDailyStat.markers.colors = [theme.primary || '#3B82F6']
+      
+      // Payment method donut chart
+      this.options.colors = [
+        theme.primary || '#667eea',
+        theme.secondary || '#f093fb', 
+        theme.lightprimary || '#764ba2',
+        theme.danger || '#4facfe',
+        '#00f2fe'
+      ]
+      
+      console.log('Theme colors applied to charts:', {
+        primary: theme.primary,
+        secondary: theme.secondary,
+        lightprimary: theme.lightprimary,
+        danger: theme.danger
+      })
     },
   },
 }
@@ -927,7 +1005,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
@@ -995,7 +1072,6 @@ export default {
 }
 
 .primary-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white !important;
   border-radius: 8px !important;
   padding: 0 2rem !important;
@@ -1021,7 +1097,7 @@ export default {
 .dashboard-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 /* Header Section */
@@ -1141,7 +1217,6 @@ export default {
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 16px;
   margin-bottom: 1.5rem;
   padding: 1rem;
@@ -1228,7 +1303,6 @@ export default {
 .kpi-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -1384,7 +1458,7 @@ export default {
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {
-    padding: 0rem;
+    padding: 1rem;
   }
   
   .dashboard-header {

@@ -1074,6 +1074,9 @@ export default {
 
 
 <style scoped>
+* {
+    font-family: 'noto sans lao';
+}
 /* ========================================
    🎨 BASE STYLES & VARIABLES
    ======================================== */
