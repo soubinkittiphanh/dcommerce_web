@@ -114,7 +114,13 @@ export const swalConfirm = (swal, title, text, icon, cancelButtonText, confirmBu
 }
 
 export const getFormatNum = (val) => {
-  return new Intl.NumberFormat().format(val)
+  // Use 'en-US' or another specific locale to ensure consistent formatting,
+  // especially for the decimal separator ('.') and thousands separator (',').
+  // The options object ensures exactly 2 digits after the decimal point.
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(val);
 }
 
 export const swalSuccessBackToMenu = (swal, message, transt24Id, status) => {

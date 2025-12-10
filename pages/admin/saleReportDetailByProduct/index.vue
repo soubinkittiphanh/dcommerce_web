@@ -218,19 +218,19 @@ export default {
         },
         {
           text: 'ລາຄາ',
-          align: 'center',
+          align: 'right',
           value: 'totalPrice',
           sortable: true,
         },
         {
           text: 'ສ່ວນຫຼຸດ',
-          align: 'center',
+          align: 'right',
           value: 'totalDiscount',
           sortable: true,
         },
         {
           text: 'ລວມ',
-          align: 'center',
+          align: 'right',
           value: 'totalAmount',
           sortable: true,
         },

@@ -1,7 +1,7 @@
 <template>
   <div class="applicant-form">
     <!-- Header -->
-    <div class="form-header">
+    <div class="form-header primary">
       <h5 class="form-title">
         <i class="fas fa-user-plus"></i>
         {{ isEditMode ? 'ແກ້ໄຂຜູ້ສະໝັກ' : 'ເພີ່ມຜູ້ສະໝັກ' }}
@@ -89,9 +89,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="required"><i class="fas fa-user"></i> ນາມສະກຸນ</label>
+                  <label><i class="fas fa-user"></i> ນາມສະກຸນ</label>
                   <input v-model="formData.lastName" type="text" placeholder="ນາມສະກຸນ"
-                    :class="{ error: errors.lastName }" required />
+                    :class="{ error: errors.lastName }" />
                 </div>
 
                 <div class="form-group">
@@ -420,7 +420,7 @@ export default {
     isFormValid() {
       return (
         this.formData.firstName.trim() &&
-        this.formData.lastName.trim() &&
+        // this.formData.lastName.trim() &&
         this.formData.gender &&
         this.formData.phone?.trim() &&
         !this.formErrors.length
@@ -643,7 +643,6 @@ export default {
 .form-header {
   padding: 16px 20px;
   border-bottom: 1px solid #e5e7eb;
-  background: primary;
   color: white;
   flex-shrink: 0;
 }
