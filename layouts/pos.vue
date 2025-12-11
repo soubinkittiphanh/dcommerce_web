@@ -1851,14 +1851,16 @@ export default {
         swalSuccess(this.$swal, 'Succeed', successMessage)
 
         if (isDeliveryCustomer) {
+          this.generatePrintViewDeliveryCustomer()
           this.clearCustomerFormAction()
         } else {
-          try {
-            this.printDefaultTicket()
-          } catch (error) {
-            console.error(`PRINT TICKET FAIL ${error}`)
-          }
+                 try {
+          this.printDefaultTicket()
+        } catch (error) {
+          console.error(`PRINT TICKET FAIL ${error}`)
         }
+        }
+ 
 
         const now = new Date()
         console.info(
@@ -1952,6 +1954,108 @@ export default {
       }
 
       this.isloading = false
+    },
+    generatePrintViewDeliveryCustomer() {
+      let txnListHtml = ``
+      for (const iterator of this.productCart) {
+        const product = this.findAllProduct.find((el) => el.id == iterator.id)
+        console.log(`=======${product}======`)
+        const quantity = iterator.qty
+        const total = iterator.qty * iterator.localPrice
+        txnListHtml += `<div class="ticket">
+                    <div class="product-name">${product.pro_name} </div>
+                    <div class="price"> ${quantity} ${
+          this.onlineCustomerInfo.payment == 'COD'
+            ? ' X ' + this.formatNumber(total)
+            : ''
+        }</div>
+                </div>`
+      }
+      const discountHtml = `<div class="ticket">
+                    <div class="product-name">ສ່ວນຫລຸດ </div>
+                    <div class="price"> - ${this.formatNumber(
+                      this.discount
+                    )}</div>
+                </div>`
+      const riderFeeHtml = `<div class="ticket">
+                    <div class="product-name">ຄ່າສົ່ງ </div>
+                    <div class="price">${this.formatNumber(
+                      this.onlineCustomerInfo.riderFee
+                    )}</div>
+                </div>`
+      const today = new Date()
+      const bookingDate = jsDateToMysqlDate(today)
+      const bookingDateWithTime = today.toISOString
+      // let totalHtml = ``
+      //*********Payment info tag********/
+      let totalHtml = ``
+      // let totalHtml = `<div class="ticket">
+      //         <div class="product-name"> ${this.onlineCustomerInfo.payment}</div>
+      //     <div class="price"></div>
+      // </div>`
+      for (const iterator of this.currencyList) {
+        if (
+          iterator.code == 'LAK' &&
+          (this.onlineCustomerInfo.payment == 'COD' ||
+            this.onlineCustomerInfo.shipping == 'RIDER')
+        ) {
+          totalHtml += `
+                                    <div class="ticket">
+                                        <div class="product-name"> </div>
+                                    <div class="price-total"> <h5>ຍອດລວມ(${
+                                      this.onlineCustomerInfo.payment
+                                    }): ${this.formatNumber(
+            (this.grandTotal +
+              +this.onlineCustomerInfo.riderFee -
+              this.discount) /
+              iterator.rate
+          )}  </h5> </div>
+                                </div>
+                                    `
+        }
+      }
+
+      const windowContent = `
+         ${this.ticketCommon.header}
+            <body>
+                <h5> ວັນທີ: ${today.toLocaleString()}</h5>
+                <h5> ຮ້ານ: ${this.onlineCustomerInfo.branch} </h5>
+                <h5> ເບີໂທ: ${this.onlineCustomerInfo.branchTel} </h5>
+                <hr> </hr>
+                <h5> ຜູ້ຮັບ: ${this.onlineCustomerInfo.name}</h5>
+                <h5> ໂທ: ${this.onlineCustomerInfo.tel} </h5>
+                <h5> ຂົນສົ່ງ: ${this.onlineCustomerInfo.shipping} </h5>
+                <h5> ບ່ອນສົ່ງ: ${this.onlineCustomerInfo.address} </h5>
+              ${
+                this.onlineCustomerInfo.shipping == 'RIDER'
+                  ? ``
+                  : `<h5> ຄ່າຝາກ: ${this.onlineCustomerInfo.shippingFeeBy}</h5>`
+              }  
+                <hr> </hr>
+                ${txnListHtml}
+                ${this.onlineCustomerInfo.riderFee > 0 ? riderFeeHtml : ''}
+                ${
+                  this.discount > 0 && this.onlineCustomerInfo.payment == 'COD'
+                    ? discountHtml
+                    : ''
+                }
+                <hr> </hr>
+                ${totalHtml}
+            </body>
+            </html>
+        `
+      const printWin = window.open(
+        '',
+        '',
+        'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
+      )
+      printWin.document.open()
+      printWin.document.write(windowContent)
+
+      setTimeout(() => {
+        printWin.print()
+        printWin.close()
+      }, 1000)
     },
     // *********** THE STABLE CODE ONE **********
     // async postTransactionOriginal(isDeliveryCustomer) {

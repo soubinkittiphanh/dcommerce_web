@@ -215,11 +215,11 @@
   "UnitForm": {
     "description": "Auto imported from components/unitForm.vue"
   },
-  "CafePOSScreen": {
-    "description": "Auto imported from components/CafePOSScreen/index.vue"
-  },
   "CAFEPOSDialog": {
     "description": "Auto imported from components/CAFE/POSDialog.vue"
+  },
+  "CafePOSScreen": {
+    "description": "Auto imported from components/CafePOSScreen/index.vue"
   },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
@@ -434,6 +434,9 @@
   "MASettlementVoucher": {
     "description": "Auto imported from components/MA/settlementVoucher/index.vue"
   },
+  "AccountingTransaction": {
+    "description": "Auto imported from components/accounting/transaction/index.vue"
+  },
   "ApplicantsApplicantDialog": {
     "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
   },
@@ -442,9 +445,6 @@
   },
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
-  },
-  "AccountingTransaction": {
-    "description": "Auto imported from components/accounting/transaction/index.vue"
   },
   "BankBankAccount": {
     "description": "Auto imported from components/bank/bankAccount/index.vue"
