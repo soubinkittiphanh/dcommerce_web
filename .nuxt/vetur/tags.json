@@ -257,6 +257,9 @@
   "CustomerList": {
     "description": "Auto imported from components/customer/CustomerList.vue"
   },
+  "DialogsBottomAlert": {
+    "description": "Auto imported from components/dialogs/bottomAlert.vue"
+  },
   "DashboardCardGrouping": {
     "description": "Auto imported from components/dashboard/CardGrouping.vue"
   },
@@ -265,9 +268,6 @@
   },
   "DashboardMetricCard": {
     "description": "Auto imported from components/dashboard/MetricCard.vue"
-  },
-  "DialogsBottomAlert": {
-    "description": "Auto imported from components/dialogs/bottomAlert.vue"
   },
   "MemberOffer": {
     "description": "Auto imported from components/member_offer/index.vue"
@@ -362,11 +362,11 @@
   "CAFECustomerDialog": {
     "description": "Auto imported from components/CAFE/customerDialog/index.vue"
   },
-  "CAFEPaymentDialogFront": {
-    "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
-  },
   "CAFEPrintBarDialog": {
     "description": "Auto imported from components/CAFE/printBarDialog/index.vue"
+  },
+  "CAFEPaymentDialogFront": {
+    "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
   },
   "CAFEPrintdialog": {
     "description": "Auto imported from components/CAFE/printdialog/index.vue"
@@ -437,6 +437,9 @@
   "AccountingTransaction": {
     "description": "Auto imported from components/accounting/transaction/index.vue"
   },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
+  },
   "ApplicantsApplicantDialog": {
     "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
   },
@@ -445,9 +448,6 @@
   },
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
-  },
-  "BankBankAccount": {
-    "description": "Auto imported from components/bank/bankAccount/index.vue"
   },
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"
@@ -458,11 +458,11 @@
   "CompanyTheme": {
     "description": "Auto imported from components/company/theme/index.vue"
   },
-  "JobAdvertiseMaintain": {
-    "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
-  },
   "JobAdvertiseStatusUpdate": {
     "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
+  },
+  "JobAdvertiseMaintain": {
+    "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
   },
   "JobAdvertiseView": {
     "description": "Auto imported from components/jobAdvertise/view/index.vue"

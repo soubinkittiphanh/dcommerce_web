@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "327.js": "327.js",
+    "330.js": "330.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -234,6 +234,7 @@
     "pages/admin/moneyAdvanceDashboard/index.js": "pages/admin/moneyAdvanceDashboard/index.js",
     "pages/admin/moneyAdvanceSettlement/index.js": "pages/admin/moneyAdvanceSettlement/index.js",
     "pages/admin/moneyAdvanceSettlementByBank/index.js": "pages/admin/moneyAdvanceSettlementByBank/index.js",
+    "pages/admin/moneyAdvanceStatement/index.js": "pages/admin/moneyAdvanceStatement/index.js",
     "pages/admin/moneyAdvanceTarget/index.js": "pages/admin/moneyAdvanceTarget/index.js",
     "pages/admin/orderTracking/index.js": "pages/admin/orderTracking/index.js",
     "pages/admin/orders/index.js": "pages/admin/orders/index.js",
@@ -260,6 +261,8 @@
     "pages/admin/quotation/index.js": "pages/admin/quotation/index.js",
     "pages/admin/quotationList/index.js": "pages/admin/quotationList/index.js",
     "pages/admin/receiving/index.js": "pages/admin/receiving/index.js",
+    "pages/admin/report/MA/1.1/index.js": "pages/admin/report/MA/1.1/index.js",
+    "pages/admin/report/MA/2.1/index.js": "pages/admin/report/MA/2.1/index.js",
     "pages/admin/report/MA/bankSummary/index.js": "pages/admin/report/MA/bankSummary/index.js",
     "pages/admin/report/MA/master/index.js": "pages/admin/report/MA/master/index.js",
     "pages/admin/report/MA/ministrySummary/index.js": "pages/admin/report/MA/ministrySummary/index.js",
@@ -331,7 +334,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "327.js": "327.js.map",
+    "330.js": "330.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -564,6 +567,7 @@
     "pages/admin/moneyAdvanceDashboard/index.js": "pages/admin/moneyAdvanceDashboard/index.js.map",
     "pages/admin/moneyAdvanceSettlement/index.js": "pages/admin/moneyAdvanceSettlement/index.js.map",
     "pages/admin/moneyAdvanceSettlementByBank/index.js": "pages/admin/moneyAdvanceSettlementByBank/index.js.map",
+    "pages/admin/moneyAdvanceStatement/index.js": "pages/admin/moneyAdvanceStatement/index.js.map",
     "pages/admin/moneyAdvanceTarget/index.js": "pages/admin/moneyAdvanceTarget/index.js.map",
     "pages/admin/orderTracking/index.js": "pages/admin/orderTracking/index.js.map",
     "pages/admin/orders/index.js": "pages/admin/orders/index.js.map",
@@ -590,6 +594,8 @@
     "pages/admin/quotation/index.js": "pages/admin/quotation/index.js.map",
     "pages/admin/quotationList/index.js": "pages/admin/quotationList/index.js.map",
     "pages/admin/receiving/index.js": "pages/admin/receiving/index.js.map",
+    "pages/admin/report/MA/1.1/index.js": "pages/admin/report/MA/1.1/index.js.map",
+    "pages/admin/report/MA/2.1/index.js": "pages/admin/report/MA/2.1/index.js.map",
     "pages/admin/report/MA/bankSummary/index.js": "pages/admin/report/MA/bankSummary/index.js.map",
     "pages/admin/report/MA/master/index.js": "pages/admin/report/MA/master/index.js.map",
     "pages/admin/report/MA/ministrySummary/index.js": "pages/admin/report/MA/ministrySummary/index.js.map",

@@ -306,8 +306,8 @@ export default {
 
     // Amount in words
     amountInWords() {
-      if (this.totalAmount === 0) return 'Zero Kip Only'
-      return `${this.formatCurrency(this.totalAmount)} Kip Only`
+      if (this.totalAmount === 0) return 'Zero Only'
+      return `${this.formatCurrency(this.totalAmount)} Only`
     },
   },
 

@@ -179,7 +179,6 @@ export default {
       console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
       console.info(`GIFT DATA ITEM CART logs ${giftData}`)
       this.$emit('configure-gift', giftData)
-      // TODO:Let continue gift feature from here
       //  please sent this data to cart state to modify cart item split normal and gift amount accordingly 
       this.giftDialogOpen = false
     },

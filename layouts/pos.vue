@@ -1440,10 +1440,37 @@ export default {
       }, 2000)
     },
 
-    handleMultiPaymentCancel() {
+    async handleMultiPaymentCancel() {
       this.multiPaymentDialog = false
+      // TODO: SHOULD SET saleHeader reverse here
+      await this.reversalSale()
     },
-
+    async reversalSale() {
+      if(!this.pendingSaleHeaderId){
+        console.info(`Cannot reverse, sale header not fount`)
+        return;
+      }
+      this.isLoading = true
+      const form = {
+        isActive: false,
+        remark: 'UNDO MULTI PAYMENT TXN',
+        cancel_fee: 0,
+      }
+      try {
+        form.customerId = null
+        console.log(`${JSON.stringify(form)}`)
+        const response = await this.$axios.put(
+          `api/sale/reverse/${this.pendingSaleHeaderId}`,
+          form
+        )
+        if ((response.status = 200)) {
+          // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
+        }
+      } catch (error) {
+        swalError2(this.$swal, 'Error', 'Something went wrong ' + error)
+      }
+      this.isLoading = false
+    },
     handleMultiPaymentError(error) {
       console.error('Multi-payment error:', error)
       swalError2(this.$swal, 'Error', error.message || 'ເກີດຂໍ້ຜິດພາດໃນການຊຳລະ')
@@ -1854,13 +1881,12 @@ export default {
           this.generatePrintViewDeliveryCustomer()
           this.clearCustomerFormAction()
         } else {
-                 try {
-          this.printDefaultTicket()
-        } catch (error) {
-          console.error(`PRINT TICKET FAIL ${error}`)
+          try {
+            this.printDefaultTicket()
+          } catch (error) {
+            console.error(`PRINT TICKET FAIL ${error}`)
+          }
         }
-        }
- 
 
         const now = new Date()
         console.info(

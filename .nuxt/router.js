@@ -54,6 +54,7 @@ const _6d42a028 = () => interopDefault(import('../pages/admin/moneyAdvanceByBank
 const _c9889e56 = () => interopDefault(import('../pages/admin/moneyAdvanceDashboard/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceDashboard/index" */))
 const _526664c4 = () => interopDefault(import('../pages/admin/moneyAdvanceSettlement/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceSettlement/index" */))
 const _18a842f1 = () => interopDefault(import('../pages/admin/moneyAdvanceSettlementByBank/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceSettlementByBank/index" */))
+const _595759f0 = () => interopDefault(import('../pages/admin/moneyAdvanceStatement/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceStatement/index" */))
 const _77349df4 = () => interopDefault(import('../pages/admin/moneyAdvanceTarget/index.vue' /* webpackChunkName: "pages/admin/moneyAdvanceTarget/index" */))
 const _613d8598 = () => interopDefault(import('../pages/admin/orders/index.vue' /* webpackChunkName: "pages/admin/orders/index" */))
 const _63922fbf = () => interopDefault(import('../pages/admin/ordersAll/index.vue' /* webpackChunkName: "pages/admin/ordersAll/index" */))
@@ -141,6 +142,8 @@ const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/rece
 const _0d56c4e2 = () => interopDefault(import('../pages/admin/advertise/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/advertise/mixins/ImagePreviewMixin" */))
 const _290960d1 = () => interopDefault(import('../pages/admin/moneyAdvance/report/ministryReport.vue' /* webpackChunkName: "pages/admin/moneyAdvance/report/ministryReport" */))
 const _78a0b872 = () => interopDefault(import('../pages/admin/product/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/product/mixins/ImagePreviewMixin" */))
+const _74973137 = () => interopDefault(import('../pages/admin/report/MA/1.1/index.vue' /* webpackChunkName: "pages/admin/report/MA/1.1/index" */))
+const _631a37b8 = () => interopDefault(import('../pages/admin/report/MA/2.1/index.vue' /* webpackChunkName: "pages/admin/report/MA/2.1/index" */))
 const _4e9a3466 = () => interopDefault(import('../pages/admin/report/MA/bankSummary/index.vue' /* webpackChunkName: "pages/admin/report/MA/bankSummary/index" */))
 const _0167eed6 = () => interopDefault(import('../pages/admin/report/MA/master/index.vue' /* webpackChunkName: "pages/admin/report/MA/master/index" */))
 const _731255ac = () => interopDefault(import('../pages/admin/report/MA/ministrySummary/index.vue' /* webpackChunkName: "pages/admin/report/MA/ministrySummary/index" */))
@@ -375,6 +378,10 @@ export const routerOptions = {
     path: "/admin/moneyAdvanceSettlementByBank",
     component: _18a842f1,
     name: "admin-moneyAdvanceSettlementByBank"
+  }, {
+    path: "/admin/moneyAdvanceStatement",
+    component: _595759f0,
+    name: "admin-moneyAdvanceStatement"
   }, {
     path: "/admin/moneyAdvanceTarget",
     component: _77349df4,
@@ -723,6 +730,14 @@ export const routerOptions = {
     path: "/admin/product/mixins/ImagePreviewMixin",
     component: _78a0b872,
     name: "admin-product-mixins-ImagePreviewMixin"
+  }, {
+    path: "/admin/report/MA/1.1",
+    component: _74973137,
+    name: "admin-report-MA-1.1"
+  }, {
+    path: "/admin/report/MA/2.1",
+    component: _631a37b8,
+    name: "admin-report-MA-2.1"
   }, {
     path: "/admin/report/MA/bankSummary",
     component: _4e9a3466,

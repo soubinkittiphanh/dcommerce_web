@@ -1,7 +1,7 @@
 exports.ids = [31];
 exports.modules = {
 
-/***/ 1025:
+/***/ 1030:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24,7 +24,7 @@ var VSheet = __webpack_require__(27);
 var VSlideGroup = __webpack_require__(483);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(853);
+var VSlideItem = __webpack_require__(855);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=template&id=53ec9e7e
 
@@ -595,7 +595,7 @@ module.exports = __webpack_require__.p + "img/xiaomi.db57d06.png";
 
 /***/ }),
 
-/***/ 853:
+/***/ 855:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

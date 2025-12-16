@@ -1,951 +1,7 @@
 exports.ids = [190];
 exports.modules = {
 
-/***/ 1373:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(427);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendar.js + 16 modules
-var VCalendar = __webpack_require__(997);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(61);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
-var VMenu = __webpack_require__(128);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
-var VSheet = __webpack_require__(27);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(428);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
-var VToolbar = __webpack_require__(28);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
-var components_VToolbar = __webpack_require__(141);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/ripple/index.js
-var ripple = __webpack_require__(18);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/booking/index.vue?vue&type=template&id=cbaa4322
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var bookingvue_type_template_id_cbaa4322_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "ma-6 rounded-lg"
-  }, [_c(VAlert["a" /* default */], {
-    attrs: {
-      "border": "left",
-      "dense": "",
-      "icon": "mdi-calendar-month",
-      "type": "white",
-      "text": ""
-    }
-  }, [_vm._v("\n    ຕາຕະລາງຈອງຊຸດ\n  ")]), _vm._ssrNode(" "), _c(VSheet["a" /* default */], {
-    attrs: {
-      "height": "500"
-    }
-  }, [_c(VSheet["a" /* default */], {
-    staticClass: "d-flex",
-    attrs: {
-      "tile": "",
-      "height": "54"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "ml-6 mt-2",
-    attrs: {
-      "color": "primary"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$refs.calendar.prev();
-      }
-    }
-  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-chevron-left")]), _vm._v("\n        ເດືອນກ່ອນໜ້າ\n      ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c('span', {
-    staticClass: "mt-2"
-  }, [_vm._v("\n        ຈຳນວນການຈອງປະຈຳເດືອນ\n        "), _c(VChip["a" /* default */], {
-    staticClass: "white--text",
-    attrs: {
-      "color": "primary",
-      "label": ""
-    }
-  }, [_vm._v("\n          20\n          ລາຍການ")])], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-6 mt-2",
-    attrs: {
-      "color": "primary"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$refs.calendar.next();
-      }
-    }
-  }, [_vm._v("\n        ເດືອນຕໍ່ໄປ\n        "), _c(VIcon["a" /* default */], [_vm._v("mdi-chevron-right")])], 1)], 1), _vm._v(" "), _c(VCalendar["a" /* default */], {
-    ref: "calendar",
-    attrs: {
-      "type": _vm.type,
-      "color": "primary"
-    },
-    scopedSlots: _vm._u([{
-      key: "day",
-      fn: function ({
-        date
-      }) {
-        return [_vm._l(_vm.eventsMap[date], function (event) {
-          return [_c(VMenu["a" /* default */], {
-            key: event.title,
-            attrs: {
-              "offset-x": ""
-            },
-            scopedSlots: _vm._u([{
-              key: "activator",
-              fn: function ({
-                on
-              }) {
-                return [!event.time ? _c('div', _vm._g({
-                  directives: [{
-                    def: ripple["a" /* default */],
-                    name: "ripple",
-                    rawName: "v-ripple"
-                  }],
-                  staticClass: "my-event",
-                  style: {
-                    color: event.color
-                  },
-                  domProps: {
-                    "textContent": _vm._s(event.title)
-                  }
-                }, on)) : _vm._e()];
-              }
-            }], null, true),
-            model: {
-              value: event.open,
-              callback: function ($$v) {
-                _vm.$set(event, "open", $$v);
-              },
-              expression: "event.open"
-            }
-          }, [_vm._v(" "), _c(VCard["a" /* default */], {
-            attrs: {
-              "color": "grey lighten-4",
-              "min-width": "350px",
-              "flat": ""
-            }
-          }, [_c(VToolbar["a" /* default */], {
-            attrs: {
-              "color": "primary",
-              "dark": ""
-            }
-          }, [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(components_VToolbar["b" /* VToolbarTitle */], {
-            staticClass: "white--text"
-          }, [_c('h3', [_vm._v("\n                    " + _vm._s(event.title && event.title.length > 0 ? event.title : '') + "\n                  ")])]), _vm._v(" "), _c(VSpacer["a" /* default */])], 1), _vm._v(" "), _c(components_VCard["d" /* VCardTitle */], {
-            attrs: {
-              "primary-title": ""
-            }
-          }, [_c('span', {
-            domProps: {
-              "innerHTML": _vm._s(event.details)
-            }
-          })]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
-            attrs: {
-              "block": "",
-              "color": "primary",
-              "small": ""
-            }
-          }, [_vm._v("Close")])], 1)], 1)], 1)];
-        })];
-      }
-    }]),
-    model: {
-      value: _vm.today,
-      callback: function ($$v) {
-        _vm.today = $$v;
-      },
-      expression: "today"
-    }
-  })], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./pages/admin/booking/index.vue?vue&type=template&id=cbaa4322
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/booking/index.vue?vue&type=script&lang=js
-/* harmony default export */ var bookingvue_type_script_lang_js = ({
-  data: () => ({
-    type: 'month',
-    today: '2019-01-08',
-    events: [{
-      title: 'Vacation',
-      details: 'Going to the beach!',
-      date: '2018-12-30',
-      color: 'orange',
-      open: false
-    }, {
-      title: 'Vacation',
-      details: 'Going to the beach!',
-      date: '2018-12-31',
-      color: 'orange',
-      open: false
-    }, {
-      title: 'Vacation',
-      details: 'Going to the beach!',
-      date: '2019-01-01',
-      color: 'orange',
-      open: false
-    }, {
-      title: 'Meeting',
-      details: 'Spending time on how we do not have enough time',
-      date: '2019-01-07',
-      color: 'orange',
-      open: false
-    }, {
-      title: '30th Birthday',
-      details: 'Celebrate responsibly',
-      date: '2019-01-03',
-      color: 'orange',
-      open: false
-    }, {
-      title: 'New Year',
-      details: 'Eat chocolate until you pass out',
-      date: '2019-01-01',
-      color: 'orange',
-      open: false
-    }, {
-      title: 'Conference',
-      details: 'Mute myself the whole time and wonder why I am on this call',
-      date: '2019-01-21',
-      color: 'orange',
-      open: false
-    }, {
-      title: 'Hackathon',
-      details: 'Code like there is no tommorrow',
-      date: '2019-02-01',
-      color: 'orange',
-      open: false
-    }]
-  }),
-  methods: {},
-  computed: {
-    eventsMap() {
-      const map = {};
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e));
-      return map;
-    }
-  }
-});
-// CONCATENATED MODULE: ./pages/admin/booking/index.vue?vue&type=script&lang=js
- /* harmony default export */ var admin_bookingvue_type_script_lang_js = (bookingvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./pages/admin/booking/index.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  admin_bookingvue_type_script_lang_js,
-  bookingvue_type_template_id_cbaa4322_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "5170c2eb"
-  
-)
-
-/* harmony default export */ var booking = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 437:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["a"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
-  name: 'localable',
-  props: {
-    locale: String
-  },
-  computed: {
-    currentLocale() {
-      return this.locale || this.$vuetify.lang.current;
-    }
-  }
-}));
-
-/***/ }),
-
-/***/ 438:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return weekNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isLeapYear; });
-function createUTCDate(year, month = 0, day = 1) {
-  let date;
-  if (year < 100 && year >= 0) {
-    date = new Date(Date.UTC(year, month, day));
-    if (isFinite(date.getUTCFullYear())) {
-      date.setUTCFullYear(year);
-    }
-  } else {
-    date = new Date(Date.UTC(year, month, day));
-  }
-  return date;
-}
-function firstWeekOffset(year, firstDayOfWeek, firstDayOfYear) {
-  const firstWeekDayInFirstWeek = 7 + firstDayOfWeek - firstDayOfYear;
-  const firstWeekDayOfYear = (7 + createUTCDate(year, 0, firstWeekDayInFirstWeek).getUTCDay() - firstDayOfWeek) % 7;
-  return -firstWeekDayOfYear + firstWeekDayInFirstWeek - 1;
-}
-function dayOfYear(year, month, day, firstDayOfWeek) {
-  let dayOfYear = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334][month];
-  if (month > 1 && isLeapYear(year)) {
-    dayOfYear++;
-  }
-  return dayOfYear + day;
-}
-function weeksInYear(year, firstDayOfWeek, firstDayOfYear) {
-  const weekOffset = firstWeekOffset(year, firstDayOfWeek, firstDayOfYear);
-  const weekOffsetNext = firstWeekOffset(year + 1, firstDayOfWeek, firstDayOfYear);
-  const daysInYear = isLeapYear(year) ? 366 : 365;
-  return (daysInYear - weekOffset + weekOffsetNext) / 7;
-}
-function weekNumber(year, month, day, firstDayOfWeek, localeFirstDayOfYear) {
-  const weekOffset = firstWeekOffset(year, firstDayOfWeek, localeFirstDayOfYear);
-  const week = Math.ceil((dayOfYear(year, month, day, firstDayOfWeek) - weekOffset) / 7);
-  if (week < 1) {
-    return week + weeksInYear(year - 1, firstDayOfWeek, localeFirstDayOfYear);
-  } else if (week > weeksInYear(year, firstDayOfWeek, localeFirstDayOfYear)) {
-    return week - weeksInYear(year, firstDayOfWeek, localeFirstDayOfYear);
-  } else {
-    return week;
-  }
-}
-function isLeapYear(year) {
-  return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-}
-
-/***/ }),
-
-/***/ 441:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export PARSE_REGEX */
-/* unused harmony export PARSE_TIME */
-/* unused harmony export DAYS_IN_MONTH */
-/* unused harmony export DAYS_IN_MONTH_LEAP */
-/* unused harmony export DAYS_IN_MONTH_MIN */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DAYS_IN_MONTH_MAX; });
-/* unused harmony export MONTH_MAX */
-/* unused harmony export MONTH_MIN */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DAY_MIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DAYS_IN_WEEK; });
-/* unused harmony export MINUTES_IN_HOUR */
-/* unused harmony export MINUTE_MAX */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MINUTES_IN_DAY; });
-/* unused harmony export HOURS_IN_DAY */
-/* unused harmony export HOUR_MAX */
-/* unused harmony export FIRST_HOUR */
-/* unused harmony export OFFSET_YEAR */
-/* unused harmony export OFFSET_MONTH */
-/* unused harmony export OFFSET_HOUR */
-/* unused harmony export OFFSET_TIME */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getStartOfWeek; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getEndOfWeek; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getStartOfMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getEndOfMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return validateTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return parseTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return validateTimestamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return parseTimestamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return parseDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getDayIdentifier; });
-/* unused harmony export getTimeIdentifier */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getTimestampIdentifier; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return updateRelative; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return isTimedless; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return updateHasTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return updateMinutes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return updateWeekday; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return updateFormatted; });
-/* unused harmony export getWeekday */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return daysInMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return copyTimestamp; });
-/* unused harmony export padNumber */
-/* unused harmony export getDate */
-/* unused harmony export getTime */
-/* unused harmony export nextMinutes */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return nextDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return prevDay; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return relativeDays; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return diffMinutes; });
-/* unused harmony export findWeekday */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getWeekdaySkips; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return timestampToDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(438);
-
-const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
-const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
-const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_IN_MONTH_MIN = 28;
-const DAYS_IN_MONTH_MAX = 31;
-const MONTH_MAX = 12;
-const MONTH_MIN = 1;
-const DAY_MIN = 1;
-const DAYS_IN_WEEK = 7;
-const MINUTES_IN_HOUR = 60;
-const MINUTE_MAX = 59;
-const MINUTES_IN_DAY = 24 * 60;
-const HOURS_IN_DAY = 24;
-const HOUR_MAX = 23;
-const FIRST_HOUR = 0;
-const OFFSET_YEAR = 10000;
-const OFFSET_MONTH = 100;
-const OFFSET_HOUR = 100;
-const OFFSET_TIME = 10000;
-function getStartOfWeek(timestamp, weekdays, today) {
-  const start = copyTimestamp(timestamp);
-  findWeekday(start, weekdays[0], prevDay);
-  updateFormatted(start);
-  if (today) {
-    updateRelative(start, today, start.hasTime);
-  }
-  return start;
-}
-function getEndOfWeek(timestamp, weekdays, today) {
-  const end = copyTimestamp(timestamp);
-  findWeekday(end, weekdays[weekdays.length - 1]);
-  updateFormatted(end);
-  if (today) {
-    updateRelative(end, today, end.hasTime);
-  }
-  return end;
-}
-function getStartOfMonth(timestamp) {
-  const start = copyTimestamp(timestamp);
-  start.day = DAY_MIN;
-  updateWeekday(start);
-  updateFormatted(start);
-  return start;
-}
-function getEndOfMonth(timestamp) {
-  const end = copyTimestamp(timestamp);
-  end.day = daysInMonth(end.year, end.month);
-  updateWeekday(end);
-  updateFormatted(end);
-  return end;
-}
-function validateTime(input) {
-  return typeof input === 'number' && isFinite(input) || !!PARSE_TIME.exec(input) || typeof input === 'object' && isFinite(input.hour) && isFinite(input.minute);
-}
-function parseTime(input) {
-  if (typeof input === 'number') {
-    // when a number is given, it's minutes since 12:00am
-    return input;
-  } else if (typeof input === 'string') {
-    // when a string is given, it's a hh:mm:ss format where seconds are optional
-    const parts = PARSE_TIME.exec(input);
-    if (!parts) {
-      return false;
-    }
-    return parseInt(parts[1]) * 60 + parseInt(parts[3] || 0);
-  } else if (typeof input === 'object') {
-    // when an object is given, it must have hour and minute
-    if (typeof input.hour !== 'number' || typeof input.minute !== 'number') {
-      return false;
-    }
-    return input.hour * 60 + input.minute;
-  } else {
-    // unsupported type
-    return false;
-  }
-}
-function validateTimestamp(input) {
-  return typeof input === 'number' && isFinite(input) || typeof input === 'string' && !!PARSE_REGEX.exec(input) || input instanceof Date;
-}
-function parseTimestamp(input, required = false, now) {
-  if (typeof input === 'number' && isFinite(input)) {
-    input = new Date(input);
-  }
-  if (input instanceof Date) {
-    const date = parseDate(input);
-    if (now) {
-      updateRelative(date, now, date.hasTime);
-    }
-    return date;
-  }
-  if (typeof input !== 'string') {
-    if (required) {
-      throw new Error(`${input} is not a valid timestamp. It must be a Date, number of milliseconds since Epoch, or a string in the format of YYYY-MM-DD or YYYY-MM-DD hh:mm. Zero-padding is optional and seconds are ignored.`);
-    }
-    return null;
-  } // YYYY-MM-DD hh:mm:ss
-
-  const parts = PARSE_REGEX.exec(input);
-  if (!parts) {
-    if (required) {
-      throw new Error(`${input} is not a valid timestamp. It must be a Date, number of milliseconds since Epoch, or a string in the format of YYYY-MM-DD or YYYY-MM-DD hh:mm. Zero-padding is optional and seconds are ignored.`);
-    }
-    return null;
-  }
-  const timestamp = {
-    date: input,
-    time: '',
-    year: parseInt(parts[1]),
-    month: parseInt(parts[2]),
-    day: parseInt(parts[4]) || 1,
-    hour: parseInt(parts[6]) || 0,
-    minute: parseInt(parts[8]) || 0,
-    weekday: 0,
-    hasDay: !!parts[4],
-    hasTime: !!(parts[6] && parts[8]),
-    past: false,
-    present: false,
-    future: false
-  };
-  updateWeekday(timestamp);
-  updateFormatted(timestamp);
-  if (now) {
-    updateRelative(timestamp, now, timestamp.hasTime);
-  }
-  return timestamp;
-}
-function parseDate(date) {
-  return updateFormatted({
-    date: '',
-    time: '',
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-    weekday: date.getDay(),
-    hour: date.getHours(),
-    minute: date.getMinutes(),
-    hasDay: true,
-    hasTime: true,
-    past: false,
-    present: true,
-    future: false
-  });
-}
-function getDayIdentifier(timestamp) {
-  return timestamp.year * OFFSET_YEAR + timestamp.month * OFFSET_MONTH + timestamp.day;
-}
-function getTimeIdentifier(timestamp) {
-  return timestamp.hour * OFFSET_HOUR + timestamp.minute;
-}
-function getTimestampIdentifier(timestamp) {
-  return getDayIdentifier(timestamp) * OFFSET_TIME + getTimeIdentifier(timestamp);
-}
-function updateRelative(timestamp, now, time = false) {
-  let a = getDayIdentifier(now);
-  let b = getDayIdentifier(timestamp);
-  let present = a === b;
-  if (timestamp.hasTime && time && present) {
-    a = getTimeIdentifier(now);
-    b = getTimeIdentifier(timestamp);
-    present = a === b;
-  }
-  timestamp.past = b < a;
-  timestamp.present = present;
-  timestamp.future = b > a;
-  return timestamp;
-}
-function isTimedless(input) {
-  return input instanceof Date || typeof input === 'number' && isFinite(input);
-}
-function updateHasTime(timestamp, hasTime, now) {
-  if (timestamp.hasTime !== hasTime) {
-    timestamp.hasTime = hasTime;
-    if (!hasTime) {
-      timestamp.hour = HOUR_MAX;
-      timestamp.minute = MINUTE_MAX;
-      timestamp.time = getTime(timestamp);
-    }
-    if (now) {
-      updateRelative(timestamp, now, timestamp.hasTime);
-    }
-  }
-  return timestamp;
-}
-function updateMinutes(timestamp, minutes, now) {
-  timestamp.hasTime = true;
-  timestamp.hour = Math.floor(minutes / MINUTES_IN_HOUR);
-  timestamp.minute = minutes % MINUTES_IN_HOUR;
-  timestamp.time = getTime(timestamp);
-  if (now) {
-    updateRelative(timestamp, now, true);
-  }
-  return timestamp;
-}
-function updateWeekday(timestamp) {
-  timestamp.weekday = getWeekday(timestamp);
-  return timestamp;
-}
-function updateFormatted(timestamp) {
-  timestamp.time = getTime(timestamp);
-  timestamp.date = getDate(timestamp);
-  return timestamp;
-}
-function getWeekday(timestamp) {
-  if (timestamp.hasDay) {
-    const _ = Math.floor;
-    const k = timestamp.day;
-    const m = (timestamp.month + 9) % MONTH_MAX + 1;
-    const C = _(timestamp.year / 100);
-    const Y = timestamp.year % 100 - (timestamp.month <= 2 ? 1 : 0);
-    return ((k + _(2.6 * m - 0.2) - 2 * C + Y + _(Y / 4) + _(C / 4)) % 7 + 7) % 7;
-  }
-  return timestamp.weekday;
-}
-function daysInMonth(year, month) {
-  return Object(_util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__[/* isLeapYear */ "a"])(year) ? DAYS_IN_MONTH_LEAP[month] : DAYS_IN_MONTH[month];
-}
-function copyTimestamp(timestamp) {
-  const {
-    date,
-    time,
-    year,
-    month,
-    day,
-    weekday,
-    hour,
-    minute,
-    hasDay,
-    hasTime,
-    past,
-    present,
-    future
-  } = timestamp;
-  return {
-    date,
-    time,
-    year,
-    month,
-    day,
-    weekday,
-    hour,
-    minute,
-    hasDay,
-    hasTime,
-    past,
-    present,
-    future
-  };
-}
-function padNumber(x, length) {
-  let padded = String(x);
-  while (padded.length < length) {
-    padded = '0' + padded;
-  }
-  return padded;
-}
-function getDate(timestamp) {
-  let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`;
-  if (timestamp.hasDay) str += `-${padNumber(timestamp.day, 2)}`;
-  return str;
-}
-function getTime(timestamp) {
-  if (!timestamp.hasTime) {
-    return '';
-  }
-  return `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
-}
-function nextMinutes(timestamp, minutes) {
-  timestamp.minute += minutes;
-  while (timestamp.minute > MINUTES_IN_HOUR) {
-    timestamp.minute -= MINUTES_IN_HOUR;
-    timestamp.hour++;
-    if (timestamp.hour >= HOURS_IN_DAY) {
-      nextDay(timestamp);
-      timestamp.hour = FIRST_HOUR;
-    }
-  }
-  return timestamp;
-}
-function nextDay(timestamp) {
-  timestamp.day++;
-  timestamp.weekday = (timestamp.weekday + 1) % DAYS_IN_WEEK;
-  if (timestamp.day > DAYS_IN_MONTH_MIN && timestamp.day > daysInMonth(timestamp.year, timestamp.month)) {
-    timestamp.day = DAY_MIN;
-    timestamp.month++;
-    if (timestamp.month > MONTH_MAX) {
-      timestamp.month = MONTH_MIN;
-      timestamp.year++;
-    }
-  }
-  return timestamp;
-}
-function prevDay(timestamp) {
-  timestamp.day--;
-  timestamp.weekday = (timestamp.weekday + 6) % DAYS_IN_WEEK;
-  if (timestamp.day < DAY_MIN) {
-    timestamp.month--;
-    if (timestamp.month < MONTH_MIN) {
-      timestamp.year--;
-      timestamp.month = MONTH_MAX;
-    }
-    timestamp.day = daysInMonth(timestamp.year, timestamp.month);
-  }
-  return timestamp;
-}
-function relativeDays(timestamp, mover = nextDay, days = 1) {
-  while (--days >= 0) mover(timestamp);
-  return timestamp;
-}
-function diffMinutes(min, max) {
-  const Y = (max.year - min.year) * 525600;
-  const M = (max.month - min.month) * 43800;
-  const D = (max.day - min.day) * 1440;
-  const h = (max.hour - min.hour) * 60;
-  const m = max.minute - min.minute;
-  return Y + M + D + h + m;
-}
-function findWeekday(timestamp, weekday, mover = nextDay, maxDays = 6) {
-  while (timestamp.weekday !== weekday && --maxDays >= 0) mover(timestamp);
-  return timestamp;
-}
-function getWeekdaySkips(weekdays) {
-  const skips = [1, 1, 1, 1, 1, 1, 1];
-  const filled = [0, 0, 0, 0, 0, 0, 0];
-  for (let i = 0; i < weekdays.length; i++) {
-    filled[weekdays[i]] = 1;
-  }
-  for (let k = 0; k < DAYS_IN_WEEK; k++) {
-    let skip = 1;
-    for (let j = 1; j < DAYS_IN_WEEK; j++) {
-      const next = (k + j) % DAYS_IN_WEEK;
-      if (filled[next]) {
-        break;
-      }
-      skip++;
-    }
-    skips[k] = filled[k] * skip;
-  }
-  return skips;
-}
-function timestampToDate(timestamp) {
-  const time = `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
-  const date = timestamp.date;
-  return new Date(`${date}T${time}:00+00:00`);
-}
-function createDayList(start, end, now, weekdaySkips, max = 42, min = 0) {
-  const stop = getDayIdentifier(end);
-  const days = [];
-  let current = copyTimestamp(start);
-  let currentIdentifier = 0;
-  let stopped = currentIdentifier === stop;
-  if (stop < getDayIdentifier(start)) {
-    throw new Error('End date is earlier than start date.');
-  }
-  while ((!stopped || days.length < min) && days.length < max) {
-    currentIdentifier = getDayIdentifier(current);
-    stopped = stopped || currentIdentifier === stop;
-    if (weekdaySkips[current.weekday] === 0) {
-      current = nextDay(current);
-      continue;
-    }
-    const day = copyTimestamp(current);
-    updateFormatted(day);
-    updateRelative(day, now);
-    days.push(day);
-    current = relativeDays(current, nextDay, weekdaySkips[current.weekday]);
-  }
-  if (!days.length) throw new Error('No dates found using specified start date, end date, and weekdays.');
-  return days;
-}
-function createIntervalList(timestamp, first, minutes, count, now) {
-  const intervals = [];
-  for (let i = 0; i < count; i++) {
-    const mins = first + i * minutes;
-    const int = copyTimestamp(timestamp);
-    intervals.push(updateMinutes(int, mins, now));
-  }
-  return intervals;
-}
-function createNativeLocaleFormatter(locale, getOptions) {
-  const emptyFormatter = (_t, _s) => '';
-  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
-    return emptyFormatter;
-  }
-  return (timestamp, short) => {
-    try {
-      const intlFormatter = new Intl.DateTimeFormat(locale || undefined, getOptions(timestamp, short));
-      return intlFormatter.format(timestampToDate(timestamp));
-    } catch (e) {
-      return '';
-    }
-  };
-}
-
-/***/ }),
-
-/***/ 579:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(651);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("44d02f7c", content, true)
-
-/***/ }),
-
-/***/ 649:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(650);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("6bd7c8b4", content, true)
-
-/***/ }),
-
-/***/ 650:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-events .v-event-timed{border:1px solid!important}.theme--light.v-calendar-events .v-event-more{background-color:#fff}.theme--light.v-calendar-events .v-event-more.v-outside{background-color:#f7f7f7}.theme--dark.v-calendar-events .v-event-timed{border:1px solid!important}.theme--dark.v-calendar-events .v-event-more{background-color:#303030}.theme--dark.v-calendar-events .v-event-more.v-outside{background-color:#202020}.v-calendar .v-event{border-radius:4px;line-height:20px;margin-right:-1px}.v-calendar .v-event,.v-calendar .v-event-more{cursor:pointer;font-size:12px;overflow:hidden;position:relative;text-overflow:ellipsis;white-space:nowrap;z-index:1}.v-calendar .v-event-more{font-weight:700}.v-calendar .v-event-timed-container{bottom:0;left:0;margin-right:10px;pointer-events:none;position:absolute;right:0;top:0}.v-calendar .v-event-timed{border-radius:4px;cursor:pointer;font-size:12px;pointer-events:all;position:absolute;text-overflow:ellipsis;white-space:nowrap}.v-calendar .v-event-summary{display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}.v-calendar.v-calendar-events .v-calendar-weekly__head-weekday{margin-right:-1px}.v-calendar.v-calendar-events .v-calendar-weekly__day{margin-right:-1px;overflow:visible}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 651:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-weekly{background-color:#fff;border-left:1px solid #e0e0e0;border-top:1px solid #e0e0e0}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday{border-right:1px solid #e0e0e0;color:#000}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-past{color:rgba(0,0,0,.38)}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside{background-color:#f7f7f7}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weeknumber{background-color:#f1f3f4;border-right:1px solid #e0e0e0}.theme--light.v-calendar-weekly .v-calendar-weekly__day{border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0;color:#000}.theme--light.v-calendar-weekly .v-calendar-weekly__day.v-outside{background-color:#f7f7f7}.theme--light.v-calendar-weekly .v-calendar-weekly__weeknumber{background-color:#f1f3f4;border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0;color:#000}.theme--dark.v-calendar-weekly{background-color:#303030;border-left:1px solid #9e9e9e;border-top:1px solid #9e9e9e}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weekday{border-right:1px solid #9e9e9e;color:#fff}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weekday.v-past{color:hsla(0,0%,100%,.5)}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside{background-color:#202020}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weeknumber{background-color:#202020;border-right:1px solid #9e9e9e}.theme--dark.v-calendar-weekly .v-calendar-weekly__day{border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e;color:#fff}.theme--dark.v-calendar-weekly .v-calendar-weekly__day.v-outside{background-color:#202020}.theme--dark.v-calendar-weekly .v-calendar-weekly__weeknumber{background-color:#202020;border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e;color:#fff}.v-calendar-weekly{display:flex;flex-direction:column;height:100%;min-height:0;width:100%}.v-calendar-weekly__head{display:flex}.v-calendar-weekly__head,.v-calendar-weekly__head-weekday{-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-weekly__head-weekday{flex:1 0 20px;font-size:11px;overflow:hidden;padding:0 4px;text-align:center;text-overflow:ellipsis;text-transform:uppercase;white-space:nowrap}.v-calendar-weekly__head-weeknumber{flex:0 0 24px;position:relative}.v-calendar-weekly__week{display:flex;flex:1;height:auto;min-height:0}.v-calendar-weekly__weeknumber{display:flex;flex:0 0 24px;height:auto;min-height:0;padding-top:14.5px;text-align:center}.v-calendar-weekly__weeknumber>small{width:100%!important}.v-calendar-weekly__day{flex:1;min-width:0;overflow:hidden;padding:0;position:relative;-webkit-user-select:none;-moz-user-select:none;user-select:none;width:0}.v-calendar-weekly__day.v-present .v-calendar-weekly__day-month{color:currentColor}.v-calendar-weekly__day-label{box-shadow:none;cursor:pointer;margin:4px 0 0;text-align:center;-webkit-text-decoration:none;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-weekly__day-label .v-btn{font-size:12px;text-transform:none}.v-calendar-weekly__day-month{box-shadow:none;height:32px;left:36px;line-height:32px;position:absolute;-webkit-text-decoration:none;text-decoration:none;top:0;-webkit-user-select:none;-moz-user-select:none;user-select:none}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 652:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(653);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("2f91f78c", content, true)
-
-/***/ }),
-
-/***/ 653:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-daily{background-color:#fff;border-left:1px solid #e0e0e0;border-top:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__intervals-head{border-right:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__intervals-head:after{background:#e0e0e0;background:linear-gradient(90deg,transparent,#e0e0e0)}.theme--light.v-calendar-daily .v-calendar-daily_head-day{border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0;color:#000}.theme--light.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-day-label,.theme--light.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-weekday{color:rgba(0,0,0,.38)}.theme--light.v-calendar-daily .v-calendar-daily__intervals-body{border-right:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__intervals-body .v-calendar-daily__interval-text{color:#424242}.theme--light.v-calendar-daily .v-calendar-daily__day{border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__day-interval{border-top:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__day-interval:first-child{border-top:none!important}.theme--light.v-calendar-daily .v-calendar-daily__interval:after{border-top:1px solid #e0e0e0}.theme--dark.v-calendar-daily{background-color:#303030;border-left:1px solid #9e9e9e;border-top:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-head{border-right:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-head:after{background:#9e9e9e;background:linear-gradient(90deg,transparent,#9e9e9e)}.theme--dark.v-calendar-daily .v-calendar-daily_head-day{border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e;color:#fff}.theme--dark.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-day-label,.theme--dark.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-weekday{color:hsla(0,0%,100%,.5)}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-body{border-right:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-body .v-calendar-daily__interval-text{color:#eee}.theme--dark.v-calendar-daily .v-calendar-daily__day{border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__day-interval{border-top:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__day-interval:first-child{border-top:none!important}.theme--dark.v-calendar-daily .v-calendar-daily__interval:after{border-top:1px solid #9e9e9e}.v-calendar-daily{display:flex;flex-direction:column;height:100%;overflow:hidden}.v-calendar-daily__head{display:flex;flex:none}.v-calendar-daily__intervals-head{flex:none;position:relative}.v-calendar-daily__intervals-head:after{bottom:0;content:\"\";height:1px;left:0;position:absolute;right:0}.v-calendar-daily_head-day{flex:1 1 auto;position:relative;width:0}.v-calendar-daily_head-weekday{font-size:11px;padding:3px 0 0;text-transform:uppercase}.v-calendar-daily_head-day-label,.v-calendar-daily_head-weekday{text-align:center;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-daily_head-day-label{cursor:pointer;padding:0 0 3px}.v-calendar-daily__body{display:flex;flex:1 1 60%;flex-direction:column;overflow:hidden;position:relative}.v-calendar-daily__scroll-area{align-items:flex-start;display:flex;flex:1 1 auto;overflow-y:scroll}.v-calendar-daily__pane{align-items:flex-start;display:flex;flex:none;overflow-y:hidden;width:100%}.v-calendar-daily__day-container{display:flex;flex:1;height:100%;width:100%}.v-calendar-daily__intervals-body{flex:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-daily__interval{border-bottom:none;padding-right:8px;position:relative;text-align:right}.v-calendar-daily__interval:after{bottom:-1px;content:\"\";display:block;height:1px;position:absolute;right:0;width:8px}.v-calendar-daily__interval-text{display:block;font-size:10px;padding-right:4px;position:relative;top:-6px}.v-calendar-daily__day{flex:1;position:relative;width:0}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 654:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(655);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("b9d8c43c", content, true)
-
-/***/ }),
-
-/***/ 655:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-category .v-calendar-category__column,.theme--light.v-calendar-category .v-calendar-category__column-header{border-right:1px solid #e0e0e0}.theme--light.v-calendar-category .v-calendar-daily__head,.theme--light.v-calendar-category .v-calendar-daily__intervals-body,.theme--light.v-calendar-category .v-calendar-daily__intervals-head{background:#fff}.theme--dark.v-calendar-category .v-calendar-category__column,.theme--dark.v-calendar-category .v-calendar-category__column-header{border-right:1px solid #9e9e9e}.theme--dark.v-calendar-category .v-calendar-daily__head,.theme--dark.v-calendar-category .v-calendar-daily__intervals-body,.theme--dark.v-calendar-category .v-calendar-daily__intervals-head{background:#303030}.v-calendar-category{overflow:auto;position:relative}.v-calendar-category .v-calendar-category__category{text-align:center}.v-calendar-category .v-calendar-daily__day-container{width:-moz-min-content;width:min-content}.v-calendar-category .v-calendar-daily__day-container .v-calendar-category__columns{height:100%;position:absolute;top:0;width:100%}.v-calendar-category .v-calendar-daily__day-body{display:flex;flex:1;height:100%;width:100%}.v-calendar-category .v-calendar-daily__head{flex-direction:row;min-width:100%;position:sticky;top:0;width:-moz-min-content;width:min-content;z-index:2}.v-calendar-category .v-calendar-daily_head-day{position:static;width:auto}.v-calendar-category .v-calendar-daily__intervals-head{left:0;position:sticky;top:0;z-index:2}.v-calendar-category .v-calendar-daily_head-weekday{left:50%;position:sticky;width:50px}.v-calendar-category .v-calendar-daily_head-day-label{left:50%;position:sticky;width:56px}.v-calendar-category .v-calendar-daily__day{min-width:200px}.v-calendar-category .v-calendar-daily__intervals-body{left:0;position:sticky;z-index:1}.v-calendar-category .v-calendar-daily__interval:last-of-type:after{display:none}.v-calendar-category .v-calendar-daily__body{overflow:visible}.v-calendar-category .v-calendar-daily__body .v-calendar-daily__scroll-area{flex:none;overflow-y:visible}.v-calendar-category .v-calendar-daily__pane{overflow-y:visible}.v-calendar-category .v-calendar-category__columns{display:flex;min-width:100%;width:-moz-min-content;width:min-content}.v-calendar-category .v-calendar-category__columns .v-calendar-category__column,.v-calendar-category .v-calendar-category__columns .v-calendar-category__column-header{flex:1 1 auto;position:relative;width:0}.v-calendar-category .v-calendar-category__columns .v-calendar-category__column-header{min-width:200px}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 997:
+/***/ 1002:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3324,6 +2380,950 @@ function getParsedCategories(categories, categoryText) {
     });
   }
 }));
+
+/***/ }),
+
+/***/ 1384:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
+var VAlert = __webpack_require__(427);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendar.js + 16 modules
+var VCalendar = __webpack_require__(1002);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(123);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(61);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
+var VMenu = __webpack_require__(128);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
+var VSheet = __webpack_require__(27);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(428);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
+var VToolbar = __webpack_require__(28);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
+var components_VToolbar = __webpack_require__(141);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/ripple/index.js
+var ripple = __webpack_require__(18);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/booking/index.vue?vue&type=template&id=cbaa4322
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var bookingvue_type_template_id_cbaa4322_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "ma-6 rounded-lg"
+  }, [_c(VAlert["a" /* default */], {
+    attrs: {
+      "border": "left",
+      "dense": "",
+      "icon": "mdi-calendar-month",
+      "type": "white",
+      "text": ""
+    }
+  }, [_vm._v("\n    ຕາຕະລາງຈອງຊຸດ\n  ")]), _vm._ssrNode(" "), _c(VSheet["a" /* default */], {
+    attrs: {
+      "height": "500"
+    }
+  }, [_c(VSheet["a" /* default */], {
+    staticClass: "d-flex",
+    attrs: {
+      "tile": "",
+      "height": "54"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "ml-6 mt-2",
+    attrs: {
+      "color": "primary"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$refs.calendar.prev();
+      }
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-chevron-left")]), _vm._v("\n        ເດືອນກ່ອນໜ້າ\n      ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c('span', {
+    staticClass: "mt-2"
+  }, [_vm._v("\n        ຈຳນວນການຈອງປະຈຳເດືອນ\n        "), _c(VChip["a" /* default */], {
+    staticClass: "white--text",
+    attrs: {
+      "color": "primary",
+      "label": ""
+    }
+  }, [_vm._v("\n          20\n          ລາຍການ")])], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-6 mt-2",
+    attrs: {
+      "color": "primary"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$refs.calendar.next();
+      }
+    }
+  }, [_vm._v("\n        ເດືອນຕໍ່ໄປ\n        "), _c(VIcon["a" /* default */], [_vm._v("mdi-chevron-right")])], 1)], 1), _vm._v(" "), _c(VCalendar["a" /* default */], {
+    ref: "calendar",
+    attrs: {
+      "type": _vm.type,
+      "color": "primary"
+    },
+    scopedSlots: _vm._u([{
+      key: "day",
+      fn: function ({
+        date
+      }) {
+        return [_vm._l(_vm.eventsMap[date], function (event) {
+          return [_c(VMenu["a" /* default */], {
+            key: event.title,
+            attrs: {
+              "offset-x": ""
+            },
+            scopedSlots: _vm._u([{
+              key: "activator",
+              fn: function ({
+                on
+              }) {
+                return [!event.time ? _c('div', _vm._g({
+                  directives: [{
+                    def: ripple["a" /* default */],
+                    name: "ripple",
+                    rawName: "v-ripple"
+                  }],
+                  staticClass: "my-event",
+                  style: {
+                    color: event.color
+                  },
+                  domProps: {
+                    "textContent": _vm._s(event.title)
+                  }
+                }, on)) : _vm._e()];
+              }
+            }], null, true),
+            model: {
+              value: event.open,
+              callback: function ($$v) {
+                _vm.$set(event, "open", $$v);
+              },
+              expression: "event.open"
+            }
+          }, [_vm._v(" "), _c(VCard["a" /* default */], {
+            attrs: {
+              "color": "grey lighten-4",
+              "min-width": "350px",
+              "flat": ""
+            }
+          }, [_c(VToolbar["a" /* default */], {
+            attrs: {
+              "color": "primary",
+              "dark": ""
+            }
+          }, [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(components_VToolbar["b" /* VToolbarTitle */], {
+            staticClass: "white--text"
+          }, [_c('h3', [_vm._v("\n                    " + _vm._s(event.title && event.title.length > 0 ? event.title : '') + "\n                  ")])]), _vm._v(" "), _c(VSpacer["a" /* default */])], 1), _vm._v(" "), _c(components_VCard["d" /* VCardTitle */], {
+            attrs: {
+              "primary-title": ""
+            }
+          }, [_c('span', {
+            domProps: {
+              "innerHTML": _vm._s(event.details)
+            }
+          })]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
+            attrs: {
+              "block": "",
+              "color": "primary",
+              "small": ""
+            }
+          }, [_vm._v("Close")])], 1)], 1)], 1)];
+        })];
+      }
+    }]),
+    model: {
+      value: _vm.today,
+      callback: function ($$v) {
+        _vm.today = $$v;
+      },
+      expression: "today"
+    }
+  })], 1)], 2);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./pages/admin/booking/index.vue?vue&type=template&id=cbaa4322
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/booking/index.vue?vue&type=script&lang=js
+/* harmony default export */ var bookingvue_type_script_lang_js = ({
+  data: () => ({
+    type: 'month',
+    today: '2019-01-08',
+    events: [{
+      title: 'Vacation',
+      details: 'Going to the beach!',
+      date: '2018-12-30',
+      color: 'orange',
+      open: false
+    }, {
+      title: 'Vacation',
+      details: 'Going to the beach!',
+      date: '2018-12-31',
+      color: 'orange',
+      open: false
+    }, {
+      title: 'Vacation',
+      details: 'Going to the beach!',
+      date: '2019-01-01',
+      color: 'orange',
+      open: false
+    }, {
+      title: 'Meeting',
+      details: 'Spending time on how we do not have enough time',
+      date: '2019-01-07',
+      color: 'orange',
+      open: false
+    }, {
+      title: '30th Birthday',
+      details: 'Celebrate responsibly',
+      date: '2019-01-03',
+      color: 'orange',
+      open: false
+    }, {
+      title: 'New Year',
+      details: 'Eat chocolate until you pass out',
+      date: '2019-01-01',
+      color: 'orange',
+      open: false
+    }, {
+      title: 'Conference',
+      details: 'Mute myself the whole time and wonder why I am on this call',
+      date: '2019-01-21',
+      color: 'orange',
+      open: false
+    }, {
+      title: 'Hackathon',
+      details: 'Code like there is no tommorrow',
+      date: '2019-02-01',
+      color: 'orange',
+      open: false
+    }]
+  }),
+  methods: {},
+  computed: {
+    eventsMap() {
+      const map = {};
+      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e));
+      return map;
+    }
+  }
+});
+// CONCATENATED MODULE: ./pages/admin/booking/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var admin_bookingvue_type_script_lang_js = (bookingvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./pages/admin/booking/index.vue
+
+
+
+function injectStyles (context) {
+  
+  
+}
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  admin_bookingvue_type_script_lang_js,
+  bookingvue_type_template_id_cbaa4322_render,
+  staticRenderFns,
+  false,
+  injectStyles,
+  null,
+  "5170c2eb"
+  
+)
+
+/* harmony default export */ var booking = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 437:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["a"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+  name: 'localable',
+  props: {
+    locale: String
+  },
+  computed: {
+    currentLocale() {
+      return this.locale || this.$vuetify.lang.current;
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 438:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return weekNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isLeapYear; });
+function createUTCDate(year, month = 0, day = 1) {
+  let date;
+  if (year < 100 && year >= 0) {
+    date = new Date(Date.UTC(year, month, day));
+    if (isFinite(date.getUTCFullYear())) {
+      date.setUTCFullYear(year);
+    }
+  } else {
+    date = new Date(Date.UTC(year, month, day));
+  }
+  return date;
+}
+function firstWeekOffset(year, firstDayOfWeek, firstDayOfYear) {
+  const firstWeekDayInFirstWeek = 7 + firstDayOfWeek - firstDayOfYear;
+  const firstWeekDayOfYear = (7 + createUTCDate(year, 0, firstWeekDayInFirstWeek).getUTCDay() - firstDayOfWeek) % 7;
+  return -firstWeekDayOfYear + firstWeekDayInFirstWeek - 1;
+}
+function dayOfYear(year, month, day, firstDayOfWeek) {
+  let dayOfYear = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334][month];
+  if (month > 1 && isLeapYear(year)) {
+    dayOfYear++;
+  }
+  return dayOfYear + day;
+}
+function weeksInYear(year, firstDayOfWeek, firstDayOfYear) {
+  const weekOffset = firstWeekOffset(year, firstDayOfWeek, firstDayOfYear);
+  const weekOffsetNext = firstWeekOffset(year + 1, firstDayOfWeek, firstDayOfYear);
+  const daysInYear = isLeapYear(year) ? 366 : 365;
+  return (daysInYear - weekOffset + weekOffsetNext) / 7;
+}
+function weekNumber(year, month, day, firstDayOfWeek, localeFirstDayOfYear) {
+  const weekOffset = firstWeekOffset(year, firstDayOfWeek, localeFirstDayOfYear);
+  const week = Math.ceil((dayOfYear(year, month, day, firstDayOfWeek) - weekOffset) / 7);
+  if (week < 1) {
+    return week + weeksInYear(year - 1, firstDayOfWeek, localeFirstDayOfYear);
+  } else if (week > weeksInYear(year, firstDayOfWeek, localeFirstDayOfYear)) {
+    return week - weeksInYear(year, firstDayOfWeek, localeFirstDayOfYear);
+  } else {
+    return week;
+  }
+}
+function isLeapYear(year) {
+  return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+}
+
+/***/ }),
+
+/***/ 441:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export PARSE_REGEX */
+/* unused harmony export PARSE_TIME */
+/* unused harmony export DAYS_IN_MONTH */
+/* unused harmony export DAYS_IN_MONTH_LEAP */
+/* unused harmony export DAYS_IN_MONTH_MIN */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DAYS_IN_MONTH_MAX; });
+/* unused harmony export MONTH_MAX */
+/* unused harmony export MONTH_MIN */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DAY_MIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DAYS_IN_WEEK; });
+/* unused harmony export MINUTES_IN_HOUR */
+/* unused harmony export MINUTE_MAX */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MINUTES_IN_DAY; });
+/* unused harmony export HOURS_IN_DAY */
+/* unused harmony export HOUR_MAX */
+/* unused harmony export FIRST_HOUR */
+/* unused harmony export OFFSET_YEAR */
+/* unused harmony export OFFSET_MONTH */
+/* unused harmony export OFFSET_HOUR */
+/* unused harmony export OFFSET_TIME */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return getStartOfWeek; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return getEndOfWeek; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return getStartOfMonth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return getEndOfMonth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return validateTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return parseTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return validateTimestamp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return parseTimestamp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return parseDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return getDayIdentifier; });
+/* unused harmony export getTimeIdentifier */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return getTimestampIdentifier; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return updateRelative; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return isTimedless; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return updateHasTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return updateMinutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return updateWeekday; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return updateFormatted; });
+/* unused harmony export getWeekday */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return daysInMonth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return copyTimestamp; });
+/* unused harmony export padNumber */
+/* unused harmony export getDate */
+/* unused harmony export getTime */
+/* unused harmony export nextMinutes */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return nextDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return prevDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return relativeDays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return diffMinutes; });
+/* unused harmony export findWeekday */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return getWeekdaySkips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return timestampToDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(438);
+
+const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
+const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
+const DAYS_IN_MONTH = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const DAYS_IN_MONTH_LEAP = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const DAYS_IN_MONTH_MIN = 28;
+const DAYS_IN_MONTH_MAX = 31;
+const MONTH_MAX = 12;
+const MONTH_MIN = 1;
+const DAY_MIN = 1;
+const DAYS_IN_WEEK = 7;
+const MINUTES_IN_HOUR = 60;
+const MINUTE_MAX = 59;
+const MINUTES_IN_DAY = 24 * 60;
+const HOURS_IN_DAY = 24;
+const HOUR_MAX = 23;
+const FIRST_HOUR = 0;
+const OFFSET_YEAR = 10000;
+const OFFSET_MONTH = 100;
+const OFFSET_HOUR = 100;
+const OFFSET_TIME = 10000;
+function getStartOfWeek(timestamp, weekdays, today) {
+  const start = copyTimestamp(timestamp);
+  findWeekday(start, weekdays[0], prevDay);
+  updateFormatted(start);
+  if (today) {
+    updateRelative(start, today, start.hasTime);
+  }
+  return start;
+}
+function getEndOfWeek(timestamp, weekdays, today) {
+  const end = copyTimestamp(timestamp);
+  findWeekday(end, weekdays[weekdays.length - 1]);
+  updateFormatted(end);
+  if (today) {
+    updateRelative(end, today, end.hasTime);
+  }
+  return end;
+}
+function getStartOfMonth(timestamp) {
+  const start = copyTimestamp(timestamp);
+  start.day = DAY_MIN;
+  updateWeekday(start);
+  updateFormatted(start);
+  return start;
+}
+function getEndOfMonth(timestamp) {
+  const end = copyTimestamp(timestamp);
+  end.day = daysInMonth(end.year, end.month);
+  updateWeekday(end);
+  updateFormatted(end);
+  return end;
+}
+function validateTime(input) {
+  return typeof input === 'number' && isFinite(input) || !!PARSE_TIME.exec(input) || typeof input === 'object' && isFinite(input.hour) && isFinite(input.minute);
+}
+function parseTime(input) {
+  if (typeof input === 'number') {
+    // when a number is given, it's minutes since 12:00am
+    return input;
+  } else if (typeof input === 'string') {
+    // when a string is given, it's a hh:mm:ss format where seconds are optional
+    const parts = PARSE_TIME.exec(input);
+    if (!parts) {
+      return false;
+    }
+    return parseInt(parts[1]) * 60 + parseInt(parts[3] || 0);
+  } else if (typeof input === 'object') {
+    // when an object is given, it must have hour and minute
+    if (typeof input.hour !== 'number' || typeof input.minute !== 'number') {
+      return false;
+    }
+    return input.hour * 60 + input.minute;
+  } else {
+    // unsupported type
+    return false;
+  }
+}
+function validateTimestamp(input) {
+  return typeof input === 'number' && isFinite(input) || typeof input === 'string' && !!PARSE_REGEX.exec(input) || input instanceof Date;
+}
+function parseTimestamp(input, required = false, now) {
+  if (typeof input === 'number' && isFinite(input)) {
+    input = new Date(input);
+  }
+  if (input instanceof Date) {
+    const date = parseDate(input);
+    if (now) {
+      updateRelative(date, now, date.hasTime);
+    }
+    return date;
+  }
+  if (typeof input !== 'string') {
+    if (required) {
+      throw new Error(`${input} is not a valid timestamp. It must be a Date, number of milliseconds since Epoch, or a string in the format of YYYY-MM-DD or YYYY-MM-DD hh:mm. Zero-padding is optional and seconds are ignored.`);
+    }
+    return null;
+  } // YYYY-MM-DD hh:mm:ss
+
+  const parts = PARSE_REGEX.exec(input);
+  if (!parts) {
+    if (required) {
+      throw new Error(`${input} is not a valid timestamp. It must be a Date, number of milliseconds since Epoch, or a string in the format of YYYY-MM-DD or YYYY-MM-DD hh:mm. Zero-padding is optional and seconds are ignored.`);
+    }
+    return null;
+  }
+  const timestamp = {
+    date: input,
+    time: '',
+    year: parseInt(parts[1]),
+    month: parseInt(parts[2]),
+    day: parseInt(parts[4]) || 1,
+    hour: parseInt(parts[6]) || 0,
+    minute: parseInt(parts[8]) || 0,
+    weekday: 0,
+    hasDay: !!parts[4],
+    hasTime: !!(parts[6] && parts[8]),
+    past: false,
+    present: false,
+    future: false
+  };
+  updateWeekday(timestamp);
+  updateFormatted(timestamp);
+  if (now) {
+    updateRelative(timestamp, now, timestamp.hasTime);
+  }
+  return timestamp;
+}
+function parseDate(date) {
+  return updateFormatted({
+    date: '',
+    time: '',
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    weekday: date.getDay(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    hasDay: true,
+    hasTime: true,
+    past: false,
+    present: true,
+    future: false
+  });
+}
+function getDayIdentifier(timestamp) {
+  return timestamp.year * OFFSET_YEAR + timestamp.month * OFFSET_MONTH + timestamp.day;
+}
+function getTimeIdentifier(timestamp) {
+  return timestamp.hour * OFFSET_HOUR + timestamp.minute;
+}
+function getTimestampIdentifier(timestamp) {
+  return getDayIdentifier(timestamp) * OFFSET_TIME + getTimeIdentifier(timestamp);
+}
+function updateRelative(timestamp, now, time = false) {
+  let a = getDayIdentifier(now);
+  let b = getDayIdentifier(timestamp);
+  let present = a === b;
+  if (timestamp.hasTime && time && present) {
+    a = getTimeIdentifier(now);
+    b = getTimeIdentifier(timestamp);
+    present = a === b;
+  }
+  timestamp.past = b < a;
+  timestamp.present = present;
+  timestamp.future = b > a;
+  return timestamp;
+}
+function isTimedless(input) {
+  return input instanceof Date || typeof input === 'number' && isFinite(input);
+}
+function updateHasTime(timestamp, hasTime, now) {
+  if (timestamp.hasTime !== hasTime) {
+    timestamp.hasTime = hasTime;
+    if (!hasTime) {
+      timestamp.hour = HOUR_MAX;
+      timestamp.minute = MINUTE_MAX;
+      timestamp.time = getTime(timestamp);
+    }
+    if (now) {
+      updateRelative(timestamp, now, timestamp.hasTime);
+    }
+  }
+  return timestamp;
+}
+function updateMinutes(timestamp, minutes, now) {
+  timestamp.hasTime = true;
+  timestamp.hour = Math.floor(minutes / MINUTES_IN_HOUR);
+  timestamp.minute = minutes % MINUTES_IN_HOUR;
+  timestamp.time = getTime(timestamp);
+  if (now) {
+    updateRelative(timestamp, now, true);
+  }
+  return timestamp;
+}
+function updateWeekday(timestamp) {
+  timestamp.weekday = getWeekday(timestamp);
+  return timestamp;
+}
+function updateFormatted(timestamp) {
+  timestamp.time = getTime(timestamp);
+  timestamp.date = getDate(timestamp);
+  return timestamp;
+}
+function getWeekday(timestamp) {
+  if (timestamp.hasDay) {
+    const _ = Math.floor;
+    const k = timestamp.day;
+    const m = (timestamp.month + 9) % MONTH_MAX + 1;
+    const C = _(timestamp.year / 100);
+    const Y = timestamp.year % 100 - (timestamp.month <= 2 ? 1 : 0);
+    return ((k + _(2.6 * m - 0.2) - 2 * C + Y + _(Y / 4) + _(C / 4)) % 7 + 7) % 7;
+  }
+  return timestamp.weekday;
+}
+function daysInMonth(year, month) {
+  return Object(_util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__[/* isLeapYear */ "a"])(year) ? DAYS_IN_MONTH_LEAP[month] : DAYS_IN_MONTH[month];
+}
+function copyTimestamp(timestamp) {
+  const {
+    date,
+    time,
+    year,
+    month,
+    day,
+    weekday,
+    hour,
+    minute,
+    hasDay,
+    hasTime,
+    past,
+    present,
+    future
+  } = timestamp;
+  return {
+    date,
+    time,
+    year,
+    month,
+    day,
+    weekday,
+    hour,
+    minute,
+    hasDay,
+    hasTime,
+    past,
+    present,
+    future
+  };
+}
+function padNumber(x, length) {
+  let padded = String(x);
+  while (padded.length < length) {
+    padded = '0' + padded;
+  }
+  return padded;
+}
+function getDate(timestamp) {
+  let str = `${padNumber(timestamp.year, 4)}-${padNumber(timestamp.month, 2)}`;
+  if (timestamp.hasDay) str += `-${padNumber(timestamp.day, 2)}`;
+  return str;
+}
+function getTime(timestamp) {
+  if (!timestamp.hasTime) {
+    return '';
+  }
+  return `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
+}
+function nextMinutes(timestamp, minutes) {
+  timestamp.minute += minutes;
+  while (timestamp.minute > MINUTES_IN_HOUR) {
+    timestamp.minute -= MINUTES_IN_HOUR;
+    timestamp.hour++;
+    if (timestamp.hour >= HOURS_IN_DAY) {
+      nextDay(timestamp);
+      timestamp.hour = FIRST_HOUR;
+    }
+  }
+  return timestamp;
+}
+function nextDay(timestamp) {
+  timestamp.day++;
+  timestamp.weekday = (timestamp.weekday + 1) % DAYS_IN_WEEK;
+  if (timestamp.day > DAYS_IN_MONTH_MIN && timestamp.day > daysInMonth(timestamp.year, timestamp.month)) {
+    timestamp.day = DAY_MIN;
+    timestamp.month++;
+    if (timestamp.month > MONTH_MAX) {
+      timestamp.month = MONTH_MIN;
+      timestamp.year++;
+    }
+  }
+  return timestamp;
+}
+function prevDay(timestamp) {
+  timestamp.day--;
+  timestamp.weekday = (timestamp.weekday + 6) % DAYS_IN_WEEK;
+  if (timestamp.day < DAY_MIN) {
+    timestamp.month--;
+    if (timestamp.month < MONTH_MIN) {
+      timestamp.year--;
+      timestamp.month = MONTH_MAX;
+    }
+    timestamp.day = daysInMonth(timestamp.year, timestamp.month);
+  }
+  return timestamp;
+}
+function relativeDays(timestamp, mover = nextDay, days = 1) {
+  while (--days >= 0) mover(timestamp);
+  return timestamp;
+}
+function diffMinutes(min, max) {
+  const Y = (max.year - min.year) * 525600;
+  const M = (max.month - min.month) * 43800;
+  const D = (max.day - min.day) * 1440;
+  const h = (max.hour - min.hour) * 60;
+  const m = max.minute - min.minute;
+  return Y + M + D + h + m;
+}
+function findWeekday(timestamp, weekday, mover = nextDay, maxDays = 6) {
+  while (timestamp.weekday !== weekday && --maxDays >= 0) mover(timestamp);
+  return timestamp;
+}
+function getWeekdaySkips(weekdays) {
+  const skips = [1, 1, 1, 1, 1, 1, 1];
+  const filled = [0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0; i < weekdays.length; i++) {
+    filled[weekdays[i]] = 1;
+  }
+  for (let k = 0; k < DAYS_IN_WEEK; k++) {
+    let skip = 1;
+    for (let j = 1; j < DAYS_IN_WEEK; j++) {
+      const next = (k + j) % DAYS_IN_WEEK;
+      if (filled[next]) {
+        break;
+      }
+      skip++;
+    }
+    skips[k] = filled[k] * skip;
+  }
+  return skips;
+}
+function timestampToDate(timestamp) {
+  const time = `${padNumber(timestamp.hour, 2)}:${padNumber(timestamp.minute, 2)}`;
+  const date = timestamp.date;
+  return new Date(`${date}T${time}:00+00:00`);
+}
+function createDayList(start, end, now, weekdaySkips, max = 42, min = 0) {
+  const stop = getDayIdentifier(end);
+  const days = [];
+  let current = copyTimestamp(start);
+  let currentIdentifier = 0;
+  let stopped = currentIdentifier === stop;
+  if (stop < getDayIdentifier(start)) {
+    throw new Error('End date is earlier than start date.');
+  }
+  while ((!stopped || days.length < min) && days.length < max) {
+    currentIdentifier = getDayIdentifier(current);
+    stopped = stopped || currentIdentifier === stop;
+    if (weekdaySkips[current.weekday] === 0) {
+      current = nextDay(current);
+      continue;
+    }
+    const day = copyTimestamp(current);
+    updateFormatted(day);
+    updateRelative(day, now);
+    days.push(day);
+    current = relativeDays(current, nextDay, weekdaySkips[current.weekday]);
+  }
+  if (!days.length) throw new Error('No dates found using specified start date, end date, and weekdays.');
+  return days;
+}
+function createIntervalList(timestamp, first, minutes, count, now) {
+  const intervals = [];
+  for (let i = 0; i < count; i++) {
+    const mins = first + i * minutes;
+    const int = copyTimestamp(timestamp);
+    intervals.push(updateMinutes(int, mins, now));
+  }
+  return intervals;
+}
+function createNativeLocaleFormatter(locale, getOptions) {
+  const emptyFormatter = (_t, _s) => '';
+  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
+    return emptyFormatter;
+  }
+  return (timestamp, short) => {
+    try {
+      const intlFormatter = new Intl.DateTimeFormat(locale || undefined, getOptions(timestamp, short));
+      return intlFormatter.format(timestampToDate(timestamp));
+    } catch (e) {
+      return '';
+    }
+  };
+}
+
+/***/ }),
+
+/***/ 579:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(651);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("44d02f7c", content, true)
+
+/***/ }),
+
+/***/ 649:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(650);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("6bd7c8b4", content, true)
+
+/***/ }),
+
+/***/ 650:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-events .v-event-timed{border:1px solid!important}.theme--light.v-calendar-events .v-event-more{background-color:#fff}.theme--light.v-calendar-events .v-event-more.v-outside{background-color:#f7f7f7}.theme--dark.v-calendar-events .v-event-timed{border:1px solid!important}.theme--dark.v-calendar-events .v-event-more{background-color:#303030}.theme--dark.v-calendar-events .v-event-more.v-outside{background-color:#202020}.v-calendar .v-event{border-radius:4px;line-height:20px;margin-right:-1px}.v-calendar .v-event,.v-calendar .v-event-more{cursor:pointer;font-size:12px;overflow:hidden;position:relative;text-overflow:ellipsis;white-space:nowrap;z-index:1}.v-calendar .v-event-more{font-weight:700}.v-calendar .v-event-timed-container{bottom:0;left:0;margin-right:10px;pointer-events:none;position:absolute;right:0;top:0}.v-calendar .v-event-timed{border-radius:4px;cursor:pointer;font-size:12px;pointer-events:all;position:absolute;text-overflow:ellipsis;white-space:nowrap}.v-calendar .v-event-summary{display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}.v-calendar.v-calendar-events .v-calendar-weekly__head-weekday{margin-right:-1px}.v-calendar.v-calendar-events .v-calendar-weekly__day{margin-right:-1px;overflow:visible}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 651:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-weekly{background-color:#fff;border-left:1px solid #e0e0e0;border-top:1px solid #e0e0e0}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday{border-right:1px solid #e0e0e0;color:#000}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-past{color:rgba(0,0,0,.38)}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside{background-color:#f7f7f7}.theme--light.v-calendar-weekly .v-calendar-weekly__head-weeknumber{background-color:#f1f3f4;border-right:1px solid #e0e0e0}.theme--light.v-calendar-weekly .v-calendar-weekly__day{border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0;color:#000}.theme--light.v-calendar-weekly .v-calendar-weekly__day.v-outside{background-color:#f7f7f7}.theme--light.v-calendar-weekly .v-calendar-weekly__weeknumber{background-color:#f1f3f4;border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0;color:#000}.theme--dark.v-calendar-weekly{background-color:#303030;border-left:1px solid #9e9e9e;border-top:1px solid #9e9e9e}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weekday{border-right:1px solid #9e9e9e;color:#fff}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weekday.v-past{color:hsla(0,0%,100%,.5)}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside{background-color:#202020}.theme--dark.v-calendar-weekly .v-calendar-weekly__head-weeknumber{background-color:#202020;border-right:1px solid #9e9e9e}.theme--dark.v-calendar-weekly .v-calendar-weekly__day{border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e;color:#fff}.theme--dark.v-calendar-weekly .v-calendar-weekly__day.v-outside{background-color:#202020}.theme--dark.v-calendar-weekly .v-calendar-weekly__weeknumber{background-color:#202020;border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e;color:#fff}.v-calendar-weekly{display:flex;flex-direction:column;height:100%;min-height:0;width:100%}.v-calendar-weekly__head{display:flex}.v-calendar-weekly__head,.v-calendar-weekly__head-weekday{-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-weekly__head-weekday{flex:1 0 20px;font-size:11px;overflow:hidden;padding:0 4px;text-align:center;text-overflow:ellipsis;text-transform:uppercase;white-space:nowrap}.v-calendar-weekly__head-weeknumber{flex:0 0 24px;position:relative}.v-calendar-weekly__week{display:flex;flex:1;height:auto;min-height:0}.v-calendar-weekly__weeknumber{display:flex;flex:0 0 24px;height:auto;min-height:0;padding-top:14.5px;text-align:center}.v-calendar-weekly__weeknumber>small{width:100%!important}.v-calendar-weekly__day{flex:1;min-width:0;overflow:hidden;padding:0;position:relative;-webkit-user-select:none;-moz-user-select:none;user-select:none;width:0}.v-calendar-weekly__day.v-present .v-calendar-weekly__day-month{color:currentColor}.v-calendar-weekly__day-label{box-shadow:none;cursor:pointer;margin:4px 0 0;text-align:center;-webkit-text-decoration:none;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-weekly__day-label .v-btn{font-size:12px;text-transform:none}.v-calendar-weekly__day-month{box-shadow:none;height:32px;left:36px;line-height:32px;position:absolute;-webkit-text-decoration:none;text-decoration:none;top:0;-webkit-user-select:none;-moz-user-select:none;user-select:none}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 652:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(653);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("2f91f78c", content, true)
+
+/***/ }),
+
+/***/ 653:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-daily{background-color:#fff;border-left:1px solid #e0e0e0;border-top:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__intervals-head{border-right:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__intervals-head:after{background:#e0e0e0;background:linear-gradient(90deg,transparent,#e0e0e0)}.theme--light.v-calendar-daily .v-calendar-daily_head-day{border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0;color:#000}.theme--light.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-day-label,.theme--light.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-weekday{color:rgba(0,0,0,.38)}.theme--light.v-calendar-daily .v-calendar-daily__intervals-body{border-right:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__intervals-body .v-calendar-daily__interval-text{color:#424242}.theme--light.v-calendar-daily .v-calendar-daily__day{border-bottom:1px solid #e0e0e0;border-right:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__day-interval{border-top:1px solid #e0e0e0}.theme--light.v-calendar-daily .v-calendar-daily__day-interval:first-child{border-top:none!important}.theme--light.v-calendar-daily .v-calendar-daily__interval:after{border-top:1px solid #e0e0e0}.theme--dark.v-calendar-daily{background-color:#303030;border-left:1px solid #9e9e9e;border-top:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-head{border-right:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-head:after{background:#9e9e9e;background:linear-gradient(90deg,transparent,#9e9e9e)}.theme--dark.v-calendar-daily .v-calendar-daily_head-day{border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e;color:#fff}.theme--dark.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-day-label,.theme--dark.v-calendar-daily .v-calendar-daily_head-day.v-past .v-calendar-daily_head-weekday{color:hsla(0,0%,100%,.5)}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-body{border-right:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__intervals-body .v-calendar-daily__interval-text{color:#eee}.theme--dark.v-calendar-daily .v-calendar-daily__day{border-bottom:1px solid #9e9e9e;border-right:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__day-interval{border-top:1px solid #9e9e9e}.theme--dark.v-calendar-daily .v-calendar-daily__day-interval:first-child{border-top:none!important}.theme--dark.v-calendar-daily .v-calendar-daily__interval:after{border-top:1px solid #9e9e9e}.v-calendar-daily{display:flex;flex-direction:column;height:100%;overflow:hidden}.v-calendar-daily__head{display:flex;flex:none}.v-calendar-daily__intervals-head{flex:none;position:relative}.v-calendar-daily__intervals-head:after{bottom:0;content:\"\";height:1px;left:0;position:absolute;right:0}.v-calendar-daily_head-day{flex:1 1 auto;position:relative;width:0}.v-calendar-daily_head-weekday{font-size:11px;padding:3px 0 0;text-transform:uppercase}.v-calendar-daily_head-day-label,.v-calendar-daily_head-weekday{text-align:center;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-daily_head-day-label{cursor:pointer;padding:0 0 3px}.v-calendar-daily__body{display:flex;flex:1 1 60%;flex-direction:column;overflow:hidden;position:relative}.v-calendar-daily__scroll-area{align-items:flex-start;display:flex;flex:1 1 auto;overflow-y:scroll}.v-calendar-daily__pane{align-items:flex-start;display:flex;flex:none;overflow-y:hidden;width:100%}.v-calendar-daily__day-container{display:flex;flex:1;height:100%;width:100%}.v-calendar-daily__intervals-body{flex:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-calendar-daily__interval{border-bottom:none;padding-right:8px;position:relative;text-align:right}.v-calendar-daily__interval:after{bottom:-1px;content:\"\";display:block;height:1px;position:absolute;right:0;width:8px}.v-calendar-daily__interval-text{display:block;font-size:10px;padding-right:4px;position:relative;top:-6px}.v-calendar-daily__day{flex:1;position:relative;width:0}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 654:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(655);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("b9d8c43c", content, true)
+
+/***/ }),
+
+/***/ 655:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-calendar-category .v-calendar-category__column,.theme--light.v-calendar-category .v-calendar-category__column-header{border-right:1px solid #e0e0e0}.theme--light.v-calendar-category .v-calendar-daily__head,.theme--light.v-calendar-category .v-calendar-daily__intervals-body,.theme--light.v-calendar-category .v-calendar-daily__intervals-head{background:#fff}.theme--dark.v-calendar-category .v-calendar-category__column,.theme--dark.v-calendar-category .v-calendar-category__column-header{border-right:1px solid #9e9e9e}.theme--dark.v-calendar-category .v-calendar-daily__head,.theme--dark.v-calendar-category .v-calendar-daily__intervals-body,.theme--dark.v-calendar-category .v-calendar-daily__intervals-head{background:#303030}.v-calendar-category{overflow:auto;position:relative}.v-calendar-category .v-calendar-category__category{text-align:center}.v-calendar-category .v-calendar-daily__day-container{width:-moz-min-content;width:min-content}.v-calendar-category .v-calendar-daily__day-container .v-calendar-category__columns{height:100%;position:absolute;top:0;width:100%}.v-calendar-category .v-calendar-daily__day-body{display:flex;flex:1;height:100%;width:100%}.v-calendar-category .v-calendar-daily__head{flex-direction:row;min-width:100%;position:sticky;top:0;width:-moz-min-content;width:min-content;z-index:2}.v-calendar-category .v-calendar-daily_head-day{position:static;width:auto}.v-calendar-category .v-calendar-daily__intervals-head{left:0;position:sticky;top:0;z-index:2}.v-calendar-category .v-calendar-daily_head-weekday{left:50%;position:sticky;width:50px}.v-calendar-category .v-calendar-daily_head-day-label{left:50%;position:sticky;width:56px}.v-calendar-category .v-calendar-daily__day{min-width:200px}.v-calendar-category .v-calendar-daily__intervals-body{left:0;position:sticky;z-index:1}.v-calendar-category .v-calendar-daily__interval:last-of-type:after{display:none}.v-calendar-category .v-calendar-daily__body{overflow:visible}.v-calendar-category .v-calendar-daily__body .v-calendar-daily__scroll-area{flex:none;overflow-y:visible}.v-calendar-category .v-calendar-daily__pane{overflow-y:visible}.v-calendar-category .v-calendar-category__columns{display:flex;min-width:100%;width:-moz-min-content;width:min-content}.v-calendar-category .v-calendar-category__columns .v-calendar-category__column,.v-calendar-category .v-calendar-category__columns .v-calendar-category__column-header{flex:1 1 auto;position:relative;width:0}.v-calendar-category .v-calendar-category__columns .v-calendar-category__column-header{min-width:200px}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
 
 /***/ })
 
