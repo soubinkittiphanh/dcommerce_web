@@ -1101,7 +1101,7 @@ export default {
     },
 
     formatVoucherNumber(id) {
-      return String(id).padStart(6, '0')
+      return String(id).padStart(5, '0')
     },
 
     showToast(message, type = 'info') {
