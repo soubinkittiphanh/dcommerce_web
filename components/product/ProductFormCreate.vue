@@ -115,8 +115,9 @@
                     item-text="code"
                     item-value="id"
                     :items="findAllCurrency"
-                    label="Currency"
+                    label="Currency*"
                     v-model="formData.saleCurrencyId"
+                    :rules="rules.currencyRule"
                     dense
                     outlined
                     hide-details="auto"
@@ -504,6 +505,7 @@ export default {
       rules: {
         nameRule: [(v) => !!v || 'ຊື່ສິນຄ້າຈຳເປັນ'],
         priceRule: [(v) => !!v || 'ລາຄາຈຳເປັນ'],
+        currencyRule: [(v) => !!v || 'Currency is required'],
       },
 
       category: [],
@@ -861,6 +863,7 @@ export default {
       const formData = new FormData()
 
       // Include tax information in the form data
+       this.formData.baseUnitId = this.formData.stockUnitId;
       const formDataWithTax = {
         ...this.formData,
         selectedTaxRate: this.selectedTaxRate
