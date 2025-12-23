@@ -378,7 +378,15 @@
           </template>
 
           <template v-slot:[`item.createdAt`]="{ item }">
-            {{ item.createdAt.split('.')[0] }}
+             <v-chip 
+                color="success" 
+                small 
+                dark 
+                style="cursor: pointer"
+              >
+                <v-icon left small>mdi-credit-card-multiple</v-icon>
+                {{ getLocalDate(item.createdAt) }}
+              </v-chip>
           </template>
 
           <template v-slot:[`item.id`]="{ item }">
@@ -406,6 +414,7 @@
               <i class="fas fa-sync"></i>
             </v-btn>
           </template>
+
 
           <!-- ENHANCED: Payment Method Display -->
           <template v-slot:[`item.payment.payment_code`]="{ item }">
@@ -481,6 +490,7 @@ import {
   getFirstDayOfMonth,
   getFormatNum,
   ticketHtml,
+  getLocalDate,
 } from '~/common'
 import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
 import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
@@ -881,6 +891,7 @@ export default {
   },
 
   methods: {
+    getLocalDate,
     // NEW: Multi-Payment Detection and Handling Methods
     isMultiPayment(item) {
       return item.payments && Array.isArray(item.payments) && item.payments.length > 1

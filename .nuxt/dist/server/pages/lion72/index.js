@@ -1,7 +1,7 @@
-exports.ids = [319];
+exports.ids = [320];
 exports.modules = {
 
-/***/ 1371:
+/***/ 1375:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18,10 +18,10 @@ var VCard = __webpack_require__(123);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(426);
+var VCol = __webpack_require__(427);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
+var VRow = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
@@ -526,14 +526,14 @@ var common = __webpack_require__(7);
       this.amountUp = amount;
     },
     selectLuckyNumber() {
-      if (this.amount < 1000 || this.amountUp < 1000) return Object(common["j" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
+      if (this.amount < 1000 || this.amountUp < 1000) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
       if (this.amount < 1000) {
         // return swalError2(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ")
         if (this.amountUp > 0) this.selectLuckyNumberUP();
         return;
       }
       for (const iterator of this.luckyNumberOptionForSelect) {
-        if (iterator.length > this.maxLength) return Object(common["j" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
+        if (iterator.length > this.maxLength) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
         const existTxn = this.transactionList.find(el => el['luckyNumber'] == iterator && el['normal'] == true);
         if (existTxn != undefined) {
           existTxn['amount'] += parseInt(this.amount, 10);
@@ -549,9 +549,9 @@ var common = __webpack_require__(7);
       this.luckyNumberOption = false;
     },
     selectLuckyNumberUP() {
-      if (this.amountUp < 1000) return Object(common["j" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
+      if (this.amountUp < 1000) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
       for (const iterator of this.luckyNumberOptionForSelect) {
-        if (iterator.length > this.maxLength) return Object(common["j" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
+        if (iterator.length > this.maxLength) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
         const existTxn = this.transactionList.find(el => el['luckyNumber'] == iterator && el['normal'] == false);
         if (existTxn != undefined) {
           existTxn['amount'] += parseInt(this.amountUp, 10);
@@ -594,7 +594,7 @@ var common = __webpack_require__(7);
     addTransaction() {
       // Dupplicate check
       if (this.amount > 0) {
-        if (this.luckyNumber.length > this.maxLength) return Object(common["j" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
+        if (this.luckyNumber.length > this.maxLength) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
         const existTxn = this.transactionList.find(el => el['luckyNumber'] == this.luckyNumber && el['normal'] == true);
         if (existTxn != undefined) {
           existTxn['amount'] += parseInt(this.amount, 10);
@@ -608,7 +608,7 @@ var common = __webpack_require__(7);
       }
       // AMOUNT UPPER ADD
       if (this.amountUp > 0) {
-        if (this.amountUp < 1000) return Object(common["j" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
+        if (this.amountUp < 1000) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
         const existTxnUP = this.transactionList.find(el => el['luckyNumber'] == this.luckyNumber && el['normal'] == false);
         if (existTxnUP != undefined) {
           return existTxnUP['amount'] += parseInt(this.amountUp, 10);

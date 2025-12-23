@@ -151,6 +151,17 @@ export const customSwalSuccessBackToMenu = (swal, message) => {
     confirmButtonText: 'ກັບສູ່ເມນູຕ່າງໆ'
   })
 }
+export const getLocalDate = (utcDateString) => {
+  const localDate = new Date(utcDateString)
+  return localDate.toLocaleString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  }) // "23/12/2025, 19:37:20"
+}
 
 export const swalWarning = (swal, title, message) => {
   swal({
@@ -302,18 +313,18 @@ export const getFirstDayOfMonth = () => {
 
 export const firstAndLastDateOfLast6Months = () => {
   const today = new Date();
-  
+
   // Get date 6 months ago
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(today.getMonth() - 6);
-  
+
   // Format start date (6 months ago, first day of that month)
   const startDate = new Date(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth(), 1)
     .toISOString().slice(0, 10);
-  
+
   // Format end date (today)
   const endDate = today.toISOString().slice(0, 10);
-  
+
   console.log(`LAST 6 MONTHS RANGE: ${startDate} to ${endDate}`);
   return { startDate, endDate };
 };
@@ -321,16 +332,16 @@ export const firstAndLastDateOfLast6Months = () => {
 // Alternative version if you're using your MySQL date helper functions:
 export const firstAndLastDateOfLast6MonthsMySQL = () => {
   const today = new Date();
-  
+
   // Get date 6 months ago
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(today.getMonth() - 6);
-  
+
   // If you have helper functions like getMySQLDateOfFirstDayOfMonth, use them
   // Otherwise, use the basic version above
   const startDate = `${sixMonthsAgo.getFullYear()}-${String(sixMonthsAgo.getMonth() + 1).padStart(2, '0')}-01`;
   const endDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-  
+
   console.log(`LAST 6 MONTHS RANGE (MySQL): ${startDate} to ${endDate}`);
   return { startDate, endDate };
 };

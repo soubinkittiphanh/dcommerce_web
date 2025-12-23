@@ -1,7 +1,8 @@
 <template>
   <div class="cart-footer">
     <!-- Payment Input Section -->
-    <div class="payment-inputs pa-4" v-if="showCheckOut">
+    <!-- <div class="payment-inputs pa-4" v-if="showCheckOut"> -->
+    <div class="payment-inputs pa-4">
       <v-row no-gutters class="ga-3">
         <v-col cols="12" md="6">
           <v-text-field

@@ -172,6 +172,7 @@ export default {
       await this.$axios
         .get(`product_f/${this.currentSelectedLocation['id']}`)
         .then((res) => {
+          // this.productList = res.data.data
           for (const iterator of res.data.data) {
             console.warn(`Currency id ${iterator['saleCurrencyId']}`)
             const currency = this.findCurrency(iterator['saleCurrencyId'])

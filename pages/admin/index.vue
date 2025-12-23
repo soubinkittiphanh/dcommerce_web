@@ -17,14 +17,14 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </div>
-        
+
         <div class="dialog-content">
           <v-radio-group v-model="terminalSelected" class="custom-radio-group">
-            <div 
+            <div
               v-for="terminal in findAllTerminal"
               :key="terminal.id"
               class="terminal-option"
-              :class="{ 'selected': terminalSelected === terminal.id }"
+              :class="{ selected: terminalSelected === terminal.id }"
               @click="terminalSelected = terminal.id"
             >
               <v-radio :value="terminal.id" class="hidden"></v-radio>
@@ -32,14 +32,16 @@
                 <h4>{{ terminal.name }}</h4>
                 <p>{{ terminal.description }}</p>
               </div>
-              <v-icon v-if="terminalSelected === terminal.id" color="primary">mdi-check-circle</v-icon>
+              <v-icon v-if="terminalSelected === terminal.id" color="primary"
+                >mdi-check-circle</v-icon
+              >
             </div>
           </v-radio-group>
         </div>
-        
+
         <div class="dialog-actions">
-          <v-btn 
-            class="primary-button" 
+          <v-btn
+            class="primary-button"
             :style="primaryButtonStyle"
             @click="chooseTerminal"
             :disabled="!terminalSelected"
@@ -52,12 +54,13 @@
 
     <!-- Main Dashboard Content -->
     <div class="dashboard-container">
-      
       <!-- Header Section -->
       <div class="dashboard-header">
         <div class="header-content">
           <h1 class="dashboard-title">Dashboard Overview</h1>
-          <p class="dashboard-subtitle">Real-time business insights and analytics</p>
+          <p class="dashboard-subtitle">
+            Real-time business insights and analytics
+          </p>
         </div>
         <div class="header-actions">
           <div class="date-display">
@@ -73,7 +76,7 @@
           <h2 class="section-title">Quick Actions</h2>
           <p class="section-description">Access your most used features</p>
         </div>
-        
+
         <div class="quick-actions-grid">
           <div
             v-for="(item, index) in menus"
@@ -99,7 +102,7 @@
           <h2 class="section-title">Sales Overview</h2>
           <p class="section-description">Track your performance metrics</p>
         </div>
-        
+
         <div class="kpi-grid">
           <div
             v-for="(item, index) in menusOverview"
@@ -115,20 +118,27 @@
                 <v-icon size="18" color="#10B981">mdi-trending-up</v-icon>
               </div>
             </div>
-            
+
             <div class="kpi-content">
               <h3 class="kpi-title">{{ item.title }}</h3>
               <div class="kpi-value">{{ item.total }}</div>
-              
+
               <!-- Payment Method Breakdown -->
-              <div v-if="item.groupedSales && Object.keys(item.groupedSales).length > 0" class="payment-breakdown">
-                <div 
-                  v-for="(payment, code) in item.groupedSales" 
+              <div
+                v-if="
+                  item.groupedSales && Object.keys(item.groupedSales).length > 0
+                "
+                class="payment-breakdown"
+              >
+                <div
+                  v-for="(payment, code) in item.groupedSales"
                   :key="code"
                   class="payment-item"
                 >
                   <span class="payment-method">{{ payment.paymentName }}</span>
-                  <span class="payment-amount">{{ numberFormatter(payment.totalSales) }}</span>
+                  <span class="payment-amount">{{
+                    numberFormatter(payment.totalSales)
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -140,12 +150,14 @@
       <section class="analytics-section">
         <div class="section-header">
           <h2 class="section-title">Analytics Dashboard</h2>
-          <p class="section-description">Detailed insights into your business performance</p>
+          <p class="section-description">
+            Detailed insights into your business performance
+          </p>
         </div>
-        
+
         <div class="analytics-grid">
           <!-- Top Categories Chart -->
-          <div class="chart-card ">
+          <div class="chart-card">
             <div class="chart-header">
               <h3>ສິນຄ້າຂາຍດີຕາມໝວດ</h3>
               <v-btn icon small>
@@ -179,10 +191,10 @@
               <h3>Payment Methods</h3>
             </div>
             <div class="chart-container">
-              <apexchart 
-                type="donut" 
+              <apexchart
+                type="donut"
                 height="250"
-                :options="options" 
+                :options="options"
                 :series="paymentSeries"
               ></apexchart>
             </div>
@@ -212,7 +224,7 @@
           <h2 class="section-title">Inventory Alerts</h2>
           <p class="section-description">Monitor low stock items</p>
         </div>
-        
+
         <div class="inventory-container" :key="minstockComponentsKey">
           <MinStockCard />
         </div>
@@ -246,13 +258,13 @@ export default {
     return {
       terminalDialog: false,
       terminalSelected: null,
-      currentDate: new Date().toLocaleDateString('en-US', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+      currentDate: new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       }),
-      
+
       // Chart configurations - will be updated in mounted()
       barOptionsForMonthlyStat: {
         colors: [], // Will be set dynamically
@@ -265,7 +277,7 @@ export default {
         stroke: {
           curve: 'smooth',
           width: 4, // Increased from 3 to 4
-          dashArray: 0
+          dashArray: 0,
         },
         fill: {
           type: 'gradient',
@@ -273,8 +285,8 @@ export default {
             shadeIntensity: 1,
             opacityFrom: 0.4, // Increased opacity
             opacityTo: 0.1,
-            stops: [0, 90, 100]
-          }
+            stops: [0, 90, 100],
+          },
         },
         markers: {
           size: 5,
@@ -282,8 +294,8 @@ export default {
           strokeColors: '#fff',
           strokeWidth: 2,
           hover: {
-            size: 7
-          }
+            size: 7,
+          },
         },
         dataLabels: { enabled: false },
         xaxis: {
@@ -292,7 +304,7 @@ export default {
             style: {
               fontFamily: 'Noto Sans Lao, sans-serif',
               fontSize: '12px',
-              colors: '#6B7280'
+              colors: '#6B7280',
             },
           },
           axisBorder: { show: false },
@@ -306,9 +318,9 @@ export default {
             },
             style: {
               colors: '#6B7280',
-              fontSize: '12px'
-            }
-          }
+              fontSize: '12px',
+            },
+          },
         },
         grid: {
           show: true,
@@ -316,14 +328,14 @@ export default {
           strokeDashArray: 0,
           position: 'back',
           xaxis: { lines: { show: false } },
-          yaxis: { lines: { show: true } }
+          yaxis: { lines: { show: true } },
         },
         tooltip: {
           theme: 'light',
           style: {
             fontSize: '12px',
-            fontFamily: 'Noto Sans Lao, sans-serif'
-          }
+            fontFamily: 'Noto Sans Lao, sans-serif',
+          },
         },
         title: {
           text: '',
@@ -331,15 +343,17 @@ export default {
             fontFamily: 'Noto Sans Lao, sans-serif',
             fontSize: '16px',
             fontWeight: '600',
-            color: '#1F2937'
+            color: '#1F2937',
           },
         },
       },
-      
-      barSeriesForMonthlyStat: [{
-        name: 'Sales',
-        data: [],
-      }],
+
+      barSeriesForMonthlyStat: [
+        {
+          name: 'Sales',
+          data: [],
+        },
+      ],
 
       menus: [
         {
@@ -360,7 +374,7 @@ export default {
         {
           title: 'Stock',
           svgIcon: require('~/assets/icons/stock.svg'),
-          path: '/admin/product/productlist'
+          path: '/admin/product/productlist',
         },
         {
           title: 'ລາຍງານ ລູກຄ້າຕິດຫນີ້',
@@ -373,7 +387,7 @@ export default {
           path: '/admin/client',
         },
       ],
-      
+
       yearlySale: [],
       menusOverview: [
         {
@@ -384,7 +398,9 @@ export default {
           groupedSales: {},
         },
         {
-          title: `ຍອດຂາຍເດືອນນີ້ - ${new Date().toDateString().split(' ')[1]}/${new Date().toDateString().split(' ')[3]} KIP`,
+          title: `ຍອດຂາຍເດືອນນີ້ - ${new Date().toDateString().split(' ')[1]}/${
+            new Date().toDateString().split(' ')[3]
+          } KIP`,
           icon: 'mdi-calendar-month',
           path: '',
           total: '0',
@@ -401,7 +417,7 @@ export default {
       minstockComponentsKey: 1,
       isloading: false,
       dailyState: false,
-      
+
       options: {
         chart: {
           type: 'donut',
@@ -412,35 +428,39 @@ export default {
         legend: {
           position: 'bottom',
           fontSize: '12px',
-          fontFamily: 'Noto Sans Lao, sans-serif'
+          fontFamily: 'Noto Sans Lao, sans-serif',
         },
         plotOptions: {
           pie: {
             donut: {
-              size: '70%'
-            }
-          }
+              size: '70%',
+            },
+          },
         },
         dataLabels: {
           enabled: true,
           formatter: function (val) {
             return val.toFixed(1) + '%'
-          }
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: { width: 200 },
-            legend: { position: 'bottom' }
           },
-        }],
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: { width: 200 },
+              legend: { position: 'bottom' },
+            },
+          },
+        ],
       },
 
-      barSeriesForDailyStat: [{
-        name: 'Daily Sales',
-        data: [],
-      }],
-      
+      barSeriesForDailyStat: [
+        {
+          name: 'Daily Sales',
+          data: [],
+        },
+      ],
+
       barOptionsForDailyStat: {
         colors: [], // Will be set dynamically
         chart: {
@@ -452,7 +472,7 @@ export default {
         stroke: {
           curve: 'smooth',
           width: 4, // Increased from 3 to 4
-          dashArray: 0
+          dashArray: 0,
         },
         fill: {
           type: 'gradient',
@@ -460,8 +480,8 @@ export default {
             shadeIntensity: 1,
             opacityFrom: 0.4, // Increased opacity
             opacityTo: 0.1,
-            stops: [0, 90, 100]
-          }
+            stops: [0, 90, 100],
+          },
         },
         markers: {
           size: 5,
@@ -469,8 +489,8 @@ export default {
           strokeColors: '#fff',
           strokeWidth: 2,
           hover: {
-            size: 7
-          }
+            size: 7,
+          },
         },
         dataLabels: { enabled: false },
         xaxis: {
@@ -479,7 +499,7 @@ export default {
             style: {
               fontFamily: 'Noto Sans Lao, sans-serif',
               fontSize: '12px',
-              colors: '#6B7280'
+              colors: '#6B7280',
             },
           },
           axisBorder: { show: false },
@@ -492,23 +512,23 @@ export default {
             },
             style: {
               colors: '#6B7280',
-              fontSize: '12px'
-            }
-          }
+              fontSize: '12px',
+            },
+          },
         },
         grid: {
           show: true,
           borderColor: '#F3F4F6',
           strokeDashArray: 0,
           xaxis: { lines: { show: false } },
-          yaxis: { lines: { show: true } }
+          yaxis: { lines: { show: true } },
         },
         tooltip: {
           theme: 'light',
           style: {
             fontSize: '12px',
-            fontFamily: 'Noto Sans Lao, sans-serif'
-          }
+            fontFamily: 'Noto Sans Lao, sans-serif',
+          },
         },
         title: {
           text: '',
@@ -516,75 +536,84 @@ export default {
             fontFamily: 'Noto Sans Lao, sans-serif',
             fontSize: '16px',
             fontWeight: '600',
-            color: '#1F2937'
+            color: '#1F2937',
           },
         },
       },
     }
   },
-  
+
   async created() {
     await this.loadSaleStatistic()
     this.generateDailyStatisticSale()
     this.init()
   },
-  
+
   async mounted() {
     await this.loadTopSale()
   },
-  
+
   computed: {
     ...mapGetters([
       'findAllTerminal',
       'findSelectedTerminal',
       'currentSelectedLocation',
       'findAllLocation',
+      'findAllPayment',
     ]),
 
     // Theme-based styling using dynamic colors from vuetify-theme.js
     primaryGradient() {
-      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      const theme = this.$vuetify.theme.dark
+        ? this.$vuetify.theme.themes.dark
+        : this.$vuetify.theme.themes.light
       return `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`
     },
 
     primaryColor() {
-      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      const theme = this.$vuetify.theme.dark
+        ? this.$vuetify.theme.themes.dark
+        : this.$vuetify.theme.themes.light
       return theme.primary
     },
 
     secondaryColor() {
-      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      const theme = this.$vuetify.theme.dark
+        ? this.$vuetify.theme.themes.dark
+        : this.$vuetify.theme.themes.light
       return theme.secondary
     },
 
     lightPrimaryColor() {
-      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
+      const theme = this.$vuetify.theme.dark
+        ? this.$vuetify.theme.themes.dark
+        : this.$vuetify.theme.themes.light
       return theme.lightprimary || theme.primary
     },
 
     // Dynamic styles
     dialogHeaderStyle() {
       return {
-        background: this.primaryGradient
+        background: this.primaryGradient,
       }
     },
 
     primaryButtonStyle() {
       return {
         background: `${this.primaryGradient} !important`,
-        boxShadow: `0 4px 12px ${this.primaryColor}40 !important`
+        boxShadow: `0 4px 12px ${this.primaryColor}40 !important`,
       }
     },
 
     kpiIconStyle() {
       return {
-        background: this.primaryGradient
+        background: this.primaryGradient,
       }
     },
 
     cardIconStyle() {
       return {
-        background: this.primaryGradient
+        background: this.primaryGradient,
       }
     },
 
@@ -596,7 +625,7 @@ export default {
     paymentLabels() {
       return this.paymentMethodData.labels
     },
-    
+
     totalSale6M() {
       const totalPrice = this.yearlySale.reduce((total, item) => {
         let rider_fee = 0
@@ -609,7 +638,7 @@ export default {
       }, 0)
       return getFormatNum(totalPrice)
     },
-    
+
     totalSaleMTD() {
       const monthSaleList = this.yearlySale.filter(
         (el) => el.bookingDate.split('-')[1] == today.split('-')[1]
@@ -653,9 +682,11 @@ export default {
       }, [])
       return dailyTransactions
     },
-    
+
     totalSaleTD() {
-      const todaySaleList = this.yearlySale.filter((el) => el.bookingDate == today)
+      const todaySaleList = this.yearlySale.filter(
+        (el) => el.bookingDate == today
+      )
       const totalPrice = todaySaleList.reduce((total, item) => {
         let rider_fee = 0
         let cod_fee = 0
@@ -673,17 +704,17 @@ export default {
       if (!this.yearlySale || this.yearlySale.length === 0) {
         return { series: [], labels: [] }
       }
-      
+
       const grouped = this.saleGroupByPayment(this.yearlySale)
       const series = []
       const labels = []
-      
-      Object.keys(grouped).forEach(code => {
+
+      Object.keys(grouped).forEach((code) => {
         const payment = grouped[code]
         series.push(payment.totalSales)
         labels.push(payment.paymentName)
       })
-      
+
       return { series, labels }
     },
   },
@@ -694,8 +725,8 @@ export default {
       handler(newLabels) {
         this.options.labels = newLabels
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
 
   methods: {
@@ -708,25 +739,108 @@ export default {
     navigateTo(path) {
       this.$router.push(path)
     },
-    
+
+    // saleGroupByPayment(saleList) {
+    //   if (!Array.isArray(saleList)) {
+    //     throw new Error('Input must be an array')
+    //   }
+    //   return saleList.reduce((acc, sale) => {
+    //     const paymentCode = sale.payment?.payment_code || 'UNKNOWN'
+    //     const total = sale.total || 0
+
+    //     if (!acc[paymentCode]) {
+    //       acc[paymentCode] = {
+    //         totalSales: 0,
+    //         count: 0,
+    //         paymentName: sale.payment?.payment_name || 'Unknown Payment',
+    //       }
+    //     }
+
+    //     acc[paymentCode].totalSales += total
+    //     acc[paymentCode].count += 1
+    //     return acc
+    //   }, {})
+    // },
     saleGroupByPayment(saleList) {
       if (!Array.isArray(saleList)) {
         throw new Error('Input must be an array')
       }
+
       return saleList.reduce((acc, sale) => {
-        const paymentCode = sale.payment?.payment_code || 'UNKNOWN'
         const total = sale.total || 0
 
-        if (!acc[paymentCode]) {
-          acc[paymentCode] = {
-            totalSales: 0,
-            count: 0,
-            paymentName: sale.payment?.payment_name || 'Unknown Payment',
+        // Check if there are multiple payments in the payments array
+        if (
+          sale.payments &&
+          Array.isArray(sale.payments) &&
+          sale.payments.length > 0
+        ) {
+          // Handle multiple payments - distribute the total proportionally
+          const totalPaymentAmount = sale.payments.reduce(
+            (sum, payment) => sum + (payment.amount || 0),
+            0
+          )
+
+          sale.payments.forEach((payment) => {
+            // Find payment method details from findAllPayment getter
+            const paymentMethod = this.findAllPayment.find(
+              (pm) => pm.id === payment.paymentId
+            )
+            const paymentCode =
+              paymentMethod?.payment_code || `PAYMENT_${payment.paymentId}`
+            const paymentName =
+              paymentMethod?.payment_name ||
+              `Payment Method ${payment.paymentId}`
+
+            // Calculate proportional amount
+            const proportionalAmount =
+              totalPaymentAmount > 0
+                ? (payment.amount / totalPaymentAmount) * total
+                : 0
+
+            if (!acc[paymentCode]) {
+              acc[paymentCode] = {
+                totalSales: 0,
+                count: 0,
+                paymentName: paymentName,
+              }
+            }
+
+            acc[paymentCode].totalSales += proportionalAmount
+            acc[paymentCode].count += 1
+          })
+        }
+        // Handle single payment (existing logic)
+        else if (sale.payment) {
+          const paymentCode = sale.payment.payment_code || 'UNKNOWN'
+
+          if (!acc[paymentCode]) {
+            acc[paymentCode] = {
+              totalSales: 0,
+              count: 0,
+              paymentName: sale.payment.payment_name || 'Unknown Payment',
+            }
           }
+
+          acc[paymentCode].totalSales += total
+          acc[paymentCode].count += 1
+        }
+        // Handle case where no payment info is available
+        else {
+          const paymentCode = 'NO_PAYMENT'
+
+          if (!acc[paymentCode]) {
+            acc[paymentCode] = {
+              totalSales: 0,
+              count: 0,
+              paymentName: 'No Payment Info',
+            }
+          }
+
+          acc[paymentCode].totalSales += total
+          acc[paymentCode].count += 1
         }
 
-        acc[paymentCode].totalSales += total
-        acc[paymentCode].count += 1
         return acc
       }, {})
     },
@@ -740,7 +854,7 @@ export default {
             'locationId'
           ]
       )
-      
+
       if (location) {
         this.setSelectedLocation(location)
         this.minstockComponentsKey += 1
@@ -768,7 +882,15 @@ export default {
     },
 
     getRandomColor() {
-      const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#a8edea', '#fed6e3']
+      const colors = [
+        '#667eea',
+        '#764ba2',
+        '#f093fb',
+        '#4facfe',
+        '#00f2fe',
+        '#a8edea',
+        '#fed6e3',
+      ]
       return colors[Math.floor(Math.random() * colors.length)]
     },
 
@@ -785,8 +907,8 @@ export default {
               bottom: '0%',
               textStyle: {
                 fontFamily: 'Noto Sans Lao, sans-serif',
-                fontSize: 12
-              }
+                fontSize: 12,
+              },
             },
             series: [
               {
@@ -798,19 +920,19 @@ export default {
                 itemStyle: {
                   borderRadius: 10,
                   borderColor: '#fff',
-                  borderWidth: 2
+                  borderWidth: 2,
                 },
                 label: {
                   show: false,
-                  position: 'center'
+                  position: 'center',
                 },
                 emphasis: {
                   label: {
                     show: true,
                     fontSize: 16,
                     fontWeight: 'bold',
-                    fontFamily: 'Noto Sans Lao, sans-serif'
-                  }
+                    fontFamily: 'Noto Sans Lao, sans-serif',
+                  },
                 },
                 labelLine: { show: false },
                 data: [],
@@ -819,14 +941,14 @@ export default {
           }
 
           const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe']
-          
+
           res.data.forEach((el, index) => {
             const entry = {
               name: el.categ_name,
               value: +el.sale_count,
               itemStyle: {
-                color: colors[index % colors.length]
-              }
+                color: colors[index % colors.length],
+              },
             }
             option.series[0].data.push(entry)
           })
@@ -849,21 +971,25 @@ export default {
           for (const iterator of res.data) {
             this.yearlySale.push(iterator)
           }
-          
+
           const monthSaleList = this.yearlySale.filter(
             (el) => el.bookingDate.split('-')[1] == today.split('-')[1]
           )
           const todaySaleList = this.yearlySale.filter(
             (el) => el.bookingDate == today
           )
-          
+
           this.menusOverview[2]['total'] = this.totalSale6M // Updated name
-          this.menusOverview[2]['groupedSales'] = this.saleGroupByPayment(this.yearlySale)
+          this.menusOverview[2]['groupedSales'] = this.saleGroupByPayment(
+            this.yearlySale
+          )
           this.menusOverview[1]['total'] = this.totalSaleMTD
-          this.menusOverview[1]['groupedSales'] = this.saleGroupByPayment(monthSaleList)
+          this.menusOverview[1]['groupedSales'] =
+            this.saleGroupByPayment(monthSaleList)
           this.menusOverview[0]['total'] = this.totalSaleTD
-          this.menusOverview[0]['groupedSales'] = this.saleGroupByPayment(todaySaleList)
-          
+          this.menusOverview[0]['groupedSales'] =
+            this.saleGroupByPayment(todaySaleList)
+
           this.monthGroupSale()
         })
         .catch((err) => {
@@ -901,16 +1027,19 @@ export default {
           rider_fee = transaction.dynamic_customer.rider_fee
           cod_fee = transaction.dynamic_customer.cod_fee
         }
-        groupedTransactions[key].total += transaction.total + rider_fee - cod_fee
+        groupedTransactions[key].total +=
+          transaction.total + rider_fee - cod_fee
         groupedTransactions[key].transactions.push(transaction)
       })
 
       const keyList = Object.keys(groupedTransactions)
       for (const iterator of keyList) {
-        this.barSeriesForMonthlyStat[0].data.push(groupedTransactions[iterator]['total'])
+        this.barSeriesForMonthlyStat[0].data.push(
+          groupedTransactions[iterator]['total']
+        )
         this.barOptionsForMonthlyStat.xaxis.categories.push(iterator)
       }
-      
+
       return groupedTransactions
     },
 
@@ -921,30 +1050,34 @@ export default {
 
     applyThemeToCharts() {
       // Apply theme colors to charts
-      const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
-      
+      const theme = this.$vuetify.theme.dark
+        ? this.$vuetify.theme.themes.dark
+        : this.$vuetify.theme.themes.light
+
       // Monthly stats chart
       this.barOptionsForMonthlyStat.colors = [theme.secondary || '#10B981']
-      this.barOptionsForMonthlyStat.markers.colors = [theme.secondary || '#10B981']
-      
-      // Daily stats chart  
+      this.barOptionsForMonthlyStat.markers.colors = [
+        theme.secondary || '#10B981',
+      ]
+
+      // Daily stats chart
       this.barOptionsForDailyStat.colors = [theme.primary || '#3B82F6']
       this.barOptionsForDailyStat.markers.colors = [theme.primary || '#3B82F6']
-      
+
       // Payment method donut chart
       this.options.colors = [
         theme.primary || '#667eea',
-        theme.secondary || '#f093fb', 
+        theme.secondary || '#f093fb',
         theme.lightprimary || '#764ba2',
         theme.danger || '#4facfe',
-        '#00f2fe'
+        '#00f2fe',
       ]
-      
+
       console.log('Theme colors applied to charts:', {
         primary: theme.primary,
         secondary: theme.secondary,
         lightprimary: theme.lightprimary,
-        danger: theme.danger
+        danger: theme.danger,
       })
     },
   },
@@ -983,8 +1116,12 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
@@ -1192,7 +1329,8 @@ export default {
 
 .action-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .action-card:hover .card-overlay {
@@ -1205,7 +1343,11 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -1284,9 +1426,15 @@ export default {
   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
 }
 
-.kpi-card--0::before { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); }
-.kpi-card--1::before { background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%); }
-.kpi-card--2::before { background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); }
+.kpi-card--0::before {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+.kpi-card--1::before {
+  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+}
+.kpi-card--2::before {
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+}
 
 .kpi-card:hover {
   transform: translateY(-4px);
@@ -1314,7 +1462,7 @@ export default {
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
   padding: 0.5rem;
   border-radius: 10px;
-  border: 1px solid #10B981;
+  border: 1px solid #10b981;
   box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
 }
 
@@ -1460,25 +1608,25 @@ export default {
   .dashboard-container {
     padding: 1rem;
   }
-  
+
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .dashboard-title {
     font-size: 2rem;
   }
-  
+
   .quick-actions-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-  
+
   .kpi-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .section-title {
     font-size: 1.5rem;
   }
@@ -1489,20 +1637,20 @@ export default {
   .kpi-card {
     padding: 1.5rem;
   }
-  
+
   .card-icon {
     width: 56px;
     height: 56px;
   }
-  
+
   .kpi-value {
     font-size: 1.75rem;
   }
-  
+
   .chart-header {
     padding: 1rem 1.5rem 0 1.5rem;
   }
-  
+
   .chart-container {
     padding: 0 1.5rem 1.5rem 1.5rem;
   }
@@ -1526,10 +1674,22 @@ export default {
   animation: slideInUp 0.6s ease-out;
 }
 
-.action-card:nth-child(1) { animation-delay: 0.1s; }
-.action-card:nth-child(2) { animation-delay: 0.2s; }
-.action-card:nth-child(3) { animation-delay: 0.3s; }
-.action-card:nth-child(4) { animation-delay: 0.4s; }
-.action-card:nth-child(5) { animation-delay: 0.5s; }
-.action-card:nth-child(6) { animation-delay: 0.6s; }
+.action-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.action-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.action-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.action-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.action-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.action-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
 </style>

@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "330.js": "330.js",
+    "331.js": "331.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -243,6 +243,7 @@
     "pages/admin/ordersFromPos/index.js": "pages/admin/ordersFromPos/index.js",
     "pages/admin/ordersFromPosCancel/index.js": "pages/admin/ordersFromPosCancel/index.js",
     "pages/admin/ordersFromPosCredit/index.js": "pages/admin/ordersFromPosCredit/index.js",
+    "pages/admin/ordersFromPosGift/index.js": "pages/admin/ordersFromPosGift/index.js",
     "pages/admin/ordersFromPosOnline/index.js": "pages/admin/ordersFromPosOnline/index.js",
     "pages/admin/ordersFromPosOnlineCOD/index.js": "pages/admin/ordersFromPosOnlineCOD/index.js",
     "pages/admin/ordersFromPosSummaryByCustomer/index.js": "pages/admin/ordersFromPosSummaryByCustomer/index.js",
@@ -334,7 +335,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "330.js": "330.js.map",
+    "331.js": "331.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -576,6 +577,7 @@
     "pages/admin/ordersFromPos/index.js": "pages/admin/ordersFromPos/index.js.map",
     "pages/admin/ordersFromPosCancel/index.js": "pages/admin/ordersFromPosCancel/index.js.map",
     "pages/admin/ordersFromPosCredit/index.js": "pages/admin/ordersFromPosCredit/index.js.map",
+    "pages/admin/ordersFromPosGift/index.js": "pages/admin/ordersFromPosGift/index.js.map",
     "pages/admin/ordersFromPosOnline/index.js": "pages/admin/ordersFromPosOnline/index.js.map",
     "pages/admin/ordersFromPosOnlineCOD/index.js": "pages/admin/ordersFromPosOnlineCOD/index.js.map",
     "pages/admin/ordersFromPosSummaryByCustomer/index.js": "pages/admin/ordersFromPosSummaryByCustomer/index.js.map",

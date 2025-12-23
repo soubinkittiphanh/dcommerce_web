@@ -1,7 +1,7 @@
 exports.ids = [116];
 exports.modules = {
 
-/***/ 535:
+/***/ 536:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,7 +9,7 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(406);
+var VAutocomplete = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -24,25 +24,25 @@ var components_VCard = __webpack_require__(3);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(426);
+var VCol = __webpack_require__(427);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(400);
+var VDialog = __webpack_require__(401);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(423);
+var VForm = __webpack_require__(424);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(425);
+var VRow = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(428);
+var VSpacer = __webpack_require__(429);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
@@ -359,7 +359,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(402);
+var external_lodash_ = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./common/api.js
 var common_api = __webpack_require__(41);
@@ -500,7 +500,7 @@ var external_vuex_ = __webpack_require__(14);
             const response = await this.$axios.post(api, order);
           }
         } catch (error) {
-          return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
       }
       console.log(`START REMOVING ENTRY FROM STATE`);
@@ -727,7 +727,7 @@ var external_vuex_ = __webpack_require__(14);
     },
     async confirmOrder(order) {
       // if(order['shippingFee']<=0 && this.orderStatus=='RECEIVED') return swalError2(this.$swal, "Error", 'ກະລຸນາໃສ່ຄ່າສົ່ງ');
-      if (order['shippingFee'] <= 0) return Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ກະລຸນາໃສ່ຄ່າສົ່ງ');
+      if (order['shippingFee'] <= 0) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ກະລຸນາໃສ່ຄ່າສົ່ງ');
       if (!this.isloading) {
         // Implement form submission logic here
         this.isloading = true;
@@ -748,10 +748,10 @@ var external_vuex_ = __webpack_require__(14);
           // *** remove from state ****
           this.removeItemFromConfirmEntrie(order);
           this.refreshData();
-          Object(common["k" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         } catch (error) {
           console.log('Error: ', error);
-          Object(common["j" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -819,7 +819,7 @@ var external_vuex_ = __webpack_require__(14);
       return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
     },
     ticketCommon() {
-      return Object(common["l" /* ticketHtml */])();
+      return Object(common["m" /* ticketHtml */])();
     },
     currencyList() {
       return this.findAllCurrency;

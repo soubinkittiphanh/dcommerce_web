@@ -115,7 +115,6 @@ import {
 export default {
   mounted() {
     this.loadTxn()
-
   },
   watch: {
     date(val) {
@@ -314,6 +313,7 @@ export default {
       const date = {
         startDate: this.date,
         endDate: this.date2,
+        includeCards: true, // or true when you need cards
       }
       this.isloading = true
       await this.$axios

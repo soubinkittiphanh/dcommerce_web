@@ -470,8 +470,8 @@ export default {
   },
   data() {
     return {
-      bflQrImage: require('~/assets/image/qr_code/BFL_QR.jpeg'),
-      bcelQrImage: require('~/assets/image/qr_code/BCEL_QR.jpeg'),
+      bflQrImage: require('~/assets/image/qr_code/HAPPY_BUN.png'),
+      bcelQrImage: require('~/assets/image/qr_code/HAPPY_BUN.png'),
       showQR: false,
       qrData: {
         amount: 0,
@@ -708,15 +708,15 @@ export default {
 
     async loadQrPaymentImages() {
       try {
-        const bflModule = await import('~/assets/image/qr_code/BFL_QR.jpeg')
-        const bcelModule = await import('~/assets/image/qr_code/BCEL_QR.jpeg')
+        const bflModule = await import('~/assets/image/qr_code/HAPPY_BUN.png')
+        const bcelModule = await import('~/assets/image/qr_code/HAPPY_BUN.png')
 
         this.bflQrImage = bflModule.default
         this.bcelQrImage = bcelModule.default
       } catch (error) {
         console.warn('Failed to load QR payment images:', error)
-        this.bflQrImage = '/assets/image/qr_code/BFL_QR.jpeg'
-        this.bcelQrImage = '/assets/image/qr_code/BCEL_QR.jpeg'
+        this.bflQrImage = '/assets/image/qr_code/HAPPY_BUN.png'
+        this.bcelQrImage = '/assets/image/qr_code/HAPPY_BUN.png'
       }
     },
 

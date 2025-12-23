@@ -1,328 +1,277 @@
 <template>
   <v-dialog
     v-model="dialogVisible"
-    max-width="800"
+    max-width="640"
     persistent
     scrollable
     @keydown.enter="handleEnterKey"
   >
-    <v-card class="multi-payment-card">
-      <!-- Header -->
-      <v-card-title class="payment-header primary white--text">
-        <v-icon left size="24">mdi-credit-card-multiple</v-icon>
+    <v-card class="multi-payment-card elevation-0">
+      <!-- Compact Header -->
+      <v-card-title class="payment-header primary--text pa-4">
+        <v-icon color="primary" class="mr-3">mdi-credit-card-multiple</v-icon>
         <span class="title-text">ການຈ່າຍເງິນຫຼາຍວິທີ</span>
         <v-spacer></v-spacer>
-        <v-chip color="white" text-color="primary" class="total-chip">
-          <v-icon left small>mdi-currency-usd</v-icon>
-          {{ formatNumber(saleTotal) }}
-        </v-chip>
+        <div class="total-display">
+          <div class="total-label">ທັງໝົດ</div>
+          <div class="total-amount">{{ formatNumber(saleTotal) }}</div>
+        </div>
       </v-card-title>
 
-      <!-- Payment Summary Bar -->
-      <v-card-text class="payment-summary pa-3" v-if="predefinedPayments.length > 0 || payments.length > 0">
-        <v-row align="center" no-gutters class="summary-row">
-          <v-col cols="4" class="summary-item">
+      <!-- Debug Info (remove in production) -->
+      <div v-if="$attrs.debug" class="debug-info pa-2 grey lighten-4">
+        <small>
+          Predefined: {{ predefinedPayments.length }} | 
+          Show: {{ showPredefinedPayments }} | 
+          Enabled: {{ enablePredefinedPayments }}
+        </small>
+      </div>
+
+      <!-- Compact Payment Summary -->
+      <div v-if="payments.length > 0" class="payment-summary">
+        <div class="summary-grid">
+          <div class="summary-card paid">
+            <div class="summary-amount">{{ formatNumber(totalPaid) }}</div>
             <div class="summary-label">ຈ່າຍແລ້ວ</div>
-            <div class="summary-value paid">{{ formatNumber(totalPaid) }}</div>
-          </v-col>
-          <v-col cols="4" class="summary-item">
-            <div class="summary-label">ຍັງຄ້າງ</div>
-            <div class="summary-value" :class="remainingClass">{{ formatNumber(remainingAmount) }}</div>
-          </v-col>
-          <v-col cols="4" class="summary-item">
-            <div class="summary-label">ສະຖານະ</div>
-            <v-chip small :color="statusChipColor" :text-color="statusTextColor">
-              <v-icon left x-small>{{ statusIcon }}</v-icon>
-              {{ statusText }}
-            </v-chip>
-          </v-col>
-        </v-row>
-      </v-card-text>
+          </div>
+          <div class="summary-card" :class="remainingClass">
+            <div class="summary-amount">{{ formatNumber(Math.abs(remainingAmount)) }}</div>
+            <div class="summary-label">{{ remainingAmount >= 0 ? 'ຍັງຄ້າງ' : 'ເກີນ' }}</div>
+          </div>
+          <div class="summary-card status">
+            <v-icon small :color="statusColor">{{ statusIcon }}</v-icon>
+            <div class="summary-label">{{ statusText }}</div>
+          </div>
+        </div>
+      </div>
 
-      <v-divider></v-divider>
-
-      <!-- Payment Methods List -->
-      <v-card-text class="payment-content pa-0">
-        <div class="payment-list-container">
-          <!-- Predefined Payment Methods Section -->
-          <div v-if="showPredefinedPayments" class="predefined-payments-section pa-4">
-            <v-subheader class="pl-0">
-              <v-icon class="mr-2">mdi-star</v-icon>
-              ວິທີຈ່າຍເງິນທີ່ແນະນຳ
-            </v-subheader>
-            
-            <v-row v-for="(payment, index) in predefinedPayments" :key="`predefined-${index}`" class="mb-3">
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="payment.paymentId"
-                  :items="availablePaymentMethods"
-                  item-text="payment_name"
-                  item-value="id"
-                  :label="`ວິທີທີ ${index + 1}`"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-credit-card"
-                  class="payment-select"
-                  :disabled="isProcessing"
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model.number="payment.amount"
-                  :label="`ຈຳນວນເງິນທີ ${index + 1}`"
-                  type="number"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-currency-usd"
-                  :suffix="currencySymbol"
-                  :rules="amountRules"
-                  @keydown.enter="addPredefinedPayment(index)"
-                  :disabled="isProcessing"
-                  class="amount-input"
-                  :placeholder="getSuggestedAmount(index)"
-                />
-              </v-col>
-              <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="payment.referenceNo"
-                  :label="`ເລກອ້າງອີງທີ ${index + 1}`"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-barcode"
-                  :disabled="isProcessing || !requiresReference(payment.paymentId)"
-                  placeholder="ເບີໂທ/ລະຫັດ"
-                  class="reference-input"
-                />
-              </v-col>
-              <v-col cols="12" md="1">
-                <v-btn
-                  color="primary"
-                  @click="addPredefinedPayment(index)"
-                  :disabled="!canAddPredefinedPayment(index) || isProcessing"
-                  icon
-                  class="add-btn"
-                >
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
-
-            <!-- Quick Split Buttons -->
-            <v-row class="mt-2">
-              <v-col cols="12">
-                <div class="quick-split-buttons">
-                  <v-chip
-                    small
-                    outlined
-                    color="primary"
-                    @click="splitEqually"
-                    class="mr-2 mb-1"
-                    :disabled="isProcessing"
-                  >
-                    <v-icon left x-small>mdi-content-cut</v-icon>
-                    ແບ່ງເທົ່າກັນ
-                  </v-chip>
-                  <v-chip
-                    small
-                    outlined
-                    color="secondary"
-                    @click="setSuggestedSplit"
-                    class="mr-2 mb-1"
-                    :disabled="isProcessing"
-                  >
-                    <v-icon left x-small>mdi-lightbulb</v-icon>
-                    ແບ່ງແບບແນະນຳ (70/30)
-                  </v-chip>
-                </div>
-              </v-col>
-            </v-row>
-
-            <v-divider class="my-3"></v-divider>
+      <v-card-text class="pa-0">
+        <!-- Predefined Payment Methods (Compact) -->
+        <div v-if="showPredefinedPayments" class="predefined-section">
+          <div class="section-header">
+            <v-icon size="18" class="mr-2">mdi-flash</v-icon>
+            <span>ວິທີໄເລ່ງດ່ວນ</span>
+            <v-spacer></v-spacer>
+            <v-btn-toggle v-model="quickSplitType" dense class="quick-split-toggle">
+              <v-btn small @click="splitEqually" :disabled="isProcessing">
+                <v-icon x-small>mdi-equal</v-icon>
+              </v-btn>
+              <v-btn small @click="setSuggestedSplit" :disabled="isProcessing">
+                <v-icon x-small>mdi-pie-chart</v-icon>
+              </v-btn>
+            </v-btn-toggle>
           </div>
 
-          <!-- Add Additional Payment Section -->
-          <div class="add-payment-section pa-4">
-            <v-subheader class="pl-0">
-              <v-icon class="mr-2">mdi-plus-circle</v-icon>
-              ເພີ່ມວິທີຈ່າຍເງິນເພີ່ມເຕີມ
-            </v-subheader>
-            
-            <v-row align="center" no-gutters class="ga-3">
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="newPayment.paymentId"
-                  :items="availablePaymentMethods"
-                  item-text="payment_name"
-                  item-value="id"
-                  label="ເລືອກວິທີຈ່າຍເງິນ"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-credit-card"
-                  class="payment-select"
-                  :disabled="isProcessing"
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model.number="newPayment.amount"
-                  label="ຈຳນວນເງິນ"
-                  type="number"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-currency-usd"
-                  :suffix="currencySymbol"
-                  :rules="amountRules"
-                  @keydown.enter="addPaymentMethod"
-                  :disabled="isProcessing"
-                  class="amount-input"
-                />
-              </v-col>
-              <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="newPayment.referenceNo"
-                  label="ເລກອ້າງອີງ (ຖ້າມີ)"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-barcode"
-                  :disabled="isProcessing || !requiresReferenceForNew"
-                  placeholder="ເບີໂທ/ລະຫັດ"
-                  class="reference-input"
-                />
-              </v-col>
-              <v-col cols="12" md="1">
-                <v-btn
-                  color="primary"
-                  @click="addPaymentMethod"
-                  :disabled="!canAddPayment || isProcessing"
-                  icon
-                  class="add-btn"
-                >
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
-
-            <!-- Quick Amount Buttons -->
-            <v-row v-if="remainingAmount > 0" class="mt-2">
-              <v-col cols="12">
-                <div class="quick-amounts">
-                  <v-chip
-                    v-for="amount in quickAmounts"
-                    :key="amount"
-                    small
-                    outlined
-                    color="primary"
-                    @click="setQuickAmount(amount)"
-                    class="mr-2 mb-1 quick-amount-chip"
-                    :disabled="amount > remainingAmount"
-                  >
-                    {{ formatNumber(amount) }}
-                  </v-chip>
-                  <v-chip
-                    v-if="remainingAmount > 0"
-                    small
-                    color="success"
-                    @click="setQuickAmount(remainingAmount)"
-                    class="mr-2 mb-1"
-                  >
-                    <v-icon left x-small>mdi-check-all</v-icon>
-                    {{ formatNumber(remainingAmount) }}
-                  </v-chip>
-                </div>
-              </v-col>
-            </v-row>
-          </div>
-
-          <v-divider></v-divider>
-
-          <!-- Existing Payments List -->
-          <div class="existing-payments">
-            <div v-if="payments.length === 0" class="empty-state pa-6 text-center">
-              <v-icon size="64" color="grey lighten-2">mdi-credit-card-off</v-icon>
-              <p class="text-body-2 grey--text mt-3">ຍັງບໍ່ມີການຈ່າຍເງິນ</p>
-              <p class="text-caption grey--text">ເລືອກວິທີຈ່າຍເງິນ ແລະ ໃສ່ຈຳນວນເງິນຂ້າງເທິງ</p>
-            </div>
-
-            <div v-else class="payment-items">
-              <v-card
-                v-for="(payment, index) in payments"
-                :key="index"
+          <div class="predefined-payments">
+            <div v-for="(payment, index) in predefinedPayments" :key="`pred-${index}`" class="payment-row">
+              <v-select
+                v-model="payment.paymentId"
+                :items="availablePaymentMethods"
+                item-text="payment_name"
+                item-value="id"
+                dense
                 outlined
-                class="payment-item ma-3"
-                :class="{ 'payment-item--selected': selectedPaymentIndex === index }"
+                hide-details
+                class="payment-select flex-grow-1 mr-2"
+                :placeholder="`ວິທີທີ ${index + 1}`"
+              />
+              <v-text-field
+                v-model.number="payment.amount"
+                type="number"
+                dense
+                outlined
+                hide-details
+                class="amount-field mr-2"
+                :placeholder="getSuggestedAmount(index)"
+                suffix="₭"
+              />
+              <v-text-field
+                v-if="requiresReference(payment.paymentId)"
+                v-model="payment.referenceNo"
+                dense
+                outlined
+                hide-details
+                class="ref-field mr-2"
+                placeholder="ເລກອ້າງອີງ"
+              />
+              <v-btn
+                icon
+                small
+                color="primary"
+                @click="addPredefinedPayment(index)"
+                :disabled="!canAddPredefinedPayment(index)"
+                class="add-btn"
               >
-                <v-card-text class="pa-3">
-                  <v-row align="center" no-gutters>
-                    <v-col cols="1">
-                      <v-avatar size="32" :color="getPaymentColor(payment.paymentId)" class="white--text">
-                        <v-icon small>{{ getPaymentIcon(payment.paymentId) }}</v-icon>
-                      </v-avatar>
-                    </v-col>
-                    <v-col cols="4" class="pl-3">
-                      <div class="payment-name">{{ getPaymentName(payment.paymentId) }}</div>
-                      <div v-if="payment.referenceNo" class="payment-ref">{{ payment.referenceNo }}</div>
-                    </v-col>
-                    <v-col cols="5" class="text-right">
-                      <div class="payment-amount">{{ formatNumber(payment.amount) }}</div>
-                      <div class="payment-percentage">{{ getPaymentPercentage(payment.amount) }}%</div>
-                    </v-col>
-                    <v-col cols="2" class="text-right">
-                      <v-btn
-                        icon
-                        small
-                        color="error"
-                        @click="removePayment(index)"
-                        :disabled="isProcessing"
-                        class="remove-btn"
-                      >
-                        <v-icon small>mdi-delete</v-icon>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-card-text>
-              </v-card>
+                <v-icon small>mdi-plus</v-icon>
+              </v-btn>
+            </div>
+          </div>
+          
+          <!-- Add Both Button -->
+          <div class="add-both-section">
+            <v-btn
+              small
+              color="success"
+              block
+              @click="addBothPredefinedPayments"
+              :disabled="!canAddBothPredefined || isProcessing"
+              class="add-both-btn"
+            >
+              <v-icon left small>mdi-plus-circle</v-icon>
+              ເພີ່ມທັງສອງວິທີ
+            </v-btn>
+          </div>
+        </div>
+
+        <!-- Additional Payment (Compact) -->
+        <div class="additional-section">
+          <div class="section-header">
+            <v-icon size="18" class="mr-2">mdi-plus</v-icon>
+            <span>ເພີ່ມເຕີມ</span>
+          </div>
+
+          <div class="payment-row">
+            <v-select
+              v-model="newPayment.paymentId"
+              :items="availablePaymentMethods"
+              item-text="payment_name"
+              item-value="id"
+              dense
+              outlined
+              hide-details
+              class="payment-select flex-grow-1 mr-2"
+              placeholder="ເລືອກວິທີຈ່າຍ"
+            />
+            <v-text-field
+              v-model.number="newPayment.amount"
+              type="number"
+              dense
+              outlined
+              hide-details
+              class="amount-field mr-2"
+              placeholder="ຈຳນວນ"
+              suffix="₭"
+            />
+            <v-text-field
+              v-if="requiresReferenceForNew"
+              v-model="newPayment.referenceNo"
+              dense
+              outlined
+              hide-details
+              class="ref-field mr-2"
+              placeholder="ເລກອ້າງອີງ"
+            />
+            <v-btn
+              icon
+              small
+              color="primary"
+              @click="addPaymentMethod"
+              :disabled="!canAddPayment"
+              class="add-btn"
+            >
+              <v-icon small>mdi-plus</v-icon>
+            </v-btn>
+          </div>
+
+          <!-- Quick Amount Pills -->
+          <div v-if="remainingAmount > 0 && quickAmounts.length > 0" class="quick-amounts">
+            <v-chip
+              v-for="amount in quickAmounts"
+              :key="amount"
+              x-small
+              @click="setQuickAmount(amount)"
+              :disabled="amount > remainingAmount"
+              class="quick-chip mr-1"
+            >
+              {{ formatNumber(amount) }}
+            </v-chip>
+            <v-chip
+              x-small
+              color="success"
+              text-color="white"
+              @click="setQuickAmount(remainingAmount)"
+              class="quick-chip"
+            >
+              <v-icon x-small left>mdi-check</v-icon>
+              {{ formatNumber(remainingAmount) }}
+            </v-chip>
+          </div>
+        </div>
+
+        <!-- Payment List (Compact) -->
+        <div class="payments-list">
+          <div v-if="payments.length === 0" class="empty-state">
+            <v-icon color="grey lighten-1" size="32">mdi-credit-card-off-outline</v-icon>
+            <div class="empty-text">ເລີ່ມເພີ່ມການຈ່າຍເງິນ</div>
+          </div>
+
+          <div v-else class="payment-items">
+            <div
+              v-for="(payment, index) in payments"
+              :key="index"
+              class="payment-item"
+            >
+              <div class="payment-info">
+                <div class="payment-icon">
+                  <v-icon :color="getPaymentColor(payment.paymentId)" size="20">
+                    {{ getPaymentIcon(payment.paymentId) }}
+                  </v-icon>
+                </div>
+                <div class="payment-details">
+                  <div class="payment-name">{{ getPaymentName(payment.paymentId) }}</div>
+                  <div v-if="payment.referenceNo" class="payment-ref">{{ payment.referenceNo }}</div>
+                </div>
+              </div>
+              <div class="payment-amount">
+                <div class="amount">{{ formatNumber(payment.amount) }}</div>
+                <div class="percentage">{{ getPaymentPercentage(payment.amount) }}%</div>
+              </div>
+              <v-btn
+                icon
+                x-small
+                color="error"
+                @click="removePayment(index)"
+                class="remove-btn"
+              >
+                <v-icon x-small>mdi-close</v-icon>
+              </v-btn>
             </div>
           </div>
         </div>
-      </v-card-text>
 
-      <!-- Footer Actions -->
-      <v-divider></v-divider>
-      <v-card-actions class="payment-actions pa-4">
-        <div class="validation-messages" v-if="validationMessage">
+        <!-- Validation Message -->
+        <div v-if="validationMessage" class="validation-section">
           <v-alert
             :type="validationType"
             dense
             text
-            class="mb-2"
-            :icon="validationIcon"
+            class="ma-3 validation-alert"
           >
             {{ validationMessage }}
           </v-alert>
         </div>
+      </v-card-text>
 
-        <v-spacer></v-spacer>
-        
+      <!-- Compact Footer -->
+      <v-card-actions class="payment-actions">
         <v-btn
-          color="grey"
           text
           @click="cancelPayment"
           :disabled="isProcessing"
           class="cancel-btn"
         >
-          <v-icon left>mdi-close</v-icon>
           ຍົກເລີກ
         </v-btn>
-
+        <v-spacer></v-spacer>
         <v-btn
           color="success"
           @click="confirmPayment"
           :disabled="!canConfirmPayment || isProcessing"
           :loading="isProcessing"
-          class="confirm-btn ml-3"
+          class="confirm-btn"
         >
-          <v-icon left>mdi-check-circle</v-icon>
-          ຢືນຢັນການຈ່າຍເງິນ
+          <v-icon left small>mdi-check</v-icon>
+          ຢືນຢັນ
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -353,14 +302,13 @@ export default {
       type: Function,
       default: (val) => new Intl.NumberFormat('en-US').format(val)
     },
-    // New props for predefined payments
     enablePredefinedPayments: {
       type: Boolean,
       default: true
     },
     defaultPaymentMethods: {
       type: Array,
-      default: () => [] // Array of payment method IDs [14, 15] for example
+      default: () => []
     }
   },
 
@@ -374,23 +322,14 @@ export default {
         referenceNo: ''
       },
       isProcessing: false,
-      selectedPaymentIndex: null,
-      currencySymbol: 'LAK',
-      amountRules: [
-        v => !!v || 'ຈຳນວນເງິນຕ້ອງບໍ່ວ່າງ',
-        v => v > 0 || 'ຈຳນວນເງິນຕ້ອງມາກກວ່າ 0',
-      ]
+      quickSplitType: null
     }
   },
 
   computed: {
     dialogVisible: {
-      get() {
-        return this.value
-      },
-      set(val) {
-        this.$emit('input', val)
-      }
+      get() { return this.value },
+      set(val) { this.$emit('input', val) }
     },
 
     showPredefinedPayments() {
@@ -411,14 +350,10 @@ export default {
       return 'complete'
     },
 
-    statusChipColor() {
+    statusColor() {
       if (this.remainingAmount > 0) return 'warning'
       if (this.remainingAmount < 0) return 'error'
       return 'success'
-    },
-
-    statusTextColor() {
-      return 'white'
     },
 
     statusIcon() {
@@ -452,11 +387,34 @@ export default {
       return this.payments.length > 0 && this.remainingAmount === 0
     },
 
+    canAddBothPredefined() {
+      // Check if we have exactly 2 predefined payments and both can be added
+      if (this.predefinedPayments.length !== 2) return false
+      
+      const payment1 = this.predefinedPayments[0]
+      const payment2 = this.predefinedPayments[1]
+      
+      // Both must have valid payment methods and amounts
+      const payment1Valid = payment1.paymentId && 
+                           payment1.amount > 0 && 
+                           (!this.requiresReference(payment1.paymentId) || payment1.referenceNo)
+      
+      const payment2Valid = payment2.paymentId && 
+                           payment2.amount > 0 && 
+                           (!this.requiresReference(payment2.paymentId) || payment2.referenceNo)
+      
+      // Combined amounts should not exceed remaining amount
+      const totalAmount = (payment1.amount || 0) + (payment2.amount || 0)
+      const amountValid = totalAmount <= this.remainingAmount && totalAmount > 0
+      
+      return payment1Valid && payment2Valid && amountValid
+    },
+
     validationMessage() {
       if (this.payments.length === 0) return ''
       if (this.remainingAmount > 0) return `ຍັງຄ້າງຈ່າຍ ${this.formatNumber(this.remainingAmount)}`
-      if (this.remainingAmount < 0) return `ຈ່າຍເກີນ ${this.formatNumber(Math.abs(this.remainingAmount))} - ກະລຸນາແກ້ໄຂ`
-      return 'ການຈ່າຍເງິນຄົບຖ້ວນແລ້ວ'
+      if (this.remainingAmount < 0) return `ຈ່າຍເກີນ ${this.formatNumber(Math.abs(this.remainingAmount))}`
+      return 'ການຈ່າຍເງິນຄົບຖ້ວນ'
     },
 
     validationType() {
@@ -465,54 +423,64 @@ export default {
       return 'success'
     },
 
-    validationIcon() {
-      if (this.remainingAmount > 0) return 'mdi-clock'
-      if (this.remainingAmount < 0) return 'mdi-alert'
-      return 'mdi-check-circle'
-    },
-
     quickAmounts() {
       const amounts = []
       const remaining = this.remainingAmount
       
       if (remaining >= 100000) amounts.push(50000, 100000)
-      if (remaining >= 50000) amounts.push(20000, 50000)
-      if (remaining >= 20000) amounts.push(10000, 20000)
-      if (remaining >= 10000) amounts.push(5000, 10000)
+      else if (remaining >= 50000) amounts.push(20000, 50000)
+      else if (remaining >= 20000) amounts.push(10000, 20000)
+      else if (remaining >= 10000) amounts.push(5000, 10000)
       
-      return [...new Set(amounts)].sort((a, b) => a - b).slice(0, 4)
+      return [...new Set(amounts)].slice(0, 3)
     }
   },
 
   watch: {
     value(newVal) {
       if (newVal) {
-        this.initializePredefinedPayments()
         this.resetForm()
+        this.$nextTick(() => {
+          this.initializePredefinedPayments()
+        })
       }
+    }
+  },
+
+  mounted() {
+    // Initialize on component mount if dialog is already open
+    if (this.value) {
+      this.initializePredefinedPayments()
     }
   },
 
   methods: {
     initializePredefinedPayments() {
-      if (!this.enablePredefinedPayments) return
+      if (!this.enablePredefinedPayments) {
+        this.predefinedPayments = []
+        return
+      }
 
-      // Initialize predefined payment methods
+      // Clear existing predefined payments
       this.predefinedPayments = []
       
       if (this.defaultPaymentMethods.length > 0) {
         // Use provided default payment methods
-        this.defaultPaymentMethods.slice(0, 2).forEach((paymentId, index) => {
-          this.predefinedPayments.push({
-            paymentId: paymentId,
-            amount: null,
-            referenceNo: ''
-          })
+        this.defaultPaymentMethods.slice(0, 2).forEach((paymentId) => {
+          // Verify the payment method exists
+          const paymentMethod = this.availablePaymentMethods.find(p => p.id === paymentId)
+          if (paymentMethod) {
+            this.predefinedPayments.push({
+              paymentId: paymentId,
+              amount: null,
+              referenceNo: ''
+            })
+          }
         })
-      } else {
+      } else if (this.availablePaymentMethods.length > 0) {
         // Auto-select first two available payment methods
         const availableMethods = this.availablePaymentMethods.slice(0, 2)
-        availableMethods.forEach((method, index) => {
+        availableMethods.forEach((method) => {
           this.predefinedPayments.push({
             paymentId: method.id,
             amount: null,
@@ -523,13 +491,15 @@ export default {
 
       // Auto-suggest amounts (70/30 split by default)
       if (this.predefinedPayments.length >= 2) {
-        this.setSuggestedSplit()
+        this.$nextTick(() => {
+          this.setSuggestedSplit()
+        })
       }
     },
 
     requiresReference(paymentId) {
-      const selectedMethod = this.paymentMethods.find(p => p.id === paymentId)
-      return selectedMethod && (selectedMethod.payment_code === 'BCEL' || selectedMethod.payment_code === 'QR' || selectedMethod.payment_code === 'CARD')
+      const method = this.paymentMethods.find(p => p.id === paymentId)
+      return method && ['BCEL', 'QR', 'CARD'].includes(method.payment_code)
     },
 
     canAddPredefinedPayment(index) {
@@ -544,25 +514,40 @@ export default {
       if (!this.canAddPredefinedPayment(index)) return
 
       const predefinedPayment = this.predefinedPayments[index]
-      const payment = {
+      this.payments.push({
         paymentId: predefinedPayment.paymentId,
         amount: predefinedPayment.amount,
         referenceNo: predefinedPayment.referenceNo || null
-      }
-
-      this.payments.push(payment)
+      })
       
-      // Reset the predefined payment form
+      // Reset amount and reference but keep payment method
       this.predefinedPayments[index] = {
-        paymentId: predefinedPayment.paymentId, // Keep the payment method selected
+        paymentId: predefinedPayment.paymentId,
         amount: null,
         referenceNo: ''
       }
     },
 
+    addBothPredefinedPayments() {
+      if (!this.canAddBothPredefined) return
+
+      // Add both predefined payments in order
+      for (let i = 0; i < this.predefinedPayments.length; i++) {
+        if (this.canAddPredefinedPayment(i)) {
+          this.addPredefinedPayment(i)
+        }
+      }
+
+      // Optionally show a success message
+      this.$nextTick(() => {
+        console.log('Both predefined payments added successfully')
+        // You could emit an event or show a toast notification here
+        // this.$emit('payments-added', 'ເພີ່ມການຈ່າຍເງິນທັງສອງວິທີສຳເລັດແລ້ວ')
+      })
+    },
+
     splitEqually() {
       const splitAmount = Math.round(this.saleTotal / 2)
-      
       if (this.predefinedPayments.length >= 2) {
         this.predefinedPayments[0].amount = splitAmount
         this.predefinedPayments[1].amount = this.saleTotal - splitAmount
@@ -570,13 +555,10 @@ export default {
     },
 
     setSuggestedSplit() {
-      // 70/30 split
       const primaryAmount = Math.round(this.saleTotal * 0.7)
-      const secondaryAmount = this.saleTotal - primaryAmount
-      
       if (this.predefinedPayments.length >= 2) {
         this.predefinedPayments[0].amount = primaryAmount
-        this.predefinedPayments[1].amount = secondaryAmount
+        this.predefinedPayments[1].amount = this.saleTotal - primaryAmount
       }
     },
 
@@ -589,20 +571,12 @@ export default {
     addPaymentMethod() {
       if (!this.canAddPayment) return
 
-      const payment = {
+      this.payments.push({
         paymentId: this.newPayment.paymentId,
         amount: this.newPayment.amount,
         referenceNo: this.newPayment.referenceNo || null
-      }
-
-      this.payments.push(payment)
-      this.resetNewPaymentForm()
-
-      // Auto-focus payment method dropdown for next entry
-      this.$nextTick(() => {
-        const selectInput = this.$el.querySelector('.payment-select input')
-        if (selectInput) selectInput.focus()
       })
+      this.resetNewPaymentForm()
     },
 
     removePayment(index) {
@@ -611,8 +585,6 @@ export default {
 
     setQuickAmount(amount) {
       this.newPayment.amount = amount
-      
-      // Auto-add if payment method is already selected
       if (this.newPayment.paymentId && this.canAddPayment) {
         this.addPaymentMethod()
       }
@@ -628,13 +600,13 @@ export default {
       if (!method) return 'mdi-credit-card'
       
       const code = method.payment_code?.toLowerCase()
-      switch (code) {
-        case 'cash': return 'mdi-cash'
-        case 'card': return 'mdi-credit-card'
-        case 'bcel': return 'mdi-cellphone'
-        case 'qr': return 'mdi-qrcode'
-        default: return 'mdi-credit-card'
+      const icons = {
+        cash: 'mdi-cash',
+        card: 'mdi-credit-card',
+        bcel: 'mdi-cellphone',
+        qr: 'mdi-qrcode'
       }
+      return icons[code] || 'mdi-credit-card'
     },
 
     getPaymentColor(paymentId) {
@@ -642,36 +614,24 @@ export default {
       if (!method) return 'grey'
       
       const code = method.payment_code?.toLowerCase()
-      switch (code) {
-        case 'cash': return 'green'
-        case 'card': return 'blue'
-        case 'bcel': return 'purple'
-        case 'qr': return 'orange'
-        default: return 'grey'
+      const colors = {
+        cash: 'green',
+        card: 'blue', 
+        bcel: 'purple',
+        qr: 'orange'
       }
+      return colors[code] || 'grey'
     },
 
     getPaymentPercentage(amount) {
-      return ((amount / this.saleTotal) * 100).toFixed(1)
+      return ((amount / this.saleTotal) * 100).toFixed(0)
     },
 
     async confirmPayment() {
       if (!this.canConfirmPayment || this.isProcessing) return
 
       this.isProcessing = true
-
       try {
-        console.log('Payments before confirmation:', this.payments)
-        console.log('Sale Header ID:', this.saleHeaderId)
-        
-        if (this.payments.length === 0) {
-          throw new Error('ຕ້ອງມີການຈ່າຍເງິນຢ່າງໜ້ອຍ 1 ວິທີ')
-        }
-
-        if (this.remainingAmount !== 0) {
-          throw new Error('ຈຳນວນເງິນຈ່າຍບໍ່ຄົບ')
-        }
-
         const paymentData = this.payments.map(payment => ({
           saleHeaderId: this.saleHeaderId,
           paymentId: payment.paymentId,
@@ -679,12 +639,8 @@ export default {
           referenceNo: payment.referenceNo || null
         }))
 
-        console.log('Submitting payment data:', paymentData)
-        
         this.$emit('confirm-payment', paymentData)
-        
       } catch (error) {
-        console.error('Payment confirmation error:', error)
         this.$emit('payment-error', error)
       } finally {
         this.isProcessing = false
@@ -701,19 +657,14 @@ export default {
       this.payments = []
       this.resetNewPaymentForm()
       this.isProcessing = false
-      this.selectedPaymentIndex = null
+      // predefinedPayments will be re-initialized by watch
     },
 
     resetNewPaymentForm() {
-      this.newPayment = {
-        paymentId: null,
-        amount: null,
-        referenceNo: ''
-      }
+      this.newPayment = { paymentId: null, amount: null, referenceNo: '' }
     },
 
     handleEnterKey() {
-      // Check predefined payments first
       for (let i = 0; i < this.predefinedPayments.length; i++) {
         if (this.canAddPredefinedPayment(i)) {
           this.addPredefinedPayment(i)
@@ -721,7 +672,6 @@ export default {
         }
       }
       
-      // Then check regular add payment
       if (this.canAddPayment) {
         this.addPaymentMethod()
       } else if (this.canConfirmPayment) {
@@ -733,179 +683,325 @@ export default {
 </script>
 
 <style scoped>
-/* Same styles as before - they remain the same */
+/* Same styles as before - keeping them for consistency */
 .multi-payment-card {
-  min-height: 600px;
-  display: flex;
-  flex-direction: column;
+  border-radius: 12px;
+  max-height: 85vh;
 }
 
+.debug-info {
+  font-family: monospace;
+  font-size: 10px;
+}
+
+/* Compact Header */
 .payment-header {
-  background: linear-gradient(135deg, var(--v-primary-base), var(--v-primary-darken1));
-  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 20px !important;
 }
 
 .title-text {
-  font-size: 1.3rem;
-  font-weight: 600;
-  font-family: 'Noto Sans Lao', sans-serif;
-}
-
-.total-chip {
-  font-weight: 600;
   font-size: 1.1rem;
-}
-
-.payment-summary {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.summary-row {
-  text-align: center;
-}
-
-.summary-item {
-  padding: 0 16px;
-}
-
-.summary-label {
-  font-size: 0.75rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
-}
-
-.summary-value {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.summary-value.paid {
-  color: #4caf50;
-}
-
-.summary-value.remaining {
-  color: #ff9800;
-}
-
-.summary-value.overpaid {
-  color: #f44336;
-}
-
-.summary-value.complete {
-  color: #4caf50;
-}
-
-.payment-content {
-  flex: 1;
-  min-height: 400px;
-}
-
-.add-payment-section {
-  background-color: #fafafa;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.payment-select, .amount-input, .reference-input {
-  transition: all 0.2s ease;
-}
-
-.add-btn {
-  height: 40px;
-  width: 40px;
-}
-
-.quick-amounts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.quick-amount-chip {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quick-amount-chip:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.existing-payments {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.empty-state {
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.payment-item {
-  transition: all 0.2s ease;
-  border-radius: 12px;
-}
-
-.payment-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.payment-name {
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 500;
   color: #333;
 }
 
+.total-display {
+  text-align: right;
+}
+
+.total-label {
+  font-size: 0.7rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.total-amount {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+/* Compact Summary */
+.payment-summary {
+  background: #f8f9fa;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 80px;
+  gap: 16px;
+  text-align: center;
+}
+
+.summary-card {
+  padding: 8px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e0e0e0;
+}
+
+.summary-amount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.summary-label {
+  font-size: 0.65rem;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.summary-card.paid .summary-amount { color: #4caf50; }
+.summary-card.remaining .summary-amount { color: #ff9800; }
+.summary-card.overpaid .summary-amount { color: #f44336; }
+.summary-card.complete .summary-amount { color: #4caf50; }
+
+/* Sections */
+.predefined-section, .additional-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.add-both-section {
+  padding: 8px 20px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.add-both-btn {
+  text-transform: none !important;
+  font-weight: 500;
+  height: 36px;
+  border-radius: 8px;
+}
+
+.add-both-btn:not(:disabled) {
+  background: linear-gradient(45deg, #4caf50, #66bb6a) !important;
+  color: white !important;
+}
+
+.add-both-btn:hover:not(:disabled) {
+  background: linear-gradient(45deg, #388e3c, #4caf50) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.quick-split-toggle {
+  height: 28px;
+}
+
+.quick-split-toggle .v-btn {
+  min-width: 28px !important;
+  padding: 0 8px !important;
+}
+
+/* Payment Rows */
+.payment-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.payment-select {
+  flex: 2;
+}
+
+.amount-field {
+  width: 120px;
+  flex: 0 0 120px;
+}
+
+.ref-field {
+  width: 100px;
+  flex: 0 0 100px;
+}
+
+.add-btn {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+}
+
+/* Quick Amount Pills */
+.quick-amounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.quick-chip {
+  height: 24px !important;
+  font-size: 0.7rem !important;
+  cursor: pointer;
+}
+
+/* Payment List */
+.payments-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px 20px;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.payment-items {
+  padding: 8px 20px;
+}
+
+.payment-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.payment-item:hover {
+  background: #e3f2fd;
+  transform: translateY(-1px);
+}
+
+.payment-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.payment-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 6px;
+  margin-right: 12px;
+}
+
+.payment-details {
+  flex: 1;
+}
+
+.payment-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.2;
+}
+
 .payment-ref {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #666;
   margin-top: 2px;
 }
 
 .payment-amount {
-  font-weight: 700;
-  font-size: 1.1rem;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.amount {
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #2e7d32;
 }
 
-.payment-percentage {
-  font-size: 0.75rem;
+.percentage {
+  font-size: 0.7rem;
   color: #666;
 }
 
-.payment-actions {
-  background-color: #fafafa;
-  border-top: 1px solid rgba(0,0,0,0.08);
+.remove-btn {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
 }
 
-.cancel-btn {
-  min-width: 120px;
+/* Validation */
+.validation-section {
+  padding: 0;
+}
+
+.validation-alert {
+  margin: 12px 20px !important;
+  border-radius: 6px;
+}
+
+/* Footer */
+.payment-actions {
+  padding: 12px 20px;
+  background: #fafafa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.cancel-btn, .confirm-btn {
+  height: 36px;
+  text-transform: none;
+  font-weight: 500;
 }
 
 .confirm-btn {
-  min-width: 180px;
-  font-weight: 600;
+  padding: 0 24px;
 }
 
-/* Mobile responsive styles remain the same */
-@media (max-width: 960px) {
-  .add-payment-section .v-row {
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  
+  .summary-card.status {
+    grid-column: 1 / -1;
+  }
+  
+  .payment-row {
     flex-direction: column;
+    gap: 8px;
+  }
+  
+  .payment-select,
+  .amount-field, 
+  .ref-field {
+    width: 100%;
+    flex: 1;
   }
   
   .payment-actions {
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
   
-  .cancel-btn, .confirm-btn {
+  .cancel-btn,
+  .confirm-btn {
     width: 100%;
   }
 }
