@@ -140,7 +140,7 @@ export default {
         const cartItem = {
           ...this.productSelectedFromBarcode, // copy all product fields
           isGift: isGift,
-          lineUUIDCheck:false,
+          lineUUIDCheck: false,
           lineUUID: Date.now() + Math.random().toString(16),
         }
         // this.addProduct(this.productSelectedFromBarcode)
@@ -169,21 +169,24 @@ export default {
       console.warn(`PRODUCT IS being reload ...`)
       this.isloading = true
       this.productList = []
-      await this.$axios
-        .get(`product_f/${this.currentSelectedLocation['id']}`)
-        .then((res) => {
-          // this.productList = res.data.data
-          for (const iterator of res.data.data) {
-            console.warn(`Currency id ${iterator['saleCurrencyId']}`)
-            const currency = this.findCurrency(iterator['saleCurrencyId'])
-            iterator['localPrice'] = iterator['pro_price'] * currency['rate']
-            this.productList.push(iterator)
-          }
-        })
-        .catch((er) => {
-          this.message = er
-          swalError2(this.$swal, 'Error 1111', er)
-        })
+
+      try {
+        const res = await this.$axios.get(
+          `product_f/${this.currentSelectedLocation['id']}`
+        )
+
+        // Process sequentially to maintain order
+        for (const iterator of res.data.data) {
+          console.warn(`Currency id ${iterator['saleCurrencyId']}`)
+          const currency = await this.findCurrency(iterator['saleCurrencyId']) // Add await if needed
+          iterator['localPrice'] = iterator['pro_price'] * currency['rate']
+          this.productList.push(iterator)
+        }
+      } catch (er) {
+        this.message = er
+        swalError2(this.$swal, 'Error 1111', er)
+      }
+
       this.isloading = false
     },
     async loadProductWithPriceList() {

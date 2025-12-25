@@ -151,6 +151,7 @@ export const customSwalSuccessBackToMenu = (swal, message) => {
     confirmButtonText: 'ກັບສູ່ເມນູຕ່າງໆ'
   })
 }
+
 export const getLocalDate = (utcDateString) => {
   const localDate = new Date(utcDateString)
   return localDate.toLocaleString('en-GB', {
@@ -243,11 +244,14 @@ export const toastNotification = (swal, icon, title, message, callbackFunc) => {
   })
 }
 
-
-
-export const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-  .toISOString()
-  .substr(0, 10)
+// UPDATED: Get today's date in local timezone (not UTC)
+export const today = (() => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+})();
 
 export const formDate = (date) => {
   if (!date) return null
@@ -255,6 +259,7 @@ export const formDate = (date) => {
   const [year, month, day] = date.split('-')
   return `${month}/${day}/${year}`
 }
+
 export const parseDate = (date) => {
   console.log("TEST DATE PARSER 1", date);
   if (!date) return null
@@ -263,7 +268,10 @@ export const parseDate = (date) => {
   const [month, day, year] = date.split('/')
   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 }
+
+// UPDATED: Convert JS Date to MySQL date format using LOCAL timezone
 export const jsDateToMysqlDate = (jsDate) => {
+  // Use local timezone methods (not UTC)
   let year = jsDate.getFullYear();
   let month = jsDate.getMonth() + 1;
   let day = jsDate.getDate();
@@ -271,109 +279,120 @@ export const jsDateToMysqlDate = (jsDate) => {
   let minute = jsDate.getMinutes();
   let second = jsDate.getSeconds();
 
-  if (month < 10) {
-    month = '0' + month;
-  }
-  if (day < 10) {
-    day = '0' + day;
-  }
-  if (hour < 10) {
-    hour = '0' + hour;
-  }
-  if (minute < 10) {
-    minute = '0' + minute;
-  }
-  if (second < 10) {
-    second = '0' + second;
-  }
+  // Format with leading zeros
+  const formattedMonth = String(month).padStart(2, '0');
+  const formattedDay = String(day).padStart(2, '0');
+  const formattedHour = String(hour).padStart(2, '0');
+  const formattedMinute = String(minute).padStart(2, '0');
+  const formattedSecond = String(second).padStart(2, '0');
 
-  // return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-  return `${year}-${month}-${day}`;
+  // Return date only (remove time if not needed)
+  return `${year}-${formattedMonth}-${formattedDay}`;
+  
+  // If you need datetime format, use this instead:
+  // return `${year}-${formattedMonth}-${formattedDay} ${formattedHour}:${formattedMinute}:${formattedSecond}`;
 }
 
 export const mysqlDateToDateObject = (mysqlDate) => {
-  // *********** this fuction will return date object from mysq date *********** //
+  // *********** this function will return date object from mysql date *********** //
   const dateObj = new Date(mysqlDate.split("T")[0]);
   return dateObj;
 }
 
+// UPDATED: Get first day of current month in LOCAL timezone
 export const getFirstDayOfMonth = () => {
-  // Create a new Date object with the same year and month as the input date, but with day set to 1
   const today = new Date();
   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   console.log("Date found => ", firstDayOfMonth);
-  // const mysqlDate = firstDayOfMonth.toISOString().slice(0, 10);
+  
+  // Use local timezone methods
   const year = firstDayOfMonth.getFullYear();
-  const month = (firstDayOfMonth.getMonth() + 1).toString().padStart(2, '0');
-  const day = firstDayOfMonth.getDate().toString().padStart(2, '0');
-  const mysqlDate = `${year}-${month}-${day}`;
-  return mysqlDate;
+  const month = String(firstDayOfMonth.getMonth() + 1).padStart(2, '0');
+  const day = String(firstDayOfMonth.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
 }
-// Add this function to your ~/common/index.js file
 
+// UPDATED: Get date range for last 6 months using LOCAL timezone
 export const firstAndLastDateOfLast6Months = () => {
   const today = new Date();
-
+  
   // Get date 6 months ago
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
-
-  // Format start date (6 months ago, first day of that month)
-  const startDate = new Date(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth(), 1)
-    .toISOString().slice(0, 10);
-
-  // Format end date (today)
-  const endDate = today.toISOString().slice(0, 10);
+  const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 6, 1);
+  
+  // Format start date (6 months ago, first day of that month) - LOCAL TIME
+  const startYear = sixMonthsAgo.getFullYear();
+  const startMonth = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0');
+  const startDate = `${startYear}-${startMonth}-01`;
+  
+  // Format end date (today) - LOCAL TIME
+  const endYear = today.getFullYear();
+  const endMonth = String(today.getMonth() + 1).padStart(2, '0');
+  const endDay = String(today.getDate()).padStart(2, '0');
+  const endDate = `${endYear}-${endMonth}-${endDay}`;
 
   console.log(`LAST 6 MONTHS RANGE: ${startDate} to ${endDate}`);
   return { startDate, endDate };
 };
 
-// Alternative version if you're using your MySQL date helper functions:
+// UPDATED: Alternative version using helper functions
 export const firstAndLastDateOfLast6MonthsMySQL = () => {
   const today = new Date();
-
+  
   // Get date 6 months ago
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
-
-  // If you have helper functions like getMySQLDateOfFirstDayOfMonth, use them
-  // Otherwise, use the basic version above
-  const startDate = `${sixMonthsAgo.getFullYear()}-${String(sixMonthsAgo.getMonth() + 1).padStart(2, '0')}-01`;
-  const endDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 6, 1);
+  
+  // Format using local timezone
+  const startYear = sixMonthsAgo.getFullYear();
+  const startMonth = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0');
+  const startDate = `${startYear}-${startMonth}-01`;
+  
+  const endYear = today.getFullYear();
+  const endMonth = String(today.getMonth() + 1).padStart(2, '0');
+  const endDay = String(today.getDate()).padStart(2, '0');
+  const endDate = `${endYear}-${endMonth}-${endDay}`;
 
   console.log(`LAST 6 MONTHS RANGE (MySQL): ${startDate} to ${endDate}`);
   return { startDate, endDate };
 };
-export const firstAndLastDateOfCurrentYear = () => {
 
+// UPDATED: Get current year date range using LOCAL timezone
+export const firstAndLastDateOfCurrentYear = () => {
   const today = new Date();
   const year = today.getFullYear();
   console.log(`THIS YEAR IS ${year} ${today}`);
-  // const startDate = new Date(year, 0, 1).toISOString().slice(0, 10);
-  // const endDate = new Date(year, 11, 31).toISOString().slice(0, 10);
+  
   const startDate = getMySQLDateOfFirstDayOfYear();
   const endDate = getMySQLDateOfLastDayOfYear();
+  
   console.log(`THIS YEAR IS ${startDate} ${endDate}`);
   return { startDate, endDate };
 }
 
+// UPDATED: Get first day of year in LOCAL timezone
 export const getMySQLDateOfFirstDayOfYear = () => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const firstDayOfYear = new Date(year, 0, 1);
-  const month = firstDayOfYear.getMonth() + 1;
-  const day = firstDayOfYear.getDate();
-  return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  const firstDayOfYear = new Date(year, 0, 1); // January 1st
+  
+  // Use local timezone methods
+  const month = String(firstDayOfYear.getMonth() + 1).padStart(2, '0');
+  const day = String(firstDayOfYear.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
 }
 
+// UPDATED: Get last day of year in LOCAL timezone
 export const getMySQLDateOfLastDayOfYear = () => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const lastDayOfYear = new Date(year, 11, 31);
-  const month = lastDayOfYear.getMonth() + 1;
-  const day = lastDayOfYear.getDate();
-  return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  const lastDayOfYear = new Date(year, 11, 31); // December 31st
+  
+  // Use local timezone methods
+  const month = String(lastDayOfYear.getMonth() + 1).padStart(2, '0');
+  const day = String(lastDayOfYear.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
 }
 
 export const ticketHtml = () => {
@@ -435,19 +454,33 @@ font-family: 'DM Sans';
   }
 }
 
+// UPDATED: Calculate days difference using LOCAL timezone
 export const dayCount = (fromDate) => {
-  const sqlTojsDate = fromDate.split('-')[1] + '/' + fromDate.split('-')[2] + '/' + fromDate.split('-')[0]
-  const date1 = new Date(sqlTojsDate);
-  const date2 = new Date();
+  // Convert SQL date to local date object
+  const [year, month, day] = fromDate.split('-');
+  const date1 = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  const date2 = new Date(); // Current date in local timezone
+  
+  // Calculate difference in milliseconds
   const difference = date2.getTime() - date1.getTime();
-  const TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-  return TotalDays;
+  const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+  
+  return totalDays;
 }
+
+// UPDATED: Get next date using LOCAL timezone
 export const getNextDate = (startDate, days) => {
   console.log("DATE =>", startDate, " to=> ", days);
-  const startDateObject = new Date(startDate.split("T")[0])
-  const nextDate = new Date(startDate.split("T")[0]);
-  nextDate.setDate(startDateObject.getDate() + days);
+  
+  // Parse the date (handle both ISO string and date-only formats)
+  const dateString = startDate.split("T")[0];
+  const [year, month, day] = dateString.split('-');
+  const startDateObject = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  
+  // Create next date
+  const nextDate = new Date(startDateObject);
+  nextDate.setDate(nextDate.getDate() + days);
+  
   return nextDate;
 }
 
@@ -491,11 +524,11 @@ function componentToHex(c) {
   let hex = c.toString(16);
   return hex.length == 1 ? "0" + hex : hex
 }
+
 export const replaceAll = (str, find, replace) => {
   if (undefined == str) return
   return str.toString().replace(new RegExp(find, 'g'), replace);
 }
-
 
 export const confirmSwal = (swal, message, callbackFunc) => {
   // 01532B, D00505
@@ -518,4 +551,39 @@ export const confirmSwal = (swal, message, callbackFunc) => {
       // Do nothing or show a different message
     }
   });
+}
+
+// BONUS: Additional timezone-aware utility functions
+
+// Get current date in specific timezone
+export const getTodayInTimezone = (timezone = 'Asia/Vientiane') => {
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+  return formatter.format(now); // Returns YYYY-MM-DD format
+}
+
+// Convert any date to local timezone MySQL format
+export const dateToLocalMysqlFormat = (date) => {
+  const localDate = new Date(date);
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0');
+  const day = String(localDate.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+// Debug timezone information
+export const getTimezoneInfo = () => {
+  const now = new Date();
+  return {
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    localTime: now.toString(),
+    utcTime: now.toUTCString(),
+    isoString: now.toISOString(),
+    localDateString: dateToLocalMysqlFormat(now)
+  };
 }

@@ -942,6 +942,9 @@ function generateComponentTrace(vm) {
 /* unused harmony export generateColorShades */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return replaceAll; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return confirmSwal; });
+/* unused harmony export getTodayInTimezone */
+/* unused harmony export dateToLocalMysqlFormat */
+/* unused harmony export getTimezoneInfo */
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -1170,7 +1173,15 @@ const toastNotification = (swal, icon, title, message, callbackFunc) => {
     }
   });
 };
-const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10);
+
+// UPDATED: Get today's date in local timezone (not UTC)
+const today = (() => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+})();
 const formDate = date => {
   if (!date) return null;
   const [year, month, day] = date.split('-');
@@ -1183,63 +1194,66 @@ const parseDate = date => {
   const [month, day, year] = date.split('/');
   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
 };
+
+// UPDATED: Convert JS Date to MySQL date format using LOCAL timezone
 const jsDateToMysqlDate = jsDate => {
+  // Use local timezone methods (not UTC)
   let year = jsDate.getFullYear();
   let month = jsDate.getMonth() + 1;
   let day = jsDate.getDate();
   let hour = jsDate.getHours();
   let minute = jsDate.getMinutes();
   let second = jsDate.getSeconds();
-  if (month < 10) {
-    month = '0' + month;
-  }
-  if (day < 10) {
-    day = '0' + day;
-  }
-  if (hour < 10) {
-    hour = '0' + hour;
-  }
-  if (minute < 10) {
-    minute = '0' + minute;
-  }
-  if (second < 10) {
-    second = '0' + second;
-  }
 
-  // return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-  return `${year}-${month}-${day}`;
+  // Format with leading zeros
+  const formattedMonth = String(month).padStart(2, '0');
+  const formattedDay = String(day).padStart(2, '0');
+  const formattedHour = String(hour).padStart(2, '0');
+  const formattedMinute = String(minute).padStart(2, '0');
+  const formattedSecond = String(second).padStart(2, '0');
+
+  // Return date only (remove time if not needed)
+  return `${year}-${formattedMonth}-${formattedDay}`;
+
+  // If you need datetime format, use this instead:
+  // return `${year}-${formattedMonth}-${formattedDay} ${formattedHour}:${formattedMinute}:${formattedSecond}`;
 };
 const mysqlDateToDateObject = mysqlDate => {
-  // *********** this fuction will return date object from mysq date *********** //
+  // *********** this function will return date object from mysql date *********** //
   const dateObj = new Date(mysqlDate.split("T")[0]);
   return dateObj;
 };
+
+// UPDATED: Get first day of current month in LOCAL timezone
 const getFirstDayOfMonth = () => {
-  // Create a new Date object with the same year and month as the input date, but with day set to 1
   const today = new Date();
   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   console.log("Date found => ", firstDayOfMonth);
-  // const mysqlDate = firstDayOfMonth.toISOString().slice(0, 10);
-  const year = firstDayOfMonth.getFullYear();
-  const month = (firstDayOfMonth.getMonth() + 1).toString().padStart(2, '0');
-  const day = firstDayOfMonth.getDate().toString().padStart(2, '0');
-  const mysqlDate = `${year}-${month}-${day}`;
-  return mysqlDate;
-};
-// Add this function to your ~/common/index.js file
 
+  // Use local timezone methods
+  const year = firstDayOfMonth.getFullYear();
+  const month = String(firstDayOfMonth.getMonth() + 1).padStart(2, '0');
+  const day = String(firstDayOfMonth.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+// UPDATED: Get date range for last 6 months using LOCAL timezone
 const firstAndLastDateOfLast6Months = () => {
   const today = new Date();
 
   // Get date 6 months ago
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
+  const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 6, 1);
 
-  // Format start date (6 months ago, first day of that month)
-  const startDate = new Date(sixMonthsAgo.getFullYear(), sixMonthsAgo.getMonth(), 1).toISOString().slice(0, 10);
+  // Format start date (6 months ago, first day of that month) - LOCAL TIME
+  const startYear = sixMonthsAgo.getFullYear();
+  const startMonth = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0');
+  const startDate = `${startYear}-${startMonth}-01`;
 
-  // Format end date (today)
-  const endDate = today.toISOString().slice(0, 10);
+  // Format end date (today) - LOCAL TIME
+  const endYear = today.getFullYear();
+  const endMonth = String(today.getMonth() + 1).padStart(2, '0');
+  const endDay = String(today.getDate()).padStart(2, '0');
+  const endDate = `${endYear}-${endMonth}-${endDay}`;
   console.log(`LAST 6 MONTHS RANGE: ${startDate} to ${endDate}`);
   return {
     startDate,
@@ -1247,30 +1261,33 @@ const firstAndLastDateOfLast6Months = () => {
   };
 };
 
-// Alternative version if you're using your MySQL date helper functions:
+// UPDATED: Alternative version using helper functions
 const firstAndLastDateOfLast6MonthsMySQL = () => {
   const today = new Date();
 
   // Get date 6 months ago
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(today.getMonth() - 6);
+  const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 6, 1);
 
-  // If you have helper functions like getMySQLDateOfFirstDayOfMonth, use them
-  // Otherwise, use the basic version above
-  const startDate = `${sixMonthsAgo.getFullYear()}-${String(sixMonthsAgo.getMonth() + 1).padStart(2, '0')}-01`;
-  const endDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  // Format using local timezone
+  const startYear = sixMonthsAgo.getFullYear();
+  const startMonth = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0');
+  const startDate = `${startYear}-${startMonth}-01`;
+  const endYear = today.getFullYear();
+  const endMonth = String(today.getMonth() + 1).padStart(2, '0');
+  const endDay = String(today.getDate()).padStart(2, '0');
+  const endDate = `${endYear}-${endMonth}-${endDay}`;
   console.log(`LAST 6 MONTHS RANGE (MySQL): ${startDate} to ${endDate}`);
   return {
     startDate,
     endDate
   };
 };
+
+// UPDATED: Get current year date range using LOCAL timezone
 const firstAndLastDateOfCurrentYear = () => {
   const today = new Date();
   const year = today.getFullYear();
   console.log(`THIS YEAR IS ${year} ${today}`);
-  // const startDate = new Date(year, 0, 1).toISOString().slice(0, 10);
-  // const endDate = new Date(year, 11, 31).toISOString().slice(0, 10);
   const startDate = getMySQLDateOfFirstDayOfYear();
   const endDate = getMySQLDateOfLastDayOfYear();
   console.log(`THIS YEAR IS ${startDate} ${endDate}`);
@@ -1279,21 +1296,29 @@ const firstAndLastDateOfCurrentYear = () => {
     endDate
   };
 };
+
+// UPDATED: Get first day of year in LOCAL timezone
 const getMySQLDateOfFirstDayOfYear = () => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const firstDayOfYear = new Date(year, 0, 1);
-  const month = firstDayOfYear.getMonth() + 1;
-  const day = firstDayOfYear.getDate();
-  return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  const firstDayOfYear = new Date(year, 0, 1); // January 1st
+
+  // Use local timezone methods
+  const month = String(firstDayOfYear.getMonth() + 1).padStart(2, '0');
+  const day = String(firstDayOfYear.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
+
+// UPDATED: Get last day of year in LOCAL timezone
 const getMySQLDateOfLastDayOfYear = () => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const lastDayOfYear = new Date(year, 11, 31);
-  const month = lastDayOfYear.getMonth() + 1;
-  const day = lastDayOfYear.getDate();
-  return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  const lastDayOfYear = new Date(year, 11, 31); // December 31st
+
+  // Use local timezone methods
+  const month = String(lastDayOfYear.getMonth() + 1).padStart(2, '0');
+  const day = String(lastDayOfYear.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
 const ticketHtml = () => {
   return {
@@ -1353,19 +1378,32 @@ font-family: 'DM Sans';
 </head>`
   };
 };
+
+// UPDATED: Calculate days difference using LOCAL timezone
 const dayCount = fromDate => {
-  const sqlTojsDate = fromDate.split('-')[1] + '/' + fromDate.split('-')[2] + '/' + fromDate.split('-')[0];
-  const date1 = new Date(sqlTojsDate);
-  const date2 = new Date();
+  // Convert SQL date to local date object
+  const [year, month, day] = fromDate.split('-');
+  const date1 = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  const date2 = new Date(); // Current date in local timezone
+
+  // Calculate difference in milliseconds
   const difference = date2.getTime() - date1.getTime();
-  const TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-  return TotalDays;
+  const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+  return totalDays;
 };
+
+// UPDATED: Get next date using LOCAL timezone
 const getNextDate = (startDate, days) => {
   console.log("DATE =>", startDate, " to=> ", days);
-  const startDateObject = new Date(startDate.split("T")[0]);
-  const nextDate = new Date(startDate.split("T")[0]);
-  nextDate.setDate(startDateObject.getDate() + days);
+
+  // Parse the date (handle both ISO string and date-only formats)
+  const dateString = startDate.split("T")[0];
+  const [year, month, day] = dateString.split('-');
+  const startDateObject = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+  // Create next date
+  const nextDate = new Date(startDateObject);
+  nextDate.setDate(nextDate.getDate() + days);
   return nextDate;
 };
 const generateColorShades = baseColor => {
@@ -1430,6 +1468,41 @@ const confirmSwal = (swal, message, callbackFunc) => {
       // Do nothing or show a different message
     }
   });
+};
+
+// BONUS: Additional timezone-aware utility functions
+
+// Get current date in specific timezone
+const getTodayInTimezone = (timezone = 'Asia/Vientiane') => {
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+  return formatter.format(now); // Returns YYYY-MM-DD format
+};
+
+// Convert any date to local timezone MySQL format
+const dateToLocalMysqlFormat = date => {
+  const localDate = new Date(date);
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0');
+  const day = String(localDate.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+// Debug timezone information
+const getTimezoneInfo = () => {
+  const now = new Date();
+  return {
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    localTime: now.toString(),
+    utcTime: now.toUTCString(),
+    isoString: now.toISOString(),
+    localDateString: dateToLocalMysqlFormat(now)
+  };
 };
 
 /***/ }),
@@ -22321,8 +22394,8 @@ __webpack_require__.d(components_namespaceObject, "OrderSumaryCardV2", function(
 __webpack_require__.d(components_namespaceObject, "SimplifiedCompanyForm", function() { return SimplifiedCompanyForm; });
 __webpack_require__.d(components_namespaceObject, "Slider", function() { return Slider; });
 __webpack_require__.d(components_namespaceObject, "UnitForm", function() { return UnitForm; });
-__webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
 __webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
+__webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
 __webpack_require__.d(components_namespaceObject, "AccountingApPayment", function() { return AccountingApPayment; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", function() { return AccountingArReceivable; });
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
@@ -22392,13 +22465,13 @@ __webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() 
 __webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
 __webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
+__webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
+__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "BenefitMaintain", function() { return BenefitMaintain; });
 __webpack_require__.d(components_namespaceObject, "BenefitView", function() { return BenefitView; });
 __webpack_require__.d(components_namespaceObject, "CompanyTheme", function() { return CompanyTheme; });
@@ -22418,13 +22491,13 @@ __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit",
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAudit", function() { return AccountingArInvoiceAudit; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
 
@@ -30478,8 +30551,8 @@ const OrderSumaryCardV2 = () => __webpack_require__.e(/* import() | components/o
 const SimplifiedCompanyForm = () => __webpack_require__.e(/* import() | components/simplified-company-form */ 146).then(__webpack_require__.bind(null, 1524)).then(c => wrapFunctional(c.default || c));
 const Slider = () => __webpack_require__.e(/* import() | components/slider */ 147).then(__webpack_require__.bind(null, 1048)).then(c => wrapFunctional(c.default || c));
 const UnitForm = () => __webpack_require__.e(/* import() | components/unit-form */ 159).then(__webpack_require__.bind(null, 850)).then(c => wrapFunctional(c.default || c));
-const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 630)).then(c => wrapFunctional(c.default || c));
 const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 1027)).then(c => wrapFunctional(c.default || c));
+const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 630)).then(c => wrapFunctional(c.default || c));
 const AccountingApPayment = () => __webpack_require__.e(/* import() | components/accounting-ap-payment */ 6).then(__webpack_require__.bind(null, 1011)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 1012)).then(c => wrapFunctional(c.default || c));
 const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 1018)).then(c => wrapFunctional(c.default || c));
@@ -30549,13 +30622,13 @@ const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a
 const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 91).then(__webpack_require__.bind(null, 594)).then(c => wrapFunctional(c.default || c));
 const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 92).then(__webpack_require__.bind(null, 1022)).then(c => wrapFunctional(c.default || c));
 const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 93).then(__webpack_require__.bind(null, 595)).then(c => wrapFunctional(c.default || c));
-const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 731)).then(c => wrapFunctional(c.default || c));
 const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 95).then(__webpack_require__.bind(null, 534)).then(c => wrapFunctional(c.default || c));
-const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1362)).then(c => wrapFunctional(c.default || c));
+const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 731)).then(c => wrapFunctional(c.default || c));
 const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 1013)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 727)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1551)).then(c => wrapFunctional(c.default || c));
 const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1552)).then(c => wrapFunctional(c.default || c));
+const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1362)).then(c => wrapFunctional(c.default || c));
 const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 1015)).then(c => wrapFunctional(c.default || c));
 const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 1016)).then(c => wrapFunctional(c.default || c));
 const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 49).then(__webpack_require__.bind(null, 724)).then(c => wrapFunctional(c.default || c));
@@ -30575,13 +30648,13 @@ const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | co
 const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 735)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 736)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 639)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 728)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 629)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1046)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 728)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 1047)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 635)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 722)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 635)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 636)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 591)).then(c => wrapFunctional(c.default || c));
 
