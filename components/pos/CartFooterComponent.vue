@@ -56,7 +56,13 @@
           <div class="discount-label">ສ່ວນຫລຸດ</div>
           <div class="discount-amount">-{{ formatNumber(discount) }}</div>
         </v-col>
+        <v-col cols="6" class="text-right" >
+          <div class="discount-label">ເງິນທອນ</div>
+          <div class="change-amount">{{ changes }}</div>
+        </v-col>
       </v-row>
+
+
 
       <v-divider class="my-2"></v-divider>
 
@@ -70,19 +76,13 @@
       </v-row>
 
       <!-- Change display for single payment method -->
-      <v-row
+      <!-- <v-row
         v-if="showCheckOut && isTraditionalCashPayment && cashReceived > 0"
         no-gutters
         align="center"
         class="change-row"
-      >
-        <v-col cols="8">
-          <div class="change-label">ເງິນທອນ</div>
-        </v-col>
-        <v-col cols="4" class="text-right">
-          <div class="change-amount">{{ changes }}</div>
-        </v-col>
-      </v-row>
+      > -->
+
     </div>
 
     <!-- Payment Methods Section -->

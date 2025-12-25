@@ -388,7 +388,7 @@
 </template>
 
 <script>
-import { getFormatNum } from '~/common'
+import { getFormatNum,getLocalDate } from '~/common'
 
 export default {
   middleware: 'auths',
@@ -532,6 +532,7 @@ export default {
   },
 
   methods: {
+    getLocalDate,
     formatNumber(value) {
       return getFormatNum(value)
     },
@@ -762,9 +763,9 @@ export default {
                 : el.card_isused === 2
                 ? 'ຖືກລົບ'
                 : 'ພ້ອມໃຊ້',
-            input_date_time: el.card_input_date,
+            input_date_time: this.getLocalDate(el.card_input_date),
             updater: el.update_user,
-            update_time: el.update_time,
+            update_time: this.getLocalDate(el.update_time),
             function: el.id,
           }
         })

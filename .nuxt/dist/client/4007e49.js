@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[135],{2239:function(n,t,o){"use strict";o.r(t);var r=o(944),e=o(31),component=Object(e.a)({},function(){var n=this._self._c;return n("div",{staticClass:"notification is-danger"},[n(r.a,{attrs:{border:"bottom",color:"pink darken-1",dark:""}})],1)},[],!1,null,null,null);t.default=component.exports}}]);

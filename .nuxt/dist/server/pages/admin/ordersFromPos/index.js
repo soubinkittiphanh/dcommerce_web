@@ -1,26 +1,26 @@
 exports.ids = [239,40,112,113,118,167];
 exports.modules = {
 
-/***/ 1128:
+/***/ 1129:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2197f40c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(894);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2197f40c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2197f40c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2197f40c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2197f40c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_64567777_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(894);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_64567777_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_64567777_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_64567777_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_64567777_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1129:
+/***/ 1130:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-2197f40c],.text-h5[data-v-2197f40c]{font-family:\"Noto Sans Lao\"}table[data-v-2197f40c]{border:1px solid #000}.payment-details-dialog .v-data-table th[data-v-2197f40c]{background-color:#f5f5f5!important;font-weight:600}.payment-method-chip[data-v-2197f40c]{cursor:pointer;transition:all .2s ease}.payment-method-chip[data-v-2197f40c]:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-64567777],.text-h5[data-v-64567777]{font-family:\"Noto Sans Lao\"}table[data-v-64567777]{border:1px solid #000}.payment-summary-card[data-v-64567777]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-64567777]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-64567777]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-details-dialog .v-data-table th[data-v-64567777]{background-color:#f5f5f5!important;font-weight:600}.payment-method-chip[data-v-64567777]{cursor:pointer;transition:all .2s ease}.payment-method-chip[data-v-64567777]:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}.payment-summary-card .v-icon[data-v-64567777]{margin-bottom:8px}.payment-summary-card h3[data-v-64567777]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-64567777]{border-radius:4px}.v-alert--dense[data-v-64567777]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-64567777]{margin-bottom:16px}.payment-summary-card h3[data-v-64567777]{font-size:1.2rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,12 +28,15 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1424:
+/***/ 1427:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
+var VAlert = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
 var VAutocomplete = __webpack_require__(407);
@@ -77,11 +80,17 @@ var VLayout = __webpack_require__(420);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(128);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__(92);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 var VProgressLinear = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(426);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(429);
@@ -89,7 +98,7 @@ var VSpacer = __webpack_require__(429);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=2197f40c&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=64567777&scoped=true
 
 
 
@@ -111,13 +120,16 @@ var VTextField = __webpack_require__(38);
 
 
 
-var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function render() {
+
+
+
+var ordersFromPosvue_type_template_id_64567777_scoped_true_render = function render() {
   var _vm$selectedOrderForP, _vm$selectedOrderForP2;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-2197f40c>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-64567777>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -226,8 +238,8 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
         _vm.cancelForm = false;
       },
       "reload": function ($event) {
-        ;
-        _vm.cancelForm = false, _vm.loadData();
+        _vm.cancelForm = false;
+        _vm.loadData();
       }
     }
   })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
@@ -347,7 +359,7 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-printer")]), _vm._v("\n          ພິມລາຍລະອຽດ\n        ")], 1) : _vm._e()], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-2197f40c>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }, [_vm._v("mdi-printer")]), _vm._v("\n          ພິມລາຍລະອຽດ\n        ")], 1) : _vm._e()], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-64567777>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -485,7 +497,7 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.search,
@@ -499,7 +511,7 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
       "append-icon": "mdi-magnify",
       "label": "ລະຫັດຜູ້ຂາຍ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.userId,
@@ -507,6 +519,25 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
         _vm.userId = $$v;
       },
       expression: "userId"
+    }
+  }), _vm._v(" "), _c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.paymentFilterOptions,
+      "item-text": "label",
+      "item-value": "value",
+      "label": "ຟິລເຕີປະເພດການຊຳລະ",
+      "clearable": "",
+      "prepend-icon": "mdi-filter"
+    },
+    on: {
+      "change": _vm.applyPaymentFilter
+    },
+    model: {
+      value: _vm.selectedPaymentFilter,
+      callback: function ($$v) {
+        _vm.selectedPaymentFilter = $$v;
+      },
+      expression: "selectedPaymentFilter"
     }
   }), _vm._v(" "), _c(VAutocomplete["a" /* default */], {
     attrs: {
@@ -568,72 +599,233 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
     }
   }, [_c('span', {
     staticClass: "mdi mdi-cloud-download"
-  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VLayout["a" /* default */], {
+  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], {
+    staticClass: "mb-4"
+  }, [_c(VCol["a" /* default */], {
     attrs: {
-      "row": "",
-      "wrap": ""
+      "cols": "12"
     }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c('h3', {
+    staticClass: "mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-chart-pie")]), _vm._v("\n              ສະຫຼຸບຕາມປະເພດການຊຳລະ\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "lg": "6"
+      "lg": "3"
     }
   }, [_c('order-sumary-card-pos', {
     attrs: {
       "showTotal": true,
       "gross": _vm.getFormatNum(_vm.totalSaleRaw - +this.unpaidCodOrder.saleRawNumber),
       "orderDetail": {
-        title: 'ຍອດບິນ',
-        amount: _vm.getFormatNum(_vm.activeOrderHeaderList.length),
+        title: 'ຍອດບິນທັງໝົດ',
+        amount: _vm.getFormatNum(_vm.filteredOrderHeaderList.length),
         sale: _vm.getFormatNum(_vm.totalSale)
-        // 'discount': getFormatNum(totalDiscount),
-        // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-        // 'gross': getFormatNum(totalSale - totalDiscount)
       }
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "lg": "6"
+      "lg": "9"
     }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_c(VRow["a" /* default */], _vm._l(_vm.paymentStatistics, function (paymentStat) {
+    return _c(VCol["a" /* default */], {
+      key: paymentStat.code,
+      attrs: {
+        "cols": "6",
+        "md": "4",
+        "lg": "3"
+      }
+    }, [_c(VCard["a" /* default */], {
+      staticClass: "payment-summary-card pa-3 text-center elevation-2",
+      class: {
+        'selected-payment': _vm.selectedPaymentFilter === paymentStat.code
+      },
+      staticStyle: {
+        "cursor": "pointer",
+        "transition": "all 0.2s ease"
+      },
+      attrs: {
+        "outlined": ""
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.filterByPaymentType(paymentStat.code);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      staticClass: "mb-2",
+      attrs: {
+        "color": paymentStat.color,
+        "size": "32"
+      }
+    }, [_vm._v("\n                    " + _vm._s(paymentStat.icon) + "\n                  ")]), _vm._v(" "), _c('h3', {
+      class: `${paymentStat.color}--text mb-1`
+    }, [_vm._v("\n                    " + _vm._s(_vm.formatNumber(paymentStat.amount)) + " LAK\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "text--secondary mb-1"
+    }, [_vm._v("\n                    " + _vm._s(paymentStat.name) + "\n                  ")]), _vm._v(" "), _c(VChip["a" /* default */], {
+      staticClass: "font-weight-bold",
+      attrs: {
+        "color": paymentStat.color,
+        "small": "",
+        "outlined": ""
+      }
+    }, [_vm._v("\n                    " + _vm._s(paymentStat.count) + " ລາຍການ\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "mt-2"
+    }, [_c(VProgressLinear["a" /* default */], {
+      attrs: {
+        "value": paymentStat.percentage,
+        "color": paymentStat.color,
+        "height": "4",
+        "rounded": ""
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "mt-1"
+    }, [_vm._v("\n                      " + _vm._s(paymentStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                    ")])], 1)], 1)], 1);
+  }), 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-4"
+  }, [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-3 text-center",
+    staticClass: "pa-4",
     attrs: {
       "outlined": ""
     }
   }, [_c('h4', {
+    staticClass: "mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n                ສະຖິຕິການຊຳລະ\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
     staticClass: "primary--text"
-  }, [_vm._v(_vm._s(_vm.singlePaymentCount))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ຊຳລະແບບດຽວ")])])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v(_vm._s(_vm.singlePaymentCount))]), _vm._v(" "), _c('div', {}, [_vm._v("ຊຳລະແບບດຽວ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "value": _vm.singlePaymentPercentage,
+      "color": "primary",
+      "size": "60",
+      "width": "4"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-3 text-center",
+  }, [_c('small', [_vm._v(_vm._s(_vm.singlePaymentPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "outlined": ""
+      "cols": "6",
+      "md": "3"
     }
-  }, [_c('h4', {
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
     staticClass: "success--text"
-  }, [_vm._v(_vm._s(_vm.multiPaymentCount))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ຊຳລະຫຼາຍວິທີ")])])], 1)], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _vm.activeOrderHeaderList ? _c(VDataTable["a" /* default */], {
+  }, [_vm._v(_vm._s(_vm.multiPaymentCount))]), _vm._v(" "), _c('div', {}, [_vm._v("ຊຳລະຫຼາຍວິທີ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "value": _vm.multiPaymentPercentage,
+      "color": "success",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', [_vm._v(_vm._s(_vm.multiPaymentPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c('div', {
+    staticClass: "d-flex justify-center align-center"
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
+    class: {
+      'primary white--text': _vm.selectedPaymentFilter === 'SINGLE'
+    },
+    attrs: {
+      "outlined": "",
+      "color": "primary"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.filterByPaymentType('SINGLE');
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-credit-card")]), _vm._v("\n                      ສະແດງແຕ່ການຊຳລະດຽວ\n                    ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
+    class: {
+      'success white--text': _vm.selectedPaymentFilter === 'MULTI'
+    },
+    attrs: {
+      "outlined": "",
+      "color": "success"
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.filterByPaymentType('MULTI');
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n                      ສະແດງການຊຳລະຫຼາຍວິທີ\n                    ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "outlined": "",
+      "color": "grey"
+    },
+    on: {
+      "click": _vm.clearPaymentFilter
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-filter-off")]), _vm._v("\n                      ສະແດງທັງໝົດ\n                    ")], 1)], 1)])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _vm.filteredOrderHeaderList ? _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1",
     attrs: {
       "headers": _vm.headers,
       "search": _vm.search,
-      "items": _vm.activeOrderHeaderList
+      "items": _vm.filteredOrderHeaderList,
+      "loading": _vm.isloading,
+      "loading-text": "ກຳລັງໂຫຼດຂໍ້ມູນ..."
     },
     scopedSlots: _vm._u([{
+      key: "top",
+      fn: function () {
+        return [_vm.selectedPaymentFilter ? _c('div', {
+          staticClass: "pa-3"
+        }, [_c(VAlert["a" /* default */], {
+          attrs: {
+            "type": _vm.selectedPaymentFilter === 'MULTI' ? 'success' : 'info',
+            "dense": "",
+            "text": "",
+            "dismissible": ""
+          },
+          on: {
+            "input": _vm.clearPaymentFilter
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": ""
+          }
+        }, [_vm._v("mdi-filter")]), _vm._v("\n              ກຳລັງສະແດງ: " + _vm._s(_vm.getFilterDisplayName(_vm.selectedPaymentFilter)) + "\n              (" + _vm._s(_vm.filteredOrderHeaderList.length) + " ລາຍການ)\n            ")], 1)], 1) : _vm._e()];
+      },
+      proxy: true
+    }, {
       key: `item.bookingDate`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(item.bookingDate.split('T')[0]) + "\n          "), _vm._v(" "), _c('h6', {
+        return [_vm._v("\n          " + _vm._s(item.bookingDate.split('T')[0]) + "\n          "), _c('h6', {
           style: {
             color: item.client && _vm.countDay(item.bookingDate.split('T')[0]) > item.client.credit ? 'red' : 'green'
           }
@@ -716,7 +908,28 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
             "left": "",
             "small": ""
           }
-        }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n              " + _vm._s(_vm.getLocalDate(item.createdAt)) + "\n            ")], 1)];
+        }, [_vm._v("mdi-clock")]), _vm._v("\n              " + _vm._s(_vm.getLocalDate(item.createdAt)) + "\n            ")], 1)];
+      }
+    }, {
+      key: `item.ticketId`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          staticStyle: {
+            "cursor": "pointer"
+          },
+          attrs: {
+            "color": "success",
+            "small": "",
+            "dark": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v("mdi-ticket")]), _vm._v("\n              " + _vm._s(item.id) + "\n            ")], 1)];
       }
     }, {
       key: `item.id`,
@@ -867,7 +1080,7 @@ var ordersFromPosvue_type_template_id_2197f40c_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=2197f40c&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=64567777&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -908,7 +1121,6 @@ var external_vuex_ = __webpack_require__(14);
   data() {
     return {
       terminalId: 999,
-      //LocationId to filter sale base on current location selected
       guidelineDialog: false,
       currencyList: [],
       viewTransaction: false,
@@ -932,18 +1144,45 @@ var external_vuex_ = __webpack_require__(14);
       cancelForm: false,
       OrderIdSelected: '',
       lastTransactionSaleHeaderId: 0,
-      // NEW: Payment Details Dialog
+      // Payment Details Dialog
       paymentDetailsDialog: false,
       selectedOrderForPayments: null,
+      // NEW: Payment Filtering
+      selectedPaymentFilter: null,
+      paymentFilterOptions: [{
+        label: 'ທັງໝົດ',
+        value: null
+      }, {
+        label: 'ເງິນສົດ',
+        value: 'CASH'
+      }, {
+        label: 'ເງິນໂອນ BCEL',
+        value: 'TRANSFER_BCEL'
+      }, {
+        label: 'QR ສະແກນ',
+        value: 'QR'
+      }, {
+        label: 'ບັດເຄຣດິດ',
+        value: 'CARD'
+      }, {
+        label: 'COD',
+        value: 'COD'
+      }, {
+        label: 'ຊຳລະແບບດຽວ',
+        value: 'SINGLE'
+      }, {
+        label: 'ຊຳລະຫຼາຍວິທີ',
+        value: 'MULTI'
+      }],
       headers: [{
         text: 'ວັນທີ',
         align: 'center',
         value: 'bookingDate',
         sortable: true
       }, {
-        text: 'ID ລູກຄ້າ',
+        text: 'ເລກທີ ໃບບິນ',
         align: 'center',
-        value: 'client.id',
+        value: 'ticketId',
         sortable: true
       }, {
         text: 'Offline/Online',
@@ -959,8 +1198,7 @@ var external_vuex_ = __webpack_require__(14);
         text: 'ເບີໂທ',
         align: 'center',
         value: 'cusTel',
-        // Changed from 'client.telephone' to custom value
-        sortable: false // Changed to false since we're using custom template
+        sortable: false
       }, {
         text: 'ຊຳລະດ້ວຍ',
         align: 'center',
@@ -968,7 +1206,6 @@ var external_vuex_ = __webpack_require__(14);
         sortable: true
       }, {
         text: 'ລາຍລະອຽດການຊຳລະ',
-        // NEW COLUMN
         align: 'center',
         value: 'paymentDetails',
         sortable: false
@@ -1018,7 +1255,6 @@ var external_vuex_ = __webpack_require__(14);
         value: 'id',
         sortable: false
       }],
-      // NEW: Payment Details Table Headers
       paymentDetailsHeaders: [{
         text: 'ວິທີການຊຳລະ',
         align: 'left',
@@ -1051,8 +1287,6 @@ var external_vuex_ = __webpack_require__(14);
   async created() {
     this.terminalId = this.findSelectedTerminal;
     console.log(`Current terminal select ${this.findSelectedTerminal}`);
-
-    // ENHANCED: Preload company data for API logos
     try {
       await Object(api["d" /* preloadCompanyData */])(this.$axios);
       console.log('Company data preloaded for sales report');
@@ -1076,26 +1310,20 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   computed: {
-    // ENHANCED: Company data with API integration
     companyData() {
       console.log(`**********ENHANCED COMPANY DATA**********`);
       const company = Object(api["b" /* mainCompanyInfo */])();
       console.log('Company info:', company);
       return company;
     },
-    // ENHANCED: Company logo with API priority and smart fallbacks
     companyLogo() {
       const company = this.companyData;
-
-      // 1. Try API logo first (highest priority)
       if (company.apiData && company.apiData.profile_image_path) {
         const baseUrl = this.$axios.defaults.baseURL || '';
         const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`;
         console.log('Using API logo:', logoUrl);
         return logoUrl;
       }
-
-      // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
           const staticLogo = __webpack_require__(142)(`./${company.ticketLogo}`);
@@ -1105,8 +1333,6 @@ var external_vuex_ = __webpack_require__(14);
           console.warn('Static logo not found:', company.ticketLogo, error);
         }
       }
-
-      // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
           const fallbackLogo = __webpack_require__(142)(`./${company.dcLogo}`);
@@ -1116,8 +1342,6 @@ var external_vuex_ = __webpack_require__(14);
           console.warn('dcLogo not found:', company.dcLogo, error);
         }
       }
-
-      // 4. Final fallback
       console.log('Using final fallback logo');
       return '/static/images/default-logo.png';
     },
@@ -1154,26 +1378,118 @@ var external_vuex_ = __webpack_require__(14);
       console.log(`Current location ${JSON.stringify(terminal)}`);
       return this.orderHeaderList.filter(el => el['isActive'] == true && el['paymentId'] != 2 && el['locationId'] == terminal['locationId']);
     },
+    // NEW: Filtered Order List based on payment type
+    filteredOrderHeaderList() {
+      if (!this.selectedPaymentFilter) {
+        return this.activeOrderHeaderList;
+      }
+      return this.activeOrderHeaderList.filter(item => {
+        switch (this.selectedPaymentFilter) {
+          case 'SINGLE':
+            return !this.isMultiPayment(item);
+          case 'MULTI':
+            return this.isMultiPayment(item);
+          case 'CASH':
+          case 'TRANSFER_BCEL':
+          case 'QR':
+          case 'CARD':
+          case 'COD':
+            if (this.isMultiPayment(item)) {
+              // Check if any payment in multi-payment matches the filter
+              return item.payments.some(payment => {
+                var _payment$paymentMetho;
+                return ((_payment$paymentMetho = payment.paymentMethod) === null || _payment$paymentMetho === void 0 ? void 0 : _payment$paymentMetho.payment_code) === this.selectedPaymentFilter;
+              });
+            } else {
+              var _item$payment;
+              // Single payment check
+              return ((_item$payment = item.payment) === null || _item$payment === void 0 ? void 0 : _item$payment.payment_code) === this.selectedPaymentFilter;
+            }
+          default:
+            return true;
+        }
+      });
+    },
     // NEW: Payment Statistics
+    paymentStatistics() {
+      const stats = {};
+      let totalAmount = 0;
+      this.activeOrderHeaderList.forEach(item => {
+        const itemTotal = item.total - item.discount;
+        if (this.isMultiPayment(item)) {
+          // Handle multi-payment transactions
+          item.payments.forEach(payment => {
+            var _payment$paymentMetho2;
+            const code = ((_payment$paymentMetho2 = payment.paymentMethod) === null || _payment$paymentMetho2 === void 0 ? void 0 : _payment$paymentMetho2.payment_code) || 'UNKNOWN';
+            if (!stats[code]) {
+              var _payment$paymentMetho3;
+              stats[code] = {
+                code: code,
+                name: ((_payment$paymentMetho3 = payment.paymentMethod) === null || _payment$paymentMetho3 === void 0 ? void 0 : _payment$paymentMetho3.payment_name) || 'Unknown',
+                amount: 0,
+                count: 0,
+                color: this.getPaymentMethodColor(code),
+                icon: this.getPaymentMethodIcon(code)
+              };
+            }
+            stats[code].amount += payment.amount;
+            stats[code].count += 1;
+            totalAmount += payment.amount;
+          });
+        } else if (item.payment) {
+          // Handle single payment transactions
+          const code = item.payment.payment_code;
+          if (!stats[code]) {
+            stats[code] = {
+              code: code,
+              name: item.payment.payment_name,
+              amount: 0,
+              count: 0,
+              color: this.getPaymentMethodColor(code),
+              icon: this.getPaymentMethodIcon(code)
+            };
+          }
+          stats[code].amount += itemTotal;
+          stats[code].count += 1;
+          totalAmount += itemTotal;
+        }
+      });
+
+      // Calculate percentages
+      Object.values(stats).forEach(stat => {
+        stat.percentage = totalAmount > 0 ? stat.amount / totalAmount * 100 : 0;
+      });
+
+      // Sort by amount descending
+      return Object.values(stats).sort((a, b) => b.amount - a.amount);
+    },
     singlePaymentCount() {
       return this.activeOrderHeaderList.filter(item => !this.isMultiPayment(item)).length;
     },
     multiPaymentCount() {
       return this.activeOrderHeaderList.filter(item => this.isMultiPayment(item)).length;
     },
+    singlePaymentPercentage() {
+      const total = this.activeOrderHeaderList.length;
+      return total > 0 ? this.singlePaymentCount / total * 100 : 0;
+    },
+    multiPaymentPercentage() {
+      const total = this.activeOrderHeaderList.length;
+      return total > 0 ? this.multiPaymentCount / total * 100 : 0;
+    },
     computedDateFormatted() {
       return this.formatDate(this.fromDate);
     },
     totalSale() {
       let total = 0;
-      this.activeOrderHeaderList.forEach(el => {
+      this.filteredOrderHeaderList.forEach(el => {
         total += el.total;
       });
       return total;
     },
     totalSaleRaw() {
       let total = 0;
-      this.activeOrderHeaderList.forEach(el => {
+      this.filteredOrderHeaderList.forEach(el => {
         console.log('====>', el.cartTotal);
         total += parseInt(el.cartTotal);
       });
@@ -1182,7 +1498,7 @@ var external_vuex_ = __webpack_require__(14);
     },
     totalDiscount() {
       let total = 0;
-      this.activeOrderHeaderList.forEach(el => {
+      this.filteredOrderHeaderList.forEach(el => {
         total += parseInt(el.discount);
       });
       return total;
@@ -1216,7 +1532,27 @@ var external_vuex_ = __webpack_require__(14);
   },
   methods: {
     getLocalDate: common["f" /* getLocalDate */],
-    // NEW: Multi-Payment Detection and Handling Methods
+    // NEW: Payment Filter Methods
+    filterByPaymentType(paymentType) {
+      if (this.selectedPaymentFilter === paymentType) {
+        this.clearPaymentFilter();
+      } else {
+        this.selectedPaymentFilter = paymentType;
+        this.applyPaymentFilter();
+      }
+    },
+    applyPaymentFilter() {
+      console.log('Applied payment filter:', this.selectedPaymentFilter);
+      // The filtering happens automatically through computed property
+    },
+    clearPaymentFilter() {
+      this.selectedPaymentFilter = null;
+    },
+    getFilterDisplayName(filterValue) {
+      const option = this.paymentFilterOptions.find(opt => opt.value === filterValue);
+      return option ? option.label : filterValue;
+    },
+    // Multi-Payment Detection and Handling Methods
     isMultiPayment(item) {
       return item.payments && Array.isArray(item.payments) && item.payments.length > 1;
     },
@@ -1249,20 +1585,18 @@ var external_vuex_ = __webpack_require__(14);
       const details = [];
       const totalAmount = item.total - item.discount;
       if (this.isMultiPayment(item)) {
-        // Multi-payment transaction
         item.payments.forEach(payment => {
-          var _payment$paymentMetho, _payment$paymentMetho2;
+          var _payment$paymentMetho4, _payment$paymentMetho5;
           const percentage = payment.amount / totalAmount * 100;
           details.push({
-            code: ((_payment$paymentMetho = payment.paymentMethod) === null || _payment$paymentMetho === void 0 ? void 0 : _payment$paymentMetho.payment_code) || 'UNKNOWN',
-            name: ((_payment$paymentMetho2 = payment.paymentMethod) === null || _payment$paymentMetho2 === void 0 ? void 0 : _payment$paymentMetho2.payment_name) || 'Unknown',
+            code: ((_payment$paymentMetho4 = payment.paymentMethod) === null || _payment$paymentMetho4 === void 0 ? void 0 : _payment$paymentMetho4.payment_code) || 'UNKNOWN',
+            name: ((_payment$paymentMetho5 = payment.paymentMethod) === null || _payment$paymentMetho5 === void 0 ? void 0 : _payment$paymentMetho5.payment_name) || 'Unknown',
             amount: payment.amount,
             percentage: percentage,
             createdAt: payment.createdAt ? payment.createdAt.split('.')[0] : 'N/A'
           });
         });
       } else if (item.payment) {
-        // Single payment transaction
         details.push({
           code: item.payment.payment_code,
           name: item.payment.payment_name,
@@ -1276,7 +1610,7 @@ var external_vuex_ = __webpack_require__(14);
     getPaymentMethodColor(paymentCode) {
       const colorMap = {
         'CASH': 'green',
-        'QR SCAN': 'purple',
+        'QR': 'purple',
         'TRANSFER_BCEL': 'blue',
         'COD': 'orange',
         'CREDIT': 'red',
@@ -1287,7 +1621,7 @@ var external_vuex_ = __webpack_require__(14);
     getPaymentMethodIcon(paymentCode) {
       const iconMap = {
         'CASH': 'mdi-cash',
-        'QR SCAN': 'mdi-qrcode',
+        'QR': 'mdi-qrcode',
         'TRANSFER_BCEL': 'mdi-bank-transfer',
         'COD': 'mdi-truck-delivery',
         'CREDIT': 'mdi-credit-card-outline',
@@ -1356,6 +1690,7 @@ var external_vuex_ = __webpack_require__(14);
         printWin.close();
       }, 1000);
     },
+    // Existing methods remain the same...
     currentShipping(shippingId) {
       const shipping = this.shippingList.find(el => el.id == shippingId);
       if (shipping == undefined) return '';
@@ -1381,16 +1716,12 @@ var external_vuex_ = __webpack_require__(14);
           this.currencyList.push(iterator);
         }
       }).catch(er => {
-        // console.log('Data: ' + er)
         Object(common["k" /* swalError2 */])(this.$swal, 'Error', er);
       });
       this.isloading = false;
     },
-    // ENHANCED: Print ticket with API logo support and multi-payment details
     printDefaultTicket(data) {
       console.info(`PRINTING TICKET WITH DATA: ${JSON.stringify(data)}`);
-
-      // Determine the payment method to show on ticket
       let paymentCode = 'UNKNOWN';
       if (this.isMultiPayment(data)) {
         paymentCode = 'MULTI-PAYMENT';
@@ -1405,7 +1736,6 @@ var external_vuex_ = __webpack_require__(14);
         currencyList: this.currencyList,
         grandTotal: data.total,
         companyLogo: this.companyLogo,
-        // This now includes API logos automatically
         lastTransactionSaleHeaderId: data.id,
         currentTerminal: this.currentTerminal,
         user: this.user,
@@ -1415,12 +1745,11 @@ var external_vuex_ = __webpack_require__(14);
         changes: 0,
         bookingDate: data.createdAt,
         axios: this.$axios,
-        // Enable API logo loading in enhanced ticket
-        companyData: this.companyData // Provide company data for fallback
+        companyData: this.companyData
       });
     },
     exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(this.activeOrderHeaderList);
+      const worksheet = this.$xlsx.utils.json_to_sheet(this.filteredOrderHeaderList);
       const workbook = this.$xlsx.utils.book_new();
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
       this.$xlsx.writeFile(workbook, 'data.xlsx');
@@ -1445,7 +1774,6 @@ var external_vuex_ = __webpack_require__(14);
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     whatsappLink(item) {
-      // FIXED: Added null checks for client and telephone
       if (!item.client || !item.client.telephone) {
         console.warn('No client or telephone number available for WhatsApp link');
         return;
@@ -1454,15 +1782,12 @@ var external_vuex_ = __webpack_require__(14);
       const completeTel = tel.substring(tel.length - 8);
       this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
     },
-    // Add helper method to get client name safely
     getClientName(item) {
       return item.client ? item.client.name : 'Walk-in Customer';
     },
-    // Add helper method to get client ID safely
     getClientId(item) {
       return item.client ? item.client.id : 'N/A';
     },
-    // Add helper method to get client telephone safely
     getClientTelephone(item) {
       return item.client ? item.client.telephone : null;
     },
@@ -1484,7 +1809,6 @@ var external_vuex_ = __webpack_require__(14);
       console.log('Order id', payload.orderId);
       this.componentCancelFormKey += 1;
       this.OrderIdSelected = payload.orderId;
-      // this.orderLockingSessionId = payload.lockingSessionId;
       this.cancelForm = true;
     },
     handleEvent() {
@@ -1506,12 +1830,8 @@ var external_vuex_ = __webpack_require__(14);
           date
         }
       }).then(res => {
-        // ****** Clear Old Data
         this.orderHeaderList = [];
         for (const iterator of res.data) {
-          // if(!iterator['dynamic_customer']){
-          //   iterator.dynamic_customer = null;
-          // }
           this.orderHeaderList.push(iterator);
         }
         console.log('====> ' + this.orderHeaderList.length);
@@ -1537,7 +1857,7 @@ var external_vuex_ = __webpack_require__(14);
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date);
       const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
+      const month = `${date.getMonth() + 1}`.padStart(2, '0');
       const day = `${date.getDate()}`.padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
@@ -1554,7 +1874,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1128)
+  var style0 = __webpack_require__(1129)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1563,11 +1883,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosvue_type_script_lang_js,
-  ordersFromPosvue_type_template_id_2197f40c_scoped_true_render,
+  ordersFromPosvue_type_template_id_64567777_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "2197f40c",
+  "64567777",
   "ac53ec12"
   
 )
@@ -2168,7 +2488,7 @@ var VSpacer = __webpack_require__(429);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CancelTicketForm.vue?vue&type=template&id=1b356803
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CancelTicketForm.vue?vue&type=template&id=0b0ca7a2
 
 
 
@@ -2177,7 +2497,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var CancelTicketFormvue_type_template_id_1b356803_render = function render() {
+var CancelTicketFormvue_type_template_id_0b0ca7a2_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -2262,7 +2582,7 @@ var CancelTicketFormvue_type_template_id_1b356803_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CancelTicketForm.vue?vue&type=template&id=1b356803
+// CONCATENATED MODULE: ./components/CancelTicketForm.vue?vue&type=template&id=0b0ca7a2
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -2308,6 +2628,7 @@ var common = __webpack_require__(7);
           if (response.status = 200) {
             this.refreshData();
             Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            this.$emit('close-dialog');
           }
         } catch (error) {
           Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
@@ -2339,7 +2660,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_CancelTicketFormvue_type_script_lang_js,
-  CancelTicketFormvue_type_template_id_1b356803_render,
+  CancelTicketFormvue_type_template_id_0b0ca7a2_render,
   staticRenderFns,
   false,
   null,
@@ -5891,14 +6212,14 @@ installComponents(component, {LoadingIndicator: __webpack_require__(66).default}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1129);
+var content = __webpack_require__(1130);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("121da984", content, true, context)
+  add("569ef2c5", content, true, context)
 };
 
 /***/ })

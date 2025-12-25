@@ -5,7 +5,6 @@
         <v-icon start>mdi-label</v-icon>
         <h3>ລາຍການບິນຂາຍ</h3>
       </v-chip>
-      <!-- <v-spacer></v-spacer> -->
       <v-chip
         class="pa-5"
         color="primary"
@@ -17,6 +16,8 @@
         <h3>ຄູ່ມືການນຳໃຊ້</h3>
       </v-chip>
     </div>
+
+    <!-- Dialogs remain the same -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
@@ -29,10 +30,7 @@
     </v-dialog>
     <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
-        @reload="
-          loadData()
-          dialogOrderDetail = false
-        "
+        @reload="loadData(); dialogOrderDetail = false"
         :is-quotation="false"
         :key="componentKey"
         :is-update="viewTransaction"
@@ -47,11 +45,10 @@
         :id="OrderIdSelected"
         :key="componentCancelFormKey"
         @close-dialog="cancelForm = false"
-        @reload=";(cancelForm = false), loadData()"
+        @reload="cancelForm = false; loadData()"
       ></cancel-ticket-form>
     </v-dialog>
 
-    <!-- NEW: Payment Details Dialog -->
     <v-dialog v-model="paymentDetailsDialog" max-width="800">
       <v-card>
         <v-card-title class="primary white--text">
@@ -84,7 +81,6 @@
 
           <v-divider class="my-4"></v-divider>
 
-          <!-- Payment Methods Details -->
           <h4 class="mb-3">ລາຍລະອຽດການຊຳລະ</h4>
           <v-data-table
             :headers="paymentDetailsHeaders"
@@ -127,11 +123,13 @@
       </v-card>
     </v-dialog>
 
+    <!-- Main Content -->
     <div>
       <v-card>
         <v-card-title>
           <v-layout row wrap>
             <v-col cols="6">
+              <!-- Date Filters -->
               <v-menu
                 ref="menu1"
                 v-model="menu1"
@@ -188,21 +186,36 @@
                 </template>
               </v-menu>
             </v-col>
+            
             <v-col cols="6">
+              <!-- Search and Filters -->
               <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
                 label="ຊອກຫາ"
                 single-line
-                hide-detailsx
+                hide-details
               />
               <v-text-field
                 v-model="userId"
                 append-icon="mdi-magnify"
                 label="ລະຫັດຜູ້ຂາຍ"
                 single-line
-                hide-detailsx
+                hide-details
               />
+
+              <!-- NEW: Payment Type Filter -->
+              <v-select
+                v-model="selectedPaymentFilter"
+                :items="paymentFilterOptions"
+                item-text="label"
+                item-value="value"
+                label="ຟິລເຕີປະເພດການຊຳລະ"
+                clearable
+                prepend-icon="mdi-filter"
+                @change="applyPaymentFilter"
+              ></v-select>
+
               <v-autocomplete
                 item-text="name"
                 item-value="id"
@@ -210,8 +223,8 @@
                 label="ເລືອກຕາມ ຮ້ານ*"
                 v-model="terminalId"
               ></v-autocomplete>
-              <!-- current LocationId :{{ customTerminalList }} -->
             </v-col>
+            
             <v-col cols="6" class="text-left">
               <v-btn
                 size="large"
@@ -246,63 +259,202 @@
             </v-col>
           </v-layout>
         </v-card-title>
+
         <v-divider></v-divider>
+
         <v-card-text>
-          <v-layout row wrap>
-            <v-row>
-              <v-col cols="6" lg="6">
-                <order-sumary-card-pos
-                  :showTotal="true"
-                  :gross="
-                    getFormatNum(
-                      totalSaleRaw - +this.unpaidCodOrder.saleRawNumber
-                    )
-                  "
-                  :orderDetail="{
-                    title: 'ຍອດບິນ',
-                    amount: getFormatNum(activeOrderHeaderList.length),
-                    sale: getFormatNum(totalSale),
-                    // 'discount': getFormatNum(totalDiscount),
-                    // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-                    // 'gross': getFormatNum(totalSale - totalDiscount)
-                  }"
+          <!-- ENHANCED: Payment Type Summary Cards -->
+          <v-row class="mb-4">
+            <v-col cols="12">
+              <h3 class="mb-3">
+                <v-icon left>mdi-chart-pie</v-icon>
+                ສະຫຼຸບຕາມປະເພດການຊຳລະ
+              </h3>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <!-- Total Sales Card -->
+            <v-col cols="6" lg="3">
+              <order-sumary-card-pos
+                :showTotal="true"
+                :gross="getFormatNum(totalSaleRaw - +this.unpaidCodOrder.saleRawNumber)"
+                :orderDetail="{
+                  title: 'ຍອດບິນທັງໝົດ',
+                  amount: getFormatNum(filteredOrderHeaderList.length),
+                  sale: getFormatNum(totalSale),
+                }"
+              >
+              </order-sumary-card-pos>
+            </v-col>
+
+            <!-- Payment Type Summary Cards -->
+            <v-col cols="6" lg="9">
+              <v-row>
+                <v-col 
+                  v-for="paymentStat in paymentStatistics" 
+                  :key="paymentStat.code"
+                  cols="6" 
+                  md="4" 
+                  lg="3"
                 >
-                </order-sumary-card-pos>
-              </v-col>
-              
-              <!-- NEW: Payment Summary Cards -->
-              <v-col cols="6" lg="6">
+                  <v-card 
+                    outlined 
+                    class="payment-summary-card pa-3 text-center elevation-2"
+                    :class="{ 'selected-payment': selectedPaymentFilter === paymentStat.code }"
+                    @click="filterByPaymentType(paymentStat.code)"
+                    style="cursor: pointer; transition: all 0.2s ease;"
+                  >
+                    <v-icon 
+                      :color="paymentStat.color" 
+                      size="32" 
+                      class="mb-2"
+                    >
+                      {{ paymentStat.icon }}
+                    </v-icon>
+                    
+                    <h3 :class="`${paymentStat.color}--text mb-1`">
+                      {{ formatNumber(paymentStat.amount) }} LAK
+                    </h3>
+                    
+                    <div class=" text--secondary mb-1">
+                      {{ paymentStat.name }}
+                    </div>
+                    
+                    <v-chip 
+                      :color="paymentStat.color" 
+                      small 
+                      outlined
+                      class="font-weight-bold"
+                    >
+                      {{ paymentStat.count }} ລາຍການ
+                    </v-chip>
+                    
+                    <div class="mt-2">
+                      <v-progress-linear
+                        :value="paymentStat.percentage"
+                        :color="paymentStat.color"
+                        height="4"
+                        rounded
+                      ></v-progress-linear>
+                      <div class=" mt-1">
+                        {{ paymentStat.percentage.toFixed(1) }}% ຂອງຍອດລວມ
+                      </div>
+                    </div>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+
+          <!-- Multi vs Single Payment Stats -->
+          <v-row class="mt-4">
+            <v-col cols="12">
+              <v-card outlined class="pa-4">
+                <h4 class="mb-3">
+                  <v-icon left>mdi-credit-card-multiple</v-icon>
+                  ສະຖິຕິການຊຳລະ
+                </h4>
                 <v-row>
-                  <v-col cols="6">
-                    <v-card outlined class="pa-3 text-center">
-                      <h4 class="primary--text">{{ singlePaymentCount }}</h4>
-                      <div class="text-caption">ຊຳລະແບບດຽວ</div>
-                    </v-card>
+                  <v-col cols="6" md="3">
+                    <div class="text-center">
+                      <h2 class="primary--text">{{ singlePaymentCount }}</h2>
+                      <div class="">ຊຳລະແບບດຽວ</div>
+                      <v-progress-circular
+                        :value="singlePaymentPercentage"
+                        color="primary"
+                        size="60"
+                        width="4"
+                      >
+                        <small>{{ singlePaymentPercentage.toFixed(0) }}%</small>
+                      </v-progress-circular>
+                    </div>
                   </v-col>
-                  <v-col cols="6">
-                    <v-card outlined class="pa-3 text-center">
-                      <h4 class="success--text">{{ multiPaymentCount }}</h4>
-                      <div class="text-caption">ຊຳລະຫຼາຍວິທີ</div>
-                    </v-card>
+                  
+                  <v-col cols="6" md="3">
+                    <div class="text-center">
+                      <h2 class="success--text">{{ multiPaymentCount }}</h2>
+                      <div class="">ຊຳລະຫຼາຍວິທີ</div>
+                      <v-progress-circular
+                        :value="multiPaymentPercentage"
+                        color="success"
+                        size="60"
+                        width="4"
+                      >
+                        <small>{{ multiPaymentPercentage.toFixed(0) }}%</small>
+                      </v-progress-circular>
+                    </div>
+                  </v-col>
+
+                  <v-col cols="12" md="6">
+                    <div class="d-flex justify-center align-center">
+                      <v-btn
+                        outlined
+                        color="primary"
+                        @click="filterByPaymentType('SINGLE')"
+                        class="mr-2"
+                        :class="{ 'primary white--text': selectedPaymentFilter === 'SINGLE' }"
+                      >
+                        <v-icon left>mdi-credit-card</v-icon>
+                        ສະແດງແຕ່ການຊຳລະດຽວ
+                      </v-btn>
+                      
+                      <v-btn
+                        outlined
+                        color="success"
+                        @click="filterByPaymentType('MULTI')"
+                        class="mr-2"
+                        :class="{ 'success white--text': selectedPaymentFilter === 'MULTI' }"
+                      >
+                        <v-icon left>mdi-credit-card-multiple</v-icon>
+                        ສະແດງການຊຳລະຫຼາຍວິທີ
+                      </v-btn>
+
+                      <v-btn
+                        outlined
+                        color="grey"
+                        @click="clearPaymentFilter"
+                      >
+                        <v-icon left>mdi-filter-off</v-icon>
+                        ສະແດງທັງໝົດ
+                      </v-btn>
+                    </div>
                   </v-col>
                 </v-row>
-              </v-col>
-            </v-row>
-          </v-layout>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-card-text>
 
-        <!-- <v-divider></v-divider> -->
-
+        <!-- Data Table -->
         <v-data-table
-          v-if="activeOrderHeaderList"
+          v-if="filteredOrderHeaderList"
           :headers="headers"
           :search="search"
-          :items="activeOrderHeaderList"
+          :items="filteredOrderHeaderList"
+          :loading="isloading"
+          loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+          class="elevation-1"
         >
-          <!-- FIXED: Added null check for item.client -->
+          <template v-slot:top>
+            <div class="pa-3" v-if="selectedPaymentFilter">
+              <v-alert 
+                :type="selectedPaymentFilter === 'MULTI' ? 'success' : 'info'" 
+                dense 
+                text 
+                dismissible
+                @input="clearPaymentFilter"
+              >
+                <v-icon left>mdi-filter</v-icon>
+                ກຳລັງສະແດງ: {{ getFilterDisplayName(selectedPaymentFilter) }}
+                ({{ filteredOrderHeaderList.length }} ລາຍການ)
+              </v-alert>
+            </div>
+          </template>
+
+          <!-- Table templates remain the same -->
           <template v-slot:[`item.bookingDate`]="{ item }">
             {{ item.bookingDate.split('T')[0] }}
-            <!-- <v-chip class="ma-2" color="red" text-color="white"> -->
             <h6
               :style="{
                 color:
@@ -314,10 +466,8 @@
             >
               {{ countDay(item.bookingDate.split('T')[0]) }}
             </h6>
-            <!-- </v-chip> -->
           </template>
 
-          <!-- FIXED: Added null check for item.client -->
           <template v-slot:[`item.client.credit`]="{ item }">
             <template v-if="item.client">
               <v-chip
@@ -354,14 +504,10 @@
           </template>
 
           <template v-slot:[`item.dynamic_customer`]="{ item }">
-            <!-- <v-chip class="ma-2" :color="item.dynamic_customer ? 'green' : 'red'" text-color="black">
-            {{ item.dynamic_customer ? item.dynamic_customer.name : '' }}
-          </v-chip> -->
             <v-avatar
               :color="item.dynamic_customer ? 'green' : 'red'"
               size="10"
             >
-              <!-- {{ item.dynamic_customer ? item.dynamic_customer.name : '' }} -->
             </v-avatar>
           </template>
 
@@ -384,8 +530,19 @@
                 dark 
                 style="cursor: pointer"
               >
-                <v-icon left small>mdi-credit-card-multiple</v-icon>
+                <v-icon left small>mdi-clock</v-icon>
                 {{ getLocalDate(item.createdAt) }}
+              </v-chip>
+          </template>
+          <template v-slot:[`item.ticketId`]="{ item }">
+             <v-chip 
+                color="success" 
+                small 
+                dark 
+                style="cursor: pointer"
+              >
+                <v-icon left small>mdi-ticket</v-icon>
+                {{ item.id }}
               </v-chip>
           </template>
 
@@ -393,10 +550,7 @@
             <v-btn
               color="primary"
               text
-              @click="
-                viewItem(item)
-                wallet = true
-              "
+              @click="viewItem(item); wallet = true"
             >
               <i class="fa-regular fa-pen-to-square"></i>
             </v-btn>
@@ -406,17 +560,12 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="
-                cancelItem(item)
-                wallet = true
-              "
+              @click="cancelItem(item); wallet = true"
             >
               <i class="fas fa-sync"></i>
             </v-btn>
           </template>
 
-
-          <!-- ENHANCED: Payment Method Display -->
           <template v-slot:[`item.payment.payment_code`]="{ item }">
             <div v-if="isMultiPayment(item)">
               <v-chip 
@@ -442,7 +591,6 @@
             </div>
           </template>
 
-          <!-- NEW: Payment Details Column -->
           <template v-slot:[`item.paymentDetails`]="{ item }">
             <v-btn 
               color="info" 
@@ -456,7 +604,6 @@
             </v-btn>
           </template>
 
-          <!-- FIXED: Added null check for client.telephone -->
           <template v-slot:[`item.cusTel`]="{ item }">
             <v-btn
               v-if="item.client && item.client.telephone"
@@ -471,7 +618,6 @@
           </template>
 
           <template v-slot:[`item.print`]="{ item }">
-            <!-- TODO: TICKET PRINT -->
             <v-btn @click="printDefaultTicket(item)" text color="primary">
               <span class="mdi mdi-printer"></span>
             </v-btn>
@@ -481,6 +627,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import {
   swalSuccess,
@@ -504,7 +651,7 @@ export default {
   middleware: 'auths',
   data() {
     return {
-      terminalId: 999, //LocationId to filter sale base on current location selected
+      terminalId: 999,
       guidelineDialog: false,
       currencyList: [],
       viewTransaction: false,
@@ -529,9 +676,22 @@ export default {
       OrderIdSelected: '',
       lastTransactionSaleHeaderId: 0,
       
-      // NEW: Payment Details Dialog
+      // Payment Details Dialog
       paymentDetailsDialog: false,
       selectedOrderForPayments: null,
+
+      // NEW: Payment Filtering
+      selectedPaymentFilter: null,
+      paymentFilterOptions: [
+        { label: 'ທັງໝົດ', value: null },
+        { label: 'ເງິນສົດ', value: 'CASH' },
+        { label: 'ເງິນໂອນ BCEL', value: 'TRANSFER_BCEL' },
+        { label: 'QR ສະແກນ', value: 'QR' },
+        { label: 'ບັດເຄຣດິດ', value: 'CARD' },
+        { label: 'COD', value: 'COD' },
+        { label: 'ຊຳລະແບບດຽວ', value: 'SINGLE' },
+        { label: 'ຊຳລະຫຼາຍວິທີ', value: 'MULTI' },
+      ],
       
       headers: [
         {
@@ -541,9 +701,9 @@ export default {
           sortable: true,
         },
         {
-          text: 'ID ລູກຄ້າ',
+          text: 'ເລກທີ ໃບບິນ',
           align: 'center',
-          value: 'client.id',
+          value: 'ticketId',
           sortable: true,
         },
         {
@@ -561,8 +721,8 @@ export default {
         {
           text: 'ເບີໂທ',
           align: 'center',
-          value: 'cusTel', // Changed from 'client.telephone' to custom value
-          sortable: false, // Changed to false since we're using custom template
+          value: 'cusTel',
+          sortable: false,
         },
         {
           text: 'ຊຳລະດ້ວຍ',
@@ -571,7 +731,7 @@ export default {
           sortable: true,
         },
         {
-          text: 'ລາຍລະອຽດການຊຳລະ', // NEW COLUMN
+          text: 'ລາຍລະອຽດການຊຳລະ',
           align: 'center',
           value: 'paymentDetails',
           sortable: false,
@@ -632,7 +792,6 @@ export default {
         },
       ],
       
-      // NEW: Payment Details Table Headers
       paymentDetailsHeaders: [
         {
           text: 'ວິທີການຊຳລະ',
@@ -679,7 +838,6 @@ export default {
     this.terminalId = this.findSelectedTerminal
     console.log(`Current terminal select ${this.findSelectedTerminal}`)
     
-    // ENHANCED: Preload company data for API logos
     try {
       await preloadCompanyData(this.$axios)
       console.log('Company data preloaded for sales report')
@@ -706,7 +864,6 @@ export default {
   },
 
   computed: {
-    // ENHANCED: Company data with API integration
     companyData() {
       console.log(`**********ENHANCED COMPANY DATA**********`)
       const company = mainCompanyInfo()
@@ -714,11 +871,9 @@ export default {
       return company
     },
 
-    // ENHANCED: Company logo with API priority and smart fallbacks
     companyLogo() {
       const company = this.companyData
 
-      // 1. Try API logo first (highest priority)
       if (company.apiData && company.apiData.profile_image_path) {
         const baseUrl = this.$axios.defaults.baseURL || ''
         const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`
@@ -726,7 +881,6 @@ export default {
         return logoUrl
       }
 
-      // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
           const staticLogo = require(`~/assets/image/${company.ticketLogo}`)
@@ -737,7 +891,6 @@ export default {
         }
       }
 
-      // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
           const fallbackLogo = require(`~/assets/image/${company.dcLogo}`)
@@ -748,7 +901,6 @@ export default {
         }
       }
 
-      // 4. Final fallback
       console.log('Using final fallback logo')
       return '/static/images/default-logo.png'
     },
@@ -818,7 +970,92 @@ export default {
       )
     },
 
+    // NEW: Filtered Order List based on payment type
+    filteredOrderHeaderList() {
+      if (!this.selectedPaymentFilter) {
+        return this.activeOrderHeaderList
+      }
+
+      return this.activeOrderHeaderList.filter(item => {
+        switch (this.selectedPaymentFilter) {
+          case 'SINGLE':
+            return !this.isMultiPayment(item)
+          case 'MULTI':
+            return this.isMultiPayment(item)
+          case 'CASH':
+          case 'TRANSFER_BCEL':
+          case 'QR':
+          case 'CARD':
+          case 'COD':
+            if (this.isMultiPayment(item)) {
+              // Check if any payment in multi-payment matches the filter
+              return item.payments.some(payment => 
+                payment.paymentMethod?.payment_code === this.selectedPaymentFilter
+              )
+            } else {
+              // Single payment check
+              return item.payment?.payment_code === this.selectedPaymentFilter
+            }
+          default:
+            return true
+        }
+      })
+    },
+
     // NEW: Payment Statistics
+    paymentStatistics() {
+      const stats = {}
+      let totalAmount = 0
+
+      this.activeOrderHeaderList.forEach(item => {
+        const itemTotal = item.total - item.discount
+
+        if (this.isMultiPayment(item)) {
+          // Handle multi-payment transactions
+          item.payments.forEach(payment => {
+            const code = payment.paymentMethod?.payment_code || 'UNKNOWN'
+            if (!stats[code]) {
+              stats[code] = {
+                code: code,
+                name: payment.paymentMethod?.payment_name || 'Unknown',
+                amount: 0,
+                count: 0,
+                color: this.getPaymentMethodColor(code),
+                icon: this.getPaymentMethodIcon(code)
+              }
+            }
+            stats[code].amount += payment.amount
+            stats[code].count += 1
+            totalAmount += payment.amount
+          })
+        } else if (item.payment) {
+          // Handle single payment transactions
+          const code = item.payment.payment_code
+          if (!stats[code]) {
+            stats[code] = {
+              code: code,
+              name: item.payment.payment_name,
+              amount: 0,
+              count: 0,
+              color: this.getPaymentMethodColor(code),
+              icon: this.getPaymentMethodIcon(code)
+            }
+          }
+          stats[code].amount += itemTotal
+          stats[code].count += 1
+          totalAmount += itemTotal
+        }
+      })
+
+      // Calculate percentages
+      Object.values(stats).forEach(stat => {
+        stat.percentage = totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
+      })
+
+      // Sort by amount descending
+      return Object.values(stats).sort((a, b) => b.amount - a.amount)
+    },
+
     singlePaymentCount() {
       return this.activeOrderHeaderList.filter(item => !this.isMultiPayment(item)).length
     },
@@ -827,13 +1064,23 @@ export default {
       return this.activeOrderHeaderList.filter(item => this.isMultiPayment(item)).length
     },
 
+    singlePaymentPercentage() {
+      const total = this.activeOrderHeaderList.length
+      return total > 0 ? (this.singlePaymentCount / total) * 100 : 0
+    },
+
+    multiPaymentPercentage() {
+      const total = this.activeOrderHeaderList.length
+      return total > 0 ? (this.multiPaymentCount / total) * 100 : 0
+    },
+
     computedDateFormatted() {
       return this.formatDate(this.fromDate)
     },
 
     totalSale() {
       let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
+      this.filteredOrderHeaderList.forEach((el) => {
         total += el.total
       })
       return total
@@ -841,7 +1088,7 @@ export default {
 
     totalSaleRaw() {
       let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
+      this.filteredOrderHeaderList.forEach((el) => {
         console.log('====>', el.cartTotal)
         total += parseInt(el.cartTotal)
       })
@@ -851,7 +1098,7 @@ export default {
 
     totalDiscount() {
       let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
+      this.filteredOrderHeaderList.forEach((el) => {
         total += parseInt(el.discount)
       })
       return total
@@ -892,7 +1139,32 @@ export default {
 
   methods: {
     getLocalDate,
-    // NEW: Multi-Payment Detection and Handling Methods
+
+    // NEW: Payment Filter Methods
+    filterByPaymentType(paymentType) {
+      if (this.selectedPaymentFilter === paymentType) {
+        this.clearPaymentFilter()
+      } else {
+        this.selectedPaymentFilter = paymentType
+        this.applyPaymentFilter()
+      }
+    },
+
+    applyPaymentFilter() {
+      console.log('Applied payment filter:', this.selectedPaymentFilter)
+      // The filtering happens automatically through computed property
+    },
+
+    clearPaymentFilter() {
+      this.selectedPaymentFilter = null
+    },
+
+    getFilterDisplayName(filterValue) {
+      const option = this.paymentFilterOptions.find(opt => opt.value === filterValue)
+      return option ? option.label : filterValue
+    },
+
+    // Multi-Payment Detection and Handling Methods
     isMultiPayment(item) {
       return item.payments && Array.isArray(item.payments) && item.payments.length > 1
     },
@@ -931,7 +1203,6 @@ export default {
       const totalAmount = item.total - item.discount
 
       if (this.isMultiPayment(item)) {
-        // Multi-payment transaction
         item.payments.forEach(payment => {
           const percentage = (payment.amount / totalAmount) * 100
           details.push({
@@ -943,7 +1214,6 @@ export default {
           })
         })
       } else if (item.payment) {
-        // Single payment transaction
         details.push({
           code: item.payment.payment_code,
           name: item.payment.payment_name,
@@ -959,7 +1229,7 @@ export default {
     getPaymentMethodColor(paymentCode) {
       const colorMap = {
         'CASH': 'green',
-        'QR SCAN': 'purple',
+        'QR': 'purple',
         'TRANSFER_BCEL': 'blue',
         'COD': 'orange',
         'CREDIT': 'red',
@@ -971,7 +1241,7 @@ export default {
     getPaymentMethodIcon(paymentCode) {
       const iconMap = {
         'CASH': 'mdi-cash',
-        'QR SCAN': 'mdi-qrcode',
+        'QR': 'mdi-qrcode',
         'TRANSFER_BCEL': 'mdi-bank-transfer',
         'COD': 'mdi-truck-delivery',
         'CREDIT': 'mdi-credit-card-outline',
@@ -1047,6 +1317,7 @@ export default {
       }, 1000)
     },
 
+    // Existing methods remain the same...
     currentShipping(shippingId) {
       const shipping = this.shippingList.find((el) => el.id == shippingId)
       if (shipping == undefined) return ''
@@ -1081,17 +1352,14 @@ export default {
           }
         })
         .catch((er) => {
-          // console.log('Data: ' + er)
           swalError2(this.$swal, 'Error', er)
         })
       this.isloading = false
     },
 
-    // ENHANCED: Print ticket with API logo support and multi-payment details
     printDefaultTicket(data) {
       console.info(`PRINTING TICKET WITH DATA: ${JSON.stringify(data)}`)
       
-      // Determine the payment method to show on ticket
       let paymentCode = 'UNKNOWN'
       if (this.isMultiPayment(data)) {
         paymentCode = 'MULTI-PAYMENT'
@@ -1106,7 +1374,7 @@ export default {
         discount: data.discount,
         currencyList: this.currencyList,
         grandTotal: data.total,
-        companyLogo: this.companyLogo, // This now includes API logos automatically
+        companyLogo: this.companyLogo,
         lastTransactionSaleHeaderId: data.id,
         currentTerminal: this.currentTerminal,
         user: this.user,
@@ -1115,14 +1383,14 @@ export default {
         cashReceived: data.total,
         changes: 0,
         bookingDate: data.createdAt,
-        axios: this.$axios, // Enable API logo loading in enhanced ticket
-        companyData: this.companyData // Provide company data for fallback
+        axios: this.$axios,
+        companyData: this.companyData
       })
     },
 
     exportToExcel() {
       const worksheet = this.$xlsx.utils.json_to_sheet(
-        this.activeOrderHeaderList
+        this.filteredOrderHeaderList
       )
       const workbook = this.$xlsx.utils.book_new()
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
@@ -1153,7 +1421,6 @@ export default {
     },
 
     whatsappLink(item) {
-      // FIXED: Added null checks for client and telephone
       if (!item.client || !item.client.telephone) {
         console.warn(
           'No client or telephone number available for WhatsApp link'
@@ -1168,17 +1435,14 @@ export default {
       )}`
     },
 
-    // Add helper method to get client name safely
     getClientName(item) {
       return item.client ? item.client.name : 'Walk-in Customer'
     },
 
-    // Add helper method to get client ID safely
     getClientId(item) {
       return item.client ? item.client.id : 'N/A'
     },
 
-    // Add helper method to get client telephone safely
     getClientTelephone(item) {
       return item.client ? item.client.telephone : null
     },
@@ -1204,7 +1468,6 @@ export default {
       console.log('Order id', payload.orderId)
       this.componentCancelFormKey += 1
       this.OrderIdSelected = payload.orderId
-      // this.orderLockingSessionId = payload.lockingSessionId;
       this.cancelForm = true
     },
 
@@ -1226,12 +1489,8 @@ export default {
       await this.$axios
         .get(apiLine, { params: { date } })
         .then((res) => {
-          // ****** Clear Old Data
           this.orderHeaderList = []
           for (const iterator of res.data) {
-            // if(!iterator['dynamic_customer']){
-            //   iterator.dynamic_customer = null;
-            // }
             this.orderHeaderList.push(iterator)
           }
           console.log('====> ' + this.orderHeaderList.length)
@@ -1261,7 +1520,7 @@ export default {
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date)
       const year = date.getFullYear()
-      const month = `${date.getMonth() + 1}`.padStart(2, '0') // Months are 0-indexed
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
       const day = `${date.getDate()}`.padStart(2, '0')
       return `${year}-${month}-${day}`
     },
@@ -1279,7 +1538,24 @@ table {
   border: 1px solid black;
 }
 
-/* Enhanced Payment Details Styling */
+/* Payment Summary Cards Styling */
+.payment-summary-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.payment-summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.payment-summary-card.selected-payment {
+  border: 3px solid #1976d2 !important;
+  box-shadow: 0 0 0 1px rgba(25, 118, 210, 0.3);
+}
+
 .payment-details-dialog .v-data-table th {
   background-color: #f5f5f5 !important;
   font-weight: 600;
@@ -1293,5 +1569,35 @@ table {
 .payment-method-chip:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Enhanced card aesthetics */
+.payment-summary-card .v-icon {
+  margin-bottom: 8px;
+}
+
+.payment-summary-card h3 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.payment-summary-card .v-progress-linear {
+  border-radius: 4px;
+}
+
+/* Filter alert styling */
+.v-alert--dense {
+  border-radius: 8px;
+}
+
+/* Responsive design improvements */
+@media (max-width: 600px) {
+  .payment-summary-card {
+    margin-bottom: 16px;
+  }
+  
+  .payment-summary-card h3 {
+    font-size: 1.2rem;
+  }
 }
 </style>

@@ -111,7 +111,7 @@ export default {
         async loadCustomer() {
             this.isloading = true
             await this.$axios
-                .get('api/client/find')
+                .get('api/client/find/active')
                 .then((res) => {
                     this.customerList = res.data.map((el) => {
                         return el;

@@ -222,19 +222,19 @@
               <v-col cols="4" lg="4">
                 <v-card outlined class="pa-3 text-center">
                   <h4 class="success--text">{{ giftOrdersCount }}</h4>
-                  <div class="text-caption">ຈຳນວນບິນທີ່ມີຂອງຂວັນ</div>
+                  <div class="">ຈຳນວນບິນທີ່ມີຂອງຂວັນ</div>
                 </v-card>
               </v-col>
               <v-col cols="4" lg="4">
                 <v-card outlined class="pa-3 text-center">
                   <h4 class="warning--text">{{ totalGiftItems }}</h4>
-                  <div class="text-caption">ຈຳນວນຂອງຂວັນທັງໝົດ</div>
+                  <div class="">ຈຳນວນຂອງຂວັນທັງໝົດ</div>
                 </v-card>
               </v-col>
               <v-col cols="4" lg="4">
                 <v-card outlined class="pa-3 text-center">
                   <h4 class="error--text">{{ formatNumber(totalGiftValue) }} LAK</h4>
-                  <div class="text-caption">ມູນຄ່າຂອງຂວັນທັງໝົດ</div>
+                  <div class="">ມູນຄ່າຂອງຂວັນທັງໝົດ</div>
                 </v-card>
               </v-col>
             </v-row>

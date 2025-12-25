@@ -1,7 +1,7 @@
 exports.ids = [21,40];
 exports.modules = {
 
-/***/ 1017:
+/***/ 1018:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1597,7 +1597,7 @@ var VSpacer = __webpack_require__(429);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CancelTicketForm.vue?vue&type=template&id=1b356803
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CancelTicketForm.vue?vue&type=template&id=0b0ca7a2
 
 
 
@@ -1606,7 +1606,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var CancelTicketFormvue_type_template_id_1b356803_render = function render() {
+var CancelTicketFormvue_type_template_id_0b0ca7a2_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -1691,7 +1691,7 @@ var CancelTicketFormvue_type_template_id_1b356803_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CancelTicketForm.vue?vue&type=template&id=1b356803
+// CONCATENATED MODULE: ./components/CancelTicketForm.vue?vue&type=template&id=0b0ca7a2
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -1737,6 +1737,7 @@ var common = __webpack_require__(7);
           if (response.status = 200) {
             this.refreshData();
             Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            this.$emit('close-dialog');
           }
         } catch (error) {
           Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
@@ -1768,7 +1769,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_CancelTicketFormvue_type_script_lang_js,
-  CancelTicketFormvue_type_template_id_1b356803_render,
+  CancelTicketFormvue_type_template_id_0b0ca7a2_render,
   staticRenderFns,
   false,
   null,

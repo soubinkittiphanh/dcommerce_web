@@ -68,6 +68,7 @@ export default {
                     if(response.status = 200){
                         this.refreshData()
                         swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
+                        this.$emit('close-dialog')
                     }
                 } catch (error) {
                     swalError2(this.$swal, 'Error', 'Something went wrong ' + error)

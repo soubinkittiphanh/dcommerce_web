@@ -1,7 +1,7 @@
-exports.ids = [305,47,55,56,57,127,130,131,166,167,306,329];
+exports.ids = [306,47,55,56,57,127,130,131,166,167,307,330];
 exports.modules = {
 
-/***/ 1007:
+/***/ 1008:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2601,7 +2601,7 @@ installComponents(component, {YoutubePlayer: __webpack_require__(463).default,Lo
 
 /***/ }),
 
-/***/ 1505:
+/***/ 1509:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3006,7 +3006,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/web_product/_id/index.vue?vue&type=template&id=c520b150
 
 // EXTERNAL MODULE: ./pages/admin/web_product/index.vue + 4 modules
-var web_product = __webpack_require__(1007);
+var web_product = __webpack_require__(1008);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/_id/index.vue?vue&type=script&lang=js
 // import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'

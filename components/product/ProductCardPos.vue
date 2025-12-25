@@ -267,6 +267,7 @@ export default {
           this.product.pro_price,
           isGift: isGift,
           lineUUIDCheck:false,
+          priceListId:null,
           lineUUID: Date.now() + Math.random().toString(16),//TODO: Resolve this logic issue for adding new item
       }
 

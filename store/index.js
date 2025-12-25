@@ -341,7 +341,7 @@ export const mutations = {
     updateProductCart(state, productInfo) {
         try {
             if (!productInfo || !productInfo.productId) return
-
+            console.info(`PRODUCT CART UPDATE ${JSON.stringify (productInfo)}`)
             const productId = productInfo.productId
             const price = productInfo.amount
             const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId)
@@ -359,6 +359,8 @@ export const mutations = {
             }
 
             state.cartOfproductSelected[productIdxFound].localPrice = newPrice
+            state.cartOfproductSelected[productIdxFound].priceListId = productInfo.id
+            console.info(`Sale line updated ${JSON.stringify(state.cartOfproductSelected[productIdxFound])}`)
         } catch (error) {
             console.error('Error updating product cart:', error)
         }

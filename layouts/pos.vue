@@ -784,6 +784,7 @@ export default {
           unitId: iterator.stockUnitId,
           total: iterator.qty * iterator.localPrice,
           isGift: iterator.isGift,
+          priceListId: iterator.priceListId,
           isActive: true,
         })
       }
@@ -2223,7 +2224,7 @@ export default {
     async fetchCategory() {
       this.isLoading = true
       await this.$axios
-        .get('category_f')
+        .get('api/category/find')
         .then((res) => {
           this.categoryList = res.data.map((el) => {
             return {
@@ -2296,6 +2297,7 @@ export default {
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
+      this.openCustomerScreenEnhanced()
     },
   },
 }
