@@ -17,6 +17,7 @@
                 :productName="item.pro_name"
                 :imagePath="item.img_name"
                 :stock="item.card_count"
+
               ></product-card-pos>
             </div>
           </div>
@@ -123,6 +124,11 @@ export default {
     },
   },
   methods: {
+// doSomeThing(){
+//     console.info(`DO SOMETHING CALLED - emitting to layout`)
+//     // Make sure to emit to the parent (layout)
+//     // this.$emit('update-cus-screen')
+// },
     ...mapActions(['addProduct']),
     findCurrency(currencyId) {
       return this.findAllCurrency.find((el) => el.id == currencyId)

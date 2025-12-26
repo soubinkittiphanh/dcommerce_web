@@ -329,15 +329,6 @@
   "Quotation": {
     "description": "Auto imported from components/quotation/index.vue"
   },
-  "RolesRoleCard": {
-    "description": "Auto imported from components/roles/RoleCard.vue"
-  },
-  "RolesRoleDialog": {
-    "description": "Auto imported from components/roles/RoleDialog.vue"
-  },
-  "RolesUsersListDialog": {
-    "description": "Auto imported from components/roles/UsersListDialog.vue"
-  },
   "ScheduleMonthTable": {
     "description": "Auto imported from components/schedule/MonthTable.vue"
   },
@@ -355,6 +346,15 @@
   },
   "TicketsTicketDetailDialog": {
     "description": "Auto imported from components/tickets/TicketDetailDialog.vue"
+  },
+  "RolesRoleCard": {
+    "description": "Auto imported from components/roles/RoleCard.vue"
+  },
+  "RolesRoleDialog": {
+    "description": "Auto imported from components/roles/RoleDialog.vue"
+  },
+  "RolesUsersListDialog": {
+    "description": "Auto imported from components/roles/UsersListDialog.vue"
   },
   "TimelineGianttTimeline": {
     "description": "Auto imported from components/timeline/GianttTimeline.vue"
@@ -374,11 +374,11 @@
   "MAPaymentAuditDialog": {
     "description": "Auto imported from components/MA/paymentAuditDialog/index.vue"
   },
-  "MAPaymentAuditReportDialog": {
-    "description": "Auto imported from components/MA/paymentAuditReportDialog/index.vue"
-  },
   "MAPaymentCompareDialog": {
     "description": "Auto imported from components/MA/paymentCompareDialog/index.vue"
+  },
+  "MAPaymentAuditReportDialog": {
+    "description": "Auto imported from components/MA/paymentAuditReportDialog/index.vue"
   },
   "MAPaymentComponentsBankAccountInfo": {
     "description": "Auto imported from components/MA/paymentComponents/BankAccountInfo.vue"
@@ -428,11 +428,14 @@
   "MASettlementDialog": {
     "description": "Auto imported from components/MA/settlementDialog/index.vue"
   },
+  "MASettlementViewDialog": {
+    "description": "Auto imported from components/MA/settlementViewDialog/index.vue"
+  },
   "MASettlementVoucher": {
     "description": "Auto imported from components/MA/settlementVoucher/index.vue"
   },
-  "MASettlementViewDialog": {
-    "description": "Auto imported from components/MA/settlementViewDialog/index.vue"
+  "AccountingTransaction": {
+    "description": "Auto imported from components/accounting/transaction/index.vue"
   },
   "BankBankAccount": {
     "description": "Auto imported from components/bank/bankAccount/index.vue"
@@ -445,9 +448,6 @@
   },
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
-  },
-  "AccountingTransaction": {
-    "description": "Auto imported from components/accounting/transaction/index.vue"
   },
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"
@@ -506,17 +506,14 @@
   "AccountingArInvoiceAudit": {
     "description": "Auto imported from components/accounting/ar/invoice/audit/index.vue"
   },
-  "AccountingArInvoiceVoucher": {
-    "description": "Auto imported from components/accounting/ar/invoice/voucher/index.vue"
-  },
-  "AccountingArReceiveMaintain": {
-    "description": "Auto imported from components/accounting/ar/receive/maintain/index.vue"
+  "AccountingArInvoiceMaintain": {
+    "description": "Auto imported from components/accounting/ar/invoice/maintain/index.vue"
   },
   "AccountingArInvoiceView": {
     "description": "Auto imported from components/accounting/ar/invoice/view/index.vue"
   },
-  "AccountingArInvoiceMaintain": {
-    "description": "Auto imported from components/accounting/ar/invoice/maintain/index.vue"
+  "AccountingArInvoiceVoucher": {
+    "description": "Auto imported from components/accounting/ar/invoice/voucher/index.vue"
   },
   "AccountingArReceiveView": {
     "description": "Auto imported from components/accounting/ar/receive/view/index.vue"
@@ -524,13 +521,16 @@
   "AccountingArReceiveVoucher": {
     "description": "Auto imported from components/accounting/ar/receive/voucher/index.vue"
   },
-  "AccountingApInvoiceAuditView": {
-    "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
-  },
   "AccountingApSettlementAuditView": {
     "description": "Auto imported from components/accounting/ap/settlement/audit/view/index.vue"
   },
+  "AccountingArReceiveMaintain": {
+    "description": "Auto imported from components/accounting/ar/receive/maintain/index.vue"
+  },
   "AccountingArInvoiceAuditView": {
     "description": "Auto imported from components/accounting/ar/invoice/audit/view/index.vue"
+  },
+  "AccountingApInvoiceAuditView": {
+    "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
   }
 }

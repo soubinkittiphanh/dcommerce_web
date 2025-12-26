@@ -244,11 +244,13 @@ export default {
     handleCardClick() {
       // Default card click behavior - could be quick add or open product details
       this.handleQuickAdd()
+
     },
 
     // Final improved methods to replace in your component
 
     handleQuickAdd(isGift = false) {
+      console.info(`DATA ADD FROM PRODUCT CART .....`)
       if (!this.validateProductAvailability()) {
         return
       }
@@ -274,7 +276,10 @@ export default {
 
       console.info(`CART PRODUCT ${JSON.stringify(this.cartOfProduct)}`)
       this.addProduct(productToAdd) 
-      this.$emit('update-cus-screen')
+      console.info(`EMIT CUSTOMER SCREEN `)
+      // this.$emit('update-customer-screen')
+          this.$root.$emit('update-cus-screen')
+      // this.$emit('update-cus-screen')
 
       // Show success feedback with quantity info
       if (this.$toast) {

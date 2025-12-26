@@ -361,7 +361,9 @@
     <v-main class="main-content">
       <div class="main-content-wrapper">
         <v-container fluid class="pa-0 main-container">
-          <Nuxt :key="productComponentKey" />
+          <Nuxt :key="productComponentKey"
+          @update-cus-screen="openCustomerScreenEnhanced"
+          />
         </v-container>
       </div>
     </v-main>
@@ -496,9 +498,9 @@
                   :key="item.id"
                   :item="item"
                   :format-number="formatNumber"
-                  @delete="deleteProductFromCart"
+                  @delete="deteletProductLocal"
                   @update-qty="openQtyDialog"
-                  @decrease="deleteProduct"
+                  @decrease="decreaseProductAmount"
                   @increase="addProductValidation"
                   @price-click="pricingLogig"
                   @configure-gift="handleGiftConfirm"
@@ -820,7 +822,7 @@ export default {
     this.loadCurrency()
     this.checkAllInitData()
     this.initializeMultiPayment()
-
+    this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
     // CUSTOMER SCREEN INTEGRATION
     this.$customerWindow = null
     window.addEventListener('message', this.handleCustomerScreenMessage)
@@ -892,6 +894,7 @@ export default {
      * Enhanced customer screen opening with proper company data
      */
     openCustomerScreenEnhanced() {
+      console.info(`customer screen called...`)
       try {
         // Prepare company information exactly like PaymentDialog does
         const companyInfo = {
@@ -934,7 +937,7 @@ export default {
         // Send welcome message after window loads
         setTimeout(() => {
           this.sendWelcomeMessage()
-        }, 1000)
+        }, 100)
       } catch (error) {
         console.error('Error opening customer screen:', error)
         swalError2(this.$swal, 'Error', 'Failed to open customer screen')
@@ -1206,7 +1209,7 @@ export default {
         )
 
         // SHOW QR ON CUSTOMER SCREEN WHEN DIALOG OPENS
-        this.sendQRToCustomerScreen()
+        // this.sendQRToCustomerScreen()
 
         this.multiPaymentDialog = true
       } catch (error) {
@@ -1236,7 +1239,7 @@ export default {
         )
 
         // SHOW QR ON CUSTOMER SCREEN WITH CURRENT CART DATA
-        this.sendQRToCustomerScreen()
+        // this.sendQRToCustomerScreen()
 
         // if (this.currentPaymentCode === 'CASH') {
         //   const totalDue = this.grandTotal - this.discount
@@ -1447,9 +1450,9 @@ export default {
       await this.reversalSale()
     },
     async reversalSale() {
-      if(!this.pendingSaleHeaderId){
+      if (!this.pendingSaleHeaderId) {
         console.info(`Cannot reverse, sale header not fount`)
-        return;
+        return
       }
       this.isLoading = true
       const form = {
@@ -1505,6 +1508,8 @@ export default {
           productId: this.selectedProductId,
           qty: this.newQty,
         })
+        // TODO: 
+              this.openCustomerScreenEnhanced()
         this.qtyDialog = false
         this.selectedProductId = null
         this.newQty = 0
@@ -1539,10 +1544,19 @@ export default {
       'addCustomer',
     ]),
 
+    deteletProductLocal(product) {
+      this.deleteProductFromCart(product)
+      this.openCustomerScreenEnhanced()
+    },
+    decreaseProductAmount(product) {
+      this.deleteProduct(product)
+      this.openCustomerScreenEnhanced()
+    },
     // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
 
     // 1. Replace your existing addProduct method with this enhanced version:
     addProductValidation(product, isGift = false) {
+      //TODO: CUSTOMER SCREEN IS NOT UPDATED FROM THIS FUNCTION
       try {
         // Validate product is active
         if (!product.isActive) {
@@ -1574,6 +1588,7 @@ export default {
         console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
         // If all validations pass, add to store using Vuex action
         this.$store.dispatch('addProduct', cartItem)
+        this.openCustomerScreenEnhanced()
 
         // Show success feedback with quantity info
         this.showAddSuccessMessage(product)
@@ -1849,13 +1864,14 @@ export default {
           )
         } else {
           // Create new sale header
+          console.info(`sale created`)
           response = await this.$axios.post('/api/sale/create', this.saleHeader)
         }
 
         // Handle successful response - both create and update now return similar format
         let successMessage = ''
         let saleHeaderId = ''
-
+        console.info(`TICKET CEATE FUNCTION`)
         if (typeof response.data === 'string' && response.data.includes('-')) {
           // Handle string format: "message - id"
           const parts = response.data.split('-')
@@ -1907,12 +1923,12 @@ export default {
         this.cashReceived = 0
 
         // SHOW SUCCESS ON CUSTOMER SCREEN
-        this.showPaymentSuccessOnCustomerScreen()
+        // this.showPaymentSuccessOnCustomerScreen()
 
         // Hide QR after delay
-        setTimeout(() => {
-          this.hideQRPaymentFromCustomerScreen()
-        }, 3000)
+        // setTimeout(() => {
+        //   this.hideQRPaymentFromCustomerScreen()
+        // }, 3000)
       } catch (error) {
         console.log('Full error object:', error)
         console.log('Error response:', error.response)
@@ -2297,7 +2313,7 @@ export default {
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
-      this.openCustomerScreenEnhanced()
+      // this.openCustomerScreenEnhanced()
     },
   },
 }

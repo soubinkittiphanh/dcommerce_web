@@ -15470,7 +15470,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("99197586", content, true, context)
+  add("29cd0b11", content, true, context)
 };
 
 /***/ }),
@@ -20057,9 +20057,9 @@ module.exports = __webpack_require__.p + "img/cash.b97ff15.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5f6a44d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(181);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5f6a44d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5f6a44d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5f6a44d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5f6a44d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5e5084c8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(181);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5e5084c8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5e5084c8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5e5084c8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_5e5084c8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20070,7 +20070,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-5f6a44d0]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.app-header[data-v-5f6a44d0]{box-shadow:0 4px 20px rgba(0,0,0,.15)!important}.cart-mobile-btn[data-v-5f6a44d0],.menu-btn[data-v-5f6a44d0]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;transition:all .3s ease}.cart-mobile-btn[data-v-5f6a44d0]:hover,.menu-btn[data-v-5f6a44d0]:hover{background:hsla(0,0%,100%,.2)!important;transform:scale(1.05)}.search-field[data-v-5f6a44d0]{border-radius:12px!important;transition:all .3s ease}.search-field[data-v-5f6a44d0]:focus-within{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-2px)}.header-btn[data-v-5f6a44d0]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;border:1px solid hsla(0,0%,100%,.2)!important;margin:0 2px;transition:all .3s ease}.header-btn[data-v-5f6a44d0]:hover{background:hsla(0,0%,100%,.2)!important;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:translateY(-2px)}.active-route[data-v-5f6a44d0]{background:hsla(0,0%,100%,.25)!important;box-shadow:0 2px 10px rgba(0,0,0,.15)}.drawer-left[data-v-5f6a44d0]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-right:1px solid rgba(0,0,0,.08)!important}.terminal-chip[data-v-5f6a44d0]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-chip[data-v-5f6a44d0]:hover{box-shadow:0 8px 25px rgba(255,152,0,.3)!important;transform:translateY(-2px)}.category-item[data-v-5f6a44d0]{border-radius:12px!important;margin:4px 0;transition:all .3s ease}.category-item[data-v-5f6a44d0]:hover{transform:translateX(4px)}.active-category[data-v-5f6a44d0]{box-shadow:0 4px 15px rgba(0,0,0,.1);transform:translateX(6px)}.main-content[data-v-5f6a44d0]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-5f6a44d0]{height:calc(100vh - 80px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-5f6a44d0]{min-height:100%}.cart-drawer[data-v-5f6a44d0]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-left:1px solid rgba(0,0,0,.08)!important}.cart-header[data-v-5f6a44d0]{box-shadow:0 2px 10px rgba(0,0,0,.1)}.customer-chip[data-v-5f6a44d0]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.customer-chip[data-v-5f6a44d0]:hover{box-shadow:0 8px 25px rgba(76,175,80,.3)!important;transform:translateY(-2px)}.customer-bar[data-v-5f6a44d0]{background:linear-gradient(135deg,#f8f9fa,#fff)!important;border-bottom:1px solid rgba(0,0,0,.08)}.action-btn[data-v-5f6a44d0]{transition:all .3s ease}.action-btn[data-v-5f6a44d0]:hover{transform:scale(1.1)}.cart-items[data-v-5f6a44d0]{flex:1;min-height:0}.cart-items-header[data-v-5f6a44d0]{background:linear-gradient(135deg,#f5f5f5,#eee)!important;border-bottom:2px solid rgba(0,0,0,.06)}.cart-items-list[data-v-5f6a44d0]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-5f6a44d0]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:250px}.terminal-dialog .terminal-card[data-v-5f6a44d0]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-dialog .terminal-card[data-v-5f6a44d0]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.terminal-dialog .terminal-card.selected[data-v-5f6a44d0]{transform:translateY(-2px)}@media (max-width:1263px){.cart-drawer[data-v-5f6a44d0]{max-width:500px!important;width:100%!important}.header-btn span[data-v-5f6a44d0]{display:none}.search-field[data-v-5f6a44d0]{margin-bottom:8px}.main-content-wrapper[data-v-5f6a44d0]{height:calc(100vh - 80px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-5f6a44d0]{flex-direction:column;gap:12px}.cart-items-list[data-v-5f6a44d0]{max-height:calc(100vh - 450px)}}@media (max-width:600px){.main-content-wrapper[data-v-5f6a44d0]{height:calc(100vh - 80px)}.app-header[data-v-5f6a44d0]{height:70px!important}.main-content-wrapper[data-v-5f6a44d0]{height:calc(100vh - 70px)}}[data-v-5f6a44d0]::-webkit-scrollbar{width:6px}[data-v-5f6a44d0]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}[data-v-5f6a44d0]::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#c1c1c1,#a8a8a8);border-radius:3px;-webkit-transition:all .3s ease;transition:all .3s ease}[data-v-5f6a44d0]::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#a8a8a8,#909090)}.v-application *[data-v-5f6a44d0]{transition:all .3s cubic-bezier(.4,0,.2,1)}.v-btn[data-v-5f6a44d0]:focus:before{opacity:.12}.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-5f6a44d0]{border:2px solid var(--v-primary-base)!important;border-color:var(--v-primary-base)!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-5e5084c8]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.app-header[data-v-5e5084c8]{box-shadow:0 4px 20px rgba(0,0,0,.15)!important}.cart-mobile-btn[data-v-5e5084c8],.menu-btn[data-v-5e5084c8]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;transition:all .3s ease}.cart-mobile-btn[data-v-5e5084c8]:hover,.menu-btn[data-v-5e5084c8]:hover{background:hsla(0,0%,100%,.2)!important;transform:scale(1.05)}.search-field[data-v-5e5084c8]{border-radius:12px!important;transition:all .3s ease}.search-field[data-v-5e5084c8]:focus-within{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-2px)}.header-btn[data-v-5e5084c8]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;border:1px solid hsla(0,0%,100%,.2)!important;margin:0 2px;transition:all .3s ease}.header-btn[data-v-5e5084c8]:hover{background:hsla(0,0%,100%,.2)!important;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:translateY(-2px)}.active-route[data-v-5e5084c8]{background:hsla(0,0%,100%,.25)!important;box-shadow:0 2px 10px rgba(0,0,0,.15)}.drawer-left[data-v-5e5084c8]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-right:1px solid rgba(0,0,0,.08)!important}.terminal-chip[data-v-5e5084c8]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-chip[data-v-5e5084c8]:hover{box-shadow:0 8px 25px rgba(255,152,0,.3)!important;transform:translateY(-2px)}.category-item[data-v-5e5084c8]{border-radius:12px!important;margin:4px 0;transition:all .3s ease}.category-item[data-v-5e5084c8]:hover{transform:translateX(4px)}.active-category[data-v-5e5084c8]{box-shadow:0 4px 15px rgba(0,0,0,.1);transform:translateX(6px)}.main-content[data-v-5e5084c8]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-5e5084c8]{height:calc(100vh - 80px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-5e5084c8]{min-height:100%}.cart-drawer[data-v-5e5084c8]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-left:1px solid rgba(0,0,0,.08)!important}.cart-header[data-v-5e5084c8]{box-shadow:0 2px 10px rgba(0,0,0,.1)}.customer-chip[data-v-5e5084c8]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.customer-chip[data-v-5e5084c8]:hover{box-shadow:0 8px 25px rgba(76,175,80,.3)!important;transform:translateY(-2px)}.customer-bar[data-v-5e5084c8]{background:linear-gradient(135deg,#f8f9fa,#fff)!important;border-bottom:1px solid rgba(0,0,0,.08)}.action-btn[data-v-5e5084c8]{transition:all .3s ease}.action-btn[data-v-5e5084c8]:hover{transform:scale(1.1)}.cart-items[data-v-5e5084c8]{flex:1;min-height:0}.cart-items-header[data-v-5e5084c8]{background:linear-gradient(135deg,#f5f5f5,#eee)!important;border-bottom:2px solid rgba(0,0,0,.06)}.cart-items-list[data-v-5e5084c8]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-5e5084c8]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:250px}.terminal-dialog .terminal-card[data-v-5e5084c8]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-dialog .terminal-card[data-v-5e5084c8]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.terminal-dialog .terminal-card.selected[data-v-5e5084c8]{transform:translateY(-2px)}@media (max-width:1263px){.cart-drawer[data-v-5e5084c8]{max-width:500px!important;width:100%!important}.header-btn span[data-v-5e5084c8]{display:none}.search-field[data-v-5e5084c8]{margin-bottom:8px}.main-content-wrapper[data-v-5e5084c8]{height:calc(100vh - 80px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-5e5084c8]{flex-direction:column;gap:12px}.cart-items-list[data-v-5e5084c8]{max-height:calc(100vh - 450px)}}@media (max-width:600px){.main-content-wrapper[data-v-5e5084c8]{height:calc(100vh - 80px)}.app-header[data-v-5e5084c8]{height:70px!important}.main-content-wrapper[data-v-5e5084c8]{height:calc(100vh - 70px)}}[data-v-5e5084c8]::-webkit-scrollbar{width:6px}[data-v-5e5084c8]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}[data-v-5e5084c8]::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#c1c1c1,#a8a8a8);border-radius:3px;-webkit-transition:all .3s ease;transition:all .3s ease}[data-v-5e5084c8]::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#a8a8a8,#909090)}.v-application *[data-v-5e5084c8]{transition:all .3s cubic-bezier(.4,0,.2,1)}.v-btn[data-v-5e5084c8]:focus:before{opacity:.12}.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-5e5084c8]{border:2px solid var(--v-primary-base)!important;border-color:var(--v-primary-base)!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -20393,42 +20393,102 @@ const mutations = {
     }
   },
   addProductToCart(state, product) {
-    console.info(`cart item before add ${JSON.stringify(product)}`);
+    console.info(`🛒 [CART] Starting addProductToCart for product:`, JSON.stringify(product));
     try {
       var _state$selectedCustom, _customerPrice;
-      if (!product || !product.id) return;
+      // Input validation
+      if (!product || !product.id) {
+        console.warn(`⚠️ [CART] Invalid product - missing product or product.id`);
+        return;
+      }
+
+      // Customer grade checking
       const customerGrade = (_state$selectedCustom = state.selectedCustomer) === null || _state$selectedCustom === void 0 ? void 0 : _state$selectedCustom.grade;
+      console.info(`👤 [CUSTOMER] Selected customer:`, JSON.stringify(state.selectedCustomer));
+      console.info(`🏷️ [GRADE] Customer grade: "${customerGrade}"`);
       let customerPrice = null;
+
+      // Check if customer has a grade and productPriceList exists
       if (customerGrade && Array.isArray(state.productPriceList)) {
+        console.info(`📊 [PRICELIST] ProductPriceList length: ${state.productPriceList.length}`);
+
+        // Find the product in price list
         const productPrice = state.productPriceList.find(p => p.id === product.id);
-        if (productPrice && Array.isArray(productPrice.priceLists)) {
-          const priceList = productPrice.priceLists.find(pl => pl.grade === customerGrade);
-          customerPrice = priceList === null || priceList === void 0 ? void 0 : priceList.amount;
+        console.info(`🔍 [SEARCH] Found product in price list:`, productPrice ? 'YES' : 'NO');
+        if (productPrice) {
+          console.info(`💰 [PRODUCT_PRICE] Product price data:`, JSON.stringify(productPrice));
+          if (Array.isArray(productPrice.priceLists)) {
+            console.info(`📋 [PRICELISTS] Available price lists count: ${productPrice.priceLists.length}`);
+            console.info(`📋 [PRICELISTS] Available grades:`, productPrice.priceLists.map(pl => pl.grade));
+
+            // Find price list for customer grade
+            const priceList = productPrice.priceLists.find(pl => pl.grade === customerGrade);
+            console.info(`🎯 [GRADE_MATCH] Found price for grade "${customerGrade}":`, priceList ? 'YES' : 'NO');
+            if (priceList) {
+              customerPrice = priceList.amount;
+              console.info(`💵 [CUSTOMER_PRICE] Customer price found: ${customerPrice}`);
+            } else {
+              console.warn(`⚠️ [GRADE_MATCH] No price list found for customer grade "${customerGrade}"`);
+            }
+          } else {
+            console.warn(`⚠️ [PRICELISTS] productPrice.priceLists is not an array:`, typeof productPrice.priceLists);
+          }
+        } else {
+          console.warn(`⚠️ [SEARCH] Product with ID ${product.id} not found in productPriceList`);
+        }
+      } else {
+        if (!customerGrade) {
+          console.info(`ℹ️ [GRADE] No customer grade - using default price`);
+        }
+        if (!Array.isArray(state.productPriceList)) {
+          console.warn(`⚠️ [PRICELIST] productPriceList is not an array:`, typeof state.productPriceList);
         }
       }
+
+      // Price calculation
       const originalProductLocalPrice = product.localPrice;
       product.localPrice = (_customerPrice = customerPrice) !== null && _customerPrice !== void 0 ? _customerPrice : product.localPrice;
+      console.info(`💰 [PRICING] Original price: ${originalProductLocalPrice}`);
+      console.info(`💰 [PRICING] Customer price: ${customerPrice}`);
+      console.info(`💰 [PRICING] Final price used: ${product.localPrice}`);
+
+      // Check for existing product in cart
+      console.info(`🔍 [CART_SEARCH] lineUUIDCheck: ${product.lineUUIDCheck}`);
       const existingProductIndex = state.cartOfproductSelected.findIndex(item => {
-        console.info(`linUUIDCHECK ${product.lineUUIDCheck}`);
         if (!product.lineUUIDCheck) {
+          console.info(`🔍 [CART_SEARCH] Searching by ID only: ${item.id} === ${product.id}`);
           return item.id === product.id;
         } else {
+          console.info(`🔍 [CART_SEARCH] Searching by ID and lineUUID: ${item.id} === ${product.id} && ${item.lineUUID} === ${product.lineUUID}`);
           return item.id === product.id && item.lineUUID === product.lineUUID;
         }
       });
+      console.info(`🔍 [CART_SEARCH] Existing product index: ${existingProductIndex}`);
+
+      // Add or update cart
       if (existingProductIndex !== -1) {
         state.cartOfproductSelected[existingProductIndex].qty++;
+        console.info(`➕ [CART_UPDATE] Increased quantity for existing product. New qty: ${state.cartOfproductSelected[existingProductIndex].qty}`);
       } else {
         state.cartOfproductSelected.push({
           ...product,
           qty: 1
         });
+        console.info(`🆕 [CART_ADD] Added new product to cart. Cart length: ${state.cartOfproductSelected.length}`);
       }
 
       // Restore original price
       product.localPrice = originalProductLocalPrice;
+      console.info(`🔄 [CLEANUP] Restored original product price: ${originalProductLocalPrice}`);
+      console.info(`✅ [CART] Successfully completed addProductToCart. Final cart:`, JSON.stringify(state.cartOfproductSelected.map(item => ({
+        id: item.id,
+        name: item.pro_name,
+        price: item.localPrice,
+        qty: item.qty
+      }))));
     } catch (error) {
-      console.error('Error adding product to cart:', error);
+      console.error(`❌ [ERROR] Error adding product to cart:`, error);
+      console.error(`❌ [ERROR] Stack trace:`, error.stack);
     }
   },
   setGiftForCartItem(state, {
@@ -22432,23 +22492,23 @@ __webpack_require__.d(components_namespaceObject, "ProductForm", function() { re
 __webpack_require__.d(components_namespaceObject, "ProductFormCreate", function() { return ProductFormCreate; });
 __webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
 __webpack_require__.d(components_namespaceObject, "Quotation", function() { return Quotation; });
-__webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { return RolesRoleCard; });
-__webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
-__webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
 __webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
 __webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsNotesDialog", function() { return TicketsNotesDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsPrintDialog", function() { return TicketsPrintDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketCard", function() { return TicketsTicketCard; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketDetailDialog", function() { return TicketsTicketDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { return RolesRoleCard; });
+__webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
+__webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
 __webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
 __webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
 __webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
 __webpack_require__.d(components_namespaceObject, "CAFEPrintBarDialog", function() { return CAFEPrintBarDialog; });
 __webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditDialog", function() { return MAPaymentAuditDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentAuditReportDialog", function() { return MAPaymentAuditReportDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentCompareDialog", function() { return MAPaymentCompareDialog; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentAuditReportDialog", function() { return MAPaymentAuditReportDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsBankAccountInfo", function() { return MAPaymentComponentsBankAccountInfo; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsDateField", function() { return MAPaymentComponentsDateField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsDialogFooter", function() { return MAPaymentComponentsDialogFooter; });
@@ -22465,13 +22525,13 @@ __webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() 
 __webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
 __webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
+__webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
-__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "BenefitMaintain", function() { return BenefitMaintain; });
 __webpack_require__.d(components_namespaceObject, "BenefitView", function() { return BenefitView; });
 __webpack_require__.d(components_namespaceObject, "CompanyTheme", function() { return CompanyTheme; });
@@ -22491,15 +22551,15 @@ __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit",
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAudit", function() { return AccountingArInvoiceAudit; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
+__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(1);
@@ -26612,7 +26672,7 @@ var VListItemGroup = __webpack_require__(121);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
 var VListItemIcon = __webpack_require__(62);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=5f6a44d0&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=5e5084c8&scoped=true
 
 
 
@@ -26641,7 +26701,7 @@ var VListItemIcon = __webpack_require__(62);
 
 
 
-var posvue_type_template_id_5f6a44d0_scoped_true_render = function render() {
+var posvue_type_template_id_5e5084c8_scoped_true_render = function render() {
   var _vm$currentTerminal, _vm$currentTerminal2;
   var _vm = this,
     _c = _vm._self._c;
@@ -27230,7 +27290,10 @@ var posvue_type_template_id_5f6a44d0_scoped_true_render = function render() {
       "fluid": ""
     }
   }, [_c('Nuxt', {
-    key: _vm.productComponentKey
+    key: _vm.productComponentKey,
+    on: {
+      "update-cus-screen": _vm.openCustomerScreenEnhanced
+    }
   })], 1)], 1)]), _vm._v(" "), _c(VNavigationDrawer["a" /* default */], {
     staticClass: "cart-drawer elevation-8",
     attrs: {
@@ -27378,9 +27441,9 @@ var posvue_type_template_id_5f6a44d0_scoped_true_render = function render() {
         "format-number": _vm.formatNumber
       },
       on: {
-        "delete": _vm.deleteProductFromCart,
+        "delete": _vm.deteletProductLocal,
         "update-qty": _vm.openQtyDialog,
-        "decrease": _vm.deleteProduct,
+        "decrease": _vm.decreaseProductAmount,
         "increase": _vm.addProductValidation,
         "price-click": _vm.pricingLogig,
         "configure-gift": _vm.handleGiftConfirm
@@ -27431,9 +27494,9 @@ var posvue_type_template_id_5f6a44d0_scoped_true_render = function render() {
     }
   })], 1)])], 1);
 };
-var posvue_type_template_id_5f6a44d0_scoped_true_staticRenderFns = [];
+var posvue_type_template_id_5e5084c8_scoped_true_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=5f6a44d0&scoped=true
+// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=5e5084c8&scoped=true
 
 // EXTERNAL MODULE: ./components/customer/CustomerList.vue + 4 modules
 var CustomerList = __webpack_require__(94);
@@ -28620,7 +28683,7 @@ var ticket = __webpack_require__(163);
     this.loadCurrency();
     this.checkAllInitData();
     this.initializeMultiPayment();
-
+    this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced);
     // CUSTOMER SCREEN INTEGRATION
     this.$customerWindow = null;
     window.addEventListener('message', this.handleCustomerScreenMessage);
@@ -28685,6 +28748,7 @@ var ticket = __webpack_require__(163);
      * Enhanced customer screen opening with proper company data
      */
     openCustomerScreenEnhanced() {
+      console.info(`customer screen called...`);
       try {
         // Prepare company information exactly like PaymentDialog does
         const companyInfo = {
@@ -28717,7 +28781,7 @@ var ticket = __webpack_require__(163);
         // Send welcome message after window loads
         setTimeout(() => {
           this.sendWelcomeMessage();
-        }, 1000);
+        }, 100);
       } catch (error) {
         console.error('Error opening customer screen:', error);
         Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to open customer screen');
@@ -28944,7 +29008,8 @@ var ticket = __webpack_require__(163);
         await this.multiPayment.initializePayment(this.grandTotal - this.discount, this.pendingSaleHeaderId);
 
         // SHOW QR ON CUSTOMER SCREEN WHEN DIALOG OPENS
-        this.sendQRToCustomerScreen();
+        // this.sendQRToCustomerScreen()
+
         this.multiPaymentDialog = true;
       } catch (error) {
         Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.message || 'ບໍ່ສາມາດເປີດໜ້າຈ່າຍເງິນໄດ້');
@@ -28963,7 +29028,7 @@ var ticket = __webpack_require__(163);
         console.log('Processing single payment - Cart items:', this.productCart.length);
 
         // SHOW QR ON CUSTOMER SCREEN WITH CURRENT CART DATA
-        this.sendQRToCustomerScreen();
+        // this.sendQRToCustomerScreen()
 
         // if (this.currentPaymentCode === 'CASH') {
         //   const totalDue = this.grandTotal - this.discount
@@ -29170,6 +29235,8 @@ var ticket = __webpack_require__(163);
           productId: this.selectedProductId,
           qty: this.newQty
         });
+        // TODO: 
+        this.openCustomerScreenEnhanced();
         this.qtyDialog = false;
         this.selectedProductId = null;
         this.newQty = 0;
@@ -29186,10 +29253,19 @@ var ticket = __webpack_require__(163);
       this.deliveryForm = true;
     },
     ...Object(external_vuex_["mapActions"])(['initiateData', 'setSelectedTerminal', 'setSelectedLocation', 'clearCustomerFormAction', 'setSelectedPayment', 'deleteProduct', 'addProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
+    deteletProductLocal(product) {
+      this.deleteProductFromCart(product);
+      this.openCustomerScreenEnhanced();
+    },
+    decreaseProductAmount(product) {
+      this.deleteProduct(product);
+      this.openCustomerScreenEnhanced();
+    },
     // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
 
     // 1. Replace your existing addProduct method with this enhanced version:
     addProductValidation(product, isGift = false) {
+      //TODO: CUSTOMER SCREEN IS NOT UPDATED FROM THIS FUNCTION
       try {
         // Validate product is active
         if (!product.isActive) {
@@ -29220,6 +29296,7 @@ var ticket = __webpack_require__(163);
         console.info(`DATA MOD: ${JSON.stringify(cartItem)}`);
         // If all validations pass, add to store using Vuex action
         this.$store.dispatch('addProduct', cartItem);
+        this.openCustomerScreenEnhanced();
 
         // Show success feedback with quantity info
         this.showAddSuccessMessage(product);
@@ -29441,12 +29518,14 @@ var ticket = __webpack_require__(163);
           response = await this.$axios.put(`/api/sale/update-v2/${this.saleHeader.id}`, this.saleHeader);
         } else {
           // Create new sale header
+          console.info(`sale created`);
           response = await this.$axios.post('/api/sale/create', this.saleHeader);
         }
 
         // Handle successful response - both create and update now return similar format
         let successMessage = '';
         let saleHeaderId = '';
+        console.info(`TICKET CEATE FUNCTION`);
         if (typeof response.data === 'string' && response.data.includes('-')) {
           // Handle string format: "message - id"
           const parts = response.data.split('-');
@@ -29483,12 +29562,12 @@ var ticket = __webpack_require__(163);
         this.cashReceived = 0;
 
         // SHOW SUCCESS ON CUSTOMER SCREEN
-        this.showPaymentSuccessOnCustomerScreen();
+        // this.showPaymentSuccessOnCustomerScreen()
 
         // Hide QR after delay
-        setTimeout(() => {
-          this.hideQRPaymentFromCustomerScreen();
-        }, 3000);
+        // setTimeout(() => {
+        //   this.hideQRPaymentFromCustomerScreen()
+        // }, 3000)
       } catch (error) {
         var _error$response3;
         console.log('Full error object:', error);
@@ -29806,7 +29885,7 @@ var ticket = __webpack_require__(163);
       this.clearCart();
       this.discount = 0;
       this.cashReceived = 0;
-      this.openCustomerScreenEnhanced();
+      // this.openCustomerScreenEnhanced()
     }
   }
 });
@@ -29827,11 +29906,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var pos_component = Object(componentNormalizer["a" /* default */])(
   layouts_posvue_type_script_lang_js,
-  posvue_type_template_id_5f6a44d0_scoped_true_render,
-  posvue_type_template_id_5f6a44d0_scoped_true_staticRenderFns,
+  posvue_type_template_id_5e5084c8_scoped_true_render,
+  posvue_type_template_id_5e5084c8_scoped_true_staticRenderFns,
   false,
   pos_injectStyles,
-  "5f6a44d0",
+  "5e5084c8",
   "69e9e3a8"
   
 )
@@ -30589,23 +30668,23 @@ const ProductForm = () => __webpack_require__.e(/* import() | components/product
 const ProductFormCreate = () => __webpack_require__.e(/* import() | components/product-form-create */ 131).then(__webpack_require__.bind(null, 498)).then(c => wrapFunctional(c.default || c));
 const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 133).then(__webpack_require__.bind(null, 1038)).then(c => wrapFunctional(c.default || c));
 const Quotation = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 110)).then(c => wrapFunctional(c.default || c));
-const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 139).then(__webpack_require__.bind(null, 1041)).then(c => wrapFunctional(c.default || c));
-const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 140).then(__webpack_require__.bind(null, 1042)).then(c => wrapFunctional(c.default || c));
-const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 141).then(__webpack_require__.bind(null, 1044)).then(c => wrapFunctional(c.default || c));
 const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 142).then(__webpack_require__.bind(null, 1535)).then(c => wrapFunctional(c.default || c));
 const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 144).then(__webpack_require__.bind(null, 1043)).then(c => wrapFunctional(c.default || c));
 const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 150).then(__webpack_require__.bind(null, 575)).then(c => wrapFunctional(c.default || c));
 const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 151).then(__webpack_require__.bind(null, 1536)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketCard = () => __webpack_require__.e(/* import() | components/tickets-ticket-card */ 152).then(__webpack_require__.bind(null, 1025)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketDetailDialog = () => __webpack_require__.e(/* import() | components/tickets-ticket-detail-dialog */ 153).then(__webpack_require__.bind(null, 1026)).then(c => wrapFunctional(c.default || c));
+const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 139).then(__webpack_require__.bind(null, 1041)).then(c => wrapFunctional(c.default || c));
+const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 140).then(__webpack_require__.bind(null, 1042)).then(c => wrapFunctional(c.default || c));
+const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 141).then(__webpack_require__.bind(null, 1044)).then(c => wrapFunctional(c.default || c));
 const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 154).then(__webpack_require__.bind(null, 1037)).then(c => wrapFunctional(c.default || c));
 const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 592)).then(c => wrapFunctional(c.default || c));
 const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 574)).then(c => wrapFunctional(c.default || c));
 const CAFEPrintBarDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-print-bar-dialog */ 35).then(__webpack_require__.bind(null, 1028)).then(c => wrapFunctional(c.default || c));
 const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 36).then(__webpack_require__.bind(null, 557)).then(c => wrapFunctional(c.default || c));
 const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 75).then(__webpack_require__.bind(null, 1537)).then(c => wrapFunctional(c.default || c));
-const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 76).then(__webpack_require__.bind(null, 1538)).then(c => wrapFunctional(c.default || c));
-const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 77).then(__webpack_require__.bind(null, 1539)).then(c => wrapFunctional(c.default || c));
+const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 77).then(__webpack_require__.bind(null, 1538)).then(c => wrapFunctional(c.default || c));
+const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 76).then(__webpack_require__.bind(null, 1539)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsBankAccountInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-bank-account-info */ 78).then(__webpack_require__.bind(null, 1540)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsDateField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-date-field */ 79).then(__webpack_require__.bind(null, 1541)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsDialogFooter = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-footer */ 80).then(__webpack_require__.bind(null, 1542)).then(c => wrapFunctional(c.default || c));
@@ -30622,13 +30701,13 @@ const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a
 const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 91).then(__webpack_require__.bind(null, 594)).then(c => wrapFunctional(c.default || c));
 const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 92).then(__webpack_require__.bind(null, 1022)).then(c => wrapFunctional(c.default || c));
 const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 93).then(__webpack_require__.bind(null, 595)).then(c => wrapFunctional(c.default || c));
-const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 95).then(__webpack_require__.bind(null, 534)).then(c => wrapFunctional(c.default || c));
 const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 731)).then(c => wrapFunctional(c.default || c));
+const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 95).then(__webpack_require__.bind(null, 534)).then(c => wrapFunctional(c.default || c));
+const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1362)).then(c => wrapFunctional(c.default || c));
 const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 1013)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 727)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1551)).then(c => wrapFunctional(c.default || c));
 const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1552)).then(c => wrapFunctional(c.default || c));
-const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1362)).then(c => wrapFunctional(c.default || c));
 const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 1015)).then(c => wrapFunctional(c.default || c));
 const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 1016)).then(c => wrapFunctional(c.default || c));
 const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 49).then(__webpack_require__.bind(null, 724)).then(c => wrapFunctional(c.default || c));
@@ -30648,15 +30727,15 @@ const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | co
 const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 735)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 736)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 639)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 629)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1046)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 728)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 629)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 1047)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 722)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 635)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 636)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1046)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 591)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 635)).then(c => wrapFunctional(c.default || c));
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
