@@ -361,8 +361,9 @@
     <v-main class="main-content">
       <div class="main-content-wrapper">
         <v-container fluid class="pa-0 main-container">
-          <Nuxt :key="productComponentKey"
-          @update-cus-screen="openCustomerScreenEnhanced"
+          <Nuxt
+            :key="productComponentKey"
+            @update-cus-screen="openCustomerScreenEnhanced"
           />
         </v-container>
       </div>
@@ -908,17 +909,22 @@ export default {
           accounts: this.companyData.accounts,
           remark: this.companyData.remark,
         }
+
         this.sendQRToCustomerScreen()
 
         // Encode company data for URL (same as PaymentDialog)
         const companyParam = encodeURIComponent(JSON.stringify(companyInfo))
         const customerScreenPath = `/admin/cafeTable/customer?company=${companyParam}`
 
-        // Open customer screen window
+        // Get screen dimensions
+        const screenWidth = window.screen.width
+        const screenHeight = window.screen.height
+
+        // Open customer screen window - FULLSCREEN
         this.$customerWindow = window.open(
           customerScreenPath,
           'CustomerDisplay',
-          'width=1200,height=800,resizable=yes,scrollbars=yes,location=no,menubar=no,toolbar=no,status=no'
+          `width=${screenWidth},height=${screenHeight},left=0,top=0,resizable=yes,scrollbars=no,location=no,menubar=no,toolbar=no,status=no,titlebar=no,fullscreen=yes`
         )
 
         if (!this.$customerWindow) {
@@ -930,15 +936,22 @@ export default {
           return
         }
 
+        // Try to enter fullscreen mode
+        setTimeout(() => {
+          try {
+            if (
+              this.$customerWindow.document.documentElement.requestFullscreen
+            ) {
+              this.$customerWindow.document.documentElement.requestFullscreen()
+            }
+          } catch (e) {
+            console.log('Fullscreen not supported or blocked')
+          }
+        }, 1000)
+
         // Set up window handlers
         this.setupCustomerWindowHandlers()
-
         console.log('Customer screen opened successfully')
-
-        // Send welcome message after window loads
-        // setTimeout(() => {
-        //   this.sendWelcomeMessage()
-        // }, 100)
       } catch (error) {
         console.error('Error opening customer screen:', error)
         swalError2(this.$swal, 'Error', 'Failed to open customer screen')
@@ -1509,8 +1522,8 @@ export default {
           productId: this.selectedProductId,
           qty: this.newQty,
         })
-        // TODO: 
-              this.openCustomerScreenEnhanced()
+        // TODO:
+        this.openCustomerScreenEnhanced()
         this.qtyDialog = false
         this.selectedProductId = null
         this.newQty = 0

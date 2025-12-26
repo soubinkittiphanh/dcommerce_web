@@ -39,7 +39,7 @@
             <!-- QR Payment Methods Preview - CONSISTENT POSITIONING -->
             <div class="payment-methods-preview">
               <div class="payment-methods-container">
-                <div class="payment-method-item left-qr">
+                <!-- <div class="payment-method-item left-qr">
                   <img
                     :src="bflQrImage"
                     alt="BFL Mobile Banking"
@@ -48,7 +48,7 @@
                   />
                   <span class="payment-method-name">BFL Mobile</span>
                 </div>
-                <div class="payment-method-spacer"></div>
+                <div class="payment-method-spacer"></div> -->
                 <div class="payment-method-item right-qr">
                   <img
                     :src="bcelQrImage"
@@ -330,7 +330,7 @@
               <div class="qr-wrapper">
                 <div class="qr-payment-methods">
                   <!-- LEFT QR -->
-                  <div class="qr-method-item left-qr-payment">
+                  <!-- <div class="qr-method-item left-qr-payment">
                     <img
                       :src="bflQrImage"
                       alt="BFL Mobile Banking"
@@ -338,7 +338,7 @@
                       @error="onPaymentMethodError"
                     />
                     <span class="qr-method-label">BFL Mobile</span>
-                  </div>
+                  </div> -->
 
                   <!-- CENTER SPACER -->
                   <div class="qr-spacer"></div>
