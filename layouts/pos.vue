@@ -865,6 +865,7 @@ export default {
         item: giftData.item,
         giftConfig: giftData.giftConfig,
       })
+      this.openCustomerScreenEnhanced()
     },
     testCustomerScreenWithCurrentCart() {
       console.log('=== DEBUGGING CUSTOMER SCREEN DATA ===')
@@ -935,9 +936,9 @@ export default {
         console.log('Customer screen opened successfully')
 
         // Send welcome message after window loads
-        setTimeout(() => {
-          this.sendWelcomeMessage()
-        }, 100)
+        // setTimeout(() => {
+        //   this.sendWelcomeMessage()
+        // }, 100)
       } catch (error) {
         console.error('Error opening customer screen:', error)
         swalError2(this.$swal, 'Error', 'Failed to open customer screen')
