@@ -142,6 +142,7 @@
       <pricing-option
         :key="pricingDialogKey"
         @close-dialog="pricingDialog = false"
+        @new-price-update="openCustomerScreenEnhanced"
         :record-id="productPricingSelected"
       ></pricing-option>
     </v-dialog>
@@ -859,7 +860,6 @@ export default {
       console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
       console.info(`GIFT DATA ITEM CART logs @POS.vue ${giftData}`)
       // this.$emit('configure-gift', giftData)
-      // TODO:Let continue gift feature from here
       //  please sent this data to cart state to modify cart item split normal and gift amount accordingly
       // this.giftDialogOpen = false
       this.$store.commit('setGiftForCartItem', {
@@ -1252,21 +1252,6 @@ export default {
           this.productCart.length
         )
 
-        // SHOW QR ON CUSTOMER SCREEN WITH CURRENT CART DATA
-        // this.sendQRToCustomerScreen()
-
-        // if (this.currentPaymentCode === 'CASH') {
-        //   const totalDue = this.grandTotal - this.discount
-        //   if (this.cashReceived < totalDue) {
-        //     swalError2(
-        //       this.$swal,
-        //       'Error',
-        //       `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການ ${this.formatNumber(totalDue)}`
-        //     )
-        //     return
-        //   }
-        // }
-
         await this.postTransactionOriginal(false)
       } catch (error) {
         console.error('Single payment error:', error)
@@ -1460,7 +1445,6 @@ export default {
 
     async handleMultiPaymentCancel() {
       this.multiPaymentDialog = false
-      // TODO: SHOULD SET saleHeader reverse here
       await this.reversalSale()
     },
     async reversalSale() {
@@ -1522,7 +1506,6 @@ export default {
           productId: this.selectedProductId,
           qty: this.newQty,
         })
-        // TODO:
         this.openCustomerScreenEnhanced()
         this.qtyDialog = false
         this.selectedProductId = null
@@ -1570,7 +1553,6 @@ export default {
 
     // 1. Replace your existing addProduct method with this enhanced version:
     addProductValidation(product, isGift = false) {
-      //TODO: CUSTOMER SCREEN IS NOT UPDATED FROM THIS FUNCTION
       try {
         // Validate product is active
         if (!product.isActive) {
@@ -1770,16 +1752,6 @@ export default {
       })
     },
     formSaleHeader(remark = '') {
-      // this.saleHeader.discount = this.discount
-      // this.saleHeader.remark = remark
-      // this.saleHeader.total = this.grandTotal - this.discount
-      // this.saleHeader.clientId = this.currenctCustomer.id
-      // this.saleHeader.paymentId = this.currentPayment
-      // this.saleHeader.currencyId = 1
-      // this.saleHeader.lines = this.generateSaleLine
-      // this.saleHeader.userId = this.user.id
-      // this.saleHeader.bookingDate = jsDateToMysqlDate(today)
-      // this.saleHeader.isActive = true
       const today = new Date()
       this.saleHeader.isActive = true
       this.saleHeader.discount = this.discount
@@ -2114,134 +2086,6 @@ export default {
         printWin.close()
       }, 1000)
     },
-    // *********** THE STABLE CODE ONE **********
-    // async postTransactionOriginal(isDeliveryCustomer) {
-    //   if (this.isloading || this.generateSaleLine == 0) {
-    //     if (this.generateSaleLine == 0) {
-    //       swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
-    //     }
-    //     return
-    //   }
-
-    //   const today = new Date()
-    //   this.isloading = true
-    //   this.saleHeader.isActive = true
-    //   this.saleHeader.discount = this.discount
-    //   this.saleHeader.total = this.grandTotal - this.discount
-    //   this.saleHeader.clientId = this.currenctCustomer.id
-    //   this.saleHeader.paymentId = this.currentPayment
-    //   this.saleHeader.currencyId = 1
-    //   this.saleHeader.lines = this.generateSaleLine
-    //   this.saleHeader.userId = this.user.id
-    //   this.saleHeader.bookingDate = jsDateToMysqlDate(today)
-    //   this.saleHeader.locationId = this.currentTerminal['locationId']
-    //   this.saleHeader.id = this.pendingSaleHeaderId
-
-    //   try {
-    //     const response = await this.$axios.post(
-    //       '/api/sale/create',
-    //       this.saleHeader
-    //     )
-
-    //     // Handle successful response
-    //     this.lastTransactionSaleHeaderId = response.data.split('-')[1].trim()
-    //     swalSuccess(this.$swal, 'Succeed', response.data.split('-')[0])
-
-    //     if (isDeliveryCustomer) {
-    //       this.clearCustomerFormAction()
-    //     } else {
-    //       try {
-    //         this.printDefaultTicket()
-    //       } catch (error) {
-    //         console.error(`PRINT TICKET FAIL ${error}`)
-    //       }
-    //     }
-    //     const now = new Date()
-    //     console.info(
-    //       `SALE HEADER CREATED ${this.lastTransactionSaleHeaderId || now}`
-    //     )
-    //     this.newOrder()
-    //     // set value to trigger load product again to refresh stock count
-    //     this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
-    //     localStorage.setItem(
-    //       'saleHeader',
-    //       this.lastTransactionSaleHeaderId || now
-    //     )
-    //     this.discount = 0
-    //     this.cashReceived = 0
-
-    //     // SHOW SUCCESS ON CUSTOMER SCREEN
-    //     this.showPaymentSuccessOnCustomerScreen()
-
-    //     // Hide QR after delay
-    //     setTimeout(() => {
-    //       this.hideQRPaymentFromCustomerScreen()
-    //     }, 3000)
-    //   } catch (error) {
-    //     console.log('Full error object:', error)
-    //     console.log('Error response:', error.response)
-    //     console.log('Error response data:', error.response?.data)
-
-    //     // Get the actual error data
-    //     let errorData = null
-    //     let errorMessage = 'Unknown error occurred'
-
-    //     if (error.response && error.response.data) {
-    //       errorData = error.response.data
-    //     } else if (error.message) {
-    //       errorMessage = error.message
-    //     }
-
-    //     console.log('Processed errorData:', errorData)
-    //     console.log('Type of errorData:', typeof errorData)
-
-    //     // Handle different error response formats
-    //     if (errorData && typeof errorData === 'object') {
-    //       // New JSON format with stockErrors
-    //       if (
-    //         errorData.stockErrors &&
-    //         Array.isArray(errorData.stockErrors) &&
-    //         errorData.stockErrors.length > 0
-    //       ) {
-    //         const stockError = errorData.stockErrors[0] // Get first stock error
-    //         const product = this.findAllProduct.find(
-    //           (el) => el.id == stockError.productId
-    //         )
-
-    //         errorMessage = `ຈຳນວນສິນຄ້າ: ${
-    //           product?.pro_name || 'Unknown Product'
-    //         } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
-    //           stockError.available
-    //         }, ຂາດ: ${stockError.shortage})`
-    //       }
-    //       // JSON object with message
-    //       else if (errorData.message) {
-    //         errorMessage = errorData.message
-    //       }
-    //       // JSON object converted to string
-    //       else {
-    //         errorMessage = JSON.stringify(errorData)
-    //       }
-    //     }
-    //     // Handle string responses (old format)
-    //     else if (typeof errorData === 'string') {
-    //       if (errorData.includes('#')) {
-    //         const id = errorData.split('#')[1]
-    //         const product = this.findAllProduct.find((el) => el.id == id)
-    //         errorMessage = `ຈຳນວນສິນຄ້າ: ${
-    //           product?.pro_name || ''
-    //         } ມີບໍ່ພຽງພໍໃນສາງ`
-    //       } else {
-    //         errorMessage = errorData
-    //       }
-    //     }
-
-    //     console.log('Final error message:', errorMessage)
-    //     swalError2(this.$swal, 'Error', errorMessage)
-    //   }
-
-    //   this.isloading = false
-    // },
 
     formatNumber(val) {
       return getFormatNum(val)

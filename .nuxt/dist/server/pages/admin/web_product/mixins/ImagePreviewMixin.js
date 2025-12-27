@@ -1,7 +1,7 @@
-exports.ids = [308];
+exports.ids = [312];
 exports.modules = {
 
-/***/ 1573:
+/***/ 1592:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,7 +9,7 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/web_product/mixins/ImagePreviewMixin.vue?vue&type=script&lang=js
-var ImagePreviewMixinvue_type_script_lang_js = __webpack_require__(830);
+var ImagePreviewMixinvue_type_script_lang_js = __webpack_require__(833);
 
 // CONCATENATED MODULE: ./pages/admin/web_product/mixins/ImagePreviewMixin.vue?vue&type=script&lang=js
  /* harmony default export */ var mixins_ImagePreviewMixinvue_type_script_lang_js = (ImagePreviewMixinvue_type_script_lang_js["a" /* default */]); 
@@ -39,7 +39,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 830:
+/***/ 833:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81,7 +81,7 @@ var component = Object(componentNormalizer["a" /* default */])(
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(400)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(401)["URL"]))
 
 /***/ })
 

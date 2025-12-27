@@ -20,7 +20,7 @@
       <v-card class="terminal-dialog elevation-12">
         <v-card-title class="primary white--text py-4">
           <v-icon left size="28">mdi-monitor</v-icon>
-          <span class="text-h5">ເລືອກ Terminal</span>
+          <span class="">ເລືອກ Terminal</span>
           <v-spacer></v-spacer>
           <v-icon color="white">mdi-lan-connect</v-icon>
         </v-card-title>
@@ -45,7 +45,7 @@
                     <v-radio :value="terminal.id" color="primary"></v-radio>
                   </v-col>
                   <v-col>
-                    <div class="text-subtitle-1 font-weight-bold mb-1">
+                    <div class="font-weight-bold mb-1">
                       {{ terminal.name }}
                     </div>
                     <div class="grey--text">
@@ -207,19 +207,25 @@
           <!-- Right Section - Action Buttons -->
           <v-col cols="12" md="8" lg="9" class="d-flex justify-end">
             <div class="d-flex align-center flex-wrap ga-2">
-              <!-- Customer Screen Button -->
+              <!-- Customer Screen Button - ENHANCED -->
               <v-btn
                 class="header-btn mr-2"
-                color="white"
+                :color="isCustomerDisplayOpen() ? 'success' : 'white'"
                 text
-                @click="openCustomerScreen"
+                @click="openCustomerScreenEnhanced"
                 large
                 rounded
               >
-                <v-icon left size="20">mdi-monitor-share</v-icon>
-                <span class="d-none d-sm-inline font-weight-medium"
-                  >ຈໍລູກຄ້າ</span
-                >
+                <v-icon left size="20">
+                  {{
+                    isCustomerDisplayOpen()
+                      ? 'mdi-monitor-eye'
+                      : 'mdi-monitor-share'
+                  }}
+                </v-icon>
+                <span class="d-none d-sm-inline font-weight-medium">
+                  {{ isCustomerDisplayOpen() ? 'ອັບເດດຈໍ' : 'ຈໍລູກຄ້າ' }}
+                </span>
               </v-btn>
 
               <!-- Navigation Buttons -->
@@ -269,10 +275,20 @@
               solo-inverted
               hide-details
               class="search-field elevation-2"
-
             />
           </v-col>
         </v-row>
+        <!-- <v-btn
+          class="header-btn mr-2"
+          color="warning"
+          text
+          @click="testCustomerScreenWithCurrentCart"
+          large
+          rounded
+        >
+          <v-icon left size="20">mdi-bug</v-icon>
+          <span class="d-none d-sm-inline font-weight-medium">DEBUG</span>
+        </v-btn> -->
       </div>
       <!-- Terminal Header -->
       <div class="drawer-header pa-4 ma-0">
@@ -286,13 +302,13 @@
           <v-card-text class="pa-3">
             <v-row align="center" no-gutters>
               <v-col cols="auto" class="mr-3">
-                <v-icon color="orange darken-2" size="24">mdi-monitor</v-icon>
+                <v-icon color="white darken-2" size="24">mdi-monitor</v-icon>
               </v-col>
               <v-col>
                 <div class="font-weight-bold">
                   {{ currentTerminal?.name || 'ເລືອກ Terminal' }}
                 </div>
-                <div class="text-caption grey--text">
+                <div class="text-caption">
                   {{ currentTerminal?.description || 'ກະລຸນາເລືອກ Terminal' }}
                 </div>
               </v-col>
@@ -345,7 +361,10 @@
     <v-main class="main-content">
       <div class="main-content-wrapper">
         <v-container fluid class="pa-0 main-container">
-          <Nuxt :key="productComponentKey" />
+          <Nuxt
+            :key="productComponentKey"
+            @update-cus-screen="openCustomerScreenEnhanced"
+          />
         </v-container>
       </div>
     </v-main>
@@ -363,7 +382,7 @@
     >
       <div class="cart-container">
         <!-- Enhanced Cart Header -->
-        <div class="cart-header pa-4">
+        <div class="cart-header pa-4" v-if="1 == 0">
           <v-row align="center" no-gutters>
             <v-col>
               <div class="d-flex align-center">
@@ -480,11 +499,12 @@
                   :key="item.id"
                   :item="item"
                   :format-number="formatNumber"
-                  @delete="deleteProductFromCart"
+                  @delete="deteletProductLocal"
                   @update-qty="openQtyDialog"
-                  @decrease="deleteProduct"
-                  @increase="addProduct"
+                  @decrease="decreaseProductAmount"
+                  @increase="addProductValidation"
                   @price-click="pricingLogig"
+                  @configure-gift="handleGiftConfirm"
                 />
               </template>
 
@@ -513,6 +533,8 @@
           :selected-payment="currentPayment"
           :format-number="formatNumber"
           :svg-icon="svgIcon"
+          :enablePredefinedPayments="true"
+          :defaultPaymentMethods="[14, 15]"
           @update:discount="discount = $event"
           @update:cash-received="cashReceived = $event"
           @toggle-checkout="showCheckOut = !showCheckOut"
@@ -542,7 +564,7 @@ import CartFooterComponent from '~/components/pos/CartFooterComponent.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 import { hostName, mainCompanyInfo } from '~/common/api'
 import { defaultTicket, customerTicket } from '~/common/ticket.js'
-
+import Vue from 'vue'
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
 import {
   swalSuccess,
@@ -563,8 +585,16 @@ export default {
     MultiPaymentDialog,
   },
   name: 'DefaultLayout',
+  provide() {
+    return {
+      sharedState: this.sharedState,
+    }
+  },
   data() {
     return {
+      sharedState: Vue.observable({
+        saleHeader: 0,
+      }),
       multiPaymentDialog: false,
       pendingSaleHeaderId: null,
       isCreatingSale: false,
@@ -630,6 +660,7 @@ export default {
       shippingFormKey: 1,
       currencyList: [],
       saleHeader: {
+        id: null,
         bookingDate: '',
         remark: '',
         total: 0,
@@ -637,12 +668,42 @@ export default {
         isActive: true,
       },
       stateValue: '',
+
+      // CUSTOMER SCREEN INTEGRATION - NEW
+      $customerWindow: null,
     }
   },
 
   computed: {
+    // ENHANCED COMPANY DATA FOR CUSTOMER SCREEN
+
     companyData() {
-      return mainCompanyInfo()
+      const baseCompany = mainCompanyInfo()
+
+      // Try to get enhanced company data from terminal/location
+      const terminalCompany = this.currentTerminal?.location?.company
+
+      console.warn(
+        `POS Terminal company ${JSON.stringify(this.currentTerminal)}`
+      )
+      const baseUrl = this.$axios.defaults.baseURL || ''
+      return {
+        name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
+        address:
+          this.formatCompanyAddress(terminalCompany) ||
+          baseCompany?.address ||
+          '123 Main Street',
+        tel: terminalCompany?.tel || baseCompany?.tel || '',
+        email: terminalCompany?.email || baseCompany?.email || '',
+        bank: terminalCompany?.bank || baseCompany?.bank || '',
+        accountName:
+          terminalCompany?.accountName || baseCompany?.accountName || '',
+        accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
+        remark: terminalCompany?.remark || baseCompany?.remark || '',
+        ticketLogo:
+          `${baseUrl}/${terminalCompany.profile_image_path}` ||
+          'default-logo.png',
+      }
     },
 
     changes() {
@@ -714,15 +775,19 @@ export default {
     generateSaleLine() {
       let lines = []
       for (const iterator of this.productCart) {
+        console.info(`PORUCDDDD ===> ${JSON.stringify(iterator)}`)
         lines.push({
           quantity: iterator.qty,
           unitRate: 1,
           price: iterator.localPrice,
           discount: 0,
+          validateStockOnSale: iterator.validateStockOnSale,
           productId: iterator.id,
           productKey: iterator.id,
           unitId: iterator.stockUnitId,
           total: iterator.qty * iterator.localPrice,
+          isGift: iterator.isGift,
+          priceListId: iterator.priceListId,
           isActive: true,
         })
       }
@@ -758,6 +823,10 @@ export default {
     this.loadCurrency()
     this.checkAllInitData()
     this.initializeMultiPayment()
+    this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
+    // CUSTOMER SCREEN INTEGRATION
+    this.$customerWindow = null
+    window.addEventListener('message', this.handleCustomerScreenMessage)
 
     if (this.$vuetify.breakpoint.lgAndUp) {
       this.drawer_right = true
@@ -766,9 +835,17 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.checkAllInitData)
+
+    // CUSTOMER SCREEN CLEANUP
+    // this.closeCustomerDisplayWindow()
+    window.removeEventListener('message', this.handleCustomerScreenMessage)
   },
 
   watch: {
+    cartOfProduct(newVal, oldVal) {
+      console.log('Cart changed:', newVal)
+      this.sendWelcomeMessage()
+    },
     selectedItem(val) {
       if (val != undefined) {
         this.updateSelectedCategoryId(this.categoryList[val]['categ_id'])
@@ -777,13 +854,349 @@ export default {
   },
 
   methods: {
-    openCustomerScreen() {
-      const customerScreenPath = '/admin/cafeTable/customer'
-      window.open(
-        customerScreenPath,
-        'CustomerDisplay',
-        'width=1200,height=800,resizable=yes,scrollbars=yes'
+    handleGiftConfirm(giftData) {
+      // Emit gift configuration to parent component
+      console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
+      console.info(`GIFT DATA ITEM CART logs @POS.vue ${giftData}`)
+      // this.$emit('configure-gift', giftData)
+      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly
+      // this.giftDialogOpen = false
+      this.$store.commit('setGiftForCartItem', {
+        item: giftData.item,
+        giftConfig: giftData.giftConfig,
+      })
+      this.openCustomerScreenEnhanced()
+    },
+    testCustomerScreenWithCurrentCart() {
+      console.log('=== DEBUGGING CUSTOMER SCREEN DATA ===')
+      console.log('Current cart:', this.productCart)
+      console.log('Product count:', this.productCart.length)
+      console.log('All products available:', this.findAllProduct.length)
+      console.log('Current terminal:', this.currentTerminal)
+      console.log('Grand total:', this.grandTotal)
+      console.log('Discount:', this.discount)
+
+      const formattedItems = this.formatOrderItemsForCustomerScreen()
+      const formattedSummary = this.formatOrderSummaryForCustomerScreen()
+
+      console.log('Formatted items for customer screen:', formattedItems)
+      console.log('Formatted summary for customer screen:', formattedSummary)
+
+      // Send test data
+      this.sendQRToCustomerScreen()
+      console.log('=== END DEBUG ===')
+    },
+
+    // ================================================
+    // CUSTOMER SCREEN INTEGRATION METHODS - NEW
+    // ================================================
+
+    /**
+     * Enhanced customer screen opening with proper company data
+     */
+    openCustomerScreenEnhanced() {
+      console.info(`customer screen called...`)
+      try {
+        // Prepare company information exactly like PaymentDialog does
+        const companyInfo = {
+          name: this.companyData.name,
+          address: this.companyData.address,
+          tel: this.companyData.tel,
+          email: this.companyData.email,
+          bank: this.companyData.bank,
+          accountName: this.companyData.accountName,
+          accounts: this.companyData.accounts,
+          remark: this.companyData.remark,
+        }
+
+        this.sendQRToCustomerScreen()
+
+        // Encode company data for URL (same as PaymentDialog)
+        const companyParam = encodeURIComponent(JSON.stringify(companyInfo))
+        const customerScreenPath = `/admin/cafeTable/customer?company=${companyParam}`
+
+        // Get screen dimensions
+        const screenWidth = window.screen.width
+        const screenHeight = window.screen.height
+
+        // Open customer screen window - FULLSCREEN
+        this.$customerWindow = window.open(
+          customerScreenPath,
+          'CustomerDisplay',
+          `width=${screenWidth},height=${screenHeight},left=0,top=0,resizable=yes,scrollbars=no,location=no,menubar=no,toolbar=no,status=no,titlebar=no,fullscreen=yes`
+        )
+
+        if (!this.$customerWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Please allow popups for customer display'
+          )
+          return
+        }
+
+        // Try to enter fullscreen mode
+        setTimeout(() => {
+          try {
+            if (
+              this.$customerWindow.document.documentElement.requestFullscreen
+            ) {
+              this.$customerWindow.document.documentElement.requestFullscreen()
+            }
+          } catch (e) {
+            console.log('Fullscreen not supported or blocked')
+          }
+        }, 1000)
+
+        // Set up window handlers
+        this.setupCustomerWindowHandlers()
+        console.log('Customer screen opened successfully')
+      } catch (error) {
+        console.error('Error opening customer screen:', error)
+        swalError2(this.$swal, 'Error', 'Failed to open customer screen')
+      }
+    },
+
+    /**
+     * Set up customer window event handlers
+     */
+    setupCustomerWindowHandlers() {
+      if (!this.$customerWindow) return
+
+      this.$customerWindow.addEventListener('beforeunload', () => {
+        console.log('Customer display window is closing')
+        this.$customerWindow = null
+      })
+    },
+
+    /**
+     * Send welcome message to customer screen
+     */
+    sendWelcomeMessage() {
+      const formattedOrderItems = this.formatOrderItemsForCustomerScreen()
+      const formattedOrderSummary = this.formatOrderSummaryForCustomerScreen()
+
+      const message = {
+        type: 'SHOW_QR_PAYMENT',
+        data: {
+          amount: this.grandTotal - this.discount,
+          storeName: this.companyData.name,
+          timestamp: Date.now(),
+          orderItems: formattedOrderItems,
+          orderSummary: formattedOrderSummary,
+        },
+      }
+      this.sendToCustomerScreen(message)
+    },
+
+    /**
+     * Send message to customer screen
+     */
+    sendToCustomerScreen(message) {
+      try {
+        // Store in localStorage for persistence
+        localStorage.setItem('customerDisplay', JSON.stringify(message))
+
+        // Also send via postMessage if window is open
+        if (this.$customerWindow && !this.$customerWindow.closed) {
+          this.$customerWindow.postMessage(message, '*')
+        }
+
+        console.log('Message sent to customer screen:', message)
+      } catch (error) {
+        console.error('Failed to send message to customer screen:', error)
+      }
+    },
+
+    /**
+     * Send QR data to customer screen during payment
+     */
+    sendQRToCustomerScreen() {
+      if (!this.productCart.length) {
+        console.log('No items in cart for customer screen QR')
+        return
+      }
+
+      // Format order items BEFORE sending to customer screen
+      const formattedOrderItems = this.formatOrderItemsForCustomerScreen()
+      const formattedOrderSummary = this.formatOrderSummaryForCustomerScreen()
+
+      console.log(
+        'Sending order items to customer screen:',
+        formattedOrderItems
       )
+      console.log(
+        'Sending order summary to customer screen:',
+        formattedOrderSummary
+      )
+
+      const qrData = {
+        amount: this.grandTotal - this.discount,
+        tableNumber: this.currentTerminal?.name || 'POS-TERMINAL',
+        ticketId: this.lastTransactionSaleHeaderId || null,
+        qrString: this.generateQRForCustomerScreen(),
+        timestamp: Date.now(),
+        // DIRECTLY PASS THE FORMATTED ORDER DATA
+        orderItems: formattedOrderItems,
+        orderSummary: formattedOrderSummary,
+      }
+
+      const message = {
+        type: 'SHOW_QR_PAYMENT',
+        data: qrData,
+      }
+
+      this.sendToCustomerScreen(message)
+      console.info(
+        `Complete QR data sent to customer screen: ${JSON.stringify(qrData)}`
+      )
+    },
+
+    /**
+     * Generate QR string for customer screen
+     */
+    generateQRForCustomerScreen() {
+      const amount = Math.round(this.grandTotal - this.discount)
+      const terminal = this.currentTerminal?.name || 'MART'
+
+      const amountStr = amount.toString().padStart(6, '0')
+      const tableStr = terminal.toString().padStart(6, '0')
+
+      // Generate QR string similar to PaymentDialog
+      return `00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405${amountStr}05802LA5907KHAMMAO6260011713a321asS321as2250302120713terminal${tableStr}0812${terminal} payment63041c9f`
+    },
+
+    /**
+     * Format order items for customer screen display
+     */
+    formatOrderItemsForCustomerScreen() {
+      console.log('Formatting cart items:', this.productCart)
+      console.log('Available products for mapping:', this.findAllProduct.length)
+
+      return this.productCart.map((cartItem) => {
+        // Find the full product details
+        const product = this.findAllProduct.find((p) => p.id === cartItem.id)
+
+        const formattedItem = {
+          id: cartItem.id,
+          name: product?.pro_name || cartItem.name || `Product ${cartItem.id}`,
+          description: product?.pro_desc || cartItem.description || '',
+          category: product?.categ_name || 'General',
+          quantity: cartItem.qty,
+          unitPrice: cartItem.localPrice,
+          totalPrice: cartItem.qty * cartItem.localPrice,
+          status: 'pending',
+        }
+
+        console.log(`Formatted item ${cartItem.id}:`, formattedItem)
+        return formattedItem
+      })
+    },
+
+    /**
+     * Format order summary for customer screen
+     */
+    formatOrderSummaryForCustomerScreen() {
+      const subtotal = this.grandTotal
+      const discount = this.discount
+      const total = subtotal - discount
+
+      const summary = {
+        subtotal: subtotal,
+        tax: 0, // Add tax calculation if you have it
+        taxRate: 0,
+        discount: discount,
+        total: total,
+      }
+
+      console.log('Formatted order summary:', summary)
+      return summary
+    },
+
+    /**
+     * Show payment success on customer screen
+     */
+    showPaymentSuccessOnCustomerScreen() {
+      const message = {
+        type: 'PAYMENT_SUCCESS',
+        data: {
+          amount: this.grandTotal - this.discount,
+          tableNumber: this.currentTerminal?.name || 'POS',
+        },
+        timestamp: Date.now(),
+      }
+
+      this.sendToCustomerScreen(message)
+    },
+
+    /**
+     * Hide QR from customer screen
+     */
+    hideQRPaymentFromCustomerScreen() {
+      const message = {
+        type: 'HIDE_QR_PAYMENT',
+        timestamp: Date.now(),
+      }
+
+      this.sendToCustomerScreen(message)
+      localStorage.removeItem('customerDisplay')
+    },
+
+    /**
+     * Check if customer display window is open
+     */
+    isCustomerDisplayOpen() {
+      return this.$customerWindow && !this.$customerWindow.closed
+    },
+
+    /**
+     * Close customer display window
+     */
+    closeCustomerDisplayWindow() {
+      if (this.$customerWindow && !this.$customerWindow.closed) {
+        this.$customerWindow.close()
+      }
+      this.$customerWindow = null
+      localStorage.removeItem('customerDisplay')
+    },
+
+    /**
+     * Handle messages from customer screen
+     */
+    handleCustomerScreenMessage(event) {
+      try {
+        if (event.data && typeof event.data === 'object') {
+          console.log('Received message from customer screen:', event.data)
+          // Handle any responses from customer screen if needed
+        }
+      } catch (error) {
+        console.error('Error handling customer screen message:', error)
+      }
+    },
+
+    /**
+     * Format company address
+     */
+    formatCompanyAddress(company) {
+      if (!company) return ''
+
+      let formattedAddress = ''
+      if (company.address) formattedAddress += company.address
+      if (company.village) formattedAddress += `<br>${company.village}`
+      if (company.district) formattedAddress += `, ${company.district}`
+      if (company.province) formattedAddress += `, ${company.province}`
+
+      return formattedAddress || company.address || ''
+    },
+
+    // ================================================
+    // EXISTING METHODS WITH CUSTOMER SCREEN INTEGRATION
+    // ================================================
+
+    // Keep your existing openCustomerScreen method as backup
+    openCustomerScreen() {
+      // Redirect to enhanced version
+      this.openCustomerScreenEnhanced()
     },
 
     initializeMultiPayment() {
@@ -797,11 +1210,20 @@ export default {
       }
 
       try {
+        console.log(
+          'Opening multi-payment dialog - Cart items:',
+          this.productCart.length
+        )
+
         await this.createSaleHeader()
         await this.multiPayment.initializePayment(
           this.grandTotal - this.discount,
           this.pendingSaleHeaderId
         )
+
+        // SHOW QR ON CUSTOMER SCREEN WHEN DIALOG OPENS
+        // this.sendQRToCustomerScreen()
+
         this.multiPaymentDialog = true
       } catch (error) {
         swalError2(
@@ -824,21 +1246,15 @@ export default {
           return
         }
 
-        if (this.currentPaymentCode === 'CASH') {
-          const totalDue = this.grandTotal - this.discount
-          if (this.cashReceived < totalDue) {
-            swalError2(
-              this.$swal,
-              'Error',
-              `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການ ${this.formatNumber(totalDue)}`
-            )
-            return
-          }
-        }
+        console.log(
+          'Processing single payment - Cart items:',
+          this.productCart.length
+        )
 
         await this.postTransactionOriginal(false)
       } catch (error) {
         console.error('Single payment error:', error)
+        this.hideQRPaymentFromCustomerScreen() // Hide QR on error
         swalError2(
           this.$swal,
           'Error',
@@ -877,9 +1293,69 @@ export default {
         this.pendingSaleHeaderId =
           response.data.saleHeaderId || response.data.id
         this.lastTransactionSaleHeaderId = this.pendingSaleHeaderId
+        console.info(`PENDING SALE HEADER ${this.pendingSaleHeaderId}`)
       } catch (error) {
+        console.log('Full error object:', error)
+        console.log('Error response:', error.response)
+        console.log('Error response data:', error.response?.data)
+
+        // Get the actual error data
+        let errorData = null
+        let errorMessage = 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້' // Default Lao message
+
+        if (error.response && error.response.data) {
+          errorData = error.response.data
+        } else if (error.message) {
+          errorMessage = error.message
+        }
+
+        console.log('Processed errorData:', errorData)
+        console.log('Type of errorData:', typeof errorData)
+
+        // Handle different error response formats
+        if (errorData && typeof errorData === 'object') {
+          // New JSON format with stockErrors
+          if (
+            errorData.stockErrors &&
+            Array.isArray(errorData.stockErrors) &&
+            errorData.stockErrors.length > 0
+          ) {
+            const stockError = errorData.stockErrors[0] // Get first stock error
+            const product = this.findAllProduct.find(
+              (el) => el.id == stockError.productId
+            )
+
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || 'Unknown Product'
+            } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
+              stockError.available
+            }, ຂາດ: ${stockError.shortage})`
+          }
+          // JSON object with message
+          else if (errorData.message) {
+            errorMessage = errorData.message
+          }
+          // JSON object converted to string
+          else {
+            errorMessage = JSON.stringify(errorData)
+          }
+        }
+        // Handle string responses (old format)
+        else if (typeof errorData === 'string') {
+          if (errorData.includes && errorData.includes('#')) {
+            const id = errorData.split('#')[1]
+            const product = this.findAllProduct.find((el) => el.id == id)
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || ''
+            } ມີບໍ່ພຽງພໍໃນສາງ`
+          } else {
+            errorMessage = errorData
+          }
+        }
+
+        console.log('Final error message:', errorMessage)
         console.error('Error creating sale header:', error)
-        throw new Error(error.response?.data || 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້')
+        throw new Error(errorMessage)
       } finally {
         this.isCreatingSale = false
         this.isloading = false
@@ -889,6 +1365,14 @@ export default {
     async handleMultiPaymentConfirm(paymentData) {
       try {
         this.isloading = true
+
+        console.log(
+          'Processing multi-payment - Cart items:',
+          this.productCart.length
+        )
+
+        // SHOW QR ON CUSTOMER SCREEN BEFORE PROCESSING WITH CURRENT CART DATA
+        this.sendQRToCustomerScreen()
 
         if (!paymentData || paymentData.length === 0) {
           throw new Error('ຕ້ອງມີການຈ່າຍເງິນຢ່າງໜ້ອຍ 1 ວິທີ')
@@ -909,12 +1393,22 @@ export default {
         }
 
         await this.$axios.post('/api/sale-payment/bulk', paymentData)
-
+        this.formSaleHeader('')
+        const response = await this.$axios.post(
+          '/api/sale/create-line-only',
+          this.saleHeader
+        )
+        // SHOW SUCCESS ON CUSTOMER SCREEN
+        this.showPaymentSuccessOnCustomerScreen()
+        // set value to trigger load product again to refresh stock count
+        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
         this.printDefaultTicket()
         this.completeTransaction()
       } catch (error) {
         console.error('Multi-payment error:', error)
+        this.hideQRPaymentFromCustomerScreen() // Hide QR on error
+
         let errorMessage = error.message
 
         if (error.response?.data) {
@@ -941,19 +1435,46 @@ export default {
       if (this.multiPayment) {
         this.multiPayment.clearPayments()
       }
+
+      // HIDE QR AFTER SUCCESSFUL TRANSACTION
+      setTimeout(() => {
+        this.hideQRPaymentFromCustomerScreen()
+      }, 2000)
     },
 
-    handleMultiPaymentCancel() {
+    async handleMultiPaymentCancel() {
       this.multiPaymentDialog = false
+      await this.reversalSale()
     },
-
+    async reversalSale() {
+      if (!this.pendingSaleHeaderId) {
+        console.info(`Cannot reverse, sale header not fount`)
+        return
+      }
+      this.isLoading = true
+      const form = {
+        isActive: false,
+        remark: 'UNDO MULTI PAYMENT TXN',
+        cancel_fee: 0,
+      }
+      try {
+        form.customerId = null
+        console.log(`${JSON.stringify(form)}`)
+        const response = await this.$axios.put(
+          `api/sale/reverse/${this.pendingSaleHeaderId}`,
+          form
+        )
+        if ((response.status = 200)) {
+          // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
+        }
+      } catch (error) {
+        swalError2(this.$swal, 'Error', 'Something went wrong ' + error)
+      }
+      this.isLoading = false
+    },
     handleMultiPaymentError(error) {
       console.error('Multi-payment error:', error)
-      swalError2(
-        this.$swal,
-        'Error',
-        error.message || 'ເກີດຂໍ້ຜິດພາດໃນການຈ່າຍເງິນ'
-      )
+      swalError2(this.$swal, 'Error', error.message || 'ເກີດຂໍ້ຜິດພາດໃນການຊຳລະ')
     },
 
     switchTerminalAction() {
@@ -971,17 +1492,20 @@ export default {
     },
 
     openQtyDialog(item) {
+      console.info(`selected product ${JSON.stringify(item)}`)
       this.selectedProductId = item.id
       this.newQty = item.qty
       this.qtyDialog = true
     },
 
     updateQty() {
+      console.info(`update qty ... ${this.newQty} ${this.selectedProductId}`)
       if (this.selectedProductId !== null) {
-        this.$store.commit('UPDATE_PRODUCT_QTY', {
-          id: this.selectedProductId,
+        this.$store.commit('UPDATE_QTY', {
+          productId: this.selectedProductId,
           qty: this.newQty,
         })
+        this.openCustomerScreenEnhanced()
         this.qtyDialog = false
         this.selectedProductId = null
         this.newQty = 0
@@ -1016,6 +1540,179 @@ export default {
       'addCustomer',
     ]),
 
+    deteletProductLocal(product) {
+      this.deleteProductFromCart(product)
+      this.openCustomerScreenEnhanced()
+    },
+    decreaseProductAmount(product) {
+      this.deleteProduct(product)
+      this.openCustomerScreenEnhanced()
+    },
+    // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
+
+    // 1. Replace your existing addProduct method with this enhanced version:
+    addProductValidation(product, isGift = false) {
+      try {
+        // Validate product is active
+        if (!product.isActive) {
+          this.showError('Product is inactive')
+          return false
+        }
+
+        // Check stock if validation is enabled
+        if (product.validateStockOnSale === 1) {
+          const productStock = this.findAllProduct.find(
+            (p) => p.id === product.id
+          )
+          if (productStock && productStock.stock <= 0) {
+            this.showError('Stock not enough')
+            return false
+          }
+        }
+
+        // NEW: Check card_count limit before adding to cart
+        if (!this.validateCardCountForIncrease(product)) {
+          return false
+        }
+        const cartItem = {
+          ...product, // copy all product fields
+          isGift: isGift,
+          lineUUIDCheck: true,
+          lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
+        }
+        console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
+        // If all validations pass, add to store using Vuex action
+        this.$store.dispatch('addProduct', cartItem)
+        this.openCustomerScreenEnhanced()
+
+        // Show success feedback with quantity info
+        this.showAddSuccessMessage(product)
+
+        return true
+      } catch (error) {
+        console.error('Error adding product:', error)
+        this.showError('Failed to add product to cart')
+        return false
+      }
+    },
+
+    // 2. Add this new validation method:
+    // SIMPLE VERSION WITHOUT WARNING MESSAGE
+
+    validateCardCountForIncrease(product) {
+      const cardCountLimit = product.card_count
+
+      // If card_count is not defined, null, or 0, don't allow any additions
+      if (!cardCountLimit || cardCountLimit <= 0) {
+        if (this.$toast) {
+          this.$toast.error(
+            `Product ${product.pro_name} is not available for purchase`,
+            { position: 'bottom-center' }
+          )
+        }
+        return false
+      }
+
+      // Find if this product is already in the cart
+      const existingCartItem = this.cartOfProduct.find((item) => {
+        return item.pro_id === product.pro_id || item.id === product.id
+      })
+
+      if (existingCartItem) {
+        const currentQty = existingCartItem.qty
+
+        // Check if adding one more would exceed card_count
+        if (currentQty >= cardCountLimit) {
+          if (this.$toast) {
+            this.$toast.error(
+              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${product.pro_name}`,
+              { position: 'bottom-center' }
+            )
+          }
+          return false
+        }
+        // Removed the warning section that was causing the error
+      }
+
+      return true
+    },
+
+    // 3. Add this helper method for success messages:
+    showAddSuccessMessage(product) {
+      if (!this.$toast) return
+
+      const existingItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      const newQty = existingItem ? existingItem.qty : 1
+      const limit = product.card_count
+
+      if (limit && limit > 0) {
+        const remaining = limit - newQty
+
+        if (remaining > 0) {
+          this.$toast.success(
+            `${product.pro_name} added. ${remaining} more allowed`,
+            { position: 'bottom-center' }
+          )
+        } else {
+          this.$toast.success(`${product.pro_name} added. Limit reached!`, {
+            position: 'bottom-center',
+          })
+        }
+      } else {
+        this.$toast.success(`${product.pro_name} added to cart`)
+      }
+    },
+
+    // 4. Add this helper method for errors (if you don't have it):
+    showError(message) {
+      if (this.$toast) {
+        this.$toast.error(message)
+      } else if (this.$swal) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: message,
+          timer: 2000,
+          timerProgressBar: true,
+        })
+      } else {
+        alert(message)
+      }
+    },
+
+    // 5. OPTIONAL: Add these computed properties for enhanced UI:
+    canAddProductToCart(product) {
+      if (!product.card_count || product.card_count <= 0) return false
+
+      const existingCartItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      if (!existingCartItem) return true
+
+      return existingCartItem.qty < product.card_count
+    },
+
+    getProductAvailabilityStatus(product) {
+      if (!product.card_count || product.card_count <= 0) return 'unavailable'
+
+      const existingCartItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      if (!existingCartItem) return 'available'
+
+      const currentQty = existingCartItem.qty
+      const limit = product.card_count
+
+      if (currentQty >= limit) return 'limit-reached'
+      if (currentQty >= limit - 1) return 'near-limit'
+
+      return 'available'
+    },
     checkAllInitData() {
       if (this.findAllTerminal.length == 0) {
         this.initData()
@@ -1038,9 +1735,12 @@ export default {
         discount: this.discount,
         currencyList: this.currencyList,
         grandTotal: this.grandTotal,
-        companyLogo: this.companyLogo,
+        // companyLogo: this.companyLogo,
         lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
-        currentTerminal: this.currentTerminal,
+        currentTerminal: {
+          ...this.currentTerminal,
+          baseURL: this.$axios.defaults.baseURL,
+        },
         user: this.user,
         ticketCommon: this.ticketCommon,
         currentPaymentCode: this.currentPaymentCode,
@@ -1050,7 +1750,20 @@ export default {
         companyData: this.companyData,
       })
     },
-
+    formSaleHeader(remark = '') {
+      const today = new Date()
+      this.saleHeader.isActive = true
+      this.saleHeader.discount = this.discount
+      this.saleHeader.total = this.grandTotal - this.discount
+      this.saleHeader.clientId = this.currenctCustomer.id
+      this.saleHeader.paymentId = this.currentPayment
+      this.saleHeader.currencyId = 1
+      this.saleHeader.lines = this.generateSaleLine
+      this.saleHeader.userId = this.user.id
+      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
+      this.saleHeader.locationId = this.currentTerminal['locationId']
+      this.saleHeader.id = this.pendingSaleHeaderId
+    },
     async setQuotation() {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -1059,18 +1772,8 @@ export default {
         return
       }
 
-      const today = new Date()
       this.isloading = true
-      this.saleHeader.discount = this.discount
-      this.saleHeader.remark = 'Quotation'
-      this.saleHeader.total = this.grandTotal - this.discount
-      this.saleHeader.clientId = this.currenctCustomer.id
-      this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1
-      this.saleHeader.lines = this.generateSaleLine
-      this.saleHeader.userId = this.user.id
-      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
-      this.saleHeader.isActive = true
+      this.formSaleHeader('Quotation')
       await this.$axios
         .post('/api/quotation/create', this.saleHeader)
         .then((res) => {
@@ -1095,7 +1798,7 @@ export default {
 
     ...mapMutations({
       SetSearchKeyword: 'SetSearchKeyword',
-      UPDATE_PRODUCT_QTY: 'UPDATE_PRODUCT_QTY',
+      UPDATE_QTY: 'UPDATE_QTY',
     }),
 
     async postTransactionForOnlineCustomer(payload) {
@@ -1123,7 +1826,6 @@ export default {
     handlePaymentError(errorMessage) {
       swalError2(this.$swal, 'Error', errorMessage)
     },
-
     async postTransactionOriginal(isDeliveryCustomer) {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -1131,48 +1833,257 @@ export default {
         }
         return
       }
-      const today = new Date()
+
       this.isloading = true
-      this.saleHeader.isActive = true
-      this.saleHeader.discount = this.discount
-      this.saleHeader.total = this.grandTotal - this.discount
-      this.saleHeader.clientId = this.currenctCustomer.id
-      this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1
-      this.saleHeader.lines = this.generateSaleLine
-      this.saleHeader.userId = this.user.id
-      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
-      this.saleHeader.locationId = this.currentTerminal['locationId']
+      this.formSaleHeader('')
 
-      await this.$axios
-        .post('/api/sale/create', this.saleHeader)
-        .then((res) => {
-          this.lastTransactionSaleHeaderId = res.data.split('-')[1].trim()
-          swalSuccess(this.$swal, 'Succeed', res.data.split('-')[0])
+      try {
+        let response
+        const isUpdate = this.saleHeader.id && this.saleHeader.id !== null
 
-          if (isDeliveryCustomer) {
-            this.clearCustomerFormAction()
-          } else {
+        if (isUpdate) {
+          // Update existing sale header
+          response = await this.$axios.put(
+            `/api/sale/update-v2/${this.saleHeader.id}`,
+            this.saleHeader
+          )
+        } else {
+          // Create new sale header
+          console.info(`sale created`)
+          response = await this.$axios.post('/api/sale/create', this.saleHeader)
+        }
+
+        // Handle successful response - both create and update now return similar format
+        let successMessage = ''
+        let saleHeaderId = ''
+        console.info(`TICKET CEATE FUNCTION`)
+        if (typeof response.data === 'string' && response.data.includes('-')) {
+          // Handle string format: "message - id"
+          const parts = response.data.split('-')
+          successMessage = parts[0].trim()
+          saleHeaderId = parts[1].trim()
+        } else if (typeof response.data === 'object') {
+          // Handle object format (if your backend returns object)
+          successMessage = isUpdate
+            ? 'Successfully updated'
+            : 'Successfully created'
+          saleHeaderId = response.data.id || this.saleHeader.id
+        } else {
+          // Fallback
+          successMessage = isUpdate
+            ? 'Sale updated successfully'
+            : 'Sale created successfully'
+          saleHeaderId = this.saleHeader.id || new Date().getTime()
+        }
+
+        this.lastTransactionSaleHeaderId = saleHeaderId
+        swalSuccess(this.$swal, 'Succeed', successMessage)
+
+        if (isDeliveryCustomer) {
+          this.generatePrintViewDeliveryCustomer()
+          this.clearCustomerFormAction()
+        } else {
+          try {
             this.printDefaultTicket()
+          } catch (error) {
+            console.error(`PRINT TICKET FAIL ${error}`)
           }
-          this.newOrder()
-          this.discount = 0
-          this.cashReceived = 0
-        })
-        .catch((er) => {
-          if (er.response.data.includes('#')) {
-            const id = er.response.data.split('#')[1]
-            const product = this.findAllProduct.find((el) => el.id == id)
-            swalError2(
-              this.$swal,
-              'Error',
-              `ຈຳນວນສິນຄ້າ: ${product.pro_name || ''} ມີບໍ່ພຽງພໍໃນສາງ`
+        }
+
+        const now = new Date()
+        console.info(
+          `SALE HEADER ${isUpdate ? 'UPDATED' : 'CREATED'} ${
+            this.lastTransactionSaleHeaderId || now
+          }`
+        )
+
+        this.newOrder()
+        // set value to trigger load product again to refresh stock count
+        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
+        localStorage.setItem(
+          'saleHeader',
+          this.lastTransactionSaleHeaderId || now
+        )
+        this.discount = 0
+        this.cashReceived = 0
+
+        // SHOW SUCCESS ON CUSTOMER SCREEN
+        // this.showPaymentSuccessOnCustomerScreen()
+
+        // Hide QR after delay
+        // setTimeout(() => {
+        //   this.hideQRPaymentFromCustomerScreen()
+        // }, 3000)
+      } catch (error) {
+        console.log('Full error object:', error)
+        console.log('Error response:', error.response)
+        console.log('Error response data:', error.response?.data)
+
+        // Get the actual error data
+        let errorData = null
+        let errorMessage = 'Unknown error occurred'
+
+        if (error.response && error.response.data) {
+          errorData = error.response.data
+        } else if (error.message) {
+          errorMessage = error.message
+        }
+
+        console.log('Processed errorData:', errorData)
+        console.log('Type of errorData:', typeof errorData)
+
+        // Handle different error response formats (works for both create and update)
+        if (errorData && typeof errorData === 'object') {
+          // New JSON format with stockErrors
+          if (
+            errorData.stockErrors &&
+            Array.isArray(errorData.stockErrors) &&
+            errorData.stockErrors.length > 0
+          ) {
+            const stockError = errorData.stockErrors[0] // Get first stock error
+            const product = this.findAllProduct.find(
+              (el) => el.id == stockError.productId
             )
-          } else {
-            swalError2(this.$swal, 'Error', er.response.data)
+
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || 'Unknown Product'
+            } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
+              stockError.available
+            }, ຂາດ: ${stockError.shortage})`
           }
-        })
+          // JSON object with message
+          else if (errorData.message) {
+            errorMessage = errorData.message
+          }
+          // JSON object with error property
+          else if (errorData.error) {
+            errorMessage = errorData.error
+          }
+          // JSON object converted to string
+          else {
+            errorMessage = JSON.stringify(errorData)
+          }
+        }
+        // Handle string responses (old format)
+        else if (typeof errorData === 'string') {
+          if (errorData.includes('#')) {
+            const id = errorData.split('#')[1]
+            const product = this.findAllProduct.find((el) => el.id == id)
+            errorMessage = `ຈຳນວນສິນຄ້າ: ${
+              product?.pro_name || ''
+            } ມີບໍ່ພຽງພໍໃນສາງ`
+          } else {
+            errorMessage = errorData
+          }
+        }
+
+        console.log('Final error message:', errorMessage)
+        swalError2(this.$swal, 'Error', errorMessage)
+      }
+
       this.isloading = false
+    },
+    generatePrintViewDeliveryCustomer() {
+      let txnListHtml = ``
+      for (const iterator of this.productCart) {
+        const product = this.findAllProduct.find((el) => el.id == iterator.id)
+        console.log(`=======${product}======`)
+        const quantity = iterator.qty
+        const total = iterator.qty * iterator.localPrice
+        txnListHtml += `<div class="ticket">
+                    <div class="product-name">${product.pro_name} </div>
+                    <div class="price"> ${quantity} ${
+          this.onlineCustomerInfo.payment == 'COD'
+            ? ' X ' + this.formatNumber(total)
+            : ''
+        }</div>
+                </div>`
+      }
+      const discountHtml = `<div class="ticket">
+                    <div class="product-name">ສ່ວນຫລຸດ </div>
+                    <div class="price"> - ${this.formatNumber(
+                      this.discount
+                    )}</div>
+                </div>`
+      const riderFeeHtml = `<div class="ticket">
+                    <div class="product-name">ຄ່າສົ່ງ </div>
+                    <div class="price">${this.formatNumber(
+                      this.onlineCustomerInfo.riderFee
+                    )}</div>
+                </div>`
+      const today = new Date()
+      const bookingDate = jsDateToMysqlDate(today)
+      const bookingDateWithTime = today.toISOString
+      // let totalHtml = ``
+      //*********Payment info tag********/
+      let totalHtml = ``
+      // let totalHtml = `<div class="ticket">
+      //         <div class="product-name"> ${this.onlineCustomerInfo.payment}</div>
+      //     <div class="price"></div>
+      // </div>`
+      for (const iterator of this.currencyList) {
+        if (
+          iterator.code == 'LAK' &&
+          (this.onlineCustomerInfo.payment == 'COD' ||
+            this.onlineCustomerInfo.shipping == 'RIDER')
+        ) {
+          totalHtml += `
+                                    <div class="ticket">
+                                        <div class="product-name"> </div>
+                                    <div class="price-total"> <h5>ຍອດລວມ(${
+                                      this.onlineCustomerInfo.payment
+                                    }): ${this.formatNumber(
+            (this.grandTotal +
+              +this.onlineCustomerInfo.riderFee -
+              this.discount) /
+              iterator.rate
+          )}  </h5> </div>
+                                </div>
+                                    `
+        }
+      }
+
+      const windowContent = `
+         ${this.ticketCommon.header}
+            <body>
+                <h5> ວັນທີ: ${today.toLocaleString()}</h5>
+                <h5> ຮ້ານ: ${this.onlineCustomerInfo.branch} </h5>
+                <h5> ເບີໂທ: ${this.onlineCustomerInfo.branchTel} </h5>
+                <hr> </hr>
+                <h5> ຜູ້ຮັບ: ${this.onlineCustomerInfo.name}</h5>
+                <h5> ໂທ: ${this.onlineCustomerInfo.tel} </h5>
+                <h5> ຂົນສົ່ງ: ${this.onlineCustomerInfo.shipping} </h5>
+                <h5> ບ່ອນສົ່ງ: ${this.onlineCustomerInfo.address} </h5>
+              ${
+                this.onlineCustomerInfo.shipping == 'RIDER'
+                  ? ``
+                  : `<h5> ຄ່າຝາກ: ${this.onlineCustomerInfo.shippingFeeBy}</h5>`
+              }  
+                <hr> </hr>
+                ${txnListHtml}
+                ${this.onlineCustomerInfo.riderFee > 0 ? riderFeeHtml : ''}
+                ${
+                  this.discount > 0 && this.onlineCustomerInfo.payment == 'COD'
+                    ? discountHtml
+                    : ''
+                }
+                <hr> </hr>
+                ${totalHtml}
+            </body>
+            </html>
+        `
+      const printWin = window.open(
+        '',
+        '',
+        'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
+      )
+      printWin.document.open()
+      printWin.document.write(windowContent)
+
+      setTimeout(() => {
+        printWin.print()
+        printWin.close()
+      }, 1000)
     },
 
     formatNumber(val) {
@@ -1186,7 +2097,7 @@ export default {
     async fetchCategory() {
       this.isLoading = true
       await this.$axios
-        .get('category_f')
+        .get('api/category/find')
         .then((res) => {
           this.categoryList = res.data.map((el) => {
             return {
@@ -1255,9 +2166,11 @@ export default {
     },
 
     newOrder() {
+      this.pendingSaleHeaderId = null
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
+      // this.openCustomerScreenEnhanced()
     },
   },
 }

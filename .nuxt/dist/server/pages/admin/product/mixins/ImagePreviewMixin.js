@@ -1,7 +1,7 @@
-exports.ids = [256];
+exports.ids = [260];
 exports.modules = {
 
-/***/ 520:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43,11 +43,11 @@ exports.modules = {
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(400)["URL"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(401)["URL"]))
 
 /***/ }),
 
-/***/ 625:
+/***/ 628:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55,7 +55,7 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/mixins/ImagePreviewMixin.vue?vue&type=script&lang=js
-var ImagePreviewMixinvue_type_script_lang_js = __webpack_require__(520);
+var ImagePreviewMixinvue_type_script_lang_js = __webpack_require__(523);
 
 // CONCATENATED MODULE: ./pages/admin/product/mixins/ImagePreviewMixin.vue?vue&type=script&lang=js
  /* harmony default export */ var mixins_ImagePreviewMixinvue_type_script_lang_js = (ImagePreviewMixinvue_type_script_lang_js["a" /* default */]); 

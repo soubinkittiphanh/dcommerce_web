@@ -274,8 +274,9 @@ export const mutations = {
                         // Find price list for customer grade
                         const priceList = productPrice.priceLists.find(pl => pl.grade === customerGrade);
                         console.info(`🎯 [GRADE_MATCH] Found price for grade "${customerGrade}":`, priceList ? 'YES' : 'NO');
-
+                        console.info(`🎯 [GRADE_MATCH] Found price for grade "${JSON.stringify(priceList)}'`);
                         if (priceList) {
+                            product.priceListId = priceList.id;
                             customerPrice = priceList.amount;
                             console.info(`💵 [CUSTOMER_PRICE] Customer price found: ${customerPrice}`);
                         } else {
@@ -299,10 +300,12 @@ export const mutations = {
             // Price calculation
             const originalProductLocalPrice = product.localPrice;
             product.localPrice = customerPrice ?? product.localPrice;
+           
 
             console.info(`💰 [PRICING] Original price: ${originalProductLocalPrice}`);
             console.info(`💰 [PRICING] Customer price: ${customerPrice}`);
             console.info(`💰 [PRICING] Final price used: ${product.localPrice}`);
+            console.info(`💰 [PRICING] Final price id used: ${product.priceListId}`);
 
             // Check for existing product in cart
             console.info(`🔍 [CART_SEARCH] lineUUIDCheck: ${product.lineUUIDCheck}`);
@@ -950,9 +953,19 @@ const initSPF = async (dispatch, axios) => {
         throw error
     }
 }
-const initProductPrices = (dispatch, axios) =>
-    fetchData('api/product/find', 'initProductPrices', dispatch, axios, 'Product price initialization failed')
-
+const initProductPrices = async (dispatch, axios) => {
+    console.info(`fetch priceList initialize`)
+    try {
+        // Fetch all product price lists
+        const response = await axios.get('api/product/find/active')
+        console.info(`fetch priceList initialize response ${JSON.stringify(response.data)}`)
+        await dispatch('initProductPrices', response.data.data.products)
+    } catch (error) {
+        console.error(`PriceList initialization failed: ${error.message || error}`)
+        await dispatch('addError', `PriceList initialization failed: ${error.message || error}`)
+        throw error
+    }
+}
 const initCurrency = (dispatch, axios) =>
     fetchData('api/currency/find', 'initCurrency', dispatch, axios, 'Currency initialization failed')
 

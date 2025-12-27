@@ -116,6 +116,8 @@ export default {
                 this.$emit('new-price-update',priceInfo)
             } else {
                 this.updateProduct(item)
+                console.info(`UPDATE CUS SCRREEN PAYMENT AMOUNT UPDATED`)
+                this.$emit('new-price-update')
             }
 
             this.$emit('close-dialog')

@@ -1,26 +1,26 @@
-exports.ids = [243];
+exports.ids = [247];
 exports.modules = {
 
-/***/ 1137:
+/***/ 1144:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7754a1d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(898);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7754a1d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7754a1d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7754a1d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7754a1d0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3573b87e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(901);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3573b87e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3573b87e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3573b87e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3573b87e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1138:
+/***/ 1145:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-7754a1d0],.text-h5[data-v-7754a1d0]{font-family:\"Noto Sans Lao\"}table[data-v-7754a1d0]{border:1px solid #000}.grade-summary-card[data-v-7754a1d0]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.grade-summary-card[data-v-7754a1d0]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.grade-summary-card.selected-grade[data-v-7754a1d0]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.grade-badge[data-v-7754a1d0]{align-items:center;display:flex;justify-content:center}.grade-summary-card .v-icon[data-v-7754a1d0]{margin-bottom:8px}.grade-summary-card h3[data-v-7754a1d0]{font-weight:600;letter-spacing:-.5px}.grade-summary-card .v-progress-linear[data-v-7754a1d0]{border-radius:4px}@media (max-width:600px){.grade-summary-card[data-v-7754a1d0]{margin-bottom:16px}.grade-summary-card h3[data-v-7754a1d0]{font-size:1.2rem}}@media print{.v-btn[data-v-7754a1d0],.v-select[data-v-7754a1d0],.v-text-field[data-v-7754a1d0]{display:none!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-3573b87e],.text-h5[data-v-3573b87e]{font-family:\"Noto Sans Lao\"}table[data-v-3573b87e]{border:1px solid #000}.grade-summary-card[data-v-3573b87e]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.grade-summary-card[data-v-3573b87e]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.grade-summary-card.selected-grade[data-v-3573b87e]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.grade-badge[data-v-3573b87e]{align-items:center;display:flex;justify-content:center}.grade-summary-card .v-icon[data-v-3573b87e]{margin-bottom:8px}.grade-summary-card h3[data-v-3573b87e]{font-weight:600;letter-spacing:-.5px}.grade-summary-card .v-progress-linear[data-v-3573b87e]{border-radius:4px}@media (max-width:600px){.grade-summary-card[data-v-3573b87e]{margin-bottom:16px}.grade-summary-card h3[data-v-3573b87e]{font-size:1.2rem}}@media print{.v-btn[data-v-3573b87e],.v-select[data-v-3573b87e],.v-text-field[data-v-3573b87e]{display:none!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1431:
+/***/ 1446:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,10 +36,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(428);
+var VAlert = __webpack_require__(429);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(407);
+var VAutocomplete = __webpack_require__(408);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(126);
@@ -54,16 +54,16 @@ var components_VCard = __webpack_require__(3);
 var VChip = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(427);
+var VCol = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(436);
+var VDataTable = __webpack_require__(438);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(471);
+var VDatePicker = __webpack_require__(474);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(401);
+var VDialog = __webpack_require__(402);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(122);
@@ -72,7 +72,7 @@ var VDivider = __webpack_require__(122);
 var VIcon = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
-var VLayout = __webpack_require__(420);
+var VLayout = __webpack_require__(421);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(128);
@@ -81,18 +81,18 @@ var VMenu = __webpack_require__(128);
 var VProgressLinear = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(426);
+var VRow = __webpack_require__(427);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(429);
+var VSpacer = __webpack_require__(430);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=7754a1d0&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=3573b87e&scoped=true
 
 
 
@@ -114,12 +114,12 @@ var VTextField = __webpack_require__(38);
 
 
 
-var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = function render() {
+var ordersFromPosGradevue_type_template_id_3573b87e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-7754a1d0>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-3573b87e>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -130,7 +130,7 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍງານຍອດຂາຍຕາມເກຣດລູກຄ້າ (A-F)")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍງານຍອດຂາຍຕາມເກຣດລູກຄ້າ (A-F) + ຂອງຂວັນ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -157,7 +157,7 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
       },
       expression: "isloading"
     }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-7754a1d0>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-3573b87e>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -381,7 +381,7 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n              ສະຫຼຸບຕາມເກຣດລູກຄ້າ (A-F)\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], _vm._l(_vm.gradeStatistics, function (gradeStat) {
+  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n              ສະຫຼຸບຕາມເກຣດລູກຄ້າ (A-F) + ຂອງຂວັນ\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_vm._l(_vm.gradeStatistics, function (gradeStat) {
     return _c(VCol["a" /* default */], {
       key: gradeStat.grade,
       attrs: {
@@ -444,7 +444,135 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
     }), _vm._v(" "), _c('div', {
       staticClass: "mt-1"
     }, [_vm._v("\n                  " + _vm._s(gradeStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                ")])], 1)], 1)], 1);
-  }), 1), _vm._v(" "), _c(VRow["a" /* default */], {
+  }), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "4",
+      "lg": "2"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "grade-summary-card pa-3 text-center elevation-2",
+    class: {
+      'selected-grade': _vm.selectedGradeFilter === 'BASE'
+    },
+    staticStyle: {
+      "cursor": "pointer",
+      "transition": "all 0.2s ease"
+    },
+    attrs: {
+      "outlined": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.filterByGrade('BASE');
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mb-2",
+    attrs: {
+      "color": "green",
+      "size": "32"
+    }
+  }, [_vm._v("\n                mdi-currency-usd\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "grade-badge mb-2"
+  }, [_c(VChip["a" /* default */], {
+    attrs: {
+      "color": "green",
+      "dark": "",
+      "small": "",
+      "label": ""
+    }
+  }, [_c('strong', [_vm._v("ລາຄາມາດຕະຖານ")])])], 1), _vm._v(" "), _c('h3', {
+    staticClass: "green--text mb-1"
+  }, [_vm._v("\n                " + _vm._s(_vm.formatNumber(_vm.basePriceSummary.revenue)) + " LAK\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "text--secondary mb-1"
+  }, [_vm._v("\n                " + _vm._s(_vm.formatNumber(_vm.basePriceSummary.qty)) + " ລາຍການ\n              ")]), _vm._v(" "), _c(VChip["a" /* default */], {
+    staticClass: "font-weight-bold",
+    attrs: {
+      "color": "green",
+      "small": "",
+      "outlined": ""
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.basePriceSummary.orderCount) + " ບິນ\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "mt-2"
+  }, [_c(VProgressLinear["a" /* default */], {
+    attrs: {
+      "value": _vm.basePricePercentage,
+      "color": "green",
+      "height": "4",
+      "rounded": ""
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "mt-1"
+  }, [_vm._v("\n                  " + _vm._s(_vm.basePricePercentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "caption mt-2 grey--text"
+  }, [_vm._v("\n                (priceListId = null)\n              ")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "4",
+      "lg": "2"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "grade-summary-card pa-3 text-center elevation-2",
+    class: {
+      'selected-grade': _vm.selectedGradeFilter === 'GIFT'
+    },
+    staticStyle: {
+      "cursor": "pointer",
+      "transition": "all 0.2s ease"
+    },
+    attrs: {
+      "outlined": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.filterByGrade('GIFT');
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mb-2",
+    attrs: {
+      "color": "amber",
+      "size": "32"
+    }
+  }, [_vm._v("\n                mdi-gift\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "grade-badge mb-2"
+  }, [_c(VChip["a" /* default */], {
+    attrs: {
+      "color": "amber",
+      "dark": "",
+      "small": "",
+      "label": ""
+    }
+  }, [_c('strong', [_vm._v("ຂອງຂວັນ")])])], 1), _vm._v(" "), _c('h3', {
+    staticClass: "amber--text mb-1"
+  }, [_vm._v("\n                " + _vm._s(_vm.formatNumber(_vm.giftSummary.originalValue)) + " LAK\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "text--secondary mb-1"
+  }, [_vm._v("\n                " + _vm._s(_vm.formatNumber(_vm.giftSummary.qty)) + " ລາຍການ\n              ")]), _vm._v(" "), _c(VChip["a" /* default */], {
+    staticClass: "font-weight-bold",
+    attrs: {
+      "color": "amber",
+      "small": "",
+      "outlined": ""
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.giftSummary.orderCount) + " ບິນ\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "mt-2"
+  }, [_c(VProgressLinear["a" /* default */], {
+    attrs: {
+      "value": _vm.giftSummary.percentage,
+      "color": "amber",
+      "height": "4",
+      "rounded": ""
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "mt-1"
+  }, [_vm._v("\n                  " + _vm._s(_vm.giftSummary.percentage.toFixed(1)) + "% ຂອງຈຳນວນ\n                ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "caption mt-2"
+  }, [_vm.giftSummary.revenue > 0 ? _c('div', {
+    staticClass: "success--text"
+  }, [_vm._v("\n                  ລາຄາ: " + _vm._s(_vm.formatNumber(_vm.giftSummary.revenue)) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "error--text"
+  }, [_vm._v("\n                  ປະຫຍັດ: " + _vm._s(_vm.formatNumber(_vm.giftSummary.originalValue - _vm.giftSummary.revenue)) + "\n                ")])])], 1)], 1)], 2), _vm._v(" "), _c(VRow["a" /* default */], {
     staticClass: "mt-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -463,35 +591,49 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-calculator")]), _vm._v("\n                ສະຫຼຸບລວມທັງໝົດ\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_vm._v("mdi-calculator")]), _vm._v("\n                ສະຫຼຸບລວມທັງໝົດ (ລວມຂອງຂວັນ)\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "md": "3"
+      "md": "2"
     }
   }, [_c('div', {
     staticClass: "text-center"
   }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.totalRevenue)) + " LAK")]), _vm._v(" "), _c('div', {}, [_vm._v("ຍອດລວມທັງໝົດ")])])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "md": "3"
+      "md": "2"
     }
   }, [_c('div', {
     staticClass: "text-center"
   }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.totalQuantity)))]), _vm._v(" "), _c('div', {}, [_vm._v("ຈຳນວນສິນຄ້າ")])])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "md": "3"
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.giftSummary.qty)))]), _vm._v(" "), _c('div', {}, [_vm._v("ຂອງຂວັນ")])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
     }
   }, [_c('div', {
     staticClass: "text-center"
   }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.totalOrders)))]), _vm._v(" "), _c('div', {}, [_vm._v("ຈຳນວນບິນ")])])]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "md": "3"
+      "md": "2"
     }
   }, [_c('div', {
     staticClass: "text-center"
-  }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.averageOrderValue)) + " LAK")]), _vm._v(" "), _c('div', {}, [_vm._v("ຄ່າສະເລ່ຍຕໍ່ບິນ")])])])], 1)], 1)], 1)], 1), _vm._v(" "), _vm.selectedGradeFilter ? _c(VRow["a" /* default */], {
+  }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.averageOrderValue)) + " LAK")]), _vm._v(" "), _c('div', {}, [_vm._v("ຄ່າສະເລ່ຍຕໍ່ບິນ")])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', [_vm._v(_vm._s(_vm.formatNumber(_vm.giftPercentage)) + "%")]), _vm._v(" "), _c('div', {}, [_vm._v("ອັດຕາຂອງຂວັນ")])])])], 1)], 1)], 1)], 1), _vm._v(" "), _vm.selectedGradeFilter ? _c(VRow["a" /* default */], {
     staticClass: "mt-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -511,11 +653,11 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-filter")]), _vm._v("\n              ກຳລັງສະແດງ: ເກຣດ " + _vm._s(_vm.selectedGradeFilter) + "\n              (" + _vm._s(_vm.filteredProductSummary.length) + " ສິນຄ້າ)\n            ")], 1)], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["d" /* VCardTitle */], [_c('h3', [_c(VIcon["a" /* default */], {
+  }, [_vm._v("mdi-filter")]), _vm._v(" "), _vm.selectedGradeFilter === 'GIFT' ? _c('span', [_vm._v("\n                ກຳລັງສະແດງ: ຂອງຂວັນ\n                (" + _vm._s(_vm.filteredProductSummary.length) + " ສິນຄ້າ)\n              ")]) : _vm.selectedGradeFilter === 'BASE' ? _c('span', [_vm._v("\n                ກຳລັງສະແດງ: ລາຄາມາດຕະຖານ (priceListId = null)\n                (" + _vm._s(_vm.filteredProductSummary.length) + " ສິນຄ້າ)\n              ")]) : _c('span', [_vm._v("\n                ກຳລັງສະແດງ: ເກຣດ " + _vm._s(_vm.selectedGradeFilter) + "\n                (" + _vm._s(_vm.filteredProductSummary.length) + " ສິນຄ້າ)\n              ")])], 1)], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["d" /* VCardTitle */], [_c('h3', [_c(VIcon["a" /* default */], {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-table")]), _vm._v("\n          ລາຍລະອຽດສິນຄ້າຕາມເກຣດ\n        ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
+  }, [_vm._v("mdi-table")]), _vm._v("\n          ລາຍລະອຽດສິນຄ້າຕາມເກຣດ + ຂອງຂວັນ\n        ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
     attrs: {
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາສິນຄ້າ",
@@ -548,7 +690,7 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
         }, [_vm._v("ID: " + _vm._s(item.productId))])])];
       }
     }, {
-      key: `item.basePrice`,
+      key: `item.basePriceDisplay`,
       fn: function ({
         item
       }) {
@@ -680,11 +822,62 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
         }, [_vm._v("-")]) : _vm._e()];
       }
     }, {
+      key: `item.basePriceSales`,
+      fn: function ({
+        item
+      }) {
+        return [item.basePriceSales.qty > 0 ? _c(VChip["a" /* default */], {
+          attrs: {
+            "color": "green",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(item.basePriceSales.qty)) + " ຊິ້ນ\n          ")]) : _vm._e(), _vm._v(" "), item.basePriceSales.revenue > 0 ? _c('div', {}, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(item.basePriceSales.revenue)) + "\n          ")]) : _vm._e(), _vm._v(" "), item.basePriceSales.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("\n            @ " + _vm._s(_vm.formatCurrency(item.basePriceSales.priceUsed)) + "/ຊິ້ນ\n          ")]) : _vm._e(), _vm._v(" "), item.basePriceSales.qty > 0 ? _c('div', {
+          staticClass: "caption grey--text"
+        }, [_vm._v("\n            (ລາຄາມາດຕະຖານ)\n          ")]) : _vm._e(), _vm._v(" "), item.basePriceSales.qty === 0 ? _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")]) : _vm._e()];
+      }
+    }, {
+      key: `item.gifts`,
+      fn: function ({
+        item
+      }) {
+        return [item.gifts.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "amber",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v("\n              " + _vm._s(_vm.formatNumber(item.gifts.qty)) + " ຊິ້ນ\n            ")]), _vm._v(" "), _c('div', {
+          staticClass: "amber--text mt-1"
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": "amber"
+          }
+        }, [_vm._v("mdi-gift")]), _vm._v("\n              ຂອງຂວັນ\n            ")], 1), _vm._v(" "), item.gifts.revenue > 0 ? _c('div', {
+          staticClass: "success--text"
+        }, [_vm._v("\n              ລາຄາ: " + _vm._s(_vm.formatCurrency(item.gifts.revenue)) + "\n            ")]) : _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("\n              ຟຣີ (0 LAK)\n            ")]), _vm._v(" "), item.gifts.originalValue > 0 ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("\n              ມູນຄ່າເຕັມ: " + _vm._s(_vm.formatCurrency(item.gifts.originalValue)) + "\n            ")]) : _vm._e(), _vm._v(" "), item.gifts.originalValue > item.gifts.revenue ? _c('div', {
+          staticClass: "error--text font-weight-bold"
+        }, [_vm._v("\n              ປະຫຍັດ: " + _vm._s(_vm.formatCurrency(item.gifts.originalValue - item.gifts.revenue)) + "\n            ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
       key: `item.totalQty`,
       fn: function ({
         item
       }) {
-        return [_c('strong', [_vm._v(_vm._s(_vm.formatNumber(item.totalQty)))])];
+        return [_c('strong', [_vm._v(_vm._s(_vm.formatNumber(item.totalQty)))]), _vm._v(" "), item.gifts.qty > 0 ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("\n            (+" + _vm._s(item.gifts.qty) + " ຂອງຂວັນ)\n          ")]) : _vm._e()];
       }
     }, {
       key: `item.totalRevenue`,
@@ -693,14 +886,16 @@ var ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render = functio
       }) {
         return [_c('strong', {
           staticClass: "success--text"
-        }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(item.totalRevenue)) + "\n          ")])];
+        }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(item.totalRevenue)) + "\n          ")]), _vm._v(" "), item.gifts.originalValue > 0 ? _c('div', {
+          staticClass: "amber--text"
+        }, [_vm._v("\n            +" + _vm._s(_vm.formatCurrency(item.gifts.originalValue)) + " (ຂອງຂວັນ)\n          ")]) : _vm._e()];
       }
     }], null, true)
   })], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=7754a1d0&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=3573b87e&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(96);
@@ -837,9 +1032,9 @@ var external_vuex_ = __webpack_require__(14);
       salesData: [],
       productSummary: [],
       priceListData: [],
-      // NEW: Store price list data
+      // Store price list data
 
-      // Grade filters
+      // Grade filters - ENHANCED with Gift and Base Price filters
       selectedGradeFilter: null,
       gradeFilterOptions: [{
         label: 'ທັງໝົດ',
@@ -862,7 +1057,16 @@ var external_vuex_ = __webpack_require__(14);
       }, {
         label: 'ເກຣດ F',
         value: 'F'
-      }],
+      }, {
+        label: 'ລາຄາມາດຕະຖານ',
+        value: 'BASE'
+      },
+      // NEW: Base Price filter
+      {
+        label: 'ຂອງຂວັນ',
+        value: 'GIFT'
+      } // Gift filter
+      ],
       gradeSummary: {
         A: {
           qty: 0,
@@ -895,15 +1099,32 @@ var external_vuex_ = __webpack_require__(14);
           orderCount: 0
         }
       },
+      // NEW: Base Price Summary (priceListId = null)
+      basePriceSummary: {
+        qty: 0,
+        revenue: 0,
+        orderCount: 0
+      },
+      // NEW: Gift Summary
+      giftSummary: {
+        qty: 0,
+        revenue: 0,
+        // Always 0 for gifts
+        originalValue: 0,
+        // What the gifts would have cost
+        orderCount: 0,
+        percentage: 0
+      },
+      // ENHANCED headers with Gift column and Base Price column
       headers: [{
         text: 'ສິນຄ້າ',
         align: 'left',
         value: 'productName',
         sortable: true
       }, {
-        text: 'ລາຄາພື້ນຖານ',
+        text: 'ລາຄາຖານ (ລາຄາເບື້ອງຕົ້ນ)',
         align: 'center',
-        value: 'basePrice',
+        value: 'basePriceDisplay',
         sortable: true
       }, {
         text: 'ເກຣດ A',
@@ -936,6 +1157,16 @@ var external_vuex_ = __webpack_require__(14);
         value: 'gradeF',
         sortable: false
       }, {
+        text: 'ລາຄາມາດຕະຖານ (ບໍ່ມີ PriceList)',
+        align: 'center',
+        value: 'basePriceSales',
+        sortable: false
+      }, {
+        text: 'ຂອງຂວັນ (Gift)',
+        align: 'center',
+        value: 'gifts',
+        sortable: false
+      }, {
         text: 'ລວມຈຳນວນ',
         align: 'center',
         value: 'totalQty',
@@ -956,7 +1187,7 @@ var external_vuex_ = __webpack_require__(14);
   },
   async created() {
     this.terminalId = this.findSelectedTerminal;
-    await this.loadPriceList(); // NEW: Load price list data
+    await this.loadPriceList();
     await this.loadData();
   },
   watch: {
@@ -990,9 +1221,16 @@ var external_vuex_ = __webpack_require__(14);
       }
       return this.salesData.filter(el => el['locationId'] == terminal['locationId']);
     },
+    // ENHANCED: Gift and Base Price filtering support
     filteredProductSummary() {
       if (!this.selectedGradeFilter) {
         return this.productSummary;
+      }
+      if (this.selectedGradeFilter === 'GIFT') {
+        return this.productSummary.filter(product => product.gifts.qty > 0);
+      }
+      if (this.selectedGradeFilter === 'BASE') {
+        return this.productSummary.filter(product => product.basePriceSales.qty > 0);
       }
       return this.productSummary.filter(product => product.grades[this.selectedGradeFilter].qty > 0);
     },
@@ -1017,10 +1255,15 @@ var external_vuex_ = __webpack_require__(14);
       return stats;
     },
     totalRevenue() {
-      return Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.revenue, 0);
+      const gradeRevenue = Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.revenue, 0);
+      return gradeRevenue + this.basePriceSummary.revenue; // Include base price revenue
     },
     totalQuantity() {
-      return Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.qty, 0);
+      return Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.qty, 0) + this.basePriceSummary.qty + this.giftSummary.qty; // Include base price and gift quantities
+    },
+    // NEW: Base price percentage
+    basePricePercentage() {
+      return this.totalRevenue > 0 ? this.basePriceSummary.revenue / this.totalRevenue * 100 : 0;
     },
     totalOrders() {
       return this.filteredSalesData.length;
@@ -1028,11 +1271,17 @@ var external_vuex_ = __webpack_require__(14);
     averageOrderValue() {
       return this.totalOrders > 0 ? this.totalRevenue / this.totalOrders : 0;
     },
+    // NEW: Gift percentage
+    giftPercentage() {
+      const totalItems = this.totalQuantity;
+      return totalItems > 0 ? this.giftSummary.qty / totalItems * 100 : 0;
+    },
     user() {
       return this.$auth.user || '';
     }
   },
   methods: {
+    // ENHANCED: Gift filtering support
     filterByGrade(grade) {
       if (this.selectedGradeFilter === grade) {
         this.clearGradeFilter();
@@ -1047,7 +1296,7 @@ var external_vuex_ = __webpack_require__(14);
     clearGradeFilter() {
       this.selectedGradeFilter = null;
     },
-    // NEW: Load Price List Data
+    // Load Price List Data
     async loadPriceList() {
       try {
         const response = await this.$axios.get('/api/priceList/find');
@@ -1055,21 +1304,17 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Price list loaded:', this.priceListData.length, 'items');
       } catch (error) {
         console.error('Error loading price list:', error);
-        // Don't show error to user, just log it
       }
     },
-    // NEW: Get price for specific product and grade
+    // Get price for specific product and grade
     getPriceForGrade(productId, grade, defaultPrice) {
       const priceList = this.priceListData.find(pl => pl.productId === productId && pl.grade === grade && pl.isActive);
       if (!priceList) {
         return defaultPrice;
       }
-
-      // Calculate price based on type
       if (priceList.type === 'Price') {
         return priceList.amount;
       } else if (priceList.type === 'Percent') {
-        // Percent discount/markup
         return defaultPrice * (1 + priceList.amount / 100);
       }
       return defaultPrice;
@@ -1088,6 +1333,11 @@ var external_vuex_ = __webpack_require__(14);
         });
         this.salesData = response.data;
         this.processSalesData();
+
+        // Debug: Check gift data after processing
+        this.$nextTick(() => {
+          this.debugGiftData();
+        });
       } catch (error) {
         console.error('Error loading sales data:', error);
         Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດໂຫລດຂໍ້ມູນໄດ້');
@@ -1095,6 +1345,7 @@ var external_vuex_ = __webpack_require__(14);
         this.isloading = false;
       }
     },
+    // ENHANCED: Process sales data with gift tracking
     processSalesData() {
       // Reset summaries
       this.productSummary = [];
@@ -1130,13 +1381,33 @@ var external_vuex_ = __webpack_require__(14);
           orderCount: 0
         }
       };
+
+      // RESET: Base Price and Gift summaries
+      this.basePriceSummary = {
+        qty: 0,
+        revenue: 0,
+        orderCount: 0
+      };
+      this.giftSummary = {
+        qty: 0,
+        revenue: 0,
+        originalValue: 0,
+        orderCount: 0,
+        percentage: 0
+      };
       const productMap = new Map();
       const gradeOrderCount = {};
-      this.filteredSalesData.forEach(sale => {
-        var _sale$client, _sale$lines;
-        const customerGrade = ((_sale$client = sale.client) === null || _sale$client === void 0 ? void 0 : _sale$client.grade) || 'F'; // Customer's grade for reference
-
-        (_sale$lines = sale.lines) === null || _sale$lines === void 0 ? void 0 : _sale$lines.forEach(line => {
+      const basePriceOrderCount = new Set(); // NEW: Track base price orders
+      const giftOrderCount = new Set();
+      console.log('📊 Processing sales data with gift tracking...');
+      console.log('📝 Total sales to process:', this.filteredSalesData.length);
+      this.filteredSalesData.forEach((sale, saleIndex) => {
+        var _sale$client, _sale$lines, _sale$lines2;
+        const customerGrade = ((_sale$client = sale.client) === null || _sale$client === void 0 ? void 0 : _sale$client.grade) || 'F';
+        console.log(`\n🏪 Sale ${saleIndex + 1} (ID: ${sale.id}):`);
+        console.log(`   👤 Customer Grade: ${customerGrade}`);
+        console.log(`   📦 Lines: ${((_sale$lines = sale.lines) === null || _sale$lines === void 0 ? void 0 : _sale$lines.length) || 0}`);
+        (_sale$lines2 = sale.lines) === null || _sale$lines2 === void 0 ? void 0 : _sale$lines2.forEach((line, lineIndex) => {
           var _line$product, _line$product2;
           const productId = line.productId;
           const productName = ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product';
@@ -1144,21 +1415,14 @@ var external_vuex_ = __webpack_require__(14);
           const quantity = line.quantity || 0;
           const revenue = line.total || 0;
           const priceListId = line.priceListId;
+          const isGift = line.isGift === true; // EXPLICIT boolean check
 
-          // FIXED: Determine which grade this sale belongs to
-          let appliedGrade = customerGrade; // Default to customer's grade
-
-          // If priceListId exists, find the actual grade from priceList
-          if (priceListId && this.priceListData.length > 0) {
-            const priceListEntry = this.priceListData.find(pl => pl.id === priceListId && pl.productId === productId);
-            if (priceListEntry && priceListEntry.grade) {
-              appliedGrade = priceListEntry.grade; // Use the price list's grade
-              console.log(`Product ${productId}: Using priceList grade ${appliedGrade} (priceListId: ${priceListId})`);
-            }
-          }
-
-          // Calculate actual unit price used
-          const unitPrice = line.price || (quantity > 0 ? revenue / quantity : 0);
+          console.log(`     📋 Line ${lineIndex + 1}: ${productName}`);
+          console.log(`        🎁 isGift: ${isGift}`);
+          console.log(`        📊 Quantity: ${quantity}`);
+          console.log(`        💰 Revenue: ${revenue}`);
+          console.log(`        🏷️ Base Price: ${basePrice}`);
+          console.log(`        🔗 PriceListId: ${priceListId}`);
           if (!productMap.has(productId)) {
             productMap.set(productId, {
               productId,
@@ -1202,33 +1466,113 @@ var external_vuex_ = __webpack_require__(14);
                   count: 0
                 }
               },
+              // NEW: Base price sales tracking (priceListId = null)
+              basePriceSales: {
+                qty: 0,
+                revenue: 0,
+                priceUsed: 0,
+                count: 0
+              },
+              // Gift tracking
+              gifts: {
+                qty: 0,
+                revenue: 0,
+                // Always 0 for gifts
+                originalValue: 0 // What it would have cost
+              },
               totalQty: 0,
               totalRevenue: 0
             });
+            console.log(`        ✨ Created new product entry for: ${productName}`);
           }
           const product = productMap.get(productId);
 
-          // Use the appliedGrade (from priceList or customer)
-          if (appliedGrade in product.grades) {
-            product.grades[appliedGrade].qty += quantity;
-            product.grades[appliedGrade].revenue += revenue;
+          // CRITICAL: Handle gift items FIRST and separately
+          if (isGift) {
+            console.log(`        🎁 PROCESSING AS GIFT`);
+            product.gifts.qty += quantity;
+            product.gifts.revenue += revenue; // FIXED: Track actual gift revenue (may not be 0)
+            product.gifts.originalValue += quantity * basePrice; // What it would have cost at base price
 
-            // Track average price used for this grade
-            product.grades[appliedGrade].priceUsed = (product.grades[appliedGrade].priceUsed * product.grades[appliedGrade].count + unitPrice) / (product.grades[appliedGrade].count + 1);
-            product.grades[appliedGrade].count += 1;
+            // Add to global gift summary
+            this.giftSummary.qty += quantity;
+            this.giftSummary.revenue += revenue; // FIXED: Track actual gift revenue
+            this.giftSummary.originalValue += quantity * basePrice;
+
+            // Track gift orders
+            giftOrderCount.add(sale.id);
+            console.log(`        ✅ Gift processed:`);
+            console.log(`           📦 Product Gift Qty: ${product.gifts.qty}`);
+            console.log(`           💰 Product Gift Revenue: ${product.gifts.revenue}`); // NEW: Log actual revenue
+            console.log(`           💎 Product Gift Value: ${product.gifts.originalValue}`);
+            console.log(`           🌟 Global Gift Qty: ${this.giftSummary.qty}`);
+            console.log(`           💸 Global Gift Revenue: ${this.giftSummary.revenue}`); // NEW: Log actual revenue
+            console.log(`           💰 Global Gift Value: ${this.giftSummary.originalValue}`);
+          } else {
+            console.log(`        💼 PROCESSING AS REGULAR SALE`);
+
+            // CORRECTED LOGIC: Separate tracking for different sale types
+            // - priceListId exists -> Grade-based sale
+            // - priceListId = null -> Base price sale (separate category)
+
+            let saleType = 'UNKNOWN';
+            let appliedGrade = null;
+            const unitPrice = line.price || (quantity > 0 ? revenue / quantity : 0);
+            if (priceListId && this.priceListData.length > 0) {
+              // CASE 1: Has priceListId - this is a GRADE-BASED sale
+              const priceListEntry = this.priceListData.find(pl => pl.id === priceListId);
+              if (priceListEntry && priceListEntry.grade) {
+                appliedGrade = priceListEntry.grade;
+                saleType = 'GRADE_BASED';
+                console.log(`           🎯 GRADE-BASED: Grade ${appliedGrade} (priceListId: ${priceListId})`);
+
+                // Track in grade summary
+                if (appliedGrade in product.grades) {
+                  product.grades[appliedGrade].qty += quantity;
+                  product.grades[appliedGrade].revenue += revenue;
+                  product.grades[appliedGrade].priceUsed = (product.grades[appliedGrade].priceUsed * product.grades[appliedGrade].count + unitPrice) / (product.grades[appliedGrade].count + 1);
+                  product.grades[appliedGrade].count += 1;
+                }
+
+                // Track unique orders per grade
+                if (!gradeOrderCount[appliedGrade]) {
+                  gradeOrderCount[appliedGrade] = new Set();
+                }
+                gradeOrderCount[appliedGrade].add(sale.id);
+                if (appliedGrade in this.gradeSummary) {
+                  this.gradeSummary[appliedGrade].qty += quantity;
+                  this.gradeSummary[appliedGrade].revenue += revenue;
+                }
+              } else {
+                console.log(`           ⚠️ PriceList ID ${priceListId} not found - treating as BASE PRICE`);
+                saleType = 'BASE_PRICE';
+              }
+            } else {
+              // CASE 2: No priceListId - this is a BASE PRICE sale
+              saleType = 'BASE_PRICE';
+              console.log(`           💰 BASE PRICE: priceListId = null`);
+            }
+
+            // Handle BASE PRICE sales separately
+            if (saleType === 'BASE_PRICE') {
+              product.basePriceSales.qty += quantity;
+              product.basePriceSales.revenue += revenue;
+              product.basePriceSales.priceUsed = (product.basePriceSales.priceUsed * product.basePriceSales.count + unitPrice) / (product.basePriceSales.count + 1);
+              product.basePriceSales.count += 1;
+
+              // Track base price summary
+              this.basePriceSummary.qty += quantity;
+              this.basePriceSummary.revenue += revenue;
+
+              // Track base price orders
+              basePriceOrderCount.add(sale.id);
+            }
+            console.log(`           ✅ PROCESSED AS: ${saleType} | Grade: ${appliedGrade || 'N/A'}`);
           }
+
+          // Update product totals (both gifts and regular sales)
           product.totalQty += quantity;
           product.totalRevenue += revenue;
-
-          // Track unique orders per grade (using applied grade)
-          if (!gradeOrderCount[appliedGrade]) {
-            gradeOrderCount[appliedGrade] = new Set();
-          }
-          gradeOrderCount[appliedGrade].add(sale.id);
-          if (appliedGrade in this.gradeSummary) {
-            this.gradeSummary[appliedGrade].qty += quantity;
-            this.gradeSummary[appliedGrade].revenue += revenue;
-          }
         });
       });
 
@@ -1238,9 +1582,33 @@ var external_vuex_ = __webpack_require__(14);
           this.gradeSummary[grade].orderCount = gradeOrderCount[grade].size;
         }
       });
+
+      // Set base price and gift order counts
+      this.basePriceSummary.orderCount = basePriceOrderCount.size;
+      this.giftSummary.orderCount = giftOrderCount.size;
+
+      // Calculate percentages
+      const totalRegularQty = Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.qty, 0);
+      const totalItems = totalRegularQty + this.basePriceSummary.qty + this.giftSummary.qty;
+      this.giftSummary.percentage = totalItems > 0 ? this.giftSummary.qty / totalItems * 100 : 0;
       this.productSummary = Array.from(productMap.values()).sort((a, b) => b.totalRevenue - a.totalRevenue);
-      console.log('Processed', this.productSummary.length, 'products');
-      console.log('Grade summary:', this.gradeSummary);
+      console.log('\n📈 FINAL PROCESSING RESULTS:');
+      console.log('   📦 Total Products:', this.productSummary.length);
+      console.log('   🎁 Gift Summary:', this.giftSummary);
+      console.log('   💰 Base Price Summary:', this.basePriceSummary);
+      console.log('   🏆 Grade Summary:', this.gradeSummary);
+
+      // Log products with gifts and base price sales
+      const productsWithGifts = this.productSummary.filter(p => p.gifts.qty > 0);
+      const productsWithBasePriceSales = this.productSummary.filter(p => p.basePriceSales.qty > 0);
+      console.log('   🎁 Products with gifts:', productsWithGifts.length);
+      console.log('   💰 Products with base price sales:', productsWithBasePriceSales.length);
+      productsWithGifts.forEach(p => {
+        console.log(`      - ${p.productName}: ${p.gifts.qty} gifts worth ${p.gifts.originalValue}`);
+      });
+      productsWithBasePriceSales.forEach(p => {
+        console.log(`      - ${p.productName}: ${p.basePriceSales.qty} base price sales worth ${p.basePriceSales.revenue}`);
+      });
     },
     formatNumber(value) {
       if (!value && value !== 0) return '0';
@@ -1250,24 +1618,24 @@ var external_vuex_ = __webpack_require__(14);
       if (!value && value !== 0) return '0';
       return new Intl.NumberFormat('en-US').format(Math.round(value));
     },
-    // NEW: Calculate price difference from base price
+    // Calculate price difference from base price
     getPriceDifference(gradePrice, basePrice) {
       if (!gradePrice || !basePrice) return 0;
       return gradePrice - basePrice;
     },
-    // NEW: Get percentage difference
+    // Get percentage difference
     getPriceDifferencePercent(gradePrice, basePrice) {
       if (!basePrice || basePrice === 0) return 0;
       return (gradePrice - basePrice) / basePrice * 100;
     },
-    // NEW: Get CSS class based on price difference
+    // Get CSS class based on price difference
     getPriceDifferenceClass(gradePrice, basePrice) {
       const diff = this.getPriceDifference(gradePrice, basePrice);
       if (diff > 0) return 'success--text font-weight-bold'; // Higher than base
       if (diff < 0) return 'error--text font-weight-bold'; // Lower than base (discount)
       return 'grey--text'; // Same as base
     },
-    // NEW: Get display text for price difference
+    // Get display text for price difference
     getPriceDifferenceText(gradePrice, basePrice) {
       const diff = this.getPriceDifference(gradePrice, basePrice);
       const percent = this.getPriceDifferencePercent(gradePrice, basePrice);
@@ -1278,6 +1646,7 @@ var external_vuex_ = __webpack_require__(14);
         return `(${this.formatCurrency(diff)} / ${percent.toFixed(1)}%)`;
       }
     },
+    // ENHANCED: Export with gift data
     exportToExcel() {
       const exportData = this.productSummary.map(product => ({
         'ສິນຄ້າ': product.productName,
@@ -1313,16 +1682,58 @@ var external_vuex_ = __webpack_require__(14);
         'Grade F Avg Price': product.grades.F.priceUsed,
         'Grade F Diff': this.getPriceDifference(product.grades.F.priceUsed, product.basePrice),
         'Grade F %': this.getPriceDifferencePercent(product.grades.F.priceUsed, product.basePrice).toFixed(2),
+        // NEW: Gift data in export
+        'Gift Qty': product.gifts.qty,
+        'Gift Revenue': product.gifts.revenue,
+        'Gift Original Value': product.gifts.originalValue,
+        'Gift Savings': product.gifts.originalValue,
         'Total Qty': product.totalQty,
-        'Total Revenue': product.totalRevenue
+        'Total Revenue': product.totalRevenue,
+        'Total with Gift Value': product.totalRevenue + product.gifts.originalValue
       }));
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData);
       const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade Report');
-      this.$xlsx.writeFile(workbook, `grade-report-${this.fromDate}-${this.toDate}.xlsx`);
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade + Gift Report');
+      this.$xlsx.writeFile(workbook, `grade-gift-report-${this.fromDate}-${this.toDate}.xlsx`);
     },
     printReport() {
       window.print();
+    },
+    // NEW: Debug method to check gift data
+    debugGiftData() {
+      console.log('🐛 DEBUG: Gift Data Check');
+      console.log('Gift Summary:', this.giftSummary);
+      console.log('Products with gifts:', this.productSummary.filter(p => p.gifts && p.gifts.qty > 0));
+      console.log('Filtered sales data:', this.filteredSalesData.length);
+
+      // Check each sale for gifts
+      this.filteredSalesData.forEach((sale, index) => {
+        var _sale$lines3;
+        const giftLines = ((_sale$lines3 = sale.lines) === null || _sale$lines3 === void 0 ? void 0 : _sale$lines3.filter(line => line.isGift === true)) || [];
+        if (giftLines.length > 0) {
+          console.log(`Sale ${index + 1} (ID: ${sale.id}) has ${giftLines.length} gift lines:`);
+          giftLines.forEach((line, lineIndex) => {
+            var _line$product3, _line$product4;
+            console.log(`  Gift Line ${lineIndex + 1}:`, {
+              productName: (_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.pro_name,
+              quantity: line.quantity,
+              price: line.price,
+              total: line.total,
+              revenue: line.total,
+              basePrice: (_line$product4 = line.product) === null || _line$product4 === void 0 ? void 0 : _line$product4.pro_price,
+              isGift: line.isGift
+            });
+          });
+        }
+      });
+
+      // Show gift summary breakdown
+      console.log('\n🎁 Gift Summary Breakdown:');
+      console.log('   📦 Total Gift Quantity:', this.giftSummary.qty);
+      console.log('   💰 Total Gift Revenue:', this.giftSummary.revenue);
+      console.log('   💎 Total Gift Original Value:', this.giftSummary.originalValue);
+      console.log('   💸 Total Savings:', this.giftSummary.originalValue - this.giftSummary.revenue);
+      console.log('   📊 Gift Percentage:', this.giftSummary.percentage.toFixed(2) + '%');
     },
     formatDate(date) {
       if (!date) return null;
@@ -1355,7 +1766,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1137)
+  var style0 = __webpack_require__(1144)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1364,11 +1775,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosGradevue_type_script_lang_js,
-  ordersFromPosGradevue_type_template_id_7754a1d0_scoped_true_render,
+  ordersFromPosGradevue_type_template_id_3573b87e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "7754a1d0",
+  "3573b87e",
   "14ee04b6"
   
 )
@@ -1381,7 +1792,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(66).default}
 
 /***/ }),
 
-/***/ 438:
+/***/ 441:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1402,7 +1813,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(66).default}
 
 /***/ }),
 
-/***/ 439:
+/***/ 442:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1455,7 +1866,7 @@ function isLeapYear(year) {
 
 /***/ }),
 
-/***/ 442:
+/***/ 445:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1514,7 +1925,7 @@ function isLeapYear(year) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(439);
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(442);
 
 const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
@@ -1912,13 +2323,13 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 447:
+/***/ 450:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(448);
+var content = __webpack_require__(451);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1926,7 +2337,7 @@ __webpack_require__(5).default("265ccd52", content, true)
 
 /***/ }),
 
-/***/ 448:
+/***/ 451:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1941,13 +2352,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 449:
+/***/ 452:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(450);
+var content = __webpack_require__(453);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1955,7 +2366,7 @@ __webpack_require__(5).default("ec842454", content, true)
 
 /***/ }),
 
-/***/ 450:
+/***/ 453:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1970,13 +2381,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 451:
+/***/ 454:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(452);
+var content = __webpack_require__(455);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1984,7 +2395,7 @@ __webpack_require__(5).default("075924a4", content, true)
 
 /***/ }),
 
-/***/ 452:
+/***/ 455:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1999,13 +2410,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 453:
+/***/ 456:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(454);
+var content = __webpack_require__(457);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2013,7 +2424,7 @@ __webpack_require__(5).default("0f7d136a", content, true)
 
 /***/ }),
 
-/***/ 454:
+/***/ 457:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2028,13 +2439,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 455:
+/***/ 458:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(456);
+var content = __webpack_require__(459);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2042,7 +2453,7 @@ __webpack_require__(5).default("4dc2915a", content, true)
 
 /***/ }),
 
-/***/ 456:
+/***/ 459:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2057,13 +2468,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 471:
+/***/ 474:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
-var VDatePickerTitle = __webpack_require__(449);
+var VDatePickerTitle = __webpack_require__(452);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/index.js
 var VIcon = __webpack_require__(13);
@@ -2186,13 +2597,13 @@ var helpers = __webpack_require__(0);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerHeader.sass
-var VDatePickerHeader = __webpack_require__(451);
+var VDatePickerHeader = __webpack_require__(454);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(438);
+var localable = __webpack_require__(441);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
 var themeable = __webpack_require__(8);
@@ -2382,7 +2793,7 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTable.sass
-var VDatePickerTable = __webpack_require__(453);
+var VDatePickerTable = __webpack_require__(456);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
 var touch = __webpack_require__(138);
@@ -2631,7 +3042,7 @@ var mergeData = __webpack_require__(15);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(439);
+var dateTimeUtils = __webpack_require__(442);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerDateTable.js
 // Mixins
@@ -2800,7 +3211,7 @@ var dateTimeUtils = __webpack_require__(439);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerYears.sass
-var VDatePickerYears = __webpack_require__(455);
+var VDatePickerYears = __webpack_require__(458);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
  // Mixins
@@ -2884,10 +3295,10 @@ var VDatePickerYears = __webpack_require__(455);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VPicker/VPicker.sass
-var VPicker = __webpack_require__(447);
+var VPicker = __webpack_require__(450);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(195);
+var VCard = __webpack_require__(196);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
 var elevatable = __webpack_require__(75);
@@ -3045,7 +3456,7 @@ var elevatable = __webpack_require__(75);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var timestamp = __webpack_require__(442);
+var timestamp = __webpack_require__(445);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
 var console = __webpack_require__(6);
@@ -3526,20 +3937,20 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 898:
+/***/ 901:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1138);
+var content = __webpack_require__(1145);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("b9ac93e8", content, true, context)
+  add("e4365e76", content, true, context)
 };
 
 /***/ })
