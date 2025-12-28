@@ -1,15 +1,13 @@
 /**
- * Enhanced Ticket Generation Module
- * Contains functions for generating different types of receipts/tickets with dynamic logo loading
+ * Enhanced Ticket Generation Module - FLEXIBLE 58MM & 80MM VERSION
+ * Supports both 58mm and 80mm thermal printers with dynamic sizing
+ * Default: 80mm (can be changed via paperWidth parameter)
  */
 
 // ============================================================================
-// API INTEGRATION & LOGO MANAGEMENT
+// API INTEGRATION & LOGO MANAGEMENT (unchanged)
 // ============================================================================
 
-/**
- * Company logo cache to avoid repeated API calls
- */
 let companyLogoCache = {
   url: null,
   company: null,
@@ -19,13 +17,7 @@ let companyLogoCache = {
   cacheExpiry: 5 * 60 * 1000, // 5 minutes cache
 };
 
-/**
- * Loads company logo from API with caching
- * @param {Object} axios - Axios instance from Vue component
- * @returns {Promise<string|null>} Company logo URL or null
- */
 const loadCompanyLogoFromAPI = async (axios) => {
-  // Check cache validity
   const now = Date.now();
   const cacheValid = companyLogoCache.lastFetch && 
     (now - companyLogoCache.lastFetch) < companyLogoCache.cacheExpiry;
@@ -35,10 +27,8 @@ const loadCompanyLogoFromAPI = async (axios) => {
     return companyLogoCache.url;
   }
 
-  // Prevent multiple simultaneous requests
   if (companyLogoCache.loading) {
     console.info('Company logo already loading, waiting...');
-    // Wait for current request to complete
     return new Promise((resolve) => {
       const checkInterval = setInterval(() => {
         if (!companyLogoCache.loading) {
@@ -55,14 +45,11 @@ const loadCompanyLogoFromAPI = async (axios) => {
   try {
     console.info('Fetching company logo from API...');
     
-    // Get companies with active status
     const response = await axios.get('/api/public/company/findAll');
     const companies = Array.isArray(response.data) ? response.data : [];
     
     console.info(`Found ${companies.length} companies from API`);
-    console.info(`Found ${JSON.stringify(companies)} companies from API`);
 
-    // Take the FIRST company with isActive: true and valid profile_image_path
     const firstActiveCompany = companies.find(company =>
       company.isActive === true && 
       company.profile_image_path && 
@@ -73,48 +60,29 @@ const loadCompanyLogoFromAPI = async (axios) => {
     if (firstActiveCompany) {
       companyLogoCache.company = firstActiveCompany;
       
-      // Build the full URL for your specific path format
       let baseUrl = '';
-      
-      // Get base URL from axios defaults
       if (axios.defaults.baseURL) {
-        baseUrl = axios.defaults.baseURL.replace(/\/$/, ''); // Remove trailing slash
+        baseUrl = axios.defaults.baseURL.replace(/\/$/, '');
       } else {
-        // Fallback to current origin if no baseURL set
         baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
       }
       
-      // Ensure the path starts with / for proper URL construction
       const logoPath = firstActiveCompany.profile_image_path.startsWith('/') 
         ? firstActiveCompany.profile_image_path 
         : `/${firstActiveCompany.profile_image_path}`;
       
-      // Construct the full URL: baseURL + /uploads/company-profiles/company_1_1764563357188.png
       companyLogoCache.url = baseUrl ? `${baseUrl}${logoPath}` : logoPath;
       companyLogoCache.lastFetch = now;
       
       console.info('Company logo loaded successfully:', {
         company: firstActiveCompany.name,
-        mnemonic: firstActiveCompany.mnemonic,
         logoPath: firstActiveCompany.profile_image_path,
-        fullUrl: companyLogoCache.url,
-        baseUrl: baseUrl
+        fullUrl: companyLogoCache.url
       });
       
       return companyLogoCache.url;
     } else {
       console.warn('No active company with valid logo found in API response');
-      
-      // Debug: Log what we found for troubleshooting
-      console.info('Available companies debug:', companies.map(c => ({
-        id: c.id,
-        name: c.name,
-        mnemonic: c.mnemonic,
-        isActive: c.isActive,
-        hasLogo: !!c.profile_image_path,
-        logoPath: c.profile_image_path
-      })));
-      
       companyLogoCache.url = null;
       companyLogoCache.lastFetch = now;
       return null;
@@ -131,24 +99,6 @@ const loadCompanyLogoFromAPI = async (axios) => {
   }
 };
 
-/**
- * Gets company logo with multiple fallback options (matching navigation layout pattern)
- * @param {Object} params - Parameters containing axios and fallback options
- * @returns {Promise<string>} Logo URL (API, static, or default)
- */
-
-const getBaseURL = ()=>{
-        let baseUrl = '';
-      
-      // Get base URL from axios defaults
-      if (axios.defaults.baseURL) {
-        baseUrl = axios.defaults.baseURL.replace(/\/$/, ''); // Remove trailing slash
-      } else {
-        // Fallback to current origin if no baseURL set
-        baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-      }
-      return baseUrl;
-}
 const getCompanyLogo = async (params) => {
   const { 
     axios, 
@@ -158,18 +108,14 @@ const getCompanyLogo = async (params) => {
   } = params;
 
   try {
-    // 1. Try to get logo from API first (primary method)
     if (axios) {
       const apiLogo = await loadCompanyLogoFromAPI(axios);
       if (apiLogo) {
         console.info('Using API logo for ticket:', apiLogo);
-        // Test if the URL is accessible
         try {
           const testResponse = await fetch(apiLogo, { method: 'HEAD' });
           if (testResponse.ok) {
             return apiLogo;
-          } else {
-            console.warn('API logo URL not accessible, status:', testResponse.status);
           }
         } catch (fetchError) {
           console.warn('API logo URL fetch test failed:', fetchError.message);
@@ -177,17 +123,13 @@ const getCompanyLogo = async (params) => {
       }
     }
 
-    // 2. Try static logo path from params (existing company logo)
     if (staticLogoPath) {
       console.info('Using static logo for ticket:', staticLogoPath);
-      // For static paths, we trust they exist (like in navigation)
       return staticLogoPath;
     }
 
-    // 3. Try company data logo (from mainCompanyInfo - like navigation fallback)
     if (companyData?.dcLogo) {
       try {
-        // This matches the navigation pattern: require(`~/assets/image/${this.companyData.dcLogo}`)
         const companyLogoPath = `/assets/image/${companyData.dcLogo}`;
         console.info('Using company data logo for ticket:', companyLogoPath);
         return companyLogoPath;
@@ -196,9 +138,7 @@ const getCompanyLogo = async (params) => {
       }
     }
 
-    // 4. Try the default navigation fallback
     try {
-      // This matches your navigation: require('~/assets/image/MPWT/PWT.png')
       const navigationFallback = '/assets/image/MPWT/PWT.png';
       console.info('Using navigation fallback logo for ticket:', navigationFallback);
       return navigationFallback;
@@ -206,7 +146,6 @@ const getCompanyLogo = async (params) => {
       console.warn('Navigation fallback logo not found');
     }
 
-    // 5. Final fallback logo
     console.info('Using final fallback logo for ticket:', fallbackLogo);
     return fallbackLogo;
 
@@ -216,9 +155,6 @@ const getCompanyLogo = async (params) => {
   }
 };
 
-/**
- * Clears the logo cache (useful for forcing refresh)
- */
 const clearLogoCache = () => {
   companyLogoCache = {
     url: null,
@@ -231,21 +167,13 @@ const clearLogoCache = () => {
 };
 
 // ============================================================================
-// SHARED UTILITY FUNCTIONS
+// UTILITY FUNCTIONS
 // ============================================================================
 
-/**
- * Formats date string to human-readable format
- * @param {string|Date} dateInput - Date string or Date object
- * @returns {string} Formatted date string
- */
 const formatDate = (dateInput) => {
   try {
     const date = new Date(dateInput);
-
-    if (isNaN(date.getTime())) {
-      return 'Invalid Date';
-    }
+    if (isNaN(date.getTime())) return 'Invalid Date';
 
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -260,12 +188,6 @@ const formatDate = (dateInput) => {
   }
 };
 
-/**
- * Validates required parameters for ticket generation
- * @param {Object} params - Parameters object
- * @param {Function} formatNumber - Number formatting function
- * @returns {boolean} True if valid, false otherwise
- */
 const validateTicketParams = (params, formatNumber) => {
   if (!params) {
     console.error('Parameters object is required');
@@ -281,16 +203,48 @@ const validateTicketParams = (params, formatNumber) => {
 };
 
 /**
- * Generates transaction list HTML for regular tickets (defaultTicket, customerTicket)
- * @param {Array} productCart - Array of products in cart
- * @param {Array} findAllProduct - Array of all available products
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for transaction list
+ * Gets paper configuration based on width
+ * @param {string} paperWidth - '58mm' or '80mm'
+ * @returns {Object} Configuration object
  */
-const generateRegularTransactionList = (productCart, findAllProduct, formatNumber) => {
+const getPaperConfig = (paperWidth = '80mm') => {
+  const configs = {
+    '58mm': {
+      width: '58mm',
+      fontSize: '10px',
+      logoSize: '35px',
+      padding: '6px',
+      lineHeight: '1.1',
+      itemSpacing: '1px',
+      sectionSpacing: '4px'
+    },
+    '80mm': {
+      width: '80mm',
+      fontSize: '11px',
+      logoSize: '45px',
+      padding: '8px',
+      lineHeight: '1.2',
+      itemSpacing: '2px',
+      sectionSpacing: '6px'
+    }
+  };
+
+  return configs[paperWidth] || configs['80mm'];
+};
+
+// ============================================================================
+// FLEXIBLE TRANSACTION LIST GENERATORS
+// ============================================================================
+
+/**
+ * Generates transaction list HTML with dynamic layout based on paper width
+ */
+const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
-    return '<div class="ticket"><div class="product-name">No items found</div></div>';
+    return '<div class="item">ບໍ່ມີສິນຄ້າ</div>';
   }
+
+  const is58mm = paperWidth === '58mm';
 
   return productCart.map(item => {
     const product = findAllProduct.find(el => el.id === item.id);
@@ -304,30 +258,38 @@ const generateRegularTransactionList = (productCart, findAllProduct, formatNumbe
     const price = item.localPrice || 0;
     const total = quantity * price;
 
-    return `
-      <div class="ticket">
-        <div class="product-name">${product.pro_name || 'Unknown Product'}</div>
-        <div class="price">${formatNumber(total)}</div>
-      </div>
-      <div class="product-details">
-        <div class="product-name">${quantity} X ${formatNumber(price)}</div>
-      </div>
-      <br>
-    `;
+    if (is58mm) {
+      // 58MM: Compact single-line format
+      return `
+        <div class="item">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+          <div class="item-right">${formatNumber(total)}</div>
+        </div>
+      `;
+    } else {
+      // 80MM: More detailed format with unit price
+      return `
+        <div class="item">
+          <div class="item-desc">
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+          </div>
+          <div class="item-total">${formatNumber(total)}</div>
+        </div>
+      `;
+    }
   }).join('');
 };
 
 /**
- * Generates transaction list HTML for reprint tickets
- * @param {Array} productCart - Array of products in cart
- * @param {Array} findAllProduct - Array of all available products
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for transaction list
+ * Generates reprint transaction list with flexible layout
  */
-const generateReprintTransactionList = (productCart, findAllProduct, formatNumber) => {
+const generateFlexibleReprintTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
-    return '<div class="ticket"><div class="product-name">No items found</div></div>';
+    return '<div class="item">ບໍ່ມີສິນຄ້າ</div>';
   }
+
+  const is58mm = paperWidth === '58mm';
 
   return productCart.map(item => {
     const product = findAllProduct.find(el => el.id === item.product?.id);
@@ -341,79 +303,96 @@ const generateReprintTransactionList = (productCart, findAllProduct, formatNumbe
     const price = item.price || 0;
     const total = quantity * price;
 
-    return `
-      <div class="ticket">
-        <div class="product-name">${product.pro_name || 'Unknown Product'}</div>
-        <div class="price">${formatNumber(total)}</div>
-      </div>
-      <div class="product-details">
-        <div class="product-name">${quantity} X ${formatNumber(price)}</div>
-      </div>
-      <br>
-    `;
+    if (is58mm) {
+      return `
+        <div class="item">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+          <div class="item-right">${formatNumber(total)}</div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="item">
+          <div class="item-desc">
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+          </div>
+          <div class="item-total">${formatNumber(total)}</div>
+        </div>
+      `;
+    }
   }).join('');
 };
 
 /**
- * Generates discount section HTML
- * @param {number} discount - Discount amount
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for discount section
+ * Generates discount section with flexible layout
  */
-const generateDiscountSection = (discount, formatNumber) => {
+const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '80mm') => {
   if (discount <= 0) return '';
 
-  return `
-    <div class="ticket">
-      <div class="product-name">ສ່ວນຫລຸດ</div>
-      <div class="price">- ${formatNumber(discount)}</div>
-    </div>
-  `;
+  const is58mm = paperWidth === '58mm';
+
+  if (is58mm) {
+    return `
+      <div class="item discount">
+        <div class="item-left">ສ່ວນຫຼຸດ</div>
+        <div class="item-right">-${formatNumber(discount)}</div>
+      </div>
+    `;
+  } else {
+    return `
+      <div class="item discount">
+        <div class="item-desc">
+          <div class="item-name">ສ່ວນຫຼຸດ</div>
+        </div>
+        <div class="item-total">-${formatNumber(discount)}</div>
+      </div>
+    `;
+  }
 };
 
 /**
- * Generates total section HTML for different currencies
- * @param {Array} currencyList - Array of available currencies
- * @param {number} grandTotal - Grand total amount
- * @param {number} discount - Discount amount
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for total section
+ * Generates total section with flexible layout
  */
-const generateTotalSection = (currencyList, grandTotal, discount, formatNumber) => {
+const generateFlexibleTotalSection = (currencyList, grandTotal, discount, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(currencyList) || currencyList.length === 0) {
     return '';
   }
 
   const finalTotal = grandTotal - discount;
+  const is58mm = paperWidth === '58mm';
 
   return currencyList.map(currency => {
     const rate = currency.rate || 1;
     const convertedAmount = finalTotal / rate;
 
-    return `
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-footer">${currency.code || 'N/A'} ${formatNumber(convertedAmount)}</div>
-      </div>
-    `;
+    if (is58mm) {
+      return `
+        <div class="total-line-compact">
+          <strong>${currency.code || 'N/A'} ${formatNumber(convertedAmount)}</strong>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="total-line">
+          <span class="total-label">ລວມທັງໝົດ:</span>
+          <span class="total-amount">${currency.code || 'N/A'} ${formatNumber(convertedAmount)}</span>
+        </div>
+      `;
+    }
   }).join('');
 };
 
 /**
- * Generates enhanced header section HTML with dynamic logo
- * @param {Object} headerData - Header data object
- * @param {string|Date} dateValue - Date value (current date or booking date)
- * @param {string} logoUrl - Dynamic logo URL from API
- * @returns {string} HTML string for header section
+ * Generates header section with flexible layout
  */
-const generateHeaderSection = (headerData, dateValue, logoUrl) => {
+const generateFlexibleHeaderSection = (headerData, dateValue, logoUrl, paperWidth = '80mm') => {
   const {
     lastTransactionSaleHeaderId,
     currentTerminal,
     user
   } = headerData;
-  console.info(`LOGO paSSING TO HEADER ${logoUrl}`)
-  // Get company information with fallbacks
+
   const companyName = currentTerminal?.location?.company?.name || 
                      companyLogoCache.company?.name || 
                      'Dcommerce';
@@ -421,74 +400,106 @@ const generateHeaderSection = (headerData, dateValue, logoUrl) => {
                     companyLogoCache.company?.tel || 
                     'N/A';
   const companyLogoUrl = currentTerminal?.location?.company?.profile_image_path || 
-                    companyLogoCache.company?.profile_image_path || 
-                    'N/A';
+                        companyLogoCache.company?.profile_image_path || 
+                        'N/A';
   const userName = user?.cus_name || 'N/A';
-  console.info(`real image path ${companyLogoUrl}`)
-  // Create logo HTML with error handling
-  const baseURL = window.location.origin; 
-  console.warn(`base url ${currentTerminal.baseURL}`)
+
+  const config = getPaperConfig(paperWidth);
+  const is58mm = paperWidth === '58mm';
+
   const logoHtml = logoUrl ? 
-    `<img src="${currentTerminal.baseURL}/${companyLogoUrl}" alt="Company Logo" width="100" height="100" 
-          style="max-width: 100px; max-height: 100px; object-fit: contain;" 
+    `<img src="${currentTerminal.baseURL}/${companyLogoUrl}" alt="Logo" 
+          style="width: ${config.logoSize}; height: ${config.logoSize}; object-fit: contain;" 
           onerror="this.style.display='none';">` : 
-    `<div style="width: 100px; height: 100px; background: #f0f0f0; 
-                 display: flex; align-items: center; justify-content: center; 
-                 border-radius: 8px; font-size: 12px; text-align: center;">
-       ${companyName.substring(0, 2).toUpperCase()}
-     </div>`;
+    `<div class="logo-placeholder">${companyName.substring(0, 2).toUpperCase()}</div>`;
 
-  return `
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-      <div style="flex: 0 0 auto;">
-        ${logoHtml}
+  if (is58mm) {
+    // 58MM: Compact vertical layout
+    return `
+      <div class="header-58mm">
+        <div class="header-logo">${logoHtml}</div>
+        <div class="company-info-58mm">
+          <div class="company-name">${companyName}</div>
+          <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+        </div>
       </div>
-      <div style="flex: 1; text-align: right; margin-left: 20px;">
-        <h4 style="margin: 0; color: #333;">${companyName}</h4>
-        <p style="margin: 5px 0; color: #666; font-size: 12px;">ເບີໂທ: ${companyTel}</p>
-        <hr style="margin: 10px 0;">
-        <h5 style="margin: 5px 0;">ວັນທີ: ${formatDate(dateValue)}</h5>
-        <h5 style="margin: 5px 0;">ເລກທີ: ${lastTransactionSaleHeaderId}</h5>
-        <h5 style="margin: 5px 0;">ຜູ້ຂາຍ: ${userName}</h5>
+      <div class="receipt-info-58mm">
+        <div>ວັນທີ: ${formatDate(dateValue)}</div>
+        <div>ເລກທີ: ${lastTransactionSaleHeaderId}</div>
+        <div>ຜູ້ຂາຍ: ${userName}</div>
       </div>
-    </div>
-    <hr style="margin: 20px 0; border: 1px solid #ccc;">
-  `;
+      <div class="divider">- - - - - - - - - - - - - - -</div>
+    `;
+  } else {
+    // 80MM: Horizontal layout with more space
+    return `
+      <div class="header-80mm">
+        <div class="header-left">
+          ${logoHtml}
+        </div>
+        <div class="header-right">
+          <div class="company-name">${companyName}</div>
+          <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+          <div class="receipt-info-80mm">
+            <div>ວັນທີ: ${formatDate(dateValue)}</div>
+            <div>ເລກທີ: ${lastTransactionSaleHeaderId}</div>
+            <div>ຜູ້ຂາຍ: ${userName}</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - - -</div>
+    `;
+  }
 };
 
 /**
- * Generates payment section HTML
- * @param {Object} paymentData - Payment data object
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for payment section
+ * Generates payment section with flexible layout
  */
-const generatePaymentSection = (paymentData, formatNumber) => {
+const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = '80mm') => {
   const { currentPaymentCode, cashReceived, changes } = paymentData;
+  const is58mm = paperWidth === '58mm';
   
-  return `
-    <div class="payment-section">
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-total"><h5>ຊຳລະດ້ວຍ: ${currentPaymentCode}</h5></div>
+  if (is58mm) {
+    return `
+      <div class="payment-section">
+        <div class="item">
+          <div class="item-left">ຊຳລະດ້ວຍ:</div>
+          <div class="item-right">${currentPaymentCode}</div>
+        </div>
+        <div class="item">
+          <div class="item-left">ຮັບຊຳລະ:</div>
+          <div class="item-right">${formatNumber(cashReceived)}</div>
+        </div>
+        <div class="item">
+          <div class="item-left">ເງິນທອນ:</div>
+          <div class="item-right">${formatNumber(changes)}</div>
+        </div>
       </div>
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-total"><h5>ຮັບຊຳລະ: ${formatNumber(cashReceived)}</h5></div>
+    `;
+  } else {
+    return `
+      <div class="payment-section">
+        <div class="payment-item">
+          <span class="payment-label">ຊຳລະດ້ວຍ:</span>
+          <span class="payment-value">${currentPaymentCode}</span>
+        </div>
+        <div class="payment-item">
+          <span class="payment-label">ຮັບຊຳລະ:</span>
+          <span class="payment-value">${formatNumber(cashReceived)}</span>
+        </div>
+        <div class="payment-item">
+          <span class="payment-label">ເງິນທອນ:</span>
+          <span class="payment-value">${formatNumber(changes)}</span>
+        </div>
       </div>
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-total"><h5>ເງິນທອນ: ${formatNumber(changes)}</h5></div>
-      </div>
-    </div>
-  `;
+    `;
+  }
 };
 
 /**
- * Generates complete window content HTML with enhanced styling
- * @param {Object} contentData - Content data object
- * @returns {string} Complete HTML string for printing
+ * Generates window content with dynamic CSS based on paper width
  */
-const generateWindowContent = (contentData) => {
+const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
   const {
     ticketCommon,
     headerHtml,
@@ -498,6 +509,9 @@ const generateWindowContent = (contentData) => {
     paymentSectionHtml
   } = contentData;
 
+  const config = getPaperConfig(paperWidth);
+  const is58mm = paperWidth === '58mm';
+
   return `
     <!DOCTYPE html>
     <html>
@@ -505,99 +519,276 @@ const generateWindowContent = (contentData) => {
       <meta charset="UTF-8">
       <title>Receipt</title>
       <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
+        
         body {
-          font-family: 'Arial', sans-serif;
+          font-family: 'Noto Sans Lao', 'Arial', sans-serif;
           margin: 0;
-          padding: 20px;
-          font-size: 14px;
-          line-height: 1.4;
-          color: #333;
+          padding: ${config.padding};
+          font-size: ${config.fontSize};
+          line-height: ${config.lineHeight};
+          color: #000;
+          width: ${config.width};
+          max-width: ${config.width};
         }
-        .ticket {
+        
+        /* ========== COMMON STYLES ========== */
+        .title {
+          text-align: center;
+          font-weight: 600;
+          font-size: ${is58mm ? '12px' : '13px'};
+          margin-bottom: ${config.sectionSpacing};
+        }
+        
+        .divider {
+          text-align: center;
+          margin: ${config.sectionSpacing} 0;
+          font-size: 9px;
+          color: #999;
+        }
+        
+        .logo-placeholder {
+          width: ${config.logoSize};
+          height: ${config.logoSize};
+          background: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          font-size: ${is58mm ? '8px' : '10px'};
+          font-weight: bold;
+        }
+        
+        .company-name {
+          font-weight: 600;
+          font-size: ${is58mm ? '11px' : '12px'};
+          margin-bottom: 2px;
+        }
+        
+        .company-tel {
+          font-size: ${is58mm ? '8px' : '9px'};
+          color: #666;
+        }
+        
+        /* ========== 58MM SPECIFIC STYLES ========== */
+        ${is58mm ? `
+        .header-58mm {
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+          gap: 6px;
+        }
+        
+        .company-info-58mm {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .receipt-info-58mm {
+          font-size: 8px;
+          margin-bottom: 4px;
+        }
+        
+        .receipt-info-58mm > div {
+          margin-bottom: 1px;
+        }
+        
+        .item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: ${config.itemSpacing};
+          padding: 1px 0;
+        }
+        
+        .item-left {
+          flex: 1;
+          font-weight: 400;
+          word-break: break-word;
+          margin-right: 4px;
+        }
+        
+        .item-right {
+          font-weight: 500;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        .total-line-compact {
+          text-align: center;
+          font-size: 11px;
+          font-weight: 600;
+          margin: 2px 0;
+        }
+        ` : `
+        /* ========== 80MM SPECIFIC STYLES ========== */
+        .header-80mm {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 6px;
+          gap: 10px;
+        }
+        
+        .header-left {
+          flex: 0 0 auto;
+        }
+        
+        .header-right {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .receipt-info-80mm {
+          margin-top: 4px;
+          font-size: 9px;
+        }
+        
+        .receipt-info-80mm > div {
+          margin-bottom: 1px;
+        }
+        
+        .item {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: ${config.itemSpacing};
+          padding: 1px 0;
+        }
+        
+        .item-desc {
+          flex: 1;
+          margin-right: 8px;
+        }
+        
+        .item-name {
+          font-weight: 500;
+          margin-bottom: 1px;
+        }
+        
+        .item-detail {
+          font-size: 9px;
+          color: #666;
+        }
+        
+        .item-total {
+          font-weight: 500;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        .total-line {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 8px;
-          padding: 4px 0;
+          font-size: 12px;
+          font-weight: 600;
+          margin: 2px 0;
         }
-        .product-name {
-          flex: 1;
+        
+        .payment-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2px;
+        }
+        
+        .payment-label {
           font-weight: 500;
         }
-        .product-details {
-          margin-left: 20px;
-          font-size: 12px;
-          color: #666;
-        }
-        .price {
+        
+        .payment-value {
           font-weight: 600;
-          text-align: right;
-          min-width: 80px;
         }
-        .price-footer, .price-total {
-          font-weight: 700;
-          text-align: right;
-          min-width: 80px;
-          font-size: 16px;
+        `}
+        
+        /* ========== COMMON ELEMENTS ========== */
+        .item.discount .item-left,
+        .item.discount .item-name {
+          font-style: italic;
         }
+        
+        .item.discount .item-right,
+        .item.discount .item-total {
+          color: #d32f2f;
+        }
+        
         .payment-section {
-          margin-top: 20px;
-          padding-top: 15px;
-          border-top: 2px solid #333;
+          margin-top: ${config.sectionSpacing};
+          padding-top: 4px;
+          border-top: 1px dashed #999;
         }
-        hr {
-          border: none;
-          border-top: 1px solid #ddd;
-          margin: 15px 0;
+        
+        .total-section {
+          margin-top: 4px;
+          padding-top: 4px;
+          border-top: 1px solid #000;
         }
-        h3 {
+        
+        .footer {
           text-align: center;
-          margin-bottom: 30px;
-          font-size: 18px;
-          font-weight: 700;
+          margin-top: ${config.sectionSpacing};
+          font-size: ${is58mm ? '9px' : '10px'};
         }
-        h4, h5 {
-          margin: 5px 0;
+        
+        .footer .thank-you {
           font-weight: 600;
+          margin-bottom: 2px;
         }
+        
+        .footer .sub-text {
+          color: #666;
+          font-size: ${is58mm ? '8px' : '9px'};
+        }
+        
         @media print {
-          body { margin: 0; padding: 10px; }
-          .no-print { display: none; }
+          body { 
+            margin: 0; 
+            padding: 4px;
+            width: auto;
+            max-width: none;
+          }
+          .no-print { 
+            display: none; 
+          }
+        }
+        
+        @page {
+          margin: 0;
+          size: ${config.width} auto;
         }
       </style>
     </head>
     <body>
-      <h3>ໃບຮັບເງິນ / Receipt</h3>
+      <div class="title">ໃບຮັບເງິນ</div>
       ${headerHtml}
-      <div style="margin: 20px 0;">
-        ${transactionListHtml}
-      </div>
+      
+      ${transactionListHtml}
       ${discountHtml}
-      <hr>
+      
+      <div class="divider">${is58mm ? '- - - - - - - - - - - - - - -' : '- - - - - - - - - - - - - - - - - - - - - - - - -'}</div>
+      
       ${paymentSectionHtml}
-      <div style="margin-top: 15px;">
+      
+      <div class="total-section">
         ${totalHtml}
       </div>
-      <div style="text-align: center; margin-top: 30px;">
-        <h4>THANK YOU</h4>
-        <p style="font-size: 12px; color: #666;">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</p>
+      
+      <div class="footer">
+        <div class="thank-you">THANK YOU</div>
+        <div class="sub-text">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</div>
       </div>
     </body>
     </html>
   `;
 };
 
-/**
- * Opens print window and prints the ticket
- * @param {string} windowContent - HTML content to print
- * @returns {void}
- */
-const printTicket = (windowContent) => {
+const printTicket = (windowContent, paperWidth = '80mm') => {
   try {
+    const windowWidth = paperWidth === '58mm' ? 350 : 450;
+    const windowHeight = 600;
+    
     const printWin = window.open(
       '',
       '',
-      'left=0,top=0,width=800,height=1000,toolbar=0,scrollbars=1,status=0'
+      `left=0,top=0,width=${windowWidth},height=${windowHeight},toolbar=0,scrollbars=1,status=0`
     );
 
     if (!printWin) {
@@ -608,7 +799,6 @@ const printTicket = (windowContent) => {
     printWin.document.write(windowContent);
     printWin.document.close();
 
-    // Wait for images and content to load
     printWin.onload = () => {
       setTimeout(() => {
         printWin.print();
@@ -616,7 +806,6 @@ const printTicket = (windowContent) => {
       }, 800);
     };
 
-    // Fallback timeout
     setTimeout(() => {
       if (!printWin.closed) {
         printWin.print();
@@ -631,14 +820,9 @@ const printTicket = (windowContent) => {
 };
 
 // ============================================================================
-// MAIN TICKET FUNCTIONS
+// MAIN TICKET FUNCTIONS - FLEXIBLE VERSIONS
 // ============================================================================
 
-/**
- * Generates and prints a default ticket (new transaction) with dynamic logo
- * @param {Object} params - Parameters object containing all required data
- * @returns {Promise<void>}
- */
 export const defaultTicket = async (params) => {
   const {
     productCart = [],
@@ -647,7 +831,7 @@ export const defaultTicket = async (params) => {
     discount = 0,
     currencyList = [],
     grandTotal = 0,
-    companyLogo = '', // Static fallback
+    companyLogo = '',
     lastTransactionSaleHeaderId = '',
     currentTerminal = {},
     user = {},
@@ -655,19 +839,18 @@ export const defaultTicket = async (params) => {
     currentPaymentCode = '',
     cashReceived = 0,
     changes = 0,
-    axios = null, // Vue axios instance
-    companyData = null // Company data from mainCompanyInfo
+    axios = null,
+    companyData = null,
+    paperWidth = '80mm' // NEW: Paper width parameter (58mm or 80mm)
   } = params;
 
   if (!validateTicketParams(params, formatNumber)) return;
 
+  console.log(`🖨️ Generating ticket for ${paperWidth} printer`);
+
   try {
     const currentDate = new Date();
-    console.info(`COMPANY PASSING ${JSON.stringify(companyData)}`)
-    console.info(`COMPANY PASSING IMAGE ${JSON.stringify(companyData.ticketLogo)}`)
-    
 
-    // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({
       axios,
       staticLogoPath: companyLogo,
@@ -675,41 +858,36 @@ export const defaultTicket = async (params) => {
       fallbackLogo: '/static/images/default-logo.png'
     });
 
-    const transactionListHtml = generateRegularTransactionList(productCart, findAllProduct, formatNumber);
-    const discountHtml = generateDiscountSection(discount, formatNumber);
-    const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
-    const headerHtml = generateHeaderSection({
+    const transactionListHtml = generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, paperWidth);
+    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, paperWidth);
+    const totalHtml = generateFlexibleTotalSection(currencyList, grandTotal, discount, formatNumber, paperWidth);
+    const headerHtml = generateFlexibleHeaderSection({
       lastTransactionSaleHeaderId,
       currentTerminal,
       user
-    }, currentDate, logoUrl);
-    const paymentSectionHtml = generatePaymentSection({
+    }, currentDate, logoUrl, paperWidth);
+    const paymentSectionHtml = generateFlexiblePaymentSection({
       currentPaymentCode,
       cashReceived,
       changes
-    }, formatNumber);
+    }, formatNumber, paperWidth);
 
-    const windowContent = generateWindowContent({
+    const windowContent = generateFlexibleWindowContent({
       ticketCommon,
       headerHtml,
       transactionListHtml,
       discountHtml,
       totalHtml,
       paymentSectionHtml
-    });
+    }, paperWidth);
 
-    printTicket(windowContent);
+    printTicket(windowContent, paperWidth);
 
   } catch (error) {
     console.error('Error generating default ticket:', error);
   }
 };
 
-/**
- * Generates and prints a reprint ticket (existing transaction) with dynamic logo
- * @param {Object} params - Parameters object containing all required data
- * @returns {Promise<void>}
- */
 export const defaultTicketReprint = async (params) => {
   const {
     productCart = [],
@@ -718,7 +896,7 @@ export const defaultTicketReprint = async (params) => {
     discount = 0,
     currencyList = [],
     grandTotal = 0,
-    companyLogo = '', // Static fallback
+    companyLogo = '',
     lastTransactionSaleHeaderId = '',
     currentTerminal = {},
     user = {},
@@ -727,14 +905,16 @@ export const defaultTicketReprint = async (params) => {
     cashReceived = 0,
     changes = 0,
     bookingDate = new Date().toISOString(),
-    axios = null, // Vue axios instance
-    companyData = null // Company data from mainCompanyInfo
+    axios = null,
+    companyData = null,
+    paperWidth = '80mm' // NEW: Paper width parameter
   } = params;
 
   if (!validateTicketParams(params, formatNumber)) return;
 
+  console.log(`🖨️ Generating reprint ticket for ${paperWidth} printer`);
+
   try {
-    // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({
       axios,
       staticLogoPath: companyLogo,
@@ -742,41 +922,36 @@ export const defaultTicketReprint = async (params) => {
       fallbackLogo: '/static/images/default-logo.png'
     });
 
-    const transactionListHtml = generateReprintTransactionList(productCart, findAllProduct, formatNumber);
-    const discountHtml = generateDiscountSection(discount, formatNumber);
-    const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
-    const headerHtml = generateHeaderSection({
+    const transactionListHtml = generateFlexibleReprintTransactionList(productCart, findAllProduct, formatNumber, paperWidth);
+    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, paperWidth);
+    const totalHtml = generateFlexibleTotalSection(currencyList, grandTotal, discount, formatNumber, paperWidth);
+    const headerHtml = generateFlexibleHeaderSection({
       lastTransactionSaleHeaderId,
       currentTerminal,
       user
-    }, bookingDate, logoUrl);
-    const paymentSectionHtml = generatePaymentSection({
+    }, bookingDate, logoUrl, paperWidth);
+    const paymentSectionHtml = generateFlexiblePaymentSection({
       currentPaymentCode,
       cashReceived,
       changes
-    }, formatNumber);
+    }, formatNumber, paperWidth);
 
-    const windowContent = generateWindowContent({
+    const windowContent = generateFlexibleWindowContent({
       ticketCommon,
       headerHtml,
       transactionListHtml,
       discountHtml,
       totalHtml,
       paymentSectionHtml
-    });
+    }, paperWidth);
 
-    printTicket(windowContent);
+    printTicket(windowContent, paperWidth);
 
   } catch (error) {
     console.error('Error generating reprint ticket:', error);
   }
 };
 
-/**
- * Generates and prints a customer ticket with dynamic logo
- * @param {Object} params - Parameters object containing all required data
- * @returns {Promise<void>}
- */
 export const customerTicket = async (params) => {
   const {
     productCart = [],
@@ -785,7 +960,7 @@ export const customerTicket = async (params) => {
     discount = 0,
     currencyList = [],
     grandTotal = 0,
-    companyLogo = '', // Static fallback
+    companyLogo = '',
     lastTransactionSaleHeaderId = '',
     currentTerminal = {},
     user = {},
@@ -793,16 +968,18 @@ export const customerTicket = async (params) => {
     currentPaymentCode = '',
     cashReceived = 0,
     changes = 0,
-    axios = null, // Vue axios instance
-    companyData = null // Company data from mainCompanyInfo
+    axios = null,
+    companyData = null,
+    paperWidth = '80mm' // NEW: Paper width parameter
   } = params;
 
   if (!validateTicketParams(params, formatNumber)) return;
 
+  console.log(`🖨️ Generating customer ticket for ${paperWidth} printer`);
+
   try {
     const currentDate = new Date();
 
-    // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({
       axios,
       staticLogoPath: companyLogo,
@@ -810,30 +987,30 @@ export const customerTicket = async (params) => {
       fallbackLogo: '/static/images/default-logo.png'
     });
 
-    const transactionListHtml = generateRegularTransactionList(productCart, findAllProduct, formatNumber);
-    const discountHtml = generateDiscountSection(discount, formatNumber);
-    const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
-    const headerHtml = generateHeaderSection({
+    const transactionListHtml = generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, paperWidth);
+    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, paperWidth);
+    const totalHtml = generateFlexibleTotalSection(currencyList, grandTotal, discount, formatNumber, paperWidth);
+    const headerHtml = generateFlexibleHeaderSection({
       lastTransactionSaleHeaderId,
       currentTerminal,
       user
-    }, currentDate, logoUrl);
-    const paymentSectionHtml = generatePaymentSection({
+    }, currentDate, logoUrl, paperWidth);
+    const paymentSectionHtml = generateFlexiblePaymentSection({
       currentPaymentCode,
       cashReceived,
       changes
-    }, formatNumber);
+    }, formatNumber, paperWidth);
 
-    const windowContent = generateWindowContent({
+    const windowContent = generateFlexibleWindowContent({
       ticketCommon,
       headerHtml,
       transactionListHtml,
       discountHtml,
       totalHtml,
       paymentSectionHtml
-    });
+    }, paperWidth);
 
-    printTicket(windowContent);
+    printTicket(windowContent, paperWidth);
 
   } catch (error) {
     console.error('Error generating customer ticket:', error);
@@ -844,29 +1021,15 @@ export const customerTicket = async (params) => {
 // UTILITY EXPORTS
 // ============================================================================
 
-/**
- * Utility function to refresh logo cache
- * @param {Object} axios - Axios instance
- * @returns {Promise<string|null>} Updated logo URL
- */
 export const refreshCompanyLogo = async (axios) => {
   clearLogoCache();
   return await loadCompanyLogoFromAPI(axios);
 };
 
-/**
- * Get current cached logo info
- * @returns {Object} Logo cache object
- */
 export const getLogoCacheInfo = () => {
   return { ...companyLogoCache };
 };
 
-/**
- * Preload company logo (useful for app initialization)
- * @param {Object} axios - Axios instance
- * @returns {Promise<void>}
- */
 export const preloadCompanyLogo = async (axios) => {
   try {
     await loadCompanyLogoFromAPI(axios);
@@ -874,4 +1037,12 @@ export const preloadCompanyLogo = async (axios) => {
   } catch (error) {
     console.warn('Failed to preload company logo:', error);
   }
+};
+
+/**
+ * Get supported paper widths
+ * @returns {Array} Array of supported paper widths
+ */
+export const getSupportedPaperWidths = () => {
+  return ['58mm', '80mm'];
 };

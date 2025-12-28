@@ -5776,8 +5776,8 @@ const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8024' //  *** DCOMMERCE
   // const baseURL = 'http://150.95.31.23:8025' //  *** DCOMMERCE MAIN
-  // const baseURL = 'http://150.95.31.23:8026' //  *** DEV DEMO
-  const baseURL = 'http://150.95.31.23:8027'; //  *** HAPPY BUN
+  const baseURL = 'http://150.95.31.23:8026'; //  *** DEV DEMO
+  // const baseURL = 'http://150.95.31.23:8027' //  *** HAPPY BUN
   // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
   // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
@@ -14360,18 +14360,17 @@ module.exports = require("core-js/modules/esnext.set.union.js");
 /* unused harmony export refreshCompanyLogo */
 /* unused harmony export getLogoCacheInfo */
 /* unused harmony export preloadCompanyLogo */
+/* unused harmony export getSupportedPaperWidths */
 /**
- * Enhanced Ticket Generation Module
- * Contains functions for generating different types of receipts/tickets with dynamic logo loading
+ * Enhanced Ticket Generation Module - FLEXIBLE 58MM & 80MM VERSION
+ * Supports both 58mm and 80mm thermal printers with dynamic sizing
+ * Default: 80mm (can be changed via paperWidth parameter)
  */
 
 // ============================================================================
-// API INTEGRATION & LOGO MANAGEMENT
+// API INTEGRATION & LOGO MANAGEMENT (unchanged)
 // ============================================================================
 
-/**
- * Company logo cache to avoid repeated API calls
- */
 let companyLogoCache = {
   url: null,
   company: null,
@@ -14380,25 +14379,15 @@ let companyLogoCache = {
   lastFetch: null,
   cacheExpiry: 5 * 60 * 1000 // 5 minutes cache
 };
-
-/**
- * Loads company logo from API with caching
- * @param {Object} axios - Axios instance from Vue component
- * @returns {Promise<string|null>} Company logo URL or null
- */
 const loadCompanyLogoFromAPI = async axios => {
-  // Check cache validity
   const now = Date.now();
   const cacheValid = companyLogoCache.lastFetch && now - companyLogoCache.lastFetch < companyLogoCache.cacheExpiry;
   if (cacheValid && companyLogoCache.url) {
     console.info('Using cached company logo');
     return companyLogoCache.url;
   }
-
-  // Prevent multiple simultaneous requests
   if (companyLogoCache.loading) {
     console.info('Company logo already loading, waiting...');
-    // Wait for current request to complete
     return new Promise(resolve => {
       const checkInterval = setInterval(() => {
         if (!companyLogoCache.loading) {
@@ -14412,55 +14401,29 @@ const loadCompanyLogoFromAPI = async axios => {
   companyLogoCache.error = false;
   try {
     console.info('Fetching company logo from API...');
-
-    // Get companies with active status
     const response = await axios.get('/api/public/company/findAll');
     const companies = Array.isArray(response.data) ? response.data : [];
     console.info(`Found ${companies.length} companies from API`);
-    console.info(`Found ${JSON.stringify(companies)} companies from API`);
-
-    // Take the FIRST company with isActive: true and valid profile_image_path
     const firstActiveCompany = companies.find(company => company.isActive === true && company.profile_image_path && company.profile_image_path.trim() !== '' && company.profile_image_path !== null);
     if (firstActiveCompany) {
       companyLogoCache.company = firstActiveCompany;
-
-      // Build the full URL for your specific path format
       let baseUrl = '';
-
-      // Get base URL from axios defaults
       if (axios.defaults.baseURL) {
-        baseUrl = axios.defaults.baseURL.replace(/\/$/, ''); // Remove trailing slash
+        baseUrl = axios.defaults.baseURL.replace(/\/$/, '');
       } else {
-        // Fallback to current origin if no baseURL set
         baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
       }
-
-      // Ensure the path starts with / for proper URL construction
       const logoPath = firstActiveCompany.profile_image_path.startsWith('/') ? firstActiveCompany.profile_image_path : `/${firstActiveCompany.profile_image_path}`;
-
-      // Construct the full URL: baseURL + /uploads/company-profiles/company_1_1764563357188.png
       companyLogoCache.url = baseUrl ? `${baseUrl}${logoPath}` : logoPath;
       companyLogoCache.lastFetch = now;
       console.info('Company logo loaded successfully:', {
         company: firstActiveCompany.name,
-        mnemonic: firstActiveCompany.mnemonic,
         logoPath: firstActiveCompany.profile_image_path,
-        fullUrl: companyLogoCache.url,
-        baseUrl: baseUrl
+        fullUrl: companyLogoCache.url
       });
       return companyLogoCache.url;
     } else {
       console.warn('No active company with valid logo found in API response');
-
-      // Debug: Log what we found for troubleshooting
-      console.info('Available companies debug:', companies.map(c => ({
-        id: c.id,
-        name: c.name,
-        mnemonic: c.mnemonic,
-        isActive: c.isActive,
-        hasLogo: !!c.profile_image_path,
-        logoPath: c.profile_image_path
-      })));
       companyLogoCache.url = null;
       companyLogoCache.lastFetch = now;
       return null;
@@ -14475,25 +14438,6 @@ const loadCompanyLogoFromAPI = async axios => {
     companyLogoCache.loading = false;
   }
 };
-
-/**
- * Gets company logo with multiple fallback options (matching navigation layout pattern)
- * @param {Object} params - Parameters containing axios and fallback options
- * @returns {Promise<string>} Logo URL (API, static, or default)
- */
-
-const getBaseURL = () => {
-  let baseUrl = '';
-
-  // Get base URL from axios defaults
-  if (axios.defaults.baseURL) {
-    baseUrl = axios.defaults.baseURL.replace(/\/$/, ''); // Remove trailing slash
-  } else {
-    // Fallback to current origin if no baseURL set
-    baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-  }
-  return baseUrl;
-};
 const getCompanyLogo = async params => {
   const {
     axios,
@@ -14502,38 +14446,28 @@ const getCompanyLogo = async params => {
     fallbackLogo = '/static/images/default-logo.png'
   } = params;
   try {
-    // 1. Try to get logo from API first (primary method)
     if (axios) {
       const apiLogo = await loadCompanyLogoFromAPI(axios);
       if (apiLogo) {
         console.info('Using API logo for ticket:', apiLogo);
-        // Test if the URL is accessible
         try {
           const testResponse = await fetch(apiLogo, {
             method: 'HEAD'
           });
           if (testResponse.ok) {
             return apiLogo;
-          } else {
-            console.warn('API logo URL not accessible, status:', testResponse.status);
           }
         } catch (fetchError) {
           console.warn('API logo URL fetch test failed:', fetchError.message);
         }
       }
     }
-
-    // 2. Try static logo path from params (existing company logo)
     if (staticLogoPath) {
       console.info('Using static logo for ticket:', staticLogoPath);
-      // For static paths, we trust they exist (like in navigation)
       return staticLogoPath;
     }
-
-    // 3. Try company data logo (from mainCompanyInfo - like navigation fallback)
     if (companyData !== null && companyData !== void 0 && companyData.dcLogo) {
       try {
-        // This matches the navigation pattern: require(`~/assets/image/${this.companyData.dcLogo}`)
         const companyLogoPath = `/assets/image/${companyData.dcLogo}`;
         console.info('Using company data logo for ticket:', companyLogoPath);
         return companyLogoPath;
@@ -14541,18 +14475,13 @@ const getCompanyLogo = async params => {
         console.warn('Company data logo not accessible:', companyData.dcLogo);
       }
     }
-
-    // 4. Try the default navigation fallback
     try {
-      // This matches your navigation: require('~/assets/image/MPWT/PWT.png')
       const navigationFallback = '/assets/image/MPWT/PWT.png';
       console.info('Using navigation fallback logo for ticket:', navigationFallback);
       return navigationFallback;
     } catch (error) {
       console.warn('Navigation fallback logo not found');
     }
-
-    // 5. Final fallback logo
     console.info('Using final fallback logo for ticket:', fallbackLogo);
     return fallbackLogo;
   } catch (error) {
@@ -14560,10 +14489,6 @@ const getCompanyLogo = async params => {
     return fallbackLogo;
   }
 };
-
-/**
- * Clears the logo cache (useful for forcing refresh)
- */
 const clearLogoCache = () => {
   companyLogoCache = {
     url: null,
@@ -14576,20 +14501,13 @@ const clearLogoCache = () => {
 };
 
 // ============================================================================
-// SHARED UTILITY FUNCTIONS
+// UTILITY FUNCTIONS
 // ============================================================================
 
-/**
- * Formats date string to human-readable format
- * @param {string|Date} dateInput - Date string or Date object
- * @returns {string} Formatted date string
- */
 const formatDate = dateInput => {
   try {
     const date = new Date(dateInput);
-    if (isNaN(date.getTime())) {
-      return 'Invalid Date';
-    }
+    if (isNaN(date.getTime())) return 'Invalid Date';
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
@@ -14601,13 +14519,6 @@ const formatDate = dateInput => {
     return 'Date Error';
   }
 };
-
-/**
- * Validates required parameters for ticket generation
- * @param {Object} params - Parameters object
- * @param {Function} formatNumber - Number formatting function
- * @returns {boolean} True if valid, false otherwise
- */
 const validateTicketParams = (params, formatNumber) => {
   if (!params) {
     console.error('Parameters object is required');
@@ -14621,16 +14532,46 @@ const validateTicketParams = (params, formatNumber) => {
 };
 
 /**
- * Generates transaction list HTML for regular tickets (defaultTicket, customerTicket)
- * @param {Array} productCart - Array of products in cart
- * @param {Array} findAllProduct - Array of all available products
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for transaction list
+ * Gets paper configuration based on width
+ * @param {string} paperWidth - '58mm' or '80mm'
+ * @returns {Object} Configuration object
  */
-const generateRegularTransactionList = (productCart, findAllProduct, formatNumber) => {
+const getPaperConfig = (paperWidth = '80mm') => {
+  const configs = {
+    '58mm': {
+      width: '58mm',
+      fontSize: '10px',
+      logoSize: '35px',
+      padding: '6px',
+      lineHeight: '1.1',
+      itemSpacing: '1px',
+      sectionSpacing: '4px'
+    },
+    '80mm': {
+      width: '80mm',
+      fontSize: '11px',
+      logoSize: '45px',
+      padding: '8px',
+      lineHeight: '1.2',
+      itemSpacing: '2px',
+      sectionSpacing: '6px'
+    }
+  };
+  return configs[paperWidth] || configs['80mm'];
+};
+
+// ============================================================================
+// FLEXIBLE TRANSACTION LIST GENERATORS
+// ============================================================================
+
+/**
+ * Generates transaction list HTML with dynamic layout based on paper width
+ */
+const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
-    return '<div class="ticket"><div class="product-name">No items found</div></div>';
+    return '<div class="item">ບໍ່ມີສິນຄ້າ</div>';
   }
+  const is58mm = paperWidth === '58mm';
   return productCart.map(item => {
     const product = findAllProduct.find(el => el.id === item.id);
     if (!product) {
@@ -14640,30 +14581,37 @@ const generateRegularTransactionList = (productCart, findAllProduct, formatNumbe
     const quantity = item.qty || 0;
     const price = item.localPrice || 0;
     const total = quantity * price;
-    return `
-      <div class="ticket">
-        <div class="product-name">${product.pro_name || 'Unknown Product'}</div>
-        <div class="price">${formatNumber(total)}</div>
-      </div>
-      <div class="product-details">
-        <div class="product-name">${quantity} X ${formatNumber(price)}</div>
-      </div>
-      <br>
-    `;
+    if (is58mm) {
+      // 58MM: Compact single-line format
+      return `
+        <div class="item">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+          <div class="item-right">${formatNumber(total)}</div>
+        </div>
+      `;
+    } else {
+      // 80MM: More detailed format with unit price
+      return `
+        <div class="item">
+          <div class="item-desc">
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+          </div>
+          <div class="item-total">${formatNumber(total)}</div>
+        </div>
+      `;
+    }
   }).join('');
 };
 
 /**
- * Generates transaction list HTML for reprint tickets
- * @param {Array} productCart - Array of products in cart
- * @param {Array} findAllProduct - Array of all available products
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for transaction list
+ * Generates reprint transaction list with flexible layout
  */
-const generateReprintTransactionList = (productCart, findAllProduct, formatNumber) => {
+const generateFlexibleReprintTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
-    return '<div class="ticket"><div class="product-name">No items found</div></div>';
+    return '<div class="item">ບໍ່ມີສິນຄ້າ</div>';
   }
+  const is58mm = paperWidth === '58mm';
   return productCart.map(item => {
     const product = findAllProduct.find(el => {
       var _item$product;
@@ -14677,145 +14625,190 @@ const generateReprintTransactionList = (productCart, findAllProduct, formatNumbe
     const quantity = item.quantity || 0;
     const price = item.price || 0;
     const total = quantity * price;
-    return `
-      <div class="ticket">
-        <div class="product-name">${product.pro_name || 'Unknown Product'}</div>
-        <div class="price">${formatNumber(total)}</div>
-      </div>
-      <div class="product-details">
-        <div class="product-name">${quantity} X ${formatNumber(price)}</div>
-      </div>
-      <br>
-    `;
+    if (is58mm) {
+      return `
+        <div class="item">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+          <div class="item-right">${formatNumber(total)}</div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="item">
+          <div class="item-desc">
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
+            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+          </div>
+          <div class="item-total">${formatNumber(total)}</div>
+        </div>
+      `;
+    }
   }).join('');
 };
 
 /**
- * Generates discount section HTML
- * @param {number} discount - Discount amount
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for discount section
+ * Generates discount section with flexible layout
  */
-const generateDiscountSection = (discount, formatNumber) => {
+const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '80mm') => {
   if (discount <= 0) return '';
-  return `
-    <div class="ticket">
-      <div class="product-name">ສ່ວນຫລຸດ</div>
-      <div class="price">- ${formatNumber(discount)}</div>
-    </div>
-  `;
+  const is58mm = paperWidth === '58mm';
+  if (is58mm) {
+    return `
+      <div class="item discount">
+        <div class="item-left">ສ່ວນຫຼຸດ</div>
+        <div class="item-right">-${formatNumber(discount)}</div>
+      </div>
+    `;
+  } else {
+    return `
+      <div class="item discount">
+        <div class="item-desc">
+          <div class="item-name">ສ່ວນຫຼຸດ</div>
+        </div>
+        <div class="item-total">-${formatNumber(discount)}</div>
+      </div>
+    `;
+  }
 };
 
 /**
- * Generates total section HTML for different currencies
- * @param {Array} currencyList - Array of available currencies
- * @param {number} grandTotal - Grand total amount
- * @param {number} discount - Discount amount
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for total section
+ * Generates total section with flexible layout
  */
-const generateTotalSection = (currencyList, grandTotal, discount, formatNumber) => {
+const generateFlexibleTotalSection = (currencyList, grandTotal, discount, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(currencyList) || currencyList.length === 0) {
     return '';
   }
   const finalTotal = grandTotal - discount;
+  const is58mm = paperWidth === '58mm';
   return currencyList.map(currency => {
     const rate = currency.rate || 1;
     const convertedAmount = finalTotal / rate;
-    return `
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-footer">${currency.code || 'N/A'} ${formatNumber(convertedAmount)}</div>
-      </div>
-    `;
+    if (is58mm) {
+      return `
+        <div class="total-line-compact">
+          <strong>${currency.code || 'N/A'} ${formatNumber(convertedAmount)}</strong>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="total-line">
+          <span class="total-label">ລວມທັງໝົດ:</span>
+          <span class="total-amount">${currency.code || 'N/A'} ${formatNumber(convertedAmount)}</span>
+        </div>
+      `;
+    }
   }).join('');
 };
 
 /**
- * Generates enhanced header section HTML with dynamic logo
- * @param {Object} headerData - Header data object
- * @param {string|Date} dateValue - Date value (current date or booking date)
- * @param {string} logoUrl - Dynamic logo URL from API
- * @returns {string} HTML string for header section
+ * Generates header section with flexible layout
  */
-const generateHeaderSection = (headerData, dateValue, logoUrl) => {
+const generateFlexibleHeaderSection = (headerData, dateValue, logoUrl, paperWidth = '80mm') => {
   var _currentTerminal$loca, _currentTerminal$loca2, _companyLogoCache$com, _currentTerminal$loca3, _currentTerminal$loca4, _companyLogoCache$com2, _currentTerminal$loca5, _currentTerminal$loca6, _companyLogoCache$com3;
   const {
     lastTransactionSaleHeaderId,
     currentTerminal,
     user
   } = headerData;
-  console.info(`LOGO paSSING TO HEADER ${logoUrl}`);
-  // Get company information with fallbacks
   const companyName = (currentTerminal === null || currentTerminal === void 0 ? void 0 : (_currentTerminal$loca = currentTerminal.location) === null || _currentTerminal$loca === void 0 ? void 0 : (_currentTerminal$loca2 = _currentTerminal$loca.company) === null || _currentTerminal$loca2 === void 0 ? void 0 : _currentTerminal$loca2.name) || ((_companyLogoCache$com = companyLogoCache.company) === null || _companyLogoCache$com === void 0 ? void 0 : _companyLogoCache$com.name) || 'Dcommerce';
   const companyTel = (currentTerminal === null || currentTerminal === void 0 ? void 0 : (_currentTerminal$loca3 = currentTerminal.location) === null || _currentTerminal$loca3 === void 0 ? void 0 : (_currentTerminal$loca4 = _currentTerminal$loca3.company) === null || _currentTerminal$loca4 === void 0 ? void 0 : _currentTerminal$loca4.tel) || ((_companyLogoCache$com2 = companyLogoCache.company) === null || _companyLogoCache$com2 === void 0 ? void 0 : _companyLogoCache$com2.tel) || 'N/A';
   const companyLogoUrl = (currentTerminal === null || currentTerminal === void 0 ? void 0 : (_currentTerminal$loca5 = currentTerminal.location) === null || _currentTerminal$loca5 === void 0 ? void 0 : (_currentTerminal$loca6 = _currentTerminal$loca5.company) === null || _currentTerminal$loca6 === void 0 ? void 0 : _currentTerminal$loca6.profile_image_path) || ((_companyLogoCache$com3 = companyLogoCache.company) === null || _companyLogoCache$com3 === void 0 ? void 0 : _companyLogoCache$com3.profile_image_path) || 'N/A';
   const userName = (user === null || user === void 0 ? void 0 : user.cus_name) || 'N/A';
-  console.info(`real image path ${companyLogoUrl}`);
-  // Create logo HTML with error handling
-  const baseURL = window.location.origin;
-  console.warn(`base url ${currentTerminal.baseURL}`);
-  const logoHtml = logoUrl ? `<img src="${currentTerminal.baseURL}/${companyLogoUrl}" alt="Company Logo" width="100" height="100" 
-          style="max-width: 100px; max-height: 100px; object-fit: contain;" 
-          onerror="this.style.display='none';">` : `<div style="width: 100px; height: 100px; background: #f0f0f0; 
-                 display: flex; align-items: center; justify-content: center; 
-                 border-radius: 8px; font-size: 12px; text-align: center;">
-       ${companyName.substring(0, 2).toUpperCase()}
-     </div>`;
-  return `
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-      <div style="flex: 0 0 auto;">
-        ${logoHtml}
+  const config = getPaperConfig(paperWidth);
+  const is58mm = paperWidth === '58mm';
+  const logoHtml = logoUrl ? `<img src="${currentTerminal.baseURL}/${companyLogoUrl}" alt="Logo" 
+          style="width: ${config.logoSize}; height: ${config.logoSize}; object-fit: contain;" 
+          onerror="this.style.display='none';">` : `<div class="logo-placeholder">${companyName.substring(0, 2).toUpperCase()}</div>`;
+  if (is58mm) {
+    // 58MM: Compact vertical layout
+    return `
+      <div class="header-58mm">
+        <div class="header-logo">${logoHtml}</div>
+        <div class="company-info-58mm">
+          <div class="company-name">${companyName}</div>
+          <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+        </div>
       </div>
-      <div style="flex: 1; text-align: right; margin-left: 20px;">
-        <h4 style="margin: 0; color: #333;">${companyName}</h4>
-        <p style="margin: 5px 0; color: #666; font-size: 12px;">ເບີໂທ: ${companyTel}</p>
-        <hr style="margin: 10px 0;">
-        <h5 style="margin: 5px 0;">ວັນທີ: ${formatDate(dateValue)}</h5>
-        <h5 style="margin: 5px 0;">ເລກທີ: ${lastTransactionSaleHeaderId}</h5>
-        <h5 style="margin: 5px 0;">ຜູ້ຂາຍ: ${userName}</h5>
+      <div class="receipt-info-58mm">
+        <div>ວັນທີ: ${formatDate(dateValue)}</div>
+        <div>ເລກທີ: ${lastTransactionSaleHeaderId}</div>
+        <div>ຜູ້ຂາຍ: ${userName}</div>
       </div>
-    </div>
-    <hr style="margin: 20px 0; border: 1px solid #ccc;">
-  `;
+      <div class="divider">- - - - - - - - - - - - - - -</div>
+    `;
+  } else {
+    // 80MM: Horizontal layout with more space
+    return `
+      <div class="header-80mm">
+        <div class="header-left">
+          ${logoHtml}
+        </div>
+        <div class="header-right">
+          <div class="company-name">${companyName}</div>
+          <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+          <div class="receipt-info-80mm">
+            <div>ວັນທີ: ${formatDate(dateValue)}</div>
+            <div>ເລກທີ: ${lastTransactionSaleHeaderId}</div>
+            <div>ຜູ້ຂາຍ: ${userName}</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - - -</div>
+    `;
+  }
 };
 
 /**
- * Generates payment section HTML
- * @param {Object} paymentData - Payment data object
- * @param {Function} formatNumber - Number formatting function
- * @returns {string} HTML string for payment section
+ * Generates payment section with flexible layout
  */
-const generatePaymentSection = (paymentData, formatNumber) => {
+const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = '80mm') => {
   const {
     currentPaymentCode,
     cashReceived,
     changes
   } = paymentData;
-  return `
-    <div class="payment-section">
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-total"><h5>ຊຳລະດ້ວຍ: ${currentPaymentCode}</h5></div>
+  const is58mm = paperWidth === '58mm';
+  if (is58mm) {
+    return `
+      <div class="payment-section">
+        <div class="item">
+          <div class="item-left">ຊຳລະດ້ວຍ:</div>
+          <div class="item-right">${currentPaymentCode}</div>
+        </div>
+        <div class="item">
+          <div class="item-left">ຮັບຊຳລະ:</div>
+          <div class="item-right">${formatNumber(cashReceived)}</div>
+        </div>
+        <div class="item">
+          <div class="item-left">ເງິນທອນ:</div>
+          <div class="item-right">${formatNumber(changes)}</div>
+        </div>
       </div>
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-total"><h5>ຮັບຊຳລະ: ${formatNumber(cashReceived)}</h5></div>
+    `;
+  } else {
+    return `
+      <div class="payment-section">
+        <div class="payment-item">
+          <span class="payment-label">ຊຳລະດ້ວຍ:</span>
+          <span class="payment-value">${currentPaymentCode}</span>
+        </div>
+        <div class="payment-item">
+          <span class="payment-label">ຮັບຊຳລະ:</span>
+          <span class="payment-value">${formatNumber(cashReceived)}</span>
+        </div>
+        <div class="payment-item">
+          <span class="payment-label">ເງິນທອນ:</span>
+          <span class="payment-value">${formatNumber(changes)}</span>
+        </div>
       </div>
-      <div class="ticket">
-        <div class="product-name"></div>
-        <div class="price-total"><h5>ເງິນທອນ: ${formatNumber(changes)}</h5></div>
-      </div>
-    </div>
-  `;
+    `;
+  }
 };
 
 /**
- * Generates complete window content HTML with enhanced styling
- * @param {Object} contentData - Content data object
- * @returns {string} Complete HTML string for printing
+ * Generates window content with dynamic CSS based on paper width
  */
-const generateWindowContent = contentData => {
+const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
   const {
     ticketCommon,
     headerHtml,
@@ -14824,6 +14817,8 @@ const generateWindowContent = contentData => {
     totalHtml,
     paymentSectionHtml
   } = contentData;
+  const config = getPaperConfig(paperWidth);
+  const is58mm = paperWidth === '58mm';
   return `
     <!DOCTYPE html>
     <html>
@@ -14831,112 +14826,283 @@ const generateWindowContent = contentData => {
       <meta charset="UTF-8">
       <title>Receipt</title>
       <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
+        
         body {
-          font-family: 'Arial', sans-serif;
+          font-family: 'Noto Sans Lao', 'Arial', sans-serif;
           margin: 0;
-          padding: 20px;
-          font-size: 14px;
-          line-height: 1.4;
-          color: #333;
+          padding: ${config.padding};
+          font-size: ${config.fontSize};
+          line-height: ${config.lineHeight};
+          color: #000;
+          width: ${config.width};
+          max-width: ${config.width};
         }
-        .ticket {
+        
+        /* ========== COMMON STYLES ========== */
+        .title {
+          text-align: center;
+          font-weight: 600;
+          font-size: ${is58mm ? '12px' : '13px'};
+          margin-bottom: ${config.sectionSpacing};
+        }
+        
+        .divider {
+          text-align: center;
+          margin: ${config.sectionSpacing} 0;
+          font-size: 9px;
+          color: #999;
+        }
+        
+        .logo-placeholder {
+          width: ${config.logoSize};
+          height: ${config.logoSize};
+          background: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          font-size: ${is58mm ? '8px' : '10px'};
+          font-weight: bold;
+        }
+        
+        .company-name {
+          font-weight: 600;
+          font-size: ${is58mm ? '11px' : '12px'};
+          margin-bottom: 2px;
+        }
+        
+        .company-tel {
+          font-size: ${is58mm ? '8px' : '9px'};
+          color: #666;
+        }
+        
+        /* ========== 58MM SPECIFIC STYLES ========== */
+        ${is58mm ? `
+        .header-58mm {
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+          gap: 6px;
+        }
+        
+        .company-info-58mm {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .receipt-info-58mm {
+          font-size: 8px;
+          margin-bottom: 4px;
+        }
+        
+        .receipt-info-58mm > div {
+          margin-bottom: 1px;
+        }
+        
+        .item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: ${config.itemSpacing};
+          padding: 1px 0;
+        }
+        
+        .item-left {
+          flex: 1;
+          font-weight: 400;
+          word-break: break-word;
+          margin-right: 4px;
+        }
+        
+        .item-right {
+          font-weight: 500;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        .total-line-compact {
+          text-align: center;
+          font-size: 11px;
+          font-weight: 600;
+          margin: 2px 0;
+        }
+        ` : `
+        /* ========== 80MM SPECIFIC STYLES ========== */
+        .header-80mm {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 6px;
+          gap: 10px;
+        }
+        
+        .header-left {
+          flex: 0 0 auto;
+        }
+        
+        .header-right {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .receipt-info-80mm {
+          margin-top: 4px;
+          font-size: 9px;
+        }
+        
+        .receipt-info-80mm > div {
+          margin-bottom: 1px;
+        }
+        
+        .item {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: ${config.itemSpacing};
+          padding: 1px 0;
+        }
+        
+        .item-desc {
+          flex: 1;
+          margin-right: 8px;
+        }
+        
+        .item-name {
+          font-weight: 500;
+          margin-bottom: 1px;
+        }
+        
+        .item-detail {
+          font-size: 9px;
+          color: #666;
+        }
+        
+        .item-total {
+          font-weight: 500;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        .total-line {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 8px;
-          padding: 4px 0;
+          font-size: 12px;
+          font-weight: 600;
+          margin: 2px 0;
         }
-        .product-name {
-          flex: 1;
+        
+        .payment-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2px;
+        }
+        
+        .payment-label {
           font-weight: 500;
         }
-        .product-details {
-          margin-left: 20px;
-          font-size: 12px;
-          color: #666;
-        }
-        .price {
+        
+        .payment-value {
           font-weight: 600;
-          text-align: right;
-          min-width: 80px;
         }
-        .price-footer, .price-total {
-          font-weight: 700;
-          text-align: right;
-          min-width: 80px;
-          font-size: 16px;
+        `}
+        
+        /* ========== COMMON ELEMENTS ========== */
+        .item.discount .item-left,
+        .item.discount .item-name {
+          font-style: italic;
         }
+        
+        .item.discount .item-right,
+        .item.discount .item-total {
+          color: #d32f2f;
+        }
+        
         .payment-section {
-          margin-top: 20px;
-          padding-top: 15px;
-          border-top: 2px solid #333;
+          margin-top: ${config.sectionSpacing};
+          padding-top: 4px;
+          border-top: 1px dashed #999;
         }
-        hr {
-          border: none;
-          border-top: 1px solid #ddd;
-          margin: 15px 0;
+        
+        .total-section {
+          margin-top: 4px;
+          padding-top: 4px;
+          border-top: 1px solid #000;
         }
-        h3 {
+        
+        .footer {
           text-align: center;
-          margin-bottom: 30px;
-          font-size: 18px;
-          font-weight: 700;
+          margin-top: ${config.sectionSpacing};
+          font-size: ${is58mm ? '9px' : '10px'};
         }
-        h4, h5 {
-          margin: 5px 0;
+        
+        .footer .thank-you {
           font-weight: 600;
+          margin-bottom: 2px;
         }
+        
+        .footer .sub-text {
+          color: #666;
+          font-size: ${is58mm ? '8px' : '9px'};
+        }
+        
         @media print {
-          body { margin: 0; padding: 10px; }
-          .no-print { display: none; }
+          body { 
+            margin: 0; 
+            padding: 4px;
+            width: auto;
+            max-width: none;
+          }
+          .no-print { 
+            display: none; 
+          }
+        }
+        
+        @page {
+          margin: 0;
+          size: ${config.width} auto;
         }
       </style>
     </head>
     <body>
-      <h3>ໃບຮັບເງິນ / Receipt</h3>
+      <div class="title">ໃບຮັບເງິນ</div>
       ${headerHtml}
-      <div style="margin: 20px 0;">
-        ${transactionListHtml}
-      </div>
+      
+      ${transactionListHtml}
       ${discountHtml}
-      <hr>
+      
+      <div class="divider">${is58mm ? '- - - - - - - - - - - - - - -' : '- - - - - - - - - - - - - - - - - - - - - - - - -'}</div>
+      
       ${paymentSectionHtml}
-      <div style="margin-top: 15px;">
+      
+      <div class="total-section">
         ${totalHtml}
       </div>
-      <div style="text-align: center; margin-top: 30px;">
-        <h4>THANK YOU</h4>
-        <p style="font-size: 12px; color: #666;">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</p>
+      
+      <div class="footer">
+        <div class="thank-you">THANK YOU</div>
+        <div class="sub-text">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</div>
       </div>
     </body>
     </html>
   `;
 };
-
-/**
- * Opens print window and prints the ticket
- * @param {string} windowContent - HTML content to print
- * @returns {void}
- */
-const printTicket = windowContent => {
+const printTicket = (windowContent, paperWidth = '80mm') => {
   try {
-    const printWin = window.open('', '', 'left=0,top=0,width=800,height=1000,toolbar=0,scrollbars=1,status=0');
+    const windowWidth = paperWidth === '58mm' ? 350 : 450;
+    const windowHeight = 600;
+    const printWin = window.open('', '', `left=0,top=0,width=${windowWidth},height=${windowHeight},toolbar=0,scrollbars=1,status=0`);
     if (!printWin) {
       throw new Error('Unable to open print window. Please check popup blockers.');
     }
     printWin.document.open();
     printWin.document.write(windowContent);
     printWin.document.close();
-
-    // Wait for images and content to load
     printWin.onload = () => {
       setTimeout(() => {
         printWin.print();
         printWin.close();
       }, 800);
     };
-
-    // Fallback timeout
     setTimeout(() => {
       if (!printWin.closed) {
         printWin.print();
@@ -14950,14 +15116,9 @@ const printTicket = windowContent => {
 };
 
 // ============================================================================
-// MAIN TICKET FUNCTIONS
+// MAIN TICKET FUNCTIONS - FLEXIBLE VERSIONS
 // ============================================================================
 
-/**
- * Generates and prints a default ticket (new transaction) with dynamic logo
- * @param {Object} params - Parameters object containing all required data
- * @returns {Promise<void>}
- */
 const defaultTicket = async params => {
   const {
     productCart = [],
@@ -14967,7 +15128,6 @@ const defaultTicket = async params => {
     currencyList = [],
     grandTotal = 0,
     companyLogo = '',
-    // Static fallback
     lastTransactionSaleHeaderId = '',
     currentTerminal = {},
     user = {},
@@ -14976,54 +15136,45 @@ const defaultTicket = async params => {
     cashReceived = 0,
     changes = 0,
     axios = null,
-    // Vue axios instance
-    companyData = null // Company data from mainCompanyInfo
+    companyData = null,
+    paperWidth = '80mm' // NEW: Paper width parameter (58mm or 80mm)
   } = params;
   if (!validateTicketParams(params, formatNumber)) return;
+  console.log(`🖨️ Generating ticket for ${paperWidth} printer`);
   try {
     const currentDate = new Date();
-    console.info(`COMPANY PASSING ${JSON.stringify(companyData)}`);
-    console.info(`COMPANY PASSING IMAGE ${JSON.stringify(companyData.ticketLogo)}`);
-
-    // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({
       axios,
       staticLogoPath: companyLogo,
       companyData,
       fallbackLogo: '/static/images/default-logo.png'
     });
-    const transactionListHtml = generateRegularTransactionList(productCart, findAllProduct, formatNumber);
-    const discountHtml = generateDiscountSection(discount, formatNumber);
-    const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
-    const headerHtml = generateHeaderSection({
+    const transactionListHtml = generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, paperWidth);
+    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, paperWidth);
+    const totalHtml = generateFlexibleTotalSection(currencyList, grandTotal, discount, formatNumber, paperWidth);
+    const headerHtml = generateFlexibleHeaderSection({
       lastTransactionSaleHeaderId,
       currentTerminal,
       user
-    }, currentDate, logoUrl);
-    const paymentSectionHtml = generatePaymentSection({
+    }, currentDate, logoUrl, paperWidth);
+    const paymentSectionHtml = generateFlexiblePaymentSection({
       currentPaymentCode,
       cashReceived,
       changes
-    }, formatNumber);
-    const windowContent = generateWindowContent({
+    }, formatNumber, paperWidth);
+    const windowContent = generateFlexibleWindowContent({
       ticketCommon,
       headerHtml,
       transactionListHtml,
       discountHtml,
       totalHtml,
       paymentSectionHtml
-    });
-    printTicket(windowContent);
+    }, paperWidth);
+    printTicket(windowContent, paperWidth);
   } catch (error) {
     console.error('Error generating default ticket:', error);
   }
 };
-
-/**
- * Generates and prints a reprint ticket (existing transaction) with dynamic logo
- * @param {Object} params - Parameters object containing all required data
- * @returns {Promise<void>}
- */
 const defaultTicketReprint = async params => {
   const {
     productCart = [],
@@ -15033,7 +15184,6 @@ const defaultTicketReprint = async params => {
     currencyList = [],
     grandTotal = 0,
     companyLogo = '',
-    // Static fallback
     lastTransactionSaleHeaderId = '',
     currentTerminal = {},
     user = {},
@@ -15043,50 +15193,44 @@ const defaultTicketReprint = async params => {
     changes = 0,
     bookingDate = new Date().toISOString(),
     axios = null,
-    // Vue axios instance
-    companyData = null // Company data from mainCompanyInfo
+    companyData = null,
+    paperWidth = '80mm' // NEW: Paper width parameter
   } = params;
   if (!validateTicketParams(params, formatNumber)) return;
+  console.log(`🖨️ Generating reprint ticket for ${paperWidth} printer`);
   try {
-    // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({
       axios,
       staticLogoPath: companyLogo,
       companyData,
       fallbackLogo: '/static/images/default-logo.png'
     });
-    const transactionListHtml = generateReprintTransactionList(productCart, findAllProduct, formatNumber);
-    const discountHtml = generateDiscountSection(discount, formatNumber);
-    const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
-    const headerHtml = generateHeaderSection({
+    const transactionListHtml = generateFlexibleReprintTransactionList(productCart, findAllProduct, formatNumber, paperWidth);
+    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, paperWidth);
+    const totalHtml = generateFlexibleTotalSection(currencyList, grandTotal, discount, formatNumber, paperWidth);
+    const headerHtml = generateFlexibleHeaderSection({
       lastTransactionSaleHeaderId,
       currentTerminal,
       user
-    }, bookingDate, logoUrl);
-    const paymentSectionHtml = generatePaymentSection({
+    }, bookingDate, logoUrl, paperWidth);
+    const paymentSectionHtml = generateFlexiblePaymentSection({
       currentPaymentCode,
       cashReceived,
       changes
-    }, formatNumber);
-    const windowContent = generateWindowContent({
+    }, formatNumber, paperWidth);
+    const windowContent = generateFlexibleWindowContent({
       ticketCommon,
       headerHtml,
       transactionListHtml,
       discountHtml,
       totalHtml,
       paymentSectionHtml
-    });
-    printTicket(windowContent);
+    }, paperWidth);
+    printTicket(windowContent, paperWidth);
   } catch (error) {
     console.error('Error generating reprint ticket:', error);
   }
 };
-
-/**
- * Generates and prints a customer ticket with dynamic logo
- * @param {Object} params - Parameters object containing all required data
- * @returns {Promise<void>}
- */
 const customerTicket = async params => {
   const {
     productCart = [],
@@ -15096,7 +15240,6 @@ const customerTicket = async params => {
     currencyList = [],
     grandTotal = 0,
     companyLogo = '',
-    // Static fallback
     lastTransactionSaleHeaderId = '',
     currentTerminal = {},
     user = {},
@@ -15105,42 +15248,41 @@ const customerTicket = async params => {
     cashReceived = 0,
     changes = 0,
     axios = null,
-    // Vue axios instance
-    companyData = null // Company data from mainCompanyInfo
+    companyData = null,
+    paperWidth = '80mm' // NEW: Paper width parameter
   } = params;
   if (!validateTicketParams(params, formatNumber)) return;
+  console.log(`🖨️ Generating customer ticket for ${paperWidth} printer`);
   try {
     const currentDate = new Date();
-
-    // Get dynamic logo with fallbacks
     const logoUrl = await getCompanyLogo({
       axios,
       staticLogoPath: companyLogo,
       companyData,
       fallbackLogo: '/static/images/default-logo.png'
     });
-    const transactionListHtml = generateRegularTransactionList(productCart, findAllProduct, formatNumber);
-    const discountHtml = generateDiscountSection(discount, formatNumber);
-    const totalHtml = generateTotalSection(currencyList, grandTotal, discount, formatNumber);
-    const headerHtml = generateHeaderSection({
+    const transactionListHtml = generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, paperWidth);
+    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, paperWidth);
+    const totalHtml = generateFlexibleTotalSection(currencyList, grandTotal, discount, formatNumber, paperWidth);
+    const headerHtml = generateFlexibleHeaderSection({
       lastTransactionSaleHeaderId,
       currentTerminal,
       user
-    }, currentDate, logoUrl);
-    const paymentSectionHtml = generatePaymentSection({
+    }, currentDate, logoUrl, paperWidth);
+    const paymentSectionHtml = generateFlexiblePaymentSection({
       currentPaymentCode,
       cashReceived,
       changes
-    }, formatNumber);
-    const windowContent = generateWindowContent({
+    }, formatNumber, paperWidth);
+    const windowContent = generateFlexibleWindowContent({
       ticketCommon,
       headerHtml,
       transactionListHtml,
       discountHtml,
       totalHtml,
       paymentSectionHtml
-    });
-    printTicket(windowContent);
+    }, paperWidth);
+    printTicket(windowContent, paperWidth);
   } catch (error) {
     console.error('Error generating customer ticket:', error);
   }
@@ -15150,31 +15292,15 @@ const customerTicket = async params => {
 // UTILITY EXPORTS
 // ============================================================================
 
-/**
- * Utility function to refresh logo cache
- * @param {Object} axios - Axios instance
- * @returns {Promise<string|null>} Updated logo URL
- */
 const refreshCompanyLogo = async axios => {
   clearLogoCache();
   return await loadCompanyLogoFromAPI(axios);
 };
-
-/**
- * Get current cached logo info
- * @returns {Object} Logo cache object
- */
 const getLogoCacheInfo = () => {
   return {
     ...companyLogoCache
   };
 };
-
-/**
- * Preload company logo (useful for app initialization)
- * @param {Object} axios - Axios instance
- * @returns {Promise<void>}
- */
 const preloadCompanyLogo = async axios => {
   try {
     await loadCompanyLogoFromAPI(axios);
@@ -15182,6 +15308,14 @@ const preloadCompanyLogo = async axios => {
   } catch (error) {
     console.warn('Failed to preload company logo:', error);
   }
+};
+
+/**
+ * Get supported paper widths
+ * @returns {Array} Array of supported paper widths
+ */
+const getSupportedPaperWidths = () => {
+  return ['58mm', '80mm'];
 };
 
 /***/ }),
@@ -23753,12 +23887,13 @@ __webpack_require__.d(components_namespaceObject, "OrderSumaryCardV2", function(
 __webpack_require__.d(components_namespaceObject, "SimplifiedCompanyForm", function() { return SimplifiedCompanyForm; });
 __webpack_require__.d(components_namespaceObject, "Slider", function() { return Slider; });
 __webpack_require__.d(components_namespaceObject, "UnitForm", function() { return UnitForm; });
-__webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
 __webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
+__webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
 __webpack_require__.d(components_namespaceObject, "AccountingApPayment", function() { return AccountingApPayment; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", function() { return AccountingArReceivable; });
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
 __webpack_require__.d(components_namespaceObject, "CalendarMyCalendar", function() { return CalendarMyCalendar; });
+__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
 __webpack_require__.d(components_namespaceObject, "CardGiftDialog", function() { return CardGiftDialog; });
 __webpack_require__.d(components_namespaceObject, "CardCampaignCard", function() { return CardCampaignCard; });
 __webpack_require__.d(components_namespaceObject, "CardForm", function() { return CardForm; });
@@ -23766,20 +23901,20 @@ __webpack_require__.d(components_namespaceObject, "CardStockAdjustMent", functio
 __webpack_require__.d(components_namespaceObject, "CardStockMaintenance", function() { return CardStockMaintenance; });
 __webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
 __webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
-__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
-__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardGrouping", function() { return DashboardCardGrouping; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardOnTop", function() { return DashboardCardOnTop; });
 __webpack_require__.d(components_namespaceObject, "DashboardMetricCard", function() { return DashboardMetricCard; });
-__webpack_require__.d(components_namespaceObject, "Menu", function() { return Menu; });
+__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
 __webpack_require__.d(components_namespaceObject, "MemberOffer", function() { return MemberOffer; });
 __webpack_require__.d(components_namespaceObject, "MemberUsage", function() { return MemberUsage; });
+__webpack_require__.d(components_namespaceObject, "Menu", function() { return Menu; });
 __webpack_require__.d(components_namespaceObject, "MenuOverview", function() { return MenuOverview; });
+__webpack_require__.d(components_namespaceObject, "MinStockCard", function() { return MinStockCard; });
 __webpack_require__.d(components_namespaceObject, "MinistryDialog", function() { return MinistryDialog; });
 __webpack_require__.d(components_namespaceObject, "MinistryViewDialog", function() { return MinistryViewDialog; });
-__webpack_require__.d(components_namespaceObject, "MinStockCard", function() { return MinStockCard; });
 __webpack_require__.d(components_namespaceObject, "PaymentCard", function() { return PaymentCard; });
 __webpack_require__.d(components_namespaceObject, "PaymentQr", function() { return PaymentQr; });
+__webpack_require__.d(components_namespaceObject, "PoForm", function() { return PoForm; });
 __webpack_require__.d(components_namespaceObject, "PosCartFooterComponent", function() { return PosCartFooterComponent; });
 __webpack_require__.d(components_namespaceObject, "PosCartItemComponent", function() { return PosCartItemComponent; });
 __webpack_require__.d(components_namespaceObject, "PosCateogoryList", function() { return PosCateogoryList; });
@@ -23792,22 +23927,22 @@ __webpack_require__.d(components_namespaceObject, "ProductItem", function() { re
 __webpack_require__.d(components_namespaceObject, "ProductCardPos", function() { return ProductCardPos; });
 __webpack_require__.d(components_namespaceObject, "ProductForm", function() { return ProductForm; });
 __webpack_require__.d(components_namespaceObject, "ProductFormCreate", function() { return ProductFormCreate; });
-__webpack_require__.d(components_namespaceObject, "Quotation", function() { return Quotation; });
 __webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
-__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
-__webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
+__webpack_require__.d(components_namespaceObject, "Quotation", function() { return Quotation; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { return RolesRoleCard; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
 __webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
-__webpack_require__.d(components_namespaceObject, "PoForm", function() { return PoForm; });
-__webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
-__webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
-__webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
-__webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
+__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
+__webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsNotesDialog", function() { return TicketsNotesDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsPrintDialog", function() { return TicketsPrintDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketCard", function() { return TicketsTicketCard; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketDetailDialog", function() { return TicketsTicketDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
+__webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
+__webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
+__webpack_require__.d(components_namespaceObject, "CAFEPrintBarDialog", function() { return CAFEPrintBarDialog; });
+__webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditDialog", function() { return MAPaymentAuditDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditReportDialog", function() { return MAPaymentAuditReportDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentCompareDialog", function() { return MAPaymentCompareDialog; });
@@ -23822,47 +23957,46 @@ __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsMinistryIn
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsSelectField", function() { return MAPaymentComponentsSelectField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsTextareaField", function() { return MAPaymentComponentsTextareaField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsValidationErrors", function() { return MAPaymentComponentsValidationErrors; });
-__webpack_require__.d(components_namespaceObject, "CAFEPrintBarDialog", function() { return CAFEPrintBarDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentDetailDialog", function() { return MAPaymentDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
 __webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
-__webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
+__webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
 __webpack_require__.d(components_namespaceObject, "BankBankAccount", function() { return BankBankAccount; });
 __webpack_require__.d(components_namespaceObject, "BenefitMaintain", function() { return BenefitMaintain; });
 __webpack_require__.d(components_namespaceObject, "BenefitView", function() { return BenefitView; });
+__webpack_require__.d(components_namespaceObject, "CompanyTheme", function() { return CompanyTheme; });
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseMaintain", function() { return JobAdvertiseMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseStatusUpdate", function() { return JobAdvertiseStatusUpdate; });
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseView", function() { return JobAdvertiseView; });
-__webpack_require__.d(components_namespaceObject, "CompanyTheme", function() { return CompanyTheme; });
-__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "JobFairJobBatch", function() { return JobFairJobBatch; });
 __webpack_require__.d(components_namespaceObject, "PosDialogsQuantityUpdateDialog", function() { return PosDialogsQuantityUpdateDialog; });
+__webpack_require__.d(components_namespaceObject, "PosRecipe", function() { return PosRecipe; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoice", function() { return AccountingApInvoice; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlement", function() { return AccountingApSettlement; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyMaintain", function() { return JobFairAgencyMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyView", function() { return JobFairAgencyView; });
 __webpack_require__.d(components_namespaceObject, "JobFairMouMaintain", function() { return JobFairMouMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAudit", function() { return AccountingApInvoiceAudit; });
-__webpack_require__.d(components_namespaceObject, "PosRecipe", function() { return PosRecipe; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit", function() { return AccountingApSettlementAudit; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAudit", function() { return AccountingArInvoiceAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
-__webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(1);
@@ -30696,12 +30830,13 @@ const OrderSumaryCardV2 = () => __webpack_require__.e(/* import() | components/o
 const SimplifiedCompanyForm = () => __webpack_require__.e(/* import() | components/simplified-company-form */ 150).then(__webpack_require__.bind(null, 1539)).then(c => wrapFunctional(c.default || c));
 const Slider = () => __webpack_require__.e(/* import() | components/slider */ 151).then(__webpack_require__.bind(null, 1055)).then(c => wrapFunctional(c.default || c));
 const UnitForm = () => __webpack_require__.e(/* import() | components/unit-form */ 163).then(__webpack_require__.bind(null, 853)).then(c => wrapFunctional(c.default || c));
-const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 633)).then(c => wrapFunctional(c.default || c));
 const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 1034)).then(c => wrapFunctional(c.default || c));
+const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 633)).then(c => wrapFunctional(c.default || c));
 const AccountingApPayment = () => __webpack_require__.e(/* import() | components/accounting-ap-payment */ 6).then(__webpack_require__.bind(null, 1018)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 1019)).then(c => wrapFunctional(c.default || c));
 const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 1025)).then(c => wrapFunctional(c.default || c));
 const CalendarMyCalendar = () => __webpack_require__.e(/* import() | components/calendar-my-calendar */ 38).then(__webpack_require__.bind(null, 1540)).then(c => wrapFunctional(c.default || c));
+const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 39).then(__webpack_require__.bind(null, 843)).then(c => wrapFunctional(c.default || c));
 const CardGiftDialog = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 192)).then(c => wrapFunctional(c.default || c));
 const CardCampaignCard = () => __webpack_require__.e(/* import() | components/card-campaign-card */ 41).then(__webpack_require__.bind(null, 1541)).then(c => wrapFunctional(c.default || c));
 const CardForm = () => __webpack_require__.e(/* import() | components/card-form */ 43).then(__webpack_require__.bind(null, 636)).then(c => wrapFunctional(c.default || c));
@@ -30709,20 +30844,20 @@ const CardStockAdjustMent = () => __webpack_require__.e(/* import() | components
 const CardStockMaintenance = () => __webpack_require__.e(/* import() | components/card-stock-maintenance */ 45).then(__webpack_require__.bind(null, 1013)).then(c => wrapFunctional(c.default || c));
 const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 51).then(__webpack_require__.bind(null, 845)).then(c => wrapFunctional(c.default || c));
 const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 93)).then(c => wrapFunctional(c.default || c));
-const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 58).then(__webpack_require__.bind(null, 1542)).then(c => wrapFunctional(c.default || c));
-const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 39).then(__webpack_require__.bind(null, 843)).then(c => wrapFunctional(c.default || c));
-const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 52).then(__webpack_require__.bind(null, 1543)).then(c => wrapFunctional(c.default || c));
-const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 53).then(__webpack_require__.bind(null, 1544)).then(c => wrapFunctional(c.default || c));
+const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 52).then(__webpack_require__.bind(null, 1542)).then(c => wrapFunctional(c.default || c));
+const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 53).then(__webpack_require__.bind(null, 1543)).then(c => wrapFunctional(c.default || c));
 const DashboardMetricCard = () => __webpack_require__.e(/* import() | components/dashboard-metric-card */ 54).then(__webpack_require__.bind(null, 1030)).then(c => wrapFunctional(c.default || c));
-const Menu = () => __webpack_require__.e(/* import() | components/menu */ 98).then(__webpack_require__.bind(null, 1545)).then(c => wrapFunctional(c.default || c));
+const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 58).then(__webpack_require__.bind(null, 1544)).then(c => wrapFunctional(c.default || c));
 const MemberOffer = () => __webpack_require__.e(/* import() | components/member-offer */ 96).then(__webpack_require__.bind(null, 561)).then(c => wrapFunctional(c.default || c));
 const MemberUsage = () => __webpack_require__.e(/* import() | components/member-usage */ 97).then(__webpack_require__.bind(null, 1384)).then(c => wrapFunctional(c.default || c));
+const Menu = () => __webpack_require__.e(/* import() | components/menu */ 98).then(__webpack_require__.bind(null, 1545)).then(c => wrapFunctional(c.default || c));
 const MenuOverview = () => __webpack_require__.e(/* import() | components/menu-overview */ 101).then(__webpack_require__.bind(null, 1016)).then(c => wrapFunctional(c.default || c));
+const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 102).then(__webpack_require__.bind(null, 841)).then(c => wrapFunctional(c.default || c));
 const MinistryDialog = () => __webpack_require__.e(/* import() | components/ministry-dialog */ 103).then(__webpack_require__.bind(null, 857)).then(c => wrapFunctional(c.default || c));
 const MinistryViewDialog = () => __webpack_require__.e(/* import() | components/ministry-view-dialog */ 104).then(__webpack_require__.bind(null, 851)).then(c => wrapFunctional(c.default || c));
-const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 102).then(__webpack_require__.bind(null, 841)).then(c => wrapFunctional(c.default || c));
 const PaymentCard = () => __webpack_require__.e(/* import() | components/payment-card */ 120).then(__webpack_require__.bind(null, 1546)).then(c => wrapFunctional(c.default || c));
 const PaymentQr = () => __webpack_require__.e(/* import() | components/payment-qr */ 122).then(__webpack_require__.bind(null, 1547)).then(c => wrapFunctional(c.default || c));
+const PoForm = () => __webpack_require__.e(/* import() | components/po-form */ 123).then(__webpack_require__.bind(null, 596)).then(c => wrapFunctional(c.default || c));
 const PosCartFooterComponent = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 187)).then(c => wrapFunctional(c.default || c));
 const PosCartItemComponent = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 186)).then(c => wrapFunctional(c.default || c));
 const PosCateogoryList = () => __webpack_require__.e(/* import() | components/pos-cateogory-list */ 126).then(__webpack_require__.bind(null, 1548)).then(c => wrapFunctional(c.default || c));
@@ -30735,22 +30870,22 @@ const ProductItem = () => __webpack_require__.e(/* import() | components/product
 const ProductCardPos = () => __webpack_require__.e(/* import() | components/product-card-pos */ 133).then(__webpack_require__.bind(null, 1041)).then(c => wrapFunctional(c.default || c));
 const ProductForm = () => __webpack_require__.e(/* import() | components/product-form */ 134).then(__webpack_require__.bind(null, 502)).then(c => wrapFunctional(c.default || c));
 const ProductFormCreate = () => __webpack_require__.e(/* import() | components/product-form-create */ 135).then(__webpack_require__.bind(null, 501)).then(c => wrapFunctional(c.default || c));
-const Quotation = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 110)).then(c => wrapFunctional(c.default || c));
 const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 137).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
-const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 146).then(__webpack_require__.bind(null, 1554)).then(c => wrapFunctional(c.default || c));
-const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 148).then(__webpack_require__.bind(null, 1050)).then(c => wrapFunctional(c.default || c));
+const Quotation = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 110)).then(c => wrapFunctional(c.default || c));
 const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 143).then(__webpack_require__.bind(null, 1048)).then(c => wrapFunctional(c.default || c));
 const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 144).then(__webpack_require__.bind(null, 1049)).then(c => wrapFunctional(c.default || c));
 const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 145).then(__webpack_require__.bind(null, 1051)).then(c => wrapFunctional(c.default || c));
-const PoForm = () => __webpack_require__.e(/* import() | components/po-form */ 123).then(__webpack_require__.bind(null, 596)).then(c => wrapFunctional(c.default || c));
-const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 158).then(__webpack_require__.bind(null, 1044)).then(c => wrapFunctional(c.default || c));
-const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 595)).then(c => wrapFunctional(c.default || c));
-const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 577)).then(c => wrapFunctional(c.default || c));
-const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 36).then(__webpack_require__.bind(null, 560)).then(c => wrapFunctional(c.default || c));
+const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 146).then(__webpack_require__.bind(null, 1554)).then(c => wrapFunctional(c.default || c));
+const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 148).then(__webpack_require__.bind(null, 1050)).then(c => wrapFunctional(c.default || c));
 const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 154).then(__webpack_require__.bind(null, 578)).then(c => wrapFunctional(c.default || c));
 const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 155).then(__webpack_require__.bind(null, 1555)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketCard = () => __webpack_require__.e(/* import() | components/tickets-ticket-card */ 156).then(__webpack_require__.bind(null, 1032)).then(c => wrapFunctional(c.default || c));
 const TicketsTicketDetailDialog = () => __webpack_require__.e(/* import() | components/tickets-ticket-detail-dialog */ 157).then(__webpack_require__.bind(null, 1033)).then(c => wrapFunctional(c.default || c));
+const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 158).then(__webpack_require__.bind(null, 1044)).then(c => wrapFunctional(c.default || c));
+const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 595)).then(c => wrapFunctional(c.default || c));
+const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 577)).then(c => wrapFunctional(c.default || c));
+const CAFEPrintBarDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-print-bar-dialog */ 35).then(__webpack_require__.bind(null, 1035)).then(c => wrapFunctional(c.default || c));
+const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 36).then(__webpack_require__.bind(null, 560)).then(c => wrapFunctional(c.default || c));
 const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 75).then(__webpack_require__.bind(null, 1556)).then(c => wrapFunctional(c.default || c));
 const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 76).then(__webpack_require__.bind(null, 1557)).then(c => wrapFunctional(c.default || c));
 const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 77).then(__webpack_require__.bind(null, 1558)).then(c => wrapFunctional(c.default || c));
@@ -30765,47 +30900,46 @@ const MAPaymentComponentsMinistryInfo = () => __webpack_require__.e(/* import() 
 const MAPaymentComponentsSelectField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-select-field */ 86).then(__webpack_require__.bind(null, 1567)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsTextareaField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-textarea-field */ 87).then(__webpack_require__.bind(null, 1568)).then(c => wrapFunctional(c.default || c));
 const MAPaymentComponentsValidationErrors = () => __webpack_require__.e(/* import() | components/m-a-payment-components-validation-errors */ 88).then(__webpack_require__.bind(null, 1569)).then(c => wrapFunctional(c.default || c));
-const CAFEPrintBarDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-print-bar-dialog */ 35).then(__webpack_require__.bind(null, 1035)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 90).then(__webpack_require__.bind(null, 732)).then(c => wrapFunctional(c.default || c));
 const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 89).then(__webpack_require__.bind(null, 733)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 90).then(__webpack_require__.bind(null, 732)).then(c => wrapFunctional(c.default || c));
 const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 91).then(__webpack_require__.bind(null, 597)).then(c => wrapFunctional(c.default || c));
 const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 92).then(__webpack_require__.bind(null, 1029)).then(c => wrapFunctional(c.default || c));
-const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 734)).then(c => wrapFunctional(c.default || c));
 const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 93).then(__webpack_require__.bind(null, 598)).then(c => wrapFunctional(c.default || c));
+const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 734)).then(c => wrapFunctional(c.default || c));
 const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 95).then(__webpack_require__.bind(null, 537)).then(c => wrapFunctional(c.default || c));
+const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1377)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 730)).then(c => wrapFunctional(c.default || c));
 const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1570)).then(c => wrapFunctional(c.default || c));
 const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1571)).then(c => wrapFunctional(c.default || c));
 const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 1020)).then(c => wrapFunctional(c.default || c));
 const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 1022)).then(c => wrapFunctional(c.default || c));
 const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 1023)).then(c => wrapFunctional(c.default || c));
+const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 49).then(__webpack_require__.bind(null, 727)).then(c => wrapFunctional(c.default || c));
 const JobAdvertiseMaintain = () => __webpack_require__.e(/* import() | components/job-advertise-maintain */ 66).then(__webpack_require__.bind(null, 1026)).then(c => wrapFunctional(c.default || c));
 const JobAdvertiseStatusUpdate = () => __webpack_require__.e(/* import() | components/job-advertise-status-update */ 67).then(__webpack_require__.bind(null, 1028)).then(c => wrapFunctional(c.default || c));
 const JobAdvertiseView = () => __webpack_require__.e(/* import() | components/job-advertise-view */ 68).then(__webpack_require__.bind(null, 1027)).then(c => wrapFunctional(c.default || c));
-const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 49).then(__webpack_require__.bind(null, 727)).then(c => wrapFunctional(c.default || c));
-const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1377)).then(c => wrapFunctional(c.default || c));
 const JobFairJobBatch = () => __webpack_require__.e(/* import() | components/job-fair-job-batch */ 71).then(__webpack_require__.bind(null, 1021)).then(c => wrapFunctional(c.default || c));
 const PosDialogsQuantityUpdateDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-quantity-update-dialog */ 128).then(__webpack_require__.bind(null, 1572)).then(c => wrapFunctional(c.default || c));
+const PosRecipe = () => __webpack_require__.e(/* import() | components/pos-recipe */ 130).then(__webpack_require__.bind(null, 1047)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoice = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice */ 3).then(__webpack_require__.bind(null, 1042)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlement = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement */ 7).then(__webpack_require__.bind(null, 1043)).then(c => wrapFunctional(c.default || c));
 const JobFairAgencyMaintain = () => __webpack_require__.e(/* import() | components/job-fair-agency-maintain */ 69).then(__webpack_require__.bind(null, 640)).then(c => wrapFunctional(c.default || c));
 const JobFairAgencyView = () => __webpack_require__.e(/* import() | components/job-fair-agency-view */ 70).then(__webpack_require__.bind(null, 641)).then(c => wrapFunctional(c.default || c));
 const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 72).then(__webpack_require__.bind(null, 1056)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 740)).then(c => wrapFunctional(c.default || c));
-const PosRecipe = () => __webpack_require__.e(/* import() | components/pos-recipe */ 130).then(__webpack_require__.bind(null, 1047)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 741)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 738)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 739)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 642)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 731)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1052)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 739)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 632)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1053)).then(c => wrapFunctional(c.default || c));
 const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 1054)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 632)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 725)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 638)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 639)).then(c => wrapFunctional(c.default || c));
 const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 594)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 725)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 738)).then(c => wrapFunctional(c.default || c));
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
@@ -31018,7 +31152,7 @@ const setupProgress = axios => {
   // runtimeConfig
   const runtimeConfig = ctx.$config && ctx.$config.axios || {};
   // baseURL
-  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8027';
+  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8026';
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!
