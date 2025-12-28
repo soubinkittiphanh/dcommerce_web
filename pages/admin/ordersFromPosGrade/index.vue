@@ -168,7 +168,9 @@
               <v-card
                 outlined
                 class="grade-summary-card pa-3 text-center elevation-2"
-                :class="{ 'selected-grade': selectedGradeFilter === gradeStat.grade }"
+                :class="{
+                  'selected-grade': selectedGradeFilter === gradeStat.grade,
+                }"
                 @click="filterByGrade(gradeStat.grade)"
                 style="cursor: pointer; transition: all 0.2s ease"
               >
@@ -186,7 +188,7 @@
                   {{ formatNumber(gradeStat.revenue) }} LAK
                 </h3>
 
-                <div class=" text--secondary mb-1">
+                <div class="text--secondary mb-1">
                   {{ formatNumber(gradeStat.quantity) }} ລາຍການ
                 </div>
 
@@ -206,7 +208,7 @@
                     height="4"
                     rounded
                   ></v-progress-linear>
-                  <div class=" mt-1">
+                  <div class="mt-1">
                     {{ gradeStat.percentage.toFixed(1) }}% ຂອງຍອດລວມ
                   </div>
                 </div>
@@ -236,16 +238,11 @@
                   {{ formatNumber(basePriceSummary.revenue) }} LAK
                 </h3>
 
-                <div class=" text--secondary mb-1">
+                <div class="text--secondary mb-1">
                   {{ formatNumber(basePriceSummary.qty) }} ລາຍການ
                 </div>
 
-                <v-chip
-                  color="green"
-                  small
-                  outlined
-                  class="font-weight-bold"
-                >
+                <v-chip color="green" small outlined class="font-weight-bold">
                   {{ basePriceSummary.orderCount }} ບິນ
                 </v-chip>
 
@@ -256,14 +253,12 @@
                     height="4"
                     rounded
                   ></v-progress-linear>
-                  <div class=" mt-1">
+                  <div class="mt-1">
                     {{ basePricePercentage.toFixed(1) }}% ຂອງຍອດລວມ
                   </div>
                 </div>
 
-                <div class="caption mt-2 grey--text">
-                  (priceListId = null)
-                </div>
+                <div class="caption mt-2 grey--text">(priceListId = null)</div>
               </v-card>
             </v-col>
 
@@ -276,9 +271,7 @@
                 @click="filterByGrade('GIFT')"
                 style="cursor: pointer; transition: all 0.2s ease"
               >
-                <v-icon color="amber" size="32" class="mb-2">
-                  mdi-gift
-                </v-icon>
+                <v-icon color="amber" size="32" class="mb-2"> mdi-gift </v-icon>
 
                 <div class="grade-badge mb-2">
                   <v-chip color="amber" dark small label>
@@ -291,16 +284,11 @@
                   {{ formatNumber(giftSummary.originalValue) }} LAK
                 </h3>
 
-                <div class=" text--secondary mb-1">
+                <div class="text--secondary mb-1">
                   {{ formatNumber(giftSummary.qty) }} ລາຍການ
                 </div>
 
-                <v-chip
-                  color="amber"
-                  small
-                  outlined
-                  class="font-weight-bold"
-                >
+                <v-chip color="amber" small outlined class="font-weight-bold">
                   {{ giftSummary.orderCount }} ບິນ
                 </v-chip>
 
@@ -311,7 +299,7 @@
                     height="4"
                     rounded
                   ></v-progress-linear>
-                  <div class=" mt-1">
+                  <div class="mt-1">
                     {{ giftSummary.percentage.toFixed(1) }}% ຂອງຈຳນວນ
                   </div>
                 </div>
@@ -322,7 +310,12 @@
                     ລາຄາ: {{ formatNumber(giftSummary.revenue) }}
                   </div>
                   <div class="error--text">
-                    ປະຫຍັດ: {{ formatNumber(giftSummary.originalValue - giftSummary.revenue) }}
+                    ປະຫຍັດ:
+                    {{
+                      formatNumber(
+                        giftSummary.originalValue - giftSummary.revenue
+                      )
+                    }}
                   </div>
                 </div>
               </v-card>
@@ -396,16 +389,20 @@
               >
                 <v-icon left>mdi-filter</v-icon>
                 <span v-if="selectedGradeFilter === 'GIFT'">
-                  ກຳລັງສະແດງ: ຂອງຂວັນ
-                  ({{ filteredProductSummary.length }} ສິນຄ້າ)
+                  ກຳລັງສະແດງ: ຂອງຂວັນ ({{ filteredProductSummary.length }}
+                  ສິນຄ້າ)
                 </span>
                 <span v-else-if="selectedGradeFilter === 'BASE'">
-                  ກຳລັງສະແດງ: ລາຄາມາດຕະຖານ (priceListId = null)
-                  ({{ filteredProductSummary.length }} ສິນຄ້າ)
+                  ກຳລັງສະແດງ: ລາຄາມາດຕະຖານ (priceListId = null) ({{
+                    filteredProductSummary.length
+                  }}
+                  ສິນຄ້າ)
                 </span>
                 <span v-else>
-                  ກຳລັງສະແດງ: ເກຣດ {{ selectedGradeFilter }}
-                  ({{ filteredProductSummary.length }} ສິນຄ້າ)
+                  ກຳລັງສະແດງ: ເກຣດ {{ selectedGradeFilter }} ({{
+                    filteredProductSummary.length
+                  }}
+                  ສິນຄ້າ)
                 </span>
               </v-alert>
             </v-col>
@@ -439,7 +436,7 @@
           <template v-slot:[`item.productName`]="{ item }">
             <div>
               <strong>{{ item.productName }}</strong>
-              <div class=" grey--text">ID: {{ item.productId }}</div>
+              <div class="grey--text">ID: {{ item.productId }}</div>
             </div>
           </template>
 
@@ -448,7 +445,7 @@
               <v-chip color="grey darken-1" small dark outlined>
                 {{ formatCurrency(item.basePrice) }}
               </v-chip>
-              <div class=" grey--text mt-1">ລາຄາມາດຕະຖານ</div>
+              <div class="grey--text mt-1">ລາຄາມາດຕະຖານ</div>
             </div>
           </template>
 
@@ -459,15 +456,19 @@
             <div class="" v-if="item.grades.A.revenue > 0">
               {{ formatCurrency(item.grades.A.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.grades.A.priceUsed">
+            <div class="grey--text" v-if="item.grades.A.priceUsed">
               @ {{ formatCurrency(item.grades.A.priceUsed) }}/ຊິ້ນ
             </div>
-            <div 
-              class="" 
+            <div
+              class=""
               v-if="item.grades.A.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.A.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.A.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.A.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.A.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.A.qty === 0" class="grey--text">-</span>
           </template>
@@ -479,15 +480,19 @@
             <div class="" v-if="item.grades.B.revenue > 0">
               {{ formatCurrency(item.grades.B.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.grades.B.priceUsed">
+            <div class="grey--text" v-if="item.grades.B.priceUsed">
               @ {{ formatCurrency(item.grades.B.priceUsed) }}/ຊິ້ນ
             </div>
-            <div 
-              class="" 
+            <div
+              class=""
               v-if="item.grades.B.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.B.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.B.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.B.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.B.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.B.qty === 0" class="grey--text">-</span>
           </template>
@@ -499,15 +504,19 @@
             <div class="" v-if="item.grades.C.revenue > 0">
               {{ formatCurrency(item.grades.C.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.grades.C.priceUsed">
+            <div class="grey--text" v-if="item.grades.C.priceUsed">
               @ {{ formatCurrency(item.grades.C.priceUsed) }}/ຊິ້ນ
             </div>
-            <div 
-              class="" 
+            <div
+              class=""
               v-if="item.grades.C.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.C.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.C.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.C.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.C.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.C.qty === 0" class="grey--text">-</span>
           </template>
@@ -519,15 +528,19 @@
             <div class="" v-if="item.grades.D.revenue > 0">
               {{ formatCurrency(item.grades.D.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.grades.D.priceUsed">
+            <div class="grey--text" v-if="item.grades.D.priceUsed">
               @ {{ formatCurrency(item.grades.D.priceUsed) }}/ຊິ້ນ
             </div>
-            <div 
-              class="" 
+            <div
+              class=""
               v-if="item.grades.D.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.D.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.D.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.D.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.D.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.D.qty === 0" class="grey--text">-</span>
           </template>
@@ -539,16 +552,20 @@
             <div class="" v-if="item.grades.E.revenue > 0">
               {{ formatCurrency(item.grades.E.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.grades.E.priceUsed">
+            <div class="grey--text" v-if="item.grades.E.priceUsed">
               @ {{ formatCurrency(item.grades.E.priceUsed) }}/ຊິ້ນ
             </div>
-            
-            <div 
-              class="" 
+
+            <div
+              class=""
               v-if="item.grades.E.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.E.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.E.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.E.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.E.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.E.qty === 0" class="grey--text">-</span>
           </template>
@@ -560,15 +577,19 @@
             <div class="" v-if="item.grades.F.revenue > 0">
               {{ formatCurrency(item.grades.F.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.grades.F.priceUsed">
+            <div class="grey--text" v-if="item.grades.F.priceUsed">
               @ {{ formatCurrency(item.grades.F.priceUsed) }}/ຊິ້ນ
             </div>
-            <div 
-              class="" 
+            <div
+              class=""
               v-if="item.grades.F.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.F.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.F.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.F.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.F.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.F.qty === 0" class="grey--text">-</span>
           </template>
@@ -581,13 +602,15 @@
             <div class="" v-if="item.basePriceSales.revenue > 0">
               {{ formatCurrency(item.basePriceSales.revenue) }}
             </div>
-            <div class=" grey--text" v-if="item.basePriceSales.priceUsed">
+            <div class="grey--text" v-if="item.basePriceSales.priceUsed">
               @ {{ formatCurrency(item.basePriceSales.priceUsed) }}/ຊິ້ນ
             </div>
             <div class="caption grey--text" v-if="item.basePriceSales.qty > 0">
               (ລາຄາມາດຕະຖານ)
             </div>
-            <span v-if="item.basePriceSales.qty === 0" class="grey--text">-</span>
+            <span v-if="item.basePriceSales.qty === 0" class="grey--text"
+              >-</span
+            >
           </template>
 
           <!-- Gift Column Template -->
@@ -600,23 +623,27 @@
                 <v-icon small color="amber">mdi-gift</v-icon>
                 ຂອງຂວັນ
               </div>
-              
+
               <!-- Show actual gift revenue if exists -->
               <div class="success--text" v-if="item.gifts.revenue > 0">
                 ລາຄາ: {{ formatCurrency(item.gifts.revenue) }}
               </div>
-              <div class="grey--text" v-else>
-                ຟຣີ (0 LAK)
-              </div>
-              
+              <div class="grey--text" v-else>ຟຣີ (0 LAK)</div>
+
               <!-- Show original value for comparison -->
-              <div class=" grey--text" v-if="item.gifts.originalValue > 0">
+              <div class="grey--text" v-if="item.gifts.originalValue > 0">
                 ມູນຄ່າເຕັມ: {{ formatCurrency(item.gifts.originalValue) }}
               </div>
-              
+
               <!-- Show savings calculation -->
-              <div class="error--text font-weight-bold" v-if="item.gifts.originalValue > item.gifts.revenue">
-                ປະຫຍັດ: {{ formatCurrency(item.gifts.originalValue - item.gifts.revenue) }}
+              <div
+                class="error--text font-weight-bold"
+                v-if="item.gifts.originalValue > item.gifts.revenue"
+              >
+                ປະຫຍັດ:
+                {{
+                  formatCurrency(item.gifts.originalValue - item.gifts.revenue)
+                }}
               </div>
             </div>
             <span v-else class="grey--text">-</span>
@@ -624,7 +651,7 @@
 
           <template v-slot:[`item.totalQty`]="{ item }">
             <strong>{{ formatNumber(item.totalQty) }}</strong>
-            <div class=" grey--text" v-if="item.gifts.qty > 0">
+            <div class="grey--text" v-if="item.gifts.qty > 0">
               (+{{ item.gifts.qty }} ຂອງຂວັນ)
             </div>
           </template>
@@ -642,7 +669,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import {
   swalSuccess,
@@ -654,7 +680,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   middleware: 'auths',
-  
+
   data() {
     return {
       terminalId: 999,
@@ -663,7 +689,7 @@ export default {
       salesData: [],
       productSummary: [],
       priceListData: [], // Store price list data
-      
+
       // Grade filters - ENHANCED with Gift and Base Price filters
       selectedGradeFilter: null,
       gradeFilterOptions: [
@@ -677,7 +703,7 @@ export default {
         { label: 'ລາຄາມາດຕະຖານ', value: 'BASE' }, // NEW: Base Price filter
         { label: 'ຂອງຂວັນ', value: 'GIFT' }, // Gift filter
       ],
-      
+
       gradeSummary: {
         A: { qty: 0, revenue: 0, orderCount: 0 },
         B: { qty: 0, revenue: 0, orderCount: 0 },
@@ -697,12 +723,12 @@ export default {
       // NEW: Gift Summary
       giftSummary: {
         qty: 0,
-        revenue: 0, // Always 0 for gifts
-        originalValue: 0, // What the gifts would have cost
+        revenue: 0, // Actual revenue from gifts (may not be 0)
+        originalValue: 0, // What the gifts would have cost at base price
         orderCount: 0,
         percentage: 0,
       },
-      
+
       // ENHANCED headers with Gift column and Base Price column
       headers: [
         {
@@ -778,7 +804,7 @@ export default {
           sortable: true,
         },
       ],
-      
+
       fromDate: getFirstDayOfMonth(),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -838,11 +864,11 @@ export default {
       const terminal = this.findAllTerminal.find(
         (el) => el['id'] == this.terminalId
       )
-      
+
       if (!terminal || this.terminalId === 999) {
         return this.salesData
       }
-      
+
       return this.salesData.filter(
         (el) => el['locationId'] == terminal['locationId']
       )
@@ -853,15 +879,17 @@ export default {
       if (!this.selectedGradeFilter) {
         return this.productSummary
       }
-      
+
       if (this.selectedGradeFilter === 'GIFT') {
-        return this.productSummary.filter(product => product.gifts.qty > 0)
+        return this.productSummary.filter((product) => product.gifts.qty > 0)
       }
-      
+
       if (this.selectedGradeFilter === 'BASE') {
-        return this.productSummary.filter(product => product.basePriceSales.qty > 0)
+        return this.productSummary.filter(
+          (product) => product.basePriceSales.qty > 0
+        )
       }
-      
+
       return this.productSummary.filter(
         (product) => product.grades[this.selectedGradeFilter].qty > 0
       )
@@ -899,24 +927,32 @@ export default {
       return stats
     },
 
+    // CORRECTED: Include gift revenue in total
     totalRevenue() {
       const gradeRevenue = Object.values(this.gradeSummary).reduce(
         (sum, grade) => sum + grade.revenue,
         0
       )
-      return gradeRevenue + this.basePriceSummary.revenue // Include base price revenue
+      // IMPORTANT: Include actual gift revenue in total revenue
+      return gradeRevenue + this.basePriceSummary.revenue + this.giftSummary.revenue
     },
 
     totalQuantity() {
-      return Object.values(this.gradeSummary).reduce(
-        (sum, grade) => sum + grade.qty,
-        0
-      ) + this.basePriceSummary.qty + this.giftSummary.qty // Include base price and gift quantities
+      return (
+        Object.values(this.gradeSummary).reduce(
+          (sum, grade) => sum + grade.qty,
+          0
+        ) +
+        this.basePriceSummary.qty +
+        this.giftSummary.qty
+      )
     },
 
-    // NEW: Base price percentage
+    // Base price percentage
     basePricePercentage() {
-      return this.totalRevenue > 0 ? (this.basePriceSummary.revenue / this.totalRevenue) * 100 : 0
+      return this.totalRevenue > 0
+        ? (this.basePriceSummary.revenue / this.totalRevenue) * 100
+        : 0
     },
 
     totalOrders() {
@@ -927,10 +963,19 @@ export default {
       return this.totalOrders > 0 ? this.totalRevenue / this.totalOrders : 0
     },
 
-    // NEW: Gift percentage
+    // Gift percentage
     giftPercentage() {
       const totalItems = this.totalQuantity
       return totalItems > 0 ? (this.giftSummary.qty / totalItems) * 100 : 0
+    },
+
+    // NEW: Additional computed properties for gift analysis
+    totalCustomerSavings() {
+      return this.giftSummary.originalValue - this.giftSummary.revenue
+    },
+
+    totalGiftValue() {
+      return this.giftSummary.originalValue
     },
 
     user() {
@@ -968,25 +1013,6 @@ export default {
       }
     },
 
-    // Get price for specific product and grade
-    getPriceForGrade(productId, grade, defaultPrice) {
-      const priceList = this.priceListData.find(
-        (pl) => pl.productId === productId && pl.grade === grade && pl.isActive
-      )
-      
-      if (!priceList) {
-        return defaultPrice
-      }
-
-      if (priceList.type === 'Price') {
-        return priceList.amount
-      } else if (priceList.type === 'Percent') {
-        return defaultPrice * (1 + priceList.amount / 100)
-      }
-      
-      return defaultPrice
-    },
-
     async loadData() {
       this.isloading = true
       try {
@@ -1001,8 +1027,8 @@ export default {
 
         this.salesData = response.data
         this.processSalesData()
-        
-        // Debug: Check gift data after processing
+
+        // Debug after processing
         this.$nextTick(() => {
           this.debugGiftData()
         })
@@ -1014,7 +1040,7 @@ export default {
       }
     },
 
-    // ENHANCED: Process sales data with gift tracking
+    // CORRECTED: Process sales data with proper gift handling
     processSalesData() {
       // Reset summaries
       this.productSummary = []
@@ -1027,7 +1053,6 @@ export default {
         F: { qty: 0, revenue: 0, orderCount: 0 },
       }
 
-      // RESET: Base Price and Gift summaries
       this.basePriceSummary = {
         qty: 0,
         revenue: 0,
@@ -1036,25 +1061,22 @@ export default {
 
       this.giftSummary = {
         qty: 0,
-        revenue: 0,
-        originalValue: 0,
+        revenue: 0, // Actual revenue from gifts
+        originalValue: 0, // What gifts would have cost at base price
         orderCount: 0,
         percentage: 0,
       }
 
       const productMap = new Map()
       const gradeOrderCount = {}
-      const basePriceOrderCount = new Set() // NEW: Track base price orders
+      const basePriceOrderCount = new Set()
       const giftOrderCount = new Set()
 
-      console.log('📊 Processing sales data with gift tracking...')
+      console.log('📊 Processing sales data with proper gift handling...')
       console.log('📝 Total sales to process:', this.filteredSalesData.length)
 
       this.filteredSalesData.forEach((sale, saleIndex) => {
-        const customerGrade = sale.client?.grade || 'F'
-        
         console.log(`\n🏪 Sale ${saleIndex + 1} (ID: ${sale.id}):`)
-        console.log(`   👤 Customer Grade: ${customerGrade}`)
         console.log(`   📦 Lines: ${sale.lines?.length || 0}`)
 
         sale.lines?.forEach((line, lineIndex) => {
@@ -1064,7 +1086,7 @@ export default {
           const quantity = line.quantity || 0
           const revenue = line.total || 0
           const priceListId = line.priceListId
-          const isGift = line.isGift === true // EXPLICIT boolean check
+          const isGift = line.isGift === true
 
           console.log(`     📋 Line ${lineIndex + 1}: ${productName}`)
           console.log(`        🎁 isGift: ${isGift}`)
@@ -1073,6 +1095,7 @@ export default {
           console.log(`        🏷️ Base Price: ${basePrice}`)
           console.log(`        🔗 PriceListId: ${priceListId}`)
 
+          // Initialize product if not exists
           if (!productMap.has(productId)) {
             productMap.set(productId, {
               productId,
@@ -1086,18 +1109,16 @@ export default {
                 E: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
                 F: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
               },
-              // NEW: Base price sales tracking (priceListId = null)
               basePriceSales: {
                 qty: 0,
                 revenue: 0,
                 priceUsed: 0,
                 count: 0,
               },
-              // Gift tracking
               gifts: {
                 qty: 0,
-                revenue: 0, // Always 0 for gifts
-                originalValue: 0, // What it would have cost
+                revenue: 0, // Actual gift revenue
+                originalValue: 0, // What it would have cost at base price
               },
               totalQty: 0,
               totalRevenue: 0,
@@ -1107,58 +1128,62 @@ export default {
 
           const product = productMap.get(productId)
 
-          // CRITICAL: Handle gift items FIRST and separately
+          // GIFT HANDLING - PRIORITY #1 (regardless of priceListId)
           if (isGift) {
             console.log(`        🎁 PROCESSING AS GIFT`)
             
+            // ALL gifts go to gift summary regardless of pricing
             product.gifts.qty += quantity
-            product.gifts.revenue += revenue // FIXED: Track actual gift revenue (may not be 0)
-            product.gifts.originalValue += quantity * basePrice // What it would have cost at base price
+            product.gifts.revenue += revenue // Actual revenue from gift
+            product.gifts.originalValue += quantity * basePrice // What it would have cost at full price
 
             // Add to global gift summary
             this.giftSummary.qty += quantity
-            this.giftSummary.revenue += revenue // FIXED: Track actual gift revenue
+            this.giftSummary.revenue += revenue
             this.giftSummary.originalValue += quantity * basePrice
 
             // Track gift orders
             giftOrderCount.add(sale.id)
 
             console.log(`        ✅ Gift processed:`)
-            console.log(`           📦 Product Gift Qty: ${product.gifts.qty}`)
-            console.log(`           💰 Product Gift Revenue: ${product.gifts.revenue}`) // NEW: Log actual revenue
-            console.log(`           💎 Product Gift Value: ${product.gifts.originalValue}`)
-            console.log(`           🌟 Global Gift Qty: ${this.giftSummary.qty}`)
-            console.log(`           💸 Global Gift Revenue: ${this.giftSummary.revenue}`) // NEW: Log actual revenue
-            console.log(`           💰 Global Gift Value: ${this.giftSummary.originalValue}`)
-          } else {
-            console.log(`        💼 PROCESSING AS REGULAR SALE`)
+            console.log(`           📦 Qty: ${quantity}`)
+            console.log(`           💰 Actual Revenue: ${revenue}`)
+            console.log(`           💎 Original Value: ${quantity * basePrice}`)
+            console.log(`           💸 Savings: ${(quantity * basePrice) - revenue}`)
             
-            // CORRECTED LOGIC: Separate tracking for different sale types
-            // - priceListId exists -> Grade-based sale
-            // - priceListId = null -> Base price sale (separate category)
+          } else {
+            // REGULAR SALES HANDLING - Only for non-gifts
+            console.log(`        💼 PROCESSING AS REGULAR SALE`)
             
             let saleType = 'UNKNOWN'
             let appliedGrade = null
             const unitPrice = line.price || (quantity > 0 ? revenue / quantity : 0)
             
-            if (priceListId && this.priceListData.length > 0) {
-              // CASE 1: Has priceListId - this is a GRADE-BASED sale
-              const priceListEntry = this.priceListData.find(
-                pl => pl.id === priceListId
-              )
+            // Classification logic for regular sales
+            if (priceListId === null || priceListId === undefined) {
+              // CASE 1: No priceListId → Base/Standard Price
+              saleType = 'BASE_PRICE'
+              console.log(`           💰 priceListId = null → STANDARD PRICE`)
+              
+            } else {
+              // CASE 2: Has priceListId → Check if valid grade pricing
+              const priceListEntry = this.priceListData.find(pl => pl.id === priceListId)
+              
               if (priceListEntry && priceListEntry.grade) {
                 appliedGrade = priceListEntry.grade
                 saleType = 'GRADE_BASED'
-                console.log(`           🎯 GRADE-BASED: Grade ${appliedGrade} (priceListId: ${priceListId})`)
+                console.log(`           🎯 priceListId = ${priceListId} → GRADE ${appliedGrade}`)
                 
                 // Track in grade summary
                 if (appliedGrade in product.grades) {
                   product.grades[appliedGrade].qty += quantity
                   product.grades[appliedGrade].revenue += revenue
                   
-                  product.grades[appliedGrade].priceUsed = 
-                    ((product.grades[appliedGrade].priceUsed * product.grades[appliedGrade].count) + unitPrice) / 
-                    (product.grades[appliedGrade].count + 1)
+                  // Calculate weighted average price
+                  const currentCount = product.grades[appliedGrade].count
+                  const currentAvgPrice = product.grades[appliedGrade].priceUsed
+                  product.grades[appliedGrade].priceUsed =
+                    ((currentAvgPrice * currentCount) + unitPrice) / (currentCount + 1)
                   product.grades[appliedGrade].count += 1
                 }
 
@@ -1168,29 +1193,29 @@ export default {
                 }
                 gradeOrderCount[appliedGrade].add(sale.id)
 
+                // Add to grade summary
                 if (appliedGrade in this.gradeSummary) {
                   this.gradeSummary[appliedGrade].qty += quantity
                   this.gradeSummary[appliedGrade].revenue += revenue
                 }
                 
               } else {
-                console.log(`           ⚠️ PriceList ID ${priceListId} not found - treating as BASE PRICE`)
+                // Price list ID exists but not found → treat as standard price
+                console.log(`           ⚠️ priceListId = ${priceListId} NOT FOUND → STANDARD PRICE`)
                 saleType = 'BASE_PRICE'
               }
-            } else {
-              // CASE 2: No priceListId - this is a BASE PRICE sale
-              saleType = 'BASE_PRICE'
-              console.log(`           💰 BASE PRICE: priceListId = null`)
             }
 
-            // Handle BASE PRICE sales separately
+            // Handle standard/base price sales
             if (saleType === 'BASE_PRICE') {
               product.basePriceSales.qty += quantity
               product.basePriceSales.revenue += revenue
               
-              product.basePriceSales.priceUsed = 
-                ((product.basePriceSales.priceUsed * product.basePriceSales.count) + unitPrice) / 
-                (product.basePriceSales.count + 1)
+              // Calculate weighted average price
+              const currentCount = product.basePriceSales.count
+              const currentAvgPrice = product.basePriceSales.priceUsed
+              product.basePriceSales.priceUsed =
+                ((currentAvgPrice * currentCount) + unitPrice) / (currentCount + 1)
               product.basePriceSales.count += 1
 
               // Track base price summary
@@ -1199,56 +1224,64 @@ export default {
               
               // Track base price orders
               basePriceOrderCount.add(sale.id)
+              
+              console.log(`           ✅ ADDED TO STANDARD PRICE: ${quantity} qty, ${revenue} revenue`)
             }
             
-            console.log(`           ✅ PROCESSED AS: ${saleType} | Grade: ${appliedGrade || 'N/A'}`)
+            console.log(`           🏁 FINAL: ${saleType} | Grade: ${appliedGrade || 'Standard Price'}`)
           }
 
-          // Update product totals (both gifts and regular sales)
+          // Update product totals (both gifts and regular sales count toward revenue)
           product.totalQty += quantity
-          product.totalRevenue += revenue
+          product.totalRevenue += revenue // Include ALL revenue (gifts + regular sales)
         })
       })
 
-      // Count orders per grade
+      // Set order counts for each category
       Object.keys(gradeOrderCount).forEach((grade) => {
         if (gradeOrderCount[grade]) {
           this.gradeSummary[grade].orderCount = gradeOrderCount[grade].size
         }
       })
 
-      // Set base price and gift order counts
       this.basePriceSummary.orderCount = basePriceOrderCount.size
       this.giftSummary.orderCount = giftOrderCount.size
 
-      // Calculate percentages
+      // Calculate gift percentage
       const totalRegularQty = Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.qty, 0)
       const totalItems = totalRegularQty + this.basePriceSummary.qty + this.giftSummary.qty
       this.giftSummary.percentage = totalItems > 0 ? (this.giftSummary.qty / totalItems) * 100 : 0
 
+      // Convert product map to array and sort by revenue
       this.productSummary = Array.from(productMap.values()).sort(
         (a, b) => b.totalRevenue - a.totalRevenue
       )
 
-      console.log('\n📈 FINAL PROCESSING RESULTS:')
-      console.log('   📦 Total Products:', this.productSummary.length)
-      console.log('   🎁 Gift Summary:', this.giftSummary)
-      console.log('   💰 Base Price Summary:', this.basePriceSummary)
-      console.log('   🏆 Grade Summary:', this.gradeSummary)
-      
-      // Log products with gifts and base price sales
-      const productsWithGifts = this.productSummary.filter(p => p.gifts.qty > 0)
-      const productsWithBasePriceSales = this.productSummary.filter(p => p.basePriceSales.qty > 0)
-      console.log('   🎁 Products with gifts:', productsWithGifts.length)
-      console.log('   💰 Products with base price sales:', productsWithBasePriceSales.length)
-      
-      productsWithGifts.forEach(p => {
-        console.log(`      - ${p.productName}: ${p.gifts.qty} gifts worth ${p.gifts.originalValue}`)
+      // FINAL SUMMARY LOGGING
+      console.log('\n📈 PROCESSING COMPLETE - FINAL RESULTS:')
+      console.log('┌─────────────────────────────────────┐')
+      console.log('│          REVENUE BREAKDOWN          │')
+      console.log('├─────────────────────────────────────┤')
+      Object.entries(this.gradeSummary).forEach(([grade, data]) => {
+        if (data.qty > 0) {
+          console.log(`│ Grade ${grade}: ${data.qty.toString().padEnd(8)} qty │ ${data.revenue.toLocaleString().padStart(12)} LAK │`)
+        }
       })
+      console.log('├─────────────────────────────────────┤')
+      console.log(`│ Standard:   ${this.basePriceSummary.qty.toString().padEnd(8)} qty │ ${this.basePriceSummary.revenue.toLocaleString().padStart(12)} LAK │`)
+      console.log(`│ Gift Rev:   ${this.giftSummary.qty.toString().padEnd(8)} qty │ ${this.giftSummary.revenue.toLocaleString().padStart(12)} LAK │`)
+      console.log(`│ Gift Value: ${this.giftSummary.qty.toString().padEnd(8)} qty │ ${this.giftSummary.originalValue.toLocaleString().padStart(12)} LAK │`)
+      console.log('└─────────────────────────────────────┘')
       
-      productsWithBasePriceSales.forEach(p => {
-        console.log(`      - ${p.productName}: ${p.basePriceSales.qty} base price sales worth ${p.basePriceSales.revenue}`)
-      })
+      const totalCalculatedRevenue = 
+        Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.revenue, 0) + 
+        this.basePriceSummary.revenue + 
+        this.giftSummary.revenue // Include actual gift revenue in total
+
+      console.log(`💰 Total Revenue (including gift revenue): ${totalCalculatedRevenue.toLocaleString()} LAK`)
+      console.log(`💎 Total Gift Original Value: ${this.giftSummary.originalValue.toLocaleString()} LAK`)
+      console.log(`💸 Total Customer Savings from Gifts: ${(this.giftSummary.originalValue - this.giftSummary.revenue).toLocaleString()} LAK`)
+      console.log(`📦 Total Products: ${this.productSummary.length}`)
     },
 
     formatNumber(value) {
@@ -1285,9 +1318,9 @@ export default {
     getPriceDifferenceText(gradePrice, basePrice) {
       const diff = this.getPriceDifference(gradePrice, basePrice)
       const percent = this.getPriceDifferencePercent(gradePrice, basePrice)
-      
+
       if (diff === 0) return '(= ລາຄາພື້ນຖານ)'
-      
+
       if (diff > 0) {
         return `(+${this.formatCurrency(diff)} / +${percent.toFixed(1)}%)`
       } else {
@@ -1298,52 +1331,94 @@ export default {
     // ENHANCED: Export with gift data
     exportToExcel() {
       const exportData = this.productSummary.map((product) => ({
-        'ສິນຄ້າ': product.productName,
+        ສິນຄ້າ: product.productName,
         'Product ID': product.productId,
         'ລາຄາພື້ນຖານ (Base Price)': product.basePrice,
         'Grade A Qty': product.grades.A.qty,
         'Grade A Revenue': product.grades.A.revenue,
         'Grade A Avg Price': product.grades.A.priceUsed,
-        'Grade A Diff': this.getPriceDifference(product.grades.A.priceUsed, product.basePrice),
-        'Grade A %': this.getPriceDifferencePercent(product.grades.A.priceUsed, product.basePrice).toFixed(2),
+        'Grade A Diff': this.getPriceDifference(
+          product.grades.A.priceUsed,
+          product.basePrice
+        ),
+        'Grade A %': this.getPriceDifferencePercent(
+          product.grades.A.priceUsed,
+          product.basePrice
+        ).toFixed(2),
         'Grade B Qty': product.grades.B.qty,
         'Grade B Revenue': product.grades.B.revenue,
         'Grade B Avg Price': product.grades.B.priceUsed,
-        'Grade B Diff': this.getPriceDifference(product.grades.B.priceUsed, product.basePrice),
-        'Grade B %': this.getPriceDifferencePercent(product.grades.B.priceUsed, product.basePrice).toFixed(2),
+        'Grade B Diff': this.getPriceDifference(
+          product.grades.B.priceUsed,
+          product.basePrice
+        ),
+        'Grade B %': this.getPriceDifferencePercent(
+          product.grades.B.priceUsed,
+          product.basePrice
+        ).toFixed(2),
         'Grade C Qty': product.grades.C.qty,
         'Grade C Revenue': product.grades.C.revenue,
         'Grade C Avg Price': product.grades.C.priceUsed,
-        'Grade C Diff': this.getPriceDifference(product.grades.C.priceUsed, product.basePrice),
-        'Grade C %': this.getPriceDifferencePercent(product.grades.C.priceUsed, product.basePrice).toFixed(2),
+        'Grade C Diff': this.getPriceDifference(
+          product.grades.C.priceUsed,
+          product.basePrice
+        ),
+        'Grade C %': this.getPriceDifferencePercent(
+          product.grades.C.priceUsed,
+          product.basePrice
+        ).toFixed(2),
         'Grade D Qty': product.grades.D.qty,
         'Grade D Revenue': product.grades.D.revenue,
         'Grade D Avg Price': product.grades.D.priceUsed,
-        'Grade D Diff': this.getPriceDifference(product.grades.D.priceUsed, product.basePrice),
-        'Grade D %': this.getPriceDifferencePercent(product.grades.D.priceUsed, product.basePrice).toFixed(2),
+        'Grade D Diff': this.getPriceDifference(
+          product.grades.D.priceUsed,
+          product.basePrice
+        ),
+        'Grade D %': this.getPriceDifferencePercent(
+          product.grades.D.priceUsed,
+          product.basePrice
+        ).toFixed(2),
         'Grade E Qty': product.grades.E.qty,
         'Grade E Revenue': product.grades.E.revenue,
         'Grade E Avg Price': product.grades.E.priceUsed,
-        'Grade E Diff': this.getPriceDifference(product.grades.E.priceUsed, product.basePrice),
-        'Grade E %': this.getPriceDifferencePercent(product.grades.E.priceUsed, product.basePrice).toFixed(2),
+        'Grade E Diff': this.getPriceDifference(
+          product.grades.E.priceUsed,
+          product.basePrice
+        ),
+        'Grade E %': this.getPriceDifferencePercent(
+          product.grades.E.priceUsed,
+          product.basePrice
+        ).toFixed(2),
         'Grade F Qty': product.grades.F.qty,
         'Grade F Revenue': product.grades.F.revenue,
         'Grade F Avg Price': product.grades.F.priceUsed,
-        'Grade F Diff': this.getPriceDifference(product.grades.F.priceUsed, product.basePrice),
-        'Grade F %': this.getPriceDifferencePercent(product.grades.F.priceUsed, product.basePrice).toFixed(2),
-        // NEW: Gift data in export
+        'Grade F Diff': this.getPriceDifference(
+          product.grades.F.priceUsed,
+          product.basePrice
+        ),
+        'Grade F %': this.getPriceDifferencePercent(
+          product.grades.F.priceUsed,
+          product.basePrice
+        ).toFixed(2),
+        // Gift data in export
         'Gift Qty': product.gifts.qty,
         'Gift Revenue': product.gifts.revenue,
         'Gift Original Value': product.gifts.originalValue,
-        'Gift Savings': product.gifts.originalValue,
+        'Gift Savings': product.gifts.originalValue - product.gifts.revenue,
+        'Standard Qty': product.basePriceSales.qty,
+        'Standard Revenue': product.basePriceSales.revenue,
         'Total Qty': product.totalQty,
         'Total Revenue': product.totalRevenue,
-        'Total with Gift Value': product.totalRevenue + product.gifts.originalValue,
+        'Total with Gift Value': product.totalRevenue + (product.gifts.originalValue - product.gifts.revenue),
       }))
 
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData)
       const workbook = this.$xlsx.utils.book_new()
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade + Gift Report')
+      this.$xlsx.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        'Grade + Gift Report'
+      )
       this.$xlsx.writeFile(
         workbook,
         `grade-gift-report-${this.fromDate}-${this.toDate}.xlsx`
@@ -1354,39 +1429,23 @@ export default {
       window.print()
     },
 
-    // NEW: Debug method to check gift data
+    // Debug method to check gift data
     debugGiftData() {
-      console.log('🐛 DEBUG: Gift Data Check');
-      console.log('Gift Summary:', this.giftSummary);
-      console.log('Products with gifts:', this.productSummary.filter(p => p.gifts && p.gifts.qty > 0));
-      console.log('Filtered sales data:', this.filteredSalesData.length);
-      
-      // Check each sale for gifts
-      this.filteredSalesData.forEach((sale, index) => {
-        const giftLines = sale.lines?.filter(line => line.isGift === true) || [];
-        if (giftLines.length > 0) {
-          console.log(`Sale ${index + 1} (ID: ${sale.id}) has ${giftLines.length} gift lines:`);
-          giftLines.forEach((line, lineIndex) => {
-            console.log(`  Gift Line ${lineIndex + 1}:`, {
-              productName: line.product?.pro_name,
-              quantity: line.quantity,
-              price: line.price,
-              total: line.total,
-              revenue: line.total,
-              basePrice: line.product?.pro_price,
-              isGift: line.isGift
-            });
-          });
-        }
-      });
-      
+      console.log('🐛 DEBUG: Gift Data Check')
+      console.log('Gift Summary:', this.giftSummary)
+      console.log(
+        'Products with gifts:',
+        this.productSummary.filter((p) => p.gifts && p.gifts.qty > 0)
+      )
+      console.log('Filtered sales data:', this.filteredSalesData.length)
+
       // Show gift summary breakdown
-      console.log('\n🎁 Gift Summary Breakdown:');
-      console.log('   📦 Total Gift Quantity:', this.giftSummary.qty);
-      console.log('   💰 Total Gift Revenue:', this.giftSummary.revenue);
-      console.log('   💎 Total Gift Original Value:', this.giftSummary.originalValue);
-      console.log('   💸 Total Savings:', this.giftSummary.originalValue - this.giftSummary.revenue);
-      console.log('   📊 Gift Percentage:', this.giftSummary.percentage.toFixed(2) + '%');
+      console.log('\n🎁 Gift Summary Breakdown:')
+      console.log('   📦 Total Gift Quantity:', this.giftSummary.qty)
+      console.log('   💰 Total Gift Revenue:', this.giftSummary.revenue)
+      console.log('   💎 Total Gift Original Value:', this.giftSummary.originalValue)
+      console.log('   💸 Total Savings:', this.giftSummary.originalValue - this.giftSummary.revenue)
+      console.log('   📊 Gift Percentage:', this.giftSummary.percentage.toFixed(2) + '%')
     },
 
     formatDate(date) {
