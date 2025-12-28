@@ -721,17 +721,17 @@ export default {
     ticketCommon() {
       return ticketHtml()
     },
-    customerDisplayName() {
-      if (this.currenctCustomer === null) {
-        return 'Walk-in Customer'
-      }
-
-      if (this.currenctCustomer.company) {
-        return `${this.currenctCustomer.company} ${this.currenctCustomer.grade}`.trim()
-      } else {
-        return `${this.currenctCustomer.name} ${this.currenctCustomer.grade}`.trim()
-      }
-    },
+customerDisplayName() {
+  if (this.currenctCustomer === null) {
+    return 'Walk-in Customer'
+  }
+  
+  if (this.currenctCustomer.company) {
+    return `${this.currenctCustomer.company} ${this.currenctCustomer.grade ?? 'NO GRADE'}`.trim()
+  } else {
+    return `${this.currenctCustomer.name} ${this.currenctCustomer.grade ?? 'NO GRADE'}`.trim()
+  }
+},
     user() {
       return this.$auth.user || ''
     },

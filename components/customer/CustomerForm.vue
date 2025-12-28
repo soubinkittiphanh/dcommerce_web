@@ -73,8 +73,10 @@
             <v-col cols="12">
               <v-autocomplete
                 :items="grades"
-                label="Grade *"
+                label="Grade"
                 v-model="client.grade"
+                clearable
+                placeholder="Select grade (optional)"
               ></v-autocomplete>
             </v-col>
             <v-switch
@@ -138,7 +140,7 @@ export default {
         telephone: '',
         credit: 30,
         lateChargePercent: 0,
-        grade: 'C',
+        grade: null, // Changed from 'C' to null
         isActive: true,
       },
       grades: ['A', 'B', 'C', 'D', 'E', 'F'],

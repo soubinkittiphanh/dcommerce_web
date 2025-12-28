@@ -226,7 +226,7 @@ var VSwitch = __webpack_require__(482);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/customer/CustomerForm.vue?vue&type=template&id=5285549c
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/customer/CustomerForm.vue?vue&type=template&id=4c235934
 
 
 
@@ -243,7 +243,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var CustomerFormvue_type_template_id_5285549c_render = function render() {
+var CustomerFormvue_type_template_id_4c235934_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VRow["a" /* default */], {
@@ -412,7 +412,9 @@ var CustomerFormvue_type_template_id_5285549c_render = function render() {
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
       "items": _vm.grades,
-      "label": "Grade *"
+      "label": "Grade",
+      "clearable": "",
+      "placeholder": "Select grade (optional)"
     },
     model: {
       value: _vm.client.grade,
@@ -458,7 +460,7 @@ var CustomerFormvue_type_template_id_5285549c_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/customer/CustomerForm.vue?vue&type=template&id=5285549c
+// CONCATENATED MODULE: ./components/customer/CustomerForm.vue?vue&type=template&id=4c235934
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(460);
@@ -498,7 +500,8 @@ var external_vuex_ = __webpack_require__(14);
         telephone: '',
         credit: 30,
         lateChargePercent: 0,
-        grade: 'C',
+        grade: null,
+        // Changed from 'C' to null
         isActive: true
       },
       grades: ['A', 'B', 'C', 'D', 'E', 'F']
@@ -567,7 +570,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   customer_CustomerFormvue_type_script_lang_js,
-  CustomerFormvue_type_template_id_5285549c_render,
+  CustomerFormvue_type_template_id_4c235934_render,
   staticRenderFns,
   false,
   injectStyles,
