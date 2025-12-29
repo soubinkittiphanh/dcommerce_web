@@ -56,17 +56,38 @@
             <v-col cols="6">
               <v-card outlined class="pa-3">
                 <h4>ຂໍ້ມູນພື້ນຖານ</h4>
-                <div><strong>ລູກຄ້າ:</strong> {{ selectedOrderForGifts.client?.name || 'Walk-in Customer' }}</div>
-                <div><strong>ວັນທີ:</strong> {{ selectedOrderForGifts.bookingDate }}</div>
-                <div><strong>ຍອດລວມ:</strong> {{ formatNumber(selectedOrderForGifts.total) }} LAK</div>
-                <div><strong>ສ່ວນຫລຸດ:</strong> {{ formatNumber(selectedOrderForGifts.discount) }} LAK</div>
+                <div>
+                  <strong>ລູກຄ້າ:</strong>
+                  {{ selectedOrderForGifts.client?.name || 'Walk-in Customer' }}
+                </div>
+                <div>
+                  <strong>ວັນທີ:</strong>
+                  {{ selectedOrderForGifts.bookingDate }}
+                </div>
+                <div>
+                  <strong>ຍອດລວມ:</strong>
+                  {{ formatNumber(selectedOrderForGifts.total) }} LAK
+                </div>
+                <div>
+                  <strong>ສ່ວນຫລຸດ:</strong>
+                  {{ formatNumber(selectedOrderForGifts.discount) }} LAK
+                </div>
               </v-card>
             </v-col>
             <v-col cols="6">
               <v-card outlined class="pa-3">
                 <h4>ສະຖິຕິຂອງຂວັນ</h4>
-                <div><strong>ຈຳນວນຂອງຂວັນ:</strong> {{ getGiftItemsCount(selectedOrderForGifts) }}</div>
-                <div><strong>ມູນຄ່າຂອງຂວັນ:</strong> {{ formatNumber(getGiftItemsValue(selectedOrderForGifts)) }} LAK</div>
+                <div>
+                  <strong>ຈຳນວນຂອງຂວັນ:</strong>
+                  {{ getGiftItemsCount(selectedOrderForGifts) }}
+                </div>
+                <div>
+                  <strong>ມູນຄ່າຂອງຂວັນ:</strong>
+                  {{
+                    formatNumber(getGiftItemsValue(selectedOrderForGifts))
+                  }}
+                  LAK
+                </div>
               </v-card>
             </v-col>
           </v-row>
@@ -98,7 +119,11 @@
           <v-btn color="grey" text @click="giftDetailsDialog = false">
             ປິດ
           </v-btn>
-          <v-btn color="success" @click="printGiftDetails" v-if="selectedOrderForGifts">
+          <v-btn
+            color="success"
+            @click="printGiftDetails"
+            v-if="selectedOrderForGifts"
+          >
             <v-icon left>mdi-printer</v-icon>
             ພິມລາຍລະອຽດ
           </v-btn>
@@ -233,7 +258,9 @@
               </v-col>
               <v-col cols="4" lg="4">
                 <v-card outlined class="pa-3 text-center">
-                  <h4 class="error--text">{{ formatNumber(totalGiftValue) }} LAK</h4>
+                  <h4 class="error--text">
+                    {{ formatNumber(totalGiftValue) }} LAK
+                  </h4>
                   <div class="">ມູນຄ່າຂອງຂວັນທັງໝົດ</div>
                 </v-card>
               </v-col>
@@ -261,7 +288,12 @@
               {{ countDay(item.bookingDate.split('T')[0]) }}
             </h6>
           </template>
-
+          <template v-slot:[`item.ticketId`]="{ item }">
+            <v-chip color="success" small dark style="cursor: pointer">
+              <v-icon left small>mdi-ticket</v-icon>
+              {{ item.id }}
+            </v-chip>
+          </template>
           <template v-slot:[`item.client.name`]="{ item }">
             {{ item.client?.name || 'Walk-in Customer' }}
           </template>
@@ -274,7 +306,9 @@
           </template>
 
           <template v-slot:[`item.giftValue`]="{ item }">
-            <strong style="color: #4CAF50;">{{ formatNumber(getGiftItemsValue(item)) }} LAK</strong>
+            <strong style="color: #4caf50"
+              >{{ formatNumber(getGiftItemsValue(item)) }} LAK</strong
+            >
           </template>
 
           <template v-slot:[`item.discount`]="{ item }">
@@ -290,35 +324,21 @@
           </template>
 
           <template v-slot:[`item.createdAt`]="{ item }">
-            <v-chip 
-              color="success" 
-              small 
-              dark 
-              style="cursor: pointer"
-            >
+            <v-chip color="success" small dark style="cursor: pointer">
               <v-icon left small>mdi-clock</v-icon>
               {{ getLocalDate(item.createdAt) }}
             </v-chip>
           </template>
 
           <template v-slot:[`item.giftDetails`]="{ item }">
-            <v-btn 
-              color="success" 
-              text 
-              small
-              @click="showGiftDetails(item)"
-            >
+            <v-btn color="success" text small @click="showGiftDetails(item)">
               <v-icon small>mdi-gift</v-icon>
               ລາຍລະອຽດ
             </v-btn>
           </template>
 
           <template v-slot:[`item.id`]="{ item }">
-            <v-btn
-              color="primary"
-              text
-              @click="viewItem(item)"
-            >
+            <v-btn color="primary" text @click="viewItem(item)">
               <i class="fa-regular fa-pen-to-square"></i>
             </v-btn>
           </template>
@@ -367,16 +387,22 @@ export default {
       userId: null,
       orderHeaderList: [],
       giftOrdersList: [],
-      
+
       // Gift Details Dialog
       giftDetailsDialog: false,
       selectedOrderForGifts: null,
-      
+
       headers: [
         {
           text: 'ວັນທີ',
           align: 'center',
           value: 'bookingDate',
+          sortable: true,
+        },
+        {
+          text: 'ເລກທີ ໃບບິນ',
+          align: 'center',
+          value: 'ticketId',
           sortable: true,
         },
         {
@@ -452,7 +478,7 @@ export default {
           sortable: false,
         },
       ],
-      
+
       // Gift Details Table Headers
       giftDetailsHeaders: [
         {
@@ -480,7 +506,7 @@ export default {
           sortable: false,
         },
       ],
-      
+
       fromDate: getFirstDayOfMonth(),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -499,14 +525,14 @@ export default {
   async created() {
     this.terminalId = this.findSelectedTerminal
     console.log(`Current terminal select ${this.findSelectedTerminal}`)
-    
+
     try {
       await preloadCompanyData(this.$axios)
       console.log('Company data preloaded for gift report')
     } catch (error) {
       console.warn('Company preload failed, using fallback:', error)
     }
-    
+
     await this.loadData()
   },
 
@@ -604,32 +630,40 @@ export default {
     // Gift-related methods
     getGiftItemsCount(order) {
       if (!order.lines) return 0
-      return order.lines.filter(line => line.isGift === true || line.isGift === 1).length
+      return order.lines.filter(
+        (line) => line.isGift === true || line.isGift === 1
+      ).length
     },
 
     getGiftItemsValue(order) {
       if (!order.lines) return 0
       return order.lines
-        .filter(line => line.isGift === true || line.isGift === 1)
+        .filter((line) => line.isGift === true || line.isGift === 1)
         .reduce((total, line) => total + line.total, 0)
     },
 
     getGiftItems(order) {
       if (!order.lines) return []
       return order.lines
-        .filter(line => line.isGift === true || line.isGift === 1)
-        .map(line => {
-          const product = this.findAllProduct.find(p => p.id === line.productId)
+        .filter((line) => line.isGift === true || line.isGift === 1)
+        .map((line) => {
+          const product = this.findAllProduct.find(
+            (p) => p.id === line.productId
+          )
           return {
             ...line,
-            productName: product ? product.pro_name || product.name : `Product ID: ${line.productId}`
+            productName: product
+              ? product.pro_name || product.name
+              : `Product ID: ${line.productId}`,
           }
         })
     },
 
     hasGiftItems(order) {
       if (!order.lines) return false
-      return order.lines.some(line => line.isGift === true || line.isGift === 1)
+      return order.lines.some(
+        (line) => line.isGift === true || line.isGift === 1
+      )
     },
 
     showGiftDetails(item) {
@@ -639,18 +673,22 @@ export default {
 
     printGiftDetails() {
       if (!this.selectedOrderForGifts) return
-      
+
       const item = this.selectedOrderForGifts
       const giftItems = this.getGiftItems(item)
-      
+
       let giftListHtml = ''
-      giftItems.forEach(gift => {
+      giftItems.forEach((gift) => {
         giftListHtml += `
           <tr>
             <td>${gift.productName}</td>
             <td style="text-align: center">${gift.quantity}</td>
-            <td style="text-align: right">${this.formatNumber(gift.unitRate)} LAK</td>
-            <td style="text-align: right">${this.formatNumber(gift.total)} LAK</td>
+            <td style="text-align: right">${this.formatNumber(
+              gift.unitRate
+            )} LAK</td>
+            <td style="text-align: right">${this.formatNumber(
+              gift.total
+            )} LAK</td>
           </tr>
         `
       })
@@ -659,7 +697,9 @@ export default {
         ${this.ticketCommon.header}
         <body>
           <div style="text-align: center;">
-            <img src="${this.companyLogo}" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">
+            <img src="${
+              this.companyLogo
+            }" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">
           </div>
           <h3 style="text-align: center">ລາຍລະອຽດຂອງຂວັນ</h3>
           <hr>
@@ -667,7 +707,9 @@ export default {
           <h5>ວັນທີ: ${item.bookingDate}</h5>
           <h5>ລູກຄ້າ: ${item.client?.name || 'Walk-in Customer'}</h5>
           <h5>ຈຳນວນຂອງຂວັນ: ${this.getGiftItemsCount(item)}</h5>
-          <h5>ມູນຄ່າຂອງຂວັນ: ${this.formatNumber(this.getGiftItemsValue(item))} LAK</h5>
+          <h5>ມູນຄ່າຂອງຂວັນ: ${this.formatNumber(
+            this.getGiftItemsValue(item)
+          )} LAK</h5>
           <hr>
           <h4>ລາຍການຂອງຂວັນ:</h4>
           <table style="width: 100%; border-collapse: collapse;">
@@ -702,10 +744,12 @@ export default {
 
     printGiftTicket(data) {
       console.info(`PRINTING GIFT TICKET WITH DATA: ${JSON.stringify(data)}`)
-      
+
       // Filter only gift items for printing
-      const giftLines = data.lines.filter(line => line.isGift === true || line.isGift === 1)
-      
+      const giftLines = data.lines.filter(
+        (line) => line.isGift === true || line.isGift === 1
+      )
+
       defaultTicketReprint({
         productCart: giftLines,
         findAllProduct: this.findAllProduct,
@@ -723,7 +767,7 @@ export default {
         bookingDate: data.createdAt,
         axios: this.$axios,
         companyData: this.companyData,
-        isGiftTicket: true // Special flag for gift tickets
+        isGiftTicket: true, // Special flag for gift tickets
       })
     },
 
@@ -733,24 +777,27 @@ export default {
 
     exportToExcel() {
       // Prepare data for Excel export
-      const excelData = this.giftOrdersList.map(order => ({
-        'ເລກບິນ': order.id,
-        'ວັນທີ': order.bookingDate,
-        'ລູກຄ້າ': order.client?.name || 'Walk-in Customer',
+      const excelData = this.giftOrdersList.map((order) => ({
+        ເລກບິນ: order.id,
+        ວັນທີ: order.bookingDate,
+        ລູກຄ້າ: order.client?.name || 'Walk-in Customer',
         'ID ລູກຄ້າ': order.client?.id || 'N/A',
-        'ຈຳນວນຂອງຂວັນ': this.getGiftItemsCount(order),
+        ຈຳນວນຂອງຂວັນ: this.getGiftItemsCount(order),
         'ມູນຄ່າຂອງຂວັນ LAK': this.getGiftItemsValue(order),
         'ລາຄາເຕັມ LAK': order.total + order.discount,
         'ສ່ວນຫລຸດ LAK': order.discount,
         'ລາຄາສຸດທິ LAK': order.total,
-        'ຜູ້ລົງທຸລະກຳ': order.user?.cus_name || 'N/A',
-        'ເວລາລົງ': order.createdAt,
+        ຜູ້ລົງທຸລະກຳ: order.user?.cus_name || 'N/A',
+        ເວລາລົງ: order.createdAt,
       }))
 
       const worksheet = this.$xlsx.utils.json_to_sheet(excelData)
       const workbook = this.$xlsx.utils.book_new()
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Gift Report')
-      this.$xlsx.writeFile(workbook, `gift-report-${this.fromDate}-to-${this.toDate}.xlsx`)
+      this.$xlsx.writeFile(
+        workbook,
+        `gift-report-${this.fromDate}-to-${this.toDate}.xlsx`
+      )
     },
 
     countDay(startDate) {
@@ -782,60 +829,85 @@ export default {
         endDate: this.toDate,
         userId: this.userId,
       }
-      
+
       let apiLine = 'api/sale/findByDateWithGifts'
       if (date.userId) {
         apiLine = 'api/sale/findByDateAndUserWithGifts'
       }
-      
+
       try {
         const response = await this.$axios.get(apiLine, { params: { date } })
-        
+
         console.log('Raw API Response:', response.data)
-        
+
         // The backend should already filter and return only gift orders
-        this.orderHeaderList = response.data.filter(sale=>sale.isActive === true)
-        this.giftOrdersList = response.data.filter(sale=>sale.isActive === true)
-        
+        this.orderHeaderList = response.data.filter(
+          (sale) => sale.isActive === true
+        )
+        this.giftOrdersList = response.data.filter(
+          (sale) => sale.isActive === true
+        )
+
         // Apply terminal filtering if needed
-        const terminal = this.findAllTerminal.find(el => el.id == this.terminalId)
+        const terminal = this.findAllTerminal.find(
+          (el) => el.id == this.terminalId
+        )
         if (terminal && this.terminalId !== 999) {
-          this.giftOrdersList = this.giftOrdersList.filter(order =>
-            order.locationId === terminal.locationId
+          this.giftOrdersList = this.giftOrdersList.filter(
+            (order) => order.locationId === terminal.locationId
           )
         }
-        
-        console.log(`Gift orders loaded from API: ${this.giftOrdersList.length}`)
-        console.log('First order has gifts:', this.giftOrdersList.length > 0 ? this.hasGiftItems(this.giftOrdersList[0]) : 'No orders')
-        
+
+        console.log(
+          `Gift orders loaded from API: ${this.giftOrdersList.length}`
+        )
+        console.log(
+          'First order has gifts:',
+          this.giftOrdersList.length > 0
+            ? this.hasGiftItems(this.giftOrdersList[0])
+            : 'No orders'
+        )
       } catch (error) {
         console.error('API Error:', error)
-        swalError2(this.$swal, 'Error', 'Could not load gift data: ' + error.message)
-        
+        swalError2(
+          this.$swal,
+          'Error',
+          'Could not load gift data: ' + error.message
+        )
+
         // Fallback: load regular data and filter client-side
         try {
           let fallbackApiLine = 'api/sale/findByDate'
           if (date.userId) {
             fallbackApiLine = 'api/sale/findByDateAndUser'
           }
-          
+
           console.log('Using fallback API:', fallbackApiLine)
-          const fallbackResponse = await this.$axios.get(fallbackApiLine, { params: { date } })
-          this.orderHeaderList = fallbackResponse.data.filter(sale => sale.isActive === true)
-          
+          const fallbackResponse = await this.$axios.get(fallbackApiLine, {
+            params: { date },
+          })
+          this.orderHeaderList = fallbackResponse.data.filter(
+            (sale) => sale.isActive === true
+          )
+
           // Client-side filtering for gifts
-          this.giftOrdersList = this.orderHeaderList.filter(order => 
+          this.giftOrdersList = this.orderHeaderList.filter((order) =>
             this.hasGiftItems(order)
           )
-          
-          console.log(`Using fallback method, found ${this.giftOrdersList.length} gift orders`)
-          
+
+          console.log(
+            `Using fallback method, found ${this.giftOrdersList.length} gift orders`
+          )
         } catch (fallbackError) {
           console.error('Fallback Error:', fallbackError)
-          swalError2(this.$swal, 'Error', 'Could not load any data: ' + fallbackError.message)
+          swalError2(
+            this.$swal,
+            'Error',
+            'Could not load any data: ' + fallbackError.message
+          )
         }
       }
-      
+
       this.isloading = false
     },
 
@@ -886,11 +958,11 @@ table {
 
 .gift-chip:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .gift-stats-card {
-  border: 2px solid #4CAF50;
-  background: linear-gradient(135deg, #E8F5E8 0%, #F1F8E9 100%);
+  border: 2px solid #4caf50;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
 }
 </style>

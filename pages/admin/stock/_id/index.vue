@@ -287,6 +287,21 @@
           </v-chip>
         </template>
 
+          <template v-slot:[`item.input_date_time`]="{ item }">
+            <v-chip color="success" small dark style="cursor: pointer">
+              <v-icon left small>mdi-clock</v-icon>
+              {{ item.input_date_time }}
+            </v-chip>
+            
+          </template>
+          <template v-slot:[`item.update_time`]="{ item }">
+            <v-chip color="warning" small dark style="cursor: pointer">
+              <v-icon left small>mdi-clock</v-icon>
+              {{ item.update_time }}
+            </v-chip>
+            
+          </template>
+
         <template v-slot:[`item.lotNumber`]="{ item }">
           <v-chip v-if="item.lotNumber" color="secondary" outlined x-small>
             <v-icon x-small left>mdi-barcode</v-icon>
