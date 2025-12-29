@@ -794,8 +794,8 @@ export default {
         console.log('Raw API Response:', response.data)
         
         // The backend should already filter and return only gift orders
-        this.orderHeaderList = response.data
-        this.giftOrdersList = response.data
+        this.orderHeaderList = response.data.filter(sale=>sale.isActive === true)
+        this.giftOrdersList = response.data.filter(sale=>sale.isActive === true)
         
         // Apply terminal filtering if needed
         const terminal = this.findAllTerminal.find(el => el.id == this.terminalId)
@@ -821,7 +821,7 @@ export default {
           
           console.log('Using fallback API:', fallbackApiLine)
           const fallbackResponse = await this.$axios.get(fallbackApiLine, { params: { date } })
-          this.orderHeaderList = fallbackResponse.data
+          this.orderHeaderList = fallbackResponse.data.filter(sale => sale.isActive === true)
           
           // Client-side filtering for gifts
           this.giftOrdersList = this.orderHeaderList.filter(order => 

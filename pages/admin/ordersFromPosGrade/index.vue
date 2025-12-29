@@ -866,11 +866,13 @@ export default {
       )
 
       if (!terminal || this.terminalId === 999) {
-        return this.salesData
+        return this.salesData.filter(
+        (el) => el.isActive === true
+      )
       }
 
       return this.salesData.filter(
-        (el) => el['locationId'] == terminal['locationId']
+        (el) => el['locationId'] == terminal['locationId'] && el.isActive === true
       )
     },
 
@@ -1025,7 +1027,8 @@ export default {
           params: { date },
         })
 
-        this.salesData = response.data
+        // this.salesData = response.data.isActive=true
+        this.salesData = response.data.filter(sale => sale.isActive === true)
         this.processSalesData()
 
         // Debug after processing
