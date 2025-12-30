@@ -597,7 +597,7 @@ export default {
       sharedState: Vue.observable({
         saleHeader: 0,
       }),
-          customerScreenSyncInterval: null,
+      customerScreenSyncInterval: null,
       multiPaymentDialog: false,
       pendingSaleHeaderId: null,
       isCreatingSale: false,
@@ -822,14 +822,14 @@ export default {
   },
 
   mounted() {
-     this.updateCustomerScreenDebounced = this.debounce(() => {
-    if (this.isCustomerDisplayOpen()) {
-      this.sendQRToCustomerScreen()
-    }
-  }, 500) // 500ms delay
+    this.updateCustomerScreenDebounced = this.debounce(() => {
+      if (this.isCustomerDisplayOpen()) {
+        this.sendQRToCustomerScreen()
+      }
+    }, 500) // 500ms delay
     window.addEventListener('beforeunload', this.checkAllInitData)
     this.terminalSelected = this.findSelectedTerminal
-      this.startCustomerScreenSync()
+    this.startCustomerScreenSync()
     this.fetchCategory()
     this.loadPayment()
     this.loadCustomer()
@@ -848,7 +848,7 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.checkAllInitData)
-  this.stopCustomerScreenSync()
+    this.stopCustomerScreenSync()
     // CUSTOMER SCREEN CLEANUP
     // this.closeCustomerDisplayWindow()
     window.removeEventListener('message', this.handleCustomerScreenMessage)
@@ -893,55 +893,55 @@ export default {
 
   methods: {
     debounce(func, wait) {
-    let timeout
-    return function executedFunction(...args) {
-      const later = () => {
+      let timeout
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout)
+          func(...args)
+        }
         clearTimeout(timeout)
-        func(...args)
+        timeout = setTimeout(later, wait)
       }
-      clearTimeout(timeout)
-      timeout = setTimeout(later, wait)
-    }
-  },
+    },
 
     handleDiscountUpdate(value) {
-    this.discount = value
-    
-    // ✅ Auto-update customer screen
-    if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-      setTimeout(() => {
-        this.sendQRToCustomerScreen()
-      }, 100)
-    }
-  },
+      this.discount = value
 
-  handleCashReceivedUpdate(value) {
-    this.cashReceived = value
-    
-    // ✅ Auto-update customer screen  
-    if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-      setTimeout(() => {
-        this.sendQRToCustomerScreen()
-      }, 100)
-    }
-  },
+      // ✅ Auto-update customer screen
+      if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+        setTimeout(() => {
+          this.sendQRToCustomerScreen()
+        }, 100)
+      }
+    },
+
+    handleCashReceivedUpdate(value) {
+      this.cashReceived = value
+
+      // ✅ Auto-update customer screen
+      if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+        setTimeout(() => {
+          this.sendQRToCustomerScreen()
+        }, 100)
+      }
+    },
 
     startCustomerScreenSync() {
-    // Sync every 5 seconds if customer screen is open
-    this.customerScreenSyncInterval = setInterval(() => {
-      if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-        this.sendQRToCustomerScreen()
-      }
-    }, 5000) // 5 seconds
-  },
+      // Sync every 5 seconds if customer screen is open
+      this.customerScreenSyncInterval = setInterval(() => {
+        if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+          this.sendQRToCustomerScreen()
+        }
+      }, 5000) // 5 seconds
+    },
 
-  // ✅ NEW: Stop periodic sync
-  stopCustomerScreenSync() {
-    if (this.customerScreenSyncInterval) {
-      clearInterval(this.customerScreenSyncInterval)
-      this.customerScreenSyncInterval = null
-    }
-  },
+    // ✅ NEW: Stop periodic sync
+    stopCustomerScreenSync() {
+      if (this.customerScreenSyncInterval) {
+        clearInterval(this.customerScreenSyncInterval)
+        this.customerScreenSyncInterval = null
+      }
+    },
     handleGiftConfirm(giftData) {
       // Emit gift configuration to parent component
       console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
@@ -1704,7 +1704,7 @@ export default {
 
         // Show success feedback with quantity info
         this.showAddSuccessMessage(product)
-            this.updateCustomerScreenDebounced()
+        this.updateCustomerScreenDebounced()
         return true
       } catch (error) {
         console.error('Error adding product:', error)
@@ -1771,11 +1771,17 @@ export default {
         if (remaining > 0) {
           this.$toast.success(
             `${product.pro_name} added. ${remaining} more allowed`,
-            { position: 'bottom-center' }
+            {
+              position: 'bottom-center',
+              duration: 500, // ✅ 2 seconds instead of default (usually 4-5s)
+              dismissible: true, // ✅ Allow manual dismiss for faster interaction
+            }
           )
         } else {
           this.$toast.success(`${product.pro_name} added. Limit reached!`, {
             position: 'bottom-center',
+            duration: 500, // ✅ 2 seconds instead of default (usually 4-5s)
+            dismissible: true, // ✅ Allow manual dismiss for faster interaction
           })
         }
       } else {
