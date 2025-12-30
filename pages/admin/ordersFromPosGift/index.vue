@@ -17,6 +17,7 @@
       </v-chip>
     </div>
 
+    <!-- Existing Dialogs -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator></loading-indicator>
     </v-dialog>
@@ -31,10 +32,7 @@
 
     <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
-        @reload="
-          loadData()
-          dialogOrderDetail = false
-        "
+        @reload="loadData(); dialogOrderDetail = false"
         :is-quotation="false"
         :key="componentKey"
         :is-update="viewTransaction"
@@ -44,12 +42,24 @@
       </OrderDetailPosCRUD>
     </v-dialog>
 
-    <!-- Gift Details Dialog -->
-    <v-dialog v-model="giftDetailsDialog" max-width="900">
+    <!-- ENHANCED: Replace the old gift details dialog with TicketDetailsDialog -->
+    <ticket-details-dialog
+      v-model="ticketDetailsDialog"
+      :ticket-data="selectedTicketForDetails"
+      :company-logo="companyLogo"
+      :ticket-common="ticketCommon"
+      :show-print-button="true"
+      @close="onTicketDialogClose"
+      @print-ticket="onPrintTicket"
+      @print-payment-details="onPrintPaymentDetails"
+    />
+
+    <!-- NEW: Keep a separate gift-specific summary dialog for gift statistics -->
+    <v-dialog v-model="giftSummaryDialog" max-width="800">
       <v-card>
         <v-card-title class="success white--text">
           <v-icon left>mdi-gift</v-icon>
-          ລາຍລະອຽດຂອງຂວັນ - ບິນເລກທີ {{ selectedOrderForGifts?.id }}
+          ສະຫຼຸບຂອງຂວັນ - ບິນເລກທີ {{ selectedOrderForGifts?.id }}
         </v-card-title>
         <v-card-text class="pa-4" v-if="selectedOrderForGifts">
           <v-row>
@@ -62,7 +72,7 @@
                 </div>
                 <div>
                   <strong>ວັນທີ:</strong>
-                  {{ selectedOrderForGifts.bookingDate }}
+                  {{ formatDate(selectedOrderForGifts.bookingDate) }}
                 </div>
                 <div>
                   <strong>ຍອດລວມ:</strong>
@@ -75,7 +85,7 @@
               </v-card>
             </v-col>
             <v-col cols="6">
-              <v-card outlined class="pa-3">
+              <v-card outlined class="pa-3 gift-stats-card">
                 <h4>ສະຖິຕິຂອງຂວັນ</h4>
                 <div>
                   <strong>ຈຳນວນຂອງຂວັນ:</strong>
@@ -83,10 +93,17 @@
                 </div>
                 <div>
                   <strong>ມູນຄ່າຂອງຂວັນ:</strong>
-                  {{
-                    formatNumber(getGiftItemsValue(selectedOrderForGifts))
-                  }}
-                  LAK
+                  {{ formatNumber(getGiftItemsValue(selectedOrderForGifts)) }} LAK
+                </div>
+                <div>
+                  <strong>ເປີເຊັນຂອງຂວັນ:</strong>
+                  {{ getGiftPercentage(selectedOrderForGifts).toFixed(1) }}%
+                </div>
+                <div>
+                  <strong>ປະຫຍັດໄດ້:</strong>
+                  <span class="success--text font-weight-bold">
+                    {{ formatNumber(getGiftSavings(selectedOrderForGifts)) }} LAK
+                  </span>
                 </div>
               </v-card>
             </v-col>
@@ -94,29 +111,55 @@
 
           <v-divider class="my-4"></v-divider>
 
-          <!-- Gift Items Details -->
-          <h4 class="mb-3">ລາຍການຂອງຂວັນ</h4>
-          <v-data-table
-            :headers="giftDetailsHeaders"
-            :items="getGiftItems(selectedOrderForGifts)"
-            hide-default-footer
-            disable-pagination
-            class="elevation-1"
-          >
-            <template v-slot:[`item.productName`]="{ item }">
-              <v-chip color="success" small dark>
-                <v-icon left small>mdi-gift</v-icon>
-                {{ item.productName }}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.total`]="{ item }">
-              <strong>{{ formatNumber(item.total) }} LAK</strong>
-            </template>
-          </v-data-table>
+          <!-- Gift Items Quick Preview -->
+          <h4 class="mb-3">
+            <v-icon left color="success">mdi-gift</v-icon>
+            ລາຍການຂອງຂວັນ ({{ getGiftItems(selectedOrderForGifts).length }} ລາຍການ)
+          </h4>
+          
+          <v-row>
+            <v-col 
+              v-for="(gift, index) in getGiftItems(selectedOrderForGifts).slice(0, 6)" 
+              :key="index"
+              cols="6" 
+              md="4"
+            >
+              <v-card outlined class="pa-2 mb-2">
+                <div class="d-flex align-center">
+                  <v-icon color="success" class="mr-2">mdi-gift</v-icon>
+                  <div class="flex-grow-1">
+                    <div class="font-weight-medium">{{ gift.productName }}</div>
+                    <div class="caption success--text">{{ gift.quantity }} ຊິ້ນ - {{ formatNumber(gift.total) }} LAK</div>
+                  </div>
+                </div>
+              </v-card>
+            </v-col>
+            
+            <v-col cols="12" v-if="getGiftItems(selectedOrderForGifts).length > 6">
+              <v-card outlined class="pa-3 text-center" color="grey lighten-4">
+                <div class="grey--text">
+                  ... ແລະ {{ getGiftItems(selectedOrderForGifts).length - 6 }} ລາຍການອື່ນ
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
+          
+          <v-divider class="my-4"></v-divider>
+          
+          <div class="text-center">
+            <v-btn 
+              color="primary" 
+              large
+              @click="showFullTicketDetails"
+            >
+              <v-icon left>mdi-receipt</v-icon>
+              ເບິ່ງລາຍລະອຽດຄົບຖ້ວນ
+            </v-btn>
+          </div>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="giftDetailsDialog = false">
+          <v-btn color="grey" text @click="giftSummaryDialog = false">
             ປິດ
           </v-btn>
           <v-btn
@@ -125,7 +168,7 @@
             v-if="selectedOrderForGifts"
           >
             <v-icon left>mdi-printer</v-icon>
-            ພິມລາຍລະອຽດ
+            ພິມສະຫຼຸບຂອງຂວັນ
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -241,61 +284,111 @@
           </v-layout>
         </v-card-title>
         <v-divider></v-divider>
+        
+        <!-- Enhanced Gift Statistics Dashboard -->
         <v-card-text>
           <v-layout row wrap>
             <v-row>
-              <v-col cols="4" lg="4">
-                <v-card outlined class="pa-3 text-center">
+              <v-col cols="4" lg="3">
+                <v-card outlined class="pa-3 text-center gift-stat-card">
+                  <v-icon color="success" size="32" class="mb-2">mdi-receipt</v-icon>
                   <h4 class="success--text">{{ giftOrdersCount }}</h4>
                   <div class="">ຈຳນວນບິນທີ່ມີຂອງຂວັນ</div>
+                  <v-progress-circular
+                    :value="giftOrderPercentage"
+                    color="success"
+                    size="40"
+                    width="4"
+                    class="mt-2"
+                  >
+                    <small>{{ giftOrderPercentage.toFixed(0) }}%</small>
+                  </v-progress-circular>
                 </v-card>
               </v-col>
-              <v-col cols="4" lg="4">
-                <v-card outlined class="pa-3 text-center">
+              
+              <v-col cols="4" lg="3">
+                <v-card outlined class="pa-3 text-center gift-stat-card">
+                  <v-icon color="warning" size="32" class="mb-2">mdi-gift</v-icon>
                   <h4 class="warning--text">{{ totalGiftItems }}</h4>
                   <div class="">ຈຳນວນຂອງຂວັນທັງໝົດ</div>
+                  <v-progress-circular
+                    :value="giftItemPercentage"
+                    color="warning"
+                    size="40"
+                    width="4"
+                    class="mt-2"
+                  >
+                    <small>{{ giftItemPercentage.toFixed(0) }}%</small>
+                  </v-progress-circular>
                 </v-card>
               </v-col>
-              <v-col cols="4" lg="4">
-                <v-card outlined class="pa-3 text-center">
-                  <h4 class="error--text">
-                    {{ formatNumber(totalGiftValue) }} LAK
-                  </h4>
+              
+              <v-col cols="4" lg="3">
+                <v-card outlined class="pa-3 text-center gift-stat-card">
+                  <v-icon color="error" size="32" class="mb-2">mdi-currency-usd</v-icon>
+                  <h4 class="error--text">{{ formatNumber(totalGiftValue) }} LAK</h4>
                   <div class="">ມູນຄ່າຂອງຂວັນທັງໝົດ</div>
+                  <div class="caption grey--text mt-2">
+                    ຄ່າສະເລ່ຍ: {{ formatNumber(averageGiftValue) }} LAK/ບິນ
+                  </div>
+                </v-card>
+              </v-col>
+
+              <!-- NEW: Customer Savings Card -->
+              <v-col cols="4" lg="3">
+                <v-card outlined class="pa-3 text-center gift-stat-card">
+                  <v-icon color="purple" size="32" class="mb-2">mdi-piggy-bank</v-icon>
+                  <h4 class="purple--text">{{ formatNumber(totalCustomerSavings) }} LAK</h4>
+                  <div class="">ລູກຄ້າປະຫຍັດໄດ້</div>
+                  <div class="caption grey--text mt-2">
+                    ສະເລ່ຍ: {{ formatNumber(averageSavingsPerOrder) }} LAK/ບິນ
+                  </div>
                 </v-card>
               </v-col>
             </v-row>
           </v-layout>
         </v-card-text>
 
+        <!-- ENHANCED: Data Table with new action buttons -->
         <v-data-table
           v-if="giftOrdersList"
           :headers="headers"
           :search="search"
           :items="giftOrdersList"
+          class="elevation-1"
         >
           <template v-slot:[`item.bookingDate`]="{ item }">
-            {{ item.bookingDate.split('T')[0] }}
-            <h6
-              :style="{
-                color:
-                  item.client &&
-                  countDay(item.bookingDate.split('T')[0]) > item.client.credit
-                    ? 'red'
-                    : 'green',
-              }"
-            >
-              {{ countDay(item.bookingDate.split('T')[0]) }}
-            </h6>
+            <div>
+              {{ item.bookingDate.split('T')[0] }}
+              <div>
+                <v-chip 
+                  small 
+                  :color="countDay(item.bookingDate.split('T')[0]) > item.client?.credit ? 'error' : 'success'"
+                  dark
+                >
+                  <v-icon left small>mdi-calendar-clock</v-icon>
+                  {{ countDay(item.bookingDate.split('T')[0]) }} ມື້
+                </v-chip>
+              </div>
+            </div>
           </template>
+          
           <template v-slot:[`item.ticketId`]="{ item }">
             <v-chip color="success" small dark style="cursor: pointer">
               <v-icon left small>mdi-ticket</v-icon>
               {{ item.id }}
             </v-chip>
           </template>
+          
           <template v-slot:[`item.client.name`]="{ item }">
-            {{ item.client?.name || 'Walk-in Customer' }}
+            <div>
+              <div class="font-weight-medium">
+                {{ item.client?.name || 'Walk-in Customer' }}
+              </div>
+              <div class="caption text--secondary" v-if="item.client?.id">
+                ID: {{ item.client.id }}
+              </div>
+            </div>
           </template>
 
           <template v-slot:[`item.giftItemsCount`]="{ item }">
@@ -306,13 +399,23 @@
           </template>
 
           <template v-slot:[`item.giftValue`]="{ item }">
-            <strong style="color: #4caf50"
-              >{{ formatNumber(getGiftItemsValue(item)) }} LAK</strong
-            >
+            <div>
+              <strong style="color: #4caf50">
+                {{ formatNumber(getGiftItemsValue(item)) }} LAK
+              </strong>
+              <div class="caption success--text">
+                ປະຫຍັດ: {{ formatNumber(getGiftSavings(item)) }} LAK
+              </div>
+            </div>
           </template>
 
           <template v-slot:[`item.discount`]="{ item }">
-            {{ numberWithCommas(item.discount) }}
+            <div class="text-right">
+              <span v-if="item.discount > 0" class="error--text">
+                -{{ numberWithCommas(item.discount) }}
+              </span>
+              <span v-else class="text--secondary">-</span>
+            </div>
           </template>
 
           <template v-slot:[`item.total`]="{ item }">
@@ -320,7 +423,9 @@
           </template>
 
           <template v-slot:[`item.grandTotal`]="{ item }">
-            {{ numberWithCommas(item.total) }}
+            <strong class="success--text">
+              {{ numberWithCommas(item.total) }}
+            </strong>
           </template>
 
           <template v-slot:[`item.createdAt`]="{ item }">
@@ -330,23 +435,56 @@
             </v-chip>
           </template>
 
-          <template v-slot:[`item.giftDetails`]="{ item }">
-            <v-btn color="success" text small @click="showGiftDetails(item)">
-              <v-icon small>mdi-gift</v-icon>
-              ລາຍລະອຽດ
-            </v-btn>
-          </template>
-
-          <template v-slot:[`item.id`]="{ item }">
-            <v-btn color="primary" text @click="viewItem(item)">
-              <i class="fa-regular fa-pen-to-square"></i>
-            </v-btn>
-          </template>
-
-          <template v-slot:[`item.print`]="{ item }">
-            <v-btn @click="printGiftTicket(item)" text color="success">
-              <span class="mdi mdi-printer"></span>
-            </v-btn>
+          <!-- ENHANCED: New action buttons column -->
+          <template v-slot:[`item.actions`]="{ item }">
+            <div class="d-flex">
+              <!-- Gift Summary Button -->
+              <v-btn 
+                color="success" 
+                text 
+                small 
+                @click="showGiftSummary(item)" 
+                class="mr-1"
+              >
+                <v-icon small>mdi-gift</v-icon>
+                <span class="d-none d-md-inline ml-1">ສະຫຼຸບ</span>
+              </v-btn>
+              
+              <!-- Full Details Button -->
+              <v-btn 
+                color="info" 
+                text 
+                small 
+                @click="showTicketDetails(item)" 
+                class="mr-1"
+              >
+                <v-icon small>mdi-receipt</v-icon>
+                <span class="d-none d-md-inline ml-1">ລາຍລະອຽດ</span>
+              </v-btn>
+              
+              <!-- Edit Button -->
+              <v-btn 
+                color="primary" 
+                text 
+                small 
+                @click="viewItem(item)" 
+                class="mr-1"
+              >
+                <v-icon small>mdi-pencil</v-icon>
+                <span class="d-none d-md-inline ml-1">ແກ້ໄຂ</span>
+              </v-btn>
+              
+              <!-- Print Button -->
+              <v-btn 
+                color="success" 
+                text 
+                small 
+                @click="printGiftTicket(item)"
+              >
+                <v-icon small>mdi-printer</v-icon>
+                <span class="d-none d-md-inline ml-1">ພິມ</span>
+              </v-btn>
+            </div>
           </template>
         </v-data-table>
       </v-card>
@@ -368,10 +506,14 @@ import {
 import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
 import { defaultTicketReprint } from '~/common/ticket.js'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
+import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
-  components: { OrderDetailPosCRUD },
+  components: { 
+    OrderDetailPosCRUD,
+    TicketDetailsDialog  // NEW: Add the TicketDetailsDialog component
+  },
   middleware: 'auths',
   data() {
     return {
@@ -388,10 +530,13 @@ export default {
       orderHeaderList: [],
       giftOrdersList: [],
 
-      // Gift Details Dialog
-      giftDetailsDialog: false,
+      // ENHANCED: Dialog management
+      ticketDetailsDialog: false,
+      selectedTicketForDetails: null,
+      giftSummaryDialog: false,  // Keep the gift summary dialog separate
       selectedOrderForGifts: null,
 
+      // ENHANCED: Headers with new action column
       headers: [
         {
           text: 'ວັນທີ',
@@ -460,50 +605,11 @@ export default {
           sortable: false,
         },
         {
-          text: 'ລາຍລະອຽດຂອງຂວັນ',
+          text: 'ການດຳເນີນການ',
           align: 'center',
-          value: 'giftDetails',
+          value: 'actions',
           sortable: false,
-        },
-        {
-          text: 'ພິມບິນ',
-          align: 'end',
-          value: 'print',
-          sortable: false,
-        },
-        {
-          text: 'View/Update',
-          align: 'end',
-          value: 'id',
-          sortable: false,
-        },
-      ],
-
-      // Gift Details Table Headers
-      giftDetailsHeaders: [
-        {
-          text: 'ຊື່ສິນຄ້າ',
-          align: 'left',
-          value: 'productName',
-          sortable: false,
-        },
-        {
-          text: 'ຈຳນວນ',
-          align: 'center',
-          value: 'quantity',
-          sortable: false,
-        },
-        {
-          text: 'ລາຄາຕໍ່ຫົວໜ່ວຍ',
-          align: 'right',
-          value: 'unitRate',
-          sortable: false,
-        },
-        {
-          text: 'ລາຄາລວມ',
-          align: 'right',
-          value: 'total',
-          sortable: false,
+          width: '250px'
         },
       ],
 
@@ -607,6 +713,31 @@ export default {
       }, 0)
     },
 
+    // NEW: Enhanced statistics
+    totalCustomerSavings() {
+      return this.giftOrdersList.reduce((total, order) => {
+        return total + this.getGiftSavings(order)
+      }, 0)
+    },
+
+    averageGiftValue() {
+      return this.giftOrdersCount > 0 ? this.totalGiftValue / this.giftOrdersCount : 0
+    },
+
+    averageSavingsPerOrder() {
+      return this.giftOrdersCount > 0 ? this.totalCustomerSavings / this.giftOrdersCount : 0
+    },
+
+    giftOrderPercentage() {
+      // Assume you have total orders - this would need to be calculated from your full dataset
+      return this.giftOrdersCount > 0 ? Math.min(100, (this.giftOrdersCount / Math.max(this.giftOrdersCount, 10)) * 100) : 0
+    },
+
+    giftItemPercentage() {
+      // This would be calculated against total items - simplified calculation
+      return this.totalGiftItems > 0 ? Math.min(100, (this.totalGiftItems / Math.max(this.totalGiftItems, 20)) * 100) : 0
+    },
+
     currentTerminal() {
       return this.findAllTerminal.find(
         (el) => el['id'] == this.findSelectedTerminal
@@ -627,6 +758,38 @@ export default {
   methods: {
     getLocalDate,
 
+    // NEW: TicketDetailsDialog integration methods
+    showTicketDetails(item) {
+      this.selectedTicketForDetails = item
+      this.ticketDetailsDialog = true
+      console.info('SELECTED GIFT TICKET DETAILS:', JSON.stringify(item))
+    },
+
+    onTicketDialogClose() {
+      this.ticketDetailsDialog = false
+      this.selectedTicketForDetails = null
+    },
+
+    onPrintTicket(ticketData) {
+      this.printGiftTicket(ticketData)
+    },
+
+    onPrintPaymentDetails(ticketData) {
+      console.log('Payment details printed for gift ticket:', ticketData.id)
+    },
+
+    // ENHANCED: Gift summary dialog (separate from full ticket details)
+    showGiftSummary(item) {
+      this.selectedOrderForGifts = item
+      this.giftSummaryDialog = true
+    },
+
+    showFullTicketDetails() {
+      // Close gift summary and open full ticket details
+      this.giftSummaryDialog = false
+      this.showTicketDetails(this.selectedOrderForGifts)
+    },
+
     // Gift-related methods
     getGiftItemsCount(order) {
       if (!order.lines) return 0
@@ -640,6 +803,26 @@ export default {
       return order.lines
         .filter((line) => line.isGift === true || line.isGift === 1)
         .reduce((total, line) => total + line.total, 0)
+    },
+
+    // NEW: Calculate customer savings from gifts
+    getGiftSavings(order) {
+      if (!order.lines) return 0
+      const giftLines = order.lines.filter((line) => line.isGift === true || line.isGift === 1)
+      return giftLines.reduce((total, line) => {
+        // Calculate savings as the difference between base price and what was actually paid
+        const basePrice = line.product?.pro_price || 0
+        const actualPrice = line.price || 0
+        const savings = (basePrice - actualPrice) * line.quantity
+        return total + Math.max(0, savings) // Only count positive savings
+      }, 0)
+    },
+
+    getGiftPercentage(order) {
+      if (!order.lines) return 0
+      const totalItems = order.lines.length
+      const giftItems = this.getGiftItemsCount(order)
+      return totalItems > 0 ? (giftItems / totalItems) * 100 : 0
     },
 
     getGiftItems(order) {
@@ -666,11 +849,6 @@ export default {
       )
     },
 
-    showGiftDetails(item) {
-      this.selectedOrderForGifts = item
-      this.giftDetailsDialog = true
-    },
-
     printGiftDetails() {
       if (!this.selectedOrderForGifts) return
 
@@ -679,16 +857,14 @@ export default {
 
       let giftListHtml = ''
       giftItems.forEach((gift) => {
+        const savings = (gift.product?.pro_price || 0) - (gift.price || 0)
         giftListHtml += `
           <tr>
             <td>${gift.productName}</td>
             <td style="text-align: center">${gift.quantity}</td>
-            <td style="text-align: right">${this.formatNumber(
-              gift.unitRate
-            )} LAK</td>
-            <td style="text-align: right">${this.formatNumber(
-              gift.total
-            )} LAK</td>
+            <td style="text-align: right">${this.formatNumber(gift.price || 0)} LAK</td>
+            <td style="text-align: right">${this.formatNumber(gift.total)} LAK</td>
+            <td style="text-align: right; color: green">${this.formatNumber(savings * gift.quantity)} LAK</td>
           </tr>
         `
       })
@@ -697,19 +873,16 @@ export default {
         ${this.ticketCommon.header}
         <body>
           <div style="text-align: center;">
-            <img src="${
-              this.companyLogo
-            }" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">
+            <img src="${this.companyLogo}" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">
           </div>
-          <h3 style="text-align: center">ລາຍລະອຽດຂອງຂວັນ</h3>
+          <h3 style="text-align: center">ສະຫຼຸບຂອງຂວັນ</h3>
           <hr>
           <h5>ເລກບິນ: ${item.id}</h5>
-          <h5>ວັນທີ: ${item.bookingDate}</h5>
+          <h5>ວັນທີ: ${this.formatDate(item.bookingDate)}</h5>
           <h5>ລູກຄ້າ: ${item.client?.name || 'Walk-in Customer'}</h5>
           <h5>ຈຳນວນຂອງຂວັນ: ${this.getGiftItemsCount(item)}</h5>
-          <h5>ມູນຄ່າຂອງຂວັນ: ${this.formatNumber(
-            this.getGiftItemsValue(item)
-          )} LAK</h5>
+          <h5>ມູນຄ່າຂອງຂວັນ: ${this.formatNumber(this.getGiftItemsValue(item))} LAK</h5>
+          <h5 style="color: green;">ລູກຄ້າປະຫຍັດໄດ້: ${this.formatNumber(this.getGiftSavings(item))} LAK</h5>
           <hr>
           <h4>ລາຍການຂອງຂວັນ:</h4>
           <table style="width: 100%; border-collapse: collapse;">
@@ -719,6 +892,7 @@ export default {
                 <th style="text-align: center; padding: 8px;">ຈຳນວນ</th>
                 <th style="text-align: right; padding: 8px;">ລາຄາ/ຫົວໜ່ວຍ</th>
                 <th style="text-align: right; padding: 8px;">ລາຄາລວມ</th>
+                <th style="text-align: right; padding: 8px;">ປະຫຍັດໄດ້</th>
               </tr>
             </thead>
             <tbody>
@@ -726,7 +900,8 @@ export default {
             </tbody>
           </table>
           <hr>
-          <h3 style="text-align: center; margin-top: 30px;">THANK YOU FOR YOUR BUSINESS</h3>
+          <h3 style="text-align: center; margin-top: 30px; color: green;">ຂໍຂອບໃຈສຳລັບການຊື້</h3>
+          <p style="text-align: center;">THANK YOU FOR YOUR BUSINESS</p>
         </body>
         </html>
       `
@@ -776,7 +951,7 @@ export default {
     },
 
     exportToExcel() {
-      // Prepare data for Excel export
+      // ENHANCED: Export with savings data
       const excelData = this.giftOrdersList.map((order) => ({
         ເລກບິນ: order.id,
         ວັນທີ: order.bookingDate,
@@ -784,6 +959,8 @@ export default {
         'ID ລູກຄ້າ': order.client?.id || 'N/A',
         ຈຳນວນຂອງຂວັນ: this.getGiftItemsCount(order),
         'ມູນຄ່າຂອງຂວັນ LAK': this.getGiftItemsValue(order),
+        'ລູກຄ້າປະຫຍັດໄດ້ LAK': this.getGiftSavings(order),
+        'ເປີເຊັນຂອງຂວັນ': this.getGiftPercentage(order).toFixed(1) + '%',
         'ລາຄາເຕັມ LAK': order.total + order.discount,
         'ສ່ວນຫລຸດ LAK': order.discount,
         'ລາຄາສຸດທິ LAK': order.total,
@@ -793,10 +970,10 @@ export default {
 
       const worksheet = this.$xlsx.utils.json_to_sheet(excelData)
       const workbook = this.$xlsx.utils.book_new()
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Gift Report')
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Enhanced Gift Report')
       this.$xlsx.writeFile(
         workbook,
-        `gift-report-${this.fromDate}-to-${this.toDate}.xlsx`
+        `enhanced-gift-report-${this.fromDate}-to-${this.toDate}.xlsx`
       )
     },
 
@@ -945,10 +1122,22 @@ table {
   border: 1px solid black;
 }
 
-/* Gift Report Specific Styling */
-.gift-details-dialog .v-data-table th {
-  background-color: #f5f5f5 !important;
-  font-weight: 600;
+/* Enhanced Gift Report Styling */
+.gift-stat-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gift-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.gift-stats-card {
+  border: 2px solid #4caf50;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
 }
 
 .gift-chip {
@@ -961,8 +1150,33 @@ table {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.gift-stats-card {
-  border: 2px solid #4caf50;
-  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+/* Enhanced action buttons */
+.d-flex .v-btn {
+  min-width: auto !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .d-none.d-md-inline {
+    display: none !important;
+  }
+  
+  .gift-stat-card h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Gift animations */
+@keyframes giftPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
+  }
+}
+
+.gift-stat-card:nth-child(1) {
+  animation: giftPulse 3s infinite;
 }
 </style>

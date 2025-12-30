@@ -2,6 +2,10 @@
  * Enhanced Ticket Generation Module - FLEXIBLE 58MM & 80MM VERSION
  * Supports both 58mm and 80mm thermal printers with dynamic sizing
  * Default: 80mm (can be changed via paperWidth parameter)
+ * 
+ * FIXED ISSUES:
+ * 1. NaN in change field - Added safe number parsing
+ * 2. Gift items - Added [GIFT] marking and FREE display
  */
 
 // ============================================================================
@@ -167,8 +171,34 @@ const clearLogoCache = () => {
 };
 
 // ============================================================================
-// UTILITY FUNCTIONS
+// UTILITY FUNCTIONS - ENHANCED WITH NUMBER SAFETY
 // ============================================================================
+
+/**
+ * ✅ FIXED: Safe number parsing to prevent NaN issues
+ */
+const safeParseNumber = (value, defaultValue = 0) => {
+  if (value === null || value === undefined || value === '') {
+    return defaultValue;
+  }
+  
+  // If it's already a number
+  if (typeof value === 'number') {
+    return isNaN(value) ? defaultValue : value;
+  }
+  
+  // If it's a string, try to parse it
+  if (typeof value === 'string') {
+    // Remove any formatting (commas, currency symbols, etc)
+    const cleanValue = value.toString().replace(/[^\d.-]/g, '');
+    const parsed = parseFloat(cleanValue);
+    return isNaN(parsed) ? defaultValue : parsed;
+  }
+  
+  // Convert to number and validate
+  const converted = Number(value);
+  return isNaN(converted) ? defaultValue : converted;
+};
 
 const formatDate = (dateInput) => {
   try {
@@ -233,11 +263,29 @@ const getPaperConfig = (paperWidth = '80mm') => {
 };
 
 // ============================================================================
-// FLEXIBLE TRANSACTION LIST GENERATORS
+// FLEXIBLE TRANSACTION LIST GENERATORS - WITH GIFT SUPPORT
 // ============================================================================
 
 /**
- * Generates transaction list HTML with dynamic layout based on paper width
+ * ✅ Helper function to determine how to display gift items
+ */
+const getGiftDisplayInfo = (item, price) => {
+  const isGift = item.isGift === true;
+  const isFree = price === 0;
+  const hasSpecialPrice = isGift && price > 0;
+  
+  return {
+    isGift,
+    isFree,
+    hasSpecialPrice,
+    displayPrice: isGift && isFree ? 'FREE' : null,
+    cssClass: isGift ? (isFree ? 'gift-item gift-free' : 'gift-item gift-special') : '',
+    labelSuffix: isGift ? (hasSpecialPrice ? ' [SPECIAL PRICE]' : ' [GIFT]') : ''
+  };
+};
+
+/**
+ * ✅ ENHANCED: Generates transaction list HTML with smart gift item support
  */
 const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
@@ -255,26 +303,27 @@ const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumb
     }
 
     const quantity = item.qty || 0;
-    const price = item.localPrice || 0;
+    const price = safeParseNumber(item.localPrice, 0);
     const total = quantity * price;
+    const giftInfo = getGiftDisplayInfo(item, price);
 
     if (is58mm) {
       // 58MM: Compact single-line format
       return `
-        <div class="item">
-          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-          <div class="item-right">${formatNumber(total)}</div>
+        <div class="item ${giftInfo.cssClass}">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+          <div class="item-right">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     } else {
       // 80MM: More detailed format with unit price
       return `
-        <div class="item">
+        <div class="item ${giftInfo.cssClass}">
           <div class="item-desc">
-            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+            <div class="item-detail">${quantity} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : formatNumber(price)}</div>
           </div>
-          <div class="item-total">${formatNumber(total)}</div>
+          <div class="item-total">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     }
@@ -282,7 +331,7 @@ const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumb
 };
 
 /**
- * Generates reprint transaction list with flexible layout
+ * ✅ ENHANCED: Generates reprint transaction list with smart gift support
  */
 const generateFlexibleReprintTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
@@ -300,24 +349,25 @@ const generateFlexibleReprintTransactionList = (productCart, findAllProduct, for
     }
 
     const quantity = item.quantity || 0;
-    const price = item.price || 0;
+    const price = safeParseNumber(item.price, 0);
     const total = quantity * price;
+    const giftInfo = getGiftDisplayInfo(item, price);
 
     if (is58mm) {
       return `
-        <div class="item">
-          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-          <div class="item-right">${formatNumber(total)}</div>
+        <div class="item ${giftInfo.cssClass}">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+          <div class="item-right">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     } else {
       return `
-        <div class="item">
+        <div class="item ${giftInfo.cssClass}">
           <div class="item-desc">
-            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+            <div class="item-detail">${quantity} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : formatNumber(price)}</div>
           </div>
-          <div class="item-total">${formatNumber(total)}</div>
+          <div class="item-total">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     }
@@ -328,7 +378,8 @@ const generateFlexibleReprintTransactionList = (productCart, findAllProduct, for
  * Generates discount section with flexible layout
  */
 const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '80mm') => {
-  if (discount <= 0) return '';
+  const safeDiscount = safeParseNumber(discount, 0); // ✅ Safe parsing
+  if (safeDiscount <= 0) return '';
 
   const is58mm = paperWidth === '58mm';
 
@@ -336,7 +387,7 @@ const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '8
     return `
       <div class="item discount">
         <div class="item-left">ສ່ວນຫຼຸດ</div>
-        <div class="item-right">-${formatNumber(discount)}</div>
+        <div class="item-right">-${formatNumber(safeDiscount)}</div>
       </div>
     `;
   } else {
@@ -345,7 +396,7 @@ const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '8
         <div class="item-desc">
           <div class="item-name">ສ່ວນຫຼຸດ</div>
         </div>
-        <div class="item-total">-${formatNumber(discount)}</div>
+        <div class="item-total">-${formatNumber(safeDiscount)}</div>
       </div>
     `;
   }
@@ -359,11 +410,13 @@ const generateFlexibleTotalSection = (currencyList, grandTotal, discount, format
     return '';
   }
 
-  const finalTotal = grandTotal - discount;
+  const safeGrandTotal = safeParseNumber(grandTotal, 0); // ✅ Safe parsing
+  const safeDiscount = safeParseNumber(discount, 0); // ✅ Safe parsing
+  const finalTotal = safeGrandTotal - safeDiscount;
   const is58mm = paperWidth === '58mm';
 
   return currencyList.map(currency => {
-    const rate = currency.rate || 1;
+    const rate = safeParseNumber(currency.rate, 1); // ✅ Safe parsing with default 1
     const convertedAmount = finalTotal / rate;
 
     if (is58mm) {
@@ -453,10 +506,23 @@ const generateFlexibleHeaderSection = (headerData, dateValue, logoUrl, paperWidt
 };
 
 /**
- * Generates payment section with flexible layout
+ * ✅ FIXED: Generates payment section with safe number parsing
  */
 const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = '80mm') => {
   const { currentPaymentCode, cashReceived, changes } = paymentData;
+  
+  // ✅ CRITICAL FIX: Safe parsing of payment values to prevent NaN
+  const safeCashReceived = safeParseNumber(cashReceived, 0);
+  const safeChanges = safeParseNumber(changes, 0);
+  
+  console.log('🔍 Payment Section Debug:', {
+    originalCashReceived: cashReceived,
+    safeCashReceived,
+    originalChanges: changes,
+    safeChanges,
+    changeType: typeof changes
+  });
+  
   const is58mm = paperWidth === '58mm';
   
   if (is58mm) {
@@ -464,15 +530,15 @@ const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = 
       <div class="payment-section">
         <div class="item">
           <div class="item-left">ຊຳລະດ້ວຍ:</div>
-          <div class="item-right">${currentPaymentCode}</div>
+          <div class="item-right">${currentPaymentCode || 'N/A'}</div>
         </div>
         <div class="item">
           <div class="item-left">ຮັບຊຳລະ:</div>
-          <div class="item-right">${formatNumber(cashReceived)}</div>
+          <div class="item-right">${formatNumber(safeCashReceived)}</div>
         </div>
         <div class="item">
           <div class="item-left">ເງິນທອນ:</div>
-          <div class="item-right">${formatNumber(changes)}</div>
+          <div class="item-right">${formatNumber(safeChanges)}</div>
         </div>
       </div>
     `;
@@ -481,15 +547,15 @@ const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = 
       <div class="payment-section">
         <div class="payment-item">
           <span class="payment-label">ຊຳລະດ້ວຍ:</span>
-          <span class="payment-value">${currentPaymentCode}</span>
+          <span class="payment-value">${currentPaymentCode || 'N/A'}</span>
         </div>
         <div class="payment-item">
           <span class="payment-label">ຮັບຊຳລະ:</span>
-          <span class="payment-value">${formatNumber(cashReceived)}</span>
+          <span class="payment-value">${formatNumber(safeCashReceived)}</span>
         </div>
         <div class="payment-item">
           <span class="payment-label">ເງິນທອນ:</span>
-          <span class="payment-value">${formatNumber(changes)}</span>
+          <span class="payment-value">${formatNumber(safeChanges)}</span>
         </div>
       </div>
     `;
@@ -568,6 +634,53 @@ const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
         .company-tel {
           font-size: ${is58mm ? '8px' : '9px'};
           color: #666;
+        }
+        
+        /* ========== GIFT ITEM STYLES - ENHANCED WITH PRICE DISTINCTION ========== */
+        
+        /* Base gift item styling */
+        .gift-item .item-name,
+        .gift-item .item-left {
+          font-weight: 600;
+        }
+        
+        .gift-item .item-total,
+        .gift-item .item-right {
+          font-weight: 600;
+        }
+        
+        /* Free gift items - Green styling */
+        .gift-free .item-name,
+        .gift-free .item-left {
+          color: #4caf50;
+        }
+        
+        .gift-free .item-total,
+        .gift-free .item-right {
+          color: #4caf50;
+          font-style: italic;
+        }
+        
+        /* Special price gift items - Blue styling */
+        .gift-special .item-name,
+        .gift-special .item-left {
+          color: #1976d2;
+        }
+        
+        .gift-special .item-total,
+        .gift-special .item-right {
+          color: #1976d2;
+        }
+        
+        /* General gift styling fallback */
+        .gift-item:not(.gift-free):not(.gift-special) .item-name,
+        .gift-item:not(.gift-free):not(.gift-special) .item-left {
+          color: #ff9800;
+        }
+        
+        .gift-item:not(.gift-free):not(.gift-special) .item-total,
+        .gift-item:not(.gift-free):not(.gift-special) .item-right {
+          color: #ff9800;
         }
         
         /* ========== 58MM SPECIFIC STYLES ========== */
@@ -820,7 +933,7 @@ const printTicket = (windowContent, paperWidth = '80mm') => {
 };
 
 // ============================================================================
-// MAIN TICKET FUNCTIONS - FLEXIBLE VERSIONS
+// MAIN TICKET FUNCTIONS - FIXED VERSIONS
 // ============================================================================
 
 export const defaultTicket = async (params) => {
@@ -847,6 +960,12 @@ export const defaultTicket = async (params) => {
   if (!validateTicketParams(params, formatNumber)) return;
 
   console.log(`🖨️ Generating ticket for ${paperWidth} printer`);
+  console.log('🔍 Input values debug:', {
+    cashReceived,
+    changes,
+    cashReceivedType: typeof cashReceived,
+    changesType: typeof changes
+  });
 
   try {
     const currentDate = new Date();

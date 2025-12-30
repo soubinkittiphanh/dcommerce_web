@@ -536,8 +536,8 @@
           :svg-icon="svgIcon"
           :enablePredefinedPayments="true"
           :defaultPaymentMethods="[14, 15]"
-          @update:discount="discount = $event"
-          @update:cash-received="cashReceived = $event"
+          @update:discount="handleDiscountUpdate"
+          @update:cash-received="handleCashReceivedUpdate"
           @toggle-checkout="showCheckOut = !showCheckOut"
           @process-single-payment="processSinglePayment"
           @select-payment="selectePaymentMethod"
@@ -593,9 +593,11 @@ export default {
   },
   data() {
     return {
+      updateCustomerScreenDebounced: null,
       sharedState: Vue.observable({
         saleHeader: 0,
       }),
+          customerScreenSyncInterval: null,
       multiPaymentDialog: false,
       pendingSaleHeaderId: null,
       isCreatingSale: false,
@@ -721,17 +723,21 @@ export default {
     ticketCommon() {
       return ticketHtml()
     },
-customerDisplayName() {
-  if (this.currenctCustomer === null) {
-    return 'Walk-in Customer'
-  }
-  
-  if (this.currenctCustomer.company) {
-    return `${this.currenctCustomer.company} ${this.currenctCustomer.grade ?? 'NO GRADE'}`.trim()
-  } else {
-    return `${this.currenctCustomer.name} ${this.currenctCustomer.grade ?? 'NO GRADE'}`.trim()
-  }
-},
+    customerDisplayName() {
+      if (this.currenctCustomer === null) {
+        return 'Walk-in Customer'
+      }
+
+      if (this.currenctCustomer.company) {
+        return `${this.currenctCustomer.company} ${
+          this.currenctCustomer.grade ?? 'NO GRADE'
+        }`.trim()
+      } else {
+        return `${this.currenctCustomer.name} ${
+          this.currenctCustomer.grade ?? 'NO GRADE'
+        }`.trim()
+      }
+    },
     user() {
       return this.$auth.user || ''
     },
@@ -816,8 +822,14 @@ customerDisplayName() {
   },
 
   mounted() {
+     this.updateCustomerScreenDebounced = this.debounce(() => {
+    if (this.isCustomerDisplayOpen()) {
+      this.sendQRToCustomerScreen()
+    }
+  }, 500) // 500ms delay
     window.addEventListener('beforeunload', this.checkAllInitData)
     this.terminalSelected = this.findSelectedTerminal
+      this.startCustomerScreenSync()
     this.fetchCategory()
     this.loadPayment()
     this.loadCustomer()
@@ -836,16 +848,41 @@ customerDisplayName() {
 
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.checkAllInitData)
-
+  this.stopCustomerScreenSync()
     // CUSTOMER SCREEN CLEANUP
     // this.closeCustomerDisplayWindow()
     window.removeEventListener('message', this.handleCustomerScreenMessage)
   },
 
   watch: {
-    cartOfProduct(newVal, oldVal) {
-      console.log('Cart changed:', newVal)
-      this.sendWelcomeMessage()
+    cartOfProduct: {
+      handler(newVal, oldVal) {
+        console.log('Cart changed:', newVal)
+        // Only send updates if customer screen is open
+        if (this.isCustomerDisplayOpen()) {
+          this.sendWelcomeMessage()
+        }
+      },
+      deep: true, // ✅ Add this to watch nested changes
+      immediate: false,
+    },
+    discount: {
+      handler(newVal, oldVal) {
+        if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+          this.sendQRToCustomerScreen()
+        }
+      },
+      immediate: false,
+    },
+
+    // ✅ ADD: Watch cash received changes
+    cashReceived: {
+      handler(newVal, oldVal) {
+        if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+          this.sendQRToCustomerScreen()
+        }
+      },
+      immediate: false,
     },
     selectedItem(val) {
       if (val != undefined) {
@@ -855,6 +892,56 @@ customerDisplayName() {
   },
 
   methods: {
+    debounce(func, wait) {
+    let timeout
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout)
+        func(...args)
+      }
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
+    }
+  },
+
+    handleDiscountUpdate(value) {
+    this.discount = value
+    
+    // ✅ Auto-update customer screen
+    if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+      setTimeout(() => {
+        this.sendQRToCustomerScreen()
+      }, 100)
+    }
+  },
+
+  handleCashReceivedUpdate(value) {
+    this.cashReceived = value
+    
+    // ✅ Auto-update customer screen  
+    if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+      setTimeout(() => {
+        this.sendQRToCustomerScreen()
+      }, 100)
+    }
+  },
+
+    startCustomerScreenSync() {
+    // Sync every 5 seconds if customer screen is open
+    this.customerScreenSyncInterval = setInterval(() => {
+      if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+        this.sendQRToCustomerScreen()
+      }
+    }, 5000) // 5 seconds
+  },
+
+  // ✅ NEW: Stop periodic sync
+  stopCustomerScreenSync() {
+    if (this.customerScreenSyncInterval) {
+      clearInterval(this.customerScreenSyncInterval)
+      this.customerScreenSyncInterval = null
+    }
+  },
     handleGiftConfirm(giftData) {
       // Emit gift configuration to parent component
       console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
@@ -938,16 +1025,13 @@ customerDisplayName() {
 
         // Try to enter fullscreen mode
         setTimeout(() => {
-          try {
-            if (
-              this.$customerWindow.document.documentElement.requestFullscreen
-            ) {
-              this.$customerWindow.document.documentElement.requestFullscreen()
-            }
-          } catch (e) {
-            console.log('Fullscreen not supported or blocked')
+          if (this.productCart.length > 0) {
+            this.sendQRToCustomerScreen()
+          } else {
+            // Send welcome message for empty cart
+            this.sendWelcomeMessage()
           }
-        }, 1000)
+        }, 1000) // Give window time to load
 
         // Set up window handlers
         this.setupCustomerWindowHandlers()
@@ -984,6 +1068,8 @@ customerDisplayName() {
           storeName: this.companyData.name,
           timestamp: Date.now(),
           orderItems: formattedOrderItems,
+          discount: this.discount, // ✅ Include discount
+          change: this.changes, //TODO: ✅ Include change
           orderSummary: formattedOrderSummary,
         },
       }
@@ -1085,6 +1171,7 @@ customerDisplayName() {
           category: product?.categ_name || 'General',
           quantity: cartItem.qty,
           unitPrice: cartItem.localPrice,
+          isGift: cartItem.isGift,
           totalPrice: cartItem.qty * cartItem.localPrice,
           status: 'pending',
         }
@@ -1100,17 +1187,25 @@ customerDisplayName() {
     formatOrderSummaryForCustomerScreen() {
       const subtotal = this.grandTotal
       const discount = this.discount
+
+      // ✅ FIX: Calculate raw change as number, not formatted string
+      const changeValue =
+        this.cashReceived == 0
+          ? 0
+          : this.cashReceived - (this.grandTotal - this.discount)
+
       const total = subtotal - discount
 
       const summary = {
         subtotal: subtotal,
-        tax: 0, // Add tax calculation if you have it
+        tax: 0,
         taxRate: 0,
         discount: discount,
         total: total,
+        change: changeValue, // ✅ Now sending raw number instead of formatted string
       }
 
-      console.log('Formatted order summary:', summary)
+      console.info(`SUMMARY testing ${JSON.stringify(summary)}`)
       return summary
     },
 
@@ -1543,11 +1638,27 @@ customerDisplayName() {
 
     deteletProductLocal(product) {
       this.deleteProductFromCart(product)
-      this.openCustomerScreenEnhanced()
+
+      // Auto-update customer screen
+      if (this.isCustomerDisplayOpen()) {
+        setTimeout(() => {
+          if (this.productCart.length > 0) {
+            this.sendQRToCustomerScreen()
+          } else {
+            this.sendWelcomeMessage() // Show welcome screen when cart is empty
+          }
+        }, 100)
+      }
     },
     decreaseProductAmount(product) {
       this.deleteProduct(product)
-      this.openCustomerScreenEnhanced()
+
+      // Auto-update customer screen
+      if (this.isCustomerDisplayOpen()) {
+        setTimeout(() => {
+          this.sendQRToCustomerScreen()
+        }, 100)
+      }
     },
     // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
 
@@ -1583,12 +1694,17 @@ customerDisplayName() {
         }
         console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
         // If all validations pass, add to store using Vuex action
-        this.$store.dispatch('addProduct', cartItem)
-        this.openCustomerScreenEnhanced()
+        this.$store.dispatch('addProduct', cartItem) // ✅ AUTO-UPDATE: Send to customer screen immediately
+        // if (this.isCustomerDisplayOpen()) {
+        //   setTimeout(() => {
+        //     this.sendQRToCustomerScreen()
+        //   }, 100)
+        // }
+        // this.openCustomerScreenEnhanced()
 
         // Show success feedback with quantity info
         this.showAddSuccessMessage(product)
-
+            this.updateCustomerScreenDebounced()
         return true
       } catch (error) {
         console.error('Error adding product:', error)

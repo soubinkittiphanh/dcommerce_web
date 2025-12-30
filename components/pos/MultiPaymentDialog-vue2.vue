@@ -76,8 +76,10 @@
                 :placeholder="`ວິທີທີ ${index + 1}`"
               />
               <v-text-field
-                v-model.number="payment.amount"
-                type="number"
+                v-model="predefinedRawInputs[index]"
+                @input="handlePredefinedAmountInput(index, $event)"
+                @blur="handlePredefinedAmountBlur(index)"
+                @focus="handlePredefinedAmountFocus(index)"
                 dense
                 outlined
                 hide-details
@@ -99,7 +101,6 @@
                 small
                 color="primary"
                 @click="addPredefinedPayment(index)"
-                :disabled="!canAddPredefinedPayment(index)"
                 class="add-btn"
               >
                 <v-icon small>mdi-plus</v-icon>
@@ -107,19 +108,33 @@
             </div>
           </div>
           
-          <!-- Add Both Button -->
+          <!-- Add Both Section with Two Buttons -->
           <div class="add-both-section">
-            <v-btn
-              small
-              color="success"
-              block
-              @click="addBothPredefinedPayments"
-              :disabled="!canAddBothPredefined || isProcessing"
-              class="add-both-btn"
-            >
-              <v-icon left small>mdi-plus-circle</v-icon>
-              ເພີ່ມທັງສອງວິທີ
-            </v-btn>
+            <div class="action-buttons">
+              <v-btn
+                small
+                color="success"
+                @click="addBothPredefinedPayments"
+                :disabled="isProcessing"
+                class="add-both-btn"
+              >
+                <v-icon left small>mdi-plus-circle</v-icon>
+                ເພີ່ມທັງສອງວິທີ
+              </v-btn>
+              
+              <v-btn
+                small
+                color="primary"
+                @click="addBothAndConfirm"
+                :disabled="isProcessing || !isReadyForAddAndConfirm"
+                :loading="isProcessing"
+                class="add-confirm-btn"
+                :class="{ 'validation-ready': isReadyForAddAndConfirm, 'validation-error': !isReadyForAddAndConfirm }"
+              >
+                <v-icon left small>{{ isReadyForAddAndConfirm ? 'mdi-check-all' : 'mdi-alert-circle' }}</v-icon>
+                ເພີ່ມ & ຢືນຢັນ
+              </v-btn>
+            </div>
           </div>
         </div>
 
@@ -128,49 +143,6 @@
           <div class="section-header">
             <v-icon size="18" class="mr-2">mdi-plus</v-icon>
             <span>ເພີ່ມເຕີມ</span>
-          </div>
-
-          <div class="payment-row">
-            <v-select
-              v-model="newPayment.paymentId"
-              :items="availablePaymentMethods"
-              item-text="payment_name"
-              item-value="id"
-              dense
-              outlined
-              hide-details
-              class="payment-select flex-grow-1 mr-2"
-              placeholder="ເລືອກວິທີຈ່າຍ"
-            />
-            <v-text-field
-              v-model.number="newPayment.amount"
-              type="number"
-              dense
-              outlined
-              hide-details
-              class="amount-field mr-2"
-              placeholder="ຈຳນວນ"
-              suffix="₭"
-            />
-            <v-text-field
-              v-if="requiresReferenceForNew"
-              v-model="newPayment.referenceNo"
-              dense
-              outlined
-              hide-details
-              class="ref-field mr-2"
-              placeholder="ເລກອ້າງອີງ"
-            />
-            <v-btn
-              icon
-              small
-              color="primary"
-              @click="addPaymentMethod"
-              :disabled="!canAddPayment"
-              class="add-btn"
-            >
-              <v-icon small>mdi-plus</v-icon>
-            </v-btn>
           </div>
 
           <!-- Quick Amount Pills -->
@@ -322,7 +294,11 @@ export default {
         referenceNo: ''
       },
       isProcessing: false,
-      quickSplitType: null
+      quickSplitType: null,
+      isUpdatingAmounts: false, // Prevent infinite loops during auto-calculation
+      // Store raw input values to avoid cursor issues
+      predefinedRawInputs: ['', ''],
+      newPaymentRawInput: ''
     }
   },
 
@@ -433,6 +409,28 @@ export default {
       else if (remaining >= 10000) amounts.push(5000, 10000)
       
       return [...new Set(amounts)].slice(0, 3)
+    },
+
+    isReadyForAddAndConfirm() {
+      // Check if both predefined payments have required data
+      if (!this.predefinedPayments || this.predefinedPayments.length < 2) return false
+      
+      const payment1 = this.predefinedPayments[0]
+      const payment2 = this.predefinedPayments[1]
+      
+      // Both must have payment method and amount
+      const payment1Valid = payment1.paymentId && payment1.amount > 0 &&
+                           (!this.requiresReference(payment1.paymentId) || payment1.referenceNo)
+      const payment2Valid = payment2.paymentId && payment2.amount > 0 &&
+                           (!this.requiresReference(payment2.paymentId) || payment2.referenceNo)
+      
+      if (!payment1Valid || !payment2Valid) return false
+      
+      // Check if amounts match total
+      const totalPredefinedAmount = (payment1.amount || 0) + (payment2.amount || 0)
+      const availableAmount = this.saleTotal - this.totalPaid
+      
+      return Math.abs(totalPredefinedAmount - availableAmount) < 0.01
     }
   },
 
@@ -455,18 +453,119 @@ export default {
   },
 
   methods: {
+    // Simple number formatting methods that avoid cursor issues
+    formatInputNumber(value) {
+      if (!value && value !== 0) return ''
+      return this.formatNumber(value)
+    },
+
+    parseInputNumber(value) {
+      if (!value) return null
+      // Remove all non-digit characters except decimal point
+      const cleaned = value.toString().replace(/[^\d.]/g, '')
+      const parsed = parseFloat(cleaned)
+      return isNaN(parsed) ? null : parsed
+    },
+
+    // FIXED: Enhanced amount input handlers with proper auto-population
+    handlePredefinedAmountInput(index, value) {
+      // Prevent recursive updates
+      if (this.isUpdatingAmounts) return
+      
+      // Update the actual amount value
+      const parsed = this.parseInputNumber(value)
+      this.$set(this.predefinedPayments[index], 'amount', parsed)
+      
+      // Auto-populate the other field with remaining amount
+      if (parsed > 0) {
+        this.isUpdatingAmounts = true
+        const otherIndex = index === 0 ? 1 : 0
+        const availableAmount = this.saleTotal - this.totalPaid
+        const remainingAmount = availableAmount - parsed
+        
+        // Safety check for bounds and valid remaining amount
+        if (remainingAmount >= 0 && otherIndex < this.predefinedPayments.length) {
+          // Update both the actual amount and display value
+          this.$set(this.predefinedPayments[otherIndex], 'amount', remainingAmount)
+          this.$set(this.predefinedRawInputs, otherIndex, remainingAmount > 0 ? remainingAmount.toString() : '')
+        }
+        
+        this.$nextTick(() => {
+          this.isUpdatingAmounts = false
+        })
+      } else if (parsed === 0 || parsed === null) {
+        // Clear the other field if this field is cleared
+        const otherIndex = index === 0 ? 1 : 0
+        if (otherIndex < this.predefinedPayments.length) {
+          this.$set(this.predefinedPayments[otherIndex], 'amount', null)
+          this.$set(this.predefinedRawInputs, otherIndex, '')
+        }
+      }
+    },
+
+    handlePredefinedAmountFocus(index) {
+      // When focusing, show raw number without formatting
+      const amount = this.predefinedPayments[index].amount
+      if (amount) {
+        this.$set(this.predefinedRawInputs, index, amount.toString())
+      } else {
+        this.$set(this.predefinedRawInputs, index, '')
+      }
+    },
+
+    handlePredefinedAmountBlur(index) {
+      // When blurring, format the display
+      const amount = this.predefinedPayments[index].amount
+      if (amount) {
+        this.$set(this.predefinedRawInputs, index, this.formatNumber(amount))
+        
+        // Also format the other field if it has a value
+        const otherIndex = index === 0 ? 1 : 0
+        if (otherIndex < this.predefinedPayments.length && this.predefinedPayments[otherIndex].amount) {
+          this.$set(this.predefinedRawInputs, otherIndex, this.formatNumber(this.predefinedPayments[otherIndex].amount))
+        }
+      } else {
+        this.$set(this.predefinedRawInputs, index, '')
+      }
+    },
+
+    // Enhanced amount input handlers for new payment
+    handleNewAmountInput(value) {
+      this.newPayment.amount = this.parseInputNumber(value)
+    },
+
+    handleNewAmountFocus() {
+      // When focusing, show raw number without formatting
+      if (this.newPayment.amount) {
+        this.newPaymentRawInput = this.newPayment.amount.toString()
+      } else {
+        this.newPaymentRawInput = ''
+      }
+    },
+
+    handleNewAmountBlur() {
+      // When blurring, format the display
+      if (this.newPayment.amount) {
+        this.newPaymentRawInput = this.formatNumber(this.newPayment.amount)
+      } else {
+        this.newPaymentRawInput = ''
+      }
+    },
+
     initializePredefinedPayments() {
       if (!this.enablePredefinedPayments) {
         this.predefinedPayments = []
+        this.predefinedRawInputs = ['', '']
         return
       }
 
       // Clear existing predefined payments
       this.predefinedPayments = []
+      this.predefinedRawInputs = ['', '']
       
       if (this.defaultPaymentMethods.length > 0) {
         // Use provided default payment methods
-        this.defaultPaymentMethods.slice(0, 2).forEach((paymentId) => {
+        this.defaultPaymentMethods.slice(0, 2).forEach((paymentId, index) => {
           // Verify the payment method exists
           const paymentMethod = this.availablePaymentMethods.find(p => p.id === paymentId)
           if (paymentMethod) {
@@ -475,17 +574,19 @@ export default {
               amount: null,
               referenceNo: ''
             })
+            this.$set(this.predefinedRawInputs, index, '')
           }
         })
       } else if (this.availablePaymentMethods.length > 0) {
         // Auto-select first two available payment methods
         const availableMethods = this.availablePaymentMethods.slice(0, 2)
-        availableMethods.forEach((method) => {
+        availableMethods.forEach((method, index) => {
           this.predefinedPayments.push({
             paymentId: method.id,
             amount: null,
             referenceNo: ''
           })
+          this.$set(this.predefinedRawInputs, index, '')
         })
       }
 
@@ -511,7 +612,12 @@ export default {
     },
 
     addPredefinedPayment(index) {
-      if (!this.canAddPredefinedPayment(index)) return
+      // Gracefully handle the case where validation might fail
+      if (!this.canAddPredefinedPayment(index)) {
+        // Show a subtle feedback or just return silently
+        console.log(`Payment ${index + 1} not ready to add`)
+        return
+      }
 
       const predefinedPayment = this.predefinedPayments[index]
       this.payments.push({
@@ -526,45 +632,154 @@ export default {
         amount: null,
         referenceNo: ''
       }
+      this.$set(this.predefinedRawInputs, index, '')
     },
 
     addBothPredefinedPayments() {
-      if (!this.canAddBothPredefined) return
-
-      // Add both predefined payments in order
+      // Check if there are any valid payments to add
+      let addedCount = 0
+      
       for (let i = 0; i < this.predefinedPayments.length; i++) {
         if (this.canAddPredefinedPayment(i)) {
           this.addPredefinedPayment(i)
+          addedCount++
         }
       }
 
-      // Optionally show a success message
-      this.$nextTick(() => {
-        console.log('Both predefined payments added successfully')
-        // You could emit an event or show a toast notification here
-        // this.$emit('payments-added', 'ເພີ່ມການຈ່າຍເງິນທັງສອງວິທີສຳເລັດແລ້ວ')
-      })
+      if (addedCount === 0) {
+        console.log('No valid payments to add - please enter payment details')
+        // Could emit a toast notification here
+        // this.$emit('show-message', 'ກະລຸນາໃສ່ຂໍ້ມູນການຈ່າຍເງິນກ່ອນ')
+      } else {
+        console.log(`${addedCount} predefined payments added successfully`)
+      }
+    },
+
+    async addBothAndConfirm() {
+      if (this.isProcessing) return
+
+      // VALIDATION: Check if predefined amounts match total before proceeding
+      const payment1Amount = this.predefinedPayments[0]?.amount || 0
+      const payment2Amount = this.predefinedPayments[1]?.amount || 0
+      const totalPredefinedAmount = payment1Amount + payment2Amount
+      const availableAmount = this.saleTotal - this.totalPaid
+
+      // Check if amounts match the available total
+      if (Math.abs(totalPredefinedAmount - availableAmount) > 0.01) {
+        console.log(`Amount mismatch: Predefined total ${totalPredefinedAmount} doesn't match available ${availableAmount}`)
+        
+        // You can emit an event to show a toast notification
+        this.$emit('validation-error', {
+          message: `ຈຳນວນເງິນບໍ່ຕົງກັນ: ${this.formatNumber(totalPredefinedAmount)} ≠ ${this.formatNumber(availableAmount)}`,
+          type: 'warning'
+        })
+        
+        return // Prevent execution
+      }
+
+      // Check if both payments have required data
+      const validPayments = this.predefinedPayments.filter(payment => 
+        payment.paymentId && payment.amount > 0 &&
+        (!this.requiresReference(payment.paymentId) || payment.referenceNo)
+      )
+
+      if (validPayments.length < 2) {
+        console.log('Incomplete payment data - both payments must have method and amount')
+        
+        this.$emit('validation-error', {
+          message: 'ກະລຸນາໃສ່ຂໍ້ມູນການຈ່າຍເງິນໃຫ້ຄົບຖ້ວນ',
+          type: 'warning'
+        })
+        
+        return // Prevent execution
+      }
+
+      this.isProcessing = true
+      
+      try {
+        // Add any valid payments first
+        let addedCount = 0
+        for (let i = 0; i < this.predefinedPayments.length; i++) {
+          if (this.canAddPredefinedPayment(i)) {
+            this.addPredefinedPayment(i)
+            addedCount++
+          }
+        }
+
+        if (addedCount === 0) {
+          console.log('No valid payments to add')
+          this.isProcessing = false
+          return
+        }
+
+        // Wait for UI to update
+        await this.$nextTick()
+
+        // Check if we can confirm (should be true if amounts total correctly)
+        if (this.canConfirmPayment) {
+          // Prepare payment data
+          const paymentData = this.payments.map(payment => ({
+            saleHeaderId: this.saleHeaderId,
+            paymentId: payment.paymentId,
+            amount: payment.amount,
+            referenceNo: payment.referenceNo || null
+          }))
+
+          // Emit the confirmation
+          this.$emit('confirm-payment', paymentData)
+          
+          console.log(`${addedCount} payments added and confirmed successfully`)
+        } else {
+          console.log('Cannot confirm payment - amounts may not match total')
+          
+          this.$emit('validation-error', {
+            message: 'ບໍ່ສາມາດຢືນຢັນການຈ່າຍເງິນໄດ້ - ກະລຸນາກວດສອບຈຳນວນເງິນ',
+            type: 'error'
+          })
+        }
+      } catch (error) {
+        this.$emit('payment-error', error)
+      } finally {
+        this.isProcessing = false
+      }
     },
 
     splitEqually() {
-      const splitAmount = Math.round(this.saleTotal / 2)
+      const availableAmount = this.saleTotal - this.totalPaid
+      const splitAmount = Math.round(availableAmount / 2)
       if (this.predefinedPayments.length >= 2) {
+        this.isUpdatingAmounts = true
         this.predefinedPayments[0].amount = splitAmount
-        this.predefinedPayments[1].amount = this.saleTotal - splitAmount
+        this.predefinedPayments[1].amount = availableAmount - splitAmount
+        // Update raw inputs with formatted values
+        this.$set(this.predefinedRawInputs, 0, this.formatNumber(splitAmount))
+        this.$set(this.predefinedRawInputs, 1, this.formatNumber(availableAmount - splitAmount))
+        this.$nextTick(() => {
+          this.isUpdatingAmounts = false
+        })
       }
     },
 
     setSuggestedSplit() {
-      const primaryAmount = Math.round(this.saleTotal * 0.7)
+      const availableAmount = this.saleTotal - this.totalPaid
+      const primaryAmount = Math.round(availableAmount * 0.7)
       if (this.predefinedPayments.length >= 2) {
+        this.isUpdatingAmounts = true
         this.predefinedPayments[0].amount = primaryAmount
-        this.predefinedPayments[1].amount = this.saleTotal - primaryAmount
+        this.predefinedPayments[1].amount = availableAmount - primaryAmount
+        // Update raw inputs with formatted values
+        this.$set(this.predefinedRawInputs, 0, this.formatNumber(primaryAmount))
+        this.$set(this.predefinedRawInputs, 1, this.formatNumber(availableAmount - primaryAmount))
+        this.$nextTick(() => {
+          this.isUpdatingAmounts = false
+        })
       }
     },
 
     getSuggestedAmount(index) {
-      if (index === 0) return this.formatNumber(Math.round(this.saleTotal * 0.7))
-      if (index === 1) return this.formatNumber(Math.round(this.saleTotal * 0.3))
+      const availableAmount = this.saleTotal - this.totalPaid
+      if (index === 0) return this.formatNumber(Math.round(availableAmount * 0.7))
+      if (index === 1) return this.formatNumber(Math.round(availableAmount * 0.3))
       return ''
     },
 
@@ -585,6 +800,7 @@ export default {
 
     setQuickAmount(amount) {
       this.newPayment.amount = amount
+      this.newPaymentRawInput = this.formatNumber(amount)
       if (this.newPayment.paymentId && this.canAddPayment) {
         this.addPaymentMethod()
       }
@@ -657,11 +873,15 @@ export default {
       this.payments = []
       this.resetNewPaymentForm()
       this.isProcessing = false
+      this.isUpdatingAmounts = false
+      this.predefinedRawInputs = ['', '']
+      this.newPaymentRawInput = ''
       // predefinedPayments will be re-initialized by watch
     },
 
     resetNewPaymentForm() {
       this.newPayment = { paymentId: null, amount: null, referenceNo: '' }
+      this.newPaymentRawInput = ''
     },
 
     handleEnterKey() {
@@ -773,11 +993,17 @@ export default {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.add-both-btn {
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.add-both-btn, .add-confirm-btn {
   text-transform: none !important;
   font-weight: 500;
   height: 36px;
   border-radius: 8px;
+  flex: 1;
 }
 
 .add-both-btn:not(:disabled) {
@@ -789,6 +1015,31 @@ export default {
   background: linear-gradient(45deg, #388e3c, #4caf50) !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.add-confirm-btn:not(:disabled) {
+  background: linear-gradient(45deg, #1976d2, #42a5f5) !important;
+  color: white !important;
+}
+
+.add-confirm-btn:hover:not(:disabled) {
+  background: linear-gradient(45deg, #1565c0, #1976d2) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+}
+
+.add-confirm-btn.validation-ready:not(:disabled) {
+  background: linear-gradient(45deg, #1976d2, #42a5f5) !important;
+  color: white !important;
+}
+
+.add-confirm-btn.validation-error:not(:disabled) {
+  background: linear-gradient(45deg, #f57c00, #ff9800) !important;
+  color: white !important;
+}
+
+.add-confirm-btn.validation-error:hover:not(:disabled) {
+  background: linear-gradient(45deg, #e65100, #f57c00) !important;
 }
 
 .section-header {
@@ -993,6 +1244,11 @@ export default {
   .ref-field {
     width: 100%;
     flex: 1;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 8px;
   }
   
   .payment-actions {

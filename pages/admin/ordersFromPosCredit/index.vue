@@ -1,37 +1,58 @@
 <template>
   <div class="text-left">
-  <div >
-    <v-chip class="pa-5" color="primary" label text-color="white">
-      <v-icon start>mdi-label</v-icon>
-      <h3>ລາຍການລູກຄ້າຕິດຫນີ້</h3>
-    </v-chip>
-    <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
+    <div>
+      <v-chip class="pa-5" color="primary" label text-color="white">
+        <v-icon start>mdi-label</v-icon>
+        <h3>ລາຍການລູກຄ້າຕິດຫນີ້</h3>
+      </v-chip>
+      <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
         <v-icon start>mdi mdi-lifebuoy</v-icon>
         <h3>ຄູ່ມືການນຳໃຊ້ </h3>
       </v-chip>
     </div>
 
+    <!-- Existing Dialogs -->
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
       <youtube-player @close-dialog="guidelineDialog = false" youtube-link="lduzK_oVV_g">
       </youtube-player>
     </v-dialog>
+    
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
-    <!-- <v-dialog v-model="dialogOrderDetail" max-width="1024" >
-      <OrderDetailPos :key="componentKey" :header="selectedOrder" @close-dialog="dialogOrderDetail = false">
-      </OrderDetailPos>
-    </v-dialog> -->
+    
     <v-dialog v-model="dialogOrderDetail" fullscreen>
-      <OrderDetailPosCRUD @reload="loadData()
-      dialogOrderDetail = false" :is-quotation="false" :key="componentKey" :is-update="viewTransaction"
-        :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">
+      <OrderDetailPosCRUD 
+        @reload="loadData(); dialogOrderDetail = false" 
+        :is-quotation="false" 
+        :key="componentKey" 
+        :is-update="viewTransaction"
+        :headerId="selectedOrder" 
+        @close-dialog="dialogOrderDetail = false">
       </OrderDetailPosCRUD>
     </v-dialog>
+    
     <v-dialog v-model="cancelForm" max-width="1024">
-      <cancel-ticket-form :id="OrderIdSelected" :key="componentCancelFormKey" @close-dialog="cancelForm = false"
-        @reload="cancelForm = false, loadData()"></cancel-ticket-form>
+      <cancel-ticket-form 
+        :id="OrderIdSelected" 
+        :key="componentCancelFormKey" 
+        @close-dialog="cancelForm = false"
+        @reload="cancelForm = false, loadData()">
+      </cancel-ticket-form>
     </v-dialog>
+
+    <!-- NEW: Add TicketDetailsDialog for credit transactions -->
+    <ticket-details-dialog
+      v-model="ticketDetailsDialog"
+      :ticket-data="selectedTicketForDetails"
+      :company-logo="companyLogo"
+      :ticket-common="ticketCommon"
+      :show-print-button="true"
+      @close="onTicketDialogClose"
+      @print-ticket="onPrintTicket"
+      @print-payment-details="onPrintPaymentDetails"
+    />
+
     <v-card>
       <v-card-title>
         <v-layout row wrap>
@@ -55,114 +76,235 @@
               </template>
               <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
             </v-menu>
-
           </v-col>
+          
           <v-col cols="6">
             <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
             <v-text-field v-model="userId" append-icon="mdi-magnify" label="ລະຫັດຜູ້ຂາຍ" single-line hide-detailsx />
-            <!-- <v-btn @click="loadData"> ດຶງລາຍງານ </v-btn> -->
           </v-col>
+          
           <v-col cols="6" class="text-left">
-            <!-- <v-btn size="large" variant="outlined" @click="generateInvoice" class="primary" rounded>
-              <span class="mdi mdi-plusmdi mdi-file-pdf-box"></span>Generate invoice
-            </v-btn> -->
             <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary" rounded>
               <span class="mdi mdi-microsoft-excel"></span>Generate excel file
             </v-btn>
           </v-col>
+          
           <v-col cols="6" class="text-right">
             <v-btn size="large" variant="outlined" @click="loadData" class="primary" rounded>
               <span class="mdi mdi-cloud-download"></span>
               ດຶງລາຍງານ
             </v-btn>
-            <!-- <v-btn @click="loadData"> ດຶງລາຍງານ </v-btn> -->
           </v-col>
         </v-layout>
       </v-card-title>
+
       <v-divider></v-divider>
+
+      <!-- Enhanced Credit Summary Section -->
       <v-card-text>
         <v-layout row wrap>
           <v-row>
-            <v-col cols="6" lg="6">
-              <order-sumary-card-pos :showTotal="true"
-                :gross="getFormatNum(0)" :orderDetail="{
+            <!-- Original Summary Card -->
+            <v-col cols="12" lg="6">
+              <order-sumary-card-pos 
+                :showTotal="true"
+                :gross="getFormatNum(0)" 
+                :orderDetail="{
                   'title': 'ຍອດບິນ ຕິດຫນີ້',
                   'amount': getFormatNum(creditOrder.length),
                   'sale': getFormatNum(totalSale-totalDiscount),
-                  // 'discount': getFormatNum(totalDiscount),
-                  // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-                  // 'gross': getFormatNum(totalSale - totalDiscount)
-
                 }">
-
               </order-sumary-card-pos>
+            </v-col>
+
+            <!-- NEW: Credit Analytics Card -->
+            <v-col cols="12" lg="6">
+              <v-card outlined class="pa-4 mb-4">
+                <h4 class="mb-3">
+                  <v-icon left color="warning">mdi-clock-alert</v-icon>
+                  ສະຖານະໜີ້ສິນ
+                </h4>
+                <v-row class="text-center">
+                  <v-col cols="6">
+                    <div class="text-h5 error--text">{{ getOverdueCount() }}</div>
+                    <div class="caption">ເກີນກຳນົດ</div>
+                    <v-progress-circular
+                      :value="getOverduePercentage()"
+                      color="error"
+                      size="40"
+                      width="4"
+                      class="mt-1"
+                    >
+                      <small>{{ getOverduePercentage().toFixed(0) }}%</small>
+                    </v-progress-circular>
+                  </v-col>
+                  
+                  <v-col cols="6">
+                    <div class="text-h5 warning--text">{{ getPendingCount() }}</div>
+                    <div class="caption">ຍັງຊຳລະໄດ້</div>
+                    <v-progress-circular
+                      :value="getPendingPercentage()"
+                      color="warning"
+                      size="40"
+                      width="4"
+                      class="mt-1"
+                    >
+                      <small>{{ getPendingPercentage().toFixed(0) }}%</small>
+                    </v-progress-circular>
+                  </v-col>
+                </v-row>
+
+                <v-divider class="my-3"></v-divider>
+
+                <v-row class="text-center">
+                  <v-col cols="6">
+                    <div class="text-h6 error--text">{{ getFormatNum(getOverdueAmount()) }}</div>
+                    <div class="caption">ຍອດເກີນກຳນົດ (LAK)</div>
+                  </v-col>
+                  <v-col cols="6">
+                    <div class="text-h6 warning--text">{{ getFormatNum(getPendingAmount()) }}</div>
+                    <div class="caption">ຍອດຍັງຊຳລະໄດ້ (LAK)</div>
+                  </v-col>
+                </v-row>
+              </v-card>
             </v-col>
           </v-row>
         </v-layout>
       </v-card-text>
 
-      <!-- <v-divider></v-divider> -->
-
-
-
-      <v-data-table v-if="creditOrder" :headers="headers" :search="search" :items="creditOrder">
+      <!-- Enhanced Data Table -->
+      <v-data-table v-if="creditOrder" :headers="headers" :search="search" :items="creditOrder" class="elevation-1">
         <template v-slot:[`item.bookingDate`]="{ item }">
-          {{ item.bookingDate.split('T')[0] }}
-          <!-- <v-chip class="ma-2" color="red" text-color="white"> -->
-          <h6 :style="{ 'color': countDay(item.bookingDate.split('T')[0]) > item.client.credit ? 'red' : 'green' }">
-            {{ countDay(item.bookingDate.split('T')[0]) }}
-          </h6>
-          <!-- </v-chip> -->
+          <div>
+            {{ item.bookingDate.split('T')[0] }}
+            <div>
+              <v-chip 
+                small 
+                :color="countDay(item.bookingDate.split('T')[0]) > item.client.credit ? 'error' : 'success'"
+                dark
+              >
+                <v-icon left small>mdi-calendar-clock</v-icon>
+                {{ countDay(item.bookingDate.split('T')[0]) }} ມື້
+              </v-chip>
+            </div>
+          </div>
         </template>
+
         <template v-slot:[`item.client.credit`]="{ item }">
-          <v-chip v-if="new Date(dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date()"
-            class="ma-2" color="red" text-color="white">
+          <v-chip 
+            :color="new Date(dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date() ? 'error' : 'success'"
+            class="ma-2" 
+            text-color="white"
+          >
+            <v-icon left small>
+              {{ new Date(dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date() ? 'mdi-alert-circle' : 'mdi-check-circle' }}
+            </v-icon>
             {{ dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0] }}
           </v-chip>
-          <v-chip v-else class="ma-2" color="green" text-color="white">
-            {{ dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0] }}
+        </template>
+
+        <!-- NEW: Enhanced Client Information -->
+        <template v-slot:[`item.client.name`]="{ item }">
+          <div>
+            <div class="font-weight-medium">{{ item.client.name }}</div>
+            <div class="caption text--secondary">ID: {{ item.client.id }}</div>
+            <div class="caption text--secondary">{{ item.client.company }}</div>
+          </div>
+        </template>
+
+        <!-- NEW: Enhanced Payment Method Display -->
+        <template v-slot:[`item.payment.payment_code`]="{ item }">
+          <v-chip 
+            :color="getPaymentMethodColor(item.payment?.payment_code)" 
+            small 
+            dark
+          >
+            <v-icon left small>{{ getPaymentMethodIcon(item.payment?.payment_code) }}</v-icon>
+            {{ item.payment?.payment_name || 'N/A' }}
           </v-chip>
         </template>
 
         <template v-slot:[`item.discount`]="{ item }">
-          {{ numberWithCommas(item.discount) }}
+          <div class="text-right">
+            <span v-if="item.discount > 0" class="error--text">
+              -{{ numberWithCommas(item.discount) }}
+            </span>
+            <span v-else class="text--secondary">-</span>
+          </div>
         </template>
+
         <template v-slot:[`item.total`]="{ item }">
-          {{ numberWithCommas(item.total) }}
+          <div class="text-right">
+            <strong :class="getAmountColor(item)">
+              {{ numberWithCommas(item.total) }}
+            </strong>
+          </div>
         </template>
+
         <template v-slot:[`item.createdAt`]="{ item }">
-          {{ item.createdAt.split('.')[0] }}
+          <v-chip color="info" small dark>
+            <v-icon left small>mdi-clock</v-icon>
+            {{ formatDateTime(item.createdAt) }}
+          </v-chip>
         </template>
+
+        <!-- NEW: Enhanced Action Buttons -->
         <template v-slot:[`item.id`]="{ item }">
+          <div class="d-flex">
+            <!-- View/Edit Button -->
+            <v-btn color="primary" text small @click="viewItem(item)" class="mr-1">
+              <v-icon small>mdi-pencil</v-icon>
+              <span class="d-none d-md-inline ml-1">ແກ້ໄຂ</span>
+            </v-btn>
+            
+            <!-- NEW: Ticket Details Button -->
+            <v-btn color="info" text small @click="showTicketDetails(item)" class="mr-1">
+              <v-icon small>mdi-receipt</v-icon>
+              <span class="d-none d-md-inline ml-1">ລາຍລະອຽດ</span>
+            </v-btn>
 
-          <v-btn color="primary" text @click="viewItem(item)
-          wallet = true
-            ">
-<i class="fa-regular fa-pen-to-square"></i>
-          </v-btn>
-
+            <!-- Print Button -->
+            <v-btn color="success" text small @click="printTicket(item)">
+              <v-icon small>mdi-printer</v-icon>
+              <span class="d-none d-md-inline ml-1">ພິມ</span>
+            </v-btn>
+          </div>
         </template>
 
         <template v-slot:[`item.client.telephone`]="{ item }">
-          {{ item.client.telephone }}
-          <v-btn color="blue darken-1" text @click="whatsappLink(item)">
-            <a :href="whatsappContactLink" target="_blank">Whatsapp</a>
-          </v-btn>
-
+          <div>
+            <div>{{ item.client.telephone }}</div>
+            <v-btn color="success" text small @click="whatsappLink(item)" class="pa-0">
+              <v-icon left small>mdi-whatsapp</v-icon>
+              <a :href="whatsappContactLink" target="_blank" class="text-decoration-none">
+                WhatsApp
+              </a>
+            </v-btn>
+          </div>
         </template>
       </v-data-table>
-
     </v-card>
   </div>
 </template>
+
 <script>
-import { swalSuccess, swalError2, dayCount, getNextDate,getFirstDayOfMonth } from '~/common'
+import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getLocalDate, ticketHtml } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
+import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'
+import { mapGetters } from 'vuex'
+
 export default {
-  components: { OrderDetailPos, OrderSumaryCardPos,OrderDetailPosCRUD },
+  components: { 
+    OrderDetailPos, 
+    OrderSumaryCardPos, 
+    OrderDetailPosCRUD,
+    TicketDetailsDialog  // NEW: Add the TicketDetailsDialog component
+  },
   middleware: 'auths',
+  
   data() {
     return {
       viewTransaction: false,
@@ -176,7 +318,6 @@ export default {
       dialog: false,
       isloading: false,
       dialogForm: false,
-
       valid: true,
       name: '',
       search: '',
@@ -187,6 +328,10 @@ export default {
       componentCancelFormKey: 1,
       cancelForm: false,
       OrderIdSelected: '',
+
+      // NEW: Ticket Details Dialog
+      ticketDetailsDialog: false,
+      selectedTicketForDetails: null,
 
       headers: [
         {
@@ -213,12 +358,6 @@ export default {
           value: 'client.telephone',
           sortable: true,
         },
-        // {
-        //   text: 'ທີ່ຢູ່',
-        //   align: 'center',
-        //   value: 'client.address',
-        //   sortable: true,
-        // },
         {
           text: 'ຊຳລະດ້ວຍ',
           align: 'center',
@@ -231,7 +370,6 @@ export default {
           value: 'client.credit',
           sortable: true,
         },
-
         {
           text: 'ສະກຸນເງິນ',
           align: 'center',
@@ -250,7 +388,6 @@ export default {
           value: 'discount',
           sortable: true,
         },
-
         {
           text: 'ລວມ',
           align: 'end',
@@ -270,25 +407,19 @@ export default {
           sortable: false,
         },
         {
-          text: 'View/Update',
-          align: 'end',
+          text: 'ການດຳເນີນການ',
+          align: 'center',
           value: 'id',
           sortable: false,
+          width: '200px'
         },
       ],
+      
       date: getFirstDayOfMonth(),
-      // date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //   .toISOString()
-      //   .substr(0, 10),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      dateFormatted: this.formatDate(
-        // new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        //   .toISOString()
-        //   .substr(0, 10)
-        getFirstDayOfMonth() // this will get first date of current month
-      ),
+      dateFormatted: this.formatDate(getFirstDayOfMonth()),
       dateFormatted2: this.formatDate(
         new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
@@ -298,9 +429,11 @@ export default {
       menu2: false,
     }
   },
+
   async created() {
     await this.loadData()
   },
+
   watch: {
     isedit(v) {
       if (!v) this.form_data.cus_id = '1XXX'
@@ -314,14 +447,31 @@ export default {
       this.loadData()
     },
   },
+
   computed: {
+    ...mapGetters([
+      'findAllPayment'
+    ]),
+
+    companyLogo() {
+      const company = mainCompanyInfo()
+      if (company.apiData && company.apiData.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        return `${baseUrl}/${company.apiData.profile_image_path}`
+      }
+      return '/static/images/default-logo.png'
+    },
+
+    ticketCommon() {
+      return ticketHtml()
+    },
+
     totalSale() {
       let total = 0
       this.creditOrder.forEach((el) => {
         total += el.total
       })
       return total
-      // return total
     },
 
     totalDiscount() {
@@ -330,68 +480,207 @@ export default {
         total += parseInt(el.discount)
       })
       return total
-      // return total
     },
 
     creditOrder() {
-      return this.orderHeaderList.filter(el => el['paymentId'] == 2 && el['isActive']==true)
+      return this.orderHeaderList.filter(el => el['paymentId'] == 2 && el['isActive'] == true)
     }
   },
 
   methods: {
-
-    exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(this.creditOrder);
-      const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-      this.$xlsx.writeFile(workbook, 'data.xlsx');
+    // NEW: Ticket Details Dialog Methods
+    showTicketDetails(item) {
+      this.selectedTicketForDetails = item
+      this.ticketDetailsDialog = true
+      console.info('SELECTED CREDIT TICKET:', JSON.stringify(item))
     },
+
+    onTicketDialogClose() {
+      this.ticketDetailsDialog = false
+      this.selectedTicketForDetails = null
+    },
+
+    onPrintTicket(ticketData) {
+      this.printTicket(ticketData)
+    },
+
+    onPrintPaymentDetails(ticketData) {
+      console.log('Payment details printed for credit ticket:', ticketData.id)
+    },
+
+    // NEW: Credit Analytics Methods
+    getOverdueCount() {
+      return this.creditOrder.filter(item => 
+        new Date(this.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date()
+      ).length
+    },
+
+    getPendingCount() {
+      return this.creditOrder.length - this.getOverdueCount()
+    },
+
+    getOverduePercentage() {
+      const total = this.creditOrder.length
+      return total > 0 ? (this.getOverdueCount() / total) * 100 : 0
+    },
+
+    getPendingPercentage() {
+      const total = this.creditOrder.length
+      return total > 0 ? (this.getPendingCount() / total) * 100 : 0
+    },
+
+    getOverdueAmount() {
+      return this.creditOrder
+        .filter(item => 
+          new Date(this.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date()
+        )
+        .reduce((sum, item) => sum + item.total, 0)
+    },
+
+    getPendingAmount() {
+      return this.creditOrder
+        .filter(item => 
+          new Date(this.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) >= new Date()
+        )
+        .reduce((sum, item) => sum + item.total, 0)
+    },
+
+    getAmountColor(item) {
+      const isOverdue = new Date(this.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date()
+      return isOverdue ? 'error--text' : 'warning--text'
+    },
+
+    // NEW: Enhanced Payment Method Methods
+    getPaymentMethodColor(paymentCode) {
+      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
+      
+      if (paymentMethod) {
+        const colorMap = {
+          'CASH': 'green',
+          'QR': 'purple',
+          'TRANSFER': 'blue',
+          'TRANSFER_BCEL': 'blue',
+          'BCEL': 'blue',
+          'COD': 'orange',
+          'CREDIT': 'red',
+          'CARD': 'indigo',
+        }
+        
+        if (colorMap[paymentCode]) {
+          return colorMap[paymentCode]
+        }
+        
+        const code = paymentCode.toUpperCase()
+        if (code.includes('CASH')) return 'green'
+        if (code.includes('QR')) return 'purple'
+        if (code.includes('TRANSFER') || code.includes('BANK')) return 'blue'
+        if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
+        if (code.includes('COD')) return 'orange'
+        
+        return 'primary'
+      }
+      
+      return 'grey'
+    },
+
+    getPaymentMethodIcon(paymentCode) {
+      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
+      
+      if (paymentMethod) {
+        const iconMap = {
+          'CASH': 'mdi-cash',
+          'QR': 'mdi-qrcode',
+          'TRANSFER': 'mdi-bank-transfer',
+          'TRANSFER_BCEL': 'mdi-bank-transfer',
+          'BCEL': 'mdi-bank',
+          'COD': 'mdi-truck-delivery',
+          'CREDIT': 'mdi-credit-card-outline',
+          'CARD': 'mdi-credit-card',
+        }
+        
+        if (iconMap[paymentCode]) {
+          return iconMap[paymentCode]
+        }
+        
+        const code = paymentCode.toUpperCase()
+        if (code.includes('CASH')) return 'mdi-cash'
+        if (code.includes('QR')) return 'mdi-qrcode'
+        if (code.includes('TRANSFER') || code.includes('BANK')) return 'mdi-bank-transfer'
+        if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
+        if (code.includes('COD')) return 'mdi-truck-delivery'
+        
+        return 'mdi-cash-multiple'
+      }
+      
+      return 'mdi-help-circle'
+    },
+
+    // Enhanced Formatting Methods
+    formatDateTime(dateString) {
+      if (!dateString) return 'N/A'
+      return dateString.split('.')[0].replace('T', ' ')
+    },
+
+    printTicket(item) {
+      console.log('Printing credit ticket:', item.id)
+      // Add your print logic here
+    },
+
+    // Existing Methods
+    exportToExcel() {
+      const worksheet = this.$xlsx.utils.json_to_sheet(this.creditOrder)
+      const workbook = this.$xlsx.utils.book_new()
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Credit Report')
+      this.$xlsx.writeFile(workbook, 'credit-report.xlsx')
+    },
+
     countDay(startDate) {
       return dayCount(startDate)
     },
+
     dueDate(startDate, day) {
-      console.log("DATE ", startDate, " to ", day);
+      console.log("DATE ", startDate, " to ", day)
       return getNextDate(startDate, day)
     },
-    numberWithCommas(value) {
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    },
-    whatsappLink(item) {
-      // const completeTel = tel.substring(tel.length-7);
-      const tel = item.client.telephone.trim();
 
-      // console.log("Customer tel: ",tel);
-      const completeTel = tel.substring(tel.length - 8);
-      this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
-      // return `https://api.whatsapp.com/send?phone=${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
+    numberWithCommas(value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
+
+    whatsappLink(item) {
+      const tel = item.client.telephone.trim()
+      const completeTel = tel.substring(tel.length - 8)
+      this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`
+    },
+
     getFormatNum(val) {
       return new Intl.NumberFormat().format(val)
     },
+
     editItem(item) {
-      this.componentKey += 1;
+      this.componentKey += 1
       this.selectedOrderId = item.orderId.toString()
-      this.dialogOrderDetail = !this.dialogOrderDetail;
+      this.dialogOrderDetail = !this.dialogOrderDetail
     },
+
     viewItem(item) {
-      // this.componentKey += 1;
-      // this.selectedOrder = item
-      // this.dialogOrderDetail = true;
-      this.componentKey += 1;
+      this.componentKey += 1
       this.viewTransaction = true
       this.selectedOrder = item.id
-      this.dialogOrderDetail = true;
+      this.dialogOrderDetail = true
     },
+
     cancelItem(payload) {
-      console.log("Order id", payload.orderId);
-      this.componentCancelFormKey += 1;
+      console.log("Order id", payload.orderId)
+      this.componentCancelFormKey += 1
       this.OrderIdSelected = payload.orderId
-      // this.orderLockingSessionId = payload.lockingSessionId;
-      this.cancelForm = true;
+      this.cancelForm = true
     },
+
     handleEvent() {
-      this.dialogOrderDetail = false;
+      this.dialogOrderDetail = false
     },
+
     async loadData() {
       this.isloading = true
       const date = {
@@ -406,28 +695,27 @@ export default {
       await this.$axios
         .get(apiLine, { params: { date } })
         .then((res) => {
-          // ****** Clear Old Data
           this.orderHeaderList = []
           for (const iterator of res.data) {
             this.orderHeaderList.push(iterator)
           }
-          console.log("====> " + this.orderHeaderList.length);
+          console.log("====> " + this.orderHeaderList.length)
         })
         .catch((er) => {
-          swalError2(this.$swal, 'Error', 'Could no load data ' + er.Error)
+          swalError2(this.$swal, 'Error', 'Could not load data ' + er.Error)
           console.log('Error ===>: ' + er)
         })
       this.isloading = false
     },
+
     formatDate(date) {
       if (!date) return null
-
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
     },
+
     parseDate(date) {
       if (!date) return null
-
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
@@ -443,5 +731,31 @@ export default {
 
 table {
   border: 1px solid black;
+}
+
+/* Credit status styling */
+.v-chip.error {
+  animation: urgentPulse 2s infinite;
+}
+
+@keyframes urgentPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(244, 67, 54, 0);
+  }
+}
+
+/* Enhanced action buttons */
+.d-flex .v-btn {
+  min-width: auto !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .d-none.d-md-inline {
+    display: none !important;
+  }
 }
 </style>

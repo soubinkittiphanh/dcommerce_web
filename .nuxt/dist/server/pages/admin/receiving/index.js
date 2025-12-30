@@ -1,7 +1,7 @@
-exports.ids = [265,40,123,138,139];
+exports.ids = [266,40,123,139,140];
 exports.modules = {
 
-/***/ 1458:
+/***/ 1462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -349,13 +349,13 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/receiving/index.vue?vue&type=template&id=7b660802
 
 // EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
-var PoForm = __webpack_require__(596);
+var PoForm = __webpack_require__(599);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
-var PurchasingFormCRUD = __webpack_require__(562);
+var PurchasingFormCRUD = __webpack_require__(563);
 
 // EXTERNAL MODULE: ./components/ReceivingFormCRUD.vue + 4 modules
-var ReceivingFormCRUD = __webpack_require__(558);
+var ReceivingFormCRUD = __webpack_require__(559);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -610,7 +610,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var receiving = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {ReceivingFormCRUD: __webpack_require__(558).default,LoadingIndicator: __webpack_require__(66).default})
+installComponents(component, {ReceivingFormCRUD: __webpack_require__(559).default,LoadingIndicator: __webpack_require__(66).default})
 
 
 /***/ }),
@@ -3350,7 +3350,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 558:
+/***/ 559:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4600,7 +4600,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(66).default,
 
 /***/ }),
 
-/***/ 562:
+/***/ 563:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5792,7 +5792,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(66).default,
 
 /***/ }),
 
-/***/ 596:
+/***/ 599:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

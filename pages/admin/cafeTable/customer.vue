@@ -198,22 +198,47 @@
             </div>
           </div>
 
-          <!-- Order Items with proper scrolling -->
+          <!-- Order Items with proper scrolling and ENHANCED GIFT SUPPORT -->
           <div class="order-items-container">
             <div v-if="orderItems.length > 0" class="items-list">
               <div
                 v-for="(item, index) in orderItems"
                 :key="index"
                 class="order-item"
+                :class="getItemDisplayClass(item)"
               >
+                <!-- ✅ ENHANCED: Gift badge for visual impact -->
+                <div v-if="isGiftItem(item)" class="gift-badge-container">
+                  <div class="gift-badge" :class="getGiftBadgeClass(item)">
+                    <v-icon 
+                      small 
+                      class="gift-icon"
+                      :class="{ 'free-gift-icon': isFreeGift(item) }"
+                    >
+                      {{ getGiftIcon(item) }}
+                    </v-icon>
+                    <span class="gift-text">{{ getGiftLabel(item) }}</span>
+                  </div>
+                </div>
+
                 <div class="item-details">
-                  <div class="item-name">{{ item.name }}</div>
+                  <div class="item-name" :class="getItemNameClass(item)">
+                    {{ item.name }}
+                    <!-- ✅ ENHANCED: Inline gift indicator for compact view -->
+                    <span v-if="isGiftItem(item)" class="inline-gift-indicator">
+                      {{ getInlineGiftText(item) }}
+                    </span>
+                  </div>
                   <div class="item-description" v-if="item.description">
                     {{ item.description }}
                   </div>
                 </div>
-                <div class="item-quantity">{{ item.quantity }}x</div>
-                <div class="item-price">{{ formatPrice(item.totalPrice) }}</div>
+                <div class="item-quantity" :class="getItemQuantityClass(item)">
+                  {{ item.quantity }}x
+                </div>
+                <div class="item-price" :class="getItemPriceClass(item)">
+                  {{ getDisplayPrice(item) }}
+                </div>
               </div>
             </div>
 
@@ -298,11 +323,19 @@
                 formatPrice(orderSummary.tax)
               }}</span>
             </div>
-            <div class="summary-line" v-if="orderSummary.discount > 0">
+            <!-- FIXED: Better discount condition with fallback -->
+            <div class="summary-line" v-if="displayDiscount > 0">
               <span class="summary-label">Discount:</span>
               <span class="summary-value discount"
-                >-{{ formatPrice(orderSummary.discount) }}</span
+                >-{{ formatPrice(displayDiscount) }}</span
               >
+            </div>
+            <!-- ADDED: Change display section -->
+            <div class="summary-line" v-if="displayChange > 0">
+              <span class="summary-label">Change:</span>
+              <span class="summary-value change-positive">{{
+                formatPrice(displayChange)
+              }}</span>
             </div>
             <div class="summary-total">
               <span class="total-label">Total:</span>
@@ -573,6 +606,13 @@ export default {
     return { companyInfo }
   },
   computed: {
+    displayDiscount() {
+      return this.orderSummary.discount || this.qrData.discount || 0
+    },
+
+    displayChange() {
+      return this.orderSummary.change || this.qrData.change || 0
+    },
     parsedCompanyInfo() {
       console.info(
         `COMPANY DATA PARSING ${JSON.stringify(this.$route.query.company)}`
@@ -662,6 +702,142 @@ export default {
   },
 
   methods: {
+    // ========================================
+    // ✅ ENHANCED GIFT ITEM METHODS - NEW
+    // ========================================
+
+    /**
+     * Check if an item is a gift
+     */
+    isGiftItem(item) {
+      return item.isGift === true
+    },
+
+    /**
+     * Check if a gift item is free (price = 0)
+     */
+    isFreeGift(item) {
+      return this.isGiftItem(item) && (item.unitPrice === 0 || item.totalPrice === 0)
+    },
+
+    /**
+     * Check if a gift item has special pricing (price > 0)
+     */
+    hasSpecialPrice(item) {
+      return this.isGiftItem(item) && (item.unitPrice > 0 || item.totalPrice > 0)
+    },
+
+    /**
+     * Get the appropriate display class for order items
+     */
+    getItemDisplayClass(item) {
+      if (!this.isGiftItem(item)) return 'regular-item'
+      
+      if (this.isFreeGift(item)) {
+        return 'gift-item gift-item-free'
+      } else {
+        return 'gift-item gift-item-special'
+      }
+    },
+
+    /**
+     * Get the gift badge class based on gift type
+     */
+    getGiftBadgeClass(item) {
+      if (this.isFreeGift(item)) {
+        return 'gift-badge-free'
+      } else {
+        return 'gift-badge-special'
+      }
+    },
+
+    /**
+     * Get the appropriate icon for gift items
+     */
+    getGiftIcon(item) {
+      if (this.isFreeGift(item)) {
+        return 'mdi-gift'
+      } else {
+        return 'mdi-tag-heart'
+      }
+    },
+
+    /**
+     * Get the gift label text
+     */
+    getGiftLabel(item) {
+      if (this.isFreeGift(item)) {
+        return 'FREE GIFT'
+      } else {
+        return 'SPECIAL PRICE'
+      }
+    },
+
+    /**
+     * Get inline gift text for compact display
+     */
+    getInlineGiftText(item) {
+      if (this.isFreeGift(item)) {
+        return ' [FREE]'
+      } else {
+        return ' [SPECIAL]'
+      }
+    },
+
+    /**
+     * Get item name class for styling
+     */
+    getItemNameClass(item) {
+      if (!this.isGiftItem(item)) return ''
+      
+      if (this.isFreeGift(item)) {
+        return 'gift-item-name-free'
+      } else {
+        return 'gift-item-name-special'
+      }
+    },
+
+    /**
+     * Get item quantity class for styling
+     */
+    getItemQuantityClass(item) {
+      if (!this.isGiftItem(item)) return ''
+      
+      if (this.isFreeGift(item)) {
+        return 'gift-item-quantity-free'
+      } else {
+        return 'gift-item-quantity-special'
+      }
+    },
+
+    /**
+     * Get item price class for styling
+     */
+    getItemPriceClass(item) {
+      if (!this.isGiftItem(item)) return ''
+      
+      if (this.isFreeGift(item)) {
+        return 'gift-item-price-free'
+      } else {
+        return 'gift-item-price-special'
+      }
+    },
+
+    /**
+     * Get display price with gift handling
+     */
+    getDisplayPrice(item) {
+      if (this.isGiftItem(item) && this.isFreeGift(item)) {
+        return 'FREE'
+      } else {
+        return this.formatPrice(item.totalPrice)
+      }
+    },
+
+    // ========================================
+    // EXISTING METHODS (unchanged)
+    // ========================================
+
     // Slideshow methods
     startSlideshow() {
       this.slideTimer = setInterval(() => {
@@ -781,7 +957,9 @@ export default {
     },
 
     handleDisplayMessage(message) {
-      console.log(`Customer screen received message: ${JSON.stringify(message)}`)
+      console.log(
+        `Customer screen received message: ${JSON.stringify(message)}`
+      )
 
       if (message.type === 'SHOW_QR_PAYMENT') {
         this.displayQR(message.data)
@@ -813,10 +991,19 @@ export default {
 
       // FIXED: Check if order summary is directly provided
       if (data.orderSummary) {
-        this.orderSummary = data.orderSummary
-        console.log('Using provided order summary:', this.orderSummary)
+        this.orderSummary = {
+          ...this.orderSummary,
+          ...data.orderSummary,
+          // Ensure discount and change are captured from multiple possible sources
+          discount: data.orderSummary.discount || data.discount || 0,
+          change: data.orderSummary.change || data.change || 0,
+        }
+      } else {
+        // Fallback: populate from root level data
+        this.orderSummary.discount = data.discount || 0
+        this.orderSummary.change = data.change || 0
       }
-
+      console.log('Final order summary:', this.orderSummary)
       this.showQR = true
       this.paymentComplete = false
       this.stopSlideshow() // Stop slideshow when showing QR
@@ -876,6 +1063,7 @@ export default {
             unitPrice: line.unitPrice,
             totalPrice: line.totalPrice || line.unitPrice * line.quantity,
             status: line.status,
+            isGift: line.isGift || false, // ✅ Include gift status
           }
         })
 
@@ -958,6 +1146,7 @@ export default {
               unitPrice: line.unitPrice,
               totalPrice: line.totalPrice,
               status: line.status,
+              isGift: line.isGift || false, // ✅ Include gift status
             }
           })
           .filter((item) => item.name !== `Product ${item.productId}`)
@@ -1074,8 +1263,674 @@ export default {
 
 
 <style scoped>
+/* ========================================
+   🎁 ENHANCED GIFT ITEM STYLES - NEW
+   ======================================== */
+
+/* Gift Badge Styling */
+.gift-badge-container {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  z-index: 10;
+}
+
+.gift-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Free Gift Badge - Green */
+.gift-badge-free {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  animation: giftPulse 2s ease-in-out infinite;
+}
+
+/* Special Price Gift Badge - Blue */
+.gift-badge-special {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+}
+
+.gift-icon {
+  font-size: 0.8rem !important;
+}
+
+.free-gift-icon {
+  animation: giftIconSpin 3s ease-in-out infinite;
+}
+
+.gift-text {
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* Order Item Enhanced Styling */
+.order-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Gift Item Background */
+.gift-item {
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border: 2px solid transparent;
+  border-radius: 12px !important;
+  padding: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.gift-item-free {
+  border-color: rgba(76, 175, 80, 0.3);
+  background: linear-gradient(135deg, #e8f5e8, #ffffff);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+}
+
+.gift-item-special {
+  border-color: rgba(25, 118, 210, 0.3);
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+}
+
+/* Gift Item Text Styling */
+.gift-item-name-free {
+  color: #2e7d32 !important;
+  font-weight: 700 !important;
+}
+
+.gift-item-name-special {
+  color: #1565c0 !important;
+  font-weight: 700 !important;
+}
+
+.gift-item-quantity-free {
+  color: #4caf50 !important;
+  font-weight: 700 !important;
+}
+
+.gift-item-quantity-special {
+  color: #1976d2 !important;
+  font-weight: 700 !important;
+}
+
+.gift-item-price-free {
+  color: #4caf50 !important;
+  font-weight: 700 !important;
+  font-style: italic;
+  text-shadow: 0 1px 2px rgba(76, 175, 80, 0.3);
+}
+
+.gift-item-price-special {
+  color: #1976d2 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(25, 118, 210, 0.3);
+}
+
+/* Inline Gift Indicators */
+.inline-gift-indicator {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.gift-item-free .inline-gift-indicator {
+  background: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.gift-item-special .inline-gift-indicator {
+  background: rgba(25, 118, 210, 0.15);
+  color: #1565c0;
+}
+
+/* Hover Effects for Gift Items */
+.gift-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.gift-item-free:hover {
+  border-color: #4caf50;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+}
+
+.gift-item-special:hover {
+  border-color: #1976d2;
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+}
+
+/* Regular Item Styling */
+.regular-item {
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.regular-item:hover {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+/* ========================================
+   🎭 GIFT ANIMATIONS - NEW
+   ======================================== */
+@keyframes giftPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5);
+  }
+}
+
+@keyframes giftIconSpin {
+  0%, 90%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 80% {
+    transform: rotate(15deg);
+  }
+  20%, 70% {
+    transform: rotate(-10deg);
+  }
+  30%, 60% {
+    transform: rotate(5deg);
+  }
+  40%, 50% {
+    transform: rotate(-5deg);
+  }
+}
+
+/* ========================================
+   📱 RESPONSIVE GIFT STYLING
+   ======================================== */
+@media (max-width: 768px) {
+  .gift-badge {
+    padding: 3px 6px;
+    font-size: 0.6rem;
+  }
+  
+  .gift-text {
+    font-size: 0.6rem;
+  }
+  
+  .gift-icon {
+    font-size: 0.7rem !important;
+  }
+  
+  .inline-gift-indicator {
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    margin-left: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gift-badge-container {
+    top: -6px;
+    left: -6px;
+  }
+  
+  .gift-badge {
+    padding: 2px 4px;
+    font-size: 0.55rem;
+  }
+  
+  .inline-gift-indicator {
+    display: none; /* Hide on very small screens to save space */
+  }
+}
+
+/* ========================================
+   🔥 EXISTING STYLES (unchanged)
+   ======================================== */
+
 * {
-    font-family: 'noto sans lao';
+  font-family: 'noto sans lao';
+}
+
+/* Base styles and variables remain the same... */
+.customer-display-container {
+  min-height: 100vh;
+  height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  font-family: 'Roboto', 'Arial', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.dcommerce-green {
+  background-color: var(--v-primary-base) !important;
+}
+
+.dcommerce-green-text {
+  color: var(--v-primary-base) !important;
+}
+
+/* ========================================
+   🏠 WELCOME SCREEN
+   ======================================== */
+.welcome-screen,
+.fill-height {
+  height: 100vh;
+  position: relative;
+}
+
+.left-section,
+.right-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.left-section {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.right-section {
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Logo Section */
+.logo-section {
+  width: 50%;
+  /* max-width: 500px; */
+}
+
+.company-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.company-logo-image {
+  max-width: 160px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease;
+}
+
+.logo-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 160px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.loading-text {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.fallback-icon {
+  margin-bottom: 1rem;
+}
+
+.store-name {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--v-primary-base);
+  margin: 1rem 0;
+  letter-spacing: -1px;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.welcome-text {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  color: #6c757d;
+  margin: 0.5rem 0;
+}
+
+.status-text {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--v-primary-base);
+  font-weight: 500;
+  margin: 0.5rem 0;
+}
+
+/* ========================================
+   🏦 PAYMENT METHODS - UNIFIED
+   ======================================== */
+.payment-methods-preview {
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.payment-methods-title {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 500;
+  color: var(--v-primary-base);
+  margin-bottom: 1.5rem;
+}
+
+/* Unified container for both welcome and QR screens */
+.payment-methods-container,
+.qr-payment-methods {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Unified item styles */
+.payment-method-item,
+.qr-method-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.payment-method-item {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(1, 83, 43, 0.1);
+}
+
+.payment-method-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--v-primary-base);
+}
+
+.qr-method-item {
+  width: 240px;
+}
+
+/* Positioning */
+.left-qr,
+.left-qr-payment {
+  justify-self: flex-start;
+}
+
+.right-qr,
+.right-qr-payment {
+  justify-self: flex-end;
+}
+
+/* Spacers */
+.payment-method-spacer {
+  width: 40px;
+  height: 1px;
+  flex-shrink: 0;
+}
+
+.qr-spacer {
+  width: 100px;
+  height: 1px;
+  flex-shrink: 0;
+}
+
+/* Unified logo styles - INCREASED SIZES */
+.payment-method-logo,
+.qr-payment-method-logo {
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+  margin-bottom: 0.75rem;
+  width: 280px;
+  height: 280px;
+}
+
+.qr-payment-method-logo {
+  width: 250px;
+  height: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.qr-payment-method-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Unified label styles */
+.payment-method-name,
+.qr-method-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--v-primary-base);
+  text-align: center;
+}
+
+/* All other existing styles remain unchanged... */
+/* (keeping the rest of the CSS as is to maintain layout and functionality) */
+
+.slideshow-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* ... rest of existing styles ... */
+
+.order-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.75rem;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  min-height: 60px;
+}
+
+.item-details {
+  flex: 1;
+  min-width: 0;
+  margin-right: 0.5rem;
+}
+
+.item-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #212529;
+  margin-bottom: 0.2rem;
+  word-wrap: break-word;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.item-description {
+  font-size: 0.75rem;
+  color: #6c757d;
+  line-height: 1.3;
+  word-wrap: break-word;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.item-quantity {
+  font-weight: 600;
+  color: var(--v-primary-base);
+  margin: 0 0.75rem;
+  min-width: 35px;
+  text-align: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.item-price {
+  font-weight: 700;
+  color: var(--v-primary-base);
+  font-size: 0.9rem;
+  min-width: 70px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Continue with rest of existing styles... */
+.qr-payment-screen {
+  height: 100vh;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.payment-layout {
+  display: flex;
+  height: 100%;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.order-section {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.order-header {
+  padding: 1rem 1.5rem;
+  background: var(--v-primary-base);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.order-title {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+.table-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.table-icon {
+  margin-right: 0 !important;
+}
+
+.order-items-container {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Order Summary */
+.order-summary {
+  padding: 1rem 1.5rem;
+  border-top: 2px solid #e9ecef;
+  background: #f8f9fa;
+  flex-shrink: 0;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.summary-label {
+  color: #495057;
+}
+
+.summary-value {
+  font-weight: 500;
+  color: #212529;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--v-primary-base);
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--v-primary-base);
+  margin-top: 0.5rem;
+}
+
+.total-label,
+.total-value {
+  font-weight: 700;
+}
+
+.discount {
+  color: #dc3545;
+}
+
+.change-positive {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Payment section styles remain unchanged */
+.payment-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.payment-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* ... rest of existing styles unchanged ... */
+* {
+  font-family: 'noto sans lao';
 }
 /* ========================================
    🎨 BASE STYLES & VARIABLES
@@ -1808,9 +2663,12 @@ export default {
 }
 
 .discount {
-  color: #dc3545;
+  color: #dc3545; /* Red for discount */
 }
-
+.change-positive {
+  color: #28a745; /* Green for change */
+  font-weight: 600;
+}
 /* ========================================
    💰 PAYMENT SECTION
    ======================================== */

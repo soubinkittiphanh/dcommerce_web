@@ -17,10 +17,11 @@
       </v-chip>
     </div>
 
-    <!-- Dialogs remain the same -->
+    <!-- Dialogs -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
+    
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
       <youtube-player
         @close-dialog="guidelineDialog = false"
@@ -28,6 +29,7 @@
       >
       </youtube-player>
     </v-dialog>
+    
     <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
         @reload="loadData(); dialogOrderDetail = false"
@@ -49,79 +51,17 @@
       ></cancel-ticket-form>
     </v-dialog>
 
-    <v-dialog v-model="paymentDetailsDialog" max-width="800">
-      <v-card>
-        <v-card-title class="primary white--text">
-          <v-icon left>mdi-credit-card-multiple</v-icon>
-          ລາຍລະອຽດການຊຳລະ - ບິນເລກທີ {{ selectedOrderForPayments?.id }}
-        </v-card-title>
-        <v-card-text class="pa-4" v-if="selectedOrderForPayments">
-          <v-row>
-            <v-col cols="6">
-              <v-card outlined class="pa-3">
-                <h4>ຂໍ້ມູນພື້ນຖານ</h4>
-                <div><strong>ຍອດລວມ:</strong> {{ formatNumber(selectedOrderForPayments.total) }} LAK</div>
-                <div><strong>ສ່ວນຫລຸດ:</strong> {{ formatNumber(selectedOrderForPayments.discount) }} LAK</div>
-                <div><strong>ຈຳນວນຊຳລະ:</strong> {{ formatNumber(selectedOrderForPayments.total - selectedOrderForPayments.discount) }} LAK</div>
-                <div><strong>ລູກຄ້າ:</strong> {{ selectedOrderForPayments.client?.name }}</div>
-              </v-card>
-            </v-col>
-            <v-col cols="6">
-              <v-card outlined class="pa-3">
-                <h4>ປະເພດການຊຳລະ</h4>
-                <v-chip :color="getPaymentTypeColor(selectedOrderForPayments)" small>
-                  {{ getPaymentTypeLabel(selectedOrderForPayments) }}
-                </v-chip>
-                <div class="mt-2">
-                  <strong>ຈຳນວນວິທີການຊຳລະ:</strong> {{ getPaymentMethodsCount(selectedOrderForPayments) }}
-                </div>
-              </v-card>
-            </v-col>
-          </v-row>
-
-          <v-divider class="my-4"></v-divider>
-
-          <h4 class="mb-3">ລາຍລະອຽດການຊຳລະ</h4>
-          <v-data-table
-            :headers="paymentDetailsHeaders"
-            :items="getPaymentDetails(selectedOrderForPayments)"
-            hide-default-footer
-            disable-pagination
-            class="elevation-1"
-          >
-            <template v-slot:[`item.paymentMethod`]="{ item }">
-              <v-chip :color="getPaymentMethodColor(item.code)" small dark>
-                <v-icon left small>{{ getPaymentMethodIcon(item.code) }}</v-icon>
-                {{ item.name }}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.amount`]="{ item }">
-              <strong>{{ formatNumber(item.amount) }} LAK</strong>
-            </template>
-            <template v-slot:[`item.percentage`]="{ item }">
-              <v-progress-linear
-                :value="item.percentage"
-                height="20"
-                :color="getPaymentMethodColor(item.code)"
-                class="my-1"
-              >
-                <small>{{ item.percentage.toFixed(1) }}%</small>
-              </v-progress-linear>
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="paymentDetailsDialog = false">
-            ປິດ
-          </v-btn>
-          <v-btn color="primary" @click="printPaymentDetails" v-if="selectedOrderForPayments">
-            <v-icon left>mdi-printer</v-icon>
-            ພິມລາຍລະອຽດ
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <!-- ENHANCED: Use the new reusable TicketDetailsDialog component -->
+    <ticket-details-dialog
+      v-model="paymentDetailsDialog"
+      :ticket-data="selectedOrderForPayments"
+      :company-logo="companyLogo"
+      :ticket-common="ticketCommon"
+      :show-print-button="true"
+      @close="onTicketDialogClose"
+      @print-ticket="onPrintTicket"
+      @print-payment-details="onPrintPaymentDetails"
+    />
 
     <!-- Main Content -->
     <div>
@@ -204,7 +144,7 @@
                 hide-details
               />
 
-              <!-- NEW: Payment Type Filter -->
+              <!-- Payment Type Filter -->
               <v-select
                 v-model="selectedPaymentFilter"
                 :items="paymentFilterOptions"
@@ -263,7 +203,7 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <!-- ENHANCED: Payment Type Summary Cards -->
+          <!-- Payment Type Summary Cards -->
           <v-row class="mb-4">
             <v-col cols="12">
               <h3 class="mb-3">
@@ -644,10 +584,17 @@ import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
+// IMPORT: Add the new reusable component
+import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
-  components: { OrderDetailPos, OrderSumaryCardPos, OrderDetailPosCRUD },
+  components: { 
+    OrderDetailPos, 
+    OrderSumaryCardPos, 
+    OrderDetailPosCRUD,
+    TicketDetailsDialog  // ADDED: Register the new component
+  },
   middleware: 'auths',
   data() {
     return {
@@ -676,22 +623,12 @@ export default {
       OrderIdSelected: '',
       lastTransactionSaleHeaderId: 0,
       
-      // Payment Details Dialog
+      // SIMPLIFIED: Payment Details Dialog - now handled by component
       paymentDetailsDialog: false,
       selectedOrderForPayments: null,
 
-      // NEW: Payment Filtering
+      // Payment Filtering
       selectedPaymentFilter: null,
-      paymentFilterOptions: [
-        { label: 'ທັງໝົດ', value: null },
-        { label: 'ເງິນສົດ', value: 'CASH' },
-        { label: 'ເງິນໂອນ BCEL', value: 'TRANSFER_BCEL' },
-        { label: 'QR ສະແກນ', value: 'QR' },
-        { label: 'ບັດເຄຣດິດ', value: 'CARD' },
-        { label: 'COD', value: 'COD' },
-        { label: 'ຊຳລະແບບດຽວ', value: 'SINGLE' },
-        { label: 'ຊຳລະຫຼາຍວິທີ', value: 'MULTI' },
-      ],
       
       headers: [
         {
@@ -792,33 +729,6 @@ export default {
         },
       ],
       
-      paymentDetailsHeaders: [
-        {
-          text: 'ວິທີການຊຳລະ',
-          align: 'left',
-          value: 'paymentMethod',
-          sortable: false,
-        },
-        {
-          text: 'ຈຳນວນເງິນ',
-          align: 'right',
-          value: 'amount',
-          sortable: false,
-        },
-        {
-          text: 'ເປີເຊັນ',
-          align: 'center',
-          value: 'percentage',
-          sortable: false,
-        },
-        {
-          text: 'ເວລາຊຳລະ',
-          align: 'center',
-          value: 'createdAt',
-          sortable: false,
-        },
-      ],
-      
       fromDate: getFirstDayOfMonth(),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -834,6 +744,7 @@ export default {
     }
   },
 
+  // Rest of your component logic remains the same...
   async created() {
     this.terminalId = this.findSelectedTerminal
     console.log(`Current terminal select ${this.findSelectedTerminal}`)
@@ -864,6 +775,7 @@ export default {
   },
 
   computed: {
+    // All your existing computed properties remain the same...
     companyData() {
       console.log(`**********ENHANCED COMPANY DATA**********`)
       const company = mainCompanyInfo()
@@ -909,6 +821,7 @@ export default {
       return ticketHtml()
     },
 
+    // All your existing computed properties...
     currentTerminal() {
       console.log(
         `ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`
@@ -949,6 +862,7 @@ export default {
       'findSelectedTerminal',
       'findAllTerminal',
       'findAllLocation',
+      'findAllPayment'  // ADDED: Payment methods from store
     ]),
 
     activeOrderHeaderList() {
@@ -970,7 +884,6 @@ export default {
       )
     },
 
-    // NEW: Filtered Order List based on payment type
     filteredOrderHeaderList() {
       if (!this.selectedPaymentFilter) {
         return this.activeOrderHeaderList
@@ -988,12 +901,10 @@ export default {
           case 'CARD':
           case 'COD':
             if (this.isMultiPayment(item)) {
-              // Check if any payment in multi-payment matches the filter
               return item.payments.some(payment => 
                 payment.paymentMethod?.payment_code === this.selectedPaymentFilter
               )
             } else {
-              // Single payment check
               return item.payment?.payment_code === this.selectedPaymentFilter
             }
           default:
@@ -1002,7 +913,6 @@ export default {
       })
     },
 
-    // NEW: Payment Statistics
     paymentStatistics() {
       const stats = {}
       let totalAmount = 0
@@ -1011,7 +921,6 @@ export default {
         const itemTotal = item.total - item.discount
 
         if (this.isMultiPayment(item)) {
-          // Handle multi-payment transactions
           item.payments.forEach(payment => {
             const code = payment.paymentMethod?.payment_code || 'UNKNOWN'
             if (!stats[code]) {
@@ -1029,7 +938,6 @@ export default {
             totalAmount += payment.amount
           })
         } else if (item.payment) {
-          // Handle single payment transactions
           const code = item.payment.payment_code
           if (!stats[code]) {
             stats[code] = {
@@ -1047,12 +955,10 @@ export default {
         }
       })
 
-      // Calculate percentages
       Object.values(stats).forEach(stat => {
         stat.percentage = totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
       })
 
-      // Sort by amount descending
       return Object.values(stats).sort((a, b) => b.amount - a.amount)
     },
 
@@ -1072,6 +978,31 @@ export default {
     multiPaymentPercentage() {
       const total = this.activeOrderHeaderList.length
       return total > 0 ? (this.multiPaymentCount / total) * 100 : 0
+    },
+
+    // ADDED: Dynamic payment filter options from store
+    paymentFilterOptions() {
+      const options = [{ label: 'ທັງໝົດ', value: null }]
+      
+      // Add payment methods from store
+      if (this.findAllPayment && this.findAllPayment.length > 0) {
+        this.findAllPayment.forEach(payment => {
+          if (payment.isActive) {
+            options.push({
+              label: payment.payment_name,
+              value: payment.payment_code
+            })
+          }
+        })
+      }
+      
+      // Add special filter options
+      options.push(
+        { label: 'ຊຳລະແບບດຽວ', value: 'SINGLE' },
+        { label: 'ຊຳລະຫຼາຍວິທີ', value: 'MULTI' }
+      )
+      
+      return options
     },
 
     computedDateFormatted() {
@@ -1140,7 +1071,28 @@ export default {
   methods: {
     getLocalDate,
 
-    // NEW: Payment Filter Methods
+    // SIMPLIFIED: Dialog event handlers for the new component
+    onTicketDialogClose() {
+      this.paymentDetailsDialog = false
+      this.selectedOrderForPayments = null
+    },
+
+    onPrintTicket(ticketData) {
+      this.printDefaultTicket(ticketData)
+    },
+
+    onPrintPaymentDetails(ticketData) {
+      console.log('Payment details printed for ticket:', ticketData.id)
+      // Optional: Add any additional logic after printing
+    },
+
+    // NEW: Utility method to find payment method details
+    getPaymentMethodDetails(paymentCode) {
+      if (!paymentCode || !this.findAllPayment) return null
+      return this.findAllPayment.find(p => p.payment_code === paymentCode) || null
+    },
+
+    // Payment Filter Methods (remain the same)
     filterByPaymentType(paymentType) {
       if (this.selectedPaymentFilter === paymentType) {
         this.clearPaymentFilter()
@@ -1152,7 +1104,6 @@ export default {
 
     applyPaymentFilter() {
       console.log('Applied payment filter:', this.selectedPaymentFilter)
-      // The filtering happens automatically through computed property
     },
 
     clearPaymentFilter() {
@@ -1164,7 +1115,7 @@ export default {
       return option ? option.label : filterValue
     },
 
-    // Multi-Payment Detection and Handling Methods
+    // Multi-Payment Detection and Handling Methods (remain the same)
     isMultiPayment(item) {
       return item.payments && Array.isArray(item.payments) && item.payments.length > 1
     },
@@ -1180,144 +1131,91 @@ export default {
       return item.payment ? 1 : 0
     },
 
-    getPaymentTypeLabel(item) {
-      if (this.isMultiPayment(item)) {
-        return `ຊຳລະຫຼາຍວິທີ (${item.payments.length} ວິທີ)`
-      } else if (item.payment) {
-        return 'ຊຳລະແບບດຽວ'
-      }
-      return 'ບໍ່ມີຂໍ້ມູນ'
-    },
-
-    getPaymentTypeColor(item) {
-      if (this.isMultiPayment(item)) {
-        return 'success'
-      } else if (item.payment) {
+    getPaymentMethodColor(paymentCode) {
+      // Try to find the payment method in store first
+      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
+      
+      if (paymentMethod) {
+        // Generate color based on payment code for consistency
+        const colorMap = {
+          'CASH': 'green',
+          'QR': 'purple',
+          'TRANSFER': 'blue',
+          'TRANSFER_BCEL': 'blue',
+          'BCEL': 'blue',
+          'COD': 'orange',
+          'CREDIT': 'red',
+          'CARD': 'indigo',
+          'BANK': 'teal',
+          'MOBILE': 'pink'
+        }
+        
+        // Check if exact match exists
+        if (colorMap[paymentCode]) {
+          return colorMap[paymentCode]
+        }
+        
+        // For other payment codes, generate color based on common keywords
+        const code = paymentCode.toUpperCase()
+        if (code.includes('CASH') || code.includes('MONEY')) return 'green'
+        if (code.includes('QR') || code.includes('SCAN')) return 'purple'
+        if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'blue'
+        if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
+        if (code.includes('COD') || code.includes('DELIVERY')) return 'orange'
+        if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink'
+        
         return 'primary'
       }
+      
       return 'grey'
     },
 
-    getPaymentDetails(item) {
-      const details = []
-      const totalAmount = item.total - item.discount
-
-      if (this.isMultiPayment(item)) {
-        item.payments.forEach(payment => {
-          const percentage = (payment.amount / totalAmount) * 100
-          details.push({
-            code: payment.paymentMethod?.payment_code || 'UNKNOWN',
-            name: payment.paymentMethod?.payment_name || 'Unknown',
-            amount: payment.amount,
-            percentage: percentage,
-            createdAt: payment.createdAt ? payment.createdAt.split('.')[0] : 'N/A'
-          })
-        })
-      } else if (item.payment) {
-        details.push({
-          code: item.payment.payment_code,
-          name: item.payment.payment_name,
-          amount: totalAmount,
-          percentage: 100,
-          createdAt: item.createdAt ? item.createdAt.split('.')[0] : 'N/A'
-        })
-      }
-
-      return details
-    },
-
-    getPaymentMethodColor(paymentCode) {
-      const colorMap = {
-        'CASH': 'green',
-        'QR': 'purple',
-        'TRANSFER_BCEL': 'blue',
-        'COD': 'orange',
-        'CREDIT': 'red',
-        'CARD': 'indigo'
-      }
-      return colorMap[paymentCode] || 'grey'
-    },
-
     getPaymentMethodIcon(paymentCode) {
-      const iconMap = {
-        'CASH': 'mdi-cash',
-        'QR': 'mdi-qrcode',
-        'TRANSFER_BCEL': 'mdi-bank-transfer',
-        'COD': 'mdi-truck-delivery',
-        'CREDIT': 'mdi-credit-card-outline',
-        'CARD': 'mdi-credit-card'
+      // Try to find the payment method in store first
+      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
+      
+      if (paymentMethod) {
+        const iconMap = {
+          'CASH': 'mdi-cash',
+          'QR': 'mdi-qrcode',
+          'TRANSFER': 'mdi-bank-transfer',
+          'TRANSFER_BCEL': 'mdi-bank-transfer',
+          'BCEL': 'mdi-bank',
+          'COD': 'mdi-truck-delivery',
+          'CREDIT': 'mdi-credit-card-outline',
+          'CARD': 'mdi-credit-card',
+          'BANK': 'mdi-bank',
+          'MOBILE': 'mdi-cellphone',
+          'WALLET': 'mdi-wallet'
+        }
+        
+        if (iconMap[paymentCode]) {
+          return iconMap[paymentCode]
+        }
+        
+        const code = paymentCode.toUpperCase()
+        if (code.includes('CASH') || code.includes('MONEY')) return 'mdi-cash'
+        if (code.includes('QR') || code.includes('SCAN')) return 'mdi-qrcode'
+        if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'mdi-bank-transfer'
+        if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
+        if (code.includes('COD') || code.includes('DELIVERY')) return 'mdi-truck-delivery'
+        if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone'
+        if (code.includes('WALLET')) return 'mdi-wallet'
+        
+        return 'mdi-cash-multiple'
       }
-      return iconMap[paymentCode] || 'mdi-help-circle'
+      
+      return 'mdi-help-circle'
     },
 
+    // SIMPLIFIED: Show payment details (now uses the component)
     showPaymentDetails(item) {
       this.selectedOrderForPayments = item
       this.paymentDetailsDialog = true
+      console.info(`SELECTED TICKET DET: ${JSON.stringify(this.selectedOrderForPayments)}`)
     },
 
-    printPaymentDetails() {
-      if (!this.selectedOrderForPayments) return
-      
-      const item = this.selectedOrderForPayments
-      const paymentDetails = this.getPaymentDetails(item)
-      
-      let paymentListHtml = ''
-      paymentDetails.forEach(payment => {
-        paymentListHtml += `
-          <tr>
-            <td>${payment.name}</td>
-            <td style="text-align: right">${this.formatNumber(payment.amount)} LAK</td>
-            <td style="text-align: center">${payment.percentage.toFixed(1)}%</td>
-          </tr>
-        `
-      })
-
-      const windowContent = `
-        ${this.ticketCommon.header}
-        <body>
-          <div style="text-align: center;">
-            <img src="${this.companyLogo}" alt="Company Logo" width="100" height="100" style="max-width: 100px; max-height: 100px; object-fit: contain;">
-          </div>
-          <h3 style="text-align: center">ລາຍລະອຽດການຊຳລະ</h3>
-          <hr>
-          <h5>ເລກບິນ: ${item.id}</h5>
-          <h5>ວັນທີ: ${item.bookingDate}</h5>
-          <h5>ລູກຄ້າ: ${item.client?.name}</h5>
-          <h5>ຍອດລວມ: ${this.formatNumber(item.total)} LAK</h5>
-          <h5>ສ່ວນຫລຸດ: ${this.formatNumber(item.discount)} LAK</h5>
-          <h5>ຈຳນວນຊຳລະ: ${this.formatNumber(item.total - item.discount)} LAK</h5>
-          <hr>
-          <h4>ວິທີການຊຳລະ:</h4>
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="border-bottom: 1px solid #000;">
-                <th style="text-align: left; padding: 8px;">ວິທີການ</th>
-                <th style="text-align: right; padding: 8px;">ຈຳນວນ</th>
-                <th style="text-align: center; padding: 8px;">ເປີເຊັນ</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${paymentListHtml}
-            </tbody>
-          </table>
-          <hr>
-          <h3 style="text-align: center; margin-top: 30px;">THANK YOU</h3>
-        </body>
-        </html>
-      `
-
-      const printWin = window.open('', '', 'width=800,height=600')
-      printWin.document.open()
-      printWin.document.write(windowContent)
-      printWin.document.close()
-
-      setTimeout(() => {
-        printWin.print()
-        printWin.close()
-      }, 1000)
-    },
-
-    // Existing methods remain the same...
+    // All your existing methods remain the same...
     currentShipping(shippingId) {
       const shipping = this.shippingList.find((el) => el.id == shippingId)
       if (shipping == undefined) return ''
@@ -1554,21 +1452,6 @@ table {
 .payment-summary-card.selected-payment {
   border: 3px solid #1976d2 !important;
   box-shadow: 0 0 0 1px rgba(25, 118, 210, 0.3);
-}
-
-.payment-details-dialog .v-data-table th {
-  background-color: #f5f5f5 !important;
-  font-weight: 600;
-}
-
-.payment-method-chip {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.payment-method-chip:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* Enhanced card aesthetics */

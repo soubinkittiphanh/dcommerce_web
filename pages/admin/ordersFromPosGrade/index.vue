@@ -22,6 +22,18 @@
       <loading-indicator></loading-indicator>
     </v-dialog>
 
+    <!-- NEW: Add TicketDetailsDialog -->
+    <ticket-details-dialog
+      v-model="ticketDetailsDialog"
+      :ticket-data="selectedTicketForDetails"
+      :company-logo="companyLogo"
+      :ticket-common="ticketCommon"
+      :show-print-button="true"
+      @close="onTicketDialogClose"
+      @print-ticket="onPrintTicket"
+      @print-payment-details="onPrintPaymentDetails"
+    />
+
     <!-- Main Content -->
     <div>
       <v-card>
@@ -138,6 +150,19 @@
               >
                 <span class="mdi mdi-cloud-download"></span>
                 ດຶງລາຍງານ
+              </v-btn>
+              
+              <!-- NEW: Add button to show sample transactions -->
+              <v-btn
+                size="large"
+                variant="outlined"
+                @click="showSampleTransactions"
+                class="info ml-2"
+                rounded
+                v-if="filteredSalesData.length > 0"
+              >
+                <span class="mdi mdi-receipt-text"></span>
+                ເບິ່ງລາຍການບິນ ({{ filteredSalesData.length }})
               </v-btn>
             </v-col>
           </v-layout>
@@ -433,10 +458,22 @@
           loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
           class="elevation-1"
         >
+          <!-- NEW: Enhanced product name template with transaction viewing -->
           <template v-slot:[`item.productName`]="{ item }">
             <div>
               <strong>{{ item.productName }}</strong>
               <div class="grey--text">ID: {{ item.productId }}</div>
+              <!-- NEW: Button to view transactions for this product -->
+              <v-btn 
+                x-small 
+                text 
+                color="info"
+                @click="showProductTransactions(item)"
+                class="mt-1"
+              >
+                <v-icon x-small left>mdi-receipt</v-icon>
+                ເບິ່ງບິນ
+              </v-btn>
             </div>
           </template>
 
@@ -667,6 +704,59 @@
         </v-data-table>
       </v-card>
     </div>
+
+    <!-- NEW: Simple Transactions Dialog -->
+    <v-dialog v-model="transactionsDialog" max-width="1200" scrollable>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-receipt-text</v-icon>
+          ລາຍການບິນ {{ selectedProductForTransactions ? `- ${selectedProductForTransactions.productName}` : '' }}
+          <v-spacer></v-spacer>
+          <v-btn icon color="white" @click="transactionsDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        
+        <v-card-text class="pa-0">
+          <v-data-table
+            :headers="transactionHeaders"
+            :items="sampleTransactions"
+            hide-default-footer
+            :items-per-page="20"
+            class="elevation-0"
+          >
+            <template v-slot:item.ticketId="{ item }">
+              <v-chip color="primary" small dark>{{ item.id }}</v-chip>
+            </template>
+            
+            <template v-slot:item.client.name="{ item }">
+              {{ item.client?.name || 'Walk-in Customer' }}
+            </template>
+            
+            <template v-slot:item.bookingDate="{ item }">
+              {{ formatDate(item.bookingDate) }}
+            </template>
+            
+            <template v-slot:item.total="{ item }">
+              {{ formatNumber(item.total) }} LAK
+            </template>
+            
+            <!-- NEW: Action to show TicketDetailsDialog -->
+            <template v-slot:item.actions="{ item }">
+              <v-btn 
+                color="info" 
+                text 
+                small 
+                @click="showTicketDetails(item)"
+              >
+                <v-icon small>mdi-receipt</v-icon>
+                ລາຍລະອຽດ
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -675,10 +765,16 @@ import {
   swalError2,
   getFirstDayOfMonth,
   getFormatNum,
+  ticketHtml,
 } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
+import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    TicketDetailsDialog  // NEW: Add TicketDetailsDialog component
+  },
   middleware: 'auths',
 
   data() {
@@ -689,6 +785,13 @@ export default {
       salesData: [],
       productSummary: [],
       priceListData: [], // Store price list data
+
+      // NEW: TicketDetailsDialog integration
+      ticketDetailsDialog: false,
+      selectedTicketForDetails: null,
+      transactionsDialog: false,
+      selectedProductForTransactions: null,
+      sampleTransactions: [],
 
       // Grade filters - ENHANCED with Gift and Base Price filters
       selectedGradeFilter: null,
@@ -805,6 +908,15 @@ export default {
         },
       ],
 
+      // NEW: Transaction dialog headers
+      transactionHeaders: [
+        { text: 'ເລກບິນ', value: 'ticketId', sortable: true },
+        { text: 'ວັນທີ', value: 'bookingDate', sortable: true },
+        { text: 'ລູກຄ້າ', value: 'client.name', sortable: true },
+        { text: 'ຍອດລວມ', value: 'total', align: 'right', sortable: true },
+        { text: 'ການດຳເນີນການ', value: 'actions', align: 'center', sortable: false },
+      ],
+
       fromDate: getFirstDayOfMonth(),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -844,6 +956,21 @@ export default {
       'findAllTerminal',
       'findAllLocation',
     ]),
+
+    // NEW: Company logo for TicketDetailsDialog
+    companyLogo() {
+      const company = mainCompanyInfo()
+      if (company.apiData && company.apiData.profile_image_path) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        return `${baseUrl}/${company.apiData.profile_image_path}`
+      }
+      return '/static/images/default-logo.png'
+    },
+
+    // NEW: Ticket configuration for TicketDetailsDialog
+    ticketCommon() {
+      return ticketHtml()
+    },
 
     customTerminalList() {
       let originalTerminalList = JSON.parse(
@@ -986,6 +1113,45 @@ export default {
   },
 
   methods: {
+    // NEW: TicketDetailsDialog integration methods
+    showTicketDetails(transaction) {
+      this.selectedTicketForDetails = transaction
+      this.ticketDetailsDialog = true
+      this.transactionsDialog = false  // Close transactions dialog
+      console.info('SELECTED TRANSACTION DETAILS:', JSON.stringify(transaction))
+    },
+
+    onTicketDialogClose() {
+      this.ticketDetailsDialog = false
+      this.selectedTicketForDetails = null
+    },
+
+    onPrintTicket(ticketData) {
+      console.log('Printing ticket from grade report:', ticketData.id)
+    },
+
+    onPrintPaymentDetails(ticketData) {
+      console.log('Payment details printed for transaction:', ticketData.id)
+    },
+
+    // NEW: Transaction viewing methods
+    showSampleTransactions() {
+      this.sampleTransactions = this.filteredSalesData.slice(0, 50)  // Show first 50 transactions
+      this.selectedProductForTransactions = null
+      this.transactionsDialog = true
+    },
+
+    showProductTransactions(product) {
+      // Find transactions that contain this specific product
+      const productTransactions = this.filteredSalesData.filter(sale => {
+        return sale.lines && sale.lines.some(line => line.productId === product.productId)
+      })
+      
+      this.sampleTransactions = productTransactions.slice(0, 20)  // Show first 20 transactions for this product
+      this.selectedProductForTransactions = product
+      this.transactionsDialog = true
+    },
+
     // ENHANCED: Gift filtering support
     filterByGrade(grade) {
       if (this.selectedGradeFilter === grade) {

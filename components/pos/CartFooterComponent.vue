@@ -6,10 +6,11 @@
       <v-row no-gutters class="ga-3">
         <v-col cols="12" md="6">
           <v-text-field
-            :value="discount"
-            @input="$emit('update:discount', $event)"
+            v-model="discountRawInput"
+            @input="handleDiscountInput($event)"
+            @blur="handleDiscountBlur()"
+            @focus="handleDiscountFocus()"
             label="ສ່ວນຫລຸດ"
-            type="number"
             outlined
             dense
             prepend-inner-icon="mdi-percent"
@@ -19,10 +20,11 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-text-field
-            :value="cashReceived"
-            @input="$emit('update:cash-received', $event)"
+            v-model="cashReceivedRawInput"
+            @input="handleCashReceivedInput($event)"
+            @blur="handleCashReceivedBlur()"
+            @focus="handleCashReceivedFocus()"
             label="ເງິນທີ່ໄດ້ຮັບ (ສຳລັບເງິນສົດ)"
-            type="number"
             outlined
             dense
             prepend-inner-icon="mdi-cash"
@@ -52,17 +54,15 @@
           <div class="stat-label">ຊິ້ນ</div>
           <div class="stat-value">{{ formatNumber(totalItems) }}</div>
         </v-col>
-        <v-col cols="6" class="text-right" v-if="discount > 0">
+        <v-col cols="6" class="text-right" v-if="discountNumber > 0">
           <div class="discount-label">ສ່ວນຫລຸດ</div>
-          <div class="discount-amount">-{{ formatNumber(discount) }}</div>
+          <div class="discount-amount">-{{ formatNumber(discountNumber) }}</div>
         </v-col>
         <v-col cols="6" class="text-right" >
           <div class="discount-label">ເງິນທອນ</div>
           <div class="change-amount">{{ changes }}</div>
         </v-col>
       </v-row>
-
-
 
       <v-divider class="my-2"></v-divider>
 
@@ -221,12 +221,20 @@ export default {
       default: () => [],
     },
     discount: {
-      type: Number,
+      type: [Number, String],
       default: 0,
+      validator(value) {
+        // Accept empty string, null, undefined, or valid numbers
+        return value === '' || value === null || value === undefined || !isNaN(Number(value))
+      }
     },
     cashReceived: {
-      type: Number,
+      type: [Number, String], 
       default: 0,
+      validator(value) {
+        // Accept empty string, null, undefined, or valid numbers
+        return value === '' || value === null || value === undefined || !isNaN(Number(value))
+      }
     },
     changes: {
       type: String,
@@ -266,10 +274,24 @@ export default {
     return {
       currencySymbol: 'LAK',
       processingPayment: false,
+      // Raw input values for number formatting
+      discountRawInput: '',
+      cashReceivedRawInput: ''
     }
   },
 
   computed: {
+    // Convert props to numbers safely
+    discountNumber() {
+      const num = Number(this.discount)
+      return isNaN(num) ? 0 : num
+    },
+
+    cashReceivedNumber() {
+      const num = Number(this.cashReceived)
+      return isNaN(num) ? 0 : num
+    },
+
     subtotal() {
       return this.productCart.reduce((sum, item) => {
         return sum + item.qty * item.localPrice
@@ -299,8 +321,8 @@ export default {
 
       // For cash payments, ensure sufficient cash received
       // if (this.isTraditionalCashPayment) {
-      //   const requiredAmount = this.grandTotal - this.discount
-      //   return this.cashReceived >= requiredAmount
+      //   const requiredAmount = this.grandTotal - this.discountNumber
+      //   return this.cashReceivedNumber >= requiredAmount
       // }
 
       // For non-cash payments, just need selection
@@ -320,7 +342,103 @@ export default {
     },
   },
 
+  watch: {
+    // Initialize raw inputs when props change
+    discount: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal > 0) {
+          this.discountRawInput = this.formatNumber(this.discountNumber)
+        } else {
+          this.discountRawInput = ''
+        }
+      }
+    },
+    
+    cashReceived: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal > 0) {
+          this.cashReceivedRawInput = this.formatNumber(this.cashReceivedNumber)
+        } else {
+          this.cashReceivedRawInput = ''
+        }
+      }
+    }
+  },
+
   methods: {
+    // Number formatting methods (same as multi-payment component)
+    parseInputNumber(value) {
+      if (!value) return null
+      // Remove all non-digit characters except decimal point
+      const cleaned = value.toString().replace(/[^\d.]/g, '')
+      const parsed = parseFloat(cleaned)
+      return isNaN(parsed) ? null : parsed
+    },
+
+    // Discount field handlers
+    handleDiscountInput(value) {
+      // Only parse, don't emit immediately to prevent formatting issues
+      // The actual emit will happen on blur
+    },
+
+    handleDiscountFocus() {
+      // When focusing, show raw number without formatting
+      if (this.discountNumber > 0) {
+        this.discountRawInput = this.discountNumber.toString()
+      } else {
+        this.discountRawInput = ''
+      }
+    },
+
+    handleDiscountBlur() {
+      // Parse the input value
+      const parsed = this.parseInputNumber(this.discountRawInput)
+      const cleanValue = parsed || 0
+      
+      // Emit the clean value to parent
+      this.$emit('update:discount', cleanValue)
+      
+      // Format the display
+      if (cleanValue > 0) {
+        this.discountRawInput = this.formatNumber(cleanValue)
+      } else {
+        this.discountRawInput = ''
+      }
+    },
+
+    // Cash received field handlers
+    handleCashReceivedInput(value) {
+      // Only parse, don't emit immediately to prevent formatting issues
+      // The actual emit will happen on blur
+    },
+
+    handleCashReceivedFocus() {
+      // When focusing, show raw number without formatting
+      if (this.cashReceivedNumber > 0) {
+        this.cashReceivedRawInput = this.cashReceivedNumber.toString()
+      } else {
+        this.cashReceivedRawInput = ''
+      }
+    },
+
+    handleCashReceivedBlur() {
+      // Parse the input value
+      const parsed = this.parseInputNumber(this.cashReceivedRawInput)
+      const cleanValue = parsed || 0
+      
+      // Emit the clean value to parent
+      this.$emit('update:cash-received', cleanValue)
+      
+      // Format the display
+      if (cleanValue > 0) {
+        this.cashReceivedRawInput = this.formatNumber(cleanValue)
+      } else {
+        this.cashReceivedRawInput = ''
+      }
+    },
+
     selectPayment(paymentId) {
       this.$emit('select-payment', paymentId)
     },
@@ -371,10 +489,10 @@ export default {
 
       if (
         this.isTraditionalCashPayment &&
-        this.cashReceived < this.grandTotal - this.discount
+        this.cashReceivedNumber < this.grandTotal - this.discountNumber
       ) {
         const needed = this.formatNumber(
-          this.grandTotal - this.discount - this.cashReceived
+          this.grandTotal - this.discountNumber - this.cashReceivedNumber
         )
         this.$emit('show-error', `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການອີກ ${needed}`)
         return

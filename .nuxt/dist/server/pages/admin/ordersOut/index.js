@@ -1,7 +1,7 @@
-exports.ids = [253,114,116,171];
+exports.ids = [254,114,116,172];
 exports.modules = {
 
-/***/ 1452:
+/***/ 1456:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -511,7 +511,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ordersOut/index.vue?vue&type=template&id=538445d9
 
 // EXTERNAL MODULE: ./components/OrderForm.vue + 4 modules
-var OrderForm = __webpack_require__(538);
+var OrderForm = __webpack_require__(539);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -520,7 +520,7 @@ var external_vuex_ = __webpack_require__(14);
 var api = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./components/OrderStatusForm.vue + 4 modules
-var OrderStatusForm = __webpack_require__(539);
+var OrderStatusForm = __webpack_require__(540);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -1027,7 +1027,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ordersOut = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {OrderForm: __webpack_require__(538).default,OrderStatusForm: __webpack_require__(539).default,YoutubePlayer: __webpack_require__(466).default,LoadingIndicator: __webpack_require__(66).default})
+installComponents(component, {OrderForm: __webpack_require__(539).default,OrderStatusForm: __webpack_require__(540).default,YoutubePlayer: __webpack_require__(466).default,LoadingIndicator: __webpack_require__(66).default})
 
 
 /***/ }),
@@ -3414,7 +3414,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 538:
+/***/ 539:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4209,7 +4209,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(66).default}
 
 /***/ }),
 
-/***/ 539:
+/***/ 540:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

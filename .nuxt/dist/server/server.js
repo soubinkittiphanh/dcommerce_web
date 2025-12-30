@@ -43,7 +43,7 @@ module.exports =
 /******/
 /******/ 		// "0" is the signal for "already loaded"
 /******/ 		if(installedChunks[chunkId] !== 0) {
-/******/ 			var chunk = require("./" + ({"0":"components/accounting-transaction","2":"components/account-form","3":"components/accounting-ap-invoice","4":"components/accounting-ap-invoice-audit","5":"components/accounting-ap-invoice-audit-view","6":"components/accounting-ap-payment","7":"components/accounting-ap-settlement","8":"components/accounting-ap-settlement-audit","9":"components/accounting-ap-settlement-audit-view","10":"components/accounting-ap-settlement-browsemou","11":"components/accounting-ap-settlement-voucher","12":"components/accounting-ar-invoice-audit","13":"components/accounting-ar-invoice-audit-view","14":"components/accounting-ar-invoice-maintain","15":"components/accounting-ar-invoice-view","16":"components/accounting-ar-invoice-voucher","17":"components/accounting-ar-receivable","18":"components/accounting-ar-receive-maintain","19":"components/accounting-ar-receive-view","20":"components/accounting-ar-receive-voucher","21":"components/accounting-g-l-form","22":"components/all-product","23":"components/applicants-applicant-dialog","24":"components/applicants-applicant-view-dialog","25":"components/applicants-status-update-dialog","26":"components/authority-form","27":"components/bank-bank-account","28":"components/basic-alert","29":"components/benefit-maintain","30":"components/benefit-view","31":"components/brands","32":"components/c-a-f-e-customer-dialog","33":"components/c-a-f-e-p-o-s-dialog","34":"components/c-a-f-e-payment-dialog-front","35":"components/c-a-f-e-print-bar-dialog","36":"components/c-a-f-e-printdialog","37":"components/cafe-p-o-s-screen","38":"components/calendar-my-calendar","39":"components/campaign-form","40":"components/cancel-ticket-form","41":"components/card-campaign-card","42":"components/card-dash-board","43":"components/card-form","44":"components/card-stock-adjust-ment","45":"components/card-stock-maintenance","46":"components/carousel3d","47":"components/category-form","48":"components/company-form","49":"components/company-theme","50":"components/currency-form","51":"components/customer-form","52":"components/dashboard-card-grouping","53":"components/dashboard-card-on-top","54":"components/dashboard-metric-card","55":"components/dia-confirm","56":"components/dia-image","57":"components/dialog-classic-message","58":"components/dialogs-bottom-alert","59":"components/discount-products-card","60":"components/enhanced-invoice-printer","61":"components/gantt-chart","62":"components/group-form","63":"components/hot-products-card","64":"components/image-dialog","65":"components/image-upload","66":"components/job-advertise-maintain","67":"components/job-advertise-status-update","68":"components/job-advertise-view","69":"components/job-fair-agency-maintain","70":"components/job-fair-agency-view","71":"components/job-fair-job-batch","72":"components/job-fair-mou-maintain","73":"components/line-chart","74":"components/location-form","75":"components/m-a-payment-audit-dialog","76":"components/m-a-payment-audit-report-dialog","77":"components/m-a-payment-compare-dialog","78":"components/m-a-payment-components-bank-account-info","79":"components/m-a-payment-components-date-field","80":"components/m-a-payment-components-dialog-footer","81":"components/m-a-payment-components-dialog-header","82":"components/m-a-payment-components-form-section","83":"components/m-a-payment-components-input-field","84":"components/m-a-payment-components-loading-state","85":"components/m-a-payment-components-ministry-info","86":"components/m-a-payment-components-select-field","87":"components/m-a-payment-components-textarea-field","88":"components/m-a-payment-components-validation-errors","89":"components/m-a-payment-detail-dialog","90":"components/m-a-payment-dialog","91":"components/m-a-payment-voucher","92":"components/m-a-revenue-target-dialog","93":"components/m-a-settlement-dialog","94":"components/m-a-settlement-view-dialog","95":"components/m-a-settlement-voucher","96":"components/member-offer","97":"components/member-usage","98":"components/menu","99":"components/menu-header-form","100":"components/menu-line-form","101":"components/menu-overview","102":"components/min-stock-card","103":"components/ministry-dialog","104":"components/ministry-view-dialog","105":"components/my-chart","106":"components/new-coming","107":"components/new-products-card","108":"components/new-update-product","109":"components/notification","110":"components/nuxt-logo","111":"components/order-detail","112":"components/order-detail-pos","113":"components/order-detail-pos-c-r-u-d","114":"components/order-form","115":"components/order-history-list","116":"components/order-status-form","117":"components/order-sumary-card","118":"components/order-sumary-card-pos","119":"components/order-sumary-card-v2","120":"components/payment-card","121":"components/payment-form","122":"components/payment-qr","123":"components/po-form","124":"components/pos-app-bar","125":"components/pos-cart-drawer","126":"components/pos-cateogory-list","127":"components/pos-dialogs","128":"components/pos-dialogs-quantity-update-dialog","129":"components/pos-left-drawer","130":"components/pos-recipe","131":"components/price-list-form","132":"components/product-card","133":"components/product-card-pos","134":"components/product-form","135":"components/product-form-create","136":"components/product-item","137":"components/promotions-promotion-dialog","138":"components/purchasing-form-c-r-u-d","139":"components/receiving-form-c-r-u-d","140":"components/reservation-form","141":"components/rider-form","142":"components/rider-form-copy","143":"components/roles-role-card","144":"components/roles-role-dialog","145":"components/roles-users-list-dialog","146":"components/schedule-month-table","147":"components/settlement","148":"components/shared-confirm-dialog","149":"components/shipping-form","150":"components/simplified-company-form","151":"components/slider","152":"components/spf-dialog","153":"components/terminal-form","154":"components/tickets-notes-dialog","155":"components/tickets-print-dialog","156":"components/tickets-ticket-card","157":"components/tickets-ticket-detail-dialog","158":"components/timeline-giantt-timeline","159":"components/transfer-form","160":"components/transfer-view-form","161":"components/tutorial","162":"components/tutorial-form","163":"components/unit-form","164":"components/user-form","165":"components/vendor-form","166":"components/vuetify-logo","167":"components/wallet","168":"components/web-category-form","169":"components/web-category-product-form","170":"components/web-product-category-form","171":"components/youtube-player","172":"pages/admin/PDFInvoice/_id/index","173":"pages/admin/PDFInvoiceSummary/_id/index","174":"pages/admin/PDFQuotation/_id/index","175":"pages/admin/PDFTicket/_id/index","176":"pages/admin/PDFTransfer/_id/index","177":"pages/admin/accounting/ar/invoice/index","178":"pages/admin/accounting/ar/receive/index","179":"pages/admin/advertise/index","180":"pages/admin/advertise/mixins/ImagePreviewMixin","181":"pages/admin/ap/index","182":"pages/admin/ap/invoice/index","183":"pages/admin/ap/invoiceSettlement/index","184":"pages/admin/applicants/index","185":"pages/admin/applicants/index-1","186":"pages/admin/ar/index","187":"pages/admin/authority/index","188":"pages/admin/bank/index","189":"pages/admin/bankAccount/index","190":"pages/admin/barcodePrint/gianttTime","191":"pages/admin/barcodePrint/index","192":"pages/admin/batch_job/index","193":"pages/admin/benefit/index","194":"pages/admin/booking/index","195":"pages/admin/cafe/promotion/index","196":"pages/admin/cafeTable/customer","197":"pages/admin/cafeTable/index","198":"pages/admin/campaign/index","199":"pages/admin/cancel_order/index","200":"pages/admin/card/index","201":"pages/admin/category/index","202":"pages/admin/chartAccount/index","203":"pages/admin/client/index","204":"pages/admin/cod_order/index","205":"pages/admin/company/index","206":"pages/admin/currency/index","207":"pages/admin/customer/index","208":"pages/admin/customer_request/index","209":"pages/admin/customer_request/topup","210":"pages/admin/customer_request/withdraw","211":"pages/admin/generalLedger/index","212":"pages/admin/group/index","213":"pages/admin/index","214":"pages/admin/inventory/stock-management/index","215":"pages/admin/inventory_value/index","216":"pages/admin/jobAdvertise/index","217":"pages/admin/job_fair/agency/index","218":"pages/admin/job_fair/broker/index","219":"pages/admin/job_fair/employee/index","220":"pages/admin/job_fair/login/index","221":"pages/admin/job_fair/mou/index","222":"pages/admin/location/index","223":"pages/admin/login/index","224":"pages/admin/logout/index","225":"pages/admin/manage_stock/index","226":"pages/admin/member/index","227":"pages/admin/menuHeader/index","228":"pages/admin/menuLine/index","229":"pages/admin/ministry/index","230":"pages/admin/minstock/index","231":"pages/admin/moneyAdvance/index","232":"pages/admin/moneyAdvance/report/ministryReport","233":"pages/admin/moneyAdvanceByBank/index","234":"pages/admin/moneyAdvanceDashboard/index","235":"pages/admin/moneyAdvanceSettlement/index","236":"pages/admin/moneyAdvanceSettlementByBank/index","237":"pages/admin/moneyAdvanceStatement/index","238":"pages/admin/moneyAdvanceTarget/index","239":"pages/admin/orderTracking/index","240":"pages/admin/orders/index","241":"pages/admin/ordersAll/index","242":"pages/admin/ordersFromAll/index","243":"pages/admin/ordersFromPos/index","244":"pages/admin/ordersFromPosCancel/index","245":"pages/admin/ordersFromPosCredit/index","246":"pages/admin/ordersFromPosGift/index","247":"pages/admin/ordersFromPosGrade/index","248":"pages/admin/ordersFromPosOnline/index","249":"pages/admin/ordersFromPosOnlineCOD/index","250":"pages/admin/ordersFromPosSummaryByCustomer/index","251":"pages/admin/ordersIn/index","252":"pages/admin/ordersOld231101/index","253":"pages/admin/ordersOut/index","254":"pages/admin/payment/index","255":"pages/admin/pl/index","256":"pages/admin/po/index","257":"pages/admin/pos/table/index","258":"pages/admin/product/_id/index","259":"pages/admin/product/index","260":"pages/admin/product/mixins/ImagePreviewMixin","261":"pages/admin/product/productlist","262":"pages/admin/productInuse","263":"pages/admin/quotation/index","264":"pages/admin/quotationList/index","265":"pages/admin/receiving/index","266":"pages/admin/report/MA/1.1/index","267":"pages/admin/report/MA/2.1/index","268":"pages/admin/report/MA/bankSummary/index","269":"pages/admin/report/MA/master/index","270":"pages/admin/report/MA/ministrySummary/index","271":"pages/admin/report/MA/mixin/excel","272":"pages/admin/report/MA/payment/index","273":"pages/admin/report/MA/settlement/bankAccount/index","274":"pages/admin/report/MA/settlement/chartAccount/index","275":"pages/admin/report/MA/settlement/index","276":"pages/admin/report/MA/settlement/ministry/index","277":"pages/admin/report/MA/targetAmount/index","278":"pages/admin/report/index","279":"pages/admin/report_card/index","280":"pages/admin/reservation/index","281":"pages/admin/rider/index","282":"pages/admin/saleCost/index","283":"pages/admin/saleDashBoard/index","284":"pages/admin/saleReportDetail/index","285":"pages/admin/saleReportDetailByCustomer/index","286":"pages/admin/saleReportDetailByHeader/index","287":"pages/admin/saleReportDetailByProduct/index","288":"pages/admin/saleReportDetailByUser/index","289":"pages/admin/saleTicketReportDetailByProduct/index","290":"pages/admin/settings/system","291":"pages/admin/settings/userRole","292":"pages/admin/shipping/index","293":"pages/admin/spf/index","294":"pages/admin/stock/_id/index","295":"pages/admin/tax/index","296":"pages/admin/terminal/index","297":"pages/admin/ticket/index","298":"pages/admin/transaction_code/index","299":"pages/admin/transfer/index","300":"pages/admin/tutorial/index","301":"pages/admin/txn/index","302":"pages/admin/txn_type/index","303":"pages/admin/unit/index","304":"pages/admin/user/index","305":"pages/admin/vendor/index","306":"pages/admin/walletin/index","307":"pages/admin/walletout/index","308":"pages/admin/web_category/index","309":"pages/admin/web_category/test","310":"pages/admin/web_product/_id/index","311":"pages/admin/web_product/index","312":"pages/admin/web_product/mixins/ImagePreviewMixin","313":"pages/e-menu/index","314":"pages/fashion/about-us","315":"pages/fashion/all-product","316":"pages/fashion/contact-us","317":"pages/fashion/index","318":"pages/fashion/index copy","319":"pages/fashion/index_20240429","320":"pages/fashion/product-category","321":"pages/fashion/product-detail","322":"pages/home/index","323":"pages/index","324":"pages/index.bk","325":"pages/lion72/index","326":"pages/lion72/ticket/index","327":"pages/pos/lottery/index","328":"pages/pos/minimart/index","329":"pages/pos/restaurant/index","330":"pages/pos/ticket/index","331":"pages/product-details","332":"pages/product/_id/index","333":"pages/product/_id/product-details","334":"pages/product/index","335":"pages/public/index"}[chunkId]||chunkId) + ".js");
+/******/ 			var chunk = require("./" + ({"0":"components/accounting-transaction","2":"components/account-form","3":"components/accounting-ap-invoice","4":"components/accounting-ap-invoice-audit","5":"components/accounting-ap-invoice-audit-view","6":"components/accounting-ap-payment","7":"components/accounting-ap-settlement","8":"components/accounting-ap-settlement-audit","9":"components/accounting-ap-settlement-audit-view","10":"components/accounting-ap-settlement-browsemou","11":"components/accounting-ap-settlement-voucher","12":"components/accounting-ar-invoice-audit","13":"components/accounting-ar-invoice-audit-view","14":"components/accounting-ar-invoice-maintain","15":"components/accounting-ar-invoice-view","16":"components/accounting-ar-invoice-voucher","17":"components/accounting-ar-receivable","18":"components/accounting-ar-receive-maintain","19":"components/accounting-ar-receive-view","20":"components/accounting-ar-receive-voucher","21":"components/accounting-g-l-form","22":"components/all-product","23":"components/applicants-applicant-dialog","24":"components/applicants-applicant-view-dialog","25":"components/applicants-status-update-dialog","26":"components/authority-form","27":"components/bank-bank-account","28":"components/basic-alert","29":"components/benefit-maintain","30":"components/benefit-view","31":"components/brands","32":"components/c-a-f-e-customer-dialog","33":"components/c-a-f-e-p-o-s-dialog","34":"components/c-a-f-e-payment-dialog-front","35":"components/c-a-f-e-print-bar-dialog","36":"components/c-a-f-e-printdialog","37":"components/cafe-p-o-s-screen","38":"components/calendar-my-calendar","39":"components/campaign-form","40":"components/cancel-ticket-form","41":"components/card-campaign-card","42":"components/card-dash-board","43":"components/card-form","44":"components/card-stock-adjust-ment","45":"components/card-stock-maintenance","46":"components/carousel3d","47":"components/category-form","48":"components/company-form","49":"components/company-theme","50":"components/currency-form","51":"components/customer-form","52":"components/dashboard-card-grouping","53":"components/dashboard-card-on-top","54":"components/dashboard-metric-card","55":"components/dia-confirm","56":"components/dia-image","57":"components/dialog-classic-message","58":"components/dialogs-bottom-alert","59":"components/discount-products-card","60":"components/enhanced-invoice-printer","61":"components/gantt-chart","62":"components/group-form","63":"components/hot-products-card","64":"components/image-dialog","65":"components/image-upload","66":"components/job-advertise-maintain","67":"components/job-advertise-status-update","68":"components/job-advertise-view","69":"components/job-fair-agency-maintain","70":"components/job-fair-agency-view","71":"components/job-fair-job-batch","72":"components/job-fair-mou-maintain","73":"components/line-chart","74":"components/location-form","75":"components/m-a-payment-audit-dialog","76":"components/m-a-payment-audit-report-dialog","77":"components/m-a-payment-compare-dialog","78":"components/m-a-payment-components-bank-account-info","79":"components/m-a-payment-components-date-field","80":"components/m-a-payment-components-dialog-footer","81":"components/m-a-payment-components-dialog-header","82":"components/m-a-payment-components-form-section","83":"components/m-a-payment-components-input-field","84":"components/m-a-payment-components-loading-state","85":"components/m-a-payment-components-ministry-info","86":"components/m-a-payment-components-select-field","87":"components/m-a-payment-components-textarea-field","88":"components/m-a-payment-components-validation-errors","89":"components/m-a-payment-detail-dialog","90":"components/m-a-payment-dialog","91":"components/m-a-payment-voucher","92":"components/m-a-revenue-target-dialog","93":"components/m-a-settlement-dialog","94":"components/m-a-settlement-view-dialog","95":"components/m-a-settlement-voucher","96":"components/member-offer","97":"components/member-usage","98":"components/menu","99":"components/menu-header-form","100":"components/menu-line-form","101":"components/menu-overview","102":"components/min-stock-card","103":"components/ministry-dialog","104":"components/ministry-view-dialog","105":"components/my-chart","106":"components/new-coming","107":"components/new-products-card","108":"components/new-update-product","109":"components/notification","110":"components/nuxt-logo","111":"components/order-detail","112":"components/order-detail-pos","113":"components/order-detail-pos-c-r-u-d","114":"components/order-form","115":"components/order-history-list","116":"components/order-status-form","117":"components/order-sumary-card","118":"components/order-sumary-card-pos","119":"components/order-sumary-card-v2","120":"components/payment-card","121":"components/payment-form","122":"components/payment-qr","123":"components/po-form","124":"components/pos-app-bar","125":"components/pos-cart-drawer","126":"components/pos-cateogory-list","127":"components/pos-dialogs","128":"components/pos-dialogs-quantity-update-dialog","129":"components/pos-dialogs-ticket-details-dialog","130":"components/pos-left-drawer","131":"components/pos-recipe","132":"components/price-list-form","133":"components/product-card","134":"components/product-card-pos","135":"components/product-form","136":"components/product-form-create","137":"components/product-item","138":"components/promotions-promotion-dialog","139":"components/purchasing-form-c-r-u-d","140":"components/receiving-form-c-r-u-d","141":"components/reservation-form","142":"components/rider-form","143":"components/rider-form-copy","144":"components/roles-role-card","145":"components/roles-role-dialog","146":"components/roles-users-list-dialog","147":"components/schedule-month-table","148":"components/settlement","149":"components/shared-confirm-dialog","150":"components/shipping-form","151":"components/simplified-company-form","152":"components/slider","153":"components/spf-dialog","154":"components/terminal-form","155":"components/tickets-notes-dialog","156":"components/tickets-print-dialog","157":"components/tickets-ticket-card","158":"components/tickets-ticket-detail-dialog","159":"components/timeline-giantt-timeline","160":"components/transfer-form","161":"components/transfer-view-form","162":"components/tutorial","163":"components/tutorial-form","164":"components/unit-form","165":"components/user-form","166":"components/vendor-form","167":"components/vuetify-logo","168":"components/wallet","169":"components/web-category-form","170":"components/web-category-product-form","171":"components/web-product-category-form","172":"components/youtube-player","173":"pages/admin/PDFInvoice/_id/index","174":"pages/admin/PDFInvoiceSummary/_id/index","175":"pages/admin/PDFQuotation/_id/index","176":"pages/admin/PDFTicket/_id/index","177":"pages/admin/PDFTransfer/_id/index","178":"pages/admin/accounting/ar/invoice/index","179":"pages/admin/accounting/ar/receive/index","180":"pages/admin/advertise/index","181":"pages/admin/advertise/mixins/ImagePreviewMixin","182":"pages/admin/ap/index","183":"pages/admin/ap/invoice/index","184":"pages/admin/ap/invoiceSettlement/index","185":"pages/admin/applicants/index","186":"pages/admin/applicants/index-1","187":"pages/admin/ar/index","188":"pages/admin/authority/index","189":"pages/admin/bank/index","190":"pages/admin/bankAccount/index","191":"pages/admin/barcodePrint/gianttTime","192":"pages/admin/barcodePrint/index","193":"pages/admin/batch_job/index","194":"pages/admin/benefit/index","195":"pages/admin/booking/index","196":"pages/admin/cafe/promotion/index","197":"pages/admin/cafeTable/customer","198":"pages/admin/cafeTable/index","199":"pages/admin/campaign/index","200":"pages/admin/cancel_order/index","201":"pages/admin/card/index","202":"pages/admin/category/index","203":"pages/admin/chartAccount/index","204":"pages/admin/client/index","205":"pages/admin/cod_order/index","206":"pages/admin/company/index","207":"pages/admin/currency/index","208":"pages/admin/customer/index","209":"pages/admin/customer_request/index","210":"pages/admin/customer_request/topup","211":"pages/admin/customer_request/withdraw","212":"pages/admin/generalLedger/index","213":"pages/admin/group/index","214":"pages/admin/index","215":"pages/admin/inventory/stock-management/index","216":"pages/admin/inventory_value/index","217":"pages/admin/jobAdvertise/index","218":"pages/admin/job_fair/agency/index","219":"pages/admin/job_fair/broker/index","220":"pages/admin/job_fair/employee/index","221":"pages/admin/job_fair/login/index","222":"pages/admin/job_fair/mou/index","223":"pages/admin/location/index","224":"pages/admin/login/index","225":"pages/admin/logout/index","226":"pages/admin/manage_stock/index","227":"pages/admin/member/index","228":"pages/admin/menuHeader/index","229":"pages/admin/menuLine/index","230":"pages/admin/ministry/index","231":"pages/admin/minstock/index","232":"pages/admin/moneyAdvance/index","233":"pages/admin/moneyAdvance/report/ministryReport","234":"pages/admin/moneyAdvanceByBank/index","235":"pages/admin/moneyAdvanceDashboard/index","236":"pages/admin/moneyAdvanceSettlement/index","237":"pages/admin/moneyAdvanceSettlementByBank/index","238":"pages/admin/moneyAdvanceStatement/index","239":"pages/admin/moneyAdvanceTarget/index","240":"pages/admin/orderTracking/index","241":"pages/admin/orders/index","242":"pages/admin/ordersAll/index","243":"pages/admin/ordersFromAll/index","244":"pages/admin/ordersFromPos/index","245":"pages/admin/ordersFromPosCancel/index","246":"pages/admin/ordersFromPosCredit/index","247":"pages/admin/ordersFromPosGift/index","248":"pages/admin/ordersFromPosGrade/index","249":"pages/admin/ordersFromPosOnline/index","250":"pages/admin/ordersFromPosOnlineCOD/index","251":"pages/admin/ordersFromPosSummaryByCustomer/index","252":"pages/admin/ordersIn/index","253":"pages/admin/ordersOld231101/index","254":"pages/admin/ordersOut/index","255":"pages/admin/payment/index","256":"pages/admin/pl/index","257":"pages/admin/po/index","258":"pages/admin/pos/table/index","259":"pages/admin/product/_id/index","260":"pages/admin/product/index","261":"pages/admin/product/mixins/ImagePreviewMixin","262":"pages/admin/product/productlist","263":"pages/admin/productInuse","264":"pages/admin/quotation/index","265":"pages/admin/quotationList/index","266":"pages/admin/receiving/index","267":"pages/admin/report/MA/1.1/index","268":"pages/admin/report/MA/2.1/index","269":"pages/admin/report/MA/bankSummary/index","270":"pages/admin/report/MA/master/index","271":"pages/admin/report/MA/ministrySummary/index","272":"pages/admin/report/MA/mixin/excel","273":"pages/admin/report/MA/payment/index","274":"pages/admin/report/MA/settlement/bankAccount/index","275":"pages/admin/report/MA/settlement/chartAccount/index","276":"pages/admin/report/MA/settlement/index","277":"pages/admin/report/MA/settlement/ministry/index","278":"pages/admin/report/MA/targetAmount/index","279":"pages/admin/report/index","280":"pages/admin/report_card/index","281":"pages/admin/reservation/index","282":"pages/admin/rider/index","283":"pages/admin/saleCost/index","284":"pages/admin/saleDashBoard/index","285":"pages/admin/saleReportDetail/index","286":"pages/admin/saleReportDetailByCustomer/index","287":"pages/admin/saleReportDetailByHeader/index","288":"pages/admin/saleReportDetailByProduct/index","289":"pages/admin/saleReportDetailByUser/index","290":"pages/admin/saleTicketReportDetailByProduct/index","291":"pages/admin/settings/system","292":"pages/admin/settings/userRole","293":"pages/admin/shipping/index","294":"pages/admin/spf/index","295":"pages/admin/stock/_id/index","296":"pages/admin/tax/index","297":"pages/admin/terminal/index","298":"pages/admin/ticket/index","299":"pages/admin/transaction_code/index","300":"pages/admin/transfer/index","301":"pages/admin/tutorial/index","302":"pages/admin/txn/index","303":"pages/admin/txn_type/index","304":"pages/admin/unit/index","305":"pages/admin/user/index","306":"pages/admin/vendor/index","307":"pages/admin/walletin/index","308":"pages/admin/walletout/index","309":"pages/admin/web_category/index","310":"pages/admin/web_category/test","311":"pages/admin/web_product/_id/index","312":"pages/admin/web_product/index","313":"pages/admin/web_product/mixins/ImagePreviewMixin","314":"pages/e-menu/index","315":"pages/fashion/about-us","316":"pages/fashion/all-product","317":"pages/fashion/contact-us","318":"pages/fashion/index","319":"pages/fashion/index copy","320":"pages/fashion/index_20240429","321":"pages/fashion/product-category","322":"pages/fashion/product-detail","323":"pages/home/index","324":"pages/index","325":"pages/index.bk","326":"pages/lion72/index","327":"pages/lion72/ticket/index","328":"pages/pos/lottery/index","329":"pages/pos/minimart/index","330":"pages/pos/restaurant/index","331":"pages/pos/ticket/index","332":"pages/product-details","333":"pages/product/_id/index","334":"pages/product/_id/product-details","335":"pages/product/index","336":"pages/public/index"}[chunkId]||chunkId) + ".js");
 /******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids;
 /******/ 			for(var moduleId in moreModules) {
 /******/ 				modules[moduleId] = moreModules[moduleId];
@@ -14365,6 +14365,10 @@ module.exports = require("core-js/modules/esnext.set.union.js");
  * Enhanced Ticket Generation Module - FLEXIBLE 58MM & 80MM VERSION
  * Supports both 58mm and 80mm thermal printers with dynamic sizing
  * Default: 80mm (can be changed via paperWidth parameter)
+ * 
+ * FIXED ISSUES:
+ * 1. NaN in change field - Added safe number parsing
+ * 2. Gift items - Added [GIFT] marking and FREE display
  */
 
 // ============================================================================
@@ -14501,9 +14505,34 @@ const clearLogoCache = () => {
 };
 
 // ============================================================================
-// UTILITY FUNCTIONS
+// UTILITY FUNCTIONS - ENHANCED WITH NUMBER SAFETY
 // ============================================================================
 
+/**
+ * ✅ FIXED: Safe number parsing to prevent NaN issues
+ */
+const safeParseNumber = (value, defaultValue = 0) => {
+  if (value === null || value === undefined || value === '') {
+    return defaultValue;
+  }
+
+  // If it's already a number
+  if (typeof value === 'number') {
+    return isNaN(value) ? defaultValue : value;
+  }
+
+  // If it's a string, try to parse it
+  if (typeof value === 'string') {
+    // Remove any formatting (commas, currency symbols, etc)
+    const cleanValue = value.toString().replace(/[^\d.-]/g, '');
+    const parsed = parseFloat(cleanValue);
+    return isNaN(parsed) ? defaultValue : parsed;
+  }
+
+  // Convert to number and validate
+  const converted = Number(value);
+  return isNaN(converted) ? defaultValue : converted;
+};
 const formatDate = dateInput => {
   try {
     const date = new Date(dateInput);
@@ -14561,11 +14590,28 @@ const getPaperConfig = (paperWidth = '80mm') => {
 };
 
 // ============================================================================
-// FLEXIBLE TRANSACTION LIST GENERATORS
+// FLEXIBLE TRANSACTION LIST GENERATORS - WITH GIFT SUPPORT
 // ============================================================================
 
 /**
- * Generates transaction list HTML with dynamic layout based on paper width
+ * ✅ Helper function to determine how to display gift items
+ */
+const getGiftDisplayInfo = (item, price) => {
+  const isGift = item.isGift === true;
+  const isFree = price === 0;
+  const hasSpecialPrice = isGift && price > 0;
+  return {
+    isGift,
+    isFree,
+    hasSpecialPrice,
+    displayPrice: isGift && isFree ? 'FREE' : null,
+    cssClass: isGift ? isFree ? 'gift-item gift-free' : 'gift-item gift-special' : '',
+    labelSuffix: isGift ? hasSpecialPrice ? ' [SPECIAL PRICE]' : ' [GIFT]' : ''
+  };
+};
+
+/**
+ * ✅ ENHANCED: Generates transaction list HTML with smart gift item support
  */
 const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
@@ -14579,25 +14625,26 @@ const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumb
       return '';
     }
     const quantity = item.qty || 0;
-    const price = item.localPrice || 0;
+    const price = safeParseNumber(item.localPrice, 0);
     const total = quantity * price;
+    const giftInfo = getGiftDisplayInfo(item, price);
     if (is58mm) {
       // 58MM: Compact single-line format
       return `
-        <div class="item">
-          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-          <div class="item-right">${formatNumber(total)}</div>
+        <div class="item ${giftInfo.cssClass}">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+          <div class="item-right">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     } else {
       // 80MM: More detailed format with unit price
       return `
-        <div class="item">
+        <div class="item ${giftInfo.cssClass}">
           <div class="item-desc">
-            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+            <div class="item-detail">${quantity} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : formatNumber(price)}</div>
           </div>
-          <div class="item-total">${formatNumber(total)}</div>
+          <div class="item-total">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     }
@@ -14605,7 +14652,7 @@ const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumb
 };
 
 /**
- * Generates reprint transaction list with flexible layout
+ * ✅ ENHANCED: Generates reprint transaction list with smart gift support
  */
 const generateFlexibleReprintTransactionList = (productCart, findAllProduct, formatNumber, paperWidth = '80mm') => {
   if (!Array.isArray(productCart) || productCart.length === 0) {
@@ -14623,23 +14670,24 @@ const generateFlexibleReprintTransactionList = (productCart, findAllProduct, for
       return '';
     }
     const quantity = item.quantity || 0;
-    const price = item.price || 0;
+    const price = safeParseNumber(item.price, 0);
     const total = quantity * price;
+    const giftInfo = getGiftDisplayInfo(item, price);
     if (is58mm) {
       return `
-        <div class="item">
-          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-          <div class="item-right">${formatNumber(total)}</div>
+        <div class="item ${giftInfo.cssClass}">
+          <div class="item-left">${quantity}x ${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+          <div class="item-right">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     } else {
       return `
-        <div class="item">
+        <div class="item ${giftInfo.cssClass}">
           <div class="item-desc">
-            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}</div>
-            <div class="item-detail">${quantity} x ${formatNumber(price)}</div>
+            <div class="item-name">${product.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ'}${giftInfo.labelSuffix}</div>
+            <div class="item-detail">${quantity} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : formatNumber(price)}</div>
           </div>
-          <div class="item-total">${formatNumber(total)}</div>
+          <div class="item-total">${giftInfo.displayPrice || formatNumber(total)}</div>
         </div>
       `;
     }
@@ -14650,13 +14698,14 @@ const generateFlexibleReprintTransactionList = (productCart, findAllProduct, for
  * Generates discount section with flexible layout
  */
 const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '80mm') => {
-  if (discount <= 0) return '';
+  const safeDiscount = safeParseNumber(discount, 0); // ✅ Safe parsing
+  if (safeDiscount <= 0) return '';
   const is58mm = paperWidth === '58mm';
   if (is58mm) {
     return `
       <div class="item discount">
         <div class="item-left">ສ່ວນຫຼຸດ</div>
-        <div class="item-right">-${formatNumber(discount)}</div>
+        <div class="item-right">-${formatNumber(safeDiscount)}</div>
       </div>
     `;
   } else {
@@ -14665,7 +14714,7 @@ const generateFlexibleDiscountSection = (discount, formatNumber, paperWidth = '8
         <div class="item-desc">
           <div class="item-name">ສ່ວນຫຼຸດ</div>
         </div>
-        <div class="item-total">-${formatNumber(discount)}</div>
+        <div class="item-total">-${formatNumber(safeDiscount)}</div>
       </div>
     `;
   }
@@ -14678,10 +14727,12 @@ const generateFlexibleTotalSection = (currencyList, grandTotal, discount, format
   if (!Array.isArray(currencyList) || currencyList.length === 0) {
     return '';
   }
-  const finalTotal = grandTotal - discount;
+  const safeGrandTotal = safeParseNumber(grandTotal, 0); // ✅ Safe parsing
+  const safeDiscount = safeParseNumber(discount, 0); // ✅ Safe parsing
+  const finalTotal = safeGrandTotal - safeDiscount;
   const is58mm = paperWidth === '58mm';
   return currencyList.map(currency => {
-    const rate = currency.rate || 1;
+    const rate = safeParseNumber(currency.rate, 1); // ✅ Safe parsing with default 1
     const convertedAmount = finalTotal / rate;
     if (is58mm) {
       return `
@@ -14759,7 +14810,7 @@ const generateFlexibleHeaderSection = (headerData, dateValue, logoUrl, paperWidt
 };
 
 /**
- * Generates payment section with flexible layout
+ * ✅ FIXED: Generates payment section with safe number parsing
  */
 const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = '80mm') => {
   const {
@@ -14767,21 +14818,32 @@ const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = 
     cashReceived,
     changes
   } = paymentData;
+
+  // ✅ CRITICAL FIX: Safe parsing of payment values to prevent NaN
+  const safeCashReceived = safeParseNumber(cashReceived, 0);
+  const safeChanges = safeParseNumber(changes, 0);
+  console.log('🔍 Payment Section Debug:', {
+    originalCashReceived: cashReceived,
+    safeCashReceived,
+    originalChanges: changes,
+    safeChanges,
+    changeType: typeof changes
+  });
   const is58mm = paperWidth === '58mm';
   if (is58mm) {
     return `
       <div class="payment-section">
         <div class="item">
           <div class="item-left">ຊຳລະດ້ວຍ:</div>
-          <div class="item-right">${currentPaymentCode}</div>
+          <div class="item-right">${currentPaymentCode || 'N/A'}</div>
         </div>
         <div class="item">
           <div class="item-left">ຮັບຊຳລະ:</div>
-          <div class="item-right">${formatNumber(cashReceived)}</div>
+          <div class="item-right">${formatNumber(safeCashReceived)}</div>
         </div>
         <div class="item">
           <div class="item-left">ເງິນທອນ:</div>
-          <div class="item-right">${formatNumber(changes)}</div>
+          <div class="item-right">${formatNumber(safeChanges)}</div>
         </div>
       </div>
     `;
@@ -14790,15 +14852,15 @@ const generateFlexiblePaymentSection = (paymentData, formatNumber, paperWidth = 
       <div class="payment-section">
         <div class="payment-item">
           <span class="payment-label">ຊຳລະດ້ວຍ:</span>
-          <span class="payment-value">${currentPaymentCode}</span>
+          <span class="payment-value">${currentPaymentCode || 'N/A'}</span>
         </div>
         <div class="payment-item">
           <span class="payment-label">ຮັບຊຳລະ:</span>
-          <span class="payment-value">${formatNumber(cashReceived)}</span>
+          <span class="payment-value">${formatNumber(safeCashReceived)}</span>
         </div>
         <div class="payment-item">
           <span class="payment-label">ເງິນທອນ:</span>
-          <span class="payment-value">${formatNumber(changes)}</span>
+          <span class="payment-value">${formatNumber(safeChanges)}</span>
         </div>
       </div>
     `;
@@ -14875,6 +14937,53 @@ const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
         .company-tel {
           font-size: ${is58mm ? '8px' : '9px'};
           color: #666;
+        }
+        
+        /* ========== GIFT ITEM STYLES - ENHANCED WITH PRICE DISTINCTION ========== */
+        
+        /* Base gift item styling */
+        .gift-item .item-name,
+        .gift-item .item-left {
+          font-weight: 600;
+        }
+        
+        .gift-item .item-total,
+        .gift-item .item-right {
+          font-weight: 600;
+        }
+        
+        /* Free gift items - Green styling */
+        .gift-free .item-name,
+        .gift-free .item-left {
+          color: #4caf50;
+        }
+        
+        .gift-free .item-total,
+        .gift-free .item-right {
+          color: #4caf50;
+          font-style: italic;
+        }
+        
+        /* Special price gift items - Blue styling */
+        .gift-special .item-name,
+        .gift-special .item-left {
+          color: #1976d2;
+        }
+        
+        .gift-special .item-total,
+        .gift-special .item-right {
+          color: #1976d2;
+        }
+        
+        /* General gift styling fallback */
+        .gift-item:not(.gift-free):not(.gift-special) .item-name,
+        .gift-item:not(.gift-free):not(.gift-special) .item-left {
+          color: #ff9800;
+        }
+        
+        .gift-item:not(.gift-free):not(.gift-special) .item-total,
+        .gift-item:not(.gift-free):not(.gift-special) .item-right {
+          color: #ff9800;
         }
         
         /* ========== 58MM SPECIFIC STYLES ========== */
@@ -15116,7 +15225,7 @@ const printTicket = (windowContent, paperWidth = '80mm') => {
 };
 
 // ============================================================================
-// MAIN TICKET FUNCTIONS - FLEXIBLE VERSIONS
+// MAIN TICKET FUNCTIONS - FIXED VERSIONS
 // ============================================================================
 
 const defaultTicket = async params => {
@@ -15141,6 +15250,12 @@ const defaultTicket = async params => {
   } = params;
   if (!validateTicketParams(params, formatNumber)) return;
   console.log(`🖨️ Generating ticket for ${paperWidth} printer`);
+  console.log('🔍 Input values debug:', {
+    cashReceived,
+    changes,
+    cashReceivedType: typeof cashReceived,
+    changesType: typeof changes
+  });
   try {
     const currentDate = new Date();
     const logoUrl = await getCompanyLogo({
@@ -15538,7 +15653,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("30541c3a", content, true, context)
+  add("2439dfc0", content, true, context)
 };
 
 /***/ }),
@@ -15589,7 +15704,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("1a4c9f68", content, true, context)
+  add("1c399096", content, true, context)
 };
 
 /***/ }),
@@ -15606,7 +15721,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("3c4f8934", content, true, context)
+  add("3eaf2298", content, true, context)
 };
 
 /***/ }),
@@ -15701,7 +15816,7 @@ var VSpacer = __webpack_require__(430);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/MultiPaymentDialog-vue2.vue?vue&type=template&id=e0233320&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/MultiPaymentDialog-vue2.vue?vue&type=template&id=ef5e068e&scoped=true
 
 
 
@@ -15716,7 +15831,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = function render() {
+var MultiPaymentDialog_vue2vue_type_template_id_ef5e068e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VDialog["a" /* default */], {
@@ -15857,19 +15972,29 @@ var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = fu
     }), _vm._v(" "), _c(VTextField["a" /* default */], {
       staticClass: "amount-field mr-2",
       attrs: {
-        "type": "number",
         "dense": "",
         "outlined": "",
         "hide-details": "",
         "placeholder": _vm.getSuggestedAmount(index),
         "suffix": "₭"
       },
-      model: {
-        value: payment.amount,
-        callback: function ($$v) {
-          _vm.$set(payment, "amount", _vm._n($$v));
+      on: {
+        "input": function ($event) {
+          return _vm.handlePredefinedAmountInput(index, $event);
         },
-        expression: "payment.amount"
+        "blur": function ($event) {
+          return _vm.handlePredefinedAmountBlur(index);
+        },
+        "focus": function ($event) {
+          return _vm.handlePredefinedAmountFocus(index);
+        }
+      },
+      model: {
+        value: _vm.predefinedRawInputs[index],
+        callback: function ($$v) {
+          _vm.$set(_vm.predefinedRawInputs, index, $$v);
+        },
+        expression: "predefinedRawInputs[index]"
       }
     }), _vm._v(" "), _vm.requiresReference(payment.paymentId) ? _c(VTextField["a" /* default */], {
       staticClass: "ref-field mr-2",
@@ -15891,8 +16016,7 @@ var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = fu
       attrs: {
         "icon": "",
         "small": "",
-        "color": "primary",
-        "disabled": !_vm.canAddPredefinedPayment(index)
+        "color": "primary"
       },
       on: {
         "click": function ($event) {
@@ -15906,13 +16030,14 @@ var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = fu
     }, [_vm._v("mdi-plus")])], 1)], 1);
   }), 0), _vm._v(" "), _c('div', {
     staticClass: "add-both-section"
+  }, [_c('div', {
+    staticClass: "action-buttons"
   }, [_c(VBtn["a" /* default */], {
     staticClass: "add-both-btn",
     attrs: {
       "small": "",
       "color": "success",
-      "block": "",
-      "disabled": !_vm.canAddBothPredefined || _vm.isProcessing
+      "disabled": _vm.isProcessing
     },
     on: {
       "click": _vm.addBothPredefinedPayments
@@ -15922,7 +16047,27 @@ var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = fu
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-plus-circle")]), _vm._v("\n            ເພີ່ມທັງສອງວິທີ\n          ")], 1)], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("mdi-plus-circle")]), _vm._v("\n              ເພີ່ມທັງສອງວິທີ\n            ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "add-confirm-btn",
+    class: {
+      'validation-ready': _vm.isReadyForAddAndConfirm,
+      'validation-error': !_vm.isReadyForAddAndConfirm
+    },
+    attrs: {
+      "small": "",
+      "color": "primary",
+      "disabled": _vm.isProcessing || !_vm.isReadyForAddAndConfirm,
+      "loading": _vm.isProcessing
+    },
+    on: {
+      "click": _vm.addBothAndConfirm
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v(_vm._s(_vm.isReadyForAddAndConfirm ? 'mdi-check-all' : 'mdi-alert-circle'))]), _vm._v("\n              ເພີ່ມ & ຢືນຢັນ\n            ")], 1)], 1)])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "additional-section"
   }, [_c('div', {
     staticClass: "section-header"
@@ -15931,74 +16076,7 @@ var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = fu
     attrs: {
       "size": "18"
     }
-  }, [_vm._v("mdi-plus")]), _vm._v(" "), _c('span', [_vm._v("ເພີ່ມເຕີມ")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "payment-row"
-  }, [_c(VSelect["a" /* default */], {
-    staticClass: "payment-select flex-grow-1 mr-2",
-    attrs: {
-      "items": _vm.availablePaymentMethods,
-      "item-text": "payment_name",
-      "item-value": "id",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "",
-      "placeholder": "ເລືອກວິທີຈ່າຍ"
-    },
-    model: {
-      value: _vm.newPayment.paymentId,
-      callback: function ($$v) {
-        _vm.$set(_vm.newPayment, "paymentId", $$v);
-      },
-      expression: "newPayment.paymentId"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    staticClass: "amount-field mr-2",
-    attrs: {
-      "type": "number",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "",
-      "placeholder": "ຈຳນວນ",
-      "suffix": "₭"
-    },
-    model: {
-      value: _vm.newPayment.amount,
-      callback: function ($$v) {
-        _vm.$set(_vm.newPayment, "amount", _vm._n($$v));
-      },
-      expression: "newPayment.amount"
-    }
-  }), _vm._v(" "), _vm.requiresReferenceForNew ? _c(VTextField["a" /* default */], {
-    staticClass: "ref-field mr-2",
-    attrs: {
-      "dense": "",
-      "outlined": "",
-      "hide-details": "",
-      "placeholder": "ເລກອ້າງອີງ"
-    },
-    model: {
-      value: _vm.newPayment.referenceNo,
-      callback: function ($$v) {
-        _vm.$set(_vm.newPayment, "referenceNo", $$v);
-      },
-      expression: "newPayment.referenceNo"
-    }
-  }) : _vm._e(), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "add-btn",
-    attrs: {
-      "icon": "",
-      "small": "",
-      "color": "primary",
-      "disabled": !_vm.canAddPayment
-    },
-    on: {
-      "click": _vm.addPaymentMethod
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "small": ""
-    }
-  }, [_vm._v("mdi-plus")])], 1)], 1), _vm._v(" "), _vm.remainingAmount > 0 && _vm.quickAmounts.length > 0 ? _c('div', {
+  }, [_vm._v("mdi-plus")]), _vm._v(" "), _c('span', [_vm._v("ເພີ່ມເຕີມ")])], 1), _vm._v(" "), _vm.remainingAmount > 0 && _vm.quickAmounts.length > 0 ? _c('div', {
     staticClass: "quick-amounts"
   }, [_vm._l(_vm.quickAmounts, function (amount) {
     return _c(VChip["a" /* default */], {
@@ -16125,7 +16203,7 @@ var MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render = fu
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/pos/MultiPaymentDialog-vue2.vue?vue&type=template&id=e0233320&scoped=true
+// CONCATENATED MODULE: ./components/pos/MultiPaymentDialog-vue2.vue?vue&type=template&id=ef5e068e&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(145);
@@ -16234,7 +16312,12 @@ var esnext_set_union_js_ = __webpack_require__(160);
         referenceNo: ''
       },
       isProcessing: false,
-      quickSplitType: null
+      quickSplitType: null,
+      isUpdatingAmounts: false,
+      // Prevent infinite loops during auto-calculation
+      // Store raw input values to avoid cursor issues
+      predefinedRawInputs: ['', ''],
+      newPaymentRawInput: ''
     };
   },
   computed: {
@@ -16318,6 +16401,22 @@ var esnext_set_union_js_ = __webpack_require__(160);
       const remaining = this.remainingAmount;
       if (remaining >= 100000) amounts.push(50000, 100000);else if (remaining >= 50000) amounts.push(20000, 50000);else if (remaining >= 20000) amounts.push(10000, 20000);else if (remaining >= 10000) amounts.push(5000, 10000);
       return [...new Set(amounts)].slice(0, 3);
+    },
+    isReadyForAddAndConfirm() {
+      // Check if both predefined payments have required data
+      if (!this.predefinedPayments || this.predefinedPayments.length < 2) return false;
+      const payment1 = this.predefinedPayments[0];
+      const payment2 = this.predefinedPayments[1];
+
+      // Both must have payment method and amount
+      const payment1Valid = payment1.paymentId && payment1.amount > 0 && (!this.requiresReference(payment1.paymentId) || payment1.referenceNo);
+      const payment2Valid = payment2.paymentId && payment2.amount > 0 && (!this.requiresReference(payment2.paymentId) || payment2.referenceNo);
+      if (!payment1Valid || !payment2Valid) return false;
+
+      // Check if amounts match total
+      const totalPredefinedAmount = (payment1.amount || 0) + (payment2.amount || 0);
+      const availableAmount = this.saleTotal - this.totalPaid;
+      return Math.abs(totalPredefinedAmount - availableAmount) < 0.01;
     }
   },
   watch: {
@@ -16337,17 +16436,109 @@ var esnext_set_union_js_ = __webpack_require__(160);
     }
   },
   methods: {
+    // Simple number formatting methods that avoid cursor issues
+    formatInputNumber(value) {
+      if (!value && value !== 0) return '';
+      return this.formatNumber(value);
+    },
+    parseInputNumber(value) {
+      if (!value) return null;
+      // Remove all non-digit characters except decimal point
+      const cleaned = value.toString().replace(/[^\d.]/g, '');
+      const parsed = parseFloat(cleaned);
+      return isNaN(parsed) ? null : parsed;
+    },
+    // FIXED: Enhanced amount input handlers with proper auto-population
+    handlePredefinedAmountInput(index, value) {
+      // Prevent recursive updates
+      if (this.isUpdatingAmounts) return;
+
+      // Update the actual amount value
+      const parsed = this.parseInputNumber(value);
+      this.$set(this.predefinedPayments[index], 'amount', parsed);
+
+      // Auto-populate the other field with remaining amount
+      if (parsed > 0) {
+        this.isUpdatingAmounts = true;
+        const otherIndex = index === 0 ? 1 : 0;
+        const availableAmount = this.saleTotal - this.totalPaid;
+        const remainingAmount = availableAmount - parsed;
+
+        // Safety check for bounds and valid remaining amount
+        if (remainingAmount >= 0 && otherIndex < this.predefinedPayments.length) {
+          // Update both the actual amount and display value
+          this.$set(this.predefinedPayments[otherIndex], 'amount', remainingAmount);
+          this.$set(this.predefinedRawInputs, otherIndex, remainingAmount > 0 ? remainingAmount.toString() : '');
+        }
+        this.$nextTick(() => {
+          this.isUpdatingAmounts = false;
+        });
+      } else if (parsed === 0 || parsed === null) {
+        // Clear the other field if this field is cleared
+        const otherIndex = index === 0 ? 1 : 0;
+        if (otherIndex < this.predefinedPayments.length) {
+          this.$set(this.predefinedPayments[otherIndex], 'amount', null);
+          this.$set(this.predefinedRawInputs, otherIndex, '');
+        }
+      }
+    },
+    handlePredefinedAmountFocus(index) {
+      // When focusing, show raw number without formatting
+      const amount = this.predefinedPayments[index].amount;
+      if (amount) {
+        this.$set(this.predefinedRawInputs, index, amount.toString());
+      } else {
+        this.$set(this.predefinedRawInputs, index, '');
+      }
+    },
+    handlePredefinedAmountBlur(index) {
+      // When blurring, format the display
+      const amount = this.predefinedPayments[index].amount;
+      if (amount) {
+        this.$set(this.predefinedRawInputs, index, this.formatNumber(amount));
+
+        // Also format the other field if it has a value
+        const otherIndex = index === 0 ? 1 : 0;
+        if (otherIndex < this.predefinedPayments.length && this.predefinedPayments[otherIndex].amount) {
+          this.$set(this.predefinedRawInputs, otherIndex, this.formatNumber(this.predefinedPayments[otherIndex].amount));
+        }
+      } else {
+        this.$set(this.predefinedRawInputs, index, '');
+      }
+    },
+    // Enhanced amount input handlers for new payment
+    handleNewAmountInput(value) {
+      this.newPayment.amount = this.parseInputNumber(value);
+    },
+    handleNewAmountFocus() {
+      // When focusing, show raw number without formatting
+      if (this.newPayment.amount) {
+        this.newPaymentRawInput = this.newPayment.amount.toString();
+      } else {
+        this.newPaymentRawInput = '';
+      }
+    },
+    handleNewAmountBlur() {
+      // When blurring, format the display
+      if (this.newPayment.amount) {
+        this.newPaymentRawInput = this.formatNumber(this.newPayment.amount);
+      } else {
+        this.newPaymentRawInput = '';
+      }
+    },
     initializePredefinedPayments() {
       if (!this.enablePredefinedPayments) {
         this.predefinedPayments = [];
+        this.predefinedRawInputs = ['', ''];
         return;
       }
 
       // Clear existing predefined payments
       this.predefinedPayments = [];
+      this.predefinedRawInputs = ['', ''];
       if (this.defaultPaymentMethods.length > 0) {
         // Use provided default payment methods
-        this.defaultPaymentMethods.slice(0, 2).forEach(paymentId => {
+        this.defaultPaymentMethods.slice(0, 2).forEach((paymentId, index) => {
           // Verify the payment method exists
           const paymentMethod = this.availablePaymentMethods.find(p => p.id === paymentId);
           if (paymentMethod) {
@@ -16356,17 +16547,19 @@ var esnext_set_union_js_ = __webpack_require__(160);
               amount: null,
               referenceNo: ''
             });
+            this.$set(this.predefinedRawInputs, index, '');
           }
         });
       } else if (this.availablePaymentMethods.length > 0) {
         // Auto-select first two available payment methods
         const availableMethods = this.availablePaymentMethods.slice(0, 2);
-        availableMethods.forEach(method => {
+        availableMethods.forEach((method, index) => {
           this.predefinedPayments.push({
             paymentId: method.id,
             amount: null,
             referenceNo: ''
           });
+          this.$set(this.predefinedRawInputs, index, '');
         });
       }
 
@@ -16386,7 +16579,12 @@ var esnext_set_union_js_ = __webpack_require__(160);
       return payment.paymentId && payment.amount > 0 && payment.amount <= this.remainingAmount && (!this.requiresReference(payment.paymentId) || payment.referenceNo);
     },
     addPredefinedPayment(index) {
-      if (!this.canAddPredefinedPayment(index)) return;
+      // Gracefully handle the case where validation might fail
+      if (!this.canAddPredefinedPayment(index)) {
+        // Show a subtle feedback or just return silently
+        console.log(`Payment ${index + 1} not ready to add`);
+        return;
+      }
       const predefinedPayment = this.predefinedPayments[index];
       this.payments.push({
         paymentId: predefinedPayment.paymentId,
@@ -16400,41 +16598,136 @@ var esnext_set_union_js_ = __webpack_require__(160);
         amount: null,
         referenceNo: ''
       };
+      this.$set(this.predefinedRawInputs, index, '');
     },
     addBothPredefinedPayments() {
-      if (!this.canAddBothPredefined) return;
-
-      // Add both predefined payments in order
+      // Check if there are any valid payments to add
+      let addedCount = 0;
       for (let i = 0; i < this.predefinedPayments.length; i++) {
         if (this.canAddPredefinedPayment(i)) {
           this.addPredefinedPayment(i);
+          addedCount++;
         }
       }
+      if (addedCount === 0) {
+        console.log('No valid payments to add - please enter payment details');
+        // Could emit a toast notification here
+        // this.$emit('show-message', 'ກະລຸນາໃສ່ຂໍ້ມູນການຈ່າຍເງິນກ່ອນ')
+      } else {
+        console.log(`${addedCount} predefined payments added successfully`);
+      }
+    },
+    async addBothAndConfirm() {
+      var _this$predefinedPayme, _this$predefinedPayme2;
+      if (this.isProcessing) return;
 
-      // Optionally show a success message
-      this.$nextTick(() => {
-        console.log('Both predefined payments added successfully');
-        // You could emit an event or show a toast notification here
-        // this.$emit('payments-added', 'ເພີ່ມການຈ່າຍເງິນທັງສອງວິທີສຳເລັດແລ້ວ')
-      });
+      // VALIDATION: Check if predefined amounts match total before proceeding
+      const payment1Amount = ((_this$predefinedPayme = this.predefinedPayments[0]) === null || _this$predefinedPayme === void 0 ? void 0 : _this$predefinedPayme.amount) || 0;
+      const payment2Amount = ((_this$predefinedPayme2 = this.predefinedPayments[1]) === null || _this$predefinedPayme2 === void 0 ? void 0 : _this$predefinedPayme2.amount) || 0;
+      const totalPredefinedAmount = payment1Amount + payment2Amount;
+      const availableAmount = this.saleTotal - this.totalPaid;
+
+      // Check if amounts match the available total
+      if (Math.abs(totalPredefinedAmount - availableAmount) > 0.01) {
+        console.log(`Amount mismatch: Predefined total ${totalPredefinedAmount} doesn't match available ${availableAmount}`);
+
+        // You can emit an event to show a toast notification
+        this.$emit('validation-error', {
+          message: `ຈຳນວນເງິນບໍ່ຕົງກັນ: ${this.formatNumber(totalPredefinedAmount)} ≠ ${this.formatNumber(availableAmount)}`,
+          type: 'warning'
+        });
+        return; // Prevent execution
+      }
+
+      // Check if both payments have required data
+      const validPayments = this.predefinedPayments.filter(payment => payment.paymentId && payment.amount > 0 && (!this.requiresReference(payment.paymentId) || payment.referenceNo));
+      if (validPayments.length < 2) {
+        console.log('Incomplete payment data - both payments must have method and amount');
+        this.$emit('validation-error', {
+          message: 'ກະລຸນາໃສ່ຂໍ້ມູນການຈ່າຍເງິນໃຫ້ຄົບຖ້ວນ',
+          type: 'warning'
+        });
+        return; // Prevent execution
+      }
+      this.isProcessing = true;
+      try {
+        // Add any valid payments first
+        let addedCount = 0;
+        for (let i = 0; i < this.predefinedPayments.length; i++) {
+          if (this.canAddPredefinedPayment(i)) {
+            this.addPredefinedPayment(i);
+            addedCount++;
+          }
+        }
+        if (addedCount === 0) {
+          console.log('No valid payments to add');
+          this.isProcessing = false;
+          return;
+        }
+
+        // Wait for UI to update
+        await this.$nextTick();
+
+        // Check if we can confirm (should be true if amounts total correctly)
+        if (this.canConfirmPayment) {
+          // Prepare payment data
+          const paymentData = this.payments.map(payment => ({
+            saleHeaderId: this.saleHeaderId,
+            paymentId: payment.paymentId,
+            amount: payment.amount,
+            referenceNo: payment.referenceNo || null
+          }));
+
+          // Emit the confirmation
+          this.$emit('confirm-payment', paymentData);
+          console.log(`${addedCount} payments added and confirmed successfully`);
+        } else {
+          console.log('Cannot confirm payment - amounts may not match total');
+          this.$emit('validation-error', {
+            message: 'ບໍ່ສາມາດຢືນຢັນການຈ່າຍເງິນໄດ້ - ກະລຸນາກວດສອບຈຳນວນເງິນ',
+            type: 'error'
+          });
+        }
+      } catch (error) {
+        this.$emit('payment-error', error);
+      } finally {
+        this.isProcessing = false;
+      }
     },
     splitEqually() {
-      const splitAmount = Math.round(this.saleTotal / 2);
+      const availableAmount = this.saleTotal - this.totalPaid;
+      const splitAmount = Math.round(availableAmount / 2);
       if (this.predefinedPayments.length >= 2) {
+        this.isUpdatingAmounts = true;
         this.predefinedPayments[0].amount = splitAmount;
-        this.predefinedPayments[1].amount = this.saleTotal - splitAmount;
+        this.predefinedPayments[1].amount = availableAmount - splitAmount;
+        // Update raw inputs with formatted values
+        this.$set(this.predefinedRawInputs, 0, this.formatNumber(splitAmount));
+        this.$set(this.predefinedRawInputs, 1, this.formatNumber(availableAmount - splitAmount));
+        this.$nextTick(() => {
+          this.isUpdatingAmounts = false;
+        });
       }
     },
     setSuggestedSplit() {
-      const primaryAmount = Math.round(this.saleTotal * 0.7);
+      const availableAmount = this.saleTotal - this.totalPaid;
+      const primaryAmount = Math.round(availableAmount * 0.7);
       if (this.predefinedPayments.length >= 2) {
+        this.isUpdatingAmounts = true;
         this.predefinedPayments[0].amount = primaryAmount;
-        this.predefinedPayments[1].amount = this.saleTotal - primaryAmount;
+        this.predefinedPayments[1].amount = availableAmount - primaryAmount;
+        // Update raw inputs with formatted values
+        this.$set(this.predefinedRawInputs, 0, this.formatNumber(primaryAmount));
+        this.$set(this.predefinedRawInputs, 1, this.formatNumber(availableAmount - primaryAmount));
+        this.$nextTick(() => {
+          this.isUpdatingAmounts = false;
+        });
       }
     },
     getSuggestedAmount(index) {
-      if (index === 0) return this.formatNumber(Math.round(this.saleTotal * 0.7));
-      if (index === 1) return this.formatNumber(Math.round(this.saleTotal * 0.3));
+      const availableAmount = this.saleTotal - this.totalPaid;
+      if (index === 0) return this.formatNumber(Math.round(availableAmount * 0.7));
+      if (index === 1) return this.formatNumber(Math.round(availableAmount * 0.3));
       return '';
     },
     addPaymentMethod() {
@@ -16451,6 +16744,7 @@ var esnext_set_union_js_ = __webpack_require__(160);
     },
     setQuickAmount(amount) {
       this.newPayment.amount = amount;
+      this.newPaymentRawInput = this.formatNumber(amount);
       if (this.newPayment.paymentId && this.canAddPayment) {
         this.addPaymentMethod();
       }
@@ -16514,6 +16808,9 @@ var esnext_set_union_js_ = __webpack_require__(160);
       this.payments = [];
       this.resetNewPaymentForm();
       this.isProcessing = false;
+      this.isUpdatingAmounts = false;
+      this.predefinedRawInputs = ['', ''];
+      this.newPaymentRawInput = '';
       // predefinedPayments will be re-initialized by watch
     },
     resetNewPaymentForm() {
@@ -16522,6 +16819,7 @@ var esnext_set_union_js_ = __webpack_require__(160);
         amount: null,
         referenceNo: ''
       };
+      this.newPaymentRawInput = '';
     },
     handleEnterKey() {
       for (let i = 0; i < this.predefinedPayments.length; i++) {
@@ -16558,11 +16856,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   pos_MultiPaymentDialog_vue2vue_type_script_lang_js,
-  MultiPaymentDialog_vue2vue_type_template_id_e0233320_scoped_true_render,
+  MultiPaymentDialog_vue2vue_type_template_id_ef5e068e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "e0233320",
+  "ef5e068e",
   "1e11d674"
   
 )
@@ -16965,7 +17263,7 @@ var VRow = __webpack_require__(427);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CartFooterComponent.vue?vue&type=template&id=7eecaaf2&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CartFooterComponent.vue?vue&type=template&id=8d4defc0&scoped=true
 
 
 
@@ -16975,12 +17273,12 @@ var VTextField = __webpack_require__(38);
 
 
 
-var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = function render() {
+var CartFooterComponentvue_type_template_id_8d4defc0_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "cart-footer"
-  }, [_vm._ssrNode("<div class=\"payment-inputs pa-4\" data-v-7eecaaf2>", "</div>", [_c(VRow["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"payment-inputs pa-4\" data-v-8d4defc0>", "</div>", [_c(VRow["a" /* default */], {
     staticClass: "ga-3",
     attrs: {
       "no-gutters": ""
@@ -16993,9 +17291,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
   }, [_c(VTextField["a" /* default */], {
     staticClass: "discount-input",
     attrs: {
-      "value": _vm.discount,
       "label": "ສ່ວນຫລຸດ",
-      "type": "number",
       "outlined": "",
       "dense": "",
       "prepend-inner-icon": "mdi-percent",
@@ -17003,8 +17299,21 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     },
     on: {
       "input": function ($event) {
-        return _vm.$emit('update:discount', $event);
+        return _vm.handleDiscountInput($event);
+      },
+      "blur": function ($event) {
+        return _vm.handleDiscountBlur();
+      },
+      "focus": function ($event) {
+        return _vm.handleDiscountFocus();
       }
+    },
+    model: {
+      value: _vm.discountRawInput,
+      callback: function ($$v) {
+        _vm.discountRawInput = $$v;
+      },
+      expression: "discountRawInput"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
@@ -17014,9 +17323,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
   }, [_c(VTextField["a" /* default */], {
     staticClass: "cash-input",
     attrs: {
-      "value": _vm.cashReceived,
       "label": "ເງິນທີ່ໄດ້ຮັບ (ສຳລັບເງິນສົດ)",
-      "type": "number",
       "outlined": "",
       "dense": "",
       "prepend-inner-icon": "mdi-cash",
@@ -17026,10 +17333,23 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     },
     on: {
       "input": function ($event) {
-        return _vm.$emit('update:cash-received', $event);
+        return _vm.handleCashReceivedInput($event);
+      },
+      "blur": function ($event) {
+        return _vm.handleCashReceivedBlur();
+      },
+      "focus": function ($event) {
+        return _vm.handleCashReceivedFocus();
       }
+    },
+    model: {
+      value: _vm.cashReceivedRawInput,
+      callback: function ($$v) {
+        _vm.cashReceivedRawInput = $$v;
+      },
+      expression: "cashReceivedRawInput"
     }
-  })], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"total-display pa-4\" data-v-7eecaaf2>", "</div>", [_c(VRow["a" /* default */], {
+  })], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"total-display pa-4\" data-v-8d4defc0>", "</div>", [_c(VRow["a" /* default */], {
     staticClass: "total-row",
     attrs: {
       "no-gutters": "",
@@ -17061,7 +17381,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     staticClass: "stat-label"
   }, [_vm._v("ຊິ້ນ")]), _vm._v(" "), _c('div', {
     staticClass: "stat-value"
-  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.totalItems)))])]), _vm._v(" "), _vm.discount > 0 ? _c(VCol["a" /* default */], {
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.totalItems)))])]), _vm._v(" "), _vm.discountNumber > 0 ? _c(VCol["a" /* default */], {
     staticClass: "text-right",
     attrs: {
       "cols": "6"
@@ -17070,7 +17390,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     staticClass: "discount-label"
   }, [_vm._v("ສ່ວນຫລຸດ")]), _vm._v(" "), _c('div', {
     staticClass: "discount-amount"
-  }, [_vm._v("-" + _vm._s(_vm.formatNumber(_vm.discount)))])]) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("-" + _vm._s(_vm.formatNumber(_vm.discountNumber)))])]) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "text-right",
     attrs: {
       "cols": "6"
@@ -17081,7 +17401,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     staticClass: "change-amount"
   }, [_vm._v(_vm._s(_vm.changes))])])], 1), _vm._ssrNode(" "), _c(VDivider["a" /* default */], {
     staticClass: "my-2"
-  }), _vm._ssrNode(" "),  false ? undefined : _vm._e()], 2), _vm._ssrNode(" "), _vm.showCheckOut ? _vm._ssrNode("<div class=\"payment-methods pa-4\" data-v-7eecaaf2>", "</div>", [_vm._ssrNode("<div class=\"payment-section-header mb-3\" data-v-7eecaaf2>", "</div>", [_c(VRow["a" /* default */], {
+  }), _vm._ssrNode(" "),  false ? undefined : _vm._e()], 2), _vm._ssrNode(" "), _vm.showCheckOut ? _vm._ssrNode("<div class=\"payment-methods pa-4\" data-v-8d4defc0>", "</div>", [_vm._ssrNode("<div class=\"payment-section-header mb-3\" data-v-8d4defc0>", "</div>", [_c(VRow["a" /* default */], {
     attrs: {
       "no-gutters": "",
       "align": "center"
@@ -17145,7 +17465,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     }, [_vm._v("\n              " + _vm._s(_vm.getPaymentIcon(payment.payment_code)) + "\n            ")]), _vm._v(" "), _c('div', {
       staticClass: "payment-name"
     }, [_vm._v("\n              " + _vm._s(payment.payment_name) + "\n            ")])], 1)], 1)], 1);
-  }), 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"action-buttons pa-4\" data-v-7eecaaf2>", "</div>", [_c(VRow["a" /* default */], {
+  }), 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"action-buttons pa-4\" data-v-8d4defc0>", "</div>", [_c(VRow["a" /* default */], {
     staticClass: "ga-2",
     attrs: {
       "no-gutters": ""
@@ -17213,7 +17533,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n          ຈ່າຍເງິນຫຼາຍວິທີ\n        ")], 1)], 1)], 1) : _vm._e()], 2), _vm._ssrNode(" "), !_vm.showCheckOut && 1 == 0 ? _vm._ssrNode("<div class=\"quick-stats pa-0\" data-v-7eecaaf2>", "</div>", [_c(VRow["a" /* default */], {
+  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n          ຈ່າຍເງິນຫຼາຍວິທີ\n        ")], 1)], 1)], 1) : _vm._e()], 2), _vm._ssrNode(" "), !_vm.showCheckOut && 1 == 0 ? _vm._ssrNode("<div class=\"quick-stats pa-0\" data-v-8d4defc0>", "</div>", [_c(VRow["a" /* default */], {
     attrs: {
       "no-gutters": "",
       "align": "center"
@@ -17249,7 +17569,7 @@ var CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render = functi
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/pos/CartFooterComponent.vue?vue&type=template&id=7eecaaf2&scoped=true
+// CONCATENATED MODULE: ./components/pos/CartFooterComponent.vue?vue&type=template&id=8d4defc0&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/CartFooterComponent.vue?vue&type=script&lang=js
 /* harmony default export */ var CartFooterComponentvue_type_script_lang_js = ({
@@ -17260,12 +17580,20 @@ var staticRenderFns = [];
       default: () => []
     },
     discount: {
-      type: Number,
-      default: 0
+      type: [Number, String],
+      default: 0,
+      validator(value) {
+        // Accept empty string, null, undefined, or valid numbers
+        return value === '' || value === null || value === undefined || !isNaN(Number(value));
+      }
     },
     cashReceived: {
-      type: Number,
-      default: 0
+      type: [Number, String],
+      default: 0,
+      validator(value) {
+        // Accept empty string, null, undefined, or valid numbers
+        return value === '' || value === null || value === undefined || !isNaN(Number(value));
+      }
     },
     changes: {
       type: String,
@@ -17303,10 +17631,22 @@ var staticRenderFns = [];
   data() {
     return {
       currencySymbol: 'LAK',
-      processingPayment: false
+      processingPayment: false,
+      // Raw input values for number formatting
+      discountRawInput: '',
+      cashReceivedRawInput: ''
     };
   },
   computed: {
+    // Convert props to numbers safely
+    discountNumber() {
+      const num = Number(this.discount);
+      return isNaN(num) ? 0 : num;
+    },
+    cashReceivedNumber() {
+      const num = Number(this.cashReceived);
+      return isNaN(num) ? 0 : num;
+    },
     subtotal() {
       return this.productCart.reduce((sum, item) => {
         return sum + item.qty * item.localPrice;
@@ -17329,8 +17669,8 @@ var staticRenderFns = [];
 
       // For cash payments, ensure sufficient cash received
       // if (this.isTraditionalCashPayment) {
-      //   const requiredAmount = this.grandTotal - this.discount
-      //   return this.cashReceived >= requiredAmount
+      //   const requiredAmount = this.grandTotal - this.discountNumber
+      //   return this.cashReceivedNumber >= requiredAmount
       // }
 
       // For non-cash payments, just need selection
@@ -17346,7 +17686,94 @@ var staticRenderFns = [];
       return `ຊຳລະດ້ວຍ ${this.selectedPaymentMethod.payment_name}`;
     }
   },
+  watch: {
+    // Initialize raw inputs when props change
+    discount: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal > 0) {
+          this.discountRawInput = this.formatNumber(this.discountNumber);
+        } else {
+          this.discountRawInput = '';
+        }
+      }
+    },
+    cashReceived: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal > 0) {
+          this.cashReceivedRawInput = this.formatNumber(this.cashReceivedNumber);
+        } else {
+          this.cashReceivedRawInput = '';
+        }
+      }
+    }
+  },
   methods: {
+    // Number formatting methods (same as multi-payment component)
+    parseInputNumber(value) {
+      if (!value) return null;
+      // Remove all non-digit characters except decimal point
+      const cleaned = value.toString().replace(/[^\d.]/g, '');
+      const parsed = parseFloat(cleaned);
+      return isNaN(parsed) ? null : parsed;
+    },
+    // Discount field handlers
+    handleDiscountInput(value) {
+      // Only parse, don't emit immediately to prevent formatting issues
+      // The actual emit will happen on blur
+    },
+    handleDiscountFocus() {
+      // When focusing, show raw number without formatting
+      if (this.discountNumber > 0) {
+        this.discountRawInput = this.discountNumber.toString();
+      } else {
+        this.discountRawInput = '';
+      }
+    },
+    handleDiscountBlur() {
+      // Parse the input value
+      const parsed = this.parseInputNumber(this.discountRawInput);
+      const cleanValue = parsed || 0;
+
+      // Emit the clean value to parent
+      this.$emit('update:discount', cleanValue);
+
+      // Format the display
+      if (cleanValue > 0) {
+        this.discountRawInput = this.formatNumber(cleanValue);
+      } else {
+        this.discountRawInput = '';
+      }
+    },
+    // Cash received field handlers
+    handleCashReceivedInput(value) {
+      // Only parse, don't emit immediately to prevent formatting issues
+      // The actual emit will happen on blur
+    },
+    handleCashReceivedFocus() {
+      // When focusing, show raw number without formatting
+      if (this.cashReceivedNumber > 0) {
+        this.cashReceivedRawInput = this.cashReceivedNumber.toString();
+      } else {
+        this.cashReceivedRawInput = '';
+      }
+    },
+    handleCashReceivedBlur() {
+      // Parse the input value
+      const parsed = this.parseInputNumber(this.cashReceivedRawInput);
+      const cleanValue = parsed || 0;
+
+      // Emit the clean value to parent
+      this.$emit('update:cash-received', cleanValue);
+
+      // Format the display
+      if (cleanValue > 0) {
+        this.cashReceivedRawInput = this.formatNumber(cleanValue);
+      } else {
+        this.cashReceivedRawInput = '';
+      }
+    },
     selectPayment(paymentId) {
       this.$emit('select-payment', paymentId);
     },
@@ -17389,8 +17816,8 @@ var staticRenderFns = [];
         this.$emit('show-error', 'ກະລຸນາເລືອກວິທີການຊຳລະ');
         return;
       }
-      if (this.isTraditionalCashPayment && this.cashReceived < this.grandTotal - this.discount) {
-        const needed = this.formatNumber(this.grandTotal - this.discount - this.cashReceived);
+      if (this.isTraditionalCashPayment && this.cashReceivedNumber < this.grandTotal - this.discountNumber) {
+        const needed = this.formatNumber(this.grandTotal - this.discountNumber - this.cashReceivedNumber);
         this.$emit('show-error', `ຈຳນວນເງິນບໍ່ພຽງພໍ ຕ້ອງການອີກ ${needed}`);
         return;
       }
@@ -17426,11 +17853,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   pos_CartFooterComponentvue_type_script_lang_js,
-  CartFooterComponentvue_type_template_id_7eecaaf2_scoped_true_render,
+  CartFooterComponentvue_type_template_id_8d4defc0_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "7eecaaf2",
+  "8d4defc0",
   "bab855b8"
   
 )
@@ -21357,9 +21784,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_e0233320_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(177);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_e0233320_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_e0233320_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_e0233320_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_e0233320_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_ef5e068e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(177);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_ef5e068e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_ef5e068e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_ef5e068e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiPaymentDialog_vue2_vue_vue_type_style_index_0_id_ef5e068e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -21370,7 +21797,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".multi-payment-card[data-v-e0233320]{border-radius:12px;max-height:85vh}.debug-info[data-v-e0233320]{font-family:monospace;font-size:10px}.payment-header[data-v-e0233320]{background:#fff;border-bottom:1px solid #e0e0e0;padding:16px 20px!important}.title-text[data-v-e0233320]{color:#333;font-size:1.1rem;font-weight:500}.total-display[data-v-e0233320]{text-align:right}.total-label[data-v-e0233320]{color:#666;font-size:.7rem;letter-spacing:.5px;text-transform:uppercase}.total-amount[data-v-e0233320]{color:#1976d2;font-size:1.2rem;font-weight:600}.payment-summary[data-v-e0233320]{background:#f8f9fa;border-bottom:1px solid #e0e0e0;padding:12px 20px}.summary-grid[data-v-e0233320]{display:grid;grid-template-columns:1fr 1fr 80px;grid-gap:16px;gap:16px;text-align:center}.summary-card[data-v-e0233320]{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:8px}.summary-amount[data-v-e0233320]{font-size:.9rem;font-weight:600;margin-bottom:2px}.summary-label[data-v-e0233320]{color:#666;font-size:.65rem;text-transform:uppercase}.summary-card.paid .summary-amount[data-v-e0233320]{color:#4caf50}.summary-card.remaining .summary-amount[data-v-e0233320]{color:#ff9800}.summary-card.overpaid .summary-amount[data-v-e0233320]{color:#f44336}.summary-card.complete .summary-amount[data-v-e0233320]{color:#4caf50}.additional-section[data-v-e0233320],.predefined-section[data-v-e0233320]{border-bottom:1px solid #f0f0f0;padding:16px 20px}.add-both-section[data-v-e0233320]{border-bottom:1px solid #f0f0f0;padding:8px 20px 16px}.add-both-btn[data-v-e0233320]{border-radius:8px;font-weight:500;height:36px;text-transform:none!important}.add-both-btn[data-v-e0233320]:not(:disabled){background:linear-gradient(45deg,#4caf50,#66bb6a)!important;color:#fff!important}.add-both-btn[data-v-e0233320]:hover:not(:disabled){background:linear-gradient(45deg,#388e3c,#4caf50)!important;box-shadow:0 4px 8px rgba(76,175,80,.3);transform:translateY(-1px)}.section-header[data-v-e0233320]{align-items:center;color:#666;display:flex;font-size:.85rem;font-weight:500;letter-spacing:.3px;margin-bottom:12px;text-transform:uppercase}.quick-split-toggle[data-v-e0233320]{height:28px}.quick-split-toggle .v-btn[data-v-e0233320]{min-width:28px!important;padding:0 8px!important}.payment-row[data-v-e0233320]{align-items:center;display:flex;gap:8px;margin-bottom:8px}.payment-select[data-v-e0233320]{flex:2}.amount-field[data-v-e0233320]{flex:0 0 120px;width:120px}.ref-field[data-v-e0233320]{flex:0 0 100px;width:100px}.add-btn[data-v-e0233320]{height:32px!important;min-width:32px!important;width:32px!important}.quick-amounts[data-v-e0233320]{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.quick-chip[data-v-e0233320]{cursor:pointer;font-size:.7rem!important;height:24px!important}.payments-list[data-v-e0233320]{max-height:200px;overflow-y:auto}.empty-state[data-v-e0233320]{color:#999;padding:32px 20px;text-align:center}.empty-text[data-v-e0233320]{font-size:.85rem;margin-top:8px}.payment-items[data-v-e0233320]{padding:8px 20px}.payment-item[data-v-e0233320]{align-items:center;background:#f8f9fa;border-radius:8px;display:flex;margin-bottom:6px;padding:8px 12px;transition:all .2s ease}.payment-item[data-v-e0233320]:hover{background:#e3f2fd;transform:translateY(-1px)}.payment-info[data-v-e0233320]{flex:1}.payment-icon[data-v-e0233320],.payment-info[data-v-e0233320]{align-items:center;display:flex}.payment-icon[data-v-e0233320]{background:#fff;border-radius:6px;height:32px;justify-content:center;margin-right:12px;width:32px}.payment-details[data-v-e0233320]{flex:1}.payment-name[data-v-e0233320]{color:#333;font-size:.85rem;font-weight:500;line-height:1.2}.payment-ref[data-v-e0233320]{color:#666;font-size:.7rem;margin-top:2px}.payment-amount[data-v-e0233320]{margin-right:8px;text-align:right}.amount[data-v-e0233320]{color:#2e7d32;font-size:.9rem;font-weight:600}.percentage[data-v-e0233320]{color:#666;font-size:.7rem}.remove-btn[data-v-e0233320]{height:24px!important;min-width:24px!important;width:24px!important}.validation-section[data-v-e0233320]{padding:0}.validation-alert[data-v-e0233320]{border-radius:6px;margin:12px 20px!important}.payment-actions[data-v-e0233320]{background:#fafafa;border-top:1px solid #e0e0e0;padding:12px 20px}.cancel-btn[data-v-e0233320],.confirm-btn[data-v-e0233320]{font-weight:500;height:36px;text-transform:none}.confirm-btn[data-v-e0233320]{padding:0 24px}@media (max-width:600px){.summary-grid[data-v-e0233320]{gap:8px;grid-template-columns:1fr 1fr}.summary-card.status[data-v-e0233320]{grid-column:1/-1}.payment-row[data-v-e0233320]{flex-direction:column;gap:8px}.amount-field[data-v-e0233320],.payment-select[data-v-e0233320],.ref-field[data-v-e0233320]{flex:1;width:100%}.payment-actions[data-v-e0233320]{flex-direction:column;gap:8px}.cancel-btn[data-v-e0233320],.confirm-btn[data-v-e0233320]{width:100%}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".multi-payment-card[data-v-ef5e068e]{border-radius:12px;max-height:85vh}.debug-info[data-v-ef5e068e]{font-family:monospace;font-size:10px}.payment-header[data-v-ef5e068e]{background:#fff;border-bottom:1px solid #e0e0e0;padding:16px 20px!important}.title-text[data-v-ef5e068e]{color:#333;font-size:1.1rem;font-weight:500}.total-display[data-v-ef5e068e]{text-align:right}.total-label[data-v-ef5e068e]{color:#666;font-size:.7rem;letter-spacing:.5px;text-transform:uppercase}.total-amount[data-v-ef5e068e]{color:#1976d2;font-size:1.2rem;font-weight:600}.payment-summary[data-v-ef5e068e]{background:#f8f9fa;border-bottom:1px solid #e0e0e0;padding:12px 20px}.summary-grid[data-v-ef5e068e]{display:grid;grid-template-columns:1fr 1fr 80px;grid-gap:16px;gap:16px;text-align:center}.summary-card[data-v-ef5e068e]{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:8px}.summary-amount[data-v-ef5e068e]{font-size:.9rem;font-weight:600;margin-bottom:2px}.summary-label[data-v-ef5e068e]{color:#666;font-size:.65rem;text-transform:uppercase}.summary-card.paid .summary-amount[data-v-ef5e068e]{color:#4caf50}.summary-card.remaining .summary-amount[data-v-ef5e068e]{color:#ff9800}.summary-card.overpaid .summary-amount[data-v-ef5e068e]{color:#f44336}.summary-card.complete .summary-amount[data-v-ef5e068e]{color:#4caf50}.additional-section[data-v-ef5e068e],.predefined-section[data-v-ef5e068e]{border-bottom:1px solid #f0f0f0;padding:16px 20px}.add-both-section[data-v-ef5e068e]{border-bottom:1px solid #f0f0f0;padding:8px 20px 16px}.action-buttons[data-v-ef5e068e]{display:flex;gap:8px}.add-both-btn[data-v-ef5e068e],.add-confirm-btn[data-v-ef5e068e]{border-radius:8px;flex:1;font-weight:500;height:36px;text-transform:none!important}.add-both-btn[data-v-ef5e068e]:not(:disabled){background:linear-gradient(45deg,#4caf50,#66bb6a)!important;color:#fff!important}.add-both-btn[data-v-ef5e068e]:hover:not(:disabled){background:linear-gradient(45deg,#388e3c,#4caf50)!important;box-shadow:0 4px 8px rgba(76,175,80,.3);transform:translateY(-1px)}.add-confirm-btn[data-v-ef5e068e]:not(:disabled){background:linear-gradient(45deg,#1976d2,#42a5f5)!important;color:#fff!important}.add-confirm-btn[data-v-ef5e068e]:hover:not(:disabled){background:linear-gradient(45deg,#1565c0,#1976d2)!important;box-shadow:0 4px 8px rgba(25,118,210,.3);transform:translateY(-1px)}.add-confirm-btn.validation-ready[data-v-ef5e068e]:not(:disabled){background:linear-gradient(45deg,#1976d2,#42a5f5)!important;color:#fff!important}.add-confirm-btn.validation-error[data-v-ef5e068e]:not(:disabled){background:linear-gradient(45deg,#f57c00,#ff9800)!important;color:#fff!important}.add-confirm-btn.validation-error[data-v-ef5e068e]:hover:not(:disabled){background:linear-gradient(45deg,#e65100,#f57c00)!important}.section-header[data-v-ef5e068e]{align-items:center;color:#666;display:flex;font-size:.85rem;font-weight:500;letter-spacing:.3px;margin-bottom:12px;text-transform:uppercase}.quick-split-toggle[data-v-ef5e068e]{height:28px}.quick-split-toggle .v-btn[data-v-ef5e068e]{min-width:28px!important;padding:0 8px!important}.payment-row[data-v-ef5e068e]{align-items:center;display:flex;gap:8px;margin-bottom:8px}.payment-select[data-v-ef5e068e]{flex:2}.amount-field[data-v-ef5e068e]{flex:0 0 120px;width:120px}.ref-field[data-v-ef5e068e]{flex:0 0 100px;width:100px}.add-btn[data-v-ef5e068e]{height:32px!important;min-width:32px!important;width:32px!important}.quick-amounts[data-v-ef5e068e]{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.quick-chip[data-v-ef5e068e]{cursor:pointer;font-size:.7rem!important;height:24px!important}.payments-list[data-v-ef5e068e]{max-height:200px;overflow-y:auto}.empty-state[data-v-ef5e068e]{color:#999;padding:32px 20px;text-align:center}.empty-text[data-v-ef5e068e]{font-size:.85rem;margin-top:8px}.payment-items[data-v-ef5e068e]{padding:8px 20px}.payment-item[data-v-ef5e068e]{align-items:center;background:#f8f9fa;border-radius:8px;display:flex;margin-bottom:6px;padding:8px 12px;transition:all .2s ease}.payment-item[data-v-ef5e068e]:hover{background:#e3f2fd;transform:translateY(-1px)}.payment-info[data-v-ef5e068e]{flex:1}.payment-icon[data-v-ef5e068e],.payment-info[data-v-ef5e068e]{align-items:center;display:flex}.payment-icon[data-v-ef5e068e]{background:#fff;border-radius:6px;height:32px;justify-content:center;margin-right:12px;width:32px}.payment-details[data-v-ef5e068e]{flex:1}.payment-name[data-v-ef5e068e]{color:#333;font-size:.85rem;font-weight:500;line-height:1.2}.payment-ref[data-v-ef5e068e]{color:#666;font-size:.7rem;margin-top:2px}.payment-amount[data-v-ef5e068e]{margin-right:8px;text-align:right}.amount[data-v-ef5e068e]{color:#2e7d32;font-size:.9rem;font-weight:600}.percentage[data-v-ef5e068e]{color:#666;font-size:.7rem}.remove-btn[data-v-ef5e068e]{height:24px!important;min-width:24px!important;width:24px!important}.validation-section[data-v-ef5e068e]{padding:0}.validation-alert[data-v-ef5e068e]{border-radius:6px;margin:12px 20px!important}.payment-actions[data-v-ef5e068e]{background:#fafafa;border-top:1px solid #e0e0e0;padding:12px 20px}.cancel-btn[data-v-ef5e068e],.confirm-btn[data-v-ef5e068e]{font-weight:500;height:36px;text-transform:none}.confirm-btn[data-v-ef5e068e]{padding:0 24px}@media (max-width:600px){.summary-grid[data-v-ef5e068e]{gap:8px;grid-template-columns:1fr 1fr}.summary-card.status[data-v-ef5e068e]{grid-column:1/-1}.payment-row[data-v-ef5e068e]{flex-direction:column;gap:8px}.amount-field[data-v-ef5e068e],.payment-select[data-v-ef5e068e],.ref-field[data-v-ef5e068e]{flex:1;width:100%}.action-buttons[data-v-ef5e068e],.payment-actions[data-v-ef5e068e]{flex-direction:column;gap:8px}.cancel-btn[data-v-ef5e068e],.confirm-btn[data-v-ef5e068e]{width:100%}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -21432,9 +21859,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_7eecaaf2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(180);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_7eecaaf2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_7eecaaf2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_7eecaaf2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_7eecaaf2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_8d4defc0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(180);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_8d4defc0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_8d4defc0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_8d4defc0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CartFooterComponent_vue_vue_type_style_index_0_id_8d4defc0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -21445,7 +21872,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".cart-footer[data-v-7eecaaf2]{background:#fff;border-top:1px solid #e0e0e0}.payment-inputs[data-v-7eecaaf2]{background:#f8f9fa;border-bottom:1px solid #e0e0e0}.total-display[data-v-7eecaaf2]{background:#fff}.total-row[data-v-7eecaaf2]{margin-bottom:8px}.change-label[data-v-7eecaaf2],.discount-label[data-v-7eecaaf2],.total-label[data-v-7eecaaf2]{color:#666;font-size:14px;font-weight:500}.change-amount[data-v-7eecaaf2],.discount-amount[data-v-7eecaaf2],.total-amount[data-v-7eecaaf2]{color:#333;font-size:16px;font-weight:600}.discount-amount[data-v-7eecaaf2]{color:#ff9800}.change-amount[data-v-7eecaaf2]{color:#4caf50}.grand-total-label[data-v-7eecaaf2]{color:#333;font-size:18px;font-weight:700}.grand-total-amount[data-v-7eecaaf2]{color:#1976d2;font-size:24px;font-weight:700}.payment-title[data-v-7eecaaf2]{color:#333;font-size:16px;font-weight:600;margin:0}.payment-methods-grid[data-v-7eecaaf2]{margin-top:12px}.payment-card-item[data-v-7eecaaf2]{border:2px solid #e0e0e0;border-radius:8px;cursor:pointer;transition:all .2s ease}.payment-card-item[data-v-7eecaaf2]:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}.payment-card-item--selected[data-v-7eecaaf2]{box-shadow:0 4px 12px rgba(25,118,210,.3);color:#fff;transform:translateY(-1px)}.payment-name[data-v-7eecaaf2]{font-size:11px;font-weight:600;line-height:1.2}.pay-button[data-v-7eecaaf2]{font-weight:600;text-transform:none}.pay-button[data-v-7eecaaf2]:disabled{opacity:.6}.multi-pay-button[data-v-7eecaaf2]{font-weight:600}.multi-pay-button[data-v-7eecaaf2],.toggle-btn[data-v-7eecaaf2]{text-transform:none}.quick-stats[data-v-7eecaaf2]{background:#f5f5f5;border-top:1px solid #e0e0e0}.stat-value[data-v-7eecaaf2]{font-size:18px;font-weight:700;line-height:1.2}.stat-label[data-v-7eecaaf2]{color:#666;font-size:12px;letter-spacing:.5px;text-transform:uppercase}@media (max-width:600px){.payment-methods-grid .v-col[data-v-7eecaaf2]{flex:0 0 50%!important;max-width:50%!important}.grand-total-amount[data-v-7eecaaf2]{font-size:20px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".cart-footer[data-v-8d4defc0]{background:#fff;border-top:1px solid #e0e0e0}.payment-inputs[data-v-8d4defc0]{background:#f8f9fa;border-bottom:1px solid #e0e0e0}.total-display[data-v-8d4defc0]{background:#fff}.total-row[data-v-8d4defc0]{margin-bottom:8px}.change-label[data-v-8d4defc0],.discount-label[data-v-8d4defc0],.total-label[data-v-8d4defc0]{color:#666;font-size:14px;font-weight:500}.change-amount[data-v-8d4defc0],.discount-amount[data-v-8d4defc0],.total-amount[data-v-8d4defc0]{color:#333;font-size:16px;font-weight:600}.discount-amount[data-v-8d4defc0]{color:#ff9800}.change-amount[data-v-8d4defc0]{color:#4caf50}.grand-total-label[data-v-8d4defc0]{color:#333;font-size:18px;font-weight:700}.grand-total-amount[data-v-8d4defc0]{color:#1976d2;font-size:24px;font-weight:700}.payment-title[data-v-8d4defc0]{color:#333;font-size:16px;font-weight:600;margin:0}.payment-methods-grid[data-v-8d4defc0]{margin-top:12px}.payment-card-item[data-v-8d4defc0]{border:2px solid #e0e0e0;border-radius:8px;cursor:pointer;transition:all .2s ease}.payment-card-item[data-v-8d4defc0]:hover{box-shadow:0 2px 8px rgba(0,0,0,.1);transform:translateY(-1px)}.payment-card-item--selected[data-v-8d4defc0]{box-shadow:0 4px 12px rgba(25,118,210,.3);color:#fff;transform:translateY(-1px)}.payment-name[data-v-8d4defc0]{font-size:11px;font-weight:600;line-height:1.2}.pay-button[data-v-8d4defc0]{font-weight:600;text-transform:none}.pay-button[data-v-8d4defc0]:disabled{opacity:.6}.multi-pay-button[data-v-8d4defc0]{font-weight:600}.multi-pay-button[data-v-8d4defc0],.toggle-btn[data-v-8d4defc0]{text-transform:none}.quick-stats[data-v-8d4defc0]{background:#f5f5f5;border-top:1px solid #e0e0e0}.stat-value[data-v-8d4defc0]{font-size:18px;font-weight:700;line-height:1.2}.stat-label[data-v-8d4defc0]{color:#666;font-size:12px;letter-spacing:.5px;text-transform:uppercase}@media (max-width:600px){.payment-methods-grid .v-col[data-v-8d4defc0]{flex:0 0 50%!important;max-width:50%!important}.grand-total-amount[data-v-8d4defc0]{font-size:20px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -21475,9 +21902,9 @@ module.exports = __webpack_require__.p + "img/cash.b97ff15.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6a943f17_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(181);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6a943f17_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6a943f17_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6a943f17_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_6a943f17_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_2bd3e97c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(181);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_2bd3e97c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_2bd3e97c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_2bd3e97c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_pos_vue_vue_type_style_index_0_id_2bd3e97c_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -21488,7 +21915,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-6a943f17]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.app-header[data-v-6a943f17]{box-shadow:0 4px 20px rgba(0,0,0,.15)!important}.cart-mobile-btn[data-v-6a943f17],.menu-btn[data-v-6a943f17]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;transition:all .3s ease}.cart-mobile-btn[data-v-6a943f17]:hover,.menu-btn[data-v-6a943f17]:hover{background:hsla(0,0%,100%,.2)!important;transform:scale(1.05)}.search-field[data-v-6a943f17]{border-radius:12px!important;transition:all .3s ease}.search-field[data-v-6a943f17]:focus-within{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-2px)}.header-btn[data-v-6a943f17]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;border:1px solid hsla(0,0%,100%,.2)!important;margin:0 2px;transition:all .3s ease}.header-btn[data-v-6a943f17]:hover{background:hsla(0,0%,100%,.2)!important;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:translateY(-2px)}.active-route[data-v-6a943f17]{background:hsla(0,0%,100%,.25)!important;box-shadow:0 2px 10px rgba(0,0,0,.15)}.drawer-left[data-v-6a943f17]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-right:1px solid rgba(0,0,0,.08)!important}.terminal-chip[data-v-6a943f17]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-chip[data-v-6a943f17]:hover{box-shadow:0 8px 25px rgba(255,152,0,.3)!important;transform:translateY(-2px)}.category-item[data-v-6a943f17]{border-radius:12px!important;margin:4px 0;transition:all .3s ease}.category-item[data-v-6a943f17]:hover{transform:translateX(4px)}.active-category[data-v-6a943f17]{box-shadow:0 4px 15px rgba(0,0,0,.1);transform:translateX(6px)}.main-content[data-v-6a943f17]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-6a943f17]{height:calc(100vh - 80px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-6a943f17]{min-height:100%}.cart-drawer[data-v-6a943f17]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-left:1px solid rgba(0,0,0,.08)!important}.cart-header[data-v-6a943f17]{box-shadow:0 2px 10px rgba(0,0,0,.1)}.customer-chip[data-v-6a943f17]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.customer-chip[data-v-6a943f17]:hover{box-shadow:0 8px 25px rgba(76,175,80,.3)!important;transform:translateY(-2px)}.customer-bar[data-v-6a943f17]{background:linear-gradient(135deg,#f8f9fa,#fff)!important;border-bottom:1px solid rgba(0,0,0,.08)}.action-btn[data-v-6a943f17]{transition:all .3s ease}.action-btn[data-v-6a943f17]:hover{transform:scale(1.1)}.cart-items[data-v-6a943f17]{flex:1;min-height:0}.cart-items-header[data-v-6a943f17]{background:linear-gradient(135deg,#f5f5f5,#eee)!important;border-bottom:2px solid rgba(0,0,0,.06)}.cart-items-list[data-v-6a943f17]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-6a943f17]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:250px}.terminal-dialog .terminal-card[data-v-6a943f17]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-dialog .terminal-card[data-v-6a943f17]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.terminal-dialog .terminal-card.selected[data-v-6a943f17]{transform:translateY(-2px)}@media (max-width:1263px){.cart-drawer[data-v-6a943f17]{max-width:500px!important;width:100%!important}.header-btn span[data-v-6a943f17]{display:none}.search-field[data-v-6a943f17]{margin-bottom:8px}.main-content-wrapper[data-v-6a943f17]{height:calc(100vh - 80px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-6a943f17]{flex-direction:column;gap:12px}.cart-items-list[data-v-6a943f17]{max-height:calc(100vh - 450px)}}@media (max-width:600px){.main-content-wrapper[data-v-6a943f17]{height:calc(100vh - 80px)}.app-header[data-v-6a943f17]{height:70px!important}.main-content-wrapper[data-v-6a943f17]{height:calc(100vh - 70px)}}[data-v-6a943f17]::-webkit-scrollbar{width:6px}[data-v-6a943f17]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}[data-v-6a943f17]::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#c1c1c1,#a8a8a8);border-radius:3px;-webkit-transition:all .3s ease;transition:all .3s ease}[data-v-6a943f17]::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#a8a8a8,#909090)}.v-application *[data-v-6a943f17]{transition:all .3s cubic-bezier(.4,0,.2,1)}.v-btn[data-v-6a943f17]:focus:before{opacity:.12}.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-6a943f17]{border:2px solid var(--v-primary-base)!important;border-color:var(--v-primary-base)!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-2bd3e97c]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}.app-header[data-v-2bd3e97c]{box-shadow:0 4px 20px rgba(0,0,0,.15)!important}.cart-mobile-btn[data-v-2bd3e97c],.menu-btn[data-v-2bd3e97c]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;transition:all .3s ease}.cart-mobile-btn[data-v-2bd3e97c]:hover,.menu-btn[data-v-2bd3e97c]:hover{background:hsla(0,0%,100%,.2)!important;transform:scale(1.05)}.search-field[data-v-2bd3e97c]{border-radius:12px!important;transition:all .3s ease}.search-field[data-v-2bd3e97c]:focus-within{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-2px)}.header-btn[data-v-2bd3e97c]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.1)!important;border:1px solid hsla(0,0%,100%,.2)!important;margin:0 2px;transition:all .3s ease}.header-btn[data-v-2bd3e97c]:hover{background:hsla(0,0%,100%,.2)!important;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:translateY(-2px)}.active-route[data-v-2bd3e97c]{background:hsla(0,0%,100%,.25)!important;box-shadow:0 2px 10px rgba(0,0,0,.15)}.drawer-left[data-v-2bd3e97c]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-right:1px solid rgba(0,0,0,.08)!important}.terminal-chip[data-v-2bd3e97c]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-chip[data-v-2bd3e97c]:hover{box-shadow:0 8px 25px rgba(255,152,0,.3)!important;transform:translateY(-2px)}.category-item[data-v-2bd3e97c]{border-radius:12px!important;margin:4px 0;transition:all .3s ease}.category-item[data-v-2bd3e97c]:hover{transform:translateX(4px)}.active-category[data-v-2bd3e97c]{box-shadow:0 4px 15px rgba(0,0,0,.1);transform:translateX(6px)}.main-content[data-v-2bd3e97c]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2)}.main-content-wrapper[data-v-2bd3e97c]{height:calc(100vh - 80px);overflow-y:auto;-webkit-overflow-scrolling:touch}.main-container[data-v-2bd3e97c]{min-height:100%}.cart-drawer[data-v-2bd3e97c]{background:linear-gradient(180deg,#fff,#f8f9fa)!important;border-left:1px solid rgba(0,0,0,.08)!important}.cart-header[data-v-2bd3e97c]{box-shadow:0 2px 10px rgba(0,0,0,.1)}.customer-chip[data-v-2bd3e97c]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.customer-chip[data-v-2bd3e97c]:hover{box-shadow:0 8px 25px rgba(76,175,80,.3)!important;transform:translateY(-2px)}.customer-bar[data-v-2bd3e97c]{background:linear-gradient(135deg,#f8f9fa,#fff)!important;border-bottom:1px solid rgba(0,0,0,.08)}.action-btn[data-v-2bd3e97c]{transition:all .3s ease}.action-btn[data-v-2bd3e97c]:hover{transform:scale(1.1)}.cart-items[data-v-2bd3e97c]{flex:1;min-height:0}.cart-items-header[data-v-2bd3e97c]{background:linear-gradient(135deg,#f5f5f5,#eee)!important;border-bottom:2px solid rgba(0,0,0,.06)}.cart-items-list[data-v-2bd3e97c]{overflow-y:auto;-webkit-overflow-scrolling:touch}.empty-cart[data-v-2bd3e97c]{align-items:center;display:flex;flex-direction:column;flex-grow:1;justify-content:center;min-height:250px}.terminal-dialog .terminal-card[data-v-2bd3e97c]{border-radius:12px!important;cursor:pointer;transition:all .3s ease}.terminal-dialog .terminal-card[data-v-2bd3e97c]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.terminal-dialog .terminal-card.selected[data-v-2bd3e97c]{transform:translateY(-2px)}@media (max-width:1263px){.cart-drawer[data-v-2bd3e97c]{max-width:500px!important;width:100%!important}.header-btn span[data-v-2bd3e97c]{display:none}.search-field[data-v-2bd3e97c]{margin-bottom:8px}.main-content-wrapper[data-v-2bd3e97c]{height:calc(100vh - 80px);padding-right:0}}@media (max-width:960px){.customer-bar .v-row[data-v-2bd3e97c]{flex-direction:column;gap:12px}.cart-items-list[data-v-2bd3e97c]{max-height:calc(100vh - 450px)}}@media (max-width:600px){.main-content-wrapper[data-v-2bd3e97c]{height:calc(100vh - 80px)}.app-header[data-v-2bd3e97c]{height:70px!important}.main-content-wrapper[data-v-2bd3e97c]{height:calc(100vh - 70px)}}[data-v-2bd3e97c]::-webkit-scrollbar{width:6px}[data-v-2bd3e97c]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:3px}[data-v-2bd3e97c]::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#c1c1c1,#a8a8a8);border-radius:3px;-webkit-transition:all .3s ease;transition:all .3s ease}[data-v-2bd3e97c]::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#a8a8a8,#909090)}.v-application *[data-v-2bd3e97c]{transition:all .3s cubic-bezier(.4,0,.2,1)}.v-btn[data-v-2bd3e97c]:focus:before{opacity:.12}.v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot[data-v-2bd3e97c]{border:2px solid var(--v-primary-base)!important;border-color:var(--v-primary-base)!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -23887,12 +24314,13 @@ __webpack_require__.d(components_namespaceObject, "OrderSumaryCardV2", function(
 __webpack_require__.d(components_namespaceObject, "SimplifiedCompanyForm", function() { return SimplifiedCompanyForm; });
 __webpack_require__.d(components_namespaceObject, "Slider", function() { return Slider; });
 __webpack_require__.d(components_namespaceObject, "UnitForm", function() { return UnitForm; });
-__webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
 __webpack_require__.d(components_namespaceObject, "CafePOSScreen", function() { return CafePOSScreen; });
+__webpack_require__.d(components_namespaceObject, "CAFEPOSDialog", function() { return CAFEPOSDialog; });
 __webpack_require__.d(components_namespaceObject, "AccountingApPayment", function() { return AccountingApPayment; });
 __webpack_require__.d(components_namespaceObject, "AccountingArReceivable", function() { return AccountingArReceivable; });
 __webpack_require__.d(components_namespaceObject, "AccountingGLForm", function() { return AccountingGLForm; });
 __webpack_require__.d(components_namespaceObject, "CalendarMyCalendar", function() { return CalendarMyCalendar; });
+__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
 __webpack_require__.d(components_namespaceObject, "CardGiftDialog", function() { return CardGiftDialog; });
 __webpack_require__.d(components_namespaceObject, "CardCampaignCard", function() { return CardCampaignCard; });
 __webpack_require__.d(components_namespaceObject, "CardForm", function() { return CardForm; });
@@ -23900,11 +24328,10 @@ __webpack_require__.d(components_namespaceObject, "CardStockAdjustMent", functio
 __webpack_require__.d(components_namespaceObject, "CardStockMaintenance", function() { return CardStockMaintenance; });
 __webpack_require__.d(components_namespaceObject, "CustomerForm", function() { return CustomerForm; });
 __webpack_require__.d(components_namespaceObject, "CustomerList", function() { return components_CustomerList; });
-__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardGrouping", function() { return DashboardCardGrouping; });
 __webpack_require__.d(components_namespaceObject, "DashboardCardOnTop", function() { return DashboardCardOnTop; });
 __webpack_require__.d(components_namespaceObject, "DashboardMetricCard", function() { return DashboardMetricCard; });
-__webpack_require__.d(components_namespaceObject, "CampaignForm", function() { return CampaignForm; });
+__webpack_require__.d(components_namespaceObject, "DialogsBottomAlert", function() { return DialogsBottomAlert; });
 __webpack_require__.d(components_namespaceObject, "MemberOffer", function() { return MemberOffer; });
 __webpack_require__.d(components_namespaceObject, "MemberUsage", function() { return MemberUsage; });
 __webpack_require__.d(components_namespaceObject, "Menu", function() { return Menu; });
@@ -23915,11 +24342,6 @@ __webpack_require__.d(components_namespaceObject, "MinistryViewDialog", function
 __webpack_require__.d(components_namespaceObject, "PaymentCard", function() { return PaymentCard; });
 __webpack_require__.d(components_namespaceObject, "PaymentQr", function() { return PaymentQr; });
 __webpack_require__.d(components_namespaceObject, "PoForm", function() { return PoForm; });
-__webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
-__webpack_require__.d(components_namespaceObject, "ProductItem", function() { return ProductItem; });
-__webpack_require__.d(components_namespaceObject, "ProductCardPos", function() { return ProductCardPos; });
-__webpack_require__.d(components_namespaceObject, "ProductForm", function() { return ProductForm; });
-__webpack_require__.d(components_namespaceObject, "ProductFormCreate", function() { return ProductFormCreate; });
 __webpack_require__.d(components_namespaceObject, "PosCartFooterComponent", function() { return PosCartFooterComponent; });
 __webpack_require__.d(components_namespaceObject, "PosCartItemComponent", function() { return PosCartItemComponent; });
 __webpack_require__.d(components_namespaceObject, "PosCateogoryList", function() { return PosCateogoryList; });
@@ -23928,21 +24350,27 @@ __webpack_require__.d(components_namespaceObject, "PosAppBar", function() { retu
 __webpack_require__.d(components_namespaceObject, "PosCartDrawer", function() { return PosCartDrawer; });
 __webpack_require__.d(components_namespaceObject, "PosDialogs", function() { return PosDialogs; });
 __webpack_require__.d(components_namespaceObject, "PosLeftDrawer", function() { return PosLeftDrawer; });
+__webpack_require__.d(components_namespaceObject, "ProductItem", function() { return ProductItem; });
+__webpack_require__.d(components_namespaceObject, "ProductCardPos", function() { return ProductCardPos; });
+__webpack_require__.d(components_namespaceObject, "ProductForm", function() { return ProductForm; });
+__webpack_require__.d(components_namespaceObject, "ProductFormCreate", function() { return ProductFormCreate; });
+__webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
 __webpack_require__.d(components_namespaceObject, "Quotation", function() { return Quotation; });
-__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
-__webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
-__webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { return RolesRoleCard; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
 __webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
-__webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
-__webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
+__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
 __webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentAuditDialog", function() { return MAPaymentAuditDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsNotesDialog", function() { return TicketsNotesDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsPrintDialog", function() { return TicketsPrintDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketCard", function() { return TicketsTicketCard; });
 __webpack_require__.d(components_namespaceObject, "TicketsTicketDetailDialog", function() { return TicketsTicketDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "TimelineGianttTimeline", function() { return TimelineGianttTimeline; });
+__webpack_require__.d(components_namespaceObject, "CAFECustomerDialog", function() { return CAFECustomerDialog; });
+__webpack_require__.d(components_namespaceObject, "CAFEPaymentDialogFront", function() { return CAFEPaymentDialogFront; });
+__webpack_require__.d(components_namespaceObject, "CAFEPrintBarDialog", function() { return CAFEPrintBarDialog; });
+__webpack_require__.d(components_namespaceObject, "CAFEPrintdialog", function() { return CAFEPrintdialog; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentAuditDialog", function() { return MAPaymentAuditDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentAuditReportDialog", function() { return MAPaymentAuditReportDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentCompareDialog", function() { return MAPaymentCompareDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsBankAccountInfo", function() { return MAPaymentComponentsBankAccountInfo; });
@@ -23956,14 +24384,14 @@ __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsMinistryIn
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsSelectField", function() { return MAPaymentComponentsSelectField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsTextareaField", function() { return MAPaymentComponentsTextareaField; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentComponentsValidationErrors", function() { return MAPaymentComponentsValidationErrors; });
-__webpack_require__.d(components_namespaceObject, "CAFEPrintBarDialog", function() { return CAFEPrintBarDialog; });
-__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentDetailDialog", function() { return MAPaymentDetailDialog; });
+__webpack_require__.d(components_namespaceObject, "MAPaymentDialog", function() { return MAPaymentDialog; });
 __webpack_require__.d(components_namespaceObject, "MAPaymentVoucher", function() { return MAPaymentVoucher; });
 __webpack_require__.d(components_namespaceObject, "MARevenueTargetDialog", function() { return MARevenueTargetDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementDialog", function() { return MASettlementDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementViewDialog", function() { return MASettlementViewDialog; });
 __webpack_require__.d(components_namespaceObject, "MASettlementVoucher", function() { return MASettlementVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantDialog", function() { return ApplicantsApplicantDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsApplicantViewDialog", function() { return ApplicantsApplicantViewDialog; });
 __webpack_require__.d(components_namespaceObject, "ApplicantsStatusUpdateDialog", function() { return ApplicantsStatusUpdateDialog; });
@@ -23976,27 +24404,27 @@ __webpack_require__.d(components_namespaceObject, "JobAdvertiseStatusUpdate", fu
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseView", function() { return JobAdvertiseView; });
 __webpack_require__.d(components_namespaceObject, "JobFairJobBatch", function() { return JobFairJobBatch; });
 __webpack_require__.d(components_namespaceObject, "PosDialogsQuantityUpdateDialog", function() { return PosDialogsQuantityUpdateDialog; });
+__webpack_require__.d(components_namespaceObject, "PosDialogsTicketDetailsDialog", function() { return PosDialogsTicketDetailsDialog; });
+__webpack_require__.d(components_namespaceObject, "PosRecipe", function() { return PosRecipe; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoice", function() { return AccountingApInvoice; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlement", function() { return AccountingApSettlement; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyMaintain", function() { return JobFairAgencyMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyView", function() { return JobFairAgencyView; });
-__webpack_require__.d(components_namespaceObject, "AccountingTransaction", function() { return AccountingTransaction; });
 __webpack_require__.d(components_namespaceObject, "JobFairMouMaintain", function() { return JobFairMouMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAudit", function() { return AccountingApInvoiceAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit", function() { return AccountingApSettlementAudit; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
+__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAudit", function() { return AccountingArInvoiceAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceMaintain", function() { return AccountingArInvoiceMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceView", function() { return AccountingArInvoiceView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementVoucher", function() { return AccountingApSettlementVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
-__webpack_require__.d(components_namespaceObject, "PosRecipe", function() { return PosRecipe; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
-__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceVoucher", function() { return AccountingArInvoiceVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveMaintain", function() { return AccountingArReceiveMaintain; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveView", function() { return AccountingArReceiveView; });
+__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
+__webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAuditView", function() { return AccountingApInvoiceAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAuditView", function() { return AccountingApSettlementAuditView; });
 __webpack_require__.d(components_namespaceObject, "AccountingArInvoiceAuditView", function() { return AccountingArInvoiceAuditView; });
-__webpack_require__.d(components_namespaceObject, "AccountingArReceiveVoucher", function() { return AccountingArReceiveVoucher; });
-__webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
 
 // EXTERNAL MODULE: external "vue"
 var external_vue_ = __webpack_require__(1);
@@ -24731,170 +25159,170 @@ function shouldScrollToTop(route) {
 
 
 
-const _42c0a0dc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/index */ 213).then(__webpack_require__.bind(null, 1388)));
-const _ad2f2d8c = () => interopDefault(__webpack_require__.e(/* import() | pages/e-menu/index */ 313).then(__webpack_require__.bind(null, 1389)));
-const _98a37e8a = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/index */ 317).then(__webpack_require__.bind(null, 1390)));
-const _1447cf5c = () => interopDefault(__webpack_require__.e(/* import() | pages/home/index */ 322).then(__webpack_require__.bind(null, 1391)));
-const _a8b5a7d6 = () => interopDefault(__webpack_require__.e(/* import() | pages/index.bk */ 324).then(__webpack_require__.bind(null, 1392)));
-const _6b23df6a = () => interopDefault(__webpack_require__.e(/* import() | pages/lion72/index */ 325).then(__webpack_require__.bind(null, 1393)));
-const _35489732 = () => interopDefault(__webpack_require__.e(/* import() | pages/product/index */ 334).then(__webpack_require__.bind(null, 505)));
-const _6bd6cbe4 = () => interopDefault(__webpack_require__.e(/* import() | pages/product-details */ 331).then(__webpack_require__.bind(null, 1394)));
-const _5a38e948 = () => interopDefault(__webpack_require__.e(/* import() | pages/public/index */ 335).then(__webpack_require__.bind(null, 1395)));
-const _5a2985aa = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/advertise/index */ 179).then(__webpack_require__.bind(null, 1396)));
-const _c081733c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ap/index */ 181).then(__webpack_require__.bind(null, 1397)));
-const _0aa72964 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/applicants/index */ 184).then(__webpack_require__.bind(null, 1398)));
-const _6ceea838 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ar/index */ 186).then(__webpack_require__.bind(null, 1399)));
-const _437d31c6 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/authority/index */ 187).then(__webpack_require__.bind(null, 1400)));
-const _4dc0be2f = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/bank/index */ 188).then(__webpack_require__.bind(null, 1401)));
-const _6ec13158 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/bankAccount/index */ 189).then(__webpack_require__.bind(null, 1402)));
-const _25b7b8c0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/barcodePrint/index */ 191).then(__webpack_require__.bind(null, 1403)));
-const _7cf1717b = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/batch_job/index */ 192).then(__webpack_require__.bind(null, 1404)));
-const _3c041fcc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/benefit/index */ 193).then(__webpack_require__.bind(null, 1405)));
-const _8dba0d48 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/booking/index */ 194).then(__webpack_require__.bind(null, 1406)));
-const _d2e4b598 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cafeTable/index */ 197).then(__webpack_require__.bind(null, 1407)));
-const _30e59403 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/campaign/index */ 198).then(__webpack_require__.bind(null, 1408)));
-const _65e188fc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cancel_order/index */ 199).then(__webpack_require__.bind(null, 1409)));
-const _3c243a03 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/card/index */ 200).then(__webpack_require__.bind(null, 1410)));
-const _1c2fbe71 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/category/index */ 201).then(__webpack_require__.bind(null, 1411)));
-const _200e5ebc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/chartAccount/index */ 202).then(__webpack_require__.bind(null, 1412)));
-const _da94a204 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/client/index */ 203).then(__webpack_require__.bind(null, 1413)));
-const _1c6f474a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cod_order/index */ 204).then(__webpack_require__.bind(null, 1414)));
-const _79315f00 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/company/index */ 205).then(__webpack_require__.bind(null, 1415)));
-const _10ce75c4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/currency/index */ 206).then(__webpack_require__.bind(null, 1416)));
-const _f13f2d5e = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer/index */ 207).then(__webpack_require__.bind(null, 1417)));
-const _4dd908a1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer_request/index */ 208).then(__webpack_require__.bind(null, 1418)));
-const _09aa8974 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/generalLedger/index */ 211).then(__webpack_require__.bind(null, 1419)));
-const _975dcbfc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/group/index */ 212).then(__webpack_require__.bind(null, 1420)));
-const _df94d8de = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/inventory_value/index */ 215).then(__webpack_require__.bind(null, 1421)));
-const _cdba2146 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/jobAdvertise/index */ 216).then(__webpack_require__.bind(null, 1422)));
-const _70c5e868 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/location/index */ 222).then(__webpack_require__.bind(null, 1423)));
-const _54691328 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/login/index */ 223).then(__webpack_require__.bind(null, 1424)));
-const _51a6edfd = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/logout/index */ 224).then(__webpack_require__.bind(null, 1425)));
-const _ad29d0a2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/manage_stock/index */ 225).then(__webpack_require__.bind(null, 1426)));
-const _3a4e4f0d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/member/index */ 226).then(__webpack_require__.bind(null, 1427)));
-const _b984ba82 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/menuHeader/index */ 227).then(__webpack_require__.bind(null, 1428)));
-const _36ba8526 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/menuLine/index */ 228).then(__webpack_require__.bind(null, 1429)));
-const _a7aee51c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ministry/index */ 229).then(__webpack_require__.bind(null, 1430)));
-const _5fc23412 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/minstock/index */ 230).then(__webpack_require__.bind(null, 1431)));
-const _50e72015 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvance/index */ 231).then(__webpack_require__.bind(null, 1432)));
-const _6d42a028 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceByBank/index */ 233).then(__webpack_require__.bind(null, 1433)));
-const _c9889e56 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceDashboard/index */ 234).then(__webpack_require__.bind(null, 1434)));
-const _526664c4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceSettlement/index */ 235).then(__webpack_require__.bind(null, 1435)));
-const _18a842f1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceSettlementByBank/index */ 236).then(__webpack_require__.bind(null, 1436)));
-const _595759f0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceStatement/index */ 237).then(__webpack_require__.bind(null, 1437)));
-const _77349df4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceTarget/index */ 238).then(__webpack_require__.bind(null, 1438)));
-const _613d8598 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/orders/index */ 240).then(__webpack_require__.bind(null, 1439)));
-const _63922fbf = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersAll/index */ 241).then(__webpack_require__.bind(null, 1440)));
-const _69b69a96 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromAll/index */ 242).then(__webpack_require__.bind(null, 1441)));
-const _23b030b0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPos/index */ 243).then(__webpack_require__.bind(null, 1442)));
-const _32dea7fc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosCancel/index */ 244).then(__webpack_require__.bind(null, 1443)));
-const _bc74547e = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosCredit/index */ 245).then(__webpack_require__.bind(null, 1444)));
-const _6f145278 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosGift/index */ 246).then(__webpack_require__.bind(null, 1445)));
-const _28480da5 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosGrade/index */ 247).then(__webpack_require__.bind(null, 1446)));
-const _0fdff89b = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosOnline/index */ 248).then(__webpack_require__.bind(null, 1447)));
-const _efbac61a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosOnlineCOD/index */ 249).then(__webpack_require__.bind(null, 1448)));
-const _3b04a9e9 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosSummaryByCustomer/index */ 250).then(__webpack_require__.bind(null, 1449)));
-const _627cd15d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersIn/index */ 251).then(__webpack_require__.bind(null, 1450)));
-const _2065c6b2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersOld231101/index */ 252).then(__webpack_require__.bind(null, 1451)));
-const _5b20f12c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersOut/index */ 253).then(__webpack_require__.bind(null, 1452)));
-const _515d0028 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/orderTracking/index */ 239).then(__webpack_require__.bind(null, 1386)));
-const _2f5ca26e = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/payment/index */ 254).then(__webpack_require__.bind(null, 1453)));
-const _80d5a822 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/pl/index */ 255).then(__webpack_require__.bind(null, 1454)));
-const _7e434432 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/po/index */ 256).then(__webpack_require__.bind(null, 1455)));
-const _03317a72 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/index */ 259).then(__webpack_require__.bind(null, 728)));
-const _8a051cfa = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/productInuse */ 262).then(__webpack_require__.bind(null, 1456)));
-const _6b1838cf = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/quotation/index */ 263).then(__webpack_require__.bind(null, 1573)));
-const _38f40e0d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/quotationList/index */ 264).then(__webpack_require__.bind(null, 1457)));
-const _68c66d23 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/receiving/index */ 265).then(__webpack_require__.bind(null, 1458)));
-const _1b91bdb2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/index */ 278).then(__webpack_require__.bind(null, 1459)));
-const _79f169be = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report_card/index */ 279).then(__webpack_require__.bind(null, 1460)));
-const _4c7625e2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/reservation/index */ 280).then(__webpack_require__.bind(null, 1461)));
-const _0f005c3d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/rider/index */ 281).then(__webpack_require__.bind(null, 1462)));
-const _966e82b2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleCost/index */ 282).then(__webpack_require__.bind(null, 1463)));
-const _50aa43f0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleDashBoard/index */ 283).then(__webpack_require__.bind(null, 1464)));
-const _21cd947f = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetail/index */ 284).then(__webpack_require__.bind(null, 1465)));
-const _1fd61eb4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByCustomer/index */ 285).then(__webpack_require__.bind(null, 1466)));
-const _512f4563 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByHeader/index */ 286).then(__webpack_require__.bind(null, 1467)));
-const _6363e6a2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByProduct/index */ 287).then(__webpack_require__.bind(null, 1468)));
-const _09851be1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByUser/index */ 288).then(__webpack_require__.bind(null, 1469)));
-const _a9d4e97a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleTicketReportDetailByProduct/index */ 289).then(__webpack_require__.bind(null, 1470)));
-const _f00a79be = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/shipping/index */ 292).then(__webpack_require__.bind(null, 1471)));
-const _cc17c2a8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/spf/index */ 293).then(__webpack_require__.bind(null, 1472)));
-const _e5b9f3a4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/tax/index */ 295).then(__webpack_require__.bind(null, 1473)));
-const _3b0e4e6f = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/terminal/index */ 296).then(__webpack_require__.bind(null, 1474)));
-const _f3186e02 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ticket/index */ 297).then(__webpack_require__.bind(null, 1475)));
-const _558cfc21 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/transaction_code/index */ 298).then(__webpack_require__.bind(null, 1574)));
-const _a4e295c4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/transfer/index */ 299).then(__webpack_require__.bind(null, 1476)));
-const _04c3b4d1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/tutorial/index */ 300).then(__webpack_require__.bind(null, 1477)));
-const _6d29e62d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/txn/index */ 301).then(__webpack_require__.bind(null, 1478)));
-const _1cb34022 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/txn_type/index */ 302).then(__webpack_require__.bind(null, 1479)));
-const _43701777 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/unit/index */ 303).then(__webpack_require__.bind(null, 1480)));
-const _b9218604 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/user/index */ 304).then(__webpack_require__.bind(null, 1481)));
-const _3443683b = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/vendor/index */ 305).then(__webpack_require__.bind(null, 1482)));
-const _19c77051 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/walletin/index */ 306).then(__webpack_require__.bind(null, 1483)));
-const _e5ab9e90 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/walletout/index */ 307).then(__webpack_require__.bind(null, 1484)));
-const _07cd053c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_category/index */ 308).then(__webpack_require__.bind(null, 1485)));
-const _6e8aa372 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_product/index */ 311).then(__webpack_require__.bind(null, 1015)));
-const _57d4d485 = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/about-us */ 314).then(__webpack_require__.bind(null, 1486)));
-const _6526ef6c = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/all-product */ 315).then(__webpack_require__.bind(null, 1487)));
-const _8e7a5e5c = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/contact-us */ 316).then(__webpack_require__.bind(null, 1488)));
-const _45e58f02 = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/index_20240429 */ 319).then(__webpack_require__.bind(null, 1489)));
-const _2e01612c = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/index copy */ 318).then(__webpack_require__.bind(null, 1490)));
-const _927d6c7a = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/product-category */ 320).then(__webpack_require__.bind(null, 1491)));
-const _f5e1aa54 = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/product-detail */ 321).then(__webpack_require__.bind(null, 1492)));
-const _caaad3b2 = () => interopDefault(__webpack_require__.e(/* import() | pages/lion72/ticket/index */ 326).then(__webpack_require__.bind(null, 1493)));
-const _cdf0e3de = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/lottery/index */ 327).then(__webpack_require__.bind(null, 1494)));
-const _33c53d8a = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/minimart/index */ 328).then(__webpack_require__.bind(null, 1495)));
-const _2517700b = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/restaurant/index */ 329).then(__webpack_require__.bind(null, 1496)));
-const _4b336acc = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/ticket/index */ 330).then(__webpack_require__.bind(null, 1497)));
-const _4d058200 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ap/invoice/index */ 182).then(__webpack_require__.bind(null, 1498)));
-const _1b1605c9 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ap/invoiceSettlement/index */ 183).then(__webpack_require__.bind(null, 1499)));
-const _103d8bf0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/applicants/index-1 */ 185).then(__webpack_require__.bind(null, 1500)));
-const _56d2fabe = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/barcodePrint/gianttTime */ 190).then(__webpack_require__.bind(null, 1501)));
-const _16e21664 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cafe/promotion/index */ 195).then(__webpack_require__.bind(null, 1387)));
-const _324d246c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cafeTable/customer */ 196).then(__webpack_require__.bind(null, 1502)));
-const _ab5ae102 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer_request/topup */ 209).then(__webpack_require__.bind(null, 1503)));
-const _e852f9ea = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer_request/withdraw */ 210).then(__webpack_require__.bind(null, 1504)));
-const _581a3c60 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/inventory/stock-management/index */ 214).then(__webpack_require__.bind(null, 1505)));
-const _5fa81691 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/agency/index */ 217).then(__webpack_require__.bind(null, 1575)));
-const _21eab965 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/broker/index */ 218).then(__webpack_require__.bind(null, 1576)));
-const _d3be8c8c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/employee/index */ 219).then(__webpack_require__.bind(null, 1577)));
-const _4031d773 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/login/index */ 220).then(__webpack_require__.bind(null, 1506)));
-const _2d5fc25d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/mou/index */ 221).then(__webpack_require__.bind(null, 1507)));
-const _f1108a54 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/pos/table/index */ 257).then(__webpack_require__.bind(null, 1508)));
-const _38fd842d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/productlist */ 261).then(__webpack_require__.bind(null, 1509)));
-const _228e3c4a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/settings/system */ 290).then(__webpack_require__.bind(null, 1510)));
-const _4e54f48d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/settings/userRole */ 291).then(__webpack_require__.bind(null, 1511)));
-const _4183d918 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_category/test */ 309).then(__webpack_require__.bind(null, 1512)));
-const _55b98a0c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/accounting/ar/invoice/index */ 177).then(__webpack_require__.bind(null, 1513)));
-const _51ce0e42 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/accounting/ar/receive/index */ 178).then(__webpack_require__.bind(null, 1514)));
-const _0d56c4e2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/advertise/mixins/ImagePreviewMixin */ 180).then(__webpack_require__.bind(null, 1057)));
-const _290960d1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvance/report/ministryReport */ 232).then(__webpack_require__.bind(null, 1515)));
-const _78a0b872 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/mixins/ImagePreviewMixin */ 260).then(__webpack_require__.bind(null, 628)));
-const _74973137 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/1.1/index */ 266).then(__webpack_require__.bind(null, 1578)));
-const _631a37b8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/2.1/index */ 267).then(__webpack_require__.bind(null, 1579)));
-const _4e9a3466 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/bankSummary/index */ 268).then(__webpack_require__.bind(null, 1580)));
-const _0167eed6 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/master/index */ 269).then(__webpack_require__.bind(null, 1581)));
-const _731255ac = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/ministrySummary/index */ 270).then(__webpack_require__.bind(null, 1582)));
-const _4c95f309 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/payment/index */ 272).then(__webpack_require__.bind(null, 1583)));
-const _2c804e9c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/index */ 275).then(__webpack_require__.bind(null, 1584)));
-const _499294bc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/targetAmount/index */ 277).then(__webpack_require__.bind(null, 1516)));
-const _e23a245c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_product/mixins/ImagePreviewMixin */ 312).then(__webpack_require__.bind(null, 1592)));
-const _614d3d46 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/mixin/excel */ 271).then(__webpack_require__.bind(null, 1380)));
-const _0eb07144 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/bankAccount/index */ 273).then(__webpack_require__.bind(null, 1585)));
-const _7e071c50 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/chartAccount/index */ 274).then(__webpack_require__.bind(null, 1586)));
-const _226939a8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/ministry/index */ 276).then(__webpack_require__.bind(null, 1587)));
-const _4600e75c = () => interopDefault(__webpack_require__.e(/* import() | pages/index */ 323).then(__webpack_require__.bind(null, 1517)));
-const _30dc45ce = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFInvoice/_id/index */ 172).then(__webpack_require__.bind(null, 1518)));
-const _70237d99 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFInvoiceSummary/_id/index */ 173).then(__webpack_require__.bind(null, 1519)));
-const _a3d2a890 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFQuotation/_id/index */ 174).then(__webpack_require__.bind(null, 1520)));
-const _8ba954a8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFTicket/_id/index */ 175).then(__webpack_require__.bind(null, 1521)));
-const _2987d1cb = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFTransfer/_id/index */ 176).then(__webpack_require__.bind(null, 1522)));
-const _37040c5d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/_id/index */ 258).then(__webpack_require__.bind(null, 1014)));
-const _ce81df78 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/stock/_id/index */ 294).then(__webpack_require__.bind(null, 1523)));
-const _2b15649c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_product/_id/index */ 310).then(__webpack_require__.bind(null, 1524)));
-const _1abec91d = () => interopDefault(__webpack_require__.e(/* import() | pages/product/_id/index */ 332).then(__webpack_require__.bind(null, 1525)));
-const _7214c6ef = () => interopDefault(__webpack_require__.e(/* import() | pages/product/_id/product-details */ 333).then(__webpack_require__.bind(null, 1526)));
+const _42c0a0dc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/index */ 214).then(__webpack_require__.bind(null, 1392)));
+const _ad2f2d8c = () => interopDefault(__webpack_require__.e(/* import() | pages/e-menu/index */ 314).then(__webpack_require__.bind(null, 1393)));
+const _98a37e8a = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/index */ 318).then(__webpack_require__.bind(null, 1394)));
+const _1447cf5c = () => interopDefault(__webpack_require__.e(/* import() | pages/home/index */ 323).then(__webpack_require__.bind(null, 1395)));
+const _a8b5a7d6 = () => interopDefault(__webpack_require__.e(/* import() | pages/index.bk */ 325).then(__webpack_require__.bind(null, 1396)));
+const _6b23df6a = () => interopDefault(__webpack_require__.e(/* import() | pages/lion72/index */ 326).then(__webpack_require__.bind(null, 1397)));
+const _35489732 = () => interopDefault(__webpack_require__.e(/* import() | pages/product/index */ 335).then(__webpack_require__.bind(null, 505)));
+const _6bd6cbe4 = () => interopDefault(__webpack_require__.e(/* import() | pages/product-details */ 332).then(__webpack_require__.bind(null, 1398)));
+const _5a38e948 = () => interopDefault(__webpack_require__.e(/* import() | pages/public/index */ 336).then(__webpack_require__.bind(null, 1399)));
+const _5a2985aa = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/advertise/index */ 180).then(__webpack_require__.bind(null, 1400)));
+const _c081733c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ap/index */ 182).then(__webpack_require__.bind(null, 1401)));
+const _0aa72964 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/applicants/index */ 185).then(__webpack_require__.bind(null, 1402)));
+const _6ceea838 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ar/index */ 187).then(__webpack_require__.bind(null, 1403)));
+const _437d31c6 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/authority/index */ 188).then(__webpack_require__.bind(null, 1404)));
+const _4dc0be2f = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/bank/index */ 189).then(__webpack_require__.bind(null, 1405)));
+const _6ec13158 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/bankAccount/index */ 190).then(__webpack_require__.bind(null, 1406)));
+const _25b7b8c0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/barcodePrint/index */ 192).then(__webpack_require__.bind(null, 1407)));
+const _7cf1717b = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/batch_job/index */ 193).then(__webpack_require__.bind(null, 1408)));
+const _3c041fcc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/benefit/index */ 194).then(__webpack_require__.bind(null, 1409)));
+const _8dba0d48 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/booking/index */ 195).then(__webpack_require__.bind(null, 1410)));
+const _d2e4b598 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cafeTable/index */ 198).then(__webpack_require__.bind(null, 1411)));
+const _30e59403 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/campaign/index */ 199).then(__webpack_require__.bind(null, 1412)));
+const _65e188fc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cancel_order/index */ 200).then(__webpack_require__.bind(null, 1413)));
+const _3c243a03 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/card/index */ 201).then(__webpack_require__.bind(null, 1414)));
+const _1c2fbe71 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/category/index */ 202).then(__webpack_require__.bind(null, 1415)));
+const _200e5ebc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/chartAccount/index */ 203).then(__webpack_require__.bind(null, 1416)));
+const _da94a204 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/client/index */ 204).then(__webpack_require__.bind(null, 1417)));
+const _1c6f474a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cod_order/index */ 205).then(__webpack_require__.bind(null, 1418)));
+const _79315f00 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/company/index */ 206).then(__webpack_require__.bind(null, 1419)));
+const _10ce75c4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/currency/index */ 207).then(__webpack_require__.bind(null, 1420)));
+const _f13f2d5e = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer/index */ 208).then(__webpack_require__.bind(null, 1421)));
+const _4dd908a1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer_request/index */ 209).then(__webpack_require__.bind(null, 1422)));
+const _09aa8974 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/generalLedger/index */ 212).then(__webpack_require__.bind(null, 1423)));
+const _975dcbfc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/group/index */ 213).then(__webpack_require__.bind(null, 1424)));
+const _df94d8de = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/inventory_value/index */ 216).then(__webpack_require__.bind(null, 1425)));
+const _cdba2146 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/jobAdvertise/index */ 217).then(__webpack_require__.bind(null, 1426)));
+const _70c5e868 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/location/index */ 223).then(__webpack_require__.bind(null, 1427)));
+const _54691328 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/login/index */ 224).then(__webpack_require__.bind(null, 1428)));
+const _51a6edfd = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/logout/index */ 225).then(__webpack_require__.bind(null, 1429)));
+const _ad29d0a2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/manage_stock/index */ 226).then(__webpack_require__.bind(null, 1430)));
+const _3a4e4f0d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/member/index */ 227).then(__webpack_require__.bind(null, 1431)));
+const _b984ba82 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/menuHeader/index */ 228).then(__webpack_require__.bind(null, 1432)));
+const _36ba8526 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/menuLine/index */ 229).then(__webpack_require__.bind(null, 1433)));
+const _a7aee51c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ministry/index */ 230).then(__webpack_require__.bind(null, 1434)));
+const _5fc23412 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/minstock/index */ 231).then(__webpack_require__.bind(null, 1435)));
+const _50e72015 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvance/index */ 232).then(__webpack_require__.bind(null, 1436)));
+const _6d42a028 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceByBank/index */ 234).then(__webpack_require__.bind(null, 1437)));
+const _c9889e56 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceDashboard/index */ 235).then(__webpack_require__.bind(null, 1438)));
+const _526664c4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceSettlement/index */ 236).then(__webpack_require__.bind(null, 1439)));
+const _18a842f1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceSettlementByBank/index */ 237).then(__webpack_require__.bind(null, 1440)));
+const _595759f0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceStatement/index */ 238).then(__webpack_require__.bind(null, 1441)));
+const _77349df4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvanceTarget/index */ 239).then(__webpack_require__.bind(null, 1442)));
+const _613d8598 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/orders/index */ 241).then(__webpack_require__.bind(null, 1443)));
+const _63922fbf = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersAll/index */ 242).then(__webpack_require__.bind(null, 1444)));
+const _69b69a96 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromAll/index */ 243).then(__webpack_require__.bind(null, 1445)));
+const _23b030b0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPos/index */ 244).then(__webpack_require__.bind(null, 1446)));
+const _32dea7fc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosCancel/index */ 245).then(__webpack_require__.bind(null, 1447)));
+const _bc74547e = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosCredit/index */ 246).then(__webpack_require__.bind(null, 1448)));
+const _6f145278 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosGift/index */ 247).then(__webpack_require__.bind(null, 1449)));
+const _28480da5 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosGrade/index */ 248).then(__webpack_require__.bind(null, 1450)));
+const _0fdff89b = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosOnline/index */ 249).then(__webpack_require__.bind(null, 1451)));
+const _efbac61a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosOnlineCOD/index */ 250).then(__webpack_require__.bind(null, 1452)));
+const _3b04a9e9 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersFromPosSummaryByCustomer/index */ 251).then(__webpack_require__.bind(null, 1453)));
+const _627cd15d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersIn/index */ 252).then(__webpack_require__.bind(null, 1454)));
+const _2065c6b2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersOld231101/index */ 253).then(__webpack_require__.bind(null, 1455)));
+const _5b20f12c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ordersOut/index */ 254).then(__webpack_require__.bind(null, 1456)));
+const _515d0028 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/orderTracking/index */ 240).then(__webpack_require__.bind(null, 1390)));
+const _2f5ca26e = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/payment/index */ 255).then(__webpack_require__.bind(null, 1457)));
+const _80d5a822 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/pl/index */ 256).then(__webpack_require__.bind(null, 1458)));
+const _7e434432 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/po/index */ 257).then(__webpack_require__.bind(null, 1459)));
+const _03317a72 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/index */ 260).then(__webpack_require__.bind(null, 732)));
+const _8a051cfa = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/productInuse */ 263).then(__webpack_require__.bind(null, 1460)));
+const _6b1838cf = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/quotation/index */ 264).then(__webpack_require__.bind(null, 1577)));
+const _38f40e0d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/quotationList/index */ 265).then(__webpack_require__.bind(null, 1461)));
+const _68c66d23 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/receiving/index */ 266).then(__webpack_require__.bind(null, 1462)));
+const _1b91bdb2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/index */ 279).then(__webpack_require__.bind(null, 1463)));
+const _79f169be = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report_card/index */ 280).then(__webpack_require__.bind(null, 1464)));
+const _4c7625e2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/reservation/index */ 281).then(__webpack_require__.bind(null, 1465)));
+const _0f005c3d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/rider/index */ 282).then(__webpack_require__.bind(null, 1466)));
+const _966e82b2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleCost/index */ 283).then(__webpack_require__.bind(null, 1467)));
+const _50aa43f0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleDashBoard/index */ 284).then(__webpack_require__.bind(null, 1468)));
+const _21cd947f = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetail/index */ 285).then(__webpack_require__.bind(null, 1469)));
+const _1fd61eb4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByCustomer/index */ 286).then(__webpack_require__.bind(null, 1470)));
+const _512f4563 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByHeader/index */ 287).then(__webpack_require__.bind(null, 1471)));
+const _6363e6a2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByProduct/index */ 288).then(__webpack_require__.bind(null, 1472)));
+const _09851be1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleReportDetailByUser/index */ 289).then(__webpack_require__.bind(null, 1473)));
+const _a9d4e97a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/saleTicketReportDetailByProduct/index */ 290).then(__webpack_require__.bind(null, 1474)));
+const _f00a79be = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/shipping/index */ 293).then(__webpack_require__.bind(null, 1475)));
+const _cc17c2a8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/spf/index */ 294).then(__webpack_require__.bind(null, 1476)));
+const _e5b9f3a4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/tax/index */ 296).then(__webpack_require__.bind(null, 1477)));
+const _3b0e4e6f = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/terminal/index */ 297).then(__webpack_require__.bind(null, 1478)));
+const _f3186e02 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ticket/index */ 298).then(__webpack_require__.bind(null, 1479)));
+const _558cfc21 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/transaction_code/index */ 299).then(__webpack_require__.bind(null, 1578)));
+const _a4e295c4 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/transfer/index */ 300).then(__webpack_require__.bind(null, 1480)));
+const _04c3b4d1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/tutorial/index */ 301).then(__webpack_require__.bind(null, 1481)));
+const _6d29e62d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/txn/index */ 302).then(__webpack_require__.bind(null, 1482)));
+const _1cb34022 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/txn_type/index */ 303).then(__webpack_require__.bind(null, 1483)));
+const _43701777 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/unit/index */ 304).then(__webpack_require__.bind(null, 1484)));
+const _b9218604 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/user/index */ 305).then(__webpack_require__.bind(null, 1485)));
+const _3443683b = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/vendor/index */ 306).then(__webpack_require__.bind(null, 1486)));
+const _19c77051 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/walletin/index */ 307).then(__webpack_require__.bind(null, 1487)));
+const _e5ab9e90 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/walletout/index */ 308).then(__webpack_require__.bind(null, 1488)));
+const _07cd053c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_category/index */ 309).then(__webpack_require__.bind(null, 1489)));
+const _6e8aa372 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_product/index */ 312).then(__webpack_require__.bind(null, 1019)));
+const _57d4d485 = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/about-us */ 315).then(__webpack_require__.bind(null, 1490)));
+const _6526ef6c = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/all-product */ 316).then(__webpack_require__.bind(null, 1491)));
+const _8e7a5e5c = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/contact-us */ 317).then(__webpack_require__.bind(null, 1492)));
+const _45e58f02 = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/index_20240429 */ 320).then(__webpack_require__.bind(null, 1493)));
+const _2e01612c = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/index copy */ 319).then(__webpack_require__.bind(null, 1494)));
+const _927d6c7a = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/product-category */ 321).then(__webpack_require__.bind(null, 1495)));
+const _f5e1aa54 = () => interopDefault(__webpack_require__.e(/* import() | pages/fashion/product-detail */ 322).then(__webpack_require__.bind(null, 1496)));
+const _caaad3b2 = () => interopDefault(__webpack_require__.e(/* import() | pages/lion72/ticket/index */ 327).then(__webpack_require__.bind(null, 1497)));
+const _cdf0e3de = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/lottery/index */ 328).then(__webpack_require__.bind(null, 1498)));
+const _33c53d8a = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/minimart/index */ 329).then(__webpack_require__.bind(null, 1499)));
+const _2517700b = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/restaurant/index */ 330).then(__webpack_require__.bind(null, 1500)));
+const _4b336acc = () => interopDefault(__webpack_require__.e(/* import() | pages/pos/ticket/index */ 331).then(__webpack_require__.bind(null, 1501)));
+const _4d058200 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ap/invoice/index */ 183).then(__webpack_require__.bind(null, 1502)));
+const _1b1605c9 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/ap/invoiceSettlement/index */ 184).then(__webpack_require__.bind(null, 1503)));
+const _103d8bf0 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/applicants/index-1 */ 186).then(__webpack_require__.bind(null, 1504)));
+const _56d2fabe = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/barcodePrint/gianttTime */ 191).then(__webpack_require__.bind(null, 1505)));
+const _16e21664 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cafe/promotion/index */ 196).then(__webpack_require__.bind(null, 1391)));
+const _324d246c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/cafeTable/customer */ 197).then(__webpack_require__.bind(null, 1506)));
+const _ab5ae102 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer_request/topup */ 210).then(__webpack_require__.bind(null, 1507)));
+const _e852f9ea = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/customer_request/withdraw */ 211).then(__webpack_require__.bind(null, 1508)));
+const _581a3c60 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/inventory/stock-management/index */ 215).then(__webpack_require__.bind(null, 1509)));
+const _5fa81691 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/agency/index */ 218).then(__webpack_require__.bind(null, 1579)));
+const _21eab965 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/broker/index */ 219).then(__webpack_require__.bind(null, 1580)));
+const _d3be8c8c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/employee/index */ 220).then(__webpack_require__.bind(null, 1581)));
+const _4031d773 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/login/index */ 221).then(__webpack_require__.bind(null, 1510)));
+const _2d5fc25d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/job_fair/mou/index */ 222).then(__webpack_require__.bind(null, 1511)));
+const _f1108a54 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/pos/table/index */ 258).then(__webpack_require__.bind(null, 1512)));
+const _38fd842d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/productlist */ 262).then(__webpack_require__.bind(null, 1513)));
+const _228e3c4a = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/settings/system */ 291).then(__webpack_require__.bind(null, 1514)));
+const _4e54f48d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/settings/userRole */ 292).then(__webpack_require__.bind(null, 1515)));
+const _4183d918 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_category/test */ 310).then(__webpack_require__.bind(null, 1516)));
+const _55b98a0c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/accounting/ar/invoice/index */ 178).then(__webpack_require__.bind(null, 1517)));
+const _51ce0e42 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/accounting/ar/receive/index */ 179).then(__webpack_require__.bind(null, 1518)));
+const _0d56c4e2 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/advertise/mixins/ImagePreviewMixin */ 181).then(__webpack_require__.bind(null, 1061)));
+const _290960d1 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/moneyAdvance/report/ministryReport */ 233).then(__webpack_require__.bind(null, 1519)));
+const _78a0b872 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/mixins/ImagePreviewMixin */ 261).then(__webpack_require__.bind(null, 632)));
+const _74973137 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/1.1/index */ 267).then(__webpack_require__.bind(null, 1582)));
+const _631a37b8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/2.1/index */ 268).then(__webpack_require__.bind(null, 1583)));
+const _4e9a3466 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/bankSummary/index */ 269).then(__webpack_require__.bind(null, 1584)));
+const _0167eed6 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/master/index */ 270).then(__webpack_require__.bind(null, 1585)));
+const _731255ac = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/ministrySummary/index */ 271).then(__webpack_require__.bind(null, 1586)));
+const _4c95f309 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/payment/index */ 273).then(__webpack_require__.bind(null, 1587)));
+const _2c804e9c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/index */ 276).then(__webpack_require__.bind(null, 1588)));
+const _499294bc = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/targetAmount/index */ 278).then(__webpack_require__.bind(null, 1520)));
+const _e23a245c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_product/mixins/ImagePreviewMixin */ 313).then(__webpack_require__.bind(null, 1596)));
+const _614d3d46 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/mixin/excel */ 272).then(__webpack_require__.bind(null, 1384)));
+const _0eb07144 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/bankAccount/index */ 274).then(__webpack_require__.bind(null, 1589)));
+const _7e071c50 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/chartAccount/index */ 275).then(__webpack_require__.bind(null, 1590)));
+const _226939a8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/report/MA/settlement/ministry/index */ 277).then(__webpack_require__.bind(null, 1591)));
+const _4600e75c = () => interopDefault(__webpack_require__.e(/* import() | pages/index */ 324).then(__webpack_require__.bind(null, 1521)));
+const _30dc45ce = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFInvoice/_id/index */ 173).then(__webpack_require__.bind(null, 1522)));
+const _70237d99 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFInvoiceSummary/_id/index */ 174).then(__webpack_require__.bind(null, 1523)));
+const _a3d2a890 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFQuotation/_id/index */ 175).then(__webpack_require__.bind(null, 1524)));
+const _8ba954a8 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFTicket/_id/index */ 176).then(__webpack_require__.bind(null, 1525)));
+const _2987d1cb = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/PDFTransfer/_id/index */ 177).then(__webpack_require__.bind(null, 1526)));
+const _37040c5d = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/product/_id/index */ 259).then(__webpack_require__.bind(null, 1018)));
+const _ce81df78 = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/stock/_id/index */ 295).then(__webpack_require__.bind(null, 1527)));
+const _2b15649c = () => interopDefault(__webpack_require__.e(/* import() | pages/admin/web_product/_id/index */ 311).then(__webpack_require__.bind(null, 1528)));
+const _1abec91d = () => interopDefault(__webpack_require__.e(/* import() | pages/product/_id/index */ 333).then(__webpack_require__.bind(null, 1529)));
+const _7214c6ef = () => interopDefault(__webpack_require__.e(/* import() | pages/product/_id/product-details */ 334).then(__webpack_require__.bind(null, 1530)));
 const emptyFn = () => {};
 external_vue_default.a.use(external_vue_router_default.a);
 const routerOptions = {
@@ -27587,7 +28015,7 @@ var VListItemGroup = __webpack_require__(121);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemIcon.js
 var VListItemIcon = __webpack_require__(62);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=6a943f17&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/pos.vue?vue&type=template&id=2bd3e97c&scoped=true
 
 
 
@@ -27616,7 +28044,7 @@ var VListItemIcon = __webpack_require__(62);
 
 
 
-var posvue_type_template_id_6a943f17_scoped_true_render = function render() {
+var posvue_type_template_id_2bd3e97c_scoped_true_render = function render() {
   var _vm$currentTerminal, _vm$currentTerminal2;
   var _vm = this,
     _c = _vm._self._c;
@@ -28394,12 +28822,8 @@ var posvue_type_template_id_6a943f17_scoped_true_render = function render() {
       "defaultPaymentMethods": [14, 15]
     },
     on: {
-      "update:discount": function ($event) {
-        _vm.discount = $event;
-      },
-      "update:cash-received": function ($event) {
-        _vm.cashReceived = $event;
-      },
+      "update:discount": _vm.handleDiscountUpdate,
+      "update:cash-received": _vm.handleCashReceivedUpdate,
       "toggle-checkout": function ($event) {
         _vm.showCheckOut = !_vm.showCheckOut;
       },
@@ -28410,9 +28834,9 @@ var posvue_type_template_id_6a943f17_scoped_true_render = function render() {
     }
   })], 1)])], 1);
 };
-var posvue_type_template_id_6a943f17_scoped_true_staticRenderFns = [];
+var posvue_type_template_id_2bd3e97c_scoped_true_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=6a943f17&scoped=true
+// CONCATENATED MODULE: ./layouts/pos.vue?vue&type=template&id=2bd3e97c&scoped=true
 
 // EXTERNAL MODULE: ./components/customer/CustomerList.vue + 4 modules
 var CustomerList = __webpack_require__(93);
@@ -28834,9 +29258,11 @@ var common = __webpack_require__(7);
   },
   data() {
     return {
+      updateCustomerScreenDebounced: null,
       sharedState: external_vue_default.a.observable({
         saleHeader: 0
       }),
+      customerScreenSyncInterval: null,
       multiPaymentDialog: false,
       pendingSaleHeaderId: null,
       isCreatingSale: false,
@@ -29020,8 +29446,14 @@ var common = __webpack_require__(7);
     }
   },
   mounted() {
+    this.updateCustomerScreenDebounced = this.debounce(() => {
+      if (this.isCustomerDisplayOpen()) {
+        this.sendQRToCustomerScreen();
+      }
+    }, 500); // 500ms delay
     window.addEventListener('beforeunload', this.checkAllInitData);
     this.terminalSelected = this.findSelectedTerminal;
+    this.startCustomerScreenSync();
     this.fetchCategory();
     this.loadPayment();
     this.loadCustomer();
@@ -29038,15 +29470,40 @@ var common = __webpack_require__(7);
   },
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.checkAllInitData);
-
+    this.stopCustomerScreenSync();
     // CUSTOMER SCREEN CLEANUP
     // this.closeCustomerDisplayWindow()
     window.removeEventListener('message', this.handleCustomerScreenMessage);
   },
   watch: {
-    cartOfProduct(newVal, oldVal) {
-      console.log('Cart changed:', newVal);
-      this.sendWelcomeMessage();
+    cartOfProduct: {
+      handler(newVal, oldVal) {
+        console.log('Cart changed:', newVal);
+        // Only send updates if customer screen is open
+        if (this.isCustomerDisplayOpen()) {
+          this.sendWelcomeMessage();
+        }
+      },
+      deep: true,
+      // ✅ Add this to watch nested changes
+      immediate: false
+    },
+    discount: {
+      handler(newVal, oldVal) {
+        if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+          this.sendQRToCustomerScreen();
+        }
+      },
+      immediate: false
+    },
+    // ✅ ADD: Watch cash received changes
+    cashReceived: {
+      handler(newVal, oldVal) {
+        if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+          this.sendQRToCustomerScreen();
+        }
+      },
+      immediate: false
     },
     selectedItem(val) {
       if (val != undefined) {
@@ -29055,6 +29512,52 @@ var common = __webpack_require__(7);
     }
   },
   methods: {
+    debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    },
+    handleDiscountUpdate(value) {
+      this.discount = value;
+
+      // ✅ Auto-update customer screen
+      if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+        setTimeout(() => {
+          this.sendQRToCustomerScreen();
+        }, 100);
+      }
+    },
+    handleCashReceivedUpdate(value) {
+      this.cashReceived = value;
+
+      // ✅ Auto-update customer screen  
+      if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+        setTimeout(() => {
+          this.sendQRToCustomerScreen();
+        }, 100);
+      }
+    },
+    startCustomerScreenSync() {
+      // Sync every 5 seconds if customer screen is open
+      this.customerScreenSyncInterval = setInterval(() => {
+        if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
+          this.sendQRToCustomerScreen();
+        }
+      }, 5000); // 5 seconds
+    },
+    // ✅ NEW: Stop periodic sync
+    stopCustomerScreenSync() {
+      if (this.customerScreenSyncInterval) {
+        clearInterval(this.customerScreenSyncInterval);
+        this.customerScreenSyncInterval = null;
+      }
+    },
     handleGiftConfirm(giftData) {
       // Emit gift configuration to parent component
       console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`);
@@ -29125,14 +29628,13 @@ var common = __webpack_require__(7);
 
         // Try to enter fullscreen mode
         setTimeout(() => {
-          try {
-            if (this.$customerWindow.document.documentElement.requestFullscreen) {
-              this.$customerWindow.document.documentElement.requestFullscreen();
-            }
-          } catch (e) {
-            console.log('Fullscreen not supported or blocked');
+          if (this.productCart.length > 0) {
+            this.sendQRToCustomerScreen();
+          } else {
+            // Send welcome message for empty cart
+            this.sendWelcomeMessage();
           }
-        }, 1000);
+        }, 1000); // Give window time to load
 
         // Set up window handlers
         this.setupCustomerWindowHandlers();
@@ -29165,6 +29667,10 @@ var common = __webpack_require__(7);
           storeName: this.companyData.name,
           timestamp: Date.now(),
           orderItems: formattedOrderItems,
+          discount: this.discount,
+          // ✅ Include discount
+          change: this.changes,
+          //TODO: ✅ Include change
           orderSummary: formattedOrderSummary
         }
       };
@@ -29248,6 +29754,7 @@ var common = __webpack_require__(7);
           category: (product === null || product === void 0 ? void 0 : product.categ_name) || 'General',
           quantity: cartItem.qty,
           unitPrice: cartItem.localPrice,
+          isGift: cartItem.isGift,
           totalPrice: cartItem.qty * cartItem.localPrice,
           status: 'pending'
         };
@@ -29261,16 +29768,19 @@ var common = __webpack_require__(7);
     formatOrderSummaryForCustomerScreen() {
       const subtotal = this.grandTotal;
       const discount = this.discount;
+
+      // ✅ FIX: Calculate raw change as number, not formatted string
+      const changeValue = this.cashReceived == 0 ? 0 : this.cashReceived - (this.grandTotal - this.discount);
       const total = subtotal - discount;
       const summary = {
         subtotal: subtotal,
         tax: 0,
-        // Add tax calculation if you have it
         taxRate: 0,
         discount: discount,
-        total: total
+        total: total,
+        change: changeValue // ✅ Now sending raw number instead of formatted string
       };
-      console.log('Formatted order summary:', summary);
+      console.info(`SUMMARY testing ${JSON.stringify(summary)}`);
       return summary;
     },
     /**
@@ -29592,11 +30102,27 @@ var common = __webpack_require__(7);
     ...Object(external_vuex_["mapActions"])(['initiateData', 'setSelectedTerminal', 'setSelectedLocation', 'clearCustomerFormAction', 'setSelectedPayment', 'deleteProduct', 'addProduct', 'clearCart', 'updateSelectedCategoryId', 'deleteProductFromCart', 'addSelectedPayment', 'addCustomer']),
     deteletProductLocal(product) {
       this.deleteProductFromCart(product);
-      this.openCustomerScreenEnhanced();
+
+      // Auto-update customer screen
+      if (this.isCustomerDisplayOpen()) {
+        setTimeout(() => {
+          if (this.productCart.length > 0) {
+            this.sendQRToCustomerScreen();
+          } else {
+            this.sendWelcomeMessage(); // Show welcome screen when cart is empty
+          }
+        }, 100);
+      }
     },
     decreaseProductAmount(product) {
       this.deleteProduct(product);
-      this.openCustomerScreenEnhanced();
+
+      // Auto-update customer screen
+      if (this.isCustomerDisplayOpen()) {
+        setTimeout(() => {
+          this.sendQRToCustomerScreen();
+        }, 100);
+      }
     },
     // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
 
@@ -29631,11 +30157,17 @@ var common = __webpack_require__(7);
         };
         console.info(`DATA MOD: ${JSON.stringify(cartItem)}`);
         // If all validations pass, add to store using Vuex action
-        this.$store.dispatch('addProduct', cartItem);
-        this.openCustomerScreenEnhanced();
+        this.$store.dispatch('addProduct', cartItem); // ✅ AUTO-UPDATE: Send to customer screen immediately
+        // if (this.isCustomerDisplayOpen()) {
+        //   setTimeout(() => {
+        //     this.sendQRToCustomerScreen()
+        //   }, 100)
+        // }
+        // this.openCustomerScreenEnhanced()
 
         // Show success feedback with quantity info
         this.showAddSuccessMessage(product);
+        this.updateCustomerScreenDebounced();
         return true;
       } catch (error) {
         console.error('Error adding product:', error);
@@ -30103,11 +30635,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var pos_component = Object(componentNormalizer["a" /* default */])(
   layouts_posvue_type_script_lang_js,
-  posvue_type_template_id_6a943f17_scoped_true_render,
-  posvue_type_template_id_6a943f17_scoped_true_staticRenderFns,
+  posvue_type_template_id_2bd3e97c_scoped_true_render,
+  posvue_type_template_id_2bd3e97c_scoped_true_staticRenderFns,
   false,
   pos_injectStyles,
-  "6a943f17",
+  "2bd3e97c",
   "69e9e3a8"
   
 )
@@ -30758,188 +31290,189 @@ function mergeProperty(storeModule, moduleData, property) {
   }
 }
 // CONCATENATED MODULE: ./.nuxt/components/index.js
-const AccountForm = () => __webpack_require__.e(/* import() | components/account-form */ 2).then(__webpack_require__.bind(null, 844)).then(c => wrapFunctional(c.default || c));
-const AuthorityForm = () => __webpack_require__.e(/* import() | components/authority-form */ 26).then(__webpack_require__.bind(null, 842)).then(c => wrapFunctional(c.default || c));
-const BasicAlert = () => __webpack_require__.e(/* import() | components/basic-alert */ 28).then(__webpack_require__.bind(null, 1527)).then(c => wrapFunctional(c.default || c));
+const AccountForm = () => __webpack_require__.e(/* import() | components/account-form */ 2).then(__webpack_require__.bind(null, 848)).then(c => wrapFunctional(c.default || c));
+const AuthorityForm = () => __webpack_require__.e(/* import() | components/authority-form */ 26).then(__webpack_require__.bind(null, 846)).then(c => wrapFunctional(c.default || c));
+const BasicAlert = () => __webpack_require__.e(/* import() | components/basic-alert */ 28).then(__webpack_require__.bind(null, 1531)).then(c => wrapFunctional(c.default || c));
 const CancelTicketForm = () => __webpack_require__.e(/* import() | components/cancel-ticket-form */ 40).then(__webpack_require__.bind(null, 446)).then(c => wrapFunctional(c.default || c));
-const CardDashBoard = () => __webpack_require__.e(/* import() | components/card-dash-board */ 42).then(__webpack_require__.bind(null, 1528)).then(c => wrapFunctional(c.default || c));
-const Carousel3d = () => __webpack_require__.e(/* import() | components/carousel3d */ 46).then(__webpack_require__.bind(null, 1381)).then(c => wrapFunctional(c.default || c));
-const CategoryForm = () => __webpack_require__.e(/* import() | components/category-form */ 47).then(__webpack_require__.bind(null, 579)).then(c => wrapFunctional(c.default || c));
+const CardDashBoard = () => __webpack_require__.e(/* import() | components/card-dash-board */ 42).then(__webpack_require__.bind(null, 1532)).then(c => wrapFunctional(c.default || c));
+const Carousel3d = () => __webpack_require__.e(/* import() | components/carousel3d */ 46).then(__webpack_require__.bind(null, 1385)).then(c => wrapFunctional(c.default || c));
+const CategoryForm = () => __webpack_require__.e(/* import() | components/category-form */ 47).then(__webpack_require__.bind(null, 582)).then(c => wrapFunctional(c.default || c));
 const components_ComingSoon = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 130)).then(c => wrapFunctional(c.default || c));
-const CompanyForm = () => __webpack_require__.e(/* import() | components/company-form */ 48).then(__webpack_require__.bind(null, 856)).then(c => wrapFunctional(c.default || c));
-const CurrencyForm = () => __webpack_require__.e(/* import() | components/currency-form */ 50).then(__webpack_require__.bind(null, 721)).then(c => wrapFunctional(c.default || c));
-const DiaConfirm = () => __webpack_require__.e(/* import() | components/dia-confirm */ 55).then(__webpack_require__.bind(null, 637)).then(c => wrapFunctional(c.default || c));
+const CompanyForm = () => __webpack_require__.e(/* import() | components/company-form */ 48).then(__webpack_require__.bind(null, 860)).then(c => wrapFunctional(c.default || c));
+const CurrencyForm = () => __webpack_require__.e(/* import() | components/currency-form */ 50).then(__webpack_require__.bind(null, 725)).then(c => wrapFunctional(c.default || c));
+const DiaConfirm = () => __webpack_require__.e(/* import() | components/dia-confirm */ 55).then(__webpack_require__.bind(null, 641)).then(c => wrapFunctional(c.default || c));
 const DiaImage = () => __webpack_require__.e(/* import() | components/dia-image */ 56).then(__webpack_require__.bind(null, 477)).then(c => wrapFunctional(c.default || c));
 const DialogClassicMessage = () => __webpack_require__.e(/* import() | components/dialog-classic-message */ 57).then(__webpack_require__.bind(null, 465)).then(c => wrapFunctional(c.default || c));
-const GanttChart = () => __webpack_require__.e(/* import() | components/gantt-chart */ 61).then(__webpack_require__.bind(null, 1382)).then(c => wrapFunctional(c.default || c));
-const GroupForm = () => __webpack_require__.e(/* import() | components/group-form */ 62).then(__webpack_require__.bind(null, 846)).then(c => wrapFunctional(c.default || c));
-const ImageDialog = () => __webpack_require__.e(/* import() | components/image-dialog */ 64).then(__webpack_require__.bind(null, 1529)).then(c => wrapFunctional(c.default || c));
-const ImageUpload = () => __webpack_require__.e(/* import() | components/image-upload */ 65).then(__webpack_require__.bind(null, 858)).then(c => wrapFunctional(c.default || c));
-const LineChart = () => __webpack_require__.e(/* import() | components/line-chart */ 73).then(__webpack_require__.bind(null, 1530)).then(c => wrapFunctional(c.default || c));
+const GanttChart = () => __webpack_require__.e(/* import() | components/gantt-chart */ 61).then(__webpack_require__.bind(null, 1386)).then(c => wrapFunctional(c.default || c));
+const GroupForm = () => __webpack_require__.e(/* import() | components/group-form */ 62).then(__webpack_require__.bind(null, 850)).then(c => wrapFunctional(c.default || c));
+const ImageDialog = () => __webpack_require__.e(/* import() | components/image-dialog */ 64).then(__webpack_require__.bind(null, 1533)).then(c => wrapFunctional(c.default || c));
+const ImageUpload = () => __webpack_require__.e(/* import() | components/image-upload */ 65).then(__webpack_require__.bind(null, 862)).then(c => wrapFunctional(c.default || c));
+const LineChart = () => __webpack_require__.e(/* import() | components/line-chart */ 73).then(__webpack_require__.bind(null, 1534)).then(c => wrapFunctional(c.default || c));
 const components_LoadingIndicator = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 66)).then(c => wrapFunctional(c.default || c));
-const LocationForm = () => __webpack_require__.e(/* import() | components/location-form */ 74).then(__webpack_require__.bind(null, 847)).then(c => wrapFunctional(c.default || c));
-const MenuHeaderForm = () => __webpack_require__.e(/* import() | components/menu-header-form */ 99).then(__webpack_require__.bind(null, 849)).then(c => wrapFunctional(c.default || c));
-const MenuLineForm = () => __webpack_require__.e(/* import() | components/menu-line-form */ 100).then(__webpack_require__.bind(null, 850)).then(c => wrapFunctional(c.default || c));
-const MyChart = () => __webpack_require__.e(/* import() | components/my-chart */ 105).then(__webpack_require__.bind(null, 1383)).then(c => wrapFunctional(c.default || c));
-const NewComing = () => __webpack_require__.e(/* import() | components/new-coming */ 106).then(__webpack_require__.bind(null, 1588)).then(c => wrapFunctional(c.default || c));
-const Notification = () => __webpack_require__.e(/* import() | components/notification */ 109).then(__webpack_require__.bind(null, 848)).then(c => wrapFunctional(c.default || c));
-const NuxtLogo = () => __webpack_require__.e(/* import() | components/nuxt-logo */ 110).then(__webpack_require__.bind(null, 1589)).then(c => wrapFunctional(c.default || c));
-const OrderDetail = () => __webpack_require__.e(/* import() | components/order-detail */ 111).then(__webpack_require__.bind(null, 634)).then(c => wrapFunctional(c.default || c));
+const LocationForm = () => __webpack_require__.e(/* import() | components/location-form */ 74).then(__webpack_require__.bind(null, 851)).then(c => wrapFunctional(c.default || c));
+const MenuHeaderForm = () => __webpack_require__.e(/* import() | components/menu-header-form */ 99).then(__webpack_require__.bind(null, 853)).then(c => wrapFunctional(c.default || c));
+const MenuLineForm = () => __webpack_require__.e(/* import() | components/menu-line-form */ 100).then(__webpack_require__.bind(null, 854)).then(c => wrapFunctional(c.default || c));
+const MyChart = () => __webpack_require__.e(/* import() | components/my-chart */ 105).then(__webpack_require__.bind(null, 1387)).then(c => wrapFunctional(c.default || c));
+const NewComing = () => __webpack_require__.e(/* import() | components/new-coming */ 106).then(__webpack_require__.bind(null, 1592)).then(c => wrapFunctional(c.default || c));
+const Notification = () => __webpack_require__.e(/* import() | components/notification */ 109).then(__webpack_require__.bind(null, 852)).then(c => wrapFunctional(c.default || c));
+const NuxtLogo = () => __webpack_require__.e(/* import() | components/nuxt-logo */ 110).then(__webpack_require__.bind(null, 1593)).then(c => wrapFunctional(c.default || c));
+const OrderDetail = () => __webpack_require__.e(/* import() | components/order-detail */ 111).then(__webpack_require__.bind(null, 638)).then(c => wrapFunctional(c.default || c));
 const OrderDetailPos = () => __webpack_require__.e(/* import() | components/order-detail-pos */ 112).then(__webpack_require__.bind(null, 475)).then(c => wrapFunctional(c.default || c));
 const OrderDetailPosCRUD = () => __webpack_require__.e(/* import() | components/order-detail-pos-c-r-u-d */ 113).then(__webpack_require__.bind(null, 469)).then(c => wrapFunctional(c.default || c));
-const OrderForm = () => __webpack_require__.e(/* import() | components/order-form */ 114).then(__webpack_require__.bind(null, 538)).then(c => wrapFunctional(c.default || c));
-const OrderHistoryList = () => __webpack_require__.e(/* import() | components/order-history-list */ 115).then(__webpack_require__.bind(null, 1531)).then(c => wrapFunctional(c.default || c));
-const OrderStatusForm = () => __webpack_require__.e(/* import() | components/order-status-form */ 116).then(__webpack_require__.bind(null, 539)).then(c => wrapFunctional(c.default || c));
-const PaymentForm = () => __webpack_require__.e(/* import() | components/payment-form */ 121).then(__webpack_require__.bind(null, 852)).then(c => wrapFunctional(c.default || c));
-const PriceListForm = () => __webpack_require__.e(/* import() | components/price-list-form */ 131).then(__webpack_require__.bind(null, 476)).then(c => wrapFunctional(c.default || c));
+const OrderForm = () => __webpack_require__.e(/* import() | components/order-form */ 114).then(__webpack_require__.bind(null, 539)).then(c => wrapFunctional(c.default || c));
+const OrderHistoryList = () => __webpack_require__.e(/* import() | components/order-history-list */ 115).then(__webpack_require__.bind(null, 1535)).then(c => wrapFunctional(c.default || c));
+const OrderStatusForm = () => __webpack_require__.e(/* import() | components/order-status-form */ 116).then(__webpack_require__.bind(null, 540)).then(c => wrapFunctional(c.default || c));
+const PaymentForm = () => __webpack_require__.e(/* import() | components/payment-form */ 121).then(__webpack_require__.bind(null, 856)).then(c => wrapFunctional(c.default || c));
+const PriceListForm = () => __webpack_require__.e(/* import() | components/price-list-form */ 132).then(__webpack_require__.bind(null, 476)).then(c => wrapFunctional(c.default || c));
 const components_PricingOption = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 90)).then(c => wrapFunctional(c.default || c));
-const ProductCard = () => __webpack_require__.e(/* import() | components/product-card */ 132).then(__webpack_require__.bind(null, 1017)).then(c => wrapFunctional(c.default || c));
-const PurchasingFormCRUD = () => __webpack_require__.e(/* import() | components/purchasing-form-c-r-u-d */ 138).then(__webpack_require__.bind(null, 562)).then(c => wrapFunctional(c.default || c));
-const ReceivingFormCRUD = () => __webpack_require__.e(/* import() | components/receiving-form-c-r-u-d */ 139).then(__webpack_require__.bind(null, 558)).then(c => wrapFunctional(c.default || c));
-const ReservationForm = () => __webpack_require__.e(/* import() | components/reservation-form */ 140).then(__webpack_require__.bind(null, 1532)).then(c => wrapFunctional(c.default || c));
-const RiderFormCopy = () => __webpack_require__.e(/* import() | components/rider-form-copy */ 142).then(__webpack_require__.bind(null, 1533)).then(c => wrapFunctional(c.default || c));
-const RiderForm = () => __webpack_require__.e(/* import() | components/rider-form */ 141).then(__webpack_require__.bind(null, 723)).then(c => wrapFunctional(c.default || c));
-const Settlement = () => __webpack_require__.e(/* import() | components/settlement */ 147).then(__webpack_require__.bind(null, 720)).then(c => wrapFunctional(c.default || c));
-const ShippingForm = () => __webpack_require__.e(/* import() | components/shipping-form */ 149).then(__webpack_require__.bind(null, 722)).then(c => wrapFunctional(c.default || c));
-const SpfDialog = () => __webpack_require__.e(/* import() | components/spf-dialog */ 152).then(__webpack_require__.bind(null, 1031)).then(c => wrapFunctional(c.default || c));
-const TerminalForm = () => __webpack_require__.e(/* import() | components/terminal-form */ 153).then(__webpack_require__.bind(null, 724)).then(c => wrapFunctional(c.default || c));
-const TransferForm = () => __webpack_require__.e(/* import() | components/transfer-form */ 159).then(__webpack_require__.bind(null, 1036)).then(c => wrapFunctional(c.default || c));
-const TransferViewForm = () => __webpack_require__.e(/* import() | components/transfer-view-form */ 160).then(__webpack_require__.bind(null, 1534)).then(c => wrapFunctional(c.default || c));
-const Tutorial = () => __webpack_require__.e(/* import() | components/tutorial */ 161).then(__webpack_require__.bind(null, 1590)).then(c => wrapFunctional(c.default || c));
-const TutorialForm = () => __webpack_require__.e(/* import() | components/tutorial-form */ 162).then(__webpack_require__.bind(null, 1037)).then(c => wrapFunctional(c.default || c));
-const UserForm = () => __webpack_require__.e(/* import() | components/user-form */ 164).then(__webpack_require__.bind(null, 854)).then(c => wrapFunctional(c.default || c));
-const VendorForm = () => __webpack_require__.e(/* import() | components/vendor-form */ 165).then(__webpack_require__.bind(null, 855)).then(c => wrapFunctional(c.default || c));
-const VuetifyLogo = () => __webpack_require__.e(/* import() | components/vuetify-logo */ 166).then(__webpack_require__.bind(null, 1591)).then(c => wrapFunctional(c.default || c));
-const Wallet = () => __webpack_require__.e(/* import() | components/wallet */ 167).then(__webpack_require__.bind(null, 1024)).then(c => wrapFunctional(c.default || c));
-const WebCategoryForm = () => __webpack_require__.e(/* import() | components/web-category-form */ 168).then(__webpack_require__.bind(null, 1038)).then(c => wrapFunctional(c.default || c));
-const WebCategoryProductForm = () => __webpack_require__.e(/* import() | components/web-category-product-form */ 169).then(__webpack_require__.bind(null, 1039)).then(c => wrapFunctional(c.default || c));
-const WebProductCategoryForm = () => __webpack_require__.e(/* import() | components/web-product-category-form */ 170).then(__webpack_require__.bind(null, 735)).then(c => wrapFunctional(c.default || c));
-const YoutubePlayer = () => __webpack_require__.e(/* import() | components/youtube-player */ 171).then(__webpack_require__.bind(null, 466)).then(c => wrapFunctional(c.default || c));
-const AllProduct = () => __webpack_require__.e(/* import() | components/all-product */ 22).then(__webpack_require__.bind(null, 736)).then(c => wrapFunctional(c.default || c));
-const Brands = () => __webpack_require__.e(/* import() | components/brands */ 31).then(__webpack_require__.bind(null, 1040)).then(c => wrapFunctional(c.default || c));
+const ProductCard = () => __webpack_require__.e(/* import() | components/product-card */ 133).then(__webpack_require__.bind(null, 1021)).then(c => wrapFunctional(c.default || c));
+const PurchasingFormCRUD = () => __webpack_require__.e(/* import() | components/purchasing-form-c-r-u-d */ 139).then(__webpack_require__.bind(null, 563)).then(c => wrapFunctional(c.default || c));
+const ReceivingFormCRUD = () => __webpack_require__.e(/* import() | components/receiving-form-c-r-u-d */ 140).then(__webpack_require__.bind(null, 559)).then(c => wrapFunctional(c.default || c));
+const ReservationForm = () => __webpack_require__.e(/* import() | components/reservation-form */ 141).then(__webpack_require__.bind(null, 1536)).then(c => wrapFunctional(c.default || c));
+const RiderFormCopy = () => __webpack_require__.e(/* import() | components/rider-form-copy */ 143).then(__webpack_require__.bind(null, 1537)).then(c => wrapFunctional(c.default || c));
+const RiderForm = () => __webpack_require__.e(/* import() | components/rider-form */ 142).then(__webpack_require__.bind(null, 727)).then(c => wrapFunctional(c.default || c));
+const Settlement = () => __webpack_require__.e(/* import() | components/settlement */ 148).then(__webpack_require__.bind(null, 724)).then(c => wrapFunctional(c.default || c));
+const ShippingForm = () => __webpack_require__.e(/* import() | components/shipping-form */ 150).then(__webpack_require__.bind(null, 726)).then(c => wrapFunctional(c.default || c));
+const SpfDialog = () => __webpack_require__.e(/* import() | components/spf-dialog */ 153).then(__webpack_require__.bind(null, 1035)).then(c => wrapFunctional(c.default || c));
+const TerminalForm = () => __webpack_require__.e(/* import() | components/terminal-form */ 154).then(__webpack_require__.bind(null, 728)).then(c => wrapFunctional(c.default || c));
+const TransferForm = () => __webpack_require__.e(/* import() | components/transfer-form */ 160).then(__webpack_require__.bind(null, 1040)).then(c => wrapFunctional(c.default || c));
+const TransferViewForm = () => __webpack_require__.e(/* import() | components/transfer-view-form */ 161).then(__webpack_require__.bind(null, 1538)).then(c => wrapFunctional(c.default || c));
+const Tutorial = () => __webpack_require__.e(/* import() | components/tutorial */ 162).then(__webpack_require__.bind(null, 1594)).then(c => wrapFunctional(c.default || c));
+const TutorialForm = () => __webpack_require__.e(/* import() | components/tutorial-form */ 163).then(__webpack_require__.bind(null, 1041)).then(c => wrapFunctional(c.default || c));
+const UserForm = () => __webpack_require__.e(/* import() | components/user-form */ 165).then(__webpack_require__.bind(null, 858)).then(c => wrapFunctional(c.default || c));
+const VendorForm = () => __webpack_require__.e(/* import() | components/vendor-form */ 166).then(__webpack_require__.bind(null, 859)).then(c => wrapFunctional(c.default || c));
+const VuetifyLogo = () => __webpack_require__.e(/* import() | components/vuetify-logo */ 167).then(__webpack_require__.bind(null, 1595)).then(c => wrapFunctional(c.default || c));
+const Wallet = () => __webpack_require__.e(/* import() | components/wallet */ 168).then(__webpack_require__.bind(null, 1028)).then(c => wrapFunctional(c.default || c));
+const WebCategoryForm = () => __webpack_require__.e(/* import() | components/web-category-form */ 169).then(__webpack_require__.bind(null, 1042)).then(c => wrapFunctional(c.default || c));
+const WebCategoryProductForm = () => __webpack_require__.e(/* import() | components/web-category-product-form */ 170).then(__webpack_require__.bind(null, 1043)).then(c => wrapFunctional(c.default || c));
+const WebProductCategoryForm = () => __webpack_require__.e(/* import() | components/web-product-category-form */ 171).then(__webpack_require__.bind(null, 739)).then(c => wrapFunctional(c.default || c));
+const YoutubePlayer = () => __webpack_require__.e(/* import() | components/youtube-player */ 172).then(__webpack_require__.bind(null, 466)).then(c => wrapFunctional(c.default || c));
+const AllProduct = () => __webpack_require__.e(/* import() | components/all-product */ 22).then(__webpack_require__.bind(null, 740)).then(c => wrapFunctional(c.default || c));
+const Brands = () => __webpack_require__.e(/* import() | components/brands */ 31).then(__webpack_require__.bind(null, 1044)).then(c => wrapFunctional(c.default || c));
 const components_DeliveryForm = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 205)).then(c => wrapFunctional(c.default || c));
-const DiscountProductsCard = () => __webpack_require__.e(/* import() | components/discount-products-card */ 59).then(__webpack_require__.bind(null, 737)).then(c => wrapFunctional(c.default || c));
-const EnhancedInvoicePrinter = () => __webpack_require__.e(/* import() | components/enhanced-invoice-printer */ 60).then(__webpack_require__.bind(null, 1535)).then(c => wrapFunctional(c.default || c));
+const DiscountProductsCard = () => __webpack_require__.e(/* import() | components/discount-products-card */ 59).then(__webpack_require__.bind(null, 741)).then(c => wrapFunctional(c.default || c));
+const EnhancedInvoicePrinter = () => __webpack_require__.e(/* import() | components/enhanced-invoice-printer */ 60).then(__webpack_require__.bind(null, 1539)).then(c => wrapFunctional(c.default || c));
 const Footer = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 131)).then(c => wrapFunctional(c.default || c));
-const HotProductsCard = () => __webpack_require__.e(/* import() | components/hot-products-card */ 63).then(__webpack_require__.bind(null, 1536)).then(c => wrapFunctional(c.default || c));
-const NewProductsCard = () => __webpack_require__.e(/* import() | components/new-products-card */ 107).then(__webpack_require__.bind(null, 1537)).then(c => wrapFunctional(c.default || c));
-const NewUpdateProduct = () => __webpack_require__.e(/* import() | components/new-update-product */ 108).then(__webpack_require__.bind(null, 729)).then(c => wrapFunctional(c.default || c));
-const OrderSumaryCard = () => __webpack_require__.e(/* import() | components/order-sumary-card */ 117).then(__webpack_require__.bind(null, 635)).then(c => wrapFunctional(c.default || c));
+const HotProductsCard = () => __webpack_require__.e(/* import() | components/hot-products-card */ 63).then(__webpack_require__.bind(null, 1540)).then(c => wrapFunctional(c.default || c));
+const NewProductsCard = () => __webpack_require__.e(/* import() | components/new-products-card */ 107).then(__webpack_require__.bind(null, 1541)).then(c => wrapFunctional(c.default || c));
+const NewUpdateProduct = () => __webpack_require__.e(/* import() | components/new-update-product */ 108).then(__webpack_require__.bind(null, 733)).then(c => wrapFunctional(c.default || c));
+const OrderSumaryCard = () => __webpack_require__.e(/* import() | components/order-sumary-card */ 117).then(__webpack_require__.bind(null, 639)).then(c => wrapFunctional(c.default || c));
 const OrderSumaryCardPos = () => __webpack_require__.e(/* import() | components/order-sumary-card-pos */ 118).then(__webpack_require__.bind(null, 470)).then(c => wrapFunctional(c.default || c));
-const OrderSumaryCardV2 = () => __webpack_require__.e(/* import() | components/order-sumary-card-v2 */ 119).then(__webpack_require__.bind(null, 1538)).then(c => wrapFunctional(c.default || c));
-const SimplifiedCompanyForm = () => __webpack_require__.e(/* import() | components/simplified-company-form */ 150).then(__webpack_require__.bind(null, 1539)).then(c => wrapFunctional(c.default || c));
-const Slider = () => __webpack_require__.e(/* import() | components/slider */ 151).then(__webpack_require__.bind(null, 1055)).then(c => wrapFunctional(c.default || c));
-const UnitForm = () => __webpack_require__.e(/* import() | components/unit-form */ 163).then(__webpack_require__.bind(null, 853)).then(c => wrapFunctional(c.default || c));
-const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 1034)).then(c => wrapFunctional(c.default || c));
-const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 633)).then(c => wrapFunctional(c.default || c));
-const AccountingApPayment = () => __webpack_require__.e(/* import() | components/accounting-ap-payment */ 6).then(__webpack_require__.bind(null, 1018)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 1019)).then(c => wrapFunctional(c.default || c));
-const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 1025)).then(c => wrapFunctional(c.default || c));
-const CalendarMyCalendar = () => __webpack_require__.e(/* import() | components/calendar-my-calendar */ 38).then(__webpack_require__.bind(null, 1540)).then(c => wrapFunctional(c.default || c));
+const OrderSumaryCardV2 = () => __webpack_require__.e(/* import() | components/order-sumary-card-v2 */ 119).then(__webpack_require__.bind(null, 1542)).then(c => wrapFunctional(c.default || c));
+const SimplifiedCompanyForm = () => __webpack_require__.e(/* import() | components/simplified-company-form */ 151).then(__webpack_require__.bind(null, 1543)).then(c => wrapFunctional(c.default || c));
+const Slider = () => __webpack_require__.e(/* import() | components/slider */ 152).then(__webpack_require__.bind(null, 1059)).then(c => wrapFunctional(c.default || c));
+const UnitForm = () => __webpack_require__.e(/* import() | components/unit-form */ 164).then(__webpack_require__.bind(null, 857)).then(c => wrapFunctional(c.default || c));
+const CafePOSScreen = () => __webpack_require__.e(/* import() | components/cafe-p-o-s-screen */ 37).then(__webpack_require__.bind(null, 637)).then(c => wrapFunctional(c.default || c));
+const CAFEPOSDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-p-o-s-dialog */ 33).then(__webpack_require__.bind(null, 1038)).then(c => wrapFunctional(c.default || c));
+const AccountingApPayment = () => __webpack_require__.e(/* import() | components/accounting-ap-payment */ 6).then(__webpack_require__.bind(null, 1022)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceivable = () => __webpack_require__.e(/* import() | components/accounting-ar-receivable */ 17).then(__webpack_require__.bind(null, 1023)).then(c => wrapFunctional(c.default || c));
+const AccountingGLForm = () => __webpack_require__.e(/* import() | components/accounting-g-l-form */ 21).then(__webpack_require__.bind(null, 1029)).then(c => wrapFunctional(c.default || c));
+const CalendarMyCalendar = () => __webpack_require__.e(/* import() | components/calendar-my-calendar */ 38).then(__webpack_require__.bind(null, 1544)).then(c => wrapFunctional(c.default || c));
+const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 39).then(__webpack_require__.bind(null, 847)).then(c => wrapFunctional(c.default || c));
 const CardGiftDialog = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 192)).then(c => wrapFunctional(c.default || c));
-const CardCampaignCard = () => __webpack_require__.e(/* import() | components/card-campaign-card */ 41).then(__webpack_require__.bind(null, 1541)).then(c => wrapFunctional(c.default || c));
-const CardForm = () => __webpack_require__.e(/* import() | components/card-form */ 43).then(__webpack_require__.bind(null, 636)).then(c => wrapFunctional(c.default || c));
-const CardStockAdjustMent = () => __webpack_require__.e(/* import() | components/card-stock-adjust-ment */ 44).then(__webpack_require__.bind(null, 1046)).then(c => wrapFunctional(c.default || c));
-const CardStockMaintenance = () => __webpack_require__.e(/* import() | components/card-stock-maintenance */ 45).then(__webpack_require__.bind(null, 1013)).then(c => wrapFunctional(c.default || c));
-const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 51).then(__webpack_require__.bind(null, 845)).then(c => wrapFunctional(c.default || c));
+const CardCampaignCard = () => __webpack_require__.e(/* import() | components/card-campaign-card */ 41).then(__webpack_require__.bind(null, 1545)).then(c => wrapFunctional(c.default || c));
+const CardForm = () => __webpack_require__.e(/* import() | components/card-form */ 43).then(__webpack_require__.bind(null, 640)).then(c => wrapFunctional(c.default || c));
+const CardStockAdjustMent = () => __webpack_require__.e(/* import() | components/card-stock-adjust-ment */ 44).then(__webpack_require__.bind(null, 1050)).then(c => wrapFunctional(c.default || c));
+const CardStockMaintenance = () => __webpack_require__.e(/* import() | components/card-stock-maintenance */ 45).then(__webpack_require__.bind(null, 1017)).then(c => wrapFunctional(c.default || c));
+const CustomerForm = () => __webpack_require__.e(/* import() | components/customer-form */ 51).then(__webpack_require__.bind(null, 849)).then(c => wrapFunctional(c.default || c));
 const components_CustomerList = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 93)).then(c => wrapFunctional(c.default || c));
-const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 58).then(__webpack_require__.bind(null, 1542)).then(c => wrapFunctional(c.default || c));
-const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 52).then(__webpack_require__.bind(null, 1543)).then(c => wrapFunctional(c.default || c));
-const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 53).then(__webpack_require__.bind(null, 1544)).then(c => wrapFunctional(c.default || c));
-const DashboardMetricCard = () => __webpack_require__.e(/* import() | components/dashboard-metric-card */ 54).then(__webpack_require__.bind(null, 1030)).then(c => wrapFunctional(c.default || c));
-const CampaignForm = () => __webpack_require__.e(/* import() | components/campaign-form */ 39).then(__webpack_require__.bind(null, 843)).then(c => wrapFunctional(c.default || c));
-const MemberOffer = () => __webpack_require__.e(/* import() | components/member-offer */ 96).then(__webpack_require__.bind(null, 561)).then(c => wrapFunctional(c.default || c));
-const MemberUsage = () => __webpack_require__.e(/* import() | components/member-usage */ 97).then(__webpack_require__.bind(null, 1384)).then(c => wrapFunctional(c.default || c));
-const Menu = () => __webpack_require__.e(/* import() | components/menu */ 98).then(__webpack_require__.bind(null, 1545)).then(c => wrapFunctional(c.default || c));
-const MenuOverview = () => __webpack_require__.e(/* import() | components/menu-overview */ 101).then(__webpack_require__.bind(null, 1016)).then(c => wrapFunctional(c.default || c));
-const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 102).then(__webpack_require__.bind(null, 841)).then(c => wrapFunctional(c.default || c));
-const MinistryDialog = () => __webpack_require__.e(/* import() | components/ministry-dialog */ 103).then(__webpack_require__.bind(null, 857)).then(c => wrapFunctional(c.default || c));
-const MinistryViewDialog = () => __webpack_require__.e(/* import() | components/ministry-view-dialog */ 104).then(__webpack_require__.bind(null, 851)).then(c => wrapFunctional(c.default || c));
-const PaymentCard = () => __webpack_require__.e(/* import() | components/payment-card */ 120).then(__webpack_require__.bind(null, 1546)).then(c => wrapFunctional(c.default || c));
-const PaymentQr = () => __webpack_require__.e(/* import() | components/payment-qr */ 122).then(__webpack_require__.bind(null, 1547)).then(c => wrapFunctional(c.default || c));
-const PoForm = () => __webpack_require__.e(/* import() | components/po-form */ 123).then(__webpack_require__.bind(null, 596)).then(c => wrapFunctional(c.default || c));
-const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 137).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
-const ProductItem = () => __webpack_require__.e(/* import() | components/product-item */ 136).then(__webpack_require__.bind(null, 1548)).then(c => wrapFunctional(c.default || c));
-const ProductCardPos = () => __webpack_require__.e(/* import() | components/product-card-pos */ 133).then(__webpack_require__.bind(null, 1041)).then(c => wrapFunctional(c.default || c));
-const ProductForm = () => __webpack_require__.e(/* import() | components/product-form */ 134).then(__webpack_require__.bind(null, 502)).then(c => wrapFunctional(c.default || c));
-const ProductFormCreate = () => __webpack_require__.e(/* import() | components/product-form-create */ 135).then(__webpack_require__.bind(null, 501)).then(c => wrapFunctional(c.default || c));
+const DashboardCardGrouping = () => __webpack_require__.e(/* import() | components/dashboard-card-grouping */ 52).then(__webpack_require__.bind(null, 1546)).then(c => wrapFunctional(c.default || c));
+const DashboardCardOnTop = () => __webpack_require__.e(/* import() | components/dashboard-card-on-top */ 53).then(__webpack_require__.bind(null, 1547)).then(c => wrapFunctional(c.default || c));
+const DashboardMetricCard = () => __webpack_require__.e(/* import() | components/dashboard-metric-card */ 54).then(__webpack_require__.bind(null, 1034)).then(c => wrapFunctional(c.default || c));
+const DialogsBottomAlert = () => __webpack_require__.e(/* import() | components/dialogs-bottom-alert */ 58).then(__webpack_require__.bind(null, 1548)).then(c => wrapFunctional(c.default || c));
+const MemberOffer = () => __webpack_require__.e(/* import() | components/member-offer */ 96).then(__webpack_require__.bind(null, 562)).then(c => wrapFunctional(c.default || c));
+const MemberUsage = () => __webpack_require__.e(/* import() | components/member-usage */ 97).then(__webpack_require__.bind(null, 1388)).then(c => wrapFunctional(c.default || c));
+const Menu = () => __webpack_require__.e(/* import() | components/menu */ 98).then(__webpack_require__.bind(null, 1549)).then(c => wrapFunctional(c.default || c));
+const MenuOverview = () => __webpack_require__.e(/* import() | components/menu-overview */ 101).then(__webpack_require__.bind(null, 1020)).then(c => wrapFunctional(c.default || c));
+const MinStockCard = () => __webpack_require__.e(/* import() | components/min-stock-card */ 102).then(__webpack_require__.bind(null, 845)).then(c => wrapFunctional(c.default || c));
+const MinistryDialog = () => __webpack_require__.e(/* import() | components/ministry-dialog */ 103).then(__webpack_require__.bind(null, 861)).then(c => wrapFunctional(c.default || c));
+const MinistryViewDialog = () => __webpack_require__.e(/* import() | components/ministry-view-dialog */ 104).then(__webpack_require__.bind(null, 855)).then(c => wrapFunctional(c.default || c));
+const PaymentCard = () => __webpack_require__.e(/* import() | components/payment-card */ 120).then(__webpack_require__.bind(null, 1550)).then(c => wrapFunctional(c.default || c));
+const PaymentQr = () => __webpack_require__.e(/* import() | components/payment-qr */ 122).then(__webpack_require__.bind(null, 1551)).then(c => wrapFunctional(c.default || c));
+const PoForm = () => __webpack_require__.e(/* import() | components/po-form */ 123).then(__webpack_require__.bind(null, 599)).then(c => wrapFunctional(c.default || c));
 const PosCartFooterComponent = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 187)).then(c => wrapFunctional(c.default || c));
 const PosCartItemComponent = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 186)).then(c => wrapFunctional(c.default || c));
-const PosCateogoryList = () => __webpack_require__.e(/* import() | components/pos-cateogory-list */ 126).then(__webpack_require__.bind(null, 1549)).then(c => wrapFunctional(c.default || c));
+const PosCateogoryList = () => __webpack_require__.e(/* import() | components/pos-cateogory-list */ 126).then(__webpack_require__.bind(null, 1552)).then(c => wrapFunctional(c.default || c));
 const PosMultiPaymentDialogVue2 = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 185)).then(c => wrapFunctional(c.default || c));
-const PosAppBar = () => __webpack_require__.e(/* import() | components/pos-app-bar */ 124).then(__webpack_require__.bind(null, 1550)).then(c => wrapFunctional(c.default || c));
-const PosCartDrawer = () => __webpack_require__.e(/* import() | components/pos-cart-drawer */ 125).then(__webpack_require__.bind(null, 1551)).then(c => wrapFunctional(c.default || c));
-const PosDialogs = () => __webpack_require__.e(/* import() | components/pos-dialogs */ 127).then(__webpack_require__.bind(null, 1552)).then(c => wrapFunctional(c.default || c));
-const PosLeftDrawer = () => __webpack_require__.e(/* import() | components/pos-left-drawer */ 129).then(__webpack_require__.bind(null, 1553)).then(c => wrapFunctional(c.default || c));
+const PosAppBar = () => __webpack_require__.e(/* import() | components/pos-app-bar */ 124).then(__webpack_require__.bind(null, 1553)).then(c => wrapFunctional(c.default || c));
+const PosCartDrawer = () => __webpack_require__.e(/* import() | components/pos-cart-drawer */ 125).then(__webpack_require__.bind(null, 1554)).then(c => wrapFunctional(c.default || c));
+const PosDialogs = () => __webpack_require__.e(/* import() | components/pos-dialogs */ 127).then(__webpack_require__.bind(null, 1555)).then(c => wrapFunctional(c.default || c));
+const PosLeftDrawer = () => __webpack_require__.e(/* import() | components/pos-left-drawer */ 130).then(__webpack_require__.bind(null, 1556)).then(c => wrapFunctional(c.default || c));
+const ProductItem = () => __webpack_require__.e(/* import() | components/product-item */ 137).then(__webpack_require__.bind(null, 1557)).then(c => wrapFunctional(c.default || c));
+const ProductCardPos = () => __webpack_require__.e(/* import() | components/product-card-pos */ 134).then(__webpack_require__.bind(null, 1045)).then(c => wrapFunctional(c.default || c));
+const ProductForm = () => __webpack_require__.e(/* import() | components/product-form */ 135).then(__webpack_require__.bind(null, 502)).then(c => wrapFunctional(c.default || c));
+const ProductFormCreate = () => __webpack_require__.e(/* import() | components/product-form-create */ 136).then(__webpack_require__.bind(null, 501)).then(c => wrapFunctional(c.default || c));
+const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 138).then(__webpack_require__.bind(null, 1049)).then(c => wrapFunctional(c.default || c));
 const Quotation = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 110)).then(c => wrapFunctional(c.default || c));
-const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 146).then(__webpack_require__.bind(null, 1554)).then(c => wrapFunctional(c.default || c));
-const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 158).then(__webpack_require__.bind(null, 1044)).then(c => wrapFunctional(c.default || c));
-const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 595)).then(c => wrapFunctional(c.default || c));
-const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 143).then(__webpack_require__.bind(null, 1048)).then(c => wrapFunctional(c.default || c));
-const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 144).then(__webpack_require__.bind(null, 1049)).then(c => wrapFunctional(c.default || c));
-const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 145).then(__webpack_require__.bind(null, 1051)).then(c => wrapFunctional(c.default || c));
-const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 577)).then(c => wrapFunctional(c.default || c));
-const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 36).then(__webpack_require__.bind(null, 560)).then(c => wrapFunctional(c.default || c));
-const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 148).then(__webpack_require__.bind(null, 1050)).then(c => wrapFunctional(c.default || c));
-const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 75).then(__webpack_require__.bind(null, 1555)).then(c => wrapFunctional(c.default || c));
-const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 154).then(__webpack_require__.bind(null, 578)).then(c => wrapFunctional(c.default || c));
-const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 155).then(__webpack_require__.bind(null, 1556)).then(c => wrapFunctional(c.default || c));
-const TicketsTicketCard = () => __webpack_require__.e(/* import() | components/tickets-ticket-card */ 156).then(__webpack_require__.bind(null, 1032)).then(c => wrapFunctional(c.default || c));
-const TicketsTicketDetailDialog = () => __webpack_require__.e(/* import() | components/tickets-ticket-detail-dialog */ 157).then(__webpack_require__.bind(null, 1033)).then(c => wrapFunctional(c.default || c));
-const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 76).then(__webpack_require__.bind(null, 1557)).then(c => wrapFunctional(c.default || c));
-const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 77).then(__webpack_require__.bind(null, 1558)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsBankAccountInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-bank-account-info */ 78).then(__webpack_require__.bind(null, 1559)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsDateField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-date-field */ 79).then(__webpack_require__.bind(null, 1560)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsDialogFooter = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-footer */ 80).then(__webpack_require__.bind(null, 1561)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsDialogHeader = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-header */ 81).then(__webpack_require__.bind(null, 1562)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsFormSection = () => __webpack_require__.e(/* import() | components/m-a-payment-components-form-section */ 82).then(__webpack_require__.bind(null, 1563)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsInputField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-input-field */ 83).then(__webpack_require__.bind(null, 1564)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsLoadingState = () => __webpack_require__.e(/* import() | components/m-a-payment-components-loading-state */ 84).then(__webpack_require__.bind(null, 1565)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsMinistryInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-ministry-info */ 85).then(__webpack_require__.bind(null, 1566)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsSelectField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-select-field */ 86).then(__webpack_require__.bind(null, 1567)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsTextareaField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-textarea-field */ 87).then(__webpack_require__.bind(null, 1568)).then(c => wrapFunctional(c.default || c));
-const MAPaymentComponentsValidationErrors = () => __webpack_require__.e(/* import() | components/m-a-payment-components-validation-errors */ 88).then(__webpack_require__.bind(null, 1569)).then(c => wrapFunctional(c.default || c));
-const CAFEPrintBarDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-print-bar-dialog */ 35).then(__webpack_require__.bind(null, 1035)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 90).then(__webpack_require__.bind(null, 732)).then(c => wrapFunctional(c.default || c));
-const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 89).then(__webpack_require__.bind(null, 733)).then(c => wrapFunctional(c.default || c));
-const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 91).then(__webpack_require__.bind(null, 597)).then(c => wrapFunctional(c.default || c));
-const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 92).then(__webpack_require__.bind(null, 1029)).then(c => wrapFunctional(c.default || c));
-const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 93).then(__webpack_require__.bind(null, 598)).then(c => wrapFunctional(c.default || c));
-const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 734)).then(c => wrapFunctional(c.default || c));
-const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 95).then(__webpack_require__.bind(null, 537)).then(c => wrapFunctional(c.default || c));
-const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 730)).then(c => wrapFunctional(c.default || c));
-const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1570)).then(c => wrapFunctional(c.default || c));
-const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1571)).then(c => wrapFunctional(c.default || c));
-const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 1020)).then(c => wrapFunctional(c.default || c));
-const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 1022)).then(c => wrapFunctional(c.default || c));
-const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 1023)).then(c => wrapFunctional(c.default || c));
-const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 49).then(__webpack_require__.bind(null, 727)).then(c => wrapFunctional(c.default || c));
-const JobAdvertiseMaintain = () => __webpack_require__.e(/* import() | components/job-advertise-maintain */ 66).then(__webpack_require__.bind(null, 1026)).then(c => wrapFunctional(c.default || c));
-const JobAdvertiseStatusUpdate = () => __webpack_require__.e(/* import() | components/job-advertise-status-update */ 67).then(__webpack_require__.bind(null, 1028)).then(c => wrapFunctional(c.default || c));
-const JobAdvertiseView = () => __webpack_require__.e(/* import() | components/job-advertise-view */ 68).then(__webpack_require__.bind(null, 1027)).then(c => wrapFunctional(c.default || c));
-const JobFairJobBatch = () => __webpack_require__.e(/* import() | components/job-fair-job-batch */ 71).then(__webpack_require__.bind(null, 1021)).then(c => wrapFunctional(c.default || c));
-const PosDialogsQuantityUpdateDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-quantity-update-dialog */ 128).then(__webpack_require__.bind(null, 1572)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoice = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice */ 3).then(__webpack_require__.bind(null, 1042)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlement = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement */ 7).then(__webpack_require__.bind(null, 1043)).then(c => wrapFunctional(c.default || c));
-const JobFairAgencyMaintain = () => __webpack_require__.e(/* import() | components/job-fair-agency-maintain */ 69).then(__webpack_require__.bind(null, 640)).then(c => wrapFunctional(c.default || c));
-const JobFairAgencyView = () => __webpack_require__.e(/* import() | components/job-fair-agency-view */ 70).then(__webpack_require__.bind(null, 641)).then(c => wrapFunctional(c.default || c));
-const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1377)).then(c => wrapFunctional(c.default || c));
-const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 72).then(__webpack_require__.bind(null, 1056)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 740)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 741)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 642)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 731)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1052)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 739)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1053)).then(c => wrapFunctional(c.default || c));
-const PosRecipe = () => __webpack_require__.e(/* import() | components/pos-recipe */ 130).then(__webpack_require__.bind(null, 1047)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 1054)).then(c => wrapFunctional(c.default || c));
-const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 638)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 632)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 639)).then(c => wrapFunctional(c.default || c));
-const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 594)).then(c => wrapFunctional(c.default || c));
-const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 725)).then(c => wrapFunctional(c.default || c));
-const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 738)).then(c => wrapFunctional(c.default || c));
+const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 144).then(__webpack_require__.bind(null, 1052)).then(c => wrapFunctional(c.default || c));
+const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 145).then(__webpack_require__.bind(null, 1053)).then(c => wrapFunctional(c.default || c));
+const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 146).then(__webpack_require__.bind(null, 1055)).then(c => wrapFunctional(c.default || c));
+const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 147).then(__webpack_require__.bind(null, 1558)).then(c => wrapFunctional(c.default || c));
+const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 149).then(__webpack_require__.bind(null, 1054)).then(c => wrapFunctional(c.default || c));
+const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 155).then(__webpack_require__.bind(null, 581)).then(c => wrapFunctional(c.default || c));
+const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 156).then(__webpack_require__.bind(null, 1559)).then(c => wrapFunctional(c.default || c));
+const TicketsTicketCard = () => __webpack_require__.e(/* import() | components/tickets-ticket-card */ 157).then(__webpack_require__.bind(null, 1036)).then(c => wrapFunctional(c.default || c));
+const TicketsTicketDetailDialog = () => __webpack_require__.e(/* import() | components/tickets-ticket-detail-dialog */ 158).then(__webpack_require__.bind(null, 1037)).then(c => wrapFunctional(c.default || c));
+const TimelineGianttTimeline = () => __webpack_require__.e(/* import() | components/timeline-giantt-timeline */ 159).then(__webpack_require__.bind(null, 1048)).then(c => wrapFunctional(c.default || c));
+const CAFECustomerDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-customer-dialog */ 32).then(__webpack_require__.bind(null, 598)).then(c => wrapFunctional(c.default || c));
+const CAFEPaymentDialogFront = () => __webpack_require__.e(/* import() | components/c-a-f-e-payment-dialog-front */ 34).then(__webpack_require__.bind(null, 580)).then(c => wrapFunctional(c.default || c));
+const CAFEPrintBarDialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-print-bar-dialog */ 35).then(__webpack_require__.bind(null, 1039)).then(c => wrapFunctional(c.default || c));
+const CAFEPrintdialog = () => __webpack_require__.e(/* import() | components/c-a-f-e-printdialog */ 36).then(__webpack_require__.bind(null, 561)).then(c => wrapFunctional(c.default || c));
+const MAPaymentAuditDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-dialog */ 75).then(__webpack_require__.bind(null, 1560)).then(c => wrapFunctional(c.default || c));
+const MAPaymentAuditReportDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-audit-report-dialog */ 76).then(__webpack_require__.bind(null, 1561)).then(c => wrapFunctional(c.default || c));
+const MAPaymentCompareDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-compare-dialog */ 77).then(__webpack_require__.bind(null, 1562)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsBankAccountInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-bank-account-info */ 78).then(__webpack_require__.bind(null, 1563)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsDateField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-date-field */ 79).then(__webpack_require__.bind(null, 1564)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsDialogFooter = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-footer */ 80).then(__webpack_require__.bind(null, 1565)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsDialogHeader = () => __webpack_require__.e(/* import() | components/m-a-payment-components-dialog-header */ 81).then(__webpack_require__.bind(null, 1566)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsFormSection = () => __webpack_require__.e(/* import() | components/m-a-payment-components-form-section */ 82).then(__webpack_require__.bind(null, 1567)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsInputField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-input-field */ 83).then(__webpack_require__.bind(null, 1568)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsLoadingState = () => __webpack_require__.e(/* import() | components/m-a-payment-components-loading-state */ 84).then(__webpack_require__.bind(null, 1569)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsMinistryInfo = () => __webpack_require__.e(/* import() | components/m-a-payment-components-ministry-info */ 85).then(__webpack_require__.bind(null, 1570)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsSelectField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-select-field */ 86).then(__webpack_require__.bind(null, 1571)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsTextareaField = () => __webpack_require__.e(/* import() | components/m-a-payment-components-textarea-field */ 87).then(__webpack_require__.bind(null, 1572)).then(c => wrapFunctional(c.default || c));
+const MAPaymentComponentsValidationErrors = () => __webpack_require__.e(/* import() | components/m-a-payment-components-validation-errors */ 88).then(__webpack_require__.bind(null, 1573)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDetailDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-detail-dialog */ 89).then(__webpack_require__.bind(null, 737)).then(c => wrapFunctional(c.default || c));
+const MAPaymentDialog = () => __webpack_require__.e(/* import() | components/m-a-payment-dialog */ 90).then(__webpack_require__.bind(null, 736)).then(c => wrapFunctional(c.default || c));
+const MAPaymentVoucher = () => __webpack_require__.e(/* import() | components/m-a-payment-voucher */ 91).then(__webpack_require__.bind(null, 600)).then(c => wrapFunctional(c.default || c));
+const MARevenueTargetDialog = () => __webpack_require__.e(/* import() | components/m-a-revenue-target-dialog */ 92).then(__webpack_require__.bind(null, 1033)).then(c => wrapFunctional(c.default || c));
+const MASettlementDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-dialog */ 93).then(__webpack_require__.bind(null, 601)).then(c => wrapFunctional(c.default || c));
+const MASettlementViewDialog = () => __webpack_require__.e(/* import() | components/m-a-settlement-view-dialog */ 94).then(__webpack_require__.bind(null, 738)).then(c => wrapFunctional(c.default || c));
+const MASettlementVoucher = () => __webpack_require__.e(/* import() | components/m-a-settlement-voucher */ 95).then(__webpack_require__.bind(null, 538)).then(c => wrapFunctional(c.default || c));
+const AccountingTransaction = () => __webpack_require__.e(/* import() | components/accounting-transaction */ 0).then(__webpack_require__.bind(null, 1381)).then(c => wrapFunctional(c.default || c));
+const ApplicantsApplicantDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-dialog */ 23).then(__webpack_require__.bind(null, 734)).then(c => wrapFunctional(c.default || c));
+const ApplicantsApplicantViewDialog = () => __webpack_require__.e(/* import() | components/applicants-applicant-view-dialog */ 24).then(__webpack_require__.bind(null, 1574)).then(c => wrapFunctional(c.default || c));
+const ApplicantsStatusUpdateDialog = () => __webpack_require__.e(/* import() | components/applicants-status-update-dialog */ 25).then(__webpack_require__.bind(null, 1575)).then(c => wrapFunctional(c.default || c));
+const BankBankAccount = () => __webpack_require__.e(/* import() | components/bank-bank-account */ 27).then(__webpack_require__.bind(null, 1024)).then(c => wrapFunctional(c.default || c));
+const BenefitMaintain = () => __webpack_require__.e(/* import() | components/benefit-maintain */ 29).then(__webpack_require__.bind(null, 1026)).then(c => wrapFunctional(c.default || c));
+const BenefitView = () => __webpack_require__.e(/* import() | components/benefit-view */ 30).then(__webpack_require__.bind(null, 1027)).then(c => wrapFunctional(c.default || c));
+const CompanyTheme = () => __webpack_require__.e(/* import() | components/company-theme */ 49).then(__webpack_require__.bind(null, 731)).then(c => wrapFunctional(c.default || c));
+const JobAdvertiseMaintain = () => __webpack_require__.e(/* import() | components/job-advertise-maintain */ 66).then(__webpack_require__.bind(null, 1030)).then(c => wrapFunctional(c.default || c));
+const JobAdvertiseStatusUpdate = () => __webpack_require__.e(/* import() | components/job-advertise-status-update */ 67).then(__webpack_require__.bind(null, 1032)).then(c => wrapFunctional(c.default || c));
+const JobAdvertiseView = () => __webpack_require__.e(/* import() | components/job-advertise-view */ 68).then(__webpack_require__.bind(null, 1031)).then(c => wrapFunctional(c.default || c));
+const JobFairJobBatch = () => __webpack_require__.e(/* import() | components/job-fair-job-batch */ 71).then(__webpack_require__.bind(null, 1025)).then(c => wrapFunctional(c.default || c));
+const PosDialogsQuantityUpdateDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-quantity-update-dialog */ 128).then(__webpack_require__.bind(null, 1576)).then(c => wrapFunctional(c.default || c));
+const PosDialogsTicketDetailsDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-ticket-details-dialog */ 129).then(__webpack_require__.bind(null, 602)).then(c => wrapFunctional(c.default || c));
+const PosRecipe = () => __webpack_require__.e(/* import() | components/pos-recipe */ 131).then(__webpack_require__.bind(null, 1051)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoice = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice */ 3).then(__webpack_require__.bind(null, 1046)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlement = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement */ 7).then(__webpack_require__.bind(null, 1047)).then(c => wrapFunctional(c.default || c));
+const JobFairAgencyMaintain = () => __webpack_require__.e(/* import() | components/job-fair-agency-maintain */ 69).then(__webpack_require__.bind(null, 644)).then(c => wrapFunctional(c.default || c));
+const JobFairAgencyView = () => __webpack_require__.e(/* import() | components/job-fair-agency-view */ 70).then(__webpack_require__.bind(null, 645)).then(c => wrapFunctional(c.default || c));
+const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 72).then(__webpack_require__.bind(null, 1060)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 744)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 745)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 742)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementVoucher = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-voucher */ 11).then(__webpack_require__.bind(null, 743)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit */ 12).then(__webpack_require__.bind(null, 646)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-maintain */ 14).then(__webpack_require__.bind(null, 735)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-view */ 15).then(__webpack_require__.bind(null, 1056)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-voucher */ 16).then(__webpack_require__.bind(null, 636)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveMaintain = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-maintain */ 18).then(__webpack_require__.bind(null, 1057)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveView = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-view */ 19).then(__webpack_require__.bind(null, 1058)).then(c => wrapFunctional(c.default || c));
+const AccountingArReceiveVoucher = () => __webpack_require__.e(/* import() | components/accounting-ar-receive-voucher */ 20).then(__webpack_require__.bind(null, 729)).then(c => wrapFunctional(c.default || c));
+const AccountingApInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit-view */ 5).then(__webpack_require__.bind(null, 642)).then(c => wrapFunctional(c.default || c));
+const AccountingApSettlementAuditView = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit-view */ 9).then(__webpack_require__.bind(null, 643)).then(c => wrapFunctional(c.default || c));
+const AccountingArInvoiceAuditView = () => __webpack_require__.e(/* import() | components/accounting-ar-invoice-audit-view */ 13).then(__webpack_require__.bind(null, 597)).then(c => wrapFunctional(c.default || c));
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
