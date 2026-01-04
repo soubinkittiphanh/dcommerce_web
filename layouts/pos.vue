@@ -593,6 +593,7 @@ export default {
   },
   data() {
     return {
+      multiPaymentCodes: '', // Add this new property
       updateCustomerScreenDebounced: null,
       sharedState: Vue.observable({
         saleHeader: 0,
@@ -752,6 +753,7 @@ export default {
       'findSelectedTerminal',
       'findAllTerminal',
       'findAllLocation',
+      'findAllPayment',
     ]),
     serachModel: {
       get() {
@@ -807,12 +809,25 @@ export default {
       return this.currentSelectedPayment
     },
     currentPaymentCode() {
+      // If we have multi-payment codes, use those
+      if (this.multiPaymentCodes) {
+        return this.multiPaymentCodes
+      }
+
+      // Otherwise, use single payment logic
       const payment = this.paymentList.find(
         (el) => el.id == this.currentSelectedPayment
       )
       if (payment == undefined) return ''
       return payment['payment_code']
     },
+    // currentPaymentCode() {
+    //   const payment = this.paymentList.find(
+    //     (el) => el.id == this.currentSelectedPayment
+    //   )
+    //   if (payment == undefined) return ''
+    //   return payment['payment_code']
+    // },
     grandTotal() {
       const totalPrice = this.cartOfProduct.reduce((total, item) => {
         return total + item.qty * item.localPrice
@@ -1499,6 +1514,20 @@ export default {
         // set value to trigger load product again to refresh stock count
         this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
+        console.info(`PAYMENT LIST ${JSON.stringify(paymentData)}`)
+
+        // Get payment codes from findAllPayment by matching IDs
+        const paymentCodes = paymentData
+          .map((payment) => {
+            const foundPayment = this.findAllPayment.find(
+              (p) => p.id === payment.paymentId
+            )
+            return foundPayment ? foundPayment.payment_code : null
+          })
+          .filter((code) => code !== null) // Remove null values
+
+        this.multiPaymentCodes = paymentCodes.join(' + ') // Assign to data property instead
+
         this.printDefaultTicket()
         this.completeTransaction()
       } catch (error) {
@@ -1527,6 +1556,8 @@ export default {
       this.discount = 0
       this.cashReceived = 0
       this.pendingSaleHeaderId = null
+      this.multiPaymentCodes = '' // Reset multi-payment codes
+
 
       if (this.multiPayment) {
         this.multiPayment.clearPayments()
@@ -1866,7 +1897,7 @@ export default {
         },
         user: this.user,
         ticketCommon: this.ticketCommon,
-        currentPaymentCode: this.currentPaymentCode,
+        currentPaymentCode: this.currentPaymentCode, //TODO: PAYMENT MULTI IS NOT SHOWING
         cashReceived: this.cashReceived,
         changes: theChanges,
         axios: this.$axios,

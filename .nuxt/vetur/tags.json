@@ -377,11 +377,11 @@
   "CAFEPaymentDialogFront": {
     "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
   },
-  "CAFEPrintdialog": {
-    "description": "Auto imported from components/CAFE/printdialog/index.vue"
-  },
   "CAFEPrintBarDialog": {
     "description": "Auto imported from components/CAFE/printBarDialog/index.vue"
+  },
+  "CAFEPrintdialog": {
+    "description": "Auto imported from components/CAFE/printdialog/index.vue"
   },
   "MAPaymentAuditDialog": {
     "description": "Auto imported from components/MA/paymentAuditDialog/index.vue"
@@ -449,9 +449,6 @@
   "AccountingTransaction": {
     "description": "Auto imported from components/accounting/transaction/index.vue"
   },
-  "BankBankAccount": {
-    "description": "Auto imported from components/bank/bankAccount/index.vue"
-  },
   "ApplicantsApplicantDialog": {
     "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
   },
@@ -460,6 +457,9 @@
   },
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
+  },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
   },
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"

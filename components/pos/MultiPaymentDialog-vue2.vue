@@ -854,7 +854,7 @@ export default {
           amount: payment.amount,
           referenceNo: payment.referenceNo || null
         }))
-
+        console.info(`PAYMENT LIST ${JSON.stringify(paymentData)}`)
         this.$emit('confirm-payment', paymentData)
       } catch (error) {
         this.$emit('payment-error', error)

@@ -962,41 +962,52 @@ export default {
     },
 
     async loadSaleStatistic() {
-      const date = firstAndLastDateOfLast6Months() // Changed from firstAndLastDateOfCurrentYear()
-      this.isloading = true
-      await this.$axios
-        .get('api/sale/sumsaleYearly', { params: { date } })
-        .then((res) => {
-          this.yearlySale = [] // Note: keeping the same variable name for compatibility
-          for (const iterator of res.data) {
-            this.yearlySale.push(iterator)
-          }
-
-          const monthSaleList = this.yearlySale.filter(
-            (el) => el.bookingDate.split('-')[1] == today.split('-')[1]
-          )
-          const todaySaleList = this.yearlySale.filter(
-            (el) => el.bookingDate == today
-          )
-
-          this.menusOverview[2]['total'] = this.totalSale6M // Updated name
-          this.menusOverview[2]['groupedSales'] = this.saleGroupByPayment(
-            this.yearlySale
-          )
-          this.menusOverview[1]['total'] = this.totalSaleMTD
-          this.menusOverview[1]['groupedSales'] =
-            this.saleGroupByPayment(monthSaleList)
-          this.menusOverview[0]['total'] = this.totalSaleTD
-          this.menusOverview[0]['groupedSales'] =
-            this.saleGroupByPayment(todaySaleList)
-
-          this.monthGroupSale()
-        })
-        .catch((err) => {
-          console.log('error', err)
-        })
-      this.isloading = false
-    },
+  const date = firstAndLastDateOfLast6Months() // Changed from firstAndLastDateOfCurrentYear()
+  const today = new Date().toISOString().split('T')[0] // Define today variable
+  
+  console.info(`current location ${JSON.stringify(this.currentSelectedLocation)}`)
+  this.isloading = true
+  
+  // TODO: FILTER ONLY TRANSACTION FROM CURRENT BRANCH currentSelectedLocation
+  await this.$axios
+    .get('api/sale/sumsaleYearly', { 
+      params: { 
+        date,
+        locationId: this.currentSelectedLocation.id
+      } 
+    })
+    .then((res) => {
+      this.yearlySale = [] // Note: keeping the same variable name for compatibility
+      
+      for (const iterator of res.data) {
+        this.yearlySale.push(iterator)
+      }
+      
+      const monthSaleList = this.yearlySale.filter(
+        (el) => el.bookingDate.split('-')[1] == today.split('-')[1]
+      )
+      
+      const todaySaleList = this.yearlySale.filter(
+        (el) => el.bookingDate == today
+      )
+      
+      this.menusOverview[2]['total'] = this.totalSale6M // Updated name
+      this.menusOverview[2]['groupedSales'] = this.saleGroupByPayment(
+        this.yearlySale
+      )
+      this.menusOverview[1]['total'] = this.totalSaleMTD
+      this.menusOverview[1]['groupedSales'] = this.saleGroupByPayment(monthSaleList)
+      this.menusOverview[0]['total'] = this.totalSaleTD
+      this.menusOverview[0]['groupedSales'] = this.saleGroupByPayment(todaySaleList)
+      
+      this.monthGroupSale()
+    })
+    .catch((err) => {
+      console.log('error', err)
+    })
+    
+  this.isloading = false
+},
 
     async generateDailyStatisticSale() {
       this.isloading = true

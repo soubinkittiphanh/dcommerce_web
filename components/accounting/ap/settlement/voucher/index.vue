@@ -65,7 +65,9 @@
           <div class="voucher-info-grid">
             <div class="info-row">
               <span class="label">Voucher No:</span>
-              <span class="value">{{ safeVoucherData.reference || '-' }}</span>
+              <span class="value">{{
+                formatVoucherNumber(safeVoucherData.id) || '-'
+              }}</span>
             </div>
             <div class="info-row">
               <span class="label">Date:</span>
@@ -76,7 +78,7 @@
             <div class="info-row">
               <span class="label">Payment Method:</span>
               <span class="value">{{
-                getPaymentMethodName(safeVoucherData.paymentMethodId)
+                findPayment(safeVoucherData.paymentMethodId).payment_code
               }}</span>
             </div>
             <div class="info-row">
@@ -90,7 +92,7 @@
           <!-- Payment Details Table -->
           <table class="voucher-table">
             <thead>
-              <tr>
+              <tr style="color: primary">
                 <th width="5%">#</th>
                 <th width="15%">Invoice No</th>
                 <th width="15%">Agency</th>
@@ -123,7 +125,7 @@
                   <strong>Total Amount:</strong>
                 </td>
                 <td class="text-right">
-                  <strong>{{ formatCurrency(totalAmount) }}</strong>
+                  <strong>{{ formatCurrency(totalAmount) }} {{ findCurrency(safeVoucherData.currencyId).code }}</strong>
                 </td>
               </tr>
             </tfoot>
@@ -131,7 +133,7 @@
 
           <!-- Amount in Words -->
           <div class="amount-words">
-            <strong>Amount in Words:</strong> {{ amountInWords }}
+            <strong>Amount in Words:</strong> {{ amountInWords }} {{ findCurrency(safeVoucherData.currencyId).code  }}
           </div>
 
           <!-- Description -->
@@ -212,10 +214,11 @@
 <script>
 import { hostName, mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
 import companyLogoMixin from '~/mixins/companyLogoMixin'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'PaymentVoucherPrinterWithLogo',
-  
+
   mixins: [companyLogoMixin],
 
   props: {
@@ -247,6 +250,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['findAllPayment', 'findAllCurrency']),
     companyDataV1() {
       console.log(
         `**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`
@@ -317,10 +321,21 @@ export default {
         // Load the first company logo when dialog opens
         this.loadFirstCompanyLogo()
       }
-    }
+    },
   },
-
+  created() {
+    console.info(`JSON ${JSON.stringify(this.safeVoucherData)}`)
+  },
   methods: {
+    findPayment(paymentId) {
+      return this.findAllPayment.find((el) => el.id == paymentId)
+    },
+    findCurrency(currencyId) {
+      return this.findAllCurrency.find((el) => el.id == currencyId)
+    },
+    formatVoucherNumber(id) {
+      return String(id).padStart(6, '0')
+    },
     // Format date
     formatDate(date) {
       if (!date) return '-'
@@ -659,7 +674,7 @@ export default {
 
 .voucher-table th {
   background-color: primary;
-  color: white;
+  /* color: white; */
   font-weight: 600;
   text-align: left;
 }
@@ -737,7 +752,7 @@ export default {
   .voucher-container {
     padding: 20px;
   }
-  
+
   .company-logo {
     width: 100px;
     max-height: 80px;

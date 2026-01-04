@@ -382,9 +382,9 @@ export default {
       }
 
       // For cash payments, ensure sufficient cash received in real-time
-      if (this.isTraditionalCashPayment) {
-        return this.realTimeCashReceived >= this.realTimeFinalTotal
-      }
+      // if (this.isTraditionalCashPayment) {
+      //   return this.realTimeCashReceived >= this.realTimeFinalTotal
+      // }
 
       // For non-cash payments, just need selection
       return true
