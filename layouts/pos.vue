@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <!-- MINIMART POS.VUE -->
+    <!-- MINIMART POS.VUE - OPTIMIZED VERSION -->
     <!-- Multi-Payment Dialog - ENHANCED -->
     <v-dialog v-model="multiPaymentDialog" max-width="900" persistent>
       <multi-payment-dialog
@@ -264,7 +264,6 @@
         <v-row align="center" no-gutters>
           <v-col cols="auto" class="mr-3">
             <!-- Center Section - Search -->
-
             <v-text-field
               v-model="serachModel"
               clearable
@@ -279,17 +278,6 @@
             />
           </v-col>
         </v-row>
-        <!-- <v-btn
-          class="header-btn mr-2"
-          color="warning"
-          text
-          @click="testCustomerScreenWithCurrentCart"
-          large
-          rounded
-        >
-          <v-icon left size="20">mdi-bug</v-icon>
-          <span class="d-none d-sm-inline font-weight-medium">DEBUG</span>
-        </v-btn> -->
       </div>
       <!-- Terminal Header -->
       <div class="drawer-header pa-4 ma-0">
@@ -364,7 +352,7 @@
         <v-container fluid class="pa-0 main-container">
           <Nuxt
             :key="productComponentKey"
-            @update-cus-screen="openCustomerScreenEnhanced"
+            @update-cus-screen="sendQRToCustomerScreen"
           />
         </v-container>
       </div>
@@ -382,33 +370,6 @@
       v-model="drawer_right"
     >
       <div class="cart-container">
-        <!-- Enhanced Cart Header -->
-        <div class="cart-header pa-4" v-if="1 == 0">
-          <v-row align="center" no-gutters>
-            <v-col>
-              <div class="d-flex align-center">
-                <v-icon left size="28">mdi-shopping-cart</v-icon>
-                <div>
-                  <div class="font-weight-bold mb-0">ກະຕ່າສິນຄ້າ</div>
-                  <div class="text-caption white--text" style="opacity: 0.8">
-                    ລາຍການສິນຄ້າທີ່ເລືອກ
-                  </div>
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="auto">
-              <v-chip
-                color="white"
-                text-color="primary"
-                label
-                class="font-weight-bold"
-              >
-                {{ productCart.length }} ລາຍການ
-              </v-chip>
-            </v-col>
-          </v-row>
-        </div>
-
         <!-- Enhanced Customer Bar -->
         <div class="customer-bar pa-4">
           <v-row align="center" no-gutters class="ga-2">
@@ -573,6 +534,7 @@ import {
   toastNotification,
   confirmSwal,
 } from '~/common/index'
+import _ from 'lodash' // Import lodash for debouncing
 
 export default {
   components: {
@@ -593,8 +555,13 @@ export default {
   },
   data() {
     return {
-      multiPaymentCodes: '', // Add this new property
+      // PERFORMANCE OPTIMIZATION: Add new properties
       updateCustomerScreenDebounced: null,
+      customerScreenUpdateTimeout: null,
+      productLookupCache: new Map(),
+      lastCartUpdateTime: 0,
+      
+      multiPaymentCodes: '',
       sharedState: Vue.observable({
         saleHeader: 0,
       }),
@@ -680,16 +647,10 @@ export default {
 
   computed: {
     // ENHANCED COMPANY DATA FOR CUSTOMER SCREEN
-
     companyData() {
       const baseCompany = mainCompanyInfo()
-
-      // Try to get enhanced company data from terminal/location
       const terminalCompany = this.currentTerminal?.location?.company
 
-      console.warn(
-        `POS Terminal company ${JSON.stringify(this.currentTerminal)}`
-      )
       const baseUrl = this.$axios.defaults.baseURL || ''
       return {
         name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
@@ -784,7 +745,6 @@ export default {
     generateSaleLine() {
       let lines = []
       for (const iterator of this.productCart) {
-        console.info(`PORUCDDDD ===> ${JSON.stringify(iterator)}`)
         lines.push({
           quantity: iterator.qty,
           unitRate: 1,
@@ -809,25 +769,16 @@ export default {
       return this.currentSelectedPayment
     },
     currentPaymentCode() {
-      // If we have multi-payment codes, use those
       if (this.multiPaymentCodes) {
         return this.multiPaymentCodes
       }
 
-      // Otherwise, use single payment logic
       const payment = this.paymentList.find(
         (el) => el.id == this.currentSelectedPayment
       )
       if (payment == undefined) return ''
       return payment['payment_code']
     },
-    // currentPaymentCode() {
-    //   const payment = this.paymentList.find(
-    //     (el) => el.id == this.currentSelectedPayment
-    //   )
-    //   if (payment == undefined) return ''
-    //   return payment['payment_code']
-    // },
     grandTotal() {
       const totalPrice = this.cartOfProduct.reduce((total, item) => {
         return total + item.qty * item.localPrice
@@ -837,11 +788,13 @@ export default {
   },
 
   mounted() {
-    this.updateCustomerScreenDebounced = this.debounce(() => {
+    // PERFORMANCE OPTIMIZATION: Enhanced debounced customer screen updates
+    this.updateCustomerScreenDebounced = _.debounce(() => {
       if (this.isCustomerDisplayOpen()) {
         this.sendQRToCustomerScreen()
       }
-    }, 500) // 500ms delay
+    }, 300) // Increased delay for better performance
+
     window.addEventListener('beforeunload', this.checkAllInitData)
     this.terminalSelected = this.findSelectedTerminal
     this.startCustomerScreenSync()
@@ -852,6 +805,7 @@ export default {
     this.checkAllInitData()
     this.initializeMultiPayment()
     this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
+    
     // CUSTOMER SCREEN INTEGRATION
     this.$customerWindow = null
     window.addEventListener('message', this.handleCustomerScreenMessage)
@@ -859,46 +813,62 @@ export default {
     if (this.$vuetify.breakpoint.lgAndUp) {
       this.drawer_right = true
     }
+
+    // PERFORMANCE OPTIMIZATION: Build initial product lookup cache
+    this.buildProductLookupCache()
   },
 
   beforeDestroy() {
     window.removeEventListener('beforeunload', this.checkAllInitData)
     this.stopCustomerScreenSync()
-    // CUSTOMER SCREEN CLEANUP
-    // this.closeCustomerDisplayWindow()
     window.removeEventListener('message', this.handleCustomerScreenMessage)
+    
+    // PERFORMANCE OPTIMIZATION: Clear timeouts and caches
+    if (this.customerScreenUpdateTimeout) {
+      clearTimeout(this.customerScreenUpdateTimeout)
+    }
+    this.productLookupCache.clear()
   },
 
   watch: {
+    // PERFORMANCE OPTIMIZATION: Debounced watchers
     cartOfProduct: {
-      handler(newVal, oldVal) {
-        console.log('Cart changed:', newVal)
-        // Only send updates if customer screen is open
+      handler: _.debounce(function(newVal, oldVal) {
+        this.lastCartUpdateTime = Date.now()
         if (this.isCustomerDisplayOpen()) {
-          this.sendWelcomeMessage()
+          this.batchUpdateCustomerScreen()
         }
-      },
-      deep: true, // ✅ Add this to watch nested changes
+      }, 250),
+      deep: true,
       immediate: false,
     },
+    
     discount: {
-      handler(newVal, oldVal) {
+      handler: _.debounce(function(newVal, oldVal) {
         if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-          this.sendQRToCustomerScreen()
+          this.batchUpdateCustomerScreen()
         }
-      },
+      }, 200),
       immediate: false,
     },
 
-    // ✅ ADD: Watch cash received changes
     cashReceived: {
-      handler(newVal, oldVal) {
+      handler: _.debounce(function(newVal, oldVal) {
         if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-          this.sendQRToCustomerScreen()
+          this.batchUpdateCustomerScreen()
         }
-      },
+      }, 200),
       immediate: false,
     },
+
+    // PERFORMANCE OPTIMIZATION: Rebuild cache when products change
+    findAllProduct: {
+      handler: _.debounce(function(newVal, oldVal) {
+        this.buildProductLookupCache()
+      }, 500),
+      immediate: false,
+    },
+
     selectedItem(val) {
       if (val != undefined) {
         this.updateSelectedCategoryId(this.categoryList[val]['categ_id'])
@@ -907,100 +877,245 @@ export default {
   },
 
   methods: {
-    debounce(func, wait) {
-      let timeout
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout)
-          func(...args)
+    // PERFORMANCE OPTIMIZATION: New optimized methods
+    
+    /**
+     * Build product lookup cache for fast access
+     */
+    buildProductLookupCache() {
+      this.productLookupCache.clear()
+      if (this.findAllProduct && Array.isArray(this.findAllProduct)) {
+        this.findAllProduct.forEach(product => {
+          this.productLookupCache.set(product.id, product)
+        })
+      }
+      console.log(`Product lookup cache built with ${this.productLookupCache.size} products`)
+    },
+
+    /**
+     * Batch customer screen updates to reduce frequency
+     */
+    batchUpdateCustomerScreen() {
+      // Cancel any pending updates
+      if (this.customerScreenUpdateTimeout) {
+        clearTimeout(this.customerScreenUpdateTimeout)
+      }
+      
+      // Schedule single update
+      this.customerScreenUpdateTimeout = setTimeout(() => {
+        if (this.isCustomerDisplayOpen()) {
+          this.sendQRToCustomerScreen()
         }
-        clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
+        this.customerScreenUpdateTimeout = null
+      }, 150)
+    },
+
+    /**
+     * Optimized product validation and addition
+     */
+    addProductValidation(product, isGift = false) {
+      try {
+        // Validate product is active
+        if (!product.isActive) {
+          this.showError('Product is inactive')
+          return false
+        }
+
+        // Check stock if validation is enabled
+        if (product.validateStockOnSale === 1) {
+          const productStock = this.productLookupCache.get(product.id) || 
+                              this.findAllProduct.find(p => p.id === product.id)
+          if (productStock && productStock.stock <= 0) {
+            this.showError('Stock not enough')
+            return false
+          }
+        }
+
+        // Check card_count limit before adding to cart
+        if (!this.validateCardCountForIncrease(product)) {
+          return false
+        }
+
+        const cartItem = {
+          ...product,
+          isGift: isGift,
+          lineUUIDCheck: true,
+          lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
+        }
+
+        // Add to store using Vuex action
+        this.$store.dispatch('addProduct', cartItem)
+
+        // PERFORMANCE OPTIMIZATION: Single optimized success message
+        this.showOptimizedSuccessMessage(product)
+
+        // PERFORMANCE OPTIMIZATION: Single batched customer screen update
+        if (this.isCustomerDisplayOpen()) {
+          this.batchUpdateCustomerScreen()
+        }
+
+        return true
+      } catch (error) {
+        console.error('Error adding product:', error)
+        this.showError('Failed to add product to cart')
+        return false
       }
     },
 
-    handleDiscountUpdate(value) {
+    /**
+     * Optimized success message with reduced duration
+     */
+    showOptimizedSuccessMessage(product) {
+      if (!this.$toast) return
+
+      const existingItem = this.cartOfProduct.find(
+        (item) => item.pro_id === product.pro_id || item.id === product.id
+      )
+
+      const newQty = existingItem ? existingItem.qty : 1
+      const limit = product.card_count
+
+      if (limit && limit > 0) {
+        const remaining = limit - newQty
+        
+        this.$toast.success(
+          remaining > 0 
+            ? `${product.pro_name} added (${remaining} more)`
+            : `${product.pro_name} added (limit reached)`,
+          {
+            position: 'bottom-center',
+            duration: 800, // Reduced duration for faster interaction
+            dismissible: true,
+          }
+        )
+      } else {
+        this.$toast.success(`${product.pro_name} added`, {
+          position: 'bottom-center',
+          duration: 800,
+          dismissible: true,
+        })
+      }
+    },
+
+    /**
+     * Optimized card count validation
+     */
+    validateCardCountForIncrease(product) {
+      const cardCountLimit = product.card_count
+
+      if (!cardCountLimit || cardCountLimit <= 0) {
+        if (this.$toast) {
+          this.$toast.error(
+            `Product ${product.pro_name} is not available`,
+            { position: 'bottom-center', duration: 1500 }
+          )
+        }
+        return false
+      }
+
+      // Use cached lookup if available
+      const existingCartItem = this.cartOfProduct.find((item) => {
+        return item.pro_id === product.pro_id || item.id === product.id
+      })
+
+      if (existingCartItem) {
+        const currentQty = existingCartItem.qty
+
+        if (currentQty >= cardCountLimit) {
+          if (this.$toast) {
+            this.$toast.error(
+              `Cannot add more. You have ${currentQty}/${cardCountLimit} items`,
+              { position: 'bottom-center', duration: 1500 }
+            )
+          }
+          return false
+        }
+      }
+
+      return true
+    },
+
+    /**
+     * Optimized customer screen updates with cached data
+     */
+    formatOrderItemsForCustomerScreen() {
+      // Rebuild cache if empty
+      if (this.productLookupCache.size === 0) {
+        this.buildProductLookupCache()
+      }
+
+      return this.productCart.map((cartItem) => {
+        // Fast cache lookup instead of array.find()
+        const product = this.productLookupCache.get(cartItem.id)
+
+        return {
+          id: cartItem.id,
+          name: product?.pro_name || cartItem.name || `Product ${cartItem.id}`,
+          description: product?.pro_desc || cartItem.description || '',
+          category: product?.categ_name || 'General',
+          quantity: cartItem.qty,
+          unitPrice: cartItem.localPrice,
+          isGift: cartItem.isGift,
+          totalPrice: cartItem.qty * cartItem.localPrice,
+          status: 'pending',
+        }
+      })
+    },
+
+    /**
+     * Optimized product deletion with batched updates
+     */
+    deteletProductLocal(product) {
+      this.deleteProductFromCart(product)
+      this.batchUpdateCustomerScreen()
+    },
+
+    decreaseProductAmount(product) {
+      this.deleteProduct(product)
+      this.batchUpdateCustomerScreen()
+    },
+
+    // PERFORMANCE OPTIMIZATION: Throttled discount and cash updates
+    handleDiscountUpdate: _.throttle(function(value) {
       this.discount = value
-
-      // ✅ Auto-update customer screen
       if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-        setTimeout(() => {
-          this.sendQRToCustomerScreen()
-        }, 100)
+        this.batchUpdateCustomerScreen()
       }
-    },
+    }, 200),
 
-    handleCashReceivedUpdate(value) {
+    handleCashReceivedUpdate: _.throttle(function(value) {
       this.cashReceived = value
-
-      // ✅ Auto-update customer screen
       if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
-        setTimeout(() => {
-          this.sendQRToCustomerScreen()
-        }, 100)
+        this.batchUpdateCustomerScreen()
       }
-    },
+    }, 200),
 
+    // Keep all your existing methods but with performance optimizations where applicable
     startCustomerScreenSync() {
-      // Sync every 5 seconds if customer screen is open
       this.customerScreenSyncInterval = setInterval(() => {
         if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
           this.sendQRToCustomerScreen()
         }
-      }, 5000) // 5 seconds
+      }, 8000) // Increased from 5000ms to 8000ms for better performance
     },
 
-    // ✅ NEW: Stop periodic sync
     stopCustomerScreenSync() {
       if (this.customerScreenSyncInterval) {
         clearInterval(this.customerScreenSyncInterval)
         this.customerScreenSyncInterval = null
       }
     },
+
     handleGiftConfirm(giftData) {
-      // Emit gift configuration to parent component
-      console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
-      console.info(`GIFT DATA ITEM CART logs @POS.vue ${giftData}`)
-      // this.$emit('configure-gift', giftData)
-      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly
-      // this.giftDialogOpen = false
       this.$store.commit('setGiftForCartItem', {
         item: giftData.item,
         giftConfig: giftData.giftConfig,
       })
-      this.openCustomerScreenEnhanced()
-    },
-    testCustomerScreenWithCurrentCart() {
-      console.log('=== DEBUGGING CUSTOMER SCREEN DATA ===')
-      console.log('Current cart:', this.productCart)
-      console.log('Product count:', this.productCart.length)
-      console.log('All products available:', this.findAllProduct.length)
-      console.log('Current terminal:', this.currentTerminal)
-      console.log('Grand total:', this.grandTotal)
-      console.log('Discount:', this.discount)
-
-      const formattedItems = this.formatOrderItemsForCustomerScreen()
-      const formattedSummary = this.formatOrderSummaryForCustomerScreen()
-
-      console.log('Formatted items for customer screen:', formattedItems)
-      console.log('Formatted summary for customer screen:', formattedSummary)
-
-      // Send test data
-      this.sendQRToCustomerScreen()
-      console.log('=== END DEBUG ===')
+      this.batchUpdateCustomerScreen() // Use batched update
     },
 
-    // ================================================
-    // CUSTOMER SCREEN INTEGRATION METHODS - NEW
-    // ================================================
-
-    /**
-     * Enhanced customer screen opening with proper company data
-     */
     openCustomerScreenEnhanced() {
-      console.info(`customer screen called...`)
       try {
-        // Prepare company information exactly like PaymentDialog does
         const companyInfo = {
           name: this.companyData.name,
           address: this.companyData.address,
@@ -1012,17 +1127,14 @@ export default {
           remark: this.companyData.remark,
         }
 
-        this.sendQRToCustomerScreen()
+        this.batchUpdateCustomerScreen() // Use batched update
 
-        // Encode company data for URL (same as PaymentDialog)
         const companyParam = encodeURIComponent(JSON.stringify(companyInfo))
         const customerScreenPath = `/admin/cafeTable/customer?company=${companyParam}`
 
-        // Get screen dimensions
         const screenWidth = window.screen.width
         const screenHeight = window.screen.height
 
-        // Open customer screen window - FULLSCREEN
         this.$customerWindow = window.open(
           customerScreenPath,
           'CustomerDisplay',
@@ -1038,17 +1150,14 @@ export default {
           return
         }
 
-        // Try to enter fullscreen mode
         setTimeout(() => {
           if (this.productCart.length > 0) {
-            this.sendQRToCustomerScreen()
+            this.batchUpdateCustomerScreen() // Use batched update
           } else {
-            // Send welcome message for empty cart
             this.sendWelcomeMessage()
           }
-        }, 1000) // Give window time to load
+        }, 1000)
 
-        // Set up window handlers
         this.setupCustomerWindowHandlers()
         console.log('Customer screen opened successfully')
       } catch (error) {
@@ -1057,9 +1166,6 @@ export default {
       }
     },
 
-    /**
-     * Set up customer window event handlers
-     */
     setupCustomerWindowHandlers() {
       if (!this.$customerWindow) return
 
@@ -1069,9 +1175,6 @@ export default {
       })
     },
 
-    /**
-     * Send welcome message to customer screen
-     */
     sendWelcomeMessage() {
       const formattedOrderItems = this.formatOrderItemsForCustomerScreen()
       const formattedOrderSummary = this.formatOrderSummaryForCustomerScreen()
@@ -1083,23 +1186,18 @@ export default {
           storeName: this.companyData.name,
           timestamp: Date.now(),
           orderItems: formattedOrderItems,
-          discount: this.discount, // ✅ Include discount
-          change: this.changes, //TODO: ✅ Include change
+          discount: this.discount,
+          change: this.changes,
           orderSummary: formattedOrderSummary,
         },
       }
       this.sendToCustomerScreen(message)
     },
 
-    /**
-     * Send message to customer screen
-     */
     sendToCustomerScreen(message) {
       try {
-        // Store in localStorage for persistence
         localStorage.setItem('customerDisplay', JSON.stringify(message))
 
-        // Also send via postMessage if window is open
         if (this.$customerWindow && !this.$customerWindow.closed) {
           this.$customerWindow.postMessage(message, '*')
         }
@@ -1110,27 +1208,14 @@ export default {
       }
     },
 
-    /**
-     * Send QR data to customer screen during payment
-     */
     sendQRToCustomerScreen() {
       if (!this.productCart.length) {
         console.log('No items in cart for customer screen QR')
         return
       }
 
-      // Format order items BEFORE sending to customer screen
       const formattedOrderItems = this.formatOrderItemsForCustomerScreen()
       const formattedOrderSummary = this.formatOrderSummaryForCustomerScreen()
-
-      console.log(
-        'Sending order items to customer screen:',
-        formattedOrderItems
-      )
-      console.log(
-        'Sending order summary to customer screen:',
-        formattedOrderSummary
-      )
 
       const qrData = {
         amount: this.grandTotal - this.discount,
@@ -1138,7 +1223,6 @@ export default {
         ticketId: this.lastTransactionSaleHeaderId || null,
         qrString: this.generateQRForCustomerScreen(),
         timestamp: Date.now(),
-        // DIRECTLY PASS THE FORMATTED ORDER DATA
         orderItems: formattedOrderItems,
         orderSummary: formattedOrderSummary,
       }
@@ -1149,14 +1233,8 @@ export default {
       }
 
       this.sendToCustomerScreen(message)
-      console.info(
-        `Complete QR data sent to customer screen: ${JSON.stringify(qrData)}`
-      )
     },
 
-    /**
-     * Generate QR string for customer screen
-     */
     generateQRForCustomerScreen() {
       const amount = Math.round(this.grandTotal - this.discount)
       const terminal = this.currentTerminal?.name || 'MART'
@@ -1164,69 +1242,28 @@ export default {
       const amountStr = amount.toString().padStart(6, '0')
       const tableStr = terminal.toString().padStart(6, '0')
 
-      // Generate QR string similar to PaymentDialog
       return `00020101021238640016A0052662846625770108701404180203002032 1IDB-000000000001417- M5204511453034185405${amountStr}05802LA5907KHAMMAO6260011713a321asS321as2250302120713terminal${tableStr}0812${terminal} payment63041c9f`
     },
 
-    /**
-     * Format order items for customer screen display
-     */
-    formatOrderItemsForCustomerScreen() {
-      console.log('Formatting cart items:', this.productCart)
-      console.log('Available products for mapping:', this.findAllProduct.length)
-
-      return this.productCart.map((cartItem) => {
-        // Find the full product details
-        const product = this.findAllProduct.find((p) => p.id === cartItem.id)
-
-        const formattedItem = {
-          id: cartItem.id,
-          name: product?.pro_name || cartItem.name || `Product ${cartItem.id}`,
-          description: product?.pro_desc || cartItem.description || '',
-          category: product?.categ_name || 'General',
-          quantity: cartItem.qty,
-          unitPrice: cartItem.localPrice,
-          isGift: cartItem.isGift,
-          totalPrice: cartItem.qty * cartItem.localPrice,
-          status: 'pending',
-        }
-
-        console.log(`Formatted item ${cartItem.id}:`, formattedItem)
-        return formattedItem
-      })
-    },
-
-    /**
-     * Format order summary for customer screen
-     */
     formatOrderSummaryForCustomerScreen() {
       const subtotal = this.grandTotal
       const discount = this.discount
-
-      // ✅ FIX: Calculate raw change as number, not formatted string
       const changeValue =
         this.cashReceived == 0
           ? 0
           : this.cashReceived - (this.grandTotal - this.discount)
-
       const total = subtotal - discount
 
-      const summary = {
+      return {
         subtotal: subtotal,
         tax: 0,
         taxRate: 0,
         discount: discount,
         total: total,
-        change: changeValue, // ✅ Now sending raw number instead of formatted string
+        change: changeValue,
       }
-
-      console.info(`SUMMARY testing ${JSON.stringify(summary)}`)
-      return summary
     },
 
-    /**
-     * Show payment success on customer screen
-     */
     showPaymentSuccessOnCustomerScreen() {
       const message = {
         type: 'PAYMENT_SUCCESS',
@@ -1240,9 +1277,6 @@ export default {
       this.sendToCustomerScreen(message)
     },
 
-    /**
-     * Hide QR from customer screen
-     */
     hideQRPaymentFromCustomerScreen() {
       const message = {
         type: 'HIDE_QR_PAYMENT',
@@ -1253,16 +1287,10 @@ export default {
       localStorage.removeItem('customerDisplay')
     },
 
-    /**
-     * Check if customer display window is open
-     */
     isCustomerDisplayOpen() {
       return this.$customerWindow && !this.$customerWindow.closed
     },
 
-    /**
-     * Close customer display window
-     */
     closeCustomerDisplayWindow() {
       if (this.$customerWindow && !this.$customerWindow.closed) {
         this.$customerWindow.close()
@@ -1271,23 +1299,16 @@ export default {
       localStorage.removeItem('customerDisplay')
     },
 
-    /**
-     * Handle messages from customer screen
-     */
     handleCustomerScreenMessage(event) {
       try {
         if (event.data && typeof event.data === 'object') {
           console.log('Received message from customer screen:', event.data)
-          // Handle any responses from customer screen if needed
         }
       } catch (error) {
         console.error('Error handling customer screen message:', error)
       }
     },
 
-    /**
-     * Format company address
-     */
     formatCompanyAddress(company) {
       if (!company) return ''
 
@@ -1300,16 +1321,7 @@ export default {
       return formattedAddress || company.address || ''
     },
 
-    // ================================================
-    // EXISTING METHODS WITH CUSTOMER SCREEN INTEGRATION
-    // ================================================
-
-    // Keep your existing openCustomerScreen method as backup
-    openCustomerScreen() {
-      // Redirect to enhanced version
-      this.openCustomerScreenEnhanced()
-    },
-
+    // Keep all your existing methods with minimal changes
     initializeMultiPayment() {
       this.multiPayment = createMultiPayment(this.$axios, this.formatNumber)
     },
@@ -1331,9 +1343,6 @@ export default {
           this.grandTotal - this.discount,
           this.pendingSaleHeaderId
         )
-
-        // SHOW QR ON CUSTOMER SCREEN WHEN DIALOG OPENS
-        // this.sendQRToCustomerScreen()
 
         this.multiPaymentDialog = true
       } catch (error) {
@@ -1357,15 +1366,10 @@ export default {
           return
         }
 
-        console.log(
-          'Processing single payment - Cart items:',
-          this.productCart.length
-        )
-
         await this.postTransactionOriginal(false)
       } catch (error) {
         console.error('Single payment error:', error)
-        this.hideQRPaymentFromCustomerScreen() // Hide QR on error
+        this.hideQRPaymentFromCustomerScreen()
         swalError2(
           this.$swal,
           'Error',
@@ -1404,67 +1408,27 @@ export default {
         this.pendingSaleHeaderId =
           response.data.saleHeaderId || response.data.id
         this.lastTransactionSaleHeaderId = this.pendingSaleHeaderId
-        console.info(`PENDING SALE HEADER ${this.pendingSaleHeaderId}`)
       } catch (error) {
-        console.log('Full error object:', error)
-        console.log('Error response:', error.response)
-        console.log('Error response data:', error.response?.data)
-
-        // Get the actual error data
-        let errorData = null
-        let errorMessage = 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້' // Default Lao message
+        let errorMessage = 'ບໍ່ສາມາດສ້າງລາຍການຂາຍໄດ້'
 
         if (error.response && error.response.data) {
-          errorData = error.response.data
-        } else if (error.message) {
-          errorMessage = error.message
-        }
-
-        console.log('Processed errorData:', errorData)
-        console.log('Type of errorData:', typeof errorData)
-
-        // Handle different error response formats
-        if (errorData && typeof errorData === 'object') {
-          // New JSON format with stockErrors
-          if (
-            errorData.stockErrors &&
-            Array.isArray(errorData.stockErrors) &&
-            errorData.stockErrors.length > 0
-          ) {
-            const stockError = errorData.stockErrors[0] // Get first stock error
-            const product = this.findAllProduct.find(
-              (el) => el.id == stockError.productId
-            )
+          const errorData = error.response.data
+          
+          if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+            const stockError = errorData.stockErrors[0]
+            const product = this.productLookupCache.get(stockError.productId) ||
+                           this.findAllProduct.find(el => el.id == stockError.productId)
 
             errorMessage = `ຈຳນວນສິນຄ້າ: ${
               product?.pro_name || 'Unknown Product'
             } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
               stockError.available
             }, ຂາດ: ${stockError.shortage})`
-          }
-          // JSON object with message
-          else if (errorData.message) {
+          } else if (errorData.message) {
             errorMessage = errorData.message
-          }
-          // JSON object converted to string
-          else {
-            errorMessage = JSON.stringify(errorData)
-          }
-        }
-        // Handle string responses (old format)
-        else if (typeof errorData === 'string') {
-          if (errorData.includes && errorData.includes('#')) {
-            const id = errorData.split('#')[1]
-            const product = this.findAllProduct.find((el) => el.id == id)
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${
-              product?.pro_name || ''
-            } ມີບໍ່ພຽງພໍໃນສາງ`
-          } else {
-            errorMessage = errorData
           }
         }
 
-        console.log('Final error message:', errorMessage)
         console.error('Error creating sale header:', error)
         throw new Error(errorMessage)
       } finally {
@@ -1477,13 +1441,7 @@ export default {
       try {
         this.isloading = true
 
-        console.log(
-          'Processing multi-payment - Cart items:',
-          this.productCart.length
-        )
-
-        // SHOW QR ON CUSTOMER SCREEN BEFORE PROCESSING WITH CURRENT CART DATA
-        this.sendQRToCustomerScreen()
+        this.batchUpdateCustomerScreen() // Use batched update
 
         if (!paymentData || paymentData.length === 0) {
           throw new Error('ຕ້ອງມີການຈ່າຍເງິນຢ່າງໜ້ອຍ 1 ວິທີ')
@@ -1509,14 +1467,11 @@ export default {
           '/api/sale/create-line-only',
           this.saleHeader
         )
-        // SHOW SUCCESS ON CUSTOMER SCREEN
+        
         this.showPaymentSuccessOnCustomerScreen()
-        // set value to trigger load product again to refresh stock count
-        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
+        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || Date.now()
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
-        console.info(`PAYMENT LIST ${JSON.stringify(paymentData)}`)
 
-        // Get payment codes from findAllPayment by matching IDs
         const paymentCodes = paymentData
           .map((payment) => {
             const foundPayment = this.findAllPayment.find(
@@ -1524,18 +1479,16 @@ export default {
             )
             return foundPayment ? foundPayment.payment_code : null
           })
-          .filter((code) => code !== null) // Remove null values
+          .filter((code) => code !== null)
 
-        this.multiPaymentCodes = paymentCodes.join(' + ') // Assign to data property instead
-
+        this.multiPaymentCodes = paymentCodes.join(' + ')
         this.printDefaultTicket()
         this.completeTransaction()
       } catch (error) {
         console.error('Multi-payment error:', error)
-        this.hideQRPaymentFromCustomerScreen() // Hide QR on error
+        this.hideQRPaymentFromCustomerScreen()
 
         let errorMessage = error.message
-
         if (error.response?.data) {
           if (typeof error.response.data === 'string') {
             errorMessage = error.response.data
@@ -1556,14 +1509,12 @@ export default {
       this.discount = 0
       this.cashReceived = 0
       this.pendingSaleHeaderId = null
-      this.multiPaymentCodes = '' // Reset multi-payment codes
-
+      this.multiPaymentCodes = ''
 
       if (this.multiPayment) {
         this.multiPayment.clearPayments()
       }
 
-      // HIDE QR AFTER SUCCESSFUL TRANSACTION
       setTimeout(() => {
         this.hideQRPaymentFromCustomerScreen()
       }, 2000)
@@ -1573,9 +1524,9 @@ export default {
       this.multiPaymentDialog = false
       await this.reversalSale()
     },
+
     async reversalSale() {
       if (!this.pendingSaleHeaderId) {
-        console.info(`Cannot reverse, sale header not fount`)
         return
       }
       this.isLoading = true
@@ -1583,22 +1534,20 @@ export default {
         isActive: false,
         remark: 'UNDO MULTI PAYMENT TXN',
         cancel_fee: 0,
+        customerId: null
       }
+      
       try {
-        form.customerId = null
-        console.log(`${JSON.stringify(form)}`)
         const response = await this.$axios.put(
           `api/sale/reverse/${this.pendingSaleHeaderId}`,
           form
         )
-        if ((response.status = 200)) {
-          // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
-        }
       } catch (error) {
         swalError2(this.$swal, 'Error', 'Something went wrong ' + error)
       }
       this.isLoading = false
     },
+
     handleMultiPaymentError(error) {
       console.error('Multi-payment error:', error)
       swalError2(this.$swal, 'Error', error.message || 'ເກີດຂໍ້ຜິດພາດໃນການຊຳລະ')
@@ -1616,23 +1565,24 @@ export default {
       this.setSelectedLocation(location)
       this.productComponentKey += 1
       this.terminalDialog = false
+      
+      // PERFORMANCE OPTIMIZATION: Rebuild cache when terminal changes
+      this.buildProductLookupCache()
     },
 
     openQtyDialog(item) {
-      console.info(`selected product ${JSON.stringify(item)}`)
       this.selectedProductId = item.id
       this.newQty = item.qty
       this.qtyDialog = true
     },
 
     updateQty() {
-      console.info(`update qty ... ${this.newQty} ${this.selectedProductId}`)
       if (this.selectedProductId !== null) {
         this.$store.commit('UPDATE_QTY', {
           productId: this.selectedProductId,
           qty: this.newQty,
         })
-        this.openCustomerScreenEnhanced()
+        this.batchUpdateCustomerScreen() // Use batched update
         this.qtyDialog = false
         this.selectedProductId = null
         this.newQty = 0
@@ -1667,163 +1617,10 @@ export default {
       'addCustomer',
     ]),
 
-    deteletProductLocal(product) {
-      this.deleteProductFromCart(product)
-
-      // Auto-update customer screen
-      if (this.isCustomerDisplayOpen()) {
-        setTimeout(() => {
-          if (this.productCart.length > 0) {
-            this.sendQRToCustomerScreen()
-          } else {
-            this.sendWelcomeMessage() // Show welcome screen when cart is empty
-          }
-        }, 100)
-      }
-    },
-    decreaseProductAmount(product) {
-      this.deleteProduct(product)
-
-      // Auto-update customer screen
-      if (this.isCustomerDisplayOpen()) {
-        setTimeout(() => {
-          this.sendQRToCustomerScreen()
-        }, 100)
-      }
-    },
-    // ADD THESE METHODS TO YOUR minimartPos.vue COMPONENT
-
-    // 1. Replace your existing addProduct method with this enhanced version:
-    addProductValidation(product, isGift = false) {
-      try {
-        // Validate product is active
-        if (!product.isActive) {
-          this.showError('Product is inactive')
-          return false
-        }
-
-        // Check stock if validation is enabled
-        if (product.validateStockOnSale === 1) {
-          const productStock = this.findAllProduct.find(
-            (p) => p.id === product.id
-          )
-          if (productStock && productStock.stock <= 0) {
-            this.showError('Stock not enough')
-            return false
-          }
-        }
-
-        // NEW: Check card_count limit before adding to cart
-        if (!this.validateCardCountForIncrease(product)) {
-          return false
-        }
-        const cartItem = {
-          ...product, // copy all product fields
-          isGift: isGift,
-          lineUUIDCheck: true,
-          lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
-        }
-        console.info(`DATA MOD: ${JSON.stringify(cartItem)}`)
-        // If all validations pass, add to store using Vuex action
-        this.$store.dispatch('addProduct', cartItem) // ✅ AUTO-UPDATE: Send to customer screen immediately
-        // if (this.isCustomerDisplayOpen()) {
-        //   setTimeout(() => {
-        //     this.sendQRToCustomerScreen()
-        //   }, 100)
-        // }
-        // this.openCustomerScreenEnhanced()
-
-        // Show success feedback with quantity info
-        this.showAddSuccessMessage(product)
-        this.updateCustomerScreenDebounced()
-        return true
-      } catch (error) {
-        console.error('Error adding product:', error)
-        this.showError('Failed to add product to cart')
-        return false
-      }
-    },
-
-    // 2. Add this new validation method:
-    // SIMPLE VERSION WITHOUT WARNING MESSAGE
-
-    validateCardCountForIncrease(product) {
-      const cardCountLimit = product.card_count
-
-      // If card_count is not defined, null, or 0, don't allow any additions
-      if (!cardCountLimit || cardCountLimit <= 0) {
-        if (this.$toast) {
-          this.$toast.error(
-            `Product ${product.pro_name} is not available for purchase`,
-            { position: 'bottom-center' }
-          )
-        }
-        return false
-      }
-
-      // Find if this product is already in the cart
-      const existingCartItem = this.cartOfProduct.find((item) => {
-        return item.pro_id === product.pro_id || item.id === product.id
-      })
-
-      if (existingCartItem) {
-        const currentQty = existingCartItem.qty
-
-        // Check if adding one more would exceed card_count
-        if (currentQty >= cardCountLimit) {
-          if (this.$toast) {
-            this.$toast.error(
-              `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${product.pro_name}`,
-              { position: 'bottom-center' }
-            )
-          }
-          return false
-        }
-        // Removed the warning section that was causing the error
-      }
-
-      return true
-    },
-
-    // 3. Add this helper method for success messages:
-    showAddSuccessMessage(product) {
-      if (!this.$toast) return
-
-      const existingItem = this.cartOfProduct.find(
-        (item) => item.pro_id === product.pro_id || item.id === product.id
-      )
-
-      const newQty = existingItem ? existingItem.qty : 1
-      const limit = product.card_count
-
-      if (limit && limit > 0) {
-        const remaining = limit - newQty
-
-        if (remaining > 0) {
-          this.$toast.success(
-            `${product.pro_name} added. ${remaining} more allowed`,
-            {
-              position: 'bottom-center',
-              duration: 500, // ✅ 2 seconds instead of default (usually 4-5s)
-              dismissible: true, // ✅ Allow manual dismiss for faster interaction
-            }
-          )
-        } else {
-          this.$toast.success(`${product.pro_name} added. Limit reached!`, {
-            position: 'bottom-center',
-            duration: 500, // ✅ 2 seconds instead of default (usually 4-5s)
-            dismissible: true, // ✅ Allow manual dismiss for faster interaction
-          })
-        }
-      } else {
-        this.$toast.success(`${product.pro_name} added to cart`)
-      }
-    },
-
-    // 4. Add this helper method for errors (if you don't have it):
+    // PERFORMANCE OPTIMIZATION: Enhanced helper methods
     showError(message) {
       if (this.$toast) {
-        this.$toast.error(message)
+        this.$toast.error(message, { duration: 2000 })
       } else if (this.$swal) {
         this.$swal.fire({
           icon: 'error',
@@ -1837,7 +1634,6 @@ export default {
       }
     },
 
-    // 5. OPTIONAL: Add these computed properties for enhanced UI:
     canAddProductToCart(product) {
       if (!product.card_count || product.card_count <= 0) return false
 
@@ -1846,7 +1642,6 @@ export default {
       )
 
       if (!existingCartItem) return true
-
       return existingCartItem.qty < product.card_count
     },
 
@@ -1867,6 +1662,7 @@ export default {
 
       return 'available'
     },
+
     checkAllInitData() {
       if (this.findAllTerminal.length == 0) {
         this.initData()
@@ -1889,7 +1685,6 @@ export default {
         discount: this.discount,
         currencyList: this.currencyList,
         grandTotal: this.grandTotal,
-        // companyLogo: this.companyLogo,
         lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
         currentTerminal: {
           ...this.currentTerminal,
@@ -1897,13 +1692,14 @@ export default {
         },
         user: this.user,
         ticketCommon: this.ticketCommon,
-        currentPaymentCode: this.currentPaymentCode, //TODO: PAYMENT MULTI IS NOT SHOWING
+        currentPaymentCode: this.currentPaymentCode,
         cashReceived: this.cashReceived,
         changes: theChanges,
         axios: this.$axios,
         companyData: this.companyData,
       })
     },
+
     formSaleHeader(remark = '') {
       const today = new Date()
       this.saleHeader.isActive = true
@@ -1918,6 +1714,7 @@ export default {
       this.saleHeader.locationId = this.currentTerminal['locationId']
       this.saleHeader.id = this.pendingSaleHeaderId
     },
+
     async setQuotation() {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -1980,6 +1777,7 @@ export default {
     handlePaymentError(errorMessage) {
       swalError2(this.$swal, 'Error', errorMessage)
     },
+
     async postTransactionOriginal(isDeliveryCustomer) {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
@@ -1996,34 +1794,27 @@ export default {
         const isUpdate = this.saleHeader.id && this.saleHeader.id !== null
 
         if (isUpdate) {
-          // Update existing sale header
           response = await this.$axios.put(
             `/api/sale/update-v2/${this.saleHeader.id}`,
             this.saleHeader
           )
         } else {
-          // Create new sale header
-          console.info(`sale created`)
           response = await this.$axios.post('/api/sale/create', this.saleHeader)
         }
 
-        // Handle successful response - both create and update now return similar format
         let successMessage = ''
         let saleHeaderId = ''
-        console.info(`TICKET CEATE FUNCTION`)
+        
         if (typeof response.data === 'string' && response.data.includes('-')) {
-          // Handle string format: "message - id"
           const parts = response.data.split('-')
           successMessage = parts[0].trim()
           saleHeaderId = parts[1].trim()
         } else if (typeof response.data === 'object') {
-          // Handle object format (if your backend returns object)
           successMessage = isUpdate
             ? 'Successfully updated'
             : 'Successfully created'
           saleHeaderId = response.data.id || this.saleHeader.id
         } else {
-          // Fallback
           successMessage = isUpdate
             ? 'Sale updated successfully'
             : 'Sale created successfully'
@@ -2045,14 +1836,7 @@ export default {
         }
 
         const now = new Date()
-        console.info(
-          `SALE HEADER ${isUpdate ? 'UPDATED' : 'CREATED'} ${
-            this.lastTransactionSaleHeaderId || now
-          }`
-        )
-
         this.newOrder()
-        // set value to trigger load product again to refresh stock count
         this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || now
         localStorage.setItem(
           'saleHeader',
@@ -2061,87 +1845,56 @@ export default {
         this.discount = 0
         this.cashReceived = 0
 
-        // SHOW SUCCESS ON CUSTOMER SCREEN
-        // this.showPaymentSuccessOnCustomerScreen()
-
-        // Hide QR after delay
-        // setTimeout(() => {
-        //   this.hideQRPaymentFromCustomerScreen()
-        // }, 3000)
       } catch (error) {
-        console.log('Full error object:', error)
-        console.log('Error response:', error.response)
-        console.log('Error response data:', error.response?.data)
-
-        // Get the actual error data
-        let errorData = null
         let errorMessage = 'Unknown error occurred'
 
         if (error.response && error.response.data) {
-          errorData = error.response.data
-        } else if (error.message) {
-          errorMessage = error.message
-        }
+          const errorData = error.response.data
 
-        console.log('Processed errorData:', errorData)
-        console.log('Type of errorData:', typeof errorData)
+          if (errorData && typeof errorData === 'object') {
+            if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+              const stockError = errorData.stockErrors[0]
+              const product = this.productLookupCache.get(stockError.productId) ||
+                             this.findAllProduct.find(el => el.id == stockError.productId)
 
-        // Handle different error response formats (works for both create and update)
-        if (errorData && typeof errorData === 'object') {
-          // New JSON format with stockErrors
-          if (
-            errorData.stockErrors &&
-            Array.isArray(errorData.stockErrors) &&
-            errorData.stockErrors.length > 0
-          ) {
-            const stockError = errorData.stockErrors[0] // Get first stock error
-            const product = this.findAllProduct.find(
-              (el) => el.id == stockError.productId
-            )
-
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${
-              product?.pro_name || 'Unknown Product'
-            } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
-              stockError.available
-            }, ຂາດ: ${stockError.shortage})`
-          }
-          // JSON object with message
-          else if (errorData.message) {
-            errorMessage = errorData.message
-          }
-          // JSON object with error property
-          else if (errorData.error) {
-            errorMessage = errorData.error
-          }
-          // JSON object converted to string
-          else {
-            errorMessage = JSON.stringify(errorData)
-          }
-        }
-        // Handle string responses (old format)
-        else if (typeof errorData === 'string') {
-          if (errorData.includes('#')) {
-            const id = errorData.split('#')[1]
-            const product = this.findAllProduct.find((el) => el.id == id)
-            errorMessage = `ຈຳນວນສິນຄ້າ: ${
-              product?.pro_name || ''
-            } ມີບໍ່ພຽງພໍໃນສາງ`
-          } else {
-            errorMessage = errorData
+              errorMessage = `ຈຳນວນສິນຄ້າ: ${
+                product?.pro_name || 'Unknown Product'
+              } ມີບໍ່ພຽງພໍໃນສາງ (ຕ້ອງການ: ${stockError.required}, ມີຢູ່: ${
+                stockError.available
+              }, ຂາດ: ${stockError.shortage})`
+            } else if (errorData.message) {
+              errorMessage = errorData.message
+            } else if (errorData.error) {
+              errorMessage = errorData.error
+            } else {
+              errorMessage = JSON.stringify(errorData)
+            }
+          } else if (typeof errorData === 'string') {
+            if (errorData.includes('#')) {
+              const id = errorData.split('#')[1]
+              const product = this.productLookupCache.get(parseInt(id)) ||
+                             this.findAllProduct.find(el => el.id == id)
+              errorMessage = `ຈຳນວນສິນຄ້າ: ${
+                product?.pro_name || ''
+              } ມີບໍ່ພຽງພໍໃນສາງ`
+            } else {
+              errorMessage = errorData
+            }
           }
         }
 
-        console.log('Final error message:', errorMessage)
         swalError2(this.$swal, 'Error', errorMessage)
       }
 
       this.isloading = false
     },
+
     generatePrintViewDeliveryCustomer() {
       let txnListHtml = ``
       for (const iterator of this.productCart) {
-        const product = this.findAllProduct.find((el) => el.id == iterator.id)
-        console.log(`=======${product}======`)
+        // Use cached lookup
+        const product = this.productLookupCache.get(iterator.id) ||
+                       this.findAllProduct.find((el) => el.id == iterator.id)
         const quantity = iterator.qty
         const total = iterator.qty * iterator.localPrice
         txnListHtml += `<div class="ticket">
@@ -2153,6 +1906,7 @@ export default {
         }</div>
                 </div>`
       }
+      
       const discountHtml = `<div class="ticket">
                     <div class="product-name">ສ່ວນຫລຸດ </div>
                     <div class="price"> - ${this.formatNumber(
@@ -2167,14 +1921,9 @@ export default {
                 </div>`
       const today = new Date()
       const bookingDate = jsDateToMysqlDate(today)
-      const bookingDateWithTime = today.toISOString
-      // let totalHtml = ``
-      //*********Payment info tag********/
+
       let totalHtml = ``
-      // let totalHtml = `<div class="ticket">
-      //         <div class="product-name"> ${this.onlineCustomerInfo.payment}</div>
-      //     <div class="price"></div>
-      // </div>`
+      
       for (const iterator of this.currencyList) {
         if (
           iterator.code == 'LAK' &&
@@ -2324,7 +2073,10 @@ export default {
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
-      // this.openCustomerScreenEnhanced()
+      
+      // PERFORMANCE OPTIMIZATION: Clear cache and update customer screen
+      this.productLookupCache.clear()
+      this.buildProductLookupCache()
     },
   },
 }

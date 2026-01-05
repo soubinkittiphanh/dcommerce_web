@@ -36,10 +36,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -48,7 +48,7 @@ var components_VCard = __webpack_require__(3);
 var VCol = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(61);
+var VIcon = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VNavigationDrawer/VNavigationDrawer.js
 var VNavigationDrawer = __webpack_require__(420);
@@ -299,10 +299,10 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/pos/PosCartDrawer.vue?vue&type=template&id=1286875a&scoped=true
 
 // EXTERNAL MODULE: ./components/pos/CartItemComponent.vue + 4 modules
-var CartItemComponent = __webpack_require__(186);
+var CartItemComponent = __webpack_require__(187);
 
 // EXTERNAL MODULE: ./components/pos/CartFooterComponent.vue + 4 modules
-var CartFooterComponent = __webpack_require__(187);
+var CartFooterComponent = __webpack_require__(188);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/PosCartDrawer.vue?vue&type=script&lang=js
 

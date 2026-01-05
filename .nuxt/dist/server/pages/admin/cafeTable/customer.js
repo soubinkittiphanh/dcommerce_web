@@ -39,16 +39,16 @@ __webpack_require__.r(__webpack_exports__);
 var VCol = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(61);
+var VIcon = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VOverlay/VOverlay.js
-var VOverlay = __webpack_require__(115);
+var VOverlay = __webpack_require__(116);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(92);
+var VProgressCircular = __webpack_require__(106);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
-var VProgressLinear = __webpack_require__(124);
+var VProgressLinear = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(427);
@@ -214,8 +214,8 @@ var staticRenderFns = [];
   },
   data() {
     return {
-      bflQrImage: __webpack_require__(202),
-      bcelQrImage: __webpack_require__(202),
+      bflQrImage: __webpack_require__(203),
+      bcelQrImage: __webpack_require__(203),
       showQR: false,
       qrData: {
         amount: 0,
@@ -377,7 +377,7 @@ var staticRenderFns = [];
     },
     dcommerceLogoUrl() {
       try {
-        return __webpack_require__(201);
+        return __webpack_require__(202);
       } catch {
         return '/static/images/dcommerce-logo.png';
       }
@@ -557,8 +557,8 @@ var staticRenderFns = [];
     },
     async loadQrPaymentImages() {
       try {
-        const bflModule = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 202, 7));
-        const bcelModule = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 202, 7));
+        const bflModule = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 203, 7));
+        const bcelModule = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 203, 7));
         this.bflQrImage = bflModule.default;
         this.bcelQrImage = bcelModule.default;
       } catch (error) {

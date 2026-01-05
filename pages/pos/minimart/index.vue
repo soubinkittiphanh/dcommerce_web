@@ -17,7 +17,6 @@
                 :productName="item.pro_name"
                 :imagePath="item.img_name"
                 :stock="item.card_count"
-
               ></product-card-pos>
             </div>
           </div>
@@ -67,7 +66,7 @@ export default {
   async mounted() {
     await this.loadProduct()
     window.addEventListener('storage', this.handleStorageChange)
-    await this.loadProductWithPriceList()
+    // await this.loadProductWithPriceList()
     await this.loadCategory()
     // await this.loadPayment()
     console.warn(
@@ -85,6 +84,7 @@ export default {
       currentSelectedLocation: 'currentSelectedLocation',
       findAllCurrency: 'findAllCurrency',
       findAllTerminal: 'findAllTerminal',
+      findAllProduct: 'findAllProduct',
       findSelectedTerminal: 'findSelectedTerminal',
     }),
     currentTerminal() {
@@ -94,7 +94,8 @@ export default {
     },
     filterProduct() {
       console.log(`Category ${this.currenctSelectedCategoryId}`)
-      let productByTerminalCompany = this.productList.filter(
+      // let productByTerminalCompany = this.productList.filter(
+      let productByTerminalCompany = this.findAllProduct.filter(
         // ---------- anable below code to show product base on company select
         // (pro) => pro.companyId === this.currentTerminal.location.companyId
         (pro) => pro
@@ -107,12 +108,14 @@ export default {
           )
         }
         // return this.productList; // Backup 20240111
-        return this.productList //.filter(pro=>pro.companyId === this.currentTerminal.location.companyId);
+        // return this.productList //.filter(pro=>pro.companyId === this.currentTerminal.location.companyId);
+        return this.findAllProduct //.filter(pro=>pro.companyId === this.currentTerminal.location.companyId);
       }
       // element.age > 25 || element.name.includes("a")
       if (this.currenctSelectedCategoryId == 9999) {
         console.log(`CATEGORY SELECT ${this.currenctSelectedCategoryId}`)
-        return this.productList.filter((item) =>
+        // return this.productList.filter((item) =>
+        return this.findAllProduct.filter((item) =>
           item.pro_name.toLowerCase().includes(this.searchKeyword)
         )
       }
@@ -124,11 +127,11 @@ export default {
     },
   },
   methods: {
-// doSomeThing(){
-//     console.info(`DO SOMETHING CALLED - emitting to layout`)
-//     // Make sure to emit to the parent (layout)
-//     // this.$emit('update-cus-screen')
-// },
+    // doSomeThing(){
+    //     console.info(`DO SOMETHING CALLED - emitting to layout`)
+    //     // Make sure to emit to the parent (layout)
+    //     // this.$emit('update-cus-screen')
+    // },
     ...mapActions(['addProduct']),
     findCurrency(currencyId) {
       return this.findAllCurrency.find((el) => el.id == currencyId)
@@ -139,7 +142,8 @@ export default {
       }
     },
     findProductFromBarcode(barcode, isGift = false) {
-      this.productSelectedFromBarcode = this.productList.find(
+      // this.productSelectedFromBarcode = this.productList.find(
+      this.productSelectedFromBarcode = this.findAllProduct.find(
         (el) => el.barCode == barcode
       )
       if (this.productSelectedFromBarcode) {
@@ -172,49 +176,37 @@ export default {
       this.timer = setInterval(() => (this.barcode = ''), 20)
     },
     async loadProduct() {
-      console.warn(`PRODUCT IS being reload ...`)
-      this.isloading = true
-      this.productList = []
-
-      try {
-        const res = await this.$axios.get(
-          `product_f/${this.currentSelectedLocation['id']}`
-        )
-
-        // Process sequentially to maintain order
-        for (const iterator of res.data.data) {
-          console.warn(`Currency id ${iterator['saleCurrencyId']}`)
-          const currency = await this.findCurrency(iterator['saleCurrencyId']) // Add await if needed
-          iterator['localPrice'] = iterator['pro_price'] * currency['rate']
-          this.productList.push(iterator)
-        }
-      } catch (er) {
-        this.message = er
-        swalError2(this.$swal, 'Error 1111', er)
-      }
-
-      this.isloading = false
-    },
-    async loadProductWithPriceList() {
-      this.isloading = true
-      this.productPriceList = []
-      await this.$axios
-        .get(`/api/product/find`)
-        .then((res) => {
-          this.productPriceList = res.data
-          // for (const iterator of res.data) {
-          //     const currency = this.findCurrency(iterator['saleCurrencyId'])
-          //     iterator['localPrice'] = iterator['pro_price'] * currency['rate']
-          //     this.productList.push(iterator)
-          // }
-          console.info(`PRICE LIST ${JSON.stringify(this.productPriceList)}`)
-        })
-        .catch((er) => {
-          this.message = er
-          swalError2(this.$swal, 'Error', er)
-        })
-      this.isloading = false
-    },
+    console.warn(`PRODUCT IS being reload ...`) // Fixed: use backticks properly
+    this.isloading = true
+    this.productList = []
+    
+    await this.$store.dispatch(
+        'initializeProductsByLocation',
+        this.currentSelectedLocation['id']
+    )
+    
+    this.isloading = false
+},
+    // async loadProductWithPriceList() {
+    //   this.isloading = true
+    //   this.productPriceList = []
+    //   await this.$axios
+    //     .get(`/api/product/find`)
+    //     .then((res) => {
+    //       this.productPriceList = res.data
+    //       // for (const iterator of res.data) {
+    //       //     const currency = this.findCurrency(iterator['saleCurrencyId'])
+    //       //     iterator['localPrice'] = iterator['pro_price'] * currency['rate']
+    //       //     this.productList.push(iterator)
+    //       // }
+    //       console.info(`PRICE LIST ${JSON.stringify(this.productPriceList)}`)
+    //     })
+    //     .catch((er) => {
+    //       this.message = er
+    //       swalError2(this.$swal, 'Error', er)
+    //     })
+    //   this.isloading = false
+    // },
     async loadCategory() {
       this.isloading = true
       this.categoryList = []

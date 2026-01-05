@@ -36,10 +36,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -48,13 +48,13 @@ var components_VCard = __webpack_require__(3);
 var VCol = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(402);
+var VDialog = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+var VDivider = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(61);
+var VIcon = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
 var VRadio = __webpack_require__(424);
@@ -423,22 +423,22 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/pos/PosDialogs.vue?vue&type=template&id=66400c56&scoped=true
 
 // EXTERNAL MODULE: ./components/customer/CustomerList.vue + 4 modules
-var CustomerList = __webpack_require__(93);
+var CustomerList = __webpack_require__(107);
 
 // EXTERNAL MODULE: ./components/quotation/index.vue + 4 modules
-var quotation = __webpack_require__(110);
+var quotation = __webpack_require__(111);
 
 // EXTERNAL MODULE: ./components/PricingOption.vue + 4 modules
-var PricingOption = __webpack_require__(90);
+var PricingOption = __webpack_require__(104);
 
 // EXTERNAL MODULE: ./components/LoadingIndicator.vue + 2 modules
-var LoadingIndicator = __webpack_require__(66);
+var LoadingIndicator = __webpack_require__(67);
 
 // EXTERNAL MODULE: ./components/DeliveryForm.vue + 4 modules
-var DeliveryForm = __webpack_require__(188);
+var DeliveryForm = __webpack_require__(189);
 
 // EXTERNAL MODULE: ./components/pos/MultiPaymentDialog-vue2.vue + 4 modules
-var MultiPaymentDialog_vue2 = __webpack_require__(185);
+var MultiPaymentDialog_vue2 = __webpack_require__(186);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/PosDialogs.vue?vue&type=script&lang=js
 
@@ -594,7 +594,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var PosDialogs = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerList: __webpack_require__(93).default,PricingOption: __webpack_require__(90).default,DeliveryForm: __webpack_require__(205).default,LoadingIndicator: __webpack_require__(66).default,Quotation: __webpack_require__(110).default})
+installComponents(component, {CustomerList: __webpack_require__(107).default,PricingOption: __webpack_require__(104).default,DeliveryForm: __webpack_require__(206).default,LoadingIndicator: __webpack_require__(67).default,Quotation: __webpack_require__(111).default})
 
 
 /***/ }),

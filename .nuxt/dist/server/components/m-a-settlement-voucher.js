@@ -40,7 +40,7 @@ var settlementVouchervue_type_template_id_7af4a21a_scoped_true_render = function
   var _vm$voucherData$curre, _vm$voucherData$curre2, _vm$voucherData$curre3, _vm$voucherData$curre4, _vm$voucherData$curre5, _vm$voucherData$minis, _vm$voucherData$proce, _vm$voucherData$proce2, _vm$voucherData$check;
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_vm.showPrintDialog ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div class=\"modal-content\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-7af4a21a><h3 data-v-7af4a21a>ພິມໃບຮັບເງິນ</h3> <button class=\"close-btn\" data-v-7af4a21a><i class=\"fas fa-times\" data-v-7af4a21a></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div id=\"voucher-print\" class=\"voucher-container\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div class=\"voucher-header\" data-v-7af4a21a><div class=\"company-info\" data-v-7af4a21a><div class=\"company-name\" data-v-7af4a21a><img" + _vm._ssrAttr("src", __webpack_require__(198)) + " alt=\"Ministry Logo\" class=\"voucher-logo-gov\" data-v-7af4a21a></div> <div class=\"company-name\" data-v-7af4a21a>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-7af4a21a>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div></div></div> "), _c(VRow["a" /* default */], {
+  return _c('div', [_vm.showPrintDialog ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div class=\"modal-content\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-7af4a21a><h3 data-v-7af4a21a>ພິມໃບຮັບເງິນ</h3> <button class=\"close-btn\" data-v-7af4a21a><i class=\"fas fa-times\" data-v-7af4a21a></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div id=\"voucher-print\" class=\"voucher-container\" data-v-7af4a21a>", "</div>", [_vm._ssrNode("<div class=\"voucher-header\" data-v-7af4a21a><div class=\"company-info\" data-v-7af4a21a><div class=\"company-name\" data-v-7af4a21a><img" + _vm._ssrAttr("src", __webpack_require__(199)) + " alt=\"Ministry Logo\" class=\"voucher-logo-gov\" data-v-7af4a21a></div> <div class=\"company-name\" data-v-7af4a21a>\n                ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ\n              </div> <div class=\"company-name\" data-v-7af4a21a>\n                ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດທະນາຖາວອນ\n              </div></div></div> "), _c(VRow["a" /* default */], {
     staticClass: "ministry-voucher-section",
     attrs: {
       "align": "end",
@@ -55,7 +55,7 @@ var settlementVouchervue_type_template_id_7af4a21a_scoped_true_render = function
   }, [_c('img', {
     staticClass: "voucher-logo",
     attrs: {
-      "src": __webpack_require__(144),
+      "src": __webpack_require__(145),
       "alt": "Ministry Logo"
     }
   }), _vm._v(" "), _c('div', {

@@ -279,7 +279,8 @@ const getGiftDisplayInfo = (item, price) => {
     isFree,
     hasSpecialPrice,
     displayPrice: isGift && isFree ? 'FREE' : null,
-    cssClass: isGift ? (isFree ? 'gift-item gift-free' : 'gift-item gift-special') : '',
+    // cssClass: isGift ? (isFree ? 'gift-item gift-free' : 'gift-item gift-special') : '',
+    cssClass: isGift ? (isFree ? '' : '') : '',
     labelSuffix: isGift ? (hasSpecialPrice ? ' [SPECIAL PRICE]' : ' [GIFT]') : ''
   };
 };
@@ -652,24 +653,24 @@ const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
         /* Free gift items - Green styling */
         .gift-free .item-name,
         .gift-free .item-left {
-          color: #4caf50;
+          /* color: #4caf50; */
         }
         
         .gift-free .item-total,
         .gift-free .item-right {
-          color: #4caf50;
+         /* color: #4caf50; */
           font-style: italic;
         }
         
         /* Special price gift items - Blue styling */
         .gift-special .item-name,
         .gift-special .item-left {
-          color: #1976d2;
+          /* color: #1976d2;*/
         }
         
         .gift-special .item-total,
         .gift-special .item-right {
-          color: #1976d2;
+          /* color: #1976d2;*/
         }
         
         /* General gift styling fallback */
@@ -778,8 +779,9 @@ const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
         }
         
         .item-detail {
+          font-weight: 500;
           font-size: 9px;
-          color: #666;
+          /*color: #666;*/
         }
         
         .item-total {

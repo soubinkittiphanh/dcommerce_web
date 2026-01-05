@@ -172,7 +172,7 @@ var util_timestamp = __webpack_require__(445);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/resize/index.js
-var resize = __webpack_require__(53);
+var resize = __webpack_require__(54);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VCalendar/modes/common.js
 

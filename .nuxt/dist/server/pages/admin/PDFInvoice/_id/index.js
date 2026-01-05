@@ -36,7 +36,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(428);
@@ -45,7 +45,7 @@ var VCol = __webpack_require__(428);
 var VContainer = __webpack_require__(426);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+var VDivider = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(427);
@@ -367,7 +367,7 @@ var api = __webpack_require__(41);
       // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
-          const staticLogo = __webpack_require__(142)(`./${company.ticketLogo}`);
+          const staticLogo = __webpack_require__(143)(`./${company.ticketLogo}`);
           console.log('Using static logo:', company.ticketLogo);
           return staticLogo;
         } catch (error) {
@@ -378,7 +378,7 @@ var api = __webpack_require__(41);
       // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
-          const fallbackLogo = __webpack_require__(142)(`./${company.dcLogo}`);
+          const fallbackLogo = __webpack_require__(143)(`./${company.dcLogo}`);
           console.log('Using dcLogo fallback:', company.dcLogo);
           return fallbackLogo;
         } catch (error) {

@@ -39,10 +39,10 @@ __webpack_require__.r(__webpack_exports__);
 var VApp = __webpack_require__(419);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(126);
+var VBtn = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(123);
+var VCard = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
@@ -51,19 +51,19 @@ var components_VCard = __webpack_require__(3);
 var VCol = __webpack_require__(428);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(402);
+var VDialog = __webpack_require__(403);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(122);
+var VDivider = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(425);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(61);
+var VIcon = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(92);
+var VProgressCircular = __webpack_require__(106);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
 var VRadio = __webpack_require__(424);
@@ -317,7 +317,7 @@ var external_vuex_ = __webpack_require__(14);
       }
       // Fallback to default logo
       try {
-        return __webpack_require__(201);
+        return __webpack_require__(202);
       } catch {
         return '/static/images/default-logo.png';
       }
@@ -325,7 +325,7 @@ var external_vuex_ = __webpack_require__(14);
     // DCOMMERCE logo URL
     dcommerceLogoUrl() {
       try {
-        return __webpack_require__(201);
+        return __webpack_require__(202);
       } catch {
         // Fallback to a default or online logo
         return '/static/images/dcommerce-logo.png';
@@ -471,7 +471,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var login = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(66).default,Notification: __webpack_require__(852).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(67).default,Notification: __webpack_require__(852).default})
 
 
 /***/ }),

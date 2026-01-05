@@ -533,6 +533,23 @@ export const actions = {
     addError({ commit }, error) {
         commit('ADD_ERROR', error)
     },
+    async initializeProductsByLocation({ commit, dispatch }, locationId) {
+        commit('SET_LOADING', true)
+        commit('CLEAR_ERRORS')
+        
+        try {
+            console.info(`fetch product initialize for location ${locationId}`)
+            const response = await this.$axios.get(`product_f_v1/${locationId}`)
+            console.info(`fetch product initialize response ${JSON.stringify(response.data)}`)
+            await dispatch('initProduct', response.data.data)
+        } catch (error) {
+            console.error(`Product initialization failed: ${error.message || error}`)
+            commit('ADD_ERROR', error)
+            throw error
+        } finally {
+            commit('SET_LOADING', false)
+        }
+    },
 
     clearErrors({ commit }) {
         commit('CLEAR_ERRORS')
@@ -920,11 +937,11 @@ const fetchData = async (url, action, dispatch, axios, errorMessage) => {
     }
 }
 
-const initProduct = async (dispatch, axios) => {
+const initProduct = async (dispatch, axios,) => {
     console.info(`fetch product initize`)
     try {
         // Default to location ID 1 if no location is selected
-        const response = await axios.get('product_f/1')
+        const response = await axios.get('product_f_v1/1')
         console.info(`fetch product initize response ${JSON.stringify(response.data)}`)
         await dispatch('initProduct', response.data.data)
     } catch (error) {
@@ -933,6 +950,7 @@ const initProduct = async (dispatch, axios) => {
         throw error
     }
 }
+
 
 const initClient = (dispatch, axios) =>
     fetchData('api/client/find', 'initClient', dispatch, axios, 'Client initialization failed')
