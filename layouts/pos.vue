@@ -350,9 +350,10 @@
     <v-main class="main-content">
       <div class="main-content-wrapper">
         <v-container fluid class="pa-0 main-container">
+          <!-- TODO: customer update screen seems there is a bug -->
           <Nuxt
             :key="productComponentKey"
-            @update-cus-screen="sendQRToCustomerScreen"
+            @update-cus-screen="handleCustScreen"
           />
         </v-container>
       </div>
@@ -560,7 +561,7 @@ export default {
       customerScreenUpdateTimeout: null,
       productLookupCache: new Map(),
       lastCartUpdateTime: 0,
-      
+
       multiPaymentCodes: '',
       sharedState: Vue.observable({
         saleHeader: 0,
@@ -804,8 +805,8 @@ export default {
     this.loadCurrency()
     this.checkAllInitData()
     this.initializeMultiPayment()
-    this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
-    
+    // this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
+
     // CUSTOMER SCREEN INTEGRATION
     this.$customerWindow = null
     window.addEventListener('message', this.handleCustomerScreenMessage)
@@ -822,7 +823,7 @@ export default {
     window.removeEventListener('beforeunload', this.checkAllInitData)
     this.stopCustomerScreenSync()
     window.removeEventListener('message', this.handleCustomerScreenMessage)
-    
+
     // PERFORMANCE OPTIMIZATION: Clear timeouts and caches
     if (this.customerScreenUpdateTimeout) {
       clearTimeout(this.customerScreenUpdateTimeout)
@@ -833,7 +834,7 @@ export default {
   watch: {
     // PERFORMANCE OPTIMIZATION: Debounced watchers
     cartOfProduct: {
-      handler: _.debounce(function(newVal, oldVal) {
+      handler: _.debounce(function (newVal, oldVal) {
         this.lastCartUpdateTime = Date.now()
         if (this.isCustomerDisplayOpen()) {
           this.batchUpdateCustomerScreen()
@@ -842,9 +843,9 @@ export default {
       deep: true,
       immediate: false,
     },
-    
+
     discount: {
-      handler: _.debounce(function(newVal, oldVal) {
+      handler: _.debounce(function (newVal, oldVal) {
         if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
           this.batchUpdateCustomerScreen()
         }
@@ -853,7 +854,7 @@ export default {
     },
 
     cashReceived: {
-      handler: _.debounce(function(newVal, oldVal) {
+      handler: _.debounce(function (newVal, oldVal) {
         if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
           this.batchUpdateCustomerScreen()
         }
@@ -863,7 +864,7 @@ export default {
 
     // PERFORMANCE OPTIMIZATION: Rebuild cache when products change
     findAllProduct: {
-      handler: _.debounce(function(newVal, oldVal) {
+      handler: _.debounce(function (newVal, oldVal) {
         this.buildProductLookupCache()
       }, 500),
       immediate: false,
@@ -878,18 +879,24 @@ export default {
 
   methods: {
     // PERFORMANCE OPTIMIZATION: New optimized methods
-    
+    handleCustScreen() {
+      if (this.isCustomerDisplayOpen()) {
+        this.batchUpdateCustomerScreen()
+      }
+    },
     /**
      * Build product lookup cache for fast access
      */
     buildProductLookupCache() {
       this.productLookupCache.clear()
       if (this.findAllProduct && Array.isArray(this.findAllProduct)) {
-        this.findAllProduct.forEach(product => {
+        this.findAllProduct.forEach((product) => {
           this.productLookupCache.set(product.id, product)
         })
       }
-      console.log(`Product lookup cache built with ${this.productLookupCache.size} products`)
+      console.log(
+        `Product lookup cache built with ${this.productLookupCache.size} products`
+      )
     },
 
     /**
@@ -900,7 +907,7 @@ export default {
       if (this.customerScreenUpdateTimeout) {
         clearTimeout(this.customerScreenUpdateTimeout)
       }
-      
+
       // Schedule single update
       this.customerScreenUpdateTimeout = setTimeout(() => {
         if (this.isCustomerDisplayOpen()) {
@@ -923,8 +930,9 @@ export default {
 
         // Check stock if validation is enabled
         if (product.validateStockOnSale === 1) {
-          const productStock = this.productLookupCache.get(product.id) || 
-                              this.findAllProduct.find(p => p.id === product.id)
+          const productStock =
+            this.productLookupCache.get(product.id) ||
+            this.findAllProduct.find((p) => p.id === product.id)
           if (productStock && productStock.stock <= 0) {
             this.showError('Stock not enough')
             return false
@@ -977,9 +985,9 @@ export default {
 
       if (limit && limit > 0) {
         const remaining = limit - newQty
-        
+
         this.$toast.success(
-          remaining > 0 
+          remaining > 0
             ? `${product.pro_name} added (${remaining} more)`
             : `${product.pro_name} added (limit reached)`,
           {
@@ -1005,10 +1013,10 @@ export default {
 
       if (!cardCountLimit || cardCountLimit <= 0) {
         if (this.$toast) {
-          this.$toast.error(
-            `Product ${product.pro_name} is not available`,
-            { position: 'bottom-center', duration: 1500 }
-          )
+          this.$toast.error(`Product ${product.pro_name} is not available`, {
+            position: 'bottom-center',
+            duration: 1500,
+          })
         }
         return false
       }
@@ -1076,14 +1084,14 @@ export default {
     },
 
     // PERFORMANCE OPTIMIZATION: Throttled discount and cash updates
-    handleDiscountUpdate: _.throttle(function(value) {
+    handleDiscountUpdate: _.throttle(function (value) {
       this.discount = value
       if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
         this.batchUpdateCustomerScreen()
       }
     }, 200),
 
-    handleCashReceivedUpdate: _.throttle(function(value) {
+    handleCashReceivedUpdate: _.throttle(function (value) {
       this.cashReceived = value
       if (this.isCustomerDisplayOpen() && this.productCart.length > 0) {
         this.batchUpdateCustomerScreen()
@@ -1413,11 +1421,16 @@ export default {
 
         if (error.response && error.response.data) {
           const errorData = error.response.data
-          
-          if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+
+          if (
+            errorData.stockErrors &&
+            Array.isArray(errorData.stockErrors) &&
+            errorData.stockErrors.length > 0
+          ) {
             const stockError = errorData.stockErrors[0]
-            const product = this.productLookupCache.get(stockError.productId) ||
-                           this.findAllProduct.find(el => el.id == stockError.productId)
+            const product =
+              this.productLookupCache.get(stockError.productId) ||
+              this.findAllProduct.find((el) => el.id == stockError.productId)
 
             errorMessage = `ຈຳນວນສິນຄ້າ: ${
               product?.pro_name || 'Unknown Product'
@@ -1467,9 +1480,10 @@ export default {
           '/api/sale/create-line-only',
           this.saleHeader
         )
-        
+
         this.showPaymentSuccessOnCustomerScreen()
-        this.sharedState.saleHeader = this.lastTransactionSaleHeaderId || Date.now()
+        this.sharedState.saleHeader =
+          this.lastTransactionSaleHeaderId || Date.now()
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
 
         const paymentCodes = paymentData
@@ -1534,9 +1548,9 @@ export default {
         isActive: false,
         remark: 'UNDO MULTI PAYMENT TXN',
         cancel_fee: 0,
-        customerId: null
+        customerId: null,
       }
-      
+
       try {
         const response = await this.$axios.put(
           `api/sale/reverse/${this.pendingSaleHeaderId}`,
@@ -1565,7 +1579,7 @@ export default {
       this.setSelectedLocation(location)
       this.productComponentKey += 1
       this.terminalDialog = false
-      
+
       // PERFORMANCE OPTIMIZATION: Rebuild cache when terminal changes
       this.buildProductLookupCache()
     },
@@ -1804,7 +1818,7 @@ export default {
 
         let successMessage = ''
         let saleHeaderId = ''
-        
+
         if (typeof response.data === 'string' && response.data.includes('-')) {
           const parts = response.data.split('-')
           successMessage = parts[0].trim()
@@ -1844,7 +1858,6 @@ export default {
         )
         this.discount = 0
         this.cashReceived = 0
-
       } catch (error) {
         let errorMessage = 'Unknown error occurred'
 
@@ -1852,10 +1865,15 @@ export default {
           const errorData = error.response.data
 
           if (errorData && typeof errorData === 'object') {
-            if (errorData.stockErrors && Array.isArray(errorData.stockErrors) && errorData.stockErrors.length > 0) {
+            if (
+              errorData.stockErrors &&
+              Array.isArray(errorData.stockErrors) &&
+              errorData.stockErrors.length > 0
+            ) {
               const stockError = errorData.stockErrors[0]
-              const product = this.productLookupCache.get(stockError.productId) ||
-                             this.findAllProduct.find(el => el.id == stockError.productId)
+              const product =
+                this.productLookupCache.get(stockError.productId) ||
+                this.findAllProduct.find((el) => el.id == stockError.productId)
 
               errorMessage = `ຈຳນວນສິນຄ້າ: ${
                 product?.pro_name || 'Unknown Product'
@@ -1872,8 +1890,9 @@ export default {
           } else if (typeof errorData === 'string') {
             if (errorData.includes('#')) {
               const id = errorData.split('#')[1]
-              const product = this.productLookupCache.get(parseInt(id)) ||
-                             this.findAllProduct.find(el => el.id == id)
+              const product =
+                this.productLookupCache.get(parseInt(id)) ||
+                this.findAllProduct.find((el) => el.id == id)
               errorMessage = `ຈຳນວນສິນຄ້າ: ${
                 product?.pro_name || ''
               } ມີບໍ່ພຽງພໍໃນສາງ`
@@ -1893,8 +1912,9 @@ export default {
       let txnListHtml = ``
       for (const iterator of this.productCart) {
         // Use cached lookup
-        const product = this.productLookupCache.get(iterator.id) ||
-                       this.findAllProduct.find((el) => el.id == iterator.id)
+        const product =
+          this.productLookupCache.get(iterator.id) ||
+          this.findAllProduct.find((el) => el.id == iterator.id)
         const quantity = iterator.qty
         const total = iterator.qty * iterator.localPrice
         txnListHtml += `<div class="ticket">
@@ -1906,7 +1926,7 @@ export default {
         }</div>
                 </div>`
       }
-      
+
       const discountHtml = `<div class="ticket">
                     <div class="product-name">ສ່ວນຫລຸດ </div>
                     <div class="price"> - ${this.formatNumber(
@@ -1923,7 +1943,7 @@ export default {
       const bookingDate = jsDateToMysqlDate(today)
 
       let totalHtml = ``
-      
+
       for (const iterator of this.currencyList) {
         if (
           iterator.code == 'LAK' &&
@@ -2073,7 +2093,7 @@ export default {
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
-      
+
       // PERFORMANCE OPTIMIZATION: Clear cache and update customer screen
       this.productLookupCache.clear()
       this.buildProductLookupCache()
