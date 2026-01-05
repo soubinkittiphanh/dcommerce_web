@@ -1,4 +1,22 @@
 /*!
+ * @kurkle/color v0.3.4
+ * https://github.com/kurkle/color#readme
+ * (c) 2024 Jukka Kurkela
+ * Released under the MIT License
+ */
+
+/*!
+ * Chart.js v4.5.1
+ * https://www.chartjs.org
+ * (c) 2025 Chart.js Contributors
+ * Released under the MIT License
+ */
+
+
+/*! @license DOMPurify 2.5.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.8/LICENSE */
+
+
+/*!
  * ApexCharts v3.54.1
  * (c) 2018-2024 ApexCharts
  * Released under the MIT License.
@@ -751,14 +769,6 @@ PERFORMANCE OF THIS SOFTWARE.
  */
 
 
-/*! @license DOMPurify 2.5.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.8/LICENSE */
-
-
-//! moment.js
-
-//! moment.js locale configuration
-
-
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
 REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
 AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
@@ -767,6 +777,11 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
+
+
+//! moment.js
+
+//! moment.js locale configuration
 
 
 /*!
@@ -786,19 +801,4 @@ PERFORMANCE OF THIS SOFTWARE.
  * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
- */
-
-
-/*!
- * @kurkle/color v0.3.4
- * https://github.com/kurkle/color#readme
- * (c) 2024 Jukka Kurkela
- * Released under the MIT License
- */
-
-/*!
- * Chart.js v4.5.1
- * https://www.chartjs.org
- * (c) 2025 Chart.js Contributors
- * Released under the MIT License
  */

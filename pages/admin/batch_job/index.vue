@@ -9,6 +9,16 @@
             <span>ລະບົບຈັດການ Job Batch</span>
             <v-spacer />
             <v-btn
+              color="success"
+              class="mr-2"
+              @click="exportToExcel"
+              :loading="exporting"
+              :disabled="loading || jobBatches.length === 0"
+            >
+              <v-icon left>mdi-file-excel</v-icon>
+              ສົ່ງອອກ Excel
+            </v-btn>
+            <v-btn
               color="white"
               text
               @click="openCreateDialog"
@@ -376,6 +386,7 @@ import JobBatchDialog from '~/components/job_fair/job_batch'
 import { debounce } from 'lodash'
 import InvoiceHeaderMaintain from '~/components/accounting/ar/invoice/maintain'
 import { swalSuccess, swalError2, ticketHtml, getFormatNum } from '~/common'
+
 export default {
   name: 'JobBatchList',
   components: {
@@ -386,7 +397,7 @@ export default {
 
   data() {
     return {
-          showEditDialog: false,  // CHANGE: rename from showInvoiceDialog
+      showEditDialog: false,  // CHANGE: rename from showInvoiceDialog
       showInvoiceDialog: false, // NEW
       selectedInvoice: null, // NEW
       preselectedBatchId: null, // NEW
@@ -404,6 +415,7 @@ export default {
       jobBatches: [],
       totalItems: 0,
       mouFilterOptions: [],
+      exporting: false, // NEW: for Excel export loading state
 
       filters: {
         search: '',
@@ -533,26 +545,164 @@ export default {
   },
 
   methods: {
+    // NEW: Excel Export Method
+    async exportToExcel() {
+      if (this.jobBatches.length === 0) {
+        this.$toast.warning('ບໍ່ມີຂໍ້ມູນສໍາລັບການສົ່ງອອກ')
+        return
+      }
 
-  closeEditDialog() {
-    this.showEditDialog = false  // CHANGED: was closeInvoiceDialog
-    this.preselectedBatchId = null
-    this.selectedInvoice = null
-  },
+      this.exporting = true
 
-  async createInvoiceFromBatch(batch) {
-    // Load required data if not already loaded
-    await Promise.all([this.loadCustomers(), this.loadCurrencies()])
+      try {
+        // Import XLSX library dynamically (if using in browser)
+        const XLSX = await import('xlsx')
+        
+        // Prepare data for export
+        const excelData = this.prepareExcelData()
 
-    // Set the preselected batch ID
-    this.preselectedBatchId = batch.id
+        // Create workbook and worksheet
+        const workbook = XLSX.utils.book_new()
+        
+        // Main data sheet
+        const worksheet = XLSX.utils.json_to_sheet(excelData)
+        
+        // Set column widths
+        worksheet['!cols'] = [
+          { wch: 15 }, // Running No
+          { wch: 25 }, // Company
+          { wch: 20 }, // MOU Number
+          { wch: 20 }, // Work Place
+          { wch: 20 }, // Job Title
+          { wch: 15 }, // Status
+          { wch: 18 }, // Principal Amount
+          { wch: 15 }, // Total Positions
+          { wch: 15 }, // Applicant Count
+          { wch: 15 }, // Start Date
+          { wch: 15 }, // End Date
+          { wch: 20 }, // Delivery Date
+          { wch: 15 }, // Created Date
+        ]
 
-    // Clear any existing invoice
-    this.selectedInvoice = null
+        // Add worksheet to workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Job Batches')
 
-    // Open invoice dialog
-    this.showEditDialog = true  // CHANGED: was showInvoiceDialog
-  },
+        // Create summary sheet
+        const summaryData = this.createSummaryData()
+        const summaryWorksheet = XLSX.utils.json_to_sheet(summaryData)
+        summaryWorksheet['!cols'] = [{ wch: 25 }, { wch: 15 }]
+        XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Summary')
+
+        // Generate Excel file
+        const excelBuffer = XLSX.write(workbook, {
+          bookType: 'xlsx',
+          type: 'array'
+        })
+
+        // Create blob and download
+        const blob = new Blob([excelBuffer], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        })
+
+        const url = window.URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = `Job_Batches_${this.formatDateForFilename(new Date())}.xlsx`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        window.URL.revokeObjectURL(url)
+
+        this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດແລ້ວ')
+
+      } catch (error) {
+        console.error('Export error:', error)
+        this.$toast.error('ສົ່ງອອກ Excel ບໍ່ສຳເລັດ: ' + error.message)
+      } finally {
+        this.exporting = false
+      }
+    },
+
+    // NEW: Prepare data for Excel export
+    prepareExcelData() {
+      return this.jobBatches.map((item, index) => ({
+        'ຮອບຈັດສົ່ງ': item.runningNo || '',
+        'ບໍລິສັດນາຍຈ້າງ': item.mou?.employerCompany || '',
+        'ເລກທີ MOU': item.mou?.mouNumber || '',
+        'ສະຖານທີ່ວຽກ': item.mou?.workLocation || '',
+        'ໜ້າວຽກ': item.mou?.jobTitle || '',
+        'ສະຖານະ': this.formatStatus(item.status),
+        'ມູນຄ່າແບັດຈັອບ': item.principalAmount || 0,
+        'ເປີດຮັບ': item.totalPositions || 0,
+        'ສະໝັກແລ້ວ': item.applicantStatistics?.interview || item.applicantStatistics?.total || 0,
+        'ວັນເລີ່ມ': item.batchStartDate ? this.formatDateForExcel(item.batchStartDate) : '',
+        'ວັນສິ້ນສຸດ': item.batchEndDate ? this.formatDateForExcel(item.batchEndDate) : '',
+        'ວັນຈັດສົ່ງແຮງງານ': item.batchDeliveryDate ? this.formatDateForExcel(item.batchDeliveryDate) : '',
+        'ວັນທີ່ສ້າງ': item.createdAt ? this.formatDateForExcel(item.createdAt) : '',
+      }))
+    },
+
+    // NEW: Create summary data for the summary sheet
+    createSummaryData() {
+      const stats = {
+        totalBatches: this.jobBatches.length,
+        totalPositions: this.jobBatches.reduce((sum, item) => sum + (item.totalPositions || 0), 0),
+        totalPrincipalAmount: this.jobBatches.reduce((sum, item) => sum + (item.principalAmount || 0), 0),
+        totalApplicants: this.jobBatches.reduce((sum, item) => 
+          sum + (item.applicantStatistics?.interview || item.applicantStatistics?.total || 0), 0),
+        statusBreakdown: {},
+      }
+
+      // Calculate status breakdown
+      this.jobBatches.forEach(item => {
+        const status = this.formatStatus(item.status)
+        stats.statusBreakdown[status] = (stats.statusBreakdown[status] || 0) + 1
+      })
+
+      return [
+        { 'ລາຍການ': 'ລວມ Job Batch ທັງໝົດ', 'ຈຳນວນ': stats.totalBatches },
+        { 'ລາຍການ': 'ລວມຕຳແຫນ່ງວຽກ', 'ຈຳນວນ': stats.totalPositions },
+        { 'ລາຍການ': 'ລວມມູນຄ່າແບັດຈ໌', 'ຈຳນວນ': stats.totalPrincipalAmount },
+        { 'ລາຍການ': 'ລວມຜູ້ສະໝັກ', 'ຈຳນວນ': stats.totalApplicants },
+        { 'ລາຍການ': '', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': '=== ສະຖິຕິສະຖານະ ===', 'ຈຳນວນ': '' },
+        ...Object.entries(stats.statusBreakdown).map(([status, count]) => ({
+          'ລາຍການ': status,
+          'ຈຳນວນ': count
+        }))
+      ]
+    },
+
+    // NEW: Format date for Excel (YYYY-MM-DD)
+    formatDateForExcel(date) {
+      if (!date) return ''
+      return new Date(date).toLocaleDateString('en-CA')
+    },
+
+    // NEW: Format date for filename
+    formatDateForFilename(date) {
+      return date.toISOString().split('T')[0]
+    },
+
+    closeEditDialog() {
+      this.showEditDialog = false  // CHANGED: was closeInvoiceDialog
+      this.preselectedBatchId = null
+      this.selectedInvoice = null
+    },
+
+    async createInvoiceFromBatch(batch) {
+      // Load required data if not already loaded
+      await Promise.all([this.loadCustomers(), this.loadCurrencies()])
+
+      // Set the preselected batch ID
+      this.preselectedBatchId = batch.id
+
+      // Clear any existing invoice
+      this.selectedInvoice = null
+
+      // Open invoice dialog
+      this.showEditDialog = true  // CHANGED: was showInvoiceDialog
+    },
 
     async loadCustomers() {
       if (this.customers.length > 0) return // Already loaded

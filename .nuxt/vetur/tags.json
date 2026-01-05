@@ -215,11 +215,11 @@
   "UnitForm": {
     "description": "Auto imported from components/unitForm.vue"
   },
-  "CAFEPOSDialog": {
-    "description": "Auto imported from components/CAFE/POSDialog.vue"
-  },
   "CafePOSScreen": {
     "description": "Auto imported from components/CafePOSScreen/index.vue"
+  },
+  "CAFEPOSDialog": {
+    "description": "Auto imported from components/CAFE/POSDialog.vue"
   },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
@@ -299,6 +299,18 @@
   "PoForm": {
     "description": "Auto imported from components/po/PoForm.vue"
   },
+  "ProductItem": {
+    "description": "Auto imported from components/product/Item.vue"
+  },
+  "ProductCardPos": {
+    "description": "Auto imported from components/product/ProductCardPos.vue"
+  },
+  "ProductForm": {
+    "description": "Auto imported from components/product/ProductForm.vue"
+  },
+  "ProductFormCreate": {
+    "description": "Auto imported from components/product/ProductFormCreate.vue"
+  },
   "PosCartFooterComponent": {
     "description": "Auto imported from components/pos/CartFooterComponent.vue"
   },
@@ -322,18 +334,6 @@
   },
   "PosLeftDrawer": {
     "description": "Auto imported from components/pos/PosLeftDrawer.vue"
-  },
-  "ProductItem": {
-    "description": "Auto imported from components/product/Item.vue"
-  },
-  "ProductCardPos": {
-    "description": "Auto imported from components/product/ProductCardPos.vue"
-  },
-  "ProductForm": {
-    "description": "Auto imported from components/product/ProductForm.vue"
-  },
-  "ProductFormCreate": {
-    "description": "Auto imported from components/product/ProductFormCreate.vue"
   },
   "PromotionsPromotionDialog": {
     "description": "Auto imported from components/promotions/PromotionDialog.vue"
@@ -482,14 +482,14 @@
   "JobFairJobBatch": {
     "description": "Auto imported from components/job_fair/job_batch/index.vue"
   },
-  "PosRecipe": {
-    "description": "Auto imported from components/pos/recipe/index.vue"
-  },
   "PosDialogsQuantityUpdateDialog": {
     "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
   },
   "PosDialogsTicketDetailsDialog": {
     "description": "Auto imported from components/pos/dialogs/TicketDetailsDialog.vue"
+  },
+  "PosRecipe": {
+    "description": "Auto imported from components/pos/recipe/index.vue"
   },
   "AccountingApInvoice": {
     "description": "Auto imported from components/accounting/ap/invoice/index.vue"
@@ -497,14 +497,14 @@
   "AccountingApSettlement": {
     "description": "Auto imported from components/accounting/ap/settlement/index.vue"
   },
-  "JobFairMouMaintain": {
-    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
-  },
   "JobFairAgencyMaintain": {
     "description": "Auto imported from components/job_fair/agency/maintain/index.vue"
   },
   "JobFairAgencyView": {
     "description": "Auto imported from components/job_fair/agency/view/index.vue"
+  },
+  "JobFairMouMaintain": {
+    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
   },
   "AccountingApInvoiceAudit": {
     "description": "Auto imported from components/accounting/ap/invoice/audit/index.vue"
@@ -518,9 +518,6 @@
   "AccountingApSettlementVoucher": {
     "description": "Auto imported from components/accounting/ap/settlement/voucher/index.vue"
   },
-  "AccountingArInvoiceAudit": {
-    "description": "Auto imported from components/accounting/ar/invoice/audit/index.vue"
-  },
   "AccountingArInvoiceMaintain": {
     "description": "Auto imported from components/accounting/ar/invoice/maintain/index.vue"
   },
@@ -529,6 +526,9 @@
   },
   "AccountingArInvoiceVoucher": {
     "description": "Auto imported from components/accounting/ar/invoice/voucher/index.vue"
+  },
+  "AccountingArInvoiceAudit": {
+    "description": "Auto imported from components/accounting/ar/invoice/audit/index.vue"
   },
   "AccountingArReceiveMaintain": {
     "description": "Auto imported from components/accounting/ar/receive/maintain/index.vue"

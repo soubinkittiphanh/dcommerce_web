@@ -884,9 +884,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4f9a5600_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(875);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4f9a5600_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4f9a5600_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4f9a5600_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4f9a5600_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b49f6b00_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(875);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b49f6b00_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b49f6b00_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b49f6b00_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b49f6b00_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -898,7 +898,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-card-title.primary[data-v-4f9a5600]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-4f9a5600]{font-size:12px!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-card-title.primary[data-v-b49f6b00]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-b49f6b00]{font-size:12px!important}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -970,7 +970,7 @@ var VSpacer = __webpack_require__(430);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/batch_job/index.vue?vue&type=template&id=4f9a5600&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/batch_job/index.vue?vue&type=template&id=b49f6b00&scoped=true
 
 
 
@@ -993,7 +993,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var batch_jobvue_type_template_id_4f9a5600_scoped_true_render = function render() {
+var batch_jobvue_type_template_id_b49f6b00_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
@@ -1008,6 +1008,20 @@ var batch_jobvue_type_template_id_4f9a5600_scoped_true_render = function render(
       "color": "white"
     }
   }, [_vm._v("mdi-briefcase-outline")]), _vm._v(" "), _c('span', [_vm._v("ລະບົບຈັດການ Job Batch")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "success",
+      "loading": _vm.exporting,
+      "disabled": _vm.loading || _vm.jobBatches.length === 0
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-file-excel")]), _vm._v("\n              ສົ່ງອອກ Excel\n            ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "white",
       "text": "",
@@ -1580,7 +1594,7 @@ var batch_jobvue_type_template_id_4f9a5600_scoped_true_render = function render(
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/batch_job/index.vue?vue&type=template&id=4f9a5600&scoped=true
+// CONCATENATED MODULE: ./pages/admin/batch_job/index.vue?vue&type=template&id=b49f6b00&scoped=true
 
 // EXTERNAL MODULE: ./components/job_fair/job_batch/index.vue + 4 modules
 var job_batch = __webpack_require__(1025);
@@ -1632,6 +1646,9 @@ var common = __webpack_require__(7);
       jobBatches: [],
       totalItems: 0,
       mouFilterOptions: [],
+      exporting: false,
+      // NEW: for Excel export loading state
+
       filters: {
         search: '',
         mouId: '',
@@ -1758,6 +1775,190 @@ var common = __webpack_require__(7);
     this.loadCurrencies(); // Add this
   },
   methods: {
+    // NEW: Excel Export Method
+    async exportToExcel() {
+      if (this.jobBatches.length === 0) {
+        this.$toast.warning('ບໍ່ມີຂໍ້ມູນສໍາລັບການສົ່ງອອກ');
+        return;
+      }
+      this.exporting = true;
+      try {
+        // Import XLSX library dynamically (if using in browser)
+        const XLSX = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 406, 7));
+
+        // Prepare data for export
+        const excelData = this.prepareExcelData();
+
+        // Create workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+
+        // Main data sheet
+        const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+        // Set column widths
+        worksheet['!cols'] = [{
+          wch: 15
+        },
+        // Running No
+        {
+          wch: 25
+        },
+        // Company
+        {
+          wch: 20
+        },
+        // MOU Number
+        {
+          wch: 20
+        },
+        // Work Place
+        {
+          wch: 20
+        },
+        // Job Title
+        {
+          wch: 15
+        },
+        // Status
+        {
+          wch: 18
+        },
+        // Principal Amount
+        {
+          wch: 15
+        },
+        // Total Positions
+        {
+          wch: 15
+        },
+        // Applicant Count
+        {
+          wch: 15
+        },
+        // Start Date
+        {
+          wch: 15
+        },
+        // End Date
+        {
+          wch: 20
+        },
+        // Delivery Date
+        {
+          wch: 15
+        } // Created Date
+        ];
+
+        // Add worksheet to workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Job Batches');
+
+        // Create summary sheet
+        const summaryData = this.createSummaryData();
+        const summaryWorksheet = XLSX.utils.json_to_sheet(summaryData);
+        summaryWorksheet['!cols'] = [{
+          wch: 25
+        }, {
+          wch: 15
+        }];
+        XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Summary');
+
+        // Generate Excel file
+        const excelBuffer = XLSX.write(workbook, {
+          bookType: 'xlsx',
+          type: 'array'
+        });
+
+        // Create blob and download
+        const blob = new Blob([excelBuffer], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Job_Batches_${this.formatDateForFilename(new Date())}.xlsx`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດແລ້ວ');
+      } catch (error) {
+        console.error('Export error:', error);
+        this.$toast.error('ສົ່ງອອກ Excel ບໍ່ສຳເລັດ: ' + error.message);
+      } finally {
+        this.exporting = false;
+      }
+    },
+    // NEW: Prepare data for Excel export
+    prepareExcelData() {
+      return this.jobBatches.map((item, index) => {
+        var _item$mou, _item$mou2, _item$mou3, _item$mou4, _item$applicantStatis, _item$applicantStatis2;
+        return {
+          'ຮອບຈັດສົ່ງ': item.runningNo || '',
+          'ບໍລິສັດນາຍຈ້າງ': ((_item$mou = item.mou) === null || _item$mou === void 0 ? void 0 : _item$mou.employerCompany) || '',
+          'ເລກທີ MOU': ((_item$mou2 = item.mou) === null || _item$mou2 === void 0 ? void 0 : _item$mou2.mouNumber) || '',
+          'ສະຖານທີ່ວຽກ': ((_item$mou3 = item.mou) === null || _item$mou3 === void 0 ? void 0 : _item$mou3.workLocation) || '',
+          'ໜ້າວຽກ': ((_item$mou4 = item.mou) === null || _item$mou4 === void 0 ? void 0 : _item$mou4.jobTitle) || '',
+          'ສະຖານະ': this.formatStatus(item.status),
+          'ມູນຄ່າແບັດຈັອບ': item.principalAmount || 0,
+          'ເປີດຮັບ': item.totalPositions || 0,
+          'ສະໝັກແລ້ວ': ((_item$applicantStatis = item.applicantStatistics) === null || _item$applicantStatis === void 0 ? void 0 : _item$applicantStatis.interview) || ((_item$applicantStatis2 = item.applicantStatistics) === null || _item$applicantStatis2 === void 0 ? void 0 : _item$applicantStatis2.total) || 0,
+          'ວັນເລີ່ມ': item.batchStartDate ? this.formatDateForExcel(item.batchStartDate) : '',
+          'ວັນສິ້ນສຸດ': item.batchEndDate ? this.formatDateForExcel(item.batchEndDate) : '',
+          'ວັນຈັດສົ່ງແຮງງານ': item.batchDeliveryDate ? this.formatDateForExcel(item.batchDeliveryDate) : '',
+          'ວັນທີ່ສ້າງ': item.createdAt ? this.formatDateForExcel(item.createdAt) : ''
+        };
+      });
+    },
+    // NEW: Create summary data for the summary sheet
+    createSummaryData() {
+      const stats = {
+        totalBatches: this.jobBatches.length,
+        totalPositions: this.jobBatches.reduce((sum, item) => sum + (item.totalPositions || 0), 0),
+        totalPrincipalAmount: this.jobBatches.reduce((sum, item) => sum + (item.principalAmount || 0), 0),
+        totalApplicants: this.jobBatches.reduce((sum, item) => {
+          var _item$applicantStatis3, _item$applicantStatis4;
+          return sum + (((_item$applicantStatis3 = item.applicantStatistics) === null || _item$applicantStatis3 === void 0 ? void 0 : _item$applicantStatis3.interview) || ((_item$applicantStatis4 = item.applicantStatistics) === null || _item$applicantStatis4 === void 0 ? void 0 : _item$applicantStatis4.total) || 0);
+        }, 0),
+        statusBreakdown: {}
+      };
+
+      // Calculate status breakdown
+      this.jobBatches.forEach(item => {
+        const status = this.formatStatus(item.status);
+        stats.statusBreakdown[status] = (stats.statusBreakdown[status] || 0) + 1;
+      });
+      return [{
+        'ລາຍການ': 'ລວມ Job Batch ທັງໝົດ',
+        'ຈຳນວນ': stats.totalBatches
+      }, {
+        'ລາຍການ': 'ລວມຕຳແຫນ່ງວຽກ',
+        'ຈຳນວນ': stats.totalPositions
+      }, {
+        'ລາຍການ': 'ລວມມູນຄ່າແບັດຈ໌',
+        'ຈຳນວນ': stats.totalPrincipalAmount
+      }, {
+        'ລາຍການ': 'ລວມຜູ້ສະໝັກ',
+        'ຈຳນວນ': stats.totalApplicants
+      }, {
+        'ລາຍການ': '',
+        'ຈຳນວນ': ''
+      }, {
+        'ລາຍການ': '=== ສະຖິຕິສະຖານະ ===',
+        'ຈຳນວນ': ''
+      }, ...Object.entries(stats.statusBreakdown).map(([status, count]) => ({
+        'ລາຍການ': status,
+        'ຈຳນວນ': count
+      }))];
+    },
+    // NEW: Format date for Excel (YYYY-MM-DD)
+    formatDateForExcel(date) {
+      if (!date) return '';
+      return new Date(date).toLocaleDateString('en-CA');
+    },
+    // NEW: Format date for filename
+    formatDateForFilename(date) {
+      return date.toISOString().split('T')[0];
+    },
     closeEditDialog() {
       this.showEditDialog = false; // CHANGED: was closeInvoiceDialog
       this.preselectedBatchId = null;
@@ -2000,11 +2201,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_batch_jobvue_type_script_lang_js,
-  batch_jobvue_type_template_id_4f9a5600_scoped_true_render,
+  batch_jobvue_type_template_id_b49f6b00_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "4f9a5600",
+  "b49f6b00",
   "38f3134a"
   
 )
@@ -7050,7 +7251,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("59835858", content, true, context)
+  add("132e3f78", content, true, context)
 };
 
 /***/ })

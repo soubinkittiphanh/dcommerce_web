@@ -1033,9 +1033,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40788442_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(956);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40788442_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40788442_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40788442_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40788442_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40e1c786_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(956);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40e1c786_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40e1c786_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40e1c786_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_40e1c786_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -1047,7 +1047,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-card-title.primary[data-v-40788442]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-40788442]{font-size:12px!important}.gap-1[data-v-40788442]{gap:4px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-card-title.primary[data-v-40e1c786]{background:linear-gradient(45deg,#1976d2,#1565c0)}.text-caption[data-v-40e1c786]{font-size:12px!important}.gap-1[data-v-40e1c786]{gap:4px}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1070,6 +1070,9 @@ var VCard = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
+var VCheckbox = __webpack_require__(472);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(128);
@@ -1107,6 +1110,9 @@ var VMenu = __webpack_require__(129);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(427);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(20);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(430);
 
@@ -1116,7 +1122,7 @@ var VTextField = __webpack_require__(38);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
 var VTooltip = __webpack_require__(579);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/job_fair/mou/index.vue?vue&type=template&id=40788442&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/job_fair/mou/index.vue?vue&type=template&id=40e1c786&scoped=true
 
 
 
@@ -1138,7 +1144,9 @@ var VTooltip = __webpack_require__(579);
 
 
 
-var mouvue_type_template_id_40788442_scoped_true_render = function render() {
+
+
+var mouvue_type_template_id_40e1c786_scoped_true_render = function render() {
   var _vm$deletingItem;
   var _vm = this,
     _c = _vm._self._c;
@@ -1154,6 +1162,20 @@ var mouvue_type_template_id_40788442_scoped_true_render = function render() {
       "color": "white"
     }
   }, [_vm._v("mdi-file-document-multiple")]), _vm._v(" "), _c('span', [_vm._v("ຈັດການສັນຍາ MOU")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "success",
+      "loading": _vm.exporting,
+      "disabled": _vm.loading || _vm.mous.length === 0
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-file-excel")]), _vm._v("\n            ສົ່ງອອກ Excel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "white",
       "text": ""
@@ -1175,7 +1197,13 @@ var mouvue_type_template_id_40788442_scoped_true_render = function render() {
     staticClass: "py-3"
   }, [_c(VIcon["a" /* default */], {
     staticClass: "mr-2"
-  }, [_vm._v("mdi-table")]), _vm._v(" "), _c('span', [_vm._v("ລາຍການສັນຍາ MOU")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
+  }, [_vm._v("mdi-table")]), _vm._v(" "), _c('span', [_vm._v("ລາຍການສັນຍາ MOU")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    staticClass: "mr-3",
+    attrs: {
+      "color": "primary",
+      "outlined": ""
+    }
+  }, [_vm._v(_vm._s(_vm.mous.length) + " ລາຍການ")]), _vm._v(" "), _c(VTextField["a" /* default */], {
     staticStyle: {
       "max-width": "300px"
     },
@@ -1639,11 +1667,201 @@ var mouvue_type_template_id_40788442_scoped_true_render = function render() {
     on: {
       "click": _vm.confirmDelete
     }
-  }, [_vm._v("ລົບ")])], 1)], 1)], 1)], 2);
+  }, [_vm._v("ລົບ")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "700"
+    },
+    model: {
+      value: _vm.exportDialog,
+      callback: function ($$v) {
+        _vm.exportDialog = $$v;
+      },
+      expression: "exportDialog"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "headline"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "green"
+    }
+  }, [_vm._v("mdi-file-excel")]), _vm._v("\n        ສົ່ງອອກຂໍ້ມູນ MOU Excel\n      ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h4', [_vm._v("ເລືອກຂໍ້ມູນທີ່ຕ້ອງການສົ່ງອອກ:")])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ລາຍລະອຽດ MOU",
+      "hint": "ລະຫັດ, ຊື່ງານ, ບໍລິສັດ, ສະຖານທີ່",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeMOUDetails,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeMOUDetails", $$v);
+      },
+      expression: "exportOptions.includeMOUDetails"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ຂໍ້ມູນແຮງງານ",
+      "hint": "ຈຳນວນແຮງງານ, ສະຖານະ, ສັງກັດ",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeWorkerInfo,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeWorkerInfo", $$v);
+      },
+      expression: "exportOptions.includeWorkerInfo"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ຂໍ້ມູນການເງິນ",
+      "hint": "ມູນຄ່າໂຄງການ, ຄ່າບໍລິການ, ໃບແຈ້ງໜີ້",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeFinancialData,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeFinancialData", $$v);
+      },
+      expression: "exportOptions.includeFinancialData"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ສະຖິຕິ Job Batch",
+      "hint": "ຈຳນວນແບັດຈ໌, ສະຖານະ",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeJobBatches,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeJobBatches", $$v);
+      },
+      expression: "exportOptions.includeJobBatches"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ສະຖິຕິຜູ້ສະໝັກ",
+      "hint": "ຈຳນວນຜູ້ສະໝັກ, ສະຖານະການສະໝັກ",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeApplicants,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeApplicants", $$v);
+      },
+      expression: "exportOptions.includeApplicants"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ສະຖິຕິສະຫຼຸບ",
+      "hint": "ສະຫຼຸບທົ່ວໄປ ແລະ ການວິເຄາະ",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeStatistics,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeStatistics", $$v);
+      },
+      expression: "exportOptions.includeStatistics"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VDivider["a" /* default */], {
+    staticClass: "my-3"
+  }), _vm._v(" "), _c('h4', [_vm._v("ຕົວເລືອກເພີ່ມເຕີມ:")]), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ສົ່ງອອກໜ້າປັດຈຸບັນເທົ່ານັ້ນ",
+      "hint": "ຖ້າບໍ່ເລືອກ ຈະສົ່ງອອກທຸກໜ້າ",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeCurrentPageOnly,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeCurrentPageOnly", $$v);
+      },
+      expression: "exportOptions.includeCurrentPageOnly"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "ສ້າງກຣາຟແລະຕາຕະລາງ",
+      "hint": "ສ້າງກຣາຟສໍາລັບການວິເຄາະ",
+      "persistent-hint": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.includeCharts,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "includeCharts", $$v);
+      },
+      expression: "exportOptions.includeCharts"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.currencyDisplayOptions,
+      "label": "ແສດງສະກຸນເງິນ",
+      "outlined": "",
+      "dense": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.exportOptions.currencyDisplay,
+      callback: function ($$v) {
+        _vm.$set(_vm.exportOptions, "currencyDisplay", $$v);
+      },
+      expression: "exportOptions.currencyDisplay"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "text": ""
+    },
+    on: {
+      "click": function ($event) {
+        _vm.exportDialog = false;
+      }
+    }
+  }, [_vm._v("ຍົກເລີກ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "success",
+      "loading": _vm.exporting
+    },
+    on: {
+      "click": _vm.confirmExport
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-download")]), _vm._v("\n          ສົ່ງອອກ\n        ")], 1)], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/job_fair/mou/index.vue?vue&type=template&id=40788442&scoped=true
+// CONCATENATED MODULE: ./pages/admin/job_fair/mou/index.vue?vue&type=template&id=40e1c786&scoped=true
 
 // EXTERNAL MODULE: ./components/job_fair/mou/maintain/index.vue + 3 modules
 var maintain = __webpack_require__(1060);
@@ -1666,6 +1884,29 @@ var maintain = __webpack_require__(1060);
       editingItem: null,
       deletingItem: null,
       searchTimeout: null,
+      exporting: false,
+      exportDialog: false,
+      exportOptions: {
+        includeMOUDetails: true,
+        includeWorkerInfo: true,
+        includeFinancialData: true,
+        includeJobBatches: true,
+        includeApplicants: true,
+        includeStatistics: true,
+        includeCurrentPageOnly: false,
+        includeCharts: false,
+        currencyDisplay: 'original'
+      },
+      currencyDisplayOptions: [{
+        text: 'ສະກຸນເງິນເດີມ',
+        value: 'original'
+      }, {
+        text: 'USD ທັງໝົດ',
+        value: 'usd'
+      }, {
+        text: 'LAK ທັງໝົດ',
+        value: 'lak'
+      }],
       pagination: {
         totalItems: 0,
         totalPages: 0,
@@ -1766,6 +2007,586 @@ var maintain = __webpack_require__(1060);
     this.fetchMOUs();
   },
   methods: {
+    // NEW: Excel Export Methods
+    exportToExcel() {
+      if (this.mous.length === 0) {
+        this.$toast.warning('ບໍ່ມີຂໍ້ມູນສໍາລັບການສົ່ງອອກ');
+        return;
+      }
+      this.exportDialog = true;
+    },
+    async confirmExport() {
+      this.exporting = true;
+      try {
+        const XLSX = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 406, 7));
+        const workbook = XLSX.utils.book_new();
+
+        // Create main MOU data sheet
+        if (this.exportOptions.includeMOUDetails || this.exportOptions.includeWorkerInfo || this.exportOptions.includeFinancialData) {
+          const mainData = this.prepareMainMOUData();
+          const mainSheet = XLSX.utils.json_to_sheet(mainData);
+          this.setColumnWidths(mainSheet, this.getMainColumnWidths());
+          XLSX.utils.book_append_sheet(workbook, mainSheet, 'ຂໍ້ມູນ MOU');
+        }
+
+        // Create financial summary sheet
+        if (this.exportOptions.includeFinancialData) {
+          const financialData = this.prepareFinancialSummary();
+          const financialSheet = XLSX.utils.json_to_sheet(financialData);
+          this.setColumnWidths(financialSheet, this.getFinancialColumnWidths());
+          XLSX.utils.book_append_sheet(workbook, financialSheet, 'ສະຫຼຸບການເງິນ');
+        }
+
+        // Create job batch summary sheet
+        if (this.exportOptions.includeJobBatches) {
+          const jobBatchData = this.prepareJobBatchSummary();
+          const jobBatchSheet = XLSX.utils.json_to_sheet(jobBatchData);
+          this.setColumnWidths(jobBatchSheet, this.getJobBatchColumnWidths());
+          XLSX.utils.book_append_sheet(workbook, jobBatchSheet, 'ສະຫຼຸບ Job Batch');
+        }
+
+        // Create applicant summary sheet
+        if (this.exportOptions.includeApplicants) {
+          const applicantData = this.prepareApplicantSummary();
+          const applicantSheet = XLSX.utils.json_to_sheet(applicantData);
+          this.setColumnWidths(applicantSheet, this.getApplicantColumnWidths());
+          XLSX.utils.book_append_sheet(workbook, applicantSheet, 'ສະຫຼຸບຜູ້ສະໝັກ');
+        }
+
+        // Create statistics overview sheet
+        if (this.exportOptions.includeStatistics) {
+          const statsData = this.createDetailedStatistics();
+          const statsSheet = XLSX.utils.json_to_sheet(statsData);
+          this.setColumnWidths(statsSheet, [{
+            wch: 30
+          }, {
+            wch: 15
+          }, {
+            wch: 20
+          }]);
+          XLSX.utils.book_append_sheet(workbook, statsSheet, 'ສະຖິຕິສະຫຼຸບ');
+        }
+
+        // Create agency performance sheet
+        const agencyData = this.createAgencyPerformance();
+        const agencySheet = XLSX.utils.json_to_sheet(agencyData);
+        this.setColumnWidths(agencySheet, this.getAgencyColumnWidths());
+        XLSX.utils.book_append_sheet(workbook, agencySheet, 'ປະສິດທິພາບຕົວແທນ');
+
+        // Generate and download
+        const excelBuffer = XLSX.write(workbook, {
+          bookType: 'xlsx',
+          type: 'array'
+        });
+        this.downloadExcelFile(excelBuffer);
+        this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດແລ້ວ');
+        this.exportDialog = false;
+      } catch (error) {
+        console.error('Export error:', error);
+        this.$toast.error('ສົ່ງອອກ Excel ບໍ່ສຳເລັດ: ' + error.message);
+      } finally {
+        this.exporting = false;
+      }
+    },
+    prepareMainMOUData() {
+      const dataToExport = this.exportOptions.includeCurrentPageOnly ? this.mous : this.mous; // Since we're using loaded data, this is the same
+
+      return dataToExport.map(item => {
+        const data = {};
+        if (this.exportOptions.includeMOUDetails) {
+          data['ລະຫັດງານ'] = item.jobCode || '';
+          data['ຊື່ງານ'] = item.jobTitle || '';
+          data['ບໍລິສັດນາຍຈ້າງ'] = item.employerCompany || '';
+          data['ສະຖານທີ່ເຮັດວຽກ'] = item.workLocation || '';
+          data['ລາຍລະອຽດງານ'] = item.jobDescription || '';
+          data['ຄວາມຮຽກຮ້ອງ'] = item.requirements || '';
+          data['ວັນທີ່ເລີ່ມ MOU'] = item.startDate ? this.formatDate(item.startDate) : '';
+          data['ວັນທີ່ສິ້ນສຸດ MOU'] = item.endDate ? this.formatDate(item.endDate) : '';
+          data['ສະຖານະ'] = this.formatStatusName(item.jobStatus);
+        }
+        if (this.exportOptions.includeWorkerInfo) {
+          var _item$agency;
+          data['ຈຳນວນແຮງງານທີ່ຕ້ອງການ'] = item.numberOfWorkers || 0;
+          data['ແຮງງານຊາຍ'] = item.maleWorkers || 0;
+          data['ແຮງງານຍິງ'] = item.femaleWorkers || 0;
+          data['ອາຍຸຕ່ຳສຸດ'] = item.minAge || '';
+          data['ອາຍຸສູງສຸດ'] = item.maxAge || '';
+          data['ວຸດທິການສຶກສາ'] = item.educationLevel || '';
+          data['ປະສົບການ'] = item.experienceRequired || '';
+          data['ຕົວແທນ'] = ((_item$agency = item.agency) === null || _item$agency === void 0 ? void 0 : _item$agency.agencyName) || '';
+        }
+        if (this.exportOptions.includeFinancialData) {
+          var _item$currency, _item$currency2, _item$invoiceStatisti, _item$invoiceStatisti2, _item$currency3, _item$invoiceStatisti3, _item$currency4, _item$invoiceStatisti4, _item$currency5, _item$currency6;
+          data['ມູນຄ່າໂຄງການ'] = this.formatCurrencyForExcel(item.projectAmount, (_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code);
+          data['ຄ່າບໍລິການ PM'] = this.formatCurrencyForExcel(item.pmCharge, (_item$currency2 = item.currency) === null || _item$currency2 === void 0 ? void 0 : _item$currency2.code);
+          data['ຍອດອອກອິນວອຍ'] = this.formatCurrencyForExcel((((_item$invoiceStatisti = item.invoiceStatistics) === null || _item$invoiceStatisti === void 0 ? void 0 : _item$invoiceStatisti.totalReceivedAmount) || 0) + (((_item$invoiceStatisti2 = item.invoiceStatistics) === null || _item$invoiceStatisti2 === void 0 ? void 0 : _item$invoiceStatisti2.outstandingAmount) || 0), (_item$currency3 = item.currency) === null || _item$currency3 === void 0 ? void 0 : _item$currency3.code);
+          data['ຍອດຊຳລະແລ້ວ'] = this.formatCurrencyForExcel((_item$invoiceStatisti3 = item.invoiceStatistics) === null || _item$invoiceStatisti3 === void 0 ? void 0 : _item$invoiceStatisti3.totalReceivedAmount, (_item$currency4 = item.currency) === null || _item$currency4 === void 0 ? void 0 : _item$currency4.code);
+          data['ຍອດຄ້າງຊຳລະ'] = this.formatCurrencyForExcel((item.pmCharge || 0) - (((_item$invoiceStatisti4 = item.invoiceStatistics) === null || _item$invoiceStatisti4 === void 0 ? void 0 : _item$invoiceStatisti4.totalReceivedAmount) || 0), (_item$currency5 = item.currency) === null || _item$currency5 === void 0 ? void 0 : _item$currency5.code);
+          data['ສະກຸນເງິນ'] = ((_item$currency6 = item.currency) === null || _item$currency6 === void 0 ? void 0 : _item$currency6.code) || 'USD';
+          data['ເປີເຊັນຊຳລະ'] = this.calculatePaymentPercentage(item);
+        }
+        if (this.exportOptions.includeJobBatches) {
+          var _item$jobBatchStatist, _item$jobBatchStatist2, _item$jobBatchStatist3;
+          data['ລວມ Job Batch'] = ((_item$jobBatchStatist = item.jobBatchStatistics) === null || _item$jobBatchStatist === void 0 ? void 0 : _item$jobBatchStatist.totalJobBatches) || 0;
+          data['Job Batch ກຳລັງດຳເນີນ'] = ((_item$jobBatchStatist2 = item.jobBatchStatistics) === null || _item$jobBatchStatist2 === void 0 ? void 0 : _item$jobBatchStatist2.activeJobBatches) || 0;
+          data['Job Batch ສຳເລັດ'] = ((_item$jobBatchStatist3 = item.jobBatchStatistics) === null || _item$jobBatchStatist3 === void 0 ? void 0 : _item$jobBatchStatist3.completedJobBatches) || 0;
+        }
+        if (this.exportOptions.includeApplicants) {
+          var _item$applicantStatis, _item$applicantStatis2, _item$applicantStatis3, _item$applicantStatis4;
+          data['ລວມຜູ້ສະໝັກ'] = ((_item$applicantStatis = item.applicantStatistics) === null || _item$applicantStatis === void 0 ? void 0 : _item$applicantStatis.totalApplicants) || 0;
+          data['ຜູ້ສະໝັກສຳພາດ'] = ((_item$applicantStatis2 = item.applicantStatistics) === null || _item$applicantStatis2 === void 0 ? void 0 : _item$applicantStatis2.interview) || 0;
+          data['ຜູ້ສະໝັກຢືນຢັນ'] = ((_item$applicantStatis3 = item.applicantStatistics) === null || _item$applicantStatis3 === void 0 ? void 0 : _item$applicantStatis3.confirm) || 0;
+          data['ຜູ້ສະໝັກປະຕິເສດ'] = ((_item$applicantStatis4 = item.applicantStatistics) === null || _item$applicantStatis4 === void 0 ? void 0 : _item$applicantStatis4.rejected) || 0;
+          data['ອັດຕາການຮັບ'] = this.calculateAcceptanceRate(item);
+        }
+        return data;
+      });
+    },
+    prepareFinancialSummary() {
+      return this.mous.map(item => {
+        var _item$invoiceStatisti5, _item$invoiceStatisti6, _item$invoiceStatisti7, _item$invoiceStatisti8, _item$currency7;
+        return {
+          'ລະຫັດງານ': item.jobCode || '',
+          'ບໍລິສັດ': item.employerCompany || '',
+          'ມູນຄ່າໂຄງການ': item.projectAmount || 0,
+          'ຄ່າບໍລິການ PM': item.pmCharge || 0,
+          'ຍອດອອກອິນວອຍ': (((_item$invoiceStatisti5 = item.invoiceStatistics) === null || _item$invoiceStatisti5 === void 0 ? void 0 : _item$invoiceStatisti5.totalReceivedAmount) || 0) + (((_item$invoiceStatisti6 = item.invoiceStatistics) === null || _item$invoiceStatisti6 === void 0 ? void 0 : _item$invoiceStatisti6.outstandingAmount) || 0),
+          'ຍອດຮັບແລ້ວ': ((_item$invoiceStatisti7 = item.invoiceStatistics) === null || _item$invoiceStatisti7 === void 0 ? void 0 : _item$invoiceStatisti7.totalReceivedAmount) || 0,
+          'ຍອດຄ້າງຮັບ': (item.pmCharge || 0) - (((_item$invoiceStatisti8 = item.invoiceStatistics) === null || _item$invoiceStatisti8 === void 0 ? void 0 : _item$invoiceStatisti8.totalReceivedAmount) || 0),
+          'ເປີເຊັນຊຳລະ': this.calculatePaymentPercentage(item),
+          'ສະກຸນເງິນ': ((_item$currency7 = item.currency) === null || _item$currency7 === void 0 ? void 0 : _item$currency7.code) || 'USD',
+          'ສະຖານະການເງິນ': this.getFinancialStatus(item),
+          'ວັນທີ່ອັບເດດ': item.updatedAt ? this.formatDate(item.updatedAt) : ''
+        };
+      });
+    },
+    prepareJobBatchSummary() {
+      return this.mous.map(item => {
+        var _item$jobBatchStatist4, _item$jobBatchStatist5, _item$jobBatchStatist6, _item$jobBatchStatist7;
+        return {
+          'ລະຫັດງານ': item.jobCode || '',
+          'ຊື່ງານ': item.jobTitle || '',
+          'ບໍລິສັດ': item.employerCompany || '',
+          'ລວມ Job Batch': ((_item$jobBatchStatist4 = item.jobBatchStatistics) === null || _item$jobBatchStatist4 === void 0 ? void 0 : _item$jobBatchStatist4.totalJobBatches) || 0,
+          'ກຳລັງດຳເນີນ': ((_item$jobBatchStatist5 = item.jobBatchStatistics) === null || _item$jobBatchStatist5 === void 0 ? void 0 : _item$jobBatchStatist5.activeJobBatches) || 0,
+          'ສຳເລັດແລ້ວ': ((_item$jobBatchStatist6 = item.jobBatchStatistics) === null || _item$jobBatchStatist6 === void 0 ? void 0 : _item$jobBatchStatist6.completedJobBatches) || 0,
+          'ຍົກເລີກ': ((_item$jobBatchStatist7 = item.jobBatchStatistics) === null || _item$jobBatchStatist7 === void 0 ? void 0 : _item$jobBatchStatist7.cancelledJobBatches) || 0,
+          'ອັດຕາສຳເລັດ': this.calculateCompletionRate(item),
+          'ສະຖານະ': this.formatStatusName(item.jobStatus)
+        };
+      });
+    },
+    prepareApplicantSummary() {
+      return this.mous.map(item => {
+        var _item$applicantStatis5, _item$applicantStatis6, _item$applicantStatis7, _item$applicantStatis8, _item$applicantStatis9;
+        return {
+          'ລະຫັດງານ': item.jobCode || '',
+          'ຊື່ງານ': item.jobTitle || '',
+          'ຕ້ອງການ': item.numberOfWorkers || 0,
+          'ລວມຜູ້ສະໝັກ': ((_item$applicantStatis5 = item.applicantStatistics) === null || _item$applicantStatis5 === void 0 ? void 0 : _item$applicantStatis5.totalApplicants) || 0,
+          'ສຳພາດ': ((_item$applicantStatis6 = item.applicantStatistics) === null || _item$applicantStatis6 === void 0 ? void 0 : _item$applicantStatis6.interview) || 0,
+          'ຢືນຢັນ': ((_item$applicantStatis7 = item.applicantStatistics) === null || _item$applicantStatis7 === void 0 ? void 0 : _item$applicantStatis7.confirm) || 0,
+          'ປະຕິເສດ': ((_item$applicantStatis8 = item.applicantStatistics) === null || _item$applicantStatis8 === void 0 ? void 0 : _item$applicantStatis8.rejected) || 0,
+          'ສົ່ງແລ້ວ': ((_item$applicantStatis9 = item.applicantStatistics) === null || _item$applicantStatis9 === void 0 ? void 0 : _item$applicantStatis9.deployed) || 0,
+          'ອັດຕາການຮັບ': this.calculateAcceptanceRate(item),
+          'ອັດຕາການສົ່ງ': this.calculateDeploymentRate(item),
+          'ຄວາມຄືບໜ້າ': this.getProgressStatus(item)
+        };
+      });
+    },
+    createDetailedStatistics() {
+      const stats = this.calculateComprehensiveStats();
+      return [{
+        'ລາຍການ': '=== ສະຖິຕິທົ່ວໄປ ===',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ລວມ MOU ທັງໝົດ',
+        'ຈຳນວນ': stats.totalMOUs,
+        'ເປີເຊັນ': '100%'
+      }, {
+        'ລາຍການ': 'MOU ດຳເນີນການ',
+        'ຈຳນວນ': stats.activeMOUs,
+        'ເປີເຊັນ': stats.activePercentage + '%'
+      }, {
+        'ລາຍການ': 'MOU ສຳເລັດ',
+        'ຈຳນວນ': stats.completedMOUs,
+        'ເປີເຊັນ': stats.completedPercentage + '%'
+      }, {
+        'ລາຍການ': 'ລວມແຮງງານທີ່ຕ້ອງການ',
+        'ຈຳນວນ': stats.totalWorkers,
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': '',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': '=== ສະຖິຕິການເງິນ ===',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ລວມມູນຄ່າໂຄງການ (USD)',
+        'ຈຳນວນ': stats.totalProjectValue,
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ລວມຄ່າບໍລິການ (USD)',
+        'ຈຳນວນ': stats.totalPMCharge,
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ລວມໄດ້ຮັບ (USD)',
+        'ຈຳນວນ': stats.totalReceived,
+        'ເປີເຊັນ': stats.receivedPercentage + '%'
+      }, {
+        'ລາຍການ': 'ລວມຄ້າງຮັບ (USD)',
+        'ຈຳນວນ': stats.totalOutstanding,
+        'ເປີເຊັນ': stats.outstandingPercentage + '%'
+      }, {
+        'ລາຍການ': '',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': '=== ສະຖິຕິ Job Batch ===',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ລວມ Job Batch',
+        'ຈຳນວນ': stats.totalJobBatches,
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'Job Batch ດຳເນີນການ',
+        'ຈຳນວນ': stats.activeJobBatches,
+        'ເປີເຊັນ': stats.activeJobBatchPercentage + '%'
+      }, {
+        'ລາຍການ': '',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': '=== ສະຖິຕິຜູ້ສະໝັກ ===',
+        'ຈຳນວນ': '',
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ລວມຜູ້ສະໝັກ',
+        'ຈຳນວນ': stats.totalApplicants,
+        'ເປີເຊັນ': ''
+      }, {
+        'ລາຍການ': 'ຜູ້ສະໝັກສຳພາດ',
+        'ຈຳນວນ': stats.interviewApplicants,
+        'ເປີເຊັນ': stats.interviewPercentage + '%'
+      }, {
+        'ລາຍການ': 'ຜູ້ສະໝັກຢືນຢັນ',
+        'ຈຳນວນ': stats.confirmedApplicants,
+        'ເປີເຊັນ': stats.confirmedPercentage + '%'
+      }];
+    },
+    createAgencyPerformance() {
+      const agencyStats = {};
+      this.mous.forEach(mou => {
+        var _mou$agency, _mou$invoiceStatistic, _mou$applicantStatist, _mou$applicantStatist2;
+        const agencyName = ((_mou$agency = mou.agency) === null || _mou$agency === void 0 ? void 0 : _mou$agency.agencyName) || 'ບໍ່ມີຕົວແທນ';
+        if (!agencyStats[agencyName]) {
+          agencyStats[agencyName] = {
+            mouCount: 0,
+            totalWorkers: 0,
+            totalValue: 0,
+            totalReceived: 0,
+            totalApplicants: 0,
+            confirmedApplicants: 0
+          };
+        }
+        agencyStats[agencyName].mouCount++;
+        agencyStats[agencyName].totalWorkers += mou.numberOfWorkers || 0;
+        agencyStats[agencyName].totalValue += mou.projectAmount || 0;
+        agencyStats[agencyName].totalReceived += ((_mou$invoiceStatistic = mou.invoiceStatistics) === null || _mou$invoiceStatistic === void 0 ? void 0 : _mou$invoiceStatistic.totalReceivedAmount) || 0;
+        agencyStats[agencyName].totalApplicants += ((_mou$applicantStatist = mou.applicantStatistics) === null || _mou$applicantStatist === void 0 ? void 0 : _mou$applicantStatist.totalApplicants) || 0;
+        agencyStats[agencyName].confirmedApplicants += ((_mou$applicantStatist2 = mou.applicantStatistics) === null || _mou$applicantStatist2 === void 0 ? void 0 : _mou$applicantStatist2.confirm) || 0;
+      });
+      return Object.entries(agencyStats).map(([agencyName, stats]) => ({
+        'ຊື່ຕົວແທນ': agencyName,
+        'ຈຳນວນ MOU': stats.mouCount,
+        'ລວມແຮງງານ': stats.totalWorkers,
+        'ມູນຄ່າລວມ (USD)': stats.totalValue,
+        'ໄດ້ຮັບລວມ (USD)': stats.totalReceived,
+        'ອັດຕາຊຳລະ': stats.totalValue > 0 ? Math.round(stats.totalReceived / stats.totalValue * 100) : 0,
+        'ລວມຜູ້ສະໝັກ': stats.totalApplicants,
+        'ຜູ້ສະໝັກຢືນຢັນ': stats.confirmedApplicants,
+        'ອັດຕາຢືນຢັນ': stats.totalApplicants > 0 ? Math.round(stats.confirmedApplicants / stats.totalApplicants * 100) : 0,
+        'ປະສິດທິພາບ': this.getAgencyPerformanceRating(stats)
+      }));
+    },
+    // Helper calculation methods
+    calculateComprehensiveStats() {
+      const stats = {
+        totalMOUs: this.mous.length,
+        activeMOUs: 0,
+        completedMOUs: 0,
+        totalWorkers: 0,
+        totalProjectValue: 0,
+        totalPMCharge: 0,
+        totalReceived: 0,
+        totalOutstanding: 0,
+        totalJobBatches: 0,
+        activeJobBatches: 0,
+        totalApplicants: 0,
+        interviewApplicants: 0,
+        confirmedApplicants: 0
+      };
+      this.mous.forEach(mou => {
+        var _mou$currency, _mou$currency2, _mou$invoiceStatistic2, _mou$currency3, _mou$jobBatchStatisti, _mou$jobBatchStatisti2, _mou$applicantStatist3, _mou$applicantStatist4, _mou$applicantStatist5;
+        if (mou.jobStatus === 'in_progress') stats.activeMOUs++;
+        if (mou.jobStatus === 'completed') stats.completedMOUs++;
+        stats.totalWorkers += mou.numberOfWorkers || 0;
+        stats.totalProjectValue += this.convertToUSD(mou.projectAmount, (_mou$currency = mou.currency) === null || _mou$currency === void 0 ? void 0 : _mou$currency.code);
+        stats.totalPMCharge += this.convertToUSD(mou.pmCharge, (_mou$currency2 = mou.currency) === null || _mou$currency2 === void 0 ? void 0 : _mou$currency2.code);
+        stats.totalReceived += this.convertToUSD((_mou$invoiceStatistic2 = mou.invoiceStatistics) === null || _mou$invoiceStatistic2 === void 0 ? void 0 : _mou$invoiceStatistic2.totalReceivedAmount, (_mou$currency3 = mou.currency) === null || _mou$currency3 === void 0 ? void 0 : _mou$currency3.code);
+        stats.totalJobBatches += ((_mou$jobBatchStatisti = mou.jobBatchStatistics) === null || _mou$jobBatchStatisti === void 0 ? void 0 : _mou$jobBatchStatisti.totalJobBatches) || 0;
+        stats.activeJobBatches += ((_mou$jobBatchStatisti2 = mou.jobBatchStatistics) === null || _mou$jobBatchStatisti2 === void 0 ? void 0 : _mou$jobBatchStatisti2.activeJobBatches) || 0;
+        stats.totalApplicants += ((_mou$applicantStatist3 = mou.applicantStatistics) === null || _mou$applicantStatist3 === void 0 ? void 0 : _mou$applicantStatist3.totalApplicants) || 0;
+        stats.interviewApplicants += ((_mou$applicantStatist4 = mou.applicantStatistics) === null || _mou$applicantStatist4 === void 0 ? void 0 : _mou$applicantStatist4.interview) || 0;
+        stats.confirmedApplicants += ((_mou$applicantStatist5 = mou.applicantStatistics) === null || _mou$applicantStatist5 === void 0 ? void 0 : _mou$applicantStatist5.confirm) || 0;
+      });
+      stats.totalOutstanding = stats.totalPMCharge - stats.totalReceived;
+      stats.activePercentage = stats.totalMOUs > 0 ? Math.round(stats.activeMOUs / stats.totalMOUs * 100) : 0;
+      stats.completedPercentage = stats.totalMOUs > 0 ? Math.round(stats.completedMOUs / stats.totalMOUs * 100) : 0;
+      stats.receivedPercentage = stats.totalPMCharge > 0 ? Math.round(stats.totalReceived / stats.totalPMCharge * 100) : 0;
+      stats.outstandingPercentage = 100 - stats.receivedPercentage;
+      stats.activeJobBatchPercentage = stats.totalJobBatches > 0 ? Math.round(stats.activeJobBatches / stats.totalJobBatches * 100) : 0;
+      stats.interviewPercentage = stats.totalApplicants > 0 ? Math.round(stats.interviewApplicants / stats.totalApplicants * 100) : 0;
+      stats.confirmedPercentage = stats.totalApplicants > 0 ? Math.round(stats.confirmedApplicants / stats.totalApplicants * 100) : 0;
+      return stats;
+    },
+    calculatePaymentPercentage(item) {
+      var _item$invoiceStatisti9;
+      const total = item.pmCharge || 0;
+      const received = ((_item$invoiceStatisti9 = item.invoiceStatistics) === null || _item$invoiceStatisti9 === void 0 ? void 0 : _item$invoiceStatisti9.totalReceivedAmount) || 0;
+      return total > 0 ? Math.round(received / total * 100) + '%' : '0%';
+    },
+    calculateAcceptanceRate(item) {
+      var _item$applicantStatis0, _item$applicantStatis1;
+      const total = ((_item$applicantStatis0 = item.applicantStatistics) === null || _item$applicantStatis0 === void 0 ? void 0 : _item$applicantStatis0.totalApplicants) || 0;
+      const confirmed = ((_item$applicantStatis1 = item.applicantStatistics) === null || _item$applicantStatis1 === void 0 ? void 0 : _item$applicantStatis1.confirm) || 0;
+      return total > 0 ? Math.round(confirmed / total * 100) + '%' : '0%';
+    },
+    calculateCompletionRate(item) {
+      var _item$jobBatchStatist8, _item$jobBatchStatist9;
+      const total = ((_item$jobBatchStatist8 = item.jobBatchStatistics) === null || _item$jobBatchStatist8 === void 0 ? void 0 : _item$jobBatchStatist8.totalJobBatches) || 0;
+      const completed = ((_item$jobBatchStatist9 = item.jobBatchStatistics) === null || _item$jobBatchStatist9 === void 0 ? void 0 : _item$jobBatchStatist9.completedJobBatches) || 0;
+      return total > 0 ? Math.round(completed / total * 100) + '%' : '0%';
+    },
+    calculateDeploymentRate(item) {
+      var _item$applicantStatis10, _item$applicantStatis11;
+      const confirmed = ((_item$applicantStatis10 = item.applicantStatistics) === null || _item$applicantStatis10 === void 0 ? void 0 : _item$applicantStatis10.confirm) || 0;
+      const deployed = ((_item$applicantStatis11 = item.applicantStatistics) === null || _item$applicantStatis11 === void 0 ? void 0 : _item$applicantStatis11.deployed) || 0;
+      return confirmed > 0 ? Math.round(deployed / confirmed * 100) + '%' : '0%';
+    },
+    getFinancialStatus(item) {
+      const percentage = parseFloat(this.calculatePaymentPercentage(item));
+      if (percentage >= 100) return 'ຊຳລະຄົບແລ້ວ';
+      if (percentage >= 50) return 'ຊຳລະບາງສ່ວນ';
+      if (percentage > 0) return 'ເລີ່ມຊຳລະ';
+      return 'ຍັງບໍ່ຊຳລະ';
+    },
+    getProgressStatus(item) {
+      var _item$applicantStatis12;
+      const workers = item.numberOfWorkers || 0;
+      const deployed = ((_item$applicantStatis12 = item.applicantStatistics) === null || _item$applicantStatis12 === void 0 ? void 0 : _item$applicantStatis12.deployed) || 0;
+      const percentage = workers > 0 ? deployed / workers * 100 : 0;
+      if (percentage >= 100) return 'ສຳເລັດ';
+      if (percentage >= 75) return 'ໃກ້ສຳເລັດ';
+      if (percentage >= 25) return 'ກຳລັງດຳເນີນ';
+      return 'ເລີ່ມຕົ້ນ';
+    },
+    getAgencyPerformanceRating(stats) {
+      const paymentRate = stats.totalValue > 0 ? stats.totalReceived / stats.totalValue * 100 : 0;
+      const confirmRate = stats.totalApplicants > 0 ? stats.confirmedApplicants / stats.totalApplicants * 100 : 0;
+      const avgScore = (paymentRate + confirmRate) / 2;
+      if (avgScore >= 80) return 'ດີເລີດ';
+      if (avgScore >= 60) return 'ດີ';
+      if (avgScore >= 40) return 'ປານກາງ';
+      return 'ຕ້ອງປັບປຸງ';
+    },
+    convertToUSD(amount, currency) {
+      if (!amount) return 0;
+      if (!currency || currency === 'USD') return amount;
+
+      // Simple conversion rates - in real app, use actual rates
+      const rates = {
+        LAK: 0.00005,
+        THB: 0.029,
+        VND: 0.00004
+      };
+      return amount * (rates[currency] || 1);
+    },
+    formatCurrencyForExcel(amount, currency) {
+      if (!amount) return 0;
+      switch (this.exportOptions.currencyDisplay) {
+        case 'usd':
+          return this.convertToUSD(amount, currency);
+        case 'lak':
+          return this.convertToUSD(amount, currency) * 20000;
+        // Rough LAK conversion
+        default:
+          return amount;
+      }
+    },
+    // Column width configurations
+    setColumnWidths(worksheet, widths) {
+      worksheet['!cols'] = widths;
+    },
+    getMainColumnWidths() {
+      return [{
+        wch: 12
+      }, {
+        wch: 25
+      }, {
+        wch: 25
+      }, {
+        wch: 20
+      }, {
+        wch: 30
+      }, {
+        wch: 25
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 18
+      }, {
+        wch: 18
+      }, {
+        wch: 18
+      }, {
+        wch: 18
+      }, {
+        wch: 12
+      }, {
+        wch: 15
+      }];
+    },
+    getFinancialColumnWidths() {
+      return [{
+        wch: 12
+      }, {
+        wch: 25
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 18
+      }, {
+        wch: 15
+      }];
+    },
+    getJobBatchColumnWidths() {
+      return [{
+        wch: 12
+      }, {
+        wch: 25
+      }, {
+        wch: 25
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }];
+    },
+    getApplicantColumnWidths() {
+      return [{
+        wch: 12
+      }, {
+        wch: 25
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }];
+    },
+    getAgencyColumnWidths() {
+      return [{
+        wch: 25
+      }, {
+        wch: 12
+      }, {
+        wch: 12
+      }, {
+        wch: 18
+      }, {
+        wch: 18
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 15
+      }, {
+        wch: 12
+      }];
+    },
+    formatDate(date) {
+      if (!date) return '';
+      return new Date(date).toLocaleDateString('en-CA');
+    },
+    downloadExcelFile(buffer) {
+      const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `MOU_Comprehensive_Report_${new Date().toISOString().split('T')[0]}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    },
+    // Existing methods...
     async fetchMOUs() {
       this.loading = true;
       try {
@@ -1900,11 +2721,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   job_fair_mouvue_type_script_lang_js,
-  mouvue_type_template_id_40788442_scoped_true_render,
+  mouvue_type_template_id_40e1c786_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "40788442",
+  "40e1c786",
   "a166cba4"
   
 )
@@ -4041,7 +4862,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("01f19283", content, true, context)
+  add("40008fe0", content, true, context)
 };
 
 /***/ })

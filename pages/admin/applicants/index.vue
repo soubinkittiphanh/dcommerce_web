@@ -9,9 +9,14 @@
             <v-icon left>mdi-plus</v-icon>
             ເພີ່ມຜູ້ສະໝັກໃໝ່
           </v-btn>
-          <v-btn color="secondary" @click="exportData">
-            <v-icon left>mdi-download</v-icon>
-            Export
+          <v-btn 
+            color="success" 
+            @click="exportToExcel"
+            :loading="exporting"
+            :disabled="loading || filteredApplicants.length === 0"
+          >
+            <v-icon left>mdi-file-excel</v-icon>
+            ສົ່ງອອກ Excel
           </v-btn>
         </div>
       </div>
@@ -81,6 +86,13 @@
 
     <!-- Vuetify Data Table -->
     <v-card class="mt-4">
+      <v-card-title class="py-2">
+        <v-icon class="mr-2">mdi-table</v-icon>
+        <span>ລາຍການຜູ້ສະໝັກງານ</span>
+        <v-spacer />
+        <v-chip color="primary" outlined> {{ filteredApplicants.length }} ລາຍການ </v-chip>
+      </v-card-title>
+
       <v-data-table
         :headers="headers"
         :items="filteredApplicants"
@@ -106,22 +118,6 @@
           </div>
         </template>
 
-        <!-- Job Batch Column -->
-        <!-- <template v-slot:item.jobBatch="{ item }">
-          <div v-if="item.jobBatch" class="job-batch-info">
-            <v-chip small color="primary" outlined>
-              <v-icon left small>mdi-briefcase</v-icon>
-              {{ item.jobBatch.batchName }}
-            </v-chip>
-          </div>
-          <div v-else>
-            <v-chip small outlined>
-              <v-icon left small>mdi-minus-circle</v-icon>
-              ບໍ່ມີ Job Batch
-            </v-chip>
-          </div>
-        </template> -->
-
         <!-- Gender Column -->
         <template v-slot:item.gender="{ item }">
           <v-chip
@@ -145,13 +141,15 @@
             {{ item.phone }}
           </div>
         </template>
+        
         <template v-slot:item.batch="{ item }">
           <div class="contact-details">
             <v-icon small left>mdi-office-building</v-icon>
             {{ item.jobBatch?.mou?.jobCode || '' }} - {{ item.jobBatch?.mou?.jobTitle || '' }}
           </div>
         </template>
-       <template v-slot:item.employee="{ item }">
+       
+        <template v-slot:item.employee="{ item }">
           <div class="contact-details">
             <v-icon small left>mdi-account</v-icon>
             {{ item.employee?.agencyName ?? '' }}
@@ -182,35 +180,30 @@
           </div>
         </template>
 
-        <!-- Address Column -->
-        <!-- <template v-slot:item.address="{ item }">
-          <div v-if="item.address">
-            {{ truncateText(item.address, 20) }}
+        <!-- Deposit Amount Column -->
+        <template v-slot:item.depositAmount="{ item }">
+          <div class="contact-details">
+            <v-icon small left>mdi-cash</v-icon>
+            {{ formatCurrency(item.depositAmount) }}
           </div>
-        </template> -->
-<!-- Deposit Amount Column -->
-<template v-slot:item.depositAmount="{ item }">
-  <div class="contact-details">
-    <v-icon small left>mdi-cash</v-icon>
-    {{ formatCurrency(item.depositAmount) }}
-  </div>
-</template>
+        </template>
 
-<!-- Refund Status Column -->
-<template v-slot:item.isRefund="{ item }">
-  <v-chip
-    small
-    :color="item.isRefund ? 'success' : 'warning'"
-    text-color="white"
-    @click="toggleRefund(item)"
-    style="cursor: pointer"
-  >
-    <v-icon left small>
-      {{ item.isRefund ? 'mdi-cash-refund' : 'mdi-cash-clock' }}
-    </v-icon>
-    {{ item.isRefund ? 'ຄືນແລ້ວ' : 'ຍັງບໍ່ຄືນ' }}
-  </v-chip>
-</template>
+        <!-- Refund Status Column -->
+        <template v-slot:item.isRefund="{ item }">
+          <v-chip
+            small
+            :color="item.isRefund ? 'success' : 'warning'"
+            text-color="white"
+            @click="toggleRefund(item)"
+            style="cursor: pointer"
+          >
+            <v-icon left small>
+              {{ item.isRefund ? 'mdi-cash-refund' : 'mdi-cash-clock' }}
+            </v-icon>
+            {{ item.isRefund ? 'ຄືນແລ້ວ' : 'ຍັງບໍ່ຄືນ' }}
+          </v-chip>
+        </template>
+        
         <!-- Passport Column -->
         <template v-slot:item.passportAvailability="{ item }">
           <v-chip
@@ -229,7 +222,7 @@
           </v-chip>
         </template>
 
-        <!-- Passport Column -->
+        <!-- Passport Receive Column -->
         <template v-slot:item.passportRecieve="{ item }">
           <v-chip
             small
@@ -284,6 +277,74 @@
         />
       </v-card>
     </v-dialog>
+
+    <!-- Export Options Dialog -->
+    <v-dialog v-model="exportDialog" max-width="600">
+      <v-card>
+        <v-card-title class="headline">
+          <v-icon class="mr-2" color="green">mdi-file-excel</v-icon>
+          ສົ່ງອອກຂໍ້ມູນຜູ້ສະໝັກ Excel
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12">
+              <h4>ເລືອກຂໍ້ມູນທີ່ຕ້ອງການສົ່ງອອກ:</h4>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-checkbox
+                v-model="exportOptions.includePersonalInfo"
+                label="ຂໍ້ມູນສ່ວນຕົວ"
+                hide-details
+              />
+              <v-checkbox
+                v-model="exportOptions.includeContactInfo"
+                label="ຂໍ້ມູນຕິດຕໍ່"
+                hide-details
+              />
+              <v-checkbox
+                v-model="exportOptions.includeJobInfo"
+                label="ຂໍ້ມູນວຽກງານ"
+                hide-details
+              />
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-checkbox
+                v-model="exportOptions.includeFinancialInfo"
+                label="ຂໍ້ມູນການເງິນ"
+                hide-details
+              />
+              <v-checkbox
+                v-model="exportOptions.includeDocuments"
+                label="ຂໍ້ມູນເອກະສານ"
+                hide-details
+              />
+              <v-checkbox
+                v-model="exportOptions.includeStatistics"
+                label="ສະຖິຕິສະຫຼຸບ"
+                hide-details
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-divider />
+              <h4 class="mt-3">ຟອແມັດວັນທີ:</h4>
+              <v-radio-group v-model="exportOptions.dateFormat" row hide-details>
+                <v-radio label="DD/MM/YYYY" value="dmy" />
+                <v-radio label="YYYY-MM-DD" value="ymd" />
+                <v-radio label="MM/DD/YYYY" value="mdy" />
+              </v-radio-group>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="exportDialog = false">ຍົກເລີກ</v-btn>
+          <v-btn color="success" @click="confirmExport" :loading="exporting">
+            <v-icon left>mdi-download</v-icon>
+            ສົ່ງອອກ
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -299,17 +360,31 @@ export default {
     return {
       showEditDialog: false,
       selectedApplicant: null,
-      dialogKey: 0, // Add this
+      dialogKey: 0,
       applicants: [],
       filteredApplicants: [],
       jobBatches: [],
       loading: false,
+      exporting: false,
+      exportDialog: false,
+
+      exportOptions: {
+        includePersonalInfo: true,
+        includeContactInfo: true,
+        includeJobInfo: true,
+        includeFinancialInfo: true,
+        includeDocuments: true,
+        includeStatistics: true,
+        dateFormat: 'dmy'
+      },
+
       filters: {
         search: '',
         gender: '',
         status: '',
         jobBatchId: '',
       },
+      
       headers: [
         { text: 'ID', value: 'id', sortable: true },
         { text: 'ຊື່ຜູ້ສະໝັກ', value: 'name', sortable: true },
@@ -317,8 +392,6 @@ export default {
         { text: 'ອາຍຸ', value: 'age', sortable: true },
         { text: 'ຕິດຕໍ່', value: 'phone', sortable: false },
         { text: 'Job batch', value: 'batch', sortable: false },
-        // { text: 'ທີ່ຢູ່', value: 'mou', sortable: false },
-        // { text: 'ທີ່ຢູ່', value: 'address', sortable: false },
         {
           text: 'ວັນທີ່ເລີມຕົ້ນສັນຍາ',
           value: 'contractStartDate',
@@ -338,11 +411,13 @@ export default {
         { text: 'ຜູ້ຮັບຜິດຊອບ', value: 'employee', sortable: true },
         { text: 'ຟັງຊັ່ນ', value: 'actions', sortable: false, align: 'center' },
       ],
+      
       genderOptions: [
         { text: 'ທັງໝົດ', value: '' },
         { text: 'ຊາຍ', value: 'male' },
         { text: 'ຍິງ', value: 'female' },
       ],
+      
       statusOptions: [
         { text: 'ທັງໝົດ', value: '' },
         { text: 'ສໍາພາດ', value: 'INTERVIEW' },
@@ -372,39 +447,434 @@ export default {
   },
 
   methods: {
-    formatCurrency(amount) {
-    if (!amount) return '0 ກີບ'
-    return new Intl.NumberFormat('lo-LA').format(amount) + ' ກີບ'
-  },
+    // NEW: Excel Export Methods
+    exportToExcel() {
+      if (this.filteredApplicants.length === 0) {
+        this.$toast.warning('ບໍ່ມີຂໍ້ມູນສໍາລັບການສົ່ງອອກ')
+        return
+      }
+      this.exportDialog = true
+    },
 
-  async toggleRefund(applicant) {
-    try {
-      const newRefundStatus = !applicant.isRefund
-      const confirmMessage = newRefundStatus
-        ? 'ຢືນຢັນການຄືນມັດຈຳ?'
-        : 'ຍົກເລີກການຄືນມັດຈຳ?'
+    async confirmExport() {
+      this.exporting = true
+      try {
+        const XLSX = await import('xlsx')
+        const workbook = XLSX.utils.book_new()
 
-      if (!confirm(confirmMessage)) return
+        // Create main data sheet
+        if (this.exportOptions.includePersonalInfo || 
+            this.exportOptions.includeContactInfo || 
+            this.exportOptions.includeJobInfo) {
+          const mainData = this.prepareMainExcelData()
+          const mainSheet = XLSX.utils.json_to_sheet(mainData)
+          this.setColumnWidths(mainSheet, this.getMainColumnWidths())
+          XLSX.utils.book_append_sheet(workbook, mainSheet, 'ຂໍ້ມູນຜູ້ສະໝັກ')
+        }
 
-      this.loading = true
-      const response = await this.$axios.put(
-        `/api/applicants/${applicant.id}`,
-        { isRefund: newRefundStatus }
-      )
+        // Create financial data sheet
+        if (this.exportOptions.includeFinancialInfo) {
+          const financialData = this.prepareFinancialData()
+          const financialSheet = XLSX.utils.json_to_sheet(financialData)
+          this.setColumnWidths(financialSheet, this.getFinancialColumnWidths())
+          XLSX.utils.book_append_sheet(workbook, financialSheet, 'ຂໍ້ມູນການເງິນ')
+        }
 
-      if (response.data?.success) {
-        applicant.isRefund = newRefundStatus
-        this.$toast?.success(
-          newRefundStatus ? 'ຄືນມັດຈຳສຳເລັດ' : 'ຍົກເລີກການຄືນມັດຈຳແລ້ວ'
+        // Create documents status sheet
+        if (this.exportOptions.includeDocuments) {
+          const documentsData = this.prepareDocumentsData()
+          const documentsSheet = XLSX.utils.json_to_sheet(documentsData)
+          this.setColumnWidths(documentsSheet, this.getDocumentsColumnWidths())
+          XLSX.utils.book_append_sheet(workbook, documentsSheet, 'ສະຖານະເອກະສານ')
+        }
+
+        // Create statistics sheet
+        if (this.exportOptions.includeStatistics) {
+          const statsData = this.createStatisticsData()
+          const statsSheet = XLSX.utils.json_to_sheet(statsData)
+          this.setColumnWidths(statsSheet, [{ wch: 30 }, { wch: 15 }])
+          XLSX.utils.book_append_sheet(workbook, statsSheet, 'ສະຖິຕິ')
+        }
+
+        // Create job batch summary sheet
+        const jobBatchData = this.createJobBatchSummary()
+        const jobBatchSheet = XLSX.utils.json_to_sheet(jobBatchData)
+        this.setColumnWidths(jobBatchSheet, this.getJobBatchColumnWidths())
+        XLSX.utils.book_append_sheet(workbook, jobBatchSheet, 'ສະຫຼຸບ Job Batch')
+
+        // Generate and download
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' })
+        this.downloadExcelFile(excelBuffer)
+
+        this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດແລ້ວ')
+        this.exportDialog = false
+
+      } catch (error) {
+        console.error('Export error:', error)
+        this.$toast.error('ສົ່ງອອກ Excel ບໍ່ສຳເລັດ: ' + error.message)
+      } finally {
+        this.exporting = false
+      }
+    },
+
+    prepareMainExcelData() {
+      return this.filteredApplicants.map(item => {
+        const data = {}
+
+        if (this.exportOptions.includePersonalInfo) {
+          data['ID'] = item.id || ''
+          data['ຊື່'] = item.firstName || ''
+          data['ນາມສະກຸນ'] = item.lastName || ''
+          data['ເພດ'] = this.formatGender(item.gender)
+          data['ອາຍຸ'] = item.age || ''
+          data['ວັນເກີດ'] = item.dateOfBirth ? this.formatDateForExcel(item.dateOfBirth) : ''
+          data['ສັນຊາດ'] = item.nationality || ''
+          data['ທີ່ຢູ່'] = item.address || ''
+        }
+
+        if (this.exportOptions.includeContactInfo) {
+          data['ເບີໂທ'] = item.phone || ''
+          data['ອີເມລ'] = item.email || ''
+          data['ຜູ້ຕິດຕໍ່ສຸກເສີນ'] = item.emergencyContact || ''
+          data['ເບີໂທສຸກເສີນ'] = item.emergencyPhone || ''
+        }
+
+        if (this.exportOptions.includeJobInfo) {
+          data['ລະຫັດງານ'] = item.jobBatch?.mou?.jobCode || ''
+          data['ຊື່ວຽກ'] = item.jobBatch?.mou?.jobTitle || ''
+          data['ບໍລິສັດ'] = item.jobBatch?.mou?.employerCompany || ''
+          data['ສະຖານທີ່ເຮັດວຽກ'] = item.jobBatch?.mou?.workLocation || ''
+          data['Job Batch'] = item.jobBatch?.runningNo || ''
+          data['ວັນເລີ່ມສັນຍາ'] = item.jobBatch?.batchStartDate ? this.formatDateForExcel(item.jobBatch.batchStartDate) : ''
+          data['ວັນສິ້ນສຸດສັນຍາ'] = item.jobBatch?.batchEndDate ? this.formatDateForExcel(item.jobBatch.batchEndDate) : ''
+          data['ຕົວແທນ'] = item.agency?.agencyName || ''
+          data['ຜູ້ຮັບຜິດຊອບ'] = item.employee?.agencyName || ''
+          data['ສະຖານະ'] = this.formatStatus(item.status)
+        }
+
+        return data
+      })
+    },
+
+    prepareFinancialData() {
+      return this.filteredApplicants.map(item => ({
+        'ID': item.id || '',
+        'ຊື່ເຕັມ': this.getFullName(item),
+        'Job Batch': item.jobBatch?.runningNo || '',
+        'ມັດຈຳ': item.depositAmount || 0,
+        'ສະຖານະມັດຈຳ': item.isRefund ? 'ຄືນແລ້ວ' : 'ຍັງບໍ່ຄືນ',
+        'ວັນທີ່ຄືນມັດຈຳ': item.refundDate ? this.formatDateForExcel(item.refundDate) : '',
+        'ຄ່າບໍລິການ': item.serviceCharge || 0,
+        'ຄ່າປະກັນໄພ': item.insuranceFee || 0,
+        'ຄ່າໃຊ້ຈ່າຍອື່ນໆ': item.otherFees || 0,
+        'ລວມຄ່າໃຊ້ຈ່າຍ': (item.serviceCharge || 0) + (item.insuranceFee || 0) + (item.otherFees || 0),
+        'ໝາຍເຫດການເງິນ': item.financialNotes || ''
+      }))
+    },
+
+    prepareDocumentsData() {
+      return this.filteredApplicants.map(item => ({
+        'ID': item.id || '',
+        'ຊື່ເຕັມ': this.getFullName(item),
+        'ໜັງສືເດີນທາງ': item.passportAvailability ? 'ມີ' : 'ບໍ່ມີ',
+        'ເລກໜັງສືເດີນທາງ': item.passportNumber || '',
+        'ວັນໝົດອາຍຸພາສະປອດ': item.passportExpiry ? this.formatDateForExcel(item.passportExpiry) : '',
+        'ຮັບພາສະປອດແລ້ວ': (item.passportRecieve === true || item.passportRecieve === 'true') ? 'ຮັບແລ້ວ' : 'ຍັງບໍ່ຮັບ',
+        'ວັນທີ່ຮັບພາສະປອດ': item.passportReceiveDate ? this.formatDateForExcel(item.passportReceiveDate) : '',
+        'ໃບຢັ້ງຢືນການຮຽນ': item.educationCertificate ? 'ມີ' : 'ບໍ່ມີ',
+        'ໃບຢັ້ງຢືນສຸຂະພາບ': item.healthCertificate ? 'ມີ' : 'ບໍ່ມີ',
+        'ໃບຢັ້ງຢືນຄວາມປະພຶດ': item.policeClearance ? 'ມີ' : 'ບໍ່ມີ',
+        'ເອກະສານອື່ນໆ': item.otherDocuments || '',
+        'ໝາຍເຫດເອກະສານ': item.documentNotes || ''
+      }))
+    },
+
+    createStatisticsData() {
+      const stats = this.calculateStatistics()
+      return [
+        { 'ລາຍການ': '=== ສະຖິຕິທົ່ວໄປ ===', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': 'ລວມຜູ້ສະໝັກທັງໝົດ', 'ຈຳນວນ': stats.total },
+        { 'ລາຍການ': 'ຜູ້ສະໝັກຊາຍ', 'ຈຳນວນ': stats.male },
+        { 'ລາຍການ': 'ຜູ້ສະໝັກຍິງ', 'ຈຳນວນ': stats.female },
+        { 'ລາຍການ': 'ອາຍຸສະເລ່ຍ', 'ຈຳນວນ': stats.averageAge },
+        { 'ລາຍການ': '', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': '=== ສະຖິຕິສະຖານະ ===', 'ຈຳນວນ': '' },
+        ...Object.entries(stats.statusBreakdown).map(([status, count]) => ({
+          'ລາຍການ': status,
+          'ຈຳນວນ': count
+        })),
+        { 'ລາຍການ': '', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': '=== ສະຖິຕິການເງິນ ===', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': 'ລວມມັດຈຳທັງໝົດ', 'ຈຳນວນ': stats.totalDeposit },
+        { 'ລາຍການ': 'ມັດຈຳທີ່ຄືນແລ້ວ', 'ຈຳນວນ': stats.refundedDeposit },
+        { 'ລາຍການ': 'ມັດຈຳຄ້າງຄືນ', 'ຈຳນວນ': stats.pendingRefund },
+        { 'ລາຍການ': '', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': '=== ສະຖິຕິເອກະສານ ===', 'ຈຳນວນ': '' },
+        { 'ລາຍການ': 'ມີພາສະປອດ', 'ຈຳນວນ': stats.hasPassport },
+        { 'ລາຍການ': 'ບໍ່ມີພາສະປອດ', 'ຈຳນວນ': stats.noPassport },
+        { 'ລາຍການ': 'ຮັບພາສະປອດແລ້ວ', 'ຈຳນວນ': stats.passportReceived },
+        { 'ລາຍການ': 'ຍັງບໍ່ຮັບພາສະປອດ', 'ຈຳນວນ': stats.passportNotReceived },
+      ]
+    },
+
+    createJobBatchSummary() {
+      const jobBatchStats = {}
+      
+      this.filteredApplicants.forEach(applicant => {
+        const batchKey = applicant.jobBatch ? 
+          `${applicant.jobBatch.mou?.jobCode || 'N/A'} - ${applicant.jobBatch.runningNo}` : 
+          'ບໍ່ມີ Job Batch'
+        
+        if (!jobBatchStats[batchKey]) {
+          jobBatchStats[batchKey] = {
+            company: applicant.jobBatch?.mou?.employerCompany || 'N/A',
+            jobTitle: applicant.jobBatch?.mou?.jobTitle || 'N/A',
+            total: 0,
+            interview: 0,
+            register: 0,
+            rejected: 0,
+            totalDeposit: 0,
+            refundedCount: 0
+          }
+        }
+        
+        jobBatchStats[batchKey].total++
+        if (applicant.status === 'INTERVIEW') jobBatchStats[batchKey].interview++
+        if (applicant.status === 'REGISTER') jobBatchStats[batchKey].register++
+        if (applicant.status === 'rejected') jobBatchStats[batchKey].rejected++
+        
+        jobBatchStats[batchKey].totalDeposit += applicant.depositAmount || 0
+        if (applicant.isRefund) jobBatchStats[batchKey].refundedCount++
+      })
+
+      return Object.entries(jobBatchStats).map(([batchKey, stats]) => ({
+        'Job Batch': batchKey,
+        'ບໍລິສັດ': stats.company,
+        'ຕຳແຫນ່ງວຽກ': stats.jobTitle,
+        'ລວມຜູ້ສະໝັກ': stats.total,
+        'ສໍາພາດ': stats.interview,
+        'ລົງທະບຽນ': stats.register,
+        'ປະຕິເສດ': stats.rejected,
+        'ລວມມັດຈຳ': stats.totalDeposit,
+        'ຄືນມັດຈຳແລ້ວ': stats.refundedCount,
+        'ຄືນມັດຈຳແລ້ວ (%)': stats.total > 0 ? Math.round((stats.refundedCount / stats.total) * 100) : 0
+      }))
+    },
+
+    calculateStatistics() {
+      const stats = {
+        total: this.filteredApplicants.length,
+        male: 0,
+        female: 0,
+        totalAge: 0,
+        validAgeCount: 0,
+        statusBreakdown: {},
+        totalDeposit: 0,
+        refundedDeposit: 0,
+        hasPassport: 0,
+        noPassport: 0,
+        passportReceived: 0,
+        passportNotReceived: 0
+      }
+
+      this.filteredApplicants.forEach(applicant => {
+        // Gender stats
+        if (applicant.gender === 'male') stats.male++
+        if (applicant.gender === 'female') stats.female++
+
+        // Age stats
+        if (applicant.age) {
+          stats.totalAge += applicant.age
+          stats.validAgeCount++
+        }
+
+        // Status breakdown
+        const status = this.formatStatus(applicant.status)
+        stats.statusBreakdown[status] = (stats.statusBreakdown[status] || 0) + 1
+
+        // Financial stats
+        stats.totalDeposit += applicant.depositAmount || 0
+        if (applicant.isRefund) {
+          stats.refundedDeposit += applicant.depositAmount || 0
+        }
+
+        // Document stats
+        if (applicant.passportAvailability) {
+          stats.hasPassport++
+        } else {
+          stats.noPassport++
+        }
+
+        if (applicant.passportRecieve === true || applicant.passportRecieve === 'true') {
+          stats.passportReceived++
+        } else {
+          stats.passportNotReceived++
+        }
+      })
+
+      stats.averageAge = stats.validAgeCount > 0 ? 
+        Math.round(stats.totalAge / stats.validAgeCount * 10) / 10 : 0
+      stats.pendingRefund = stats.totalDeposit - stats.refundedDeposit
+
+      return stats
+    },
+
+    setColumnWidths(worksheet, widths) {
+      worksheet['!cols'] = widths
+    },
+
+    getMainColumnWidths() {
+      const widths = []
+      if (this.exportOptions.includePersonalInfo) {
+        widths.push(
+          { wch: 8 },   // ID
+          { wch: 15 },  // First Name
+          { wch: 15 },  // Last Name
+          { wch: 10 },  // Gender
+          { wch: 8 },   // Age
+          { wch: 12 },  // DOB
+          { wch: 12 },  // Nationality
+          { wch: 25 }   // Address
         )
       }
-    } catch (error) {
-      console.error('Error toggling refund:', error)
-      this.$toast?.error('ການດຳເນີນການບໍ່ສຳເລັດ')
-    } finally {
-      this.loading = false
-    }
-  },
+      if (this.exportOptions.includeContactInfo) {
+        widths.push(
+          { wch: 15 },  // Phone
+          { wch: 20 },  // Email
+          { wch: 20 },  // Emergency Contact
+          { wch: 15 }   // Emergency Phone
+        )
+      }
+      if (this.exportOptions.includeJobInfo) {
+        widths.push(
+          { wch: 15 },  // Job Code
+          { wch: 20 },  // Job Title
+          { wch: 25 },  // Company
+          { wch: 20 },  // Work Location
+          { wch: 12 },  // Job Batch
+          { wch: 15 },  // Start Date
+          { wch: 15 },  // End Date
+          { wch: 20 },  // Agency
+          { wch: 20 },  // Employee
+          { wch: 12 }   // Status
+        )
+      }
+      return widths.length > 0 ? widths : [{ wch: 15 }]
+    },
+
+    getFinancialColumnWidths() {
+      return [
+        { wch: 8 },   // ID
+        { wch: 20 },  // Name
+        { wch: 12 },  // Job Batch
+        { wch: 15 },  // Deposit
+        { wch: 15 },  // Refund Status
+        { wch: 15 },  // Refund Date
+        { wch: 15 },  // Service Charge
+        { wch: 15 },  // Insurance
+        { wch: 15 },  // Other Fees
+        { wch: 15 },  // Total
+        { wch: 25 }   // Notes
+      ]
+    },
+
+    getDocumentsColumnWidths() {
+      return [
+        { wch: 8 },   // ID
+        { wch: 20 },  // Name
+        { wch: 12 },  // Passport Available
+        { wch: 15 },  // Passport Number
+        { wch: 15 },  // Passport Expiry
+        { wch: 15 },  // Passport Received
+        { wch: 15 },  // Receive Date
+        { wch: 15 },  // Education Cert
+        { wch: 15 },  // Health Cert
+        { wch: 15 },  // Police Clearance
+        { wch: 20 },  // Other Docs
+        { wch: 25 }   // Notes
+      ]
+    },
+
+    getJobBatchColumnWidths() {
+      return [
+        { wch: 20 },  // Job Batch
+        { wch: 25 },  // Company
+        { wch: 20 },  // Job Title
+        { wch: 12 },  // Total
+        { wch: 12 },  // Interview
+        { wch: 12 },  // Register
+        { wch: 12 },  // Rejected
+        { wch: 18 },  // Total Deposit
+        { wch: 15 },  // Refunded Count
+        { wch: 15 }   // Refund %
+      ]
+    },
+
+    formatDateForExcel(date) {
+      if (!date) return ''
+      const d = new Date(date)
+      
+      switch (this.exportOptions.dateFormat) {
+        case 'dmy':
+          return d.toLocaleDateString('en-GB') // DD/MM/YYYY
+        case 'ymd':
+          return d.toLocaleDateString('en-CA') // YYYY-MM-DD
+        case 'mdy':
+          return d.toLocaleDateString('en-US') // MM/DD/YYYY
+        default:
+          return d.toLocaleDateString('en-GB')
+      }
+    },
+
+    downloadExcelFile(buffer) {
+      const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `Applicants_Report_${new Date().toISOString().split('T')[0]}.xlsx`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    },
+
+    // Existing methods...
+    formatCurrency(amount) {
+      if (!amount) return '0 ກີບ'
+      return new Intl.NumberFormat('lo-LA').format(amount) + ' ກີບ'
+    },
+
+    async toggleRefund(applicant) {
+      try {
+        const newRefundStatus = !applicant.isRefund
+        const confirmMessage = newRefundStatus
+          ? 'ຢືນຢັນການຄືນມັດຈຳ?'
+          : 'ຍົກເລີກການຄືນມັດຈຳ?'
+
+        if (!confirm(confirmMessage)) return
+
+        this.loading = true
+        const response = await this.$axios.put(
+          `/api/applicants/${applicant.id}`,
+          { isRefund: newRefundStatus }
+        )
+
+        if (response.data?.success) {
+          applicant.isRefund = newRefundStatus
+          this.$toast?.success(
+            newRefundStatus ? 'ຄືນມັດຈຳສຳເລັດ' : 'ຍົກເລີກການຄືນມັດຈຳແລ້ວ'
+          )
+        }
+      } catch (error) {
+        console.error('Error toggling refund:', error)
+        this.$toast?.error('ການດຳເນີນການບໍ່ສຳເລັດ')
+      } finally {
+        this.loading = false
+      }
+    },
+
     async loadJobBatches() {
       try {
         const { data } = await this.$axios.get('/api/batch-job')
@@ -433,13 +903,13 @@ export default {
 
     openCreateDialog() {
       this.selectedApplicant = null
-      this.dialogKey++ // Increment key to force re-render
+      this.dialogKey++
       this.showEditDialog = true
     },
 
     editApplicant(applicant) {
       this.selectedApplicant = applicant
-      this.dialogKey++ // Increment key to force re-render
+      this.dialogKey++
       this.showEditDialog = true
     },
 
@@ -502,6 +972,7 @@ export default {
       this.filteredApplicants = filtered
     },
 
+    // Legacy export method (kept for compatibility)
     exportData() {
       const csvData = this.convertToCSV(this.filteredApplicants)
       this.downloadCSV(csvData, 'applicants.csv')
