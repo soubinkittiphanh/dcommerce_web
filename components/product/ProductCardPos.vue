@@ -260,17 +260,14 @@ export default {
       }
 
       // Use customer grade price if available, otherwise use default price
-      const productToAdd = {
-        ...this.product,
-        localPrice:
-          this.getCustomerGradePrice(this.product) ||
-          this.product.localPrice ||
-          this.product.pro_price,
-        isGift: isGift,
-        lineUUIDCheck: false,
-        priceListId: null,
-        lineUUID: Date.now() + Math.random().toString(16), //TODO: Resolve this logic issue for adding new item
-      }
+  const productToAdd = {
+    ...this.product,
+    localPrice: this.getCustomerGradePrice(this.product) || this.product.localPrice || this.product.pro_price,
+    isGift: isGift,
+    lineUUIDCheck: false,
+    priceListId: this.getCustomerGradePriceListId(this.product),
+    lineUUID: Date.now() + Math.random().toString(16),
+}
 
       console.info(`CART PRODUCT ${JSON.stringify(this.cartOfProduct)}`)
       this.addProduct(productToAdd)
@@ -430,10 +427,24 @@ export default {
           priceList.isActive !== false &&
           priceList.type === 'Price' // Ensure it's a price type, not discount
       )
+      console.info(`PriceList selected ${JSON.stringify(gradePrice)}`)
 
       return gradePrice?.amount || null
     },
+    getCustomerGradePriceListId(product) {
+      // Fast validation - early exit for performance
+      if (!this.effectiveCustomer?.grade || !product?.priceLists?.length) {
+        return null
+      }
 
+      const gradePrice = product.priceLists.find(
+        (priceList) =>
+          priceList.grade === this.effectiveCustomer.grade &&
+          priceList.isActive !== false &&
+          priceList.type === 'Price'
+      )
+      return gradePrice?.id || null
+    },
     getGradeColor(grade) {
       const gradeColors = {
         A: 'green',

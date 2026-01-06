@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_62d5bf0f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(901);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_62d5bf0f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_62d5bf0f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_62d5bf0f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_62d5bf0f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_592d140a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(901);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_592d140a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_592d140a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_592d140a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_592d140a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-62d5bf0f],.text-h5[data-v-62d5bf0f]{font-family:\"Noto Sans Lao\"}table[data-v-62d5bf0f]{border:1px solid #000}.payment-summary-card[data-v-62d5bf0f]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-62d5bf0f]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-62d5bf0f]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-62d5bf0f]{margin-bottom:8px}.payment-summary-card h3[data-v-62d5bf0f]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-62d5bf0f]{border-radius:4px}.v-alert--dense[data-v-62d5bf0f]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-62d5bf0f]{margin-bottom:16px}.payment-summary-card h3[data-v-62d5bf0f]{font-size:1.2rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-592d140a],.text-h5[data-v-592d140a]{font-family:\"Noto Sans Lao\"}table[data-v-592d140a]{border:1px solid #000}.payment-summary-card[data-v-592d140a]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-592d140a]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-592d140a]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-592d140a]{margin-bottom:8px}.payment-summary-card h3[data-v-592d140a]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-592d140a]{border-radius:4px}.v-alert--dense[data-v-592d140a]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-592d140a]{margin-bottom:16px}.payment-summary-card h3[data-v-592d140a]{font-size:1.2rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1446:
+/***/ 1391:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95,7 +95,7 @@ var VSelect = __webpack_require__(20);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=62d5bf0f&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=592d140a&scoped=true
 
 
 
@@ -118,12 +118,12 @@ var VTextField = __webpack_require__(38);
 
 
 
-var ordersFromPosvue_type_template_id_62d5bf0f_scoped_true_render = function render() {
+var ordersFromPosvue_type_template_id_592d140a_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-62d5bf0f>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-592d140a>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -255,7 +255,7 @@ var ordersFromPosvue_type_template_id_62d5bf0f_scoped_true_render = function ren
       },
       expression: "paymentDetailsDialog"
     }
-  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-62d5bf0f>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-592d140a>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -478,7 +478,20 @@ var ordersFromPosvue_type_template_id_62d5bf0f_scoped_true_render = function ren
     }
   }, [_c('span', {
     staticClass: "mdi mdi-microsoft-excel"
-  }), _vm._v("Generate excel file\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }), _vm._v("Generate excel file\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "success",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": "",
+      "disabled": _vm.isloading || _vm.filteredOrderHeaderList.length === 0
+    },
+    on: {
+      "click": _vm.printSalesReport
+    }
+  }, [_c('span', {
+    staticClass: "mdi mdi-printer"
+  }), _vm._v("Print Report\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "text-right",
     attrs: {
       "cols": "6"
@@ -976,7 +989,7 @@ var ordersFromPosvue_type_template_id_62d5bf0f_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=62d5bf0f&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=592d140a&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -984,6 +997,504 @@ var common = __webpack_require__(7);
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(41);
 
+// CONCATENATED MODULE: ./common/sales-report-printer.js
+/**
+ * Sales Report Print Module for 80mm POS Printer
+ * Generates and prints sales summary reports with payment breakdown
+ */
+
+
+
+
+/**
+ * Safe number parsing to prevent NaN issues
+ */
+const safeParseNumber = (value, defaultValue = 0) => {
+  if (value === null || value === undefined || value === '') {
+    return defaultValue;
+  }
+  if (typeof value === 'number') {
+    return isNaN(value) ? defaultValue : value;
+  }
+  if (typeof value === 'string') {
+    const cleanValue = value.toString().replace(/[^\d.-]/g, '');
+    const parsed = parseFloat(cleanValue);
+    return isNaN(parsed) ? defaultValue : parsed;
+  }
+  const converted = Number(value);
+  return isNaN(converted) ? defaultValue : converted;
+};
+
+/**
+ * Format date for Lao locale
+ */
+const formatDateLao = dateInput => {
+  try {
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return 'Invalid Date';
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return 'Date Error';
+  }
+};
+
+/**
+ * Generate company header for sales report
+ */
+const generateCompanyHeader = (companyData, companyLogo) => {
+  const companyName = (companyData === null || companyData === void 0 ? void 0 : companyData.name) || 'Dcommerce';
+  const companyTel = (companyData === null || companyData === void 0 ? void 0 : companyData.tel) || 'N/A';
+  const logoHtml = companyLogo ? `<img src="${companyLogo}" alt="Logo" 
+          style="width: 50px; height: 50px; object-fit: contain;" 
+          onerror="this.style.display='none';">` : `<div class="logo-placeholder">${companyName.substring(0, 2).toUpperCase()}</div>`;
+  return `
+    <div class="header-section">
+      <div class="header-content">
+        <div class="header-left">
+          ${logoHtml}
+        </div>
+        <div class="header-right">
+          <div class="company-name">${companyName}</div>
+          <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate date range section
+ */
+const generateDateRangeSection = (fromDate, toDate, terminalInfo) => {
+  return `
+    <div class="date-range-section">
+      <div class="section-title">ລາຍງານການຂາຍ</div>
+      <div class="date-info">
+        <div class="date-line">ຈາກວັນທີ: ${formatDateLao(fromDate)}</div>
+        <div class="date-line">ຫາວັນທີ: ${formatDateLao(toDate)}</div>
+        <div class="terminal-line">ຮ້ານ: ${(terminalInfo === null || terminalInfo === void 0 ? void 0 : terminalInfo.name) || 'ທັງໝົດ'}</div>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate summary statistics section
+ */
+const generateSummarySection = (summaryData, formatNumber) => {
+  const {
+    totalTransactions,
+    totalSales,
+    totalDiscount,
+    netSales,
+    singlePaymentCount,
+    multiPaymentCount
+  } = summaryData;
+  return `
+    <div class="summary-section">
+      <div class="summary-title">ສະຫຼຸບລວມ</div>
+      <div class="summary-item">
+        <span class="label">ຈຳນວນບິນທັງໝົດ:</span>
+        <span class="value">${formatNumber(totalTransactions)}</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ຍອດຂາຍລວມ:</span>
+        <span class="value">${formatNumber(totalSales)} LAK</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ສ່ວນຫຼຸດລວມ:</span>
+        <span class="value">${formatNumber(totalDiscount)} LAK</span>
+      </div>
+      <div class="summary-item total">
+        <span class="label">ຍອດຂາຍສຸດທິ:</span>
+        <span class="value">${formatNumber(netSales)} LAK</span>
+      </div>
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
+      <div class="summary-item">
+        <span class="label">ຊຳລະແບບດຽວ:</span>
+        <span class="value">${formatNumber(singlePaymentCount)} ລາຍການ</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ຊຳລະຫຼາຍວິທີ:</span>
+        <span class="value">${formatNumber(multiPaymentCount)} ລາຍການ</span>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate payment breakdown section
+ */
+const generatePaymentBreakdownSection = (paymentStats, formatNumber) => {
+  if (!paymentStats || paymentStats.length === 0) {
+    return '<div class="no-data">ບໍ່ມີຂໍ້ມູນການຊຳລະ</div>';
+  }
+  const paymentItems = paymentStats.map(stat => `
+    <div class="payment-item">
+      <div class="payment-method">${stat.name}</div>
+      <div class="payment-details">
+        <span class="amount">${formatNumber(stat.amount)} LAK</span>
+        <span class="count">(${stat.count} ລາຍການ)</span>
+        <span class="percentage">${stat.percentage.toFixed(1)}%</span>
+      </div>
+    </div>
+  `).join('');
+  return `
+    <div class="payment-section">
+      <div class="payment-title">ແຍກຕາມວິທີການຊຳລະ</div>
+      ${paymentItems}
+    </div>
+  `;
+};
+
+/**
+ * Generate footer section
+ */
+const generateFooterSection = user => {
+  const userName = (user === null || user === void 0 ? void 0 : user.cus_name) || 'System';
+  const printTime = formatDateLao(new Date());
+  return `
+    <div class="footer-section">
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
+      <div class="footer-info">
+        <div class="print-info">ພິມເມື່ອ: ${printTime}</div>
+        <div class="user-info">ພິມໂດຍ: ${userName}</div>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate complete sales report HTML
+ */
+const generateSalesReportHTML = reportData => {
+  const {
+    companyData,
+    companyLogo,
+    fromDate,
+    toDate,
+    terminalInfo,
+    summaryData,
+    paymentStats,
+    formatNumber,
+    user
+  } = reportData;
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>ລາຍງານການຂາຍ</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
+        
+        body {
+          font-family: 'Noto Sans Lao', 'Arial', sans-serif;
+          margin: 0;
+          padding: 8px;
+          font-size: 11px;
+          line-height: 1.2;
+          color: #000;
+          width: 80mm;
+          max-width: 80mm;
+        }
+        
+        .header-section {
+          margin-bottom: 8px;
+        }
+        
+        .header-content {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        
+        .header-left {
+          flex: 0 0 auto;
+        }
+        
+        .header-right {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .logo-placeholder {
+          width: 50px;
+          height: 50px;
+          background: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: bold;
+        }
+        
+        .company-name {
+          font-weight: 600;
+          font-size: 13px;
+          margin-bottom: 2px;
+        }
+        
+        .company-tel {
+          font-size: 10px;
+          color: #666;
+        }
+        
+        .date-range-section {
+          text-align: center;
+          margin-bottom: 8px;
+          padding: 6px;
+          border: 1px solid #ddd;
+        }
+        
+        .section-title {
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+        
+        .date-info {
+          font-size: 10px;
+        }
+        
+        .date-line, .terminal-line {
+          margin-bottom: 1px;
+        }
+        
+        .summary-section {
+          margin-bottom: 8px;
+        }
+        
+        .summary-title {
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          text-align: center;
+        }
+        
+        .summary-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2px;
+          padding: 1px 0;
+        }
+        
+        .summary-item.total {
+          font-weight: 600;
+          border-top: 1px solid #000;
+          border-bottom: 1px solid #000;
+          padding: 3px 0;
+          margin: 4px 0;
+        }
+        
+        .label {
+          flex: 1;
+          font-weight: 500;
+        }
+        
+        .value {
+          font-weight: 600;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        .payment-section {
+          margin-bottom: 8px;
+        }
+        
+        .payment-title {
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          text-align: center;
+        }
+        
+        .payment-item {
+          margin-bottom: 3px;
+          padding: 2px;
+          border: 1px solid #eee;
+        }
+        
+        .payment-method {
+          font-weight: 600;
+          font-size: 11px;
+          margin-bottom: 1px;
+        }
+        
+        .payment-details {
+          display: flex;
+          justify-content: space-between;
+          font-size: 9px;
+        }
+        
+        .amount {
+          font-weight: 600;
+        }
+        
+        .count {
+          color: #666;
+        }
+        
+        .percentage {
+          font-weight: 500;
+        }
+        
+        .divider {
+          text-align: center;
+          margin: 6px 0;
+          font-size: 9px;
+          color: #999;
+        }
+        
+        .footer-section {
+          margin-top: 8px;
+        }
+        
+        .footer-info {
+          text-align: center;
+          font-size: 9px;
+          color: #666;
+        }
+        
+        .print-info, .user-info {
+          margin-bottom: 1px;
+        }
+        
+        .no-data {
+          text-align: center;
+          color: #999;
+          font-style: italic;
+          margin: 10px 0;
+        }
+        
+        @media print {
+          body { 
+            margin: 0; 
+            padding: 4px;
+            width: auto;
+            max-width: none;
+          }
+          .no-print { 
+            display: none; 
+          }
+        }
+        
+        @page {
+          margin: 0;
+          size: 80mm auto;
+        }
+      </style>
+    </head>
+    <body>
+      ${generateCompanyHeader(companyData, companyLogo)}
+      ${generateDateRangeSection(fromDate, toDate, terminalInfo)}
+      ${generateSummarySection(summaryData, formatNumber)}
+      ${generatePaymentBreakdownSection(paymentStats, formatNumber)}
+      ${generateFooterSection(user)}
+    </body>
+    </html>
+  `;
+};
+
+/**
+ * Print the sales report
+ */
+const printSalesReport = windowContent => {
+  try {
+    const windowWidth = 450;
+    const windowHeight = 700;
+    const printWin = window.open('', '', `left=0,top=0,width=${windowWidth},height=${windowHeight},toolbar=0,scrollbars=1,status=0`);
+    if (!printWin) {
+      throw new Error('Unable to open print window. Please check popup blockers.');
+    }
+    printWin.document.open();
+    printWin.document.write(windowContent);
+    printWin.document.close();
+    printWin.onload = () => {
+      setTimeout(() => {
+        printWin.print();
+        printWin.close();
+      }, 800);
+    };
+    setTimeout(() => {
+      if (!printWin.closed) {
+        printWin.print();
+        printWin.close();
+      }
+    }, 2000);
+  } catch (error) {
+    console.error('Error printing sales report:', error);
+    alert('Error printing sales report. Please try again.');
+  }
+};
+
+/**
+ * Main function to generate and print sales report
+ */
+const printSalesReportSummary = params => {
+  const {
+    orderHeaderList = [],
+    paymentStatistics = [],
+    filteredOrderHeaderList = [],
+    fromDate,
+    toDate,
+    terminalInfo = null,
+    companyData = {},
+    companyLogo = '',
+    formatNumber,
+    user = {},
+    singlePaymentCount = 0,
+    multiPaymentCount = 0
+  } = params;
+  console.log('🖨️ Generating sales report summary for 80mm printer');
+  try {
+    // Calculate summary data
+    const totalTransactions = filteredOrderHeaderList.length;
+    const totalSales = filteredOrderHeaderList.reduce((total, item) => {
+      return total + safeParseNumber(item.total + (item.discount || 0), 0);
+    }, 0);
+    const totalDiscount = filteredOrderHeaderList.reduce((total, item) => {
+      return total + safeParseNumber(item.discount, 0);
+    }, 0);
+    const netSales = totalSales - totalDiscount;
+    const summaryData = {
+      totalTransactions,
+      totalSales,
+      totalDiscount,
+      netSales,
+      singlePaymentCount,
+      multiPaymentCount
+    };
+    const reportData = {
+      companyData,
+      companyLogo,
+      fromDate,
+      toDate,
+      terminalInfo,
+      summaryData,
+      paymentStats: paymentStatistics,
+      formatNumber,
+      user
+    };
+    const salesReportHTML = generateSalesReportHTML(reportData);
+    printSalesReport(salesReportHTML);
+  } catch (error) {
+    console.error('Error generating sales report summary:', error);
+    alert('Error generating sales report. Please try again.');
+  }
+};
+
+/**
+ * Export helper function for date formatting
+ */
+const formatDateForReport = formatDateLao;
 // EXTERNAL MODULE: ./common/ticket.js
 var ticket = __webpack_require__(164);
 
@@ -1003,6 +1514,7 @@ var TicketDetailsDialog = __webpack_require__(602);
 var external_vuex_ = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=script&lang=js
+
 
 
 
@@ -1132,9 +1644,11 @@ var external_vuex_ = __webpack_require__(14);
         value: 'id',
         sortable: false
       }],
-      fromDate: Object(common["d" /* getFirstDayOfMonth */])(),
+      // fromDate: getFirstDayOfMonth(),// FIRSTDAY OF MONTH
+      fromDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      fromDateLabel: this.formatDate(Object(common["d" /* getFirstDayOfMonth */])()),
+      // fromDateLabel: this.formatDate(getFirstDayOfMonth()),// FRIST DATE OF THE MONTH
+      fromDateLabel: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       toDateLabel: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       menu1: false,
       menu2: false
@@ -1410,6 +1924,59 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
+    printSalesReport() {
+      try {
+        var _this$companyData;
+        console.log('🖨️ Printing sales report summary...');
+
+        // Prepare terminal info
+        const terminalInfo = this.terminalId === 999 ? {
+          name: 'ທັງໝົດ',
+          id: 999
+        } : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
+
+        // Prepare company data
+        const companyData = ((_this$companyData = this.companyData) === null || _this$companyData === void 0 ? void 0 : _this$companyData.apiData) || this.companyData || {};
+
+        // Call the print function
+        printSalesReportSummary({
+          orderHeaderList: this.activeOrderHeaderList,
+          paymentStatistics: this.paymentStatistics,
+          filteredOrderHeaderList: this.filteredOrderHeaderList,
+          fromDate: this.fromDate,
+          toDate: this.toDate,
+          terminalInfo: terminalInfo,
+          companyData: companyData,
+          companyLogo: this.companyLogo,
+          formatNumber: this.formatNumber,
+          user: this.user,
+          singlePaymentCount: this.singlePaymentCount,
+          multiPaymentCount: this.multiPaymentCount
+        });
+
+        // Optional: Show success message
+        if (this.$toast) {
+          this.$toast.success('ລາຍງານການຂາຍກຳລັງພິມ...', {
+            position: 'bottom-center'
+          });
+        }
+      } catch (error) {
+        console.error('Error printing sales report:', error);
+
+        // Show error message
+        if (this.$toast) {
+          this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ', {
+            position: 'bottom-center'
+          });
+        } else if (this.$swal) {
+          this.$swal.fire({
+            title: 'Error',
+            text: 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ',
+            icon: 'error'
+          });
+        }
+      }
+    },
     getLocalDate: common["f" /* getLocalDate */],
     // SIMPLIFIED: Dialog event handlers for the new component
     onTicketDialogClose() {
@@ -1726,11 +2293,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosvue_type_script_lang_js,
-  ordersFromPosvue_type_template_id_62d5bf0f_scoped_true_render,
+  ordersFromPosvue_type_template_id_592d140a_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "62d5bf0f",
+  "592d140a",
   "ac53ec12"
   
 )
@@ -7178,7 +7745,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5a5d71ad", content, true, context)
+  add("448a7c60", content, true, context)
 };
 
 /***/ })

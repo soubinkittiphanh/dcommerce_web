@@ -952,6 +952,7 @@ export default {
         }
 
         // Add to store using Vuex action
+        console.info(`product adding ${JSON.stringify(cartItem)}`)
         this.$store.dispatch('addProduct', cartItem)
 
         // PERFORMANCE OPTIMIZATION: Single optimized success message

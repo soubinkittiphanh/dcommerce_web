@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f7f0f162_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(905);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f7f0f162_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f7f0f162_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f7f0f162_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f7f0f162_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(905);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-f7f0f162],.text-h5[data-v-f7f0f162]{font-family:\"Noto Sans Lao\"}table[data-v-f7f0f162]{border:1px solid #000}.grade-summary-card[data-v-f7f0f162]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.grade-summary-card[data-v-f7f0f162]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.grade-summary-card.selected-grade[data-v-f7f0f162]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.grade-badge[data-v-f7f0f162]{align-items:center;display:flex;justify-content:center}.grade-summary-card .v-icon[data-v-f7f0f162]{margin-bottom:8px}.grade-summary-card h3[data-v-f7f0f162]{font-weight:600;letter-spacing:-.5px}.grade-summary-card .v-progress-linear[data-v-f7f0f162]{border-radius:4px}@media (max-width:600px){.grade-summary-card[data-v-f7f0f162]{margin-bottom:16px}.grade-summary-card h3[data-v-f7f0f162]{font-size:1.2rem}}@media print{.v-btn[data-v-f7f0f162],.v-select[data-v-f7f0f162],.v-text-field[data-v-f7f0f162]{display:none!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-594191ba],.text-h5[data-v-594191ba]{font-family:\"Noto Sans Lao\"}table[data-v-594191ba]{border:1px solid #000}.grade-summary-card[data-v-594191ba]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.grade-summary-card[data-v-594191ba]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.grade-summary-card.selected-grade[data-v-594191ba]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.grade-badge[data-v-594191ba]{align-items:center;display:flex;justify-content:center}.grade-summary-card .v-icon[data-v-594191ba]{margin-bottom:8px}.grade-summary-card h3[data-v-594191ba]{font-weight:600;letter-spacing:-.5px}.grade-summary-card .v-progress-linear[data-v-594191ba]{border-radius:4px}@media (max-width:600px){.grade-summary-card[data-v-594191ba]{margin-bottom:16px}.grade-summary-card h3[data-v-594191ba]{font-size:1.2rem}}@media print{.v-btn[data-v-594191ba],.v-select[data-v-594191ba],.v-text-field[data-v-594191ba]{display:none!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1450:
+/***/ 1392:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92,7 +92,7 @@ var VSpacer = __webpack_require__(430);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=f7f0f162&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=594191ba&scoped=true
 
 
 
@@ -114,12 +114,12 @@ var VTextField = __webpack_require__(38);
 
 
 
-var ordersFromPosGradevue_type_template_id_f7f0f162_scoped_true_render = function render() {
+var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-f7f0f162>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-594191ba>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -176,7 +176,7 @@ var ordersFromPosGradevue_type_template_id_f7f0f162_scoped_true_render = functio
       },
       expression: "ticketDetailsDialog"
     }
-  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-f7f0f162>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-594191ba>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -958,7 +958,7 @@ var ordersFromPosGradevue_type_template_id_f7f0f162_scoped_true_render = functio
       "left": "",
       "color": "white"
     }
-  }, [_vm._v("mdi-receipt-text")]), _vm._v("\n        ລາຍການບິນ " + _vm._s(_vm.selectedProductForTransactions ? `- ${_vm.selectedProductForTransactions.productName}` : '') + "\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("mdi-receipt-text")]), _vm._v("\n        ລາຍການບິນ\n        " + _vm._s(_vm.selectedProductForTransactions ? `- ${_vm.selectedProductForTransactions.productName}` : '') + "\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "icon": "",
       "color": "white"
@@ -1040,7 +1040,7 @@ var ordersFromPosGradevue_type_template_id_f7f0f162_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=f7f0f162&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=594191ba&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(78);
@@ -1135,6 +1135,814 @@ var common = __webpack_require__(7);
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(41);
 
+// CONCATENATED MODULE: ./common/enhanced-sales-report-printer.js
+/**
+ * Enhanced Sales Report Print Module for 80mm POS Printer
+ * WITH DETAILED PRODUCT BREAKDOWN BY GRADE, GIFTS, AND PRICING
+ */
+
+
+
+
+/**
+ * Safe number parsing to prevent NaN issues
+ */
+const safeParseNumber = (value, defaultValue = 0) => {
+  if (value === null || value === undefined || value === '') {
+    return defaultValue;
+  }
+  if (typeof value === 'number') {
+    return isNaN(value) ? defaultValue : value;
+  }
+  if (typeof value === 'string') {
+    const cleanValue = value.toString().replace(/[^\d.-]/g, '');
+    const parsed = parseFloat(cleanValue);
+    return isNaN(parsed) ? defaultValue : parsed;
+  }
+  const converted = Number(value);
+  return isNaN(converted) ? defaultValue : converted;
+};
+
+/**
+ * Format date for Lao locale
+ */
+const formatDateLao = dateInput => {
+  try {
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return 'Invalid Date';
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return 'Date Error';
+  }
+};
+
+/**
+ * Generate company header for sales report
+ */
+const generateCompanyHeader = (companyData, companyLogo) => {
+  const companyName = (companyData === null || companyData === void 0 ? void 0 : companyData.name) || 'Dcommerce';
+  const companyTel = (companyData === null || companyData === void 0 ? void 0 : companyData.tel) || 'N/A';
+  const logoHtml = companyLogo ? `<img src="${companyLogo}" alt="Logo" 
+          style="width: 50px; height: 50px; object-fit: contain;" 
+          onerror="this.style.display='none';">` : `<div class="logo-placeholder">${companyName.substring(0, 2).toUpperCase()}</div>`;
+  return `
+    <div class="header-section">
+      <div class="header-content">
+        <div class="header-left">
+          ${logoHtml}
+        </div>
+        <div class="header-right">
+          <div class="company-name">${companyName}</div>
+          <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate date range section
+ */
+const generateDateRangeSection = (fromDate, toDate, terminalInfo) => {
+  return `
+    <div class="date-range-section">
+      <div class="section-title">ລາຍງານການຂາຍແບບລະອຽດ</div>
+      <div class="date-info">
+        <div class="date-line">ຈາກວັນທີ: ${formatDateLao(fromDate)}</div>
+        <div class="date-line">ຫາວັນທີ: ${formatDateLao(toDate)}</div>
+        <div class="terminal-line">ຮ້ານ: ${(terminalInfo === null || terminalInfo === void 0 ? void 0 : terminalInfo.name) || 'ທັງໝົດ'}</div>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate summary statistics section
+ */
+const generateSummarySection = (summaryData, formatNumber) => {
+  const {
+    totalTransactions,
+    totalSales,
+    totalDiscount,
+    netSales,
+    singlePaymentCount,
+    multiPaymentCount,
+    totalProducts,
+    totalGiftQty,
+    totalGiftValue,
+    totalGiftSavings
+  } = summaryData;
+  return `
+    <div class="summary-section">
+      <div class="summary-title">ສະຫຼຸບລວມ</div>
+      <div class="summary-item">
+        <span class="label">ຈຳນວນບິນທັງໝົດ:</span>
+        <span class="value">${formatNumber(totalTransactions)}</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ຈຳນວນສິນຄ້າທີ່ຂາຍ:</span>
+        <span class="value">${formatNumber(totalProducts)}</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ຍອດຂາຍລວມ:</span>
+        <span class="value">${formatNumber(totalSales)} LAK</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ສ່ວນຫຼຸດລວມ:</span>
+        <span class="value">${formatNumber(totalDiscount)} LAK</span>
+      </div>
+      <div class="summary-item total">
+        <span class="label">ຍອດຂາຍສຸດທິ:</span>
+        <span class="value">${formatNumber(netSales)} LAK</span>
+      </div>
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
+      <div class="summary-item">
+        <span class="label">ຂອງຂວັນທັງໝົດ:</span>
+        <span class="value">${formatNumber(totalGiftQty)} ຊິ້ນ</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ມູນຄ່າຂອງຂວັນ:</span>
+        <span class="value">${formatNumber(totalGiftValue)} LAK</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">ລູກຄ້າປະຫຍັດ:</span>
+        <span class="value">${formatNumber(totalGiftSavings)} LAK</span>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate grade breakdown section with detailed statistics
+ */
+const generateGradeBreakdownSection = (gradeData, formatNumber) => {
+  if (!gradeData) {
+    return '<div class="no-data">ບໍ່ມີຂໍ້ມູນເກຣດ</div>';
+  }
+  const grades = ['A', 'B', 'C', 'D', 'E', 'F'];
+  let gradeItems = '';
+  grades.forEach(grade => {
+    const gradeInfo = gradeData[grade];
+    if (gradeInfo && gradeInfo.qty > 0) {
+      const avgPrice = gradeInfo.revenue > 0 ? gradeInfo.revenue / gradeInfo.qty : 0;
+      gradeItems += `
+        <div class="grade-item">
+          <div class="grade-header">
+            <span class="grade-badge grade-${grade.toLowerCase()}">${grade}</span>
+            <span class="grade-count">${formatNumber(gradeInfo.qty)} ຊິ້ນ</span>
+          </div>
+          <div class="grade-details">
+            <span class="revenue">${formatNumber(gradeInfo.revenue)} LAK</span>
+            <span class="avg-price">@ ${formatNumber(avgPrice)}/ຊິ້ນ</span>
+            <span class="order-count">${gradeInfo.orderCount} ບິນ</span>
+          </div>
+        </div>
+      `;
+    }
+  });
+
+  // Add base price sales
+  if (gradeData.basePriceSales && gradeData.basePriceSales.qty > 0) {
+    const avgPrice = gradeData.basePriceSales.revenue > 0 ? gradeData.basePriceSales.revenue / gradeData.basePriceSales.qty : 0;
+    gradeItems += `
+      <div class="grade-item">
+        <div class="grade-header">
+          <span class="grade-badge base">ມາດຕະຖານ</span>
+          <span class="grade-count">${formatNumber(gradeData.basePriceSales.qty)} ຊິ້ນ</span>
+        </div>
+        <div class="grade-details">
+          <span class="revenue">${formatNumber(gradeData.basePriceSales.revenue)} LAK</span>
+          <span class="avg-price">@ ${formatNumber(avgPrice)}/ຊິ້ນ</span>
+          <span class="order-count">${gradeData.basePriceSales.orderCount} ບິນ</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Add gifts
+  if (gradeData.gifts && gradeData.gifts.qty > 0) {
+    const savings = gradeData.gifts.originalValue - gradeData.gifts.revenue;
+    gradeItems += `
+      <div class="grade-item gift-item">
+        <div class="grade-header">
+          <span class="grade-badge gift">ຂອງຂວັນ</span>
+          <span class="grade-count">${formatNumber(gradeData.gifts.qty)} ຊິ້ນ</span>
+        </div>
+        <div class="grade-details">
+          <span class="revenue">${formatNumber(gradeData.gifts.revenue)} LAK</span>
+          <span class="original-value">ມູນຄ່າເຕັມ: ${formatNumber(gradeData.gifts.originalValue)} LAK</span>
+          <span class="savings">ປະຫຍັດ: ${formatNumber(savings)} LAK</span>
+        </div>
+      </div>
+    `;
+  }
+  return `
+    <div class="grade-section">
+      <div class="grade-title">ແຍກຕາມເກຣດລູກຄ້າ</div>
+      ${gradeItems}
+    </div>
+  `;
+};
+
+/**
+ * Generate top products section with detailed breakdown
+ */
+const generateTopProductsSection = (productSummary, formatNumber, limit = 10) => {
+  if (!productSummary || productSummary.length === 0) {
+    return '<div class="no-data">ບໍ່ມີຂໍ້ມູນສິນຄ້າ</div>';
+  }
+
+  // Sort by total revenue and take top products
+  const topProducts = productSummary.sort((a, b) => b.totalRevenue - a.totalRevenue).slice(0, limit);
+  const productItems = topProducts.map((product, index) => {
+    // Build grade breakdown string
+    const gradeBreakdown = [];
+
+    // Add grade sales
+    ['A', 'B', 'C', 'D', 'E', 'F'].forEach(grade => {
+      if (product.grades[grade].qty > 0) {
+        gradeBreakdown.push(`${grade}(${product.grades[grade].qty})`);
+      }
+    });
+
+    // Add base price sales
+    if (product.basePriceSales && product.basePriceSales.qty > 0) {
+      gradeBreakdown.push(`ມາດຕະຖານ(${product.basePriceSales.qty})`);
+    }
+
+    // Add gifts with special formatting
+    if (product.gifts && product.gifts.qty > 0) {
+      const giftSavings = product.gifts.originalValue - product.gifts.revenue;
+      gradeBreakdown.push(`ຂອງຂວັນ(${product.gifts.qty}☆${formatNumber(giftSavings)})`);
+    }
+    const gradeBreakdownText = gradeBreakdown.join(', ') || 'ບໍ່ມີຂໍ້ມູນ';
+    return `
+      <div class="product-item">
+        <div class="product-rank">#${index + 1}</div>
+        <div class="product-info">
+          <div class="product-name">${(product.productName || 'Unknown Product').substring(0, 25)}</div>
+          <div class="product-id">ID: ${product.productId}</div>
+          <div class="product-breakdown">${gradeBreakdownText}</div>
+        </div>
+        <div class="product-stats">
+          <div class="total-qty">${formatNumber(product.totalQty)} ຊິ້ນ</div>
+          <div class="total-revenue">${formatNumber(product.totalRevenue)} LAK</div>
+          <div class="avg-price">@ ${formatNumber(product.totalRevenue / product.totalQty)}/ຊິ້ນ</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="products-section">
+      <div class="products-title">ສິນຄ້າຂາຍດີ TOP ${limit}</div>
+      ${productItems}
+    </div>
+  `;
+};
+
+/**
+ * Generate payment breakdown section
+ */
+const generatePaymentBreakdownSection = (paymentStats, formatNumber) => {
+  if (!paymentStats || paymentStats.length === 0) {
+    return '<div class="no-data">ບໍ່ມີຂໍ້ມູນການຊຳລະ</div>';
+  }
+
+  // FIXED: Handle both legacy format and new format
+  const paymentItems = paymentStats.map(stat => {
+    // Handle different stat object structures
+    const code = stat.code || stat.payment_code || 'UNKNOWN';
+    const name = stat.name || stat.payment_name || 'Unknown';
+    const amount = stat.amount || 0;
+    const count = stat.count || 0;
+    const percentage = stat.percentage || 0;
+    return `
+      <div class="payment-item">
+        <div class="payment-method">${name} (${code})</div>
+        <div class="payment-details">
+          <span class="amount">${formatNumber(amount)} LAK</span>
+          <span class="count">(${count} ລາຍການ)</span>
+          <span class="percentage">${percentage.toFixed(1)}%</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="payment-section">
+      <div class="payment-title">ແຍກຕາມວິທີການຊຳລະ</div>
+      ${paymentItems}
+    </div>
+  `;
+};
+
+/**
+ * Generate footer section
+ */
+const generateFooterSection = user => {
+  const userName = (user === null || user === void 0 ? void 0 : user.cus_name) || 'System';
+  const printTime = formatDateLao(new Date());
+  return `
+    <div class="footer-section">
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
+      <div class="footer-info">
+        <div class="print-info">ພິມເມື່ອ: ${printTime}</div>
+        <div class="user-info">ພິມໂດຍ: ${userName}</div>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Generate complete enhanced sales report HTML
+ */
+const generateEnhancedSalesReportHTML = reportData => {
+  const {
+    companyData,
+    companyLogo,
+    fromDate,
+    toDate,
+    terminalInfo,
+    summaryData,
+    gradeData,
+    productSummary,
+    paymentStats,
+    formatNumber,
+    user
+  } = reportData;
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>ລາຍງານການຂາຍລະອຽດ</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
+        
+        body {
+          font-family: 'Noto Sans Lao', 'Arial', sans-serif;
+          margin: 0;
+          padding: 8px;
+          font-size: 10px;
+          line-height: 1.1;
+          color: #000;
+          width: 80mm;
+          max-width: 80mm;
+        }
+        
+        .header-section {
+          margin-bottom: 8px;
+        }
+        
+        .header-content {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+        }
+        
+        .header-left {
+          flex: 0 0 auto;
+        }
+        
+        .header-right {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .logo-placeholder {
+          width: 40px;
+          height: 40px;
+          background: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          font-size: 10px;
+          font-weight: bold;
+        }
+        
+        .company-name {
+          font-weight: 600;
+          font-size: 12px;
+          margin-bottom: 2px;
+        }
+        
+        .company-tel {
+          font-size: 9px;
+          color: #666;
+        }
+        
+        .date-range-section {
+          text-align: center;
+          margin-bottom: 8px;
+          padding: 4px;
+          border: 1px solid #ddd;
+        }
+        
+        .section-title {
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+        
+        .date-info {
+          font-size: 9px;
+        }
+        
+        .date-line, .terminal-line {
+          margin-bottom: 1px;
+        }
+        
+        .summary-section {
+          margin-bottom: 8px;
+        }
+        
+        .summary-title, .grade-title, .products-title, .payment-title {
+          font-size: 11px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          text-align: center;
+          background: #f5f5f5;
+          padding: 2px;
+        }
+        
+        .summary-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1px;
+          padding: 1px 0;
+          font-size: 9px;
+        }
+        
+        .summary-item.total {
+          font-weight: 600;
+          border-top: 1px solid #000;
+          border-bottom: 1px solid #000;
+          padding: 2px 0;
+          margin: 3px 0;
+        }
+        
+        .label {
+          flex: 1;
+          font-weight: 500;
+        }
+        
+        .value {
+          font-weight: 600;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        .grade-section, .products-section, .payment-section {
+          margin-bottom: 8px;
+        }
+        
+        .grade-item {
+          margin-bottom: 4px;
+          padding: 3px;
+          border: 1px solid #eee;
+          background: #fafafa;
+        }
+        
+        .grade-header {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2px;
+        }
+        
+        .grade-badge {
+          font-size: 9px;
+          font-weight: 600;
+          padding: 1px 4px;
+          border-radius: 2px;
+        }
+        
+        .grade-badge.grade-a { background: #9c27b0; color: white; }
+        .grade-badge.grade-b { background: #2196f3; color: white; }
+        .grade-badge.grade-c { background: #ff9800; color: white; }
+        .grade-badge.grade-d { background: #f44336; color: white; }
+        .grade-badge.grade-e { background: #e91e63; color: white; }
+        .grade-badge.grade-f { background: #9e9e9e; color: white; }
+        .grade-badge.base { background: #4caf50; color: white; }
+        .grade-badge.gift { background: #ffc107; color: black; }
+        
+        .grade-count {
+          font-size: 9px;
+          font-weight: 600;
+        }
+        
+        .grade-details {
+          font-size: 8px;
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
+        
+        .revenue {
+          font-weight: 600;
+          color: #4caf50;
+        }
+        
+        .avg-price {
+          color: #666;
+        }
+        
+        .order-count {
+          color: #2196f3;
+        }
+        
+        .gift-item .grade-details {
+          flex-direction: column;
+        }
+        
+        .original-value {
+          color: #ff9800;
+          font-weight: 500;
+        }
+        
+        .savings {
+          color: #f44336;
+          font-weight: 600;
+        }
+        
+        .product-item {
+          margin-bottom: 4px;
+          padding: 3px;
+          border: 1px solid #ddd;
+          display: flex;
+          gap: 4px;
+        }
+        
+        .product-rank {
+          font-size: 9px;
+          font-weight: 600;
+          color: #666;
+          min-width: 20px;
+        }
+        
+        .product-info {
+          flex: 1;
+          font-size: 8px;
+        }
+        
+        .product-name {
+          font-weight: 600;
+          margin-bottom: 1px;
+        }
+        
+        .product-id {
+          color: #666;
+          margin-bottom: 1px;
+        }
+        
+        .product-breakdown {
+          color: #333;
+          font-style: italic;
+        }
+        
+        .product-stats {
+          text-align: right;
+          font-size: 8px;
+          min-width: 60px;
+        }
+        
+        .total-qty {
+          font-weight: 600;
+          color: #2196f3;
+        }
+        
+        .total-revenue {
+          font-weight: 600;
+          color: #4caf50;
+        }
+        
+        .avg-price {
+          color: #666;
+        }
+        
+        .payment-item {
+          margin-bottom: 3px;
+          padding: 2px;
+          border: 1px solid #eee;
+        }
+        
+        .payment-method {
+          font-weight: 600;
+          font-size: 10px;
+          margin-bottom: 1px;
+        }
+        
+        .payment-details {
+          display: flex;
+          justify-content: space-between;
+          font-size: 8px;
+        }
+        
+        .amount {
+          font-weight: 600;
+          color: #4caf50;
+        }
+        
+        .count {
+          color: #666;
+        }
+        
+        .percentage {
+          font-weight: 500;
+          color: #2196f3;
+        }
+        
+        .divider {
+          text-align: center;
+          margin: 6px 0;
+          font-size: 8px;
+          color: #999;
+        }
+        
+        .footer-section {
+          margin-top: 8px;
+        }
+        
+        .footer-info {
+          text-align: center;
+          font-size: 8px;
+          color: #666;
+        }
+        
+        .print-info, .user-info {
+          margin-bottom: 1px;
+        }
+        
+        .no-data {
+          text-align: center;
+          color: #999;
+          font-style: italic;
+          margin: 10px 0;
+          font-size: 9px;
+        }
+        
+        @media print {
+          body { 
+            margin: 0; 
+            padding: 4px;
+            width: auto;
+            max-width: none;
+          }
+          .no-print { 
+            display: none; 
+          }
+        }
+        
+        @page {
+          margin: 0;
+          size: 80mm auto;
+        }
+      </style>
+    </head>
+    <body>
+      ${generateCompanyHeader(companyData, companyLogo)}
+      ${generateDateRangeSection(fromDate, toDate, terminalInfo)}
+      ${generateSummarySection(summaryData, formatNumber)}
+      ${generateGradeBreakdownSection(gradeData, formatNumber)}
+      ${generateTopProductsSection(productSummary, formatNumber, 15)}
+      ${generatePaymentBreakdownSection(paymentStats, formatNumber)}
+      ${generateFooterSection(user)}
+    </body>
+    </html>
+  `;
+};
+
+/**
+ * Print the enhanced sales report
+ */
+const printEnhancedSalesReport = windowContent => {
+  try {
+    const windowWidth = 450;
+    const windowHeight = 700;
+    const printWin = window.open('', '', `left=0,top=0,width=${windowWidth},height=${windowHeight},toolbar=0,scrollbars=1,status=0`);
+    if (!printWin) {
+      throw new Error('Unable to open print window. Please check popup blockers.');
+    }
+    printWin.document.open();
+    printWin.document.write(windowContent);
+    printWin.document.close();
+    printWin.onload = () => {
+      setTimeout(() => {
+        printWin.print();
+        printWin.close();
+      }, 800);
+    };
+    setTimeout(() => {
+      if (!printWin.closed) {
+        printWin.print();
+        printWin.close();
+      }
+    }, 2000);
+  } catch (error) {
+    console.error('Error printing enhanced sales report:', error);
+    alert('Error printing sales report. Please try again.');
+  }
+};
+
+/**
+ * Main function to generate and print enhanced sales report with detailed breakdown
+ */
+const printEnhancedSalesReportSummary = params => {
+  const {
+    orderHeaderList = [],
+    paymentStatistics = [],
+    // FIXED: This should receive the computed paymentStatistics
+    filteredOrderHeaderList = [],
+    fromDate,
+    toDate,
+    terminalInfo = null,
+    companyData = {},
+    companyLogo = '',
+    formatNumber,
+    user = {},
+    singlePaymentCount = 0,
+    multiPaymentCount = 0,
+    // Grade and product data
+    gradeSummary = {},
+    basePriceSummary = {},
+    giftSummary = {},
+    productSummary = []
+  } = params;
+  console.log('🖨️ Generating enhanced sales report with product details for 80mm printer');
+  console.log('📊 Payment statistics received:', paymentStatistics);
+  console.log('🔢 Single payments:', singlePaymentCount, 'Multi payments:', multiPaymentCount);
+  try {
+    // FIXED: Better total calculation
+    const totalSales = filteredOrderHeaderList.reduce((total, item) => {
+      return total + safeParseNumber(item.total, 0);
+    }, 0);
+    const totalDiscount = filteredOrderHeaderList.reduce((total, item) => {
+      return total + safeParseNumber(item.discount, 0);
+    }, 0);
+    const netSales = totalSales - totalDiscount;
+    const totalTransactions = filteredOrderHeaderList.length;
+
+    // Calculate total products sold - CORRECTED
+    const totalProducts = Object.values(gradeSummary).reduce((sum, grade) => sum + (grade.qty || 0), 0) + (basePriceSummary.qty || 0) + (giftSummary.qty || 0);
+
+    // Enhanced summary data
+    const summaryData = {
+      totalTransactions,
+      totalSales,
+      totalDiscount,
+      netSales,
+      singlePaymentCount,
+      multiPaymentCount,
+      totalProducts,
+      totalGiftQty: giftSummary.qty || 0,
+      totalGiftValue: giftSummary.originalValue || 0,
+      totalGiftSavings: (giftSummary.originalValue || 0) - (giftSummary.revenue || 0)
+    };
+
+    // Prepare grade data for detailed breakdown
+    const gradeData = {
+      ...gradeSummary,
+      basePriceSales: basePriceSummary,
+      gifts: giftSummary
+    };
+    const reportData = {
+      companyData,
+      companyLogo,
+      fromDate,
+      toDate,
+      terminalInfo,
+      summaryData,
+      gradeData,
+      productSummary,
+      paymentStats: paymentStatistics,
+      // FIXED: Pass the payment statistics correctly
+      formatNumber,
+      user
+    };
+    console.log('📄 Report data prepared:', {
+      totalTransactions: summaryData.totalTransactions,
+      totalSales: summaryData.totalSales,
+      paymentStatsCount: paymentStatistics.length,
+      gradeDataKeys: Object.keys(gradeData),
+      productCount: productSummary.length
+    });
+    const enhancedSalesReportHTML = generateEnhancedSalesReportHTML(reportData);
+    printEnhancedSalesReport(enhancedSalesReportHTML);
+  } catch (error) {
+    console.error('Error generating enhanced sales report:', error);
+    alert('Error generating enhanced sales report. Please try again.');
+  }
+};
+
+/**
+ * Export helper function for date formatting
+ */
+const formatDateForReport = formatDateLao;
 // EXTERNAL MODULE: ./components/pos/dialogs/TicketDetailsDialog.vue + 4 modules
 var TicketDetailsDialog = __webpack_require__(602);
 
@@ -1175,9 +1983,10 @@ var external_vuex_ = __webpack_require__(14);
 
 
 
+
 /* harmony default export */ var ordersFromPosGradevue_type_script_lang_js = ({
   components: {
-    TicketDetailsDialog: TicketDetailsDialog["default"] // NEW: Add TicketDetailsDialog component
+    TicketDetailsDialog: TicketDetailsDialog["default"]
   },
   middleware: 'auths',
   data() {
@@ -1188,15 +1997,13 @@ var external_vuex_ = __webpack_require__(14);
       salesData: [],
       productSummary: [],
       priceListData: [],
-      // Store price list data
-
-      // NEW: TicketDetailsDialog integration
+      // TicketDetailsDialog integration
       ticketDetailsDialog: false,
       selectedTicketForDetails: null,
       transactionsDialog: false,
       selectedProductForTransactions: null,
       sampleTransactions: [],
-      // Grade filters - ENHANCED with Gift and Base Price filters
+      // Grade filters
       selectedGradeFilter: null,
       gradeFilterOptions: [{
         label: 'ທັງໝົດ',
@@ -1222,13 +2029,10 @@ var external_vuex_ = __webpack_require__(14);
       }, {
         label: 'ລາຄາມາດຕະຖານ',
         value: 'BASE'
-      },
-      // NEW: Base Price filter
-      {
+      }, {
         label: 'ຂອງຂວັນ',
         value: 'GIFT'
-      } // Gift filter
-      ],
+      }],
       gradeSummary: {
         A: {
           qty: 0,
@@ -1261,23 +2065,18 @@ var external_vuex_ = __webpack_require__(14);
           orderCount: 0
         }
       },
-      // NEW: Base Price Summary (priceListId = null)
       basePriceSummary: {
         qty: 0,
         revenue: 0,
         orderCount: 0
       },
-      // NEW: Gift Summary
       giftSummary: {
         qty: 0,
         revenue: 0,
-        // Actual revenue from gifts (may not be 0)
         originalValue: 0,
-        // What the gifts would have cost at base price
         orderCount: 0,
         percentage: 0
       },
-      // ENHANCED headers with Gift column and Base Price column
       headers: [{
         text: 'ສິນຄ້າ',
         align: 'left',
@@ -1339,7 +2138,6 @@ var external_vuex_ = __webpack_require__(14);
         value: 'totalRevenue',
         sortable: true
       }],
-      // NEW: Transaction dialog headers
       transactionHeaders: [{
         text: 'ເລກບິນ',
         value: 'ticketId',
@@ -1363,9 +2161,9 @@ var external_vuex_ = __webpack_require__(14);
         align: 'center',
         sortable: false
       }],
-      fromDate: Object(common["d" /* getFirstDayOfMonth */])(),
+      fromDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      fromDateLabel: this.formatDate(Object(common["d" /* getFirstDayOfMonth */])()),
+      fromDateLabel: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       toDateLabel: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       menu1: false,
       menu2: false
@@ -1387,8 +2185,9 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   computed: {
-    ...Object(external_vuex_["mapGetters"])(['findAllProduct', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation']),
-    // NEW: Company logo for TicketDetailsDialog
+    // FIXED: Added missing payment getter
+    ...Object(external_vuex_["mapGetters"])(['findAllProduct', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation', 'findAllPayment' // FIXED: This was missing
+    ]),
     companyLogo() {
       const company = Object(api["b" /* mainCompanyInfo */])();
       if (company.apiData && company.apiData.profile_image_path) {
@@ -1397,7 +2196,6 @@ var external_vuex_ = __webpack_require__(14);
       }
       return '/static/images/default-logo.png';
     },
-    // NEW: Ticket configuration for TicketDetailsDialog
     ticketCommon() {
       return Object(common["m" /* ticketHtml */])();
     },
@@ -1420,7 +2218,94 @@ var external_vuex_ = __webpack_require__(14);
       }
       return this.salesData.filter(el => el['locationId'] == terminal['locationId'] && el.isActive === true);
     },
-    // ENHANCED: Gift and Base Price filtering support
+    // FIXED: Payment Statistics with corrected logic
+    paymentStatistics() {
+      const stats = {};
+      let totalAmount = 0;
+      this.filteredSalesData.forEach(sale => {
+        const itemTotal = sale.total - (sale.discount || 0);
+
+        // Multi-payment check
+        if (sale.payments && Array.isArray(sale.payments) && sale.payments.length > 1) {
+          sale.payments.forEach(payment => {
+            var _payment$paymentMetho;
+            const code = ((_payment$paymentMetho = payment.paymentMethod) === null || _payment$paymentMetho === void 0 ? void 0 : _payment$paymentMetho.payment_code) || 'UNKNOWN';
+            const amount = payment.amount || 0;
+            if (!stats[code]) {
+              var _payment$paymentMetho2;
+              stats[code] = {
+                code: code,
+                name: ((_payment$paymentMetho2 = payment.paymentMethod) === null || _payment$paymentMetho2 === void 0 ? void 0 : _payment$paymentMetho2.payment_name) || 'Unknown',
+                amount: 0,
+                count: 0,
+                color: this.getPaymentColor(code),
+                icon: this.getPaymentIcon(code)
+              };
+            }
+            stats[code].amount += amount;
+            stats[code].count += 1;
+            totalAmount += amount;
+          });
+        }
+        // Single payment using payment object
+        else if (sale.payment && sale.paymentId) {
+          const code = sale.payment.payment_code;
+          const name = sale.payment.payment_name;
+          if (!stats[code]) {
+            stats[code] = {
+              code: code,
+              name: name,
+              amount: 0,
+              count: 0,
+              color: this.getPaymentColor(code),
+              icon: this.getPaymentIcon(code)
+            };
+          }
+          stats[code].amount += itemTotal;
+          stats[code].count += 1;
+          totalAmount += itemTotal;
+        }
+        // Fallback: lookup from store
+        else if (sale.paymentId && this.findAllPayment) {
+          const paymentMethod = this.findAllPayment.find(p => p.id === sale.paymentId);
+          if (paymentMethod) {
+            const code = paymentMethod.payment_code;
+            const name = paymentMethod.payment_name;
+            if (!stats[code]) {
+              stats[code] = {
+                code: code,
+                name: name,
+                amount: 0,
+                count: 0,
+                color: this.getPaymentColor(code),
+                icon: this.getPaymentIcon(code)
+              };
+            }
+            stats[code].amount += itemTotal;
+            stats[code].count += 1;
+            totalAmount += itemTotal;
+          }
+        }
+      });
+
+      // Calculate percentages
+      Object.values(stats).forEach(stat => {
+        stat.percentage = totalAmount > 0 ? stat.amount / totalAmount * 100 : 0;
+      });
+      return Object.values(stats).sort((a, b) => b.amount - a.amount);
+    },
+    singlePaymentCount() {
+      return this.filteredSalesData.filter(sale => {
+        const hasMultiPayments = sale.payments && Array.isArray(sale.payments) && sale.payments.length > 1;
+        return !hasMultiPayments;
+      }).length;
+    },
+    multiPaymentCount() {
+      return this.filteredSalesData.filter(sale => {
+        const hasMultiPayments = sale.payments && Array.isArray(sale.payments) && sale.payments.length > 1;
+        return hasMultiPayments;
+      }).length;
+    },
     filteredProductSummary() {
       if (!this.selectedGradeFilter) {
         return this.productSummary;
@@ -1453,16 +2338,13 @@ var external_vuex_ = __webpack_require__(14);
       });
       return stats;
     },
-    // CORRECTED: Include gift revenue in total
     totalRevenue() {
       const gradeRevenue = Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.revenue, 0);
-      // IMPORTANT: Include actual gift revenue in total revenue
       return gradeRevenue + this.basePriceSummary.revenue + this.giftSummary.revenue;
     },
     totalQuantity() {
       return Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.qty, 0) + this.basePriceSummary.qty + this.giftSummary.qty;
     },
-    // Base price percentage
     basePricePercentage() {
       return this.totalRevenue > 0 ? this.basePriceSummary.revenue / this.totalRevenue * 100 : 0;
     },
@@ -1472,12 +2354,10 @@ var external_vuex_ = __webpack_require__(14);
     averageOrderValue() {
       return this.totalOrders > 0 ? this.totalRevenue / this.totalOrders : 0;
     },
-    // Gift percentage
     giftPercentage() {
       const totalItems = this.totalQuantity;
       return totalItems > 0 ? this.giftSummary.qty / totalItems * 100 : 0;
     },
-    // NEW: Additional computed properties for gift analysis
     totalCustomerSavings() {
       return this.giftSummary.originalValue - this.giftSummary.revenue;
     },
@@ -1489,12 +2369,81 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
-    // NEW: TicketDetailsDialog integration methods
+    // FIXED: Helper functions for payment processing
+    getPaymentColor(paymentCode) {
+      const colorMap = {
+        'CASH': 'green',
+        'QR': 'purple',
+        'TRANSFER': 'blue',
+        'TRANSFER_BCEL': 'blue',
+        'BCEL': 'blue',
+        'BCEL_TRANSFER': 'blue',
+        'COD': 'orange',
+        'CREDIT': 'red',
+        'CREDIT_CARD': 'red',
+        'DEBIT_CARD': 'indigo',
+        'CARD': 'indigo',
+        'BANK': 'teal',
+        'BANK_TRANSFER': 'teal',
+        'MOBILE': 'pink',
+        'MOBILE_MONEY': 'pink',
+        'WALLET': 'amber',
+        'DIGITAL_WALLET': 'amber'
+      };
+      if (colorMap[paymentCode]) {
+        return colorMap[paymentCode];
+      }
+      const code = paymentCode.toUpperCase();
+      if (code.includes('CASH') || code.includes('MONEY')) return 'green';
+      if (code.includes('QR') || code.includes('SCAN')) return 'purple';
+      if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'blue';
+      if (code.includes('CARD') || code.includes('CREDIT') || code.includes('DEBIT')) return 'indigo';
+      if (code.includes('COD') || code.includes('DELIVERY')) return 'orange';
+      if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink';
+      if (code.includes('WALLET')) return 'amber';
+      return 'primary';
+    },
+    getPaymentIcon(paymentCode) {
+      const iconMap = {
+        'CASH': 'mdi-cash',
+        'QR': 'mdi-qrcode',
+        'TRANSFER': 'mdi-bank-transfer',
+        'TRANSFER_BCEL': 'mdi-bank-transfer',
+        'BCEL': 'mdi-bank',
+        'BCEL_TRANSFER': 'mdi-bank-transfer',
+        'COD': 'mdi-truck-delivery',
+        'CREDIT': 'mdi-credit-card-outline',
+        'CREDIT_CARD': 'mdi-credit-card',
+        'DEBIT_CARD': 'mdi-credit-card-outline',
+        'CARD': 'mdi-credit-card',
+        'BANK': 'mdi-bank',
+        'BANK_TRANSFER': 'mdi-bank-transfer',
+        'MOBILE': 'mdi-cellphone',
+        'MOBILE_MONEY': 'mdi-cellphone-wireless',
+        'WALLET': 'mdi-wallet',
+        'DIGITAL_WALLET': 'mdi-wallet-outline'
+      };
+      if (iconMap[paymentCode]) {
+        return iconMap[paymentCode];
+      }
+      const code = paymentCode.toUpperCase();
+      if (code.includes('CASH') || code.includes('MONEY')) return 'mdi-cash';
+      if (code.includes('QR') || code.includes('SCAN')) return 'mdi-qrcode';
+      if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'mdi-bank-transfer';
+      if (code.includes('CARD') || code.includes('CREDIT') || code.includes('DEBIT')) return 'mdi-credit-card';
+      if (code.includes('COD') || code.includes('DELIVERY')) return 'mdi-truck-delivery';
+      if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone';
+      if (code.includes('WALLET')) return 'mdi-wallet';
+      return 'mdi-cash-multiple';
+    },
+    isMultiPayment(item) {
+      return item.payments && Array.isArray(item.payments) && item.payments.length > 1;
+    },
+    // TicketDetailsDialog methods
     showTicketDetails(transaction) {
       this.selectedTicketForDetails = transaction;
       this.ticketDetailsDialog = true;
-      this.transactionsDialog = false; // Close transactions dialog
-      console.info('SELECTED TRANSACTION DETAILS:', JSON.stringify(transaction));
+      this.transactionsDialog = false;
     },
     onTicketDialogClose() {
       this.ticketDetailsDialog = false;
@@ -1506,22 +2455,21 @@ var external_vuex_ = __webpack_require__(14);
     onPrintPaymentDetails(ticketData) {
       console.log('Payment details printed for transaction:', ticketData.id);
     },
-    // NEW: Transaction viewing methods
+    // Transaction methods
     showSampleTransactions() {
-      this.sampleTransactions = this.filteredSalesData.slice(0, 50); // Show first 50 transactions
+      this.sampleTransactions = this.filteredSalesData.slice(0, 50);
       this.selectedProductForTransactions = null;
       this.transactionsDialog = true;
     },
     showProductTransactions(product) {
-      // Find transactions that contain this specific product
       const productTransactions = this.filteredSalesData.filter(sale => {
         return sale.lines && sale.lines.some(line => line.productId === product.productId);
       });
-      this.sampleTransactions = productTransactions.slice(0, 20); // Show first 20 transactions for this product
+      this.sampleTransactions = productTransactions.slice(0, 20);
       this.selectedProductForTransactions = product;
       this.transactionsDialog = true;
     },
-    // ENHANCED: Gift filtering support
+    // Filter methods
     filterByGrade(grade) {
       if (this.selectedGradeFilter === grade) {
         this.clearGradeFilter();
@@ -1536,7 +2484,7 @@ var external_vuex_ = __webpack_require__(14);
     clearGradeFilter() {
       this.selectedGradeFilter = null;
     },
-    // Load Price List Data
+    // Data loading methods
     async loadPriceList() {
       try {
         const response = await this.$axios.get('/api/priceList/find');
@@ -1558,12 +2506,8 @@ var external_vuex_ = __webpack_require__(14);
             date
           }
         });
-
-        // this.salesData = response.data.isActive=true
         this.salesData = response.data.filter(sale => sale.isActive === true);
         this.processSalesData();
-
-        // Debug after processing
         this.$nextTick(() => {
           this.debugGiftData();
         });
@@ -1574,8 +2518,10 @@ var external_vuex_ = __webpack_require__(14);
         this.isloading = false;
       }
     },
-    // CORRECTED: Process sales data with proper gift handling
+    // Sales data processing - keeping your existing logic
     processSalesData() {
+      // [Your existing processSalesData method - unchanged]
+      // This method is correct as written in your original code
       // Reset summaries
       this.productSummary = [];
       this.gradeSummary = {
@@ -1618,9 +2564,7 @@ var external_vuex_ = __webpack_require__(14);
       this.giftSummary = {
         qty: 0,
         revenue: 0,
-        // Actual revenue from gifts
         originalValue: 0,
-        // What gifts would have cost at base price
         orderCount: 0,
         percentage: 0
       };
@@ -1628,13 +2572,9 @@ var external_vuex_ = __webpack_require__(14);
       const gradeOrderCount = {};
       const basePriceOrderCount = new Set();
       const giftOrderCount = new Set();
-      console.log('📊 Processing sales data with proper gift handling...');
-      console.log('📝 Total sales to process:', this.filteredSalesData.length);
-      this.filteredSalesData.forEach((sale, saleIndex) => {
-        var _sale$lines, _sale$lines2;
-        console.log(`\n🏪 Sale ${saleIndex + 1} (ID: ${sale.id}):`);
-        console.log(`   📦 Lines: ${((_sale$lines = sale.lines) === null || _sale$lines === void 0 ? void 0 : _sale$lines.length) || 0}`);
-        (_sale$lines2 = sale.lines) === null || _sale$lines2 === void 0 ? void 0 : _sale$lines2.forEach((line, lineIndex) => {
+      this.filteredSalesData.forEach(sale => {
+        var _sale$lines;
+        (_sale$lines = sale.lines) === null || _sale$lines === void 0 ? void 0 : _sale$lines.forEach(line => {
           var _line$product, _line$product2;
           const productId = line.productId;
           const productName = ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product';
@@ -1643,14 +2583,6 @@ var external_vuex_ = __webpack_require__(14);
           const revenue = line.total || 0;
           const priceListId = line.priceListId;
           const isGift = line.isGift === true;
-          console.log(`     📋 Line ${lineIndex + 1}: ${productName}`);
-          console.log(`        🎁 isGift: ${isGift}`);
-          console.log(`        📊 Quantity: ${quantity}`);
-          console.log(`        💰 Revenue: ${revenue}`);
-          console.log(`        🏷️ Base Price: ${basePrice}`);
-          console.log(`        🔗 PriceListId: ${priceListId}`);
-
-          // Initialize product if not exists
           if (!productMap.has(productId)) {
             productMap.set(productId, {
               productId,
@@ -1703,116 +2635,68 @@ var external_vuex_ = __webpack_require__(14);
               gifts: {
                 qty: 0,
                 revenue: 0,
-                // Actual gift revenue
-                originalValue: 0 // What it would have cost at base price
+                originalValue: 0
               },
               totalQty: 0,
               totalRevenue: 0
             });
-            console.log(`        ✨ Created new product entry for: ${productName}`);
           }
           const product = productMap.get(productId);
-
-          // GIFT HANDLING - PRIORITY #1 (regardless of priceListId)
           if (isGift) {
-            console.log(`        🎁 PROCESSING AS GIFT`);
-
-            // ALL gifts go to gift summary regardless of pricing
             product.gifts.qty += quantity;
-            product.gifts.revenue += revenue; // Actual revenue from gift
-            product.gifts.originalValue += quantity * basePrice; // What it would have cost at full price
-
-            // Add to global gift summary
+            product.gifts.revenue += revenue;
+            product.gifts.originalValue += quantity * basePrice;
             this.giftSummary.qty += quantity;
             this.giftSummary.revenue += revenue;
             this.giftSummary.originalValue += quantity * basePrice;
-
-            // Track gift orders
             giftOrderCount.add(sale.id);
-            console.log(`        ✅ Gift processed:`);
-            console.log(`           📦 Qty: ${quantity}`);
-            console.log(`           💰 Actual Revenue: ${revenue}`);
-            console.log(`           💎 Original Value: ${quantity * basePrice}`);
-            console.log(`           💸 Savings: ${quantity * basePrice - revenue}`);
           } else {
-            // REGULAR SALES HANDLING - Only for non-gifts
-            console.log(`        💼 PROCESSING AS REGULAR SALE`);
             let saleType = 'UNKNOWN';
             let appliedGrade = null;
             const unitPrice = line.price || (quantity > 0 ? revenue / quantity : 0);
-
-            // Classification logic for regular sales
             if (priceListId === null || priceListId === undefined) {
-              // CASE 1: No priceListId → Base/Standard Price
               saleType = 'BASE_PRICE';
-              console.log(`           💰 priceListId = null → STANDARD PRICE`);
             } else {
-              // CASE 2: Has priceListId → Check if valid grade pricing
               const priceListEntry = this.priceListData.find(pl => pl.id === priceListId);
               if (priceListEntry && priceListEntry.grade) {
                 appliedGrade = priceListEntry.grade;
                 saleType = 'GRADE_BASED';
-                console.log(`           🎯 priceListId = ${priceListId} → GRADE ${appliedGrade}`);
-
-                // Track in grade summary
                 if (appliedGrade in product.grades) {
                   product.grades[appliedGrade].qty += quantity;
                   product.grades[appliedGrade].revenue += revenue;
-
-                  // Calculate weighted average price
                   const currentCount = product.grades[appliedGrade].count;
                   const currentAvgPrice = product.grades[appliedGrade].priceUsed;
                   product.grades[appliedGrade].priceUsed = (currentAvgPrice * currentCount + unitPrice) / (currentCount + 1);
                   product.grades[appliedGrade].count += 1;
                 }
-
-                // Track unique orders per grade
                 if (!gradeOrderCount[appliedGrade]) {
                   gradeOrderCount[appliedGrade] = new Set();
                 }
                 gradeOrderCount[appliedGrade].add(sale.id);
-
-                // Add to grade summary
                 if (appliedGrade in this.gradeSummary) {
                   this.gradeSummary[appliedGrade].qty += quantity;
                   this.gradeSummary[appliedGrade].revenue += revenue;
                 }
               } else {
-                // Price list ID exists but not found → treat as standard price
-                console.log(`           ⚠️ priceListId = ${priceListId} NOT FOUND → STANDARD PRICE`);
                 saleType = 'BASE_PRICE';
               }
             }
-
-            // Handle standard/base price sales
             if (saleType === 'BASE_PRICE') {
               product.basePriceSales.qty += quantity;
               product.basePriceSales.revenue += revenue;
-
-              // Calculate weighted average price
               const currentCount = product.basePriceSales.count;
               const currentAvgPrice = product.basePriceSales.priceUsed;
               product.basePriceSales.priceUsed = (currentAvgPrice * currentCount + unitPrice) / (currentCount + 1);
               product.basePriceSales.count += 1;
-
-              // Track base price summary
               this.basePriceSummary.qty += quantity;
               this.basePriceSummary.revenue += revenue;
-
-              // Track base price orders
               basePriceOrderCount.add(sale.id);
-              console.log(`           ✅ ADDED TO STANDARD PRICE: ${quantity} qty, ${revenue} revenue`);
             }
-            console.log(`           🏁 FINAL: ${saleType} | Grade: ${appliedGrade || 'Standard Price'}`);
           }
-
-          // Update product totals (both gifts and regular sales count toward revenue)
           product.totalQty += quantity;
-          product.totalRevenue += revenue; // Include ALL revenue (gifts + regular sales)
+          product.totalRevenue += revenue;
         });
       });
-
-      // Set order counts for each category
       Object.keys(gradeOrderCount).forEach(grade => {
         if (gradeOrderCount[grade]) {
           this.gradeSummary[grade].orderCount = gradeOrderCount[grade].size;
@@ -1820,37 +2704,58 @@ var external_vuex_ = __webpack_require__(14);
       });
       this.basePriceSummary.orderCount = basePriceOrderCount.size;
       this.giftSummary.orderCount = giftOrderCount.size;
-
-      // Calculate gift percentage
       const totalRegularQty = Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.qty, 0);
       const totalItems = totalRegularQty + this.basePriceSummary.qty + this.giftSummary.qty;
       this.giftSummary.percentage = totalItems > 0 ? this.giftSummary.qty / totalItems * 100 : 0;
-
-      // Convert product map to array and sort by revenue
       this.productSummary = Array.from(productMap.values()).sort((a, b) => b.totalRevenue - a.totalRevenue);
-
-      // FINAL SUMMARY LOGGING
-      console.log('\n📈 PROCESSING COMPLETE - FINAL RESULTS:');
-      console.log('┌─────────────────────────────────────┐');
-      console.log('│          REVENUE BREAKDOWN          │');
-      console.log('├─────────────────────────────────────┤');
-      Object.entries(this.gradeSummary).forEach(([grade, data]) => {
-        if (data.qty > 0) {
-          console.log(`│ Grade ${grade}: ${data.qty.toString().padEnd(8)} qty │ ${data.revenue.toLocaleString().padStart(12)} LAK │`);
-        }
-      });
-      console.log('├─────────────────────────────────────┤');
-      console.log(`│ Standard:   ${this.basePriceSummary.qty.toString().padEnd(8)} qty │ ${this.basePriceSummary.revenue.toLocaleString().padStart(12)} LAK │`);
-      console.log(`│ Gift Rev:   ${this.giftSummary.qty.toString().padEnd(8)} qty │ ${this.giftSummary.revenue.toLocaleString().padStart(12)} LAK │`);
-      console.log(`│ Gift Value: ${this.giftSummary.qty.toString().padEnd(8)} qty │ ${this.giftSummary.originalValue.toLocaleString().padStart(12)} LAK │`);
-      console.log('└─────────────────────────────────────┘');
-      const totalCalculatedRevenue = Object.values(this.gradeSummary).reduce((sum, grade) => sum + grade.revenue, 0) + this.basePriceSummary.revenue + this.giftSummary.revenue; // Include actual gift revenue in total
-
-      console.log(`💰 Total Revenue (including gift revenue): ${totalCalculatedRevenue.toLocaleString()} LAK`);
-      console.log(`💎 Total Gift Original Value: ${this.giftSummary.originalValue.toLocaleString()} LAK`);
-      console.log(`💸 Total Customer Savings from Gifts: ${(this.giftSummary.originalValue - this.giftSummary.revenue).toLocaleString()} LAK`);
-      console.log(`📦 Total Products: ${this.productSummary.length}`);
     },
+    // ENHANCED: Print Report with complete payment statistics
+    printReport() {
+      try {
+        var _mainCompanyInfo;
+        console.log('🖨️ Printing enhanced sales report with product details and payment statistics...');
+        const terminalInfo = this.terminalId === 999 ? {
+          name: 'ທັງໝົດ',
+          id: 999
+        } : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
+        const companyData = ((_mainCompanyInfo = Object(api["b" /* mainCompanyInfo */])()) === null || _mainCompanyInfo === void 0 ? void 0 : _mainCompanyInfo.apiData) || Object(api["b" /* mainCompanyInfo */])() || {};
+
+        // FIXED: Pass all required data to printer
+        printEnhancedSalesReportSummary({
+          orderHeaderList: this.salesData,
+          filteredOrderHeaderList: this.filteredSalesData,
+          fromDate: this.fromDate,
+          toDate: this.toDate,
+          terminalInfo: terminalInfo,
+          companyData: companyData,
+          companyLogo: this.companyLogo,
+          formatNumber: this.formatNumber,
+          user: this.user,
+          gradeSummary: this.gradeSummary,
+          basePriceSummary: this.basePriceSummary,
+          giftSummary: this.giftSummary,
+          productSummary: this.productSummary,
+          paymentStatistics: this.paymentStatistics,
+          // FIXED: Now properly computed
+          singlePaymentCount: this.singlePaymentCount,
+          multiPaymentCount: this.multiPaymentCount
+        });
+        if (this.$toast) {
+          this.$toast.success('ລາຍງານລະອຽດກຳລັງພິມ... (ລວມເກຣດ + ຂອງຂວັນ + ການຊຳລະ)', {
+            position: 'bottom-center',
+            duration: 3000
+          });
+        }
+      } catch (error) {
+        console.error('Error printing enhanced sales report:', error);
+        if (this.$toast) {
+          this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານລະອຽດ', {
+            position: 'bottom-center'
+          });
+        }
+      }
+    },
+    // Utility methods
     formatNumber(value) {
       if (!value && value !== 0) return '0';
       return new Intl.NumberFormat('en-US').format(value);
@@ -1859,24 +2764,20 @@ var external_vuex_ = __webpack_require__(14);
       if (!value && value !== 0) return '0';
       return new Intl.NumberFormat('en-US').format(Math.round(value));
     },
-    // Calculate price difference from base price
     getPriceDifference(gradePrice, basePrice) {
       if (!gradePrice || !basePrice) return 0;
       return gradePrice - basePrice;
     },
-    // Get percentage difference
     getPriceDifferencePercent(gradePrice, basePrice) {
       if (!basePrice || basePrice === 0) return 0;
       return (gradePrice - basePrice) / basePrice * 100;
     },
-    // Get CSS class based on price difference
     getPriceDifferenceClass(gradePrice, basePrice) {
       const diff = this.getPriceDifference(gradePrice, basePrice);
-      if (diff > 0) return 'success--text font-weight-bold'; // Higher than base
-      if (diff < 0) return 'error--text font-weight-bold'; // Lower than base (discount)
-      return 'grey--text'; // Same as base
+      if (diff > 0) return 'success--text font-weight-bold';
+      if (diff < 0) return 'error--text font-weight-bold';
+      return 'grey--text';
     },
-    // Get display text for price difference
     getPriceDifferenceText(gradePrice, basePrice) {
       const diff = this.getPriceDifference(gradePrice, basePrice);
       const percent = this.getPriceDifferencePercent(gradePrice, basePrice);
@@ -1887,7 +2788,6 @@ var external_vuex_ = __webpack_require__(14);
         return `(${this.formatCurrency(diff)} / ${percent.toFixed(1)}%)`;
       }
     },
-    // ENHANCED: Export with gift data
     exportToExcel() {
       const exportData = this.productSummary.map(product => ({
         ສິນຄ້າ: product.productName,
@@ -1895,67 +2795,24 @@ var external_vuex_ = __webpack_require__(14);
         'ລາຄາພື້ນຖານ (Base Price)': product.basePrice,
         'Grade A Qty': product.grades.A.qty,
         'Grade A Revenue': product.grades.A.revenue,
-        'Grade A Avg Price': product.grades.A.priceUsed,
-        'Grade A Diff': this.getPriceDifference(product.grades.A.priceUsed, product.basePrice),
-        'Grade A %': this.getPriceDifferencePercent(product.grades.A.priceUsed, product.basePrice).toFixed(2),
-        'Grade B Qty': product.grades.B.qty,
-        'Grade B Revenue': product.grades.B.revenue,
-        'Grade B Avg Price': product.grades.B.priceUsed,
-        'Grade B Diff': this.getPriceDifference(product.grades.B.priceUsed, product.basePrice),
-        'Grade B %': this.getPriceDifferencePercent(product.grades.B.priceUsed, product.basePrice).toFixed(2),
-        'Grade C Qty': product.grades.C.qty,
-        'Grade C Revenue': product.grades.C.revenue,
-        'Grade C Avg Price': product.grades.C.priceUsed,
-        'Grade C Diff': this.getPriceDifference(product.grades.C.priceUsed, product.basePrice),
-        'Grade C %': this.getPriceDifferencePercent(product.grades.C.priceUsed, product.basePrice).toFixed(2),
-        'Grade D Qty': product.grades.D.qty,
-        'Grade D Revenue': product.grades.D.revenue,
-        'Grade D Avg Price': product.grades.D.priceUsed,
-        'Grade D Diff': this.getPriceDifference(product.grades.D.priceUsed, product.basePrice),
-        'Grade D %': this.getPriceDifferencePercent(product.grades.D.priceUsed, product.basePrice).toFixed(2),
-        'Grade E Qty': product.grades.E.qty,
-        'Grade E Revenue': product.grades.E.revenue,
-        'Grade E Avg Price': product.grades.E.priceUsed,
-        'Grade E Diff': this.getPriceDifference(product.grades.E.priceUsed, product.basePrice),
-        'Grade E %': this.getPriceDifferencePercent(product.grades.E.priceUsed, product.basePrice).toFixed(2),
-        'Grade F Qty': product.grades.F.qty,
-        'Grade F Revenue': product.grades.F.revenue,
-        'Grade F Avg Price': product.grades.F.priceUsed,
-        'Grade F Diff': this.getPriceDifference(product.grades.F.priceUsed, product.basePrice),
-        'Grade F %': this.getPriceDifferencePercent(product.grades.F.priceUsed, product.basePrice).toFixed(2),
-        // Gift data in export
         'Gift Qty': product.gifts.qty,
         'Gift Revenue': product.gifts.revenue,
         'Gift Original Value': product.gifts.originalValue,
         'Gift Savings': product.gifts.originalValue - product.gifts.revenue,
-        'Standard Qty': product.basePriceSales.qty,
-        'Standard Revenue': product.basePriceSales.revenue,
         'Total Qty': product.totalQty,
-        'Total Revenue': product.totalRevenue,
-        'Total with Gift Value': product.totalRevenue + (product.gifts.originalValue - product.gifts.revenue)
+        'Total Revenue': product.totalRevenue
       }));
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData);
       const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade + Gift Report');
-      this.$xlsx.writeFile(workbook, `grade-gift-report-${this.fromDate}-${this.toDate}.xlsx`);
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade + Gift + Payment Report');
+      this.$xlsx.writeFile(workbook, `grade-gift-payment-report-${this.fromDate}-${this.toDate}.xlsx`);
     },
-    printReport() {
-      window.print();
-    },
-    // Debug method to check gift data
     debugGiftData() {
       console.log('🐛 DEBUG: Gift Data Check');
       console.log('Gift Summary:', this.giftSummary);
-      console.log('Products with gifts:', this.productSummary.filter(p => p.gifts && p.gifts.qty > 0));
-      console.log('Filtered sales data:', this.filteredSalesData.length);
-
-      // Show gift summary breakdown
-      console.log('\n🎁 Gift Summary Breakdown:');
-      console.log('   📦 Total Gift Quantity:', this.giftSummary.qty);
-      console.log('   💰 Total Gift Revenue:', this.giftSummary.revenue);
-      console.log('   💎 Total Gift Original Value:', this.giftSummary.originalValue);
-      console.log('   💸 Total Savings:', this.giftSummary.originalValue - this.giftSummary.revenue);
-      console.log('   📊 Gift Percentage:', this.giftSummary.percentage.toFixed(2) + '%');
+      console.log('Payment Statistics:', this.paymentStatistics);
+      console.log('Single Payment Count:', this.singlePaymentCount);
+      console.log('Multi Payment Count:', this.multiPaymentCount);
     },
     formatDate(date) {
       if (!date) return null;
@@ -1997,11 +2854,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosGradevue_type_script_lang_js,
-  ordersFromPosGradevue_type_template_id_f7f0f162_scoped_true_render,
+  ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "f7f0f162",
+  "594191ba",
   "14ee04b6"
   
 )
@@ -5288,7 +6145,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("78457776", content, true, context)
+  add("581ed822", content, true, context)
 };
 
 /***/ })

@@ -187,7 +187,7 @@ export default {
           priceListId: null,
           lineUUID: Date.now() + Math.random().toString(16),
         }
-
+        console.info(`product adding... ${JSON.stringify(cartItem)}`)
         this.addProduct(cartItem)
         this.productSelectedFromBarcode = null
       }

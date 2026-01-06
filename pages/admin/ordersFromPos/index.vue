@@ -184,6 +184,17 @@
               >
                 <span class="mdi mdi-microsoft-excel"></span>Generate excel file
               </v-btn>
+              <!-- NEW: Print Sales Report Button -->
+              <v-btn
+                size="large"
+                variant="outlined"
+                @click="printSalesReport"
+                class="success"
+                rounded
+                :disabled="isloading || filteredOrderHeaderList.length === 0"
+              >
+                <span class="mdi mdi-printer"></span>Print Report
+              </v-btn>
             </v-col>
             <v-col cols="6" class="text-right">
               <v-btn
@@ -579,7 +590,9 @@ import {
   ticketHtml,
   getLocalDate,
 } from '~/common'
+import { printSalesReportSummary } from '~/common/sales-report-printer.js'
 import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
+
 import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
@@ -729,11 +742,19 @@ export default {
         },
       ],
       
-      fromDate: getFirstDayOfMonth(),
+      // fromDate: getFirstDayOfMonth(),// FIRSTDAY OF MONTH
+      fromDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      fromDateLabel: this.formatDate(getFirstDayOfMonth()),
+      // fromDateLabel: this.formatDate(getFirstDayOfMonth()),// FRIST DATE OF THE MONTH
+      fromDateLabel: this.formatDate(
+        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substr(0, 10)
+      ),
       toDateLabel: this.formatDate(
         new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
@@ -1069,6 +1090,58 @@ export default {
   },
 
   methods: {
+    printSalesReport() {
+    try {
+      console.log('🖨️ Printing sales report summary...');
+      
+      // Prepare terminal info
+      const terminalInfo = this.terminalId === 999 
+        ? { name: 'ທັງໝົດ', id: 999 }
+        : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
+      
+      // Prepare company data
+      const companyData = this.companyData?.apiData || this.companyData || {};
+      
+      // Call the print function
+      printSalesReportSummary({
+        orderHeaderList: this.activeOrderHeaderList,
+        paymentStatistics: this.paymentStatistics,
+        filteredOrderHeaderList: this.filteredOrderHeaderList,
+        fromDate: this.fromDate,
+        toDate: this.toDate,
+        terminalInfo: terminalInfo,
+        companyData: companyData,
+        companyLogo: this.companyLogo,
+        formatNumber: this.formatNumber,
+        user: this.user,
+        singlePaymentCount: this.singlePaymentCount,
+        multiPaymentCount: this.multiPaymentCount
+      });
+
+      // Optional: Show success message
+      if (this.$toast) {
+        this.$toast.success('ລາຍງານການຂາຍກຳລັງພິມ...', {
+          position: 'bottom-center'
+        });
+      }
+      
+    } catch (error) {
+      console.error('Error printing sales report:', error);
+      
+      // Show error message
+      if (this.$toast) {
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ', {
+          position: 'bottom-center'
+        });
+      } else if (this.$swal) {
+        this.$swal.fire({
+          title: 'Error',
+          text: 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ',
+          icon: 'error'
+        });
+      }
+    }
+  },
     getLocalDate,
 
     // SIMPLIFIED: Dialog event handlers for the new component
