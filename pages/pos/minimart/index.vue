@@ -1,14 +1,14 @@
 <template>
   <!-- 8850100004994 -->
   <div class="pa-0">
-        <!-- <v-btn
-                    @click="findProductFromBarcode('8850100004994',false)"
-                    color="primary"
-                    outlined
-                    x-small
-                  >
-                    <v-icon x-small>mdi-tag-multiple</v-icon>
-                  </v-btn> -->
+    <!-- <v-btn
+      @click="findProductFromBarcode('8850100004994', false)"
+      color="primary"
+      outlined
+      x-small
+    >
+      <v-icon x-small>mdi-tag-multiple</v-icon>
+    </v-btn> -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
@@ -95,7 +95,11 @@ export default {
       findAllTerminal: 'findAllTerminal',
       findAllProduct: 'findAllProduct',
       findSelectedTerminal: 'findSelectedTerminal',
+      currentSelectedCustomer: 'currentSelectedCustomer',
     }),
+    effectiveCustomer() {
+      return this.currentSelectedCustomer
+    },
     currentTerminal() {
       return this.findAllTerminal.find(
         (el) => el['id'] == this.findSelectedTerminal
@@ -151,19 +155,39 @@ export default {
       }
     },
     findProductFromBarcode(barcode, isGift = false) {
-      // this.productSelectedFromBarcode = this.productList.find(
       this.productSelectedFromBarcode = this.findAllProduct.find(
         (el) => el.barCode == barcode
       )
-      console.info(`Find product ${JSON.stringify(this.productSelectedFromBarcode)}`)
+
+      console.info(
+        `Find product ${JSON.stringify(this.productSelectedFromBarcode)}`
+      )
+
       if (this.productSelectedFromBarcode) {
+        // Apply customer grade pricing logic locally
+        const product = this.productSelectedFromBarcode
+        let customerPrice = null
+
+        // Check if we have customer grade and product has price lists
+        if (this.effectiveCustomer?.grade && product?.priceLists?.length) {
+          const gradePrice = product.priceLists.find(
+            (priceList) =>
+              priceList.grade === this.effectiveCustomer.grade &&
+              priceList.isActive !== false &&
+              priceList.type === 'Price'
+          )
+          customerPrice = gradePrice?.amount || null
+        }
+
         const cartItem = {
-          ...this.productSelectedFromBarcode, // copy all product fields
+          ...product,
+          localPrice: customerPrice || product.localPrice || product.pro_price,
           isGift: isGift,
           lineUUIDCheck: false,
+          priceListId: null,
           lineUUID: Date.now() + Math.random().toString(16),
         }
-        // this.addProduct(this.productSelectedFromBarcode)
+
         this.addProduct(cartItem)
         this.productSelectedFromBarcode = null
       }
@@ -186,37 +210,17 @@ export default {
       this.timer = setInterval(() => (this.barcode = ''), 20)
     },
     async loadProduct() {
-    console.warn(`PRODUCT IS being reload ...`) // Fixed: use backticks properly
-    this.isloading = true
-    this.productList = []
-    
-    await this.$store.dispatch(
+      console.warn(`PRODUCT IS being reload ...`) // Fixed: use backticks properly
+      this.isloading = true
+      this.productList = []
+
+      await this.$store.dispatch(
         'initializeProductsByLocation',
         this.currentSelectedLocation['id']
-    )
-    
-    this.isloading = false
-},
-    // async loadProductWithPriceList() {
-    //   this.isloading = true
-    //   this.productPriceList = []
-    //   await this.$axios
-    //     .get(`/api/product/find`)
-    //     .then((res) => {
-    //       this.productPriceList = res.data
-    //       // for (const iterator of res.data) {
-    //       //     const currency = this.findCurrency(iterator['saleCurrencyId'])
-    //       //     iterator['localPrice'] = iterator['pro_price'] * currency['rate']
-    //       //     this.productList.push(iterator)
-    //       // }
-    //       console.info(`PRICE LIST ${JSON.stringify(this.productPriceList)}`)
-    //     })
-    //     .catch((er) => {
-    //       this.message = er
-    //       swalError2(this.$swal, 'Error', er)
-    //     })
-    //   this.isloading = false
-    // },
+      )
+
+      this.isloading = false
+    },
     async loadCategory() {
       this.isloading = true
       this.categoryList = []

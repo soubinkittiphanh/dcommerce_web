@@ -238,7 +238,6 @@ export const mutations = {
             state.listOfConfirmStockInOrder.push(order)
         }
     },
-
     addProductToCart(state, product) {
         console.info(`🛒 [CART] Starting addProductToCart for product:`, JSON.stringify(product));
 
@@ -249,102 +248,30 @@ export const mutations = {
                 return;
             }
 
-            // Customer grade checking
-            const customerGrade = state.selectedCustomer?.grade;
-            console.info(`👤 [CUSTOMER] Selected customer:`, JSON.stringify(state.selectedCustomer));
-            console.info(`🏷️ [GRADE] Customer grade: "${customerGrade}"`);
-
-            let customerPrice = null;
-
-            // Check if customer has a grade and productPriceList exists
-            if (customerGrade && Array.isArray(state.productPriceList)) {
-                console.info(`📊 [PRICELIST] ProductPriceList length: ${state.productPriceList.length}`);
-
-                // Find the product in price list
-                const productPrice = state.productPriceList.find(p => p.id === product.id);
-                console.info(`🔍 [SEARCH] Found product in price list:`, productPrice ? 'YES' : 'NO');
-
-                if (productPrice) {
-                    console.info(`💰 [PRODUCT_PRICE] Product price data:`, JSON.stringify(productPrice));
-
-                    if (Array.isArray(productPrice.priceLists)) {
-                        console.info(`📋 [PRICELISTS] Available price lists count: ${productPrice.priceLists.length}`);
-                        console.info(`📋 [PRICELISTS] Available grades:`, productPrice.priceLists.map(pl => pl.grade));
-
-                        // Find price list for customer grade
-                        const priceList = productPrice.priceLists.find(pl => pl.grade === customerGrade);
-                        console.info(`🎯 [GRADE_MATCH] Found price for grade "${customerGrade}":`, priceList ? 'YES' : 'NO');
-                        console.info(`🎯 [GRADE_MATCH] Found price for grade "${JSON.stringify(priceList)}'`);
-                        if (priceList) {
-                            product.priceListId = priceList.id;
-                            customerPrice = priceList.amount;
-                            console.info(`💵 [CUSTOMER_PRICE] Customer price found: ${customerPrice}`);
-                        } else {
-                            console.warn(`⚠️ [GRADE_MATCH] No price list found for customer grade "${customerGrade}"`);
-                        }
-                    } else {
-                        console.warn(`⚠️ [PRICELISTS] productPrice.priceLists is not an array:`, typeof productPrice.priceLists);
-                    }
-                } else {
-                    console.warn(`⚠️ [SEARCH] Product with ID ${product.id} not found in productPriceList`);
-                }
-            } else {
-                if (!customerGrade) {
-                    console.info(`ℹ️ [GRADE] No customer grade - using default price`);
-                }
-                if (!Array.isArray(state.productPriceList)) {
-                    console.warn(`⚠️ [PRICELIST] productPriceList is not an array:`, typeof state.productPriceList);
-                }
-            }
-
-            // Price calculation 
-            const originalProductLocalPrice = product.localPrice || product.pro_price;//TODO: PLEASE CHECK THIS LOGIC CARFULLY 
-            product.localPrice = customerPrice ?? originalProductLocalPrice;
-           
-
-            console.info(`💰 [PRICING] Original price: ${originalProductLocalPrice}`);
-            console.info(`💰 [PRICING] Customer price: ${customerPrice}`);
-            console.info(`💰 [PRICING] Final price used: ${product.localPrice}`);
-            console.info(`💰 [PRICING] Final price id used: ${product.priceListId}`);
+            // The localPrice should already be calculated by the calling component
+            // No need to recalculate customer grade pricing here
+            console.info(`💰 [PRICING] Using pre-calculated price: ${product.localPrice}`);
 
             // Check for existing product in cart
-            console.info(`🔍 [CART_SEARCH] lineUUIDCheck: ${product.lineUUIDCheck}`);
-
             const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
                 if (!product.lineUUIDCheck) {
-                    console.info(`🔍 [CART_SEARCH] Searching by ID only: ${item.id} === ${product.id}`);
                     return item.id === product.id;
                 } else {
-                    console.info(`🔍 [CART_SEARCH] Searching by ID and lineUUID: ${item.id} === ${product.id} && ${item.lineUUID} === ${product.lineUUID}`);
                     return item.id === product.id && item.lineUUID === product.lineUUID;
                 }
             });
 
-            console.info(`🔍 [CART_SEARCH] Existing product index: ${existingProductIndex}`);
-
             // Add or update cart
             if (existingProductIndex !== -1) {
                 state.cartOfproductSelected[existingProductIndex].qty++;
-                console.info(`➕ [CART_UPDATE] Increased quantity for existing product. New qty: ${state.cartOfproductSelected[existingProductIndex].qty}`);
+                console.info(`➕ [CART_UPDATE] Increased quantity for existing product`);
             } else {
                 state.cartOfproductSelected.push({ ...product, qty: 1 });
-                console.info(`🆕 [CART_ADD] Added new product to cart. Cart length: ${state.cartOfproductSelected.length}`);
+                console.info(`🆕 [CART_ADD] Added new product to cart`);
             }
-
-            // Restore original price
-            product.localPrice = originalProductLocalPrice;
-            console.info(`🔄 [CLEANUP] Restored original product price: ${originalProductLocalPrice}`);
-
-            console.info(`✅ [CART] Successfully completed addProductToCart. Final cart:`, JSON.stringify(state.cartOfproductSelected.map(item => ({
-                id: item.id,
-                name: item.pro_name,
-                price: item.localPrice,
-                qty: item.qty
-            }))));
 
         } catch (error) {
             console.error(`❌ [ERROR] Error adding product to cart:`, error);
-            console.error(`❌ [ERROR] Stack trace:`, error.stack);
         }
     },
     setGiftForCartItem(state, { item, giftConfig }) {
@@ -536,10 +463,12 @@ export const actions = {
     async initializeProductsByLocation({ commit, dispatch }, locationId) {
         commit('SET_LOADING', true)
         commit('CLEAR_ERRORS')
-        
         try {
             console.info(`fetch product initialize for location ${locationId}`)
-            const response = await this.$axios.get(`product_f_v1/${locationId}`) //TODO: IMAGE ISSUE WITH THIS 
+
+            // 🔥 ADD THIS - Include priceList parameter
+            const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
+
             console.info(`fetch product initialize response ${JSON.stringify(response.data)}`)
             await dispatch('initProduct', response.data.data)
         } catch (error) {
@@ -887,7 +816,7 @@ export const actions = {
 
             // Initialize products after locations are loaded
             await initProduct(dispatch, axios)
-            await initProductPrices(dispatch, axios)
+            // await initProductPrices(dispatch, axios)
 
             commit('SET_DATA_INITIALIZED', true)
         } catch (error) {

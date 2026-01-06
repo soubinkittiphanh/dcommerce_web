@@ -1011,7 +1011,10 @@ export default {
     validateCardCountForIncrease(product) {
       const cardCountLimit = product.card_count
 
-      if ((!cardCountLimit || cardCountLimit <= 0) && product.validateStockOnSale==1) {
+      if (
+        (!cardCountLimit || cardCountLimit <= 0) &&
+        product.validateStockOnSale == 1
+      ) {
         if (this.$toast) {
           this.$toast.error(`Product ${product.pro_name} is not available`, {
             position: 'bottom-center',
@@ -1026,10 +1029,13 @@ export default {
         return item.pro_id === product.pro_id || item.id === product.id
       })
 
-      if (existingCartItem) {
+      if (existingCartItem) {;
         const currentQty = existingCartItem.qty
 
-        if (currentQty >= cardCountLimit) {
+        if (
+          currentQty >= cardCountLimit &&
+          product.validateStockOnSale == 1
+        ) {
           if (this.$toast) {
             this.$toast.error(
               `Cannot add more. You have ${currentQty}/${cardCountLimit} items`,

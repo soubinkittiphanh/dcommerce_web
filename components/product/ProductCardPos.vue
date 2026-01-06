@@ -307,7 +307,10 @@ export default {
       const cardCountLimit = this.product.card_count
       console.info(`product det ${JSON.stringify(this.product)}`)
       // If card_count is not defined, null, or 0, don't allow any additions
-      if ((!cardCountLimit || cardCountLimit <= 0) && this.product.validateStockOnSale==1) {
+      if (
+        (!cardCountLimit || cardCountLimit <= 0) &&
+        this.product.validateStockOnSale == 1
+      ) {
         if (this.$toast) {
           this.$toast.error(`This product is not available for purchase`)
         }
@@ -323,7 +326,10 @@ export default {
         const currentQty = existingCartItem.qty
 
         // Check if adding one more would exceed card_count
-        if (currentQty >= cardCountLimit) {
+        if (
+          currentQty >= cardCountLimit &&
+          this.product.validateStockOnSale == 1
+        ) {
           if (this.$toast) {
             this.$toast.error(
               `Cannot add more. You have ${currentQty}/${cardCountLimit} items for ${this.product.pro_name}`,
@@ -412,91 +418,20 @@ export default {
     // Customer grade pricing methods
     // Customer grade pricing methods
     getCustomerGradePrice(product) {
-      // TODO: PLEASE CHECK THIS LOGIC CAREFULLY IMPACT PERFORMANCE
-      console.group('🏷️ [GRADE PRICING] Getting customer grade price')
-
-      // Log input parameters
-      console.info('📦 [INPUT] Product:', {
-        id: product?.id,
-        name: product?.pro_name || product?.name,
-        hasGradePricing: !!product?.gradePricing,
-        gradePricingCount: product?.gradePricing?.length || 0,
-      })
-
-      console.info('👤 [CUSTOMER] Effective customer:', {
-        customer: this.effectiveCustomer,
-        hasGrade: !!this.effectiveCustomer?.grade,
-        grade: this.effectiveCustomer?.grade,
-        customerName:
-          this.effectiveCustomer?.name || this.effectiveCustomer?.company,
-      })
-
-      // Check for effective customer and grade
-      if (!this.effectiveCustomer?.grade) {
-        console.warn(
-          '⚠️ [VALIDATION] No effective customer or customer grade found'
-        )
-        console.groupEnd()
+      // Fast validation - early exit for performance
+      if (!this.effectiveCustomer?.grade || !product?.priceLists?.length) {
         return null
       }
 
-      // Check for product grade pricing
-      if (!product.gradePricing) {
-        console.info(
-          'ℹ️ [VALIDATION] Product has no grade pricing configuration'
-        )
-        console.groupEnd()
-        return null
-      }
-
-      // Log available grade pricing options
-      console.info(
-        '💰 [AVAILABLE PRICES] Grade pricing options:',
-        product.gradePricing.map((pricing) => ({
-          grade: pricing.grade,
-          price: pricing.price,
-          isActive: pricing.isActive !== false,
-        }))
+      // Find matching grade in priceLists (not gradePricing)
+      const gradePrice = product.priceLists.find(
+        (priceList) =>
+          priceList.grade === this.effectiveCustomer.grade &&
+          priceList.isActive !== false &&
+          priceList.type === 'Price' // Ensure it's a price type, not discount
       )
 
-      // Search for matching grade
-      console.info(
-        '🔍 [SEARCH] Looking for grade:',
-        this.effectiveCustomer.grade
-      )
-
-      const gradePrice = product.gradePricing.find((pricing) => {
-        const matches = pricing.grade === this.effectiveCustomer.grade
-        console.info(
-          `🔍 [COMPARE] Grade "${pricing.grade}" === "${this.effectiveCustomer.grade}": ${matches}`
-        )
-        return matches
-      })
-
-      // Log result
-      if (gradePrice) {
-        console.info('✅ [SUCCESS] Found matching grade price:', {
-          grade: gradePrice.grade,
-          price: gradePrice.price,
-          originalPrice: product.localPrice || product.pro_price,
-          discount:
-            (product.localPrice || product.pro_price) - gradePrice.price,
-        })
-
-        console.groupEnd()
-        return gradePrice.price
-      } else {
-        console.warn(
-          '❌ [NOT_FOUND] No grade price found for customer grade:',
-          {
-            customerGrade: this.effectiveCustomer.grade,
-            availableGrades: product.gradePricing.map((p) => p.grade),
-          }
-        )
-
-        console.groupEnd()
-        return null
-      }
+      return gradePrice?.amount || null
     },
 
     getGradeColor(grade) {
