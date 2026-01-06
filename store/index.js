@@ -297,9 +297,9 @@ export const mutations = {
                 }
             }
 
-            // Price calculation
-            const originalProductLocalPrice = product.localPrice;
-            product.localPrice = customerPrice ?? product.localPrice;
+            // Price calculation 
+            const originalProductLocalPrice = product.localPrice || product.pro_price;//TODO: PLEASE CHECK THIS LOGIC CARFULLY 
+            product.localPrice = customerPrice ?? originalProductLocalPrice;
            
 
             console.info(`💰 [PRICING] Original price: ${originalProductLocalPrice}`);
@@ -539,7 +539,7 @@ export const actions = {
         
         try {
             console.info(`fetch product initialize for location ${locationId}`)
-            const response = await this.$axios.get(`product_f_v1/${locationId}`)
+            const response = await this.$axios.get(`product_f_v1/${locationId}`) //TODO: IMAGE ISSUE WITH THIS 
             console.info(`fetch product initialize response ${JSON.stringify(response.data)}`)
             await dispatch('initProduct', response.data.data)
         } catch (error) {
@@ -941,7 +941,7 @@ const initProduct = async (dispatch, axios,) => {
     console.info(`fetch product initize`)
     try {
         // Default to location ID 1 if no location is selected
-        const response = await axios.get('product_f_v1/1')
+        const response = await axios.get('product_f_v1/1') //TODO: IMAGE ISSUE WITH THIS VERSION
         console.info(`fetch product initize response ${JSON.stringify(response.data)}`)
         await dispatch('initProduct', response.data.data)
     } catch (error) {

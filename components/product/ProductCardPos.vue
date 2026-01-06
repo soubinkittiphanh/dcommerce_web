@@ -305,9 +305,9 @@ export default {
 
     validateCardCount() {
       const cardCountLimit = this.product.card_count
-
+      console.info(`product det ${JSON.stringify(this.product)}`)
       // If card_count is not defined, null, or 0, don't allow any additions
-      if (!cardCountLimit || cardCountLimit <= 0) {
+      if ((!cardCountLimit || cardCountLimit <= 0) && this.product.validateStockOnSale==1) {
         if (this.$toast) {
           this.$toast.error(`This product is not available for purchase`)
         }
@@ -412,6 +412,7 @@ export default {
     // Customer grade pricing methods
     // Customer grade pricing methods
     getCustomerGradePrice(product) {
+      // TODO: PLEASE CHECK THIS LOGIC CAREFULLY IMPACT PERFORMANCE
       console.group('🏷️ [GRADE PRICING] Getting customer grade price')
 
       // Log input parameters

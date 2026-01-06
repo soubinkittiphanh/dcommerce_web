@@ -1011,7 +1011,7 @@ export default {
     validateCardCountForIncrease(product) {
       const cardCountLimit = product.card_count
 
-      if (!cardCountLimit || cardCountLimit <= 0) {
+      if ((!cardCountLimit || cardCountLimit <= 0) && product.validateStockOnSale==1) {
         if (this.$toast) {
           this.$toast.error(`Product ${product.pro_name} is not available`, {
             position: 'bottom-center',

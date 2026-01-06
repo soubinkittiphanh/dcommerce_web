@@ -1,5 +1,14 @@
 <template>
+  <!-- 8850100004994 -->
   <div class="pa-0">
+        <!-- <v-btn
+                    @click="findProductFromBarcode('8850100004994',false)"
+                    color="primary"
+                    outlined
+                    x-small
+                  >
+                    <v-icon x-small>mdi-tag-multiple</v-icon>
+                  </v-btn> -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
@@ -146,6 +155,7 @@ export default {
       this.productSelectedFromBarcode = this.findAllProduct.find(
         (el) => el.barCode == barcode
       )
+      console.info(`Find product ${JSON.stringify(this.productSelectedFromBarcode)}`)
       if (this.productSelectedFromBarcode) {
         const cartItem = {
           ...this.productSelectedFromBarcode, // copy all product fields
