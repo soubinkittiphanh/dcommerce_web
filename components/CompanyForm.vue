@@ -263,6 +263,116 @@
             </v-expansion-panel>
           </v-expansion-panels>
 
+          <!-- NEW: Bank QR Code (Collapsible) -->
+          <v-expansion-panels flat class="mt-2">
+            <v-expansion-panel>
+              <v-expansion-panel-header class="px-0 py-2">
+                <div class="d-flex align-center">
+                  <v-icon small class="mr-2">mdi-qrcode</v-icon>
+                  <span class="text-subtitle2">QR ໂຄ້ດທະນາຄານ</span>
+                  <v-chip v-if="form.bank_qr_image_path" x-small color="success" class="ml-2">
+                    ມີ QR ແລ້ວ
+                  </v-chip>
+                </div>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="px-0">
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <!-- Current QR Image -->
+                    <div v-if="currentQRImageUrl" class="text-center">
+                      <div class="qr-image-container mb-2">
+                        <v-img 
+                          :src="currentQRImageUrl" 
+                          max-width="160"
+                          max-height="160"
+                          class="mx-auto rounded qr-shadow"
+                          contain
+                        ></v-img>
+                      </div>
+                      <v-btn
+                        color="error"
+                        text
+                        x-small
+                        @click="deleteQRImage"
+                        :loading="deletingQR"
+                      >
+                        <v-icon small>mdi-delete</v-icon>
+                        ລຶບ QR
+                      </v-btn>
+                    </div>
+                    
+                    <div v-else class="text-center">
+                      <div class="qr-placeholder mb-2">
+                        <v-icon size="60" color="grey">mdi-qrcode-scan</v-icon>
+                      </div>
+                      <div class="text-caption grey--text">ບໍ່ມີ QR ໂຄ້ດ</div>
+                    </div>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-file-input
+                      ref="qrFileInput"
+                      v-model="selectedQRFile"
+                      accept="image/*"
+                      label="ເລືອກ QR ໂຄ້ດ"
+                      prepend-icon=""
+                      prepend-inner-icon="mdi-qrcode"
+                      dense
+                      outlined
+                      hide-details="auto"
+                      @change="onQRFileSelected"
+                      :disabled="uploadingQR"
+                      clearable
+                    ></v-file-input>
+                    
+                    <!-- QR Preview -->
+                    <div v-if="qrPreviewUrl" class="mt-2 text-center">
+                      <v-img
+                        :src="qrPreviewUrl"
+                        max-width="100"
+                        max-height="100"
+                        class="mx-auto rounded qr-preview"
+                        contain
+                      ></v-img>
+                    </div>
+
+                    <!-- QR Upload Button -->
+                    <div class="mt-3">
+                      <v-btn
+                        v-if="selectedQRFile && !uploadingQR"
+                        color="success"
+                        small
+                        block
+                        @click="uploadQRImage"
+                      >
+                        <v-icon left small>mdi-upload</v-icon>
+                        ອັບໂຫລດ QR
+                      </v-btn>
+
+                      <v-btn 
+                        v-if="uploadingQR" 
+                        color="success" 
+                        small 
+                        block 
+                        loading 
+                        disabled
+                      >
+                        ກຳລັງອັບໂຫລດ QR...
+                      </v-btn>
+                    </div>
+
+                    <v-alert type="info" text dense class="mt-2" border="left">
+                      <small>
+                        <v-icon x-small class="mr-1">mdi-information</v-icon>
+                        QR ໂຄ້ດສໍາລັບການຈ່າຍເງິນ • JPG, PNG • ສູງສຸດ 5MB
+                      </small>
+                    </v-alert>
+                  </v-col>
+                </v-row>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+
           <!-- Theme Management -->
           <v-row v-if="!isCreate && form.id" class="mt-3">
             <v-col cols="12">
@@ -349,13 +459,20 @@ export default {
         accounts: '',
         accountName: '',
         profile_image_path: null,
+        bank_qr_image_path: null, // NEW: Bank QR image path
         isActive: true,
       },
       isloading: false,
+      // Profile image related
       selectedFile: null,
       previewUrl: null,
       uploading: false,
       deleting: false,
+      // NEW: QR image related
+      selectedQRFile: null,
+      qrPreviewUrl: null,
+      uploadingQR: false,
+      deletingQR: false,
       nameRules: [
         (value) => !!value || 'ຈຳເປັນຕ້ອງໃສ່',
         (value) =>
@@ -369,6 +486,13 @@ export default {
     currentImageUrl() {
       if (this.form.profile_image_path) {
         return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path}`
+      }
+      return null
+    },
+    // NEW: QR image computed property
+    currentQRImageUrl() {
+      if (this.form.bank_qr_image_path) {
+        return `${this.$axios.defaults.baseURL || ''}/${this.form.bank_qr_image_path}`
       }
       return null
     },
@@ -420,6 +544,7 @@ export default {
       }
     },
 
+    // Profile image methods
     onFileSelected(file) {
       if (file) {
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
@@ -526,6 +651,113 @@ export default {
       }
     },
 
+    // NEW: QR image methods
+    onQRFileSelected(file) {
+      if (file) {
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+        if (!allowedTypes.includes(file.type)) {
+          this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ຮູບພາບ QR (JPG, PNG, GIF)')
+          this.clearSelectedQRFile()
+          return
+        }
+
+        const maxSize = 5 * 1024 * 1024
+        if (file.size > maxSize) {
+          this.$toast.error('ຂະໜາດໄຟລ໌ QR ໃຫຍ່ເກີນໄປ (ສູງສຸດ 5MB)')
+          this.clearSelectedQRFile()
+          return
+        }
+
+        this.qrPreviewUrl = URL.createObjectURL(file)
+      } else {
+        this.clearSelectedQRFile()
+      }
+    },
+
+    clearSelectedQRFile() {
+      this.selectedQRFile = null
+      if (this.qrPreviewUrl) {
+        URL.revokeObjectURL(this.qrPreviewUrl)
+        this.qrPreviewUrl = null
+      }
+      if (this.$refs.qrFileInput) {
+        this.$refs.qrFileInput.reset()
+      }
+    },
+
+    async uploadQRImage() {
+      if (!this.selectedQRFile) {
+        this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ QR ກ່ອນ')
+        return
+      }
+
+      if (!this.form.id && this.isCreate) {
+        this.$toast.error('ກະລຸນາບັນທຶກຂໍ້ມູນບໍລິສັດກ່ອນອັບໂຫລດ QR')
+        return
+      }
+
+      this.uploadingQR = true
+
+      try {
+        const formData = new FormData()
+        formData.append('bank_qr_image', this.selectedQRFile)
+
+        const companyId = this.form.id || this.recordId
+        const response = await this.$axios.post(
+          `api/company/upload-bank-qr-image/${companyId}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        )
+
+        this.form.bank_qr_image_path = response.data.bank_qr_image_path
+        this.$toast.success('ອັບໂຫລດ QR ໂຄ້ດສຳເລັດແລ້ວ')
+        this.clearSelectedQRFile()
+        this.refreshData()
+      } catch (error) {
+        console.error('QR Upload error:', error)
+        const errorMessage = error.response?.data?.message || 'ອັບໂຫລດ QR ບໍ່ສຳເລັດ'
+        this.$toast.error(errorMessage)
+      } finally {
+        this.uploadingQR = false
+      }
+    },
+
+    async deleteQRImage() {
+      if (!this.form.bank_qr_image_path) return
+
+      try {
+        const result = await this.$swal.fire({
+          title: 'ຢືນຢັນການລຶບ',
+          text: 'ທ່ານຕ້ອງການລຶບ QR ໂຄ້ດນີ້ແທ້ບໍ?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'ລຶບ',
+          cancelButtonText: 'ຍົກເລີກ',
+        })
+
+        if (result.isConfirmed) {
+          this.deletingQR = true
+          const companyId = this.form.id || this.recordId
+          await this.$axios.delete(`api/company/delete-bank-qr-image/${companyId}`)
+          this.form.bank_qr_image_path = null
+          this.$toast.success('ລຶບ QR ໂຄ້ດສຳເລັດແລ້ວ')
+          this.refreshData()
+        }
+      } catch (error) {
+        console.error('QR Delete error:', error)
+        const errorMessage = error.response?.data?.message || 'ລຶບ QR ບໍ່ສຳເລັດ'
+        this.$toast.error(errorMessage)
+      } finally {
+        this.deletingQR = false
+      }
+    },
+
     refreshData() {
       this.$emit('reload-data')
     },
@@ -557,5 +789,35 @@ export default {
 
 .v-text-field--outlined.v-input--dense .v-label {
   top: 8px;
+}
+
+/* NEW: QR Code specific styles */
+.qr-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px;
+}
+
+.qr-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px;
+  background: #f5f5f5;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  margin: 0 auto;
+  max-width: 160px;
+}
+
+.qr-shadow {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.qr-preview {
+  border: 2px solid #4caf50;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
 }
 </style>

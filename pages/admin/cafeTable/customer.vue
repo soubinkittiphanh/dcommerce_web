@@ -33,23 +33,23 @@
                 mdi-storefront
               </v-icon>
             </div>
-
-            <h1 class="store-name">{{ parsedCompanyInfo.name }}</h1>
+            <h1 class="store-name">{{ parsedCompanyInfo?.name || storeName }}</h1>
 
             <!-- QR Payment Methods Preview - CONSISTENT POSITIONING -->
             <div class="payment-methods-preview">
               <div class="payment-methods-container">
-                <!-- <div class="payment-method-item left-qr">
+                <!-- Dynamic QR Payment Method -->
+                <div v-if="companyQRImageUrl" class="payment-method-item right-qr">
                   <img
-                    :src="bflQrImage"
-                    alt="BFL Mobile Banking"
+                    :src="companyQRImageUrl"
+                    alt="Payment QR Code"
                     class="payment-method-logo"
                     @error="onPaymentMethodError"
                   />
-                  <span class="payment-method-name">BFL Mobile</span>
+                  <span class="payment-method-name">{{ parsedCompanyInfo?.bank || 'Mobile Banking' }}</span>
                 </div>
-                <div class="payment-method-spacer"></div> -->
-                <div class="payment-method-item right-qr">
+                <!-- Fallback to default BCEL if no company QR -->
+                <div v-else class="payment-method-item right-qr">
                   <img
                     :src="bcelQrImage"
                     alt="BCEL Mobile Banking"
@@ -358,33 +358,30 @@
               <div class="currency-label">Lao Kip (LAK)</div>
             </div>
 
-            <!-- Large QR Code with Payment Methods - CONSISTENT LEFT-RIGHT POSITIONING -->
+            <!-- Large QR Code with Payment Methods - DYNAMIC COMPANY QR -->
             <div class="qr-container">
               <div class="qr-wrapper">
                 <div class="qr-payment-methods">
-                  <!-- LEFT QR -->
-                  <!-- <div class="qr-method-item left-qr-payment">
-                    <img
-                      :src="bflQrImage"
-                      alt="BFL Mobile Banking"
-                      class="qr-payment-method-logo"
-                      @error="onPaymentMethodError"
-                    />
-                    <span class="qr-method-label">BFL Mobile</span>
-                  </div> -->
-
                   <!-- CENTER SPACER -->
                   <div class="qr-spacer"></div>
 
-                  <!-- RIGHT QR -->
+                  <!-- DYNAMIC COMPANY QR -->
                   <div class="qr-method-item right-qr-payment">
                     <img
+                      v-if="companyQRImageUrl"
+                      :src="companyQRImageUrl"
+                      alt="Payment QR Code"
+                      class="qr-payment-method-logo"
+                      @error="onPaymentMethodError"
+                    />
+                    <img
+                      v-else
                       :src="bcelQrImage"
                       alt="BCEL Mobile Banking"
                       class="qr-payment-method-logo"
                       @error="onPaymentMethodError"
                     />
-                    <span class="qr-method-label">BCEL Mobile</span>
+                    <span class="qr-method-label">{{ parsedCompanyInfo?.bank || 'Mobile Banking' }}</span>
                   </div>
                 </div>
               </div>
@@ -503,8 +500,7 @@ export default {
   },
   data() {
     return {
-      bflQrImage: require('~/assets/image/qr_code/HAPPY_BUN.png'),
-      bcelQrImage: require('~/assets/image/qr_code/HAPPY_BUN.png'),
+      bcelQrImage: require('~/assets/image/qr_code/HAPPY_BUN.png'), // Keep as fallback
       showQR: false,
       qrData: {
         amount: 0,
@@ -613,6 +609,7 @@ export default {
     displayChange() {
       return this.orderSummary.change || this.qrData.change || 0
     },
+    
     parsedCompanyInfo() {
       console.info(
         `COMPANY DATA PARSING ${JSON.stringify(this.$route.query.company)}`
@@ -627,6 +624,17 @@ export default {
       }
       return null
     },
+
+    // NEW: Computed property for company QR image URL
+    companyQRImageUrl() {
+      console.info(`COMPANY INFO PASS ${JSON.stringify(this.parsedCompanyInfo)}`)
+      if (this.parsedCompanyInfo?.qrCode) {
+        // qrCode already contains the full URL
+        return this.parsedCompanyInfo.qrCode
+      }
+      return null
+    },
+    
     // Generate WiFi QR code URL
     wifiQrCodeUrl() {
       const wifiString = `WIFI:T:${this.wifiCredentials.security};S:${this.wifiCredentials.ssid};P:${this.wifiCredentials.password};H:false;`
@@ -884,14 +892,10 @@ export default {
 
     async loadQrPaymentImages() {
       try {
-        const bflModule = await import('~/assets/image/qr_code/HAPPY_BUN.png')
         const bcelModule = await import('~/assets/image/qr_code/HAPPY_BUN.png')
-
-        this.bflQrImage = bflModule.default
         this.bcelQrImage = bcelModule.default
       } catch (error) {
         console.warn('Failed to load QR payment images:', error)
-        this.bflQrImage = '/assets/image/qr_code/HAPPY_BUN.png'
         this.bcelQrImage = '/assets/image/qr_code/HAPPY_BUN.png'
       }
     },
@@ -901,11 +905,11 @@ export default {
       event.target.style.display = 'none'
 
       const parentItem = event.target.closest(
-        '.payment-method-item, .qr-payment-method'
+        '.payment-method-item, .qr-method-item'
       )
       if (parentItem) {
         const nameSpan = parentItem.querySelector(
-          '.payment-method-name, .qr-payment-method-text'
+          '.payment-method-name, .qr-method-label'
         )
         if (nameSpan) {
           nameSpan.style.marginTop = '0'
@@ -932,7 +936,7 @@ export default {
     handleStorageChange(event) {
       if (event.key === 'customerDisplay') {
         const data = event.newValue
-        console.info(`EVENT TRIGGEREED ${JSON.stringify(data)}`)
+        console.info(`EVENT TRIGGERED ${JSON.stringify(data)}`)
         if (data) {
           try {
             const message = JSON.parse(data)

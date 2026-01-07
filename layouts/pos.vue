@@ -651,6 +651,7 @@ export default {
     companyData() {
       const baseCompany = mainCompanyInfo()
       const terminalCompany = this.currentTerminal?.location?.company
+      console.info(`TERMINAL COMPAYMEN ${JSON.stringify(terminalCompany)}`)
 
       const baseUrl = this.$axios.defaults.baseURL || ''
       return {
@@ -668,6 +669,9 @@ export default {
         remark: terminalCompany?.remark || baseCompany?.remark || '',
         ticketLogo:
           `${baseUrl}/${terminalCompany.profile_image_path}` ||
+          'default-logo.png',
+        qrCode:
+          `${baseUrl}/${terminalCompany.bank_qr_image_path}` ||
           'default-logo.png',
       }
     },
@@ -1130,6 +1134,7 @@ export default {
     },
 
     openCustomerScreenEnhanced() {
+      console.info(`COMPANY ${JSON.stringify(this.companyData)}`)
       try {
         const companyInfo = {
           name: this.companyData.name,
@@ -1140,6 +1145,7 @@ export default {
           accountName: this.companyData.accountName,
           accounts: this.companyData.accounts,
           remark: this.companyData.remark,
+          qrCode: this.companyData.qrCode,
         }
 
         this.batchUpdateCustomerScreen() // Use batched update

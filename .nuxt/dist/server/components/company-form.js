@@ -519,13 +519,21 @@ module.exports.__inject__ = function (context) {
         accounts: '',
         accountName: '',
         profile_image_path: null,
+        bank_qr_image_path: null,
+        // NEW: Bank QR image path
         isActive: true
       },
       isloading: false,
+      // Profile image related
       selectedFile: null,
       previewUrl: null,
       uploading: false,
       deleting: false,
+      // NEW: QR image related
+      selectedQRFile: null,
+      qrPreviewUrl: null,
+      uploadingQR: false,
+      deletingQR: false,
       nameRules: [value => !!value || 'ຈຳເປັນຕ້ອງໃສ່', value => value && value.length <= 100 || 'ຕ້ອງນ້ອຍກວ່າ 100 ຕົວອັກສອນ']
     };
   },
@@ -533,6 +541,13 @@ module.exports.__inject__ = function (context) {
     currentImageUrl() {
       if (this.form.profile_image_path) {
         return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path}`;
+      }
+      return null;
+    },
+    // NEW: QR image computed property
+    currentQRImageUrl() {
+      if (this.form.bank_qr_image_path) {
+        return `${this.$axios.defaults.baseURL || ''}/${this.form.bank_qr_image_path}`;
       }
       return null;
     }
@@ -575,6 +590,7 @@ module.exports.__inject__ = function (context) {
         }
       }
     },
+    // Profile image methods
     onFileSelected(file) {
       if (file) {
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
@@ -664,6 +680,98 @@ module.exports.__inject__ = function (context) {
         this.$toast.error(errorMessage);
       } finally {
         this.deleting = false;
+      }
+    },
+    // NEW: QR image methods
+    onQRFileSelected(file) {
+      if (file) {
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        if (!allowedTypes.includes(file.type)) {
+          this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ຮູບພາບ QR (JPG, PNG, GIF)');
+          this.clearSelectedQRFile();
+          return;
+        }
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+          this.$toast.error('ຂະໜາດໄຟລ໌ QR ໃຫຍ່ເກີນໄປ (ສູງສຸດ 5MB)');
+          this.clearSelectedQRFile();
+          return;
+        }
+        this.qrPreviewUrl = URL.createObjectURL(file);
+      } else {
+        this.clearSelectedQRFile();
+      }
+    },
+    clearSelectedQRFile() {
+      this.selectedQRFile = null;
+      if (this.qrPreviewUrl) {
+        URL.revokeObjectURL(this.qrPreviewUrl);
+        this.qrPreviewUrl = null;
+      }
+      if (this.$refs.qrFileInput) {
+        this.$refs.qrFileInput.reset();
+      }
+    },
+    async uploadQRImage() {
+      if (!this.selectedQRFile) {
+        this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ QR ກ່ອນ');
+        return;
+      }
+      if (!this.form.id && this.isCreate) {
+        this.$toast.error('ກະລຸນາບັນທຶກຂໍ້ມູນບໍລິສັດກ່ອນອັບໂຫລດ QR');
+        return;
+      }
+      this.uploadingQR = true;
+      try {
+        const formData = new FormData();
+        formData.append('bank_qr_image', this.selectedQRFile);
+        const companyId = this.form.id || this.recordId;
+        const response = await this.$axios.post(`api/company/upload-bank-qr-image/${companyId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        this.form.bank_qr_image_path = response.data.bank_qr_image_path;
+        this.$toast.success('ອັບໂຫລດ QR ໂຄ້ດສຳເລັດແລ້ວ');
+        this.clearSelectedQRFile();
+        this.refreshData();
+      } catch (error) {
+        var _error$response3, _error$response3$data;
+        console.error('QR Upload error:', error);
+        const errorMessage = ((_error$response3 = error.response) === null || _error$response3 === void 0 ? void 0 : (_error$response3$data = _error$response3.data) === null || _error$response3$data === void 0 ? void 0 : _error$response3$data.message) || 'ອັບໂຫລດ QR ບໍ່ສຳເລັດ';
+        this.$toast.error(errorMessage);
+      } finally {
+        this.uploadingQR = false;
+      }
+    },
+    async deleteQRImage() {
+      if (!this.form.bank_qr_image_path) return;
+      try {
+        const result = await this.$swal.fire({
+          title: 'ຢືນຢັນການລຶບ',
+          text: 'ທ່ານຕ້ອງການລຶບ QR ໂຄ້ດນີ້ແທ້ບໍ?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'ລຶບ',
+          cancelButtonText: 'ຍົກເລີກ'
+        });
+        if (result.isConfirmed) {
+          this.deletingQR = true;
+          const companyId = this.form.id || this.recordId;
+          await this.$axios.delete(`api/company/delete-bank-qr-image/${companyId}`);
+          this.form.bank_qr_image_path = null;
+          this.$toast.success('ລຶບ QR ໂຄ້ດສຳເລັດແລ້ວ');
+          this.refreshData();
+        }
+      } catch (error) {
+        var _error$response4, _error$response4$data;
+        console.error('QR Delete error:', error);
+        const errorMessage = ((_error$response4 = error.response) === null || _error$response4 === void 0 ? void 0 : (_error$response4$data = _error$response4.data) === null || _error$response4$data === void 0 ? void 0 : _error$response4$data.message) || 'ລຶບ QR ບໍ່ສຳເລັດ';
+        this.$toast.error(errorMessage);
+      } finally {
+        this.deletingQR = false;
       }
     },
     refreshData() {
@@ -1391,7 +1499,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("340397d0", content, true, context)
+  add("b1633bbe", content, true, context)
 };
 
 /***/ }),
@@ -3598,9 +3706,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(676);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_0e1f48ff_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_7c6d0872_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(676);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_7c6d0872_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_7c6d0872_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_7c6d0872_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CompanyForm_vue_vue_type_style_index_0_id_7c6d0872_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -3612,7 +3720,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-expansion-panel[data-v-0e1f48ff]:before{box-shadow:none}.v-expansion-panel-header[data-v-0e1f48ff]{min-height:40px!important}.v-expansion-panel-content[data-v-0e1f48ff] .v-expansion-panel-content__wrap{padding-bottom:8px;padding-top:8px}.rounded[data-v-0e1f48ff]{border-radius:4px!important}.v-file-input[data-v-0e1f48ff] .v-file-input__text{font-size:.875rem}.v-text-field--outlined.v-input--dense .v-label[data-v-0e1f48ff]{top:8px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-expansion-panel[data-v-7c6d0872]:before{box-shadow:none}.v-expansion-panel-header[data-v-7c6d0872]{min-height:40px!important}.v-expansion-panel-content[data-v-7c6d0872] .v-expansion-panel-content__wrap{padding-bottom:8px;padding-top:8px}.rounded[data-v-7c6d0872]{border-radius:4px!important}.v-file-input[data-v-7c6d0872] .v-file-input__text{font-size:.875rem}.v-text-field--outlined.v-input--dense .v-label[data-v-7c6d0872]{top:8px}.qr-image-container[data-v-7c6d0872],.qr-placeholder[data-v-7c6d0872]{align-items:center;display:flex;justify-content:center;min-height:160px}.qr-placeholder[data-v-7c6d0872]{background:#f5f5f5;border:2px dashed #ccc;border-radius:8px;margin:0 auto;max-width:160px}.qr-shadow[data-v-7c6d0872]{border:1px solid #e0e0e0;box-shadow:0 2px 8px rgba(0,0,0,.1)}.qr-preview[data-v-7c6d0872]{border:2px solid #4caf50;box-shadow:0 2px 4px rgba(76,175,80,.3)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -3687,7 +3795,7 @@ var VSwitch = __webpack_require__(482);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CompanyForm.vue?vue&type=template&id=0e1f48ff&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CompanyForm.vue?vue&type=template&id=7c6d0872&scoped=true
 
 
 
@@ -3711,7 +3819,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var CompanyFormvue_type_template_id_0e1f48ff_scoped_true_render = function render() {
+var CompanyFormvue_type_template_id_7c6d0872_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -4171,7 +4279,148 @@ var CompanyFormvue_type_template_id_0e1f48ff_scoped_true_render = function rende
       "dense": "",
       "border": "left"
     }
-  }, [_c('small', [_vm._v("\n                      JPG, PNG, GIF • ສູງສຸດ 5MB\n                    ")])])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), !_vm.isCreate && _vm.form.id ? _c(VRow["a" /* default */], {
+  }, [_c('small', [_vm._v("\n                      JPG, PNG, GIF • ສູງສຸດ 5MB\n                    ")])])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VExpansionPanels["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "flat": ""
+    }
+  }, [_c(VExpansionPanel["a" /* default */], [_c(VExpansionPanelHeader["a" /* default */], {
+    staticClass: "px-0 py-2"
+  }, [_c('div', {
+    staticClass: "d-flex align-center"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-qrcode")]), _vm._v(" "), _c('span', {
+    staticClass: "text-subtitle2"
+  }, [_vm._v("QR ໂຄ້ດທະນາຄານ")]), _vm._v(" "), _vm.form.bank_qr_image_path ? _c(VChip["a" /* default */], {
+    staticClass: "ml-2",
+    attrs: {
+      "x-small": "",
+      "color": "success"
+    }
+  }, [_vm._v("\n                  ມີ QR ແລ້ວ\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c(VExpansionPanelContent["a" /* default */], {
+    staticClass: "px-0"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
+    }
+  }, [_vm.currentQRImageUrl ? _c('div', {
+    staticClass: "text-center"
+  }, [_c('div', {
+    staticClass: "qr-image-container mb-2"
+  }, [_c(VImg["a" /* default */], {
+    staticClass: "mx-auto rounded qr-shadow",
+    attrs: {
+      "src": _vm.currentQRImageUrl,
+      "max-width": "160",
+      "max-height": "160",
+      "contain": ""
+    }
+  })], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "error",
+      "text": "",
+      "x-small": "",
+      "loading": _vm.deletingQR
+    },
+    on: {
+      "click": _vm.deleteQRImage
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": ""
+    }
+  }, [_vm._v("mdi-delete")]), _vm._v("\n                      ລຶບ QR\n                    ")], 1)], 1) : _c('div', {
+    staticClass: "text-center"
+  }, [_c('div', {
+    staticClass: "qr-placeholder mb-2"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "60",
+      "color": "grey"
+    }
+  }, [_vm._v("mdi-qrcode-scan")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "text-caption grey--text"
+  }, [_vm._v("ບໍ່ມີ QR ໂຄ້ດ")])])]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
+    }
+  }, [_c(VFileInput["a" /* default */], {
+    ref: "qrFileInput",
+    attrs: {
+      "accept": "image/*",
+      "label": "ເລືອກ QR ໂຄ້ດ",
+      "prepend-icon": "",
+      "prepend-inner-icon": "mdi-qrcode",
+      "dense": "",
+      "outlined": "",
+      "hide-details": "auto",
+      "disabled": _vm.uploadingQR,
+      "clearable": ""
+    },
+    on: {
+      "change": _vm.onQRFileSelected
+    },
+    model: {
+      value: _vm.selectedQRFile,
+      callback: function ($$v) {
+        _vm.selectedQRFile = $$v;
+      },
+      expression: "selectedQRFile"
+    }
+  }), _vm._v(" "), _vm.qrPreviewUrl ? _c('div', {
+    staticClass: "mt-2 text-center"
+  }, [_c(VImg["a" /* default */], {
+    staticClass: "mx-auto rounded qr-preview",
+    attrs: {
+      "src": _vm.qrPreviewUrl,
+      "max-width": "100",
+      "max-height": "100",
+      "contain": ""
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "mt-3"
+  }, [_vm.selectedQRFile && !_vm.uploadingQR ? _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "success",
+      "small": "",
+      "block": ""
+    },
+    on: {
+      "click": _vm.uploadQRImage
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-upload")]), _vm._v("\n                      ອັບໂຫລດ QR\n                    ")], 1) : _vm._e(), _vm._v(" "), _vm.uploadingQR ? _c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "success",
+      "small": "",
+      "block": "",
+      "loading": "",
+      "disabled": ""
+    }
+  }, [_vm._v("\n                      ກຳລັງອັບໂຫລດ QR...\n                    ")]) : _vm._e()], 1), _vm._v(" "), _c(VAlert["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "type": "info",
+      "text": "",
+      "dense": "",
+      "border": "left"
+    }
+  }, [_c('small', [_c(VIcon["a" /* default */], {
+    staticClass: "mr-1",
+    attrs: {
+      "x-small": ""
+    }
+  }, [_vm._v("mdi-information")]), _vm._v("\n                      QR ໂຄ້ດສໍາລັບການຈ່າຍເງິນ • JPG, PNG • ສູງສຸດ 5MB\n                    ")], 1)])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), !_vm.isCreate && _vm.form.id ? _c(VRow["a" /* default */], {
     staticClass: "mt-3"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -4236,7 +4485,7 @@ var CompanyFormvue_type_template_id_0e1f48ff_scoped_true_render = function rende
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/CompanyForm.vue?vue&type=template&id=0e1f48ff&scoped=true
+// CONCATENATED MODULE: ./components/CompanyForm.vue?vue&type=template&id=7c6d0872&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/CompanyForm.vue?vue&type=script&lang=js
 var CompanyFormvue_type_script_lang_js = __webpack_require__(614);
@@ -4261,11 +4510,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_CompanyFormvue_type_script_lang_js,
-  CompanyFormvue_type_template_id_0e1f48ff_scoped_true_render,
+  CompanyFormvue_type_template_id_7c6d0872_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "0e1f48ff",
+  "7c6d0872",
   "4367445e"
   
 )
