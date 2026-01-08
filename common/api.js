@@ -7,7 +7,7 @@
  */
 export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8003' // *** CHITHAN
-  const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
+  // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
   // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
   // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
   // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
@@ -21,7 +21,7 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8026' //  *** DEV DEMO
   // const baseURL = 'http://150.95.31.23:8027' //  *** HAPPY BUN
   // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
-  // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
+  const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
   

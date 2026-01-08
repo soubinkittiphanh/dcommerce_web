@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5743323a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(899);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5743323a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5743323a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5743323a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5743323a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6a875e8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(899);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6a875e8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6a875e8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6a875e8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f6a875e8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".simple-bank-statement[data-v-5743323a]{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;margin:0 auto;max-width:800px;padding:20px}.header[data-v-5743323a]{border-bottom:2px solid #e9ecef;margin-bottom:30px;padding-bottom:20px;text-align:center}.header h2[data-v-5743323a]{color:#2c3e50;font-size:24px;font-weight:600;margin:0 0 8px}.header small[data-v-5743323a]{color:#6c757d;font-size:14px}.statement-form[data-v-5743323a]{background:#fff;border:1px solid #dee2e6;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:30px;padding:30px}.form-container[data-v-5743323a]{display:grid;grid-gap:20px;gap:20px}.form-row[data-v-5743323a]{display:grid;grid-template-columns:1fr 1fr;grid-gap:20px;gap:20px}.form-group[data-v-5743323a]{display:flex;flex-direction:column}.form-group label[data-v-5743323a]{color:#495057;font-size:14px;font-weight:600;margin-bottom:8px}.form-group input[data-v-5743323a],.form-group select[data-v-5743323a]{background:#fff;border:2px solid #e9ecef;border-radius:6px;font-size:14px;padding:12px;transition:border-color .2s}.form-group input[data-v-5743323a]:focus,.form-group select[data-v-5743323a]:focus{border-color:#007bff;outline:none}.form-group small[data-v-5743323a]{color:#6c757d;font-size:12px;margin-top:4px}.custom-autocomplete[data-v-5743323a]{margin-top:4px}.custom-autocomplete[data-v-5743323a] .v-input__control{min-height:48px}.custom-autocomplete[data-v-5743323a] .v-input__slot{background:#fff!important;border:2px solid #e9ecef!important;border-radius:6px!important}.custom-autocomplete.v-input--is-focused[data-v-5743323a] .v-input__slot{border-color:#007bff!important;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)!important}.custom-autocomplete[data-v-5743323a] .v-select__selection{color:#495057;font-weight:500}.custom-autocomplete[data-v-5743323a] .v-input__append-inner{margin-top:8px}.amount-input[data-v-5743323a]{display:flex;position:relative}.amount-input input[data-v-5743323a]{font-family:monospace;font-weight:600;padding-right:60px}.currency-label[data-v-5743323a]{background:#f8f9fa;border-radius:3px;color:#007bff;font-size:14px;font-weight:600;padding:2px 6px;position:absolute;right:12px;top:50%;transform:translateY(-50%)}.form-actions[data-v-5743323a]{border-top:1px solid #e9ecef;display:flex;gap:15px;justify-content:center;margin-top:30px;padding-top:20px}button[data-v-5743323a]{border:none;border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;padding:12px 24px;transition:all .2s}.btn-primary[data-v-5743323a]{background:#007bff;color:#fff}.btn-primary[data-v-5743323a]:hover:not(:disabled){background:#0056b3}.btn-primary[data-v-5743323a]:disabled{background:#6c757d;cursor:not-allowed}.btn-secondary[data-v-5743323a]{background:#6c757d;color:#fff}.btn-secondary[data-v-5743323a]:hover{background:#545b62}.recent-transactions[data-v-5743323a]{background:#fff;border:1px solid #dee2e6;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);min-height:150px;padding:20px}.recent-transactions h3[data-v-5743323a]{color:#2c3e50;font-size:18px;font-weight:600;margin:0 0 20px}.loading-state[data-v-5743323a],.no-transactions[data-v-5743323a]{color:#6c757d;font-style:italic;padding:40px 20px;text-align:center}.loading-state[data-v-5743323a]{color:#007bff}.transactions-list[data-v-5743323a]{display:grid;grid-gap:12px;gap:12px}.transaction-item[data-v-5743323a]{background:#f8f9fa;border:1px solid #e9ecef;border-left-width:4px;border-radius:6px;padding:15px;transition:all .2s}.transaction-item[data-v-5743323a]:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}.transaction-item.debit[data-v-5743323a]{border-left-color:#dc3545}.transaction-item.credit[data-v-5743323a]{border-left-color:#28a745}.transaction-header[data-v-5743323a]{align-items:center;display:flex;justify-content:space-between;margin-bottom:8px}.transaction-type[data-v-5743323a]{color:#495057;font-size:14px;font-weight:600}.transaction-amount[data-v-5743323a]{font-family:monospace;font-size:16px;font-weight:700}.transaction-amount.debit[data-v-5743323a]{color:#dc3545}.transaction-amount.credit[data-v-5743323a]{color:#28a745}.transaction-details[data-v-5743323a]{display:flex;font-size:13px;gap:15px}.transaction-details .date[data-v-5743323a]{color:#6c757d;font-family:monospace}.transaction-details .description[data-v-5743323a]{color:#495057;flex:1}@media (max-width:768px){.form-row[data-v-5743323a]{gap:15px;grid-template-columns:1fr}.form-actions[data-v-5743323a]{flex-direction:column}.transaction-header[data-v-5743323a]{align-items:flex-start}.transaction-details[data-v-5743323a],.transaction-header[data-v-5743323a]{flex-direction:column;gap:5px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".balance-section[data-v-f6a875e8]{margin:20px 0}.manual-balance-wrapper[data-v-f6a875e8]{background:#fff8f0;border:2px dashed #f59e0b;border-radius:8px;padding:20px}.input-manual-balance[data-v-f6a875e8]{background:#fff;border:2px solid #f59e0b;border-radius:6px;font-family:\"Monaco\",monospace;font-size:16px;font-weight:700;height:40px;padding:0 12px}.input-manual-balance[data-v-f6a875e8]:focus{border-color:#d97706;box-shadow:0 0 0 3px rgba(245,158,11,.1);outline:none}.balance-difference[data-v-f6a875e8]{align-items:center;background:#fff;border-radius:6px;display:flex;font-size:13px;gap:8px;margin-top:12px;padding:12px}.diff-label[data-v-f6a875e8]{color:#92400e;font-weight:600}.diff-value[data-v-f6a875e8]{font-family:\"Monaco\",monospace;font-size:16px;font-weight:700}.diff-value.positive[data-v-f6a875e8]{color:#10b981}.diff-value.negative[data-v-f6a875e8]{color:#ef4444}.diff-note[data-v-f6a875e8]{color:#6b7280;font-size:12px;margin-left:auto}.balance-mode-toggle[data-v-f6a875e8]{margin-top:16px;text-align:center}.btn-toggle[data-v-f6a875e8]{background:#fff;border:2px solid #e5e7eb;border-radius:6px;color:#6b7280;cursor:pointer;font-size:13px;font-weight:600;padding:10px 20px;transition:all .2s}.btn-toggle[data-v-f6a875e8]:hover{background:#eff6ff;border-color:#3b82f6;color:#3b82f6}.btn-toggle.active[data-v-f6a875e8]{background:#f59e0b;border-color:#f59e0b;color:#fff}.toggle-hint[data-v-f6a875e8]{color:#92400e;display:block;font-size:12px;font-style:italic;margin-top:8px}@media (max-width:768px){.balance-difference[data-v-f6a875e8]{align-items:flex-start;flex-direction:column;gap:4px}.diff-note[data-v-f6a875e8]{margin-left:0}}*[data-v-f6a875e8]{box-sizing:border-box}.ac-statement-compact[data-v-f6a875e8]{font-family:\"Noto Sans Lao\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;margin:0 auto;max-width:1400px;padding:16px}.page-header[data-v-f6a875e8]{margin-bottom:20px}.header-content h1[data-v-f6a875e8]{color:#1a1a1a;font-size:24px;font-weight:600;margin:0}.header-content p[data-v-f6a875e8]{color:#6b7280;font-size:13px;margin:2px 0 0}.form-card[data-v-f6a875e8]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:20px;padding:20px}.form-grid[data-v-f6a875e8]{display:grid;grid-template-columns:1fr 1fr;grid-gap:16px;gap:16px;margin-bottom:16px}.form-grid[data-v-f6a875e8]:last-child{margin-bottom:0}.triple-grid[data-v-f6a875e8]{grid-template-columns:repeat(3,1fr)}.amount-grid[data-v-f6a875e8]{margin:20px 0}.form-field[data-v-f6a875e8]{display:flex;flex-direction:column}.form-field.col-span-2[data-v-f6a875e8]{grid-column:span 2}.form-field label[data-v-f6a875e8]{color:#374151;font-size:13px;font-weight:500;margin-bottom:6px}.required[data-v-f6a875e8]{color:#ef4444}.amount-wrapper input[data-v-f6a875e8],.input-date[data-v-f6a875e8],.input-select[data-v-f6a875e8],.input-text[data-v-f6a875e8]{background:#fff;border:1px solid #d1d5db;border-radius:6px;font-size:14px;height:40px;padding:0 12px;transition:all .2s}.amount-wrapper input[data-v-f6a875e8]:focus,.input-date[data-v-f6a875e8]:focus,.input-select[data-v-f6a875e8]:focus,.input-text[data-v-f6a875e8]:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1);outline:none}.form-field[data-v-f6a875e8] .v-input__control{min-height:40px!important}.form-field[data-v-f6a875e8] .v-input__slot{border:1px solid #d1d5db!important;border-radius:6px!important;box-shadow:none!important;min-height:40px!important;padding:0 12px!important}.form-field[data-v-f6a875e8] .v-input--is-focused .v-input__slot{border-color:#3b82f6!important;box-shadow:0 0 0 3px rgba(59,130,246,.1)!important}.select-text[data-v-f6a875e8]{color:#1f2937;font-size:14px}.select-item[data-v-f6a875e8]{padding:4px 0}.item-name[data-v-f6a875e8]{color:#1f2937;font-size:14px;font-weight:500}.item-sub[data-v-f6a875e8]{color:#6b7280;font-size:12px;margin-top:2px}.amount-wrapper[data-v-f6a875e8]{align-items:center;display:flex;position:relative}.amount-wrapper input[data-v-f6a875e8]{font-family:\"Monaco\",\"Courier New\",monospace;font-weight:600;padding-left:36px;width:100%}.amount-icon[data-v-f6a875e8]{font-size:18px;font-weight:700;left:12px;pointer-events:none;position:absolute}.credit-input .amount-icon[data-v-f6a875e8]{color:#10b981}.debit-input .amount-icon[data-v-f6a875e8]{color:#ef4444}.credit-input input[data-v-f6a875e8]{border-color:#10b981}.debit-input input[data-v-f6a875e8]{border-color:#ef4444}.balance-strip[data-v-f6a875e8]{background:linear-gradient(90deg,#f9fafb,#f3f4f6);border-radius:8px;font-size:13px;gap:12px;justify-content:center;margin:20px 0;padding:16px}.balance-item[data-v-f6a875e8],.balance-strip[data-v-f6a875e8]{align-items:center;display:flex}.balance-item[data-v-f6a875e8]{flex-direction:column;gap:4px}.balance-item .label[data-v-f6a875e8]{color:#6b7280;font-size:11px;letter-spacing:.5px;text-transform:uppercase}.balance-item .value[data-v-f6a875e8]{color:#1f2937;font-family:\"Monaco\",monospace;font-size:16px;font-weight:700}.balance-item.credit .value[data-v-f6a875e8]{color:#10b981}.balance-item.debit .value[data-v-f6a875e8]{color:#ef4444}.balance-item.highlight[data-v-f6a875e8]{background:#3b82f6;border-radius:6px;color:#fff;padding:8px 16px}.balance-item.highlight .label[data-v-f6a875e8],.balance-item.highlight .value[data-v-f6a875e8]{color:#fff}.balance-divider[data-v-f6a875e8]{color:#d1d5db;font-size:20px}.form-actions[data-v-f6a875e8]{border-top:1px solid #e5e7eb;display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:20px}.btn-clear[data-v-f6a875e8],.btn-save[data-v-f6a875e8]{border:none;border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;height:40px;padding:0 24px;transition:all .2s}.btn-save[data-v-f6a875e8]{background:#3b82f6;color:#fff}.btn-save[data-v-f6a875e8]:hover:not(:disabled){background:#2563eb;box-shadow:0 4px 6px rgba(37,99,235,.2);transform:translateY(-1px)}.btn-save[data-v-f6a875e8]:disabled{background:#9ca3af;cursor:not-allowed}.btn-clear[data-v-f6a875e8]{background:#f3f4f6;color:#374151}.btn-clear[data-v-f6a875e8]:hover{background:#e5e7eb}.table-card[data-v-f6a875e8]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:20px}.table-toolbar[data-v-f6a875e8]{align-items:center;display:flex;justify-content:space-between;margin-bottom:16px}.table-toolbar h2[data-v-f6a875e8]{color:#1a1a1a;font-size:18px;font-weight:600;margin:0}.toolbar-actions[data-v-f6a875e8]{display:flex;gap:8px}.btn-icon[data-v-f6a875e8]{background:#fff;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer;font-size:16px;height:36px;padding:0;transition:all .2s;width:36px}.btn-icon[data-v-f6a875e8]:hover:not(:disabled){background:#f9fafb;border-color:#d1d5db}.btn-icon[data-v-f6a875e8]:disabled{cursor:not-allowed;opacity:.5}.empty-state[data-v-f6a875e8]{color:#9ca3af;padding:60px 20px;text-align:center}.spinner[data-v-f6a875e8]{animation:spin-f6a875e8 .8s linear infinite;border:3px solid #e5e7eb;border-radius:50%;border-top-color:#3b82f6;height:40px;margin:0 auto 16px;width:40px}@keyframes spin-f6a875e8{to{transform:rotate(1turn)}}.table-wrapper[data-v-f6a875e8]{margin:0 -20px;overflow-x:auto;padding:0 20px}.compact-table[data-v-f6a875e8]{border-collapse:collapse;font-size:13px;width:100%}.compact-table th[data-v-f6a875e8]{background:#f9fafb;border-bottom:2px solid #e5e7eb;color:#6b7280;font-weight:600;padding:10px 12px;text-align:left;white-space:nowrap}.compact-table td[data-v-f6a875e8]{border-bottom:1px solid #f3f4f6;padding:12px}.compact-table tr[data-v-f6a875e8]:hover{background:#fafafa}.compact-table tr.is-reconciled[data-v-f6a875e8]{background:#ecfdf5}.compact-table .amount[data-v-f6a875e8]{font-family:\"Monaco\",monospace;font-weight:600;text-align:right}.compact-table .amount.debit[data-v-f6a875e8]{color:#ef4444}.compact-table .amount.credit[data-v-f6a875e8]{color:#10b981}.compact-table .amount.balance[data-v-f6a875e8]{color:#3b82f6}.compact-table .nowrap[data-v-f6a875e8]{color:#6b7280;font-size:12px;white-space:nowrap}.compact-table .desc[data-v-f6a875e8]{max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.compact-table .ref[data-v-f6a875e8]{color:#9ca3af;font-size:12px}.compact-table .actions[data-v-f6a875e8]{text-align:right;white-space:nowrap}.btn-mini[data-v-f6a875e8]{background:#fff;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-size:12px;height:28px;margin-left:4px;padding:0;width:28px}.btn-mini[data-v-f6a875e8]:hover{background:#f9fafb}.badge[data-v-f6a875e8]{border-radius:4px;display:inline-block;font-size:11px;font-weight:600;padding:4px 8px;text-transform:uppercase}.badge.pending[data-v-f6a875e8]{background:#fef3c7;color:#92400e}.badge.cleared[data-v-f6a875e8]{background:#dbeafe;color:#1e40af}.badge.reconciled[data-v-f6a875e8]{background:#d1fae5;color:#065f46}.pagination[data-v-f6a875e8]{align-items:center;border-top:1px solid #e5e7eb;display:flex;gap:12px;justify-content:center;margin-top:20px;padding-top:20px}.btn-page[data-v-f6a875e8]{background:#fff;border:1px solid #e5e7eb;border-radius:4px;cursor:pointer;font-size:16px;height:32px;padding:0;width:32px}.btn-page[data-v-f6a875e8]:hover:not(:disabled){background:#f9fafb}.btn-page[data-v-f6a875e8]:disabled{cursor:not-allowed;opacity:.3}.page-info[data-v-f6a875e8]{color:#6b7280;font-size:13px;font-weight:500}.modal-backdrop[data-v-f6a875e8]{align-items:center;background:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.modal-dialog[data-v-f6a875e8]{background:#fff;border-radius:12px;box-shadow:0 20px 25px -5px rgba(0,0,0,.1);max-width:500px;width:100%}.modal-header[data-v-f6a875e8]{align-items:center;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;padding:20px}.modal-header h3[data-v-f6a875e8]{font-size:18px;font-weight:600;margin:0}.btn-close[data-v-f6a875e8]{background:transparent;border:none;color:#9ca3af;cursor:pointer;font-size:28px;height:32px;line-height:1;padding:0;width:32px}.btn-close[data-v-f6a875e8]:hover{color:#374151}.modal-body[data-v-f6a875e8]{padding:20px}.summary-list[data-v-f6a875e8]{display:flex;flex-direction:column;gap:12px}.summary-row[data-v-f6a875e8]{background:#f9fafb;border-radius:6px;display:flex;justify-content:space-between;padding:12px}.summary-row.credit strong[data-v-f6a875e8]{color:#10b981}.summary-row.debit strong[data-v-f6a875e8]{color:#ef4444}.summary-row.highlight[data-v-f6a875e8]{background:#3b82f6;color:#fff;font-weight:600}.summary-row strong[data-v-f6a875e8]{font-family:\"Monaco\",monospace;font-size:16px}.modal-enter-active[data-v-f6a875e8],.modal-leave-active[data-v-f6a875e8]{transition:opacity .2s}.modal-enter-active .modal-dialog[data-v-f6a875e8],.modal-leave-active .modal-dialog[data-v-f6a875e8]{transition:transform .2s}.modal-enter[data-v-f6a875e8],.modal-leave-to[data-v-f6a875e8]{opacity:0}.modal-enter .modal-dialog[data-v-f6a875e8],.modal-leave-to .modal-dialog[data-v-f6a875e8]{transform:scale(.95)}@media (max-width:768px){.form-grid[data-v-f6a875e8],.triple-grid[data-v-f6a875e8]{grid-template-columns:1fr}.form-field.col-span-2[data-v-f6a875e8]{grid-column:span 1}.balance-strip[data-v-f6a875e8]{flex-direction:column;gap:8px}.balance-divider[data-v-f6a875e8]{transform:rotate(90deg)}.table-toolbar[data-v-f6a875e8]{align-items:flex-start;flex-direction:column;gap:12px}.compact-table[data-v-f6a875e8]{font-size:12px}.compact-table td[data-v-f6a875e8],.compact-table th[data-v-f6a875e8]{padding:8px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -38,49 +38,48 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
 var VAutocomplete = __webpack_require__(409);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
-var VList = __webpack_require__(9);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceStatement/index.vue?vue&type=template&id=5743323a&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceStatement/index.vue?vue&type=template&id=f6a875e8&scoped=true
 
 
-
-
-
-var moneyAdvanceStatementvue_type_template_id_5743323a_scoped_true_render = function render() {
-  var _vm$selectedCurrency, _vm$selectedCurrency2;
+var moneyAdvanceStatementvue_type_template_id_f6a875e8_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "simple-bank-statement"
-  }, [_vm._ssrNode("<div class=\"header\" data-v-5743323a><h2 data-v-5743323a>Bank Account Statement Entry</h2> <small data-v-5743323a>Simple debit/credit entry form</small></div> "), _vm._ssrNode("<div class=\"statement-form\" data-v-5743323a>", "</div>", [_vm._ssrNode("<div class=\"form-container\" data-v-5743323a>", "</div>", [_vm._ssrNode("<div class=\"form-row\" data-v-5743323a>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-5743323a>", "</div>", [_vm._ssrNode("<label data-v-5743323a>Bank Account *</label> "), _c(VAutocomplete["a" /* default */], {
-    staticClass: "custom-autocomplete",
+    staticClass: "ac-statement-compact"
+  }, [_vm._ssrNode("<div class=\"page-header\" data-v-f6a875e8><div class=\"header-content\" data-v-f6a875e8><h1 data-v-f6a875e8>ບັນທຶກບັນຊີທະນາຄານ</h1> <p data-v-f6a875e8>Account Statement Entry</p></div></div> "), _vm._ssrNode("<div class=\"form-card\" data-v-f6a875e8>", "</div>", [_vm._ssrNode("<form data-v-f6a875e8>", "</form>", [_vm._ssrNode("<div class=\"form-grid\" data-v-f6a875e8>", "</div>", [_vm._ssrNode("<div class=\"form-field\" data-v-f6a875e8>", "</div>", [_vm._ssrNode("<label data-v-f6a875e8>ບັນຊີທະນາຄານ <span class=\"required\" data-v-f6a875e8>*</span></label> "), _c(VAutocomplete["a" /* default */], {
     attrs: {
       "items": _vm.bankAccounts,
       "item-text": "accountDisplayName",
       "item-value": "id",
-      "label": "Search and select bank account...",
+      "placeholder": "ເລືອກບັນຊີ...",
       "outlined": "",
       "dense": "",
-      "clearable": "",
-      "search-input": _vm.bankAccountSearch,
-      "no-data-text": "No bank accounts found",
       "hide-details": ""
     },
     on: {
-      "update:searchInput": function ($event) {
-        _vm.bankAccountSearch = $event;
-      },
-      "update:search-input": function ($event) {
-        _vm.bankAccountSearch = $event;
-      }
+      "change": _vm.onBankAccountChange
     },
     scopedSlots: _vm._u([{
+      key: "selection",
+      fn: function ({
+        item
+      }) {
+        return [_c('span', {
+          staticClass: "select-text"
+        }, [_vm._v(_vm._s(item.accountName) + " - " + _vm._s(item.accountNumber))])];
+      }
+    }, {
       key: "item",
       fn: function ({
         item
       }) {
-        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v(_vm._s(item.accountName))]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], [_vm._v(_vm._s(item.accountNumber) + " - " + _vm._s(item.bankName))])], 1)];
+        return [_c('div', {
+          staticClass: "select-item"
+        }, [_c('div', {
+          staticClass: "item-name"
+        }, [_vm._v(_vm._s(item.accountName))]), _vm._v(" "), _c('div', {
+          staticClass: "item-sub"
+        }, [_vm._v(_vm._s(item.accountNumber) + " · " + _vm._s(item.bankName))])])];
       }
     }]),
     model: {
@@ -90,242 +89,441 @@ var moneyAdvanceStatementvue_type_template_id_5743323a_scoped_true_render = func
       },
       expression: "form.bankAccountId"
     }
-  })], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-5743323a>", "</div>", [_vm._ssrNode("<label data-v-5743323a>Currency *</label> "), _c(VAutocomplete["a" /* default */], {
-    staticClass: "custom-autocomplete",
-    attrs: {
-      "items": _vm.currencies,
-      "item-text": "displayName",
-      "item-value": "id",
-      "label": "Search currency...",
-      "outlined": "",
-      "dense": "",
-      "clearable": "",
-      "search-input": _vm.currencySearch,
-      "no-data-text": "No currencies found",
-      "hide-details": ""
-    },
+  })], 2), _vm._ssrNode(" <div class=\"form-field\" data-v-f6a875e8><label data-v-f6a875e8>ວັນທີ <span class=\"required\" data-v-f6a875e8>*</span></label> <input type=\"date\"" + _vm._ssrAttr("value", _vm.form.bookingDate) + " class=\"input-date\" data-v-f6a875e8></div>")], 2), _vm._ssrNode(" <div class=\"form-grid amount-grid\" data-v-f6a875e8><div class=\"form-field\" data-v-f6a875e8><label data-v-f6a875e8>ຈຳນວນເງິນເຂົ້າ (Credit)</label> <div class=\"amount-wrapper credit-input\" data-v-f6a875e8><span class=\"amount-icon\" data-v-f6a875e8>+</span> <input type=\"number\" placeholder=\"0.00\" step=\"0.01\"" + _vm._ssrAttr("value", _vm.form.creditAmount) + " data-v-f6a875e8></div></div> <div class=\"form-field\" data-v-f6a875e8><label data-v-f6a875e8>ຈຳນວນເງິນອອກ (Debit)</label> <div class=\"amount-wrapper debit-input\" data-v-f6a875e8><span class=\"amount-icon\" data-v-f6a875e8>-</span> <input type=\"number\" placeholder=\"0.00\" step=\"0.01\"" + _vm._ssrAttr("value", _vm.form.debitAmount) + " data-v-f6a875e8></div></div></div> <div class=\"form-grid\" data-v-f6a875e8><div class=\"form-field col-span-2\" data-v-f6a875e8><label data-v-f6a875e8>ລາຍລະອຽດ <span class=\"required\" data-v-f6a875e8>*</span></label> <input type=\"text\" placeholder=\"ລາຍລະອຽດການເຮັດທຸລະກຳ...\"" + _vm._ssrAttr("value", _vm.form.description) + " class=\"input-text\" data-v-f6a875e8></div></div> "), _vm._ssrNode("<div class=\"form-grid triple-grid\" data-v-f6a875e8>", "</div>", [_vm._ssrNode("<div class=\"form-field\" data-v-f6a875e8><label data-v-f6a875e8>ເລກອ້າງອີງ</label> <input type=\"text\" placeholder=\"Ref...\"" + _vm._ssrAttr("value", _vm.form.referenceNo) + " class=\"input-text\" data-v-f6a875e8></div> "), _vm._ssrNode("<div class=\"form-field\" data-v-f6a875e8>", "</div>", [_vm._ssrNode("<label data-v-f6a875e8>ປະເພດ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.transactionType,
+      expression: "form.transactionType"
+    }],
+    staticClass: "input-select",
     on: {
-      "update:searchInput": function ($event) {
-        _vm.currencySearch = $event;
-      },
-      "update:search-input": function ($event) {
-        _vm.currencySearch = $event;
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "transactionType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
-    },
-    scopedSlots: _vm._u([{
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c(VList["a" /* VListItemContent */], [_c(VList["c" /* VListItemTitle */], [_vm._v(_vm._s(item.code))]), _vm._v(" "), _c(VList["b" /* VListItemSubtitle */], [_vm._v(_vm._s(item.name))])], 1)];
-      }
-    }]),
-    model: {
-      value: _vm.form.currencyId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "currencyId", $$v);
-      },
-      expression: "form.currencyId"
     }
-  })], 2)], 2), _vm._ssrNode(" <div class=\"form-row\" data-v-5743323a><div class=\"form-group\" data-v-5743323a><label data-v-5743323a>Debit Amount</label> <div class=\"amount-input\" data-v-5743323a><input type=\"number\" step=\"0.01\" min=\"0\" placeholder=\"0.00\"" + _vm._ssrAttr("value", _vm.form.debitAmount) + " data-v-5743323a> <span class=\"currency-label\" data-v-5743323a>" + _vm._ssrEscape(_vm._s(((_vm$selectedCurrency = _vm.selectedCurrency) === null || _vm$selectedCurrency === void 0 ? void 0 : _vm$selectedCurrency.code) || '')) + "</span></div> <small data-v-5743323a>Money going out (MoneyAdvance)</small></div> <div class=\"form-group\" data-v-5743323a><label data-v-5743323a>Credit Amount</label> <div class=\"amount-input\" data-v-5743323a><input type=\"number\" step=\"0.01\" min=\"0\" placeholder=\"0.00\"" + _vm._ssrAttr("value", _vm.form.creditAmount) + " data-v-5743323a> <span class=\"currency-label\" data-v-5743323a>" + _vm._ssrEscape(_vm._s(((_vm$selectedCurrency2 = _vm.selectedCurrency) === null || _vm$selectedCurrency2 === void 0 ? void 0 : _vm$selectedCurrency2.code) || '')) + "</span></div> <small data-v-5743323a>Money coming in (Settlement)</small></div></div> <div class=\"form-row\" data-v-5743323a><div class=\"form-group\" data-v-5743323a><label data-v-5743323a>Transaction Date *</label> <input type=\"date\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.transactionDate) + " data-v-5743323a></div> <div class=\"form-group\" data-v-5743323a><label data-v-5743323a>Description *</label> <input type=\"text\" placeholder=\"Transaction description\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.description) + " data-v-5743323a></div></div> <div class=\"form-actions\" data-v-5743323a><button" + _vm._ssrAttr("disabled", !_vm.isFormValid || _vm.saving) + " class=\"btn-primary\" data-v-5743323a>" + _vm._ssrEscape("\n          " + _vm._s(_vm.saving ? 'Saving...' : 'Save Transaction') + "\n        ") + "</button> <button class=\"btn-secondary\" data-v-5743323a>Clear</button></div>")], 2)]), _vm._ssrNode(" " + (_vm.form.bankAccountId ? "<div class=\"recent-transactions\" data-v-5743323a><h3 data-v-5743323a>Recent Transactions</h3> " + (_vm.loadingTransactions ? "<div class=\"loading-state\" data-v-5743323a>\n      Loading recent transactions...\n    </div>" : _vm.recentTransactions.length === 0 ? "<div class=\"no-transactions\" data-v-5743323a>\n      No recent transactions found for this account\n    </div>" : "<div class=\"transactions-list\" data-v-5743323a>" + _vm._ssrList(_vm.recentTransactions, function (transaction) {
-    return "<div" + _vm._ssrClass("transaction-item", transaction.type) + " data-v-5743323a><div class=\"transaction-info\" data-v-5743323a><div class=\"transaction-header\" data-v-5743323a><span class=\"transaction-type\" data-v-5743323a>" + _vm._ssrEscape("\n              " + _vm._s(transaction.type === 'debit' ? '📤 Debit' : '📥 Credit') + "\n            ") + "</span> <span" + _vm._ssrClass("transaction-amount", transaction.type) + " data-v-5743323a>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatAmount(transaction.amount)) + " " + _vm._s(transaction.currencyCode) + "\n            ") + "</span></div> <div class=\"transaction-details\" data-v-5743323a><span class=\"date\" data-v-5743323a>" + _vm._ssrEscape(_vm._s(_vm.formatDate(transaction.bookingDate))) + "</span> <span class=\"description\" data-v-5743323a>" + _vm._ssrEscape(_vm._s(transaction.description)) + "</span></div></div></div>";
-  }) + "</div>") + "</div>" : "<!---->"))], 2);
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("-- ເລືອກ --")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "deposit"
+    }
+  }, [_vm._v("ຝາກເງິນ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "withdrawal"
+    }
+  }, [_vm._v("ຖອນເງິນ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "transfer"
+    }
+  }, [_vm._v("ໂອນເງິນ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "fee"
+    }
+  }, [_vm._v("ຄ່າທຳນຽມ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "interest"
+    }
+  }, [_vm._v("ດອກເບ້ຍ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "other"
+    }
+  }, [_vm._v("ອື່ນໆ")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-field\" data-v-f6a875e8>", "</div>", [_vm._ssrNode("<label data-v-f6a875e8>ສະຖານະ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "input-select",
+    on: {
+      "change": function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "pending"
+    }
+  }, [_vm._v("ລໍຖ້າ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "cleared"
+    }
+  }, [_vm._v("ຜ່ານແລ້ວ")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "reconciled"
+    }
+  }, [_vm._v("ກວດສອບແລ້ວ")])])], 2)], 2), _vm._ssrNode(" " + (_vm.form.bankAccountId ? "<div class=\"balance-section\" data-v-f6a875e8>" + (!_vm.manualBalanceMode ? "<div class=\"balance-strip\" data-v-f6a875e8><div class=\"balance-item\" data-v-f6a875e8><span class=\"label\" data-v-f6a875e8>ຍອດເດີມ:</span> <span class=\"value\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.previousBalance))) + "</span></div> <div class=\"balance-divider\" data-v-f6a875e8>→</div> <div" + _vm._ssrClass("balance-item", _vm.transactionClass) + " data-v-f6a875e8><span class=\"label\" data-v-f6a875e8>ທຸລະກຳ:</span> <span class=\"value\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(_vm.transactionSign) + _vm._s(_vm.formatAmount(_vm.transactionAmount))) + "</span></div> <div class=\"balance-divider\" data-v-f6a875e8>→</div> <div class=\"balance-item highlight\" data-v-f6a875e8><span class=\"label\" data-v-f6a875e8>ຍອດສຸດທ້າຍ:</span> <span class=\"value\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(_vm.calculatedEndingBalance))) + "</span></div></div>" : "<div class=\"manual-balance-wrapper\" data-v-f6a875e8><div class=\"form-grid\" data-v-f6a875e8><div class=\"form-field\" data-v-f6a875e8><label data-v-f6a875e8>ຍອດເດີມ (ຈາກລະບົບ)</label> <input type=\"text\" disabled=\"disabled\"" + _vm._ssrAttr("value", _vm.formatAmount(_vm.previousBalance)) + " class=\"input-text\" data-v-f6a875e8></div> <div class=\"form-field\" data-v-f6a875e8><label data-v-f6a875e8>ຍອດສຸດທ້າຍ (ກະລຸນາປ້ອນ) <span class=\"required\" data-v-f6a875e8>*</span></label> <div class=\"amount-wrapper manual-input\" data-v-f6a875e8><input type=\"number\" placeholder=\"0.00\" step=\"0.01\"" + _vm._ssrAttr("value", _vm.form.endingBalance) + " class=\"input-manual-balance\" data-v-f6a875e8></div></div></div> " + (_vm.balanceDifference !== 0 ? "<div class=\"balance-difference\" data-v-f6a875e8><span class=\"diff-label\" data-v-f6a875e8>⚠️ ຄວາມແຕກຕ່າງ:</span> <span" + _vm._ssrClass("diff-value", _vm.balanceDifference > 0 ? 'positive' : 'negative') + " data-v-f6a875e8>" + _vm._ssrEscape("\n              " + _vm._s(_vm.balanceDifference > 0 ? '+' : '') + _vm._s(_vm.formatAmount(_vm.balanceDifference)) + "\n            ") + "</span> <span class=\"diff-note\" data-v-f6a875e8>" + _vm._ssrEscape("\n              (ການຄິດໄລ່: " + _vm._s(_vm.formatAmount(_vm.calculatedEndingBalance)) + ")\n            ") + "</span></div>" : "<!---->") + "</div>") + " <div class=\"balance-mode-toggle\" data-v-f6a875e8><button type=\"button\"" + _vm._ssrClass("btn-toggle", {
+    active: _vm.manualBalanceMode
+  }) + " data-v-f6a875e8>" + (!_vm.manualBalanceMode ? "<span data-v-f6a875e8>✏️ ປ້ອນຍອດສຸດທ້າຍເອງ</span>" : "<span data-v-f6a875e8>🔄 ໃຊ້ການຄິດໄລ່ອັດຕະໂນມັດ</span>") + "</button> " + (_vm.manualBalanceMode ? "<small class=\"toggle-hint\" data-v-f6a875e8>\n            ໃຊ້ເມື່ອຍອດຄິດໄລ່ບໍ່ກົງກັບໃບແຈ້ງຍອດທະນາຄານ\n          </small>" : "<!---->") + "</div></div>" : "<!---->") + " <div class=\"form-actions\" data-v-f6a875e8><button type=\"submit\"" + _vm._ssrAttr("disabled", !_vm.isFormValid || _vm.saving) + " class=\"btn-save\" data-v-f6a875e8>" + _vm._ssrEscape("\n          " + _vm._s(_vm.saving ? 'ກຳລັງບັນທຶກ...' : _vm.editMode ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button> <button type=\"button\" class=\"btn-clear\" data-v-f6a875e8>" + _vm._ssrEscape("\n          " + _vm._s(_vm.editMode ? 'ຍົກເລີກ' : 'ລ້າງ') + "\n        ") + "</button></div>")], 2)]), _vm._ssrNode(" " + (_vm.form.bankAccountId ? "<div class=\"table-card\" data-v-f6a875e8><div class=\"table-toolbar\" data-v-f6a875e8><h2 data-v-f6a875e8>ບັນທຶກລ່າສຸດ</h2> <div class=\"toolbar-actions\" data-v-f6a875e8><button" + _vm._ssrAttr("disabled", _vm.loadingStatements) + " class=\"btn-icon\" data-v-f6a875e8>\n          🔄\n        </button> <button class=\"btn-icon\" data-v-f6a875e8>\n          📊\n        </button></div></div> " + (_vm.loadingStatements ? "<div class=\"empty-state\" data-v-f6a875e8><div class=\"spinner\" data-v-f6a875e8></div> <p data-v-f6a875e8>ກຳລັງໂຫຼດຂໍ້ມູນ...</p></div>" : _vm.statements.length === 0 ? "<div class=\"empty-state\" data-v-f6a875e8><p data-v-f6a875e8>ບໍ່ມີຂໍ້ມູນ</p></div>" : "<div class=\"table-wrapper\" data-v-f6a875e8><table class=\"compact-table\" data-v-f6a875e8><thead data-v-f6a875e8><tr data-v-f6a875e8><th data-v-f6a875e8>ວັນທີ</th> <th data-v-f6a875e8>ລາຍລະອຽດ</th> <th data-v-f6a875e8>Ref</th> <th class=\"amount\" data-v-f6a875e8>ເງິນອອກ</th> <th class=\"amount\" data-v-f6a875e8>ເງິນເຂົ້າ</th> <th class=\"amount\" data-v-f6a875e8>ຍອດຄົງເຫຼືອ</th> <th data-v-f6a875e8>ສະຖານະ</th> <th data-v-f6a875e8></th></tr></thead> <tbody data-v-f6a875e8>" + _vm._ssrList(_vm.statements, function (stmt) {
+    return "<tr" + _vm._ssrClass(null, {
+      'is-reconciled': stmt.status === 'reconciled'
+    }) + " data-v-f6a875e8><td class=\"nowrap\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(_vm.formatDateShort(stmt.bookingDate))) + "</td> <td class=\"desc\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(stmt.description)) + "</td> <td class=\"ref\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(stmt.referenceNo || '-')) + "</td> <td class=\"amount debit\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(stmt.debitAmount > 0 ? _vm.formatAmount(stmt.debitAmount) : '-')) + "</td> <td class=\"amount credit\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(stmt.creditAmount > 0 ? _vm.formatAmount(stmt.creditAmount) : '-')) + "</td> <td class=\"amount balance\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(_vm.formatAmount(stmt.endingBalance))) + "</td> <td data-v-f6a875e8><span" + _vm._ssrClass("badge", stmt.status) + " data-v-f6a875e8>" + _vm._ssrEscape("\n                " + _vm._s(_vm.getStatusLabel(stmt.status)) + "\n              ") + "</span></td> <td class=\"actions\" data-v-f6a875e8><button title=\"ແກ້ໄຂ\" class=\"btn-mini\" data-v-f6a875e8>✏️</button> <button title=\"ລຶບ\" class=\"btn-mini\" data-v-f6a875e8>🗑️</button> " + (stmt.status !== 'reconciled' ? "<button title=\"ຢືນຢັນ\" class=\"btn-mini\" data-v-f6a875e8>\n                ✓\n              </button>" : "<!---->") + "</td></tr>";
+  }) + "</tbody></table></div>") + " " + (_vm.pagination.totalPages > 1 ? "<div class=\"pagination\" data-v-f6a875e8><button" + _vm._ssrAttr("disabled", _vm.pagination.page <= 1) + " class=\"btn-page\" data-v-f6a875e8>\n        ‹\n      </button> <span class=\"page-info\" data-v-f6a875e8>" + _vm._ssrEscape(_vm._s(_vm.pagination.page) + " / " + _vm._s(_vm.pagination.totalPages)) + "</span> <button" + _vm._ssrAttr("disabled", _vm.pagination.page >= _vm.pagination.totalPages) + " class=\"btn-page\" data-v-f6a875e8>\n        ›\n      </button></div>" : "<!---->") + "</div>" : "<!---->") + " "), _c('transition', {
+    attrs: {
+      "name": "modal"
+    }
+  }, [_vm.showSummaryModal ? _c('div', {
+    staticClass: "modal-backdrop",
+    on: {
+      "click": function ($event) {
+        _vm.showSummaryModal = false;
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    on: {
+      "click": function ($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h3', [_vm._v("ສະຫຼຸບຍອດເງິນ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn-close",
+    on: {
+      "click": function ($event) {
+        _vm.showSummaryModal = false;
+      }
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _vm.balanceSummary ? _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "summary-list"
+  }, [_c('div', {
+    staticClass: "summary-row"
+  }, [_c('span', [_vm._v("ຍອດເປີດ:")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.formatAmount(_vm.balanceSummary.openingBalance)))])]), _vm._v(" "), _c('div', {
+    staticClass: "summary-row credit"
+  }, [_c('span', [_vm._v("ເງິນເຂົ້າທັງໝົດ:")]), _vm._v(" "), _c('strong', [_vm._v("+" + _vm._s(_vm.formatAmount(_vm.balanceSummary.totalCredit)))])]), _vm._v(" "), _c('div', {
+    staticClass: "summary-row debit"
+  }, [_c('span', [_vm._v("ເງິນອອກທັງໝົດ:")]), _vm._v(" "), _c('strong', [_vm._v("-" + _vm._s(_vm.formatAmount(_vm.balanceSummary.totalDebit)))])]), _vm._v(" "), _c('div', {
+    staticClass: "summary-row highlight"
+  }, [_c('span', [_vm._v("ຍອດປິດ:")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.formatAmount(_vm.balanceSummary.closingBalance)))])]), _vm._v(" "), _c('div', {
+    staticClass: "summary-row"
+  }, [_c('span', [_vm._v("ຈຳນວນທຸລະກຳ:")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.balanceSummary.transactionCount))])])])]) : _vm._e()])]) : _vm._e()])], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/moneyAdvanceStatement/index.vue?vue&type=template&id=5743323a&scoped=true
+// CONCATENATED MODULE: ./pages/admin/moneyAdvanceStatement/index.vue?vue&type=template&id=f6a875e8&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/moneyAdvanceStatement/index.vue?vue&type=script&lang=js
 /* harmony default export */ var moneyAdvanceStatementvue_type_script_lang_js = ({
-  name: 'SimpleBankStatement',
+  name: 'AccountStatementCompact',
   data() {
     return {
       saving: false,
-      loadingTransactions: false,
-      transactionLoadTimeout: null,
-      bankAccountSearch: '',
-      currencySearch: '',
+      loadingStatements: false,
+      editMode: false,
+      editingId: null,
+      manualBalanceMode: false,
       form: {
         bankAccountId: '',
-        currencyId: '',
-        debitAmount: '',
+        bookingDate: new Date().toISOString().split('T')[0],
         creditAmount: '',
-        transactionDate: new Date().toISOString().split('T')[0],
-        description: ''
+        debitAmount: '',
+        description: '',
+        endingBalance: '',
+        referenceNo: '',
+        transactionType: '',
+        status: 'cleared'
       },
       bankAccounts: [],
-      currencies: [],
-      recentTransactions: []
+      statements: [],
+      previousBalance: 0,
+      pagination: {
+        page: 1,
+        limit: 20,
+        total: 0,
+        totalPages: 0
+      },
+      showSummaryModal: false,
+      balanceSummary: null
     };
   },
   computed: {
-    selectedCurrency() {
-      return this.currencies.find(c => c.id === this.form.currencyId);
+    transactionAmount() {
+      const credit = parseFloat(this.form.creditAmount) || 0;
+      const debit = parseFloat(this.form.debitAmount) || 0;
+      return credit || debit;
+    },
+    transactionSign() {
+      if (this.form.creditAmount) return '+';
+      if (this.form.debitAmount) return '-';
+      return '';
+    },
+    transactionClass() {
+      if (this.form.creditAmount) return 'credit';
+      if (this.form.debitAmount) return 'debit';
+      return '';
+    },
+    calculatedEndingBalance() {
+      const credit = parseFloat(this.form.creditAmount) || 0;
+      const debit = parseFloat(this.form.debitAmount) || 0;
+      return this.previousBalance + credit - debit;
+    },
+    finalEndingBalance() {
+      if (this.manualBalanceMode && this.form.endingBalance !== '') {
+        return parseFloat(this.form.endingBalance) || 0;
+      }
+      return this.calculatedEndingBalance;
+    },
+    balanceDifference() {
+      if (!this.manualBalanceMode || this.form.endingBalance === '') {
+        return 0;
+      }
+      const manual = parseFloat(this.form.endingBalance) || 0;
+      return manual - this.calculatedEndingBalance;
     },
     isFormValid() {
-      return this.form.bankAccountId && this.form.currencyId && this.form.transactionDate && this.form.description && (this.form.debitAmount || this.form.creditAmount) && !(this.form.debitAmount && this.form.creditAmount); // Only one should have value
-    },
-    transactionType() {
-      if (this.form.debitAmount) return 'debit';
-      if (this.form.creditAmount) return 'credit';
-      return null;
-    },
-    transactionAmount() {
-      return this.form.debitAmount || this.form.creditAmount || 0;
+      const baseValid = this.form.bankAccountId && this.form.bookingDate && this.form.description && (this.form.creditAmount || this.form.debitAmount) && !(this.form.creditAmount && this.form.debitAmount);
+      if (this.manualBalanceMode) {
+        return baseValid && this.form.endingBalance !== '';
+      }
+      return baseValid;
     }
   },
   async created() {
-    await this.loadInitialData();
-    // Don't load recent transactions initially - only after account is selected
+    await this.loadBankAccounts();
   },
   methods: {
-    async loadInitialData() {
+    async loadBankAccounts() {
       try {
-        const [bankAccountsRes, currenciesRes] = await Promise.all([this.$axios.get('/api/bank_account/find'), this.$axios.get('/api/currency/find')]);
-
-        // Process bank accounts for autocomplete
-        this.bankAccounts = (bankAccountsRes.data.data || bankAccountsRes.data || []).map(account => ({
+        const res = await this.$axios.get('/api/bank_account/find');
+        this.bankAccounts = (res.data.data || res.data || []).map(account => ({
           ...account,
-          accountDisplayName: `${account.accountName} - ${account.accountNumber}`,
-          searchText: `${account.accountName} ${account.accountNumber} ${account.bankName}`.toLowerCase()
-        }));
-
-        // Process currencies for autocomplete
-        this.currencies = (currenciesRes.data.data || currenciesRes.data || []).map(currency => ({
-          ...currency,
-          displayName: `${currency.code} - ${currency.name}`,
-          searchText: `${currency.code} ${currency.name}`.toLowerCase()
+          accountDisplayName: `${account.accountName} - ${account.accountNumber}`
         }));
       } catch (error) {
-        console.error('Error loading initial data:', error);
-        this.$toast.error('Error loading data');
+        console.error('Error loading bank accounts:', error);
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດບັນຊີໄດ້');
       }
     },
-    clearCredit() {
-      if (this.form.debitAmount) {
-        this.form.creditAmount = '';
+    async onBankAccountChange() {
+      if (this.form.bankAccountId) {
+        await this.loadPreviousBalance();
+        await this.loadStatements();
+      } else {
+        this.previousBalance = 0;
+        this.statements = [];
       }
     },
-    clearDebit() {
+    async loadPreviousBalance() {
+      try {
+        const res = await this.$axios.get('/api/ac-statement', {
+          params: {
+            bankAccountId: this.form.bankAccountId,
+            limit: 1,
+            sortBy: 'bookingDate',
+            sortOrder: 'DESC'
+          }
+        });
+        const statements = res.data.data || [];
+        if (statements.length > 0) {
+          this.previousBalance = parseFloat(statements[0].endingBalance) || 0;
+        } else {
+          this.previousBalance = 0;
+        }
+      } catch (error) {
+        console.error('Error loading previous balance:', error);
+        this.previousBalance = 0;
+      }
+    },
+    onCreditInput() {
       if (this.form.creditAmount) {
         this.form.debitAmount = '';
       }
+      // Update manual balance with calculated if not in manual mode
+      if (!this.manualBalanceMode) {
+        this.form.endingBalance = '';
+      }
     },
-    async saveTransaction() {
+    onDebitInput() {
+      if (this.form.debitAmount) {
+        this.form.creditAmount = '';
+      }
+      // Update manual balance with calculated if not in manual mode
+      if (!this.manualBalanceMode) {
+        this.form.endingBalance = '';
+      }
+    },
+    toggleBalanceMode() {
+      this.manualBalanceMode = !this.manualBalanceMode;
+      if (this.manualBalanceMode) {
+        // Switching to manual mode - pre-fill with calculated balance
+        this.form.endingBalance = this.calculatedEndingBalance.toFixed(2);
+      } else {
+        // Switching to auto mode - clear manual input
+        this.form.endingBalance = '';
+      }
+    },
+    async saveStatement() {
       if (!this.isFormValid) return;
       this.saving = true;
       try {
-        const baseData = {
-          amount: parseFloat(this.transactionAmount),
-          bookingDate: this.form.transactionDate,
-          currencyId: this.form.currencyId,
+        const payload = {
           bankAccountId: this.form.bankAccountId,
-          method: 'bank_transfer',
-          // Default method
-          status: 'approved' // Auto-approve bank statement entries
+          bookingDate: this.form.bookingDate,
+          creditAmount: parseFloat(this.form.creditAmount) || 0,
+          debitAmount: parseFloat(this.form.debitAmount) || 0,
+          description: this.form.description,
+          endingBalance: this.finalEndingBalance,
+          referenceNo: this.form.referenceNo || null,
+          transactionType: this.form.transactionType || null,
+          status: this.form.status
         };
-        if (this.transactionType === 'debit') {
-          var _this$$auth$user;
-          // Save as MoneyAdvance
-          const payload = {
-            ...baseData,
-            purpose: this.form.description,
-            makerId: ((_this$$auth$user = this.$auth.user) === null || _this$$auth$user === void 0 ? void 0 : _this$$auth$user.id) || 1,
-            // Default user ID
-            receiveName: 'Bank Statement Entry'
-          };
-          await this.$axios.post('/api/money-advances', payload);
-          this.$toast.success('Debit transaction saved successfully');
+        if (this.editMode) {
+          await this.$axios.put(`/api/ac-statement/${this.editingId}`, payload);
+          this.$toast.success('ອັບເດດສຳເລັດ');
         } else {
-          var _this$$auth$user2;
-          // Save as Settlement
-          const payload = {
-            ...baseData,
-            notes: this.form.description,
-            userId: ((_this$$auth$user2 = this.$auth.user) === null || _this$$auth$user2 === void 0 ? void 0 : _this$$auth$user2.id) || 1,
-            // Default user ID
-            fromPersonName: 'Bank Statement Entry'
-          };
-          await this.$axios.post('/api/settlements', payload);
-          this.$toast.success('Credit transaction saved successfully');
+          await this.$axios.post('/api/ac-statement', payload);
+          this.$toast.success('ບັນທຶກສຳເລັດ');
         }
         this.resetForm();
-        await this.loadRecentTransactions();
+        await this.loadStatements();
+        await this.loadPreviousBalance();
       } catch (error) {
-        console.error('Error saving transaction:', error);
-        this.$toast.error('Error saving transaction');
+        console.error('Error saving statement:', error);
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ');
       } finally {
         this.saving = false;
       }
     },
-    async loadRecentTransactions() {
-      if (!this.form.bankAccountId) {
-        this.recentTransactions = [];
-        return;
-      }
-      this.loadingTransactions = true;
+    async loadStatements() {
+      if (!this.form.bankAccountId) return;
+      this.loadingStatements = true;
       try {
-        var _advancesRes$data$dat;
-        const today = new Date();
-        const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-        const params = {
-          bankAccountId: this.form.bankAccountId,
-          fromDate: lastWeek.toISOString().split('T')[0],
-          toDate: today.toISOString().split('T')[0]
-        };
-
-        // Load both advances (debits) and settlements (credits)
-        const [advancesRes, settlementsRes] = await Promise.all([this.$axios.get('/api/money-advances', {
-          params
-        }).catch(() => ({
-          data: {
-            data: []
+        const res = await this.$axios.get('/api/ac-statement', {
+          params: {
+            bankAccountId: this.form.bankAccountId,
+            page: this.pagination.page,
+            limit: this.pagination.limit,
+            sortBy: 'bookingDate',
+            sortOrder: 'DESC'
           }
-        })), this.$axios.get('/api/settlements', {
-          params
-        }).catch(() => ({
-          data: {
-            data: []
-          }
-        }))]);
-        const advances = (((_advancesRes$data$dat = advancesRes.data.data) === null || _advancesRes$data$dat === void 0 ? void 0 : _advancesRes$data$dat.advances) || advancesRes.data.data || []).map(item => {
-          var _item$currency;
-          return {
-            ...item,
-            type: 'debit',
-            description: item.purpose || 'No description',
-            currencyCode: ((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code) || 'N/A'
-          };
         });
-        const settlements = (settlementsRes.data.data || []).map(item => {
-          var _item$currency2;
-          return {
-            ...item,
-            type: 'credit',
-            description: item.notes || 'No description',
-            currencyCode: ((_item$currency2 = item.currency) === null || _item$currency2 === void 0 ? void 0 : _item$currency2.code) || 'N/A'
+        this.statements = res.data.data || [];
+        if (res.data.pagination) {
+          this.pagination = {
+            ...this.pagination,
+            ...res.data.pagination
           };
-        });
-
-        // Combine and sort by date
-        this.recentTransactions = [...advances, ...settlements].sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate)).slice(0, 10); // Show only last 10 transactions
+        }
       } catch (error) {
-        console.error('Error loading recent transactions:', error);
-        this.recentTransactions = [];
+        console.error('Error loading statements:', error);
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້');
       } finally {
-        this.loadingTransactions = false;
+        this.loadingStatements = false;
       }
     },
-    resetForm() {
+    async showBalanceSummary() {
+      if (!this.form.bankAccountId) return;
+      try {
+        var _res$data$data;
+        const res = await this.$axios.get('/api/ac-statement/summary', {
+          params: {
+            bankAccountId: this.form.bankAccountId
+          }
+        });
+        this.balanceSummary = ((_res$data$data = res.data.data) === null || _res$data$data === void 0 ? void 0 : _res$data$data.summary) || null;
+        this.showSummaryModal = true;
+      } catch (error) {
+        console.error('Error loading summary:', error);
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດສະຫຼຸບໄດ້');
+      }
+    },
+    editStatement(statement) {
+      this.editMode = true;
+      this.editingId = statement.id;
+
+      // Determine if this was manually entered
+      const credit = parseFloat(statement.creditAmount) || 0;
+      const debit = parseFloat(statement.debitAmount) || 0;
+      const prevBal = parseFloat(statement.endingBalance) - credit + debit;
+      const calculatedBal = prevBal + credit - debit;
+      const actualBal = parseFloat(statement.endingBalance);
+
+      // If there's a difference, it was manually entered
+      this.manualBalanceMode = Math.abs(calculatedBal - actualBal) > 0.01;
       this.form = {
-        bankAccountId: '',
-        currencyId: '',
-        debitAmount: '',
-        creditAmount: '',
-        transactionDate: new Date().toISOString().split('T')[0],
-        description: ''
+        bankAccountId: statement.bankAccountId,
+        bookingDate: statement.bookingDate,
+        creditAmount: statement.creditAmount || '',
+        debitAmount: statement.debitAmount || '',
+        description: statement.description,
+        endingBalance: this.manualBalanceMode ? statement.endingBalance : '',
+        referenceNo: statement.referenceNo || '',
+        transactionType: statement.transactionType || '',
+        status: statement.status
       };
-      this.recentTransactions = [];
+      this.previousBalance = prevBal;
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    },
+    async deleteStatement(id) {
+      if (!confirm('ທ່ານຕ້ອງການລຶບບັນທຶກນີ້ແທ້ບໍ?')) return;
+      try {
+        await this.$axios.delete(`/api/ac-statement/${id}`);
+        this.$toast.success('ລຶບສຳເລັດ');
+        await this.loadStatements();
+        await this.loadPreviousBalance();
+      } catch (error) {
+        console.error('Error deleting statement:', error);
+        this.$toast.error('ບໍ່ສາມາດລຶບໄດ້');
+      }
+    },
+    async reconcileStatement(id) {
+      try {
+        await this.$axios.patch(`/api/ac-statement/${id}/reconcile`);
+        this.$toast.success('ຢືນຢັນສຳເລັດ');
+        await this.loadStatements();
+      } catch (error) {
+        console.error('Error reconciling statement:', error);
+        this.$toast.error('ບໍ່ສາມາດຢືນຢັນໄດ້');
+      }
+    },
+    changePage(page) {
+      this.pagination.page = page;
+      this.loadStatements();
+    },
+    resetForm() {
+      this.editMode = false;
+      this.editingId = null;
+      this.manualBalanceMode = false;
+      this.form = {
+        bankAccountId: this.form.bankAccountId,
+        bookingDate: new Date().toISOString().split('T')[0],
+        creditAmount: '',
+        debitAmount: '',
+        description: '',
+        endingBalance: '',
+        referenceNo: '',
+        transactionType: '',
+        status: 'cleared'
+      };
+    },
+    getStatusLabel(status) {
+      const labels = {
+        pending: 'ລໍຖ້າ',
+        cleared: 'ຜ່ານ',
+        reconciled: 'ກວດແລ້ວ'
+      };
+      return labels[status] || status;
     },
     formatAmount(amount) {
       if (!amount && amount !== 0) return '0.00';
@@ -334,30 +532,10 @@ var staticRenderFns = [];
         maximumFractionDigits: 2
       }).format(amount);
     },
-    formatDate(date) {
+    formatDateShort(date) {
       if (!date) return '';
-      return new Date(date).toLocaleDateString('en-US');
-    }
-  },
-  watch: {
-    'form.bankAccountId'(newValue, oldValue) {
-      // Only load transactions if the value actually changed and is not empty
-      if (newValue && newValue !== oldValue) {
-        // Debounce the call to prevent rapid API calls
-        clearTimeout(this.transactionLoadTimeout);
-        this.transactionLoadTimeout = setTimeout(() => {
-          this.loadRecentTransactions();
-        }, 300);
-      } else if (!newValue) {
-        // Clear transactions if no account selected
-        this.recentTransactions = [];
-      }
-    }
-  },
-  beforeDestroy() {
-    // Clear timeout if component is destroyed
-    if (this.transactionLoadTimeout) {
-      clearTimeout(this.transactionLoadTimeout);
+      const d = new Date(date);
+      return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
     }
   }
 });
@@ -381,11 +559,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_moneyAdvanceStatementvue_type_script_lang_js,
-  moneyAdvanceStatementvue_type_template_id_5743323a_scoped_true_render,
+  moneyAdvanceStatementvue_type_template_id_f6a875e8_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "5743323a",
+  "f6a875e8",
   "5ee1bd3f"
   
 )
@@ -407,7 +585,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("17ec32bc", content, true, context)
+  add("1e57ab46", content, true, context)
 };
 
 /***/ })
