@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "337.js": "337.js",
+    "339.js": "339.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -142,6 +142,7 @@
     "components/promotions-promotion-dialog.js": "components/promotions-promotion-dialog.js",
     "components/purchasing-form-c-r-u-d.js": "components/purchasing-form-c-r-u-d.js",
     "components/receiving-form-c-r-u-d.js": "components/receiving-form-c-r-u-d.js",
+    "components/reports-profit-loss-report.js": "components/reports-profit-loss-report.js",
     "components/reservation-form.js": "components/reservation-form.js",
     "components/rider-form-copy.js": "components/rider-form-copy.js",
     "components/rider-form.js": "components/rider-form.js",
@@ -338,10 +339,11 @@
     "pages/product/_id/product-details.js": "pages/product/_id/product-details.js",
     "pages/product/index.js": "pages/product/index.js",
     "pages/public/index.js": "pages/public/index.js",
+    "pages/reports/profit-loss.js": "pages/reports/profit-loss.js",
     "server.js": "server.js"
   },
   "maps": {
-    "337.js": "337.js.map",
+    "339.js": "339.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -482,6 +484,7 @@
     "components/promotions-promotion-dialog.js": "components/promotions-promotion-dialog.js.map",
     "components/purchasing-form-c-r-u-d.js": "components/purchasing-form-c-r-u-d.js.map",
     "components/receiving-form-c-r-u-d.js": "components/receiving-form-c-r-u-d.js.map",
+    "components/reports-profit-loss-report.js": "components/reports-profit-loss-report.js.map",
     "components/reservation-form.js": "components/reservation-form.js.map",
     "components/rider-form-copy.js": "components/rider-form-copy.js.map",
     "components/rider-form.js": "components/rider-form.js.map",
@@ -678,6 +681,7 @@
     "pages/product/_id/product-details.js": "pages/product/_id/product-details.js.map",
     "pages/product/index.js": "pages/product/index.js.map",
     "pages/public/index.js": "pages/public/index.js.map",
+    "pages/reports/profit-loss.js": "pages/reports/profit-loss.js.map",
     "server.js": "server.js.map"
   }
 }

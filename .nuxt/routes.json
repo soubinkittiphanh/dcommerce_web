@@ -812,6 +812,13 @@
     "_name": "_4b336acc"
   },
   {
+    "name": "reports-profit-loss",
+    "path": "/reports/profit-loss",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/profit-loss.vue",
+    "chunkName": "pages/reports/profit-loss",
+    "_name": "_cdde3588"
+  },
+  {
     "name": "admin-ap-invoice",
     "path": "/admin/ap/invoice",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/invoice/index.vue",

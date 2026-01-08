@@ -1,7 +1,7 @@
-exports.ids = [201,40,123,139,140];
+exports.ids = [202,40,123,139,140];
 exports.modules = {
 
-/***/ 1417:
+/***/ 1425:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -354,13 +354,13 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/card/index.vue?vue&type=template&id=d9e3e908
 
 // EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
-var PoForm = __webpack_require__(600);
+var PoForm = __webpack_require__(602);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
-var PurchasingFormCRUD = __webpack_require__(564);
+var PurchasingFormCRUD = __webpack_require__(567);
 
 // EXTERNAL MODULE: ./components/ReceivingFormCRUD.vue + 4 modules
-var ReceivingFormCRUD = __webpack_require__(560);
+var ReceivingFormCRUD = __webpack_require__(563);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(413);
@@ -587,7 +587,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var card = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {PurchasingFormCRUD: __webpack_require__(564).default,ReceivingFormCRUD: __webpack_require__(560).default,LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {PurchasingFormCRUD: __webpack_require__(567).default,ReceivingFormCRUD: __webpack_require__(563).default,LoadingIndicator: __webpack_require__(67).default})
 
 
 /***/ }),
@@ -3327,7 +3327,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 560:
+/***/ 563:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4577,7 +4577,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(67).default,
 
 /***/ }),
 
-/***/ 564:
+/***/ 567:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5769,7 +5769,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(67).default,
 
 /***/ }),
 
-/***/ 600:
+/***/ 602:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

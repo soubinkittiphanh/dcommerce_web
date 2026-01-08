@@ -1,7 +1,5 @@
 <template>
-  <!-- <v-container fluid class="receive-summary-container"> -->
-  <!-- Header Section -->
-  <div>
+  <div class="notosans-lao">
     <v-row>
       <v-col cols="12">
         <v-card>
@@ -9,13 +7,30 @@
             <v-icon color="white" class="mr-2">mdi-cash-register</v-icon>
             <span>ລະບົບຈັດການການຮັບຊຳລະ</span>
             <v-spacer />
+            <!-- Refresh Button -->
+            <v-btn 
+              color="white" 
+              text 
+              @click="refreshData"
+              :loading="loading"
+              class="mr-2"
+            >
+              <v-icon left>mdi-refresh</v-icon>
+              ໂຫຼດໃໝ່
+            </v-btn>
+            <!-- Enhanced Export Button -->
+            <v-btn 
+              color="success" 
+              @click="exportToExcel"
+              :loading="exporting"
+              class="mr-2"
+            >
+              <v-icon left>mdi-file-excel</v-icon>
+              ສົ່ງອອກ Excel
+            </v-btn>
             <v-btn color="white" text @click="openCreateDialog">
               <v-icon left>mdi-plus</v-icon>
               ເພີ່ມໃໝ່
-            </v-btn>
-            <v-btn color="white" text @click="exportData">
-              <v-icon left>mdi-download</v-icon>
-              Export
             </v-btn>
           </v-card-title>
 
@@ -72,11 +87,16 @@
                   @change="applyFilters"
                 />
               </v-col>
-              <v-col cols="12" md="3">
+              <v-col cols="12" md="2">
                 <v-btn color="secondary" outlined block @click="resetFilters">
                   <v-icon left>mdi-refresh</v-icon>
                   Reset
                 </v-btn>
+              </v-col>
+              <v-col cols="12" md="1">
+                <v-chip color="info" outlined>
+                  {{ filteredReceipts.length }}
+                </v-chip>
               </v-col>
             </v-row>
           </v-card-text>
@@ -102,7 +122,7 @@
             :items="filteredReceipts"
             :loading="loading"
             :items-per-page="10"
-            class="elevation-0"
+            class="elevation-0 notosans-lao"
             loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
             no-data-text="ບໍ່ມີຂໍ້ມູນ"
           >
@@ -157,6 +177,9 @@
                 <div class="font-weight-bold">
                   {{ formatCurrency(item.totalReceivedAmount) }}
                 </div>
+                <div class="text-caption grey--text">
+                  {{ getCurrencyCode(item) }}
+                </div>
                 <div
                   v-if="item.receiveLines?.length > 0"
                   class="text-caption grey--text"
@@ -186,17 +209,20 @@
                 {{ item.referenceNumber || '-' }}
               </span>
             </template>
-   <template v-slot:item.batch="{ item }">
-  <span
-    class="text-caption font-weight-medium"
-    style="font-family: monospace"
-  >
-    {{ item.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '-' }}
-    {{ item.invoiceHeader?.jobbatch?.mou?.jobCode || '-' }}
-    {{ item.invoiceHeader?.jobbatch?.mou?.jobTitle || '-' }}
-  </span>
-</template>
 
+            <template v-slot:item.batch="{ item }">
+              <div class="text-caption">
+                <div class="font-weight-medium">
+                  {{ item.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '-' }}
+                </div>
+                <div class="grey--text">
+                  {{ item.invoiceHeader?.jobbatch?.mou?.jobCode || '-' }}
+                </div>
+                <div class="grey--text">
+                  {{ item.invoiceHeader?.jobbatch?.mou?.jobTitle || '-' }}
+                </div>
+              </div>
+            </template>
 
             <!-- Inputter -->
             <template v-slot:item.inputter="{ item }">
@@ -269,6 +295,7 @@
         @close="closeViewDialog"
       />
     </client-only>
+    
     <!-- Add this Print Voucher Dialog -->
     <client-only>
       <ARReceivePrinter
@@ -282,14 +309,31 @@
         @close="closePrintDialog"
       />
     </client-only>
+
+    <!-- Export Progress Snackbar -->
+    <v-snackbar
+      v-model="showExportProgress"
+      :timeout="-1"
+      color="info"
+      bottom
+      right
+    >
+      <v-icon left>mdi-download</v-icon>
+      ກຳລັງສ້າງໄຟລ້ Excel...
+      <v-progress-linear
+        indeterminate
+        color="white"
+        class="mb-0 mt-2"
+      ></v-progress-linear>
+    </v-snackbar>
   </div>
-  <!-- </v-container> -->
 </template>
 
 <script>
 import ReceiveHeaderMaintain from '~/components/accounting/ar/receive/maintain'
 import ReceiveHeaderView from '~/components/accounting/ar/receive/view'
-import ARReceivePrinter from '~/components/accounting/ar/receive/voucher' // Add this import
+import ARReceivePrinter from '~/components/accounting/ar/receive/voucher'
+
 export default {
   name: 'ReceiveHeaderSummary',
   components: {
@@ -304,16 +348,18 @@ export default {
       glAccounts: [],
       showEditDialog: false,
       showViewDialog: false,
-      showPrintDialog: false, // Add this
+      showPrintDialog: false,
       selectedReceipt: null,
-      selectedReceiptForPrint: null, // Add this
+      selectedReceiptForPrint: null,
       receipts: [],
       filteredReceipts: [],
       invoices: [],
       users: [],
       loading: false,
-      paymentMethods: [], // Add this
-      transactionCodes: [], // Add this
+      exporting: false,
+      showExportProgress: false,
+      paymentMethods: [],
+      transactionCodes: [],
 
       filters: {
         search: '',
@@ -389,7 +435,7 @@ export default {
           text: 'Batch info',
           value: 'batch',
           sortable: false,
-          width: '120px',
+          width: '200px',
         },
         {
           text: 'ຜູ້ບັນທຶກ',
@@ -439,19 +485,255 @@ export default {
   },
 
   mounted() {
-    // Set default dates before loading data
     this.setDefaultDates()
     this.fetchReceipts()
     this.fetchInvoices()
     this.fetchUsers()
     this.fetchAccountCharts()
     this.fetchCurrencies()
-    this.fetchPaymentMethods() // Add this
-    this.fetchTransactionCodes() // Add this
+    this.fetchPaymentMethods()
+    this.fetchTransactionCodes()
   },
 
   methods: {
-    // NEW METHOD: Get current month's first day
+    // NEW METHOD: Refresh all data
+    async refreshData() {
+      try {
+        this.$toast.info('ກຳລັງໂຫຼດຂໍ້ມູນໃໝ່...')
+        await Promise.all([
+          this.fetchReceipts(),
+          this.fetchInvoices(),
+          this.fetchUsers(),
+          this.fetchAccountCharts(),
+          this.fetchCurrencies(),
+          this.fetchPaymentMethods(),
+          this.fetchTransactionCodes()
+        ])
+        this.$toast.success('ໂຫຼດຂໍ້ມູນໃໝ່ສຳເລັດ')
+      } catch (error) {
+        console.error('Error refreshing data:', error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນໃໝ່')
+      }
+    },
+
+    // ENHANCED METHOD: Export to Excel with detailed data
+    async exportToExcel() {
+      this.exporting = true
+      this.showExportProgress = true
+      
+      try {
+        const currentDate = new Date().toISOString().split('T')[0]
+        const filename = `AR_Receive_Report_${currentDate}.xlsx`
+
+        // Try API export first (if available)
+        try {
+          const exportParams = {
+            ...this.filters,
+            export: true
+          }
+
+          const response = await this.$axios.get('/api/ar-receive-headers/export', {
+            params: exportParams,
+            responseType: 'blob'
+          })
+          
+          this.downloadBlob(response.data, filename)
+          this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດ')
+          return
+        } catch (apiError) {
+          console.log('API export not available, using client-side export')
+        }
+
+        // Fallback to client-side export
+        await this.generateExcelFromData(this.filteredReceipts, filename)
+        this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດ')
+        
+      } catch (error) {
+        console.error('Export error:', error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກ Excel')
+      } finally {
+        this.exporting = false
+        this.showExportProgress = false
+      }
+    },
+
+    // Helper method to download blob
+    downloadBlob(blob, filename) {
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = filename
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    },
+
+    // Enhanced Excel generation with detailed data
+    async generateExcelFromData(receipts, filename) {
+      try {
+        // Try to use XLSX if available
+        const XLSX = await import('xlsx')
+        
+        const exportData = receipts.map((receipt, index) => ({
+          'ລຳດັບ': index + 1,
+          'ເລກທີໃບຮັບ': receipt.receiptNumber || '',
+          'ວັນທີບັນທຶກ': this.formatDate(receipt.bookingDate),
+          'ວັນທີຮັບເງິນ': this.formatDate(receipt.receivedDate),
+          'ເລກທີໃບແຈ້ງໜີ້': receipt.invoiceHeader?.invoiceNumber || '',
+          'ລູກຄ້າ': receipt.invoiceHeader?.customer?.name || '',
+          'ຍອດເງິນຮັບ': receipt.totalReceivedAmount || 0,
+          'ສະກຸນເງິນ': this.getCurrencyCode(receipt),
+          'ວິທີການຊຳລະ': this.formatPaymentMethod(receipt.paymentMethod),
+          'ເລກອ້າງອີງ': receipt.referenceNumber || '',
+          'ຊື່ບໍລິສັດ': receipt.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '',
+          'ລະຫັດວຽກ': receipt.invoiceHeader?.jobbatch?.mou?.jobCode || '',
+          'ຊື່ວຽກ': receipt.invoiceHeader?.jobbatch?.mou?.jobTitle || '',
+          'ຈຳນວນການແບ່ງປັນ': receipt.receiveLines?.length || 0,
+          'ໝາຍເຫດ': receipt.notes || '',
+          'ຜູ້ບັນທຶກ': receipt.inputter?.username || receipt.maker?.username || '',
+          'ຜູ້ກວດສອບ': receipt.checker?.username || '',
+          'ວັນທີສ້າງ': this.formatDate(receipt.createdAt),
+          'ວັນທີອັບເດດ': this.formatDate(receipt.updateTimestamp),
+          'ສະຖານະ': receipt.status || 'active'
+        }))
+
+        // Add detailed receive lines if available
+        const detailedData = []
+        receipts.forEach((receipt, receiptIndex) => {
+          if (receipt.receiveLines && receipt.receiveLines.length > 0) {
+            receipt.receiveLines.forEach((line, lineIndex) => {
+              detailedData.push({
+                'ລຳດັບໃບຮັບ': receiptIndex + 1,
+                'ເລກທີໃບຮັບ': receipt.receiptNumber,
+                'ລຳດັບລາຍການ': lineIndex + 1,
+                'ລາຍການ': line.description || '',
+                'ຈຳນວນເງິນ': line.receivedAmount || 0,
+                'ບັນຊີ GL': line.glAccount?.accountCode || '',
+                'ຊື່ບັນຊີ GL': line.glAccount?.accountName || '',
+                'ຄຳອະທິບາຍລາຍການ': line.lineDescription || '',
+                'ອັດຕາພາສີ': line.taxRate || 0,
+                'ຈຳນວນພາສີ': line.taxAmount || 0
+              })
+            })
+          }
+        })
+
+        const workbook = XLSX.utils.book_new()
+        
+        // Summary sheet
+        const summarySheet = XLSX.utils.json_to_sheet(exportData)
+        XLSX.utils.book_append_sheet(workbook, summarySheet, 'ສະຫຼຸບການຮັບ')
+        
+        // Detail sheet (if we have line items)
+        if (detailedData.length > 0) {
+          const detailSheet = XLSX.utils.json_to_sheet(detailedData)
+          XLSX.utils.book_append_sheet(workbook, detailSheet, 'ລາຍລະອຽດການຮັບ')
+        }
+        
+        // Set column widths for better readability
+        const wscols = [
+          { wch: 8 },  // ລຳດັບ
+          { wch: 15 }, // ເລກທີໃບຮັບ
+          { wch: 12 }, // ວັນທີບັນທຶກ
+          { wch: 12 }, // ວັນທີຮັບເງິນ
+          { wch: 15 }, // ເລກທີໃບແຈ້ງໜີ້
+          { wch: 25 }, // ລູກຄ້າ
+          { wch: 15 }, // ຍອດເງິນຮັບ
+          { wch: 10 }, // ສະກຸນເງິນ
+          { wch: 15 }, // ວິທີການຊຳລະ
+          { wch: 15 }, // ເລກອ້າງອີງ
+          { wch: 25 }, // ຊື່ບໍລິສັດ
+          { wch: 12 }, // ລະຫັດວຽກ
+          { wch: 20 }, // ຊື່ວຽກ
+          { wch: 12 }, // ຈຳນວນການແບ່ງປັນ
+          { wch: 25 }, // ໝາຍເຫດ
+          { wch: 15 }, // ຜູ້ບັນທຶກ
+          { wch: 15 }, // ຜູ້ກວດສອບ
+          { wch: 15 }, // ວັນທີສ້າງ
+          { wch: 15 }, // ວັນທີອັບເດດ
+          { wch: 10 }  // ສະຖານະ
+        ]
+        summarySheet['!cols'] = wscols
+        
+        XLSX.writeFile(workbook, filename)
+        
+      } catch (xlsxError) {
+        // Fallback to CSV if XLSX not available
+        console.log('XLSX not available, generating CSV')
+        await this.generateCSVFromData(receipts, filename.replace('.xlsx', '.csv'))
+      }
+    },
+
+    // Enhanced CSV generation
+    async generateCSVFromData(receipts, filename) {
+      const csvHeaders = [
+        'ລຳດັບ',
+        'ເລກທີໃບຮັບ',
+        'ວັນທີບັນທຶກ',
+        'ວັນທີຮັບເງິນ',
+        'ເລກທີໃບແຈ້ງໜີ້',
+        'ລູກຄ້າ',
+        'ຍອດເງິນຮັບ',
+        'ສະກຸນເງິນ',
+        'ວິທີການຊຳລະ',
+        'ເລກອ້າງອີງ',
+        'ຊື່ບໍລິສັດ',
+        'ລະຫັດວຽກ',
+        'ຊື່ວຽກ',
+        'ຈຳນວນການແບ່ງປັນ',
+        'ໝາຍເຫດ',
+        'ຜູ້ບັນທຶກ',
+        'ວັນທີສ້າງ'
+      ]
+
+      const csvRows = receipts.map((receipt, index) => [
+        index + 1,
+        receipt.receiptNumber || '',
+        this.formatDate(receipt.bookingDate),
+        this.formatDate(receipt.receivedDate),
+        receipt.invoiceHeader?.invoiceNumber || '',
+        receipt.invoiceHeader?.customer?.name || '',
+        receipt.totalReceivedAmount || 0,
+        this.getCurrencyCode(receipt),
+        this.formatPaymentMethod(receipt.paymentMethod),
+        receipt.referenceNumber || '',
+        receipt.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '',
+        receipt.invoiceHeader?.jobbatch?.mou?.jobCode || '',
+        receipt.invoiceHeader?.jobbatch?.mou?.jobTitle || '',
+        receipt.receiveLines?.length || 0,
+        receipt.notes || '',
+        receipt.inputter?.username || receipt.maker?.username || '',
+        this.formatDate(receipt.createdAt)
+      ])
+
+      const csvContent = [csvHeaders, ...csvRows]
+        .map(row => row.map(cell => `"${cell}"`).join(','))
+        .join('\n')
+
+      const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' })
+      this.downloadBlob(blob, filename)
+    },
+
+    // Helper method to get currency code
+    getCurrencyCode(receipt) {
+      // Try to get from receive lines first
+      if (receipt.receiveLines && receipt.receiveLines.length > 0) {
+        const firstLine = receipt.receiveLines[0]
+        if (firstLine.currency) {
+          return firstLine.currency.code || firstLine.currency.name || 'LAK'
+        }
+      }
+      
+      // Try to get from invoice
+      if (receipt.invoiceHeader && receipt.invoiceHeader.currency) {
+        return receipt.invoiceHeader.currency.code || receipt.invoiceHeader.currency.name || 'LAK'
+      }
+      
+      // Default to LAK
+      return 'LAK'
+    },
+
     getCurrentMonthStart() {
       const now = new Date()
       const year = now.getFullYear()
@@ -459,7 +741,6 @@ export default {
       return new Date(year, month, 1).toISOString().split('T')[0]
     },
 
-    // NEW METHOD: Get current month's last day
     getCurrentMonthEnd() {
       const now = new Date()
       const year = now.getFullYear()
@@ -467,7 +748,6 @@ export default {
       return new Date(year, month + 1, 0).toISOString().split('T')[0]
     },
 
-    // NEW METHOD: Set default dates for current month
     setDefaultDates() {
       this.filters.bookingDateFrom = this.getCurrentMonthStart()
       this.filters.bookingDateTo = this.getCurrentMonthEnd()
@@ -568,7 +848,6 @@ export default {
 
     async printReceipt(receipt) {
       try {
-        // Fetch full receipt details with all relations
         const { data } = await this.$axios.get(
           `/api/ar-receive-headers/${receipt.id}`
         )
@@ -685,9 +964,9 @@ export default {
       this.pagination.currentPage = 1
     },
 
+    // Legacy export method (kept for compatibility)
     exportData() {
-      const csvData = this.convertToCSV(this.filteredReceipts)
-      this.downloadCSV(csvData, 'receipts-export.csv')
+      this.exportToExcel()
     },
 
     convertToCSV(data) {
@@ -696,9 +975,14 @@ export default {
         'Booking Date',
         'Received Date',
         'Invoice',
+        'Customer',
         'Amount',
+        'Currency',
         'Payment Method',
         'Reference',
+        'Agency',
+        'Job Code',
+        'Job Title'
       ]
       const csvContent = [
         headers.join(','),
@@ -708,9 +992,14 @@ export default {
             row.bookingDate,
             row.receivedDate,
             `"${row.invoiceHeader?.invoiceNumber || ''}"`,
+            `"${row.invoiceHeader?.customer?.name || ''}"`,
             row.totalReceivedAmount,
-            row.paymentMethod,
+            `"${this.getCurrencyCode(row)}"`,
+            `"${this.formatPaymentMethod(row.paymentMethod)}"`,
             `"${row.referenceNumber || ''}"`,
+            `"${row.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || ''}"`,
+            `"${row.invoiceHeader?.jobbatch?.mou?.jobCode || ''}"`,
+            `"${row.invoiceHeader?.jobbatch?.mou?.jobTitle || ''}"`,
           ].join(',')
         ),
       ].join('\n')
@@ -766,6 +1055,33 @@ export default {
 </script>
 
 <style scoped>
+/* Noto Sans Lao Font Configuration */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.notosans-lao {
+  font-family: 'Noto Sans Lao', Arial, sans-serif !important;
+}
+
+/* Apply Noto Sans Lao to all text elements */
+.notosans-lao * {
+  font-family: 'Noto Sans Lao', Arial, sans-serif !important;
+}
+
+/* Specific overrides for Vuetify components */
+.notosans-lao .v-btn,
+.notosans-lao .v-text-field input,
+.notosans-lao .v-text-field label,
+.notosans-lao .v-select .v-select__selections,
+.notosans-lao .v-chip .v-chip__content,
+.notosans-lao .v-data-table th,
+.notosans-lao .v-data-table td,
+.notosans-lao .v-card-title,
+.notosans-lao .v-card-text,
+.notosans-lao .v-list-item-title,
+.notosans-lao .v-menu .v-list-item {
+  font-family: 'Noto Sans Lao', Arial, sans-serif !important;
+}
+
 .receive-summary-container {
   padding: 20px;
 }
@@ -776,5 +1092,24 @@ export default {
 
 .text-caption {
   font-size: 12px !important;
+}
+
+/* Export button styling */
+.v-btn.success {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.v-btn.success:hover {
+  background-color: #45a049 !important;
+}
+
+/* Enhanced font weight for better Lao text readability */
+.font-weight-bold {
+  font-weight: 600 !important;
+}
+
+.font-weight-medium {
+  font-weight: 500 !important;
 }
 </style>

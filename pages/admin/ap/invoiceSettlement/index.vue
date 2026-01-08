@@ -8,6 +8,27 @@
             <v-icon color="white" class="mr-2">mdi-cash-multiple</v-icon>
             <span>ການຊຳລະໜີ້ (AP Settlement)</span>
             <v-spacer />
+            <!-- Refresh Button -->
+            <v-btn 
+              color="white" 
+              text 
+              @click="refreshData"
+              :loading="loading"
+              class="mr-2"
+            >
+              <v-icon left>mdi-refresh</v-icon>
+              ໂຫຼດໃໝ່
+            </v-btn>
+            <!-- Export Excel Button -->
+            <v-btn 
+              color="success" 
+              @click="exportToExcel"
+              :loading="exporting"
+              class="mr-2"
+            >
+              <v-icon left>mdi-file-excel</v-icon>
+              ສົ່ງອອກ Excel
+            </v-btn>
             <v-btn color="white" text @click="openDialog()">
               <v-icon left>mdi-plus</v-icon>
               ເພີ່ມໃໝ່
@@ -130,6 +151,8 @@
             <template v-slot:item.paymentAmount="{ item }">
               <div class="text-right font-weight-bold">
                 {{ formatCurrency(item.paymentAmount) }}
+                <br>
+                <small class="grey--text">{{ item.currency?.code || 'LAK' }}</small>
               </div>
             </template>
 
@@ -137,6 +160,8 @@
             <template v-slot:item.baseAmount="{ item }">
               <div class="text-right">
                 {{ formatCurrency(item.baseAmount) }}
+                <br>
+                <small class="grey--text">LAK</small>
               </div>
             </template>
 
@@ -438,6 +463,23 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+    <!-- Export Progress Snackbar -->
+    <v-snackbar
+      v-model="showExportProgress"
+      :timeout="-1"
+      color="info"
+      bottom
+      right
+    >
+      <v-icon left>mdi-download</v-icon>
+      ກຳລັງສ້າງໄຟລ້ Excel...
+      <v-progress-linear
+        indeterminate
+        color="white"
+        class="mb-0 mt-2"
+      ></v-progress-linear>
+    </v-snackbar>
   </div>
 </template>
 
@@ -495,6 +537,8 @@ export default {
       searchTerm: '',
       outstandingSearch: '',
       loading: false,
+      exporting: false,
+      showExportProgress: false,
       detailLoading: false,
       outstandingLoading: false,
       showDialog: false,
@@ -602,6 +646,195 @@ export default {
   },
 
   methods: {
+    // NEW METHOD: Refresh data
+    async refreshData() {
+      try {
+        this.$toast.info('ກຳລັງໂຫຼດຂໍ້ມູນໃໝ່...')
+        await Promise.all([
+          this.fetchData(),
+          this.getOutstandingInvoices(false),
+          this.fetchAgencies(),
+          this.fetchCurrencies()
+        ])
+        this.$toast.success('ໂຫຼດຂໍ້ມູນໃໝ່ສຳເລັດ')
+      } catch (error) {
+        console.error('Error refreshing data:', error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນໃໝ່')
+      }
+    },
+
+    // NEW METHOD: Export to Excel
+    async exportToExcel() {
+      this.exporting = true
+      this.showExportProgress = true
+      
+      try {
+        // Prepare export parameters
+        const exportParams = {
+          ...this.filters,
+          status: this.statusFilter,
+          search: this.searchTerm,
+          export: true,
+          // Get all data for export (remove pagination)
+          page: 1,
+          limit: this.pagination.totalItems || 1000
+        }
+
+        // Create filename with current date
+        const currentDate = new Date().toISOString().split('T')[0]
+        const filename = `AP_Settlement_Report_${currentDate}.xlsx`
+
+        // Method 1: If your API supports direct Excel export
+        try {
+          const response = await this.$axios.get('/api/ap-invoices-settlement/export', {
+            params: exportParams,
+            responseType: 'blob'
+          })
+          
+          this.downloadBlob(response.data, filename)
+          this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດ')
+          return
+        } catch (apiError) {
+          console.log('API export not available, using client-side export')
+        }
+
+        // Method 2: Client-side Excel generation if API doesn't support export
+        const { data } = await this.$axios.get('/api/ap-invoices-settlement', {
+          params: exportParams
+        })
+
+        const settlements = data.data.settlements || []
+        await this.generateExcelFromData(settlements, filename)
+        
+        this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດ')
+        
+      } catch (error) {
+        console.error('Export error:', error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກ Excel')
+      } finally {
+        this.exporting = false
+        this.showExportProgress = false
+      }
+    },
+
+    // Helper method to download blob
+    downloadBlob(blob, filename) {
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = filename
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    },
+
+    // Client-side Excel generation
+    async generateExcelFromData(settlements, filename) {
+      // This requires installing xlsx library: npm install xlsx
+      // If not available, we'll create a CSV instead
+      
+      try {
+        // Try to use XLSX if available
+        const XLSX = await import('xlsx')
+        
+        const exportData = settlements.map((settlement, index) => ({
+          'ລຳດັບ': index + 1,
+          'ID ການຊຳລະ': settlement.id,
+          'ວັນທີຊຳລະ': this.formatDate(settlement.settlementDate),
+          'ຈຳນວນເງິນຊຳລະ': settlement.paymentAmount,
+          'ສະກຸນເງິນ': settlement.currency?.code || 'LAK',
+          'ຈຳນວນເງິນພື້ນຖານ (LAK)': settlement.baseAmount,
+          'ອັດຕາແລກປ່ຽນ': settlement.exchangeRate,
+          'ສະຖານະ': this.getStatusInLao(settlement.status),
+          'ອ້າງອີງ': settlement.reference || '',
+          'ຄຳອະທິບາຍ': settlement.description || '',
+          'ໝາຍເຫດ': settlement.note || '',
+          'ຜູ້ສ້າງ': settlement.maker?.cus_name || '',
+          'ວັນທີສ້າງ': this.formatDate(settlement.createdAt),
+          'ຜູ້ກວດສອບ': settlement.checker?.cus_name || '',
+          'ຈຳນວນໃບແຈ້ງໜີ້': settlement.invoiceSettlements?.length || 0
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(exportData)
+        const workbook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'AP Settlements')
+        
+        // Add some styling
+        const wscols = [
+          { wch: 8 }, // ລຳດັບ
+          { wch: 12 }, // ID
+          { wch: 12 }, // ວັນທີຊຳລະ
+          { wch: 15 }, // ຈຳນວນເງິນຊຳລະ
+          { wch: 10 }, // ສະກຸນເງິນ
+          { wch: 18 }, // ຈຳນວນເງິນພື້ນຖານ
+          { wch: 12 }, // ອັດຕາແລກປ່ຽນ
+          { wch: 12 }, // ສະຖານະ
+          { wch: 15 }, // ອ້າງອີງ
+          { wch: 25 }, // ຄຳອະທິບາຍ
+          { wch: 20 }, // ໝາຍເຫດ
+          { wch: 15 }, // ຜູ້ສ້າງ
+          { wch: 15 }, // ວັນທີສ້າງ
+          { wch: 15 }, // ຜູ້ກວດສອບ
+          { wch: 12 }  // ຈຳນວນໃບແຈ້ງໜີ້
+        ]
+        worksheet['!cols'] = wscols
+        
+        XLSX.writeFile(workbook, filename)
+        
+      } catch (xlsxError) {
+        // Fallback to CSV if XLSX not available
+        console.log('XLSX not available, generating CSV')
+        await this.generateCSVFromData(settlements, filename.replace('.xlsx', '.csv'))
+      }
+    },
+
+    // Fallback CSV generation
+    async generateCSVFromData(settlements, filename) {
+      const csvHeaders = [
+        'ລຳດັບ',
+        'ID ການຊຳລະ', 
+        'ວັນທີຊຳລະ',
+        'ຈຳນວນເງິນຊຳລະ',
+        'ສະກຸນເງິນ',
+        'ຈຳນວນເງິນພື້ນຖານ (LAK)',
+        'ອັດຕາແລກປ່ຽນ',
+        'ສະຖານະ',
+        'ອ້າງອີງ',
+        'ຄຳອະທິບາຍ',
+        'ໝາຍເຫດ',
+        'ຜູ້ສ້າງ',
+        'ວັນທີສ້າງ',
+        'ຜູ້ກວດສອບ',
+        'ຈຳນວນໃບແຈ້ງໜີ້'
+      ]
+
+      const csvRows = settlements.map((settlement, index) => [
+        index + 1,
+        settlement.id,
+        this.formatDate(settlement.settlementDate),
+        settlement.paymentAmount,
+        settlement.currency?.code || 'LAK',
+        settlement.baseAmount,
+        settlement.exchangeRate,
+        this.getStatusInLao(settlement.status),
+        settlement.reference || '',
+        settlement.description || '',
+        settlement.note || '',
+        settlement.maker?.cus_name || '',
+        this.formatDate(settlement.createdAt),
+        settlement.checker?.cus_name || '',
+        settlement.invoiceSettlements?.length || 0
+      ])
+
+      const csvContent = [csvHeaders, ...csvRows]
+        .map(row => row.map(cell => `"${cell}"`).join(','))
+        .join('\n')
+
+      const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' })
+      this.downloadBlob(blob, filename)
+    },
+
     // NEW METHOD: Get current month's first day
     getCurrentMonthStart() {
       const now = new Date()
@@ -653,7 +886,6 @@ export default {
     },
 
     async loadInitialData() {
-      // await Promise.all([this.fetchVendors()])
       await Promise.all([this.fetchAgencies()])
       await Promise.all([this.fetchCurrencies()])
     },
@@ -683,14 +915,6 @@ export default {
       }
     },
 
-    // async fetchVendors() {
-    //   try {
-    //     const { data } = await this.$axios.get('/api/vendor/find')
-    //     this.vendors = data || []
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // },
     async fetchAgencies() {
       this.loadingAgencies = true
       try {
@@ -956,5 +1180,15 @@ export default {
 
 .text-caption {
   font-size: 12px !important;
+}
+
+/* Export button styling */
+.v-btn.success {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.v-btn.success:hover {
+  background-color: #45a049 !important;
 }
 </style>
