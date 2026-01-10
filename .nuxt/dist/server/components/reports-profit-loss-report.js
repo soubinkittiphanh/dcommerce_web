@@ -53,7 +53,7 @@ var VSpacer = __webpack_require__(431);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/reports/ProfitLossReport.vue?vue&type=template&id=335014f0&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/reports/ProfitLossReport.vue?vue&type=template&id=375a6078&scoped=true
 
 
 
@@ -72,7 +72,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function render() {
+var ProfitLossReportvue_type_template_id_375a6078_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -218,7 +218,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
   }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "text-center",
@@ -229,15 +229,15 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "pb-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "size": "48",
+      "size": "40",
       "color": "success"
     }
   }, [_vm._v("mdi-cash-plus")]), _vm._v(" "), _c('h3', {
-    staticClass: "mt-2 text-h6"
+    staticClass: "mt-2 text-subtitle-1"
   }, [_vm._v("ລາຍຮັບລວມ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text"
   }, [_vm._v("Total Revenue")]), _vm._v(" "), _c('h2', {
-    staticClass: "text-h4 success--text font-weight-bold"
+    staticClass: "text-h5 success--text font-weight-bold"
   }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(_vm.totalRevenueLAK)) + "\n          ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text mt-1"
   }, [_vm._v("LAK")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
@@ -262,7 +262,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
   }, [_vm._v("mdi-eye")]), _vm._v("\n            ລາຍລະອຽດ\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "text-center",
@@ -273,15 +273,15 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "pb-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "size": "48",
+      "size": "40",
       "color": "error"
     }
   }, [_vm._v("mdi-cash-minus")]), _vm._v(" "), _c('h3', {
-    staticClass: "mt-2 text-h6"
+    staticClass: "mt-2 text-subtitle-1"
   }, [_vm._v("ລາຍຈ່າຍລວມ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text"
   }, [_vm._v("Total Expenses")]), _vm._v(" "), _c('h2', {
-    staticClass: "text-h4 error--text font-weight-bold"
+    staticClass: "text-h5 error--text font-weight-bold"
   }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(_vm.totalExpenseLAK)) + "\n          ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text mt-1"
   }, [_vm._v("LAK")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
@@ -306,7 +306,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
   }, [_vm._v("mdi-eye")]), _vm._v("\n            ລາຍລະອຽດ\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "text-center",
@@ -317,15 +317,15 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "pb-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "size": "48",
+      "size": "40",
       "color": _vm.netProfitLoss >= 0 ? 'success' : 'error'
     }
   }, [_vm._v("\n            " + _vm._s(_vm.netProfitLoss >= 0 ? 'mdi-trending-up' : 'mdi-trending-down') + "\n          ")]), _vm._v(" "), _c('h3', {
-    staticClass: "mt-2 text-h6"
+    staticClass: "mt-2 text-subtitle-1"
   }, [_vm._v("\n            " + _vm._s(_vm.netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ' : 'ຂາດທຶນສຸດທິ') + "\n          ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text"
   }, [_vm._v("\n            " + _vm._s(_vm.netProfitLoss >= 0 ? 'Net Profit' : 'Net Loss') + "\n          ")]), _vm._v(" "), _c('h2', {
-    staticClass: "text-h4 font-weight-bold",
+    staticClass: "text-h5 font-weight-bold",
     class: _vm.netProfitLoss >= 0 ? 'success--text' : 'error--text'
   }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(Math.abs(_vm.netProfitLoss))) + "\n          ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text mt-1"
@@ -351,7 +351,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
   }, [_vm._v("mdi-chart-pie")]), _vm._v("\n            ວິເຄາະ\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VCard["a" /* default */], {
     staticClass: "text-center",
@@ -362,19 +362,191 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "pb-2"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "size": "48",
+      "size": "40",
       "color": "info"
     }
   }, [_vm._v("mdi-percent")]), _vm._v(" "), _c('h3', {
-    staticClass: "mt-2 text-h6"
+    staticClass: "mt-2 text-subtitle-1"
   }, [_vm._v("ອັດຕາກຳໄລ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text"
   }, [_vm._v("Profit Margin")]), _vm._v(" "), _c('h2', {
-    staticClass: "text-h4 font-weight-bold",
+    staticClass: "text-h5 font-weight-bold",
     class: _vm.profitMargin >= 0 ? 'info--text' : 'error--text'
   }, [_vm._v("\n            " + _vm._s(_vm.formatPercentage(_vm.profitMargin)) + "%\n          ")]), _vm._v(" "), _c('p', {
     staticClass: "text-caption grey--text mt-1"
-  }, [_vm._v("\n            " + _vm._s(_vm.profitMargin >= 0 ? 'ກຳໄລ' : 'ຂາດທຶນ') + "\n          ")])], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm.hasData ? _c(VRow["a" /* default */], {
+  }, [_vm._v("\n            " + _vm._s(_vm.profitMargin >= 0 ? 'ກຳໄລ' : 'ຂາດທຶນ') + "\n          ")])], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "2"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "text-center",
+    attrs: {
+      "loading": _vm.loading
+    }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "pb-2"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "40",
+      "color": "purple"
+    }
+  }, [_vm._v("mdi-code-tags")]), _vm._v(" "), _c('h3', {
+    staticClass: "mt-2 text-subtitle-1"
+  }, [_vm._v("ລະຫັດລາຍຮັບ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-caption grey--text"
+  }, [_vm._v("Revenue Codes")]), _vm._v(" "), _c('h2', {
+    staticClass: "text-h5 purple--text font-weight-bold"
+  }, [_vm._v("\n            " + _vm._s(Object.keys(_vm.revenueByTransactionCode).length) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-caption grey--text mt-1"
+  }, [_vm._v("ປະເພດ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+    staticClass: "pt-0"
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "text": "",
+      "small": "",
+      "color": "purple",
+      "disabled": Object.keys(_vm.revenueByTransactionCode).length === 0
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showRevenueCodeBreakdown = true;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": "",
+      "left": ""
+    }
+  }, [_vm._v("mdi-eye")]), _vm._v("\n            ວິເຄາະ\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "2"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "text-center",
+    attrs: {
+      "loading": _vm.loading
+    }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "pb-2"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "40",
+      "color": "orange"
+    }
+  }, [_vm._v("mdi-code-tags")]), _vm._v(" "), _c('h3', {
+    staticClass: "mt-2 text-subtitle-1"
+  }, [_vm._v("ລະຫັດລາຍຈ່າຍ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-caption grey--text"
+  }, [_vm._v("Expense Codes")]), _vm._v(" "), _c('h2', {
+    staticClass: "text-h5 orange--text font-weight-bold"
+  }, [_vm._v("\n            " + _vm._s(Object.keys(_vm.expenseByTransactionCode).length) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-caption grey--text mt-1"
+  }, [_vm._v("ປະເພດ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], {
+    staticClass: "pt-0"
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "text": "",
+      "small": "",
+      "color": "orange",
+      "disabled": Object.keys(_vm.expenseByTransactionCode).length === 0
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showExpenseCodeBreakdown = true;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "small": "",
+      "left": ""
+    }
+  }, [_vm._v("mdi-eye")]), _vm._v("\n            ວິເຄາະ\n          ")], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm.hasData ? _c(VRow["a" /* default */], {
+    staticClass: "mt-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "success white--text"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_vm._v("mdi-chart-donut")]), _vm._v("\n          ລາຍຮັບຕາມລະຫັດ Transaction\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VSimpleTable["a" /* default */], {
+    attrs: {
+      "dense": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function () {
+        return [_c('thead', [_c('tr', [_c('th', [_vm._v("ລະຫັດ")]), _vm._v(" "), _c('th', [_vm._v("ຄຳອະທິບາຍ")]), _vm._v(" "), _c('th', {
+          staticClass: "text-right"
+        }, [_vm._v("ຈຳນວນ (LAK)")]), _vm._v(" "), _c('th', {
+          staticClass: "text-right"
+        }, [_vm._v("%")])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.revenueByTransactionCode, function (item, code) {
+          return _c('tr', {
+            key: `revenue-${code}`
+          }, [_c('td', [_c(VChip["a" /* default */], {
+            attrs: {
+              "small": "",
+              "color": code === 'UN-ALLOCATED' ? 'grey' : 'success',
+              "text-color": "white"
+            }
+          }, [_vm._v("\n                      " + _vm._s(code) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.description))]), _vm._v(" "), _c('td', {
+            staticClass: "text-right font-weight-bold"
+          }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(item.amount)) + "\n                  ")]), _vm._v(" "), _c('td', {
+            staticClass: "text-right"
+          }, [_vm._v("\n                    " + _vm._s(_vm.formatPercentage(item.amount / _vm.totalRevenueLAK * 100)) + "%\n                  ")])]);
+        }), 0)];
+      },
+      proxy: true
+    }], null, false, 1441816302)
+  })], 1)], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "error white--text"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_vm._v("mdi-chart-donut")]), _vm._v("\n          ລາຍຈ່າຍຕາມລະຫັດ Transaction\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VSimpleTable["a" /* default */], {
+    attrs: {
+      "dense": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function () {
+        return [_c('thead', [_c('tr', [_c('th', [_vm._v("ລະຫັດ")]), _vm._v(" "), _c('th', [_vm._v("ຄຳອະທິບາຍ")]), _vm._v(" "), _c('th', {
+          staticClass: "text-right"
+        }, [_vm._v("ຈຳນວນ (LAK)")]), _vm._v(" "), _c('th', {
+          staticClass: "text-right"
+        }, [_vm._v("%")])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.expenseByTransactionCode, function (item, code) {
+          return _c('tr', {
+            key: `expense-${code}`
+          }, [_c('td', [_c(VChip["a" /* default */], {
+            attrs: {
+              "small": "",
+              "color": code === 'UN-ALLOCATED' ? 'grey' : 'error',
+              "text-color": "white"
+            }
+          }, [_vm._v("\n                      " + _vm._s(code) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.description))]), _vm._v(" "), _c('td', {
+            staticClass: "text-right font-weight-bold"
+          }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(item.amount)) + "\n                  ")]), _vm._v(" "), _c('td', {
+            staticClass: "text-right"
+          }, [_vm._v("\n                    " + _vm._s(_vm.formatPercentage(item.amount / _vm.totalExpenseLAK * 100)) + "%\n                  ")])]);
+        }), 0)];
+      },
+      proxy: true
+    }], null, false, 1667241919)
+  })], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.hasData ? _c(VRow["a" /* default */], {
     staticClass: "mt-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -430,6 +602,10 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "font-weight-bold"
   }, [_vm._v("ຈຳນວນລາຍຈ່າຍ:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.expenseRecords.length) + " ລາຍການ")])]), _vm._v(" "), _c('tr', [_c('td', {
     staticClass: "font-weight-bold"
+  }, [_vm._v("ປະເພດລາຍຮັບ:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Object.keys(_vm.revenueByTransactionCode).length) + " ປະເພດ")])]), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "font-weight-bold"
+  }, [_vm._v("ປະເພດລາຍຈ່າຍ:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(Object.keys(_vm.expenseByTransactionCode).length) + " ປະເພດ")])]), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "font-weight-bold"
   }, [_vm._v("ສະກຸນເງິນທີ່ນຳໃຊ້:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.uniqueCurrencies.join(', ')))])]), _vm._v(" "), _c('tr', [_c('td', {
     staticClass: "font-weight-bold"
   }, [_vm._v("ສ້າງລາຍງານ:")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(new Date())))])])])])], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), !_vm.hasData && !_vm.loading ? _c(VRow["a" /* default */], {
@@ -460,7 +636,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     }
   }, [_vm._v("\n            ລອງເບິ່ງເດືອນນີ້\n          ")])], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
-      "max-width": "800px",
+      "max-width": "1000px",
       "scrollable": ""
     },
     model: {
@@ -493,7 +669,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "elevation-0",
     attrs: {
       "headers": _vm.revenueHeaders,
-      "items": _vm.receiveRecords,
+      "items": _vm.revenueDetailItems,
       "items-per-page": 10,
       "dense": ""
     },
@@ -509,12 +685,11 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
       fn: function ({
         item
       }) {
-        var _item$currency;
         return [_c('div', {
           staticClass: "text-right"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.totalReceivedAmount)) + "\n              "), _c('br'), _vm._v(" "), _c('small', {
+        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.originalAmount)) + "\n              "), _c('br'), _vm._v(" "), _c('small', {
           staticClass: "grey--text"
-        }, [_vm._v(_vm._s(((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code) || 'LAK'))])])];
+        }, [_vm._v(_vm._s(item.currencyCode))])])];
       }
     }, {
       key: "item.lakAmount",
@@ -523,12 +698,25 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
       }) {
         return [_c('div', {
           staticClass: "text-right font-weight-bold"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(_vm.convertToLAK(item.totalReceivedAmount, item.exchangeRate, item.currency))) + "\n            ")])];
+        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.lakAmount)) + "\n            ")])];
+      }
+    }, {
+      key: "item.transactionCode",
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": item.transactionCode === 'UN-ALLOCATED' ? 'grey' : 'success',
+            "text-color": "white"
+          }
+        }, [_vm._v("\n              " + _vm._s(item.transactionCode) + "\n            ")])];
       }
     }])
   })], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
-      "max-width": "800px",
+      "max-width": "1000px",
       "scrollable": ""
     },
     model: {
@@ -561,7 +749,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
     staticClass: "elevation-0",
     attrs: {
       "headers": _vm.expenseHeaders,
-      "items": _vm.expenseRecords,
+      "items": _vm.expenseDetailItems,
       "items-per-page": 10,
       "dense": ""
     },
@@ -577,12 +765,11 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
       fn: function ({
         item
       }) {
-        var _item$currency2;
         return [_c('div', {
           staticClass: "text-right"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.paymentAmount)) + "\n              "), _c('br'), _vm._v(" "), _c('small', {
+        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.originalAmount)) + "\n              "), _c('br'), _vm._v(" "), _c('small', {
           staticClass: "grey--text"
-        }, [_vm._v(_vm._s(((_item$currency2 = item.currency) === null || _item$currency2 === void 0 ? void 0 : _item$currency2.code) || 'LAK'))])])];
+        }, [_vm._v(_vm._s(item.currencyCode))])])];
       }
     }, {
       key: "item.lakAmount",
@@ -591,10 +778,137 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
       }) {
         return [_c('div', {
           staticClass: "text-right font-weight-bold"
-        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(_vm.convertToLAK(item.paymentAmount, item.exchangeRate, item.currency))) + "\n            ")])];
+        }, [_vm._v("\n              " + _vm._s(_vm.formatCurrency(item.lakAmount)) + "\n            ")])];
+      }
+    }, {
+      key: "item.transactionCode",
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": item.transactionCode === 'UN-ALLOCATED' ? 'grey' : 'error',
+            "text-color": "white"
+          }
+        }, [_vm._v("\n              " + _vm._s(item.transactionCode) + "\n            ")])];
       }
     }])
   })], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "800px",
+      "scrollable": ""
+    },
+    model: {
+      value: _vm.showRevenueCodeBreakdown,
+      callback: function ($$v) {
+        _vm.showRevenueCodeBreakdown = $$v;
+      },
+      expression: "showRevenueCodeBreakdown"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "purple white--text"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_vm._v("mdi-code-tags")]), _vm._v("\n        ວິເຄາະລາຍຮັບຕາມລະຫັດ Transaction\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "icon": "",
+      "dark": ""
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showRevenueCodeBreakdown = false;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], _vm._l(_vm.revenueByTransactionCode, function (item, code) {
+    return _c(VCard["a" /* default */], {
+      key: `revenue-card-${code}`,
+      staticClass: "mb-3",
+      attrs: {
+        "outlined": ""
+      }
+    }, [_c(components_VCard["c" /* VCardText */], {
+      staticClass: "pb-2"
+    }, [_c('div', {
+      staticClass: "d-flex justify-space-between align-center"
+    }, [_c('div', [_c(VChip["a" /* default */], {
+      staticClass: "mb-2",
+      attrs: {
+        "color": code === 'UN-ALLOCATED' ? 'grey' : 'success',
+        "text-color": "white"
+      }
+    }, [_vm._v("\n                  " + _vm._s(code) + "\n                ")]), _vm._v(" "), _c('div', {
+      staticClass: "text-subtitle-2"
+    }, [_vm._v(_vm._s(item.description))]), _vm._v(" "), _c('div', {
+      staticClass: "text-caption grey--text"
+    }, [_vm._v(_vm._s(item.count) + " ລາຍການ")])], 1), _vm._v(" "), _c('div', {
+      staticClass: "text-right"
+    }, [_c('div', {
+      staticClass: "text-h6 success--text font-weight-bold"
+    }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(item.amount)) + " LAK\n                ")]), _vm._v(" "), _c('div', {
+      staticClass: "text-caption"
+    }, [_vm._v("\n                  " + _vm._s(_vm.formatPercentage(item.amount / _vm.totalRevenueLAK * 100)) + "% ຂອງລາຍຮັບລວມ\n                ")])])])])], 1);
+  }), 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "800px",
+      "scrollable": ""
+    },
+    model: {
+      value: _vm.showExpenseCodeBreakdown,
+      callback: function ($$v) {
+        _vm.showExpenseCodeBreakdown = $$v;
+      },
+      expression: "showExpenseCodeBreakdown"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "orange white--text"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_vm._v("mdi-code-tags")]), _vm._v("\n        ວິເຄາະລາຍຈ່າຍຕາມລະຫັດ Transaction\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "icon": "",
+      "dark": ""
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showExpenseCodeBreakdown = false;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], _vm._l(_vm.expenseByTransactionCode, function (item, code) {
+    return _c(VCard["a" /* default */], {
+      key: `expense-card-${code}`,
+      staticClass: "mb-3",
+      attrs: {
+        "outlined": ""
+      }
+    }, [_c(components_VCard["c" /* VCardText */], {
+      staticClass: "pb-2"
+    }, [_c('div', {
+      staticClass: "d-flex justify-space-between align-center"
+    }, [_c('div', [_c(VChip["a" /* default */], {
+      staticClass: "mb-2",
+      attrs: {
+        "color": code === 'UN-ALLOCATED' ? 'grey' : 'error',
+        "text-color": "white"
+      }
+    }, [_vm._v("\n                  " + _vm._s(code) + "\n                ")]), _vm._v(" "), _c('div', {
+      staticClass: "text-subtitle-2"
+    }, [_vm._v(_vm._s(item.description))]), _vm._v(" "), _c('div', {
+      staticClass: "text-caption grey--text"
+    }, [_vm._v(_vm._s(item.count) + " ລາຍການ")])], 1), _vm._v(" "), _c('div', {
+      staticClass: "text-right"
+    }, [_c('div', {
+      staticClass: "text-h6 error--text font-weight-bold"
+    }, [_vm._v("\n                  " + _vm._s(_vm.formatCurrency(item.amount)) + " LAK\n                ")]), _vm._v(" "), _c('div', {
+      staticClass: "text-caption"
+    }, [_vm._v("\n                  " + _vm._s(_vm.formatPercentage(item.amount / _vm.totalExpenseLAK * 100)) + "% ຂອງລາຍຈ່າຍລວມ\n                ")])])])])], 1);
+  }), 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "600px"
     },
@@ -689,7 +1003,7 @@ var ProfitLossReportvue_type_template_id_335014f0_scoped_true_render = function 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/reports/ProfitLossReport.vue?vue&type=template&id=335014f0&scoped=true
+// CONCATENATED MODULE: ./components/reports/ProfitLossReport.vue?vue&type=template&id=375a6078&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(145);
@@ -766,6 +1080,8 @@ var esnext_set_union_js_ = __webpack_require__(160);
       showRevenueDetails: false,
       showExpenseDetails: false,
       showPLBreakdown: false,
+      showRevenueCodeBreakdown: false,
+      showExpenseCodeBreakdown: false,
       // Date filters
       filters: {
         fromDate: '',
@@ -791,48 +1107,56 @@ var esnext_set_union_js_ = __webpack_require__(160);
       revenueHeaders: [{
         text: 'ເລກທີໃບຮັບ',
         value: 'receiptNumber',
-        width: '150px'
+        width: '140px'
       }, {
         text: 'ວັນທີ',
         value: 'receivedDate',
-        width: '120px'
+        width: '110px'
       }, {
         text: 'ຈຳນວນເງິນ',
         value: 'originalAmount',
         align: 'end',
-        width: '150px'
+        width: '130px'
       }, {
         text: 'ຈຳນວນ LAK',
         value: 'lakAmount',
         align: 'end',
-        width: '150px'
+        width: '130px'
+      }, {
+        text: 'ລະຫັດ Txn',
+        value: 'transactionCode',
+        width: '120px'
       }, {
         text: 'ອ້າງອີງ',
         value: 'referenceNumber',
-        width: '120px'
+        width: '110px'
       }],
       expenseHeaders: [{
-        text: 'ລະຫັດລາຍຈ່າຍ',
+        text: 'ລະຫັດ',
         value: 'id',
-        width: '100px'
+        width: '80px'
       }, {
         text: 'ວັນທີ',
         value: 'settlementDate',
-        width: '120px'
+        width: '110px'
       }, {
         text: 'ຈຳນວນເງິນ',
         value: 'originalAmount',
         align: 'end',
-        width: '150px'
+        width: '130px'
       }, {
         text: 'ຈຳນວນ LAK',
         value: 'lakAmount',
         align: 'end',
-        width: '150px'
+        width: '130px'
+      }, {
+        text: 'ລະຫັດ Txn',
+        value: 'transactionCode',
+        width: '120px'
       }, {
         text: 'ອ້າງອີງ',
         value: 'reference',
-        width: '120px'
+        width: '110px'
       }]
     };
   },
@@ -914,6 +1238,194 @@ var esnext_set_union_js_ = __webpack_require__(160);
         currencies.add(code);
       });
       return Array.from(currencies);
+    },
+    /**
+     * NEW: Group revenue by transaction code
+     */
+    revenueByTransactionCode() {
+      const grouped = {};
+      this.receiveRecords.forEach(record => {
+        // Process each receive line for transaction details
+        if (record.receiveLines && record.receiveLines.length > 0) {
+          record.receiveLines.forEach(line => {
+            const transaction = line.transaction;
+            const txnCode = (transaction === null || transaction === void 0 ? void 0 : transaction.code) || 'UN-ALLOCATED';
+            const txnDescription = (transaction === null || transaction === void 0 ? void 0 : transaction.description) || 'ບໍ່ມີການຈັດສັນປະເພດ';
+
+            // Calculate LAK amount for this line
+            const lineAmount = this.convertToLAK(line.allocatedAmount || 0, record.exchangeRate, record.currency);
+            if (!grouped[txnCode]) {
+              grouped[txnCode] = {
+                code: txnCode,
+                description: txnDescription,
+                amount: 0,
+                count: 0
+              };
+            }
+            grouped[txnCode].amount += lineAmount;
+            grouped[txnCode].count += 1;
+          });
+        } else {
+          // If no receive lines, treat as unallocated
+          const txnCode = 'UN-ALLOCATED';
+          const lakAmount = this.convertToLAK(record.totalReceivedAmount, record.exchangeRate, record.currency);
+          if (!grouped[txnCode]) {
+            grouped[txnCode] = {
+              code: txnCode,
+              description: 'ບໍ່ມີການຈັດສັນປະເພດ',
+              amount: 0,
+              count: 0
+            };
+          }
+          grouped[txnCode].amount += lakAmount;
+          grouped[txnCode].count += 1;
+        }
+      });
+
+      // Sort by amount descending
+      return Object.keys(grouped).sort((a, b) => grouped[b].amount - grouped[a].amount).reduce((sorted, key) => {
+        sorted[key] = grouped[key];
+        return sorted;
+      }, {});
+    },
+    /**
+     * NEW: Group expenses by transaction code
+     */
+    expenseByTransactionCode() {
+      const grouped = {};
+      this.expenseRecords.forEach(record => {
+        // Process each invoice settlement for transaction details
+        if (record.invoiceSettlements && record.invoiceSettlements.length > 0) {
+          record.invoiceSettlements.forEach(settlement => {
+            const transaction = settlement.transaction;
+            const txnCode = (transaction === null || transaction === void 0 ? void 0 : transaction.code) || 'UN-ALLOCATED';
+            const txnDescription = (transaction === null || transaction === void 0 ? void 0 : transaction.description) || 'ບໍ່ມີການຈັດສັນປະເພດ';
+
+            // Calculate LAK amount for this settlement
+            const settlementAmount = this.convertToLAK(settlement.amount || 0, record.exchangeRate, record.currency);
+            if (!grouped[txnCode]) {
+              grouped[txnCode] = {
+                code: txnCode,
+                description: txnDescription,
+                amount: 0,
+                count: 0
+              };
+            }
+            grouped[txnCode].amount += settlementAmount;
+            grouped[txnCode].count += 1;
+          });
+        } else {
+          // If no invoice settlements, treat as unallocated
+          const txnCode = 'UN-ALLOCATED';
+          const lakAmount = this.convertToLAK(record.paymentAmount, record.exchangeRate, record.currency);
+          if (!grouped[txnCode]) {
+            grouped[txnCode] = {
+              code: txnCode,
+              description: 'ບໍ່ມີການຈັດສັນປະເພດ',
+              amount: 0,
+              count: 0
+            };
+          }
+          grouped[txnCode].amount += lakAmount;
+          grouped[txnCode].count += 1;
+        }
+      });
+
+      // Sort by amount descending
+      return Object.keys(grouped).sort((a, b) => grouped[b].amount - grouped[a].amount).reduce((sorted, key) => {
+        sorted[key] = grouped[key];
+        return sorted;
+      }, {});
+    },
+    /**
+     * NEW: Format revenue data for detail table with transaction codes
+     */
+    revenueDetailItems() {
+      const items = [];
+      this.receiveRecords.forEach(record => {
+        if (record.receiveLines && record.receiveLines.length > 0) {
+          // Create separate row for each receive line
+          record.receiveLines.forEach((line, index) => {
+            var _record$currency3;
+            const transaction = line.transaction;
+            const txnCode = (transaction === null || transaction === void 0 ? void 0 : transaction.code) || 'UN-ALLOCATED';
+            const lakAmount = this.convertToLAK(line.allocatedAmount || 0, record.exchangeRate, record.currency);
+            items.push({
+              id: `${record.id}-${index}`,
+              receiptNumber: record.receiptNumber + (record.receiveLines.length > 1 ? ` (${index + 1})` : ''),
+              receivedDate: record.receivedDate,
+              originalAmount: line.allocatedAmount || 0,
+              currencyCode: ((_record$currency3 = record.currency) === null || _record$currency3 === void 0 ? void 0 : _record$currency3.code) || 'LAK',
+              exchangeRate: record.exchangeRate || 1,
+              lakAmount: lakAmount,
+              transactionCode: txnCode,
+              referenceNumber: record.referenceNumber,
+              description: line.description
+            });
+          });
+        } else {
+          var _record$currency4;
+          // Single row for record without lines
+          const lakAmount = this.convertToLAK(record.totalReceivedAmount, record.exchangeRate, record.currency);
+          items.push({
+            id: record.id,
+            receiptNumber: record.receiptNumber,
+            receivedDate: record.receivedDate,
+            originalAmount: record.totalReceivedAmount,
+            currencyCode: ((_record$currency4 = record.currency) === null || _record$currency4 === void 0 ? void 0 : _record$currency4.code) || 'LAK',
+            exchangeRate: record.exchangeRate || 1,
+            lakAmount: lakAmount,
+            transactionCode: 'UN-ALLOCATED',
+            referenceNumber: record.referenceNumber,
+            description: record.notes
+          });
+        }
+      });
+      return items;
+    },
+    /**
+     * NEW: Format expense data for detail table with transaction codes
+     */
+    expenseDetailItems() {
+      const items = [];
+      this.expenseRecords.forEach(record => {
+        if (record.invoiceSettlements && record.invoiceSettlements.length > 0) {
+          // Create separate row for each settlement
+          record.invoiceSettlements.forEach((settlement, index) => {
+            var _record$currency5;
+            const transaction = settlement.transaction;
+            const txnCode = (transaction === null || transaction === void 0 ? void 0 : transaction.code) || 'UN-ALLOCATED';
+            const lakAmount = this.convertToLAK(settlement.amount || 0, record.exchangeRate, record.currency);
+            items.push({
+              id: `${record.id}-${index}`,
+              settlementDate: record.settlementDate,
+              originalAmount: settlement.amount || 0,
+              currencyCode: ((_record$currency5 = record.currency) === null || _record$currency5 === void 0 ? void 0 : _record$currency5.code) || 'LAK',
+              exchangeRate: record.exchangeRate || 1,
+              lakAmount: lakAmount,
+              transactionCode: txnCode,
+              reference: record.reference,
+              description: settlement.description
+            });
+          });
+        } else {
+          var _record$currency6;
+          // Single row for record without settlements
+          const lakAmount = this.convertToLAK(record.paymentAmount, record.exchangeRate, record.currency);
+          items.push({
+            id: record.id,
+            settlementDate: record.settlementDate,
+            originalAmount: record.paymentAmount,
+            currencyCode: ((_record$currency6 = record.currency) === null || _record$currency6 === void 0 ? void 0 : _record$currency6.code) || 'LAK',
+            exchangeRate: record.exchangeRate || 1,
+            lakAmount: lakAmount,
+            transactionCode: 'UN-ALLOCATED',
+            reference: record.reference,
+            description: record.description
+          });
+        }
+      });
+      return items;
     }
   },
   mounted() {
@@ -950,15 +1462,12 @@ var esnext_set_union_js_ = __webpack_require__(160);
     async fetchReceiveRecords() {
       try {
         const params = {
-          page: 1,
-          limit: 1000,
-          // Get all records
           bookingDateFrom: this.filters.fromDate,
           bookingDateTo: this.filters.toDate
         };
         const {
           data
-        } = await this.$axios.get('/api/ar-receive-headers', {
+        } = await this.$axios.get('/api/ar-receive-headers/pl', {
           params
         });
         if (data !== null && data !== void 0 && data.success) {
@@ -984,15 +1493,12 @@ var esnext_set_union_js_ = __webpack_require__(160);
     async fetchExpenseRecords() {
       try {
         const params = {
-          page: 1,
-          limit: 1000,
-          // Get all records
           startDate: this.filters.fromDate,
           endDate: this.filters.toDate
         };
         const {
           data
-        } = await this.$axios.get('/api/ap-invoices-settlement', {
+        } = await this.$axios.get('/api/ap-invoices-settlement/pl', {
           params
         });
         if (data !== null && data !== void 0 && data.success) {
@@ -1082,7 +1588,7 @@ var esnext_set_union_js_ = __webpack_require__(160);
       this.showExportProgress = true;
       try {
         const currentDate = new Date().toISOString().split('T')[0];
-        const filename = `P&L_Report_${this.filters.fromDate}_to_${this.filters.toDate}_${currentDate}.xlsx`;
+        const filename = `P&L_Report_TransactionCode_${this.filters.fromDate}_to_${this.filters.toDate}_${currentDate}.xlsx`;
         await this.generatePLExcel(filename);
         this.$toast.success('ສົ່ງອອກລາຍງານສຳເລັດ');
       } catch (error) {
@@ -1094,7 +1600,7 @@ var esnext_set_union_js_ = __webpack_require__(160);
       }
     },
     /**
-     * Generate Excel file with P&L data
+     * Generate Excel file with P&L data including transaction code breakdown
      */
     async generatePLExcel(filename) {
       try {
@@ -1102,34 +1608,46 @@ var esnext_set_union_js_ = __webpack_require__(160);
         const XLSX = await Promise.resolve(/* import() */).then(__webpack_require__.t.bind(null, 407, 7));
 
         // Summary sheet data
-        const summaryData = [['ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ (P&L Report)', '', '', ''], ['ໄລຍະເວລາ:', this.formatDateRange(), '', ''], ['ສ້າງລາຍງານ:', this.formatDate(new Date()), '', ''], ['', '', '', ''], ['ລາຍການ', 'ຈຳນວນ (LAK)', 'ອັດຕາ (%)', 'ໝາຍເຫດ'], ['ລາຍຮັບລວມ', this.totalRevenueLAK, this.revenuePercentage.toFixed(2), `${this.receiveRecords.length} ລາຍການ`], ['ລາຍຈ່າຍລວມ', this.totalExpenseLAK, this.expensePercentage.toFixed(2), `${this.expenseRecords.length} ລາຍການ`], ['', '', '', ''], [this.netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ' : 'ຂາດທຶນສຸດທິ', Math.abs(this.netProfitLoss), this.formatPercentage(this.profitMargin), this.netProfitLoss >= 0 ? 'ກຳໄລ' : 'ຂາດທຶນ']];
+        const summaryData = [['ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ (P&L Report) - ວິເຄາະຕາມລະຫັດ Transaction', '', '', ''], ['ໄລຍະເວລາ:', this.formatDateRange(), '', ''], ['ສ້າງລາຍງານ:', this.formatDate(new Date()), '', ''], ['', '', '', ''], ['ລາຍການ', 'ຈຳນວນ (LAK)', 'ອັດຕາ (%)', 'ໝາຍເຫດ'], ['ລາຍຮັບລວມ', this.totalRevenueLAK, this.revenuePercentage.toFixed(2), `${this.receiveRecords.length} ລາຍການ`], ['ລາຍຈ່າຍລວມ', this.totalExpenseLAK, this.expensePercentage.toFixed(2), `${this.expenseRecords.length} ລາຍການ`], ['', '', '', ''], [this.netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ' : 'ຂາດທຶນສຸດທິ', Math.abs(this.netProfitLoss), this.formatPercentage(this.profitMargin), this.netProfitLoss >= 0 ? 'ກຳໄລ' : 'ຂາດທຶນ']];
 
-        // Revenue detail data
-        const revenueData = [['ລາຍລະອຽດລາຍຮັບ', '', '', '', '', ''], ['ເລກທີໃບຮັບ', 'ວັນທີ', 'ຈຳນວນເງິນ', 'ສະກຸນເງິນ', 'ອັດຕາແລກປ່ຽນ', 'ຈຳນວນ LAK'], ...this.receiveRecords.map(record => {
-          var _record$currency3;
-          return [record.receiptNumber || '', this.formatDate(record.receivedDate), record.totalReceivedAmount || 0, ((_record$currency3 = record.currency) === null || _record$currency3 === void 0 ? void 0 : _record$currency3.code) || 'LAK', record.exchangeRate || 1, this.convertToLAK(record.totalReceivedAmount, record.exchangeRate, record.currency)];
+        // Revenue by transaction code
+        const revenueByCodeData = [['ລາຍຮັບຕາມລະຫັດ Transaction', '', '', ''], ['ລະຫັດ', 'ຄຳອະທິບາຍ', 'ຈຳນວນ (LAK)', '% ຂອງລາຍຮັບລວມ'], ...Object.keys(this.revenueByTransactionCode).map(code => {
+          const item = this.revenueByTransactionCode[code];
+          return [code, item.description, item.amount, (item.amount / this.totalRevenueLAK * 100).toFixed(2)];
         })];
 
-        // Expense detail data
-        const expenseData = [['ລາຍລະອຽດລາຍຈ່າຍ', '', '', '', '', ''], ['ລະຫັດ', 'ວັນທີ', 'ຈຳນວນເງິນ', 'ສະກຸນເງິນ', 'ອັດຕາແລກປ່ຽນ', 'ຈຳນວນ LAK'], ...this.expenseRecords.map(record => {
-          var _record$currency4;
-          return [record.id || '', this.formatDate(record.settlementDate), record.paymentAmount || 0, ((_record$currency4 = record.currency) === null || _record$currency4 === void 0 ? void 0 : _record$currency4.code) || 'LAK', record.exchangeRate || 1, this.convertToLAK(record.paymentAmount, record.exchangeRate, record.currency)];
+        // Expense by transaction code
+        const expenseByCodeData = [['ລາຍຈ່າຍຕາມລະຫັດ Transaction', '', '', ''], ['ລະຫັດ', 'ຄຳອະທິບາຍ', 'ຈຳນວນ (LAK)', '% ຂອງລາຍຈ່າຍລວມ'], ...Object.keys(this.expenseByTransactionCode).map(code => {
+          const item = this.expenseByTransactionCode[code];
+          return [code, item.description, item.amount, (item.amount / this.totalExpenseLAK * 100).toFixed(2)];
         })];
+
+        // Revenue detail data with transaction codes
+        const revenueData = [['ລາຍລະອຽດລາຍຮັບ - ແຍກຕາມ Transaction Code', '', '', '', '', '', ''], ['ເລກທີໃບຮັບ', 'ວັນທີ', 'ຈຳນວນເງິນ', 'ສະກຸນເງິນ', 'ອັດຕາແລກປ່ຽນ', 'ຈຳນວນ LAK', 'ລະຫັດ Transaction'], ...this.revenueDetailItems.map(item => [item.receiptNumber || '', this.formatDate(item.receivedDate), item.originalAmount || 0, item.currencyCode || 'LAK', item.exchangeRate || 1, item.lakAmount, item.transactionCode])];
+
+        // Expense detail data with transaction codes
+        const expenseData = [['ລາຍລະອຽດລາຍຈ່າຍ - ແຍກຕາມ Transaction Code', '', '', '', '', '', ''], ['ລະຫັດ', 'ວັນທີ', 'ຈຳນວນເງິນ', 'ສະກຸນເງິນ', 'ອັດຕາແລກປ່ຽນ', 'ຈຳນວນ LAK', 'ລະຫັດ Transaction'], ...this.expenseDetailItems.map(item => [item.id || '', this.formatDate(item.settlementDate), item.originalAmount || 0, item.currencyCode || 'LAK', item.exchangeRate || 1, item.lakAmount, item.transactionCode])];
 
         // Create workbook
         const workbook = XLSX.utils.book_new();
 
         // Add sheets
         const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
+        const revenueByCodeSheet = XLSX.utils.aoa_to_sheet(revenueByCodeData);
+        const expenseByCodeSheet = XLSX.utils.aoa_to_sheet(expenseByCodeData);
         const revenueSheet = XLSX.utils.aoa_to_sheet(revenueData);
         const expenseSheet = XLSX.utils.aoa_to_sheet(expenseData);
         XLSX.utils.book_append_sheet(workbook, summarySheet, 'ສະຫຼຸບ P&L');
-        XLSX.utils.book_append_sheet(workbook, revenueSheet, 'ລາຍຮັບ');
-        XLSX.utils.book_append_sheet(workbook, expenseSheet, 'ລາຍຈ່າຍ');
+        XLSX.utils.book_append_sheet(workbook, revenueByCodeSheet, 'ລາຍຮັບຕາມລະຫັດ');
+        XLSX.utils.book_append_sheet(workbook, expenseByCodeSheet, 'ລາຍຈ່າຍຕາມລະຫັດ');
+        XLSX.utils.book_append_sheet(workbook, revenueSheet, 'ລາຍຮັບລະອຽດ');
+        XLSX.utils.book_append_sheet(workbook, expenseSheet, 'ລາຍຈ່າຍລະອຽດ');
 
         // Set column widths
         const wscols = [{
           wch: 20
+        }, {
+          wch: 25
         }, {
           wch: 15
         }, {
@@ -1142,6 +1660,8 @@ var esnext_set_union_js_ = __webpack_require__(160);
           wch: 15
         }];
         summarySheet['!cols'] = wscols;
+        revenueByCodeSheet['!cols'] = wscols;
+        expenseByCodeSheet['!cols'] = wscols;
         revenueSheet['!cols'] = wscols;
         expenseSheet['!cols'] = wscols;
 
@@ -1158,7 +1678,10 @@ var esnext_set_union_js_ = __webpack_require__(160);
      * Generate CSV fallback
      */
     generatePLCSV() {
-      const csvLines = ['ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ,,,', `ໄລຍະເວລາ,${this.formatDateRange()},,`, `ລາຍຮັບລວມ,${this.totalRevenueLAK},,`, `ລາຍຈ່າຍລວມ,${this.totalExpenseLAK},,`, `${this.netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ' : 'ຂາດທຶນສຸດທິ'},${Math.abs(this.netProfitLoss)},,`];
+      const csvLines = ['ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ - ຕາມລະຫັດ Transaction,,,', `ໄລຍະເວລາ,${this.formatDateRange()},,`, `ລາຍຮັບລວມ,${this.totalRevenueLAK},,`, `ລາຍຈ່າຍລວມ,${this.totalExpenseLAK},,`, `${this.netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ' : 'ຂາດທຶນສຸດທິ'},${Math.abs(this.netProfitLoss)},,`, '', 'ລາຍຮັບຕາມລະຫັດ Transaction,,,', ...Object.keys(this.revenueByTransactionCode).map(code => {
+        const item = this.revenueByTransactionCode[code];
+        return `${code},${item.description},${item.amount},${(item.amount / this.totalRevenueLAK * 100).toFixed(2)}%`;
+      })];
       return new Blob([csvLines.join('\n')], {
         type: 'text/csv;charset=utf-8;'
       });
@@ -1215,11 +1738,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   reports_ProfitLossReportvue_type_script_lang_js,
-  ProfitLossReportvue_type_template_id_335014f0_scoped_true_render,
+  ProfitLossReportvue_type_template_id_375a6078_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "335014f0",
+  "375a6078",
   "30ebdbbe"
   
 )
@@ -1457,7 +1980,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("3488c18d", content, true, context)
+  add("520f3470", content, true, context)
 };
 
 /***/ }),
@@ -1467,9 +1990,9 @@ module.exports.__inject__ = function (context) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_335014f0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(701);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_335014f0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_335014f0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_335014f0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_335014f0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_375a6078_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(701);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_375a6078_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_375a6078_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_375a6078_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfitLossReport_vue_vue_type_style_index_0_id_375a6078_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -1482,7 +2005,7 @@ var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100;200;300;400;500;600;700;800;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".notosans-lao[data-v-335014f0],.notosans-lao *[data-v-335014f0]{font-family:\"Noto Sans Lao\",Arial,sans-serif!important}.pl-report-container[data-v-335014f0]{padding:20px}.v-card-title.primary[data-v-335014f0]{background:linear-gradient(45deg,#1976d2,#1565c0)}.chart-container[data-v-335014f0]{padding:20px 0}.chart-bar-wrapper[data-v-335014f0]{margin-bottom:20px}.chart-label[data-v-335014f0]{color:#333;font-weight:600;margin-bottom:8px}.chart-bar[data-v-335014f0]{background:#f5f5f5;border-radius:15px;height:30px;overflow:hidden;position:relative}.chart-fill[data-v-335014f0]{border-radius:15px;height:100%;transition:width .5s ease}.chart-fill.success[data-v-335014f0]{background:linear-gradient(90deg,#4caf50,#66bb6a)}.chart-fill.error[data-v-335014f0]{background:linear-gradient(90deg,#f44336,#ef5350)}.chart-value[data-v-335014f0]{color:#666;font-weight:600;margin-top:5px}.breakdown-item[data-v-335014f0]{padding:10px 0}.v-btn.success[data-v-335014f0]{background-color:#4caf50!important;color:#fff!important}.v-btn.success[data-v-335014f0]:hover{background-color:#45a049!important}@media (max-width:600px){.pl-report-container[data-v-335014f0]{padding:10px}.text-h4[data-v-335014f0]{font-size:1.5rem!important}.text-h6[data-v-335014f0]{font-size:1.1rem!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".notosans-lao[data-v-375a6078],.notosans-lao *[data-v-375a6078]{font-family:\"Noto Sans Lao\",Arial,sans-serif!important}.pl-report-container[data-v-375a6078]{padding:20px}.v-card-title.primary[data-v-375a6078]{background:linear-gradient(45deg,#1976d2,#1565c0)}.v-card-title.success[data-v-375a6078]{background:linear-gradient(45deg,#4caf50,#66bb6a)}.v-card-title.error[data-v-375a6078]{background:linear-gradient(45deg,#f44336,#ef5350)}.v-card-title.purple[data-v-375a6078]{background:linear-gradient(45deg,#9c27b0,#ba68c8)}.v-card-title.orange[data-v-375a6078]{background:linear-gradient(45deg,#ff9800,#ffb74d)}.chart-container[data-v-375a6078]{padding:20px 0}.chart-bar-wrapper[data-v-375a6078]{margin-bottom:20px}.chart-label[data-v-375a6078]{color:#333;font-weight:600;margin-bottom:8px}.chart-bar[data-v-375a6078]{background:#f5f5f5;border-radius:15px;height:30px;overflow:hidden;position:relative}.chart-fill[data-v-375a6078]{border-radius:15px;height:100%;transition:width .5s ease}.chart-fill.success[data-v-375a6078]{background:linear-gradient(90deg,#4caf50,#66bb6a)}.chart-fill.error[data-v-375a6078]{background:linear-gradient(90deg,#f44336,#ef5350)}.chart-value[data-v-375a6078]{color:#666;font-weight:600;margin-top:5px}.breakdown-item[data-v-375a6078]{padding:10px 0}.v-btn.success[data-v-375a6078]{background-color:#4caf50!important;color:#fff!important}.v-btn.success[data-v-375a6078]:hover{background-color:#45a049!important}.v-chip.success[data-v-375a6078]{background-color:#4caf50!important}.v-chip.error[data-v-375a6078]{background-color:#f44336!important}.v-chip.purple[data-v-375a6078]{background-color:#9c27b0!important}.v-chip.orange[data-v-375a6078]{background-color:#ff9800!important}@media (max-width:960px){.pl-report-container[data-v-375a6078]{padding:10px}.text-h5[data-v-375a6078]{font-size:1.3rem!important}.text-subtitle-1[data-v-375a6078]{font-size:1rem!important}}@media (max-width:600px){.text-h5[data-v-375a6078]{font-size:1.1rem!important}.text-subtitle-1[data-v-375a6078]{font-size:.9rem!important}.v-col.md-2[data-v-375a6078]{flex:0 0 50%!important;max-width:50%!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
