@@ -56,10 +56,9 @@ export default {
       productSelectedList: [],
       isloading: false,
       productList: [],
-      categoryList: [],
+      // categoryList: [],
       pageLine: 30,
       search: '',
-      paymentList: [],
       productSelectedFromBarcode: null,
     }
   },
@@ -76,7 +75,7 @@ export default {
     await this.loadProduct()
     window.addEventListener('storage', this.handleStorageChange)
     // await this.loadProductWithPriceList()
-    await this.loadCategory()
+    // await this.loadCategory()
     // await this.loadPayment()
     console.warn(
       `the company info is ${JSON.stringify(mainCompanyInfoV1(this.$store))}`
@@ -140,11 +139,6 @@ export default {
     },
   },
   methods: {
-    // doSomeThing(){
-    //     console.info(`DO SOMETHING CALLED - emitting to layout`)
-    //     // Make sure to emit to the parent (layout)
-    //     // this.$emit('update-cus-screen')
-    // },
     ...mapActions(['addProduct']),
     findCurrency(currencyId) {
       return this.findAllCurrency.find((el) => el.id == currencyId)
@@ -221,21 +215,21 @@ export default {
 
       this.isloading = false
     },
-    async loadCategory() {
-      this.isloading = true
-      this.categoryList = []
-      await this.$axios
-        .get('/api/category/find')
-        .then((res) => {
-          for (const iterator of res.data) {
-            this.categoryList.push(iterator)
-          }
-        })
-        .catch((er) => {
-          swalError2(this.$swal, 'Error', er)
-        })
-      this.isloading = false
-    },
+    // async loadCategory() {
+    //   this.isloading = true
+    //   this.categoryList = []
+    //   await this.$axios
+    //     .get('/api/category/find')
+    //     .then((res) => {
+    //       for (const iterator of res.data) {
+    //         this.categoryList.push(iterator)
+    //       }
+    //     })
+    //     .catch((er) => {
+    //       swalError2(this.$swal, 'Error', er)
+    //     })
+    //   this.isloading = false
+    // },
   },
 }
 </script>

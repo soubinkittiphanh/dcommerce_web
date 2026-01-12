@@ -427,7 +427,7 @@ export default {
           priceList.isActive !== false &&
           priceList.type === 'Price' // Ensure it's a price type, not discount
       )
-      console.info(`PriceList selected ${JSON.stringify(gradePrice)}`)
+      // console.info(`PriceList selected ${JSON.stringify(gradePrice)}`)
 
       return gradePrice?.amount || null
     },

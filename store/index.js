@@ -469,7 +469,7 @@ export const actions = {
             // 🔥 ADD THIS - Include priceList parameter
             const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
 
-            console.info(`fetch product initialize response ${JSON.stringify(response.data)}`)
+            // console.info(`fetch product initialize response ${JSON.stringify(response.data)}`)
             await dispatch('initProduct', response.data.data)
         } catch (error) {
             console.error(`Product initialization failed: ${error.message || error}`)

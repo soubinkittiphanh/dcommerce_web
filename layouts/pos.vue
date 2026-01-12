@@ -6,7 +6,7 @@
       <multi-payment-dialog
         v-model="multiPaymentDialog"
         :sale-total="grandTotal - discount"
-        :payment-methods="paymentList"
+        :payment-methods="findAllPayment"
         :sale-header-id="pendingSaleHeaderId"
         :format-number="formatNumber"
         @confirm-payment="handleMultiPaymentConfirm"
@@ -490,8 +490,8 @@
           :cash-received="cashReceived"
           :changes="changes"
           :grand-total="grandTotal"
-          :currency-list="currencyList"
-          :payment-list="paymentList"
+          :currency-list="findAllCurrency"
+          :payment-list="findAllPayment"
           :show-check-out="showCheckOut"
           :selected-payment="currentPayment"
           :format-number="formatNumber"
@@ -601,7 +601,7 @@ export default {
       ],
       categoryList: [],
       quotation: false,
-      paymentList: [],
+      // paymentList: [],
       selectedItem: 0,
       headerMenu: [
         {
@@ -630,7 +630,7 @@ export default {
         },
       ],
       shippingFormKey: 1,
-      currencyList: [],
+      // currencyList: [],
       saleHeader: {
         id: null,
         bookingDate: '',
@@ -720,6 +720,8 @@ export default {
       'findAllTerminal',
       'findAllLocation',
       'findAllPayment',
+      'findAllCurrency',
+      'findAllClient',
     ]),
     serachModel: {
       get() {
@@ -778,7 +780,7 @@ export default {
         return this.multiPaymentCodes
       }
 
-      const payment = this.paymentList.find(
+      const payment = this.findAllPayment.find(
         (el) => el.id == this.currentSelectedPayment
       )
       if (payment == undefined) return ''
@@ -804,9 +806,9 @@ export default {
     this.terminalSelected = this.findSelectedTerminal
     this.startCustomerScreenSync()
     this.fetchCategory()
-    this.loadPayment()
+    // this.loadPayment()
     this.loadCustomer()
-    this.loadCurrency()
+    // this.loadCurrency()
     this.checkAllInitData()
     this.initializeMultiPayment()
     // this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
@@ -1700,6 +1702,7 @@ export default {
     },
 
     initData() {
+      console.info(`INIT CALLING...`)
       this.initiateData(this.$axios)
     },
 
@@ -1710,7 +1713,7 @@ export default {
         findAllProduct: this.findAllProduct,
         formatNumber: this.formatNumber,
         discount: this.discount,
-        currencyList: this.currencyList,
+        currencyList: this.findAllCurrency,
         grandTotal: this.grandTotal,
         lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
         currentTerminal: {
@@ -1957,7 +1960,7 @@ export default {
 
       let totalHtml = ``
 
-      for (const iterator of this.currencyList) {
+      for (const iterator of this.findAllCurrency) {
         if (
           iterator.code == 'LAK' &&
           (this.onlineCustomerInfo.payment == 'COD' ||
@@ -2055,50 +2058,35 @@ export default {
       this.isLoading = false
     },
 
-    async loadPayment() {
-      this.isloading = true
-      this.paymentList = []
-      await this.$axios
-        .get('/api/paymentMethod/find')
-        .then((res) => {
-          for (const iterator of res.data) {
-            this.paymentList.push(iterator)
-          }
-        })
-        .catch((er) => {
-          swalError2(this.$swal, 'Error', er)
-        })
-      this.selectePaymentMethod(this.paymentList[0]['id'])
-      this.isloading = false
-    },
 
-    async loadCurrency() {
-      this.isloading = true
-      this.currencyList = []
-      await this.$axios
-        .get('/api/currency/find')
-        .then((res) => {
-          for (const iterator of res.data) {
-            this.currencyList.push(iterator)
-          }
-        })
-        .catch((er) => {
-          swalError2(this.$swal, 'Error', er)
-        })
-      this.isloading = false
-    },
+    // async loadCurrency() {
+    //   this.isloading = true
+    //   this.currencyList = []
+    //   await this.$axios
+    //     .get('/api/currency/find')
+    //     .then((res) => {
+    //       for (const iterator of res.data) {
+    //         this.currencyList.push(iterator)
+    //       }
+    //     })
+    //     .catch((er) => {
+    //       swalError2(this.$swal, 'Error', er)
+    //     })
+    //   this.isloading = false
+    // },
 
     async loadCustomer() {
-      this.isloading = true
-      await this.$axios
-        .get('api/client/find')
-        .then((res) => {
-          this.addCustomer(res.data[0])
-        })
-        .catch((er) => {
-          swalError2(this.$swal, 'ເກີດຂໍ້ຜິດພາດ', er.response.data)
-        })
-      this.isloading = false
+      this.addCustomer(this.findAllClient[0])
+      // this.isloading = true
+      // await this.$axios
+      //   .get('api/client/find')
+      //   .then((res) => {
+      //     this.addCustomer(res.data[0])
+      //   })
+      //   .catch((er) => {
+      //     swalError2(this.$swal, 'ເກີດຂໍ້ຜິດພາດ', er.response.data)
+      //   })
+      // this.isloading = false
     },
 
     newOrder() {
