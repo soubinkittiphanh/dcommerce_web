@@ -1,7 +1,7 @@
 exports.ids = [42];
 exports.modules = {
 
-/***/ 1542:
+/***/ 1544:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,7 +21,7 @@ var VIcon = __webpack_require__(62);
 var VImg = __webpack_require__(100);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
-var VListItem = __webpack_require__(70);
+var VListItem = __webpack_require__(83);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAvatar.js
 var VListItemAvatar = __webpack_require__(120);

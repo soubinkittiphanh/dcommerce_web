@@ -32,7 +32,8 @@ export default {
     '@/assets/css/mycss.css',
     '@/assets/css/style.css',
     '@fortawesome/fontawesome-free/css/all.css',
-    'vue2-datepicker/index.css'
+    'vue2-datepicker/index.css',
+    'vue-virtual-scroller/dist/vue-virtual-scroller.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -44,6 +45,7 @@ export default {
       src: '@/plugins/apex-chart.js',
       mode: 'client',
     },
+    { src: '~/plugins/vue-virtual-scroller.js', mode: 'client' },
     { src: '~/plugins/html2canvas.js', mode: 'client' },
     { src: '@/plugins/echarts.js', ssr: false },
     { src: '~/plugins/xlsx.js', mode: 'client' },

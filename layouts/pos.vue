@@ -277,6 +277,9 @@
               class="search-field elevation-2"
             />
           </v-col>
+          <!-- <v-btn @click="testSearch" color="error" small class="ml-2">
+            🧪 Test Search
+          </v-btn> -->
         </v-row>
       </div>
       <!-- Terminal Header -->
@@ -724,19 +727,23 @@ export default {
       'findAllClient',
     ]),
     serachModel: {
-      get() {
-        return this.stateValue
-      },
-      set(value) {
-        this.stateValue = value
-        if (value) {
-          const lowerCaseSearchValue = value.toLowerCase()
-          this.SetSearchKeyword(lowerCaseSearchValue)
-        } else {
-          this.SetSearchKeyword('')
-        }
-      },
+    get() {
+      return this.stateValue
     },
+    set(value) {
+      this.stateValue = value
+      console.log(`🔍 Layout: Setting search to "${value}"`)
+      if (value) {
+        const lowerCaseSearchValue = value.toLowerCase()
+        this.SetSearchKeyword(lowerCaseSearchValue)
+      } else {
+        this.SetSearchKeyword('')
+      }
+
+      // REMOVED: Don't force update the child component
+      // this.productComponentKey += 1  // <-- REMOVE THIS LINE
+    },
+  },
 
     currenctCustomer() {
       return this.currentSelectedCustomer
@@ -876,14 +883,73 @@ export default {
       immediate: false,
     },
 
+    // FIXED: Don't trigger component reload on category change
     selectedItem(val) {
       if (val != undefined) {
-        this.updateSelectedCategoryId(this.categoryList[val]['categ_id'])
+        const categoryId = this.categoryList[val]['categ_id']
+        console.log(`📁 Layout: Category changing to ${categoryId}`)
+
+        // Clear search when changing to "All" category
+        if (categoryId === 9999) {
+          console.log(`📁 Layout: Switching to "All" - clearing search`)
+          this.stateValue = ''
+          this.SetSearchKeyword('')
+        }
+
+        this.updateSelectedCategoryId(categoryId)
+
+        // REMOVED: Don't force component reload
+        // this.productComponentKey += 1  // <-- REMOVE THIS LINE
       }
+    },
+
+    // Also watch for store changes to keep things in sync
+    'productCart.length': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.batchUpdateCustomerScreen()
+        }
+      },
+    },
+
+    // Add this watcher to debug store state
+    '$store.getters.searchKeyword': {
+      handler(newVal) {
+        console.log(`🔍 Layout: Store searchKeyword changed to "${newVal}"`)
+      },
     },
   },
 
   methods: {
+    testSeartestSearch() {
+    console.log('🧪 Layout: Testing search functionality')
+    console.log(`Current serachModel: "${this.serachModel}"`)
+    console.log(`Store keyword: "${this.$store.getters.searchKeyword}"`)
+    console.log(`Current stateValue: "${this.stateValue}"`)
+    console.log(`Selected category: ${this.currenctSelectedCategoryId}`)
+
+    // Force set a search term
+    this.serachModel = 'test'
+
+    setTimeout(() => {
+      console.log(
+        `After setting "test": "${this.$store.getters.searchKeyword}"`
+      )
+    }, 100)
+    
+    // REMOVED: Don't force component reload
+    // this.productComponentKey += 1  // <-- REMOVE THIS LINE
+  },
+
+    // Add method to reset everything
+    resetSearchAndCategory() {
+      console.log(`🧹 Layout: Resetting search and category`)
+      this.stateValue = ''
+      this.SetSearchKeyword('')
+      this.selectedItem = this.categoryList.length - 1 // Set to "All"
+      this.productComponentKey += 1
+    },
+
     // PERFORMANCE OPTIMIZATION: New optimized methods
     handleCustScreen() {
       if (this.isCustomerDisplayOpen()) {
@@ -1036,13 +1102,10 @@ export default {
         return item.pro_id === product.pro_id || item.id === product.id
       })
 
-      if (existingCartItem) {;
+      if (existingCartItem) {
         const currentQty = existingCartItem.qty
 
-        if (
-          currentQty >= cardCountLimit &&
-          product.validateStockOnSale == 1
-        ) {
+        if (currentQty >= cardCountLimit && product.validateStockOnSale == 1) {
           if (this.$toast) {
             this.$toast.error(
               `Cannot add more. You have ${currentQty}/${cardCountLimit} items`,
@@ -1583,21 +1646,22 @@ export default {
     },
 
     switchTerminalAction() {
-      this.setSelectedTerminal(this.terminalSelected)
-      const location = this.findAllLocation.find(
-        (el) =>
-          el.id ==
-          this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
-            'locationId'
-          ]
-      )
-      this.setSelectedLocation(location)
-      this.productComponentKey += 1
-      this.terminalDialog = false
+    this.setSelectedTerminal(this.terminalSelected)
+    const location = this.findAllLocation.find(
+      (el) =>
+        el.id ==
+        this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
+          'locationId'
+        ]
+    )
+    this.setSelectedLocation(location)
+    
+    // ONLY reload when terminal actually changes (this makes sense)
+    this.productComponentKey += 1
+    this.terminalDialog = false
 
-      // PERFORMANCE OPTIMIZATION: Rebuild cache when terminal changes
-      this.buildProductLookupCache()
-    },
+    this.buildProductLookupCache()
+  },
 
     openQtyDialog(item) {
       this.selectedProductId = item.id
@@ -2046,18 +2110,27 @@ export default {
             }
           })
           this.categoryList.push({
-            categ_id: '9999',
+            categ_id: 9999, // Make sure this is a number, not string
             categ_name: 'ທັງໝົດ',
             categ_desc: 'ລາຍການສິນຄ້າ ທັງໝົດ',
           })
+
+          // Set to "All" category by default
           this.selectedItem = this.categoryList.length - 1
+          console.log(
+            `📁 Categories loaded, selectedItem set to: ${this.selectedItem}`
+          )
+          console.log(
+            `📁 Category ID will be: ${
+              this.categoryList[this.selectedItem]['categ_id']
+            }`
+          )
         })
         .catch((er) => {
           console.log('error: ' + er.response.data)
         })
       this.isLoading = false
     },
-
 
     // async loadCurrency() {
     //   this.isloading = true

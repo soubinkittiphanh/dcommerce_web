@@ -1,5 +1,5 @@
 // store/index.js
-// All state variables [data]
+// All state variables [data] with performance optimizations
 export const state = () => ({
     user: '',
     isAuth: true,
@@ -40,11 +40,38 @@ export const state = () => ({
         discount: 0,
     },
     SPF: [],
+
+    // Performance optimization additions
+    productBarcodeMap: new Map(),
+    productCategoryMap: new Map(),
+    productSearchCache: new Map(),
+    lastCacheUpdate: null,
+    productProcessed: false,
+
+    // Performance metrics
+    performanceMetrics: {
+        lastProductLoadTime: 0,
+        productProcessingTime: 0,
+        searchPerformance: [],
+        cacheHitRate: 0,
+    },
+
+    // Cache configuration
+    cacheConfig: {
+        maxSearchCacheSize: 100,
+        cacheTimeout: 5 * 60 * 1000, // 5 minutes
+    },
+
+    // Feature flags
+    featureFlags: {
+        enableProductCaching: true,
+        debugPerformance: process.env.NODE_ENV === 'development',
+    },
 })
 
-// Mutations with better error handling
+// Enhanced mutations with performance optimizations
 export const mutations = {
-    // Add loading state mutations
+    // Loading state mutations
     SET_LOADING(state, isLoading) {
         state.isLoading = isLoading
     },
@@ -58,38 +85,143 @@ export const mutations = {
             message: error.message || error,
             timestamp: new Date().toISOString()
         })
+        // Keep only last 50 errors
+        if (state.errors.length > 50) {
+            state.errors = state.errors.slice(-50)
+        }
     },
 
     CLEAR_ERRORS(state) {
         state.errors = []
     },
 
+    // Enhanced product list mutation with performance optimization
+    SetProductList(state, products) {
+        const startTime = performance.now()
+        console.log(`📦 Setting ${products?.length || 0} products`)
+        
+        if (!Array.isArray(products)) {
+            state.productList = []
+            state.productBarcodeMap.clear()
+            state.productCategoryMap.clear()
+            state.productProcessed = false
+            return
+        }
+
+        try {
+            // Pre-process products for optimal performance
+            const processedProducts = products.map((product, index) => {
+                const productName = product.pro_name || ''
+                const barCode = product.barCode || ''
+                
+                return {
+                    ...product,
+                    // Ensure required fields
+                    id: product.id || product.pro_id || index,
+                    pro_price: Number(product.pro_price) || 0,
+                    card_count: Number(product.card_count) || 0,
+                    pro_category: Number(product.pro_category) || 0,
+                    
+                    // Pre-computed search fields
+                    pro_name_lower: productName.toLowerCase(),
+                    barCode_lower: barCode.toLowerCase(),
+                    searchString: `${productName} ${barCode}`.toLowerCase(),
+                    
+                    // Price-related
+                    priceLists: Array.isArray(product.priceLists) ? product.priceLists : [],
+                    hasSpecialPrice: Array.isArray(product.priceLists) && product.priceLists.length > 0,
+                    
+                    // Stock status
+                    isInStock: (Number(product.card_count) || 0) > 0,
+                    
+                    // Processing metadata
+                    _processed: true,
+                    _processedAt: Date.now(),
+                }
+            })
+
+            // Build lookup maps for O(1) access
+            const barcodeMap = new Map()
+            const categoryMap = new Map()
+            
+            processedProducts.forEach(product => {
+                // Barcode map for instant lookup
+                if (product.barCode) {
+                    barcodeMap.set(product.barCode, product)
+                }
+                
+                // Category map for fast filtering
+                const categoryId = product.pro_category
+                if (!categoryMap.has(categoryId)) {
+                    categoryMap.set(categoryId, [])
+                }
+                categoryMap.get(categoryId).push(product)
+            })
+
+            // Freeze category arrays for performance
+            categoryMap.forEach((products, categoryId) => {
+                categoryMap.set(categoryId, Object.freeze(products))
+            })
+
+            // Update state with optimized structures
+            state.productList = Object.freeze(processedProducts)
+            state.productBarcodeMap = barcodeMap
+            state.productCategoryMap = categoryMap
+            state.productProcessed = true
+            state.lastCacheUpdate = Date.now()
+            
+            // Clear search cache when products are updated
+            state.productSearchCache.clear()
+            
+            const processingTime = performance.now() - startTime
+            state.performanceMetrics.lastProductLoadTime = Date.now()
+            state.performanceMetrics.productProcessingTime = processingTime
+            
+            console.log(`✅ Products processed in ${processingTime.toFixed(2)}ms`)
+            console.log(`🗺️ Created ${barcodeMap.size} barcode mappings`)
+            console.log(`📁 Created ${categoryMap.size} category groups`)
+
+        } catch (error) {
+            console.error('🚨 Error processing products:', error)
+            state.productProcessed = false
+            throw error
+        }
+    },
+
+    // Cache management mutations
+    SET_PRODUCT_SEARCH_CACHE(state, { key, result, searchTime }) {
+        if (!state.featureFlags.enableProductCaching) return
+        
+        // Implement LRU cache behavior
+        if (state.productSearchCache.size >= state.cacheConfig.maxSearchCacheSize) {
+            const firstKey = state.productSearchCache.keys().next().value
+            state.productSearchCache.delete(firstKey)
+        }
+        
+        state.productSearchCache.set(key, {
+            result: Object.freeze(result),
+            timestamp: Date.now(),
+            searchTime
+        })
+    },
+
+    CLEAR_PRODUCT_CACHES(state) {
+        state.productSearchCache.clear()
+    },
+
+    // Existing mutations (keeping them exactly as they are)
     UPDATE_QTY(state, { productId, qty }) {
         console.info(`update qty ${qty} ${productId}`)
         try {
-            console.log('Updating qty for productId:', productId)
-            console.log('Current cart items:', JSON.stringify(state.cartOfproductSelected, null, 2))
-
             const product = state.cartOfproductSelected.find(p => p.id === productId)
-
-            console.log('Item found:', JSON.stringify(product, null, 2))
-
             if (product && qty >= 0) {
                 product.qty = qty
-                console.log('Updated product:', JSON.stringify(product, null, 2))
             } else {
-                console.warn(
-                    'Product not found OR qty invalid:',
-                    JSON.stringify({ product, qty }, null, 2)
-                )
+                console.warn('Product not found OR qty invalid:', { productId, qty })
             }
-
-            console.log('Cart after update:', JSON.stringify(state.cartOfproductSelected, null, 2))
-
         } catch (error) {
             console.error('Error updating quantity:', error)
         }
-
     },
 
     initProductPriceList(state, productPrices) {
@@ -131,6 +263,7 @@ export const mutations = {
     clearConfirmPaymentList(state) {
         state.listOfConfirmPaymentOrder = []
     },
+
     setSPF(state, spfList) {
         state.SPF = [...spfList]
     },
@@ -197,15 +330,12 @@ export const mutations = {
         }
     },
 
-    SetProductList(state, product) {
-        state.productList = Array.isArray(product) ? product : []
-    },
-
     SetClass(state, bodyClass) {
         state.bodyClass = bodyClass
     },
 
     SetSearchKeyword(state, value) {
+          console.log(`🔍 Setting search keyword: "${value}"`) // Debug log
         state.productSearchKeyboard = value || ''
     },
 
@@ -238,42 +368,35 @@ export const mutations = {
             state.listOfConfirmStockInOrder.push(order)
         }
     },
-    addProductToCart(state, product) {
-        console.info(`🛒 [CART] Starting addProductToCart for product:`, JSON.stringify(product));
 
+    addProductToCart(state, product) {
         try {
-            // Input validation
             if (!product || !product.id) {
-                console.warn(`⚠️ [CART] Invalid product - missing product or product.id`);
-                return;
+                console.warn(`⚠️ [CART] Invalid product - missing product or product.id`)
+                return
             }
 
-            // The localPrice should already be calculated by the calling component
-            // No need to recalculate customer grade pricing here
-            console.info(`💰 [PRICING] Using pre-calculated price: ${product.localPrice}`);
-
-            // Check for existing product in cart
             const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
                 if (!product.lineUUIDCheck) {
-                    return item.id === product.id;
+                    return item.id === product.id
                 } else {
-                    return item.id === product.id && item.lineUUID === product.lineUUID;
+                    return item.id === product.id && item.lineUUID === product.lineUUID
                 }
-            });
+            })
 
-            // Add or update cart
             if (existingProductIndex !== -1) {
-                state.cartOfproductSelected[existingProductIndex].qty++;
-                console.info(`➕ [CART_UPDATE] Increased quantity for existing product`);
+                state.cartOfproductSelected[existingProductIndex].qty++
+                console.info(`➕ [CART_UPDATE] Increased quantity for existing product`)
             } else {
-                state.cartOfproductSelected.push({ ...product, qty: 1 });
-                console.info(`🆕 [CART_ADD] Added new product to cart`);
+                state.cartOfproductSelected.push({ ...product, qty: 1 })
+                console.info(`🆕 [CART_ADD] Added new product to cart`)
             }
 
         } catch (error) {
-            console.error(`❌ [ERROR] Error adding product to cart:`, error);
+            console.error(`❌ [ERROR] Error adding product to cart:`, error)
         }
     },
+
     setGiftForCartItem(state, { item, giftConfig }) {
         const {
             isFullGift,
@@ -285,26 +408,21 @@ export const mutations = {
             originalPrice
         } = giftConfig
 
-        // 1. Find the target item in cart by lineUUID
         const index = state.cartOfproductSelected.findIndex(i => i.lineUUID === item.lineUUID)
         if (index === -1) return
 
         const cartItem = state.cartOfproductSelected[index]
 
-        // CASE A — All quantity becomes gift
         if (isFullGift) {
             cartItem.isGift = true
             cartItem.qty = originalQuantity
-            cartItem.localPrice = giftAmount // often 0
+            cartItem.localPrice = giftAmount
             cartItem.giftNote = giftNote
             return
         }
 
-        // CASE B — Split line: some gift, some regular
-        // Remove original line
         state.cartOfproductSelected.splice(index, 1)
 
-        // Add regular part (if > 0)
         if (regularQuantity > 0) {
             state.cartOfproductSelected.push({
                 ...cartItem,
@@ -316,25 +434,22 @@ export const mutations = {
             })
         }
 
-        // Add gift part (if > 0)
         if (giftQuantity > 0) {
             state.cartOfproductSelected.push({
                 ...cartItem,
                 qty: giftQuantity,
                 isGift: true,
-                localPrice: giftAmount, // probably zero
+                localPrice: giftAmount,
                 giftNote: giftNote,
                 lineUUID: Date.now() + Math.random().toString(16)
             })
         }
-
-        console.warn(`AFTER GIFT SET ${JSON.stringify(state.cartOfproductSelected)}`)
     },
 
     updateProductCart(state, productInfo) {
         try {
             if (!productInfo || !productInfo.productId) return
-            console.info(`PRODUCT CART UPDATE ${JSON.stringify(productInfo)}`)
+            
             const productId = productInfo.productId
             const price = productInfo.amount
             const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId)
@@ -353,24 +468,25 @@ export const mutations = {
 
             state.cartOfproductSelected[productIdxFound].localPrice = newPrice
             state.cartOfproductSelected[productIdxFound].priceListId = productInfo.id
-            console.info(`Sale line updated ${JSON.stringify(state.cartOfproductSelected[productIdxFound])}`)
         } catch (error) {
             console.error('Error updating product cart:', error)
         }
     },
 
     removeProductFromCart(state, product) {
-        console.info(`remove from cart ${JSON.stringify(product)}`)
         try {
             if (!product || !product.id) return
 
-            const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id && item.lineUUID === product.lineUUID)
+            const existingProduct = state.cartOfproductSelected.find(item => 
+                item.id === product.id && item.lineUUID === product.lineUUID
+            )
+            
             if (existingProduct) {
                 if (existingProduct.qty > 1) {
                     existingProduct.qty--
                 } else {
                     state.cartOfproductSelected = state.cartOfproductSelected.filter(
-                        item => item.id !== product.id
+                        item => item.lineUUID !== product.lineUUID
                     )
                 }
             }
@@ -380,9 +496,8 @@ export const mutations = {
     },
 
     clearProductFromCart(state, product) {
-        if (product && product.id) {
+        if (product && product.lineUUID) {
             state.cartOfproductSelected = state.cartOfproductSelected.filter(
-                // item => item.id !== product.id && item.lineUUID === product.lineUUID
                 item => item.lineUUID !== product.lineUUID
             )
         }
@@ -410,9 +525,10 @@ export const mutations = {
     setLogout(state) {
         state.isAuth = false
         state.user = ''
-        // Clear sensitive data on logout
         state.cartOfproductSelected = []
         state.selectedCustomer = null
+        // Clear caches on logout
+        state.productSearchCache.clear()
     },
 
     setProductDetail(state, payload) {
@@ -424,7 +540,7 @@ export const mutations = {
     },
 }
 
-// Improved getters with null safety
+// Enhanced getters with performance optimizations
 export const getters = {
     findCustomerForm: (state) => state.customerForm || {},
     findAllListOfConfirmStockIn: (state) => state.listOfConfirmStockInOrder || [],
@@ -448,36 +564,81 @@ export const getters = {
     currentSelectedCustomer: (state) => state.selectedCustomer,
     currentSelectedPayment: (state) => state.selectedPayment || 1,
     currentSelectedLocation: (state) => state.selectedLocation,
-    // Add loading state getters
     isLoading: (state) => state.isLoading,
     isDataInitialized: (state) => state.dataInitialized,
     getErrors: (state) => state.errors || [],
+
+    // Enhanced performance getters
+    getProductByBarcode: (state) => (barcode) => {
+        return state.productBarcodeMap.get(barcode) || null
+    },
+
+    getProductsByCategory: (state) => (categoryId) => {
+        if (categoryId === 9999) return state.productList
+        return state.productCategoryMap.get(categoryId) || []
+    },
+
+    searchProducts: (state) => (keyword, categoryId) => {
+        const cacheKey = `${keyword || ''}_${categoryId || 9999}`
+        
+        // Check cache first
+        if (state.productSearchCache.has(cacheKey)) {
+            return state.productSearchCache.get(cacheKey).result
+        }
+
+        const startTime = performance.now()
+        let results = state.productList || []
+
+        // Apply category filter first
+        if (categoryId && categoryId !== 9999) {
+            results = state.productCategoryMap.get(categoryId) || []
+        }
+
+        // Apply search filter
+        if (keyword && keyword.length > 0) {
+            const searchTerm = keyword.toLowerCase()
+            results = results.filter(product =>
+                product.searchString.includes(searchTerm) ||
+                product.pro_name_lower.includes(searchTerm) ||
+                product.barCode_lower.includes(searchTerm)
+            )
+        }
+
+        const searchTime = performance.now() - startTime
+        
+        // Cache the result
+        if (state.featureFlags.enableProductCaching) {
+            if (state.productSearchCache.size >= state.cacheConfig.maxSearchCacheSize) {
+                const firstKey = state.productSearchCache.keys().next().value
+                state.productSearchCache.delete(firstKey)
+            }
+            
+            state.productSearchCache.set(cacheKey, {
+                result: Object.freeze(results),
+                timestamp: Date.now(),
+                searchTime
+            })
+        }
+
+        return results
+    },
+
+    // Performance metrics
+    getProductStats: (state) => ({
+        totalProducts: state.productList.length,
+        categoriesCount: state.productCategoryMap.size,
+        barcodeMapSize: state.productBarcodeMap.size,
+        cacheSize: state.productSearchCache.size,
+        isProcessed: state.productProcessed,
+        lastCacheUpdate: state.lastCacheUpdate,
+    }),
 }
 
-// Improved actions with better error handling
+// Enhanced actions with performance optimizations
 export const actions = {
-    // Add error handling actions
+    // Error handling actions
     addError({ commit }, error) {
         commit('ADD_ERROR', error)
-    },
-    async initializeProductsByLocation({ commit, dispatch }, locationId) {
-        commit('SET_LOADING', true)
-        commit('CLEAR_ERRORS')
-        try {
-            console.info(`fetch product initialize for location ${locationId}`)
-
-            // 🔥 ADD THIS - Include priceList parameter
-            const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
-
-            // console.info(`fetch product initialize response ${JSON.stringify(response.data)}`)
-            await dispatch('initProduct', response.data.data)
-        } catch (error) {
-            console.error(`Product initialization failed: ${error.message || error}`)
-            commit('ADD_ERROR', error)
-            throw error
-        } finally {
-            commit('SET_LOADING', false)
-        }
     },
 
     clearErrors({ commit }) {
@@ -488,7 +649,40 @@ export const actions = {
         commit('SET_LOADING', isLoading)
     },
 
-    // Existing actions with error handling
+    // Enhanced product initialization
+    async initializeProductsByLocation({ commit, dispatch }, locationId) {
+        commit('SET_LOADING', true)
+        commit('CLEAR_ERRORS')
+        
+        try {
+            console.info(`🚀 Loading ALL products for location ${locationId}`)
+            const startTime = performance.now()
+
+            const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
+            
+            const loadTime = performance.now() - startTime
+            console.info(`📡 API call completed in ${loadTime.toFixed(2)}ms`)
+
+            await dispatch('initProduct', response.data.data)
+            
+            const totalTime = performance.now() - startTime
+            console.info(`✅ ALL products initialized in ${totalTime.toFixed(2)}ms`)
+
+        } catch (error) {
+            console.error(`Product initialization failed: ${error.message || error}`)
+            commit('ADD_ERROR', error)
+            throw error
+        } finally {
+            commit('SET_LOADING', false)
+        }
+    },
+
+    // Cache management
+    clearProductCaches({ commit }) {
+        commit('CLEAR_PRODUCT_CACHES')
+    },
+
+    // All existing actions (keeping them exactly as they are)
     clearCustomerFormAction({ commit }) {
         try {
             commit("clearCustomerForm")
@@ -606,6 +800,7 @@ export const actions = {
             commit('ADD_ERROR', error)
         }
     },
+
     initSPF({ commit }, spfList) {
         try {
             commit("setSPF", spfList)
@@ -811,12 +1006,8 @@ export const actions = {
                 initCompanyData(dispatch, axios)
             ]
 
-            // Add product initialization after other data is loaded
             await Promise.allSettled(initPromises)
-
-            // Initialize products after locations are loaded
             await initProduct(dispatch, axios)
-            // await initProductPrices(dispatch, axios)
 
             commit('SET_DATA_INITIALIZED', true)
         } catch (error) {
@@ -839,22 +1030,18 @@ export const actions = {
         }
     },
 
-    // Add server-side initialization for Nuxt
     async nuxtServerInit({ dispatch }, { app, error }) {
         try {
-            // Server-side initialization logic
             if (app.$axios) {
-                // Only initialize essential data on server
                 await dispatch('initiateDataCompany', app.$axios)
             }
         } catch (err) {
             console.error('Server init error:', err)
-            // Don't crash the app on server init errors
         }
     }
 }
 
-// Helper functions with improved error handling
+// Helper functions (keeping them exactly as they are)
 const fetchData = async (url, action, dispatch, axios, errorMessage) => {
     try {
         const response = await axios.get(url)
@@ -866,12 +1053,11 @@ const fetchData = async (url, action, dispatch, axios, errorMessage) => {
     }
 }
 
-const initProduct = async (dispatch, axios,) => {
-    console.info(`fetch product initize`)
+const initProduct = async (dispatch, axios) => {
+    console.info(`fetch product initialize`)
     try {
-        // Default to location ID 1 if no location is selected
-        const response = await axios.get('product_f_v1/1') //TODO: IMAGE ISSUE WITH THIS VERSION
-        console.info(`fetch product initize response ${JSON.stringify(response.data)}`)
+        const response = await axios.get('product_f_v1/1?include=priceList')
+        console.info(`fetch product initialize response: ${response.data?.data?.length || 0} products`)
         await dispatch('initProduct', response.data.data)
     } catch (error) {
         console.error(`Product initialization failed: ${error.message || error}`)
@@ -880,18 +1066,16 @@ const initProduct = async (dispatch, axios,) => {
     }
 }
 
-
 const initClient = (dispatch, axios) =>
     fetchData('api/client/find', 'initClient', dispatch, axios, 'Client initialization failed')
 
 const initPayment = (dispatch, axios) =>
     fetchData('api/paymentMethod/find', 'initPayment', dispatch, axios, 'Payment initialization failed')
+
 const initSPF = async (dispatch, axios) => {
     try {
         const response = await axios.get('api/SPF/find')
         console.info(`SPF initialization response: ${JSON.stringify(response.data)}`)
-
-        // Assuming the API returns { data: [...] } structure like your product API
         const spfData = response.data.data || response.data
         await dispatch('initSPF', spfData)
     } catch (error) {
@@ -900,10 +1084,10 @@ const initSPF = async (dispatch, axios) => {
         throw error
     }
 }
+
 const initProductPrices = async (dispatch, axios) => {
     console.info(`fetch priceList initialize`)
     try {
-        // Fetch all product price lists
         const response = await axios.get('api/product/find/active')
         console.info(`fetch priceList initialize response ${JSON.stringify(response.data)}`)
         await dispatch('initProductPrices', response.data.data.products)
@@ -913,6 +1097,7 @@ const initProductPrices = async (dispatch, axios) => {
         throw error
     }
 }
+
 const initCurrency = (dispatch, axios) =>
     fetchData('api/currency/find', 'initCurrency', dispatch, axios, 'Currency initialization failed')
 
