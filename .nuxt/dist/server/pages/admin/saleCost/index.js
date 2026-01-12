@@ -3460,7 +3460,7 @@ var VSpacer = __webpack_require__(431);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=5ba95cfe
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=c7a1474c
 
 
 
@@ -3480,7 +3480,7 @@ var VTextField = __webpack_require__(38);
 
 
 
-var PriceListFormvue_type_template_id_5ba95cfe_render = function render() {
+var PriceListFormvue_type_template_id_c7a1474c_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -3696,7 +3696,7 @@ var PriceListFormvue_type_template_id_5ba95cfe_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=5ba95cfe
+// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=c7a1474c
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -3722,7 +3722,8 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      grades: ['A', 'B', 'C', 'D', 'E', 'F'],
+      // grades: ['A', 'B', 'C', 'D', 'E', 'F'],
+      grades: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       search: '',
       form: {
         grade: '',
@@ -3853,7 +3854,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_PriceListFormvue_type_script_lang_js,
-  PriceListFormvue_type_template_id_5ba95cfe_render,
+  PriceListFormvue_type_template_id_c7a1474c_render,
   staticRenderFns,
   false,
   null,

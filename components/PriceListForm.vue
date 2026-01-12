@@ -132,7 +132,8 @@ export default {
   },
   data() {
     return {
-      grades: ['A', 'B', 'C', 'D', 'E', 'F'],
+      // grades: ['A', 'B', 'C', 'D', 'E', 'F'],
+      grades : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       search: '',
       form: {
         grade: '',
