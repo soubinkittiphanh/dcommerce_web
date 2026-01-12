@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(910);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_594191ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20a7e8aa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(910);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20a7e8aa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20a7e8aa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20a7e8aa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20a7e8aa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-594191ba],.text-h5[data-v-594191ba]{font-family:\"Noto Sans Lao\"}table[data-v-594191ba]{border:1px solid #000}.grade-summary-card[data-v-594191ba]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.grade-summary-card[data-v-594191ba]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.grade-summary-card.selected-grade[data-v-594191ba]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.grade-badge[data-v-594191ba]{align-items:center;display:flex;justify-content:center}.grade-summary-card .v-icon[data-v-594191ba]{margin-bottom:8px}.grade-summary-card h3[data-v-594191ba]{font-weight:600;letter-spacing:-.5px}.grade-summary-card .v-progress-linear[data-v-594191ba]{border-radius:4px}@media (max-width:600px){.grade-summary-card[data-v-594191ba]{margin-bottom:16px}.grade-summary-card h3[data-v-594191ba]{font-size:1.2rem}}@media print{.v-btn[data-v-594191ba],.v-select[data-v-594191ba],.v-text-field[data-v-594191ba]{display:none!important}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-20a7e8aa],.text-h5[data-v-20a7e8aa]{font-family:\"Noto Sans Lao\"}table[data-v-20a7e8aa]{border:1px solid #000}.grade-summary-card[data-v-20a7e8aa]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.grade-summary-card[data-v-20a7e8aa]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.grade-summary-card.selected-grade[data-v-20a7e8aa]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.grade-badge[data-v-20a7e8aa]{align-items:center;display:flex;justify-content:center}.grade-summary-card .v-icon[data-v-20a7e8aa]{margin-bottom:8px}.grade-summary-card h3[data-v-20a7e8aa]{font-weight:600;letter-spacing:-.5px}.grade-summary-card .v-progress-linear[data-v-20a7e8aa]{border-radius:4px}@media (max-width:600px){.grade-summary-card[data-v-20a7e8aa]{margin-bottom:16px}.grade-summary-card h3[data-v-20a7e8aa]{font-size:1.2rem}}@media print{.v-btn[data-v-20a7e8aa],.v-select[data-v-20a7e8aa],.v-text-field[data-v-20a7e8aa]{display:none!important}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -92,7 +92,7 @@ var VSpacer = __webpack_require__(431);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=594191ba&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=20a7e8aa&scoped=true
 
 
 
@@ -114,12 +114,12 @@ var VTextField = __webpack_require__(38);
 
 
 
-var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = function render() {
+var ordersFromPosGradevue_type_template_id_20a7e8aa_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-594191ba>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-20a7e8aa>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -130,7 +130,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍງານຍອດຂາຍຕາມເກຣດລູກຄ້າ (A-F) + ຂອງຂວັນ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍງານຍອດຂາຍຕາມເກຣດລູກຄ້າ (A-Z) + ຂອງຂວັນ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -176,7 +176,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
       },
       expression: "ticketDetailsDialog"
     }
-  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-594191ba>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-20a7e8aa>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -412,8 +412,8 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n              ສະຫຼຸບຕາມເກຣດລູກຄ້າ (A-F) + ຂອງຂວັນ\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_vm._l(_vm.gradeStatistics, function (gradeStat) {
-    return _c(VCol["a" /* default */], {
+  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n              ສະຫຼຸບຕາມເກຣດລູກຄ້າ (A-Z) + ຂອງຂວັນ\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_vm._l(_vm.gradeStatistics, function (gradeStat) {
+    return gradeStat.quantity > 0 || _vm.showAllGrades ? _c(VCol["a" /* default */], {
       key: gradeStat.grade,
       attrs: {
         "cols": "6",
@@ -474,7 +474,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
       }
     }), _vm._v(" "), _c('div', {
       staticClass: "mt-1"
-    }, [_vm._v("\n                  " + _vm._s(gradeStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                ")])], 1)], 1)], 1);
+    }, [_vm._v("\n                  " + _vm._s(gradeStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                ")])], 1)], 1)], 1) : _vm._e();
   }), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
@@ -604,6 +604,28 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
   }, [_vm._v("\n                  ລາຄາ: " + _vm._s(_vm.formatNumber(_vm.giftSummary.revenue)) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "error--text"
   }, [_vm._v("\n                  ປະຫຍັດ:\n                  " + _vm._s(_vm.formatNumber(_vm.giftSummary.originalValue - _vm.giftSummary.revenue)) + "\n                ")])])], 1)], 1)], 2), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-2"
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "text-center",
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "text": "",
+      "small": "",
+      "color": "primary"
+    },
+    on: {
+      "click": function ($event) {
+        _vm.showAllGrades = !_vm.showAllGrades;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v(_vm._s(_vm.showAllGrades ? 'mdi-eye-off' : 'mdi-eye'))]), _vm._v("\n              " + _vm._s(_vm.showAllGrades ? 'ເປີດໄວ້ຫາກມີຂໍ້ມູນ' : 'ສະແດງເກຣດທັງໝົດ') + "\n            ")], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
     staticClass: "mt-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -688,7 +710,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-table")]), _vm._v("\n          ລາຍລະອຽດສິນຄ້າຕາມເກຣດ + ຂອງຂວັນ\n        ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
+  }, [_vm._v("mdi-table")]), _vm._v("\n          ລາຍລະອຽດສິນຄ້າຕາມເກຣດ (A-Z) + ຂອງຂວັນ\n        ")], 1), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VTextField["a" /* default */], {
     attrs: {
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາສິນຄ້າ",
@@ -705,7 +727,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
   })], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
     staticClass: "elevation-1",
     attrs: {
-      "headers": _vm.headers,
+      "headers": _vm.dynamicHeaders,
       "items": _vm.filteredProductSummary,
       "search": _vm.search,
       "loading": _vm.isloading,
@@ -756,7 +778,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("ລາຄາມາດຕະຖານ")])], 1)];
       }
     }, {
-      key: `item.gradeA`,
+      key: "item.gradeA",
       fn: function ({
         item
       }) {
@@ -775,7 +797,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("-")]) : _vm._e()];
       }
     }, {
-      key: `item.gradeB`,
+      key: "item.gradeB",
       fn: function ({
         item
       }) {
@@ -794,7 +816,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("-")]) : _vm._e()];
       }
     }, {
-      key: `item.gradeC`,
+      key: "item.gradeC",
       fn: function ({
         item
       }) {
@@ -813,7 +835,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("-")]) : _vm._e()];
       }
     }, {
-      key: `item.gradeD`,
+      key: "item.gradeD",
       fn: function ({
         item
       }) {
@@ -832,7 +854,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("-")]) : _vm._e()];
       }
     }, {
-      key: `item.gradeE`,
+      key: "item.gradeE",
       fn: function ({
         item
       }) {
@@ -851,7 +873,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("-")]) : _vm._e()];
       }
     }, {
-      key: `item.gradeF`,
+      key: "item.gradeF",
       fn: function ({
         item
       }) {
@@ -868,6 +890,346 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
         }, [_vm._v("\n            " + _vm._s(_vm.getPriceDifferenceText(item.grades.F.priceUsed, item.basePrice)) + "\n          ")]) : _vm._e(), _vm._v(" "), item.grades.F.qty === 0 ? _c('span', {
           staticClass: "grey--text"
         }, [_vm._v("-")]) : _vm._e()];
+      }
+    }, {
+      key: "item.gradeG",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.G && item.grades.G.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "green",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.G.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.G.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.G.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.G.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.G.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeH",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.H && item.grades.H.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "indigo",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.H.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.H.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.H.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.H.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.H.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeI",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.I && item.grades.I.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "teal",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.I.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.I.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.I.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.I.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.I.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeJ",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.J && item.grades.J.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "amber",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.J.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.J.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.J.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.J.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.J.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeK",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.K && item.grades.K.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "cyan",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.K.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.K.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.K.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.K.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.K.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeL",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.L && item.grades.L.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "lime",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.L.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.L.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.L.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.L.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.L.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeM",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.M && item.grades.M.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "deep-purple",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.M.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.M.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.M.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.M.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.M.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeN",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.N && item.grades.N.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "light-blue",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.N.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.N.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.N.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.N.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.N.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeO",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.O && item.grades.O.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "light-green",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.O.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.O.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.O.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.O.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.O.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeP",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.P && item.grades.P.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "yellow",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.P.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.P.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.P.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.P.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.P.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeQ",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.Q && item.grades.Q.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "blue-grey",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.Q.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.Q.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.Q.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.Q.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.Q.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeR",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.R && item.grades.R.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "brown",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.R.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.R.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.R.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.R.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.R.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeS",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.S && item.grades.S.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "deep-orange",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.S.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.S.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.S.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.S.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.S.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeT",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.T && item.grades.T.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "purple",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.T.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.T.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.T.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.T.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.T.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeU",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.U && item.grades.U.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "indigo",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.U.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.U.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.U.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.U.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.U.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeV",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.V && item.grades.V.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "blue",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.V.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.V.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.V.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.V.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.V.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeW",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.W && item.grades.W.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "teal",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.W.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.W.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.W.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.W.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.W.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeX",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.X && item.grades.X.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "green",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.X.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.X.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.X.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.X.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.X.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeY",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.Y && item.grades.Y.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "amber",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.Y.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.Y.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.Y.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.Y.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.Y.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: "item.gradeZ",
+      fn: function ({
+        item
+      }) {
+        return [item.grades.Z && item.grades.Z.qty > 0 ? _c('div', [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "cyan",
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.grades.Z.qty)) + " ຊິ້ນ")]), _vm._v(" "), item.grades.Z.revenue > 0 ? _c('div', [_vm._v(_vm._s(_vm.formatCurrency(item.grades.Z.revenue)))]) : _vm._e(), _vm._v(" "), item.grades.Z.priceUsed ? _c('div', {
+          staticClass: "grey--text"
+        }, [_vm._v("@ " + _vm._s(_vm.formatCurrency(item.grades.Z.priceUsed)) + "/ຊິ້ນ")]) : _vm._e()], 1) : _c('span', {
+          staticClass: "grey--text"
+        }, [_vm._v("-")])];
       }
     }, {
       key: `item.basePriceSales`,
@@ -1040,7 +1402,7 @@ var ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=594191ba&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPosGrade/index.vue?vue&type=template&id=20a7e8aa&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(78);
@@ -1138,7 +1500,7 @@ var api = __webpack_require__(41);
 // CONCATENATED MODULE: ./common/enhanced-sales-report-printer.js
 /**
  * Enhanced Sales Report Print Module for 80mm POS Printer
- * WITH DETAILED PRODUCT BREAKDOWN BY GRADE, GIFTS, AND PRICING
+ * WITH DETAILED PRODUCT BREAKDOWN BY GRADE A-Z, GIFTS, AND PRICING
  */
 
 
@@ -1212,7 +1574,7 @@ const generateCompanyHeader = (companyData, companyLogo) => {
 const generateDateRangeSection = (fromDate, toDate, terminalInfo) => {
   return `
     <div class="date-range-section">
-      <div class="section-title">ລາຍງານການຂາຍແບບລະອຽດ</div>
+      <div class="section-title">ລາຍງານການຂາຍແບບລະອຽດ (A-Z)</div>
       <div class="date-info">
         <div class="date-line">ຈາກວັນທີ: ${formatDateLao(fromDate)}</div>
         <div class="date-line">ຫາວັນທີ: ${formatDateLao(toDate)}</div>
@@ -1279,22 +1641,62 @@ const generateSummarySection = (summaryData, formatNumber) => {
 };
 
 /**
- * Generate grade breakdown section with detailed statistics
+ * Get grade color for styling
  */
-const generateGradeBreakdownSection = (gradeData, formatNumber) => {
+const getGradeColor = grade => {
+  const gradeColors = {
+    'A': '#9c27b0',
+    'B': '#2196f3',
+    'C': '#ff9800',
+    'D': '#f44336',
+    'E': '#e91e63',
+    'F': '#9e9e9e',
+    'G': '#4caf50',
+    'H': '#3f51b5',
+    'I': '#009688',
+    'J': '#ffc107',
+    'K': '#00bcd4',
+    'L': '#8bc34a',
+    'M': '#673ab7',
+    'N': '#03a9f4',
+    'O': '#4caf50',
+    'P': '#ffeb3b',
+    'Q': '#607d8b',
+    'R': '#795548',
+    'S': '#ff5722',
+    'T': '#9c27b0',
+    'U': '#3f51b5',
+    'V': '#2196f3',
+    'W': '#009688',
+    'X': '#4caf50',
+    'Y': '#ffc107',
+    'Z': '#00bcd4'
+  };
+  return gradeColors[grade] || '#666666';
+};
+
+/**
+ * Generate grade breakdown section with detailed statistics for ALL grades A-Z
+ */
+const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades = null) => {
   if (!gradeData) {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນເກຣດ</div>';
   }
-  const grades = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+  // Use provided available grades or default A-Z
+  const grades = availableGrades || ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   let gradeItems = '';
+
+  // Process all grades dynamically
   grades.forEach(grade => {
     const gradeInfo = gradeData[grade];
     if (gradeInfo && gradeInfo.qty > 0) {
       const avgPrice = gradeInfo.revenue > 0 ? gradeInfo.revenue / gradeInfo.qty : 0;
+      const gradeColor = getGradeColor(grade);
       gradeItems += `
         <div class="grade-item">
           <div class="grade-header">
-            <span class="grade-badge grade-${grade.toLowerCase()}">${grade}</span>
+            <span class="grade-badge" style="background-color: ${gradeColor}; color: white;">${grade}</span>
             <span class="grade-count">${formatNumber(gradeInfo.qty)} ຊິ້ນ</span>
           </div>
           <div class="grade-details">
@@ -1342,31 +1744,39 @@ const generateGradeBreakdownSection = (gradeData, formatNumber) => {
       </div>
     `;
   }
+
+  // Show message if no grades have data
+  if (!gradeItems) {
+    gradeItems = '<div class="no-data">ບໍ່ມີຂໍ້ມູນເກຣດທີ່ຂາຍໄດ້</div>';
+  }
   return `
     <div class="grade-section">
-      <div class="grade-title">ແຍກຕາມເກຣດລູກຄ້າ</div>
+      <div class="grade-title">ແຍກຕາມເກຣດລູກຄ້າ (A-Z)</div>
       ${gradeItems}
     </div>
   `;
 };
 
 /**
- * Generate top products section with detailed breakdown
+ * Generate ALL products section with detailed breakdown - FIXED: Show all products instead of top 15
  */
-const generateTopProductsSection = (productSummary, formatNumber, limit = 10) => {
+const generateAllProductsSection = (productSummary, formatNumber, availableGrades = null) => {
   if (!productSummary || productSummary.length === 0) {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນສິນຄ້າ</div>';
   }
 
-  // Sort by total revenue and take top products
-  const topProducts = productSummary.sort((a, b) => b.totalRevenue - a.totalRevenue).slice(0, limit);
-  const productItems = topProducts.map((product, index) => {
-    // Build grade breakdown string
+  // Use provided available grades or default A-Z
+  const grades = availableGrades || ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+  // Sort by total revenue and show ALL products (removed limit)
+  const allProducts = productSummary.sort((a, b) => b.totalRevenue - a.totalRevenue);
+  const productItems = allProducts.map((product, index) => {
+    // Build grade breakdown string for ALL grades
     const gradeBreakdown = [];
 
-    // Add grade sales
-    ['A', 'B', 'C', 'D', 'E', 'F'].forEach(grade => {
-      if (product.grades[grade].qty > 0) {
+    // Add grade sales for all grades dynamically
+    grades.forEach(grade => {
+      if (product.grades && product.grades[grade] && product.grades[grade].qty > 0) {
         gradeBreakdown.push(`${grade}(${product.grades[grade].qty})`);
       }
     });
@@ -1382,25 +1792,26 @@ const generateTopProductsSection = (productSummary, formatNumber, limit = 10) =>
       gradeBreakdown.push(`ຂອງຂວັນ(${product.gifts.qty}☆${formatNumber(giftSavings)})`);
     }
     const gradeBreakdownText = gradeBreakdown.join(', ') || 'ບໍ່ມີຂໍ້ມູນ';
+    const avgPrice = product.totalQty > 0 ? product.totalRevenue / product.totalQty : 0;
     return `
       <div class="product-item">
         <div class="product-rank">#${index + 1}</div>
         <div class="product-info">
-          <div class="product-name">${(product.productName || 'Unknown Product').substring(0, 25)}</div>
+          <div class="product-name">${(product.productName || 'Unknown Product').substring(0, 30)}</div>
           <div class="product-id">ID: ${product.productId}</div>
           <div class="product-breakdown">${gradeBreakdownText}</div>
         </div>
         <div class="product-stats">
           <div class="total-qty">${formatNumber(product.totalQty)} ຊິ້ນ</div>
           <div class="total-revenue">${formatNumber(product.totalRevenue)} LAK</div>
-          <div class="avg-price">@ ${formatNumber(product.totalRevenue / product.totalQty)}/ຊິ້ນ</div>
+          <div class="avg-price">@ ${formatNumber(avgPrice)}/ຊິ້ນ</div>
         </div>
       </div>
     `;
   }).join('');
   return `
     <div class="products-section">
-      <div class="products-title">ສິນຄ້າຂາຍດີ TOP ${limit}</div>
+      <div class="products-title">ສິນຄ້າທັງໝົດທີ່ຂາຍໄດ້ (${allProducts.length} ລາຍການ)</div>
       ${productItems}
     </div>
   `;
@@ -1414,7 +1825,7 @@ const generatePaymentBreakdownSection = (paymentStats, formatNumber) => {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນການຊຳລະ</div>';
   }
 
-  // FIXED: Handle both legacy format and new format
+  // Handle both legacy format and new format
   const paymentItems = paymentStats.map(stat => {
     // Handle different stat object structures
     const code = stat.code || stat.payment_code || 'UNKNOWN';
@@ -1459,7 +1870,7 @@ const generateFooterSection = user => {
 };
 
 /**
- * Generate complete enhanced sales report HTML
+ * Generate complete enhanced sales report HTML with A-Z support
  */
 const generateEnhancedSalesReportHTML = reportData => {
   const {
@@ -1473,14 +1884,15 @@ const generateEnhancedSalesReportHTML = reportData => {
     productSummary,
     paymentStats,
     formatNumber,
-    user
+    user,
+    availableGrades
   } = reportData;
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="UTF-8">
-      <title>ລາຍງານການຂາຍລະອຽດ</title>
+      <title>ລາຍງານການຂາຍລະອຽດ (A-Z)</title>
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
         
@@ -1622,12 +2034,6 @@ const generateEnhancedSalesReportHTML = reportData => {
           border-radius: 2px;
         }
         
-        .grade-badge.grade-a { background: #9c27b0; color: white; }
-        .grade-badge.grade-b { background: #2196f3; color: white; }
-        .grade-badge.grade-c { background: #ff9800; color: white; }
-        .grade-badge.grade-d { background: #f44336; color: white; }
-        .grade-badge.grade-e { background: #e91e63; color: white; }
-        .grade-badge.grade-f { background: #9e9e9e; color: white; }
         .grade-badge.base { background: #4caf50; color: white; }
         .grade-badge.gift { background: #ffc107; color: black; }
         
@@ -1808,8 +2214,8 @@ const generateEnhancedSalesReportHTML = reportData => {
       ${generateCompanyHeader(companyData, companyLogo)}
       ${generateDateRangeSection(fromDate, toDate, terminalInfo)}
       ${generateSummarySection(summaryData, formatNumber)}
-      ${generateGradeBreakdownSection(gradeData, formatNumber)}
-      ${generateTopProductsSection(productSummary, formatNumber, 15)}
+      ${generateGradeBreakdownSection(gradeData, formatNumber, availableGrades)}
+      ${generateAllProductsSection(productSummary, formatNumber, availableGrades)}
       ${generatePaymentBreakdownSection(paymentStats, formatNumber)}
       ${generateFooterSection(user)}
     </body>
@@ -1850,13 +2256,12 @@ const printEnhancedSalesReport = windowContent => {
 };
 
 /**
- * Main function to generate and print enhanced sales report with detailed breakdown
+ * Main function to generate and print enhanced sales report with detailed breakdown (A-Z GRADES + ALL PRODUCTS)
  */
 const printEnhancedSalesReportSummary = params => {
   const {
     orderHeaderList = [],
     paymentStatistics = [],
-    // FIXED: This should receive the computed paymentStatistics
     filteredOrderHeaderList = [],
     fromDate,
     toDate,
@@ -1871,13 +2276,16 @@ const printEnhancedSalesReportSummary = params => {
     gradeSummary = {},
     basePriceSummary = {},
     giftSummary = {},
-    productSummary = []
+    productSummary = [],
+    availableGrades = null // NEW: Accept available grades from Vue component
   } = params;
-  console.log('🖨️ Generating enhanced sales report with product details for 80mm printer');
+  console.log('🖨️ Generating enhanced sales report with A-Z grades and ALL products for 80mm printer');
   console.log('📊 Payment statistics received:', paymentStatistics);
   console.log('🔢 Single payments:', singlePaymentCount, 'Multi payments:', multiPaymentCount);
+  console.log('📈 Available grades:', availableGrades);
+  console.log('📦 Total products to print:', productSummary.length);
   try {
-    // FIXED: Better total calculation
+    // Calculate totals
     const totalSales = filteredOrderHeaderList.reduce((total, item) => {
       return total + safeParseNumber(item.total, 0);
     }, 0);
@@ -1887,7 +2295,7 @@ const printEnhancedSalesReportSummary = params => {
     const netSales = totalSales - totalDiscount;
     const totalTransactions = filteredOrderHeaderList.length;
 
-    // Calculate total products sold - CORRECTED
+    // Calculate total products sold - supports A-Z grades
     const totalProducts = Object.values(gradeSummary).reduce((sum, grade) => sum + (grade.qty || 0), 0) + (basePriceSummary.qty || 0) + (giftSummary.qty || 0);
 
     // Enhanced summary data
@@ -1919,17 +2327,19 @@ const printEnhancedSalesReportSummary = params => {
       summaryData,
       gradeData,
       productSummary,
+      // Will show ALL products now
       paymentStats: paymentStatistics,
-      // FIXED: Pass the payment statistics correctly
       formatNumber,
-      user
+      user,
+      availableGrades // Pass grades to report generator
     };
     console.log('📄 Report data prepared:', {
       totalTransactions: summaryData.totalTransactions,
       totalSales: summaryData.totalSales,
       paymentStatsCount: paymentStatistics.length,
       gradeDataKeys: Object.keys(gradeData),
-      productCount: productSummary.length
+      productCount: productSummary.length,
+      availableGradesCount: availableGrades ? availableGrades.length : 'using default A-Z'
     });
     const enhancedSalesReportHTML = generateEnhancedSalesReportHTML(reportData);
     printEnhancedSalesReport(enhancedSalesReportHTML);
@@ -1997,74 +2407,19 @@ var external_vuex_ = __webpack_require__(14);
       salesData: [],
       productSummary: [],
       priceListData: [],
+      showAllGrades: false,
+      // Dynamic grades A-Z
+      availableGrades: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       // TicketDetailsDialog integration
       ticketDetailsDialog: false,
       selectedTicketForDetails: null,
       transactionsDialog: false,
       selectedProductForTransactions: null,
       sampleTransactions: [],
-      // Grade filters
+      // Grade filters - now dynamic
       selectedGradeFilter: null,
-      gradeFilterOptions: [{
-        label: 'ທັງໝົດ',
-        value: null
-      }, {
-        label: 'ເກຣດ A',
-        value: 'A'
-      }, {
-        label: 'ເກຣດ B',
-        value: 'B'
-      }, {
-        label: 'ເກຣດ C',
-        value: 'C'
-      }, {
-        label: 'ເກຣດ D',
-        value: 'D'
-      }, {
-        label: 'ເກຣດ E',
-        value: 'E'
-      }, {
-        label: 'ເກຣດ F',
-        value: 'F'
-      }, {
-        label: 'ລາຄາມາດຕະຖານ',
-        value: 'BASE'
-      }, {
-        label: 'ຂອງຂວັນ',
-        value: 'GIFT'
-      }],
-      gradeSummary: {
-        A: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        B: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        C: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        D: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        E: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        F: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        }
-      },
+      // Initialize empty grade summary (will be filled dynamically)
+      gradeSummary: {},
       basePriceSummary: {
         qty: 0,
         revenue: 0,
@@ -2077,7 +2432,8 @@ var external_vuex_ = __webpack_require__(14);
         orderCount: 0,
         percentage: 0
       },
-      headers: [{
+      // Base headers (will be computed dynamically)
+      baseHeaders: [{
         text: 'ສິນຄ້າ',
         align: 'left',
         value: 'productName',
@@ -2087,37 +2443,8 @@ var external_vuex_ = __webpack_require__(14);
         align: 'center',
         value: 'basePriceDisplay',
         sortable: true
-      }, {
-        text: 'ເກຣດ A',
-        align: 'center',
-        value: 'gradeA',
-        sortable: false
-      }, {
-        text: 'ເກຣດ B',
-        align: 'center',
-        value: 'gradeB',
-        sortable: false
-      }, {
-        text: 'ເກຣດ C',
-        align: 'center',
-        value: 'gradeC',
-        sortable: false
-      }, {
-        text: 'ເກຣດ D',
-        align: 'center',
-        value: 'gradeD',
-        sortable: false
-      }, {
-        text: 'ເກຣດ E',
-        align: 'center',
-        value: 'gradeE',
-        sortable: false
-      }, {
-        text: 'ເກຣດ F',
-        align: 'center',
-        value: 'gradeF',
-        sortable: false
-      }, {
+      }],
+      endHeaders: [{
         text: 'ລາຄາມາດຕະຖານ (ບໍ່ມີ PriceList)',
         align: 'center',
         value: 'basePriceSales',
@@ -2170,6 +2497,7 @@ var external_vuex_ = __webpack_require__(14);
     };
   },
   async created() {
+    this.initializeGradeSummary();
     this.terminalId = this.findSelectedTerminal;
     await this.loadPriceList();
     await this.loadData();
@@ -2185,9 +2513,35 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   computed: {
-    // FIXED: Added missing payment getter
-    ...Object(external_vuex_["mapGetters"])(['findAllProduct', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation', 'findAllPayment' // FIXED: This was missing
-    ]),
+    ...Object(external_vuex_["mapGetters"])(['findAllProduct', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation', 'findAllPayment']),
+    // Dynamic grade filter options
+    gradeFilterOptions() {
+      const baseOptions = [{
+        label: 'ທັງໝົດ',
+        value: null
+      }, {
+        label: 'ລາຄາມາດຕະຖານ',
+        value: 'BASE'
+      }, {
+        label: 'ຂອງຂວັນ',
+        value: 'GIFT'
+      }];
+      const gradeOptions = this.availableGrades.map(grade => ({
+        label: `ເກຣດ ${grade}`,
+        value: grade
+      }));
+      return [baseOptions[0], ...gradeOptions, ...baseOptions.slice(1)];
+    },
+    // Dynamic headers generation
+    dynamicHeaders() {
+      const gradeHeaders = this.availableGrades.map(grade => ({
+        text: `ເກຣດ ${grade}`,
+        align: 'center',
+        value: `grade${grade}`,
+        sortable: false
+      }));
+      return [...this.baseHeaders, ...gradeHeaders, ...this.endHeaders];
+    },
     companyLogo() {
       const company = Object(api["b" /* mainCompanyInfo */])();
       if (company.apiData && company.apiData.profile_image_path) {
@@ -2218,14 +2572,12 @@ var external_vuex_ = __webpack_require__(14);
       }
       return this.salesData.filter(el => el['locationId'] == terminal['locationId'] && el.isActive === true);
     },
-    // FIXED: Payment Statistics with corrected logic
+    // Payment Statistics
     paymentStatistics() {
       const stats = {};
       let totalAmount = 0;
       this.filteredSalesData.forEach(sale => {
         const itemTotal = sale.total - (sale.discount || 0);
-
-        // Multi-payment check
         if (sale.payments && Array.isArray(sale.payments) && sale.payments.length > 1) {
           sale.payments.forEach(payment => {
             var _payment$paymentMetho;
@@ -2246,9 +2598,7 @@ var external_vuex_ = __webpack_require__(14);
             stats[code].count += 1;
             totalAmount += amount;
           });
-        }
-        // Single payment using payment object
-        else if (sale.payment && sale.paymentId) {
+        } else if (sale.payment && sale.paymentId) {
           const code = sale.payment.payment_code;
           const name = sale.payment.payment_name;
           if (!stats[code]) {
@@ -2264,9 +2614,7 @@ var external_vuex_ = __webpack_require__(14);
           stats[code].amount += itemTotal;
           stats[code].count += 1;
           totalAmount += itemTotal;
-        }
-        // Fallback: lookup from store
-        else if (sale.paymentId && this.findAllPayment) {
+        } else if (sale.paymentId && this.findAllPayment) {
           const paymentMethod = this.findAllPayment.find(p => p.id === sale.paymentId);
           if (paymentMethod) {
             const code = paymentMethod.payment_code;
@@ -2287,8 +2635,6 @@ var external_vuex_ = __webpack_require__(14);
           }
         }
       });
-
-      // Calculate percentages
       Object.values(stats).forEach(stat => {
         stat.percentage = totalAmount > 0 ? stat.amount / totalAmount * 100 : 0;
       });
@@ -2318,13 +2664,17 @@ var external_vuex_ = __webpack_require__(14);
       }
       return this.productSummary.filter(product => product.grades[this.selectedGradeFilter].qty > 0);
     },
+    // Dynamic grade statistics
     gradeStatistics() {
       const stats = [];
-      const grades = ['A', 'B', 'C', 'D', 'E', 'F'];
-      const colors = ['purple', 'blue', 'orange', 'red', 'pink', 'grey'];
-      const icons = ['mdi-star', 'mdi-star-half-full', 'mdi-star-outline', 'mdi-minus-circle', 'mdi-alert-circle', 'mdi-close-circle'];
-      grades.forEach((grade, index) => {
-        const data = this.gradeSummary[grade];
+      const colors = this.getGradeColors();
+      const icons = this.getGradeIcons();
+      this.availableGrades.forEach((grade, index) => {
+        const data = this.gradeSummary[grade] || {
+          qty: 0,
+          revenue: 0,
+          orderCount: 0
+        };
         const percentage = this.totalRevenue > 0 ? data.revenue / this.totalRevenue * 100 : 0;
         stats.push({
           grade: grade,
@@ -2332,8 +2682,8 @@ var external_vuex_ = __webpack_require__(14);
           revenue: data.revenue,
           orderCount: data.orderCount,
           percentage: percentage,
-          color: colors[index],
-          icon: icons[index]
+          color: colors[index % colors.length],
+          icon: icons[index % icons.length]
         });
       });
       return stats;
@@ -2369,7 +2719,30 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
-    // FIXED: Helper functions for payment processing
+    // Initialize grade summary dynamically
+    initializeGradeSummary() {
+      this.gradeSummary = {};
+      this.availableGrades.forEach(grade => {
+        this.gradeSummary[grade] = {
+          qty: 0,
+          revenue: 0,
+          orderCount: 0
+        };
+      });
+    },
+    // Helper methods for colors and icons
+    getGradeColors() {
+      return ['purple', 'blue', 'orange', 'red', 'pink', 'grey', 'green', 'indigo', 'teal', 'amber', 'cyan', 'lime', 'deep-purple', 'light-blue', 'light-green', 'yellow', 'blue-grey', 'brown', 'deep-orange', 'purple', 'indigo', 'blue', 'teal', 'green', 'amber', 'orange'];
+    },
+    getGradeIcons() {
+      return ['mdi-star', 'mdi-star-half-full', 'mdi-star-outline', 'mdi-minus-circle', 'mdi-alert-circle', 'mdi-close-circle', 'mdi-numeric-1-box', 'mdi-numeric-2-box', 'mdi-numeric-3-box', 'mdi-alpha-a-box', 'mdi-alpha-b-box', 'mdi-alpha-c-box', 'mdi-alpha-d-box', 'mdi-alpha-e-box', 'mdi-alpha-f-box', 'mdi-alpha-g-box', 'mdi-alpha-h-box', 'mdi-alpha-i-box', 'mdi-alpha-j-box', 'mdi-alpha-k-box', 'mdi-alpha-l-box', 'mdi-alpha-m-box', 'mdi-alpha-n-box', 'mdi-alpha-o-box', 'mdi-alpha-p-box', 'mdi-alpha-q-box', 'mdi-alpha-r-box'];
+    },
+    getGradeColor(grade) {
+      const index = this.availableGrades.indexOf(grade);
+      const colors = this.getGradeColors();
+      return colors[index % colors.length];
+    },
+    // Payment helper methods
     getPaymentColor(paymentCode) {
       const colorMap = {
         'CASH': 'green',
@@ -2435,9 +2808,6 @@ var external_vuex_ = __webpack_require__(14);
       if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone';
       if (code.includes('WALLET')) return 'mdi-wallet';
       return 'mdi-cash-multiple';
-    },
-    isMultiPayment(item) {
-      return item.payments && Array.isArray(item.payments) && item.payments.length > 1;
     },
     // TicketDetailsDialog methods
     showTicketDetails(transaction) {
@@ -2518,44 +2888,11 @@ var external_vuex_ = __webpack_require__(14);
         this.isloading = false;
       }
     },
-    // Sales data processing - keeping your existing logic
+    // Enhanced sales data processing with dynamic grades
     processSalesData() {
-      // [Your existing processSalesData method - unchanged]
-      // This method is correct as written in your original code
       // Reset summaries
       this.productSummary = [];
-      this.gradeSummary = {
-        A: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        B: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        C: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        D: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        E: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        },
-        F: {
-          qty: 0,
-          revenue: 0,
-          orderCount: 0
-        }
-      };
+      this.initializeGradeSummary();
       this.basePriceSummary = {
         qty: 0,
         revenue: 0,
@@ -2584,48 +2921,21 @@ var external_vuex_ = __webpack_require__(14);
           const priceListId = line.priceListId;
           const isGift = line.isGift === true;
           if (!productMap.has(productId)) {
+            // Create grade structure dynamically
+            const gradeStructure = {};
+            this.availableGrades.forEach(grade => {
+              gradeStructure[grade] = {
+                qty: 0,
+                revenue: 0,
+                priceUsed: 0,
+                count: 0
+              };
+            });
             productMap.set(productId, {
               productId,
               productName,
               basePrice: basePrice,
-              grades: {
-                A: {
-                  qty: 0,
-                  revenue: 0,
-                  priceUsed: 0,
-                  count: 0
-                },
-                B: {
-                  qty: 0,
-                  revenue: 0,
-                  priceUsed: 0,
-                  count: 0
-                },
-                C: {
-                  qty: 0,
-                  revenue: 0,
-                  priceUsed: 0,
-                  count: 0
-                },
-                D: {
-                  qty: 0,
-                  revenue: 0,
-                  priceUsed: 0,
-                  count: 0
-                },
-                E: {
-                  qty: 0,
-                  revenue: 0,
-                  priceUsed: 0,
-                  count: 0
-                },
-                F: {
-                  qty: 0,
-                  revenue: 0,
-                  priceUsed: 0,
-                  count: 0
-                }
-              },
+              grades: gradeStructure,
               basePriceSales: {
                 qty: 0,
                 revenue: 0,
@@ -2661,7 +2971,9 @@ var external_vuex_ = __webpack_require__(14);
               if (priceListEntry && priceListEntry.grade) {
                 appliedGrade = priceListEntry.grade;
                 saleType = 'GRADE_BASED';
-                if (appliedGrade in product.grades) {
+
+                // Check if the grade exists in our available grades
+                if (this.availableGrades.includes(appliedGrade) && appliedGrade in product.grades) {
                   product.grades[appliedGrade].qty += quantity;
                   product.grades[appliedGrade].revenue += revenue;
                   const currentCount = product.grades[appliedGrade].count;
@@ -2673,7 +2985,9 @@ var external_vuex_ = __webpack_require__(14);
                   gradeOrderCount[appliedGrade] = new Set();
                 }
                 gradeOrderCount[appliedGrade].add(sale.id);
-                if (appliedGrade in this.gradeSummary) {
+
+                // Check if the grade exists in our grade summary
+                if (this.availableGrades.includes(appliedGrade) && appliedGrade in this.gradeSummary) {
                   this.gradeSummary[appliedGrade].qty += quantity;
                   this.gradeSummary[appliedGrade].revenue += revenue;
                 }
@@ -2697,8 +3011,10 @@ var external_vuex_ = __webpack_require__(14);
           product.totalRevenue += revenue;
         });
       });
+
+      // Update order counts for all grades
       Object.keys(gradeOrderCount).forEach(grade => {
-        if (gradeOrderCount[grade]) {
+        if (gradeOrderCount[grade] && this.availableGrades.includes(grade)) {
           this.gradeSummary[grade].orderCount = gradeOrderCount[grade].size;
         }
       });
@@ -2709,18 +3025,16 @@ var external_vuex_ = __webpack_require__(14);
       this.giftSummary.percentage = totalItems > 0 ? this.giftSummary.qty / totalItems * 100 : 0;
       this.productSummary = Array.from(productMap.values()).sort((a, b) => b.totalRevenue - a.totalRevenue);
     },
-    // ENHANCED: Print Report with complete payment statistics
+    // Print Report with all grades
     printReport() {
       try {
         var _mainCompanyInfo;
-        console.log('🖨️ Printing enhanced sales report with product details and payment statistics...');
+        console.log('🖨️ Printing enhanced sales report with A-Z grade support...');
         const terminalInfo = this.terminalId === 999 ? {
           name: 'ທັງໝົດ',
           id: 999
         } : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
         const companyData = ((_mainCompanyInfo = Object(api["b" /* mainCompanyInfo */])()) === null || _mainCompanyInfo === void 0 ? void 0 : _mainCompanyInfo.apiData) || Object(api["b" /* mainCompanyInfo */])() || {};
-
-        // FIXED: Pass all required data to printer
         printEnhancedSalesReportSummary({
           orderHeaderList: this.salesData,
           filteredOrderHeaderList: this.filteredSalesData,
@@ -2736,12 +3050,12 @@ var external_vuex_ = __webpack_require__(14);
           giftSummary: this.giftSummary,
           productSummary: this.productSummary,
           paymentStatistics: this.paymentStatistics,
-          // FIXED: Now properly computed
           singlePaymentCount: this.singlePaymentCount,
-          multiPaymentCount: this.multiPaymentCount
+          multiPaymentCount: this.multiPaymentCount,
+          availableGrades: this.availableGrades // Pass available grades to printer
         });
         if (this.$toast) {
-          this.$toast.success('ລາຍງານລະອຽດກຳລັງພິມ... (ລວມເກຣດ + ຂອງຂວັນ + ການຊຳລະ)', {
+          this.$toast.success('ລາຍງານລະອຽດກຳລັງພິມ... (ລວມເກຣດ A-Z + ຂອງຂວັນ + ການຊຳລະ)', {
             position: 'bottom-center',
             duration: 3000
           });
@@ -2789,30 +3103,44 @@ var external_vuex_ = __webpack_require__(14);
       }
     },
     exportToExcel() {
-      const exportData = this.productSummary.map(product => ({
-        ສິນຄ້າ: product.productName,
-        'Product ID': product.productId,
-        'ລາຄາພື້ນຖານ (Base Price)': product.basePrice,
-        'Grade A Qty': product.grades.A.qty,
-        'Grade A Revenue': product.grades.A.revenue,
-        'Gift Qty': product.gifts.qty,
-        'Gift Revenue': product.gifts.revenue,
-        'Gift Original Value': product.gifts.originalValue,
-        'Gift Savings': product.gifts.originalValue - product.gifts.revenue,
-        'Total Qty': product.totalQty,
-        'Total Revenue': product.totalRevenue
-      }));
+      // Create dynamic export data with all grades
+      const exportData = this.productSummary.map(product => {
+        const baseData = {
+          ສິນຄ້າ: product.productName,
+          'Product ID': product.productId,
+          'ລາຄາພື້ນຖານ (Base Price)': product.basePrice
+        };
+
+        // Add all grades dynamically
+        this.availableGrades.forEach(grade => {
+          baseData[`Grade ${grade} Qty`] = product.grades[grade].qty;
+          baseData[`Grade ${grade} Revenue`] = product.grades[grade].revenue;
+        });
+
+        // Add other data
+        Object.assign(baseData, {
+          'Base Price Sales Qty': product.basePriceSales.qty,
+          'Base Price Sales Revenue': product.basePriceSales.revenue,
+          'Gift Qty': product.gifts.qty,
+          'Gift Revenue': product.gifts.revenue,
+          'Gift Original Value': product.gifts.originalValue,
+          'Gift Savings': product.gifts.originalValue - product.gifts.revenue,
+          'Total Qty': product.totalQty,
+          'Total Revenue': product.totalRevenue
+        });
+        return baseData;
+      });
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData);
       const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade + Gift + Payment Report');
-      this.$xlsx.writeFile(workbook, `grade-gift-payment-report-${this.fromDate}-${this.toDate}.xlsx`);
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade A-Z + Gift + Payment Report');
+      this.$xlsx.writeFile(workbook, `grade-a-z-gift-payment-report-${this.fromDate}-${this.toDate}.xlsx`);
     },
     debugGiftData() {
-      console.log('🐛 DEBUG: Gift Data Check');
+      console.log('🐛 DEBUG: Enhanced Grade Data Check (A-Z)');
+      console.log('Available Grades:', this.availableGrades);
+      console.log('Grade Summary:', this.gradeSummary);
       console.log('Gift Summary:', this.giftSummary);
       console.log('Payment Statistics:', this.paymentStatistics);
-      console.log('Single Payment Count:', this.singlePaymentCount);
-      console.log('Multi Payment Count:', this.multiPaymentCount);
     },
     formatDate(date) {
       if (!date) return null;
@@ -2854,11 +3182,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosGradevue_type_script_lang_js,
-  ordersFromPosGradevue_type_template_id_594191ba_scoped_true_render,
+  ordersFromPosGradevue_type_template_id_20a7e8aa_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "594191ba",
+  "20a7e8aa",
   "14ee04b6"
   
 )
@@ -6145,7 +6473,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("581ed822", content, true, context)
+  add("08c10580", content, true, context)
 };
 
 /***/ })

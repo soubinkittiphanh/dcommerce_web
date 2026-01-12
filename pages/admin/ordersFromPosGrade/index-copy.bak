@@ -3,7 +3,7 @@
     <div>
       <v-chip class="pa-5" color="primary" label text-color="white">
         <v-icon start>mdi-label</v-icon>
-        <h3>ລາຍງານຍອດຂາຍຕາມເກຣດລູກຄ້າ (A-Z) + ຂອງຂວັນ</h3>
+        <h3>ລາຍງານຍອດຂາຍຕາມເກຣດລູກຄ້າ (A-F) + ຂອງຂວັນ</h3>
       </v-chip>
       <v-chip
         class="pa-5"
@@ -22,7 +22,7 @@
       <loading-indicator></loading-indicator>
     </v-dialog>
 
-    <!-- TicketDetailsDialog -->
+    <!-- NEW: Add TicketDetailsDialog -->
     <ticket-details-dialog
       v-model="ticketDetailsDialog"
       :ticket-data="selectedTicketForDetails"
@@ -152,7 +152,7 @@
                 ດຶງລາຍງານ
               </v-btn>
 
-              <!-- Button to show sample transactions -->
+              <!-- NEW: Add button to show sample transactions -->
               <v-btn
                 size="large"
                 variant="outlined"
@@ -176,21 +176,19 @@
             <v-col cols="12">
               <h3 class="mb-3">
                 <v-icon left>mdi-chart-bar</v-icon>
-                ສະຫຼຸບຕາມເກຣດລູກຄ້າ (A-Z) + ຂອງຂວັນ
+                ສະຫຼຸບຕາມເກຣດລູກຄ້າ (A-F) + ຂອງຂວັນ
               </h3>
             </v-col>
           </v-row>
 
-          <!-- Dynamic Grade Summary Cards -->
           <v-row>
-            <!-- Grade Summary Cards for A-Z -->
+            <!-- Grade Summary Cards -->
             <v-col
               v-for="gradeStat in gradeStatistics"
               :key="gradeStat.grade"
               cols="6"
               md="4"
               lg="2"
-              v-if="gradeStat.quantity > 0 || showAllGrades"
             >
               <v-card
                 outlined
@@ -242,7 +240,7 @@
               </v-card>
             </v-col>
 
-            <!-- Base Price Summary Card -->
+            <!-- NEW: Base Price Summary Card -->
             <v-col cols="6" md="4" lg="2">
               <v-card
                 outlined
@@ -289,7 +287,7 @@
               </v-card>
             </v-col>
 
-            <!-- Gift Summary Card -->
+            <!-- NEW: Gift Summary Card -->
             <v-col cols="6" md="4" lg="2">
               <v-card
                 outlined
@@ -306,6 +304,7 @@
                   </v-chip>
                 </div>
 
+                <!-- FIXED: Show original value (savings) instead of revenue for gifts -->
                 <h3 class="amber--text mb-1">
                   {{ formatNumber(giftSummary.originalValue) }} LAK
                 </h3>
@@ -330,6 +329,7 @@
                   </div>
                 </div>
 
+                <!-- ADDED: Show revenue vs savings info -->
                 <div class="caption mt-2">
                   <div v-if="giftSummary.revenue > 0" class="success--text">
                     ລາຄາ: {{ formatNumber(giftSummary.revenue) }}
@@ -344,21 +344,6 @@
                   </div>
                 </div>
               </v-card>
-            </v-col>
-          </v-row>
-
-          <!-- Toggle to show all grades -->
-          <v-row class="mt-2">
-            <v-col cols="12" class="text-center">
-              <v-btn
-                text
-                small
-                @click="showAllGrades = !showAllGrades"
-                color="primary"
-              >
-                <v-icon left>{{ showAllGrades ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
-                {{ showAllGrades ? 'ເປີດໄວ້ຫາກມີຂໍ້ມູນ' : 'ສະແດງເກຣດທັງໝົດ' }}
-              </v-btn>
             </v-col>
           </v-row>
 
@@ -453,7 +438,7 @@
         <v-card-title>
           <h3>
             <v-icon left>mdi-table</v-icon>
-            ລາຍລະອຽດສິນຄ້າຕາມເກຣດ (A-Z) + ຂອງຂວັນ
+            ລາຍລະອຽດສິນຄ້າຕາມເກຣດ + ຂອງຂວັນ
           </h3>
           <v-spacer></v-spacer>
           <v-text-field
@@ -466,18 +451,19 @@
         </v-card-title>
 
         <v-data-table
-          :headers="dynamicHeaders"
+          :headers="headers"
           :items="filteredProductSummary"
           :search="search"
           :loading="isloading"
           loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
           class="elevation-1"
         >
-          <!-- Product name template with transaction viewing -->
+          <!-- NEW: Enhanced product name template with transaction viewing -->
           <template v-slot:[`item.productName`]="{ item }">
             <div>
               <strong>{{ item.productName }}</strong>
               <div class="grey--text">ID: {{ item.productId }}</div>
+              <!-- NEW: Button to view transactions for this product -->
               <v-btn
                 x-small
                 text
@@ -500,8 +486,7 @@
             </div>
           </template>
 
-          <!-- Dynamic Grade Column Templates -->
-          <template v-slot:item.gradeA="{ item }">
+          <template v-slot:[`item.gradeA`]="{ item }">
             <v-chip color="purple" small dark v-if="item.grades.A.qty > 0">
               {{ formatNumber(item.grades.A.qty) }} ຊິ້ນ
             </v-chip>
@@ -514,14 +499,18 @@
             <div
               class=""
               v-if="item.grades.A.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.A.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.A.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.A.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.A.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.A.qty === 0" class="grey--text">-</span>
           </template>
 
-          <template v-slot:item.gradeB="{ item }">
+          <template v-slot:[`item.gradeB`]="{ item }">
             <v-chip color="blue" small dark v-if="item.grades.B.qty > 0">
               {{ formatNumber(item.grades.B.qty) }} ຊິ້ນ
             </v-chip>
@@ -534,14 +523,18 @@
             <div
               class=""
               v-if="item.grades.B.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.B.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.B.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.B.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.B.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.B.qty === 0" class="grey--text">-</span>
           </template>
 
-          <template v-slot:item.gradeC="{ item }">
+          <template v-slot:[`item.gradeC`]="{ item }">
             <v-chip color="orange" small dark v-if="item.grades.C.qty > 0">
               {{ formatNumber(item.grades.C.qty) }} ຊິ້ນ
             </v-chip>
@@ -554,14 +547,18 @@
             <div
               class=""
               v-if="item.grades.C.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.C.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.C.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.C.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.C.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.C.qty === 0" class="grey--text">-</span>
           </template>
 
-          <template v-slot:item.gradeD="{ item }">
+          <template v-slot:[`item.gradeD`]="{ item }">
             <v-chip color="red" small dark v-if="item.grades.D.qty > 0">
               {{ formatNumber(item.grades.D.qty) }} ຊິ້ນ
             </v-chip>
@@ -574,14 +571,18 @@
             <div
               class=""
               v-if="item.grades.D.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.D.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.D.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.D.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.D.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.D.qty === 0" class="grey--text">-</span>
           </template>
 
-          <template v-slot:item.gradeE="{ item }">
+          <template v-slot:[`item.gradeE`]="{ item }">
             <v-chip color="pink" small dark v-if="item.grades.E.qty > 0">
               {{ formatNumber(item.grades.E.qty) }} ຊິ້ນ
             </v-chip>
@@ -591,17 +592,22 @@
             <div class="grey--text" v-if="item.grades.E.priceUsed">
               @ {{ formatCurrency(item.grades.E.priceUsed) }}/ຊິ້ນ
             </div>
+
             <div
               class=""
               v-if="item.grades.E.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.E.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.E.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.E.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.E.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.E.qty === 0" class="grey--text">-</span>
           </template>
 
-          <template v-slot:item.gradeF="{ item }">
+          <template v-slot:[`item.gradeF`]="{ item }">
             <v-chip color="grey" small dark v-if="item.grades.F.qty > 0">
               {{ formatNumber(item.grades.F.qty) }} ຊິ້ນ
             </v-chip>
@@ -614,195 +620,18 @@
             <div
               class=""
               v-if="item.grades.F.priceUsed && item.basePrice"
-              :class="getPriceDifferenceClass(item.grades.F.priceUsed, item.basePrice)"
+              :class="
+                getPriceDifferenceClass(item.grades.F.priceUsed, item.basePrice)
+              "
             >
-              {{ getPriceDifferenceText(item.grades.F.priceUsed, item.basePrice) }}
+              {{
+                getPriceDifferenceText(item.grades.F.priceUsed, item.basePrice)
+              }}
             </div>
             <span v-if="item.grades.F.qty === 0" class="grey--text">-</span>
           </template>
 
-          <!-- Additional grade templates G-Z -->
-          <template v-slot:item.gradeG="{ item }">
-            <div v-if="item.grades.G && item.grades.G.qty > 0">
-              <v-chip color="green" small dark>{{ formatNumber(item.grades.G.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.G.revenue > 0">{{ formatCurrency(item.grades.G.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.G.priceUsed">@ {{ formatCurrency(item.grades.G.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeH="{ item }">
-            <div v-if="item.grades.H && item.grades.H.qty > 0">
-              <v-chip color="indigo" small dark>{{ formatNumber(item.grades.H.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.H.revenue > 0">{{ formatCurrency(item.grades.H.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.H.priceUsed">@ {{ formatCurrency(item.grades.H.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeI="{ item }">
-            <div v-if="item.grades.I && item.grades.I.qty > 0">
-              <v-chip color="teal" small dark>{{ formatNumber(item.grades.I.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.I.revenue > 0">{{ formatCurrency(item.grades.I.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.I.priceUsed">@ {{ formatCurrency(item.grades.I.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeJ="{ item }">
-            <div v-if="item.grades.J && item.grades.J.qty > 0">
-              <v-chip color="amber" small dark>{{ formatNumber(item.grades.J.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.J.revenue > 0">{{ formatCurrency(item.grades.J.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.J.priceUsed">@ {{ formatCurrency(item.grades.J.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeK="{ item }">
-            <div v-if="item.grades.K && item.grades.K.qty > 0">
-              <v-chip color="cyan" small dark>{{ formatNumber(item.grades.K.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.K.revenue > 0">{{ formatCurrency(item.grades.K.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.K.priceUsed">@ {{ formatCurrency(item.grades.K.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeL="{ item }">
-            <div v-if="item.grades.L && item.grades.L.qty > 0">
-              <v-chip color="lime" small dark>{{ formatNumber(item.grades.L.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.L.revenue > 0">{{ formatCurrency(item.grades.L.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.L.priceUsed">@ {{ formatCurrency(item.grades.L.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeM="{ item }">
-            <div v-if="item.grades.M && item.grades.M.qty > 0">
-              <v-chip color="deep-purple" small dark>{{ formatNumber(item.grades.M.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.M.revenue > 0">{{ formatCurrency(item.grades.M.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.M.priceUsed">@ {{ formatCurrency(item.grades.M.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeN="{ item }">
-            <div v-if="item.grades.N && item.grades.N.qty > 0">
-              <v-chip color="light-blue" small dark>{{ formatNumber(item.grades.N.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.N.revenue > 0">{{ formatCurrency(item.grades.N.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.N.priceUsed">@ {{ formatCurrency(item.grades.N.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeO="{ item }">
-            <div v-if="item.grades.O && item.grades.O.qty > 0">
-              <v-chip color="light-green" small dark>{{ formatNumber(item.grades.O.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.O.revenue > 0">{{ formatCurrency(item.grades.O.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.O.priceUsed">@ {{ formatCurrency(item.grades.O.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeP="{ item }">
-            <div v-if="item.grades.P && item.grades.P.qty > 0">
-              <v-chip color="yellow" small dark>{{ formatNumber(item.grades.P.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.P.revenue > 0">{{ formatCurrency(item.grades.P.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.P.priceUsed">@ {{ formatCurrency(item.grades.P.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeQ="{ item }">
-            <div v-if="item.grades.Q && item.grades.Q.qty > 0">
-              <v-chip color="blue-grey" small dark>{{ formatNumber(item.grades.Q.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.Q.revenue > 0">{{ formatCurrency(item.grades.Q.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.Q.priceUsed">@ {{ formatCurrency(item.grades.Q.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeR="{ item }">
-            <div v-if="item.grades.R && item.grades.R.qty > 0">
-              <v-chip color="brown" small dark>{{ formatNumber(item.grades.R.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.R.revenue > 0">{{ formatCurrency(item.grades.R.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.R.priceUsed">@ {{ formatCurrency(item.grades.R.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeS="{ item }">
-            <div v-if="item.grades.S && item.grades.S.qty > 0">
-              <v-chip color="deep-orange" small dark>{{ formatNumber(item.grades.S.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.S.revenue > 0">{{ formatCurrency(item.grades.S.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.S.priceUsed">@ {{ formatCurrency(item.grades.S.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeT="{ item }">
-            <div v-if="item.grades.T && item.grades.T.qty > 0">
-              <v-chip color="purple" small dark>{{ formatNumber(item.grades.T.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.T.revenue > 0">{{ formatCurrency(item.grades.T.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.T.priceUsed">@ {{ formatCurrency(item.grades.T.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeU="{ item }">
-            <div v-if="item.grades.U && item.grades.U.qty > 0">
-              <v-chip color="indigo" small dark>{{ formatNumber(item.grades.U.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.U.revenue > 0">{{ formatCurrency(item.grades.U.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.U.priceUsed">@ {{ formatCurrency(item.grades.U.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeV="{ item }">
-            <div v-if="item.grades.V && item.grades.V.qty > 0">
-              <v-chip color="blue" small dark>{{ formatNumber(item.grades.V.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.V.revenue > 0">{{ formatCurrency(item.grades.V.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.V.priceUsed">@ {{ formatCurrency(item.grades.V.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeW="{ item }">
-            <div v-if="item.grades.W && item.grades.W.qty > 0">
-              <v-chip color="teal" small dark>{{ formatNumber(item.grades.W.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.W.revenue > 0">{{ formatCurrency(item.grades.W.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.W.priceUsed">@ {{ formatCurrency(item.grades.W.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeX="{ item }">
-            <div v-if="item.grades.X && item.grades.X.qty > 0">
-              <v-chip color="green" small dark>{{ formatNumber(item.grades.X.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.X.revenue > 0">{{ formatCurrency(item.grades.X.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.X.priceUsed">@ {{ formatCurrency(item.grades.X.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeY="{ item }">
-            <div v-if="item.grades.Y && item.grades.Y.qty > 0">
-              <v-chip color="amber" small dark>{{ formatNumber(item.grades.Y.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.Y.revenue > 0">{{ formatCurrency(item.grades.Y.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.Y.priceUsed">@ {{ formatCurrency(item.grades.Y.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <template v-slot:item.gradeZ="{ item }">
-            <div v-if="item.grades.Z && item.grades.Z.qty > 0">
-              <v-chip color="cyan" small dark>{{ formatNumber(item.grades.Z.qty) }} ຊິ້ນ</v-chip>
-              <div v-if="item.grades.Z.revenue > 0">{{ formatCurrency(item.grades.Z.revenue) }}</div>
-              <div class="grey--text" v-if="item.grades.Z.priceUsed">@ {{ formatCurrency(item.grades.Z.priceUsed) }}/ຊິ້ນ</div>
-            </div>
-            <span v-else class="grey--text">-</span>
-          </template>
-
-          <!-- Base Price Sales Column Template -->
+          <!-- NEW: Base Price Sales Column Template -->
           <template v-slot:[`item.basePriceSales`]="{ item }">
             <v-chip color="green" small dark v-if="item.basePriceSales.qty > 0">
               {{ formatNumber(item.basePriceSales.qty) }} ຊິ້ນ
@@ -816,7 +645,9 @@
             <div class="caption grey--text" v-if="item.basePriceSales.qty > 0">
               (ລາຄາມາດຕະຖານ)
             </div>
-            <span v-if="item.basePriceSales.qty === 0" class="grey--text">-</span>
+            <span v-if="item.basePriceSales.qty === 0" class="grey--text"
+              >-</span
+            >
           </template>
 
           <!-- Gift Column Template -->
@@ -830,15 +661,18 @@
                 ຂອງຂວັນ
               </div>
 
+              <!-- Show actual gift revenue if exists -->
               <div class="success--text" v-if="item.gifts.revenue > 0">
                 ລາຄາ: {{ formatCurrency(item.gifts.revenue) }}
               </div>
               <div class="grey--text" v-else>ຟຣີ (0 LAK)</div>
 
+              <!-- Show original value for comparison -->
               <div class="grey--text" v-if="item.gifts.originalValue > 0">
                 ມູນຄ່າເຕັມ: {{ formatCurrency(item.gifts.originalValue) }}
               </div>
 
+              <!-- Show savings calculation -->
               <div
                 class="error--text font-weight-bold"
                 v-if="item.gifts.originalValue > item.gifts.revenue"
@@ -871,7 +705,7 @@
       </v-card>
     </div>
 
-    <!-- Transactions Dialog -->
+    <!-- NEW: Simple Transactions Dialog -->
     <v-dialog v-model="transactionsDialog" max-width="1200" scrollable>
       <v-card>
         <v-card-title class="primary white--text">
@@ -912,6 +746,7 @@
               {{ formatNumber(item.total) }} LAK
             </template>
 
+            <!-- NEW: Action to show TicketDetailsDialog -->
             <template v-slot:item.actions="{ item }">
               <v-btn color="info" text small @click="showTicketDetails(item)">
                 <v-icon small>mdi-receipt</v-icon>
@@ -926,6 +761,7 @@
 </template>
 
 <script>
+  
 import {
   swalSuccess,
   swalError2,
@@ -952,10 +788,6 @@ export default {
       salesData: [],
       productSummary: [],
       priceListData: [],
-      showAllGrades: false,
-
-      // Dynamic grades A-Z
-      availableGrades: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
 
       // TicketDetailsDialog integration
       ticketDetailsDialog: false,
@@ -964,11 +796,28 @@ export default {
       selectedProductForTransactions: null,
       sampleTransactions: [],
 
-      // Grade filters - now dynamic
+      // Grade filters
       selectedGradeFilter: null,
-      
-      // Initialize empty grade summary (will be filled dynamically)
-      gradeSummary: {},
+      gradeFilterOptions: [
+        { label: 'ທັງໝົດ', value: null },
+        { label: 'ເກຣດ A', value: 'A' },
+        { label: 'ເກຣດ B', value: 'B' },
+        { label: 'ເກຣດ C', value: 'C' },
+        { label: 'ເກຣດ D', value: 'D' },
+        { label: 'ເກຣດ E', value: 'E' },
+        { label: 'ເກຣດ F', value: 'F' },
+        { label: 'ລາຄາມາດຕະຖານ', value: 'BASE' },
+        { label: 'ຂອງຂວັນ', value: 'GIFT' },
+      ],
+
+      gradeSummary: {
+        A: { qty: 0, revenue: 0, orderCount: 0 },
+        B: { qty: 0, revenue: 0, orderCount: 0 },
+        C: { qty: 0, revenue: 0, orderCount: 0 },
+        D: { qty: 0, revenue: 0, orderCount: 0 },
+        E: { qty: 0, revenue: 0, orderCount: 0 },
+        F: { qty: 0, revenue: 0, orderCount: 0 },
+      },
 
       basePriceSummary: {
         qty: 0,
@@ -984,13 +833,15 @@ export default {
         percentage: 0,
       },
 
-      // Base headers (will be computed dynamically)
-      baseHeaders: [
+      headers: [
         { text: 'ສິນຄ້າ', align: 'left', value: 'productName', sortable: true },
         { text: 'ລາຄາຖານ (ລາຄາເບື້ອງຕົ້ນ)', align: 'center', value: 'basePriceDisplay', sortable: true },
-      ],
-
-      endHeaders: [
+        { text: 'ເກຣດ A', align: 'center', value: 'gradeA', sortable: false },
+        { text: 'ເກຣດ B', align: 'center', value: 'gradeB', sortable: false },
+        { text: 'ເກຣດ C', align: 'center', value: 'gradeC', sortable: false },
+        { text: 'ເກຣດ D', align: 'center', value: 'gradeD', sortable: false },
+        { text: 'ເກຣດ E', align: 'center', value: 'gradeE', sortable: false },
+        { text: 'ເກຣດ F', align: 'center', value: 'gradeF', sortable: false },
         { text: 'ລາຄາມາດຕະຖານ (ບໍ່ມີ PriceList)', align: 'center', value: 'basePriceSales', sortable: false },
         { text: 'ຂອງຂວັນ (Gift)', align: 'center', value: 'gifts', sortable: false },
         { text: 'ລວມຈຳນວນ', align: 'center', value: 'totalQty', sortable: true },
@@ -1027,7 +878,6 @@ export default {
   },
 
   async created() {
-    this.initializeGradeSummary()
     this.terminalId = this.findSelectedTerminal
     await this.loadPriceList()
     await this.loadData()
@@ -1045,41 +895,14 @@ export default {
   },
 
   computed: {
+    // FIXED: Added missing payment getter
     ...mapGetters([
       'findAllProduct',
       'findSelectedTerminal',
       'findAllTerminal',
       'findAllLocation',
-      'findAllPayment',
+      'findAllPayment', // FIXED: This was missing
     ]),
-
-    // Dynamic grade filter options
-    gradeFilterOptions() {
-      const baseOptions = [
-        { label: 'ທັງໝົດ', value: null },
-        { label: 'ລາຄາມາດຕະຖານ', value: 'BASE' },
-        { label: 'ຂອງຂວັນ', value: 'GIFT' },
-      ]
-      
-      const gradeOptions = this.availableGrades.map(grade => ({
-        label: `ເກຣດ ${grade}`,
-        value: grade
-      }))
-      
-      return [baseOptions[0], ...gradeOptions, ...baseOptions.slice(1)]
-    },
-
-    // Dynamic headers generation
-    dynamicHeaders() {
-      const gradeHeaders = this.availableGrades.map(grade => ({
-        text: `ເກຣດ ${grade}`,
-        align: 'center',
-        value: `grade${grade}`,
-        sortable: false
-      }))
-      
-      return [...this.baseHeaders, ...gradeHeaders, ...this.endHeaders]
-    },
 
     companyLogo() {
       const company = mainCompanyInfo()
@@ -1117,7 +940,7 @@ export default {
       )
     },
 
-    // Payment Statistics
+    // FIXED: Payment Statistics with corrected logic
     paymentStatistics() {
       const stats = {}
       let totalAmount = 0
@@ -1125,6 +948,7 @@ export default {
       this.filteredSalesData.forEach((sale) => {
         const itemTotal = sale.total - (sale.discount || 0)
 
+        // Multi-payment check
         if (sale.payments && Array.isArray(sale.payments) && sale.payments.length > 1) {
           sale.payments.forEach((payment) => {
             const code = payment.paymentMethod?.payment_code || 'UNKNOWN'
@@ -1145,6 +969,7 @@ export default {
             totalAmount += amount
           })
         } 
+        // Single payment using payment object
         else if (sale.payment && sale.paymentId) {
           const code = sale.payment.payment_code
           const name = sale.payment.payment_name
@@ -1163,6 +988,7 @@ export default {
           stats[code].count += 1
           totalAmount += itemTotal
         }
+        // Fallback: lookup from store
         else if (sale.paymentId && this.findAllPayment) {
           const paymentMethod = this.findAllPayment.find(p => p.id === sale.paymentId)
           
@@ -1187,6 +1013,7 @@ export default {
         }
       })
 
+      // Calculate percentages
       Object.values(stats).forEach(stat => {
         stat.percentage = totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
       })
@@ -1223,15 +1050,23 @@ export default {
       )
     },
 
-    // Dynamic grade statistics
     gradeStatistics() {
       const stats = []
-      const colors = this.getGradeColors()
-      const icons = this.getGradeIcons()
+      const grades = ['A', 'B', 'C', 'D', 'E', 'F']
+      const colors = ['purple', 'blue', 'orange', 'red', 'pink', 'grey']
+      const icons = [
+        'mdi-star',
+        'mdi-star-half-full',
+        'mdi-star-outline',
+        'mdi-minus-circle',
+        'mdi-alert-circle',
+        'mdi-close-circle',
+      ]
 
-      this.availableGrades.forEach((grade, index) => {
-        const data = this.gradeSummary[grade] || { qty: 0, revenue: 0, orderCount: 0 }
-        const percentage = this.totalRevenue > 0 ? (data.revenue / this.totalRevenue) * 100 : 0
+      grades.forEach((grade, index) => {
+        const data = this.gradeSummary[grade]
+        const percentage =
+          this.totalRevenue > 0 ? (data.revenue / this.totalRevenue) * 100 : 0
 
         stats.push({
           grade: grade,
@@ -1239,8 +1074,8 @@ export default {
           revenue: data.revenue,
           orderCount: data.orderCount,
           percentage: percentage,
-          color: colors[index % colors.length],
-          icon: icons[index % icons.length],
+          color: colors[index],
+          icon: icons[index],
         })
       })
 
@@ -1296,46 +1131,7 @@ export default {
   },
 
   methods: {
-    // Initialize grade summary dynamically
-    initializeGradeSummary() {
-      this.gradeSummary = {}
-      this.availableGrades.forEach(grade => {
-        this.gradeSummary[grade] = { qty: 0, revenue: 0, orderCount: 0 }
-      })
-    },
-
-    // Helper methods for colors and icons
-    getGradeColors() {
-      return [
-        'purple', 'blue', 'orange', 'red', 'pink', 'grey',
-        'green', 'indigo', 'teal', 'amber', 'cyan', 'lime',
-        'deep-purple', 'light-blue', 'light-green', 'yellow',
-        'blue-grey', 'brown', 'deep-orange', 'purple',
-        'indigo', 'blue', 'teal', 'green', 'amber', 'orange'
-      ]
-    },
-
-    getGradeIcons() {
-      return [
-        'mdi-star', 'mdi-star-half-full', 'mdi-star-outline',
-        'mdi-minus-circle', 'mdi-alert-circle', 'mdi-close-circle',
-        'mdi-numeric-1-box', 'mdi-numeric-2-box', 'mdi-numeric-3-box',
-        'mdi-alpha-a-box', 'mdi-alpha-b-box', 'mdi-alpha-c-box',
-        'mdi-alpha-d-box', 'mdi-alpha-e-box', 'mdi-alpha-f-box',
-        'mdi-alpha-g-box', 'mdi-alpha-h-box', 'mdi-alpha-i-box',
-        'mdi-alpha-j-box', 'mdi-alpha-k-box', 'mdi-alpha-l-box',
-        'mdi-alpha-m-box', 'mdi-alpha-n-box', 'mdi-alpha-o-box',
-        'mdi-alpha-p-box', 'mdi-alpha-q-box', 'mdi-alpha-r-box'
-      ]
-    },
-
-    getGradeColor(grade) {
-      const index = this.availableGrades.indexOf(grade)
-      const colors = this.getGradeColors()
-      return colors[index % colors.length]
-    },
-
-    // Payment helper methods
+    // FIXED: Helper functions for payment processing
     getPaymentColor(paymentCode) {
       const colorMap = {
         'CASH': 'green',
@@ -1408,6 +1204,10 @@ export default {
       if (code.includes('WALLET')) return 'mdi-wallet'
       
       return 'mdi-cash-multiple'
+    },
+
+    isMultiPayment(item) {
+      return item.payments && Array.isArray(item.payments) && item.payments.length > 1
     },
 
     // TicketDetailsDialog methods
@@ -1501,11 +1301,21 @@ export default {
       }
     },
 
-    // Enhanced sales data processing with dynamic grades
+    // Sales data processing - keeping your existing logic
     processSalesData() {
+      // [Your existing processSalesData method - unchanged]
+      // This method is correct as written in your original code
       // Reset summaries
       this.productSummary = []
-      this.initializeGradeSummary()
+      this.gradeSummary = {
+        A: { qty: 0, revenue: 0, orderCount: 0 },
+        B: { qty: 0, revenue: 0, orderCount: 0 },
+        C: { qty: 0, revenue: 0, orderCount: 0 },
+        D: { qty: 0, revenue: 0, orderCount: 0 },
+        E: { qty: 0, revenue: 0, orderCount: 0 },
+        F: { qty: 0, revenue: 0, orderCount: 0 },
+      }
+
       this.basePriceSummary = { qty: 0, revenue: 0, orderCount: 0 }
       this.giftSummary = { qty: 0, revenue: 0, originalValue: 0, orderCount: 0, percentage: 0 }
 
@@ -1525,17 +1335,18 @@ export default {
           const isGift = line.isGift === true
 
           if (!productMap.has(productId)) {
-            // Create grade structure dynamically
-            const gradeStructure = {}
-            this.availableGrades.forEach(grade => {
-              gradeStructure[grade] = { qty: 0, revenue: 0, priceUsed: 0, count: 0 }
-            })
-
             productMap.set(productId, {
               productId,
               productName,
               basePrice: basePrice,
-              grades: gradeStructure,
+              grades: {
+                A: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
+                B: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
+                C: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
+                D: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
+                E: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
+                F: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
+              },
               basePriceSales: { qty: 0, revenue: 0, priceUsed: 0, count: 0 },
               gifts: { qty: 0, revenue: 0, originalValue: 0 },
               totalQty: 0,
@@ -1566,8 +1377,7 @@ export default {
                 appliedGrade = priceListEntry.grade
                 saleType = 'GRADE_BASED'
 
-                // Check if the grade exists in our available grades
-                if (this.availableGrades.includes(appliedGrade) && appliedGrade in product.grades) {
+                if (appliedGrade in product.grades) {
                   product.grades[appliedGrade].qty += quantity
                   product.grades[appliedGrade].revenue += revenue
                   const currentCount = product.grades[appliedGrade].count
@@ -1582,8 +1392,7 @@ export default {
                 }
                 gradeOrderCount[appliedGrade].add(sale.id)
 
-                // Check if the grade exists in our grade summary
-                if (this.availableGrades.includes(appliedGrade) && appliedGrade in this.gradeSummary) {
+                if (appliedGrade in this.gradeSummary) {
                   this.gradeSummary[appliedGrade].qty += quantity
                   this.gradeSummary[appliedGrade].revenue += revenue
                 }
@@ -1611,9 +1420,8 @@ export default {
         })
       })
 
-      // Update order counts for all grades
       Object.keys(gradeOrderCount).forEach((grade) => {
-        if (gradeOrderCount[grade] && this.availableGrades.includes(grade)) {
+        if (gradeOrderCount[grade]) {
           this.gradeSummary[grade].orderCount = gradeOrderCount[grade].size
         }
       })
@@ -1633,10 +1441,10 @@ export default {
       )
     },
 
-    // Print Report with all grades
+    // ENHANCED: Print Report with complete payment statistics
     printReport() {
       try {
-        console.log('🖨️ Printing enhanced sales report with A-Z grade support...')
+        console.log('🖨️ Printing enhanced sales report with product details and payment statistics...')
 
         const terminalInfo =
           this.terminalId === 999
@@ -1645,6 +1453,7 @@ export default {
 
         const companyData = mainCompanyInfo()?.apiData || mainCompanyInfo() || {}
 
+        // FIXED: Pass all required data to printer
         printEnhancedSalesReportSummary({
           orderHeaderList: this.salesData,
           filteredOrderHeaderList: this.filteredSalesData,
@@ -1659,14 +1468,13 @@ export default {
           basePriceSummary: this.basePriceSummary,
           giftSummary: this.giftSummary,
           productSummary: this.productSummary,
-          paymentStatistics: this.paymentStatistics,
+          paymentStatistics: this.paymentStatistics, // FIXED: Now properly computed
           singlePaymentCount: this.singlePaymentCount,
           multiPaymentCount: this.multiPaymentCount,
-          availableGrades: this.availableGrades, // Pass available grades to printer
         })
 
         if (this.$toast) {
-          this.$toast.success('ລາຍງານລະອຽດກຳລັງພິມ... (ລວມເກຣດ A-Z + ຂອງຂວັນ + ການຊຳລະ)', {
+          this.$toast.success('ລາຍງານລະອຽດກຳລັງພິມ... (ລວມເກຣດ + ຂອງຂວັນ + ການຊຳລະ)', {
             position: 'bottom-center',
             duration: 3000,
           })
@@ -1722,47 +1530,32 @@ export default {
     },
 
     exportToExcel() {
-      // Create dynamic export data with all grades
-      const exportData = this.productSummary.map((product) => {
-        const baseData = {
-          ສິນຄ້າ: product.productName,
-          'Product ID': product.productId,
-          'ລາຄາພື້ນຖານ (Base Price)': product.basePrice,
-        }
-
-        // Add all grades dynamically
-        this.availableGrades.forEach(grade => {
-          baseData[`Grade ${grade} Qty`] = product.grades[grade].qty
-          baseData[`Grade ${grade} Revenue`] = product.grades[grade].revenue
-        })
-
-        // Add other data
-        Object.assign(baseData, {
-          'Base Price Sales Qty': product.basePriceSales.qty,
-          'Base Price Sales Revenue': product.basePriceSales.revenue,
-          'Gift Qty': product.gifts.qty,
-          'Gift Revenue': product.gifts.revenue,
-          'Gift Original Value': product.gifts.originalValue,
-          'Gift Savings': product.gifts.originalValue - product.gifts.revenue,
-          'Total Qty': product.totalQty,
-          'Total Revenue': product.totalRevenue,
-        })
-
-        return baseData
-      })
+      const exportData = this.productSummary.map((product) => ({
+        ສິນຄ້າ: product.productName,
+        'Product ID': product.productId,
+        'ລາຄາພື້ນຖານ (Base Price)': product.basePrice,
+        'Grade A Qty': product.grades.A.qty,
+        'Grade A Revenue': product.grades.A.revenue,
+        'Gift Qty': product.gifts.qty,
+        'Gift Revenue': product.gifts.revenue,
+        'Gift Original Value': product.gifts.originalValue,
+        'Gift Savings': product.gifts.originalValue - product.gifts.revenue,
+        'Total Qty': product.totalQty,
+        'Total Revenue': product.totalRevenue,
+      }))
 
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData)
       const workbook = this.$xlsx.utils.book_new()
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade A-Z + Gift + Payment Report')
-      this.$xlsx.writeFile(workbook, `grade-a-z-gift-payment-report-${this.fromDate}-${this.toDate}.xlsx`)
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Grade + Gift + Payment Report')
+      this.$xlsx.writeFile(workbook, `grade-gift-payment-report-${this.fromDate}-${this.toDate}.xlsx`)
     },
 
     debugGiftData() {
-      console.log('🐛 DEBUG: Enhanced Grade Data Check (A-Z)')
-      console.log('Available Grades:', this.availableGrades)
-      console.log('Grade Summary:', this.gradeSummary)
+      console.log('🐛 DEBUG: Gift Data Check')
       console.log('Gift Summary:', this.giftSummary)
       console.log('Payment Statistics:', this.paymentStatistics)
+      console.log('Single Payment Count:', this.singlePaymentCount)
+      console.log('Multi Payment Count:', this.multiPaymentCount)
     },
 
     formatDate(date) {
