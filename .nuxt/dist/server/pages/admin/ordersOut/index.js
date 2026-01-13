@@ -1,7 +1,7 @@
 exports.ids = [255,114,116,173];
 exports.modules = {
 
-/***/ 1467:
+/***/ 1473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27,10 +27,10 @@ var VCol = __webpack_require__(431);
 var VDataTable = __webpack_require__(441);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(477);
+var VDatePicker = __webpack_require__(478);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(406);
+var VDialog = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(123);
@@ -511,7 +511,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ordersOut/index.vue?vue&type=template&id=538445d9
 
 // EXTERNAL MODULE: ./components/OrderForm.vue + 4 modules
-var OrderForm = __webpack_require__(546);
+var OrderForm = __webpack_require__(549);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -520,7 +520,7 @@ var external_vuex_ = __webpack_require__(14);
 var api = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./components/OrderStatusForm.vue + 4 modules
-var OrderStatusForm = __webpack_require__(547);
+var OrderStatusForm = __webpack_require__(550);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -1027,7 +1027,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ordersOut = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {OrderForm: __webpack_require__(546).default,OrderStatusForm: __webpack_require__(547).default,YoutubePlayer: __webpack_require__(469).default,LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {OrderForm: __webpack_require__(549).default,OrderStatusForm: __webpack_require__(550).default,YoutubePlayer: __webpack_require__(472).default,LoadingIndicator: __webpack_require__(67).default})
 
 
 /***/ }),
@@ -1737,7 +1737,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 469:
+/***/ 472:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1833,7 +1833,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 475:
+/***/ 476:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1945,7 +1945,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 477:
+/***/ 478:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3414,7 +3414,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 546:
+/***/ 549:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3434,7 +3434,7 @@ var VCard = __webpack_require__(124);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(475);
+var VCheckbox = __webpack_require__(476);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(128);
@@ -3443,7 +3443,7 @@ var VChip = __webpack_require__(128);
 var VCol = __webpack_require__(431);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(406);
+var VDialog = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(123);
@@ -4209,7 +4209,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(67).default}
 
 /***/ }),
 
-/***/ 547:
+/***/ 550:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4235,7 +4235,7 @@ var VChip = __webpack_require__(128);
 var VCol = __webpack_require__(431);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(406);
+var VDialog = __webpack_require__(407);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(123);

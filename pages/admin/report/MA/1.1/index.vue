@@ -1,192 +1,396 @@
 <template>
   <div>
-    <!-- Compact Header -->
-    <div class="header">
-      <div>
-        <h2>Balance Report - Money Advances</h2>
-        <small>{{ formatPeriod() }}</small>
-      </div>
-      <div class="header-actions">
-        <button @click="exportToExcel" :disabled="loading" class="btn-export">
-          📊 Export
-        </button>
-        <button @click="printReport" class="btn-print">🖨️ Print</button>
-        <!-- <button @click="validateReport" class="btn-print">🖨️ TEST</button> -->
-      </div>
-    </div>
-
-    <!-- Compact Filters -->
-    <div class="filters">
-      <select v-model="filters.month" @change="applyFilters">
-        <option v-for="month in months" :key="month.value" :value="month.value">
-          {{ month.text }}
-        </option>
-      </select>
-      
-      <select v-model="filters.year" @change="applyFilters">
-        <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
-      </select>
-      
-      <select v-model="filters.ministryId" @change="applyFilters">
-        <option value="">All Ministries</option>
-        <option v-for="ministry in ministries" :key="ministry.id" :value="ministry.id">
-          {{ ministry.ministryCode }} - {{ ministry.ministryName }}
-        </option>
-      </select>
-      
-      <select v-model="filters.currencyId" @change="applyFilters">
-        <option value="">All Currencies</option>
-        <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
-          {{ currency.code }}
-        </option>
-      </select>
-
-      <button @click="resetFilters" class="btn-reset">🔄</button>
-    </div>
-
-    <!-- Currency Summary Cards -->
-    <div class="summary-cards" v-if="currencySummaries.length">
-      <h3>Summary by Currency</h3>
-      <div class="cards-grid">
-        <div v-for="curr in currencySummaries" :key="curr.currencyCode" class="summary-card">
-          <div class="card-header">
-            <span class="currency">{{ curr.currencyCode }}</span>
-            <span class="total">{{ formatAmount(curr.endingBalance) }}</span>
+    <!-- Header Section -->
+    <v-card class="header-card mb-6" elevation="4">
+      <v-card-title class="primary white--text">
+        <div class="d-flex justify-space-between align-center w-100">
+          <div>
+            <h2 class="font-weight-bold mb-1">
+              <v-icon large left color="white">mdi-chart-line</v-icon>
+              ລາຍງານເບີກຈ່າຍ
+            </h2>
+            <p class="mb-0 opacity-90">
+              {{ formatPeriod() }}
+            </p>
           </div>
-          <div class="card-details">
-            <div class="detail">
-              <span>Brought Forward:</span>
-              <span>{{ formatAmount(curr.balanceForward) }}</span>
-            </div>
-            <div class="detail advance">
-              <span>+ New Advances:</span>
-              <span>{{ formatAmount(curr.newAdvances) }}</span>
-            </div>
-            <div class="detail settlement">
-              <span>- Settlements:</span>
-              <span>{{ formatAmount(curr.newSettlements) }}</span>
-            </div>
+          
+          <div class="d-flex gap-3">
+            <v-btn
+              color="white"
+              outlined
+              @click="exportToExcel"
+              :disabled="loading"
+              large
+            >
+              <v-icon left>mdi-file-excel</v-icon>
+              ສົ່ງອອກ Excel
+            </v-btn>
+            
+            <v-btn
+              color="white"
+              outlined
+              @click="printReport"
+              large
+            >
+              <v-icon left>mdi-printer</v-icon>
+              ພິມ
+            </v-btn>
           </div>
         </div>
-      </div>
+      </v-card-title>
+    </v-card>
+
+    <!-- Filters Section -->
+    <v-card class="filters-card mb-6" elevation="2">
+      <v-card-title class="secondary white--text">
+        <v-icon left color="white">mdi-filter</v-icon>
+        ຕົວກອງ
+      </v-card-title>
+      
+      <v-card-text class="pa-6">
+        <v-row>
+          <v-col cols="12" sm="6" md="3">
+            <v-select
+              v-model="filters.month"
+              :items="months"
+              item-text="text"
+              item-value="value"
+              label="ເດືອນ"
+              outlined
+              dense
+              @change="applyFilters"
+            >
+              <template v-slot:prepend-inner>
+                <v-icon color="primary">mdi-calendar-month</v-icon>
+              </template>
+            </v-select>
+          </v-col>
+          
+          <v-col cols="12" sm="6" md="3">
+            <v-select
+              v-model="filters.year"
+              :items="years"
+              label="ປີ"
+              outlined
+              dense
+              @change="applyFilters"
+            >
+              <template v-slot:prepend-inner>
+                <v-icon color="primary">mdi-calendar</v-icon>
+              </template>
+            </v-select>
+          </v-col>
+          
+          <v-col cols="12" sm="6" md="3">
+            <v-select
+              v-model="filters.ministryId"
+              :items="ministryOptions"
+              item-text="text"
+              item-value="value"
+              label="ກະຊວງ"
+              outlined
+              dense
+              clearable
+              @change="applyFilters"
+            >
+              <template v-slot:prepend-inner>
+                <v-icon color="primary">mdi-office-building</v-icon>
+              </template>
+            </v-select>
+          </v-col>
+          
+          <v-col cols="12" sm="6" md="2">
+            <v-select
+              v-model="filters.currencyId"
+              :items="currencyOptions"
+              item-text="text"
+              item-value="value"
+              label="ສະກຸນເງິນ"
+              outlined
+              dense
+              clearable
+              @change="applyFilters"
+            >
+              <template v-slot:prepend-inner>
+                <v-icon color="primary">mdi-currency-usd</v-icon>
+              </template>
+            </v-select>
+          </v-col>
+          
+          <v-col cols="12" sm="6" md="1" class="d-flex align-center">
+            <v-btn
+              color="primary"
+              @click="resetFilters"
+              icon
+              large
+            >
+              <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <!-- Currency Summary Cards -->
+    <div v-if="currencySummaries.length" class="mb-6">
+      <v-card elevation="2">
+        <v-card-title class="lightprimary white--text">
+          <v-icon left color="white">mdi-chart-pie</v-icon>
+          ສະຫຼຸບຕາມສະກຸນເງິນ
+        </v-card-title>
+        
+        <v-card-text class="pa-6">
+          <v-row>
+            <v-col
+              v-for="curr in currencySummaries"
+              :key="curr.currencyCode"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+            >
+              <v-card class="summary-card" elevation="4" outlined>
+                <v-card-title class="pb-2">
+                  <div class="d-flex justify-space-between align-center w-100">
+                    <v-chip color="primary" dark>
+                      {{ curr.currencyCode }}
+                    </v-chip>
+                    <span class="text-h5 font-weight-bold primary--text">
+                      {{ formatAmount(curr.endingBalance) }}
+                    </span>
+                  </div>
+                </v-card-title>
+                
+                <v-card-text>
+                  <div class="summary-details">
+                    <div class="detail-row">
+                      <span>ຍອດຍົກມາ:</span>
+                      <span class="font-weight-medium">{{ formatAmount(curr.balanceForward) }}</span>
+                    </div>
+                    <div class="detail-row advance">
+                      <span>+ ລາຍຈ່າຍ:</span>
+                      <span class="font-weight-medium">{{ formatAmount(curr.newAdvances) }}</span>
+                    </div>
+                    <div class="detail-row settlement">
+                      <span>- ການຊຳລະ:</span>
+                      <span class="font-weight-medium">{{ formatAmount(curr.newSettlements) }}</span>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
     </div>
 
     <!-- Data Table -->
-    <div class="table-container">
-      <div class="table-header">
-        <h3>Detailed Report</h3>
-        <input 
-          v-model="search" 
-          placeholder="Search..."
-          class="search-input"
-        >
-      </div>
-      
-      <div v-if="loading" class="loading">Loading...</div>
-      
-      <table v-else class="data-table">
-        <thead>
-          <tr>
-            <th>Ministry</th>
-            <th>Currency</th>
-            <th>Brought Forward</th>
-            <th>New Advances</th>
-            <th>Settlements</th>
-            <th>Ending Balance</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in filteredData" :key="`${item.ministryId}-${item.currencyId}`">
-            <td>
-              <div class="ministry-cell">
-                <strong>{{ item.ministryCode }}</strong>
-                <small>{{ item.ministryName }}</small>
-              </div>
-            </td>
-            <td>
-              <span class="currency-badge">{{ item.currencyCode }}</span>
-            </td>
-            <td class="amount">{{ formatAmount(item.balanceForward) }}</td>
-            <td class="amount advance">{{ formatAmount(item.newAdvances) }}</td>
-            <td class="amount settlement">{{ formatAmount(item.newSettlements) }}</td>
-            <td class="amount ending" :class="getBalanceClass(item.endingBalance)">
-              {{ formatAmount(item.endingBalance) }}
-            </td>
-            <td>
-              <button @click="viewDetails(item)" class="btn-sm">👁️</button>
-              <!-- <button @click="viewTransactions(item)" class="btn-sm">📋</button> -->
-            </td>
-          </tr>
-        </tbody>
-        <tfoot v-if="filteredData.length">
-          <tr class="total-row">
-            <td colspan="2"><strong>TOTAL</strong></td>
-            <td class="amount"><strong>{{ formatAmount(totals.balanceForward) }}</strong></td>
-            <td class="amount"><strong>{{ formatAmount(totals.newAdvances) }}</strong></td>
-            <td class="amount"><strong>{{ formatAmount(totals.newSettlements) }}</strong></td>
-            <td class="amount"><strong>{{ formatAmount(totals.endingBalance) }}</strong></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-
-    <!-- Details Modal -->
-    <div v-if="detailsDialog" class="modal-overlay" @click="detailsDialog = false">
-      <div class="modal" @click.stop>
-        <div class="modal-header">
-          <h3>Balance Details</h3>
-          <button @click="detailsDialog = false" class="btn-close">✕</button>
-        </div>
-        <div class="modal-body" v-if="selectedItem">
-          <div class="detail-grid">
-            <div class="detail-item">
-              <label>Ministry:</label>
-              <span>{{ selectedItem.ministryCode }} - {{ selectedItem.ministryName }}</span>
-            </div>
-            <div class="detail-item">
-              <label>Currency:</label>
-              <span>{{ selectedItem.currencyCode }}</span>
-            </div>
-            <div class="detail-item">
-              <label>Brought Forward:</label>
-              <span>{{ formatAmount(selectedItem.balanceForward) }}</span>
-            </div>
-            <div class="detail-item">
-              <label>New Advances:</label>
-              <span class="advance">{{ formatAmount(selectedItem.newAdvances) }}</span>
-            </div>
-            <div class="detail-item">
-              <label>Settlements:</label>
-              <span class="settlement">{{ formatAmount(selectedItem.newSettlements) }}</span>
-            </div>
-            <div class="detail-item">
-              <label>Ending Balance:</label>
-              <span class="ending" :class="getBalanceClass(selectedItem.endingBalance)">
-                {{ formatAmount(selectedItem.endingBalance) }}
-              </span>
-            </div>
+    <v-card elevation="3">
+      <v-card-title class="primary white--text">
+        <div class="d-flex justify-space-between align-center w-100">
+          <div class="d-flex align-center">
+            <v-icon left color="white">mdi-table</v-icon>
+            ລາຍງານລະອຽດ
           </div>
           
-          <div class="calculation">
-            <h4>Calculation:</h4>
-            <div class="calc-formula">
-              {{ formatAmount(selectedItem.balanceForward) }} + 
-              {{ formatAmount(selectedItem.newAdvances) }} - 
-              {{ formatAmount(selectedItem.newSettlements) }} = 
-              <strong>{{ formatAmount(selectedItem.endingBalance) }}</strong>
-            </div>
-          </div>
+          <v-text-field
+            v-model="search"
+            label="ຄົ້ນຫາ..."
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+            single-line
+            outlined
+            dense
+            dark
+            class="search-field"
+            style="max-width: 300px;"
+          />
         </div>
+      </v-card-title>
+
+      <!-- Loading State -->
+      <div v-if="loading" class="text-center pa-12">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="primary"
+          indeterminate
+          class="mb-4"
+        />
+        <h3 class="text-h6 primary--text">ກຳລັງໂຫຼດຂໍ້ມູນ...</h3>
       </div>
-    </div>
+
+      <!-- Data Table -->
+      <v-data-table
+        v-else
+        :headers="tableHeaders"
+        :items="filteredData"
+        :search="search"
+        class="elevation-0"
+        hide-default-footer
+        :items-per-page="-1"
+      >
+        <!-- Ministry Column -->
+        <template v-slot:item.ministry="{ item }">
+          <div class="ministry-cell">
+            <div class="font-weight-bold text-body-1">{{ item.ministryCode }}</div>
+            <div class="text--secondary">{{ item.ministryName }}</div>
+          </div>
+        </template>
+
+        <!-- Currency Column -->
+        <template v-slot:item.currencyCode="{ item }">
+          <v-chip color="secondary" outlined small>
+            {{ item.currencyCode }}
+          </v-chip>
+        </template>
+
+        <!-- Balance Forward Column -->
+        <template v-slot:item.balanceForward="{ item }">
+          <div class="amount-cell">
+            {{ formatAmount(item.balanceForward) }}
+          </div>
+        </template>
+
+        <!-- New Advances Column -->
+        <template v-slot:item.newAdvances="{ item }">
+          <div class="amount-cell advance">
+            {{ formatAmount(item.newAdvances) }}
+          </div>
+        </template>
+
+        <!-- Settlements Column -->
+        <template v-slot:item.newSettlements="{ item }">
+          <div class="amount-cell settlement">
+            {{ formatAmount(item.newSettlements) }}
+          </div>
+        </template>
+
+        <!-- Ending Balance Column -->
+        <template v-slot:item.endingBalance="{ item }">
+          <div class="amount-cell ending" :class="getBalanceClass(item.endingBalance)">
+            <v-chip
+              :color="getBalanceColor(item.endingBalance)"
+              :outlined="item.endingBalance === 0"
+              small
+            >
+              {{ formatAmount(item.endingBalance) }}
+            </v-chip>
+          </div>
+        </template>
+
+        <!-- Actions Column -->
+        <template v-slot:item.actions="{ item }">
+          <v-btn
+            color="primary"
+            icon
+            @click="viewDetails(item)"
+          >
+            <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </template>
+
+        <!-- Footer Totals -->
+        <template v-slot:body.append v-if="filteredData.length">
+          <tr class="total-row">
+            <td colspan="2" class="font-weight-bold primary--text">
+              ລວມທັງໝົດ
+            </td>
+            <td class="amount-cell font-weight-bold">{{ formatAmount(totals.balanceForward) }}</td>
+            <td class="amount-cell font-weight-bold">{{ formatAmount(totals.newAdvances) }}</td>
+            <td class="amount-cell font-weight-bold">{{ formatAmount(totals.newSettlements) }}</td>
+            <td class="amount-cell font-weight-bold">
+              <v-chip color="primary" dark>
+                {{ formatAmount(totals.endingBalance) }}
+              </v-chip>
+            </td>
+            <td></td>
+          </tr>
+        </template>
+      </v-data-table>
+
+      <!-- No Data State -->
+      <div v-if="!loading && !filteredData.length" class="text-center pa-12">
+        <v-icon size="64" color="grey lighten-2">mdi-inbox-outline</v-icon>
+        <h3 class="text-h6 mt-4 grey--text">ບໍ່ມີຂໍ້ມູນ</h3>
+        <p class="grey--text">ກະລຸນາເລືອກຕົວກອງແລ້ວລອງໃໝ່</p>
+      </div>
+    </v-card>
+
+    <!-- Details Dialog -->
+    <v-dialog v-model="detailsDialog" max-width="600" persistent>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-information</v-icon>
+          ລາຍລະອຽດຍອດເງິນ
+          <v-spacer />
+          <v-btn icon color="white" @click="detailsDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text v-if="selectedItem" class="pa-6">
+          <v-row>
+            <v-col cols="12">
+              <div class="detail-grid">
+                <v-card flat outlined class="pa-4 mb-4">
+                  <h4 class="text-h6 primary--text mb-3">ຂໍ້ມູນກະຊວງ</h4>
+                  <div class="detail-item">
+                    <span class="font-weight-medium">ກະຊວງ:</span>
+                    <span>{{ selectedItem.ministryCode }} - {{ selectedItem.ministryName }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="font-weight-medium">ສະກຸນເງິນ:</span>
+                    <v-chip color="secondary" outlined small>
+                      {{ selectedItem.currencyCode }}
+                    </v-chip>
+                  </div>
+                </v-card>
+
+                <v-card flat outlined class="pa-4 mb-4">
+                  <h4 class="text-h6 primary--text mb-3">ລາຍລະອຽດຍອດເງິນ</h4>
+                  <div class="detail-item">
+                    <span class="">ຍອດຍົກມາ:</span>
+                    <span class="amount">{{ formatAmount(selectedItem.balanceForward) }}</span>
+                  </div>
+                  <div class="detail-item advance">
+                    <span class="">ລາຍຈ່າຍ:</span>
+                    <span class="amount">{{ formatAmount(selectedItem.newAdvances) }}</span>
+                  </div>
+                  <div class="detail-item settlement">
+                    <span class="">ການຊຳລະ:</span>
+                    <span class="amount">{{ formatAmount(selectedItem.newSettlements) }}</span>
+                  </div>
+                  <v-divider class="my-3" />
+                  <div class="detail-item ending">
+                    <span class="font-weight-bold text-h6">ຍອດເຫຼືອ:</span>
+                    <span class="amount text-h6 font-weight-bold" :class="getBalanceClass(selectedItem.endingBalance)">
+                      {{ formatAmount(selectedItem.endingBalance) }}
+                    </span>
+                  </div>
+                </v-card>
+
+                <v-card flat color="grey lighten-4" class="pa-4">
+                  <h4 class="text-h6 primary--text mb-3">ການຄິດໄລ່</h4>
+                  <div class="calculation-formula text-body-1 font-weight-medium">
+                    {{ formatAmount(selectedItem.balanceForward) }} + 
+                    {{ formatAmount(selectedItem.newAdvances) }} - 
+                    {{ formatAmount(selectedItem.newSettlements) }} = 
+                    <strong class="primary--text">{{ formatAmount(selectedItem.endingBalance) }}</strong>
+                  </div>
+                </v-card>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'BalanceReport',
+  name: 'BalanceReportLao',
   
   data() {
     return {
@@ -203,18 +407,18 @@ export default {
       },
       
       months: [
-        { text: 'January', value: 1 },
-        { text: 'February', value: 2 },
-        { text: 'March', value: 3 },
-        { text: 'April', value: 4 },
-        { text: 'May', value: 5 },
-        { text: 'June', value: 6 },
-        { text: 'July', value: 7 },
-        { text: 'August', value: 8 },
-        { text: 'September', value: 9 },
-        { text: 'October', value: 10 },
-        { text: 'November', value: 11 },
-        { text: 'December', value: 12 }
+        { text: 'ມັງກອນ', value: 1 },
+        { text: 'ກຸມພາ', value: 2 },
+        { text: 'ມີນາ', value: 3 },
+        { text: 'ເມສາ', value: 4 },
+        { text: 'ພຶດສະພາ', value: 5 },
+        { text: 'ມິຖຸນາ', value: 6 },
+        { text: 'ກໍລະກົດ', value: 7 },
+        { text: 'ສິງຫາ', value: 8 },
+        { text: 'ກັນຍາ', value: 9 },
+        { text: 'ຕຸລາ', value: 10 },
+        { text: 'ພະຈິກ', value: 11 },
+        { text: 'ທັນວາ', value: 12 }
       ],
       
       years: [],
@@ -226,7 +430,79 @@ export default {
   },
   
   computed: {
-    // Add endingBalance to each item from reportData
+    tableHeaders() {
+      return [
+        {
+          text: 'ກະຊວງ',
+          value: 'ministry',
+          sortable: true,
+          width: 250
+        },
+        {
+          text: 'ສະກຸນເງິນ',
+          value: 'currencyCode',
+          sortable: true,
+          width: 120,
+          align: 'center'
+        },
+        {
+          text: 'ຍອດຍົກມາ',
+          value: 'balanceForward',
+          sortable: true,
+          width: 150,
+          align: 'right'
+        },
+        {
+          text: 'ລາຍຈ່າຍໃໝ່',
+          value: 'newAdvances',
+          sortable: true,
+          width: 150,
+          align: 'right'
+        },
+        {
+          text: 'ການຊຳລະ',
+          value: 'newSettlements',
+          sortable: true,
+          width: 150,
+          align: 'right'
+        },
+        {
+          text: 'ຍອດເຫຼືອ',
+          value: 'endingBalance',
+          sortable: true,
+          width: 150,
+          align: 'right'
+        },
+        {
+          text: 'ການດຳເນີນການ',
+          value: 'actions',
+          sortable: false,
+          width: 100,
+          align: 'center'
+        }
+      ]
+    },
+
+    ministryOptions() {
+      return [
+        { text: 'ກະຊວງທັງໝົດ', value: '' },
+        ...this.ministries.map(ministry => ({
+          text: `${ministry.ministryCode} - ${ministry.ministryName}`,
+          value: ministry.id
+        }))
+      ]
+    },
+
+    currencyOptions() {
+      return [
+        { text: 'ສະກຸນເງິນທັງໝົດ', value: '' },
+        ...this.currencies.map(currency => ({
+          text: currency.code,
+          value: currency.id
+        }))
+      ]
+    },
+
     reportDataWithBalance() {
       return this.reportData.map(item => ({
         ...item,
@@ -240,9 +516,9 @@ export default {
       if (!this.search) return this.reportDataWithBalance
       
       return this.reportDataWithBalance.filter(item => 
-        item.ministryName.toLowerCase().includes(this.search.toLowerCase()) ||
-        item.ministryCode.toLowerCase().includes(this.search.toLowerCase()) ||
-        item.currencyCode.toLowerCase().includes(this.search.toLowerCase())
+        item.ministryName?.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.ministryCode?.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.currencyCode?.toLowerCase().includes(this.search.toLowerCase())
       )
     },
     
@@ -278,6 +554,7 @@ export default {
     
     async loadInitialData() {
       try {
+        this.loading = true
         const [ministriesRes, currenciesRes] = await Promise.all([
           this.$axios.get('/api/ministries'),
           this.$axios.get('/api/currency/find')
@@ -287,7 +564,9 @@ export default {
         this.currencies = currenciesRes.data.data || currenciesRes.data
       } catch (error) {
         console.error('Error loading initial data:', error)
-        this.$toast.error('Error loading data')
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
+      } finally {
+        this.loading = false
       }
     },
     
@@ -314,35 +593,7 @@ export default {
         }
       } catch (error) {
         console.error('Error loading report:', error)
-        this.$toast.error('Error loading report')
-      } finally {
-        this.loading = false
-      }
-    },
-    async validateReport() {
-      this.loading = true
-      try {
-        const monthStart = `${this.filters.year}-${String(this.filters.month).padStart(2, '0')}-01`
-        const lastDay = new Date(this.filters.year, this.filters.month, 0).getDate()
-        const monthEnd = `${this.filters.year}-${String(this.filters.month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`
-        
-        const params = new URLSearchParams({
-          monthStart,
-          monthEnd
-        })
-        
-        if (this.filters.ministryId) params.append('ministryId', this.filters.ministryId)
-        if (this.filters.currencyId) params.append('currencyId', this.filters.currencyId)
-        
-        const response = await this.$axios.get(`/api/money-advances/report/validate-balance-continuity?year=2024&month=12`)
-        
-        if (response.data.success) {
-          this.reportData = response.data.data || []
-          this.calculateCurrencySummaries()
-        }
-      } catch (error) {
-        console.error('Error loading report:', error)
-        this.$toast.error('Error loading report')
+        this.$toast?.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດລາຍງານ')
       } finally {
         this.loading = false
       }
@@ -351,7 +602,6 @@ export default {
     calculateCurrencySummaries() {
       const summaryMap = new Map()
       
-      // Use reportDataWithBalance to get calculated endingBalance
       this.reportDataWithBalance.forEach(item => {
         const key = item.currencyCode
         if (!summaryMap.has(key)) {
@@ -404,32 +654,34 @@ export default {
       if (amount < 0) return 'negative'
       return 'zero'
     },
+
+    getBalanceColor(balance) {
+      const amount = parseFloat(balance || 0)
+      if (amount > 0) return 'success'
+      if (amount < 0) return 'error'
+      return 'grey'
+    },
     
     viewDetails(item) {
       this.selectedItem = item
       this.detailsDialog = true
     },
     
-    viewTransactions(item) {
-      // Implement transaction view
-      console.log('View transactions for:', item)
-    },
-    
     exportToExcel() {
       if (!this.reportDataWithBalance.length) {
-        this.$toast.warning('No data to export')
+        this.$toast?.warning('ບໍ່ມີຂໍ້ມູນໃຫ້ສົ່ງອອກ')
         return
       }
       
       const exportData = this.reportDataWithBalance.map((item, index) => ({
-        'No': index + 1,
-        'Ministry Code': item.ministryCode,
-        'Ministry Name': item.ministryName,
-        'Currency': item.currencyCode,
-        'Brought Forward': item.balanceForward,
-        'New Advances': item.newAdvances,
-        'Settlements': item.newSettlements,
-        'Ending Balance': item.endingBalance
+        'ລຳດັບ': index + 1,
+        'ລະຫັດກະຊວງ': item.ministryCode,
+        'ຊື່ກະຊວງ': item.ministryName,
+        'ສະກຸນເງິນ': item.currencyCode,
+        'ຍອດຍົກມາ': item.balanceForward,
+        'ລາຍຈ່າຍໃໝ່': item.newAdvances,
+        'ການຊຳລະ': item.newSettlements,
+        'ຍອດເຫຼືອ': item.endingBalance
       }))
       
       const headers = Object.keys(exportData[0])
@@ -444,18 +696,246 @@ export default {
       const link = document.createElement('a')
       const url = URL.createObjectURL(blob)
       link.setAttribute('href', url)
-      link.setAttribute('download', `balance-report-${this.formatPeriod().replace(' ', '-')}.csv`)
+      link.setAttribute('download', `ລາຍງານຍອດເງິນ-${this.formatPeriod().replace(' ', '-')}.csv`)
       link.style.visibility = 'hidden'
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
       
-      this.$toast.success('Export successful')
+      this.$toast?.success('ສົ່ງອອກສຳເລັດແລ້ວ')
     },
     
     printReport() {
-      window.print()
+      // Create print content
+      const printContent = this.generatePrintContent()
+      
+      // Create new window for printing
+      const printWindow = window.open('', '_blank', 'width=800,height=600')
+      
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>ລາຍງານເບີກຈ່າຍ - ${this.formatPeriod()}</title>
+          <style>
+            body {
+              font-family: 'Segoe UI', Arial, sans-serif;
+              margin: 20px;
+              color: #333;
+              line-height: 1.4;
+            }
+            .print-header {
+              text-align: center;
+              margin-bottom: 30px;
+              border-bottom: 2px solid #333;
+              padding-bottom: 15px;
+            }
+            .print-header h1 {
+              margin: 0;
+              font-size: 24px;
+              font-weight: bold;
+            }
+            .print-header .period {
+              font-size: 16px;
+              color: #666;
+              margin-top: 5px;
+            }
+            .summary-section {
+              margin-bottom: 25px;
+            }
+            .summary-title {
+              font-size: 18px;
+              font-weight: bold;
+              margin-bottom: 15px;
+              color: #333;
+            }
+            .summary-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 15px;
+              margin-bottom: 20px;
+            }
+            .summary-item {
+              border: 1px solid #ddd;
+              padding: 12px;
+              border-radius: 4px;
+            }
+            .summary-item .currency {
+              font-weight: bold;
+              font-size: 14px;
+            }
+            .summary-item .amount {
+              font-size: 16px;
+              font-weight: bold;
+              margin: 5px 0;
+            }
+            .summary-item .details {
+              font-size: 12px;
+              color: #666;
+            }
+            .data-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 20px;
+              font-size: 12px;
+            }
+            .data-table th {
+              background-color: #f5f5f5;
+              border: 1px solid #ddd;
+              padding: 8px;
+              text-align: left;
+              font-weight: bold;
+            }
+            .data-table td {
+              border: 1px solid #ddd;
+              padding: 6px 8px;
+            }
+            .data-table tr:nth-child(even) {
+              background-color: #f9f9f9;
+            }
+            .amount-cell {
+              text-align: right;
+              font-family: 'Courier New', monospace;
+            }
+            .positive {
+              color: #28a745;
+            }
+            .negative {
+              color: #dc3545;
+            }
+            .zero {
+              color: #6c757d;
+            }
+            .total-row {
+              font-weight: bold;
+              background-color: #e9ecef !important;
+            }
+            .total-row td {
+              border-top: 2px solid #333;
+            }
+            .print-footer {
+              margin-top: 30px;
+              padding-top: 15px;
+              border-top: 1px solid #ddd;
+              text-align: center;
+              font-size: 11px;
+              color: #666;
+            }
+            @media print {
+              body {
+                margin: 0;
+              }
+              .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+              }
+            }
+          </style>
+        </head>
+        <body>
+          ${printContent}
+        </body>
+        </html>
+      `)
+      
+      printWindow.document.close()
+      
+      // Wait for content to load, then print
+      setTimeout(() => {
+        printWindow.print()
+        printWindow.close()
+      }, 500)
+    },
+
+    generatePrintContent() {
+      const currentDate = new Date().toLocaleDateString('en-GB')
+      
+      // Generate summary cards HTML
+      let summaryHtml = ''
+      if (this.currencySummaries.length > 0) {
+        summaryHtml = `
+          <div class="summary-section">
+            <div class="summary-title">ສະຫຼຸບຕາມສະກຸນເງິນ</div>
+            <div class="summary-grid">
+              ${this.currencySummaries.map(curr => `
+                <div class="summary-item">
+                  <div class="currency">${curr.currencyCode}</div>
+                  <div class="amount">${this.formatAmount(curr.endingBalance)}</div>
+                  <div class="details">
+                    ຍອດຍົກມາ: ${this.formatAmount(curr.balanceForward)}<br>
+                    ລາຍຈ່າຍ: ${this.formatAmount(curr.newAdvances)}<br>
+                    ການຊຳລະ: ${this.formatAmount(curr.newSettlements)}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `
+      }
+      
+      // Generate table HTML
+      const tableRows = this.filteredData.map(item => `
+        <tr>
+          <td>
+            <strong>${item.ministryCode || ''}</strong><br>
+            <small style="color: #666;">${item.ministryName || ''}</small>
+          </td>
+          <td style="text-align: center;">
+            <span style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px;">
+              ${item.currencyCode || ''}
+            </span>
+          </td>
+          <td class="amount-cell">${this.formatAmount(item.balanceForward)}</td>
+          <td class="amount-cell" style="color: #28a745;">${this.formatAmount(item.newAdvances)}</td>
+          <td class="amount-cell" style="color: #dc3545;">${this.formatAmount(item.newSettlements)}</td>
+          <td class="amount-cell ${this.getBalanceClass(item.endingBalance)}">
+            ${this.formatAmount(item.endingBalance)}
+          </td>
+        </tr>
+      `).join('')
+      
+      // Generate totals row
+      const totalsRow = `
+        <tr class="total-row">
+          <td colspan="2"><strong>ລວມທັງໝົດ</strong></td>
+          <td class="amount-cell"><strong>${this.formatAmount(this.totals.balanceForward)}</strong></td>
+          <td class="amount-cell"><strong>${this.formatAmount(this.totals.newAdvances)}</strong></td>
+          <td class="amount-cell"><strong>${this.formatAmount(this.totals.newSettlements)}</strong></td>
+          <td class="amount-cell"><strong>${this.formatAmount(this.totals.endingBalance)}</strong></td>
+        </tr>
+      `
+      
+      return `
+        <div class="print-header">
+          <h1>ລາຍງານເບີກຈ່າຍ</h1>
+          <div class="period">${this.formatPeriod()}</div>
+        </div>
+        
+        ${summaryHtml}
+        
+        <div class="summary-title">ລາຍງານລະອຽດ</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ກະຊວງ</th>
+              <th>ສະກຸນເງິນ</th>
+              <th>ຍອດຍົກມາ</th>
+              <th>ລາຍຈ່າຍໃໝ່</th>
+              <th>ການຊຳລະ</th>
+              <th>ຍອດເຫຼືອ</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRows}
+            ${totalsRow}
+          </tbody>
+        </table>
+        
+        <div class="print-footer">
+          ພິມເມື່ອ: ${currentDate} | ລາຍງານເບີກຈ່າຍ
+        </div>
+      `
     }
   }
 }
@@ -463,423 +943,151 @@ export default {
 
 <style scoped>
 .balance-report {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
 }
 
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #e9ecef;
+.header-card {
+  border-radius: 16px !important;
 }
 
-.header h2 {
-  margin: 0;
-  color: #2c3e50;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.header small {
-  color: #6c757d;
-  font-size: 14px;
-}
-
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
-
-/* Buttons */
-button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.btn-export {
-  background: #28a745;
-  color: white;
-}
-
-.btn-export:hover {
-  background: #218838;
-}
-
-.btn-print {
-  background: #6c757d;
-  color: white;
-}
-
-.btn-print:hover {
-  background: #545b62;
-}
-
-.btn-reset {
-  background: #007bff;
-  color: white;
-  padding: 6px 12px;
-}
-
-.btn-reset:hover {
-  background: #0056b3;
-}
-
-.btn-sm {
-  padding: 4px 8px;
-  font-size: 12px;
-  margin: 0 2px;
-  background: #f8f9fa;
-  color: #495057;
-}
-
-.btn-sm:hover {
-  background: #e9ecef;
-}
-
-.btn-close {
-  background: #dc3545;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 50%;
-}
-
-/* Filters */
-.filters {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-select, input {
-  padding: 8px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
-  font-size: 14px;
-  background: white;
-}
-
-select:focus, input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-/* Summary Cards */
-.summary-cards {
-  margin-bottom: 30px;
-}
-
-.summary-cards h3 {
-  margin: 0 0 15px 0;
-  color: #2c3e50;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+.filters-card {
+  border-radius: 12px !important;
 }
 
 .summary-card {
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 12px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid var(--v-primary-base);
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9ecef;
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
 }
 
-.currency {
-  font-size: 18px;
-  font-weight: 700;
-  color: #007bff;
+.summary-details {
+  font-family: 'Roboto Mono', monospace;
 }
 
-.total {
-  font-size: 20px;
-  font-weight: 700;
-  font-family: monospace;
-  color: #2c3e50;
-}
-
-.card-details .detail {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
-  font-size: 14px;
-}
-
-.card-details .detail span:last-child {
-  font-family: monospace;
-  font-weight: 600;
-}
-
-/* Table */
-.table-container {
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  overflow: hidden;
-  padding: 20px;
-}
-
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.table-header h3 {
-  margin: 0;
-  color: #2c3e50;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.search-input {
-  width: 250px;
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.data-table th {
-  background: #2c3e50;
-  color: white;
-  padding: 12px 8px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.data-table td {
-  padding: 12px 8px;
-  border-bottom: 1px solid #e9ecef;
-  font-size: 14px;
-}
-
-.data-table tr:hover {
-  background: #f8f9fa;
-}
-
-.ministry-cell strong {
-  display: block;
-  color: #2c3e50;
-  font-size: 13px;
-}
-
-.ministry-cell small {
-  color: #6c757d;
-  font-size: 12px;
-}
-
-.currency-badge {
-  background: #007bff;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.amount {
-  text-align: right;
-  font-family: monospace;
-  font-weight: 600;
-}
-
-.advance {
-  color: #28a745;
-}
-
-.settlement {
-  color: #dc3545;
-}
-
-.ending {
-  font-size: 15px;
-}
-
-.positive {
-  color: #28a745;
-}
-
-.negative {
-  color: #dc3545;
-}
-
-.zero {
-  color: #6c757d;
-}
-
-.total-row td {
-  background: #f8f9fa;
-  font-weight: 600;
-  border-top: 2px solid #2c3e50;
-}
-
-/* Loading */
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #6c757d;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: white;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #e9ecef;
-  background: #f8f9fa;
-}
-
-.modal-header h3 {
-  margin: 0;
-  color: #2c3e50;
-}
-
-.modal-body {
-  padding: 20px;
-}
-
-.detail-grid {
-  display: grid;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.detail-item {
+.detail-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #f8f9fa;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-.detail-item label {
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.advance {
+  color: var(--v-success-base) !important;
+}
+
+.settlement {
+  color: var(--v-error-base) !important;
+}
+
+.ending {
+  color: var(--v-primary-base) !important;
+}
+
+.positive {
+  color: var(--v-success-base) !important;
+}
+
+.negative {
+  color: var(--v-error-base) !important;
+}
+
+.zero {
+  color: var(--v-grey-base) !important;
+}
+
+.ministry-cell {
+  max-width: 250px;
+}
+
+.amount-cell {
+  font-family: 'Roboto Mono', monospace;
   font-weight: 600;
-  color: #495057;
+  text-align: right;
 }
 
-.detail-item span {
-  font-family: monospace;
+.search-field {
+  max-width: 300px;
 }
 
-.calculation {
-  background: #f8f9fa;
-  padding: 15px;
-  border-radius: 6px;
-  margin-top: 20px;
+.total-row {
+  background: linear-gradient(135deg, rgba(var(--v-primary-base), 0.1) 0%, rgba(var(--v-primary-base), 0.05) 100%);
+  border-top: 2px solid var(--v-primary-base);
 }
 
-.calculation h4 {
-  margin: 0 0 10px 0;
-  color: #2c3e50;
+.detail-grid .detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
-.calc-formula {
-  font-family: monospace;
+.detail-grid .detail-item:last-child {
+  border-bottom: none;
+}
+
+.calculation-formula {
+  font-family: 'Roboto Mono', monospace;
   font-size: 16px;
-  font-weight: 600;
-  color: #495057;
+  text-align: center;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid var(--v-primary-base);
+}
+
+.gap-3 > * + * {
+  margin-left: 12px;
+}
+
+/* Enhanced animations */
+.balance-report {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .header {
+  .header-card .d-flex {
     flex-direction: column;
-    gap: 15px;
-    text-align: center;
+    gap: 16px;
   }
   
-  .filters {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .table-header {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .search-input {
-    width: 100%;
-  }
-  
-  .data-table {
-    font-size: 13px;
-  }
-  
-  .data-table th,
-  .data-table td {
-    padding: 8px 4px;
+  .search-field {
+    max-width: 100%;
   }
 }
 
 @media print {
-  .header-actions,
-  .filters,
-  .btn-sm {
-    display: none !important;
+  .balance-report {
+    background: white !important;
+  }
+  
+  .header-card,
+  .filters-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
   }
 }
 </style>

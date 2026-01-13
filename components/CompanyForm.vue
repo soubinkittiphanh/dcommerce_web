@@ -3,13 +3,13 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator></loading-indicator>
     </v-dialog>
-    
+
     <company-theme-dialog
       v-model="showThemeDialog"
       :company-id="form.id || recordId"
       @theme-updated="onThemeUpdated"
     />
-    
+
     <v-card class="pa-3 mx-auto" max-width="800">
       <v-card-title class="pb-2">
         <v-chip color="primary" label text-color="white" small>
@@ -17,7 +17,7 @@
           ຈັດການສາຂາ
         </v-chip>
       </v-card-title>
-      
+
       <v-card-text class="py-2">
         <v-form ref="form">
           <!-- Basic Info Section -->
@@ -44,7 +44,7 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          
+
           <v-row dense class="mt-2">
             <v-col cols="12" sm="6">
               <v-text-field
@@ -80,7 +80,7 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          
+
           <v-row dense class="mt-2">
             <v-col cols="12" sm="4">
               <v-text-field
@@ -167,7 +167,12 @@
                 <div class="d-flex align-center">
                   <v-icon small class="mr-2">mdi-image</v-icon>
                   <span class="text-subtitle2">ຮູບໂປຣໄຟລ໌</span>
-                  <v-chip v-if="form.profile_image_path" x-small color="success" class="ml-2">
+                  <v-chip
+                    v-if="form.profile_image_path"
+                    x-small
+                    color="success"
+                    class="ml-2"
+                  >
                     ມີຮູບແລ້ວ
                   </v-chip>
                 </div>
@@ -180,7 +185,7 @@
                       <v-avatar size="120" class="mb-2">
                         <v-img :src="currentImageUrl" cover></v-img>
                       </v-avatar>
-                      <br>
+                      <br />
                       <v-btn
                         color="error"
                         text
@@ -192,10 +197,12 @@
                         ລຶບ
                       </v-btn>
                     </div>
-                    
+
                     <div v-else class="text-center">
                       <v-avatar size="120" color="grey lighten-3" class="mb-2">
-                        <v-icon size="40" color="grey">mdi-image-outline</v-icon>
+                        <v-icon size="40" color="grey"
+                          >mdi-image-outline</v-icon
+                        >
                       </v-avatar>
                       <div class="text-caption grey--text">ບໍ່ມີຮູບ</div>
                     </div>
@@ -216,7 +223,7 @@
                       :disabled="uploading"
                       clearable
                     ></v-file-input>
-                    
+
                     <!-- Preview -->
                     <div v-if="previewUrl" class="mt-2 text-center">
                       <v-img
@@ -240,12 +247,12 @@
                         ອັບໂຫລດ
                       </v-btn>
 
-                      <v-btn 
-                        v-if="uploading" 
-                        color="primary" 
-                        small 
-                        block 
-                        loading 
+                      <v-btn
+                        v-if="uploading"
+                        color="primary"
+                        small
+                        block
+                        loading
                         disabled
                       >
                         ກຳລັງອັບໂຫລດ...
@@ -253,9 +260,7 @@
                     </div>
 
                     <v-alert type="info" text dense class="mt-2" border="left">
-                      <small>
-                        JPG, PNG, GIF • ສູງສຸດ 5MB
-                      </small>
+                      <small> JPG, PNG, GIF • ສູງສຸດ 5MB </small>
                     </v-alert>
                   </v-col>
                 </v-row>
@@ -270,7 +275,12 @@
                 <div class="d-flex align-center">
                   <v-icon small class="mr-2">mdi-qrcode</v-icon>
                   <span class="text-subtitle2">QR ໂຄ້ດທະນາຄານ</span>
-                  <v-chip v-if="form.bank_qr_image_path" x-small color="success" class="ml-2">
+                  <v-chip
+                    v-if="form.bank_qr_image_path"
+                    x-small
+                    color="success"
+                    class="ml-2"
+                  >
                     ມີ QR ແລ້ວ
                   </v-chip>
                 </div>
@@ -281,8 +291,8 @@
                     <!-- Current QR Image -->
                     <div v-if="currentQRImageUrl" class="text-center">
                       <div class="qr-image-container mb-2">
-                        <v-img 
-                          :src="currentQRImageUrl" 
+                        <v-img
+                          :src="currentQRImageUrl"
                           max-width="160"
                           max-height="160"
                           class="mx-auto rounded qr-shadow"
@@ -300,7 +310,7 @@
                         ລຶບ QR
                       </v-btn>
                     </div>
-                    
+
                     <div v-else class="text-center">
                       <div class="qr-placeholder mb-2">
                         <v-icon size="60" color="grey">mdi-qrcode-scan</v-icon>
@@ -324,7 +334,7 @@
                       :disabled="uploadingQR"
                       clearable
                     ></v-file-input>
-                    
+
                     <!-- QR Preview -->
                     <div v-if="qrPreviewUrl" class="mt-2 text-center">
                       <v-img
@@ -349,12 +359,12 @@
                         ອັບໂຫລດ QR
                       </v-btn>
 
-                      <v-btn 
-                        v-if="uploadingQR" 
-                        color="success" 
-                        small 
-                        block 
-                        loading 
+                      <v-btn
+                        v-if="uploadingQR"
+                        color="success"
+                        small
+                        block
+                        loading
                         disabled
                       >
                         ກຳລັງອັບໂຫລດ QR...
@@ -388,31 +398,20 @@
               </v-btn>
             </v-col>
           </v-row>
-
         </v-form>
-        
+
         <div class="text-caption grey--text mt-3">
           <v-icon x-small>mdi-asterisk</v-icon> ຟິວທີ່ຈຳເປັນຕ້ອງໃສ່
         </div>
       </v-card-text>
-      
+
       <v-card-actions class="pt-0">
         <v-spacer></v-spacer>
-        <v-btn
-          color="grey"
-          text
-          small
-          @click="$emit('close-dialog')"
-        >
+        <v-btn color="grey" text small @click="$emit('close-dialog')">
           <v-icon left small>mdi-close</v-icon>
           ປິດ
         </v-btn>
-        <v-btn 
-          color="primary" 
-          small
-          @click="commitRecord"
-          :loading="isloading"
-        >
+        <v-btn color="primary" small @click="commitRecord" :loading="isloading">
           <v-icon left small>mdi-content-save</v-icon>
           ບັນທຶກ
         </v-btn>
@@ -476,38 +475,41 @@ export default {
       nameRules: [
         (value) => !!value || 'ຈຳເປັນຕ້ອງໃສ່',
         (value) =>
-          (value && value.length <= 100) ||
-          'ຕ້ອງນ້ອຍກວ່າ 100 ຕົວອັກສອນ',
+          (value && value.length <= 100) || 'ຕ້ອງນ້ອຍກວ່າ 100 ຕົວອັກສອນ',
       ],
     }
   },
-  
+
   computed: {
     currentImageUrl() {
       if (this.form.profile_image_path) {
-        return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path}`
+        return `${this.$axios.defaults.baseURL || ''}/${
+          this.form.profile_image_path
+        }`
       }
       return null
     },
     // NEW: QR image computed property
     currentQRImageUrl() {
       if (this.form.bank_qr_image_path) {
-        return `${this.$axios.defaults.baseURL || ''}/${this.form.bank_qr_image_path}`
+        return `${this.$axios.defaults.baseURL || ''}/${
+          this.form.bank_qr_image_path
+        }`
       }
       return null
     },
   },
-  
+
   async created() {
     this.loadEntry()
   },
-  
+
   methods: {
     onThemeUpdated() {
       this.$toast.success('ອັບເດດສີທີມສຳເລັດ')
       this.loadEntry()
     },
-    
+
     async commitRecord() {
       if (this.$refs.form.validate() && !this.isloading) {
         this.isloading = true
@@ -525,8 +527,32 @@ export default {
           this.refreshData()
           swalSuccess(this.$swal, 'Succeed', 'Your transaction completed')
         } catch (error) {
-          console.log('Error: ', error)
-          swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ')
+          console.error('Error: ', error)
+
+          const status = error.response?.status
+          const data = error.response?.data
+
+          // 🔐 License limit reached
+          if (status === 403 && data?.code === 'LICENSE_LIMIT_REACHED') {
+            this.$swal.fire({
+              icon: 'warning',
+              title: 'ຈຳກັດສິດການໃຊ້ງານ',
+              html: `
+        <p>${data.message}</p>
+        <p><strong>ຈຳນວນສູງສຸດ:</strong> ${data.limit}</p>
+        <p><strong>ປັດຈຸບັນ:</strong> ${data.current}</p>
+      `,
+              confirmButtonText: 'ຕົກລົງ',
+            })
+            return
+          }
+
+          // ❌ Other errors
+          swalError2(
+            this.$swal,
+            'Error',
+            data?.message || 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່'
+          )
         } finally {
           this.isloading = false
         }
@@ -536,7 +562,9 @@ export default {
     async loadEntry() {
       if (this.recordId && !this.isCreate) {
         try {
-          const response = await this.$axios.get(`api/company/find/${this.recordId}`)
+          const response = await this.$axios.get(
+            `api/company/find/${this.recordId}`
+          )
           this.form = response.data
         } catch (error) {
           console.log('Cannot fetch data ' + error)
@@ -547,7 +575,12 @@ export default {
     // Profile image methods
     onFileSelected(file) {
       if (file) {
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+        const allowedTypes = [
+          'image/jpeg',
+          'image/jpg',
+          'image/png',
+          'image/gif',
+        ]
         if (!allowedTypes.includes(file.type)) {
           this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ຮູບພາບ (JPG, PNG, GIF)')
           this.clearSelectedFile()
@@ -612,7 +645,8 @@ export default {
         this.refreshData()
       } catch (error) {
         console.error('Upload error:', error)
-        const errorMessage = error.response?.data?.message || 'ອັບໂຫລດຮູບບໍ່ສຳເລັດ'
+        const errorMessage =
+          error.response?.data?.message || 'ອັບໂຫລດຮູບບໍ່ສຳເລັດ'
         this.$toast.error(errorMessage)
       } finally {
         this.uploading = false
@@ -637,7 +671,9 @@ export default {
         if (result.isConfirmed) {
           this.deleting = true
           const companyId = this.form.id || this.recordId
-          await this.$axios.delete(`api/company/delete-profile-image/${companyId}`)
+          await this.$axios.delete(
+            `api/company/delete-profile-image/${companyId}`
+          )
           this.form.profile_image_path = null
           this.$toast.success('ລຶບຮູບສຳເລັດແລ້ວ')
           this.refreshData()
@@ -654,7 +690,12 @@ export default {
     // NEW: QR image methods
     onQRFileSelected(file) {
       if (file) {
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+        const allowedTypes = [
+          'image/jpeg',
+          'image/jpg',
+          'image/png',
+          'image/gif',
+        ]
         if (!allowedTypes.includes(file.type)) {
           this.$toast.error('ກະລຸນາເລືອກໄຟລ໌ຮູບພາບ QR (JPG, PNG, GIF)')
           this.clearSelectedQRFile()
@@ -719,7 +760,8 @@ export default {
         this.refreshData()
       } catch (error) {
         console.error('QR Upload error:', error)
-        const errorMessage = error.response?.data?.message || 'ອັບໂຫລດ QR ບໍ່ສຳເລັດ'
+        const errorMessage =
+          error.response?.data?.message || 'ອັບໂຫລດ QR ບໍ່ສຳເລັດ'
         this.$toast.error(errorMessage)
       } finally {
         this.uploadingQR = false
@@ -744,7 +786,9 @@ export default {
         if (result.isConfirmed) {
           this.deletingQR = true
           const companyId = this.form.id || this.recordId
-          await this.$axios.delete(`api/company/delete-bank-qr-image/${companyId}`)
+          await this.$axios.delete(
+            `api/company/delete-bank-qr-image/${companyId}`
+          )
           this.form.bank_qr_image_path = null
           this.$toast.success('ລຶບ QR ໂຄ້ດສຳເລັດແລ້ວ')
           this.refreshData()
@@ -812,7 +856,7 @@ export default {
 }
 
 .qr-shadow {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0e0e0;
 }
 

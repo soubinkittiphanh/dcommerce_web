@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "339.js": "339.js",
+    "340.js": "340.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -340,10 +340,11 @@
     "pages/product/index.js": "pages/product/index.js",
     "pages/public/index.js": "pages/public/index.js",
     "pages/reports/profit-loss.js": "pages/reports/profit-loss.js",
+    "pages/reports/stock-movement.js": "pages/reports/stock-movement.js",
     "server.js": "server.js"
   },
   "maps": {
-    "339.js": "339.js.map",
+    "340.js": "340.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -682,6 +683,7 @@
     "pages/product/index.js": "pages/product/index.js.map",
     "pages/public/index.js": "pages/public/index.js.map",
     "pages/reports/profit-loss.js": "pages/reports/profit-loss.js.map",
+    "pages/reports/stock-movement.js": "pages/reports/stock-movement.js.map",
     "server.js": "server.js.map"
   }
 }

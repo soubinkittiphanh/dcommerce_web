@@ -215,11 +215,11 @@
   "UnitForm": {
     "description": "Auto imported from components/unitForm.vue"
   },
-  "CafePOSScreen": {
-    "description": "Auto imported from components/CafePOSScreen/index.vue"
-  },
   "CAFEPOSDialog": {
     "description": "Auto imported from components/CAFE/POSDialog.vue"
+  },
+  "CafePOSScreen": {
+    "description": "Auto imported from components/CafePOSScreen/index.vue"
   },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
@@ -452,9 +452,6 @@
   "AccountingTransaction": {
     "description": "Auto imported from components/accounting/transaction/index.vue"
   },
-  "BankBankAccount": {
-    "description": "Auto imported from components/bank/bankAccount/index.vue"
-  },
   "ApplicantsApplicantDialog": {
     "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
   },
@@ -463,6 +460,9 @@
   },
   "ApplicantsStatusUpdateDialog": {
     "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
+  },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
   },
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"
@@ -485,6 +485,12 @@
   "JobFairJobBatch": {
     "description": "Auto imported from components/job_fair/job_batch/index.vue"
   },
+  "PosDialogsQuantityUpdateDialog": {
+    "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
+  },
+  "PosDialogsTicketDetailsDialog": {
+    "description": "Auto imported from components/pos/dialogs/TicketDetailsDialog.vue"
+  },
   "PosRecipe": {
     "description": "Auto imported from components/pos/recipe/index.vue"
   },
@@ -496,12 +502,6 @@
   },
   "JobFairAgencyMaintain": {
     "description": "Auto imported from components/job_fair/agency/maintain/index.vue"
-  },
-  "PosDialogsQuantityUpdateDialog": {
-    "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
-  },
-  "PosDialogsTicketDetailsDialog": {
-    "description": "Auto imported from components/pos/dialogs/TicketDetailsDialog.vue"
   },
   "JobFairAgencyView": {
     "description": "Auto imported from components/job_fair/agency/view/index.vue"
